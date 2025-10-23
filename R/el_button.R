@@ -59,11 +59,7 @@ el_button <- function(id = NULL,
 
   htmltools::attachDependencies(
     component_ui,
-    list(
-      vueR::html_dependency_vue(),
-      element_ui_dependency(),
-      button_handler_dependency()
-    )
+    el_button_handler_dependency()
   )
 }
 

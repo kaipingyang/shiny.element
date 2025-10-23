@@ -32,7 +32,7 @@ el_cascader <- function(id = NULL,
                         icon = NULL,
                         session = getDefaultReactiveDomain()) {
   if (is.null(id)) {
-    id <- paste0("el_cascader_", as.integer(Sys.time() * 1000))
+    id <- paste0("el_cascader_", uuid::UUIDgenerate())
   }
   ns_id <- if (!is.null(session)) session$ns(id) else id
   container_id <- paste0(ns_id, "_container")
@@ -87,11 +87,7 @@ el_cascader <- function(id = NULL,
 
   htmltools::attachDependencies(
     component_ui,
-    list(
-      vueR::html_dependency_vue(),
-      element_ui_dependency(),
-      cascader_handler_dependency()
-    )
+    el_button_handler_dependency()
   )
 }
 

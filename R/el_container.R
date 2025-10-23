@@ -35,13 +35,14 @@ el_container <- function(...,
     )
   )
 
-  htmltools::attachDependencies(
-    component_ui,
-    list(
-      vueR::html_dependency_vue(),
-      element_ui_dependency()
-    )
-  )
+  component_ui
+  # htmltools::attachDependencies(
+  #   component_ui,
+  #   list(
+  #     vueR::html_dependency_vue(),
+  #     element_ui_dependency()
+  #   )
+  # )
 }
 
 #' Element UI Header

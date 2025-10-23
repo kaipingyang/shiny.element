@@ -1,0 +1,83 @@
+/* 全局字体设置，覆盖所有 Element-UI 组件 */
+.el-header, .el-footer, .el-aside, .el-main, .el-container, .el-row, .el-col,
+.el-button, .el-table, .el-table-column, .el-input, .el-select, .el-dropdown, .el-menu, .el-card, .el-tabs, .el-dialog, .el-form, .el-form-item {
+  font-family: "Helvetica Neue", Arial, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+}
+
+/* 布局容器样式 */
+.el-header, .el-footer {
+  background-color: #B3C0D1;
+  color: #333;
+  text-align: center;
+  line-height: 60px;
+  margin-bottom: 8px;
+}
+
+.el-aside {
+  background-color: #D3DCE6;
+  color: #333;
+  text-align: center;
+  line-height: 200px;
+  margin-bottom: 8px;
+}
+
+.el-main {
+  background-color: #E9EEF3;
+  color: #333;
+  text-align: center;
+  line-height: 160px;
+  margin-bottom: 8px;
+}
+
+.el-container {
+  margin-bottom: 32px;
+}
+
+body > .el-container {
+  margin-bottom: 40px;
+}
+
+.el-container:nth-child(5) .el-aside,
+.el-container:nth-child(6) .el-aside {
+  line-height: 260px;
+}
+
+.el-container:nth-child(7) .el-aside {
+  line-height: 320px;
+}
+
+/* Grid layout styles */
+.el-row {
+  margin-bottom: 20px;
+}
+.el-col {
+  border-radius: 4px;
+  margin-bottom: 8px;
+}
+.bg-purple-dark {
+  background: #99a9bf;
+}
+.bg-purple {
+  background: #d3dce6;
+}
+.bg-purple-light {
+  background: #e5e9f2;
+}
+.grid-content {
+  border-radius: 4px;
+  min-height: 36px;
+}
+.row-bg {
+  padding: 10px 0;
+  background-color: #f9fafc;
+}
+
+/* 主要 Element-UI 组件间距 */
+.el-button, .el-input, .el-select, .el-dropdown, .el-card, .el-tabs, .el-dialog, .el-form, .el-table {
+  margin-bottom: 16px;
+}
+
+.title-panel, .title-panel h2, .title-panel h1 {
+  font-weight: 600;
+  color: #333;
+}

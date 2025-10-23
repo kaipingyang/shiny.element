@@ -50,11 +50,7 @@ el_table <- function(data = list(),
   )
   htmltools::attachDependencies(
     component_ui,
-    list(
-      vueR::html_dependency_vue(),
-      element_ui_dependency(),
-      table_handler_dependency()
-    )
+    el_table_handler_dependency()
   )
 }
 #' Prepare Data for Element Table

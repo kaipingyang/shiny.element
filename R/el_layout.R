@@ -51,3 +51,28 @@ el_col <- function(..., span = NULL, offset = NULL, push = NULL, pull = NULL,
   if (!is.null(style)) attrs[["style"]] <- style
   htmltools::tag("el-col", c(attrs, list(...)))
 }
+
+#' Element UI Page Wrapper with Theme Support
+#'
+#' Wraps a Shiny UI with Element-UI, Vue, and layout CSS dependencies.
+#'
+#' @param ... UI elements
+#' @param title Page title (optional)
+#' @param theme CSS dependency function or list (optional, default is el_layout_css_dependency())
+#' @export
+el_page <- function(..., title = NULL, theme = el_layout_css_dependency()) {
+  shiny::fluidPage(
+    if (!is.null(title)) titlePanel(title),
+    htmltools::attachDependencies(
+      htmltools::tags$head(), # attach to head so dependencies load globally
+      c(
+        list(
+          vueR::html_dependency_vue(),
+          element_ui_dependency()
+        ),
+        if (!is.null(theme)) list(theme) else NULL
+      )
+    ),
+    ...
+  )
+}
