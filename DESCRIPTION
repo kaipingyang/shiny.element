@@ -1,0 +1,26 @@
+Package: shiny.element
+Title: Element UI (Vue2) Integration Helpers for Shiny via vueR
+Version: 0.0.0.9000
+Authors@R: c(
+    person("Kaiping Yang", role = c("aut","cre"), email = "1260146556@qq.com")
+  )
+Description: Provide htmlDependency and helper wrappers for using Element-UI (Vue2) components in Shiny apps built with vueR.
+License: MIT + file LICENSE
+Encoding: UTF-8
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.3.2
+Depends: R (>= 4.1)
+Imports:
+    htmltools,
+    shiny,
+    vueR,
+    jsonlite,
+    uuid,
+    stats,
+    htmlwidgets
+Suggests:
+    testthat (>= 3.0.0),
+    rlang
+Config/testthat/edition: 3
+URL: https://github.com/yourname/vue.element
+BugReports: https://github.com/yourname/vue.element/issues
