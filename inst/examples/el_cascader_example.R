@@ -2,6 +2,9 @@ library(shiny)
 library(vueR)  
 library(htmltools)  
   
+
+# cascader_options --------------------------------------------------------------
+
 # 级联选择器数据  
 cascader_options <- list(  
   list(  
@@ -34,7 +37,7 @@ custom_props <- list(
   children = "children"  
 )  
   
-ui <- fluidPage(  
+ui <- el_page(  
   h3("基础级联选择器"),  
   el_cascader(  
     options = cascader_options,  
@@ -120,4 +123,69 @@ server <- function(input, output, session) {
   })  
 }  
   
+shinyApp(ui, server)
+
+
+
+# df_to_cascader_options -----------------------------------------------
+
+library(shiny)
+library(shiny.element)
+
+df1 <- data.frame(
+  value1 = c("A", "A", "B"),
+  value2 = c("a1", "a2", "b1"),
+  value3 = c("x", "y", "z"),
+  stringsAsFactors = FALSE
+)
+
+df2 <- data.frame(
+  value1 = c("A", "A", "B"),
+  label1 = c("Group A", "Group A", "Group B"),
+  value2 = c("a1", "a2", "b1"),
+  label2 = c("A-1", "A-2", "B-1"),
+  value3 = c("x", "y", "z"),
+  label3 = c("X", "Y", "Z"),
+  stringsAsFactors = FALSE
+)
+
+df3 <- data.frame(
+  value1 = c("A", "A", "B"),
+  label1 = c("Group A", "Group A", "Group B"),
+  value2 = c("a1", "a2", "b1"),
+  value3 = c("x", "y", "z"),
+  label3 = c("X", "Y", "Z"),
+  stringsAsFactors = FALSE
+)
+
+ui <- el_page(
+  title = "Element UI Cascader Demo",
+
+  h3("No label (label_cols = NULL)"),
+  el_cascader(
+    id = "cascader1",
+    options = cascader_options1,
+    placeholder = "Please select",
+    clearable = TRUE
+  ),
+
+  h3("All levels have label (label_cols = c('label1', 'label2', 'label3'))"),
+  el_cascader(
+    id = "cascader2",
+    options = cascader_options2,
+    placeholder = "Please select",
+    clearable = TRUE
+  ),
+
+  h3("Some levels have label (label_cols = c('label1', NA, 'label3'))"),
+  el_cascader(
+    id = "cascader3",
+    options = cascader_options3,
+    placeholder = "Please select",
+    clearable = TRUE
+  )
+)
+
+server <- function(input, output, session) {}
+
 shinyApp(ui, server)

@@ -120,3 +120,34 @@ update_el_cascader <- function(session, id,
 
   session$sendCustomMessage('updateElCascader', message)
 }
+
+#' Convert a data.frame with custom value/label columns to Element-UI Cascader options list
+#'
+#' @param df Data frame with hierarchical columns
+#' @param value_cols Character vector of value column names (e.g. c("value1", "value2", ...))
+#' @param label_cols Character vector of label column names (e.g. c("label1", "label2", ...)), can be NULL or contain NA for levels without label
+#' @return Nested list for cascader options
+#' @export
+df_to_cascader_options <- function(df, value_cols, label_cols = NULL) {
+  n <- length(value_cols)
+  build_level <- function(df, level) {
+    if (level > n) return(NULL)
+    split_df <- split(df, df[[value_cols[level]]])
+    lapply(names(split_df), function(val) {
+      item <- list(value = val)
+      # 支持 label_cols 为 NULL 或部分为 NA，label 为空时 fallback 到 value
+      if (!is.null(label_cols) && !is.na(label_cols[level])) {
+        label_val <- split_df[[val]][[label_cols[level]]][1]
+        item$label <- if (!is.na(label_val) && nzchar(label_val)) label_val else val
+      } else {
+        item$label <- val
+      }
+      if (level < n) {
+        children <- build_level(split_df[[val]], level + 1)
+        if (!is.null(children)) item$children <- children
+      }
+      item
+    })
+  }
+  build_level(df, 1)
+}

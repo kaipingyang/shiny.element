@@ -20,7 +20,7 @@ el_col(
 )
 }
 \arguments{
-\item{...}{Content}
+\item{...}{Content or other Element UI components}
 
 \item{span}{Column span (1-24)}
 

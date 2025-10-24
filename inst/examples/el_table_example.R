@@ -3,9 +3,7 @@ library(shiny.element)
 library(vueR)
 
 ui <- fluidPage(
-  vueR::html_dependency_vue(),
-  element_ui_dependency(),
-  table_handler_dependency(),
+  use_element(),
   titlePanel("Element UI Table Example"),
   sidebarLayout(
     sidebarPanel(

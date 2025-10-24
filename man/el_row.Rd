@@ -15,7 +15,7 @@ el_row(
 )
 }
 \arguments{
-\item{...}{Child columns (el_col)}
+\item{...}{Child columns (el_col) or other Element UI components}
 
 \item{gutter}{Spacing between columns}
 

@@ -2,7 +2,7 @@
 library(shiny)
 library(shiny.element)
 
-ui <- fluidPage(
+ui <- el_page(
   # 基础按钮
   el_button("btn_default", "Default", type = "default"),
   el_button("btn_primary", "Primary", type = "primary"),

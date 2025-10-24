@@ -36,14 +36,15 @@ el_container <- function(...,
   )
 
   component_ui
-  # htmltools::attachDependencies(
-  #   component_ui,
-  #   list(
-  #     vueR::html_dependency_vue(),
-  #     element_ui_dependency()
-  #   )
-  # )
+  htmltools::attachDependencies(
+    component_ui,
+    list(
+      vueR::html_dependency_vue(),
+      element_ui_dependency()
+    )
+  )
 }
+
 
 #' Element UI Header
 #'
@@ -52,13 +53,29 @@ el_container <- function(...,
 #' @param style CSS style
 #' @param class CSS class
 #' @export
-el_header <- function(..., height = NULL, style = NULL, class = NULL) {
-  attrs <- list()
-  if (!is.null(height)) style <- paste0("height:", height, ";", style)
-  if (!is.null(style)) attrs[["style"]] <- style
-  if (!is.null(class)) attrs[["class"]] <- class
-  htmltools::tag("el-header", c(attrs, list(...)))
-}
+el_header <- function(..., height = NULL, style = NULL, class = NULL) {  
+  attrs <- list()  
+  if (!is.null(height)) style <- paste0("height:", height, ";", style)  
+  if (!is.null(style)) attrs[["style"]] <- style  
+  if (!is.null(class)) attrs[["class"]] <- class 
+  # htmltools::tag("el-header", c(attrs, list(...))) 
+    
+  children <- list(...)  
+  all_deps <- lapply(children, function(child) {  
+    if (inherits(child, "shiny.tag.list") || inherits(child, "shiny.tag")) {  
+      htmltools::htmlDependencies(child)  
+    } else {  
+      NULL  
+    }  
+  })  
+  all_deps <- unlist(all_deps, recursive = FALSE)  
+    
+  tag <- htmltools::tag("el-header", c(attrs, children))  
+  if (length(all_deps) > 0) {  
+    tag <- htmltools::attachDependencies(tag, all_deps)  
+  }  
+  tag  
+}   
 
 #' Element UI Aside
 #'
@@ -67,13 +84,28 @@ el_header <- function(..., height = NULL, style = NULL, class = NULL) {
 #' @param style CSS style
 #' @param class CSS class
 #' @export
-el_aside <- function(..., width = NULL, style = NULL, class = NULL) {
-  attrs <- list()
-  if (!is.null(width)) style <- paste0("width:", width, ";", style)
-  if (!is.null(style)) attrs[["style"]] <- style
-  if (!is.null(class)) attrs[["class"]] <- class
-  htmltools::tag("el-aside", c(attrs, list(...)))
-}
+el_aside <- function(..., width = NULL, style = NULL, class = NULL) {  
+  attrs <- list()  
+  if (!is.null(width)) style <- paste0("width:", width, ";", style)  
+  if (!is.null(style)) attrs[["style"]] <- style  
+  if (!is.null(class)) attrs[["class"]] <- class  
+    
+  children <- list(...)  
+  all_deps <- lapply(children, function(child) {  
+    if (inherits(child, "shiny.tag.list") || inherits(child, "shiny.tag")) {  
+      htmltools::htmlDependencies(child)  
+    } else {  
+      NULL  
+    }  
+  })  
+  all_deps <- unlist(all_deps, recursive = FALSE)  
+    
+  tag <- htmltools::tag("el-aside", c(attrs, children))  
+  if (length(all_deps) > 0) {  
+    tag <- htmltools::attachDependencies(tag, all_deps)  
+  }  
+  tag  
+}  
 
 #' Element UI Main
 #'
@@ -81,12 +113,27 @@ el_aside <- function(..., width = NULL, style = NULL, class = NULL) {
 #' @param style CSS style
 #' @param class CSS class
 #' @export
-el_main <- function(..., style = NULL, class = NULL) {
-  attrs <- list()
-  if (!is.null(style)) attrs[["style"]] <- style
-  if (!is.null(class)) attrs[["class"]] <- class
-  htmltools::tag("el-main", c(attrs, list(...)))
-}
+el_main <- function(..., style = NULL, class = NULL) {  
+  attrs <- list()  
+  if (!is.null(style)) attrs[["style"]] <- style  
+  if (!is.null(class)) attrs[["class"]] <- class  
+    
+  children <- list(...)  
+  all_deps <- lapply(children, function(child) {  
+    if (inherits(child, "shiny.tag.list") || inherits(child, "shiny.tag")) {  
+      htmltools::htmlDependencies(child)  
+    } else {  
+      NULL  
+    }  
+  })  
+  all_deps <- unlist(all_deps, recursive = FALSE)  
+    
+  tag <- htmltools::tag("el-main", c(attrs, children))  
+  if (length(all_deps) > 0) {  
+    tag <- htmltools::attachDependencies(tag, all_deps)  
+  }  
+  tag  
+} 
 
 #' Element UI Footer
 #'
@@ -95,10 +142,26 @@ el_main <- function(..., style = NULL, class = NULL) {
 #' @param style CSS style
 #' @param class CSS class
 #' @export
-el_footer <- function(..., height = NULL, style = NULL, class = NULL) {
-  attrs <- list()
-  if (!is.null(height)) style <- paste0("height:", height, ";", style)
-  if (!is.null(style)) attrs[["style"]] <- style
-  if (!is.null(class)) attrs[["class"]] <- class
-  htmltools::tag("el-footer", c(attrs, list(...)))
+el_footer <- function(..., height = NULL, style = NULL, class = NULL) {  
+  attrs <- list()  
+  if (!is.null(height)) style <- paste0("height:", height, ";", style)  
+  if (!is.null(style)) attrs[["style"]] <- style  
+  if (!is.null(class)) attrs[["class"]] <- class  
+    
+  children <- list(...)  
+  all_deps <- lapply(children, function(child) {  
+    if (inherits(child, "shiny.tag.list") || inherits(child, "shiny.tag")) {  
+      htmltools::htmlDependencies(child)  
+    } else {  
+      NULL  
+    }  
+  })  
+  all_deps <- unlist(all_deps, recursive = FALSE)  
+    
+  tag <- htmltools::tag("el-footer", c(attrs, children))  
+  if (length(all_deps) > 0) {  
+    tag <- htmltools::attachDependencies(tag, all_deps)  
+  }  
+  tag  
 }
+

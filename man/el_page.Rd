@@ -4,15 +4,33 @@
 \alias{el_page}
 \title{Element UI Page Wrapper with Theme Support}
 \usage{
-el_page(..., title = NULL, theme = el_layout_css_dependency())
+el_page(
+  ...,
+  title = NULL,
+  theme = bslib::bs_theme(version = 5, bootswatch = "minty"),
+  theme_css = el_layout_css_dependency()
+)
 }
 \arguments{
-\item{...}{UI elements}
+\item{...}{UI elements to include in the page body.}
 
-\item{title}{Page title (optional)}
+\item{title}{Optional page title.}
 
-\item{theme}{CSS dependency function or list (optional, default is el_layout_css_dependency())}
+\item{theme}{Optional bslib or shiny theme object (e.g., \code{bs_theme()}) for Bootstrap styling.
+If provided, Bootstrap dependencies will be included.}
+
+\item{theme_css}{Optional Element-UI layout CSS dependency (default: \code{el_layout_css_dependency()}).
+Set to \code{NULL} to disable Element-UI layout CSS.}
 }
 \description{
-Wraps a Shiny UI with Element-UI, Vue, and layout CSS dependencies.
+Top-level page constructor that loads Element-UI, Vue, and layout CSS dependencies,
+and supports both bslib/shiny themes and Element-UI layout CSS.
+}
+\details{
+Use this as the root UI function for your Shiny app. You can combine bslib layouts
+(such as \code{page_sidebar}, \code{layout_columns}) and Element-UI widgets (such as \code{el_button}).
+
+The \code{el_page} function is designed to work with both bslib layouts and Element-UI widgets.
+Do not mix Element-UI layout functions (\code{el_container}, \code{el_row}, \code{el_col}) with bslib layouts,
+as they are not compatible. The Element-UI layout functions are experimental and may be deprecated in the future.
 }
