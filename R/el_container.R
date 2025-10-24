@@ -36,13 +36,13 @@ el_container <- function(...,
   )
 
   component_ui
-  htmltools::attachDependencies(
-    component_ui,
-    list(
-      vueR::html_dependency_vue(),
-      element_ui_dependency()
-    )
-  )
+  # htmltools::attachDependencies(
+  #   component_ui,
+  #   list(
+  #     vueR::html_dependency_vue(),
+  #     element_ui_dependency()
+  #   )
+  # )
 }
 
 
