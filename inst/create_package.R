@@ -29,3 +29,5 @@ devtools::check()
 
 devtools::load_all()
 
+usethis::use_pkgdown()
+pkgdown::build_site()
