@@ -4,6 +4,11 @@
   font-family: "Helvetica Neue", Arial, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
 }
 
+.el-container {
+  display: flex;
+  flex-direction: row;
+}
+
 /* 布局容器样式 */
 .el-header, .el-footer {
   background-color: #B3C0D1;

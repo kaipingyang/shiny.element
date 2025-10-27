@@ -124,6 +124,7 @@ el_page <- function(
 ) {
   deps <- list(
     vueR::html_dependency_vue(),
+    vue_handler_dependency(),
     element_ui_dependency()
   )
   if (!is.null(theme_css)) deps <- c(deps, list(theme_css))

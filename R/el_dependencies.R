@@ -17,7 +17,8 @@
 #' }  
 use_element <- function(theme = el_layout_css_dependency()) {  
   deps <- list(  
-    vueR::html_dependency_vue(),  
+    vueR::html_dependency_vue(),
+    vue_handler_dependency(),
     element_ui_dependency()  
   )  
     
@@ -26,6 +27,25 @@ use_element <- function(theme = el_layout_css_dependency()) {
   }  
     
   htmltools::tagList(deps)  
+}
+
+#' Vue Handler Dependency
+#'
+#' Registers custom JavaScript handlers for Shiny-to-Vue communication.
+#' This dependency loads `vue_handlers.js`, which enables R to update Vue component fields or entire data objects
+#' via `update_vue_component` and `update_vue_data` custom messages.
+#' It should be included in the UI (typically via `use_element()`) to ensure all Vue update handlers are available.
+#'
+#' @return An htmlDependency object for vue_handlers.js
+#' @export
+#' @export
+vue_handler_dependency <- function() {
+  htmltools::htmlDependency(
+    name = "vue-handlers",
+    version = "1.0.0",
+    src = system.file("js", package = "shiny.element"),
+    script = "vue-handlers.js"
+  )
 }
 
 #' Element UI Dependency
@@ -87,6 +107,17 @@ el_table_handler_dependency <- function() {
     version = "1.0.0",
     src = system.file("js", package = "shiny.element"),
     script = "el-table-handler.js"
+  )
+}
+
+#' Calendar Handler Dependency
+#' @export
+el_calendar_handler_dependency <- function() {
+  htmltools::htmlDependency(
+    name = "el-calendar-handler",
+    version = "1.0.0",
+    src = system.file("js", package = "shiny.element"),
+    script = "el-calendar-handler.js"
   )
 }
 

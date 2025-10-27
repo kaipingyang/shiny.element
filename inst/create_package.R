@@ -18,6 +18,7 @@ usethis::use_import_from("shiny", "tagList")
 usethis::use_import_from("shiny", "tags")
 usethis::use_import_from("shiny", "titlePanel")
 usethis::use_import_from("htmltools", "tag")
+usethis::use_import_from("htmltools", "HTML")
 usethis::use_import_from("stats", "na.omit")
 usethis::use_import_from("htmlwidgets", "JS")
 usethis::use_import_from("jsonlite", "toJSON")
@@ -27,3 +28,4 @@ devtools::document()
 devtools::check()
 
 devtools::load_all()
+
