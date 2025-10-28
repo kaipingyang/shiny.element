@@ -1,4 +1,6 @@
 url: https://kaipingyang.github.io/shiny.element/
+repo:
+  home: https://github.com/kaipingyang/shiny.element/
 template:
   bootstrap: 5
 
