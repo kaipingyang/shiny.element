@@ -18,7 +18,7 @@
       <ul class="navbar-nav me-auto"><li class="active nav-item"><a class="nav-link" href="../reference/index.html">Reference</a></li>
       </ul><ul class="navbar-nav"><li class="nav-item"><form class="form-inline" role="search">
  <input class="form-control" type="search" name="search-input" id="search-input" autocomplete="off" aria-label="Search site" placeholder="Search for" data-search-index="../search.json"></form></li>
-<li class="nav-item"><a class="external-link nav-link" href="https://github.com/yourname/vue.element/" aria-label="GitHub"><span class="fa fab fa-github fa-lg"></span></a></li>
+<li class="nav-item"><a class="external-link nav-link" href="https://github.com/kaipingyang/shiny.element/" aria-label="GitHub"><span class="fa fab fa-github fa-lg"></span></a></li>
       </ul></div>
 
 
@@ -28,7 +28,7 @@
   <main id="main" class="col-md-9"><div class="page-header">
 
       <h1>Element UI Table Component</h1>
-      <small class="dont-index">Source: <a href="https://github.com/yourname/vue.element/blob/main/R/el_table.R" class="external-link"><code>R/el_table.R</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/kaipingyang/shiny.element/blob/main/R/el_table.R" class="external-link"><code>R/el_table.R</code></a></small>
       <div class="d-none name"><code>el_table.Rd</code></div>
     </div>
 
@@ -89,26 +89,26 @@
 <span class="r-in"><span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>prop <span class="op">=</span> <span class="st">"value"</span>, label <span class="op">=</span> <span class="st">"Value"</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu">el_table</span><span class="op">(</span>data <span class="op">=</span> <span class="va">data</span>, columns <span class="op">=</span> <span class="va">columns</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;div id="el_table_991c142e-bd67-421d-883a-57964214831b_container"&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;div id="el_table_da97a009-4114-4fe2-8dae-89a3784d418a_container"&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   &lt;el-table :data="tableData" style="width: 100%" border&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     &lt;el-table-column prop="name" label="Name"&gt;&lt;/el-table-column&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     &lt;el-table-column prop="value" label="Value"&gt;&lt;/el-table-column&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   &lt;/el-table&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> &lt;/div&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;div class="vue html-widget html-fill-item" id="el_table_991c142e-bd67-421d-883a-57964214831b" style="width:960px;height:500px;"&gt;&lt;/div&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;script type="application/json" data-for="el_table_991c142e-bd67-421d-883a-57964214831b"&gt;{"x":{"el":"#el_table_991c142e-bd67-421d-883a-57964214831b_container","data":{"tableData":[{"name":"A","value":1},{"name":"B","value":2}]},"methods":[]},"evals":[],"jsHooks":[]}&lt;/script&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;div class="vue html-widget html-fill-item" id="el_table_da97a009-4114-4fe2-8dae-89a3784d418a" style="width:960px;height:500px;"&gt;&lt;/div&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;script type="application/json" data-for="el_table_da97a009-4114-4fe2-8dae-89a3784d418a"&gt;{"x":{"el":"#el_table_da97a009-4114-4fe2-8dae-89a3784d418a_container","data":{"tableData":[{"name":"A","value":1},{"name":"B","value":2}]},"methods":[]},"evals":[],"jsHooks":[]}&lt;/script&gt;</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># With row selection</span></span></span>
 <span class="r-in"><span><span class="fu">el_table</span><span class="op">(</span>data <span class="op">=</span> <span class="va">data</span>, columns <span class="op">=</span> <span class="va">columns</span>, selection <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;div id="el_table_71364536-ba11-4f92-b3e9-3eb67740fee5_container"&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;div id="el_table_dede3f13-7b0a-4b72-b12a-29e830904c8b_container"&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   &lt;el-table :data="tableData" style="width: 100%" border @selection-change="handleSelectionChange"&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     &lt;el-table-column type="selection" width="55"&gt;&lt;/el-table-column&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     &lt;el-table-column prop="name" label="Name"&gt;&lt;/el-table-column&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     &lt;el-table-column prop="value" label="Value"&gt;&lt;/el-table-column&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   &lt;/el-table&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> &lt;/div&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;div class="vue html-widget html-fill-item" id="el_table_71364536-ba11-4f92-b3e9-3eb67740fee5" style="width:960px;height:500px;"&gt;&lt;/div&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;script type="application/json" data-for="el_table_71364536-ba11-4f92-b3e9-3eb67740fee5"&gt;{"x":{"el":"#el_table_71364536-ba11-4f92-b3e9-3eb67740fee5_container","data":{"tableData":[{"name":"A","value":1},{"name":"B","value":2}]},"methods":{"handleSelectionChange":"function(selection) { Shiny.setInputValue('el_table_71364536-ba11-4f92-b3e9-3eb67740fee5_selected', selection); }"}},"evals":["methods.handleSelectionChange"],"jsHooks":[]}&lt;/script&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;div class="vue html-widget html-fill-item" id="el_table_dede3f13-7b0a-4b72-b12a-29e830904c8b" style="width:960px;height:500px;"&gt;&lt;/div&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;script type="application/json" data-for="el_table_dede3f13-7b0a-4b72-b12a-29e830904c8b"&gt;{"x":{"el":"#el_table_dede3f13-7b0a-4b72-b12a-29e830904c8b_container","data":{"tableData":[{"name":"A","value":1},{"name":"B","value":2}]},"methods":{"handleSelectionChange":"function(selection) { Shiny.setInputValue('el_table_dede3f13-7b0a-4b72-b12a-29e830904c8b_selected', selection); }"}},"evals":["methods.handleSelectionChange"],"jsHooks":[]}&lt;/script&gt;</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Shiny app example</span></span></span>
 <span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/interactive.html" class="external-link">interactive</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span></span>
