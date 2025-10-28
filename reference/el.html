@@ -50,9 +50,68 @@ These functions do not create Vue instances or Shiny bindings.</p>
     </div>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
-    <p>Example usage: el$button("Submit", type = "primary")</p>
-    </div>
+    <p>Categories:</p><ul><li><p>Basic: button, link, icon</p></li>
+<li><p>Layout: container, header, aside, main, footer, row, col</p></li>
+<li><p>Form: form, form-item, input, input-number, radio, radio-group, radio-button,
+checkbox, checkbox-group, switch, select, option, option-group, cascader, cascader-panel,
+slider, time-picker, time-select, date-picker, upload, rate, color-picker, transfer, autocomplete</p></li>
+<li><p>Data: table, table-column, tag, progress, tree, pagination, badge, avatar, calendar, card,
+carousel, carousel-item, collapse, collapse-item, timeline, timeline-item, divider, image,
+empty, skeleton, result, statistic, descriptions, descriptions-item</p></li>
+<li><p>Navigation: menu, submenu, menu-item, menu-item-group, tabs, tab-pane, breadcrumb,
+breadcrumb-item, dropdown, dropdown-menu, dropdown-item, steps, step, page-header,
+backtop, anchor, anchor-link</p></li>
+<li><p>Feedback: dialog, alert, drawer, popover, tooltip, popconfirm, loading</p></li>
+</ul></div>
 
+    <div class="section level2">
+    <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># List all available Element UI tag generators</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">el</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [1] "button"            "link"              "icon"             </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [4] "container"         "header"            "aside"            </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [7] "main"              "footer"            "row"              </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [10] "col"               "form"              "form_item"        </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [13] "input"             "input_number"      "radio"            </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [16] "radio_group"       "radio_button"      "checkbox"         </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [19] "checkbox_group"    "switch"            "select"           </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [22] "option"            "option_group"      "cascader"         </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [25] "cascader_panel"    "slider"            "time_picker"      </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [28] "time_select"       "date_picker"       "upload"           </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [31] "rate"              "color_picker"      "transfer"         </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [34] "autocomplete"      "table"             "table_column"     </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [37] "tag"               "progress"          "tree"             </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [40] "pagination"        "badge"             "avatar"           </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [43] "calendar"          "card"              "carousel"         </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [46] "carousel_item"     "collapse"          "collapse_item"    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [49] "timeline"          "timeline_item"     "divider"          </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [52] "image"             "empty"             "skeleton"         </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [55] "result"            "statistic"         "descriptions"     </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [58] "descriptions_item" "menu"              "submenu"          </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [61] "menu_item"         "menu_item_group"   "tabs"             </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [64] "tab_pane"          "breadcrumb"        "breadcrumb_item"  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [67] "dropdown"          "dropdown_menu"     "dropdown_item"    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [70] "steps"             "step"              "page_header"      </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [73] "backtop"           "anchor"            "anchor_link"      </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [76] "dialog"            "alert"             "drawer"           </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [79] "popover"           "tooltip"           "popconfirm"       </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [82] "loading"          </span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Use with auto-generated tag functions</span></span></span>
+<span class="r-in"><span><span class="va">el</span><span class="op">$</span><span class="fu">button</span><span class="op">(</span><span class="st">"Submit"</span>, type <span class="op">=</span> <span class="st">"primary"</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;el-button type="primary"&gt;Submit&lt;/el-button&gt;</span>
+<span class="r-in"><span><span class="va">el</span><span class="op">$</span><span class="fu">table</span><span class="op">(</span></span></span>
+<span class="r-in"><span>  <span class="va">el</span><span class="op">$</span><span class="fu">table_column</span><span class="op">(</span>prop <span class="op">=</span> <span class="st">"name"</span>, label <span class="op">=</span> <span class="st">"Name"</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>  <span class="va">el</span><span class="op">$</span><span class="fu">table_column</span><span class="op">(</span>prop <span class="op">=</span> <span class="st">"age"</span>, label <span class="op">=</span> <span class="st">"Age"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;el-table&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   &lt;el-table-column prop="name" label="Name"&gt;&lt;/el-table-column&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   &lt;el-table-column prop="age" label="Age"&gt;&lt;/el-table-column&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;/el-table&gt;</span>
+<span class="r-in"><span><span class="va">el</span><span class="op">$</span><span class="fu">icon</span><span class="op">(</span><span class="st">"star"</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;i class="el-icon-star"&gt;&lt;/i&gt;</span>
+</code></pre></div>
+    </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
     </nav></aside></div>
 
