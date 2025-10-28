@@ -1,12 +1,54 @@
 #' Element UI Table Component
 #'
+#' Create a table widget for Shiny using Element UI.
+#'
 #' @param id Table ID (auto-generated if NULL)
 #' @param data List of row data
-#' @param columns List of column configs
+#' @param columns List of column configs (see \code{el_table_config})
 #' @param selection Enable row selection
 #' @param border Show table border
 #' @param session Shiny session for module support
 #' @export
+#' @examples
+#' # Basic usage
+#' data <- list(
+#'   list(name = "A", value = 1),
+#'   list(name = "B", value = 2)
+#' )
+#' columns <- list(
+#'   list(prop = "name", label = "Name"),
+#'   list(prop = "value", label = "Value")
+#' )
+#' el_table(data = data, columns = columns)
+#'
+#' # With row selection
+#' el_table(data = data, columns = columns, selection = TRUE)
+#'
+#' # Shiny app example
+#' if (interactive()) {
+#'   library(shiny)
+#'   library(shiny.element)
+#'   df <- data.frame(
+#'     name = c("A", "B", "C"),
+#'     value = c(1, 2, 3)
+#'   )
+#'   config <- el_table_config(df)
+#'   ui <- el_page(
+#'     el_table(
+#'       id = "my_table",
+#'       data = config$data,
+#'       columns = config$columns,
+#'       selection = TRUE
+#'     ),
+#'     verbatimTextOutput("selected_rows")
+#'   )
+#'   server <- function(input, output, session) {
+#'     output$selected_rows <- renderPrint({
+#'       input$my_table_selected
+#'     })
+#'   }
+#'   shinyApp(ui, server)
+#' }
 el_table <- function(data = list(),
                      columns = list(),
                      id = NULL,

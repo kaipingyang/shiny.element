@@ -16,3 +16,13 @@ update_vue_component(session, id, ...)
 \description{
 Update one or more fields of a Vue component instance by id (namespaced)
 }
+\examples{
+\dontrun{
+# In a Shiny server function:
+# Update the 'value' field of a calendar component
+update_vue_component(session, "my_calendar", value = format(Sys.Date(), "\%Y-\%m-\%d"))
+
+# Update multiple fields at once
+update_vue_component(session, "my_calendar", value = "2025-12-31", first_day_of_week = 3)
+}
+}

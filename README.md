@@ -10,7 +10,7 @@ remotes::install_github("kaipingyang/shiny.element")
 
 ## Features
 
-- Element-UI buttons, tables, cascader, and layout components for Shiny
+- Element-UI buttons, tables, cascader, calendar and layout components for Shiny
 - Automatic Vue mounting—no manual setup required
 - Shiny module namespace support
 - Seamless integration with Shiny's reactive system

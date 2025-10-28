@@ -24,5 +24,48 @@ el_calendar(
 \item{session}{Shiny session for module support}
 }
 \description{
-Element UI Calendar Component
+Create a calendar widget for Shiny using Element UI.
+}
+\examples{
+# Basic usage
+el_calendar(id = "calendar1", value = Sys.Date())
+
+# With date range
+el_calendar(id = "calendar2", range = c("2025-01-01", "2025-01-31"))
+
+# Shiny app example: interactive calendar with update
+if (interactive()) {
+  library(shiny)
+  library(shiny.element)
+  ui <- el_page(
+    titlePanel("Element UI Calendar Example"),
+    sidebarLayout(
+      sidebarPanel(
+        actionButton("set_today", "Set to Today"),
+        actionButton("set_tomorrow", "Set to Tomorrow"),
+        hr(),
+        verbatimTextOutput("selected_date")
+      ),
+      mainPanel(
+        el_calendar(
+          id = "my_calendar",
+          value = Sys.Date(),
+          first_day_of_week = 1
+        )
+      )
+    )
+  )
+  server <- function(input, output, session) {
+    output$selected_date <- renderPrint({
+      input$my_calendar
+    })
+    observeEvent(input$set_today, {
+      update_el_calendar(session, "my_calendar", value = Sys.Date())
+    })
+    observeEvent(input$set_tomorrow, {
+      update_el_calendar(session, "my_calendar", value = Sys.Date() + 1)
+    })
+  }
+  shinyApp(ui, server)
+}
 }

@@ -35,7 +35,7 @@ el_cascader(
 
 \item{clearable}{Whether clearable}
 
-\item{filterable}{Whether filterable}
+\item{filterable}{Whether filterable (searchable)}
 
 \item{disabled}{Whether disabled}
 
@@ -54,5 +54,59 @@ el_cascader(
 \item{session}{Shiny session for module support}
 }
 \description{
-Element UI Cascader Widget
+Create a cascader (multi-level dropdown) input for Shiny using Element UI.
+}
+\examples{
+# Basic cascader usage
+cascader_options <- list(
+  list(
+    value = "guide",
+    label = "Guide",
+    children = list(
+      list(value = "principle", label = "Principle"),
+      list(value = "navigation", label = "Navigation")
+    )
+  ),
+  list(
+    value = "component",
+    label = "Component",
+    children = list(
+      list(value = "basic", label = "Basic"),
+      list(value = "form", label = "Form", disabled = TRUE)
+    )
+  )
+)
+
+if (interactive()) {
+  library(shiny)
+  library(shiny.element)
+  ui <- el_page(
+    el_cascader(
+      id = "cascader1",
+      options = cascader_options,
+      placeholder = "Please select",
+      clearable = TRUE
+    ),
+    verbatimTextOutput("selected")
+  )
+  server <- function(input, output, session) {
+    output$selected <- renderPrint(input$cascader1_value)
+  }
+  shinyApp(ui, server)
+}
+
+# Advanced: custom props and update
+custom_props <- list(
+  expandTrigger = "hover",
+  multiple = FALSE,
+  checkStrictly = FALSE,
+  emitPath = TRUE,
+  lazy = FALSE,
+  value = "value",
+  label = "label",
+  children = "children"
+)
+
+# Update cascader options in server:
+# update_el_cascader(session, "cascader1", options = new_options)
 }

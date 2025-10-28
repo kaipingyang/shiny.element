@@ -32,3 +32,21 @@ el_button(
 \description{
 Element UI Button with Vue Instance
 }
+\examples{
+# Basic usage
+el_button("btn_primary", "Primary", type = "primary")
+
+# Shiny app example
+if (interactive()) {
+  library(shiny)
+  library(shiny.element)
+  ui <- el_page(
+    el_button("btn_primary", "Primary", type = "primary"),
+    verbatimTextOutput("btn_primary_count")
+  )
+  server <- function(input, output, session) {
+    output$btn_primary_count <- renderPrint(input$btn_primary)
+  }
+  shinyApp(ui, server)
+}
+}

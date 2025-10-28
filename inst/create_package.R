@@ -29,6 +29,10 @@ devtools::check()
 
 devtools::load_all()
 
-usethis::use_pkgdown()
+
+# usethis::use_pkgdown()
+
+# pkgdown::clean_site(force = TRUE)
+
 pkgdown::build_site()
-usethis::use_pkgdown_github_pages()
+# usethis::use_pkgdown_github_pages()

@@ -11,7 +11,7 @@ Provide htmlDependency and helper wrappers for using Element-UI (Vue2) component
 \seealso{
 Useful links:
 \itemize{
-  \item \url{https://github.com/yourname/vue.element}
+  \item \url{https://kaipingyang.github.io/shiny.element/}
   \item Report bugs at \url{https://github.com/yourname/vue.element/issues}
 }
 

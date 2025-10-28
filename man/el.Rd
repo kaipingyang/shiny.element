@@ -15,6 +15,32 @@ Provides a list of functions for generating Element UI tags (el-*), similar to \
 These functions do not create Vue instances or Shiny bindings.
 }
 \details{
-Example usage: el$button("Submit", type = "primary")
+Categories:
+\itemize{
+\item Basic: button, link, icon
+\item Layout: container, header, aside, main, footer, row, col
+\item Form: form, form-item, input, input-number, radio, radio-group, radio-button,
+checkbox, checkbox-group, switch, select, option, option-group, cascader, cascader-panel,
+slider, time-picker, time-select, date-picker, upload, rate, color-picker, transfer, autocomplete
+\item Data: table, table-column, tag, progress, tree, pagination, badge, avatar, calendar, card,
+carousel, carousel-item, collapse, collapse-item, timeline, timeline-item, divider, image,
+empty, skeleton, result, statistic, descriptions, descriptions-item
+\item Navigation: menu, submenu, menu-item, menu-item-group, tabs, tab-pane, breadcrumb,
+breadcrumb-item, dropdown, dropdown-menu, dropdown-item, steps, step, page-header,
+backtop, anchor, anchor-link
+\item Feedback: dialog, alert, drawer, popover, tooltip, popconfirm, loading
+}
+}
+\examples{
+# List all available Element UI tag generators
+names(el)
+
+# Use with auto-generated tag functions
+el$button("Submit", type = "primary")
+el$table(
+  el$table_column(prop = "name", label = "Name"),
+  el$table_column(prop = "age", label = "Age")
+)
+el$icon("star")
 }
 \keyword{datasets}

@@ -2,7 +2,7 @@
 % Please edit documentation in R/template.R
 \name{template}
 \alias{template}
-\title{Generate a \if{html}{\out{<template>}} tag for Vue/Element UI slot usage}
+\title{Generate a \verb{<template>} tag for Vue/Element UI slot usage}
 \usage{
 template(..., slot = NULL, scope = NULL)
 }
@@ -14,5 +14,33 @@ template(..., slot = NULL, scope = NULL)
 \item{scope}{Slot scope or v-slot syntax (optional)}
 }
 \description{
-Generate a \if{html}{\out{<template>}} tag for Vue/Element UI slot usage
+Generate a \verb{<template>} tag for Vue/Element UI slot usage
+}
+\examples{
+# Basic usage with text
+template("Hello World")
+
+# With slot name
+template("Custom content", slot = "header")
+
+# With HTML tag content
+template(shiny::tags$a(href = "https://posit.co", "Posit"), slot = "footer")
+
+# Combine multiple tags
+template(
+  shiny::tags$span("A"),
+  shiny::tags$span("B"),
+  slot = "extra"
+)
+
+# Custom dateCell slot with check mark (Unicode)
+template(
+  shiny::tags$p(
+    `:class` = "data.isSelected ? 'is-selected' : ''",
+    "{{ data.day.split('-').slice(1).join('-') }}",
+    shiny::tags$span("\u2714\ufe0f", `v-if` = "data.isSelected")
+  ),
+  slot = "dateCell",
+  scope = "{date, data}"
+)
 }
