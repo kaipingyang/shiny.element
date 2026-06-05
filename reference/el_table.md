@@ -54,26 +54,26 @@ columns <- list(
   list(prop = "value", label = "Value")
 )
 el_table(data = data, columns = columns)
-#> <div id="el_table_5e3f8f80-925f-4fbe-a898-2fc604ae5890_container">
+#> <div id="el_table_b0f860e1-50a5-4592-8923-091d08077f95_container">
 #>   <el-table :data="tableData" style="width: 100%" border>
 #>     <el-table-column prop="name" label="Name"></el-table-column>
 #>     <el-table-column prop="value" label="Value"></el-table-column>
 #>   </el-table>
 #> </div>
-#> <div class="vue html-widget html-fill-item" id="el_table_5e3f8f80-925f-4fbe-a898-2fc604ae5890" style="width:960px;height:500px;"></div>
-#> <script type="application/json" data-for="el_table_5e3f8f80-925f-4fbe-a898-2fc604ae5890">{"x":{"el":"#el_table_5e3f8f80-925f-4fbe-a898-2fc604ae5890_container","data":{"tableData":[{"name":"A","value":1},{"name":"B","value":2}]},"methods":[]},"evals":[],"jsHooks":[]}</script>
+#> <div class="vue html-widget html-fill-item" id="el_table_b0f860e1-50a5-4592-8923-091d08077f95" style="width:960px;height:500px;"></div>
+#> <script type="application/json" data-for="el_table_b0f860e1-50a5-4592-8923-091d08077f95">{"x":{"el":"#el_table_b0f860e1-50a5-4592-8923-091d08077f95_container","data":{"tableData":[{"name":"A","value":1},{"name":"B","value":2}]},"methods":[]},"evals":[],"jsHooks":[]}</script>
 
 # With row selection
 el_table(data = data, columns = columns, selection = TRUE)
-#> <div id="el_table_ebe6e16e-73bc-4007-ab37-804a7bc12178_container">
+#> <div id="el_table_0dcad1a5-c7a6-4e08-9d97-125dc9b01f3b_container">
 #>   <el-table :data="tableData" style="width: 100%" border @selection-change="handleSelectionChange">
 #>     <el-table-column type="selection" width="55"></el-table-column>
 #>     <el-table-column prop="name" label="Name"></el-table-column>
 #>     <el-table-column prop="value" label="Value"></el-table-column>
 #>   </el-table>
 #> </div>
-#> <div class="vue html-widget html-fill-item" id="el_table_ebe6e16e-73bc-4007-ab37-804a7bc12178" style="width:960px;height:500px;"></div>
-#> <script type="application/json" data-for="el_table_ebe6e16e-73bc-4007-ab37-804a7bc12178">{"x":{"el":"#el_table_ebe6e16e-73bc-4007-ab37-804a7bc12178_container","data":{"tableData":[{"name":"A","value":1},{"name":"B","value":2}]},"methods":{"handleSelectionChange":"function(selection) { Shiny.setInputValue('el_table_ebe6e16e-73bc-4007-ab37-804a7bc12178_selected', selection); }"}},"evals":["methods.handleSelectionChange"],"jsHooks":[]}</script>
+#> <div class="vue html-widget html-fill-item" id="el_table_0dcad1a5-c7a6-4e08-9d97-125dc9b01f3b" style="width:960px;height:500px;"></div>
+#> <script type="application/json" data-for="el_table_0dcad1a5-c7a6-4e08-9d97-125dc9b01f3b">{"x":{"el":"#el_table_0dcad1a5-c7a6-4e08-9d97-125dc9b01f3b_container","data":{"tableData":[{"name":"A","value":1},{"name":"B","value":2}]},"methods":{"handleSelectionChange":"function(selection) { Shiny.setInputValue('el_table_0dcad1a5-c7a6-4e08-9d97-125dc9b01f3b_selected', selection); }"}},"evals":["methods.handleSelectionChange"],"jsHooks":[]}</script>
 
 # Shiny app example
 if (interactive()) {
