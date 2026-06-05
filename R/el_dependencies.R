@@ -137,14 +137,110 @@ el_calendar_handler_dependency <- function() {
   )
 }
 
-#' Steps Handler Dependency  
-#' @keywords internal  
-el_steps_handler_dependency <- function() {  
-  htmltools::htmlDependency(  
-    name = "el-steps-handler",  
-    version = "1.0.0",  
-    src = system.file("js", package = "shiny.element"),  
-    script = "el-steps-handler.js",  
-    all_files = FALSE  
-  )  
+#' Steps Handler Dependency
+#' @keywords internal
+el_steps_handler_dependency <- function() {
+  htmltools::htmlDependency(
+    name      = "el-steps-handler",
+    version   = "1.0.0",
+    src       = system.file("js", package = "shiny.element"),
+    script    = "el-steps-handler.js",
+    all_files = FALSE
+  )
+}
+
+#' Tag Handler Dependency
+#' @keywords internal
+el_tag_handler_dependency <- function() {
+  htmltools::htmlDependency(
+    name      = "el-tag-handler",
+    version   = "1.0.0",
+    src       = system.file("js", package = "shiny.element"),
+    script    = "el-tag-handler.js",
+    all_files = FALSE
+  )
+}
+
+#' Alert Handler Dependency
+#' @keywords internal
+el_alert_handler_dependency <- function() {
+  htmltools::htmlDependency(
+    name      = "el-alert-handler",
+    version   = "1.0.0",
+    src       = system.file("js", package = "shiny.element"),
+    script    = "el-alert-handler.js",
+    all_files = FALSE
+  )
+}
+
+#' Collapse Handler Dependency
+#' @keywords internal
+el_collapse_handler_dependency <- function() {
+  htmltools::htmlDependency(
+    name      = "el-collapse-handler",
+    version   = "1.0.0",
+    src       = system.file("js", package = "shiny.element"),
+    script    = "el-collapse-handler.js",
+    all_files = FALSE
+  )
+}
+
+#' Rate Handler Dependency
+#' @keywords internal
+el_rate_handler_dependency <- function() {
+  htmltools::htmlDependency(
+    name      = "el-rate-handler",
+    version   = "1.0.0",
+    src       = system.file("js", package = "shiny.element"),
+    script    = "el-rate-handler.js",
+    all_files = FALSE
+  )
+}
+
+#' Input Number Handler Dependency
+#' @keywords internal
+el_input_number_handler_dependency <- function() {
+  htmltools::htmlDependency(
+    name      = "el-input-number-handler",
+    version   = "1.0.0",
+    src       = system.file("js", package = "shiny.element"),
+    script    = "el-input-number-handler.js",
+    all_files = FALSE
+  )
+}
+
+#' Color Picker Handler Dependency
+#' @keywords internal
+el_color_picker_handler_dependency <- function() {
+  htmltools::htmlDependency(
+    name      = "el-color-picker-handler",
+    version   = "1.0.0",
+    src       = system.file("js", package = "shiny.element"),
+    script    = "el-color-picker-handler.js",
+    all_files = FALSE
+  )
+}
+
+#' Drawer Handler Dependency
+#' @keywords internal
+el_drawer_handler_dependency <- function() {
+  htmltools::htmlDependency(
+    name      = "el-drawer-handler",
+    version   = "1.0.0",
+    src       = system.file("js", package = "shiny.element"),
+    script    = "el-drawer-handler.js",
+    all_files = FALSE
+  )
+}
+
+#' Dropdown Handler Dependency
+#' @keywords internal
+el_dropdown_handler_dependency <- function() {
+  htmltools::htmlDependency(
+    name      = "el-dropdown-handler",
+    version   = "1.0.0",
+    src       = system.file("js", package = "shiny.element"),
+    script    = "el-dropdown-handler.js",
+    all_files = FALSE
+  )
 }
