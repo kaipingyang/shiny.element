@@ -43,9 +43,11 @@ el_collapse <- function(
   ns_id        <- if (!is.null(session)) session$ns(id) else id
   container_id <- paste0(ns_id, "_container")
 
-  # Build el-collapse-item tags
+  # Build el-collapse-item tags — name/title must be static attributes
+  # (no Vue binding prefix) so they are treated as literal prop values,
+  # not evaluated as JS expressions.
   item_tags <- lapply(items, function(item) {
-    item_attrs <- list(":name" = item$name, ":title" = item$title)
+    item_attrs <- list(name = item$name, title = item$title)
     if (isTRUE(item$disabled)) item_attrs[[":disabled"]] <- "true"
     htmltools::tag("el-collapse-item",
       c(item_attrs, list(item$content))

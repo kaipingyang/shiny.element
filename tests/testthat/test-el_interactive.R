@@ -138,6 +138,20 @@ test_that("el_collapse: accordion mode in Vue data", {
   expect_match(html, "true")
 })
 
+test_that("el_collapse: item name/title rendered as static attrs", {
+  tag <- el_collapse("c1",
+    items = list(list(name = "my panel", title = "My Title With Spaces",
+                      content = tags$p("x")))
+  )
+  html <- render_html(tag)
+  # Static attribute (not Vue-bound :name) — must appear as literal string
+  expect_match(html, 'name="my panel"')
+  expect_match(html, 'title="My Title With Spaces"')
+  # Must NOT appear as Vue-bound attribute (would break JS evaluation of space-containing title)
+  expect_no_match(html, ':name="my panel"')
+  expect_no_match(html, ':title="My Title With Spaces"')
+})
+
 test_that("el_collapse: active value set", {
   tag <- el_collapse("c1",
     items = list(list(name = "p1", title = "T1", content = tags$p("x"))),
