@@ -4,19 +4,38 @@
 \alias{update_el_button}
 \title{Update Element UI Button}
 \usage{
-update_el_button(session, id, label = NULL, type = NULL, disabled = NULL)
+update_el_button(
+  session,
+  id,
+  label = NULL,
+  type = NULL,
+  size = NULL,
+  plain = NULL,
+  round = NULL,
+  loading = NULL,
+  disabled = NULL
+)
 }
 \arguments{
-\item{session}{Shiny session object}
+\item{session}{Shiny session object.}
 
-\item{id}{Button ID}
+\item{id}{Button ID (un-namespaced).}
 
-\item{label}{New button label}
+\item{label}{New label text.}
 
-\item{type}{New button type}
+\item{type}{New button type.}
 
-\item{disabled}{New disabled state}
+\item{size}{New button size.}
+
+\item{plain}{New plain state.}
+
+\item{round}{New round state.}
+
+\item{loading}{New loading state.}
+
+\item{disabled}{New disabled state.}
 }
 \description{
-Update Element UI Button
+Server-side update for \code{\link[=el_button]{el_button()}}. Supports all visual states including
+\code{size}, \code{plain}, \code{round}, and \code{loading}.
 }

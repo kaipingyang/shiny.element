@@ -2,3 +2,13 @@
 
 /.quarto/
 docs
+
+# 开发参考资料（不纳入 git）
+inst/reference/
+
+# Claude Code 会话数据
+.claude/
+
+# 草稿笔记
+test.md
+tfl.md

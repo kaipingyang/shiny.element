@@ -15,18 +15,19 @@
 #'   el_button("btn1", "Click me")  
 #' )  
 #' }  
-use_element <- function(theme = el_layout_css_dependency()) {  
-  deps <- list(  
+use_element <- function(theme = el_layout_css_dependency()) {
+  deps <- list(
     vueR::html_dependency_vue(),
     vue_handler_dependency(),
-    element_ui_dependency()  
-  )  
-    
-  if (!is.null(theme)) {  
-    deps <- c(deps, list(theme))  
-  }  
-    
-  htmltools::tagList(deps)  
+    element_ui_dependency(),
+    el_feedback_dependency()
+  )
+
+  if (!is.null(theme)) {
+    deps <- c(deps, list(theme))
+  }
+
+  htmltools::tagList(deps)
 }
 
 #' Vue Handler Dependency
@@ -77,6 +78,21 @@ el_layout_css_dependency <- function() {
   )
 }
 
+#' Feedback Handler Dependency
+#'
+#' Loads the JavaScript handlers for [el_notification()] and [el_message()].
+#' Automatically included by [use_element()] and [el_page()].
+#'
+#' @export
+el_feedback_dependency <- function() {
+  htmltools::htmlDependency(
+    name    = "el-feedback-handler",
+    version = "1.0.0",
+    src     = system.file("js", package = "shiny.element"),
+    script  = "el-feedback-handler.js"
+  )
+}
+
 #' Button Handler Dependency
 #' @export
 el_button_handler_dependency <- function() {
@@ -121,3 +137,14 @@ el_calendar_handler_dependency <- function() {
   )
 }
 
+#' Steps Handler Dependency  
+#' @keywords internal  
+el_steps_handler_dependency <- function() {  
+  htmltools::htmlDependency(  
+    name = "el-steps-handler",  
+    version = "1.0.0",  
+    src = system.file("js", package = "shiny.element"),  
+    script = "el-steps-handler.js",  
+    all_files = FALSE  
+  )  
+}

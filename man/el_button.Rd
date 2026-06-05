@@ -9,29 +9,58 @@ el_button(
   label = "Button",
   type = "default",
   size = NULL,
+  plain = FALSE,
+  round = FALSE,
+  circle = FALSE,
+  loading = FALSE,
   disabled = FALSE,
   icon = NULL,
-  session = getDefaultReactiveDomain()
+  native_type = "button",
+  session = shiny::getDefaultReactiveDomain()
 )
 }
 \arguments{
-\item{id}{Button ID (auto-generated if NULL)}
+\item{id}{Button ID. Auto-generated UUID if \code{NULL}.}
 
-\item{label}{Button text}
+\item{label}{Button text. Ignored (and defaults to \code{""}) when \code{circle = TRUE}.}
 
-\item{type}{Button type (primary, success, warning, danger, info, text)}
+\item{type}{Button type: \code{"default"}, \code{"primary"}, \code{"success"}, \code{"warning"},
+\code{"danger"}, \code{"info"}, \code{"text"}.}
 
-\item{size}{Button size (medium, small, mini)}
+\item{size}{Button size: \code{NULL}, \code{"medium"}, \code{"small"}, \code{"mini"}.}
 
-\item{disabled}{Whether button is disabled}
+\item{plain}{Whether to use the plain (hollow) style. Default \code{FALSE}.}
 
-\item{icon}{Icon tag (e.g. el_icon("search"), shiny::icon("star"), fontawesome::fa_icon("github"))}
+\item{round}{Whether to use rounded corners. Default \code{FALSE}.}
 
-\item{session}{Shiny session for module support}
+\item{circle}{Whether to render as a circle button (icon only, no label).
+Default \code{FALSE}.}
+
+\item{loading}{Whether to show loading spinner. Disables click while active.
+Default \code{FALSE}.}
+
+\item{disabled}{Whether the button is disabled. Default \code{FALSE}.}
+
+\item{icon}{Icon tag (e.g. \code{el_icon("search")}, \code{shiny::icon("star")}).}
+
+\item{native_type}{HTML native button type: \code{"button"} (default), \code{"submit"},
+\code{"reset"}.}
+
+\item{session}{Shiny session for module support.}
+}
+\value{
+An \code{htmltools} tagList with a Vue-managed button component.
 }
 \description{
-Element UI Button with Vue Instance
+Creates an Element UI button with Vue instance, supporting all Element UI
+button variants including \code{plain}, \code{round}, \code{circle}, and \code{loading} states.
 }
+\section{Shiny input}{
+
+\verb{input$<id>} — click count (integer), incremented on each click when neither
+\code{disabled} nor \code{loading} is \code{TRUE}.
+}
+
 \examples{
 # Basic usage
 el_button("btn_primary", "Primary", type = "primary")
@@ -41,12 +70,13 @@ if (interactive()) {
   library(shiny)
   library(shiny.element)
   ui <- el_page(
-    el_button("btn_primary", "Primary", type = "primary"),
-    verbatimTextOutput("btn_primary_count")
+    el_button("btn1", "Primary", type = "primary"),
+    verbatimTextOutput("count")
   )
   server <- function(input, output, session) {
-    output$btn_primary_count <- renderPrint(input$btn_primary)
+    output$count <- renderPrint(input$btn1)
   }
   shinyApp(ui, server)
 }
+
 }

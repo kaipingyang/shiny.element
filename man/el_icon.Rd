@@ -4,13 +4,60 @@
 \alias{el_icon}
 \title{Element UI icon tag}
 \usage{
-el_icon(name, ...)
+el_icon(
+  name,
+  size = NULL,
+  class = NULL,
+  title = NULL,
+  a11y = c("auto", "deco", "sem", "none"),
+  lib = c("element-ui", "font-awesome", "none"),
+  ...
+)
 }
 \arguments{
-\item{name}{Icon name (e.g. "search", "edit")}
+\item{name}{Icon name. For \code{lib = "element-ui"}, the \verb{el-icon-} prefix is
+optional and will not be doubled (e.g. \code{"search"} and \code{"el-icon-search"}
+both work). Names are lowercased and spaces replaced with \code{-}.}
 
-\item{...}{Other tag attributes}
+\item{size}{CSS size string (e.g. \code{"1.5em"}, \code{"20px"}). Applied as
+\code{font-size} on the \verb{<i>} tag. \code{NULL} (default) leaves the size unset.}
+
+\item{class}{Additional CSS class(es) to append.}
+
+\item{title}{Accessible title string. When provided, it also drives \code{a11y}
+(see below).}
+
+\item{a11y}{Accessibility mode. One of:
+\describe{
+\item{\code{"auto"} (default)}{\code{"deco"} when \code{title} is \code{NULL}, \code{"sem"} otherwise.}
+\item{\code{"deco"}}{Decorative icon: adds \code{aria-hidden="true"} and \code{role="img"}.}
+\item{\code{"sem"}}{Semantic icon: adds \code{aria-label} (using \code{title} or \code{name})
+and \code{role="img"}.}
+\item{\code{"none"}}{No accessibility attributes added.}
+}}
+
+\item{lib}{Icon library. One of:
+\describe{
+\item{\code{"element-ui"} (default)}{Renders \verb{<i class="el-icon-\{name\}">}.}
+\item{\code{"font-awesome"}}{Delegates to \code{\link[fontawesome:fa_i]{fontawesome::fa_i()}}. Requires the
+\code{fontawesome} package.}
+\item{\code{"none"}}{Renders a plain \verb{<i>} tag with no icon class.}
+}}
+
+\item{...}{Additional HTML attributes passed to the \verb{<i>} tag.}
+}
+\value{
+An \code{htmltools} tag object.
 }
 \description{
-Element UI icon tag
+Creates an icon tag supporting Element UI icons, Font Awesome, or plain tags.
+Follows the same dispatch pattern as \code{\link[shiny:icon]{shiny::icon()}}, with accessibility
+attributes inspired by \code{\link[bsicons:bs_icon]{bsicons::bs_icon()}}.
+}
+\examples{
+el_icon("search")
+el_icon("edit", size = "1.5em")
+el_icon("delete", title = "Delete item")
+el_icon("close", a11y = "deco")
+
 }
