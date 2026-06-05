@@ -76,10 +76,10 @@ el_collapse("col1",
 )
 #> <div id="col1_container">
 #>   <el-collapse :value="activeNames" :accordion="accordion" @change="handleChange">
-#>     <el-collapse-item :name="p1" :title="Panel 1">
+#>     <el-collapse-item name="p1" title="Panel 1">
 #>       <p>Content 1</p>
 #>     </el-collapse-item>
-#>     <el-collapse-item :name="p2" :title="Panel 2">
+#>     <el-collapse-item name="p2" title="Panel 2">
 #>       <p>Content 2</p>
 #>     </el-collapse-item>
 #>   </el-collapse>
