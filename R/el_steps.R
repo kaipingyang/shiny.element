@@ -98,7 +98,16 @@ el_steps <- function(id = NULL,
             "function(newVal) { Shiny.setInputValue('%s', newVal); }",  
             ns_id  
           ))  
-        )  
+        ),  
+        mounted = htmlwidgets::JS(sprintf(  
+          paste0(  
+            "function() { var self = this, id = '%s'; ",  
+            "var send = function() { Shiny.setInputValue(id, self.active); }; ",  
+            "if (window.Shiny && Shiny.shinyapp && Shiny.shinyapp.isConnected && Shiny.shinyapp.isConnected()) ",  
+            "{ send(); } else { $(document).one('shiny:connected', send); } }"  
+          ),  
+          ns_id  
+        ))  
       )  
     )  
   )  

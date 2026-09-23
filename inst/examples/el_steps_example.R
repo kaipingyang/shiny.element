@@ -23,9 +23,12 @@ server1 <- function(input, output, session) {
     paste("当前步骤:", input$steps1)  
   })  
     
+  n_steps <- 3L  
+  
   observeEvent(input$next_btn, {  
-    current <- input$steps1 %||% 0  
-    new_active <- if (current >= 2) 0 else current + 1  
+    current <- input$steps1  
+    # active == n_steps 表示全部完成（三个圆圈都打勾），再点才回到起点  
+    new_active <- if (current >= n_steps) 0L else current + 1L  
     update_el_steps(session, "steps1", active = new_active)  
   })  
 }  
