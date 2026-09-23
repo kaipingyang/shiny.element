@@ -117,7 +117,8 @@ el_tabs <- function(
             "function(tab, event) { Shiny.setInputValue('%s', tab.name); }",
             ns_id
           ))
-        )
+        ),
+        mounted = .el_mounted_init(stats::setNames("activeTab", ns_id))
       )
     )
   )

@@ -135,7 +135,8 @@ el_radio_group <- function(
             "function(value) { Shiny.setInputValue('%s', value); }",
             ns_id
           ))
-        )
+        ),
+        mounted = .el_mounted_init(stats::setNames("value", ns_id))
       )
     )
   )

@@ -107,7 +107,8 @@ el_calendar <- function(id = NULL,
             "function(newVal) { Shiny.setInputValue('%s', newVal); }",   
             ns_id  
           ))  
-        )  
+        ),  
+        mounted = .el_mounted_init(stats::setNames("value", ns_id))  
       )  
     )  
   )  

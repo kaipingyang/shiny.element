@@ -73,7 +73,8 @@ el_color_picker <- function(
             "function(val) { Shiny.setInputValue('%s', val); }",
             ns_id
           ))
-        )
+        ),
+        mounted = .el_mounted_init(stats::setNames("value", ns_id))
       )
     )
   )

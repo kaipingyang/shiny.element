@@ -78,7 +78,8 @@ el_collapse <- function(
             "function(val) { Shiny.setInputValue('%s', val); }",
             ns_id
           ))
-        )
+        ),
+        mounted = .el_mounted_init(stats::setNames("activeNames", ns_id))
       )
     )
   )

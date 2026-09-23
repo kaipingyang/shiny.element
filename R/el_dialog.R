@@ -141,7 +141,8 @@ el_dialog <- function(
             "function() { Shiny.setInputValue('%s_visible', false); this.visible = false; }",
             ns_id
           ))
-        )
+        ),
+        mounted = .el_mounted_init(stats::setNames("visible", paste0(ns_id, "_visible")))
       )
     )
   )

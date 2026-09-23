@@ -100,7 +100,8 @@ el_input_number <- function(
             "function(val) { Shiny.setInputValue('%s', val); }",
             ns_id
           ))
-        )
+        ),
+        mounted = .el_mounted_init(stats::setNames("value", ns_id))
       )
     )
   )

@@ -135,7 +135,8 @@ el_cascader <- function(id = NULL,
         methods = list(
           handleChange = htmlwidgets::JS(sprintf(
             "function(value) {\n  Shiny.setInputValue('%s_value', value);\n}", ns_id))
-        )
+        ),
+        mounted = .el_mounted_init(stats::setNames("value", paste0(ns_id, "_value")))
       )
     )
   )

@@ -116,7 +116,9 @@ el_pagination <- function(
             "function(size) { Shiny.setInputValue('%s_size', size); }",
             ns_id
           ))
-        )
+        ),
+        mounted = .el_mounted_init(stats::setNames(c("currentPage", "pageSize"),
+                                  paste0(ns_id, c("_page", "_size"))))
       )
     )
   )
