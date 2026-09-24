@@ -82,7 +82,7 @@ el_switch <- function(
   if (!is.null(width)) vue_data$width <- width
 
   component_ui <- shiny::tagList(
-    shiny::tags$div(id = container_id, switch_tag),
+    shiny::tags$div(id = container_id, style = .el_host_style(), switch_tag),
     vueR::vue(
       elementId = ns_id,
       list(

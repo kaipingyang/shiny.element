@@ -252,6 +252,34 @@ test_that("resetFields restores the declared values, not empty ones", {
   expect_equal(bev("String(document.querySelectorAll('#signup_container .el-form-item.is-error').length)"), "0")
 })
 
+# ── components do not each claim their own line ───────────────────────────────
+
+test_that("two buttons sit side by side", {
+  skip_if_no_browser()
+  # Vue mounts onto each component's container div but leaves it in the
+  # document. While it was block-level, no two components could share a line.
+  geom <- bev("(function(){var b=document.querySelectorAll('#inline_probe .el-button'); if(b.length<2) return 'null'; var a=b[0].getBoundingClientRect(), c=b[1].getBoundingClientRect(); return JSON.stringify({sameRow: Math.round(a.top)===Math.round(c.top), ordered: c.left>a.left})})()")
+  geom <- jsonlite::fromJSON(geom)
+  expect_true(geom$sameRow)
+  expect_true(geom$ordered)
+})
+
+test_that("the mount point generates no layout box of its own", {
+  skip_if_no_browser()
+  expect_equal(
+    bev("getComputedStyle(document.getElementById('probe_b1_container')).display"),
+    "contents"
+  )
+})
+
+test_that("a block component still fills its parent", {
+  skip_if_no_browser()
+  # display:contents must not stop an alert or a table from taking the full
+  # width of whatever contains it.
+  ratio <- bev("(function(){var t=document.querySelector('#tbl_container .el-table'); if(!t) return '0'; var p=t.parentElement.getBoundingClientRect(); return String(t.getBoundingClientRect().width / p.width)})()")
+  expect_gt(as.numeric(ratio), 0.9)
+})
+
 # ── layout is not distorted by the bundled stylesheet ─────────────────────────
 
 test_that("container components keep a normal line height", {

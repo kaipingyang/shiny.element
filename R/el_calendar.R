@@ -96,7 +96,7 @@ el_calendar <- function(id = NULL,
       }  
     ")),  
     tags$div(  
-      id = container_id,  
+      id = container_id, style = .el_host_style(),  
       tag("el-calendar", append(calendar_attrs, list(date_cell_slot)))  
     ),  
     vueR::vue(  

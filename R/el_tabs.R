@@ -104,7 +104,7 @@ el_tabs <- function(
 
   component_ui <- shiny::tagList(
     shiny::tags$div(
-      id = container_id,
+      id = container_id, style = .el_host_style(),
       htmltools::tag("el-tabs", c(tabs_attrs, tab_panes))
     ),
     vueR::vue(

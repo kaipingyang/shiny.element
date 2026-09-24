@@ -124,7 +124,7 @@ el_cascader <- function(id = NULL,
 
   component_ui <- tagList(
     tags$div(
-      id = container_id,
+      id = container_id, style = .el_host_style(),
       tag("el-cascader", cascader_attrs)
     ),
     vueR::vue(

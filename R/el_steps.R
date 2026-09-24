@@ -85,7 +85,7 @@ el_steps <- function(id = NULL,
   # Create component UI  
   component_ui <- tagList(  
     tags$div(  
-      id = container_id,  
+      id = container_id, style = .el_host_style(),  
       htmltools::tag("el-steps", c(steps_attrs, step_tags))  
     ),  
     vueR::vue(  

@@ -59,7 +59,7 @@ el_tag <- function(
 
   component_ui <- shiny::tagList(
     shiny::tags$div(
-      id = container_id,
+      id = container_id, style = .el_host_style(),
       htmltools::tag("el-tag", c(tag_attrs, list("{{label}}")))
     ),
     vueR::vue(

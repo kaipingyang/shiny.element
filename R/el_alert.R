@@ -66,7 +66,7 @@ el_alert <- function(
   vue_data$description <- if (is.null(description)) NA else description
   component_ui <- shiny::tagList(
     shiny::tags$div(
-      id = container_id,
+      id = container_id, style = .el_host_style(),
       htmltools::tag("el-alert", alert_attrs)
     ),
     vueR::vue(

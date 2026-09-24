@@ -62,7 +62,7 @@ el_collapse <- function(
 
   component_ui <- shiny::tagList(
     shiny::tags$div(
-      id = container_id,
+      id = container_id, style = .el_host_style(),
       htmltools::tag("el-collapse", c(collapse_attrs, item_tags))
     ),
     vueR::vue(

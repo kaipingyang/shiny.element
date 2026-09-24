@@ -115,7 +115,7 @@ el_dropdown <- function(
 
   component_ui <- shiny::tagList(
     shiny::tags$div(
-      id = container_id,
+      id = container_id, style = .el_host_style(),
       htmltools::tag("el-dropdown",
         c(dd_attrs, list(trigger_content, menu_tag))
       )

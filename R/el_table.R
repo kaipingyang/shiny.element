@@ -174,7 +174,7 @@ el_table <- function(data = list(),
 
   component_ui <- htmltools::tagList(
     htmltools::tags$div(
-      id = container_id,
+      id = container_id, style = .el_host_style(),
       htmltools::tag("el-table", table_content)
     ),
     vueR::vue(

@@ -60,7 +60,7 @@ el_color_picker <- function(
 
   component_ui <- shiny::tagList(
     shiny::tags$div(
-      id = container_id,
+      id = container_id, style = .el_host_style(),
       htmltools::tag("el-color-picker", cp_attrs)
     ),
     vueR::vue(

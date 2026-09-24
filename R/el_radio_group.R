@@ -102,7 +102,7 @@ el_radio_group <- function(
 
   component_ui <- shiny::tagList(
     shiny::tags$div(
-      id = container_id,
+      id = container_id, style = .el_host_style(),
       htmltools::tag("el-radio-group", c(group_attrs, list(radio_slot)))
     ),
     vueR::vue(

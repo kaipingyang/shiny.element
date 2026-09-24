@@ -116,7 +116,7 @@ el_select <- function(
 
   component_ui <- shiny::tagList(
     shiny::tags$div(
-      id = container_id,
+      id = container_id, style = .el_host_style(),
       htmltools::tag("el-select", c(select_attrs, list(option_slot)))
     ),
     vueR::vue(

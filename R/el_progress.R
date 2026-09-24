@@ -89,7 +89,7 @@ el_progress <- function(
   vue_data$color <- if (is.null(color)) "" else color
   component_ui <- shiny::tagList(
     shiny::tags$div(
-      id = container_id,
+      id = container_id, style = .el_host_style(),
       htmltools::tag("el-progress", progress_attrs)
     ),
     vueR::vue(

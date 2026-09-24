@@ -103,6 +103,11 @@ ui <- el_page(
   # ElProgress calls .length on color and throws on JSON null.
   el_progress("probe_progress", percentage = 40),
 
+  # Two buttons side by side: the mount-point div used to be block-level, so
+  # every component started on its own line.
+  tags$div(id = "inline_probe",
+    el_button("probe_b1", "One"), el_button("probe_b2", "Two")),
+
   verbatimTextOutput("dump")
 )
 

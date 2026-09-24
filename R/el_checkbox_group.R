@@ -88,7 +88,7 @@ el_checkbox_group <- function(
   vue_data$min <- if (is.null(min)) NA else min
   vue_data$max <- if (is.null(max)) NA else max
   component_ui <- shiny::tagList(
-    shiny::tags$div(id = container_id, group_tag),
+    shiny::tags$div(id = container_id, style = .el_host_style(), group_tag),
     vueR::vue(
       elementId = ns_id,
       list(
