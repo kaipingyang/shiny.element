@@ -244,3 +244,15 @@ el_dropdown_handler_dependency <- function() {
     all_files = FALSE
   )
 }
+
+#' Form Handler Dependency
+#' @keywords internal
+el_form_handler_dependency <- function() {
+  htmltools::htmlDependency(
+    name      = "el-form-handler",
+    version   = "1.0.0",
+    src       = system.file("js", package = "shiny.element"),
+    script    = "el-form-handler.js",
+    all_files = FALSE
+  )
+}

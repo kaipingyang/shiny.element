@@ -194,6 +194,64 @@ test_that("the cascader's own handler is loaded and its updates land", {
   expect_equal(bev("(function(){var w=HTMLWidgets.find('#casc'); return String(w.instance.disabled)})()"), "true")
 })
 
+# ── form ──────────────────────────────────────────────────────────────────────
+
+test_that("the form renders one control per declared field", {
+  skip_if_no_browser()
+  # A single template dispatches on f.tag via <component :is>, so a missing
+  # type mapping shows up as a control that never rendered.
+  expect_equal(bev("String(document.querySelectorAll('#signup_container .el-input-number').length)"), "1")
+  expect_equal(bev("String(document.querySelectorAll('#signup_container .el-select').length)"), "1")
+  expect_equal(bev("(function(){var e=document.querySelector('#signup_container .el-form-item__label'); return getComputedStyle(e).width})()"), "110px")
+  expect_equal(bev("String(document.querySelectorAll('#signup_container .el-form-item.is-required').length)"), "2")
+})
+
+test_that("the form reports its whole model on load", {
+  skip_if_no_browser()
+  model <- bev("(function(){var w=HTMLWidgets.find('#signup'); return JSON.stringify(w.instance.model)})()")
+  # Types survive the round-trip: a number stays a number.
+  expect_equal(model, '{"fname":"","fage":18,"fcity":""}')
+})
+
+test_that("submitting an incomplete form fails validation client-side", {
+  skip_if_no_browser()
+  bev("(function(){document.querySelectorAll('#signup_container .el-button')[0].click()})()")
+  Sys.sleep(2.5)
+  expect_equal(bev("String(document.querySelectorAll('#signup_container .el-form-item.is-error').length)"), "2")
+  expect_equal(
+    bev("JSON.stringify(Array.from(document.querySelectorAll('#signup_container .el-form-item__error')).map(function(e){return e.innerText}))"),
+    '["name required","pick a city"]'
+  )
+  vals <- bdump()
+  expect_equal(vals[["signup_valid"]], "FALSE")
+  expect_equal(vals[["signup_submit"]], "1")
+})
+
+test_that("a filled form passes and reports the model", {
+  skip_if_no_browser()
+  bclick("#form_prefill", wait = 2.5)
+  bev("(function(){document.querySelectorAll('#signup_container .el-button')[0].click()})()")
+  Sys.sleep(2.5)
+  expect_equal(bev("String(document.querySelectorAll('#signup_container .el-form-item.is-error').length)"), "0")
+  expect_equal(bdump()[["signup_valid"]], "TRUE")
+  expect_equal(
+    bev("(function(){var w=HTMLWidgets.find('#signup'); return JSON.stringify(w.instance.model)})()"),
+    '{"fname":"Ada","fage":18,"fcity":"sh"}'
+  )
+})
+
+test_that("resetFields restores the declared values, not empty ones", {
+  skip_if_no_browser()
+  bev("(function(){document.querySelectorAll('#signup_container .el-button')[1].click()})()")
+  Sys.sleep(2.5)
+  # fage was declared as 18, so it resets to 18 rather than 0.
+  expect_equal(
+    bev("(function(){var w=HTMLWidgets.find('#signup'); return JSON.stringify(w.instance.model)})()"),
+    '{"fname":"","fage":18,"fcity":""}'
+  )
+  expect_equal(bev("String(document.querySelectorAll('#signup_container .el-form-item.is-error').length)"), "0")
+})
+
 # ── no silent failures ────────────────────────────────────────────────────────
 
 test_that("the page raises no JS exceptions throughout", {

@@ -79,6 +79,20 @@ ui <- el_page(
     )
   ),
 
+  # Form: owns its model, so validation runs client-side and the whole form
+  # reports once on submit rather than field by field.
+  el_form(
+    id = "signup", label_width = "110px", reset_label = "Reset",
+    el_form_field("fname", "input", label = "Name",
+                  rules = el_rule(required = TRUE, message = "name required")),
+    el_form_field("fage", "input-number", label = "Age", value = 18, min = 0, max = 150),
+    el_form_field("fcity", "select", label = "City",
+                  choices = c(Beijing = "bj", Shanghai = "sh"),
+                  rules = el_rule(required = TRUE, message = "pick a city",
+                                  trigger = "change"))
+  ),
+  actionButton("form_prefill", "prefill form"),
+
   verbatimTextOutput("dump")
 )
 
@@ -92,7 +106,8 @@ server <- function(input, output, session) {
     invalidateLater(1000, session)
     ids <- c("inp", "sel", "sw", "sld", "rate", "rg", "cg", "num", "dp", "cp",
              "tabs", "pg_page", "pg_size", "col", "rg_num", "stp",
-             "tbl_selected_rows", "casc_value", "sw_nested", "sld_nested")
+             "tbl_selected_rows", "casc_value", "sw_nested", "sld_nested",
+             "signup_submit", "signup_valid")
     for (i in ids) cat(i, "=", fmt(input[[i]]), "\n")
   })
 
@@ -105,6 +120,11 @@ server <- function(input, output, session) {
 
   observeEvent(input$tbl_swap, {
     update_el_table(session, "tbl", data = head(mtcars, 6))
+  })
+
+  observeEvent(input$form_prefill, {
+    update_el_form(session, "signup",
+                   model = list(fname = "Ada", fcity = "sh"))
   })
 
   observeEvent(input$casc_update, {
