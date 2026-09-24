@@ -72,7 +72,7 @@ el_progress <- function(
     ":show-text"   = "showText",
     ":width"       = "width"
   )
-  progress_attrs[[":status"]] <- "status"
+  progress_attrs[[":status"]] <- .el_optional_bind("status")
   progress_attrs[[":color"]] <- "color"
   vue_data <- list(
     percentage  = percentage,

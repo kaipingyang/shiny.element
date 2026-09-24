@@ -116,3 +116,43 @@ test_that("the htmlwidget container is declared with zero size", {
     expect_match(box, "height:0px", fixed = TRUE)
   }
 })
+
+# ── optional props fall back to Element's own defaults ────────────────────────
+
+test_that(".el_optional_bind: maps null back to undefined", {
+  # Vue treats null as a value and only falls back to a prop's default for
+  # undefined. R cannot send undefined through JSON, so the template has to
+  # map it. A conditional rather than ?? because the expression is evaluated
+  # at runtime, where a polyfill cannot help with syntax.
+  expect_equal(.el_optional_bind("placeholder"),
+               "placeholder === null ? undefined : placeholder")
+})
+
+test_that("optional props are bound through the fallback expression", {
+  cases <- list(
+    list(el_input("x"), c("size", "placeholder")),
+    list(el_select("x", choices = c(A = "a")), "placeholder"),
+    list(el_date_picker("x"), "placeholder"),
+    list(el_checkbox_group("x", choices = c(A = "a")), c("min", "max")),
+    list(el_progress("x"), "status"),
+    list(el_alert("x"), "description"),
+    list(el_calendar("x"), "range")
+  )
+  for (case in cases) {
+    html <- paste(as.character(case[[1]]), collapse = "")
+    for (field in case[[2]]) {
+      expect_match(
+        html,
+        sprintf(':%s="%s"', field, .el_optional_bind(field)),
+        fixed = TRUE, info = field
+      )
+    }
+  }
+})
+
+test_that("el_progress colour keeps its empty-string default, not the expression", {
+  # ElProgress calls .length on color, so it must never see undefined either.
+  html <- paste(as.character(el_progress("x")), collapse = "")
+  expect_match(html, '"color":""', fixed = TRUE)
+  expect_false(grepl("color === null", html, fixed = TRUE))
+})

@@ -111,7 +111,7 @@ el_date_picker <- function(
     ":align"           = "align",
     "@change"          = "handleChange"
   )
-  picker_attrs[[":placeholder"]] <- "placeholder"
+  picker_attrs[[":placeholder"]] <- .el_optional_bind("placeholder")
   if (!is.null(start_placeholder)) picker_attrs[[":start-placeholder"]] <- "startPlaceholder"
   if (!is.null(end_placeholder))   picker_attrs[[":end-placeholder"]]   <- "endPlaceholder"
 

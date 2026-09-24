@@ -252,6 +252,25 @@ test_that("resetFields restores the declared values, not empty ones", {
   expect_equal(bev("String(document.querySelectorAll('#signup_container .el-form-item.is-error').length)"), "0")
 })
 
+# ── unsupplied props fall back to Element's defaults ──────────────────────────
+
+test_that("a select with no placeholder shows Element's own", {
+  skip_if_no_browser()
+  # Bound to a bare null it rendered an empty placeholder instead. The text
+  # comes from Element's locale, so this also proves the prop reached its
+  # default rather than being overwritten.
+  ph <- bev("(function(){var e=document.querySelector('#sel_container input'); return e ? e.placeholder : 'NONE'})()")
+  expect_true(nzchar(ph))
+  expect_false(identical(ph, "NONE"))
+})
+
+test_that("an input with no size keeps the default height", {
+  skip_if_no_browser()
+  h <- as.numeric(bev("(function(){var e=document.querySelector('#inp_container .el-input__inner'); return e ? String(Math.round(e.getBoundingClientRect().height)) : '0'})()"))
+  # Element's default control height is 40px; the small sizes are 36/32/28.
+  expect_equal(h, 40)
+})
+
 # ── components do not each claim their own line ───────────────────────────────
 
 test_that("two buttons sit side by side", {

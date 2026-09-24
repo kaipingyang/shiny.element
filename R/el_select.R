@@ -97,7 +97,7 @@ el_select <- function(
     ":collapse-tags"  = "collapseTags",
     "@change"         = "handleChange"
   )
-  select_attrs[[":placeholder"]] <- "placeholder"
+  select_attrs[[":placeholder"]] <- .el_optional_bind("placeholder")
   if (!is.null(size))        select_attrs[[":size"]]        <- "size"
 
   # Build Vue data

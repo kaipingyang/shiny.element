@@ -162,8 +162,9 @@ test_that("el_input: :size attr present when size set", {
 
 test_that("el_input: :size and :placeholder are bound even when NULL", {
   html <- render_html(el_input("inp1", size = NULL, placeholder = NULL, session = NULL))
-  expect_match(html, ':size="size"', fixed = TRUE)
-  expect_match(html, ':placeholder="placeholder"', fixed = TRUE)
+  expect_match(html, sprintf(':size="%s"', .el_optional_bind("size")), fixed = TRUE)
+  expect_match(html, sprintf(':placeholder="%s"', .el_optional_bind("placeholder")),
+               fixed = TRUE)
 })
 
 test_that("el_input: :placeholder attr present when set", {

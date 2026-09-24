@@ -119,3 +119,21 @@ el_ns <- function(id, session = shiny::getDefaultReactiveDomain()) {
 .el_host_style <- function() {
   "display: contents"
 }
+
+#' Vue binding for a prop that may be unset
+#'
+#' Element UI's props fall back to their own defaults when passed `undefined`,
+#' but treat `null` as a value: an `el-select` bound to a null placeholder
+#' renders an empty one instead of "请选择". R has no way to send `undefined`
+#' through JSON, so an unsupplied field arrives as `null` and the expression
+#' has to map it back.
+#'
+#' A conditional is used rather than `??` because a template expression is
+#' evaluated at runtime, where a polyfill cannot help with syntax.
+#'
+#' @param field Name of the Vue data field.
+#' @return A template expression yielding the field, or `undefined` when unset.
+#' @keywords internal
+.el_optional_bind <- function(field) {
+  sprintf("%1$s === null ? undefined : %1$s", field)
+}

@@ -109,7 +109,9 @@ test_that("el_date_picker: placeholder is always bound, null when not supplied",
   # silent no-op. NA serialises to JSON null, which Element treats as unset.
   dp_no  <- el_date_picker("dp1", session = NULL)
   dp_yes <- el_date_picker("dp1", placeholder = "Pick date", session = NULL)
-  expect_match(render_html(dp_no), ':placeholder="placeholder"')
+  expect_match(render_html(dp_no),
+               sprintf(':placeholder="%s"', .el_optional_bind("placeholder")),
+               fixed = TRUE)
   expect_match(render_html(dp_no), '"placeholder":null', fixed = TRUE)
   expect_match(render_html(dp_yes), '"placeholder":"Pick date"', fixed = TRUE)
 })

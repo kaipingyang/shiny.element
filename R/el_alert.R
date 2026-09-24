@@ -53,7 +53,7 @@ el_alert <- function(
     ":effect"      = "effect",
     "@close"       = "handleClose"
   )
-  alert_attrs[[":description"]] <- "description"
+  alert_attrs[[":description"]] <- .el_optional_bind("description")
   vue_data <- list(
     title       = title,
     type        = type,

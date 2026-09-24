@@ -90,7 +90,8 @@ test_that("el_alert: description is bound and null when not supplied", {
   # data is not reactive, so the matching update_*() argument would be a
   # silent no-op. NA serialises to JSON null, which Element treats as unset.
   html <- render_html(el_alert("a1", title = "Alert"))
-  expect_match(html, ':description="description"', fixed = TRUE)
+  expect_match(html, sprintf(':description="%s"', .el_optional_bind("description")),
+               fixed = TRUE)
   expect_match(html, '"description":null', fixed = TRUE)
 })
 

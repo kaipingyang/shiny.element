@@ -75,8 +75,8 @@ el_checkbox_group <- function(
     "@change"   = "handleChange"
   )
   if (!is.null(size)) group_attrs[[":size"]] <- "size"
-  group_attrs[[":min"]] <- "min"
-  group_attrs[[":max"]] <- "max"
+  group_attrs[[":min"]] <- .el_optional_bind("min")
+  group_attrs[[":max"]] <- .el_optional_bind("max")
   group_tag <- htmltools::tag("el-checkbox-group", c(group_attrs, list(cb_slot)))
 
   vue_data <- list(

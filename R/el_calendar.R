@@ -69,7 +69,7 @@ el_calendar <- function(id = NULL,
   )  
   # Bound unconditionally so update_el_calendar(range = ) can set it later; a
   # field left out of the Vue data is not reactive.
-  calendar_attrs[[":range"]] <- "range"  
+  calendar_attrs[[":range"]] <- .el_optional_bind("range")  
   
   date_cell_slot <- htmltools::HTML('  
     <template slot="dateCell" slot-scope="{date, data}">  

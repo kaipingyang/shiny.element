@@ -95,10 +95,10 @@ el_input <- function(
   )
 
   # Conditional attributes (only add when not NULL)
-  input_attrs[[":size"]] <- "size"
+  input_attrs[[":size"]] <- .el_optional_bind("size")
   if (!is.null(maxlength))   input_attrs[[":maxlength"]]   <- "maxlength"
   if (!is.null(rows))        input_attrs[[":rows"]]        <- "rows"
-  input_attrs[[":placeholder"]] <- "placeholder"
+  input_attrs[[":placeholder"]] <- .el_optional_bind("placeholder")
   if (!is.null(label))       input_attrs[[":label"]]       <- "label"
 
   # Always-present Vue data fields
