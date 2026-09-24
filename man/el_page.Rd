@@ -8,7 +8,8 @@ el_page(
   ...,
   title = NULL,
   theme = bslib::bs_theme(version = 5, bootswatch = "minty"),
-  theme_css = el_layout_css_dependency()
+  theme_css = el_layout_css_dependency(),
+  offline = TRUE
 )
 }
 \arguments{
@@ -19,7 +20,10 @@ el_page(
 \item{theme}{Optional bslib or shiny theme object (e.g., \code{bs_theme()}) for Bootstrap styling.
 If provided, Bootstrap dependencies will be included.}
 
-\item{theme_css}{Optional Element-UI layout CSS dependency (default: \code{el_layout_css_dependency()}).
+\item{theme_css}{Optional Element-UI layout CSS dependency (default: \code{el_layout_css_dependency()}).}
+
+\item{offline}{Serve Element UI from the copy bundled with this package
+rather than the unpkg CDN. See \code{\link[=element_ui_dependency]{element_ui_dependency()}}.
 Set to \code{NULL} to disable Element-UI layout CSS.}
 }
 \description{

@@ -93,6 +93,10 @@ ui <- el_page(
   ),
   actionButton("form_prefill", "prefill form"),
 
+  # Forces the icon font to load, so the offline-assets test has something
+  # to observe.
+  tags$i(class = "el-icon-edit"),
+
   verbatimTextOutput("dump")
 )
 

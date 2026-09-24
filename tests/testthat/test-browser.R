@@ -252,6 +252,24 @@ test_that("resetFields restores the declared values, not empty ones", {
   expect_equal(bev("String(document.querySelectorAll('#signup_container .el-form-item.is-error').length)"), "0")
 })
 
+# ── offline assets ────────────────────────────────────────────────────────────
+
+test_that("the page loads no third-party assets at runtime", {
+  skip_if_no_browser()
+  # A CDN dependency leaves the app blank on an intranet or when unpkg is down.
+  hosts <- bev("JSON.stringify(Array.from(new Set(Array.from(document.querySelectorAll('script[src],link[href]')).map(function(e){try{return new URL(e.src||e.href).hostname}catch(x){return null}}).filter(Boolean))))")
+  expect_false(grepl("unpkg", hosts, fixed = TRUE))
+  expect_false(grepl("cdn", hosts, fixed = TRUE))
+})
+
+test_that("the bundled icon font is served and loaded", {
+  skip_if_no_browser()
+  expect_equal(
+    bev("(function(){return String(Array.from(document.fonts).some(function(f){return f.family.indexOf('element-icons')>-1 && f.status==='loaded'}))})()"),
+    "true"
+  )
+})
+
 # ── no silent failures ────────────────────────────────────────────────────────
 
 test_that("the page raises no JS exceptions throughout", {

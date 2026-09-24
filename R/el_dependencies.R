@@ -4,7 +4,9 @@
 #' Use this when you want to use Element-UI components in non-el_page layouts  
 #' (e.g., bslib::page_sidebar, shiny::navbarPage).  
 #'   
-#' @param theme CSS dependency function or list (optional, default is el_layout_css_dependency())  
+#' @param theme CSS dependency function or list (optional, default is el_layout_css_dependency())
+#' @param offline Serve Element UI from the copy bundled with this package
+#'   rather than the unpkg CDN. See [element_ui_dependency()].  
 #' @return A list of htmlDependency objects  
 #' @export  
 #' @examples  
@@ -15,11 +17,11 @@
 #'   el_button("btn1", "Click me")  
 #' )  
 #' }  
-use_element <- function(theme = el_layout_css_dependency()) {
+use_element <- function(theme = el_layout_css_dependency(), offline = TRUE) {
   deps <- list(
     vueR::html_dependency_vue(),
     vue_handler_dependency(),
-    element_ui_dependency(),
+    element_ui_dependency(offline = offline),
     el_feedback_dependency()
   )
 
@@ -48,16 +50,32 @@ vue_handler_dependency <- function() {
     script = "vue-handlers.js"
   )
 }
-
 #' Element UI Dependency
+#'
+#' @param offline Serve Element UI from the copy bundled with this package
+#'   (the default) instead of the unpkg CDN. The bundled files are
+#'   byte-identical to the CDN's. A runtime CDN dependency leaves the page
+#'   blank on an intranet, offline, or whenever unpkg is unreachable, so the
+#'   local copy is the safer default; pass `FALSE` to trade that for a smaller
+#'   deployment bundle.
+#' @return An htmlDependency object for Element UI.
 #' @export
-element_ui_dependency <- function() {
+element_ui_dependency <- function(offline = TRUE) {
+  src <- if (offline) {
+    system.file("element-ui", package = "shiny.element")
+  } else {
+    c(href = "https://unpkg.com/element-ui@2.13.2/lib/")
+  }
+
   htmltools::htmlDependency(
-    name = "element-ui",
-    version = "2.13.2",
-    src = c(href = "https://unpkg.com/element-ui@2.13.2/lib/"),
-    script = "index.js",
-    stylesheet = "theme-chalk/index.css"
+    name       = "element-ui",
+    version    = "2.13.2",
+    src        = src,
+    script     = "index.js",
+    stylesheet = "theme-chalk/index.css",
+    # The stylesheet references fonts/element-icons.woff relatively, so the
+    # whole directory has to be served, not just the two named files.
+    all_files  = TRUE
   )
 }
 

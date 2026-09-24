@@ -8,10 +8,13 @@ Convenience function to load Vue, Element-UI, and layout CSS dependencies.
 Use this when you want to use Element-UI components in non-el_page layouts
 (e.g., bslib::page_sidebar, shiny::navbarPage).}
 \usage{
-use_element(theme = el_layout_css_dependency())
+use_element(theme = el_layout_css_dependency(), offline = TRUE)
 }
 \arguments{
 \item{theme}{CSS dependency function or list (optional, default is el_layout_css_dependency())}
+
+\item{offline}{Serve Element UI from the copy bundled with this package
+rather than the unpkg CDN. See \code{\link[=element_ui_dependency]{element_ui_dependency()}}.}
 }
 \value{
 A list of htmlDependency objects
