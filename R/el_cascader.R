@@ -143,7 +143,7 @@ el_cascader <- function(id = NULL,
 
   htmltools::attachDependencies(
     component_ui,
-    el_button_handler_dependency()
+    el_cascader_handler_dependency()
   )
 }
 

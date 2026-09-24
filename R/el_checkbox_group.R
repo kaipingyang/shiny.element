@@ -1,25 +1,3 @@
-#' Normalize choices for el_checkbox_group
-#'
-#' Converts various choice formats into a uniform list of
-#' `list(value = ..., label = ...)` items.
-#'
-#' @param choices Named character vector, list of lists, or unnamed vector.
-#' @return A list of `list(value, label)` items.
-#' @keywords internal
-normalize_choices <- function(choices) {
-  if (is.character(choices) && !is.null(names(choices))) {
-    result <- mapply(
-      function(lbl, val) list(value = val, label = lbl),
-      names(choices), unname(choices),
-      SIMPLIFY = FALSE
-    )
-    unname(result)
-  } else if (is.list(choices)) {
-    choices
-  } else {
-    lapply(choices, function(x) list(value = x, label = as.character(x)))
-  }
-}
 
 
 #' Element UI Checkbox Group
@@ -104,7 +82,7 @@ el_checkbox_group <- function(
 
   vue_data <- list(
     value    = if (is.null(selected)) list() else as.list(selected),
-    options  = normalize_choices(choices),
+    options  = .el_normalize_choices(choices),
     disabled = disabled
   )
   if (!is.null(size)) vue_data$size <- size
@@ -159,7 +137,7 @@ update_el_checkbox_group <- function(
   ns_id <- session$ns(id)
   msg   <- list(id = ns_id)
   if (!is.null(value))    msg$value    <- value
-  if (!is.null(options))  msg$options  <- options
+  if (!is.null(options))  msg$options  <- .el_normalize_choices(options)
   if (!is.null(disabled)) msg$disabled <- disabled
   if (!is.null(min))      msg$min      <- min
   if (!is.null(max))      msg$max      <- max

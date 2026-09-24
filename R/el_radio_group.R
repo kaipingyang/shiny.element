@@ -1,19 +1,4 @@
 # Private helper: normalise choices to list of list(value=, label=)
-.normalize_choices_radio <- function(choices) {
-  if (is.character(choices) && !is.null(names(choices))) {
-    # named character vector: names = label, values = value
-    mapply(
-      function(label, value) list(value = value, label = label),
-      names(choices), unname(choices),
-      SIMPLIFY = FALSE, USE.NAMES = FALSE
-    )
-  } else if (is.list(choices)) {
-    choices  # already list of list(value=, label=)
-  } else {
-    # unnamed vector: use as both value and label
-    lapply(choices, function(x) list(value = x, label = as.character(x)))
-  }
-}
 
 # Private dependency loader (not exported)
 el_radio_group_handler_dependency <- function() {
@@ -115,7 +100,7 @@ el_radio_group <- function(
   # Build Vue data
   vue_data <- list(
     value    = if (is.null(selected)) "" else selected,
-    options  = .normalize_choices_radio(choices),
+    options  = .el_normalize_choices(choices),
     disabled = disabled
   )
   if (!is.null(size)) vue_data$size <- size
@@ -168,7 +153,7 @@ update_el_radio_group <- function(
   ns_id <- session$ns(id)
   msg   <- list(id = ns_id)
   if (!is.null(value))    msg$value    <- value
-  if (!is.null(options))  msg$options  <- .normalize_choices_radio(options)
+  if (!is.null(options))  msg$options  <- .el_normalize_choices(options)
   if (!is.null(disabled)) msg$disabled <- disabled
   session$sendCustomMessage("updateElRadioGroup", msg)
 }

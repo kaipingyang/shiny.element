@@ -39,3 +39,33 @@ el_ns <- function(id, session = shiny::getDefaultReactiveDomain()) {
     "{ send(); } else { $(document).one('shiny:connected', send); } }"
   ))
 }
+
+#' Normalise `choices` into option configs
+#'
+#' Accepts a named vector (`c(Label = value)`), an unnamed vector, or a list
+#' already shaped as `list(value = , label = )` items, and returns the list
+#' form that `el-option` / `el-radio` / `el-checkbox` iterate over.
+#'
+#' The named branch deliberately does not require a character vector. It used
+#' to, so `c(Beijing = 1, Shanghai = 2)` fell through to the unnamed branch:
+#' the labels were lost (rendered as "1" and "2") and the surviving names
+#' turned the serialised JSON into an object rather than the array `v-for`
+#' expects.
+#'
+#' @param choices A named vector, an unnamed vector, or a list of configs.
+#' @return An unnamed list of `list(value = , label = )` items.
+#' @keywords internal
+.el_normalize_choices <- function(choices) {
+  # A list is assumed to be in option shape already.
+  if (is.list(choices)) return(choices)
+
+  if (!is.null(names(choices))) {
+    return(mapply(
+      function(label, value) list(value = value, label = label),
+      names(choices), unname(choices),
+      SIMPLIFY = FALSE, USE.NAMES = FALSE
+    ))
+  }
+
+  lapply(choices, function(x) list(value = x, label = as.character(x)))
+}
