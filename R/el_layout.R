@@ -1,98 +1,157 @@
+#' Merge inline style fragments
+#'
+#' [htmltools::tagAppendAttributes()] joins repeated `style` attributes with a
+#' space, producing invalid CSS (`"color:red padding-left:10px"`), so style
+#' fragments are assembled here instead.
+#'
+#' @param ... Style fragments; `NULL` entries are dropped.
+#' @return A single `;`-separated style string, or `NULL` if nothing was given.
+#' @keywords internal
+.el_style <- function(...) {
+  parts <- unlist(list(...))
+  parts <- parts[!is.na(parts) & nzchar(parts)]
+  if (!length(parts)) return(NULL)
+  paste(sub(";\\s*$", "", parts), collapse = "; ")
+}
+
+#' Add gutter padding to a column
+#'
+#' Element UI's Col reads `gutter` off its parent Row and emits the padding
+#' inline, so the same has to happen here rather than through a CSS class.
+#'
+#' @param child A column tag, or any other child (returned untouched).
+#' @param half Half the gutter width, in pixels.
+#' @return The child with padding merged into its `style`.
+#' @keywords internal
+.el_col_gutter <- function(child, half) {
+  if (!inherits(child, "shiny.tag")) return(child)
+  child$attribs$style <- .el_style(
+    child$attribs$style,
+    sprintf("padding-left:%gpx", half),
+    sprintf("padding-right:%gpx", half)
+  )
+  child
+}
+
 #' Element UI Layout Row
 #'
-#' @param ... Child columns (el_col) or other Element UI components
-#' @param gutter Spacing between columns
-#' @param type Layout type, e.g. "flex"
-#' @param justify Flex horizontal alignment
-#' @param align Flex vertical alignment
-#' @param class CSS class
-#' @param style CSS style
+#' Emits `<div class="el-row">` directly rather than an `<el-row>` custom tag.
+#' Nothing mounts a Vue instance over page-level markup, so a custom tag would
+#' never be compiled and would render as an unstyled inline element; the
+#' Element UI stylesheet is already loaded, so the class name is all that is
+#' needed.
+#'
+#' @param ... Child columns ([el_col()]) or other content.
+#' @param gutter Spacing between columns, in pixels.
+#' @param type Set to `"flex"` for the flex layout, which `justify` and
+#'   `align` require.
+#' @param justify Flex horizontal alignment: `"start"` (default), `"center"`,
+#'   `"end"`, `"space-between"` or `"space-around"`.
+#' @param align Flex vertical alignment: `"top"` (default), `"middle"` or
+#'   `"bottom"`.
+#' @param class Extra CSS classes.
+#' @param style Extra inline style.
+#' @return A Shiny UI element.
 #' @export
-el_row <- function(..., gutter = NULL, type = NULL, justify = NULL, align = NULL,   
-                   class = NULL, style = NULL) {  
-  attrs <- list()  
-  if (!is.null(gutter)) attrs[["gutter"]] <- gutter  
-  if (!is.null(type)) attrs[["type"]] <- type  
-  if (!is.null(justify)) attrs[["justify"]] <- justify  
-  if (!is.null(align)) attrs[["align"]] <- align  
-  if (!is.null(class)) attrs[["class"]] <- class  
-  if (!is.null(style)) attrs[["style"]] <- style  
-  
-  children <- list(...)  
-    
-  # 提取子组件依赖  
-  all_deps <- lapply(children, function(child) {  
-    if (inherits(child, "shiny.tag.list") || inherits(child, "shiny.tag")) {  
-      htmltools::htmlDependencies(child)  
-    } else {  
-      NULL  
-    }  
-  })  
-  all_deps <- unlist(all_deps, recursive = FALSE)  
-    
-  # 直接创建标签,不转换为字符串  
-  tag <- htmltools::tag("el-row", c(attrs, children))  
-    
-  # 附加依赖  
-  if (length(all_deps) > 0) {  
-    tag <- htmltools::attachDependencies(tag, all_deps)  
-  }  
-    
-  tag  
+#' @examples
+#' # Two equal columns with a 20px gutter
+#' el_row(
+#'   gutter = 20,
+#'   el_col(span = 12, "left"),
+#'   el_col(span = 12, "right")
+#' )
+#'
+#' # Centred flex row
+#' el_row(
+#'   type = "flex", justify = "center", align = "middle",
+#'   el_col(span = 8, "centred")
+#' )
+el_row <- function(..., gutter = NULL, type = NULL, justify = NULL,
+                   align = NULL, class = NULL, style = NULL) {
+  children <- list(...)
+  is_flex  <- identical(type, "flex")
+
+  classes <- c(
+    "el-row",
+    if (is_flex) "el-row--flex",
+    # start / top are the defaults and have no class of their own.
+    if (is_flex && !is.null(justify) && !identical(justify, "start")) {
+      paste0("is-justify-", justify)
+    },
+    if (is_flex && !is.null(align) && !identical(align, "top")) {
+      paste0("is-align-", align)
+    },
+    class
+  )
+
+  gutter_style <- NULL
+  if (!is.null(gutter) && gutter > 0) {
+    half <- gutter / 2
+    gutter_style <- c(
+      sprintf("margin-left:-%gpx", half),
+      sprintf("margin-right:-%gpx", half)
+    )
+    children <- lapply(children, .el_col_gutter, half = half)
+  }
+
+  htmltools::tag("div", c(
+    list(class = paste(classes, collapse = " ")),
+    list(style = .el_style(gutter_style, style)),
+    children
+  ))
 }
 
 #' Element UI Layout Column
 #'
-#' @param ... Content or other Element UI components
-#' @param span Column span (1-24)
-#' @param offset Offset columns
-#' @param push Push columns
-#' @param pull Pull columns
-#' @param xs Responsive xs
-#' @param sm Responsive sm
-#' @param md Responsive md
-#' @param lg Responsive lg
-#' @param xl Responsive xl
-#' @param class CSS class
-#' @param style CSS style
+#' Emits `<div class="el-col el-col-N">` directly; see [el_row()] for why.
+#'
+#' @param ... Column content.
+#' @param span Column span out of 24. Defaults to 24, as in Element UI.
+#' @param offset Columns to offset by.
+#' @param push Columns to push right.
+#' @param pull Columns to pull left.
+#' @param xs,sm,md,lg,xl Responsive spans. Either a number (the span) or a
+#'   list such as `list(span = 12, offset = 6)`.
+#' @param class Extra CSS classes.
+#' @param style Extra inline style.
+#' @return A Shiny UI element.
 #' @export
-el_col <- function(..., span = NULL, offset = NULL, push = NULL, pull = NULL,  
-                   xs = NULL, sm = NULL, md = NULL, lg = NULL, xl = NULL,  
-                   class = NULL, style = NULL) {  
-  attrs <- list()  
-  if (!is.null(span)) attrs[["span"]] <- span  
-  if (!is.null(offset)) attrs[["offset"]] <- offset  
-  if (!is.null(push)) attrs[["push"]] <- push  
-  if (!is.null(pull)) attrs[["pull"]] <- pull  
-  if (!is.null(xs)) attrs[["xs"]] <- xs  
-  if (!is.null(sm)) attrs[["sm"]] <- sm  
-  if (!is.null(md)) attrs[["md"]] <- md  
-  if (!is.null(lg)) attrs[["lg"]] <- lg  
-  if (!is.null(xl)) attrs[["xl"]] <- xl  
-  if (!is.null(class)) attrs[["class"]] <- class  
-  if (!is.null(style)) attrs[["style"]] <- style  
-  
-  children <- list(...)  
-    
-  # 提取子组件依赖  
-  all_deps <- lapply(children, function(child) {  
-    if (inherits(child, "shiny.tag.list") || inherits(child, "shiny.tag")) {  
-      htmltools::htmlDependencies(child)  
-    } else {  
-      NULL  
-    }  
-  })  
-  all_deps <- unlist(all_deps, recursive = FALSE)  
-    
-  # 直接创建标签,不转换为字符串  
-  tag <- htmltools::tag("el-col", c(attrs, children))  
-    
-  # 附加依赖  
-  if (length(all_deps) > 0) {  
-    tag <- htmltools::attachDependencies(tag, all_deps)  
-  }  
-    
-  tag  
+#' @examples
+#' el_col(span = 12, "half width")
+#' el_col(span = 6, offset = 6, "quarter, pushed right")
+#' el_col(xs = 24, sm = 12, md = 8, "responsive")
+#' el_col(md = list(span = 12, offset = 6), "responsive with offset")
+el_col <- function(..., span = 24, offset = NULL, push = NULL, pull = NULL,
+                   xs = NULL, sm = NULL, md = NULL, lg = NULL, xl = NULL,
+                   class = NULL, style = NULL) {
+  classes <- c("el-col", sprintf("el-col-%s", span))
+
+  for (nm in c("offset", "push", "pull")) {
+    val <- get(nm)
+    if (!is.null(val)) classes <- c(classes, sprintf("el-col-%s-%s", nm, val))
+  }
+
+  breakpoints <- list(xs = xs, sm = sm, md = md, lg = lg, xl = xl)
+  for (bp in names(breakpoints)) {
+    val <- breakpoints[[bp]]
+    if (is.null(val)) next
+    if (is.list(val)) {
+      if (!is.null(val$span)) classes <- c(classes, sprintf("el-col-%s-%s", bp, val$span))
+      for (nm in c("offset", "push", "pull")) {
+        if (!is.null(val[[nm]])) {
+          classes <- c(classes, sprintf("el-col-%s-%s-%s", bp, nm, val[[nm]]))
+        }
+      }
+    } else {
+      classes <- c(classes, sprintf("el-col-%s-%s", bp, val))
+    }
+  }
+
+  htmltools::tag("div", c(
+    list(class = paste(c(classes, class), collapse = " ")),
+    list(style = .el_style(style)),
+    list(...)
+  ))
 }
 
 #' Element UI Page Wrapper with Theme Support

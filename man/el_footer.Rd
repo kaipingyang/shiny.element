@@ -4,17 +4,25 @@
 \alias{el_footer}
 \title{Element UI Footer}
 \usage{
-el_footer(..., height = NULL, style = NULL, class = NULL)
+el_footer(..., height = "60px", style = NULL, class = NULL)
 }
 \arguments{
-\item{...}{Content}
+\item{...}{Content.}
 
-\item{height}{Height (e.g. "60px")}
+\item{height}{Footer height. Defaults to \code{"60px"}, as in Element UI, which
+sets it inline rather than through the stylesheet.}
 
-\item{style}{CSS style}
+\item{style}{Extra inline style.}
 
-\item{class}{CSS class}
+\item{class}{Extra CSS classes.}
+}
+\value{
+A Shiny UI element.
 }
 \description{
 Element UI Footer
+}
+\examples{
+el_footer("(c) 2026")
+el_footer(height = "40px", "Compact footer")
 }

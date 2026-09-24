@@ -4,17 +4,25 @@
 \alias{el_aside}
 \title{Element UI Aside}
 \usage{
-el_aside(..., width = NULL, style = NULL, class = NULL)
+el_aside(..., width = "300px", style = NULL, class = NULL)
 }
 \arguments{
-\item{...}{Content}
+\item{...}{Content.}
 
-\item{width}{Width (e.g. "200px")}
+\item{width}{Aside width. Defaults to \code{"300px"}, as in Element UI, which
+sets it inline rather than through the stylesheet.}
 
-\item{style}{CSS style}
+\item{style}{Extra inline style.}
 
-\item{class}{CSS class}
+\item{class}{Extra CSS classes.}
+}
+\value{
+A Shiny UI element.
 }
 \description{
 Element UI Aside
+}
+\examples{
+el_aside("Navigation")
+el_aside(width = "200px", el_radio_group("nav", choices = c(Home = "h")))
 }

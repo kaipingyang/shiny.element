@@ -6,7 +6,7 @@
 \usage{
 el_col(
   ...,
-  span = NULL,
+  span = 24,
   offset = NULL,
   push = NULL,
   pull = NULL,
@@ -20,30 +20,32 @@ el_col(
 )
 }
 \arguments{
-\item{...}{Content or other Element UI components}
+\item{...}{Column content.}
 
-\item{span}{Column span (1-24)}
+\item{span}{Column span out of 24. Defaults to 24, as in Element UI.}
 
-\item{offset}{Offset columns}
+\item{offset}{Columns to offset by.}
 
-\item{push}{Push columns}
+\item{push}{Columns to push right.}
 
-\item{pull}{Pull columns}
+\item{pull}{Columns to pull left.}
 
-\item{xs}{Responsive xs}
+\item{xs, sm, md, lg, xl}{Responsive spans. Either a number (the span) or a
+list such as \code{list(span = 12, offset = 6)}.}
 
-\item{sm}{Responsive sm}
+\item{class}{Extra CSS classes.}
 
-\item{md}{Responsive md}
-
-\item{lg}{Responsive lg}
-
-\item{xl}{Responsive xl}
-
-\item{class}{CSS class}
-
-\item{style}{CSS style}
+\item{style}{Extra inline style.}
+}
+\value{
+A Shiny UI element.
 }
 \description{
-Element UI Layout Column
+Emits \verb{<div class="el-col el-col-N">} directly; see \code{\link[=el_row]{el_row()}} for why.
+}
+\examples{
+el_col(span = 12, "half width")
+el_col(span = 6, offset = 6, "quarter, pushed right")
+el_col(xs = 24, sm = 12, md = 8, "responsive")
+el_col(md = list(span = 12, offset = 6), "responsive with offset")
 }

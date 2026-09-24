@@ -7,22 +7,56 @@
 el_container(
   ...,
   id = NULL,
+  direction = NULL,
   style = NULL,
   class = NULL,
-  session = getDefaultReactiveDomain()
+  session = shiny::getDefaultReactiveDomain()
 )
 }
 \arguments{
-\item{...}{Child components}
+\item{...}{Child components, typically \code{\link[=el_header]{el_header()}}, \code{\link[=el_aside]{el_aside()}},
+\code{\link[=el_main]{el_main()}} and \code{\link[=el_footer]{el_footer()}}.}
 
-\item{id}{Unique container id (auto-generated if NULL)}
+\item{id}{Optional container id.}
 
-\item{style}{CSS style}
+\item{direction}{\code{"horizontal"} or \code{"vertical"}. Defaults to vertical when a
+direct child is a header or footer, matching Element UI.}
 
-\item{class}{CSS class}
+\item{style}{Extra inline style.}
 
-\item{session}{Shiny session for module support}
+\item{class}{Extra CSS classes.}
+
+\item{session}{Shiny session, used to namespace \code{id} inside modules.}
+}
+\value{
+A Shiny UI element.
 }
 \description{
-Element UI Container
+Emits \verb{<div class="el-container">} directly.
+}
+\details{
+The previous implementation mounted a Vue instance and passed the rendered
+children in as a \code{template} string. That silently dropped every nested
+component: serialising the children flattened each htmlwidget's
+\verb{<script type="application/json">} into the template, and Vue's compiler
+rejects \verb{<script>} tags — with no message, because \code{vue.min.js} is a
+production build that strips its warnings. The container simply rendered
+nothing. Element UI's container styles are plain CSS, so no Vue instance is
+needed and nested widgets initialise normally.
+}
+\examples{
+# Header above a sidebar and main area
+el_container(
+  el_header("Title"),
+  el_container(
+    el_aside(width = "200px", "Sidebar"),
+    el_main("Content")
+  )
+)
+
+# Nested inputs work, unlike with the previous Vue template approach
+el_container(
+  el_header(el_switch("dark_mode", value = FALSE)),
+  el_main(el_slider("amount", value = 50))
+)
 }

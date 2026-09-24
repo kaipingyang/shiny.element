@@ -1,167 +1,160 @@
-#' Element UI Container
+#' Does this child carry one of the given layout classes?
 #'
-#' @param ... Child components
-#' @param id Unique container id (auto-generated if NULL)
-#' @param style CSS style
-#' @param class CSS class
-#' @param session Shiny session for module support
-#' @export
-el_container <- function(...,
-                        id = NULL,
-                        style = NULL,
-                        class = NULL,
-                        session = getDefaultReactiveDomain()) {
-  if (is.null(id)) {
-    id <- paste0("el_container_", uuid::UUIDgenerate())
-  }
-  ns_id <- if (!is.null(session)) session$ns(id) else id
-  container_id <- paste0(ns_id, "_container")
-
-  attrs <- list()
-  if (!is.null(style)) attrs[["style"]] <- style
-  if (!is.null(class)) attrs[["class"]] <- class
-  content <- htmltools::tag("el-container", c(attrs, list(...)))
-
-  component_ui <- htmltools::tagList(
-    htmltools::tags$div(
-      id = container_id
-    ),
-    vueR::vue(
-      elementId = ns_id,
-      list(
-        el = paste0("#", container_id),
-        template = as.character(content)
-      )
-    )
-  )
-
-  component_ui
-  # htmltools::attachDependencies(
-  #   component_ui,
-  #   list(
-  #     vueR::html_dependency_vue(),
-  #     element_ui_dependency()
-  #   )
-  # )
+#' @param x A candidate child element.
+#' @param classes Layout class names to look for.
+#' @return `TRUE` when `x` is a tag carrying one of `classes`.
+#' @keywords internal
+.el_has_class <- function(x, classes) {
+  if (!inherits(x, "shiny.tag")) return(FALSE)
+  own <- unlist(strsplit(paste(x$attribs$class, collapse = " "), "\\s+"))
+  any(classes %in% own)
 }
 
+#' Build one of the Element UI container parts
+#'
+#' @param class The Element UI class name, e.g. `"el-header"`.
+#' @param children Child elements.
+#' @param size Inline `height` or `width` value, or `NULL`.
+#' @param size_prop Which CSS property `size` sets.
+#' @param style Extra inline style.
+#' @param extra_class Extra CSS classes.
+#' @return A Shiny UI element.
+#' @keywords internal
+.el_container_part <- function(class, children, size = NULL, size_prop = NULL,
+                               style = NULL, extra_class = NULL) {
+  htmltools::tag("div", c(
+    list(class = paste(c(class, extra_class), collapse = " ")),
+    list(style = .el_style(
+      if (!is.null(size)) sprintf("%s:%s", size_prop, size),
+      style
+    )),
+    children
+  ))
+}
+
+#' Element UI Container
+#'
+#' Emits `<div class="el-container">` directly.
+#'
+#' The previous implementation mounted a Vue instance and passed the rendered
+#' children in as a `template` string. That silently dropped every nested
+#' component: serialising the children flattened each htmlwidget's
+#' `<script type="application/json">` into the template, and Vue's compiler
+#' rejects `<script>` tags — with no message, because `vue.min.js` is a
+#' production build that strips its warnings. The container simply rendered
+#' nothing. Element UI's container styles are plain CSS, so no Vue instance is
+#' needed and nested widgets initialise normally.
+#'
+#' @param ... Child components, typically [el_header()], [el_aside()],
+#'   [el_main()] and [el_footer()].
+#' @param id Optional container id.
+#' @param direction `"horizontal"` or `"vertical"`. Defaults to vertical when a
+#'   direct child is a header or footer, matching Element UI.
+#' @param style Extra inline style.
+#' @param class Extra CSS classes.
+#' @param session Shiny session, used to namespace `id` inside modules.
+#' @return A Shiny UI element.
+#' @export
+#' @examples
+#' # Header above a sidebar and main area
+#' el_container(
+#'   el_header("Title"),
+#'   el_container(
+#'     el_aside(width = "200px", "Sidebar"),
+#'     el_main("Content")
+#'   )
+#' )
+#'
+#' # Nested inputs work, unlike with the previous Vue template approach
+#' el_container(
+#'   el_header(el_switch("dark_mode", value = FALSE)),
+#'   el_main(el_slider("amount", value = 50))
+#' )
+el_container <- function(...,
+                         id = NULL,
+                         direction = NULL,
+                         style = NULL,
+                         class = NULL,
+                         session = shiny::getDefaultReactiveDomain()) {
+  children <- list(...)
+
+  vertical <- if (!is.null(direction)) {
+    identical(direction, "vertical")
+  } else {
+    any(vapply(children, .el_has_class, logical(1),
+               classes = c("el-header", "el-footer")))
+  }
+
+  attrs <- list(
+    class = paste(c("el-container", if (vertical) "is-vertical", class),
+                  collapse = " "),
+    style = .el_style(style)
+  )
+  if (!is.null(id)) {
+    attrs$id <- if (!is.null(session)) session$ns(id) else id
+  }
+
+  htmltools::tag("div", c(attrs, children))
+}
 
 #' Element UI Header
 #'
-#' @param ... Content
-#' @param height Height (e.g. "60px")
-#' @param style CSS style
-#' @param class CSS class
+#' @param ... Content.
+#' @param height Header height. Defaults to `"60px"`, as in Element UI, which
+#'   sets it inline rather than through the stylesheet.
+#' @param style Extra inline style.
+#' @param class Extra CSS classes.
+#' @return A Shiny UI element.
 #' @export
-el_header <- function(..., height = NULL, style = NULL, class = NULL) {  
-  attrs <- list()  
-  if (!is.null(height)) style <- paste0("height:", height, ";", style)  
-  if (!is.null(style)) attrs[["style"]] <- style  
-  if (!is.null(class)) attrs[["class"]] <- class 
-  # htmltools::tag("el-header", c(attrs, list(...))) 
-    
-  children <- list(...)  
-  all_deps <- lapply(children, function(child) {  
-    if (inherits(child, "shiny.tag.list") || inherits(child, "shiny.tag")) {  
-      htmltools::htmlDependencies(child)  
-    } else {  
-      NULL  
-    }  
-  })  
-  all_deps <- unlist(all_deps, recursive = FALSE)  
-    
-  tag <- htmltools::tag("el-header", c(attrs, children))  
-  if (length(all_deps) > 0) {  
-    tag <- htmltools::attachDependencies(tag, all_deps)  
-  }  
-  tag  
-}   
+#' @examples
+#' el_header("Dashboard")
+#' el_header(height = "80px", el_button("refresh", "Refresh"))
+el_header <- function(..., height = "60px", style = NULL, class = NULL) {
+  .el_container_part("el-header", list(...), height, "height", style, class)
+}
 
 #' Element UI Aside
 #'
-#' @param ... Content
-#' @param width Width (e.g. "200px")
-#' @param style CSS style
-#' @param class CSS class
+#' @param ... Content.
+#' @param width Aside width. Defaults to `"300px"`, as in Element UI, which
+#'   sets it inline rather than through the stylesheet.
+#' @param style Extra inline style.
+#' @param class Extra CSS classes.
+#' @return A Shiny UI element.
 #' @export
-el_aside <- function(..., width = NULL, style = NULL, class = NULL) {  
-  attrs <- list()  
-  if (!is.null(width)) style <- paste0("width:", width, ";", style)  
-  if (!is.null(style)) attrs[["style"]] <- style  
-  if (!is.null(class)) attrs[["class"]] <- class  
-    
-  children <- list(...)  
-  all_deps <- lapply(children, function(child) {  
-    if (inherits(child, "shiny.tag.list") || inherits(child, "shiny.tag")) {  
-      htmltools::htmlDependencies(child)  
-    } else {  
-      NULL  
-    }  
-  })  
-  all_deps <- unlist(all_deps, recursive = FALSE)  
-    
-  tag <- htmltools::tag("el-aside", c(attrs, children))  
-  if (length(all_deps) > 0) {  
-    tag <- htmltools::attachDependencies(tag, all_deps)  
-  }  
-  tag  
-}  
+#' @examples
+#' el_aside("Navigation")
+#' el_aside(width = "200px", el_radio_group("nav", choices = c(Home = "h")))
+el_aside <- function(..., width = "300px", style = NULL, class = NULL) {
+  .el_container_part("el-aside", list(...), width, "width", style, class)
+}
 
 #' Element UI Main
 #'
-#' @param ... Content
-#' @param style CSS style
-#' @param class CSS class
+#' @param ... Content.
+#' @param style Extra inline style.
+#' @param class Extra CSS classes.
+#' @return A Shiny UI element.
 #' @export
-el_main <- function(..., style = NULL, class = NULL) {  
-  attrs <- list()  
-  if (!is.null(style)) attrs[["style"]] <- style  
-  if (!is.null(class)) attrs[["class"]] <- class  
-    
-  children <- list(...)  
-  all_deps <- lapply(children, function(child) {  
-    if (inherits(child, "shiny.tag.list") || inherits(child, "shiny.tag")) {  
-      htmltools::htmlDependencies(child)  
-    } else {  
-      NULL  
-    }  
-  })  
-  all_deps <- unlist(all_deps, recursive = FALSE)  
-    
-  tag <- htmltools::tag("el-main", c(attrs, children))  
-  if (length(all_deps) > 0) {  
-    tag <- htmltools::attachDependencies(tag, all_deps)  
-  }  
-  tag  
-} 
+#' @examples
+#' el_main("Body content")
+#' el_main(el_table(data = head(iris, 3)))
+el_main <- function(..., style = NULL, class = NULL) {
+  .el_container_part("el-main", list(...), style = style, extra_class = class)
+}
 
 #' Element UI Footer
 #'
-#' @param ... Content
-#' @param height Height (e.g. "60px")
-#' @param style CSS style
-#' @param class CSS class
+#' @param ... Content.
+#' @param height Footer height. Defaults to `"60px"`, as in Element UI, which
+#'   sets it inline rather than through the stylesheet.
+#' @param style Extra inline style.
+#' @param class Extra CSS classes.
+#' @return A Shiny UI element.
 #' @export
-el_footer <- function(..., height = NULL, style = NULL, class = NULL) {  
-  attrs <- list()  
-  if (!is.null(height)) style <- paste0("height:", height, ";", style)  
-  if (!is.null(style)) attrs[["style"]] <- style  
-  if (!is.null(class)) attrs[["class"]] <- class  
-    
-  children <- list(...)  
-  all_deps <- lapply(children, function(child) {  
-    if (inherits(child, "shiny.tag.list") || inherits(child, "shiny.tag")) {  
-      htmltools::htmlDependencies(child)  
-    } else {  
-      NULL  
-    }  
-  })  
-  all_deps <- unlist(all_deps, recursive = FALSE)  
-    
-  tag <- htmltools::tag("el-footer", c(attrs, children))  
-  if (length(all_deps) > 0) {  
-    tag <- htmltools::attachDependencies(tag, all_deps)  
-  }  
-  tag  
+#' @examples
+#' el_footer("(c) 2026")
+#' el_footer(height = "40px", "Compact footer")
+el_footer <- function(..., height = "60px", style = NULL, class = NULL) {
+  .el_container_part("el-footer", list(...), height, "height", style, class)
 }
-

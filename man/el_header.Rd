@@ -4,17 +4,25 @@
 \alias{el_header}
 \title{Element UI Header}
 \usage{
-el_header(..., height = NULL, style = NULL, class = NULL)
+el_header(..., height = "60px", style = NULL, class = NULL)
 }
 \arguments{
-\item{...}{Content}
+\item{...}{Content.}
 
-\item{height}{Height (e.g. "60px")}
+\item{height}{Header height. Defaults to \code{"60px"}, as in Element UI, which
+sets it inline rather than through the stylesheet.}
 
-\item{style}{CSS style}
+\item{style}{Extra inline style.}
 
-\item{class}{CSS class}
+\item{class}{Extra CSS classes.}
+}
+\value{
+A Shiny UI element.
 }
 \description{
 Element UI Header
+}
+\examples{
+el_header("Dashboard")
+el_header(height = "80px", el_button("refresh", "Refresh"))
 }

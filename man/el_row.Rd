@@ -15,20 +15,44 @@ el_row(
 )
 }
 \arguments{
-\item{...}{Child columns (el_col) or other Element UI components}
+\item{...}{Child columns (\code{\link[=el_col]{el_col()}}) or other content.}
 
-\item{gutter}{Spacing between columns}
+\item{gutter}{Spacing between columns, in pixels.}
 
-\item{type}{Layout type, e.g. "flex"}
+\item{type}{Set to \code{"flex"} for the flex layout, which \code{justify} and
+\code{align} require.}
 
-\item{justify}{Flex horizontal alignment}
+\item{justify}{Flex horizontal alignment: \code{"start"} (default), \code{"center"},
+\code{"end"}, \code{"space-between"} or \code{"space-around"}.}
 
-\item{align}{Flex vertical alignment}
+\item{align}{Flex vertical alignment: \code{"top"} (default), \code{"middle"} or
+\code{"bottom"}.}
 
-\item{class}{CSS class}
+\item{class}{Extra CSS classes.}
 
-\item{style}{CSS style}
+\item{style}{Extra inline style.}
+}
+\value{
+A Shiny UI element.
 }
 \description{
-Element UI Layout Row
+Emits \verb{<div class="el-row">} directly rather than an \verb{<el-row>} custom tag.
+Nothing mounts a Vue instance over page-level markup, so a custom tag would
+never be compiled and would render as an unstyled inline element; the
+Element UI stylesheet is already loaded, so the class name is all that is
+needed.
+}
+\examples{
+# Two equal columns with a 20px gutter
+el_row(
+  gutter = 20,
+  el_col(span = 12, "left"),
+  el_col(span = 12, "right")
+)
+
+# Centred flex row
+el_row(
+  type = "flex", justify = "center", align = "middle",
+  el_col(span = 8, "centred")
+)
 }

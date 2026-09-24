@@ -7,12 +7,19 @@
 el_main(..., style = NULL, class = NULL)
 }
 \arguments{
-\item{...}{Content}
+\item{...}{Content.}
 
-\item{style}{CSS style}
+\item{style}{Extra inline style.}
 
-\item{class}{CSS class}
+\item{class}{Extra CSS classes.}
+}
+\value{
+A Shiny UI element.
 }
 \description{
 Element UI Main
+}
+\examples{
+el_main("Body content")
+el_main(el_table(data = head(iris, 3)))
 }
