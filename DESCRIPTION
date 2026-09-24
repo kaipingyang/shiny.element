@@ -21,7 +21,12 @@ Imports:
     bslib
 Suggests:
     testthat (>= 3.0.0),
-    rlang
+    rlang,
+    callr,
+    chromote,
+    httpuv,
+    pkgload,
+    withr
 Config/testthat/edition: 3
 URL: https://kaipingyang.github.io/shiny.element/, https://github.com/kaipingyang/shiny.element
 BugReports: https://github.com/kaipingyang/shiny.element/issues
