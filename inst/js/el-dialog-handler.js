@@ -1,11 +1,5 @@
-// Handler for updating el_dialog component
+// Field updates for el-dialog; the shared updater in el-update.js validates
+// each key against the component's Vue data before assigning it.
 $(document).on('shiny:connected', function() {
-  Shiny.addCustomMessageHandler('updateElDialog', function(message) {
-    var widget = HTMLWidgets.find('#' + message.id);
-    if (widget && widget.instance) {
-      if (message.visible !== undefined) widget.instance.visible = message.visible;
-      if (message.title   !== undefined) widget.instance.title   = message.title;
-      if (message.width   !== undefined) widget.instance.width   = message.width;
-    }
-  });
+  elRegisterUpdate('updateElDialog');
 });

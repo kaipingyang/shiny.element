@@ -158,11 +158,5 @@ update_el_dropdown <- function(session, id, disabled = NULL) {
 
 #' @keywords internal
 el_dropdown_handler_dependency <- function() {
-  htmltools::htmlDependency(
-    name      = "el-dropdown-handler",
-    version   = "1.0.0",
-    src       = system.file("js", package = "shiny.element"),
-    script    = "el-dropdown-handler.js",
-    all_files = FALSE
-  )
+  .el_handler_dependency("dropdown")
 }

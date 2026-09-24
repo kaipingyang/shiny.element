@@ -181,10 +181,5 @@ update_el_slider <- function(
 
 # Slider handler dependency (internal)
 el_slider_handler_dependency <- function() {
-  htmltools::htmlDependency(
-    name    = "el-slider-handler",
-    version = "1.0.0",
-    src     = system.file("js", package = "shiny.element"),
-    script  = "el-slider-handler.js"
-  )
+  .el_handler_dependency("slider")
 }

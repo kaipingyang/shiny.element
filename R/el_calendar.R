@@ -67,7 +67,9 @@ el_calendar <- function(id = NULL,
     "v-model" = "value",  
     ":first-day-of-week" = "firstDayOfWeek"  
   )  
-  if (!is.null(range)) calendar_attrs[[":range"]] <- "range"  
+  # Bound unconditionally so update_el_calendar(range = ) can set it later; a
+  # field left out of the Vue data is not reactive.
+  calendar_attrs[[":range"]] <- "range"  
   
   date_cell_slot <- htmltools::HTML('  
     <template slot="dateCell" slot-scope="{date, data}">  
@@ -84,7 +86,7 @@ el_calendar <- function(id = NULL,
     },  
     firstDayOfWeek = first_day_of_week  
   )  
-  if (!is.null(range)) vue_data$range <- as.character(range)  
+  vue_data$range <- if (is.null(range)) NA else as.character(range)  
   
   component_ui <- tagList(  
     tags$style(HTML("  

@@ -15,6 +15,9 @@ cascader_opts <- list(
 
 ui <- el_page(
   title = "integration",
+  # Vue's development build, so its warnings reach the console instead of
+  # being stripped; test-browser.R asserts there are none.
+  dev = TRUE,
 
   # Initial values: every one of these reported NULL until mount-time reporting
   # was added.
@@ -96,6 +99,9 @@ ui <- el_page(
   # Forces the icon font to load, so the offline-assets test has something
   # to observe.
   tags$i(class = "el-icon-edit"),
+  # No color argument: guards the null-placeholder regression, since Element's
+  # ElProgress calls .length on color and throws on JSON null.
+  el_progress("probe_progress", percentage = 40),
 
   verbatimTextOutput("dump")
 )

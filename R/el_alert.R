@@ -53,8 +53,7 @@ el_alert <- function(
     ":effect"      = "effect",
     "@close"       = "handleClose"
   )
-  if (!is.null(description)) alert_attrs[[":description"]] <- "description"
-
+  alert_attrs[[":description"]] <- "description"
   vue_data <- list(
     title       = title,
     type        = type,
@@ -64,8 +63,7 @@ el_alert <- function(
     center      = center,
     effect      = effect
   )
-  if (!is.null(description)) vue_data$description <- description
-
+  vue_data$description <- if (is.null(description)) NA else description
   component_ui <- shiny::tagList(
     shiny::tags$div(
       id = container_id,
@@ -114,11 +112,5 @@ update_el_alert <- function(session, id, title = NULL, type = NULL,
 
 #' @keywords internal
 el_alert_handler_dependency <- function() {
-  htmltools::htmlDependency(
-    name      = "el-alert-handler",
-    version   = "1.0.0",
-    src       = system.file("js", package = "shiny.element"),
-    script    = "el-alert-handler.js",
-    all_files = FALSE
-  )
+  .el_handler_dependency("alert")
 }

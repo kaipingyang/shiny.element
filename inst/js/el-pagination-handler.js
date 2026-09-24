@@ -1,12 +1,5 @@
-// Handler for updating el_pagination component
+// Field updates for el-pagination; the shared updater in el-update.js validates
+// each key against the component's Vue data before assigning it.
 $(document).on('shiny:connected', function() {
-  Shiny.addCustomMessageHandler('updateElPagination', function(message) {
-    var widget = HTMLWidgets.find('#' + message.id);
-    if (widget && widget.instance) {
-      if (message.total       !== undefined) widget.instance.total       = message.total;
-      if (message.currentPage !== undefined) widget.instance.currentPage = message.currentPage;
-      if (message.pageSize    !== undefined) widget.instance.pageSize    = message.pageSize;
-      if (message.disabled    !== undefined) widget.instance.disabled    = message.disabled;
-    }
-  });
+  elRegisterUpdate('updateElPagination');
 });

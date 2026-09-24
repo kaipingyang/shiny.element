@@ -139,7 +139,9 @@ test_that("update_el_table: sends row-shaped data under the right message type",
   update_el_table(s, "t1", data = data.frame(a = 1:2))
   expect_equal(s$captured()$type, "updateElTable")
   expect_equal(s$captured()$msg$id, "t1")
-  expect_equal(s$captured()$msg$data[[1]], list(a = 1L))
+  # The field is named tableData because the shared updater assigns straight
+  # onto the Vue data field of that name.
+  expect_equal(s$captured()$msg$tableData[[1]], list(a = 1L))
 })
 
 test_that("update_el_table: infers columns when only data is given", {
@@ -170,7 +172,7 @@ test_that("update_el_table: border and selection pass through", {
 test_that("update_el_table: NULL fields are excluded from the message", {
   s <- mock_session()
   update_el_table(s, "t1", border = FALSE)
-  expect_null(s$captured()$msg$data)
+  expect_null(s$captured()$msg$tableData)
   expect_null(s$captured()$msg$columns)
   expect_null(s$captured()$msg$selection)
 })

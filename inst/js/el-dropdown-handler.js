@@ -1,8 +1,5 @@
+// Field updates for el-dropdown; the shared updater in el-update.js validates
+// each key against the component's Vue data before assigning it.
 $(document).on('shiny:connected', function() {
-  Shiny.addCustomMessageHandler('updateElDropdown', function(message) {
-    var widget = HTMLWidgets.find('#' + message.id);
-    if (widget && widget.instance) {
-      if (message.disabled !== undefined) widget.instance.disabled = message.disabled;
-    }
-  });
+  elRegisterUpdate('updateElDropdown');
 });

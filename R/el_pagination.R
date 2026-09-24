@@ -160,11 +160,5 @@ update_el_pagination <- function(
 #' Pagination Handler Dependency
 #' @keywords internal
 el_pagination_handler_dependency <- function() {
-  htmltools::htmlDependency(
-    name      = "el-pagination-handler",
-    version   = "1.0.0",
-    src       = system.file("js", package = "shiny.element"),
-    script    = "el-pagination-handler.js",
-    all_files = FALSE
-  )
+  .el_handler_dependency("pagination")
 }

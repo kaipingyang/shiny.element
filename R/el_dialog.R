@@ -176,11 +176,5 @@ update_el_dialog <- function(session, id, visible = NULL, title = NULL, width = 
 #' Dialog Handler Dependency
 #' @keywords internal
 el_dialog_handler_dependency <- function() {
-  htmltools::htmlDependency(
-    name      = "el-dialog-handler",
-    version   = "1.0.0",
-    src       = system.file("js", package = "shiny.element"),
-    script    = "el-dialog-handler.js",
-    all_files = FALSE
-  )
+  .el_handler_dependency("dialog")
 }

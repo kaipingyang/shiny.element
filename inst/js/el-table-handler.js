@@ -1,11 +1,5 @@
+// Field updates for el-table; the shared updater in el-update.js validates
+// each key against the component's Vue data before assigning it.
 $(document).on('shiny:connected', function() {
-  Shiny.addCustomMessageHandler('updateElTable', function(message) {
-    var widget = HTMLWidgets.find('#' + message.id);
-    if (widget && widget.instance) {
-      if (message.data !== undefined) widget.instance.tableData = message.data;
-      if (message.columns !== undefined) widget.instance.columns = message.columns;
-      if (message.border !== undefined) widget.instance.border = message.border;
-      if (message.selection !== undefined) widget.instance.selection = message.selection;
-    }
-  });
+  elRegisterUpdate('updateElTable');
 });

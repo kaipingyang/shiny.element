@@ -1,10 +1,5 @@
+// Field updates for el-button; the shared updater in el-update.js validates
+// each key against the component's Vue data before assigning it.
 $(document).on('shiny:connected', function() {
-  Shiny.addCustomMessageHandler('updateElButton', function(message) {
-    var widget = HTMLWidgets.find('#' + message.id);
-    if (widget && widget.instance) {
-      if (message.label !== undefined) widget.instance.label = message.label;
-      if (message.type !== undefined) widget.instance.type = message.type;
-      if (message.disabled !== undefined) widget.instance.disabled = message.disabled;
-    }
-  });
+  elRegisterUpdate('updateElButton');
 });

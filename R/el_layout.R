@@ -169,6 +169,11 @@ el_col <- function(..., span = 24, offset = NULL, push = NULL, pull = NULL,
 #' @param theme_css Optional Element-UI layout CSS dependency (default: \code{el_layout_css_dependency()}).
 #' @param offline Serve Element UI from the copy bundled with this package
 #'   rather than the unpkg CDN. See [element_ui_dependency()].
+#' @param dev Load the development build of Vue instead of `vue.min.js`.
+#'   The production build strips every warning, which is why a template that
+#'   fails to compile renders nothing and says nothing. Defaults to
+#'   `getOption("shiny.element.dev", FALSE)`, so it can be turned on for a
+#'   whole session without touching the UI code.
 #'   Set to \code{NULL} to disable Element-UI layout CSS.
 #'
 #' @details
@@ -182,10 +187,11 @@ el_page <- function(
   title = NULL, 
   theme = bslib::bs_theme(version = 5, bootswatch = "minty"), 
   theme_css = el_layout_css_dependency(),
-  offline = TRUE
+  offline = TRUE,
+  dev = getOption("shiny.element.dev", FALSE)
 ) {
   deps <- list(
-    vueR::html_dependency_vue(),
+    vueR::html_dependency_vue(minified = !dev),
     vue_handler_dependency(),
     element_ui_dependency(offline = offline),
     el_feedback_dependency()

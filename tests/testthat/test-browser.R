@@ -274,7 +274,14 @@ test_that("the bundled icon font is served and loaded", {
 
 test_that("the page raises no JS exceptions throughout", {
   skip_if_no_browser()
-  # vue.min.js is a production build with warnings stripped, so a template that
-  # fails to compile is silent -- exceptions are what is left to catch.
   expect_equal(bjs_errors(), character(0))
+})
+
+test_that("Vue raises no warnings", {
+  skip_if_no_browser()
+  # The fixture app loads Vue's development build on purpose. With the
+  # production build a failed template compile, a missing prop or a render
+  # error is stripped entirely -- which is how a container that rendered
+  # nothing at all went unnoticed.
+  expect_equal(bconsole(), character(0))
 })

@@ -1,11 +1,5 @@
-// Handler for updating el_radio_group component
+// Field updates for el-radio-group; the shared updater in el-update.js validates
+// each key against the component's Vue data before assigning it.
 $(document).on('shiny:connected', function() {
-  Shiny.addCustomMessageHandler('updateElRadioGroup', function(message) {
-    var widget = HTMLWidgets.find('#' + message.id);
-    if (widget && widget.instance) {
-      if (message.value    !== undefined) widget.instance.value    = message.value;
-      if (message.options  !== undefined) widget.instance.options  = message.options;
-      if (message.disabled !== undefined) widget.instance.disabled = message.disabled;
-    }
-  });
+  elRegisterUpdate('updateElRadioGroup');
 });

@@ -136,11 +136,5 @@ update_el_input_number <- function(session, id, value = NULL, min = NULL,
 
 #' @keywords internal
 el_input_number_handler_dependency <- function() {
-  htmltools::htmlDependency(
-    name      = "el-input-number-handler",
-    version   = "1.0.0",
-    src       = system.file("js", package = "shiny.element"),
-    script    = "el-input-number-handler.js",
-    all_files = FALSE
-  )
+  .el_handler_dependency("input-number")
 }

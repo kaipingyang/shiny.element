@@ -119,11 +119,5 @@ update_el_tag <- function(session, id, label = NULL, type = NULL,
 
 #' @keywords internal
 el_tag_handler_dependency <- function() {
-  htmltools::htmlDependency(
-    name      = "el-tag-handler",
-    version   = "1.0.0",
-    src       = system.file("js", package = "shiny.element"),
-    script    = "el-tag-handler.js",
-    all_files = FALSE
-  )
+  .el_handler_dependency("tag")
 }

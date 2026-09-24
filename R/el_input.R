@@ -95,10 +95,10 @@ el_input <- function(
   )
 
   # Conditional attributes (only add when not NULL)
-  if (!is.null(size))        input_attrs[[":size"]]        <- "size"
+  input_attrs[[":size"]] <- "size"
   if (!is.null(maxlength))   input_attrs[[":maxlength"]]   <- "maxlength"
   if (!is.null(rows))        input_attrs[[":rows"]]        <- "rows"
-  if (!is.null(placeholder)) input_attrs[[":placeholder"]] <- "placeholder"
+  input_attrs[[":placeholder"]] <- "placeholder"
   if (!is.null(label))       input_attrs[[":label"]]       <- "label"
 
   # Always-present Vue data fields
@@ -116,10 +116,10 @@ el_input <- function(
   )
 
   # Conditional data fields (only add when not NULL)
-  if (!is.null(size))        vue_data$size        <- size
+  vue_data$size <- if (is.null(size)) NA else size
   if (!is.null(maxlength))   vue_data$maxlength   <- maxlength
   if (!is.null(rows))        vue_data$rows        <- rows
-  if (!is.null(placeholder)) vue_data$placeholder <- placeholder
+  vue_data$placeholder <- if (is.null(placeholder)) NA else placeholder
   if (!is.null(label))       vue_data$label       <- label
 
   component_ui <- shiny::tagList(
@@ -193,10 +193,5 @@ update_el_input <- function(
 #' Input Handler Dependency
 #' @keywords internal
 el_input_handler_dependency <- function() {
-  htmltools::htmlDependency(
-    name    = "el-input-handler",
-    version = "1.0.0",
-    src     = system.file("js", package = "shiny.element"),
-    script  = "el-input-handler.js"
-  )
+  .el_handler_dependency("input")
 }

@@ -115,11 +115,5 @@ update_el_rate <- function(session, id, value = NULL, disabled = NULL) {
 
 #' @keywords internal
 el_rate_handler_dependency <- function() {
-  htmltools::htmlDependency(
-    name      = "el-rate-handler",
-    version   = "1.0.0",
-    src       = system.file("js", package = "shiny.element"),
-    script    = "el-rate-handler.js",
-    all_files = FALSE
-  )
+  .el_handler_dependency("rate")
 }

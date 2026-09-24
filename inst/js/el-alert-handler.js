@@ -1,10 +1,5 @@
+// Field updates for el-alert; the shared updater in el-update.js validates
+// each key against the component's Vue data before assigning it.
 $(document).on('shiny:connected', function() {
-  Shiny.addCustomMessageHandler('updateElAlert', function(message) {
-    var widget = HTMLWidgets.find('#' + message.id);
-    if (widget && widget.instance) {
-      if (message.title       !== undefined) widget.instance.title       = message.title;
-      if (message.type        !== undefined) widget.instance.type        = message.type;
-      if (message.description !== undefined) widget.instance.description = message.description;
-    }
-  });
+  elRegisterUpdate('updateElAlert');
 });

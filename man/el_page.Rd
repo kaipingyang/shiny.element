@@ -9,7 +9,8 @@ el_page(
   title = NULL,
   theme = bslib::bs_theme(version = 5, bootswatch = "minty"),
   theme_css = el_layout_css_dependency(),
-  offline = TRUE
+  offline = TRUE,
+  dev = getOption("shiny.element.dev", FALSE)
 )
 }
 \arguments{
@@ -23,7 +24,13 @@ If provided, Bootstrap dependencies will be included.}
 \item{theme_css}{Optional Element-UI layout CSS dependency (default: \code{el_layout_css_dependency()}).}
 
 \item{offline}{Serve Element UI from the copy bundled with this package
-rather than the unpkg CDN. See \code{\link[=element_ui_dependency]{element_ui_dependency()}}.
+rather than the unpkg CDN. See \code{\link[=element_ui_dependency]{element_ui_dependency()}}.}
+
+\item{dev}{Load the development build of Vue instead of \code{vue.min.js}.
+The production build strips every warning, which is why a template that
+fails to compile renders nothing and says nothing. Defaults to
+\code{getOption("shiny.element.dev", FALSE)}, so it can be turned on for a
+whole session without touching the UI code.
 Set to \code{NULL} to disable Element-UI layout CSS.}
 }
 \description{

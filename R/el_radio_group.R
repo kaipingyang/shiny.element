@@ -2,12 +2,7 @@
 
 # Private dependency loader (not exported)
 el_radio_group_handler_dependency <- function() {
-  htmltools::htmlDependency(
-    name    = "el-radio-group-handler",
-    version = "1.0.0",
-    src     = system.file("js", package = "shiny.element"),
-    script  = "el-radio-group-handler.js"
-  )
+  .el_handler_dependency("radio-group")
 }
 
 #' Element UI Radio Group Component

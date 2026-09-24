@@ -54,8 +54,12 @@ test_that("el_calendar: first_day_of_week reaches the data", {
 
 # ── range ─────────────────────────────────────────────────────────────────────
 
-test_that("el_calendar: range is only bound when supplied", {
-  expect_false(grepl(":range", render_html(el_calendar(id = "c1")), fixed = TRUE))
+test_that("el_calendar: range is always bound, null when not supplied", {
+  # Declared and bound even when not supplied: a field missing from the Vue
+  # data is not reactive, so the matching update_*() argument would be a
+  # silent no-op. NA serialises to JSON null, which Element treats as unset.
+  expect_match(render_html(el_calendar(id = "c1")), ':range="range"')
+  expect_match(render_html(el_calendar(id = "c1")), '"range":null', fixed = TRUE)
 
   html <- render_html(el_calendar(id = "c1", range = c("2026-03-01", "2026-03-31")))
   expect_match(html, ':range="range"')

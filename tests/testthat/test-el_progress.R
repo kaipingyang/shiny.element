@@ -65,10 +65,12 @@ test_that("el_progress: status included in Vue data when set", {
   expect_match(html, '"status"\\s*:\\s*"success"')
 })
 
-test_that("el_progress: status absent from Vue data when NULL", {
-  pr   <- el_progress("pr1", status = NULL, session = NULL)
-  html <- render_html(pr)
-  expect_false(grepl('"status"', html))
+test_that("el_progress: status is declared as null when not supplied", {
+  # Declared and bound even when not supplied: a field missing from the Vue
+  # data is not reactive, so the matching update_*() argument would be a
+  # silent no-op. NA serialises to JSON null, which Element treats as unset.
+  expect_match(render_html(el_progress("pr1", status = NULL, session = NULL)),
+               '"status":null', fixed = TRUE)
 })
 
 test_that("el_progress: color included in Vue data when set", {
@@ -77,10 +79,12 @@ test_that("el_progress: color included in Vue data when set", {
   expect_match(html, '"color"\\s*:\\s*"#409EFF"')
 })
 
-test_that("el_progress: color absent from Vue data when NULL", {
-  pr   <- el_progress("pr1", color = NULL, session = NULL)
-  html <- render_html(pr)
-  expect_false(grepl('"color"', html))
+test_that("el_progress: color falls back to Element's own default, not null", {
+  # ElProgress declares color as [String, Array, Function] defaulting to "" and
+  # calls .length on it, so JSON null throws during render. Verified in a
+  # browser: it reports [Vue warn] Error in render ---> <ElProgress>.
+  expect_match(render_html(el_progress("pr1", color = NULL, session = NULL)),
+               '"color":""', fixed = TRUE)
 })
 
 # ── Vue 属性绑定 ───────────────────────────────────────────────────────────────

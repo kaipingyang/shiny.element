@@ -143,11 +143,5 @@ update_el_switch <- function(
 #' Switch Handler Dependency
 #' @keywords internal
 el_switch_handler_dependency <- function() {
-  htmltools::htmlDependency(
-    name      = "el-switch-handler",
-    version   = "1.0.0",
-    src       = system.file("js", package = "shiny.element"),
-    script    = "el-switch-handler.js",
-    all_files = FALSE
-  )
+  .el_handler_dependency("switch")
 }

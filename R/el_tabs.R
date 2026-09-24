@@ -147,11 +147,5 @@ update_el_tabs <- function(session, id, selected = NULL) {
 #' Tabs Handler Dependency
 #' @keywords internal
 el_tabs_handler_dependency <- function() {
-  htmltools::htmlDependency(
-    name    = "el-tabs-handler",
-    version = "1.0.0",
-    src     = system.file("js", package = "shiny.element"),
-    script  = "el-tabs-handler.js",
-    all_files = FALSE
-  )
+  .el_handler_dependency("tabs")
 }

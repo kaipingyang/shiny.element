@@ -72,9 +72,8 @@ el_progress <- function(
     ":show-text"   = "showText",
     ":width"       = "width"
   )
-  if (!is.null(status)) progress_attrs[[":status"]] <- "status"
-  if (!is.null(color))  progress_attrs[[":color"]]  <- "color"
-
+  progress_attrs[[":status"]] <- "status"
+  progress_attrs[[":color"]] <- "color"
   vue_data <- list(
     percentage  = percentage,
     type        = type,
@@ -83,9 +82,11 @@ el_progress <- function(
     showText    = show_text,
     width       = width
   )
-  if (!is.null(status)) vue_data$status <- status
-  if (!is.null(color))  vue_data$color  <- color
-
+  vue_data$status <- if (is.null(status)) NA else status
+  # Element's ElProgress declares color as [String, Array, Function] with a
+  # default of "" and calls .length on it, so JSON null throws in render.
+  # The empty string is its own default and means the same thing.
+  vue_data$color <- if (is.null(color)) "" else color
   component_ui <- shiny::tagList(
     shiny::tags$div(
       id = container_id,
@@ -146,11 +147,5 @@ update_el_progress <- function(
 #' Progress Handler Dependency
 #' @keywords internal
 el_progress_handler_dependency <- function() {
-  htmltools::htmlDependency(
-    name      = "el-progress-handler",
-    version   = "1.0.0",
-    src       = system.file("js", package = "shiny.element"),
-    script    = "el-progress-handler.js",
-    all_files = FALSE
-  )
+  .el_handler_dependency("progress")
 }

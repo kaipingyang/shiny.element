@@ -142,11 +142,5 @@ update_el_drawer <- function(session, id, visible = NULL, title = NULL,
 
 #' @keywords internal
 el_drawer_handler_dependency <- function() {
-  htmltools::htmlDependency(
-    name      = "el-drawer-handler",
-    version   = "1.0.0",
-    src       = system.file("js", package = "shiny.element"),
-    script    = "el-drawer-handler.js",
-    all_files = FALSE
-  )
+  .el_handler_dependency("drawer")
 }

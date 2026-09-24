@@ -69,3 +69,35 @@ el_ns <- function(id, session = shiny::getDefaultReactiveDomain()) {
 
   lapply(choices, function(x) list(value = x, label = as.character(x)))
 }
+
+#' Build a component's JS handler dependency
+#'
+#' Every handler is paired with el-update.js, the shared updater it calls.
+#' htmltools de-duplicates the shared entry, so listing it here rather than
+#' relying on `el_page()` guarantees it is present and loaded first, whatever
+#' the page is built from.
+#'
+#' @param name The component's handler name, e.g. `"input"` for
+#'   `el-input-handler.js`.
+#' @return A list of htmlDependency objects.
+#' @keywords internal
+.el_handler_dependency <- function(name) {
+  js <- system.file("js", package = "shiny.element")
+
+  list(
+    htmltools::htmlDependency(
+      name      = "el-update",
+      version   = "1.0.0",
+      src       = js,
+      script    = "el-update.js",
+      all_files = FALSE
+    ),
+    htmltools::htmlDependency(
+      name      = paste0("el-", name, "-handler"),
+      version   = "1.0.0",
+      src       = js,
+      script    = paste0("el-", name, "-handler.js"),
+      all_files = FALSE
+    )
+  )
+}

@@ -103,11 +103,15 @@ test_that("el_date_picker: :value-format binding present", {
   expect_match(html, ":value-format")
 })
 
-test_that("el_date_picker: placeholder binding added only when supplied", {
+test_that("el_date_picker: placeholder is always bound, null when not supplied", {
+  # Declared and bound even when not supplied: a field missing from the Vue
+  # data is not reactive, so the matching update_*() argument would be a
+  # silent no-op. NA serialises to JSON null, which Element treats as unset.
   dp_no  <- el_date_picker("dp1", session = NULL)
   dp_yes <- el_date_picker("dp1", placeholder = "Pick date", session = NULL)
-  expect_false(grepl(":placeholder", render_html(dp_no)))
-  expect_match(render_html(dp_yes), ":placeholder")
+  expect_match(render_html(dp_no), ':placeholder="placeholder"')
+  expect_match(render_html(dp_no), '"placeholder":null', fixed = TRUE)
+  expect_match(render_html(dp_yes), '"placeholder":"Pick date"', fixed = TRUE)
 })
 
 test_that("el_date_picker: start-placeholder binding added only when supplied", {

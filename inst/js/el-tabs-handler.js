@@ -1,9 +1,5 @@
-// Handler for updating el_tabs component
+// Field updates for el-tabs; the shared updater in el-update.js validates
+// each key against the component's Vue data before assigning it.
 $(document).on('shiny:connected', function() {
-  Shiny.addCustomMessageHandler('updateElTabs', function(message) {
-    var widget = HTMLWidgets.find('#' + message.id);
-    if (widget && widget.instance) {
-      if (message.activeTab !== undefined) widget.instance.activeTab = message.activeTab;
-    }
-  });
+  elRegisterUpdate('updateElTabs');
 });

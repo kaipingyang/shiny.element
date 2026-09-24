@@ -104,11 +104,5 @@ update_el_color_picker <- function(session, id, value = NULL, disabled = NULL) {
 
 #' @keywords internal
 el_color_picker_handler_dependency <- function() {
-  htmltools::htmlDependency(
-    name      = "el-color-picker-handler",
-    version   = "1.0.0",
-    src       = system.file("js", package = "shiny.element"),
-    script    = "el-color-picker-handler.js",
-    all_files = FALSE
-  )
+  .el_handler_dependency("color-picker")
 }

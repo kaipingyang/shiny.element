@@ -111,7 +111,7 @@ el_date_picker <- function(
     ":align"           = "align",
     "@change"          = "handleChange"
   )
-  if (!is.null(placeholder))       picker_attrs[[":placeholder"]]       <- "placeholder"
+  picker_attrs[[":placeholder"]] <- "placeholder"
   if (!is.null(start_placeholder)) picker_attrs[[":start-placeholder"]] <- "startPlaceholder"
   if (!is.null(end_placeholder))   picker_attrs[[":end-placeholder"]]   <- "endPlaceholder"
 
@@ -128,7 +128,7 @@ el_date_picker <- function(
     rangeSeparator = range_separator,
     align          = align
   )
-  if (!is.null(placeholder))       vue_data$placeholder       <- placeholder
+  vue_data$placeholder <- if (is.null(placeholder)) NA else placeholder
   if (!is.null(start_placeholder)) vue_data$startPlaceholder  <- start_placeholder
   if (!is.null(end_placeholder))   vue_data$endPlaceholder    <- end_placeholder
 
@@ -196,10 +196,5 @@ update_el_date_picker <- function(
 
 # Date picker handler dependency (internal)
 el_date_picker_handler_dependency <- function() {
-  htmltools::htmlDependency(
-    name    = "el-date-picker-handler",
-    version = "1.0.0",
-    src     = system.file("js", package = "shiny.element"),
-    script  = "el-date-picker-handler.js"
-  )
+  .el_handler_dependency("date-picker")
 }

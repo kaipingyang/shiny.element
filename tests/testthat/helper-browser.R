@@ -84,6 +84,23 @@ browser_session <- function() {
     errs$seen <- c(errs$seen, sub("\n.*", "", m$exceptionDetails$exception$description))
   })
 
+  # Capture console.error/warn from inside the page. Page$enable() is required
+  # first -- without it addScriptToEvaluateOnNewDocument silently does nothing
+  # and every console read comes back empty, which reads exactly like "no
+  # warnings were raised".
+  b$Page$enable()
+  b$Page$addScriptToEvaluateOnNewDocument(source = paste0(
+    "window.__elLogs = [];",
+    "['error','warn'].forEach(function(k){",
+    "  var orig = console[k];",
+    "  console[k] = function(){",
+    "    try { window.__elLogs.push(Array.prototype.slice.call(arguments)",
+    "          .map(String).join(' ').slice(0, 300)); } catch(e) {}",
+    "    orig.apply(console, arguments);",
+    "  };",
+    "});"
+  ))
+
   b$Page$navigate(sprintf("http://127.0.0.1:%d/", port))
   b$Page$loadEventFired()
   # Vue mounts, widgets render and the Shiny socket settles.
@@ -123,6 +140,17 @@ bdump <- function(id = "dump") {
 #' JS errors seen on the page so far
 bjs_errors <- function() {
   unique(browser_session()$errs$seen)
+}
+
+#' console.error / console.warn messages raised inside the page
+#'
+#' The fixture app loads Vue's development build, so this also surfaces
+#' `[Vue warn]` messages. The production build strips them, which is how a
+#' template that fails to compile renders nothing and reports nothing.
+bconsole <- function() {
+  unique(bev("JSON.stringify(window.__elLogs || [])") |>
+           jsonlite::fromJSON(simplifyVector = TRUE) |>
+           as.character())
 }
 
 #' Tear the fixture down

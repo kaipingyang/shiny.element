@@ -85,10 +85,13 @@ test_that("el_alert: description in Vue data when provided", {
   expect_match(html, "More details")
 })
 
-test_that("el_alert: no description field when NULL", {
-  tag <- el_alert("a1", title = "Alert")
-  html <- render_html(tag)
-  expect_no_match(html, ":description")
+test_that("el_alert: description is bound and null when not supplied", {
+  # Declared and bound even when not supplied: a field missing from the Vue
+  # data is not reactive, so the matching update_*() argument would be a
+  # silent no-op. NA serialises to JSON null, which Element treats as unset.
+  html <- render_html(el_alert("a1", title = "Alert"))
+  expect_match(html, ':description="description"', fixed = TRUE)
+  expect_match(html, '"description":null', fixed = TRUE)
 })
 
 test_that("el_alert: close handler fires _closed input", {

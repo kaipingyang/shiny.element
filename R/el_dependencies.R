@@ -6,7 +6,10 @@
 #'   
 #' @param theme CSS dependency function or list (optional, default is el_layout_css_dependency())
 #' @param offline Serve Element UI from the copy bundled with this package
-#'   rather than the unpkg CDN. See [element_ui_dependency()].  
+#'   rather than the unpkg CDN. See [element_ui_dependency()].
+#' @param dev Load the development build of Vue instead of `vue.min.js`, so
+#'   Vue's warnings are not stripped. Defaults to
+#'   `getOption("shiny.element.dev", FALSE)`.  
 #' @return A list of htmlDependency objects  
 #' @export  
 #' @examples  
@@ -17,9 +20,10 @@
 #'   el_button("btn1", "Click me")  
 #' )  
 #' }  
-use_element <- function(theme = el_layout_css_dependency(), offline = TRUE) {
+use_element <- function(theme = el_layout_css_dependency(), offline = TRUE,
+                        dev = getOption("shiny.element.dev", FALSE)) {
   deps <- list(
-    vueR::html_dependency_vue(),
+    vueR::html_dependency_vue(minified = !dev),
     vue_handler_dependency(),
     element_ui_dependency(offline = offline),
     el_feedback_dependency()
@@ -114,163 +118,83 @@ el_feedback_dependency <- function() {
 #' Button Handler Dependency
 #' @export
 el_button_handler_dependency <- function() {
-  htmltools::htmlDependency(
-    name = "el-button-handler",
-    version = "1.0.0",
-    src = system.file("js", package = "shiny.element"),
-    script = "el-button-handler.js"
-  )
+  .el_handler_dependency("button")
 }
 
 #' Cascader Handler Dependency
 #' @export
 el_cascader_handler_dependency <- function() {
-  htmltools::htmlDependency(
-    name = "el-cascader-handler",
-    version = "1.0.0",
-    src = system.file("js", package = "shiny.element"),
-    script = "el-cascader-handler.js"
-  )
+  .el_handler_dependency("cascader")
 }
 
 #' Table Handler Dependency
 #' @export
 el_table_handler_dependency <- function() {
-  htmltools::htmlDependency(
-    name = "el-table-handler",
-    version = "1.0.0",
-    src = system.file("js", package = "shiny.element"),
-    script = "el-table-handler.js"
-  )
+  .el_handler_dependency("table")
 }
 
 #' Calendar Handler Dependency
 #' @export
 el_calendar_handler_dependency <- function() {
-  htmltools::htmlDependency(
-    name = "el-calendar-handler",
-    version = "1.0.0",
-    src = system.file("js", package = "shiny.element"),
-    script = "el-calendar-handler.js"
-  )
+  .el_handler_dependency("calendar")
 }
 
 #' Steps Handler Dependency
 #' @keywords internal
 el_steps_handler_dependency <- function() {
-  htmltools::htmlDependency(
-    name      = "el-steps-handler",
-    version   = "1.0.0",
-    src       = system.file("js", package = "shiny.element"),
-    script    = "el-steps-handler.js",
-    all_files = FALSE
-  )
+  .el_handler_dependency("steps")
 }
 
 #' Tag Handler Dependency
 #' @keywords internal
 el_tag_handler_dependency <- function() {
-  htmltools::htmlDependency(
-    name      = "el-tag-handler",
-    version   = "1.0.0",
-    src       = system.file("js", package = "shiny.element"),
-    script    = "el-tag-handler.js",
-    all_files = FALSE
-  )
+  .el_handler_dependency("tag")
 }
 
 #' Alert Handler Dependency
 #' @keywords internal
 el_alert_handler_dependency <- function() {
-  htmltools::htmlDependency(
-    name      = "el-alert-handler",
-    version   = "1.0.0",
-    src       = system.file("js", package = "shiny.element"),
-    script    = "el-alert-handler.js",
-    all_files = FALSE
-  )
+  .el_handler_dependency("alert")
 }
 
 #' Collapse Handler Dependency
 #' @keywords internal
 el_collapse_handler_dependency <- function() {
-  htmltools::htmlDependency(
-    name      = "el-collapse-handler",
-    version   = "1.0.0",
-    src       = system.file("js", package = "shiny.element"),
-    script    = "el-collapse-handler.js",
-    all_files = FALSE
-  )
+  .el_handler_dependency("collapse")
 }
 
 #' Rate Handler Dependency
 #' @keywords internal
 el_rate_handler_dependency <- function() {
-  htmltools::htmlDependency(
-    name      = "el-rate-handler",
-    version   = "1.0.0",
-    src       = system.file("js", package = "shiny.element"),
-    script    = "el-rate-handler.js",
-    all_files = FALSE
-  )
+  .el_handler_dependency("rate")
 }
 
 #' Input Number Handler Dependency
 #' @keywords internal
 el_input_number_handler_dependency <- function() {
-  htmltools::htmlDependency(
-    name      = "el-input-number-handler",
-    version   = "1.0.0",
-    src       = system.file("js", package = "shiny.element"),
-    script    = "el-input-number-handler.js",
-    all_files = FALSE
-  )
+  .el_handler_dependency("input-number")
 }
 
 #' Color Picker Handler Dependency
 #' @keywords internal
 el_color_picker_handler_dependency <- function() {
-  htmltools::htmlDependency(
-    name      = "el-color-picker-handler",
-    version   = "1.0.0",
-    src       = system.file("js", package = "shiny.element"),
-    script    = "el-color-picker-handler.js",
-    all_files = FALSE
-  )
+  .el_handler_dependency("color-picker")
 }
 
 #' Drawer Handler Dependency
 #' @keywords internal
 el_drawer_handler_dependency <- function() {
-  htmltools::htmlDependency(
-    name      = "el-drawer-handler",
-    version   = "1.0.0",
-    src       = system.file("js", package = "shiny.element"),
-    script    = "el-drawer-handler.js",
-    all_files = FALSE
-  )
+  .el_handler_dependency("drawer")
 }
 
 #' Dropdown Handler Dependency
 #' @keywords internal
 el_dropdown_handler_dependency <- function() {
-  htmltools::htmlDependency(
-    name      = "el-dropdown-handler",
-    version   = "1.0.0",
-    src       = system.file("js", package = "shiny.element"),
-    script    = "el-dropdown-handler.js",
-    all_files = FALSE
-  )
+  .el_handler_dependency("dropdown")
 }
 
 #' Form Handler Dependency
 #' @keywords internal
 el_form_handler_dependency <- function() {
-  htmltools::htmlDependency(
-    name      = "el-form-handler",
-    version   = "1.0.0",
-    src       = system.file("js", package = "shiny.element"),
-    script    = "el-form-handler.js",
-    all_files = FALSE
-  )
+  .el_handler_dependency("form")
 }

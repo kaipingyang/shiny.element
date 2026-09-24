@@ -97,10 +97,12 @@ test_that("el_input: size appears in Vue data when set", {
   expect_match(html, '"size"\\s*:\\s*"small"')
 })
 
-test_that("el_input: size absent from Vue data when NULL", {
-  inp  <- el_input("inp1", size = NULL, session = NULL)
-  html <- render_html(inp)
-  expect_false(grepl('"size"', html))
+test_that("el_input: size is declared as null when not supplied", {
+  # Declared and bound even when not supplied: a field missing from the Vue
+  # data is not reactive, so the matching update_*() argument would be a
+  # silent no-op. NA serialises to JSON null, which Element treats as unset.
+  expect_match(render_html(el_input("inp1", size = NULL, session = NULL)),
+               '"size":null', fixed = TRUE)
 })
 
 test_that("el_input: maxlength appears in Vue data when set", {
@@ -133,10 +135,9 @@ test_that("el_input: placeholder appears in Vue data when set", {
   expect_match(html, '"placeholder"\\s*:\\s*"Enter text"')
 })
 
-test_that("el_input: placeholder absent from Vue data when NULL", {
-  inp  <- el_input("inp1", placeholder = NULL, session = NULL)
-  html <- render_html(inp)
-  expect_false(grepl('"placeholder"', html))
+test_that("el_input: placeholder is declared as null when not supplied", {
+  expect_match(render_html(el_input("inp1", placeholder = NULL, session = NULL)),
+               '"placeholder":null', fixed = TRUE)
 })
 
 test_that("el_input: label appears in Vue data when set", {
@@ -159,16 +160,10 @@ test_that("el_input: :size attr present when size set", {
   expect_match(html, ":size")
 })
 
-test_that("el_input: :size attr absent when size is NULL", {
-  inp  <- el_input("inp1", size = NULL, session = NULL)
-  html <- render_html(inp)
-  expect_false(grepl(":size", html, fixed = TRUE))
-})
-
-test_that("el_input: :placeholder attr absent when placeholder is NULL", {
-  inp  <- el_input("inp1", placeholder = NULL, session = NULL)
-  html <- render_html(inp)
-  expect_false(grepl(":placeholder", html, fixed = TRUE))
+test_that("el_input: :size and :placeholder are bound even when NULL", {
+  html <- render_html(el_input("inp1", size = NULL, placeholder = NULL, session = NULL))
+  expect_match(html, ':size="size"', fixed = TRUE)
+  expect_match(html, ':placeholder="placeholder"', fixed = TRUE)
 })
 
 test_that("el_input: :placeholder attr present when set", {

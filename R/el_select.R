@@ -1,12 +1,7 @@
 
 # Private dependency loader (not exported)
 el_select_handler_dependency <- function() {
-  htmltools::htmlDependency(
-    name    = "el-select-handler",
-    version = "1.0.0",
-    src     = system.file("js", package = "shiny.element"),
-    script  = "el-select-handler.js"
-  )
+  .el_handler_dependency("select")
 }
 
 #' Element UI Select Component
@@ -102,7 +97,7 @@ el_select <- function(
     ":collapse-tags"  = "collapseTags",
     "@change"         = "handleChange"
   )
-  if (!is.null(placeholder)) select_attrs[[":placeholder"]] <- "placeholder"
+  select_attrs[[":placeholder"]] <- "placeholder"
   if (!is.null(size))        select_attrs[[":size"]]        <- "size"
 
   # Build Vue data
@@ -116,7 +111,7 @@ el_select <- function(
     multipleLimit = multiple_limit,
     collapseTags  = collapse_tags
   )
-  if (!is.null(placeholder)) vue_data$placeholder <- placeholder
+  vue_data$placeholder <- if (is.null(placeholder)) NA else placeholder
   if (!is.null(size))        vue_data$size        <- size
 
   component_ui <- shiny::tagList(

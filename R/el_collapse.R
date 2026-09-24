@@ -107,11 +107,5 @@ update_el_collapse <- function(session, id, value = NULL) {
 
 #' @keywords internal
 el_collapse_handler_dependency <- function() {
-  htmltools::htmlDependency(
-    name      = "el-collapse-handler",
-    version   = "1.0.0",
-    src       = system.file("js", package = "shiny.element"),
-    script    = "el-collapse-handler.js",
-    all_files = FALSE
-  )
+  .el_handler_dependency("collapse")
 }

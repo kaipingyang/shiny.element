@@ -76,17 +76,57 @@ test_that("Vue is served locally too", {
   expect_false(grepl("unpkg|cdn", src))
 })
 
-test_that("every handler dependency resolves to a file that exists", {
-  deps <- list(
-    el_button_handler_dependency(), el_input_handler_dependency(),
-    el_select_handler_dependency(), el_table_handler_dependency(),
-    el_form_handler_dependency(), el_cascader_handler_dependency(),
-    el_steps_handler_dependency(), el_calendar_handler_dependency()
+test_that("every handler dependency resolves to files that exist", {
+  fns <- ls(asNamespace("shiny.element"), pattern = "^el_.*_handler_dependency$")
+  expect_gt(length(fns), 20)
+
+  for (fn in fns) {
+    for (dep in do.call(fn, list())) {
+      expect_true(
+        file.exists(file.path(unname(dep$src[["file"]]), dep$script)),
+        info = paste(fn, "->", dep$script)
+      )
+    }
+  }
+})
+
+test_that("every handler dependency pairs its script with the shared updater", {
+  # el-update.js has to be present and load first; relying on el_page() to
+  # provide it would break a page assembled some other way.
+  fns <- ls(asNamespace("shiny.element"), pattern = "^el_.*_handler_dependency$")
+
+  for (fn in fns) {
+    deps  <- do.call(fn, list())
+    names <- vapply(deps, function(d) d$name, character(1))
+    expect_equal(names[[1]], "el-update", info = fn)
+    expect_length(deps, 2)
+  }
+})
+
+test_that("the shared updater checks each key against the component's data", {
+  js <- paste(readLines(
+    system.file("js", "el-update.js", package = "shiny.element"), warn = FALSE
+  ), collapse = "\n")
+  # This check is the whole point: writing a field the component never declared
+  # is a silent no-op in Vue 2, which is how el-table's handler shipped three
+  # assignments that could never have worked.
+  expect_match(js, "in vm.$data", fixed = TRUE)
+  expect_match(js, "console.warn", fixed = TRUE)
+})
+
+test_that("component handlers delegate to the shared updater", {
+  js_dir <- system.file("js", package = "shiny.element")
+  handlers <- setdiff(
+    list.files(js_dir, pattern = "-handler\\.js$"),
+    # These two do more than assign fields: feedback calls Message and
+    # Notification, form calls validate/resetFields/clearValidate.
+    c("el-feedback-handler.js", "el-form-handler.js")
   )
-  for (d in deps) {
-    expect_true(
-      file.exists(file.path(unname(d$src[["file"]]), d$script)),
-      info = d$name
-    )
+  expect_gt(length(handlers), 20)
+
+  for (h in handlers) {
+    js <- paste(readLines(file.path(js_dir, h), warn = FALSE), collapse = "\n")
+    expect_match(js, "elRegisterUpdate", fixed = TRUE, info = h)
+    expect_false(grepl("!== undefined", js, fixed = TRUE), info = h)
   }
 })

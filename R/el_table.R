@@ -241,7 +241,9 @@ update_el_table <- function(session, id,
       if (is.null(data)) list() else data,
       if (is.null(columns)) list() else columns
     )
-    if (!is.null(data)) msg$data <- prep$rows
+    # Named for the Vue data field it targets: the shared updater assigns by
+    # key, so a message field that does not match is refused.
+    if (!is.null(data)) msg$tableData <- prep$rows
     # Send columns whenever they were inferred or cleaned, otherwise a new
     # data set would render against the previous column set.
     if (length(prep$columns)) msg$columns <- prep$columns

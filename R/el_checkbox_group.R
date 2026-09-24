@@ -75,9 +75,8 @@ el_checkbox_group <- function(
     "@change"   = "handleChange"
   )
   if (!is.null(size)) group_attrs[[":size"]] <- "size"
-  if (!is.null(min))  group_attrs[[":min"]]  <- "min"
-  if (!is.null(max))  group_attrs[[":max"]]  <- "max"
-
+  group_attrs[[":min"]] <- "min"
+  group_attrs[[":max"]] <- "max"
   group_tag <- htmltools::tag("el-checkbox-group", c(group_attrs, list(cb_slot)))
 
   vue_data <- list(
@@ -86,9 +85,8 @@ el_checkbox_group <- function(
     disabled = disabled
   )
   if (!is.null(size)) vue_data$size <- size
-  if (!is.null(min))  vue_data$min  <- min
-  if (!is.null(max))  vue_data$max  <- max
-
+  vue_data$min <- if (is.null(min)) NA else min
+  vue_data$max <- if (is.null(max)) NA else max
   component_ui <- shiny::tagList(
     shiny::tags$div(id = container_id, group_tag),
     vueR::vue(
@@ -148,11 +146,5 @@ update_el_checkbox_group <- function(
 #' Checkbox Group Handler Dependency
 #' @keywords internal
 el_checkbox_group_handler_dependency <- function() {
-  htmltools::htmlDependency(
-    name      = "el-checkbox-group-handler",
-    version   = "1.0.0",
-    src       = system.file("js", package = "shiny.element"),
-    script    = "el-checkbox-group-handler.js",
-    all_files = FALSE
-  )
+  .el_handler_dependency("checkbox-group")
 }
