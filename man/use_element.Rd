@@ -11,7 +11,8 @@ Use this when you want to use Element-UI components in non-el_page layouts
 use_element(
   theme = el_layout_css_dependency(),
   offline = TRUE,
-  dev = getOption("shiny.element.dev", FALSE)
+  dev = getOption("shiny.element.dev", FALSE),
+  locale = NULL
 )
 }
 \arguments{
@@ -23,6 +24,9 @@ rather than the unpkg CDN. See \code{\link[=element_ui_dependency]{element_ui_de
 \item{dev}{Load the development build of Vue instead of \code{vue.min.js}, so
 Vue's warnings are not stripped. Defaults to
 \code{getOption("shiny.element.dev", FALSE)}.}
+
+\item{locale}{Language for Element UI's built-in text. See
+\code{\link[=el_locale_dependency]{el_locale_dependency()}}.}
 }
 \value{
 A list of htmlDependency objects

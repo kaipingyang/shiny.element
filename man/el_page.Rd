@@ -10,6 +10,7 @@ el_page(
   theme = bslib::bs_theme(version = 5, bootswatch = "minty"),
   theme_css = el_layout_css_dependency(),
   offline = TRUE,
+  locale = NULL,
   dev = getOption("shiny.element.dev", FALSE)
 )
 }
@@ -25,6 +26,10 @@ If provided, Bootstrap dependencies will be included.}
 
 \item{offline}{Serve Element UI from the copy bundled with this package
 rather than the unpkg CDN. See \code{\link[=element_ui_dependency]{element_ui_dependency()}}.}
+
+\item{locale}{Language for Element UI's built-in text -- pagination
+summaries, date-picker buttons and so on. \code{NULL} keeps its bundled
+Simplified Chinese; \code{"en"} is also bundled. See \code{\link[=el_locale_dependency]{el_locale_dependency()}}.}
 
 \item{dev}{Load the development build of Vue instead of \code{vue.min.js}.
 The production build strips every warning, which is why a template that

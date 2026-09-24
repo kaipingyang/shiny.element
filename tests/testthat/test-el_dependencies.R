@@ -165,3 +165,52 @@ test_that("el-layout.css keeps its opt-in helper classes", {
     expect_match(css, cls, fixed = TRUE)
   }
 })
+
+# ── locale ────────────────────────────────────────────────────────────────────
+
+test_that("el_locale_dependency: the built-in locale needs nothing extra", {
+  # Element UI's bundle already carries Simplified Chinese.
+  expect_null(el_locale_dependency())
+  expect_null(el_locale_dependency("zh-CN"))
+})
+
+test_that("el_locale_dependency: 'en' loads the file and applies it", {
+  deps <- el_locale_dependency("en")
+  expect_length(deps, 2)
+  expect_equal(deps[[1]]$script, "locale/en.js")
+  # The locale file only registers ELEMENT.lang.en; a second dependency calls
+  # ELEMENT.locale() after both it and element-ui have loaded.
+  expect_match(deps[[2]]$head, "ELEMENT.locale", fixed = TRUE)
+  expect_match(deps[[2]]$head, "ELEMENT.lang['en']", fixed = TRUE)
+})
+
+test_that("el_locale_dependency: the bundled locale file is really there", {
+  p <- system.file("element-ui", "locale", "en.js", package = "shiny.element")
+  expect_true(file.exists(p))
+  expect_gt(file.size(p), 2000)
+  js <- paste(readLines(p, warn = FALSE), collapse = "\n")
+  expect_match(js, "ELEMENT.lang.en", fixed = TRUE)
+})
+
+test_that("el_locale_dependency: an unbundled locale fails with a usable message", {
+  expect_error(el_locale_dependency("fr"), "No bundled locale")
+  expect_error(el_locale_dependency("fr"), "element-ui")
+})
+
+test_that("el_page and use_element pass locale through", {
+  names_of <- function(tags) {
+    vapply(htmltools::findDependencies(tags), function(d) d$name, character(1))
+  }
+  expect_false(any(grepl("locale", names_of(el_page()))))
+  expect_true("element-ui-locale-en" %in% names_of(el_page(locale = "en")))
+  expect_true("element-ui-locale-en" %in% names_of(use_element(locale = "en")))
+})
+
+test_that("the locale is applied after element-ui itself has loaded", {
+  # Ordering matters: ELEMENT.locale() does not exist until element-ui runs.
+  names <- vapply(htmltools::findDependencies(el_page(locale = "en")),
+                  function(d) d$name, character(1))
+  expect_lt(which(names == "element-ui"), which(names == "element-ui-locale-en"))
+  expect_lt(which(names == "element-ui-locale-en"),
+            which(names == "element-ui-locale-apply-en"))
+})

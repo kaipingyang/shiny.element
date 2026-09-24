@@ -169,6 +169,9 @@ el_col <- function(..., span = 24, offset = NULL, push = NULL, pull = NULL,
 #' @param theme_css Optional Element-UI layout CSS dependency (default: \code{el_layout_css_dependency()}).
 #' @param offline Serve Element UI from the copy bundled with this package
 #'   rather than the unpkg CDN. See [element_ui_dependency()].
+#' @param locale Language for Element UI's built-in text -- pagination
+#'   summaries, date-picker buttons and so on. `NULL` keeps its bundled
+#'   Simplified Chinese; `"en"` is also bundled. See [el_locale_dependency()].
 #' @param dev Load the development build of Vue instead of `vue.min.js`.
 #'   The production build strips every warning, which is why a template that
 #'   fails to compile renders nothing and says nothing. Defaults to
@@ -188,13 +191,17 @@ el_page <- function(
   theme = bslib::bs_theme(version = 5, bootswatch = "minty"), 
   theme_css = el_layout_css_dependency(),
   offline = TRUE,
+  locale = NULL,
   dev = getOption("shiny.element.dev", FALSE)
 ) {
-  deps <- list(
-    vueR::html_dependency_vue(minified = !dev),
-    vue_handler_dependency(),
-    element_ui_dependency(offline = offline),
-    el_feedback_dependency()
+  deps <- c(
+    list(
+      vueR::html_dependency_vue(minified = !dev),
+      vue_handler_dependency(),
+      element_ui_dependency(offline = offline)
+    ),
+    el_locale_dependency(locale),
+    list(el_feedback_dependency())
   )
   if (!is.null(theme_css)) deps <- c(deps, list(theme_css))
   if (!is.null(theme)) deps <- c(deps, bslib::bs_theme_dependencies(theme))

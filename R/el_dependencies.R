@@ -9,7 +9,9 @@
 #'   rather than the unpkg CDN. See [element_ui_dependency()].
 #' @param dev Load the development build of Vue instead of `vue.min.js`, so
 #'   Vue's warnings are not stripped. Defaults to
-#'   `getOption("shiny.element.dev", FALSE)`.  
+#'   `getOption("shiny.element.dev", FALSE)`.
+#' @param locale Language for Element UI's built-in text. See
+#'   [el_locale_dependency()].  
 #' @return A list of htmlDependency objects  
 #' @export  
 #' @examples  
@@ -21,12 +23,16 @@
 #' )  
 #' }  
 use_element <- function(theme = el_layout_css_dependency(), offline = TRUE,
-                        dev = getOption("shiny.element.dev", FALSE)) {
-  deps <- list(
-    vueR::html_dependency_vue(minified = !dev),
-    vue_handler_dependency(),
-    element_ui_dependency(offline = offline),
-    el_feedback_dependency()
+                        dev = getOption("shiny.element.dev", FALSE),
+                        locale = NULL) {
+  deps <- c(
+    list(
+      vueR::html_dependency_vue(minified = !dev),
+      vue_handler_dependency(),
+      element_ui_dependency(offline = offline)
+    ),
+    el_locale_dependency(locale),
+    list(el_feedback_dependency())
   )
 
   if (!is.null(theme)) {
@@ -34,6 +40,56 @@ use_element <- function(theme = el_layout_css_dependency(), offline = TRUE,
   }
 
   htmltools::tagList(deps)
+}
+
+#' Element UI Locale Dependency
+#'
+#' Element UI's bundled build ships Simplified Chinese, and that is what every
+#' component's built-in text uses — a pagination control reads "共 200 条" and
+#' a date picker's buttons are "清空" and "确定". Loading a locale file and
+#' calling `ELEMENT.locale()` switches all of it.
+#'
+#' @param locale Language to switch to. `NULL` (the default) keeps Element
+#'   UI's built-in Simplified Chinese. `"en"` is bundled with this package.
+#'   Any other value loads `locale/<locale>.js` from the package, which you
+#'   would have to add yourself.
+#' @return A list of htmlDependency objects, or `NULL` for the built-in locale.
+#' @export
+#' @examples
+#' # English built-in text
+#' el_page(locale = "en")
+el_locale_dependency <- function(locale = NULL) {
+  if (is.null(locale) || identical(locale, "zh-CN")) return(NULL)
+
+  root <- system.file("element-ui", package = "shiny.element")
+  if (!file.exists(file.path(root, "locale", paste0(locale, ".js")))) {
+    stop("No bundled locale '", locale, "'. Only 'en' ships with the package; ",
+         "add locale/", locale, ".js from element-ui to use another.",
+         call. = FALSE)
+  }
+
+  list(
+    htmltools::htmlDependency(
+      name      = paste0("element-ui-locale-", locale),
+      version   = "2.13.2",
+      src       = root,
+      script    = paste0("locale/", locale, ".js"),
+      all_files = FALSE
+    ),
+    # The locale file only registers ELEMENT.lang.<locale>; this applies it.
+    # It has to run after both element-ui and the locale file, which is why it
+    # is a dependency of its own rather than part of either.
+    htmltools::htmlDependency(
+      name    = paste0("element-ui-locale-apply-", locale),
+      version = "2.13.2",
+      src     = root,
+      head    = sprintf(
+        paste0("<script>if (window.ELEMENT && ELEMENT.locale && ELEMENT.lang && ",
+               "ELEMENT.lang['%1$s']) { ELEMENT.locale(ELEMENT.lang['%1$s']); }</script>"),
+        locale
+      )
+    )
+  )
 }
 
 #' Vue Handler Dependency
