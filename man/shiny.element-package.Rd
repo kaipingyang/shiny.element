@@ -20,5 +20,10 @@ Useful links:
 \author{
 \strong{Maintainer}: Kaiping Yang \email{1260146556@qq.com}
 
+Authors:
+\itemize{
+  \item Kaiping Yang \email{1260146556@qq.com}
+}
+
 }
 \keyword{internal}
