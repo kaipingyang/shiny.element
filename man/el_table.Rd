@@ -14,9 +14,12 @@ el_table(
 )
 }
 \arguments{
-\item{data}{List of row data}
+\item{data}{A data.frame, or a list of rows (each a named list). A
+data.frame is converted to rows automatically and its column names are
+sanitised (\code{.} becomes \verb{_}) so \code{el-table}'s dotted \code{prop} lookup works.}
 
-\item{columns}{List of column configs (see \code{el_table_config})}
+\item{columns}{List of column configs, each \code{list(prop=, label=, width=)}.
+Inferred from \code{data} when omitted.}
 
 \item{id}{Table ID (auto-generated if NULL)}
 
@@ -26,45 +29,52 @@ el_table(
 
 \item{session}{Shiny session for module support}
 }
+\value{
+A Shiny UI element.
+}
 \description{
 Create a table widget for Shiny using Element UI.
 }
+\section{Server inputs}{
+
+With \code{selection = TRUE} the component reports two inputs:
+\verb{input$<id>_selected} (the selected row objects) and
+\verb{input$<id>_selected_rows} (their 1-based row numbers). Prefer the latter to
+index back into your original data: a row object with mixed column types is
+simplified to a character vector on its way back through JSON, so numbers
+arrive as strings. Both are \code{NULL} while nothing is selected, matching how
+Shiny reports an empty \code{\link[shiny:checkboxGroupInput]{shiny::checkboxGroupInput()}}.
+}
+
 \examples{
-# Basic usage
-data <- list(
-  list(name = "A", value = 1),
-  list(name = "B", value = 2)
-)
-columns <- list(
-  list(prop = "name", label = "Name"),
-  list(prop = "value", label = "Value")
-)
-el_table(data = data, columns = columns)
+# A data.frame is enough -- columns are inferred
+el_table(data = head(iris, 3))
 
-# With row selection
-el_table(data = data, columns = columns, selection = TRUE)
+# Explicit columns
+el_table(
+  data = data.frame(name = c("A", "B"), value = c(1, 2)),
+  columns = list(
+    list(prop = "name", label = "Name"),
+    list(prop = "value", label = "Value", width = "100")
+  )
+)
 
-# Shiny app example
+# Shiny app with row selection and server-side updates
 if (interactive()) {
   library(shiny)
   library(shiny.element)
-  df <- data.frame(
-    name = c("A", "B", "C"),
-    value = c(1, 2, 3)
-  )
-  config <- el_table_config(df)
   ui <- el_page(
-    el_table(
-      id = "my_table",
-      data = config$data,
-      columns = config$columns,
-      selection = TRUE
-    ),
+    el_table(id = "my_table", data = head(iris, 5), selection = TRUE),
+    el_button("reload", "Show more rows"),
     verbatimTextOutput("selected_rows")
   )
   server <- function(input, output, session) {
     output$selected_rows <- renderPrint({
-      input$my_table_selected
+      # *_selected_rows holds 1-based row numbers, with original R types
+      head(iris, 5)[input$my_table_selected_rows, ]
+    })
+    observeEvent(input$reload, {
+      update_el_table(session, "my_table", data = head(iris, 10))
     })
   }
   shinyApp(ui, server)

@@ -19,3 +19,11 @@ List with data and columns
 \description{
 Prepare Data for Element Table
 }
+\details{
+Superseded: \code{\link[=el_table]{el_table()}} now accepts a data.frame directly and infers its
+columns, so this helper is only needed for its extra behaviour (dropping
+incomplete rows, capping row count, prepending a row-name column).
+
+Note it drops rows with any \code{NA} via \code{\link[stats:na.omit]{stats::na.omit()}} and overwrites a
+column literally named \code{name} when \code{add_name = TRUE}.
+}
