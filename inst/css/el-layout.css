@@ -1,88 +1,46 @@
-/* 全局字体设置，覆盖所有 Element-UI 组件 */
-.el-header, .el-footer, .el-aside, .el-main, .el-container, .el-row, .el-col,
-.el-button, .el-table, .el-table-column, .el-input, .el-select, .el-dropdown, .el-menu, .el-card, .el-tabs, .el-dialog, .el-form, .el-form-item {
-  font-family: "Helvetica Neue", Arial, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
-}
+/* Opt-in helper classes for Element UI layouts.
+ *
+ * Nothing here applies automatically. Earlier versions of this file carried
+ * the container demo from Element UI's own documentation, which is written to
+ * make empty placeholder boxes visible on that one page:
+ *
+ *   .el-aside { background-color: #D3DCE6; text-align: center; line-height: 200px }
+ *   .el-main  { background-color: #E9EEF3; text-align: center; line-height: 160px }
+ *   .el-container:nth-child(7) .el-aside { line-height: 320px }
+ *
+ * Loaded by default, that centred every app's content, forced a grey-blue
+ * palette on it and gave every line of text a height of 160 to 320 pixels.
+ * A showcase page measured 4524px tall instead of 1444px, with 70px of empty
+ * space between consecutive lines of a verbatim output. The nth-child rules
+ * depended on a component's position in the document, so the damage varied
+ * with how the page happened to be assembled.
+ *
+ * Element UI's own stylesheet already lays these components out correctly.
+ * Use bslib's theming (el_page(theme = )) for fonts and colours.
+ */
 
-.el-container {
-  display: flex;
-  flex-direction: row;
-}
-
-/* 布局容器样式 */
-.el-header, .el-footer {
-  background-color: #B3C0D1;
-  color: #333;
-  text-align: center;
-  line-height: 60px;
-  margin-bottom: 8px;
-}
-
-.el-aside {
-  background-color: #D3DCE6;
-  color: #333;
-  text-align: center;
-  line-height: 200px;
-  margin-bottom: 8px;
-}
-
-.el-main {
-  background-color: #E9EEF3;
-  color: #333;
-  text-align: center;
-  line-height: 160px;
-  margin-bottom: 8px;
-}
-
-.el-container {
-  margin-bottom: 32px;
-}
-
-body > .el-container {
-  margin-bottom: 40px;
-}
-
-.el-container:nth-child(5) .el-aside,
-.el-container:nth-child(6) .el-aside {
-  line-height: 260px;
-}
-
-.el-container:nth-child(7) .el-aside {
-  line-height: 320px;
-}
-
-/* Grid layout styles */
-.el-row {
-  margin-bottom: 20px;
-}
-.el-col {
-  border-radius: 4px;
-  margin-bottom: 8px;
-}
+/* Background fills from Element UI's grid examples. Apply them yourself:
+ * el_col(span = 12, class = "bg-purple", "content") */
 .bg-purple-dark {
   background: #99a9bf;
 }
+
 .bg-purple {
   background: #d3dce6;
 }
+
 .bg-purple-light {
   background: #e5e9f2;
 }
+
+/* A minimum height, so an empty grid cell is still visible while laying out. */
 .grid-content {
   border-radius: 4px;
   min-height: 36px;
 }
+
+/* A tinted strip behind a row. */
 .row-bg {
   padding: 10px 0;
   background-color: #f9fafc;
-}
-
-/* 主要 Element-UI 组件间距 */
-.el-button, .el-input, .el-select, .el-dropdown, .el-card, .el-tabs, .el-dialog, .el-form, .el-table {
-  margin-bottom: 16px;
-}
-
-.title-panel, .title-panel h2, .title-panel h1 {
-  font-weight: 600;
-  color: #333;
 }

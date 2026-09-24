@@ -252,6 +252,30 @@ test_that("resetFields restores the declared values, not empty ones", {
   expect_equal(bev("String(document.querySelectorAll('#signup_container .el-form-item.is-error').length)"), "0")
 })
 
+# ── layout is not distorted by the bundled stylesheet ─────────────────────────
+
+test_that("container components keep a normal line height", {
+  skip_if_no_browser()
+  # el-layout.css used to force line-height: 160px on .el-main and 200px on
+  # .el-aside, stretching every line of text in the app.
+  for (sel in c(".el-main", ".el-aside", ".el-header")) {
+    lh <- bev(sprintf(
+      "(function(){var e=document.querySelector('%s'); if(!e) return '0'; return getComputedStyle(e).lineHeight})()",
+      sel
+    ))
+    px <- suppressWarnings(as.numeric(sub("px$", "", lh)))
+    expect_true(is.na(px) || px < 60, info = paste(sel, "line-height", lh))
+  }
+})
+
+test_that("the page is not stretched to several times its content height", {
+  skip_if_no_browser()
+  # The fixture app renders every component once. With the demo stylesheet
+  # loaded it measured over 4000px; without it, well under.
+  h <- as.numeric(bev("String(document.documentElement.scrollHeight)"))
+  expect_lt(h, 4000)
+})
+
 # ── offline assets ────────────────────────────────────────────────────────────
 
 test_that("the page loads no third-party assets at runtime", {

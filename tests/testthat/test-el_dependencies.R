@@ -130,3 +130,38 @@ test_that("component handlers delegate to the shared updater", {
     expect_false(grepl("!== undefined", js, fixed = TRUE), info = h)
   }
 })
+
+# ── layout stylesheet ─────────────────────────────────────────────────────────
+
+test_that("el-layout.css applies nothing automatically", {
+  # It used to ship Element UI's container demo, whose placeholder styles are
+  # written to make empty boxes visible on that one documentation page:
+  # line-height 160-320px, text-align center and a grey-blue palette, forced
+  # onto .el-main / .el-aside / .el-header of every app that loaded it. A
+  # showcase page measured 4524px tall instead of 1444px.
+  css <- paste(readLines(
+    system.file("css", "el-layout.css", package = "shiny.element"), warn = FALSE
+  ), collapse = "\n")
+
+  # Strip comments before looking for rules.
+  rules <- gsub("/\\*.*?\\*/", "", css)
+
+  expect_false(grepl("^\\.el-[a-z-]+[ ,{]", rules),
+               info = "no selector may target an Element UI class directly")
+  for (prop in c("line-height", "text-align", "background-color", "margin-bottom")) {
+    expect_false(grepl(paste0("\\.el-[a-z-]+[^{]*\\{[^}]*", prop), rules),
+                 info = prop)
+  }
+  # The position-dependent selectors were the worst of it: what a component
+  # looked like depended on where it happened to sit in the document.
+  expect_false(grepl("nth-child", rules, fixed = TRUE))
+})
+
+test_that("el-layout.css keeps its opt-in helper classes", {
+  css <- paste(readLines(
+    system.file("css", "el-layout.css", package = "shiny.element"), warn = FALSE
+  ), collapse = "\n")
+  for (cls in c(".bg-purple", ".grid-content", ".row-bg")) {
+    expect_match(css, cls, fixed = TRUE)
+  }
+})

@@ -2,7 +2,9 @@ Package: shiny.element
 Title: Element UI (Vue2) Integration Helpers for Shiny via vueR
 Version: 0.0.0.9000
 Authors@R: c(
-    person("Kaiping Yang", role = c("aut","cre"), email = "1260146556@qq.com")
+    person("Kaiping Yang", role = c("aut", "cre"), email = "1260146556@qq.com"),
+    person("ElemeFE", role = c("ctb", "cph"),
+           comment = "Element UI library bundled in inst/element-ui, MIT licence")
   )
 Description: Provide htmlDependency and helper wrappers for using Element-UI (Vue2) components in Shiny apps built with vueR.
 License: MIT + file LICENSE
@@ -21,6 +23,7 @@ Imports:
 Suggests:
     testthat (>= 3.0.0),
     rlang,
+    fontawesome,
     callr,
     chromote,
     httpuv,

@@ -36,8 +36,11 @@ el_rate <- function(
     allow_half     = FALSE,
     show_text      = FALSE,
     show_score     = FALSE,
-    texts          = c("极差", "失望", "一般",
-                       "满意", "惊喜"),
+    # Escaped rather than literal: CRAN requires R code to be ASCII-only, so
+    # that the package reads the same under any locale. These are Element UI's
+    # own default labels: 极差 失望 一般 满意 惊喜.
+    texts          = c("\u6781\u5dee", "\u5931\u671b", "\u4e00\u822c",
+                       "\u6ee1\u610f", "\u60ca\u559c"),
     text_color     = "#1f2d3d",
     score_template = "{value}",
     session        = shiny::getDefaultReactiveDomain()

@@ -25,5 +25,10 @@ Authors:
   \item Kaiping Yang \email{1260146556@qq.com}
 }
 
+Other contributors:
+\itemize{
+  \item ElemeFE (Element UI library bundled in inst/element-ui, MIT licence) [contributor, copyright holder]
+}
+
 }
 \keyword{internal}
