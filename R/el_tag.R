@@ -63,7 +63,7 @@ el_tag <- function(
       htmltools::tag("el-tag", c(tag_attrs, list("{{label}}")))
     ),
     vueR::vue(
-      elementId = ns_id,
+elementId = ns_id, width = 0, height = 0,
       list(
         el   = paste0("#", container_id),
         data = list(

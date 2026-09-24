@@ -66,7 +66,7 @@ el_collapse <- function(
       htmltools::tag("el-collapse", c(collapse_attrs, item_tags))
     ),
     vueR::vue(
-      elementId = ns_id,
+elementId = ns_id, width = 0, height = 0,
       list(
         el   = paste0("#", container_id),
         data = list(

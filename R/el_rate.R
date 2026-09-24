@@ -68,7 +68,7 @@ el_rate <- function(
       htmltools::tag("el-rate", rate_attrs)
     ),
     vueR::vue(
-      elementId = ns_id,
+elementId = ns_id, width = 0, height = 0,
       list(
         el   = paste0("#", container_id),
         data = list(

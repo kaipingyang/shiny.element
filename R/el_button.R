@@ -90,7 +90,7 @@ el_button <- function(
       htmltools::tag("el-button", append(btn_attrs, btn_content))
     ),
     vueR::vue(
-      elementId = ns_id,
+elementId = ns_id, width = 0, height = 0,
       list(
         el   = paste0("#", container_id),
         data = list(

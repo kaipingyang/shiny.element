@@ -88,8 +88,8 @@ el_steps <- function(id = NULL,
       id = container_id, style = .el_host_style(),  
       htmltools::tag("el-steps", c(steps_attrs, step_tags))  
     ),  
-    vueR::vue(  
-      elementId = ns_id,  
+    vueR::vue(
+elementId = ns_id, width = 0, height = 0,  
       list(  
         el = paste0("#", container_id),  
         data = vue_data,  

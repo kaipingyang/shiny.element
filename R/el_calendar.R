@@ -99,8 +99,8 @@ el_calendar <- function(id = NULL,
       id = container_id, style = .el_host_style(),  
       tag("el-calendar", append(calendar_attrs, list(date_cell_slot)))  
     ),  
-    vueR::vue(  
-      elementId = ns_id,  
+    vueR::vue(
+elementId = ns_id, width = 0, height = 0,  
       list(  
         el = paste0("#", container_id),  
         data = vue_data,  

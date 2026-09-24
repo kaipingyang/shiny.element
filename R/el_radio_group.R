@@ -106,7 +106,7 @@ el_radio_group <- function(
       htmltools::tag("el-radio-group", c(group_attrs, list(radio_slot)))
     ),
     vueR::vue(
-      elementId = ns_id,
+elementId = ns_id, width = 0, height = 0,
       list(
         el      = paste0("#", container_id),
         data    = vue_data,

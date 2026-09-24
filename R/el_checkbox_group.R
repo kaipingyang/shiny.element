@@ -90,7 +90,7 @@ el_checkbox_group <- function(
   component_ui <- shiny::tagList(
     shiny::tags$div(id = container_id, style = .el_host_style(), group_tag),
     vueR::vue(
-      elementId = ns_id,
+elementId = ns_id, width = 0, height = 0,
       list(
         el   = paste0("#", container_id),
         data = vue_data,

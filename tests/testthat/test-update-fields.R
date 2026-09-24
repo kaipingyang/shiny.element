@@ -99,3 +99,20 @@ test_that("an unsupplied field serialises as JSON null, which Element treats as 
   expect_match(html, '"placeholder":null', fixed = TRUE)
   expect_match(html, '"size":null', fixed = TRUE)
 })
+
+# ── widget mount points take up no room before JS runs ────────────────────────
+
+test_that("the htmlwidget container is declared with zero size", {
+  # vueR::vue() defaults to 960x500 and only hides the container once
+  # renderValue runs, so until then every component holds open an empty box.
+  # Measured on the showcase app with script execution disabled: the page was
+  # 3215px tall against 1462px once mounted, from 12 placeholders of 960x500.
+  for (tag in list(el_input("x"), el_select("x", choices = c(A = "a")),
+                   el_button("x"), el_table(id = "x", data = head(iris, 2)),
+                   el_form(id = "x"))) {
+    html <- paste(as.character(htmltools::renderTags(tag)$html), collapse = "")
+    box  <- regmatches(html, regexpr('<div[^>]*html-widget[^>]*>', html))
+    expect_match(box, "width:0px", fixed = TRUE)
+    expect_match(box, "height:0px", fixed = TRUE)
+  }
+})

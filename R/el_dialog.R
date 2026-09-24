@@ -128,7 +128,7 @@ el_dialog <- function(
       htmltools::tag("el-dialog", c(dialog_attrs, dialog_children))
     ),
     vueR::vue(
-      elementId = ns_id,
+elementId = ns_id, width = 0, height = 0,
       list(
         el      = paste0("#", container_id),
         data    = vue_data,

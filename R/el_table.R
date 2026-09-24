@@ -178,7 +178,7 @@ el_table <- function(data = list(),
       htmltools::tag("el-table", table_content)
     ),
     vueR::vue(
-      elementId = ns_id,
+elementId = ns_id, width = 0, height = 0,
       list(
         el = paste0("#", container_id),
         data = list(

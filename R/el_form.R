@@ -347,7 +347,7 @@ el_form <- function(...,
       htmltools::tag("el-form", c(form_attrs, list(field_items, buttons)))
     ),
     vueR::vue(
-      elementId = ns_id,
+elementId = ns_id, width = 0, height = 0,
       list(
         el   = paste0("#", container_id),
         data = vue_data,

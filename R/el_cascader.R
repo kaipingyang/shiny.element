@@ -128,7 +128,7 @@ el_cascader <- function(id = NULL,
       tag("el-cascader", cascader_attrs)
     ),
     vueR::vue(
-      elementId = ns_id,
+elementId = ns_id, width = 0, height = 0,
       list(
         el = paste0("#", container_id),
         data = vue_data,

@@ -103,7 +103,7 @@ el_pagination <- function(
       htmltools::tag("el-pagination", pagination_attrs)
     ),
     vueR::vue(
-      elementId = ns_id,
+elementId = ns_id, width = 0, height = 0,
       list(
         el      = paste0("#", container_id),
         data    = vue_data,

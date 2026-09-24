@@ -120,7 +120,7 @@ el_select <- function(
       htmltools::tag("el-select", c(select_attrs, list(option_slot)))
     ),
     vueR::vue(
-      elementId = ns_id,
+elementId = ns_id, width = 0, height = 0,
       list(
         el      = paste0("#", container_id),
         data    = vue_data,

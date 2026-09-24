@@ -64,7 +64,7 @@ el_color_picker <- function(
       htmltools::tag("el-color-picker", cp_attrs)
     ),
     vueR::vue(
-      elementId = ns_id,
+elementId = ns_id, width = 0, height = 0,
       list(
         el      = paste0("#", container_id),
         data    = vue_data,
