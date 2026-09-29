@@ -74,15 +74,15 @@ el_steps(
     list(title = "Step 3")  
   )  
 )  
-#> <div id="my_steps_container">
+#> <div id="my_steps_container" style="display: contents">
 #>   <el-steps :active="active" :direction="direction" :process-status="processStatus" :finish-status="finishStatus" :align-center="alignCenter" :simple="simple">
 #>     <el-step title="Step 1"></el-step>
 #>     <el-step title="Step 2"></el-step>
 #>     <el-step title="Step 3"></el-step>
 #>   </el-steps>
 #> </div>
-#> <div class="vue html-widget html-fill-item" id="my_steps" style="width:960px;height:500px;"></div>
-#> <script type="application/json" data-for="my_steps">{"x":{"el":"#my_steps_container","data":{"active":0,"direction":"horizontal","processStatus":"process","finishStatus":"finish","alignCenter":false,"simple":false},"watch":{"active":"function(newVal) { Shiny.setInputValue('my_steps', newVal); }"}},"evals":["watch.active"],"jsHooks":[]}</script>
+#> <div id="my_steps" style="width:0px;height:0px;" class="vue html-widget"></div>
+#> <script type="application/json" data-for="my_steps">{"x":{"el":"#my_steps_container","data":{"active":0,"direction":"horizontal","processStatus":"process","finishStatus":"finish","alignCenter":false,"simple":false},"watch":{"active":"function(newVal) { Shiny.setInputValue('my_steps', newVal); }"},"mounted":"function() { var self = this; var send = function() { Shiny.setInputValue(\"my_steps\", self.active); }; if (window.Shiny && Shiny.shinyapp && typeof Shiny.shinyapp.isConnected === 'function' && Shiny.shinyapp.isConnected()) { send(); } else { $(document).one('shiny:connected', send); } }"},"evals":["watch.active","mounted"],"jsHooks":[]}</script>
  
 # With descriptions and icons  
 el_steps(  
@@ -95,13 +95,13 @@ el_steps(
     list(title = "Step 3", description = "Finish", icon = "el-icon-picture")  
   )  
 )  
-#> <div id="my_steps_container">
+#> <div id="my_steps_container" style="display: contents">
 #>   <el-steps :active="active" :direction="direction" :process-status="processStatus" :finish-status="finishStatus" :align-center="alignCenter" :simple="simple">
 #>     <el-step title="Step 1" description="Complete registration" icon="el-icon-edit"></el-step>
 #>     <el-step title="Step 2" description="Upload documents" icon="el-icon-upload"></el-step>
 #>     <el-step title="Step 3" description="Finish" icon="el-icon-picture"></el-step>
 #>   </el-steps>
 #> </div>
-#> <div class="vue html-widget html-fill-item" id="my_steps" style="width:960px;height:500px;"></div>
-#> <script type="application/json" data-for="my_steps">{"x":{"el":"#my_steps_container","data":{"active":1,"direction":"horizontal","processStatus":"process","finishStatus":"success","alignCenter":false,"simple":false},"watch":{"active":"function(newVal) { Shiny.setInputValue('my_steps', newVal); }"}},"evals":["watch.active"],"jsHooks":[]}</script>
+#> <div id="my_steps" style="width:0px;height:0px;" class="vue html-widget"></div>
+#> <script type="application/json" data-for="my_steps">{"x":{"el":"#my_steps_container","data":{"active":1,"direction":"horizontal","processStatus":"process","finishStatus":"success","alignCenter":false,"simple":false},"watch":{"active":"function(newVal) { Shiny.setInputValue('my_steps', newVal); }"},"mounted":"function() { var self = this; var send = function() { Shiny.setInputValue(\"my_steps\", self.active); }; if (window.Shiny && Shiny.shinyapp && typeof Shiny.shinyapp.isConnected === 'function' && Shiny.shinyapp.isConnected()) { send(); } else { $(document).one('shiny:connected', send); } }"},"evals":["watch.active","mounted"],"jsHooks":[]}</script>
 ```

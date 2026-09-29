@@ -53,11 +53,14 @@
 
 
 <dl><dt id="arg-data">data<a class="anchor" aria-label="anchor" href="#arg-data"></a></dt>
-<dd><p>List of row data</p></dd>
+<dd><p>A data.frame, or a list of rows (each a named list). A
+data.frame is converted to rows automatically and its column names are
+sanitised (<code>.</code> becomes <code>_</code>) so <code>el-table</code>'s dotted <code>prop</code> lookup works.</p></dd>
 
 
 <dt id="arg-columns">columns<a class="anchor" aria-label="anchor" href="#arg-columns"></a></dt>
-<dd><p>List of column configs (see <code>el_table_config</code>)</p></dd>
+<dd><p>List of column configs, each <code>list(prop=, label=, width=)</code>.
+Inferred from <code>data</code> when omitted.</p></dd>
 
 
 <dt id="arg-id">id<a class="anchor" aria-label="anchor" href="#arg-id"></a></dt>
@@ -76,61 +79,69 @@
 <dd><p>Shiny session for module support</p></dd>
 
 </dl></div>
+    <div class="section level2">
+    <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
+    <p>A Shiny UI element.</p>
+    </div>
+    <div class="section level2">
+    <h2 id="server-inputs">Server inputs<a class="anchor" aria-label="anchor" href="#server-inputs"></a></h2>
+
+
+<p>With <code>selection = TRUE</code> the component reports two inputs:
+<code>input$&lt;id&gt;_selected</code> (the selected row objects) and
+<code>input$&lt;id&gt;_selected_rows</code> (their 1-based row numbers). Prefer the latter to
+index back into your original data: a row object with mixed column types is
+simplified to a character vector on its way back through JSON, so numbers
+arrive as strings. Both are <code>NULL</code> while nothing is selected, matching how
+Shiny reports an empty <code><a href="https://rdrr.io/pkg/shiny/man/checkboxGroupInput.html" class="external-link">shiny::checkboxGroupInput()</a></code>.</p>
+    </div>
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># Basic usage</span></span></span>
-<span class="r-in"><span><span class="va">data</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span></span>
-<span class="r-in"><span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">"A"</span>, value <span class="op">=</span> <span class="fl">1</span><span class="op">)</span>,</span></span>
-<span class="r-in"><span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">"B"</span>, value <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="va">columns</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span></span>
-<span class="r-in"><span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>prop <span class="op">=</span> <span class="st">"name"</span>, label <span class="op">=</span> <span class="st">"Name"</span><span class="op">)</span>,</span></span>
-<span class="r-in"><span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>prop <span class="op">=</span> <span class="st">"value"</span>, label <span class="op">=</span> <span class="st">"Value"</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="fu">el_table</span><span class="op">(</span>data <span class="op">=</span> <span class="va">data</span>, columns <span class="op">=</span> <span class="va">columns</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;div id="el_table_f2cb5df0-660c-4e24-9430-47483e31b4b3_container"&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   &lt;el-table :data="tableData" style="width: 100%" border&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     &lt;el-table-column prop="name" label="Name"&gt;&lt;/el-table-column&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     &lt;el-table-column prop="value" label="Value"&gt;&lt;/el-table-column&gt;</span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># A data.frame is enough -- columns are inferred</span></span></span>
+<span class="r-in"><span><span class="fu">el_table</span><span class="op">(</span>data <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">iris</span>, <span class="fl">3</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;div id="el_table_01a92e56-8133-4601-a3fd-9b1c8066c996_container" style="display: contents"&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   &lt;el-table :data="tableData" :border="border" style="width: 100%" @selection-change="handleSelectionChange"&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     &lt;el-table-column v-if="selection" type="selection" width="55"&gt;&lt;/el-table-column&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     &lt;el-table-column v-for="col in columns" :key="col.prop" :prop="col.prop" :label="col.label" :width="col.width"&gt;&lt;/el-table-column&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   &lt;/el-table&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> &lt;/div&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;div class="vue html-widget html-fill-item" id="el_table_f2cb5df0-660c-4e24-9430-47483e31b4b3" style="width:960px;height:500px;"&gt;&lt;/div&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;script type="application/json" data-for="el_table_f2cb5df0-660c-4e24-9430-47483e31b4b3"&gt;{"x":{"el":"#el_table_f2cb5df0-660c-4e24-9430-47483e31b4b3_container","data":{"tableData":[{"name":"A","value":1},{"name":"B","value":2}]},"methods":[]},"evals":[],"jsHooks":[]}&lt;/script&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;div id="el_table_01a92e56-8133-4601-a3fd-9b1c8066c996" style="width:0px;height:0px;" class="vue html-widget"&gt;&lt;/div&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;script type="application/json" data-for="el_table_01a92e56-8133-4601-a3fd-9b1c8066c996"&gt;{"x":{"el":"#el_table_01a92e56-8133-4601-a3fd-9b1c8066c996_container","data":{"tableData":[{"Sepal_Length":5.1,"Sepal_Width":3.5,"Petal_Length":1.4,"Petal_Width":0.2,"Species":"setosa"},{"Sepal_Length":4.9,"Sepal_Width":3,"Petal_Length":1.4,"Petal_Width":0.2,"Species":"setosa"},{"Sepal_Length":4.7,"Sepal_Width":3.2,"Petal_Length":1.3,"Petal_Width":0.2,"Species":"setosa"}],"columns":[{"prop":"Sepal_Length","label":"Sepal.Length"},{"prop":"Sepal_Width","label":"Sepal.Width"},{"prop":"Petal_Length","label":"Petal.Length"},{"prop":"Petal_Width","label":"Petal.Width"},{"prop":"Species","label":"Species"}],"border":true,"selection":false,"selected":[],"selectedRows":[]},"methods":{"handleSelectionChange":"function(selection) { var self = this; self.selected = selection; self.selectedRows = selection.map(function(r) { return self.tableData.indexOf(r) + 1; }); Shiny.setInputValue('el_table_01a92e56-8133-4601-a3fd-9b1c8066c996_selected', self.selected); Shiny.setInputValue('el_table_01a92e56-8133-4601-a3fd-9b1c8066c996_selected_rows', self.selectedRows); }"},"mounted":"function() { var self = this; var send = function() { Shiny.setInputValue(\"el_table_01a92e56-8133-4601-a3fd-9b1c8066c996_selected\", self.selected); Shiny.setInputValue(\"el_table_01a92e56-8133-4601-a3fd-9b1c8066c996_selected_rows\", self.selectedRows); }; if (window.Shiny &amp;&amp; Shiny.shinyapp &amp;&amp; typeof Shiny.shinyapp.isConnected === 'function' &amp;&amp; Shiny.shinyapp.isConnected()) { send(); } else { $(document).one('shiny:connected', send); } }"},"evals":["methods.handleSelectionChange","mounted"],"jsHooks":[]}&lt;/script&gt;</span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="co"># With row selection</span></span></span>
-<span class="r-in"><span><span class="fu">el_table</span><span class="op">(</span>data <span class="op">=</span> <span class="va">data</span>, columns <span class="op">=</span> <span class="va">columns</span>, selection <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;div id="el_table_d3b5ec30-b855-4297-aa4b-52215ec61c10_container"&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   &lt;el-table :data="tableData" style="width: 100%" border @selection-change="handleSelectionChange"&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     &lt;el-table-column type="selection" width="55"&gt;&lt;/el-table-column&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     &lt;el-table-column prop="name" label="Name"&gt;&lt;/el-table-column&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     &lt;el-table-column prop="value" label="Value"&gt;&lt;/el-table-column&gt;</span>
+<span class="r-in"><span><span class="co"># Explicit columns</span></span></span>
+<span class="r-in"><span><span class="fu">el_table</span><span class="op">(</span></span></span>
+<span class="r-in"><span>  data <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>name <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"A"</span>, <span class="st">"B"</span><span class="op">)</span>, value <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span><span class="op">)</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>  columns <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>prop <span class="op">=</span> <span class="st">"name"</span>, label <span class="op">=</span> <span class="st">"Name"</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>prop <span class="op">=</span> <span class="st">"value"</span>, label <span class="op">=</span> <span class="st">"Value"</span>, width <span class="op">=</span> <span class="st">"100"</span><span class="op">)</span></span></span>
+<span class="r-in"><span>  <span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;div id="el_table_90f60495-4b4b-41be-a450-07b480f0e19e_container" style="display: contents"&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   &lt;el-table :data="tableData" :border="border" style="width: 100%" @selection-change="handleSelectionChange"&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     &lt;el-table-column v-if="selection" type="selection" width="55"&gt;&lt;/el-table-column&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     &lt;el-table-column v-for="col in columns" :key="col.prop" :prop="col.prop" :label="col.label" :width="col.width"&gt;&lt;/el-table-column&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   &lt;/el-table&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> &lt;/div&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;div class="vue html-widget html-fill-item" id="el_table_d3b5ec30-b855-4297-aa4b-52215ec61c10" style="width:960px;height:500px;"&gt;&lt;/div&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;script type="application/json" data-for="el_table_d3b5ec30-b855-4297-aa4b-52215ec61c10"&gt;{"x":{"el":"#el_table_d3b5ec30-b855-4297-aa4b-52215ec61c10_container","data":{"tableData":[{"name":"A","value":1},{"name":"B","value":2}]},"methods":{"handleSelectionChange":"function(selection) { Shiny.setInputValue('el_table_d3b5ec30-b855-4297-aa4b-52215ec61c10_selected', selection); }"}},"evals":["methods.handleSelectionChange"],"jsHooks":[]}&lt;/script&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;div id="el_table_90f60495-4b4b-41be-a450-07b480f0e19e" style="width:0px;height:0px;" class="vue html-widget"&gt;&lt;/div&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;script type="application/json" data-for="el_table_90f60495-4b4b-41be-a450-07b480f0e19e"&gt;{"x":{"el":"#el_table_90f60495-4b4b-41be-a450-07b480f0e19e_container","data":{"tableData":[{"name":"A","value":1},{"name":"B","value":2}],"columns":[{"prop":"name","label":"Name"},{"prop":"value","label":"Value","width":"100"}],"border":true,"selection":false,"selected":[],"selectedRows":[]},"methods":{"handleSelectionChange":"function(selection) { var self = this; self.selected = selection; self.selectedRows = selection.map(function(r) { return self.tableData.indexOf(r) + 1; }); Shiny.setInputValue('el_table_90f60495-4b4b-41be-a450-07b480f0e19e_selected', self.selected); Shiny.setInputValue('el_table_90f60495-4b4b-41be-a450-07b480f0e19e_selected_rows', self.selectedRows); }"},"mounted":"function() { var self = this; var send = function() { Shiny.setInputValue(\"el_table_90f60495-4b4b-41be-a450-07b480f0e19e_selected\", self.selected); Shiny.setInputValue(\"el_table_90f60495-4b4b-41be-a450-07b480f0e19e_selected_rows\", self.selectedRows); }; if (window.Shiny &amp;&amp; Shiny.shinyapp &amp;&amp; typeof Shiny.shinyapp.isConnected === 'function' &amp;&amp; Shiny.shinyapp.isConnected()) { send(); } else { $(document).one('shiny:connected', send); } }"},"evals":["methods.handleSelectionChange","mounted"],"jsHooks":[]}&lt;/script&gt;</span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="co"># Shiny app example</span></span></span>
+<span class="r-in"><span><span class="co"># Shiny app with row selection and server-side updates</span></span></span>
 <span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/interactive.html" class="external-link">interactive</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span></span>
 <span class="r-in"><span>  <span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://shiny.posit.co/" class="external-link">shiny</a></span><span class="op">)</span></span></span>
 <span class="r-in"><span>  <span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://kaipingyang.github.io/shiny.element/">shiny.element</a></span><span class="op">)</span></span></span>
-<span class="r-in"><span>  <span class="va">df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span></span></span>
-<span class="r-in"><span>    name <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"A"</span>, <span class="st">"B"</span>, <span class="st">"C"</span><span class="op">)</span>,</span></span>
-<span class="r-in"><span>    value <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span>, <span class="fl">3</span><span class="op">)</span></span></span>
-<span class="r-in"><span>  <span class="op">)</span></span></span>
-<span class="r-in"><span>  <span class="va">config</span> <span class="op">&lt;-</span> <span class="fu"><a href="el_table_config.html">el_table_config</a></span><span class="op">(</span><span class="va">df</span><span class="op">)</span></span></span>
 <span class="r-in"><span>  <span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="el_page.html">el_page</a></span><span class="op">(</span></span></span>
-<span class="r-in"><span>    <span class="fu">el_table</span><span class="op">(</span></span></span>
-<span class="r-in"><span>      id <span class="op">=</span> <span class="st">"my_table"</span>,</span></span>
-<span class="r-in"><span>      data <span class="op">=</span> <span class="va">config</span><span class="op">$</span><span class="va">data</span>,</span></span>
-<span class="r-in"><span>      columns <span class="op">=</span> <span class="va">config</span><span class="op">$</span><span class="va">columns</span>,</span></span>
-<span class="r-in"><span>      selection <span class="op">=</span> <span class="cn">TRUE</span></span></span>
-<span class="r-in"><span>    <span class="op">)</span>,</span></span>
+<span class="r-in"><span>    <span class="fu">el_table</span><span class="op">(</span>id <span class="op">=</span> <span class="st">"my_table"</span>, data <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">iris</span>, <span class="fl">5</span><span class="op">)</span>, selection <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>    <span class="fu"><a href="el_button.html">el_button</a></span><span class="op">(</span><span class="st">"reload"</span>, <span class="st">"Show more rows"</span><span class="op">)</span>,</span></span>
 <span class="r-in"><span>    <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/textOutput.html" class="external-link">verbatimTextOutput</a></span><span class="op">(</span><span class="st">"selected_rows"</span><span class="op">)</span></span></span>
 <span class="r-in"><span>  <span class="op">)</span></span></span>
 <span class="r-in"><span>  <span class="va">server</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span>, <span class="va">session</span><span class="op">)</span> <span class="op">{</span></span></span>
 <span class="r-in"><span>    <span class="va">output</span><span class="op">$</span><span class="va">selected_rows</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/renderPrint.html" class="external-link">renderPrint</a></span><span class="op">(</span><span class="op">{</span></span></span>
-<span class="r-in"><span>      <span class="va">input</span><span class="op">$</span><span class="va">my_table_selected</span></span></span>
+<span class="r-in"><span>      <span class="co"># *_selected_rows holds 1-based row numbers, with original R types</span></span></span>
+<span class="r-in"><span>      <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">iris</span>, <span class="fl">5</span><span class="op">)</span><span class="op">[</span><span class="va">input</span><span class="op">$</span><span class="va">my_table_selected_rows</span>, <span class="op">]</span></span></span>
+<span class="r-in"><span>    <span class="op">}</span><span class="op">)</span></span></span>
+<span class="r-in"><span>    <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/observeEvent.html" class="external-link">observeEvent</a></span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">reload</span>, <span class="op">{</span></span></span>
+<span class="r-in"><span>      <span class="fu"><a href="update_el_table.html">update_el_table</a></span><span class="op">(</span><span class="va">session</span>, <span class="st">"my_table"</span>, data <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">iris</span>, <span class="fl">10</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-in"><span>    <span class="op">}</span><span class="op">)</span></span></span>
 <span class="r-in"><span>  <span class="op">}</span></span></span>
 <span class="r-in"><span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/shinyApp.html" class="external-link">shinyApp</a></span><span class="op">(</span><span class="va">ui</span>, <span class="va">server</span><span class="op">)</span></span></span>
@@ -146,7 +157,7 @@
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.1.</p>
 </div>
 
     </footer></div>

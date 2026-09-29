@@ -74,13 +74,13 @@ el_checkbox_group(
   "cb1",
   choices = c("Option A" = "a", "Option B" = "b")
 )
-#> <div id="cb1_container">
-#>   <el-checkbox-group v-model="value" :disabled="disabled" @change="handleChange">
+#> <div id="cb1_container" style="display: contents">
+#>   <el-checkbox-group v-model="value" :disabled="disabled" @change="handleChange" :min="min === null ? undefined : min" :max="max === null ? undefined : max">
 #>     <el-checkbox :label="opt.value" v-for="opt in options" :key="opt.value">{{opt.label}}</el-checkbox>
 #>   </el-checkbox-group>
 #> </div>
-#> <div class="vue html-widget html-fill-item" id="cb1" style="width:960px;height:500px;"></div>
-#> <script type="application/json" data-for="cb1">{"x":{"el":"#cb1_container","data":{"value":[],"options":[{"value":"a","label":"Option A"},{"value":"b","label":"Option B"}],"disabled":false},"methods":{"handleChange":"function(value) { Shiny.setInputValue('cb1', value); }"}},"evals":["methods.handleChange"],"jsHooks":[]}</script>
+#> <div id="cb1" style="width:0px;height:0px;" class="vue html-widget"></div>
+#> <script type="application/json" data-for="cb1">{"x":{"el":"#cb1_container","data":{"value":[],"options":[{"value":"a","label":"Option A"},{"value":"b","label":"Option B"}],"disabled":false,"min":null,"max":null},"methods":{"handleChange":"function(value) { Shiny.setInputValue('cb1', value); }"},"mounted":"function() { var self = this; var send = function() { Shiny.setInputValue(\"cb1\", self.value); }; if (window.Shiny && Shiny.shinyapp && typeof Shiny.shinyapp.isConnected === 'function' && Shiny.shinyapp.isConnected()) { send(); } else { $(document).one('shiny:connected', send); } }"},"evals":["methods.handleChange","mounted"],"jsHooks":[]}</script>
 
 if (interactive()) {
   library(shiny)

@@ -6,6 +6,9 @@
   : Convert a data.frame with custom value/label columns to Element-UI
   Cascader options list
 
+- [`df_to_tree_data()`](https://kaipingyang.github.io/shiny.element/reference/df_to_tree_data.md)
+  : Build tree data from a data frame
+
 - [`el`](https://kaipingyang.github.io/shiny.element/reference/el.md) :
   Element UI Tags (auto-generated, pure tag generators)
 
@@ -33,6 +36,9 @@
 - [`el_card()`](https://kaipingyang.github.io/shiny.element/reference/el_card.md)
   : Element UI Card
 
+- [`el_carousel()`](https://kaipingyang.github.io/shiny.element/reference/el_carousel.md)
+  : Element UI Carousel
+
 - [`el_cascader()`](https://kaipingyang.github.io/shiny.element/reference/el_cascader.md)
   : Element UI Cascader Widget
 
@@ -58,7 +64,7 @@
   : Element UI Date Picker Component
 
 - [`el_dialog()`](https://kaipingyang.github.io/shiny.element/reference/el_dialog.md)
-  : Element UI Dialog Component
+  : Element UI Dialog
 
 - [`el_divider()`](https://kaipingyang.github.io/shiny.element/reference/el_divider.md)
   : Element UI Divider
@@ -74,6 +80,21 @@
 
 - [`el_footer()`](https://kaipingyang.github.io/shiny.element/reference/el_footer.md)
   : Element UI Footer
+
+- [`el_form()`](https://kaipingyang.github.io/shiny.element/reference/el_form.md)
+  : Element UI Form
+
+- [`el_form_clear_validate()`](https://kaipingyang.github.io/shiny.element/reference/el_form_clear_validate.md)
+  : Clear an Element UI Form's validation messages
+
+- [`el_form_field()`](https://kaipingyang.github.io/shiny.element/reference/el_form_field.md)
+  : Declare a form field
+
+- [`el_form_reset()`](https://kaipingyang.github.io/shiny.element/reference/el_form_reset.md)
+  : Reset an Element UI Form
+
+- [`el_form_validate()`](https://kaipingyang.github.io/shiny.element/reference/el_form_validate.md)
+  : Validate an Element UI Form from the server
 
 - [`el_header()`](https://kaipingyang.github.io/shiny.element/reference/el_header.md)
   : Element UI Header
@@ -93,8 +114,14 @@
 - [`el_link()`](https://kaipingyang.github.io/shiny.element/reference/el_link.md)
   : Element UI Link
 
+- [`el_locale_dependency()`](https://kaipingyang.github.io/shiny.element/reference/el_locale_dependency.md)
+  : Element UI Locale Dependency
+
 - [`el_main()`](https://kaipingyang.github.io/shiny.element/reference/el_main.md)
   : Element UI Main
+
+- [`el_menu()`](https://kaipingyang.github.io/shiny.element/reference/el_menu.md)
+  : Element UI Menu
 
 - [`el_message()`](https://kaipingyang.github.io/shiny.element/reference/el_message.md)
   : Show Element UI Message
@@ -120,6 +147,9 @@
 - [`el_row()`](https://kaipingyang.github.io/shiny.element/reference/el_row.md)
   : Element UI Layout Row
 
+- [`el_rule()`](https://kaipingyang.github.io/shiny.element/reference/el_rule.md)
+  : Declare a validation rule
+
 - [`el_select()`](https://kaipingyang.github.io/shiny.element/reference/el_select.md)
   : Element UI Select Component
 
@@ -142,10 +172,22 @@
   : Table Handler Dependency
 
 - [`el_tabs()`](https://kaipingyang.github.io/shiny.element/reference/el_tabs.md)
-  : Element UI Tabs Component
+  : Element UI Tabs
 
 - [`el_tag()`](https://kaipingyang.github.io/shiny.element/reference/el_tag.md)
   : Element UI Tag
+
+- [`el_timeline()`](https://kaipingyang.github.io/shiny.element/reference/el_timeline.md)
+  : Element UI Timeline
+
+- [`el_tree()`](https://kaipingyang.github.io/shiny.element/reference/el_tree.md)
+  : Element UI Tree
+
+- [`el_upload()`](https://kaipingyang.github.io/shiny.element/reference/el_upload.md)
+  : Element UI Upload
+
+- [`el_upload_clear()`](https://kaipingyang.github.io/shiny.element/reference/el_upload_clear.md)
+  : Clear an Element UI Upload's file list
 
 - [`element_ui_dependency()`](https://kaipingyang.github.io/shiny.element/reference/element_ui_dependency.md)
   : Element UI Dependency
@@ -163,6 +205,9 @@
 
 - [`update_el_calendar()`](https://kaipingyang.github.io/shiny.element/reference/update_el_calendar.md)
   : Update Element UI Calendar Component
+
+- [`update_el_carousel()`](https://kaipingyang.github.io/shiny.element/reference/update_el_carousel.md)
+  : Update an Element UI Carousel
 
 - [`update_el_cascader()`](https://kaipingyang.github.io/shiny.element/reference/update_el_cascader.md)
   : Update Element UI Cascader
@@ -188,11 +233,17 @@
 - [`update_el_dropdown()`](https://kaipingyang.github.io/shiny.element/reference/update_el_dropdown.md)
   : Update Element UI Dropdown
 
+- [`update_el_form()`](https://kaipingyang.github.io/shiny.element/reference/update_el_form.md)
+  : Update an Element UI Form
+
 - [`update_el_input()`](https://kaipingyang.github.io/shiny.element/reference/update_el_input.md)
   : Update Element UI Input
 
 - [`update_el_input_number()`](https://kaipingyang.github.io/shiny.element/reference/update_el_input_number.md)
   : Update Element UI Input Number
+
+- [`update_el_menu()`](https://kaipingyang.github.io/shiny.element/reference/update_el_menu.md)
+  : Update an Element UI Menu
 
 - [`update_el_pagination()`](https://kaipingyang.github.io/shiny.element/reference/update_el_pagination.md)
   : Update Element UI Pagination
@@ -218,11 +269,23 @@
 - [`update_el_switch()`](https://kaipingyang.github.io/shiny.element/reference/update_el_switch.md)
   : Update Element UI Switch
 
+- [`update_el_table()`](https://kaipingyang.github.io/shiny.element/reference/update_el_table.md)
+  : Update Element UI Table
+
 - [`update_el_tabs()`](https://kaipingyang.github.io/shiny.element/reference/update_el_tabs.md)
   : Update Element UI Tabs
 
 - [`update_el_tag()`](https://kaipingyang.github.io/shiny.element/reference/update_el_tag.md)
   : Update Element UI Tag
+
+- [`update_el_timeline()`](https://kaipingyang.github.io/shiny.element/reference/update_el_timeline.md)
+  : Update an Element UI Timeline
+
+- [`update_el_tree()`](https://kaipingyang.github.io/shiny.element/reference/update_el_tree.md)
+  : Update an Element UI Tree
+
+- [`update_el_upload()`](https://kaipingyang.github.io/shiny.element/reference/update_el_upload.md)
+  : Update an Element UI Upload
 
 - [`update_vue_component()`](https://kaipingyang.github.io/shiny.element/reference/update_vue_component.md)
   : Update one or more fields of a Vue component instance by id

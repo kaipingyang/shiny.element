@@ -4,6 +4,9 @@
 
 - **Kaiping Yang**. Author, maintainer.
 
+- **ElemeFE**. Contributor, copyright holder.  
+  Element UI library bundled in inst/element-ui, MIT licence
+
 ## Citation
 
 Source:

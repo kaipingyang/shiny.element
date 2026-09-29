@@ -9,7 +9,12 @@ non-el_page layouts (e.g., bslib::page_sidebar, shiny::navbarPage).
 ## Usage
 
 ``` r
-use_element(theme = el_layout_css_dependency())
+use_element(
+  theme = el_layout_css_dependency(),
+  offline = TRUE,
+  dev = getOption("shiny.element.dev", FALSE),
+  locale = NULL
+)
 ```
 
 ## Arguments
@@ -18,6 +23,23 @@ use_element(theme = el_layout_css_dependency())
 
   CSS dependency function or list (optional, default is
   el_layout_css_dependency())
+
+- offline:
+
+  Serve Element UI from the copy bundled with this package rather than
+  the unpkg CDN. See
+  [`element_ui_dependency()`](https://kaipingyang.github.io/shiny.element/reference/element_ui_dependency.md).
+
+- dev:
+
+  Load the development build of Vue instead of `vue.min.js`, so Vue's
+  warnings are not stripped. Defaults to
+  `getOption("shiny.element.dev", FALSE)`.
+
+- locale:
+
+  Language for Element UI's built-in text. See
+  [`el_locale_dependency()`](https://kaipingyang.github.io/shiny.element/reference/el_locale_dependency.md).
 
 ## Value
 

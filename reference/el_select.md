@@ -96,13 +96,13 @@ el_select("sel1",
   choices  = c(Apple = "apple", Banana = "banana", Cherry = "cherry"),
   selected = "banana"
 )
-#> <div id="sel1_container">
-#>   <el-select v-model="value" :multiple="multiple" :disabled="disabled" :clearable="clearable" :filterable="filterable" :multiple-limit="multipleLimit" :collapse-tags="collapseTags" @change="handleChange">
+#> <div id="sel1_container" style="display: contents">
+#>   <el-select v-model="value" :multiple="multiple" :disabled="disabled" :clearable="clearable" :filterable="filterable" :multiple-limit="multipleLimit" :collapse-tags="collapseTags" @change="handleChange" :placeholder="placeholder === null ? undefined : placeholder">
 #>     <el-option v-for="opt in options" :key="opt.value" :value="opt.value" :label="opt.label"></el-option>
 #>   </el-select>
 #> </div>
-#> <div class="vue html-widget html-fill-item" id="sel1" style="width:960px;height:500px;"></div>
-#> <script type="application/json" data-for="sel1">{"x":{"el":"#sel1_container","data":{"value":"banana","options":[{"value":"apple","label":"Apple"},{"value":"banana","label":"Banana"},{"value":"cherry","label":"Cherry"}],"multiple":false,"disabled":false,"clearable":false,"filterable":false,"multipleLimit":0,"collapseTags":false},"methods":{"handleChange":"function(value) { Shiny.setInputValue('sel1', value); }"}},"evals":["methods.handleChange"],"jsHooks":[]}</script>
+#> <div id="sel1" style="width:0px;height:0px;" class="vue html-widget"></div>
+#> <script type="application/json" data-for="sel1">{"x":{"el":"#sel1_container","data":{"value":"banana","options":[{"value":"apple","label":"Apple"},{"value":"banana","label":"Banana"},{"value":"cherry","label":"Cherry"}],"multiple":false,"disabled":false,"clearable":false,"filterable":false,"multipleLimit":0,"collapseTags":false,"placeholder":null},"methods":{"handleChange":"function(value) { Shiny.setInputValue('sel1', value); }"},"mounted":"function() { var self = this; var send = function() { Shiny.setInputValue(\"sel1\", self.value); }; if (window.Shiny && Shiny.shinyapp && typeof Shiny.shinyapp.isConnected === 'function' && Shiny.shinyapp.isConnected()) { send(); } else { $(document).one('shiny:connected', send); } }"},"evals":["methods.handleChange","mounted"],"jsHooks":[]}</script>
 
 # Shiny app example
 if (interactive()) {

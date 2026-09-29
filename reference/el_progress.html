@@ -113,27 +113,27 @@ Default <code>126</code>.</p></dd>
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># Basic line progress</span></span></span>
 <span class="r-in"><span><span class="fu">el_progress</span><span class="op">(</span><span class="st">"prog1"</span>, percentage <span class="op">=</span> <span class="fl">60</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;div id="prog1_container"&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   &lt;el-progress :percentage="percentage" :type="type" :stroke-width="strokeWidth" :text-inside="textInside" :show-text="showText" :width="width"&gt;&lt;/el-progress&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;div id="prog1_container" style="display: contents"&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   &lt;el-progress :percentage="percentage" :type="type" :stroke-width="strokeWidth" :text-inside="textInside" :show-text="showText" :width="width" :status="status === null ? undefined : status" :color="color"&gt;&lt;/el-progress&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> &lt;/div&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;div class="vue html-widget html-fill-item" id="prog1" style="width:960px;height:500px;"&gt;&lt;/div&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;script type="application/json" data-for="prog1"&gt;{"x":{"el":"#prog1_container","data":{"percentage":60,"type":"line","strokeWidth":6,"textInside":false,"showText":true,"width":126}},"evals":[],"jsHooks":[]}&lt;/script&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;div id="prog1" style="width:0px;height:0px;" class="vue html-widget"&gt;&lt;/div&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;script type="application/json" data-for="prog1"&gt;{"x":{"el":"#prog1_container","data":{"percentage":60,"type":"line","strokeWidth":6,"textInside":false,"showText":true,"width":126,"status":null,"color":""}},"evals":[],"jsHooks":[]}&lt;/script&gt;</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Circle progress with success status</span></span></span>
 <span class="r-in"><span><span class="fu">el_progress</span><span class="op">(</span><span class="st">"prog2"</span>, percentage <span class="op">=</span> <span class="fl">100</span>, type <span class="op">=</span> <span class="st">"circle"</span>, status <span class="op">=</span> <span class="st">"success"</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;div id="prog2_container"&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   &lt;el-progress :percentage="percentage" :type="type" :stroke-width="strokeWidth" :text-inside="textInside" :show-text="showText" :width="width" :status="status"&gt;&lt;/el-progress&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;div id="prog2_container" style="display: contents"&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   &lt;el-progress :percentage="percentage" :type="type" :stroke-width="strokeWidth" :text-inside="textInside" :show-text="showText" :width="width" :status="status === null ? undefined : status" :color="color"&gt;&lt;/el-progress&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> &lt;/div&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;div class="vue html-widget html-fill-item" id="prog2" style="width:960px;height:500px;"&gt;&lt;/div&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;script type="application/json" data-for="prog2"&gt;{"x":{"el":"#prog2_container","data":{"percentage":100,"type":"circle","strokeWidth":6,"textInside":false,"showText":true,"width":126,"status":"success"}},"evals":[],"jsHooks":[]}&lt;/script&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;div id="prog2" style="width:0px;height:0px;" class="vue html-widget"&gt;&lt;/div&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;script type="application/json" data-for="prog2"&gt;{"x":{"el":"#prog2_container","data":{"percentage":100,"type":"circle","strokeWidth":6,"textInside":false,"showText":true,"width":126,"status":"success","color":""}},"evals":[],"jsHooks":[]}&lt;/script&gt;</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Dashboard style with custom colour</span></span></span>
 <span class="r-in"><span><span class="fu">el_progress</span><span class="op">(</span><span class="st">"prog3"</span>, percentage <span class="op">=</span> <span class="fl">75</span>, type <span class="op">=</span> <span class="st">"dashboard"</span>, color <span class="op">=</span> <span class="st">"#67C23A"</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;div id="prog3_container"&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   &lt;el-progress :percentage="percentage" :type="type" :stroke-width="strokeWidth" :text-inside="textInside" :show-text="showText" :width="width" :color="color"&gt;&lt;/el-progress&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;div id="prog3_container" style="display: contents"&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   &lt;el-progress :percentage="percentage" :type="type" :stroke-width="strokeWidth" :text-inside="textInside" :show-text="showText" :width="width" :status="status === null ? undefined : status" :color="color"&gt;&lt;/el-progress&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> &lt;/div&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;div class="vue html-widget html-fill-item" id="prog3" style="width:960px;height:500px;"&gt;&lt;/div&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;script type="application/json" data-for="prog3"&gt;{"x":{"el":"#prog3_container","data":{"percentage":75,"type":"dashboard","strokeWidth":6,"textInside":false,"showText":true,"width":126,"color":"#67C23A"}},"evals":[],"jsHooks":[]}&lt;/script&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;div id="prog3" style="width:0px;height:0px;" class="vue html-widget"&gt;&lt;/div&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;script type="application/json" data-for="prog3"&gt;{"x":{"el":"#prog3_container","data":{"percentage":75,"type":"dashboard","strokeWidth":6,"textInside":false,"showText":true,"width":126,"status":null,"color":"#67C23A"}},"evals":[],"jsHooks":[]}&lt;/script&gt;</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Shiny app example</span></span></span>
 <span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/interactive.html" class="external-link">interactive</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span></span>
@@ -162,7 +162,7 @@ Default <code>126</code>.</p></dd>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.1.</p>
 </div>
 
     </footer></div>

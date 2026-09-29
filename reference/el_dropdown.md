@@ -111,7 +111,7 @@ el_dropdown("dd1", "Actions",
          divided = TRUE)
   )
 )
-#> <div id="dd1_container">
+#> <div id="dd1_container" style="display: contents">
 #>   <el-dropdown :trigger="trigger" :hide-on-click="hideOnClick" :placement="placement" :disabled="disabled" :split-button="splitButton" @command="handleCommand">
 #>     <span class="el-dropdown-link">
 #>       Actions
@@ -124,6 +124,6 @@ el_dropdown("dd1", "Actions",
 #>     </el-dropdown-menu>
 #>   </el-dropdown>
 #> </div>
-#> <div class="vue html-widget html-fill-item" id="dd1" style="width:960px;height:500px;"></div>
+#> <div id="dd1" style="width:0px;height:0px;" class="vue html-widget"></div>
 #> <script type="application/json" data-for="dd1">{"x":{"el":"#dd1_container","data":{"trigger":"hover","hideOnClick":true,"placement":"bottom-end","disabled":false,"splitButton":false,"count":0},"methods":{"handleCommand":"function(cmd) { this.count++; Shiny.setInputValue('dd1', cmd); Shiny.setInputValue('dd1_count', this.count); }"}},"evals":["methods.handleCommand"],"jsHooks":[]}</script>
 ```

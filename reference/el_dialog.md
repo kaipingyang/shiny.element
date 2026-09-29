@@ -1,8 +1,6 @@
-# Element UI Dialog Component
+# Element UI Dialog
 
-Creates an Element UI dialog (modal) with Vue instance. The dialog
-visibility can be controlled from the server via
-[`update_el_dialog()`](https://kaipingyang.github.io/shiny.element/reference/update_el_dialog.md).
+A modal dialog.
 
 ## Usage
 
@@ -14,13 +12,13 @@ el_dialog(
   footer = NULL,
   visible = FALSE,
   width = "50%",
+  top = "15vh",
   fullscreen = FALSE,
+  modal = TRUE,
   close_on_click_modal = TRUE,
   close_on_press_escape = TRUE,
   show_close = TRUE,
   center = FALSE,
-  destroy_on_close = FALSE,
-  append_to_body = FALSE,
   session = shiny::getDefaultReactiveDomain()
 )
 ```
@@ -33,51 +31,53 @@ el_dialog(
 
 - title:
 
-  Dialog title text. Default `""`.
+  Header text. `""` renders the header bar without a title.
 
 - content:
 
-  Optional tagList/tag for the dialog body. `NULL` for empty.
+  Dialog body. Any tag or tagList, including this package's own
+  components.
 
 - footer:
 
-  Optional tagList/tag for the dialog footer slot. `NULL` for none.
+  Footer content, usually buttons. `NULL` for none.
 
 - visible:
 
-  Whether the dialog is initially visible. Default `FALSE`.
+  Whether it starts open.
 
 - width:
 
-  Dialog width. Default `"50%"`.
+  Dialog width, e.g. `"50%"` or `"600px"`.
+
+- top:
+
+  Distance from the top of the viewport. Ignored when
+  `fullscreen = TRUE`.
 
 - fullscreen:
 
-  Whether the dialog occupies the full screen. Default `FALSE`.
+  Fill the viewport.
+
+- modal:
+
+  Show the backdrop.
 
 - close_on_click_modal:
 
-  Whether clicking the overlay closes the dialog. Default `TRUE`.
+  Close when the backdrop is clicked.
 
 - close_on_press_escape:
 
-  Whether pressing Escape closes the dialog. Default `TRUE`.
+  Close on Escape.
 
 - show_close:
 
-  Whether to show the close button in the header. Default `TRUE`.
+  Show the close button in the header.
 
 - center:
 
-  Whether to align the header and footer to center. Default `FALSE`.
-
-- destroy_on_close:
-
-  Whether to destroy child components on close. Default `FALSE`.
-
-- append_to_body:
-
-  Whether to append the dialog to `document.body`. Default `FALSE`.
+  Centre the header and footer.
 
 - session:
 
@@ -85,69 +85,73 @@ el_dialog(
 
 ## Value
 
-An `htmltools` tagList with a Vue-managed dialog component.
+An `htmltools` tag.
+
+## Details
+
+Rendered as plain markup carrying Element's own classes, driven by a
+Shiny input binding rather than a Vue instance, so the body can hold
+other components from this package. See `.claude/docs/lessons.md` §1.2.
 
 ## Shiny input
 
-`input$<id>_visible` — Logical (`TRUE` when dialog opens, `FALSE` when
-it closes).
+`input$<id>` — `TRUE` while the dialog is open, reported whenever it
+opens or closes, however that happens. (It was `input$<id>_visible`
+while this was a Vue component; Shiny routes an input binding's messages
+by element id, so the name now matches the id, as it does for
+[`el_tabs()`](https://kaipingyang.github.io/shiny.element/reference/el_tabs.md)
+and
+[`el_collapse()`](https://kaipingyang.github.io/shiny.element/reference/el_collapse.md).)
 
 ## Examples
 
 ``` r
-# Basic dialog (initially hidden)
-el_dialog(
-  id      = "dlg1",
-  title   = "My Dialog",
-  content = shiny::tags$p("Dialog body text."),
-  footer  = shiny::tagList(
-    el_button("dlg_ok",  "OK",     type = "primary"),
-    el_button("dlg_cancel", "Cancel")
-  )
-)
-#> <div id="dlg1_container">
-#>   <el-dialog :title="title" :visible.sync="visible" :width="width" :fullscreen="fullscreen" :close-on-click-modal="closeOnClickModal" :close-on-press-escape="closeOnPressEscape" :show-close="showClose" :center="center" :destroy-on-close="destroyOnClose" :append-to-body="appendToBody" @open="handleOpen" @close="handleClose">
-#>     <p>Dialog body text.</p>
-#>     <span slot="footer">
-#>       <div id="dlg_ok_container">
+el_dialog("d1", title = "Confirm", content = shiny::tags$p("Are you sure?"),
+          footer = el_button("ok", "OK", type = "primary"))
+#> <div id="d1" class="el-dialog__wrapper" style="display:none" data-el-overlay="true" data-visible="false" data-modal="true" data-mask-close="true" data-esc-close="true">
+#>   <div role="dialog" aria-modal="true" aria-label="Confirm" class="el-dialog" style="margin-top: 15vh; width: 50%;">
+#>     <div class="el-dialog__header">
+#>       <span class="el-dialog__title">Confirm</span>
+#>       <button type="button" aria-label="Close" class="el-dialog__headerbtn">
+#>         <i class="el-dialog__close el-icon el-icon-close"></i>
+#>       </button>
+#>     </div>
+#>     <div class="el-dialog__body">
+#>       <p>Are you sure?</p>
+#>     </div>
+#>     <div class="el-dialog__footer">
+#>       <div id="ok_container" style="display: contents">
 #>         <el-button :type="type" :plain="plain" :round="round" :circle="circle" :loading="loading" :disabled="disabled" :native-type="native_type" @click="handleClick">{{label}}</el-button>
 #>       </div>
-#>       <div class="vue html-widget html-fill-item" id="dlg_ok" style="width:960px;height:500px;"></div>
-#>       <script type="application/json" data-for="dlg_ok">{"x":{"el":"#dlg_ok_container","data":{"label":"OK","type":"primary","size":null,"plain":false,"round":false,"circle":false,"loading":false,"disabled":false,"native_type":"button","count":0},"methods":{"handleClick":"function() { if (!this.disabled && !this.loading) { this.count++; Shiny.setInputValue('dlg_ok', this.count); } }"}},"evals":["methods.handleClick"],"jsHooks":[]}</script>
-#>       <div id="dlg_cancel_container">
-#>         <el-button :type="type" :plain="plain" :round="round" :circle="circle" :loading="loading" :disabled="disabled" :native-type="native_type" @click="handleClick">{{label}}</el-button>
-#>       </div>
-#>       <div class="vue html-widget html-fill-item" id="dlg_cancel" style="width:960px;height:500px;"></div>
-#>       <script type="application/json" data-for="dlg_cancel">{"x":{"el":"#dlg_cancel_container","data":{"label":"Cancel","type":"default","size":null,"plain":false,"round":false,"circle":false,"loading":false,"disabled":false,"native_type":"button","count":0},"methods":{"handleClick":"function() { if (!this.disabled && !this.loading) { this.count++; Shiny.setInputValue('dlg_cancel', this.count); } }"}},"evals":["methods.handleClick"],"jsHooks":[]}</script>
-#>     </span>
-#>   </el-dialog>
+#>       <div id="ok" style="width:0px;height:0px;" class="vue html-widget"></div>
+#>       <script type="application/json" data-for="ok">{"x":{"el":"#ok_container","data":{"label":"OK","type":"primary","size":null,"plain":false,"round":false,"circle":false,"loading":false,"disabled":false,"native_type":"button","count":0},"methods":{"handleClick":"function() { if (!this.disabled && !this.loading) { this.count++; Shiny.setInputValue('ok', this.count); } }"}},"evals":["methods.handleClick"],"jsHooks":[]}</script>
+#>     </div>
+#>   </div>
 #> </div>
-#> <div class="vue html-widget html-fill-item" id="dlg1" style="width:960px;height:500px;"></div>
-#> <script type="application/json" data-for="dlg1">{"x":{"el":"#dlg1_container","data":{"title":"My Dialog","visible":false,"width":"50%","fullscreen":false,"closeOnClickModal":true,"closeOnPressEscape":true,"showClose":true,"center":false,"destroyOnClose":false,"appendToBody":false},"methods":{"handleOpen":"function() { Shiny.setInputValue('dlg1_visible', true); }","handleClose":"function() { Shiny.setInputValue('dlg1_visible', false); this.visible = false; }"}},"evals":["methods.handleOpen","methods.handleClose"],"jsHooks":[]}</script>
 
-# Controlled open/close from server
-if (interactive()) {
-  library(shiny)
-  library(shiny.element)
-  ui <- el_page(
-    el_button("open_btn", "Open Dialog", type = "primary"),
-    el_dialog(
-      id      = "dlg1",
-      title   = "Confirm",
-      content = shiny::tags$p("Are you sure?"),
-      footer  = el_button("confirm_btn", "Yes", type = "danger")
-    ),
-    verbatimTextOutput("state")
-  )
-  server <- function(input, output, session) {
-    observeEvent(input$open_btn, {
-      update_el_dialog(session, "dlg1", visible = TRUE)
-    })
-    observeEvent(input$confirm_btn, {
-      update_el_dialog(session, "dlg1", visible = FALSE)
-    })
-    output$state <- renderPrint(input$dlg1_visible)
-  }
-  shinyApp(ui, server)
-}
+# The body can hold other components
+el_dialog("d2", title = "Filters",
+          content = shiny::tagList(el_input("q"), el_switch("live")))
+#> <div id="d2" class="el-dialog__wrapper" style="display:none" data-el-overlay="true" data-visible="false" data-modal="true" data-mask-close="true" data-esc-close="true">
+#>   <div role="dialog" aria-modal="true" aria-label="Filters" class="el-dialog" style="margin-top: 15vh; width: 50%;">
+#>     <div class="el-dialog__header">
+#>       <span class="el-dialog__title">Filters</span>
+#>       <button type="button" aria-label="Close" class="el-dialog__headerbtn">
+#>         <i class="el-dialog__close el-icon el-icon-close"></i>
+#>       </button>
+#>     </div>
+#>     <div class="el-dialog__body">
+#>       <div id="q_container" style="display: contents">
+#>         <el-input v-model="value" :type="type" :disabled="disabled" :readonly="readonly" :clearable="clearable" :show-password="showPassword" :show-word-limit="showWordLimit" :autosize="autosize" :prefix-icon="prefixIcon" :suffix-icon="suffixIcon" @change="handleChange" :size="size === null ? undefined : size" :placeholder="placeholder === null ? undefined : placeholder"></el-input>
+#>       </div>
+#>       <div id="q" style="width:0px;height:0px;" class="vue html-widget"></div>
+#>       <script type="application/json" data-for="q">{"x":{"el":"#q_container","data":{"value":"","type":"text","disabled":false,"readonly":false,"clearable":false,"showPassword":false,"showWordLimit":false,"autosize":false,"prefixIcon":null,"suffixIcon":null,"size":null,"placeholder":null},"methods":{"handleChange":"function(value) { Shiny.setInputValue('q', value); }"},"mounted":"function() { var self = this; var send = function() { Shiny.setInputValue(\"q\", self.value); }; if (window.Shiny && Shiny.shinyapp && typeof Shiny.shinyapp.isConnected === 'function' && Shiny.shinyapp.isConnected()) { send(); } else { $(document).one('shiny:connected', send); } }"},"evals":["methods.handleChange","mounted"],"jsHooks":[]}</script>
+#>       <div id="live_container" style="display: contents">
+#>         <el-switch v-model="value" :disabled="disabled" :active-text="activeText" :inactive-text="inactiveText" :active-color="activeColor" :inactive-color="inactiveColor" :active-value="activeValue" :inactive-value="inactiveValue" @change="handleChange"></el-switch>
+#>       </div>
+#>       <div id="live" style="width:0px;height:0px;" class="vue html-widget"></div>
+#>       <script type="application/json" data-for="live">{"x":{"el":"#live_container","data":{"value":false,"disabled":false,"activeText":"","inactiveText":"","activeColor":"","inactiveColor":"","activeValue":true,"inactiveValue":false},"methods":{"handleChange":"function(value) { Shiny.setInputValue('live', value); }"},"mounted":"function() { var self = this; var send = function() { Shiny.setInputValue(\"live\", self.value); }; if (window.Shiny && Shiny.shinyapp && typeof Shiny.shinyapp.isConnected === 'function' && Shiny.shinyapp.isConnected()) { send(); } else { $(document).one('shiny:connected', send); } }"},"evals":["methods.handleChange","mounted"],"jsHooks":[]}</script>
+#>     </div>
+#>   </div>
+#> </div>
 ```

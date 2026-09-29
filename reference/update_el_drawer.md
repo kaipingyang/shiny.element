@@ -2,7 +2,6 @@
 
 Server-side update for
 [`el_drawer()`](https://kaipingyang.github.io/shiny.element/reference/el_drawer.md).
-Use `visible = TRUE` to open and `visible = FALSE` to close.
 
 ## Usage
 
@@ -22,12 +21,16 @@ update_el_drawer(session, id, visible = NULL, title = NULL, size = NULL)
 
 - visible:
 
-  Logical. `TRUE` to open, `FALSE` to close.
+  Open or close it.
 
 - title:
 
-  New drawer title.
+  New header text.
 
 - size:
 
-  New drawer size.
+  New width or height.
+
+## Value
+
+Called for its side effect; returns `NULL` invisibly.

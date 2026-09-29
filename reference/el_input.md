@@ -117,20 +117,20 @@ An `htmltools` tagList with a Vue-managed input component.
 ``` r
 # Basic text input
 el_input("name", placeholder = "Enter your name")
-#> <div id="name_container">
-#>   <el-input v-model="value" :type="type" :disabled="disabled" :readonly="readonly" :clearable="clearable" :show-password="showPassword" :show-word-limit="showWordLimit" :autosize="autosize" :prefix-icon="prefixIcon" :suffix-icon="suffixIcon" @change="handleChange" :placeholder="placeholder"></el-input>
+#> <div id="name_container" style="display: contents">
+#>   <el-input v-model="value" :type="type" :disabled="disabled" :readonly="readonly" :clearable="clearable" :show-password="showPassword" :show-word-limit="showWordLimit" :autosize="autosize" :prefix-icon="prefixIcon" :suffix-icon="suffixIcon" @change="handleChange" :size="size === null ? undefined : size" :placeholder="placeholder === null ? undefined : placeholder"></el-input>
 #> </div>
-#> <div class="vue html-widget html-fill-item" id="name" style="width:960px;height:500px;"></div>
-#> <script type="application/json" data-for="name">{"x":{"el":"#name_container","data":{"value":"","type":"text","disabled":false,"readonly":false,"clearable":false,"showPassword":false,"showWordLimit":false,"autosize":false,"prefixIcon":null,"suffixIcon":null,"placeholder":"Enter your name"},"methods":{"handleChange":"function(value) { Shiny.setInputValue('name', value); }"}},"evals":["methods.handleChange"],"jsHooks":[]}</script>
+#> <div id="name" style="width:0px;height:0px;" class="vue html-widget"></div>
+#> <script type="application/json" data-for="name">{"x":{"el":"#name_container","data":{"value":"","type":"text","disabled":false,"readonly":false,"clearable":false,"showPassword":false,"showWordLimit":false,"autosize":false,"prefixIcon":null,"suffixIcon":null,"size":null,"placeholder":"Enter your name"},"methods":{"handleChange":"function(value) { Shiny.setInputValue('name', value); }"},"mounted":"function() { var self = this; var send = function() { Shiny.setInputValue(\"name\", self.value); }; if (window.Shiny && Shiny.shinyapp && typeof Shiny.shinyapp.isConnected === 'function' && Shiny.shinyapp.isConnected()) { send(); } else { $(document).one('shiny:connected', send); } }"},"evals":["methods.handleChange","mounted"],"jsHooks":[]}</script>
 
 # Clearable search input with icon
 el_input("search", placeholder = "Search...",
          clearable = TRUE, prefix_icon = "el-icon-search")
-#> <div id="search_container">
-#>   <el-input v-model="value" :type="type" :disabled="disabled" :readonly="readonly" :clearable="clearable" :show-password="showPassword" :show-word-limit="showWordLimit" :autosize="autosize" :prefix-icon="prefixIcon" :suffix-icon="suffixIcon" @change="handleChange" :placeholder="placeholder"></el-input>
+#> <div id="search_container" style="display: contents">
+#>   <el-input v-model="value" :type="type" :disabled="disabled" :readonly="readonly" :clearable="clearable" :show-password="showPassword" :show-word-limit="showWordLimit" :autosize="autosize" :prefix-icon="prefixIcon" :suffix-icon="suffixIcon" @change="handleChange" :size="size === null ? undefined : size" :placeholder="placeholder === null ? undefined : placeholder"></el-input>
 #> </div>
-#> <div class="vue html-widget html-fill-item" id="search" style="width:960px;height:500px;"></div>
-#> <script type="application/json" data-for="search">{"x":{"el":"#search_container","data":{"value":"","type":"text","disabled":false,"readonly":false,"clearable":true,"showPassword":false,"showWordLimit":false,"autosize":false,"prefixIcon":"el-icon-search","suffixIcon":null,"placeholder":"Search..."},"methods":{"handleChange":"function(value) { Shiny.setInputValue('search', value); }"}},"evals":["methods.handleChange"],"jsHooks":[]}</script>
+#> <div id="search" style="width:0px;height:0px;" class="vue html-widget"></div>
+#> <script type="application/json" data-for="search">{"x":{"el":"#search_container","data":{"value":"","type":"text","disabled":false,"readonly":false,"clearable":true,"showPassword":false,"showWordLimit":false,"autosize":false,"prefixIcon":"el-icon-search","suffixIcon":null,"size":null,"placeholder":"Search..."},"methods":{"handleChange":"function(value) { Shiny.setInputValue('search', value); }"},"mounted":"function() { var self = this; var send = function() { Shiny.setInputValue(\"search\", self.value); }; if (window.Shiny && Shiny.shinyapp && typeof Shiny.shinyapp.isConnected === 'function' && Shiny.shinyapp.isConnected()) { send(); } else { $(document).one('shiny:connected', send); } }"},"evals":["methods.handleChange","mounted"],"jsHooks":[]}</script>
 
 # Shiny app example
 if (interactive()) {

@@ -45,7 +45,10 @@ and supports both bslib/shiny themes and Element-UI layout CSS.</p>
 <span>  <span class="va">...</span>,</span>
 <span>  title <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  theme <span class="op">=</span> <span class="fu">bslib</span><span class="fu">::</span><span class="fu"><a href="https://rstudio.github.io/bslib/reference/bs_theme.html" class="external-link">bs_theme</a></span><span class="op">(</span>version <span class="op">=</span> <span class="fl">5</span>, bootswatch <span class="op">=</span> <span class="st">"minty"</span><span class="op">)</span>,</span>
-<span>  theme_css <span class="op">=</span> <span class="fu"><a href="el_layout_css_dependency.html">el_layout_css_dependency</a></span><span class="op">(</span><span class="op">)</span></span>
+<span>  theme_css <span class="op">=</span> <span class="fu"><a href="el_layout_css_dependency.html">el_layout_css_dependency</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>  offline <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  locale <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  dev <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">getOption</a></span><span class="op">(</span><span class="st">"shiny.element.dev"</span>, <span class="cn">FALSE</span><span class="op">)</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
 
@@ -67,7 +70,26 @@ If provided, Bootstrap dependencies will be included.</p></dd>
 
 
 <dt id="arg-theme-css">theme_css<a class="anchor" aria-label="anchor" href="#arg-theme-css"></a></dt>
-<dd><p>Optional Element-UI layout CSS dependency (default: <code><a href="el_layout_css_dependency.html">el_layout_css_dependency()</a></code>).
+<dd><p>Optional Element-UI layout CSS dependency (default: <code><a href="el_layout_css_dependency.html">el_layout_css_dependency()</a></code>).</p></dd>
+
+
+<dt id="arg-offline">offline<a class="anchor" aria-label="anchor" href="#arg-offline"></a></dt>
+<dd><p>Serve Element UI from the copy bundled with this package
+rather than the unpkg CDN. See <code><a href="element_ui_dependency.html">element_ui_dependency()</a></code>.</p></dd>
+
+
+<dt id="arg-locale">locale<a class="anchor" aria-label="anchor" href="#arg-locale"></a></dt>
+<dd><p>Language for Element UI's built-in text – pagination
+summaries, date-picker buttons and so on. <code>NULL</code> keeps its bundled
+Simplified Chinese; <code>"en"</code> is also bundled. See <code><a href="el_locale_dependency.html">el_locale_dependency()</a></code>.</p></dd>
+
+
+<dt id="arg-dev">dev<a class="anchor" aria-label="anchor" href="#arg-dev"></a></dt>
+<dd><p>Load the development build of Vue instead of <code>vue.min.js</code>.
+The production build strips every warning, which is why a template that
+fails to compile renders nothing and says nothing. Defaults to
+<code>getOption("shiny.element.dev", FALSE)</code>, so it can be turned on for a
+whole session without touching the UI code.
 Set to <code>NULL</code> to disable Element-UI layout CSS.</p></dd>
 
 </dl></div>
@@ -89,7 +111,7 @@ as they are not compatible. The Element-UI layout functions are experimental and
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.1.</p>
 </div>
 
     </footer></div>

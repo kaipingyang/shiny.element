@@ -116,16 +116,16 @@ user closes the alert.</p>
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu">el_alert</span><span class="op">(</span><span class="st">"al1"</span>, <span class="st">"Operation successful"</span>, type <span class="op">=</span> <span class="st">"success"</span>, show_icon <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;div id="al1_container"&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   &lt;el-alert :title="title" :type="type" :closable="closable" :close-text="closeText" :show-icon="showIcon" :center="center" :effect="effect" @close="handleClose"&gt;&lt;/el-alert&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;div id="al1_container" style="display: contents"&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   &lt;el-alert :title="title" :type="type" :closable="closable" :close-text="closeText" :show-icon="showIcon" :center="center" :effect="effect" @close="handleClose" :description="description === null ? undefined : description"&gt;&lt;/el-alert&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> &lt;/div&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;div class="vue html-widget html-fill-item" id="al1" style="width:960px;height:500px;"&gt;&lt;/div&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;script type="application/json" data-for="al1"&gt;{"x":{"el":"#al1_container","data":{"title":"Operation successful","type":"success","closable":true,"closeText":"","showIcon":true,"center":false,"effect":"light"},"methods":{"handleClose":"function() { Shiny.setInputValue('al1_closed', 1, {priority: 'event'}); }"}},"evals":["methods.handleClose"],"jsHooks":[]}&lt;/script&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;div id="al1" style="width:0px;height:0px;" class="vue html-widget"&gt;&lt;/div&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;script type="application/json" data-for="al1"&gt;{"x":{"el":"#al1_container","data":{"title":"Operation successful","type":"success","closable":true,"closeText":"","showIcon":true,"center":false,"effect":"light","description":null},"methods":{"handleClose":"function() { Shiny.setInputValue('al1_closed', 1, {priority: 'event'}); }"}},"evals":["methods.handleClose"],"jsHooks":[]}&lt;/script&gt;</span>
 <span class="r-in"><span><span class="fu">el_alert</span><span class="op">(</span><span class="st">"al2"</span>, <span class="st">"Warning!"</span>, description <span class="op">=</span> <span class="st">"Please review."</span>, type <span class="op">=</span> <span class="st">"warning"</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;div id="al2_container"&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   &lt;el-alert :title="title" :type="type" :closable="closable" :close-text="closeText" :show-icon="showIcon" :center="center" :effect="effect" @close="handleClose" :description="description"&gt;&lt;/el-alert&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;div id="al2_container" style="display: contents"&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   &lt;el-alert :title="title" :type="type" :closable="closable" :close-text="closeText" :show-icon="showIcon" :center="center" :effect="effect" @close="handleClose" :description="description === null ? undefined : description"&gt;&lt;/el-alert&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> &lt;/div&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;div class="vue html-widget html-fill-item" id="al2" style="width:960px;height:500px;"&gt;&lt;/div&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;div id="al2" style="width:0px;height:0px;" class="vue html-widget"&gt;&lt;/div&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> &lt;script type="application/json" data-for="al2"&gt;{"x":{"el":"#al2_container","data":{"title":"Warning!","type":"warning","closable":true,"closeText":"","showIcon":false,"center":false,"effect":"light","description":"Please review."},"methods":{"handleClose":"function() { Shiny.setInputValue('al2_closed', 1, {priority: 'event'}); }"}},"evals":["methods.handleClose"],"jsHooks":[]}&lt;/script&gt;</span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
@@ -139,7 +139,7 @@ user closes the alert.</p>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.1.</p>
 </div>
 
     </footer></div>

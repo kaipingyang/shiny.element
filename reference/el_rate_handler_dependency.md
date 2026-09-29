@@ -1,6 +1,6 @@
-# Rate Handler Dependency
+# Collapse Handler Dependency Rate Handler Dependency
 
-Rate Handler Dependency
+Collapse Handler Dependency Rate Handler Dependency
 
 ## Usage
 

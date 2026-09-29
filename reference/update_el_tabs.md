@@ -2,7 +2,6 @@
 
 Server-side update for
 [`el_tabs()`](https://kaipingyang.github.io/shiny.element/reference/el_tabs.md).
-Switches the active tab programmatically.
 
 ## Usage
 
@@ -22,4 +21,8 @@ update_el_tabs(session, id, selected = NULL)
 
 - selected:
 
-  New active tab name.
+  Name of the tab to select.
+
+## Value
+
+Called for its side effect; returns `NULL` invisibly.

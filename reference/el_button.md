@@ -90,10 +90,10 @@ neither `disabled` nor `loading` is `TRUE`.
 ``` r
 # Basic usage
 el_button("btn_primary", "Primary", type = "primary")
-#> <div id="btn_primary_container">
+#> <div id="btn_primary_container" style="display: contents">
 #>   <el-button :type="type" :plain="plain" :round="round" :circle="circle" :loading="loading" :disabled="disabled" :native-type="native_type" @click="handleClick">{{label}}</el-button>
 #> </div>
-#> <div class="vue html-widget html-fill-item" id="btn_primary" style="width:960px;height:500px;"></div>
+#> <div id="btn_primary" style="width:0px;height:0px;" class="vue html-widget"></div>
 #> <script type="application/json" data-for="btn_primary">{"x":{"el":"#btn_primary_container","data":{"label":"Primary","type":"primary","size":null,"plain":false,"round":false,"circle":false,"loading":false,"disabled":false,"native_type":"button","count":0},"methods":{"handleClick":"function() { if (!this.disabled && !this.loading) { this.count++; Shiny.setInputValue('btn_primary', this.count); } }"}},"evals":["methods.handleClick"],"jsHooks":[]}</script>
 
 # Shiny app example

@@ -59,6 +59,11 @@
 <h2 id="architecture">Architecture<a class="anchor" aria-label="anchor" href="#architecture"></a></h2>
 <p><code>shiny.element</code> is an R package that wraps Element-UI (Vue 2) components as Shiny widgets, using <code>vueR</code> as the bridge between Vue and htmlwidgets.</p>
 <div class="section level3">
+<h3 id="two-kinds-of-component">Two kinds of component<a class="anchor" aria-label="anchor" href="#two-kinds-of-component"></a></h3>
+<p><strong>Controls</strong> (input, select, table, form, …) are Vue instances wrapped as htmlwidgets — the pattern below.</p>
+<p><strong>Containers</strong> (<code>el_container</code>, <code>el_row</code>, <code>el_col</code>, <code>el_card</code>, <code>el_collapse</code>) are plain markup carrying Element’s classes, with interaction supplied by a Shiny input binding where they need any. Mounting a Vue instance over a container rebuilds the DOM inside it and detaches any component placed there, so anything whose job is to hold other components must not be a Vue instance. See lessons.md §1.2 and §1.3.</p>
+</div>
+<div class="section level3">
 <h3 id="component-pattern">Component Pattern<a class="anchor" aria-label="anchor" href="#component-pattern"></a></h3>
 <p>Every Vue-backed component follows the same structure:</p>
 <ol style="list-style-type: decimal"><li>
@@ -72,10 +77,10 @@
 <div class="section level3">
 <h3 id="dependency-loading">Dependency Loading<a class="anchor" aria-label="anchor" href="#dependency-loading"></a></h3>
 <ul><li>
-<code><a href="reference/el_page.html">el_page()</a></code> — top-level page wrapper; loads Vue, Element-UI CDN, <code>vue-handlers.js</code>, and layout CSS. Wraps <code><a href="https://rdrr.io/pkg/shiny/man/fluidPage.html" class="external-link">shiny::fluidPage()</a></code> with bslib Bootstrap 5.</li>
+<code><a href="reference/el_page.html">el_page()</a></code> — top-level page wrapper; loads Vue, Element-UI (bundled in <code>inst/element-ui</code>, not a CDN), <code>vue-handlers.js</code>, and layout CSS. Wraps <code><a href="https://rdrr.io/pkg/shiny/man/fluidPage.html" class="external-link">shiny::fluidPage()</a></code> with bslib Bootstrap 5. Takes <code>offline</code>, <code>locale</code> and <code>dev</code>.</li>
 <li>
 <code><a href="reference/use_element.html">use_element()</a></code> — alternative for non-<code>el_page</code> contexts (bslib, navbarPage). Place at top of UI.</li>
-<li>Each component also calls <code>attachDependencies()</code> with its own handler JS, so components work even without <code><a href="reference/use_element.html">use_element()</a></code> / <code><a href="reference/el_page.html">el_page()</a></code>.</li>
+<li>Each component calls <code>attachDependencies()</code> with <code>.el_handler_dependency("&lt;name&gt;")</code>, which pairs its handler JS with the shared <code>el-update.js</code>, so components work even without <code><a href="reference/use_element.html">use_element()</a></code> / <code><a href="reference/el_page.html">el_page()</a></code>.</li>
 </ul></div>
 <div class="section level3">
 <h3 id="generic-vue-update-api">Generic Vue Update API<a class="anchor" aria-label="anchor" href="#generic-vue-update-api"></a></h3>
@@ -115,24 +120,77 @@
 </tr><tr><td><code>el_steps</code></td>
 <td><code>input$&lt;id&gt;</code></td>
 <td>Active step index (0-based integer)</td>
-</tr></tbody></table></div>
+</tr><tr><td><code>el_table</code></td>
+<td><code>input$&lt;id&gt;_selected_rows</code></td>
+<td>1-based row numbers, types intact</td>
+</tr><tr><td><code>el_form</code></td>
+<td>
+<code>input$&lt;id&gt;</code> / <code>_valid</code> / <code>_submit</code>
+</td>
+<td>Model, verdict, submit counter</td>
+</tr><tr><td><code>el_menu</code></td>
+<td>
+<code>input$&lt;id&gt;</code> / <code>_path</code>
+</td>
+<td>Selected index, and its full path</td>
+</tr><tr><td><code>el_tree</code></td>
+<td>
+<code>input$&lt;id&gt;</code> / <code>_checked</code>
+</td>
+<td>Last clicked key, checked keys</td>
+</tr><tr><td><code>el_upload</code></td>
+<td><code>input$&lt;id&gt;</code></td>
+<td>Same data frame as <code>fileInput()</code>
+</td>
+</tr></tbody></table><p><code>input$&lt;id&gt;</code> is reported on load as well as on change. An empty selection arrives as <code>NULL</code>, which is what Shiny does with an empty array.</p>
+</div>
 <div class="section level3">
 <h3 id="adding-a-new-component">Adding a New Component<a class="anchor" aria-label="anchor" href="#adding-a-new-component"></a></h3>
-<ol style="list-style-type: decimal"><li>Create <code>R/el_&lt;name&gt;.R</code> with the widget function, an <code>update_el_&lt;name&gt;()</code> function, and a private <code>el_&lt;name&gt;_handler_dependency()</code>.</li>
-<li>Create <code>inst/js/el-&lt;name&gt;-handler.js</code> with <code>Shiny.addCustomMessageHandler('updateEl&lt;Name&gt;', ...)</code>.</li>
-<li>Add the handler dependency function in <code>R/el_dependencies.R</code>.</li>
-<li>Document with roxygen2 and run <code>devtools::document()</code>.</li>
+<p><strong>Read <code>.claude/docs/lessons.md</code> first</strong> — it has the checklist and the constraints that are not obvious from the code.</p>
+<ol style="list-style-type: decimal"><li>
+<code>R/el_&lt;name&gt;.R</code>: the widget function, <code>update_el_&lt;name&gt;()</code>, and <code>el_&lt;name&gt;_handler_dependency()</code> (one line: <code>.el_handler_dependency("&lt;name&gt;")</code>).</li>
+<li>Mount point gets <code>style = .el_host_style()</code>; the widget gets <code>width = 0, height = 0</code>. Both matter for layout — see lessons.md §1.3, §1.4.</li>
+<li>Optional props use <code><a href="reference/dot-el_optional_bind.html">.el_optional_bind()</a></code> with an <code>NA</code> placeholder, so they fall back to Element’s own defaults (§2.1, §2.2).</li>
+<li>Stateful components call <code><a href="reference/dot-el_mounted_init.html">.el_mounted_init()</a></code> to report their initial value, or <code>input$&lt;id&gt;</code> stays NULL until the user touches them (§3.1).</li>
+<li>
+<code>inst/js/el-&lt;name&gt;-handler.js</code>: normally one line, <code>elRegisterUpdate('updateEl&lt;Name&gt;')</code>. Write a bespoke handler only when the update needs a component method (form, tree, upload, feedback do).</li>
+<li>Parent/child structures are declarative — generate them in R or pass them through a <code>data</code> prop. Components cannot nest (§1.1).</li>
+<li>
+<code>roxygen2::roxygenise(".")</code>, then tests: unit, browser fixture, <strong>and look at a screenshot</strong> (§5.1).</li>
 </ol></div>
 <div class="section level3">
-<h3 id="testing-pattern">Testing Pattern<a class="anchor" aria-label="anchor" href="#testing-pattern"></a></h3>
-<p>Tests use a <code>mock_session</code> list to avoid a live Shiny session:</p>
-<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<h3 id="testing">Testing<a class="anchor" aria-label="anchor" href="#testing"></a></h3>
+<p>Three layers, each blind to what the next one catches — see lessons.md §5.</p>
+<table class="table"><colgroup><col width="33%"><col width="33%"><col width="33%"></colgroup><thead><tr><th>Layer</th>
+<th>Where</th>
+<th>Catches</th>
+</tr></thead><tbody><tr><td>Unit</td>
+<td><code>test-el_*.R</code></td>
+<td>HTML generation, message fields, helper logic</td>
+</tr><tr><td>Browser</td>
+<td>
+<code>test-browser.R</code> + <code>apps/integration.R</code>
+</td>
+<td>mounting, interaction, geometry, Vue warnings</td>
+</tr><tr><td>Screenshot</td>
+<td>by hand</td>
+<td>layout and appearance — invisible to the other two</td>
+</tr></tbody></table><p>Browser tests run Vue’s development build and assert zero warnings. They skip on CRAN and where no Chrome is available:</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a><span class="va">NOT_CRAN</span><span class="op">=</span>true <span class="ex">Rscript</span> <span class="at">-e</span> <span class="st">'devtools::load_all("."); testthat::test_dir("tests/testthat")'</span></span></code></pre></div>
+<p>Unit tests use a <code>mock_session</code> list to avoid a live Shiny session:</p>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">mock_session</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
 <span>  ns <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">id</span><span class="op">)</span> <span class="va">id</span>,</span>
 <span>  sendCustomMessage <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">type</span>, <span class="va">msg</span><span class="op">)</span> <span class="op">{</span> <span class="va">captured</span> <span class="op">&lt;&lt;-</span> <span class="va">msg</span> <span class="op">}</span></span>
 <span><span class="op">)</span></span></code></pre></div>
-<p>Test HTML output by converting to string: <code>paste(as.character(tag), collapse = "")</code>.</p>
+<p>Test HTML output by converting to string: <code>paste(as.character(tag), collapse = "")</code>. A bare list of tags needs <code><a href="https://rstudio.github.io/htmltools/reference/tagList.html" class="external-link">htmltools::tagList()</a></code> first, or <code><a href="https://rdrr.io/r/base/character.html" class="external-link">as.character()</a></code> deparses it instead of rendering.</p>
+<p><code>test-update-fields.R</code> renders every component and checks that each field its <code>update_*()</code> sends really exists in the Vue data — a mismatch is otherwise a silent no-op.</p>
 </div>
+</div>
+<div class="section level2">
+<h2 id="lessons-and-gotchas">Lessons and gotchas<a class="anchor" aria-label="anchor" href="#lessons-and-gotchas"></a></h2>
+<p><code>.claude/docs/lessons.md</code> records what was learned the hard way: architectural constraints that cannot be worked around, Element UI and Shiny behaviours that fail silently, and the verification habits that caught them. Read it before changing how components are built or rendered.</p>
+<p><code>.claude/docs/screenshot-recipe.R</code> is the driver template for looking at a page yourself.</p>
 </div>
 </div>
 
@@ -145,7 +203,7 @@
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.1.</p>
 </div>
 
     </footer></div>

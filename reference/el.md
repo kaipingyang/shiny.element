@@ -10,10 +10,6 @@ Shiny bindings.
 el
 ```
 
-## Format
-
-An object of class `list` of length 82.
-
 ## Details
 
 Categories:

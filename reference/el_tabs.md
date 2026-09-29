@@ -1,14 +1,13 @@
-# Element UI Tabs Component
+# Element UI Tabs
 
-Creates an Element UI tabs component with Vue instance. Each tab can
-have a label, content, and optional disabled state.
+A tabbed panel.
 
 ## Usage
 
 ``` r
 el_tabs(
   id = NULL,
-  tabs,
+  tabs = list(),
   selected = NULL,
   type = NULL,
   tab_position = "top",
@@ -26,44 +25,45 @@ el_tabs(
 
 - tabs:
 
-  A list of tab definitions. Each element is a list with:
+  A list of tabs. Each is a named list with:
 
-  `name`
+  name
 
-  :   Unique string identifier for the tab (v-model value).
+  :   Unique tab identifier (string). Required.
 
-  `label`
+  label
 
-  :   Display text for the tab.
+  :   Tab label. Required.
 
-  `content`
+  content
 
-  :   Optional tagList/tag for the tab body. `NULL` for empty.
+  :   Tab body. Any tag or tagList, including this package's own
+      components.
 
-  `disabled`
+  disabled
 
-  :   Logical. Whether the tab is disabled. Default `FALSE`.
+  :   Whether the tab can be selected. Default `FALSE`.
 
 - selected:
 
-  Initial active tab name. Defaults to the first tab's name.
+  Name of the initially selected tab. Defaults to the first.
 
 - type:
 
-  Tab style type: `NULL` (default), `"card"`, or `"border-card"`.
+  `NULL` for plain tabs, `"card"` or `"border-card"`.
 
 - tab_position:
 
-  Position of the tab bar: `"top"` (default), `"right"`, `"bottom"`, or
-  `"left"`.
+  `"top"` (default), `"right"`, `"bottom"` or `"left"`.
 
 - closable:
 
-  Whether tabs show a close button. Default `FALSE`.
+  Show a close button on each tab. Closing removes the tab from the
+  page; the server is told through `input$<id>_closed`.
 
 - stretch:
 
-  Whether tab headers stretch to fill the tab bar. Default `FALSE`.
+  Stretch the tabs to fill the available width.
 
 - session:
 
@@ -71,58 +71,86 @@ el_tabs(
 
 ## Value
 
-An `htmltools` tagList with a Vue-managed tabs component.
+An `htmltools` tag.
 
-## Shiny input
+## Details
 
-`input$<id>` — String (active tab name), updated on each tab click.
+Rendered as plain markup carrying Element's own classes, driven by a
+Shiny input binding rather than a Vue instance. That is what lets a tab
+hold other components from this package: a Vue instance mounted here
+would rebuild the DOM underneath them, leaving them rendered but
+disconnected from the server. See `.claude/docs/lessons.md` §1.2.
+
+## Shiny inputs
+
+`input$<id>` — name of the selected tab, reported on load and on every
+change. `input$<id>_closed` — name of the most recently closed tab, when
+`closable = TRUE`.
 
 ## Examples
 
 ``` r
-# Basic usage
-el_tabs(
-  id = "my_tabs",
-  tabs = list(
-    list(name = "tab1", label = "Tab 1", content = shiny::tags$p("Content 1")),
-    list(name = "tab2", label = "Tab 2", content = shiny::tags$p("Content 2")),
-    list(name = "tab3", label = "Tab 3", disabled = TRUE)
-  ),
-  selected = "tab1"
-)
-#> <div id="my_tabs_container">
-#>   <el-tabs v-model="activeTab" :tab-position="tabPosition" :stretch="stretch" @tab-click="handleTabClick">
-#>     <el-tab-pane name="tab1" label="Tab 1">
-#>       <p>Content 1</p>
-#>     </el-tab-pane>
-#>     <el-tab-pane name="tab2" label="Tab 2">
-#>       <p>Content 2</p>
-#>     </el-tab-pane>
-#>     <el-tab-pane name="tab3" label="Tab 3" disabled></el-tab-pane>
-#>   </el-tabs>
+el_tabs("t1", selected = "a", tabs = list(
+  list(name = "a", label = "First",  content = shiny::tags$p("One")),
+  list(name = "b", label = "Second", content = shiny::tags$p("Two"))
+))
+#> <div id="t1" class="el-tabs el-tabs--top" data-el-tabs="true" data-position="top" data-carded="false">
+#>   <div class="el-tabs__header is-top">
+#>     <div class="el-tabs__nav-wrap is-top">
+#>       <div class="el-tabs__nav-scroll">
+#>         <div role="tablist" class="el-tabs__nav is-top">
+#>           <div class="el-tabs__active-bar is-top"></div>
+#>           <div id="t1-tab-a" role="tab" aria-selected="true" tabindex="0" class="el-tabs__item is-top is-active" data-el-name="a">First</div>
+#>           <div id="t1-tab-b" role="tab" tabindex="-1" class="el-tabs__item is-top" data-el-name="b">Second</div>
+#>         </div>
+#>       </div>
+#>     </div>
+#>   </div>
+#>   <div class="el-tabs__content">
+#>     <div role="tabpanel" id="t1-pane-a" class="el-tab-pane" data-el-name="a">
+#>       <p>One</p>
+#>     </div>
+#>     <div role="tabpanel" id="t1-pane-b" class="el-tab-pane" style="display:none" data-el-name="b">
+#>       <p>Two</p>
+#>     </div>
+#>   </div>
 #> </div>
-#> <div class="vue html-widget html-fill-item" id="my_tabs" style="width:960px;height:500px;"></div>
-#> <script type="application/json" data-for="my_tabs">{"x":{"el":"#my_tabs_container","data":{"activeTab":"tab1","tabPosition":"top","stretch":false,"closable":false},"methods":{"handleTabClick":"function(tab, event) { Shiny.setInputValue('my_tabs', tab.name); }"}},"evals":["methods.handleTabClick"],"jsHooks":[]}</script>
 
-# Card style with position
-if (interactive()) {
-  library(shiny)
-  library(shiny.element)
-  ui <- el_page(
-    el_tabs(
-      id = "tabs1",
-      type = "card",
-      tab_position = "top",
-      tabs = list(
-        list(name = "a", label = "First",  content = shiny::tags$p("Hello")),
-        list(name = "b", label = "Second", content = shiny::tags$p("World"))
-      )
-    ),
-    verbatimTextOutput("active")
-  )
-  server <- function(input, output, session) {
-    output$active <- renderPrint(input$tabs1)
-  }
-  shinyApp(ui, server)
-}
+# A tab can hold other components
+el_tabs("t2", tabs = list(
+  list(name = "data", label = "Data", content = el_table(data = head(iris, 3))),
+  list(name = "opts", label = "Options", content = el_switch("live"))
+))
+#> <div id="t2" class="el-tabs el-tabs--top" data-el-tabs="true" data-position="top" data-carded="false">
+#>   <div class="el-tabs__header is-top">
+#>     <div class="el-tabs__nav-wrap is-top">
+#>       <div class="el-tabs__nav-scroll">
+#>         <div role="tablist" class="el-tabs__nav is-top">
+#>           <div class="el-tabs__active-bar is-top"></div>
+#>           <div id="t2-tab-data" role="tab" aria-selected="true" tabindex="0" class="el-tabs__item is-top is-active" data-el-name="data">Data</div>
+#>           <div id="t2-tab-opts" role="tab" tabindex="-1" class="el-tabs__item is-top" data-el-name="opts">Options</div>
+#>         </div>
+#>       </div>
+#>     </div>
+#>   </div>
+#>   <div class="el-tabs__content">
+#>     <div role="tabpanel" id="t2-pane-data" class="el-tab-pane" data-el-name="data">
+#>       <div id="el_table_a7a86fd0-f812-4cae-8fbd-6fa0afa18978_container" style="display: contents">
+#>         <el-table :data="tableData" :border="border" style="width: 100%" @selection-change="handleSelectionChange">
+#>           <el-table-column v-if="selection" type="selection" width="55"></el-table-column>
+#>           <el-table-column v-for="col in columns" :key="col.prop" :prop="col.prop" :label="col.label" :width="col.width"></el-table-column>
+#>         </el-table>
+#>       </div>
+#>       <div id="el_table_a7a86fd0-f812-4cae-8fbd-6fa0afa18978" style="width:0px;height:0px;" class="vue html-widget"></div>
+#>       <script type="application/json" data-for="el_table_a7a86fd0-f812-4cae-8fbd-6fa0afa18978">{"x":{"el":"#el_table_a7a86fd0-f812-4cae-8fbd-6fa0afa18978_container","data":{"tableData":[{"Sepal_Length":5.1,"Sepal_Width":3.5,"Petal_Length":1.4,"Petal_Width":0.2,"Species":"setosa"},{"Sepal_Length":4.9,"Sepal_Width":3,"Petal_Length":1.4,"Petal_Width":0.2,"Species":"setosa"},{"Sepal_Length":4.7,"Sepal_Width":3.2,"Petal_Length":1.3,"Petal_Width":0.2,"Species":"setosa"}],"columns":[{"prop":"Sepal_Length","label":"Sepal.Length"},{"prop":"Sepal_Width","label":"Sepal.Width"},{"prop":"Petal_Length","label":"Petal.Length"},{"prop":"Petal_Width","label":"Petal.Width"},{"prop":"Species","label":"Species"}],"border":true,"selection":false,"selected":[],"selectedRows":[]},"methods":{"handleSelectionChange":"function(selection) { var self = this; self.selected = selection; self.selectedRows = selection.map(function(r) { return self.tableData.indexOf(r) + 1; }); Shiny.setInputValue('el_table_a7a86fd0-f812-4cae-8fbd-6fa0afa18978_selected', self.selected); Shiny.setInputValue('el_table_a7a86fd0-f812-4cae-8fbd-6fa0afa18978_selected_rows', self.selectedRows); }"},"mounted":"function() { var self = this; var send = function() { Shiny.setInputValue(\"el_table_a7a86fd0-f812-4cae-8fbd-6fa0afa18978_selected\", self.selected); Shiny.setInputValue(\"el_table_a7a86fd0-f812-4cae-8fbd-6fa0afa18978_selected_rows\", self.selectedRows); }; if (window.Shiny && Shiny.shinyapp && typeof Shiny.shinyapp.isConnected === 'function' && Shiny.shinyapp.isConnected()) { send(); } else { $(document).one('shiny:connected', send); } }"},"evals":["methods.handleSelectionChange","mounted"],"jsHooks":[]}</script>
+#>     </div>
+#>     <div role="tabpanel" id="t2-pane-opts" class="el-tab-pane" style="display:none" data-el-name="opts">
+#>       <div id="live_container" style="display: contents">
+#>         <el-switch v-model="value" :disabled="disabled" :active-text="activeText" :inactive-text="inactiveText" :active-color="activeColor" :inactive-color="inactiveColor" :active-value="activeValue" :inactive-value="inactiveValue" @change="handleChange"></el-switch>
+#>       </div>
+#>       <div id="live" style="width:0px;height:0px;" class="vue html-widget"></div>
+#>       <script type="application/json" data-for="live">{"x":{"el":"#live_container","data":{"value":false,"disabled":false,"activeText":"","inactiveText":"","activeColor":"","inactiveColor":"","activeValue":true,"inactiveValue":false},"methods":{"handleChange":"function(value) { Shiny.setInputValue('live', value); }"},"mounted":"function() { var self = this; var send = function() { Shiny.setInputValue(\"live\", self.value); }; if (window.Shiny && Shiny.shinyapp && typeof Shiny.shinyapp.isConnected === 'function' && Shiny.shinyapp.isConnected()) { send(); } else { $(document).one('shiny:connected', send); } }"},"evals":["methods.handleChange","mounted"],"jsHooks":[]}</script>
+#>     </div>
+#>   </div>
+#> </div>
 ```

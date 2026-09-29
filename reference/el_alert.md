@@ -76,15 +76,15 @@ user closes the alert.
 
 ``` r
 el_alert("al1", "Operation successful", type = "success", show_icon = TRUE)
-#> <div id="al1_container">
-#>   <el-alert :title="title" :type="type" :closable="closable" :close-text="closeText" :show-icon="showIcon" :center="center" :effect="effect" @close="handleClose"></el-alert>
+#> <div id="al1_container" style="display: contents">
+#>   <el-alert :title="title" :type="type" :closable="closable" :close-text="closeText" :show-icon="showIcon" :center="center" :effect="effect" @close="handleClose" :description="description === null ? undefined : description"></el-alert>
 #> </div>
-#> <div class="vue html-widget html-fill-item" id="al1" style="width:960px;height:500px;"></div>
-#> <script type="application/json" data-for="al1">{"x":{"el":"#al1_container","data":{"title":"Operation successful","type":"success","closable":true,"closeText":"","showIcon":true,"center":false,"effect":"light"},"methods":{"handleClose":"function() { Shiny.setInputValue('al1_closed', 1, {priority: 'event'}); }"}},"evals":["methods.handleClose"],"jsHooks":[]}</script>
+#> <div id="al1" style="width:0px;height:0px;" class="vue html-widget"></div>
+#> <script type="application/json" data-for="al1">{"x":{"el":"#al1_container","data":{"title":"Operation successful","type":"success","closable":true,"closeText":"","showIcon":true,"center":false,"effect":"light","description":null},"methods":{"handleClose":"function() { Shiny.setInputValue('al1_closed', 1, {priority: 'event'}); }"}},"evals":["methods.handleClose"],"jsHooks":[]}</script>
 el_alert("al2", "Warning!", description = "Please review.", type = "warning")
-#> <div id="al2_container">
-#>   <el-alert :title="title" :type="type" :closable="closable" :close-text="closeText" :show-icon="showIcon" :center="center" :effect="effect" @close="handleClose" :description="description"></el-alert>
+#> <div id="al2_container" style="display: contents">
+#>   <el-alert :title="title" :type="type" :closable="closable" :close-text="closeText" :show-icon="showIcon" :center="center" :effect="effect" @close="handleClose" :description="description === null ? undefined : description"></el-alert>
 #> </div>
-#> <div class="vue html-widget html-fill-item" id="al2" style="width:960px;height:500px;"></div>
+#> <div id="al2" style="width:0px;height:0px;" class="vue html-widget"></div>
 #> <script type="application/json" data-for="al2">{"x":{"el":"#al2_container","data":{"title":"Warning!","type":"warning","closable":true,"closeText":"","showIcon":false,"center":false,"effect":"light","description":"Please review."},"methods":{"handleClose":"function() { Shiny.setInputValue('al2_closed', 1, {priority: 'event'}); }"}},"evals":["methods.handleClose"],"jsHooks":[]}</script>
 ```

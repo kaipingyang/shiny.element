@@ -2,8 +2,6 @@
 
 Server-side update for
 [`el_dialog()`](https://kaipingyang.github.io/shiny.element/reference/el_dialog.md).
-Use `visible = TRUE` to open the dialog and `visible = FALSE` to close
-it programmatically.
 
 ## Usage
 
@@ -23,12 +21,16 @@ update_el_dialog(session, id, visible = NULL, title = NULL, width = NULL)
 
 - visible:
 
-  Logical. `TRUE` to open, `FALSE` to close.
+  Open or close it.
 
 - title:
 
-  New dialog title text.
+  New header text.
 
 - width:
 
-  New dialog width (e.g. `"60%"`, `"400px"`).
+  New width.
+
+## Value
+
+Called for its side effect; returns `NULL` invisibly.

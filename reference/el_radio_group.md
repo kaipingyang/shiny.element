@@ -69,13 +69,13 @@ el_radio_group("size",
   choices  = c(Small = "s", Medium = "m", Large = "l"),
   selected = "m"
 )
-#> <div id="size_container">
+#> <div id="size_container" style="display: contents">
 #>   <el-radio-group v-model="value" :disabled="disabled" @change="handleChange">
 #>     <el-radio :label="opt.value" v-for="opt in options" :key="opt.value">{{opt.label}}</el-radio>
 #>   </el-radio-group>
 #> </div>
-#> <div class="vue html-widget html-fill-item" id="size" style="width:960px;height:500px;"></div>
-#> <script type="application/json" data-for="size">{"x":{"el":"#size_container","data":{"value":"m","options":[{"value":"s","label":"Small"},{"value":"m","label":"Medium"},{"value":"l","label":"Large"}],"disabled":false},"methods":{"handleChange":"function(value) { Shiny.setInputValue('size', value); }"}},"evals":["methods.handleChange"],"jsHooks":[]}</script>
+#> <div id="size" style="width:0px;height:0px;" class="vue html-widget"></div>
+#> <script type="application/json" data-for="size">{"x":{"el":"#size_container","data":{"value":"m","options":[{"value":"s","label":"Small"},{"value":"m","label":"Medium"},{"value":"l","label":"Large"}],"disabled":false},"methods":{"handleChange":"function(value) { Shiny.setInputValue('size', value); }"},"mounted":"function() { var self = this; var send = function() { Shiny.setInputValue(\"size\", self.value); }; if (window.Shiny && Shiny.shinyapp && typeof Shiny.shinyapp.isConnected === 'function' && Shiny.shinyapp.isConnected()) { send(); } else { $(document).one('shiny:connected', send); } }"},"evals":["methods.handleChange","mounted"],"jsHooks":[]}</script>
 
 # Button-style radio group
 el_radio_group("theme",
@@ -83,13 +83,13 @@ el_radio_group("theme",
   button  = TRUE,
   size    = "small"
 )
-#> <div id="theme_container">
+#> <div id="theme_container" style="display: contents">
 #>   <el-radio-group v-model="value" :disabled="disabled" @change="handleChange" :size="size">
 #>     <el-radio-button :label="opt.value" v-for="opt in options" :key="opt.value">{{opt.label}}</el-radio-button>
 #>   </el-radio-group>
 #> </div>
-#> <div class="vue html-widget html-fill-item" id="theme" style="width:960px;height:500px;"></div>
-#> <script type="application/json" data-for="theme">{"x":{"el":"#theme_container","data":{"value":"","options":[{"value":"light","label":"Light"},{"value":"dark","label":"Dark"}],"disabled":false,"size":"small"},"methods":{"handleChange":"function(value) { Shiny.setInputValue('theme', value); }"}},"evals":["methods.handleChange"],"jsHooks":[]}</script>
+#> <div id="theme" style="width:0px;height:0px;" class="vue html-widget"></div>
+#> <script type="application/json" data-for="theme">{"x":{"el":"#theme_container","data":{"value":"","options":[{"value":"light","label":"Light"},{"value":"dark","label":"Dark"}],"disabled":false,"size":"small"},"methods":{"handleChange":"function(value) { Shiny.setInputValue('theme', value); }"},"mounted":"function() { var self = this; var send = function() { Shiny.setInputValue(\"theme\", self.value); }; if (window.Shiny && Shiny.shinyapp && typeof Shiny.shinyapp.isConnected === 'function' && Shiny.shinyapp.isConnected()) { send(); } else { $(document).one('shiny:connected', send); } }"},"evals":["methods.handleChange","mounted"],"jsHooks":[]}</script>
 
 # Shiny app example
 if (interactive()) {

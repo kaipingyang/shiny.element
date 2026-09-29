@@ -87,11 +87,11 @@ An `htmltools` tagList with a Vue-managed pagination component.
 ``` r
 # Basic usage
 el_pagination("pg1", total = 100)
-#> <div id="pg1_container">
+#> <div id="pg1_container" style="display: contents">
 #>   <el-pagination :total="total" :page-size="pageSize" :current-page.sync="currentPage" :page-sizes="pageSizes" :layout="layout" :background="background" :small="small" :disabled="disabled" :pager-count="pagerCount" @current-change="handlePageChange" @size-change="handleSizeChange"></el-pagination>
 #> </div>
-#> <div class="vue html-widget html-fill-item" id="pg1" style="width:960px;height:500px;"></div>
-#> <script type="application/json" data-for="pg1">{"x":{"el":"#pg1_container","data":{"total":100,"pageSize":10,"currentPage":1,"pageSizes":[10,20,30,50],"layout":"total, sizes, prev, pager, next, jumper","background":false,"small":false,"disabled":false,"pagerCount":7},"methods":{"handlePageChange":"function(page) { Shiny.setInputValue('pg1_page', page); }","handleSizeChange":"function(size) { Shiny.setInputValue('pg1_size', size); }"}},"evals":["methods.handlePageChange","methods.handleSizeChange"],"jsHooks":[]}</script>
+#> <div id="pg1" style="width:0px;height:0px;" class="vue html-widget"></div>
+#> <script type="application/json" data-for="pg1">{"x":{"el":"#pg1_container","data":{"total":100,"pageSize":10,"currentPage":1,"pageSizes":[10,20,30,50],"layout":"total, sizes, prev, pager, next, jumper","background":false,"small":false,"disabled":false,"pagerCount":7},"methods":{"handlePageChange":"function(page) { Shiny.setInputValue('pg1_page', page); }","handleSizeChange":"function(size) { Shiny.setInputValue('pg1_size', size); }"},"mounted":"function() { var self = this; var send = function() { Shiny.setInputValue(\"pg1_page\", self.currentPage); Shiny.setInputValue(\"pg1_size\", self.pageSize); }; if (window.Shiny && Shiny.shinyapp && typeof Shiny.shinyapp.isConnected === 'function' && Shiny.shinyapp.isConnected()) { send(); } else { $(document).one('shiny:connected', send); } }"},"evals":["methods.handlePageChange","methods.handleSizeChange","mounted"],"jsHooks":[]}</script>
 
 # With custom page sizes and layout
 el_pagination(
@@ -101,11 +101,11 @@ el_pagination(
   page_sizes = c(10, 20, 50, 100),
   layout     = "total, sizes, prev, pager, next"
 )
-#> <div id="pg2_container">
+#> <div id="pg2_container" style="display: contents">
 #>   <el-pagination :total="total" :page-size="pageSize" :current-page.sync="currentPage" :page-sizes="pageSizes" :layout="layout" :background="background" :small="small" :disabled="disabled" :pager-count="pagerCount" @current-change="handlePageChange" @size-change="handleSizeChange"></el-pagination>
 #> </div>
-#> <div class="vue html-widget html-fill-item" id="pg2" style="width:960px;height:500px;"></div>
-#> <script type="application/json" data-for="pg2">{"x":{"el":"#pg2_container","data":{"total":500,"pageSize":20,"currentPage":1,"pageSizes":[10,20,50,100],"layout":"total, sizes, prev, pager, next","background":false,"small":false,"disabled":false,"pagerCount":7},"methods":{"handlePageChange":"function(page) { Shiny.setInputValue('pg2_page', page); }","handleSizeChange":"function(size) { Shiny.setInputValue('pg2_size', size); }"}},"evals":["methods.handlePageChange","methods.handleSizeChange"],"jsHooks":[]}</script>
+#> <div id="pg2" style="width:0px;height:0px;" class="vue html-widget"></div>
+#> <script type="application/json" data-for="pg2">{"x":{"el":"#pg2_container","data":{"total":500,"pageSize":20,"currentPage":1,"pageSizes":[10,20,50,100],"layout":"total, sizes, prev, pager, next","background":false,"small":false,"disabled":false,"pagerCount":7},"methods":{"handlePageChange":"function(page) { Shiny.setInputValue('pg2_page', page); }","handleSizeChange":"function(size) { Shiny.setInputValue('pg2_size', size); }"},"mounted":"function() { var self = this; var send = function() { Shiny.setInputValue(\"pg2_page\", self.currentPage); Shiny.setInputValue(\"pg2_size\", self.pageSize); }; if (window.Shiny && Shiny.shinyapp && typeof Shiny.shinyapp.isConnected === 'function' && Shiny.shinyapp.isConnected()) { send(); } else { $(document).one('shiny:connected', send); } }"},"evals":["methods.handlePageChange","methods.handleSizeChange","mounted"],"jsHooks":[]}</script>
 
 # Shiny app example
 if (interactive()) {

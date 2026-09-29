@@ -11,7 +11,10 @@ el_page(
   ...,
   title = NULL,
   theme = bslib::bs_theme(version = 5, bootswatch = "minty"),
-  theme_css = el_layout_css_dependency()
+  theme_css = el_layout_css_dependency(),
+  offline = TRUE,
+  locale = NULL,
+  dev = getOption("shiny.element.dev", FALSE)
 )
 ```
 
@@ -36,7 +39,28 @@ el_page(
 
   Optional Element-UI layout CSS dependency (default:
   [`el_layout_css_dependency()`](https://kaipingyang.github.io/shiny.element/reference/el_layout_css_dependency.md)).
-  Set to `NULL` to disable Element-UI layout CSS.
+
+- offline:
+
+  Serve Element UI from the copy bundled with this package rather than
+  the unpkg CDN. See
+  [`element_ui_dependency()`](https://kaipingyang.github.io/shiny.element/reference/element_ui_dependency.md).
+
+- locale:
+
+  Language for Element UI's built-in text – pagination summaries,
+  date-picker buttons and so on. `NULL` keeps its bundled Simplified
+  Chinese; `"en"` is also bundled. See
+  [`el_locale_dependency()`](https://kaipingyang.github.io/shiny.element/reference/el_locale_dependency.md).
+
+- dev:
+
+  Load the development build of Vue instead of `vue.min.js`. The
+  production build strips every warning, which is why a template that
+  fails to compile renders nothing and says nothing. Defaults to
+  `getOption("shiny.element.dev", FALSE)`, so it can be turned on for a
+  whole session without touching the UI code. Set to `NULL` to disable
+  Element-UI layout CSS.
 
 ## Details
 

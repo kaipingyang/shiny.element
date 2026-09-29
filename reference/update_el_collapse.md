@@ -21,4 +21,9 @@ update_el_collapse(session, id, value = NULL)
 
 - value:
 
-  Character vector of panel names to activate.
+  Character vector of panel names to open. Pass `character(0)` to close
+  them all.
+
+## Value
+
+Called for its side effect; returns `NULL` invisibly.

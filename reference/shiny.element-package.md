@@ -16,3 +16,12 @@ Useful links:
 ## Author
 
 **Maintainer**: Kaiping Yang <1260146556@qq.com>
+
+Authors:
+
+- Kaiping Yang <1260146556@qq.com>
+
+Other contributors:
+
+- ElemeFE (Element UI library bundled in inst/element-ui, MIT licence)
+  \[contributor, copyright holder\]

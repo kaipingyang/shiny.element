@@ -1,9 +1,6 @@
 # Element UI Drawer
 
-A panel that slides in from the edge of the screen. Behaviour and API
-mirror
-[`el_dialog()`](https://kaipingyang.github.io/shiny.element/reference/el_dialog.md)
-but with a directional slide animation.
+A panel that slides in from an edge of the viewport.
 
 ## Usage
 
@@ -20,8 +17,6 @@ el_drawer(
   show_close = TRUE,
   wrapper_closable = TRUE,
   close_on_press_escape = TRUE,
-  destroy_on_close = FALSE,
-  append_to_body = FALSE,
   session = shiny::getDefaultReactiveDomain()
 )
 ```
@@ -34,53 +29,45 @@ el_drawer(
 
 - title:
 
-  Drawer title text. Default `""`.
+  Header text.
 
 - content:
 
-  Content for the drawer body (tag or tagList). `NULL` for empty.
+  Drawer body. Any tag or tagList, including this package's own
+  components.
 
 - visible:
 
-  Whether the drawer is initially visible. Default `FALSE`.
+  Whether it starts open.
 
 - direction:
 
-  Slide direction: `"rtl"` (right-to-left, default), `"ltr"`, `"ttb"`
-  (top-to-bottom), `"btt"`.
+  Edge it slides from: `"rtl"` (from the right, the default), `"ltr"`,
+  `"ttb"` or `"btt"`.
 
 - size:
 
-  Drawer width (horizontal) or height (vertical). Numeric pixels or CSS
-  string. Default `"30%"`.
+  Width for a horizontal drawer, height for a vertical one.
 
 - modal:
 
-  Whether to show a background overlay. Default `TRUE`.
+  Show the backdrop.
 
 - with_header:
 
-  Whether to render the header bar. Default `TRUE`.
+  Show the header bar.
 
 - show_close:
 
-  Whether to show the × close button. Default `TRUE`.
+  Show the close button in the header.
 
 - wrapper_closable:
 
-  Whether clicking the overlay closes the drawer. Default `TRUE`.
+  Close when the backdrop is clicked.
 
 - close_on_press_escape:
 
-  Whether pressing Escape closes the drawer. Default `TRUE`.
-
-- destroy_on_close:
-
-  Whether to destroy child components on close. Default `FALSE`.
-
-- append_to_body:
-
-  Whether to append the drawer to `document.body`. Default `FALSE`.
+  Close on Escape.
 
 - session:
 
@@ -88,22 +75,66 @@ el_drawer(
 
 ## Value
 
-An `htmltools` tagList with a Vue-managed drawer component.
+An `htmltools` tag.
+
+## Details
+
+Rendered as plain markup carrying Element's own classes, driven by a
+Shiny input binding rather than a Vue instance, so the body can hold
+other components from this package. See `.claude/docs/lessons.md` §1.2.
 
 ## Shiny input
 
-`input$<id>_visible` — Logical (`TRUE` when the drawer opens, `FALSE`
-when it closes).
+`input$<id>` — `TRUE` while the drawer is open, reported whenever it
+opens or closes, however that happens. (It was `input$<id>_visible`
+while this was a Vue component; see
+[`el_dialog()`](https://kaipingyang.github.io/shiny.element/reference/el_dialog.md).)
 
 ## Examples
 
 ``` r
-el_drawer("drw1", title = "Settings", content = shiny::tags$p("Settings here."))
-#> <div id="drw1_container">
-#>   <el-drawer :title="title" :visible.sync="visible" :direction="direction" :size="size" :modal="modal" :with-header="withHeader" :show-close="showClose" :wrapper-closable="wrapperClosable" :close-on-press-escape="closeOnPressEscape" :destroy-on-close="destroyOnClose" :append-to-body="appendToBody" @open="handleOpen" @close="handleClose">
-#>     <p>Settings here.</p>
-#>   </el-drawer>
+el_drawer("w1", title = "Settings", content = shiny::tags$p("Body"))
+#> <div id="w1" tabindex="-1" class="el-drawer__wrapper" style="display:none" data-el-overlay="true" data-visible="false" data-modal="true" data-mask-close="true" data-esc-close="true">
+#>   <div role="document" tabindex="-1" class="el-drawer__container">
+#>     <div aria-modal="true" aria-labelledby="w1-title" aria-label="Settings" role="dialog" tabindex="-1" class="el-drawer rtl" style="width: 30%;">
+#>       <header id="w1-title" class="el-drawer__header">
+#>         <span role="heading" tabindex="0" title="Settings">Settings</span>
+#>         <button aria-label="close Settings" type="button" class="el-drawer__close-btn">
+#>           <i class="el-dialog__close el-icon el-icon-close"></i>
+#>         </button>
+#>       </header>
+#>       <section class="el-drawer__body">
+#>         <p>Body</p>
+#>       </section>
+#>     </div>
+#>   </div>
 #> </div>
-#> <div class="vue html-widget html-fill-item" id="drw1" style="width:960px;height:500px;"></div>
-#> <script type="application/json" data-for="drw1">{"x":{"el":"#drw1_container","data":{"title":"Settings","visible":false,"direction":"rtl","size":"30%","modal":true,"withHeader":true,"showClose":true,"wrapperClosable":true,"closeOnPressEscape":true,"destroyOnClose":false,"appendToBody":false},"methods":{"handleOpen":"function() { Shiny.setInputValue('drw1_visible', true); }","handleClose":"function() { Shiny.setInputValue('drw1_visible', false); this.visible = false; }"}},"evals":["methods.handleOpen","methods.handleClose"],"jsHooks":[]}</script>
+
+# Sliding up from the bottom, holding other components
+el_drawer("w2", title = "Filters", direction = "btt", size = "40%",
+          content = shiny::tagList(el_input("q"), el_switch("live")))
+#> <div id="w2" tabindex="-1" class="el-drawer__wrapper" style="display:none" data-el-overlay="true" data-visible="false" data-modal="true" data-mask-close="true" data-esc-close="true">
+#>   <div role="document" tabindex="-1" class="el-drawer__container">
+#>     <div aria-modal="true" aria-labelledby="w2-title" aria-label="Filters" role="dialog" tabindex="-1" class="el-drawer btt" style="height: 40%;">
+#>       <header id="w2-title" class="el-drawer__header">
+#>         <span role="heading" tabindex="0" title="Filters">Filters</span>
+#>         <button aria-label="close Filters" type="button" class="el-drawer__close-btn">
+#>           <i class="el-dialog__close el-icon el-icon-close"></i>
+#>         </button>
+#>       </header>
+#>       <section class="el-drawer__body">
+#>         <div id="q_container" style="display: contents">
+#>           <el-input v-model="value" :type="type" :disabled="disabled" :readonly="readonly" :clearable="clearable" :show-password="showPassword" :show-word-limit="showWordLimit" :autosize="autosize" :prefix-icon="prefixIcon" :suffix-icon="suffixIcon" @change="handleChange" :size="size === null ? undefined : size" :placeholder="placeholder === null ? undefined : placeholder"></el-input>
+#>         </div>
+#>         <div id="q" style="width:0px;height:0px;" class="vue html-widget"></div>
+#>         <script type="application/json" data-for="q">{"x":{"el":"#q_container","data":{"value":"","type":"text","disabled":false,"readonly":false,"clearable":false,"showPassword":false,"showWordLimit":false,"autosize":false,"prefixIcon":null,"suffixIcon":null,"size":null,"placeholder":null},"methods":{"handleChange":"function(value) { Shiny.setInputValue('q', value); }"},"mounted":"function() { var self = this; var send = function() { Shiny.setInputValue(\"q\", self.value); }; if (window.Shiny && Shiny.shinyapp && typeof Shiny.shinyapp.isConnected === 'function' && Shiny.shinyapp.isConnected()) { send(); } else { $(document).one('shiny:connected', send); } }"},"evals":["methods.handleChange","mounted"],"jsHooks":[]}</script>
+#>         <div id="live_container" style="display: contents">
+#>           <el-switch v-model="value" :disabled="disabled" :active-text="activeText" :inactive-text="inactiveText" :active-color="activeColor" :inactive-color="inactiveColor" :active-value="activeValue" :inactive-value="inactiveValue" @change="handleChange"></el-switch>
+#>         </div>
+#>         <div id="live" style="width:0px;height:0px;" class="vue html-widget"></div>
+#>         <script type="application/json" data-for="live">{"x":{"el":"#live_container","data":{"value":false,"disabled":false,"activeText":"","inactiveText":"","activeColor":"","inactiveColor":"","activeValue":true,"inactiveValue":false},"methods":{"handleChange":"function(value) { Shiny.setInputValue('live', value); }"},"mounted":"function() { var self = this; var send = function() { Shiny.setInputValue(\"live\", self.value); }; if (window.Shiny && Shiny.shinyapp && typeof Shiny.shinyapp.isConnected === 'function' && Shiny.shinyapp.isConnected()) { send(); } else { $(document).one('shiny:connected', send); } }"},"evals":["methods.handleChange","mounted"],"jsHooks":[]}</script>
+#>       </section>
+#>     </div>
+#>   </div>
+#> </div>
 ```

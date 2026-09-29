@@ -94,15 +94,15 @@ An `htmltools` tagList with a Vue-managed input-number component.
 
 ``` r
 el_input_number("n1", value = 5, min = 0, max = 100)
-#> <div id="n1_container">
+#> <div id="n1_container" style="display: contents">
 #>   <el-input-number v-model="value" :min="min" :max="max" :step="step" :step-strictly="stepStrictly" :disabled="disabled" :controls="controls" :controls-position="controlsPosition" @change="handleChange"></el-input-number>
 #> </div>
-#> <div class="vue html-widget html-fill-item" id="n1" style="width:960px;height:500px;"></div>
-#> <script type="application/json" data-for="n1">{"x":{"el":"#n1_container","data":{"value":5,"min":0,"max":100,"step":1,"stepStrictly":false,"disabled":false,"controls":true,"controlsPosition":""},"methods":{"handleChange":"function(val) { Shiny.setInputValue('n1', val); }"}},"evals":["methods.handleChange"],"jsHooks":[]}</script>
+#> <div id="n1" style="width:0px;height:0px;" class="vue html-widget"></div>
+#> <script type="application/json" data-for="n1">{"x":{"el":"#n1_container","data":{"value":5,"min":0,"max":100,"step":1,"stepStrictly":false,"disabled":false,"controls":true,"controlsPosition":""},"methods":{"handleChange":"function(val) { Shiny.setInputValue('n1', val); }"},"mounted":"function() { var self = this; var send = function() { Shiny.setInputValue(\"n1\", self.value); }; if (window.Shiny && Shiny.shinyapp && typeof Shiny.shinyapp.isConnected === 'function' && Shiny.shinyapp.isConnected()) { send(); } else { $(document).one('shiny:connected', send); } }"},"evals":["methods.handleChange","mounted"],"jsHooks":[]}</script>
 el_input_number("n2", value = 1.5, step = 0.5, precision = 1)
-#> <div id="n2_container">
+#> <div id="n2_container" style="display: contents">
 #>   <el-input-number v-model="value" :min="min" :max="max" :step="step" :step-strictly="stepStrictly" :disabled="disabled" :controls="controls" :controls-position="controlsPosition" @change="handleChange" :precision="precision"></el-input-number>
 #> </div>
-#> <div class="vue html-widget html-fill-item" id="n2" style="width:960px;height:500px;"></div>
-#> <script type="application/json" data-for="n2">{"x":{"el":"#n2_container","data":{"value":1.5,"min":-1e+308,"max":1e+308,"step":0.5,"stepStrictly":false,"disabled":false,"controls":true,"controlsPosition":"","precision":1},"methods":{"handleChange":"function(val) { Shiny.setInputValue('n2', val); }"}},"evals":["methods.handleChange"],"jsHooks":[]}</script>
+#> <div id="n2" style="width:0px;height:0px;" class="vue html-widget"></div>
+#> <script type="application/json" data-for="n2">{"x":{"el":"#n2_container","data":{"value":1.5,"min":-1e+308,"max":1e+308,"step":0.5,"stepStrictly":false,"disabled":false,"controls":true,"controlsPosition":"","precision":1},"methods":{"handleChange":"function(val) { Shiny.setInputValue('n2', val); }"},"mounted":"function() { var self = this; var send = function() { Shiny.setInputValue(\"n2\", self.value); }; if (window.Shiny && Shiny.shinyapp && typeof Shiny.shinyapp.isConnected === 'function' && Shiny.shinyapp.isConnected()) { send(); } else { $(document).one('shiny:connected', send); } }"},"evals":["methods.handleChange","mounted"],"jsHooks":[]}</script>
 ```
