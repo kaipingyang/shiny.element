@@ -1,0 +1,207 @@
+#' Element UI Tree
+#'
+#' A tree view, optionally with checkboxes.
+#'
+#' Unlike the menu, a tree takes its whole structure through a `data` prop
+#' rather than nested tags, so the nesting is plain R data all the way down.
+#'
+#' @param id Tree ID (auto-generated if NULL).
+#' @param data A list of nodes. Each is a list with the key and label fields
+#'   named by `node_key` and `label_field`, and optionally `children`,
+#'   `disabled` for an uncheckable node, or `isLeaf`.
+#' @param node_key Field holding each node's unique key. The keys are what the
+#'   server sees and what `expanded` and `checked` refer to.
+#' @param label_field,children_field Fields holding a node's label and its
+#'   children.
+#' @param show_checkbox Show a checkbox beside every node.
+#' @param check_strictly Treat a parent's checkbox as independent of its
+#'   children, rather than checking them together.
+#' @param default_expand_all Expand every node initially.
+#' @param expand_on_click_node Expand a node when its label is clicked, as
+#'   well as its arrow. Set `FALSE` to make clicking select rather than
+#'   expand.
+#' @param accordion Keep only one node expanded per level.
+#' @param highlight_current Highlight the clicked node.
+#' @param expanded,checked Keys to expand and to check initially.
+#' @param empty_text Text shown when `data` is empty.
+#' @param session Shiny session for module support.
+#'
+#' @section Server inputs:
+#' `input$<id>` holds the key of the most recently clicked node, and
+#' `input$<id>_checked` the keys of all checked nodes, as a character vector.
+#' Both are reported on load, where they start empty and therefore arrive as
+#' `NULL`, as Shiny reports any empty selection.
+#'
+#' @return A Shiny UI element.
+#' @export
+#' @examples
+#' nodes <- list(
+#'   list(id = "fruit", label = "Fruit", children = list(
+#'     list(id = "apple",  label = "Apple"),
+#'     list(id = "cherry", label = "Cherry")
+#'   )),
+#'   list(id = "veg", label = "Vegetables", children = list(
+#'     list(id = "leek", label = "Leek", disabled = TRUE)
+#'   ))
+#' )
+#'
+#' el_tree(id = "picker", data = nodes)
+#'
+#' # With checkboxes, two nodes checked and the first branch open
+#' el_tree(id = "picker", data = nodes, show_checkbox = TRUE,
+#'         checked = c("apple", "cherry"), expanded = "fruit")
+el_tree <- function(id = NULL,
+                    data = list(),
+                    node_key = "id",
+                    label_field = "label",
+                    children_field = "children",
+                    show_checkbox = FALSE,
+                    check_strictly = FALSE,
+                    default_expand_all = FALSE,
+                    expand_on_click_node = TRUE,
+                    accordion = FALSE,
+                    highlight_current = FALSE,
+                    expanded = NULL,
+                    checked = NULL,
+                    empty_text = NULL,
+                    session = shiny::getDefaultReactiveDomain()) {
+  if (is.null(id)) id <- paste0("el_tree_", uuid::UUIDgenerate())
+  ns_id        <- if (!is.null(session)) session$ns(id) else id
+  container_id <- paste0(ns_id, "_container")
+
+  tree_attrs <- list(
+    # Named so the handler can call setCheckedKeys(): assigning
+    # default-checked-keys only adds to the selection, never clears it.
+    ref                      = "tree",
+    ":data"                  = "treeData",
+    ":props"                 = "treeProps",
+    ":node-key"              = "nodeKey",
+    ":show-checkbox"         = "showCheckbox",
+    ":check-strictly"        = "checkStrictly",
+    ":default-expand-all"    = "defaultExpandAll",
+    ":expand-on-click-node"  = "expandOnClickNode",
+    ":accordion"             = "accordion",
+    ":highlight-current"     = "highlightCurrent",
+    ":default-expanded-keys" = "expandedKeys",
+    ":default-checked-keys"  = "checkedKeys",
+    ":empty-text"            = .el_optional_bind("emptyText"),
+    "@node-click"            = "handleNodeClick",
+    "@check"                 = "handleCheck"
+  )
+
+  vue_data <- list(
+    treeData          = data,
+    # Element's default props map is replaced wholesale, not merged, so
+    # `disabled` has to be named here or a disabled node renders as normal.
+    treeProps         = list(label = label_field, children = children_field,
+                             disabled = "disabled"),
+    nodeKey           = node_key,
+    showCheckbox      = show_checkbox,
+    checkStrictly     = check_strictly,
+    defaultExpandAll  = default_expand_all,
+    expandOnClickNode = expand_on_click_node,
+    accordion         = accordion,
+    highlightCurrent  = highlight_current,
+    expandedKeys      = if (is.null(expanded)) list() else as.list(expanded),
+    checkedKeys       = if (is.null(checked)) list() else as.list(checked),
+    emptyText         = if (is.null(empty_text)) NA else empty_text,
+    current           = "",
+    checked           = if (is.null(checked)) list() else as.list(checked)
+  )
+
+  component_ui <- shiny::tagList(
+    shiny::tags$div(
+      id = container_id, style = .el_host_style(),
+      htmltools::tag("el-tree", tree_attrs)
+    ),
+    vueR::vue(
+      elementId = ns_id, width = 0, height = 0,
+      list(
+        el   = paste0("#", container_id),
+        data = vue_data,
+        methods = list(
+          handleNodeClick = htmlwidgets::JS(sprintf(
+            paste0(
+              "function(data) { this.current = data[this.nodeKey]; ",
+              "Shiny.setInputValue('%s', this.current); }"
+            ), ns_id
+          )),
+          handleCheck = htmlwidgets::JS(sprintf(
+            paste0(
+              # Element hands the check event the node plus a summary object;
+              # checkedKeys is the part worth reporting.
+              "function(node, info) { this.checked = info.checkedKeys; ",
+              "Shiny.setInputValue('%s_checked', this.checked); }"
+            ), ns_id
+          ))
+        ),
+        mounted = .el_mounted_init(stats::setNames(
+          c("current", "checked"), paste0(ns_id, c("", "_checked"))
+        ))
+      )
+    )
+  )
+
+  htmltools::attachDependencies(component_ui, el_tree_handler_dependency())
+}
+
+#' Update an Element UI Tree
+#'
+#' @param session Shiny session object.
+#' @param id Tree ID (un-namespaced).
+#' @param data Replacement node data.
+#' @param expanded Keys to expand. Expanding is additive: a node already open
+#'   is not closed by leaving it out, because Element's default-expanded-keys
+#'   only ever opens nodes.
+#' @param checked Keys to check, replacing the current selection entirely.
+#'   Pass `list()` to clear it.
+#' @return Called for its side effect; returns `NULL` invisibly.
+#' @export
+update_el_tree <- function(session, id,
+                           data = NULL,
+                           expanded = NULL,
+                           checked = NULL) {
+  msg <- list(id = session$ns(id))
+  # data and expandedKeys are watched props; checkedKeys is not replaceable
+  # that way and the handler calls setCheckedKeys() instead.
+  if (!is.null(data))     msg$treeData     <- data
+  if (!is.null(expanded)) msg$expandedKeys <- as.list(expanded)
+  if (!is.null(checked))  msg$checkedKeys  <- as.list(checked)
+  session$sendCustomMessage("updateElTree", msg)
+  invisible(NULL)
+}
+
+#' Build tree data from a data frame
+#'
+#' Turns hierarchical columns into the nested node lists [el_tree()] expects,
+#' one level per column. Keys are built by joining a row's values down to that
+#' level, so a label repeated under different parents still gets a unique key.
+#'
+#' @param df A data frame.
+#' @param cols Column names, outermost level first.
+#' @param sep Separator used when joining values into a key.
+#' @return A list of nodes.
+#' @export
+#' @examples
+#' df <- data.frame(
+#'   region  = c("North", "North", "South"),
+#'   city    = c("Leeds", "York", "Bath"),
+#'   stringsAsFactors = FALSE
+#' )
+#' df_to_tree_data(df, c("region", "city"))
+df_to_tree_data <- function(df, cols, sep = "/") {
+  build <- function(sub, level, prefix) {
+    if (level > length(cols)) return(NULL)
+    values <- unique(as.character(sub[[cols[level]]]))
+
+    lapply(values, function(value) {
+      key  <- if (nzchar(prefix)) paste(prefix, value, sep = sep) else value
+      rows <- sub[as.character(sub[[cols[level]]]) == value, , drop = FALSE]
+      node <- list(id = key, label = value)
+      kids <- build(rows, level + 1, key)
+      if (length(kids)) node$children <- kids
+      node
+    })
+  }
+  build(df, 1, "")
+}

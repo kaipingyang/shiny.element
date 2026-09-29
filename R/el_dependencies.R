@@ -260,3 +260,9 @@ el_form_handler_dependency <- function() {
 el_menu_handler_dependency <- function() {
   .el_handler_dependency("menu")
 }
+
+#' Tree Handler Dependency
+#' @keywords internal
+el_tree_handler_dependency <- function() {
+  .el_handler_dependency("tree")
+}

@@ -111,6 +111,19 @@ ui <- el_page(
     ))),
   actionButton("nav_pick", "select m-all"),
 
+  # Tree: structure arrives as data rather than tags, and replacing a checked
+  # set needs the component's own method.
+  tags$div(style = "width:240px",
+    el_tree("tree", show_checkbox = TRUE, expanded = "t-fruit",
+            checked = c("t-apple"), data = list(
+      list(id = "t-fruit", label = "Fruit", children = list(
+        list(id = "t-apple", label = "Apple"),
+        list(id = "t-plum",  label = "Plum", disabled = TRUE)
+      )),
+      list(id = "t-grain", label = "Grains")
+    ))),
+  actionButton("tree_check", "check grains only"),
+
   # Forces the icon font to load, so the offline-assets test has something
   # to observe.
   tags$i(class = "el-icon-edit"),
@@ -137,7 +150,8 @@ server <- function(input, output, session) {
     ids <- c("inp", "sel", "sw", "sld", "rate", "rg", "cg", "num", "dp", "cp",
              "tabs", "pg_page", "pg_size", "col", "rg_num", "stp",
              "tbl_selected_rows", "casc_value", "sw_nested", "sld_nested",
-             "signup_submit", "signup_valid", "nav", "nav_path")
+             "signup_submit", "signup_valid", "nav", "nav_path",
+             "tree", "tree_checked")
     for (i in ids) cat(i, "=", fmt(input[[i]]), "\n")
   })
 
@@ -150,6 +164,10 @@ server <- function(input, output, session) {
 
   observeEvent(input$tbl_swap, {
     update_el_table(session, "tbl", data = head(mtcars, 6))
+  })
+
+  observeEvent(input$tree_check, {
+    update_el_tree(session, "tree", checked = "t-grain")
   })
 
   observeEvent(input$nav_pick, {

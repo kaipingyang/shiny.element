@@ -289,6 +289,40 @@ test_that("selecting an item reports its index and path", {
   expect_equal(vals[["nav_path"]], "m-prod,m-all")
 })
 
+# ── tree ──────────────────────────────────────────────────────────────────────
+
+test_that("the tree renders its nodes with checkboxes", {
+  skip_if_no_browser()
+  expect_gt(as.numeric(bev("String(document.querySelectorAll('#tree_container .el-tree-node').length)")), 2)
+  # Element replaces its props map wholesale, so `disabled` has to be named in
+  # it or a disabled node renders as a normal one.
+  expect_equal(bev("String(document.querySelectorAll('#tree_container .el-checkbox.is-disabled').length)"), "1")
+})
+
+test_that("the tree reports its initial checked keys", {
+  skip_if_no_browser()
+  expect_equal(bdump()[["tree_checked"]], "t-apple")
+})
+
+test_that("clicking a node reports its key", {
+  skip_if_no_browser()
+  bev("(function(){var n=document.querySelectorAll('#tree_container .el-tree-node__label'); for (var i=0;i<n.length;i++) { if (n[i].innerText.trim()==='Grains') { n[i].click(); break } }})()")
+  Sys.sleep(2.5)
+  expect_equal(bdump()[["tree"]], "t-grain")
+})
+
+test_that("update_el_tree replaces the checked set rather than adding to it", {
+  skip_if_no_browser()
+  # Assigning default-checked-keys only ever adds, which left the previous
+  # selection checked too; the handler calls setCheckedKeys() instead.
+  bclick("#tree_check", wait = 2.5)
+  expect_equal(bdump()[["tree_checked"]], "t-grain")
+  expect_equal(
+    bev("(function(){var c=document.querySelectorAll('#tree_container .el-checkbox.is-checked'); return JSON.stringify(Array.from(c).map(function(e){return e.parentElement.innerText.trim()}))})()"),
+    '["Grains"]'
+  )
+})
+
 # ── unsupplied props fall back to Element's defaults ──────────────────────────
 
 test_that("a select with no placeholder shows Element's own", {
