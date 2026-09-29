@@ -16,61 +16,59 @@ el_drawer(
   show_close = TRUE,
   wrapper_closable = TRUE,
   close_on_press_escape = TRUE,
-  destroy_on_close = FALSE,
-  append_to_body = FALSE,
   session = shiny::getDefaultReactiveDomain()
 )
 }
 \arguments{
 \item{id}{Drawer ID. Auto-generated UUID if \code{NULL}.}
 
-\item{title}{Drawer title text. Default \code{""}.}
+\item{title}{Header text.}
 
-\item{content}{Content for the drawer body (tag or tagList). \code{NULL} for
-empty.}
+\item{content}{Drawer body. Any tag or tagList, including this package's
+own components.}
 
-\item{visible}{Whether the drawer is initially visible. Default \code{FALSE}.}
+\item{visible}{Whether it starts open.}
 
-\item{direction}{Slide direction: \code{"rtl"} (right-to-left, default),
-\code{"ltr"}, \code{"ttb"} (top-to-bottom), \code{"btt"}.}
+\item{direction}{Edge it slides from: \code{"rtl"} (from the right, the
+default), \code{"ltr"}, \code{"ttb"} or \code{"btt"}.}
 
-\item{size}{Drawer width (horizontal) or height (vertical). Numeric pixels
-or CSS string. Default \code{"30\%"}.}
+\item{size}{Width for a horizontal drawer, height for a vertical one.}
 
-\item{modal}{Whether to show a background overlay. Default \code{TRUE}.}
+\item{modal}{Show the backdrop.}
 
-\item{with_header}{Whether to render the header bar. Default \code{TRUE}.}
+\item{with_header}{Show the header bar.}
 
-\item{show_close}{Whether to show the × close button. Default \code{TRUE}.}
+\item{show_close}{Show the close button in the header.}
 
-\item{wrapper_closable}{Whether clicking the overlay closes the drawer.
-Default \code{TRUE}.}
+\item{wrapper_closable}{Close when the backdrop is clicked.}
 
-\item{close_on_press_escape}{Whether pressing Escape closes the drawer.
-Default \code{TRUE}.}
-
-\item{destroy_on_close}{Whether to destroy child components on close.
-Default \code{FALSE}.}
-
-\item{append_to_body}{Whether to append the drawer to \code{document.body}.
-Default \code{FALSE}.}
+\item{close_on_press_escape}{Close on Escape.}
 
 \item{session}{Shiny session for module support.}
 }
 \value{
-An \code{htmltools} tagList with a Vue-managed drawer component.
+An \code{htmltools} tag.
 }
 \description{
-A panel that slides in from the edge of the screen. Behaviour and API
-mirror \code{\link[=el_dialog]{el_dialog()}} but with a directional slide animation.
+A panel that slides in from an edge of the viewport.
+}
+\details{
+Rendered as plain markup carrying Element's own classes, driven by a Shiny
+input binding rather than a Vue instance, so the body can hold other
+components from this package. See \code{.claude/docs/lessons.md} §1.2.
 }
 \section{Shiny input}{
 
-\verb{input$<id>_visible} — Logical (\code{TRUE} when the drawer opens, \code{FALSE}
-when it closes).
+\verb{input$<id>} — \code{TRUE} while the drawer is open, reported whenever it opens
+or closes, however that happens. (It was \verb{input$<id>_visible} while this was
+a Vue component; see \code{\link[=el_dialog]{el_dialog()}}.)
 }
 
 \examples{
-el_drawer("drw1", title = "Settings", content = shiny::tags$p("Settings here."))
+el_drawer("w1", title = "Settings", content = shiny::tags$p("Body"))
+
+# Sliding up from the bottom, holding other components
+el_drawer("w2", title = "Filters", direction = "btt", size = "40\%",
+          content = shiny::tagList(el_input("q"), el_switch("live")))
 
 }

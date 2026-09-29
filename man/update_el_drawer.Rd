@@ -11,13 +11,15 @@ update_el_drawer(session, id, visible = NULL, title = NULL, size = NULL)
 
 \item{id}{Drawer ID (un-namespaced).}
 
-\item{visible}{Logical. \code{TRUE} to open, \code{FALSE} to close.}
+\item{visible}{Open or close it.}
 
-\item{title}{New drawer title.}
+\item{title}{New header text.}
 
-\item{size}{New drawer size.}
+\item{size}{New width or height.}
+}
+\value{
+Called for its side effect; returns \code{NULL} invisibly.
 }
 \description{
-Server-side update for \code{\link[=el_drawer]{el_drawer()}}. Use \code{visible = TRUE} to open and
-\code{visible = FALSE} to close.
+Server-side update for \code{\link[=el_drawer]{el_drawer()}}.
 }

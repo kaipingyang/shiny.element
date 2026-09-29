@@ -2,7 +2,7 @@
 % Please edit documentation in R/el_dialog.R
 \name{el_dialog}
 \alias{el_dialog}
-\title{Element UI Dialog Component}
+\title{Element UI Dialog}
 \usage{
 el_dialog(
   id = NULL,
@@ -11,95 +11,73 @@ el_dialog(
   footer = NULL,
   visible = FALSE,
   width = "50\%",
+  top = "15vh",
   fullscreen = FALSE,
+  modal = TRUE,
   close_on_click_modal = TRUE,
   close_on_press_escape = TRUE,
   show_close = TRUE,
   center = FALSE,
-  destroy_on_close = FALSE,
-  append_to_body = FALSE,
   session = shiny::getDefaultReactiveDomain()
 )
 }
 \arguments{
 \item{id}{Dialog ID. Auto-generated UUID if \code{NULL}.}
 
-\item{title}{Dialog title text. Default \code{""}.}
+\item{title}{Header text. \code{""} renders the header bar without a title.}
 
-\item{content}{Optional tagList/tag for the dialog body. \code{NULL} for empty.}
+\item{content}{Dialog body. Any tag or tagList, including this package's
+own components.}
 
-\item{footer}{Optional tagList/tag for the dialog footer slot. \code{NULL} for none.}
+\item{footer}{Footer content, usually buttons. \code{NULL} for none.}
 
-\item{visible}{Whether the dialog is initially visible. Default \code{FALSE}.}
+\item{visible}{Whether it starts open.}
 
-\item{width}{Dialog width. Default \code{"50\%"}.}
+\item{width}{Dialog width, e.g. \code{"50\%"} or \code{"600px"}.}
 
-\item{fullscreen}{Whether the dialog occupies the full screen. Default \code{FALSE}.}
+\item{top}{Distance from the top of the viewport. Ignored when
+\code{fullscreen = TRUE}.}
 
-\item{close_on_click_modal}{Whether clicking the overlay closes the dialog.
-Default \code{TRUE}.}
+\item{fullscreen}{Fill the viewport.}
 
-\item{close_on_press_escape}{Whether pressing Escape closes the dialog.
-Default \code{TRUE}.}
+\item{modal}{Show the backdrop.}
 
-\item{show_close}{Whether to show the close button in the header. Default \code{TRUE}.}
+\item{close_on_click_modal}{Close when the backdrop is clicked.}
 
-\item{center}{Whether to align the header and footer to center. Default \code{FALSE}.}
+\item{close_on_press_escape}{Close on Escape.}
 
-\item{destroy_on_close}{Whether to destroy child components on close. Default \code{FALSE}.}
+\item{show_close}{Show the close button in the header.}
 
-\item{append_to_body}{Whether to append the dialog to \code{document.body}. Default \code{FALSE}.}
+\item{center}{Centre the header and footer.}
 
 \item{session}{Shiny session for module support.}
 }
 \value{
-An \code{htmltools} tagList with a Vue-managed dialog component.
+An \code{htmltools} tag.
 }
 \description{
-Creates an Element UI dialog (modal) with Vue instance.
-The dialog visibility can be controlled from the server via \code{\link[=update_el_dialog]{update_el_dialog()}}.
+A modal dialog.
+}
+\details{
+Rendered as plain markup carrying Element's own classes, driven by a Shiny
+input binding rather than a Vue instance, so the body can hold other
+components from this package. See \code{.claude/docs/lessons.md} §1.2.
 }
 \section{Shiny input}{
 
-\verb{input$<id>_visible} — Logical (\code{TRUE} when dialog opens, \code{FALSE} when it closes).
+\verb{input$<id>} — \code{TRUE} while the dialog is open, reported whenever it opens
+or closes, however that happens. (It was \verb{input$<id>_visible} while this was
+a Vue component; Shiny routes an input binding's messages by element id, so
+the name now matches the id, as it does for \code{\link[=el_tabs]{el_tabs()}} and
+\code{\link[=el_collapse]{el_collapse()}}.)
 }
 
 \examples{
-# Basic dialog (initially hidden)
-el_dialog(
-  id      = "dlg1",
-  title   = "My Dialog",
-  content = shiny::tags$p("Dialog body text."),
-  footer  = shiny::tagList(
-    el_button("dlg_ok",  "OK",     type = "primary"),
-    el_button("dlg_cancel", "Cancel")
-  )
-)
+el_dialog("d1", title = "Confirm", content = shiny::tags$p("Are you sure?"),
+          footer = el_button("ok", "OK", type = "primary"))
 
-# Controlled open/close from server
-if (interactive()) {
-  library(shiny)
-  library(shiny.element)
-  ui <- el_page(
-    el_button("open_btn", "Open Dialog", type = "primary"),
-    el_dialog(
-      id      = "dlg1",
-      title   = "Confirm",
-      content = shiny::tags$p("Are you sure?"),
-      footer  = el_button("confirm_btn", "Yes", type = "danger")
-    ),
-    verbatimTextOutput("state")
-  )
-  server <- function(input, output, session) {
-    observeEvent(input$open_btn, {
-      update_el_dialog(session, "dlg1", visible = TRUE)
-    })
-    observeEvent(input$confirm_btn, {
-      update_el_dialog(session, "dlg1", visible = FALSE)
-    })
-    output$state <- renderPrint(input$dlg1_visible)
-  }
-  shinyApp(ui, server)
-}
+# The body can hold other components
+el_dialog("d2", title = "Filters",
+          content = shiny::tagList(el_input("q"), el_switch("live")))
 
 }

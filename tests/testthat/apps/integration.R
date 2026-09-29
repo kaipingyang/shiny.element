@@ -37,6 +37,13 @@ ui <- el_page(
     list(name = "t1", label = "T1", content = el_switch("tab_nested", value = TRUE)),
     list(name = "t2", label = "T2", content = "c2"))),
   actionButton("tabs_go", "select t1"),
+
+  # Dialog and drawer are plain markup driven by the shared overlay binding,
+  # so their bodies can hold other components and stay mounted while closed.
+  el_dialog("dlg", title = "D", visible = FALSE,
+            content = el_switch("dlg_nested", value = TRUE)),
+  el_drawer("drw", title = "Dr", content = "x", visible = FALSE),
+  actionButton("dlg_open", "open dialog"),
   el_pagination("pg", total = 100, current_page = 3, page_size = 20),
   # Collapse is plain markup driven by an input binding, so a panel can hold
   # another component and it stays connected to the server.
@@ -180,7 +187,7 @@ server <- function(input, output, session) {
              "tbl_selected_rows", "casc_value", "sw_nested", "sld_nested",
              "signup_submit", "signup_valid", "nav", "nav_path",
              "tree", "tree_checked", "car", "car_name", "col_nested",
-             "tab_nested")
+             "tab_nested", "dlg", "drw", "dlg_nested")
     for (i in ids) cat(i, "=", fmt(input[[i]]), "\n")
     cat("up_rows", "=", if (is.null(input$up)) "<NULL>" else nrow(input$up), "\n")
   })
@@ -194,6 +201,10 @@ server <- function(input, output, session) {
 
   observeEvent(input$tbl_swap, {
     update_el_table(session, "tbl", data = head(mtcars, 6))
+  })
+
+  observeEvent(input$dlg_open, {
+    update_el_dialog(session, "dlg", visible = TRUE)
   })
 
   observeEvent(input$tabs_go, {

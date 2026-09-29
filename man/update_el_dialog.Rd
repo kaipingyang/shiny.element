@@ -11,13 +11,15 @@ update_el_dialog(session, id, visible = NULL, title = NULL, width = NULL)
 
 \item{id}{Dialog ID (un-namespaced).}
 
-\item{visible}{Logical. \code{TRUE} to open, \code{FALSE} to close.}
+\item{visible}{Open or close it.}
 
-\item{title}{New dialog title text.}
+\item{title}{New header text.}
 
-\item{width}{New dialog width (e.g. \code{"60\%"}, \code{"400px"}).}
+\item{width}{New width.}
+}
+\value{
+Called for its side effect; returns \code{NULL} invisibly.
 }
 \description{
-Server-side update for \code{\link[=el_dialog]{el_dialog()}}. Use \code{visible = TRUE} to open the dialog
-and \code{visible = FALSE} to close it programmatically.
+Server-side update for \code{\link[=el_dialog]{el_dialog()}}.
 }

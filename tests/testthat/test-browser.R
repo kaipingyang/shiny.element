@@ -360,6 +360,50 @@ test_that("a whole selection goes through one upload job", {
   expect_equal(bdump()[["up_rows"]], "3")
 })
 
+# ── dialog holds live components ──────────────────────────────────────────────
+
+test_that("the dialog starts closed and reports it", {
+  skip_if_no_browser()
+  expect_equal(bdump()[["dlg"]], "FALSE")
+  expect_equal(bev("String(!!document.querySelector('.v-modal'))"), "false")
+})
+
+test_that("a component inside a dialog stays connected", {
+  skip_if_no_browser()
+  # The body stays in the document while closed, so it is mounted before the
+  # dialog is ever opened.
+  expect_equal(
+    bev("(function(){var w=HTMLWidgets.find('#dlg_nested'); return w && w.instance ? 'mounted' : 'MISSING'})()"),
+    "mounted"
+  )
+  expect_equal(bdump()[["dlg_nested"]], "TRUE")
+})
+
+test_that("opening the dialog raises the backdrop and locks scrolling", {
+  skip_if_no_browser()
+  bclick("#dlg_open", wait = 2.5)
+  expect_equal(bdump()[["dlg"]], "TRUE")
+  expect_equal(bev("String(!!document.querySelector('.v-modal'))"), "true")
+  expect_equal(
+    bev("String(document.body.classList.contains('el-popup-parent--hidden'))"),
+    "true"
+  )
+  # Above the backdrop, which Element puts at 2000.
+  expect_equal(bev("(function(){return document.getElementById('dlg').style.zIndex})()"), "2001")
+})
+
+test_that("Escape closes the dialog and clears the backdrop", {
+  skip_if_no_browser()
+  bev("document.dispatchEvent(new KeyboardEvent('keydown', {key:'Escape', keyCode:27, bubbles:true}))")
+  Sys.sleep(2)
+  expect_equal(bdump()[["dlg"]], "FALSE")
+  expect_equal(bev("String(!!document.querySelector('.v-modal'))"), "false")
+  expect_equal(
+    bev("String(document.body.classList.contains('el-popup-parent--hidden'))"),
+    "false"
+  )
+})
+
 # ── tabs hold live components ─────────────────────────────────────────────────
 
 test_that("a component inside a tab pane stays connected", {

@@ -234,11 +234,6 @@ el_color_picker_handler_dependency <- function() {
   .el_handler_dependency("color-picker")
 }
 
-#' Drawer Handler Dependency
-#' @keywords internal
-el_drawer_handler_dependency <- function() {
-  .el_handler_dependency("drawer")
-}
 
 #' Dropdown Handler Dependency
 #' @keywords internal

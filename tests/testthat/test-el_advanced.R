@@ -72,18 +72,12 @@ test_that("el_drawer: direction attribute", {
   expect_match(html, "ltr")
 })
 
-test_that("el_drawer: visible.sync binding", {
-  tag <- el_drawer("d1")
-  html <- render_html(tag)
-  expect_match(html, "visible.sync")
-})
-
-test_that("el_drawer: open/close handlers fire _visible input", {
-  tag <- el_drawer("d1")
-  html <- render_html(tag)
-  expect_match(html, "d1_visible")
-  expect_match(html, "handleOpen")
-  expect_match(html, "handleClose")
+test_that("el_drawer: the binding finds it and knows how it may close", {
+  # It was a Vue component with a visible.sync binding; it is now markup
+  # driven by the shared overlay binding. See test-el_overlay.R.
+  html <- render_html(el_drawer("d1"))
+  expect_match(html, 'data-el-overlay="true"', fixed = TRUE)
+  expect_match(html, 'data-esc-close="true"', fixed = TRUE)
 })
 
 test_that("el_drawer: content rendered inside drawer", {
@@ -92,22 +86,17 @@ test_that("el_drawer: content rendered inside drawer", {
   expect_match(html, "Hello Drawer")
 })
 
-test_that("update_el_drawer: sends visible TRUE", {
-  captured <- NULL
+test_that("update_el_drawer: sends an input message, not a custom message", {
+  # The overlay binding owns the element; Shiny routes the message by id.
+  sent <- NULL
   mock_session <- list(ns = function(id) id,
-                       sendCustomMessage = function(type, msg) { captured <<- msg })
-  update_el_drawer(mock_session, "d1", visible = TRUE)
-  expect_equal(captured$id, "d1")
-  expect_true(captured$visible)
-})
-
-test_that("update_el_drawer: sends title and size", {
-  captured <- NULL
-  mock_session <- list(ns = function(id) id,
-                       sendCustomMessage = function(type, msg) { captured <<- msg })
-  update_el_drawer(mock_session, "d1", title = "New Title", size = "50%")
-  expect_equal(captured$title, "New Title")
-  expect_equal(captured$size, "50%")
+                       sendInputMessage = function(id, msg) sent <<- list(id = id, msg = msg))
+  update_el_drawer(mock_session, "d1", visible = TRUE, title = "New Title",
+                   size = "50%")
+  expect_equal(sent$id, "d1")
+  expect_true(sent$msg$visible)
+  expect_equal(sent$msg$title, "New Title")
+  expect_equal(sent$msg$size, "50%")
 })
 
 # ── el_dropdown ───────────────────────────────────────────────────────────────

@@ -1,67 +1,44 @@
-#' Element UI Dialog Component
+#' Element UI Dialog
 #'
-#' Creates an Element UI dialog (modal) with Vue instance.
-#' The dialog visibility can be controlled from the server via [update_el_dialog()].
+#' A modal dialog.
+#'
+#' Rendered as plain markup carrying Element's own classes, driven by a Shiny
+#' input binding rather than a Vue instance, so the body can hold other
+#' components from this package. See `.claude/docs/lessons.md` §1.2.
 #'
 #' @param id Dialog ID. Auto-generated UUID if `NULL`.
-#' @param title Dialog title text. Default `""`.
-#' @param content Optional tagList/tag for the dialog body. `NULL` for empty.
-#' @param footer Optional tagList/tag for the dialog footer slot. `NULL` for none.
-#' @param visible Whether the dialog is initially visible. Default `FALSE`.
-#' @param width Dialog width. Default `"50%"`.
-#' @param fullscreen Whether the dialog occupies the full screen. Default `FALSE`.
-#' @param close_on_click_modal Whether clicking the overlay closes the dialog.
-#'   Default `TRUE`.
-#' @param close_on_press_escape Whether pressing Escape closes the dialog.
-#'   Default `TRUE`.
-#' @param show_close Whether to show the close button in the header. Default `TRUE`.
-#' @param center Whether to align the header and footer to center. Default `FALSE`.
-#' @param destroy_on_close Whether to destroy child components on close. Default `FALSE`.
-#' @param append_to_body Whether to append the dialog to `document.body`. Default `FALSE`.
+#' @param title Header text. `""` renders the header bar without a title.
+#' @param content Dialog body. Any tag or tagList, including this package's
+#'   own components.
+#' @param footer Footer content, usually buttons. `NULL` for none.
+#' @param visible Whether it starts open.
+#' @param width Dialog width, e.g. `"50%"` or `"600px"`.
+#' @param top Distance from the top of the viewport. Ignored when
+#'   `fullscreen = TRUE`.
+#' @param fullscreen Fill the viewport.
+#' @param modal Show the backdrop.
+#' @param close_on_click_modal Close when the backdrop is clicked.
+#' @param close_on_press_escape Close on Escape.
+#' @param show_close Show the close button in the header.
+#' @param center Centre the header and footer.
 #' @param session Shiny session for module support.
 #'
-#' @return An `htmltools` tagList with a Vue-managed dialog component.
+#' @return An `htmltools` tag.
 #'
 #' @section Shiny input:
-#' `input$<id>_visible` — Logical (`TRUE` when dialog opens, `FALSE` when it closes).
+#' `input$<id>` — `TRUE` while the dialog is open, reported whenever it opens
+#' or closes, however that happens. (It was `input$<id>_visible` while this was
+#' a Vue component; Shiny routes an input binding's messages by element id, so
+#' the name now matches the id, as it does for [el_tabs()] and
+#' [el_collapse()].)
 #'
 #' @examples
-#' # Basic dialog (initially hidden)
-#' el_dialog(
-#'   id      = "dlg1",
-#'   title   = "My Dialog",
-#'   content = shiny::tags$p("Dialog body text."),
-#'   footer  = shiny::tagList(
-#'     el_button("dlg_ok",  "OK",     type = "primary"),
-#'     el_button("dlg_cancel", "Cancel")
-#'   )
-#' )
+#' el_dialog("d1", title = "Confirm", content = shiny::tags$p("Are you sure?"),
+#'           footer = el_button("ok", "OK", type = "primary"))
 #'
-#' # Controlled open/close from server
-#' if (interactive()) {
-#'   library(shiny)
-#'   library(shiny.element)
-#'   ui <- el_page(
-#'     el_button("open_btn", "Open Dialog", type = "primary"),
-#'     el_dialog(
-#'       id      = "dlg1",
-#'       title   = "Confirm",
-#'       content = shiny::tags$p("Are you sure?"),
-#'       footer  = el_button("confirm_btn", "Yes", type = "danger")
-#'     ),
-#'     verbatimTextOutput("state")
-#'   )
-#'   server <- function(input, output, session) {
-#'     observeEvent(input$open_btn, {
-#'       update_el_dialog(session, "dlg1", visible = TRUE)
-#'     })
-#'     observeEvent(input$confirm_btn, {
-#'       update_el_dialog(session, "dlg1", visible = FALSE)
-#'     })
-#'     output$state <- renderPrint(input$dlg1_visible)
-#'   }
-#'   shinyApp(ui, server)
-#' }
+#' # The body can hold other components
+#' el_dialog("d2", title = "Filters",
+#'           content = shiny::tagList(el_input("q"), el_switch("live")))
 #'
 #' @export
 el_dialog <- function(
@@ -71,110 +48,94 @@ el_dialog <- function(
     footer                = NULL,
     visible               = FALSE,
     width                 = "50%",
+    top                   = "15vh",
     fullscreen            = FALSE,
+    modal                 = TRUE,
     close_on_click_modal  = TRUE,
     close_on_press_escape = TRUE,
     show_close            = TRUE,
     center                = FALSE,
-    destroy_on_close      = FALSE,
-    append_to_body        = FALSE,
     session               = shiny::getDefaultReactiveDomain()
 ) {
   if (is.null(id)) id <- paste0("el_dialog_", uuid::UUIDgenerate())
-  ns_id        <- if (!is.null(session)) session$ns(id) else id
-  container_id <- paste0(ns_id, "_container")
+  ns_id <- if (!is.null(session)) session$ns(id) else id
 
-  # Build dialog children (body content + optional footer slot)
-  dialog_children <- list()
-  if (!is.null(content)) dialog_children <- c(dialog_children, list(content))
-  if (!is.null(footer)) {
-    footer_slot     <- shiny::tags$span(slot = "footer", footer)
-    dialog_children <- c(dialog_children, list(footer_slot))
-  }
-
-  # Build el-dialog attributes
-  dialog_attrs <- list(
-    ":title"                = "title",
-    ":visible.sync"         = "visible",
-    ":width"                = "width",
-    ":fullscreen"           = "fullscreen",
-    ":close-on-click-modal" = "closeOnClickModal",
-    ":close-on-press-escape"= "closeOnPressEscape",
-    ":show-close"           = "showClose",
-    ":center"               = "center",
-    ":destroy-on-close"     = "destroyOnClose",
-    ":append-to-body"       = "appendToBody",
-    "@open"                 = "handleOpen",
-    "@close"                = "handleClose"
-  )
-
-  # Vue data
-  vue_data <- list(
-    title              = title,
-    visible            = visible,
-    width              = width,
-    fullscreen         = fullscreen,
-    closeOnClickModal  = close_on_click_modal,
-    closeOnPressEscape = close_on_press_escape,
-    showClose          = show_close,
-    center             = center,
-    destroyOnClose     = destroy_on_close,
-    appendToBody       = append_to_body
-  )
-
-  component_ui <- shiny::tagList(
-    shiny::tags$div(
-      id = container_id, style = .el_host_style(),
-      htmltools::tag("el-dialog", c(dialog_attrs, dialog_children))
-    ),
-    vueR::vue(
-elementId = ns_id, width = 0, height = 0,
-      list(
-        el      = paste0("#", container_id),
-        data    = vue_data,
-        methods = list(
-          handleOpen  = htmlwidgets::JS(sprintf(
-            "function() { Shiny.setInputValue('%s_visible', true); }",
-            ns_id
-          )),
-          handleClose = htmlwidgets::JS(sprintf(
-            "function() { Shiny.setInputValue('%s_visible', false); this.visible = false; }",
-            ns_id
-          ))
-        ),
-        mounted = .el_mounted_init(stats::setNames("visible", paste0(ns_id, "_visible")))
+  header <- shiny::tags$div(
+    class = "el-dialog__header",
+    shiny::tags$span(class = "el-dialog__title", title),
+    if (show_close) {
+      shiny::tags$button(
+        type = "button", `aria-label` = "Close", class = "el-dialog__headerbtn",
+        shiny::tags$i(class = "el-dialog__close el-icon el-icon-close")
       )
-    )
+    }
   )
 
-  htmltools::attachDependencies(component_ui, el_dialog_handler_dependency())
+  htmltools::attachDependencies(
+    shiny::tags$div(
+      id    = ns_id,
+      class = "el-dialog__wrapper",
+      style = if (!visible) "display:none",
+      `data-el-overlay`  = "true",
+      `data-visible`     = tolower(as.character(visible)),
+      `data-modal`       = tolower(as.character(modal)),
+      `data-mask-close`  = tolower(as.character(modal && close_on_click_modal)),
+      `data-esc-close`   = tolower(as.character(close_on_press_escape)),
+      shiny::tags$div(
+        role = "dialog", `aria-modal` = "true", `aria-label` = title,
+        class = paste(c("el-dialog",
+                        if (fullscreen) "is-fullscreen",
+                        if (center) "el-dialog--center"), collapse = " "),
+        style = if (!fullscreen) sprintf("margin-top: %s; width: %s;", top, width),
+        header,
+        # Hidden rather than removed when closed, so a nested component stays
+        # mounted between openings.
+        shiny::tags$div(class = "el-dialog__body", content),
+        if (!is.null(footer)) shiny::tags$div(class = "el-dialog__footer", footer)
+      )
+    ),
+    el_overlay_dependency()
+  )
 }
 
 
 #' Update Element UI Dialog
 #'
-#' Server-side update for [el_dialog()]. Use `visible = TRUE` to open the dialog
-#' and `visible = FALSE` to close it programmatically.
+#' Server-side update for [el_dialog()].
 #'
 #' @param session Shiny session object.
 #' @param id Dialog ID (un-namespaced).
-#' @param visible Logical. `TRUE` to open, `FALSE` to close.
-#' @param title New dialog title text.
-#' @param width New dialog width (e.g. `"60%"`, `"400px"`).
+#' @param visible Open or close it.
+#' @param title New header text.
+#' @param width New width.
 #'
+#' @return Called for its side effect; returns `NULL` invisibly.
 #' @export
-update_el_dialog <- function(session, id, visible = NULL, title = NULL, width = NULL) {
-  ns_id <- session$ns(id)
-  msg   <- list(id = ns_id)
+update_el_dialog <- function(session, id, visible = NULL, title = NULL,
+                             width = NULL) {
+  msg <- list()
   if (!is.null(visible)) msg$visible <- visible
   if (!is.null(title))   msg$title   <- title
   if (!is.null(width))   msg$width   <- width
-  session$sendCustomMessage("updateElDialog", msg)
+  session$sendInputMessage(id, msg)
+  invisible(NULL)
 }
 
 
-#' Dialog Handler Dependency
+#' Overlay Binding Dependency
+#'
+#' Shared by [el_dialog()] and [el_drawer()]: both are Shiny input bindings
+#' rather than htmlwidgets, and both need the same backdrop, scroll lock and
+#' z-index stacking.
+#'
+#' @return An htmlDependency object.
 #' @keywords internal
-el_dialog_handler_dependency <- function() {
-  .el_handler_dependency("dialog")
+el_overlay_dependency <- function() {
+  htmltools::htmlDependency(
+    name      = "el-overlay-binding",
+    version   = "1.0.0",
+    src       = system.file("js", package = "shiny.element"),
+    script    = "el-overlay-binding.js",
+    all_files = FALSE
+  )
 }

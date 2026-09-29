@@ -1,38 +1,39 @@
 #' Element UI Drawer
 #'
-#' A panel that slides in from the edge of the screen. Behaviour and API
-#' mirror [el_dialog()] but with a directional slide animation.
+#' A panel that slides in from an edge of the viewport.
+#'
+#' Rendered as plain markup carrying Element's own classes, driven by a Shiny
+#' input binding rather than a Vue instance, so the body can hold other
+#' components from this package. See `.claude/docs/lessons.md` §1.2.
 #'
 #' @param id Drawer ID. Auto-generated UUID if `NULL`.
-#' @param title Drawer title text. Default `""`.
-#' @param content Content for the drawer body (tag or tagList). `NULL` for
-#'   empty.
-#' @param visible Whether the drawer is initially visible. Default `FALSE`.
-#' @param direction Slide direction: `"rtl"` (right-to-left, default),
-#'   `"ltr"`, `"ttb"` (top-to-bottom), `"btt"`.
-#' @param size Drawer width (horizontal) or height (vertical). Numeric pixels
-#'   or CSS string. Default `"30%"`.
-#' @param modal Whether to show a background overlay. Default `TRUE`.
-#' @param with_header Whether to render the header bar. Default `TRUE`.
-#' @param show_close Whether to show the × close button. Default `TRUE`.
-#' @param wrapper_closable Whether clicking the overlay closes the drawer.
-#'   Default `TRUE`.
-#' @param close_on_press_escape Whether pressing Escape closes the drawer.
-#'   Default `TRUE`.
-#' @param destroy_on_close Whether to destroy child components on close.
-#'   Default `FALSE`.
-#' @param append_to_body Whether to append the drawer to `document.body`.
-#'   Default `FALSE`.
+#' @param title Header text.
+#' @param content Drawer body. Any tag or tagList, including this package's
+#'   own components.
+#' @param visible Whether it starts open.
+#' @param direction Edge it slides from: `"rtl"` (from the right, the
+#'   default), `"ltr"`, `"ttb"` or `"btt"`.
+#' @param size Width for a horizontal drawer, height for a vertical one.
+#' @param modal Show the backdrop.
+#' @param with_header Show the header bar.
+#' @param show_close Show the close button in the header.
+#' @param wrapper_closable Close when the backdrop is clicked.
+#' @param close_on_press_escape Close on Escape.
 #' @param session Shiny session for module support.
 #'
-#' @return An `htmltools` tagList with a Vue-managed drawer component.
+#' @return An `htmltools` tag.
 #'
 #' @section Shiny input:
-#' `input$<id>_visible` — Logical (`TRUE` when the drawer opens, `FALSE`
-#' when it closes).
+#' `input$<id>` — `TRUE` while the drawer is open, reported whenever it opens
+#' or closes, however that happens. (It was `input$<id>_visible` while this was
+#' a Vue component; see [el_dialog()].)
 #'
 #' @examples
-#' el_drawer("drw1", title = "Settings", content = shiny::tags$p("Settings here."))
+#' el_drawer("w1", title = "Settings", content = shiny::tags$p("Body"))
+#'
+#' # Sliding up from the bottom, holding other components
+#' el_drawer("w2", title = "Filters", direction = "btt", size = "40%",
+#'           content = shiny::tagList(el_input("q"), el_switch("live")))
 #'
 #' @export
 el_drawer <- function(
@@ -47,100 +48,77 @@ el_drawer <- function(
     show_close            = TRUE,
     wrapper_closable      = TRUE,
     close_on_press_escape = TRUE,
-    destroy_on_close      = FALSE,
-    append_to_body        = FALSE,
     session               = shiny::getDefaultReactiveDomain()
 ) {
   if (is.null(id)) id <- paste0("el_drawer_", uuid::UUIDgenerate())
-  ns_id        <- if (!is.null(session)) session$ns(id) else id
-  container_id <- paste0(ns_id, "_container")
+  ns_id <- if (!is.null(session)) session$ns(id) else id
 
-  drawer_attrs <- list(
-    ":title"                 = "title",
-    ":visible.sync"          = "visible",
-    ":direction"             = "direction",
-    ":size"                  = "size",
-    ":modal"                 = "modal",
-    ":with-header"           = "withHeader",
-    ":show-close"            = "showClose",
-    ":wrapper-closable"      = "wrapperClosable",
-    ":close-on-press-escape" = "closeOnPressEscape",
-    ":destroy-on-close"      = "destroyOnClose",
-    ":append-to-body"        = "appendToBody",
-    "@open"                  = "handleOpen",
-    "@close"                 = "handleClose"
-  )
+  vertical  <- direction %in% c("ttb", "btt")
+  title_id  <- paste0(ns_id, "-title")
 
-  drawer_children <- list()
-  if (!is.null(content)) drawer_children <- c(drawer_children, list(content))
-
-  vue_data <- list(
-    title              = title,
-    visible            = visible,
-    direction          = direction,
-    size               = as.character(size),
-    modal              = modal,
-    withHeader         = with_header,
-    showClose          = show_close,
-    wrapperClosable    = wrapper_closable,
-    closeOnPressEscape = close_on_press_escape,
-    destroyOnClose     = destroy_on_close,
-    appendToBody       = append_to_body
-  )
-
-  component_ui <- shiny::tagList(
-    shiny::tags$div(
-      id = container_id, style = .el_host_style(),
-      htmltools::tag("el-drawer", c(drawer_attrs, drawer_children))
-    ),
-    vueR::vue(
-elementId = ns_id, width = 0, height = 0,
-      list(
-        el      = paste0("#", container_id),
-        data    = vue_data,
-        methods = list(
-          handleOpen  = htmlwidgets::JS(sprintf(
-            "function() { Shiny.setInputValue('%s_visible', true); }",
-            ns_id
-          )),
-          handleClose = htmlwidgets::JS(sprintf(
-            "function() { Shiny.setInputValue('%s_visible', false); this.visible = false; }",
-            ns_id
-          ))
-        ),
-        mounted = .el_mounted_init(stats::setNames("visible", paste0(ns_id, "_visible")))
-      )
+  header <- if (with_header) {
+    shiny::tags$header(
+      id = title_id, class = "el-drawer__header",
+      shiny::tags$span(role = "heading", tabindex = "0", title = title, title),
+      if (show_close) {
+        shiny::tags$button(
+          `aria-label` = paste("close", title), type = "button",
+          class = "el-drawer__close-btn",
+          shiny::tags$i(class = "el-dialog__close el-icon el-icon-close")
+        )
+      }
     )
-  )
+  }
 
-  htmltools::attachDependencies(component_ui, el_drawer_handler_dependency())
+  htmltools::attachDependencies(
+    shiny::tags$div(
+      id    = ns_id,
+      tabindex = "-1",
+      class = "el-drawer__wrapper",
+      style = if (!visible) "display:none",
+      `data-el-overlay` = "true",
+      `data-visible`    = tolower(as.character(visible)),
+      `data-modal`      = tolower(as.character(modal)),
+      `data-mask-close` = tolower(as.character(modal && wrapper_closable)),
+      `data-esc-close`  = tolower(as.character(close_on_press_escape)),
+      shiny::tags$div(
+        role = "document", tabindex = "-1",
+        # el-drawer__open is what triggers the slide-in; the binding adds it.
+        class = paste(c("el-drawer__container",
+                        if (visible) "el-drawer__open"), collapse = " "),
+        shiny::tags$div(
+          `aria-modal` = "true", `aria-labelledby` = title_id,
+          `aria-label` = title, role = "dialog", tabindex = "-1",
+          class = paste("el-drawer", direction),
+          style = sprintf("%s: %s;", if (vertical) "height" else "width", size),
+          header,
+          shiny::tags$section(class = "el-drawer__body", content)
+        )
+      )
+    ),
+    el_overlay_dependency()
+  )
 }
 
 
 #' Update Element UI Drawer
 #'
-#' Server-side update for [el_drawer()]. Use `visible = TRUE` to open and
-#' `visible = FALSE` to close.
+#' Server-side update for [el_drawer()].
 #'
 #' @param session Shiny session object.
 #' @param id Drawer ID (un-namespaced).
-#' @param visible Logical. `TRUE` to open, `FALSE` to close.
-#' @param title New drawer title.
-#' @param size New drawer size.
+#' @param visible Open or close it.
+#' @param title New header text.
+#' @param size New width or height.
 #'
+#' @return Called for its side effect; returns `NULL` invisibly.
 #' @export
 update_el_drawer <- function(session, id, visible = NULL, title = NULL,
                              size = NULL) {
-  ns_id <- session$ns(id)
-  msg   <- list(id = ns_id)
+  msg <- list()
   if (!is.null(visible)) msg$visible <- visible
   if (!is.null(title))   msg$title   <- title
-  if (!is.null(size))    msg$size    <- as.character(size)
-  session$sendCustomMessage("updateElDrawer", msg)
-}
-
-
-#' @keywords internal
-el_drawer_handler_dependency <- function() {
-  .el_handler_dependency("drawer")
+  if (!is.null(size))    msg$size    <- size
+  session$sendInputMessage(id, msg)
+  invisible(NULL)
 }
