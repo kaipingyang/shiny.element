@@ -124,6 +124,10 @@ ui <- el_page(
     ))),
   actionButton("tree_check", "check grains only"),
 
+  # Upload: Element's UI with Shiny's transport, so a whole selection arrives
+  # as one batch rather than one job per file.
+  el_upload("up", drag = TRUE, multiple = TRUE, tip = "any file"),
+
   # Forces the icon font to load, so the offline-assets test has something
   # to observe.
   tags$i(class = "el-icon-edit"),
@@ -153,6 +157,7 @@ server <- function(input, output, session) {
              "signup_submit", "signup_valid", "nav", "nav_path",
              "tree", "tree_checked")
     for (i in ids) cat(i, "=", fmt(input[[i]]), "\n")
+    cat("up_rows", "=", if (is.null(input$up)) "<NULL>" else nrow(input$up), "\n")
   })
 
   n_steps <- 3L

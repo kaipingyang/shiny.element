@@ -266,3 +266,9 @@ el_menu_handler_dependency <- function() {
 el_tree_handler_dependency <- function() {
   .el_handler_dependency("tree")
 }
+
+#' Upload Handler Dependency
+#' @keywords internal
+el_upload_handler_dependency <- function() {
+  .el_handler_dependency("upload")
+}

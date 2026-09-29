@@ -13,9 +13,12 @@ update_el_tree(session, id, data = NULL, expanded = NULL, checked = NULL)
 
 \item{data}{Replacement node data.}
 
-\item{expanded}{Keys to expand.}
+\item{expanded}{Keys to expand. Expanding is additive: a node already open
+is not closed by leaving it out, because Element's default-expanded-keys
+only ever opens nodes.}
 
-\item{checked}{Keys to check. Pass \code{list()} to clear the selection.}
+\item{checked}{Keys to check, replacing the current selection entirely.
+Pass \code{list()} to clear it.}
 }
 \value{
 Called for its side effect; returns \code{NULL} invisibly.

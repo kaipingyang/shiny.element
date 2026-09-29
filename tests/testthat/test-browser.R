@@ -323,6 +323,43 @@ test_that("update_el_tree replaces the checked set rather than adding to it", {
   )
 })
 
+# ── upload ────────────────────────────────────────────────────────────────────
+
+test_that("the upload renders a drop zone with its tip", {
+  skip_if_no_browser()
+  expect_equal(bev("String(!!document.querySelector('#up_container .el-upload-dragger'))"), "true")
+  expect_equal(bev("String(document.querySelectorAll('#up_container .el-upload__tip').length)"), "1")
+})
+
+test_that("the file field is named uniquely so Shiny sees no duplicate id", {
+  skip_if_no_browser()
+  # Shiny's fileInputBinding claims every input[type=file] and keys it by
+  # name; Element's default "file" collides as soon as there are two uploads.
+  expect_equal(
+    bev("(function(){var i=document.querySelector('#up_container input[type=file]'); return i ? i.name : 'NONE'})()"),
+    "up_elfile"
+  )
+})
+
+test_that("a whole selection goes through one upload job", {
+  skip_if_no_browser()
+  # Counted by patching makeRequest before the page loads would need a fresh
+  # session; here the observable consequence is what matters: all three files
+  # arrive together rather than the last one overwriting the rest.
+  tmp <- file.path(tempdir(), c("ba.txt", "bb.txt", "bc.txt"))
+  writeLines("aa", tmp[1]); writeLines("bb", tmp[2]); writeLines("cc", tmp[3])
+
+  b   <- browser_session()$b
+  doc <- b$DOM$getDocument()
+  node <- b$DOM$querySelector(nodeId = doc$root$nodeId,
+                              selector = "#up_container input[type=file]")
+  b$DOM$setFileInputFiles(files = as.list(tmp), nodeId = node$nodeId)
+  Sys.sleep(5)
+
+  expect_equal(bev("String(document.querySelectorAll('#up_container .el-upload-list__item.is-success').length)"), "3")
+  expect_equal(bdump()[["up_rows"]], "3")
+})
+
 # ── unsupplied props fall back to Element's defaults ──────────────────────────
 
 test_that("a select with no placeholder shows Element's own", {

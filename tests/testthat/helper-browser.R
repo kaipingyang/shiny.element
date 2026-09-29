@@ -88,6 +88,9 @@ browser_session <- function() {
   # first -- without it addScriptToEvaluateOnNewDocument silently does nothing
   # and every console read comes back empty, which reads exactly like "no
   # warnings were raised".
+  # Needed by tests that drive a file input through DOM.setFileInputFiles.
+  b$DOM$enable()
+
   b$Page$enable()
   b$Page$addScriptToEvaluateOnNewDocument(source = paste0(
     "window.__elLogs = [];",
