@@ -28,6 +28,18 @@ devtools::check()
 
 `shiny.element` is an R package that wraps Element-UI (Vue 2) components as Shiny widgets, using `vueR` as the bridge between Vue and htmlwidgets.
 
+### Two kinds of component
+
+**Controls** (input, select, table, form, …) are Vue instances wrapped as
+htmlwidgets — the pattern below.
+
+**Containers** (`el_container`, `el_row`, `el_col`, `el_card`, `el_collapse`)
+are plain markup carrying Element's classes, with interaction supplied by a
+Shiny input binding where they need any. Mounting a Vue instance over a
+container rebuilds the DOM inside it and detaches any component placed there,
+so anything whose job is to hold other components must not be a Vue instance.
+See lessons.md §1.2 and §1.3.
+
 ### Component Pattern
 
 Every Vue-backed component follows the same structure:
