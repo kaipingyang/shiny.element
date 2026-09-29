@@ -11,7 +11,11 @@ update_el_collapse(session, id, value = NULL)
 
 \item{id}{Collapse ID (un-namespaced).}
 
-\item{value}{Character vector of panel names to activate.}
+\item{value}{Character vector of panel names to open. Pass
+\code{character(0)} to close them all.}
+}
+\value{
+Called for its side effect; returns \code{NULL} invisibly.
 }
 \description{
 Server-side update for \code{\link[=el_collapse]{el_collapse()}}.

@@ -360,6 +360,41 @@ test_that("a whole selection goes through one upload job", {
   expect_equal(bdump()[["up_rows"]], "3")
 })
 
+# ── collapse holds live components ────────────────────────────────────────────
+
+test_that("a component inside a collapse panel stays connected", {
+  skip_if_no_browser()
+  # This is the whole point of rendering the collapse as markup rather than
+  # mounting a Vue instance over it: a Vue instance rebuilds the DOM inside
+  # the panels and detaches whatever is in them.
+  expect_equal(
+    bev("(function(){var w=HTMLWidgets.find('#col_nested'); return w && w.instance ? 'mounted' : 'MISSING'})()"),
+    "mounted"
+  )
+  expect_equal(bdump()[["col_nested"]], "TRUE")
+})
+
+test_that("the collapse reports its open panels", {
+  skip_if_no_browser()
+  expect_equal(bdump()[["col"]], "i2")
+})
+
+test_that("clicking a header opens a panel and reports it", {
+  skip_if_no_browser()
+  bev("(function(){var h=document.querySelectorAll('#col .el-collapse-item__header'); h[0].click()})()")
+  Sys.sleep(2)
+  expect_equal(bdump()[["col"]], "i1,i2")
+})
+
+test_that("update_el_collapse replaces the open set and reports back", {
+  skip_if_no_browser()
+  # receiveMessage has no callback of its own; the binding raises an event so
+  # the value does not go stale while the panels move.
+  bclick("#col_open", wait = 2.5)
+  expect_equal(bdump()[["col"]], "i1")
+  expect_equal(bev("String(document.querySelectorAll('#col .el-collapse-item.is-active').length)"), "1")
+})
+
 # ── carousel and timeline ─────────────────────────────────────────────────────
 
 test_that("the carousel reports the showing slide by index and name", {

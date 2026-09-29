@@ -36,10 +36,14 @@ ui <- el_page(
                 list(name = "t2", label = "T2", content = "c2")),
     selected = "t2"),
   el_pagination("pg", total = 100, current_page = 3, page_size = 20),
+  # Collapse is plain markup driven by an input binding, so a panel can hold
+  # another component and it stays connected to the server.
   el_collapse("col",
-    items = list(list(name = "i1", title = "I1", content = "c1"),
-                 list(name = "i2", title = "I2", content = "c2")),
+    items = list(
+      list(name = "i1", title = "I1", content = el_switch("col_nested", value = TRUE)),
+      list(name = "i2", title = "I2", content = "c2")),
     value = "i2"),
+  actionButton("col_open", "open i1"),
 
   # Named non-character choices: labels used to be lost and options serialised
   # as a JSON object instead of an array.
@@ -173,7 +177,7 @@ server <- function(input, output, session) {
              "tabs", "pg_page", "pg_size", "col", "rg_num", "stp",
              "tbl_selected_rows", "casc_value", "sw_nested", "sld_nested",
              "signup_submit", "signup_valid", "nav", "nav_path",
-             "tree", "tree_checked", "car", "car_name")
+             "tree", "tree_checked", "car", "car_name", "col_nested")
     for (i in ids) cat(i, "=", fmt(input[[i]]), "\n")
     cat("up_rows", "=", if (is.null(input$up)) "<NULL>" else nrow(input$up), "\n")
   })
@@ -187,6 +191,10 @@ server <- function(input, output, session) {
 
   observeEvent(input$tbl_swap, {
     update_el_table(session, "tbl", data = head(mtcars, 6))
+  })
+
+  observeEvent(input$col_open, {
+    update_el_collapse(session, "col", value = "i1")
   })
 
   observeEvent(input$car_go, {

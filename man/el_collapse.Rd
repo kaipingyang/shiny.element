@@ -15,32 +15,39 @@ el_collapse(
 \arguments{
 \item{id}{Collapse ID. Auto-generated UUID if \code{NULL}.}
 
-\item{items}{A list of panels. Each element is a named list with:
+\item{items}{A list of panels. Each is a named list with:
 \describe{
 \item{name}{Unique panel identifier (string). Required.}
 \item{title}{Panel header text. Required.}
-\item{content}{Panel body content (tag or tagList). Required.}
-\item{disabled}{Whether the panel header is disabled. Default \code{FALSE}.}
+\item{content}{Panel body. Any tag or tagList, including this package's
+own components.}
+\item{disabled}{Whether the header is disabled. Default \code{FALSE}.}
 }}
 
-\item{value}{Character vector of initially active panel names. Ignored (use
-a single-element vector) when \code{accordion = TRUE}.}
+\item{value}{Character vector of initially open panel names. In accordion
+mode only the first is used.}
 
 \item{accordion}{Single-open accordion mode. Default \code{FALSE}.}
 
 \item{session}{Shiny session for module support.}
 }
 \value{
-An \code{htmltools} tagList with a Vue-managed collapse component.
+An \code{htmltools} tag.
 }
 \description{
-A collapsible accordion panel. Multiple panels can be open simultaneously
-unless \code{accordion = TRUE} is set.
+Collapsible panels. Several can be open at once unless \code{accordion = TRUE}.
+}
+\details{
+Rendered as plain markup carrying Element's own classes, driven by a Shiny
+input binding rather than a Vue instance. That is what lets a panel hold
+other components from this package: a Vue instance mounted here would
+rebuild the DOM underneath them, detaching them from the server. See
+\code{.claude/docs/lessons.md}.
 }
 \section{Shiny input}{
 
-\verb{input$<id>} — character vector of currently open panel names (empty
-character vector when all are closed). In accordion mode a single string.
+\verb{input$<id>} — character vector of open panel names, reported on load and on
+every change. Empty when all are closed, which Shiny reports as \code{NULL}.
 }
 
 \examples{
@@ -50,6 +57,14 @@ el_collapse("col1",
     list(name = "p2", title = "Panel 2", content = shiny::tags$p("Content 2"))
   ),
   value = "p1"
+)
+
+# A panel can hold other components
+el_collapse("col2",
+  items = list(
+    list(name = "f", title = "Filters",
+         content = shiny::tagList(el_input("q"), el_switch("live")))
+  )
 )
 
 }

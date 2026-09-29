@@ -2,7 +2,7 @@
 % Please edit documentation in R/el_timeline.R
 \name{.el_timeline_items}
 \alias{.el_timeline_items}
-\title{Normalise timeline entries}
+\title{Keep only the fields an entry actually sets}
 \usage{
 .el_timeline_items(items)
 }
@@ -10,11 +10,13 @@
 \item{items}{A list of entries.}
 }
 \value{
-A list of entries with a uniform shape.
+The entries with unknown and empty fields dropped.
 }
 \description{
-Every entry is given the same keys, so a \verb{v-for} binding never reads an
-undefined field. Absent ones become JSON null, which Element treats as
-unset -- the same trick \code{\link[=.el_optional_bind]{.el_optional_bind()}} plays for a single prop.
+A \verb{v-for} binding reading a missing property gets \code{undefined}, which is what
+makes Element fall back to a prop's default. Filling the gaps with NA would
+send JSON null instead, and null is a value: an entry without \code{placement}
+then matched neither \verb{placement === 'top'} nor \code{'bottom'}, so its timestamp
+rendered nowhere at all.
 }
 \keyword{internal}

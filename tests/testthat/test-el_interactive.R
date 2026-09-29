@@ -142,44 +142,19 @@ test_that("el_collapse: accordion mode in Vue data", {
   expect_match(html, "true")
 })
 
-test_that("el_collapse: item name/title rendered as static attrs", {
-  tag <- el_collapse("c1",
+test_that("el_collapse: a panel title survives spaces", {
+  # It used to be a Vue-bound attribute, where a title containing spaces was
+  # evaluated as a JS expression. It is now plain text in the header.
+  html <- render_html(el_collapse("c1",
     items = list(list(name = "my panel", title = "My Title With Spaces",
                       content = tags$p("x")))
-  )
-  html <- render_html(tag)
-  # Static attribute (not Vue-bound :name) — must appear as literal string
-  expect_match(html, 'name="my panel"')
-  expect_match(html, 'title="My Title With Spaces"')
-  # Must NOT appear as Vue-bound attribute (would break JS evaluation of space-containing title)
-  expect_no_match(html, ':name="my panel"')
-  expect_no_match(html, ':title="My Title With Spaces"')
+  ))
+  expect_match(html, "My Title With Spaces", fixed = TRUE)
+  expect_match(html, 'data-el-name="my panel"', fixed = TRUE)
 })
 
-test_that("el_collapse: active value set", {
-  tag <- el_collapse("c1",
-    items = list(list(name = "p1", title = "T1", content = tags$p("x"))),
-    value = "p1"
-  )
-  html <- render_html(tag)
-  expect_match(html, "p1")
-})
-
-test_that("el_collapse: change handler fires Shiny input", {
-  tag <- el_collapse("c1", items = list())
-  html <- render_html(tag)
-  expect_match(html, "handleChange")
-  expect_match(html, "Shiny.setInputValue")
-})
-
-test_that("update_el_collapse: sends correct message", {
-  captured <- NULL
-  mock_session <- list(ns = function(id) id,
-                       sendCustomMessage = function(type, msg) { captured <<- msg })
-  update_el_collapse(mock_session, "c1", value = c("p1", "p2"))
-  expect_equal(captured$id, "c1")
-  expect_equal(captured$activeNames, list("p1", "p2"))
-})
+# el_collapse is no longer a Vue component; the rest of its behaviour is
+# covered in test-el_collapse.R.
 
 # ── el_rate ───────────────────────────────────────────────────────────────────
 test_that("el_rate: renders component", {

@@ -2,11 +2,13 @@
 % Please edit documentation in R/el_dependencies.R
 \name{el_rate_handler_dependency}
 \alias{el_rate_handler_dependency}
-\title{Rate Handler Dependency}
+\title{Collapse Handler Dependency
+Rate Handler Dependency}
 \usage{
 el_rate_handler_dependency()
 }
 \description{
+Collapse Handler Dependency
 Rate Handler Dependency
 }
 \keyword{internal}

@@ -214,10 +214,7 @@ el_alert_handler_dependency <- function() {
 }
 
 #' Collapse Handler Dependency
-#' @keywords internal
-el_collapse_handler_dependency <- function() {
-  .el_handler_dependency("collapse")
-}
+
 
 #' Rate Handler Dependency
 #' @keywords internal
