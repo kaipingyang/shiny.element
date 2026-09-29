@@ -9,3 +9,4 @@ el_button_handler_dependency()
 \description{
 Button Handler Dependency
 }
+\keyword{internal}

@@ -172,25 +172,25 @@ el_feedback_dependency <- function() {
 }
 
 #' Button Handler Dependency
-#' @export
+#' @keywords internal
 el_button_handler_dependency <- function() {
   .el_handler_dependency("button")
 }
 
 #' Cascader Handler Dependency
-#' @export
+#' @keywords internal
 el_cascader_handler_dependency <- function() {
   .el_handler_dependency("cascader")
 }
 
 #' Table Handler Dependency
-#' @export
+#' @keywords internal
 el_table_handler_dependency <- function() {
   .el_handler_dependency("table")
 }
 
 #' Calendar Handler Dependency
-#' @export
+#' @keywords internal
 el_calendar_handler_dependency <- function() {
   .el_handler_dependency("calendar")
 }

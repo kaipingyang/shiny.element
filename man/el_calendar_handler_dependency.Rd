@@ -9,3 +9,4 @@ el_calendar_handler_dependency()
 \description{
 Calendar Handler Dependency
 }
+\keyword{internal}

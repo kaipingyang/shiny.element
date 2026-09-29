@@ -28,7 +28,10 @@ Suggests:
     chromote,
     httpuv,
     pkgload,
-    withr
+    withr,
+    knitr,
+    rmarkdown
+VignetteBuilder: knitr
 Config/testthat/edition: 3
 URL: https://kaipingyang.github.io/shiny.element/, https://github.com/kaipingyang/shiny.element
 BugReports: https://github.com/kaipingyang/shiny.element/issues

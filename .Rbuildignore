@@ -7,3 +7,5 @@
 ^\.github$
 ^CLAUDE\.md$
 ^\.claude$
+^tools$
+^vignettes/.*\.png$
