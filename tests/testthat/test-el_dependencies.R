@@ -122,7 +122,8 @@ test_that("component handlers delegate to the shared updater", {
     # Notification, form calls validate/resetFields/clearValidate, and tree
     # calls setCheckedKeys because assigning default-checked-keys only ever
     # adds to the selection.
-    c("el-feedback-handler.js", "el-form-handler.js", "el-tree-handler.js")
+    c("el-feedback-handler.js", "el-form-handler.js", "el-tree-handler.js",
+      "el-carousel-handler.js")
   )
   expect_gt(length(handlers), 20)
 

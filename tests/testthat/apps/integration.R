@@ -128,6 +128,24 @@ ui <- el_page(
   # as one batch rather than one job per file.
   el_upload("up", drag = TRUE, multiple = TRUE, tip = "any file"),
 
+  # Carousel: slides are static markup; moving between them needs the
+  # component's own setActiveItem.
+  tags$div(style = "width:300px",
+    el_carousel("car", height = "80px", autoplay = FALSE, items = list(
+      list(name = "s1", content = "slide one"),
+      list(name = "s2", content = "slide two"),
+      list(name = "s3", content = "slide three")
+    ))),
+  actionButton("car_go", "third slide"),
+
+  # Timeline: entries render through one v-for so they can be replaced.
+  tags$div(style = "width:280px",
+    el_timeline("tl", items = list(
+      list(content = "Created", timestamp = "09:00", type = "primary"),
+      list(content = "No stamp")
+    ))),
+  actionButton("tl_add", "append entry"),
+
   # Forces the icon font to load, so the offline-assets test has something
   # to observe.
   tags$i(class = "el-icon-edit"),
@@ -155,7 +173,7 @@ server <- function(input, output, session) {
              "tabs", "pg_page", "pg_size", "col", "rg_num", "stp",
              "tbl_selected_rows", "casc_value", "sw_nested", "sld_nested",
              "signup_submit", "signup_valid", "nav", "nav_path",
-             "tree", "tree_checked")
+             "tree", "tree_checked", "car", "car_name")
     for (i in ids) cat(i, "=", fmt(input[[i]]), "\n")
     cat("up_rows", "=", if (is.null(input$up)) "<NULL>" else nrow(input$up), "\n")
   })
@@ -169,6 +187,18 @@ server <- function(input, output, session) {
 
   observeEvent(input$tbl_swap, {
     update_el_table(session, "tbl", data = head(mtcars, 6))
+  })
+
+  observeEvent(input$car_go, {
+    update_el_carousel(session, "car", active = 2)
+  })
+
+  observeEvent(input$tl_add, {
+    update_el_timeline(session, "tl", items = list(
+      list(content = "Created", timestamp = "09:00", type = "primary"),
+      list(content = "No stamp"),
+      list(content = "Appended", timestamp = "10:00", type = "success")
+    ))
   })
 
   observeEvent(input$tree_check, {

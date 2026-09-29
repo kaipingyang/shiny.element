@@ -272,3 +272,15 @@ el_tree_handler_dependency <- function() {
 el_upload_handler_dependency <- function() {
   .el_handler_dependency("upload")
 }
+
+#' Carousel Handler Dependency
+#' @keywords internal
+el_carousel_handler_dependency <- function() {
+  .el_handler_dependency("carousel")
+}
+
+#' Timeline Handler Dependency
+#' @keywords internal
+el_timeline_handler_dependency <- function() {
+  .el_handler_dependency("timeline")
+}

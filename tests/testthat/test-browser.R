@@ -360,6 +360,45 @@ test_that("a whole selection goes through one upload job", {
   expect_equal(bdump()[["up_rows"]], "3")
 })
 
+# ── carousel and timeline ─────────────────────────────────────────────────────
+
+test_that("the carousel reports the showing slide by index and name", {
+  skip_if_no_browser()
+  vals <- bdump()
+  expect_equal(vals[["car"]], "0")
+  expect_equal(vals[["car_name"]], "s1")
+})
+
+test_that("update_el_carousel moves slides through setActiveItem", {
+  skip_if_no_browser()
+  # initial-index is read once at mount and has no watcher, so assigning it
+  # would move nothing.
+  bclick("#car_go", wait = 3)
+  expect_equal(bdump()[["car"]], "2")
+  expect_equal(
+    bev("(function(){var a=document.querySelector('#car_container .el-carousel__item.is-active'); return a ? a.innerText.trim() : 'NONE'})()"),
+    "slide three"
+  )
+})
+
+test_that("a timeline entry without a timestamp renders none", {
+  skip_if_no_browser()
+  expect_equal(bev("String(document.querySelectorAll('#tl_container .el-timeline-item').length)"), "2")
+  # Filling the gap with null rather than leaving it out matched neither
+  # placement branch, so every timestamp vanished.
+  expect_equal(bev("String(document.querySelectorAll('#tl_container .el-timeline-item__timestamp').length)"), "1")
+})
+
+test_that("update_el_timeline replaces the entries", {
+  skip_if_no_browser()
+  bclick("#tl_add", wait = 2.5)
+  expect_equal(bev("String(document.querySelectorAll('#tl_container .el-timeline-item').length)"), "3")
+  expect_match(
+    bev("(function(){var i=document.querySelectorAll('#tl_container .el-timeline-item'); return i.length ? i[i.length-1].innerText : ''})()"),
+    "Appended"
+  )
+})
+
 # ── unsupplied props fall back to Element's defaults ──────────────────────────
 
 test_that("a select with no placeholder shows Element's own", {
