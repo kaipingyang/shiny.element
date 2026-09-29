@@ -40,9 +40,9 @@ The Vue instance mounts on `<div id="{ns_id}_container">`, while `vueR::vue(elem
 
 ### Dependency Loading
 
-- `el_page()` — top-level page wrapper; loads Vue, Element-UI CDN, `vue-handlers.js`, and layout CSS. Wraps `shiny::fluidPage()` with bslib Bootstrap 5.
+- `el_page()` — top-level page wrapper; loads Vue, Element-UI (bundled in `inst/element-ui`, not a CDN), `vue-handlers.js`, and layout CSS. Wraps `shiny::fluidPage()` with bslib Bootstrap 5. Takes `offline`, `locale` and `dev`.
 - `use_element()` — alternative for non-`el_page` contexts (bslib, navbarPage). Place at top of UI.
-- Each component also calls `attachDependencies()` with its own handler JS, so components work even without `use_element()` / `el_page()`.
+- Each component calls `attachDependencies()` with `.el_handler_dependency("<name>")`, which pairs its handler JS with the shared `el-update.js`, so components work even without `use_element()` / `el_page()`.
 
 ### Generic Vue Update API
 
@@ -70,17 +70,54 @@ Prefer these for components not yet covered by a dedicated `update_el_*` functio
 | `el_table` (selection) | `input$<id>_selected` | Selected rows (list of row data) |
 | `el_calendar` | `input$<id>` | Selected date (string "YYYY-MM-DD") |
 | `el_steps` | `input$<id>` | Active step index (0-based integer) |
+| `el_table` | `input$<id>_selected_rows` | 1-based row numbers, types intact |
+| `el_form` | `input$<id>` / `_valid` / `_submit` | Model, verdict, submit counter |
+| `el_menu` | `input$<id>` / `_path` | Selected index, and its full path |
+| `el_tree` | `input$<id>` / `_checked` | Last clicked key, checked keys |
+| `el_upload` | `input$<id>` | Same data frame as `fileInput()` |
+
+`input$<id>` is reported on load as well as on change. An empty selection
+arrives as `NULL`, which is what Shiny does with an empty array.
 
 ### Adding a New Component
 
-1. Create `R/el_<name>.R` with the widget function, an `update_el_<name>()` function, and a private `el_<name>_handler_dependency()`.
-2. Create `inst/js/el-<name>-handler.js` with `Shiny.addCustomMessageHandler('updateEl<Name>', ...)`.
-3. Add the handler dependency function in `R/el_dependencies.R`.
-4. Document with roxygen2 and run `devtools::document()`.
+**Read `.claude/docs/lessons.md` first** — it has the checklist and the
+constraints that are not obvious from the code.
 
-### Testing Pattern
+1. `R/el_<name>.R`: the widget function, `update_el_<name>()`, and
+   `el_<name>_handler_dependency()` (one line: `.el_handler_dependency("<name>")`).
+2. Mount point gets `style = .el_host_style()`; the widget gets
+   `width = 0, height = 0`. Both matter for layout — see lessons.md §1.3, §1.4.
+3. Optional props use `.el_optional_bind()` with an `NA` placeholder, so they
+   fall back to Element's own defaults (§2.1, §2.2).
+4. Stateful components call `.el_mounted_init()` to report their initial value,
+   or `input$<id>` stays NULL until the user touches them (§3.1).
+5. `inst/js/el-<name>-handler.js`: normally one line,
+   `elRegisterUpdate('updateEl<Name>')`. Write a bespoke handler only when the
+   update needs a component method (form, tree, upload, feedback do).
+6. Parent/child structures are declarative — generate them in R or pass them
+   through a `data` prop. Components cannot nest (§1.1).
+7. `roxygen2::roxygenise(".")`, then tests: unit, browser fixture, **and look
+   at a screenshot** (§5.1).
 
-Tests use a `mock_session` list to avoid a live Shiny session:
+### Testing
+
+Three layers, each blind to what the next one catches — see lessons.md §5.
+
+| Layer | Where | Catches |
+|---|---|---|
+| Unit | `test-el_*.R` | HTML generation, message fields, helper logic |
+| Browser | `test-browser.R` + `apps/integration.R` | mounting, interaction, geometry, Vue warnings |
+| Screenshot | by hand | layout and appearance — invisible to the other two |
+
+Browser tests run Vue's development build and assert zero warnings. They skip
+on CRAN and where no Chrome is available:
+
+```bash
+NOT_CRAN=true Rscript -e 'devtools::load_all("."); testthat::test_dir("tests/testthat")'
+```
+
+Unit tests use a `mock_session` list to avoid a live Shiny session:
 
 ```r
 mock_session <- list(
@@ -90,3 +127,19 @@ mock_session <- list(
 ```
 
 Test HTML output by converting to string: `paste(as.character(tag), collapse = "")`.
+A bare list of tags needs `htmltools::tagList()` first, or `as.character()`
+deparses it instead of rendering.
+
+`test-update-fields.R` renders every component and checks that each field its
+`update_*()` sends really exists in the Vue data — a mismatch is otherwise a
+silent no-op.
+
+## Lessons and gotchas
+
+`.claude/docs/lessons.md` records what was learned the hard way: architectural
+constraints that cannot be worked around, Element UI and Shiny behaviours that
+fail silently, and the verification habits that caught them. Read it before
+changing how components are built or rendered.
+
+`.claude/docs/screenshot-recipe.R` is the driver template for looking at a page
+yourself.
