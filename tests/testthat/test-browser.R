@@ -252,6 +252,43 @@ test_that("resetFields restores the declared values, not empty ones", {
   expect_equal(bev("String(document.querySelectorAll('#signup_container .el-form-item.is-error').length)"), "0")
 })
 
+# ── menu ──────────────────────────────────────────────────────────────────────
+
+test_that("the menu renders its whole tree, nested and grouped", {
+  skip_if_no_browser()
+  expect_equal(bev("String(document.querySelectorAll('#nav_container .el-submenu').length)"), "1")
+  expect_equal(bev("String(document.querySelectorAll('#nav_container .el-menu-item-group').length)"), "1")
+  # home, All, Discontinued, In group -- the submenu title is not an item.
+  expect_equal(bev("String(document.querySelectorAll('#nav_container .el-menu-item').length)"), "4")
+  expect_equal(bev("String(document.querySelectorAll('#nav_container .el-menu-item.is-disabled').length)"), "1")
+})
+
+test_that("the menu reports its initial selection", {
+  skip_if_no_browser()
+  expect_equal(bdump()[["nav"]], "m-home")
+  # No path until something is actually selected; Shiny turns [] into NULL.
+  expect_equal(bdump()[["nav_path"]], "<NULL>")
+})
+
+test_that("update_el_menu moves the selection", {
+  skip_if_no_browser()
+  bclick("#nav_pick", wait = 2.5)
+  expect_equal(
+    bev("(function(){var e=document.querySelector('#nav_container .el-menu-item.is-active'); return e ? e.innerText.trim() : 'NONE'})()"),
+    "All"
+  )
+})
+
+test_that("selecting an item reports its index and path", {
+  skip_if_no_browser()
+  bev("(function(){var i=document.querySelectorAll('#nav_container .el-menu-item'); i[1].click()})()")
+  Sys.sleep(2.5)
+  vals <- bdump()
+  expect_equal(vals[["nav"]], "m-all")
+  # The path distinguishes a nested item from a top-level one.
+  expect_equal(vals[["nav_path"]], "m-prod,m-all")
+})
+
 # ── unsupplied props fall back to Element's defaults ──────────────────────────
 
 test_that("a select with no placeholder shows Element's own", {

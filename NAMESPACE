@@ -37,6 +37,7 @@ export(el_layout_css_dependency)
 export(el_link)
 export(el_locale_dependency)
 export(el_main)
+export(el_menu)
 export(el_message)
 export(el_notification)
 export(el_page)
@@ -71,6 +72,7 @@ export(update_el_dropdown)
 export(update_el_form)
 export(update_el_input)
 export(update_el_input_number)
+export(update_el_menu)
 export(update_el_pagination)
 export(update_el_progress)
 export(update_el_radio_group)
@@ -86,12 +88,16 @@ export(update_vue_component)
 export(update_vue_data)
 export(use_element)
 export(vue_handler_dependency)
-importFrom(htmltools,HTML)
-importFrom(htmltools,tag)
+importFrom(htmltools,
+  HTML,
+  tag
+)
 importFrom(htmlwidgets,JS)
 importFrom(jsonlite,toJSON)
-importFrom(shiny,getDefaultReactiveDomain)
-importFrom(shiny,tagList)
-importFrom(shiny,tags)
-importFrom(shiny,titlePanel)
+importFrom(shiny,
+  getDefaultReactiveDomain,
+  tagList,
+  tags,
+  titlePanel
+)
 importFrom(stats,na.omit)

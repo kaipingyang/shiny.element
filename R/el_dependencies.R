@@ -254,3 +254,9 @@ el_dropdown_handler_dependency <- function() {
 el_form_handler_dependency <- function() {
   .el_handler_dependency("form")
 }
+
+#' Menu Handler Dependency
+#' @keywords internal
+el_menu_handler_dependency <- function() {
+  .el_handler_dependency("menu")
+}

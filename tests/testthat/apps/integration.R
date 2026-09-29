@@ -96,6 +96,21 @@ ui <- el_page(
   ),
   actionButton("form_prefill", "prefill form"),
 
+  # Menu: nests in R rather than with v-for, and reports both the selected
+  # index and its full path.
+  tags$div(style = "width:220px",
+    el_menu("nav", active = "m-home", items = list(
+      list(index = "m-home", label = "Home", icon = "el-icon-house"),
+      list(index = "m-prod", label = "Products", children = list(
+        list(index = "m-all", label = "All"),
+        list(index = "m-off", label = "Discontinued", disabled = TRUE)
+      )),
+      list(index = "m-grp", label = "Group", group = TRUE, children = list(
+        list(index = "m-in", label = "In group")
+      ))
+    ))),
+  actionButton("nav_pick", "select m-all"),
+
   # Forces the icon font to load, so the offline-assets test has something
   # to observe.
   tags$i(class = "el-icon-edit"),
@@ -122,7 +137,7 @@ server <- function(input, output, session) {
     ids <- c("inp", "sel", "sw", "sld", "rate", "rg", "cg", "num", "dp", "cp",
              "tabs", "pg_page", "pg_size", "col", "rg_num", "stp",
              "tbl_selected_rows", "casc_value", "sw_nested", "sld_nested",
-             "signup_submit", "signup_valid")
+             "signup_submit", "signup_valid", "nav", "nav_path")
     for (i in ids) cat(i, "=", fmt(input[[i]]), "\n")
   })
 
@@ -135,6 +150,10 @@ server <- function(input, output, session) {
 
   observeEvent(input$tbl_swap, {
     update_el_table(session, "tbl", data = head(mtcars, 6))
+  })
+
+  observeEvent(input$nav_pick, {
+    update_el_menu(session, "nav", active = "m-all")
   })
 
   observeEvent(input$form_prefill, {
