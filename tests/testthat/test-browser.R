@@ -360,6 +360,36 @@ test_that("a whole selection goes through one upload job", {
   expect_equal(bdump()[["up_rows"]], "3")
 })
 
+# ── tabs hold live components ─────────────────────────────────────────────────
+
+test_that("a component inside a tab pane stays connected", {
+  skip_if_no_browser()
+  expect_equal(
+    bev("(function(){var w=HTMLWidgets.find('#tab_nested'); return w && w.instance ? 'mounted' : 'MISSING'})()"),
+    "mounted"
+  )
+  expect_equal(bdump()[["tab_nested"]], "TRUE")
+})
+
+test_that("the active bar is positioned from the rendered label", {
+  skip_if_no_browser()
+  # No CSS class could express this: it depends on the label's width, which is
+  # why Element sets it inline too.
+  style <- bev("(function(){var b=document.querySelector('#tabs .el-tabs__active-bar'); return b ? b.getAttribute('style') : 'NONE'})()")
+  expect_match(style, "width:", fixed = TRUE)
+  expect_match(style, "translateX", fixed = TRUE)
+})
+
+test_that("update_el_tabs switches the pane and reports back", {
+  skip_if_no_browser()
+  bclick("#tabs_go", wait = 2.5)
+  expect_equal(bdump()[["tabs"]], "t1")
+  expect_equal(
+    bev("(function(){var p=document.querySelector('#tabs .el-tab-pane[data-el-name=\"t1\"]'); return p ? getComputedStyle(p).display : 'NONE'})()"),
+    "block"
+  )
+})
+
 # ── collapse holds live components ────────────────────────────────────────────
 
 test_that("a component inside a collapse panel stays connected", {

@@ -30,8 +30,9 @@ capture_update <- function(fn, args) {
 # Each entry: the update function, a UI call, and the arguments to fill in.
 # NULL args means "pass 1 for every optional argument".
 #
-# el_collapse is absent on purpose: it is rendered as markup driven by a Shiny
-# input binding, not a Vue instance, so it has no Vue data to check against.
+# el_collapse and el_tabs are absent on purpose: they are rendered as markup
+# driven by Shiny input bindings, not Vue instances, so they have no Vue data
+# to check against.
 cases <- list(
   list("update_el_input",          quote(el_input("x"))),
   list("update_el_select",         quote(el_select("x", choices = c(A = "a")))),
@@ -44,7 +45,6 @@ cases <- list(
   list("update_el_date_picker",    quote(el_date_picker("x"))),
   list("update_el_color_picker",   quote(el_color_picker("x"))),
   list("update_el_cascader",       quote(el_cascader("x"))),
-  list("update_el_tabs",           quote(el_tabs("x", tabs = list(list(name = "t", label = "L", content = "C"))))),
   list("update_el_pagination",     quote(el_pagination("x", total = 10))),
   list("update_el_dialog",         quote(el_dialog("x"))),
   list("update_el_drawer",         quote(el_drawer("x"))),

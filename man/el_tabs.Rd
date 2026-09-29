@@ -2,11 +2,11 @@
 % Please edit documentation in R/el_tabs.R
 \name{el_tabs}
 \alias{el_tabs}
-\title{Element UI Tabs Component}
+\title{Element UI Tabs}
 \usage{
 el_tabs(
   id = NULL,
-  tabs,
+  tabs = list(),
   selected = NULL,
   type = NULL,
   tab_position = "top",
@@ -18,71 +18,58 @@ el_tabs(
 \arguments{
 \item{id}{Tabs ID. Auto-generated UUID if \code{NULL}.}
 
-\item{tabs}{A list of tab definitions. Each element is a list with:
+\item{tabs}{A list of tabs. Each is a named list with:
 \describe{
-\item{\code{name}}{Unique string identifier for the tab (v-model value).}
-\item{\code{label}}{Display text for the tab.}
-\item{\code{content}}{Optional tagList/tag for the tab body. \code{NULL} for empty.}
-\item{\code{disabled}}{Logical. Whether the tab is disabled. Default \code{FALSE}.}
+\item{name}{Unique tab identifier (string). Required.}
+\item{label}{Tab label. Required.}
+\item{content}{Tab body. Any tag or tagList, including this package's
+own components.}
+\item{disabled}{Whether the tab can be selected. Default \code{FALSE}.}
 }}
 
-\item{selected}{Initial active tab name. Defaults to the first tab's name.}
+\item{selected}{Name of the initially selected tab. Defaults to the first.}
 
-\item{type}{Tab style type: \code{NULL} (default), \code{"card"}, or \code{"border-card"}.}
+\item{type}{\code{NULL} for plain tabs, \code{"card"} or \code{"border-card"}.}
 
-\item{tab_position}{Position of the tab bar: \code{"top"} (default), \code{"right"},
-\code{"bottom"}, or \code{"left"}.}
+\item{tab_position}{\code{"top"} (default), \code{"right"}, \code{"bottom"} or \code{"left"}.}
 
-\item{closable}{Whether tabs show a close button. Default \code{FALSE}.}
+\item{closable}{Show a close button on each tab. Closing removes the tab
+from the page; the server is told through \verb{input$<id>_closed}.}
 
-\item{stretch}{Whether tab headers stretch to fill the tab bar. Default \code{FALSE}.}
+\item{stretch}{Stretch the tabs to fill the available width.}
 
 \item{session}{Shiny session for module support.}
 }
 \value{
-An \code{htmltools} tagList with a Vue-managed tabs component.
+An \code{htmltools} tag.
 }
 \description{
-Creates an Element UI tabs component with Vue instance.
-Each tab can have a label, content, and optional disabled state.
+A tabbed panel.
 }
-\section{Shiny input}{
+\details{
+Rendered as plain markup carrying Element's own classes, driven by a Shiny
+input binding rather than a Vue instance. That is what lets a tab hold other
+components from this package: a Vue instance mounted here would rebuild the
+DOM underneath them, leaving them rendered but disconnected from the server.
+See \code{.claude/docs/lessons.md} §1.2.
+}
+\section{Shiny inputs}{
 
-\verb{input$<id>} — String (active tab name), updated on each tab click.
+\verb{input$<id>} — name of the selected tab, reported on load and on every
+change. \verb{input$<id>_closed} — name of the most recently closed tab, when
+\code{closable = TRUE}.
 }
 
 \examples{
-# Basic usage
-el_tabs(
-  id = "my_tabs",
-  tabs = list(
-    list(name = "tab1", label = "Tab 1", content = shiny::tags$p("Content 1")),
-    list(name = "tab2", label = "Tab 2", content = shiny::tags$p("Content 2")),
-    list(name = "tab3", label = "Tab 3", disabled = TRUE)
-  ),
-  selected = "tab1"
-)
+el_tabs("t1", selected = "a", tabs = list(
+  list(name = "a", label = "First",  content = shiny::tags$p("One")),
+  list(name = "b", label = "Second", content = shiny::tags$p("Two"))
+))
 
-# Card style with position
-if (interactive()) {
-  library(shiny)
-  library(shiny.element)
-  ui <- el_page(
-    el_tabs(
-      id = "tabs1",
-      type = "card",
-      tab_position = "top",
-      tabs = list(
-        list(name = "a", label = "First",  content = shiny::tags$p("Hello")),
-        list(name = "b", label = "Second", content = shiny::tags$p("World"))
-      )
-    ),
-    verbatimTextOutput("active")
-  )
-  server <- function(input, output, session) {
-    output$active <- renderPrint(input$tabs1)
-  }
-  shinyApp(ui, server)
-}
+# A tab can hold other components
+el_tabs("t2", tabs = list(
+  list(name = "data", label = "Data", content = el_table(data = head(iris, 3))),
+  list(name = "opts", label = "Options", content = el_switch("live"))
+))
 
 }

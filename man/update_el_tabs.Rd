@@ -11,8 +11,11 @@ update_el_tabs(session, id, selected = NULL)
 
 \item{id}{Tabs ID (un-namespaced).}
 
-\item{selected}{New active tab name.}
+\item{selected}{Name of the tab to select.}
+}
+\value{
+Called for its side effect; returns \code{NULL} invisibly.
 }
 \description{
-Server-side update for \code{\link[=el_tabs]{el_tabs()}}. Switches the active tab programmatically.
+Server-side update for \code{\link[=el_tabs]{el_tabs()}}.
 }

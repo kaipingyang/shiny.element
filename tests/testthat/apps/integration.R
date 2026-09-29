@@ -31,10 +31,12 @@ ui <- el_page(
   el_input_number("num", value = 7),
   el_date_picker("dp", value = "2026-01-15"),
   el_color_picker("cp", value = "#409EFF"),
-  el_tabs("tabs",
-    tabs = list(list(name = "t1", label = "T1", content = "c1"),
-                list(name = "t2", label = "T2", content = "c2")),
-    selected = "t2"),
+  # Tabs are plain markup driven by an input binding, so a pane can hold
+  # another component and it stays connected to the server.
+  el_tabs("tabs", selected = "t2", tabs = list(
+    list(name = "t1", label = "T1", content = el_switch("tab_nested", value = TRUE)),
+    list(name = "t2", label = "T2", content = "c2"))),
+  actionButton("tabs_go", "select t1"),
   el_pagination("pg", total = 100, current_page = 3, page_size = 20),
   # Collapse is plain markup driven by an input binding, so a panel can hold
   # another component and it stays connected to the server.
@@ -177,7 +179,8 @@ server <- function(input, output, session) {
              "tabs", "pg_page", "pg_size", "col", "rg_num", "stp",
              "tbl_selected_rows", "casc_value", "sw_nested", "sld_nested",
              "signup_submit", "signup_valid", "nav", "nav_path",
-             "tree", "tree_checked", "car", "car_name", "col_nested")
+             "tree", "tree_checked", "car", "car_name", "col_nested",
+             "tab_nested")
     for (i in ids) cat(i, "=", fmt(input[[i]]), "\n")
     cat("up_rows", "=", if (is.null(input$up)) "<NULL>" else nrow(input$up), "\n")
   })
@@ -191,6 +194,10 @@ server <- function(input, output, session) {
 
   observeEvent(input$tbl_swap, {
     update_el_table(session, "tbl", data = head(mtcars, 6))
+  })
+
+  observeEvent(input$tabs_go, {
+    update_el_tabs(session, "tabs", selected = "t1")
   })
 
   observeEvent(input$col_open, {
