@@ -4,12 +4,17 @@
 \alias{.el_event_bindings}
 \title{Forward Element UI events to Shiny inputs}
 \usage{
-.el_event_bindings(ns_id, events)
+.el_event_bindings(ns_id, events, shapes = list())
 }
 \arguments{
 \item{ns_id}{The namespaced element id.}
 
 \item{events}{Character vector of Element event names, in kebab-case.}
+
+\item{shapes}{Named list of JavaScript functions, one per event that
+carries more than one argument, turning the arguments into a single
+object. \code{this} is the Vue instance. Without one, several arguments are
+sent as \code{arg1}, \code{arg2}, ...}
 }
 \value{
 A list with \code{attrs} (to merge into the tag) and \code{methods} (to merge

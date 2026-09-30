@@ -35,8 +35,8 @@ that way. \code{el_call()} invokes one.
 A method that returns something reports it as \verb{input$<id>_<method>}, with
 the method name in snake_case, matching how events are reported:
 \code{getCheckedKeys} arrives as \verb{input$<id>_get_checked_keys}. The input is set
-with event priority, so Shiny resets it to \code{NULL} after each flush -- read
-it in an \code{observeEvent()} rather than polling it.
+with event priority, so asking twice and getting the same answer still
+fires an \code{observeEvent()} the second time.
 
 A method that returns nothing reports \code{TRUE}, so an \code{observeEvent()} can
 still tell that it ran. Pass \code{result = FALSE} to send nothing back.

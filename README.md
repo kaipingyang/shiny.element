@@ -66,8 +66,8 @@ ui <- bslib::page_sidebar(
 The [component gallery](https://kaipingyang.github.io/shiny.element/articles/components.html)
 shows each one rendered, with the code that produced it.
 
-<img src="man/figures/component-button.png" width="49%" alt="Buttons"> <img src="man/figures/component-steps.png" width="49%" alt="Steps">
-<img src="man/figures/component-table.png" width="49%" alt="Table"> <img src="man/figures/component-tree.png" width="49%" alt="Tree">
+<img src="https://kaipingyang.github.io/shiny.element/shots/components-button.png" width="49%" alt="Buttons"> <img src="https://kaipingyang.github.io/shiny.element/shots/components-steps.png" width="49%" alt="Steps">
+<img src="https://kaipingyang.github.io/shiny.element/shots/components-table.png" width="49%" alt="Table"> <img src="https://kaipingyang.github.io/shiny.element/shots/components-tree.png" width="49%" alt="Tree">
 
 ## Reading and writing values
 

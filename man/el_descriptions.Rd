@@ -30,7 +30,8 @@ el_descriptions(
 list or vector whose names are the labels. \code{content} may be any Shiny UI,
 a shiny.element component included, which is absorbed rather than nested.
 An item may also carry \code{span}, \code{label_class_name}, \code{content_class_name},
-\code{label_style} and \code{content_style}.}
+\code{label_style} and \code{content_style}. A \code{label} that is markup rather than
+text fills the item's label slot.}
 
 \item{title}{Heading above the grid.}
 

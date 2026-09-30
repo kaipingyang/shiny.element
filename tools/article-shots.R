@@ -210,6 +210,19 @@ for (s in shots) {
   }
   Sys.sleep(1.5)   # Vue instances mount after the widgets are bound
 
+  # Two components in one example sharing an id leave one of them blank, and
+  # nothing logs it -- the gallery's first version did this with three
+  # el_avatar("me") calls in one chunk.
+  dup <- js("(function(){ var seen = {}, dup = [];
+    document.querySelectorAll('.html-widget[id]').forEach(function(e){
+      if (seen[e.id]) dup.push(e.id); seen[e.id] = true; });
+    return dup.join(', '); })()")
+  if (nzchar(dup %||% "")) {
+    problems <- c(problems, sprintf("%s: duplicate component ids: %s", s$key, dup))
+    message(sprintf("  x %-34s duplicate ids: %s", s$key, dup))
+    next
+  }
+
   if (!is.null(s$js)) {
     # A selector that matches nothing throws, the interaction never happens,
     # and the picture shows the untouched page -- so a throw is a failure.
@@ -241,7 +254,25 @@ for (s in shots) {
     selectors)
 
   out <- file.path(OUTDIR, paste0(s$key, ".png"))
-  b$screenshot(out, selector = present, scale = 2)
+  # The frame is worked out here, as the union of every element matched,
+  # rather than left to chromote: given several selectors it framed only the
+  # first, so a message box -- appended to <body>, centred on screen -- was
+  # dropped from its own screenshot. Scroll offsets are added because
+  # getBoundingClientRect() is relative to the viewport and the clip is not.
+  rect <- jsonlite::fromJSON(js(sprintf("(function(sels){
+    var l = Infinity, t = Infinity, r = -Infinity, b = -Infinity;
+    sels.forEach(function(sel){
+      document.querySelectorAll(sel).forEach(function(e){
+        var x = e.getBoundingClientRect();
+        if (!x.width || !x.height) return;
+        l = Math.min(l, x.left); t = Math.min(t, x.top);
+        r = Math.max(r, x.right); b = Math.max(b, x.bottom);
+      });
+    });
+    return JSON.stringify({x: l + window.scrollX, y: t + window.scrollY,
+                           w: r - l, h: b - t});
+  })(%s)", jsonlite::toJSON(present))))
+  b$screenshot(out, cliprect = c(rect$x, rect$y, rect$w, rect$h), scale = 2)
 
   warns <- grep("[Vue warn]", console, fixed = TRUE, value = TRUE)
   if (length(warns)) {

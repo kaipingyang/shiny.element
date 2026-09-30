@@ -33,10 +33,14 @@ symbol or a unit.}
 
 \item{precision}{Decimal places to show.}
 
-\item{decimal_separator, group_separator}{Separators. Default \code{"."} and
-\code{","}.}
+\item{decimal_separator}{Decimal point. Default \code{"."}.}
 
-\item{rate}{Multiplier applied to \code{value} before it is shown.}
+\item{group_separator}{Separator between digit groups, such as \code{","}.
+Element's default is none, so \code{26048} shows as it is.}
+
+\item{rate}{How the digits are grouped, as a power of ten: \code{1000} (the
+default) makes groups of three, \code{10000} groups of four. It only has an
+effect with a \code{group_separator}.}
 
 \item{value_style}{CSS for the number, as a string or a named list.}
 
@@ -65,7 +69,8 @@ Callable with \code{\link[=el_call]{el_call()}}:
 }
 
 \examples{
-el_statistic("users", value = 26048, title = "Active users")
+el_statistic("users", value = 26048, title = "Active users",
+             group_separator = ",")
 el_statistic("revenue", value = 1318.5, title = "Revenue", prefix = "$",
              precision = 2)
 }

@@ -116,8 +116,9 @@ el_message <- function(
 #' acknowledgement, or a line of text.
 #'
 #' Unlike [el_message()] and [el_notification()], this one answers back. The
-#' reply arrives as `input$<id>`, so read it with `observeEvent()` -- the
-#' input is set with event priority and Shiny clears it after each flush.
+#' reply arrives as `input$<id>`, so read it with `observeEvent()`: the input
+#' is set with event priority, so answering "confirm" twice in a row fires the
+#' observer twice, where an output reading the value would see no change.
 #'
 #' @param session Shiny session object.
 #' @param id Input ID the answer is reported to.

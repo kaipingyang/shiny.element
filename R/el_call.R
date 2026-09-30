@@ -9,8 +9,8 @@
 #' A method that returns something reports it as `input$<id>_<method>`, with
 #' the method name in snake_case, matching how events are reported:
 #' `getCheckedKeys` arrives as `input$<id>_get_checked_keys`. The input is set
-#' with event priority, so Shiny resets it to `NULL` after each flush -- read
-#' it in an `observeEvent()` rather than polling it.
+#' with event priority, so asking twice and getting the same answer still
+#' fires an `observeEvent()` the second time.
 #'
 #' A method that returns nothing reports `TRUE`, so an `observeEvent()` can
 #' still tell that it ran. Pass `result = FALSE` to send nothing back.

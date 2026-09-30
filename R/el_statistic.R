@@ -8,9 +8,12 @@
 #' @param prefix,suffix Text before and after the number, such as a currency
 #'   symbol or a unit.
 #' @param precision Decimal places to show.
-#' @param decimal_separator,group_separator Separators. Default `"."` and
-#'   `","`.
-#' @param rate Multiplier applied to `value` before it is shown.
+#' @param decimal_separator Decimal point. Default `"."`.
+#' @param group_separator Separator between digit groups, such as `","`.
+#'   Element's default is none, so `26048` shows as it is.
+#' @param rate How the digits are grouped, as a power of ten: `1000` (the
+#'   default) makes groups of three, `10000` groups of four. It only has an
+#'   effect with a `group_separator`.
 #' @param value_style CSS for the number, as a string or a named list.
 #' @param formatter `htmlwidgets::JS()` function `function(value)` returning
 #'   the text to show, in place of Element's formatting.
@@ -26,7 +29,8 @@
 #'
 #' @return A Shiny UI element.
 #' @examples
-#' el_statistic("users", value = 26048, title = "Active users")
+#' el_statistic("users", value = 26048, title = "Active users",
+#'              group_separator = ",")
 #' el_statistic("revenue", value = 1318.5, title = "Revenue", prefix = "$",
 #'              precision = 2)
 #' @export

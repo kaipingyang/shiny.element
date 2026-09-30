@@ -618,9 +618,8 @@ test_that("Vue raises no warnings", {
 test_that("a forwarded Element event reaches the server", {
   skip_if_no_browser()
 
-  # The fixture latches these with observeEvent: they are set with priority
-  # "event", which Shiny resets to NULL after each flush, so reading
-  # input[[...]] from a polling output would almost always see the NULL.
+  # The fixture latches these with observeEvent, which records that the event
+  # happened at all -- including an event carrying no value, reported as TRUE.
   expect_false(grepl("tbl_row_click", bdump()[["events_seen"]], fixed = TRUE))
 
   bclick("#tbl_container .el-table__row td", wait = 3)

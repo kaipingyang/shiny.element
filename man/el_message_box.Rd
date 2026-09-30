@@ -78,8 +78,9 @@ acknowledgement, or a line of text.
 }
 \details{
 Unlike \code{\link[=el_message]{el_message()}} and \code{\link[=el_notification]{el_notification()}}, this one answers back. The
-reply arrives as \verb{input$<id>}, so read it with \code{observeEvent()} -- the
-input is set with event priority and Shiny clears it after each flush.
+reply arrives as \verb{input$<id>}, so read it with \code{observeEvent()}: the input
+is set with event priority, so answering "confirm" twice in a row fires the
+observer twice, where an output reading the value would see no change.
 }
 \section{Shiny inputs}{
 

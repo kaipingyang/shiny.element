@@ -209,9 +209,8 @@ server <- function(input, output, session) {
              "tab_nested", "dlg", "drw", "dlg_nested")
     for (i in ids) cat(i, "=", fmt(input[[i]]), "\n")
     cat("up_rows", "=", if (is.null(input$up)) "<NULL>" else nrow(input$up), "\n")
-    # Forwarded Element events are set with priority "event", which Shiny
-    # resets to NULL after every flush -- polling input[[...]] would almost
-    # always read the NULL. They are latched by the observers below instead.
+    # Forwarded Element events are latched by the observers below, which is
+    # how an app acts on each one -- repeats included.
     cat("events_seen", "=", paste(names(seen_events), collapse = "/"), "\n")
     for (nm in c("called_keys", "called_validate", "row_index")) {
       if (!is.null(seen_events[[nm]])) cat(nm, "=", fmt(seen_events[[nm]]), "\n")

@@ -9,6 +9,7 @@ el_table(
   data = list(),
   columns = list(),
   selection = FALSE,
+  rownames = NULL,
   border = TRUE,
   stripe = NULL,
   size = NULL,
@@ -60,6 +61,11 @@ Inferred from \code{data} when omitted. A column may also carry
 only what you control.}
 
 \item{selection}{Enable row selection}
+
+\item{rownames}{Whether to show a data.frame's row names as the first
+column. \code{NULL} (the default) shows them when they carry something --
+\code{mtcars}' car names -- and leaves out automatic ones, which only count
+rows.}
 
 \item{border}{Show table border}
 
