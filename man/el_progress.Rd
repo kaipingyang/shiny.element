@@ -14,6 +14,7 @@ el_progress(
   show_text = TRUE,
   color = NULL,
   width = 126,
+  stroke_linecap = NULL,
   session = shiny::getDefaultReactiveDomain()
 )
 }

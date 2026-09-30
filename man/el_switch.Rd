@@ -15,6 +15,10 @@ el_switch(
   inactive_color = NULL,
   active_value = TRUE,
   inactive_value = FALSE,
+  active_icon_class = NULL,
+  inactive_icon_class = NULL,
+  name = NULL,
+  validate_event = NULL,
   session = shiny::getDefaultReactiveDomain()
 )
 }

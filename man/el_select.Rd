@@ -16,6 +16,20 @@ el_select(
   size = NULL,
   multiple_limit = 0,
   collapse_tags = FALSE,
+  value_key = NULL,
+  name = NULL,
+  autocomplete = NULL,
+  automatic_dropdown = NULL,
+  allow_create = NULL,
+  loading = NULL,
+  loading_text = NULL,
+  no_match_text = NULL,
+  no_data_text = NULL,
+  popper_class = NULL,
+  popper_append_to_body = NULL,
+  reserve_keyword = NULL,
+  default_first_option = NULL,
+  remote = NULL,
   session = shiny::getDefaultReactiveDomain()
 )
 }

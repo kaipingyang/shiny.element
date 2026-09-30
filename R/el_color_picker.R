@@ -33,6 +33,7 @@ el_color_picker <- function(
     show_alpha   = FALSE,
     color_format = NULL,
     predefine    = NULL,
+    popper_class = NULL,
     session      = shiny::getDefaultReactiveDomain()
 ) {
   if (is.null(id)) id <- paste0("el_color_picker_", uuid::UUIDgenerate())
@@ -48,6 +49,7 @@ el_color_picker <- function(
   cp_attrs[[":size"]] <- .el_optional_bind("size")
   cp_attrs[[":color-format"]] <- .el_optional_bind("colorFormat")
   cp_attrs[[":predefine"]] <- .el_optional_bind("predefine")
+  cp_attrs[[":popper-class"]] <- .el_optional_bind("popperClass")
   vue_data <- list(
     value      = value,
     disabled   = disabled,
@@ -56,6 +58,7 @@ el_color_picker <- function(
   vue_data$size <- .el_or_na(size)
   vue_data$colorFormat <- .el_or_na(color_format)
   vue_data$predefine <- if (is.null(predefine)) NA else as.list(predefine)
+  vue_data$popperClass <- .el_or_na(popper_class)
 
   component_ui <- shiny::tagList(
     shiny::tags$div(
@@ -90,6 +93,7 @@ elementId = ns_id, width = 0, height = 0,
 #' @param id Color picker ID (un-namespaced).
 #' @param value New colour string.
 #' @param disabled New disabled state.
+#' @param popper_class Extra class name for the dropdown panel.
 #'
 #' @return Called for its side effect; returns `NULL` invisibly.
 #' @examples

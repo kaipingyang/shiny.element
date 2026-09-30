@@ -69,6 +69,11 @@ el_slider <- function(
     vertical     = FALSE,
     height       = NULL,
     marks        = NULL,
+    label        = NULL,
+    debounce     = NULL,
+    input_size   = NULL,
+    show_input_controls = NULL,
+    tooltip_class = NULL,
     session      = shiny::getDefaultReactiveDomain()
 ) {
   if (is.null(id)) id <- paste0("el_slider_", uuid::UUIDgenerate())
@@ -96,6 +101,11 @@ el_slider <- function(
   # either way for update_el_slider() to be able to set it.
   slider_attrs[[":height"]] <- .el_optional_bind("height")
   slider_attrs[[":marks"]] <- .el_optional_bind("marks")
+  slider_attrs[[":label"]] <- .el_optional_bind("label")
+  slider_attrs[[":debounce"]] <- .el_optional_bind("debounce")
+  slider_attrs[[":input-size"]] <- .el_optional_bind("inputSize")
+  slider_attrs[[":show-input-controls"]] <- .el_optional_bind("showInputControls")
+  slider_attrs[[":tooltip-class"]] <- .el_optional_bind("tooltipClass")
 
   # Vue data
   vue_data <- list(
@@ -112,6 +122,11 @@ el_slider <- function(
   )
   vue_data$height <- if (!is.null(height)) height else if (vertical) "200px" else NA
   vue_data$marks <- .el_or_na(marks)
+  vue_data$label <- .el_or_na(label)
+  vue_data$debounce <- .el_or_na(debounce)
+  vue_data$inputSize <- .el_or_na(input_size)
+  vue_data$showInputControls <- .el_or_na(show_input_controls)
+  vue_data$tooltipClass <- .el_or_na(tooltip_class)
 
   component_ui <- shiny::tagList(
     shiny::tags$div(
@@ -151,6 +166,11 @@ elementId = ns_id, width = 0, height = 0,
 #' @param max New maximum value.
 #' @param step New step size.
 #' @param disabled New disabled state.
+#' @param label Accessible label for screen readers.
+#' @param debounce Debounce in ms while dragging, when `show_input = TRUE`. Default `300`.
+#' @param input_size Size of the companion input when `show_input = TRUE`.
+#' @param show_input_controls Whether the companion input shows its spinner buttons.
+#' @param tooltip_class Extra class name for the value tooltip.
 #'
 #' @return Called for its side effect; returns `NULL` invisibly.
 #' @examples

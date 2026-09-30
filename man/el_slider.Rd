@@ -18,6 +18,11 @@ el_slider(
   vertical = FALSE,
   height = NULL,
   marks = NULL,
+  label = NULL,
+  debounce = NULL,
+  input_size = NULL,
+  show_input_controls = NULL,
+  tooltip_class = NULL,
   session = shiny::getDefaultReactiveDomain()
 )
 }

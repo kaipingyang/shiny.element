@@ -12,6 +12,22 @@ df_to_tree_data(df, cols, sep = "/")
 \item{cols}{Column names, outermost level first.}
 
 \item{sep}{Separator used when joining values into a key.}
+
+\item{indent}{Horizontal indent between levels, in pixels. Default \code{16}.}
+
+\item{icon_class}{Icon class of the expand arrow.}
+
+\item{lazy}{Whether child nodes are loaded on demand. Needs \code{load}.}
+
+\item{draggable}{Whether nodes can be dragged.}
+
+\item{auto_expand_parent}{Whether expanding a node expands its parents. Default \code{TRUE}.}
+
+\item{check_on_click_node}{Whether clicking a node's label also checks it.}
+
+\item{current_node_key}{Key of the node that starts out highlighted.}
+
+\item{render_after_expand}{Whether child nodes are rendered only once expanded. Default \code{TRUE}.}
 }
 \value{
 A list of nodes.

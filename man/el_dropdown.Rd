@@ -15,6 +15,9 @@ el_dropdown(
   hide_on_click = TRUE,
   placement = "bottom-end",
   disabled = FALSE,
+  show_timeout = NULL,
+  hide_timeout = NULL,
+  tabindex = NULL,
   session = shiny::getDefaultReactiveDomain()
 )
 }

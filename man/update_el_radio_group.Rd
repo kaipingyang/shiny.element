@@ -23,6 +23,10 @@ update_el_radio_group(
 \code{list(list(value=, label=), ...)}.}
 
 \item{disabled}{New disabled state.}
+
+\item{fill}{Border and background colour of a checked radio button.}
+
+\item{text_color}{Text colour of a checked radio button.}
 }
 \value{
 Called for its side effect; returns \code{NULL} invisibly.

@@ -55,6 +55,8 @@ el_checkbox_group <- function(
     min      = NULL,
     max      = NULL,
     button   = FALSE,
+    fill     = NULL,
+    text_color = NULL,
     session  = shiny::getDefaultReactiveDomain()
 ) {
   if (is.null(id)) id <- paste0("el_checkbox_group_", uuid::UUIDgenerate())
@@ -77,6 +79,8 @@ el_checkbox_group <- function(
   group_attrs[[":size"]] <- .el_optional_bind("size")
   group_attrs[[":min"]] <- .el_optional_bind("min")
   group_attrs[[":max"]] <- .el_optional_bind("max")
+  group_attrs[[":fill"]] <- .el_optional_bind("fill")
+  group_attrs[[":text-color"]] <- .el_optional_bind("textColor")
   group_tag <- htmltools::tag("el-checkbox-group", c(group_attrs, list(cb_slot)))
 
   vue_data <- list(
@@ -87,6 +91,8 @@ el_checkbox_group <- function(
   vue_data$size <- .el_or_na(size)
   vue_data$min <- if (is.null(min)) NA else min
   vue_data$max <- if (is.null(max)) NA else max
+  vue_data$fill <- .el_or_na(fill)
+  vue_data$textColor <- .el_or_na(text_color)
   component_ui <- shiny::tagList(
     shiny::tags$div(id = container_id, style = .el_host_style(), group_tag),
     vueR::vue(
@@ -121,6 +127,8 @@ elementId = ns_id, width = 0, height = 0,
 #' @param disabled New disabled state.
 #' @param min New minimum checked count.
 #' @param max New maximum checked count.
+#' @param fill Border and background colour when `button = TRUE` and checked.
+#' @param text_color Text colour when `button = TRUE` and checked.
 #'
 #' @return Called for its side effect; returns `NULL` invisibly.
 #' @examples

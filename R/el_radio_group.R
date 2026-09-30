@@ -68,6 +68,8 @@ el_radio_group <- function(
     disabled = FALSE,
     size     = NULL,
     button   = FALSE,
+    fill     = NULL,
+    text_color = NULL,
     session  = shiny::getDefaultReactiveDomain()
 ) {
   if (is.null(id)) id <- paste0("el_radio_group_", uuid::UUIDgenerate())
@@ -91,6 +93,8 @@ el_radio_group <- function(
     "@change"   = "handleChange"
   )
   group_attrs[[":size"]] <- .el_optional_bind("size")
+  group_attrs[[":fill"]] <- .el_optional_bind("fill")
+  group_attrs[[":text-color"]] <- .el_optional_bind("textColor")
   # Build Vue data
   vue_data <- list(
     value    = if (is.null(selected)) "" else selected,
@@ -98,6 +102,8 @@ el_radio_group <- function(
     disabled = disabled
   )
   vue_data$size <- .el_or_na(size)
+  vue_data$fill <- .el_or_na(fill)
+  vue_data$textColor <- .el_or_na(text_color)
   component_ui <- shiny::tagList(
     shiny::tags$div(
       id = container_id, style = .el_host_style(),
@@ -134,6 +140,8 @@ elementId = ns_id, width = 0, height = 0,
 #' @param options New choices: named character vector or
 #'   `list(list(value=, label=), ...)`.
 #' @param disabled New disabled state.
+#' @param fill Border and background colour of a checked radio button.
+#' @param text_color Text colour of a checked radio button.
 #'
 #' @return Called for its side effect; returns `NULL` invisibly.
 #' @examples

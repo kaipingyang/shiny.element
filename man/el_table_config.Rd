@@ -12,6 +12,62 @@ el_table_config(df, max_rows = NULL, add_name = TRUE)
 \item{max_rows}{Max rows to show}
 
 \item{add_name}{Add row names}
+
+\item{stripe}{Whether rows alternate background colour.}
+
+\item{size}{Row density: \code{"medium"}, \code{"small"} or \code{"mini"}.}
+
+\item{height}{Table height. Fixes the header and scrolls the body.}
+
+\item{max_height}{Maximum table height, beyond which the body scrolls.}
+
+\item{fit}{Whether column widths stretch to fill the table. Default \code{TRUE}.}
+
+\item{show_header}{Whether the header row is shown. Default \code{TRUE}.}
+
+\item{highlight_current_row}{Whether the clicked row stays highlighted; pairs with \verb{input$<id>_current}.}
+
+\item{current_row_key}{Key of the row highlighted at start. Needs \code{row_key}.}
+
+\item{row_key}{Column whose value identifies a row. Needed for tree data and reserved selection.}
+
+\item{empty_text}{Text shown when there are no rows. Default \code{"No Data"}.}
+
+\item{default_expand_all}{Whether expandable rows start expanded.}
+
+\item{expand_row_keys}{Keys of the rows that start expanded. Needs \code{row_key}.}
+
+\item{default_sort}{Initial sort, as \code{list(prop =, order =)}.}
+
+\item{tooltip_effect}{Theme of overflow tooltips: \code{"dark"} (default) or \code{"light"}.}
+
+\item{show_summary}{Whether to add a summary row at the bottom.}
+
+\item{sum_text}{Label of the summary row's first cell. Default \code{"Sum"}.}
+
+\item{select_on_indeterminate}{What the header checkbox does when only some rows are selected. Default \code{TRUE}.}
+
+\item{indent}{Horizontal indent between tree levels, in pixels. Default \code{16}.}
+
+\item{lazy}{Whether child rows of tree data are loaded on demand.}
+
+\item{tree_props}{Field names for tree data, as \code{list(children =, hasChildren =)}.}
+
+\item{row_class_name}{Class name for every row, or a JS function returning one.}
+
+\item{row_style}{Inline style for every row, or a JS function returning one.}
+
+\item{cell_class_name}{Class name for every cell, or a JS function returning one.}
+
+\item{cell_style}{Inline style for every cell, or a JS function returning one.}
+
+\item{header_row_class_name}{Class name for the header row, or a JS function returning one.}
+
+\item{header_row_style}{Inline style for the header row, or a JS function returning one.}
+
+\item{header_cell_class_name}{Class name for header cells, or a JS function returning one.}
+
+\item{header_cell_style}{Inline style for header cells, or a JS function returning one.}
 }
 \value{
 List with data and columns

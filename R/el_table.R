@@ -175,6 +175,34 @@ el_table <- function(id = NULL,
                      columns = list(),
                      selection = FALSE,
                      border = TRUE,
+                     stripe  = NULL,
+                     size    = NULL,
+                     height  = NULL,
+                     max_height = NULL,
+                     fit     = NULL,
+                     show_header = NULL,
+                     highlight_current_row = NULL,
+                     current_row_key = NULL,
+                     row_key = NULL,
+                     empty_text = NULL,
+                     default_expand_all = NULL,
+                     expand_row_keys = NULL,
+                     default_sort = NULL,
+                     tooltip_effect = NULL,
+                     show_summary = NULL,
+                     sum_text = NULL,
+                     select_on_indeterminate = NULL,
+                     indent  = NULL,
+                     lazy    = NULL,
+                     tree_props = NULL,
+                     row_class_name = NULL,
+                     row_style = NULL,
+                     cell_class_name = NULL,
+                     cell_style = NULL,
+                     header_row_class_name = NULL,
+                     header_row_style = NULL,
+                     header_cell_class_name = NULL,
+                     header_cell_style = NULL,
                      session = shiny::getDefaultReactiveDomain()) {
   args <- .el_table_args(id, data, columns)
   id <- args$id
@@ -197,23 +225,102 @@ el_table <- function(id = NULL,
     type   = "selection",
     width  = "55"
   ))
+  # Every documented column prop is bound off the column object, so a user
+  # writes list(prop = "x", sortable = TRUE, align = "center") and Element
+  # sees it. An absent key reads back as undefined, which is Element's own
+  # default -- the same fallback .el_optional_bind() arranges for props.
   data_col <- htmltools::tag("el-table-column", list(
     "v-for"  = "col in columns",
     ":key"   = "col.prop",
     ":prop"  = "col.prop",
     ":label" = "col.label",
-    ":width" = "col.width"
+    ":width" = "col.width",
+    ":align" = "col.align",
+    ":header-align" = "col.headerAlign",
+    ":class-name" = "col.className",
+    ":label-class-name" = "col.labelClassName",
+    ":column-key" = "col.columnKey",
+    ":min-width" = "col.minWidth",
+    ":fixed" = "col.fixed",
+    ":resizable" = "col.resizable",
+    ":sortable" = "col.sortable",
+    ":sort-by" = "col.sortBy",
+    ":sort-orders" = "col.sortOrders",
+    ":show-overflow-tooltip" = "col.showOverflowTooltip",
+    ":filters" = "col.filters",
+    ":filtered-value" = "col.filteredValue",
+    ":filter-multiple" = "col.filterMultiple",
+    ":filter-placement" = "col.filterPlacement",
+    ":reserve-selection" = "col.reserveSelection",
+    ":index" = "col.index"
   ))
 
-  table_content <- list(
+  table_attrs <- list(
     ":data"             = "tableData",
     ":border"           = "border",
     style               = "width: 100%",
     # Always bound: selection can be switched on later by update_el_table().
-    "@selection-change" = "handleSelectionChange",
-    selection_col,
-    data_col
+    "@selection-change" = "handleSelectionChange"
   )
+
+  table_attrs[[":stripe"]] <- .el_optional_bind("stripe")
+
+  table_attrs[[":size"]] <- .el_optional_bind("size")
+
+  table_attrs[[":height"]] <- .el_optional_bind("height")
+
+  table_attrs[[":max-height"]] <- .el_optional_bind("maxHeight")
+
+  table_attrs[[":fit"]] <- .el_optional_bind("fit")
+
+  table_attrs[[":show-header"]] <- .el_optional_bind("showHeader")
+
+  table_attrs[[":highlight-current-row"]] <- .el_optional_bind("highlightCurrentRow")
+
+  table_attrs[[":current-row-key"]] <- .el_optional_bind("currentRowKey")
+
+  table_attrs[[":row-key"]] <- .el_optional_bind("rowKey")
+
+  table_attrs[[":empty-text"]] <- .el_optional_bind("emptyText")
+
+  table_attrs[[":default-expand-all"]] <- .el_optional_bind("defaultExpandAll")
+
+  table_attrs[[":expand-row-keys"]] <- .el_optional_bind("expandRowKeys")
+
+  table_attrs[[":default-sort"]] <- .el_optional_bind("defaultSort")
+
+  table_attrs[[":tooltip-effect"]] <- .el_optional_bind("tooltipEffect")
+
+  table_attrs[[":show-summary"]] <- .el_optional_bind("showSummary")
+
+  table_attrs[[":sum-text"]] <- .el_optional_bind("sumText")
+
+  table_attrs[[":select-on-indeterminate"]] <- .el_optional_bind("selectOnIndeterminate")
+
+  table_attrs[[":indent"]] <- .el_optional_bind("indent")
+
+  table_attrs[[":lazy"]] <- .el_optional_bind("lazy")
+
+  table_attrs[[":tree-props"]] <- .el_optional_bind("treeProps")
+
+  table_attrs[[":row-class-name"]] <- .el_optional_bind("rowClassName")
+
+  table_attrs[[":row-style"]] <- .el_optional_bind("rowStyle")
+
+  table_attrs[[":cell-class-name"]] <- .el_optional_bind("cellClassName")
+
+  table_attrs[[":cell-style"]] <- .el_optional_bind("cellStyle")
+
+  table_attrs[[":header-row-class-name"]] <- .el_optional_bind("headerRowClassName")
+
+  table_attrs[[":header-row-style"]] <- .el_optional_bind("headerRowStyle")
+
+  table_attrs[[":header-cell-class-name"]] <- .el_optional_bind("headerCellClassName")
+
+  table_attrs[[":header-cell-style"]] <- .el_optional_bind("headerCellStyle")
+
+
+  table_content <- c(table_attrs, list(selection_col, data_col))
 
   component_ui <- htmltools::tagList(
     htmltools::tags$div(
@@ -230,7 +337,35 @@ elementId = ns_id, width = 0, height = 0,
           border       = border,
           selection    = selection,
           selected     = list(),
-          selectedRows = list()
+          selectedRows = list(),
+        stripe = .el_or_na(stripe),
+        size = .el_or_na(size),
+        height = .el_or_na(height),
+        maxHeight = .el_or_na(max_height),
+        fit = .el_or_na(fit),
+        showHeader = .el_or_na(show_header),
+        highlightCurrentRow = .el_or_na(highlight_current_row),
+        currentRowKey = .el_or_na(current_row_key),
+        rowKey = .el_or_na(row_key),
+        emptyText = .el_or_na(empty_text),
+        defaultExpandAll = .el_or_na(default_expand_all),
+        expandRowKeys = .el_or_na(expand_row_keys),
+        defaultSort = .el_or_na(default_sort),
+        tooltipEffect = .el_or_na(tooltip_effect),
+        showSummary = .el_or_na(show_summary),
+        sumText = .el_or_na(sum_text),
+        selectOnIndeterminate = .el_or_na(select_on_indeterminate),
+        indent = .el_or_na(indent),
+        lazy = .el_or_na(lazy),
+        treeProps = .el_or_na(tree_props),
+        rowClassName = .el_or_na(row_class_name),
+        rowStyle = .el_or_na(row_style),
+        cellClassName = .el_or_na(cell_class_name),
+        cellStyle = .el_or_na(cell_style),
+        headerRowClassName = .el_or_na(header_row_class_name),
+        headerRowStyle = .el_or_na(header_row_style),
+        headerCellClassName = .el_or_na(header_cell_class_name),
+        headerCellStyle = .el_or_na(header_cell_style)
         ),
         methods = list(
           handleSelectionChange = htmlwidgets::JS(sprintf(
@@ -310,6 +445,34 @@ update_el_table <- function(session, id,
 #' @param df Data frame
 #' @param max_rows Max rows to show
 #' @param add_name Add row names
+#' @param stripe Whether rows alternate background colour.
+#' @param size Row density: `"medium"`, `"small"` or `"mini"`.
+#' @param height Table height. Fixes the header and scrolls the body.
+#' @param max_height Maximum table height, beyond which the body scrolls.
+#' @param fit Whether column widths stretch to fill the table. Default `TRUE`.
+#' @param show_header Whether the header row is shown. Default `TRUE`.
+#' @param highlight_current_row Whether the clicked row stays highlighted; pairs with `input$<id>_current`.
+#' @param current_row_key Key of the row highlighted at start. Needs `row_key`.
+#' @param row_key Column whose value identifies a row. Needed for tree data and reserved selection.
+#' @param empty_text Text shown when there are no rows. Default `"No Data"`.
+#' @param default_expand_all Whether expandable rows start expanded.
+#' @param expand_row_keys Keys of the rows that start expanded. Needs `row_key`.
+#' @param default_sort Initial sort, as `list(prop =, order =)`.
+#' @param tooltip_effect Theme of overflow tooltips: `"dark"` (default) or `"light"`.
+#' @param show_summary Whether to add a summary row at the bottom.
+#' @param sum_text Label of the summary row's first cell. Default `"Sum"`.
+#' @param select_on_indeterminate What the header checkbox does when only some rows are selected. Default `TRUE`.
+#' @param indent Horizontal indent between tree levels, in pixels. Default `16`.
+#' @param lazy Whether child rows of tree data are loaded on demand.
+#' @param tree_props Field names for tree data, as `list(children =, hasChildren =)`.
+#' @param row_class_name Class name for every row, or a JS function returning one.
+#' @param row_style Inline style for every row, or a JS function returning one.
+#' @param cell_class_name Class name for every cell, or a JS function returning one.
+#' @param cell_style Inline style for every cell, or a JS function returning one.
+#' @param header_row_class_name Class name for the header row, or a JS function returning one.
+#' @param header_row_style Inline style for the header row, or a JS function returning one.
+#' @param header_cell_class_name Class name for header cells, or a JS function returning one.
+#' @param header_cell_style Inline style for header cells, or a JS function returning one.
 #' @return List with data and columns
 #'
 #' @details

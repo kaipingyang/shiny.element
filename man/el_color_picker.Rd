@@ -12,6 +12,7 @@ el_color_picker(
   show_alpha = FALSE,
   color_format = NULL,
   predefine = NULL,
+  popper_class = NULL,
   session = shiny::getDefaultReactiveDomain()
 )
 }

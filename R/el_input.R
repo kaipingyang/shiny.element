@@ -73,6 +73,17 @@ el_input <- function(
     prefix_icon     = NULL,
     suffix_icon     = NULL,
     label           = NULL,
+    autocomplete    = NULL,
+    autofocus       = NULL,
+    name            = NULL,
+    form            = NULL,
+    minlength       = NULL,
+    max             = NULL,
+    min             = NULL,
+    step            = NULL,
+    resize          = NULL,
+    tabindex        = NULL,
+    validate_event  = NULL,
     session         = shiny::getDefaultReactiveDomain()
 ) {
   if (is.null(id)) id <- paste0("el_input_", uuid::UUIDgenerate())
@@ -100,6 +111,17 @@ el_input <- function(
   input_attrs[[":rows"]] <- .el_optional_bind("rows")
   input_attrs[[":placeholder"]] <- .el_optional_bind("placeholder")
   input_attrs[[":label"]] <- .el_optional_bind("label")
+  input_attrs[[":autocomplete"]] <- .el_optional_bind("autocomplete")
+  input_attrs[[":autofocus"]] <- .el_optional_bind("autofocus")
+  input_attrs[[":name"]] <- .el_optional_bind("name")
+  input_attrs[[":form"]] <- .el_optional_bind("form")
+  input_attrs[[":minlength"]] <- .el_optional_bind("minlength")
+  input_attrs[[":max"]] <- .el_optional_bind("max")
+  input_attrs[[":min"]] <- .el_optional_bind("min")
+  input_attrs[[":step"]] <- .el_optional_bind("step")
+  input_attrs[[":resize"]] <- .el_optional_bind("resize")
+  input_attrs[[":tabindex"]] <- .el_optional_bind("tabindex")
+  input_attrs[[":validate-event"]] <- .el_optional_bind("validateEvent")
   # Always-present Vue data fields
   vue_data <- list(
     value         = value,
@@ -120,6 +142,17 @@ el_input <- function(
   vue_data$rows <- .el_or_na(rows)
   vue_data$placeholder <- if (is.null(placeholder)) NA else placeholder
   vue_data$label <- .el_or_na(label)
+  vue_data$autocomplete <- .el_or_na(autocomplete)
+  vue_data$autofocus <- .el_or_na(autofocus)
+  vue_data$name <- .el_or_na(name)
+  vue_data$form <- .el_or_na(form)
+  vue_data$minlength <- .el_or_na(minlength)
+  vue_data$max <- .el_or_na(max)
+  vue_data$min <- .el_or_na(min)
+  vue_data$step <- .el_or_na(step)
+  vue_data$resize <- .el_or_na(resize)
+  vue_data$tabindex <- .el_or_na(tabindex)
+  vue_data$validateEvent <- .el_or_na(validate_event)
   component_ui <- shiny::tagList(
     shiny::tags$div(
       id = container_id, style = .el_host_style(),
@@ -160,6 +193,17 @@ elementId = ns_id, width = 0, height = 0,
 #' @param size New input size.
 #' @param clearable New clearable state.
 #' @param show_password New show-password toggle state.
+#' @param autocomplete Native `autocomplete` attribute. Default `"off"`.
+#' @param autofocus Whether the input takes focus on page load. Default `FALSE`.
+#' @param name Native `name` attribute.
+#' @param form Native `form` attribute.
+#' @param minlength Minimum input length.
+#' @param max Native `max` attribute, for number-like types.
+#' @param min Native `min` attribute, for number-like types.
+#' @param step Native `step` attribute, for number-like types.
+#' @param resize Resize behaviour of a textarea: `"none"`, `"both"`, `"horizontal"` or `"vertical"`.
+#' @param tabindex Tab index of the input.
+#' @param validate_event Whether a change triggers form validation. Default `TRUE`.
 #'
 #' @return Called for its side effect; returns `NULL` invisibly.
 #' @examples

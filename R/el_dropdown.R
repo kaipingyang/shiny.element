@@ -56,6 +56,9 @@ el_dropdown <- function(
     hide_on_click = TRUE,
     placement    = "bottom-end",
     disabled     = FALSE,
+    show_timeout = NULL,
+    hide_timeout = NULL,
+    tabindex     = NULL,
     session      = shiny::getDefaultReactiveDomain()
 ) {
   if (is.null(id)) id <- paste0("el_dropdown_", uuid::UUIDgenerate())
@@ -101,6 +104,9 @@ el_dropdown <- function(
   )
   dd_attrs[[":type"]] <- .el_optional_bind("type")
   dd_attrs[[":size"]] <- .el_optional_bind("size")
+  dd_attrs[[":show-timeout"]] <- .el_optional_bind("showTimeout")
+  dd_attrs[[":hide-timeout"]] <- .el_optional_bind("hideTimeout")
+  dd_attrs[[":tabindex"]] <- .el_optional_bind("tabindex")
   vue_data <- list(
     trigger      = trigger,
     hideOnClick  = hide_on_click,
@@ -111,6 +117,9 @@ el_dropdown <- function(
   )
   vue_data$type <- .el_or_na(type)
   vue_data$size <- .el_or_na(size)
+  vue_data$showTimeout <- .el_or_na(show_timeout)
+  vue_data$hideTimeout <- .el_or_na(hide_timeout)
+  vue_data$tabindex <- .el_or_na(tabindex)
   component_ui <- shiny::tagList(
     shiny::tags$div(
       id = container_id, style = .el_host_style(),
@@ -144,6 +153,9 @@ elementId = ns_id, width = 0, height = 0,
 #' @param session Shiny session object.
 #' @param id Dropdown ID (un-namespaced).
 #' @param disabled New disabled state.
+#' @param show_timeout Delay in ms before the menu appears, for `trigger = "hover"`.
+#' @param hide_timeout Delay in ms before the menu hides, for `trigger = "hover"`.
+#' @param tabindex Tab index of the dropdown trigger.
 #'
 #' @return Called for its side effect; returns `NULL` invisibly.
 #' @examples

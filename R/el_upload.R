@@ -153,6 +153,10 @@ el_upload <- function(id = NULL,
                       name = NULL,
                       tip = NULL,
                       action = NULL,
+                      headers = NULL,
+                      file_list = NULL,
+                      with_credentials = NULL,
+                      thumbnail_mode = NULL,
                       session = shiny::getDefaultReactiveDomain()) {
   if (is.null(id)) id <- paste0("el_upload_", uuid::UUIDgenerate())
   ns_id        <- if (!is.null(session)) session$ns(id) else id
@@ -190,6 +194,10 @@ el_upload <- function(id = NULL,
     ":on-error"      = "handleError"
   )
   upload_attrs[[":drag"]] <- "drag"
+  upload_attrs[[":headers"]] <- .el_optional_bind("headers")
+  upload_attrs[[":file-list"]] <- .el_optional_bind("fileList")
+  upload_attrs[[":with-credentials"]] <- .el_optional_bind("withCredentials")
+  upload_attrs[[":thumbnail-mode"]] <- .el_optional_bind("thumbnailMode")
   if (via_shiny) upload_attrs[[":http-request"]] <- "shinyUpload"
 
   # Both triggers are rendered and switched by v-if, so update_el_upload(drag =)
@@ -221,6 +229,14 @@ el_upload <- function(id = NULL,
     succeeded    = list(),
     failed       = ""
   )
+
+  vue_data$headers <- .el_or_na(headers)
+
+  vue_data$fileList <- .el_or_na(file_list)
+
+  vue_data$withCredentials <- .el_or_na(with_credentials)
+
+  vue_data$thumbnailMode <- .el_or_na(thumbnail_mode)
 
   methods <- list(
     handleSuccess = htmlwidgets::JS(sprintf(
@@ -286,6 +302,10 @@ update_el_upload <- function(session, id, disabled = NULL, limit = NULL) {
 #'
 #' @param session Shiny session object.
 #' @param id Upload ID (un-namespaced).
+#' @param headers Request headers, as a named list.
+#' @param file_list Files shown initially, each `list(name=, url=)`.
+#' @param with_credentials Whether to send cookies with the request.
+#' @param thumbnail_mode Whether files are shown as thumbnails.
 #' @return Called for its side effect; returns `NULL` invisibly.
 #' @examples
 #' if (interactive()) {

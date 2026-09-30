@@ -13,6 +13,13 @@ el_form(
   size = NULL,
   submit_label = "Submit",
   reset_label = NULL,
+  disabled = NULL,
+  show_message = NULL,
+  inline_message = NULL,
+  status_icon = NULL,
+  hide_required_asterisk = NULL,
+  label_suffix = NULL,
+  validate_on_rule_change = NULL,
   session = shiny::getDefaultReactiveDomain()
 )
 }

@@ -16,6 +16,7 @@ el_button(
   disabled = FALSE,
   icon = NULL,
   native_type = "button",
+  autofocus = FALSE,
   session = shiny::getDefaultReactiveDomain()
 )
 }

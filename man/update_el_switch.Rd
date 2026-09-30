@@ -31,6 +31,14 @@ update_el_switch(
 \item{active_color}{New active background color.}
 
 \item{inactive_color}{New inactive background color.}
+
+\item{active_icon_class}{Icon class shown on the active side; overrides \code{active_text}.}
+
+\item{inactive_icon_class}{Icon class shown on the inactive side; overrides \code{inactive_text}.}
+
+\item{name}{Native \code{name} attribute of the inner checkbox.}
+
+\item{validate_event}{Whether a change triggers form validation. Default \code{TRUE}.}
 }
 \value{
 Called for its side effect; returns \code{NULL} invisibly.

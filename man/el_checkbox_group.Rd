@@ -13,6 +13,8 @@ el_checkbox_group(
   min = NULL,
   max = NULL,
   button = FALSE,
+  fill = NULL,
+  text_color = NULL,
   session = shiny::getDefaultReactiveDomain()
 )
 }

@@ -10,6 +10,14 @@ el_upload_clear(session, id)
 \item{session}{Shiny session object.}
 
 \item{id}{Upload ID (un-namespaced).}
+
+\item{headers}{Request headers, as a named list.}
+
+\item{file_list}{Files shown initially, each \code{list(name=, url=)}.}
+
+\item{with_credentials}{Whether to send cookies with the request.}
+
+\item{thumbnail_mode}{Whether files are shown as thumbnails.}
 }
 \value{
 Called for its side effect; returns \code{NULL} invisibly.

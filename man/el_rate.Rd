@@ -15,6 +15,14 @@ el_rate(
   texts = c("极差", "失望", "一般", "满意", "惊喜"),
   text_color = "#1f2d3d",
   score_template = "{value}",
+  colors = NULL,
+  void_color = NULL,
+  disabled_void_color = NULL,
+  icon_classes = NULL,
+  void_icon_class = NULL,
+  disabled_void_icon_class = NULL,
+  low_threshold = NULL,
+  high_threshold = NULL,
   session = shiny::getDefaultReactiveDomain()
 )
 }

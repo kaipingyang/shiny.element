@@ -37,6 +37,28 @@ update_el_input(
 \item{clearable}{New clearable state.}
 
 \item{show_password}{New show-password toggle state.}
+
+\item{autocomplete}{Native \code{autocomplete} attribute. Default \code{"off"}.}
+
+\item{autofocus}{Whether the input takes focus on page load. Default \code{FALSE}.}
+
+\item{name}{Native \code{name} attribute.}
+
+\item{form}{Native \code{form} attribute.}
+
+\item{minlength}{Minimum input length.}
+
+\item{max}{Native \code{max} attribute, for number-like types.}
+
+\item{min}{Native \code{min} attribute, for number-like types.}
+
+\item{step}{Native \code{step} attribute, for number-like types.}
+
+\item{resize}{Resize behaviour of a textarea: \code{"none"}, \code{"both"}, \code{"horizontal"} or \code{"vertical"}.}
+
+\item{tabindex}{Tab index of the input.}
+
+\item{validate_event}{Whether a change triggers form validation. Default \code{TRUE}.}
 }
 \value{
 Called for its side effect; returns \code{NULL} invisibly.

@@ -86,6 +86,7 @@ el_cascader <- function(id = NULL,
                         separator = " / ",
                         debounce = 300,
                         icon = NULL,
+                        popper_class = NULL,
                         session = getDefaultReactiveDomain()) {
   if (is.null(id)) {
     id <- paste0("el_cascader_", uuid::UUIDgenerate())
@@ -108,6 +109,7 @@ el_cascader <- function(id = NULL,
   )
   cascader_attrs[[":props"]] <- .el_optional_bind("props")
   cascader_attrs[[":size"]] <- .el_optional_bind("size")
+  cascader_attrs[[":popper-class"]] <- .el_optional_bind("popperClass")
 
   vue_data <- list(
     options = options,
@@ -123,6 +125,7 @@ el_cascader <- function(id = NULL,
   )
   vue_data$size <- .el_or_na(size)
   vue_data$props <- .el_or_na(props)
+  vue_data$popperClass <- .el_or_na(popper_class)
   component_ui <- tagList(
     tags$div(
       id = container_id, style = .el_host_style(),
@@ -192,6 +195,7 @@ update_el_cascader <- function(session, id,
 #' @param df Data frame with hierarchical columns
 #' @param value_cols Character vector of value column names (e.g. c("value1", "value2", ...))
 #' @param label_cols Character vector of label column names (e.g. c("label1", "label2", ...)), can be NULL or contain NA for levels without label
+#' @param popper_class Extra class name for the dropdown panel.
 #' @return Nested list for cascader options
 #' @examples
 #' df <- data.frame(

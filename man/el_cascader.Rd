@@ -19,6 +19,7 @@ el_cascader(
   separator = " / ",
   debounce = 300,
   icon = NULL,
+  popper_class = NULL,
   session = getDefaultReactiveDomain()
 )
 }

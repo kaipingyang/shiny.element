@@ -59,6 +59,7 @@ el_button <- function(
     disabled    = FALSE,
     icon        = NULL,
     native_type = "button",
+    autofocus   = FALSE,
     session     = shiny::getDefaultReactiveDomain()
 ) {
   if (is.null(id)) id <- paste0("el_button_", uuid::UUIDgenerate())
@@ -84,6 +85,7 @@ el_button <- function(
   # goes in as content, which is how a fontawesome icon from el_icon() lands
   # here -- but only a class name can be changed later by update_el_button().
   btn_attrs[[":icon"]] <- .el_optional_bind("icon")
+  btn_attrs[[":autofocus"]] <- .el_optional_bind("autofocus")
   btn_content <- shiny::tagList(
     if (inherits(icon, "shiny.tag")) icon,
     "{{label}}"
@@ -109,7 +111,8 @@ elementId = ns_id, width = 0, height = 0,
           disabled    = disabled,
           native_type = native_type,
           icon        = if (is.character(icon)) icon else NA,
-          count       = 0L
+          count       = 0L,
+          autofocus   = .el_or_na(autofocus)
         ),
         methods = list(
           handleClick = htmlwidgets::JS(sprintf(
@@ -139,6 +142,7 @@ elementId = ns_id, width = 0, height = 0,
 #' @param round New round state.
 #' @param loading New loading state.
 #' @param disabled New disabled state.
+#' @param autofocus Whether the button takes focus on page load. Default `FALSE`.
 #'
 #' @return Called for its side effect; returns `NULL` invisibly.
 #' @examples

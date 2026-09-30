@@ -11,6 +11,8 @@ el_radio_group(
   disabled = FALSE,
   size = NULL,
   button = FALSE,
+  fill = NULL,
+  text_color = NULL,
   session = shiny::getDefaultReactiveDomain()
 )
 }

@@ -19,6 +19,16 @@ el_date_picker(
   readonly = FALSE,
   range_separator = "-",
   align = "left",
+  size = NULL,
+  name = NULL,
+  prefix_icon = NULL,
+  clear_icon = NULL,
+  popper_class = NULL,
+  default_value = NULL,
+  default_time = NULL,
+  unlink_panels = NULL,
+  picker_options = NULL,
+  validate_event = NULL,
   session = shiny::getDefaultReactiveDomain()
 )
 }

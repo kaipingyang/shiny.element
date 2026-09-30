@@ -34,6 +34,8 @@ update_el_button(
 \item{loading}{New loading state.}
 
 \item{disabled}{New disabled state.}
+
+\item{autofocus}{Whether the button takes focus on page load. Default \code{FALSE}.}
 }
 \value{
 Called for its side effect; returns \code{NULL} invisibly.

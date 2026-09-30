@@ -21,6 +21,17 @@ el_input(
   prefix_icon = NULL,
   suffix_icon = NULL,
   label = NULL,
+  autocomplete = NULL,
+  autofocus = NULL,
+  name = NULL,
+  form = NULL,
+  minlength = NULL,
+  max = NULL,
+  min = NULL,
+  step = NULL,
+  resize = NULL,
+  tabindex = NULL,
+  validate_event = NULL,
   session = shiny::getDefaultReactiveDomain()
 )
 }

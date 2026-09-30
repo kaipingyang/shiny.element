@@ -15,6 +15,11 @@ el_pagination(
   small = FALSE,
   disabled = FALSE,
   pager_count = 7,
+  prev_text = NULL,
+  next_text = NULL,
+  hide_on_single_page = NULL,
+  page_count = NULL,
+  popper_class = NULL,
   session = shiny::getDefaultReactiveDomain()
 )
 }

@@ -43,6 +43,14 @@ el_rate <- function(
                        "\u6ee1\u610f", "\u60ca\u559c"),
     text_color     = "#1f2d3d",
     score_template = "{value}",
+    colors         = NULL,
+    void_color     = NULL,
+    disabled_void_color = NULL,
+    icon_classes   = NULL,
+    void_icon_class = NULL,
+    disabled_void_icon_class = NULL,
+    low_threshold  = NULL,
+    high_threshold = NULL,
     session        = shiny::getDefaultReactiveDomain()
 ) {
   if (is.null(id)) id <- paste0("el_rate_", uuid::UUIDgenerate())
@@ -62,6 +70,22 @@ el_rate <- function(
     "@change"        = "handleChange"
   )
 
+  rate_attrs[[":colors"]] <- .el_optional_bind("colors")
+
+  rate_attrs[[":void-color"]] <- .el_optional_bind("voidColor")
+
+  rate_attrs[[":disabled-void-color"]] <- .el_optional_bind("disabledVoidColor")
+
+  rate_attrs[[":icon-classes"]] <- .el_optional_bind("iconClasses")
+
+  rate_attrs[[":void-icon-class"]] <- .el_optional_bind("voidIconClass")
+
+  rate_attrs[[":disabled-void-icon-class"]] <- .el_optional_bind("disabledVoidIconClass")
+
+  rate_attrs[[":low-threshold"]] <- .el_optional_bind("lowThreshold")
+
+  rate_attrs[[":high-threshold"]] <- .el_optional_bind("highThreshold")
+
   component_ui <- shiny::tagList(
     shiny::tags$div(
       id = container_id, style = .el_host_style(),
@@ -80,7 +104,15 @@ elementId = ns_id, width = 0, height = 0,
           showScore     = show_score,
           textColor     = text_color,
           scoreTemplate = score_template,
-          texts         = as.list(texts)
+          texts         = as.list(texts),
+        colors = .el_or_na(colors),
+        voidColor = .el_or_na(void_color),
+        disabledVoidColor = .el_or_na(disabled_void_color),
+        iconClasses = .el_or_na(icon_classes),
+        voidIconClass = .el_or_na(void_icon_class),
+        disabledVoidIconClass = .el_or_na(disabled_void_icon_class),
+        lowThreshold = .el_or_na(low_threshold),
+        highThreshold = .el_or_na(high_threshold)
         ),
         methods = list(
           handleChange = htmlwidgets::JS(sprintf(
@@ -105,6 +137,14 @@ elementId = ns_id, width = 0, height = 0,
 #' @param id Rate ID (un-namespaced).
 #' @param value New rating value.
 #' @param disabled New disabled state.
+#' @param colors Colours for the three score levels, or a named list keyed by threshold.
+#' @param void_color Colour of unselected icons.
+#' @param disabled_void_color Colour of unselected icons when `disabled = TRUE`.
+#' @param icon_classes Icon classes for the three score levels, or a named list keyed by threshold.
+#' @param void_icon_class Icon class for unselected icons.
+#' @param disabled_void_icon_class Icon class for unselected icons when `disabled = TRUE`.
+#' @param low_threshold Scores at or below this use the first colour and icon. Default `2`.
+#' @param high_threshold Scores above this use the third colour and icon. Default `4`.
 #'
 #' @return Called for its side effect; returns `NULL` invisibly.
 #' @examples

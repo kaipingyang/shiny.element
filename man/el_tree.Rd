@@ -19,6 +19,14 @@ el_tree(
   expanded = NULL,
   checked = NULL,
   empty_text = NULL,
+  indent = NULL,
+  icon_class = NULL,
+  lazy = NULL,
+  draggable = NULL,
+  auto_expand_parent = NULL,
+  check_on_click_node = NULL,
+  current_node_key = NULL,
+  render_after_expand = NULL,
   session = shiny::getDefaultReactiveDomain()
 )
 }

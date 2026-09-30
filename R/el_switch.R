@@ -48,6 +48,10 @@ el_switch <- function(
     inactive_color = NULL,
     active_value   = TRUE,
     inactive_value = FALSE,
+    active_icon_class = NULL,
+    inactive_icon_class = NULL,
+    name           = NULL,
+    validate_event = NULL,
     session        = shiny::getDefaultReactiveDomain()
 ) {
   if (is.null(id)) id <- paste0("el_switch_", uuid::UUIDgenerate())
@@ -66,6 +70,10 @@ el_switch <- function(
     "@change"         = "handleChange"
   )
   switch_attrs[[":width"]] <- .el_optional_bind("width")
+  switch_attrs[[":active-icon-class"]] <- .el_optional_bind("activeIconClass")
+  switch_attrs[[":inactive-icon-class"]] <- .el_optional_bind("inactiveIconClass")
+  switch_attrs[[":name"]] <- .el_optional_bind("name")
+  switch_attrs[[":validate-event"]] <- .el_optional_bind("validateEvent")
   switch_tag <- htmltools::tag("el-switch", switch_attrs)
 
   vue_data <- list(
@@ -79,6 +87,10 @@ el_switch <- function(
     inactiveValue = inactive_value
   )
   vue_data$width <- .el_or_na(width)
+  vue_data$activeIconClass <- .el_or_na(active_icon_class)
+  vue_data$inactiveIconClass <- .el_or_na(inactive_icon_class)
+  vue_data$name <- .el_or_na(name)
+  vue_data$validateEvent <- .el_or_na(validate_event)
   component_ui <- shiny::tagList(
     shiny::tags$div(id = container_id, style = .el_host_style(), switch_tag),
     vueR::vue(
@@ -114,6 +126,10 @@ elementId = ns_id, width = 0, height = 0,
 #' @param inactive_text New inactive text.
 #' @param active_color New active background color.
 #' @param inactive_color New inactive background color.
+#' @param active_icon_class Icon class shown on the active side; overrides `active_text`.
+#' @param inactive_icon_class Icon class shown on the inactive side; overrides `inactive_text`.
+#' @param name Native `name` attribute of the inner checkbox.
+#' @param validate_event Whether a change triggers form validation. Default `TRUE`.
 #'
 #' @return Called for its side effect; returns `NULL` invisibly.
 #' @examples

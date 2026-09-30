@@ -64,6 +64,14 @@ el_tree <- function(id = NULL,
                     expanded = NULL,
                     checked = NULL,
                     empty_text = NULL,
+                    indent  = NULL,
+                    icon_class = NULL,
+                    lazy    = NULL,
+                    draggable = NULL,
+                    auto_expand_parent = NULL,
+                    check_on_click_node = NULL,
+                    current_node_key = NULL,
+                    render_after_expand = NULL,
                     session = shiny::getDefaultReactiveDomain()) {
   if (is.null(id)) id <- paste0("el_tree_", uuid::UUIDgenerate())
   ns_id        <- if (!is.null(session)) session$ns(id) else id
@@ -89,6 +97,22 @@ el_tree <- function(id = NULL,
     "@check"                 = "handleCheck"
   )
 
+  tree_attrs[[":indent"]] <- .el_optional_bind("indent")
+
+  tree_attrs[[":icon-class"]] <- .el_optional_bind("iconClass")
+
+  tree_attrs[[":lazy"]] <- .el_optional_bind("lazy")
+
+  tree_attrs[[":draggable"]] <- .el_optional_bind("draggable")
+
+  tree_attrs[[":auto-expand-parent"]] <- .el_optional_bind("autoExpandParent")
+
+  tree_attrs[[":check-on-click-node"]] <- .el_optional_bind("checkOnClickNode")
+
+  tree_attrs[[":current-node-key"]] <- .el_optional_bind("currentNodeKey")
+
+  tree_attrs[[":render-after-expand"]] <- .el_optional_bind("renderAfterExpand")
+
   vue_data <- list(
     treeData          = data,
     # Element's default props map is replaced wholesale, not merged, so
@@ -108,6 +132,22 @@ el_tree <- function(id = NULL,
     current           = "",
     checked           = if (is.null(checked)) list() else as.list(checked)
   )
+
+  vue_data$indent <- .el_or_na(indent)
+
+  vue_data$iconClass <- .el_or_na(icon_class)
+
+  vue_data$lazy <- .el_or_na(lazy)
+
+  vue_data$draggable <- .el_or_na(draggable)
+
+  vue_data$autoExpandParent <- .el_or_na(auto_expand_parent)
+
+  vue_data$checkOnClickNode <- .el_or_na(check_on_click_node)
+
+  vue_data$currentNodeKey <- .el_or_na(current_node_key)
+
+  vue_data$renderAfterExpand <- .el_or_na(render_after_expand)
 
   component_ui <- shiny::tagList(
     shiny::tags$div(
@@ -187,6 +227,14 @@ update_el_tree <- function(session, id,
 #' @param df A data frame.
 #' @param cols Column names, outermost level first.
 #' @param sep Separator used when joining values into a key.
+#' @param indent Horizontal indent between levels, in pixels. Default `16`.
+#' @param icon_class Icon class of the expand arrow.
+#' @param lazy Whether child nodes are loaded on demand. Needs `load`.
+#' @param draggable Whether nodes can be dragged.
+#' @param auto_expand_parent Whether expanding a node expands its parents. Default `TRUE`.
+#' @param check_on_click_node Whether clicking a node's label also checks it.
+#' @param current_node_key Key of the node that starts out highlighted.
+#' @param render_after_expand Whether child nodes are rendered only once expanded. Default `TRUE`.
 #' @return A list of nodes.
 #' @export
 #' @examples

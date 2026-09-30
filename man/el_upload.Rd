@@ -18,6 +18,10 @@ el_upload(
   name = NULL,
   tip = NULL,
   action = NULL,
+  headers = NULL,
+  file_list = NULL,
+  with_credentials = NULL,
+  thumbnail_mode = NULL,
   session = shiny::getDefaultReactiveDomain()
 )
 }

@@ -65,6 +65,11 @@ el_pagination <- function(
     small        = FALSE,
     disabled     = FALSE,
     pager_count  = 7,
+    prev_text    = NULL,
+    next_text    = NULL,
+    hide_on_single_page = NULL,
+    page_count   = NULL,
+    popper_class = NULL,
     session      = shiny::getDefaultReactiveDomain()
 ) {
   if (is.null(id)) id <- paste0("el_pagination_", uuid::UUIDgenerate())
@@ -85,6 +90,16 @@ el_pagination <- function(
     "@size-change"       = "handleSizeChange"
   )
 
+  pagination_attrs[[":prev-text"]] <- .el_optional_bind("prevText")
+
+  pagination_attrs[[":next-text"]] <- .el_optional_bind("nextText")
+
+  pagination_attrs[[":hide-on-single-page"]] <- .el_optional_bind("hideOnSinglePage")
+
+  pagination_attrs[[":page-count"]] <- .el_optional_bind("pageCount")
+
+  pagination_attrs[[":popper-class"]] <- .el_optional_bind("popperClass")
+
   vue_data <- list(
     total       = total,
     pageSize    = page_size,
@@ -96,6 +111,16 @@ el_pagination <- function(
     disabled    = disabled,
     pagerCount  = pager_count
   )
+
+  vue_data$prevText <- .el_or_na(prev_text)
+
+  vue_data$nextText <- .el_or_na(next_text)
+
+  vue_data$hideOnSinglePage <- .el_or_na(hide_on_single_page)
+
+  vue_data$pageCount <- .el_or_na(page_count)
+
+  vue_data$popperClass <- .el_or_na(popper_class)
 
   component_ui <- shiny::tagList(
     shiny::tags$div(
@@ -137,6 +162,11 @@ elementId = ns_id, width = 0, height = 0,
 #' @param current_page New current page number.
 #' @param page_size New page size.
 #' @param disabled New disabled state.
+#' @param prev_text Text of the previous-page button, in place of the arrow icon.
+#' @param next_text Text of the next-page button, in place of the arrow icon.
+#' @param hide_on_single_page Whether to hide the pager when there is only one page.
+#' @param page_count Total page count. Set either this or `total`.
+#' @param popper_class Extra class name for the page-size dropdown.
 #'
 #' @return Called for its side effect; returns `NULL` invisibly.
 #' @examples

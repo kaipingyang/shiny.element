@@ -12,6 +12,12 @@ update_el_dropdown(session, id, disabled = NULL)
 \item{id}{Dropdown ID (un-namespaced).}
 
 \item{disabled}{New disabled state.}
+
+\item{show_timeout}{Delay in ms before the menu appears, for \code{trigger = "hover"}.}
+
+\item{hide_timeout}{Delay in ms before the menu hides, for \code{trigger = "hover"}.}
+
+\item{tabindex}{Tab index of the dropdown trigger.}
 }
 \value{
 Called for its side effect; returns \code{NULL} invisibly.

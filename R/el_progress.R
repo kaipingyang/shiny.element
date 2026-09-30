@@ -58,6 +58,7 @@ el_progress <- function(
     show_text    = TRUE,
     color        = NULL,
     width        = 126,
+    stroke_linecap = NULL,
     session      = shiny::getDefaultReactiveDomain()
 ) {
   if (is.null(id)) id <- paste0("el_progress_", uuid::UUIDgenerate())
@@ -74,6 +75,7 @@ el_progress <- function(
   )
   progress_attrs[[":status"]] <- .el_optional_bind("status")
   progress_attrs[[":color"]] <- "color"
+  progress_attrs[[":stroke-linecap"]] <- .el_optional_bind("strokeLinecap")
   vue_data <- list(
     percentage  = percentage,
     type        = type,
@@ -87,6 +89,7 @@ el_progress <- function(
   # default of "" and calls .length on it, so JSON null throws in render.
   # The empty string is its own default and means the same thing.
   vue_data$color <- if (is.null(color)) "" else color
+  vue_data$strokeLinecap <- .el_or_na(stroke_linecap)
   component_ui <- shiny::tagList(
     shiny::tags$div(
       id = container_id, style = .el_host_style(),
@@ -118,6 +121,7 @@ elementId = ns_id, width = 0, height = 0,
 #' @param stroke_width New stroke width in pixels.
 #' @param show_text New show-text flag.
 #' @param text_inside New text-inside flag.
+#' @param stroke_linecap Shape of the bar's ends: `"round"` (default), `"butt"` or `"square"`.
 #'
 #' @return Called for its side effect; returns `NULL` invisibly.
 #' @examples

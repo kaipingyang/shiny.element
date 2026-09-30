@@ -18,6 +18,7 @@ el_input_number(
   controls_position = "",
   placeholder = NULL,
   label = NULL,
+  name = NULL,
   session = shiny::getDefaultReactiveDomain()
 )
 }

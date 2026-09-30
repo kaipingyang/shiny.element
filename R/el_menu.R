@@ -90,6 +90,10 @@ el_menu <- function(id = NULL,
                     background_color = NULL,
                     text_color = NULL,
                     active_text_color = NULL,
+                    default_openeds = NULL,
+                    menu_trigger = NULL,
+                    collapse_transition = NULL,
+                    router  = NULL,
                     session = shiny::getDefaultReactiveDomain()) {
   if (is.null(id)) id <- paste0("el_menu_", uuid::UUIDgenerate())
   ns_id        <- if (!is.null(session)) session$ns(id) else id
@@ -106,6 +110,14 @@ el_menu <- function(id = NULL,
     "@select"            = "handleSelect"
   )
 
+  menu_attrs[[":default-openeds"]] <- .el_optional_bind("defaultOpeneds")
+
+  menu_attrs[[":menu-trigger"]] <- .el_optional_bind("menuTrigger")
+
+  menu_attrs[[":collapse-transition"]] <- .el_optional_bind("collapseTransition")
+
+  menu_attrs[[":router"]] <- .el_optional_bind("router")
+
   vue_data <- list(
     active          = if (is.null(active)) "" else active,
     mode            = mode,
@@ -116,6 +128,14 @@ el_menu <- function(id = NULL,
     activeTextColor = if (is.null(active_text_color)) NA else active_text_color,
     path            = list()
   )
+
+  vue_data$defaultOpeneds <- .el_or_na(default_openeds)
+
+  vue_data$menuTrigger <- .el_or_na(menu_trigger)
+
+  vue_data$collapseTransition <- .el_or_na(collapse_transition)
+
+  vue_data$router <- .el_or_na(router)
 
   component_ui <- shiny::tagList(
     shiny::tags$div(
@@ -153,6 +173,10 @@ el_menu <- function(id = NULL,
 #' @param id Menu ID (un-namespaced).
 #' @param active Index of the item to select.
 #' @param collapse New collapsed state.
+#' @param default_openeds Character vector of sub-menu indexes open at start.
+#' @param menu_trigger How a horizontal sub-menu opens: `"hover"` (default) or `"click"`.
+#' @param collapse_transition Whether to animate collapsing. Default `TRUE`.
+#' @param router Whether to use vue-router mode, taking each index as a path.
 #' @return Called for its side effect; returns `NULL` invisibly.
 #' @examples
 #' if (interactive()) {

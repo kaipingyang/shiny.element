@@ -272,6 +272,13 @@ el_form <- function(...,
                     size = NULL,
                     submit_label = "Submit",
                     reset_label = NULL,
+                    disabled = NULL,
+                    show_message = NULL,
+                    inline_message = NULL,
+                    status_icon = NULL,
+                    hide_required_asterisk = NULL,
+                    label_suffix = NULL,
+                    validate_on_rule_change = NULL,
                     session = shiny::getDefaultReactiveDomain()) {
   if (is.null(id)) id <- paste0("el_form_", uuid::UUIDgenerate())
   ns_id        <- if (!is.null(session)) session$ns(id) else id
@@ -300,6 +307,13 @@ el_form <- function(...,
     ":inline"         = "inline"
   )
   form_attrs[[":size"]] <- .el_optional_bind("size")
+  form_attrs[[":disabled"]] <- .el_optional_bind("disabled")
+  form_attrs[[":show-message"]] <- .el_optional_bind("showMessage")
+  form_attrs[[":inline-message"]] <- .el_optional_bind("inlineMessage")
+  form_attrs[[":status-icon"]] <- .el_optional_bind("statusIcon")
+  form_attrs[[":hide-required-asterisk"]] <- .el_optional_bind("hideRequiredAsterisk")
+  form_attrs[[":label-suffix"]] <- .el_optional_bind("labelSuffix")
+  form_attrs[[":validate-on-rule-change"]] <- .el_optional_bind("validateOnRuleChange")
   # One template for every control type. `component :is` dispatches on the tag
   # name, so adding a type means adding a row to .el_form_tags, not a branch.
   field_items <- htmltools::HTML(paste0(
@@ -337,6 +351,13 @@ el_form <- function(...,
     valid         = FALSE
   )
   vue_data$size <- .el_or_na(size)
+  vue_data$disabled <- .el_or_na(disabled)
+  vue_data$showMessage <- .el_or_na(show_message)
+  vue_data$inlineMessage <- .el_or_na(inline_message)
+  vue_data$statusIcon <- .el_or_na(status_icon)
+  vue_data$hideRequiredAsterisk <- .el_or_na(hide_required_asterisk)
+  vue_data$labelSuffix <- .el_or_na(label_suffix)
+  vue_data$validateOnRuleChange <- .el_or_na(validate_on_rule_change)
   js_id <- as.character(jsonlite::toJSON(ns_id, auto_unbox = TRUE))
 
   component_ui <- shiny::tagList(
@@ -463,6 +484,13 @@ el_form_reset <- function(session, id) {
 #' @param session Shiny session object.
 #' @param id Form ID (un-namespaced).
 #' @param props Fields to clear. `NULL` clears all of them.
+#' @param disabled Whether every control in the form is disabled.
+#' @param show_message Whether to show validation messages. Default `TRUE`.
+#' @param inline_message Whether to show validation messages inline.
+#' @param status_icon Whether to show a validation status icon in each field.
+#' @param hide_required_asterisk Whether to hide the asterisk next to required fields' labels.
+#' @param label_suffix Suffix appended to every label.
+#' @param validate_on_rule_change Whether changing the rules triggers validation immediately.
 #' @return Called for its side effect; returns `NULL` invisibly.
 #' @examples
 #' if (interactive()) {

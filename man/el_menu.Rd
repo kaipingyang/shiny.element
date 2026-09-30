@@ -14,6 +14,10 @@ el_menu(
   background_color = NULL,
   text_color = NULL,
   active_text_color = NULL,
+  default_openeds = NULL,
+  menu_trigger = NULL,
+  collapse_transition = NULL,
+  router = NULL,
   session = shiny::getDefaultReactiveDomain()
 )
 }

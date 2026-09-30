@@ -44,6 +44,7 @@ el_input_number <- function(
     controls_position = "",
     placeholder       = NULL,
     label             = NULL,
+    name              = NULL,
     session           = shiny::getDefaultReactiveDomain()
 ) {
   if (is.null(id)) id <- paste0("el_input_number_", uuid::UUIDgenerate())
@@ -69,6 +70,7 @@ el_input_number <- function(
   num_attrs[[":precision"]] <- .el_optional_bind("precision")
   num_attrs[[":placeholder"]] <- .el_optional_bind("placeholder")
   num_attrs[[":label"]] <- .el_optional_bind("label")
+  num_attrs[[":name"]] <- .el_optional_bind("name")
   vue_data <- list(
     value            = value,
     min              = js_min,
@@ -83,6 +85,7 @@ el_input_number <- function(
   vue_data$precision <- .el_or_na(precision)
   vue_data$placeholder <- .el_or_na(placeholder)
   vue_data$label <- .el_or_na(label)
+  vue_data$name <- .el_or_na(name)
   component_ui <- shiny::tagList(
     shiny::tags$div(
       id = container_id, style = .el_host_style(),
@@ -118,6 +121,7 @@ elementId = ns_id, width = 0, height = 0,
 #' @param min New minimum.
 #' @param max New maximum.
 #' @param disabled New disabled state.
+#' @param name Native `name` attribute of the inner input.
 #'
 #' @return Called for its side effect; returns `NULL` invisibly.
 #' @examples

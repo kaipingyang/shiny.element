@@ -12,6 +12,20 @@ el_form_clear_validate(session, id, props = NULL)
 \item{id}{Form ID (un-namespaced).}
 
 \item{props}{Fields to clear. \code{NULL} clears all of them.}
+
+\item{disabled}{Whether every control in the form is disabled.}
+
+\item{show_message}{Whether to show validation messages. Default \code{TRUE}.}
+
+\item{inline_message}{Whether to show validation messages inline.}
+
+\item{status_icon}{Whether to show a validation status icon in each field.}
+
+\item{hide_required_asterisk}{Whether to hide the asterisk next to required fields' labels.}
+
+\item{label_suffix}{Suffix appended to every label.}
+
+\item{validate_on_rule_change}{Whether changing the rules triggers validation immediately.}
 }
 \value{
 Called for its side effect; returns \code{NULL} invisibly.

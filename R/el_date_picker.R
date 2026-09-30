@@ -74,6 +74,16 @@ el_date_picker <- function(
     readonly          = FALSE,
     range_separator   = "-",
     align             = "left",
+    size              = NULL,
+    name              = NULL,
+    prefix_icon       = NULL,
+    clear_icon        = NULL,
+    popper_class      = NULL,
+    default_value     = NULL,
+    default_time      = NULL,
+    unlink_panels     = NULL,
+    picker_options    = NULL,
+    validate_event    = NULL,
     session           = shiny::getDefaultReactiveDomain()
 ) {
   if (is.null(id)) id <- paste0("el_date_picker_", uuid::UUIDgenerate())
@@ -114,6 +124,16 @@ el_date_picker <- function(
   picker_attrs[[":placeholder"]] <- .el_optional_bind("placeholder")
   picker_attrs[[":start-placeholder"]] <- .el_optional_bind("startPlaceholder")
   picker_attrs[[":end-placeholder"]] <- .el_optional_bind("endPlaceholder")
+  picker_attrs[[":size"]] <- .el_optional_bind("size")
+  picker_attrs[[":name"]] <- .el_optional_bind("name")
+  picker_attrs[[":prefix-icon"]] <- .el_optional_bind("prefixIcon")
+  picker_attrs[[":clear-icon"]] <- .el_optional_bind("clearIcon")
+  picker_attrs[[":popper-class"]] <- .el_optional_bind("popperClass")
+  picker_attrs[[":default-value"]] <- .el_optional_bind("defaultValue")
+  picker_attrs[[":default-time"]] <- .el_optional_bind("defaultTime")
+  picker_attrs[[":unlink-panels"]] <- .el_optional_bind("unlinkPanels")
+  picker_attrs[[":picker-options"]] <- .el_optional_bind("pickerOptions")
+  picker_attrs[[":validate-event"]] <- .el_optional_bind("validateEvent")
   # Vue data
   vue_data <- list(
     value          = init_value,
@@ -130,6 +150,16 @@ el_date_picker <- function(
   vue_data$placeholder <- if (is.null(placeholder)) NA else placeholder
   vue_data$startPlaceholder <- .el_or_na(start_placeholder)
   vue_data$endPlaceholder <- .el_or_na(end_placeholder)
+  vue_data$size <- .el_or_na(size)
+  vue_data$name <- .el_or_na(name)
+  vue_data$prefixIcon <- .el_or_na(prefix_icon)
+  vue_data$clearIcon <- .el_or_na(clear_icon)
+  vue_data$popperClass <- .el_or_na(popper_class)
+  vue_data$defaultValue <- .el_or_na(default_value)
+  vue_data$defaultTime <- .el_or_na(default_time)
+  vue_data$unlinkPanels <- .el_or_na(unlink_panels)
+  vue_data$pickerOptions <- .el_or_na(picker_options)
+  vue_data$validateEvent <- .el_or_na(validate_event)
   component_ui <- shiny::tagList(
     shiny::tags$div(
       id = container_id, style = .el_host_style(),
@@ -168,6 +198,16 @@ elementId = ns_id, width = 0, height = 0,
 #' @param clearable New clearable state.
 #' @param readonly New readonly state.
 #' @param placeholder New placeholder text (non-range types).
+#' @param size Input size: `"medium"`, `"small"` or `"mini"`.
+#' @param name Native `name` attribute.
+#' @param prefix_icon Icon class shown at the start of the input.
+#' @param clear_icon Icon class of the clear button.
+#' @param popper_class Extra class name for the picker panel.
+#' @param default_value Date the panel opens on when nothing is selected.
+#' @param default_time Time part used when a date is picked, as `"HH:mm:ss"`.
+#' @param unlink_panels Whether the two panels of a range picker move independently.
+#' @param picker_options Additional Element picker options, as a named list.
+#' @param validate_event Whether a change triggers form validation. Default `TRUE`.
 #'
 #' @return Called for its side effect; returns `NULL` invisibly.
 #' @examples
