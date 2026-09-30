@@ -91,6 +91,15 @@ el_input_number(
 
 An `htmltools` tagList with a Vue-managed input-number component.
 
+## Element methods
+
+Callable with
+[`el_call()`](https://kaipingyang.github.io/shiny.element/reference/el_call.md):
+
+- `focus()` – Focus the Input component
+
+- `select()` – Select the text in input element
+
 ## Shiny input
 
 `input$<id>` — numeric value, updated on each valid change.

@@ -118,6 +118,26 @@ trigger on. The model is deliberately *not* sent on every keystroke:
 that is the point of the form owning its state rather than each field
 reporting separately.
 
+## Element methods
+
+Callable with
+[`el_call()`](https://kaipingyang.github.io/shiny.element/reference/el_call.md):
+
+- `clearValidate()` – Clear validation message for certain fields. The
+  parameter is prop name or an array of prop names of the...
+
+- `clearValidate()` – Remove validation status of the field
+
+- `resetField()` – Reset current field and remove validation result
+
+- `resetFields()` – Reset all the fields and remove validation result
+
+- [`validate()`](https://rdrr.io/pkg/shiny/man/validate.html) – Validate
+  the whole form. Takes a callback as a param. After validation, the
+  callback will be executed with...
+
+- `validateField()` – Validate one or several form items
+
 ## Examples
 
 ``` r

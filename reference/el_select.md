@@ -168,6 +168,15 @@ el_select(
 
 An `htmltools` tagList containing the Vue-managed select component.
 
+## Element methods
+
+Callable with
+[`el_call()`](https://kaipingyang.github.io/shiny.element/reference/el_call.md):
+
+- `blur()` – Blur the Input component, and hide the dropdown
+
+- `focus()` – Focus the Input component
+
 ## Shiny input
 
 `input$<id>` — string (single) or character vector (multiple), updated

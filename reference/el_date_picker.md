@@ -147,6 +147,13 @@ el_date_picker(
 
 An `htmltools` tagList with a Vue-managed date picker component.
 
+## Element methods
+
+Callable with
+[`el_call()`](https://kaipingyang.github.io/shiny.element/reference/el_call.md):
+
+- `focus()` – Focus the Input component
+
 ## Shiny input
 
 `input$<id>` — String for single-date types, or two-element array for

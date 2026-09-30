@@ -92,6 +92,17 @@ A Shiny UI element.
 and `input$<id>_name` its `name` if one was given. Both are reported on
 load and whenever the slide changes.
 
+## Element methods
+
+Callable with
+[`el_call()`](https://kaipingyang.github.io/shiny.element/reference/el_call.md):
+
+- `next()` – Switch to the next slide
+
+- `prev()` – Switch to the previous slide
+
+- `setActiveItem()` – Manually switch slide
+
 ## Examples
 
 ``` r

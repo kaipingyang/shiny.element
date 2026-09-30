@@ -108,6 +108,13 @@ el_cascader(
 
 A Shiny UI element.
 
+## Element methods
+
+Callable with
+[`el_call()`](https://kaipingyang.github.io/shiny.element/reference/el_call.md):
+
+- `getCheckedNodes()` – Get an array of currently selected node
+
 ## Examples
 
 ``` r

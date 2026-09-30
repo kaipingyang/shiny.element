@@ -90,6 +90,13 @@ el_switch(
 
 An `htmltools` tagList with a Vue-managed switch component.
 
+## Element methods
+
+Callable with
+[`el_call()`](https://kaipingyang.github.io/shiny.element/reference/el_call.md):
+
+- `focus()` – Focus the Switch component
+
 ## Shiny input
 
 `input$<id>` — the value of `active_value` (when on) or `inactive_value`

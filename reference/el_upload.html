@@ -212,6 +212,14 @@ and <code>datapath</code>, one row per file in the last batch, exactly as
 names of files Element uploaded successfully, and <code>input$&lt;id&gt;_error</code> the
 name of the last one that failed.</p>
     </div>
+    <div class="section level2">
+    <h2 id="element-methods">Element methods<a class="anchor" aria-label="anchor" href="#element-methods"></a></h2>
+
+
+<p>Callable with <code><a href="el_call.html">el_call()</a></code>:</p><ul><li><p><code>abort()</code> – Cancel upload request</p></li>
+<li><p><code>clearFiles()</code> – Clear the uploaded file list (this method is not supported in the before-upload hook)</p></li>
+<li><p><code>submit()</code> – Upload the file list manually</p></li>
+</ul></div>
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>

@@ -156,6 +156,17 @@ passed validation, and <code>input$&lt;id&gt;_submit</code> is a submit counter 
 The model is deliberately <em>not</em> sent on every keystroke: that is the point of
 the form owning its state rather than each field reporting separately.</p>
     </div>
+    <div class="section level2">
+    <h2 id="element-methods">Element methods<a class="anchor" aria-label="anchor" href="#element-methods"></a></h2>
+
+
+<p>Callable with <code><a href="el_call.html">el_call()</a></code>:</p><ul><li><p><code>clearValidate()</code> – Clear validation message for certain fields. The parameter is prop name or an array of prop names of the...</p></li>
+<li><p><code>clearValidate()</code> – Remove validation status of the field</p></li>
+<li><p><code>resetField()</code> – Reset current field and remove validation result</p></li>
+<li><p><code>resetFields()</code> – Reset all the fields and remove validation result</p></li>
+<li><p><code><a href="https://rdrr.io/pkg/shiny/man/validate.html" class="external-link">validate()</a></code> – Validate the whole form. Takes a callback as a param. After validation, the callback will be executed with...</p></li>
+<li><p><code>validateField()</code> – Validate one or several form items</p></li>
+</ul></div>
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>

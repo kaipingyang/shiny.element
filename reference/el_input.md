@@ -163,6 +163,17 @@ el_input(
 
 An `htmltools` tagList with a Vue-managed input component.
 
+## Element methods
+
+Callable with
+[`el_call()`](https://kaipingyang.github.io/shiny.element/reference/el_call.md):
+
+- `blur()` – Blur the input element
+
+- `focus()` – Focus the input element
+
+- `select()` – Select the text in input element
+
 ## Shiny input
 
 `input$<id>` — string value of the input, updated on `change` event

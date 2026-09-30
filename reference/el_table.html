@@ -252,6 +252,20 @@ simplified to a character vector on its way back through JSON, so numbers
 arrive as strings. Both are <code>NULL</code> while nothing is selected, matching how
 Shiny reports an empty <code><a href="https://rdrr.io/pkg/shiny/man/checkboxGroupInput.html" class="external-link">shiny::checkboxGroupInput()</a></code>.</p>
     </div>
+    <div class="section level2">
+    <h2 id="element-methods">Element methods<a class="anchor" aria-label="anchor" href="#element-methods"></a></h2>
+
+
+<p>Callable with <code><a href="el_call.html">el_call()</a></code>:</p><ul><li><p><code>clearFilter()</code> – Clear filters of the columns whose columnKey are passed in. If no params, clear all filters</p></li>
+<li><p><code>clearSelection()</code> – Used in multiple selection Table, clear user selection</p></li>
+<li><p><code>clearSort()</code> – Clear sorting, restore data to the original order</p></li>
+<li><p><code>doLayout()</code> – Refresh the layout of Table. When the visibility of Table changes, you may need to call this method to get...</p></li>
+<li><p><code>setCurrentRow()</code> – Used in single selection Table, set a certain row selected. If called without any parameter, it will clear...</p></li>
+<li><p><code><a href="https://rdrr.io/r/base/sort.html" class="external-link">sort()</a></code> – Sort Table manually. Property prop is used to set sort column, property order is used to set sort order</p></li>
+<li><p><code>toggleAllSelection()</code> – Used in multiple selection Table, toggle the selected state of all rows</p></li>
+<li><p><code>toggleRowExpansion()</code> – Used in expandable Table or tree Table, toggle if a certain row is expanded. With the second parameter,...</p></li>
+<li><p><code>toggleRowSelection()</code> – Used in multiple selection Table, toggle if a certain row is selected. With the second parameter, you can...</p></li>
+</ul></div>
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>

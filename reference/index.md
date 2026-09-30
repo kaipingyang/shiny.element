@@ -221,6 +221,15 @@ Called from the server; nothing to place in the UI.
 - [`update_el_calendar()`](https://kaipingyang.github.io/shiny.element/reference/update_el_calendar.md)
   : Update Element UI Calendar Component
 
+## Component methods
+
+Element documents methods as well as props – clearSelection(),
+setCheckedKeys(), validate(). These are functions on the component, so
+update_el\_\*() cannot reach them.
+
+- [`el_call()`](https://kaipingyang.github.io/shiny.element/reference/el_call.md)
+  : Call a method on the Element UI component behind a widget
+
 ## Escape hatches
 
 Raw tag generators and generic Vue updates, for anything the wrappers do

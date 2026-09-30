@@ -89,6 +89,17 @@ every selection. `input$<id>_path` holds the full path of indexes down
 to it, so a nested item can be told apart from a top-level one with the
 same index.
 
+## Element methods
+
+Callable with
+[`el_call()`](https://kaipingyang.github.io/shiny.element/reference/el_call.md):
+
+- [`close()`](https://rdrr.io/r/base/connections.html) – Close a
+  specific sub-menu
+
+- [`open()`](https://rdrr.io/r/base/connections.html) – Open a specific
+  sub-menu
+
 ## Examples
 
 ``` r

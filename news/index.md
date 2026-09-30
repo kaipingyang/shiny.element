@@ -82,6 +82,31 @@ Positional calls written against the old `el_table(data, columns, id)`
 order still work – the arguments are shifted back with a warning – but
 naming them is the way to keep it quiet.
 
+### Reaching a component’s methods
+
+Element documents methods as well as props.
+[`el_call()`](https://kaipingyang.github.io/shiny.element/reference/el_call.md)
+invokes one:
+
+``` r
+
+observeEvent(input$clear, {
+  el_call(session, "tbl", "clearSelection")
+})
+
+# A method with a return value answers asynchronously
+observeEvent(input$ask, {
+  el_call(session, "tree", "getCheckedKeys")
+})
+observeEvent(input$tree_get_checked_keys, {
+  message("checked: ", paste(input$tree_get_checked_keys, collapse = ", "))
+})
+```
+
+The answer arrives as `input$<id>_<method>` with the method name in
+snake_case. Each component’s help page lists what it accepts under
+“Element methods”.
+
 ### Design notes
 
 - Controls render as Vue instances wrapped in htmlwidgets; containers

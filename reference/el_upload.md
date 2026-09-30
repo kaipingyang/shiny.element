@@ -186,6 +186,18 @@ With `action`, Shiny never sees the files; `input$<id>_success` lists
 the names of files Element uploaded successfully, and `input$<id>_error`
 the name of the last one that failed.
 
+## Element methods
+
+Callable with
+[`el_call()`](https://kaipingyang.github.io/shiny.element/reference/el_call.md):
+
+- `abort()` – Cancel upload request
+
+- `clearFiles()` – Clear the uploaded file list (this method is not
+  supported in the before-upload hook)
+
+- `submit()` – Upload the file list manually
+
 ## Examples
 
 ``` r

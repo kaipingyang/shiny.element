@@ -205,6 +205,29 @@ rather than nested tags, so the nesting is plain R data all the way down.</p>
 Both are reported on load, where they start empty and therefore arrive as
 <code>NULL</code>, as Shiny reports any empty selection.</p>
     </div>
+    <div class="section level2">
+    <h2 id="element-methods">Element methods<a class="anchor" aria-label="anchor" href="#element-methods"></a></h2>
+
+
+<p>Callable with <code><a href="el_call.html">el_call()</a></code>:</p><ul><li><p><code><a href="https://rdrr.io/r/base/append.html" class="external-link">append()</a></code> – Append a child node to a given node in the tree</p></li>
+<li><p><code><a href="https://rdrr.io/r/stats/filter.html" class="external-link">filter()</a></code> – Filter all tree nodes, filtered nodes will be hidden</p></li>
+<li><p><code>getCheckedKeys()</code> – If the node can be selected (show-checkbox is true), it returns the currently selected array of node's keys</p></li>
+<li><p><code>getCheckedNodes()</code> – If the node can be selected (show-checkbox is true), it returns the currently selected array of nodes</p></li>
+<li><p><code>getCurrentKey()</code> – Return the highlight node's key (null if no node is highlighted)</p></li>
+<li><p><code>getCurrentNode()</code> – Return the highlight node's data (null if no node is highlighted)</p></li>
+<li><p><code>getHalfCheckedKeys()</code> – If the node can be selected (show-checkbox is true), it returns the currently half selected array of...</p></li>
+<li><p><code>getHalfCheckedNodes()</code> – If the node can be selected (show-checkbox is true), it returns the currently half selected array of nodes</p></li>
+<li><p><code>getNode()</code> – Get node by data or key</p></li>
+<li><p><code>insertAfter()</code> – Insert a node after a given node in the tree</p></li>
+<li><p><code>insertBefore()</code> – Insert a node before a given node in the tree</p></li>
+<li><p><code><a href="https://rdrr.io/r/base/rm.html" class="external-link">remove()</a></code> – Remove a node, only works when node-key is assigned</p></li>
+<li><p><code>setChecked()</code> – Set node to be checked or not, only works when node-key is assigned</p></li>
+<li><p><code>setCheckedKeys()</code> – Set certain nodes to be checked, only works when node-key is assigned</p></li>
+<li><p><code>setCheckedNodes()</code> – Set certain nodes to be checked, only works when node-key is assigned</p></li>
+<li><p><code>setCurrentKey()</code> – Set highlighted node by key, only works when node-key is assigned</p></li>
+<li><p><code>setCurrentNode()</code> – Set highlighted node, only works when node-key is assigned</p></li>
+<li><p><code>updateKeyChildren()</code> – Set new data to node, only works when node-key is assigned</p></li>
+</ul></div>
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
