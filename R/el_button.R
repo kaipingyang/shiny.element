@@ -15,7 +15,9 @@
 #' @param loading Whether to show loading spinner. Disables click while active.
 #'   Default `FALSE`.
 #' @param disabled Whether the button is disabled. Default `FALSE`.
-#' @param icon Icon tag (e.g. `el_icon("search")`, `shiny::icon("star")`).
+#' @param icon Either an Element icon class name such as `"el-icon-search"`,
+#'   which Element renders itself and [update_el_button()] can change, or a tag
+#'   (for example from [el_icon()]), which is inserted as button content.
 #' @param native_type HTML native button type: `"button"` (default), `"submit"`,
 #'   `"reset"`.
 #' @param session Shiny session for module support.
@@ -78,8 +80,12 @@ el_button <- function(
     "@click"       = "handleClick"
   )
   btn_attrs[[":size"]] <- .el_optional_bind("size")
+  # Upstream's `icon` is an Element icon class name. A tag is accepted too, and
+  # goes in as content, which is how a fontawesome icon from el_icon() lands
+  # here -- but only a class name can be changed later by update_el_button().
+  btn_attrs[[":icon"]] <- .el_optional_bind("icon")
   btn_content <- shiny::tagList(
-    if (!is.null(icon) && inherits(icon, "shiny.tag")) icon,
+    if (inherits(icon, "shiny.tag")) icon,
     "{{label}}"
   )
 
@@ -102,6 +108,7 @@ elementId = ns_id, width = 0, height = 0,
           loading     = loading,
           disabled    = disabled,
           native_type = native_type,
+          icon        = if (is.character(icon)) icon else NA,
           count       = 0L
         ),
         methods = list(

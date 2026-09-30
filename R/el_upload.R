@@ -189,17 +189,19 @@ el_upload <- function(id = NULL,
     ":on-success"    = "handleSuccess",
     ":on-error"      = "handleError"
   )
-  if (drag) upload_attrs$drag <- NA
+  upload_attrs[[":drag"]] <- "drag"
   if (via_shiny) upload_attrs[[":http-request"]] <- "shinyUpload"
 
-  trigger <- if (drag) {
-    list(
-      htmltools::tags$i(class = "el-icon-upload"),
-      htmltools::tags$div(class = "el-upload__text", label)
-    )
-  } else {
-    list(htmltools::tag("el-button", list(size = "small", type = "primary", label)))
-  }
+  # Both triggers are rendered and switched by v-if, so update_el_upload(drag =)
+  # changes the drop zone and its contents together. Picking one in R would
+  # leave the markup stuck in whichever shape it had at render time.
+  trigger <- list(
+    htmltools::tags$i(class = "el-icon-upload", "v-if" = "drag"),
+    htmltools::tags$div(class = "el-upload__text", "v-if" = "drag", "{{label}}"),
+    htmltools::tag("el-button", list(
+      "v-if" = "!drag", size = "small", type = "primary", "{{label}}"
+    ))
+  )
   if (!is.null(tip)) {
     trigger <- c(trigger, list(
       htmltools::tags$div(class = "el-upload__tip", slot = "tip", tip)
@@ -207,6 +209,8 @@ el_upload <- function(id = NULL,
   }
 
   vue_data <- list(
+    drag         = drag,
+    label        = label,
     multiple     = multiple,
     showFileList = show_file_list,
     listType     = list_type,

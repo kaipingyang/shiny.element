@@ -41,7 +41,9 @@ Default \code{FALSE}.}
 
 \item{disabled}{Whether the button is disabled. Default \code{FALSE}.}
 
-\item{icon}{Icon tag (e.g. \code{el_icon("search")}, \code{shiny::icon("star")}).}
+\item{icon}{Either an Element icon class name such as \code{"el-icon-search"},
+which Element renders itself and \code{\link[=update_el_button]{update_el_button()}} can change, or a tag
+(for example from \code{\link[=el_icon]{el_icon()}}), which is inserted as button content.}
 
 \item{native_type}{HTML native button type: \code{"button"} (default), \code{"submit"},
 \code{"reset"}.}

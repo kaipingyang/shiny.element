@@ -68,11 +68,9 @@ test_that("el_cascader: props stays reachable by update even when not supplied",
   plain <- el_cascader(id = "c1")
   expect_true(binds_attr(plain, "props"))
 
-  html <- render_html(el_cascader(
-    id = "c1", props = list(expandTrigger = "hover"), size = "small"
-  ))
-  expect_match(html, 'size="small"')
-  expect_match(html, '"expandTrigger":"hover"')
+  supplied <- el_cascader(id = "c1", props = list(expandTrigger = "hover"), size = "small")
+  expect_equal(vue_data_of(supplied)$size, "small")
+  expect_match(render_html(supplied), '"expandTrigger":"hover"')
 })
 
 test_that("el_cascader: flags reach the Vue data", {

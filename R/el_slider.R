@@ -92,12 +92,10 @@ el_slider <- function(
     ":vertical"     = "vertical",
     "@change"       = "handleChange"
   )
-  if (vertical || !is.null(height)) {
-    slider_attrs[[":height"]] <- "height"
-  }
-  if (!is.null(marks)) {
-    slider_attrs[[":marks"]] <- "marks"
-  }
+  # Element only reads height in vertical mode, but the field has to exist
+  # either way for update_el_slider() to be able to set it.
+  slider_attrs[[":height"]] <- .el_optional_bind("height")
+  slider_attrs[[":marks"]] <- .el_optional_bind("marks")
 
   # Vue data
   vue_data <- list(
@@ -112,12 +110,8 @@ el_slider <- function(
     showTooltip = show_tooltip,
     vertical    = vertical
   )
-  if (vertical || !is.null(height)) {
-    vue_data$height <- if (!is.null(height)) height else "200px"
-  }
-  if (!is.null(marks)) {
-    vue_data$marks <- marks
-  }
+  vue_data$height <- if (!is.null(height)) height else if (vertical) "200px" else NA
+  vue_data$marks <- .el_or_na(marks)
 
   component_ui <- shiny::tagList(
     shiny::tags$div(

@@ -107,7 +107,7 @@ el_cascader <- function(id = NULL,
     "@change" = "handleChange"
   )
   cascader_attrs[[":props"]] <- .el_optional_bind("props")
-  if (!is.null(size)) cascader_attrs[["size"]] <- size
+  cascader_attrs[[":size"]] <- .el_optional_bind("size")
 
   vue_data <- list(
     options = options,
@@ -121,6 +121,7 @@ el_cascader <- function(id = NULL,
     separator = separator,
     debounce = debounce
   )
+  vue_data$size <- .el_or_na(size)
   vue_data$props <- .el_or_na(props)
   component_ui <- tagList(
     tags$div(

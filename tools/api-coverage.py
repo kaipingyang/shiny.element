@@ -114,6 +114,19 @@ def camel(a):
 VUE = {"vIf","vFor","vModel","vShow","key","ref","slot","slotScope","class","style","id",
        "vPre","vHtml","vText","vCloak","vOnce","vBind","vOn"}
 
+# A prop bound on a parent tag reaches the children: el-checkbox-group carries
+# `disabled` for every el-checkbox under it. Collect per function first so a
+# prop is not reported as unbound just because it sits on a sibling tag.
+bound_by_fn = {}
+for fn, info in ours.items():
+    if not info.get("ok"): continue
+    acc = set()
+    for tag, attrs in (info.get("tags") or {}).items():
+        if isinstance(attrs, str): attrs = [attrs]
+        acc |= {camel(a) for a in attrs if not a.startswith("@")}
+        if any(a == "v-model" for a in attrs): acc |= {"value"}
+    bound_by_fn[fn] = acc - VUE
+
 report, seen = [], set()
 for fn, info in sorted(ours.items()):
     if not info.get("ok"): continue
@@ -137,7 +150,7 @@ for fn, info in sorted(ours.items()):
         # v-model 覆盖 value
         if any(a == "v-model" for a in attrs): mine_a |= {"value", "modelValue"}
         # Settable but not bound: the UI accepts it, update_el_*() cannot touch it
-        conditional = sorted((upa & params) - mine_a)
+        conditional = sorted((upa & params) - mine_a - bound_by_fn.get(fn, set()))
         report.append({
             "fn": fn, "tag": tag, "conditional": conditional,
             "attr": [len(upa & (mine_a | params)), len(upa)],
