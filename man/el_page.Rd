@@ -38,6 +38,9 @@ fails to compile renders nothing and says nothing. Defaults to
 whole session without touching the UI code.
 Set to \code{NULL} to disable Element-UI layout CSS.}
 }
+\value{
+A Shiny UI element.
+}
 \description{
 Top-level page constructor that loads Element-UI, Vue, and layout CSS dependencies,
 and supports both bslib/shiny themes and Element-UI layout CSS.
@@ -49,4 +52,14 @@ Use this as the root UI function for your Shiny app. You can combine bslib layou
 The \code{el_page} function is designed to work with both bslib layouts and Element-UI widgets.
 Do not mix Element-UI layout functions (\code{el_container}, \code{el_row}, \code{el_col}) with bslib layouts,
 as they are not compatible. The Element-UI layout functions are experimental and may be deprecated in the future.
+}
+\examples{
+el_page(
+  title = "My app",
+  el_input("name", value = "Ada"),
+  el_button("go", "Submit", type = "primary")
+)
+
+# English component text, and Vue's development build for debugging
+el_page(locale = "en", dev = TRUE, el_input("name"))
 }

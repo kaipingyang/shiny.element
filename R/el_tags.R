@@ -28,6 +28,7 @@
 #'   el$table_column(prop = "age", label = "Age")
 #' )
 #' el$icon("star")
+#' @return A named list of tag-generating functions, one per Element UI tag.
 #' @export
 el <- local({
   el <- list()

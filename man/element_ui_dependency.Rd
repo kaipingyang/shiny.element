@@ -20,3 +20,7 @@ An htmlDependency object for Element UI.
 \description{
 Element UI Dependency
 }
+\examples{
+element_ui_dependency()
+element_ui_dependency(offline = FALSE)
+}

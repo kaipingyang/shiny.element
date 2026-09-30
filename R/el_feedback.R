@@ -34,6 +34,7 @@
 #'   shinyApp(ui, server)
 #' }
 #'
+#' @return A Shiny UI element.
 #' @export
 el_notification <- function(
     session,
@@ -89,6 +90,7 @@ el_notification <- function(
 #'   shinyApp(ui, server)
 #' }
 #'
+#' @return A Shiny UI element.
 #' @export
 el_message <- function(
     session,

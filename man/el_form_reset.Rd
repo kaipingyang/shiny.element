@@ -20,3 +20,11 @@ validation state. Note this is Element UI's \code{resetFields()}: it restores th
 \emph{initial} values, not empty ones, so a field declared with \code{value = 18}
 resets to 18.
 }
+\examples{
+if (interactive()) {
+  # inside a server function
+  observeEvent(input$go, {
+    el_form_reset(session, "signup")
+  })
+}
+}

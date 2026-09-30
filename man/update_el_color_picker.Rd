@@ -15,6 +15,17 @@ update_el_color_picker(session, id, value = NULL, disabled = NULL)
 
 \item{disabled}{New disabled state.}
 }
+\value{
+Called for its side effect; returns \code{NULL} invisibly.
+}
 \description{
 Server-side update for \code{\link[=el_color_picker]{el_color_picker()}}.
+}
+\examples{
+if (interactive()) {
+  # inside a server function
+  observeEvent(input$go, {
+    update_el_color_picker(session, "shade", value = "#67C23A")
+  })
+}
 }

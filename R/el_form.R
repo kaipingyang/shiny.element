@@ -422,6 +422,13 @@ update_el_form <- function(session, id,
 #' @param session Shiny session object.
 #' @param id Form ID (un-namespaced).
 #' @return Called for its side effect; returns `NULL` invisibly.
+#' @examples
+#' if (interactive()) {
+#'   # inside a server function
+#'   observeEvent(input$go, {
+#'     el_form_validate(session, "signup")
+#'   })
+#' }
 #' @export
 el_form_validate <- function(session, id) {
   session$sendCustomMessage("elFormValidate", list(id = session$ns(id)))
@@ -438,6 +445,13 @@ el_form_validate <- function(session, id) {
 #' @param session Shiny session object.
 #' @param id Form ID (un-namespaced).
 #' @return Called for its side effect; returns `NULL` invisibly.
+#' @examples
+#' if (interactive()) {
+#'   # inside a server function
+#'   observeEvent(input$go, {
+#'     el_form_reset(session, "signup")
+#'   })
+#' }
 #' @export
 el_form_reset <- function(session, id) {
   session$sendCustomMessage("elFormReset", list(id = session$ns(id)))
@@ -452,6 +466,13 @@ el_form_reset <- function(session, id) {
 #' @param id Form ID (un-namespaced).
 #' @param props Fields to clear. `NULL` clears all of them.
 #' @return Called for its side effect; returns `NULL` invisibly.
+#' @examples
+#' if (interactive()) {
+#'   # inside a server function
+#'   observeEvent(input$go, {
+#'     el_form_clear_validate(session, "signup")
+#'   })
+#' }
 #' @export
 el_form_clear_validate <- function(session, id, props = NULL) {
   msg <- list(id = session$ns(id))

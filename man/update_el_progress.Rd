@@ -35,6 +35,17 @@ update_el_progress(
 
 \item{text_inside}{New text-inside flag.}
 }
+\value{
+Called for its side effect; returns \code{NULL} invisibly.
+}
 \description{
 Server-side update for \code{\link[=el_progress]{el_progress()}}.
+}
+\examples{
+if (interactive()) {
+  # inside a server function
+  observeEvent(input$go, {
+    update_el_progress(session, "pct", percentage = 100)
+  })
+}
 }

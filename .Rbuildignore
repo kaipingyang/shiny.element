@@ -9,3 +9,4 @@
 ^\.claude$
 ^tools$
 ^vignettes/.*\.png$
+^cran-comments\.md$

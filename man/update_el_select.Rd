@@ -33,7 +33,18 @@ update_el_select(
 
 \item{filterable}{New filterable state.}
 }
+\value{
+Called for its side effect; returns \code{NULL} invisibly.
+}
 \description{
 Server-side update for \code{\link[=el_select]{el_select()}}. Sends a custom message to update
 reactive fields on the underlying Vue instance.
+}
+\examples{
+if (interactive()) {
+  # inside a server function
+  observeEvent(input$go, {
+    update_el_select(session, "city", selected = "sh")
+  })
+}
 }

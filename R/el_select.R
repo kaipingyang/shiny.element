@@ -154,6 +154,14 @@ elementId = ns_id, width = 0, height = 0,
 #' @param clearable New clearable state.
 #' @param filterable New filterable state.
 #'
+#' @return Called for its side effect; returns `NULL` invisibly.
+#' @examples
+#' if (interactive()) {
+#'   # inside a server function
+#'   observeEvent(input$go, {
+#'     update_el_select(session, "city", selected = "sh")
+#'   })
+#' }
 #' @export
 update_el_select <- function(
     session,
@@ -174,4 +182,5 @@ update_el_select <- function(
   if (!is.null(clearable))   msg$clearable   <- clearable
   if (!is.null(filterable))  msg$filterable  <- filterable
   session$sendCustomMessage("updateElSelect", msg)
+  invisible(NULL)
 }

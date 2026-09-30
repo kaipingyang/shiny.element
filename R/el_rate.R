@@ -106,6 +106,14 @@ elementId = ns_id, width = 0, height = 0,
 #' @param value New rating value.
 #' @param disabled New disabled state.
 #'
+#' @return Called for its side effect; returns `NULL` invisibly.
+#' @examples
+#' if (interactive()) {
+#'   # inside a server function
+#'   observeEvent(input$go, {
+#'     update_el_rate(session, "stars", value = 5)
+#'   })
+#' }
 #' @export
 update_el_rate <- function(session, id, value = NULL, disabled = NULL) {
   ns_id <- session$ns(id)
@@ -113,6 +121,7 @@ update_el_rate <- function(session, id, value = NULL, disabled = NULL) {
   if (!is.null(value))    msg$value    <- value
   if (!is.null(disabled)) msg$disabled <- disabled
   session$sendCustomMessage("updateElRate", msg)
+  invisible(NULL)
 }
 
 

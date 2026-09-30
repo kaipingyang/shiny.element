@@ -13,6 +13,9 @@ template(..., slot = NULL, scope = NULL)
 
 \item{scope}{Slot scope or v-slot syntax (optional)}
 }
+\value{
+A Shiny UI element.
+}
 \description{
 Generate a \verb{<template>} tag for Vue/Element UI slot usage
 }

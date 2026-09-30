@@ -130,6 +130,13 @@ el_collapse_dependency <- function() {
 #'   `character(0)` to close them all.
 #'
 #' @return Called for its side effect; returns `NULL` invisibly.
+#' @examples
+#' if (interactive()) {
+#'   # inside a server function
+#'   observeEvent(input$go, {
+#'     update_el_collapse(session, "panels", value = "filters")
+#'   })
+#' }
 #' @export
 update_el_collapse <- function(session, id, value = NULL) {
   msg <- list()

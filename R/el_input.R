@@ -163,6 +163,14 @@ elementId = ns_id, width = 0, height = 0,
 #' @param clearable New clearable state.
 #' @param show_password New show-password toggle state.
 #'
+#' @return Called for its side effect; returns `NULL` invisibly.
+#' @examples
+#' if (interactive()) {
+#'   # inside a server function
+#'   observeEvent(input$go, {
+#'     update_el_input(session, "name", value = "Ada")
+#'   })
+#' }
 #' @export
 update_el_input <- function(
     session,
@@ -187,6 +195,7 @@ update_el_input <- function(
   if (!is.null(clearable))    msg$clearable    <- clearable
   if (!is.null(show_password)) msg$showPassword <- show_password
   session$sendCustomMessage("updateElInput", msg)
+  invisible(NULL)
 }
 
 

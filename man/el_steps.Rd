@@ -38,6 +38,9 @@ el_steps(
 
 \item{session}{Shiny session for module support}
 }
+\value{
+A Shiny UI element.
+}
 \description{
 Element UI Steps Component
 }

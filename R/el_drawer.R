@@ -112,6 +112,13 @@ el_drawer <- function(
 #' @param size New width or height.
 #'
 #' @return Called for its side effect; returns `NULL` invisibly.
+#' @examples
+#' if (interactive()) {
+#'   # inside a server function
+#'   observeEvent(input$go, {
+#'     update_el_drawer(session, "settings", visible = TRUE)
+#'   })
+#' }
 #' @export
 update_el_drawer <- function(session, id, visible = NULL, title = NULL,
                              size = NULL) {

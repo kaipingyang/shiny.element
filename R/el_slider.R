@@ -158,6 +158,14 @@ elementId = ns_id, width = 0, height = 0,
 #' @param step New step size.
 #' @param disabled New disabled state.
 #'
+#' @return Called for its side effect; returns `NULL` invisibly.
+#' @examples
+#' if (interactive()) {
+#'   # inside a server function
+#'   observeEvent(input$go, {
+#'     update_el_slider(session, "score", value = 80)
+#'   })
+#' }
 #' @export
 update_el_slider <- function(
     session,
@@ -176,6 +184,7 @@ update_el_slider <- function(
   if (!is.null(step))     msg$step     <- step
   if (!is.null(disabled)) msg$disabled <- disabled
   session$sendCustomMessage("updateElSlider", msg)
+  invisible(NULL)
 }
 
 

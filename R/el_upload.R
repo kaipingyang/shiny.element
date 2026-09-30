@@ -259,6 +259,13 @@ el_upload <- function(id = NULL,
 #' @param disabled New disabled state.
 #' @param limit New maximum number of files.
 #' @return Called for its side effect; returns `NULL` invisibly.
+#' @examples
+#' if (interactive()) {
+#'   # inside a server function
+#'   observeEvent(input$go, {
+#'     update_el_upload(session, "files", disabled = TRUE)
+#'   })
+#' }
 #' @export
 update_el_upload <- function(session, id, disabled = NULL, limit = NULL) {
   msg <- list(id = session$ns(id))
@@ -276,6 +283,13 @@ update_el_upload <- function(session, id, disabled = NULL, limit = NULL) {
 #' @param session Shiny session object.
 #' @param id Upload ID (un-namespaced).
 #' @return Called for its side effect; returns `NULL` invisibly.
+#' @examples
+#' if (interactive()) {
+#'   # inside a server function
+#'   observeEvent(input$go, {
+#'     el_upload_clear(session, "files")
+#'   })
+#' }
 #' @export
 el_upload_clear <- function(session, id) {
   session$sendCustomMessage("clearElUpload", list(id = session$ns(id)))

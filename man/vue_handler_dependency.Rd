@@ -15,3 +15,6 @@ This dependency loads \code{vue_handlers.js}, which enables R to update Vue comp
 via \code{update_vue_component} and \code{update_vue_data} custom messages.
 It should be included in the UI (typically via \code{use_element()}) to ensure all Vue update handlers are available.
 }
+\examples{
+vue_handler_dependency()
+}

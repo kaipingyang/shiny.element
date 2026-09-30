@@ -3,6 +3,7 @@
 #' @param ... Content inside the template
 #' @param slot Slot name (optional)
 #' @param scope Slot scope or v-slot syntax (optional)
+#' @return A Shiny UI element.
 #' @export
 #' @examples
 #' # Basic usage with text

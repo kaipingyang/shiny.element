@@ -137,6 +137,14 @@ elementId = ns_id, width = 0, height = 0,
 #'   `list(list(value=, label=), ...)`.
 #' @param disabled New disabled state.
 #'
+#' @return Called for its side effect; returns `NULL` invisibly.
+#' @examples
+#' if (interactive()) {
+#'   # inside a server function
+#'   observeEvent(input$go, {
+#'     update_el_radio_group(session, "plan", selected = "pro")
+#'   })
+#' }
 #' @export
 update_el_radio_group <- function(
     session,
@@ -151,4 +159,5 @@ update_el_radio_group <- function(
   if (!is.null(options))  msg$options  <- .el_normalize_choices(options)
   if (!is.null(disabled)) msg$disabled <- disabled
   session$sendCustomMessage("updateElRadioGroup", msg)
+  invisible(NULL)
 }

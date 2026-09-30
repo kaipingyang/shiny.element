@@ -26,6 +26,17 @@ update_el_pagination(
 
 \item{disabled}{New disabled state.}
 }
+\value{
+Called for its side effect; returns \code{NULL} invisibly.
+}
 \description{
 Server-side update for \code{\link[=el_pagination]{el_pagination()}}.
+}
+\examples{
+if (interactive()) {
+  # inside a server function
+  observeEvent(input$go, {
+    update_el_pagination(session, "pager", current_page = 2)
+  })
+}
 }

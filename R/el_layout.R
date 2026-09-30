@@ -184,6 +184,17 @@ el_col <- function(..., span = 24, offset = NULL, push = NULL, pull = NULL,
 #' Do not mix Element-UI layout functions (\code{el_container}, \code{el_row}, \code{el_col}) with bslib layouts,
 #' as they are not compatible. The Element-UI layout functions are experimental and may be deprecated in the future.
 #'
+#' @return A Shiny UI element.
+#'
+#' @examples
+#' el_page(
+#'   title = "My app",
+#'   el_input("name", value = "Ada"),
+#'   el_button("go", "Submit", type = "primary")
+#' )
+#'
+#' # English component text, and Vue's development build for debugging
+#' el_page(locale = "en", dev = TRUE, el_input("name"))
 #' @export
 el_page <- function(
   ..., 

@@ -146,6 +146,13 @@ el_carousel <- function(id = NULL,
 #' @param autoplay Start or stop cycling.
 #' @param interval New interval in milliseconds.
 #' @return Called for its side effect; returns `NULL` invisibly.
+#' @examples
+#' if (interactive()) {
+#'   # inside a server function
+#'   observeEvent(input$go, {
+#'     update_el_carousel(session, "banner", active = 2)
+#'   })
+#' }
 #' @export
 update_el_carousel <- function(session, id,
                                active = NULL,

@@ -17,6 +17,17 @@ update_el_alert(session, id, title = NULL, type = NULL, description = NULL)
 
 \item{description}{New description text. Use \code{NULL} to leave unchanged.}
 }
+\value{
+Called for its side effect; returns \code{NULL} invisibly.
+}
 \description{
 Server-side update for \code{\link[=el_alert]{el_alert()}}.
+}
+\examples{
+if (interactive()) {
+  # inside a server function
+  observeEvent(input$go, {
+    update_el_alert(session, "hint", title = "Saved", type = "success")
+  })
+}
 }

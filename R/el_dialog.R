@@ -110,6 +110,13 @@ el_dialog <- function(
 #' @param width New width.
 #'
 #' @return Called for its side effect; returns `NULL` invisibly.
+#' @examples
+#' if (interactive()) {
+#'   # inside a server function
+#'   observeEvent(input$go, {
+#'     update_el_dialog(session, "confirm", visible = TRUE)
+#'   })
+#' }
 #' @export
 update_el_dialog <- function(session, id, visible = NULL, title = NULL,
                              width = NULL) {

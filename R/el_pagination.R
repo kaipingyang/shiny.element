@@ -138,6 +138,14 @@ elementId = ns_id, width = 0, height = 0,
 #' @param page_size New page size.
 #' @param disabled New disabled state.
 #'
+#' @return Called for its side effect; returns `NULL` invisibly.
+#' @examples
+#' if (interactive()) {
+#'   # inside a server function
+#'   observeEvent(input$go, {
+#'     update_el_pagination(session, "pager", current_page = 2)
+#'   })
+#' }
 #' @export
 update_el_pagination <- function(
     session,
@@ -154,6 +162,7 @@ update_el_pagination <- function(
   if (!is.null(page_size))    msg$pageSize    <- page_size
   if (!is.null(disabled))     msg$disabled    <- disabled
   session$sendCustomMessage("updateElPagination", msg)
+  invisible(NULL)
 }
 
 

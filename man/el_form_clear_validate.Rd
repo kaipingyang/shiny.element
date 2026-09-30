@@ -19,3 +19,11 @@ Called for its side effect; returns \code{NULL} invisibly.
 \description{
 Leaves the values alone and only removes the error state.
 }
+\examples{
+if (interactive()) {
+  # inside a server function
+  observeEvent(input$go, {
+    el_form_clear_validate(session, "signup")
+  })
+}
+}

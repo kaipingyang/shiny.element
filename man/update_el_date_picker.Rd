@@ -32,7 +32,18 @@ update_el_date_picker(
 
 \item{placeholder}{New placeholder text (non-range types).}
 }
+\value{
+Called for its side effect; returns \code{NULL} invisibly.
+}
 \description{
 Server-side update for \code{\link[=el_date_picker]{el_date_picker()}}. Supports updating value, disabled
 state, type, clearable, readonly, and placeholder text.
+}
+\examples{
+if (interactive()) {
+  # inside a server function
+  observeEvent(input$go, {
+    update_el_date_picker(session, "when", value = "2026-06-01")
+  })
+}
 }

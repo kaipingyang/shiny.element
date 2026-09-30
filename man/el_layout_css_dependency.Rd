@@ -6,8 +6,14 @@
 \usage{
 el_layout_css_dependency()
 }
+\value{
+An htmlDependency object.
+}
 \description{
 Provides default CSS styles for Element-UI layout and grid components,
 including el-container, el-header, el-main, el-footer, el-aside, el-row, el-col, etc.
 This dependency is automatically attached by el_page() for consistent layout appearance.
+}
+\examples{
+el_layout_css_dependency()
 }

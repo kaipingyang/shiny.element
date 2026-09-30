@@ -101,6 +101,8 @@ el_locale_dependency <- function(locale = NULL) {
 #'
 #' @return An htmlDependency object for vue_handlers.js
 #' @export
+#' @examples
+#' vue_handler_dependency()
 #' @export
 vue_handler_dependency <- function() {
   htmltools::htmlDependency(
@@ -119,6 +121,9 @@ vue_handler_dependency <- function() {
 #'   local copy is the safer default; pass `FALSE` to trade that for a smaller
 #'   deployment bundle.
 #' @return An htmlDependency object for Element UI.
+#' @examples
+#' element_ui_dependency()
+#' element_ui_dependency(offline = FALSE)
 #' @export
 element_ui_dependency <- function(offline = TRUE) {
   src <- if (offline) {
@@ -145,6 +150,9 @@ element_ui_dependency <- function(offline = TRUE) {
 #' including el-container, el-header, el-main, el-footer, el-aside, el-row, el-col, etc.
 #' This dependency is automatically attached by el_page() for consistent layout appearance.
 #'
+#' @return An htmlDependency object.
+#' @examples
+#' el_layout_css_dependency()
 #' @export
 el_layout_css_dependency <- function() {
   htmltools::htmlDependency(
@@ -161,6 +169,9 @@ el_layout_css_dependency <- function() {
 #' Loads the JavaScript handlers for [el_notification()] and [el_message()].
 #' Automatically included by [use_element()] and [el_page()].
 #'
+#' @return An htmlDependency object.
+#' @examples
+#' el_feedback_dependency()
 #' @export
 el_feedback_dependency <- function() {
   htmltools::htmlDependency(

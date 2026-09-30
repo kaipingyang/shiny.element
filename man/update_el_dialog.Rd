@@ -23,3 +23,11 @@ Called for its side effect; returns \code{NULL} invisibly.
 \description{
 Server-side update for \code{\link[=el_dialog]{el_dialog()}}.
 }
+\examples{
+if (interactive()) {
+  # inside a server function
+  observeEvent(input$go, {
+    update_el_dialog(session, "confirm", visible = TRUE)
+  })
+}
+}

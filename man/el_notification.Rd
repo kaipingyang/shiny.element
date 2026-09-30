@@ -35,6 +35,9 @@ Default \code{4500}.}
 
 \item{offset}{Distance from the corner edge in pixels. Default \code{0}.}
 }
+\value{
+A Shiny UI element.
+}
 \description{
 Server-side function to show a desktop-corner notification popup.
 Requires \code{use_element()} or \code{el_page()} in the UI to load the JS handler.

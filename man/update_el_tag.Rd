@@ -17,6 +17,17 @@ update_el_tag(session, id, label = NULL, type = NULL, closable = NULL)
 
 \item{closable}{New closable state.}
 }
+\value{
+Called for its side effect; returns \code{NULL} invisibly.
+}
 \description{
 Server-side update for \code{\link[=el_tag]{el_tag()}}.
+}
+\examples{
+if (interactive()) {
+  # inside a server function
+  observeEvent(input$go, {
+    update_el_tag(session, "status", label = "done", type = "success")
+  })
+}
 }

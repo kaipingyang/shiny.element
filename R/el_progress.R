@@ -119,6 +119,14 @@ elementId = ns_id, width = 0, height = 0,
 #' @param show_text New show-text flag.
 #' @param text_inside New text-inside flag.
 #'
+#' @return Called for its side effect; returns `NULL` invisibly.
+#' @examples
+#' if (interactive()) {
+#'   # inside a server function
+#'   observeEvent(input$go, {
+#'     update_el_progress(session, "pct", percentage = 100)
+#'   })
+#' }
 #' @export
 update_el_progress <- function(
     session,
@@ -141,6 +149,7 @@ update_el_progress <- function(
   if (!is.null(show_text))    msg$showText    <- show_text
   if (!is.null(text_inside))  msg$textInside  <- text_inside
   session$sendCustomMessage("updateElProgress", msg)
+  invisible(NULL)
 }
 
 

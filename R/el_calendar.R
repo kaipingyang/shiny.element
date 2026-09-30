@@ -7,6 +7,7 @@
 #' @param range Date range, c("YYYY-MM-DD", "YYYY-MM-DD")
 #' @param first_day_of_week First day of week (1~7), default 1
 #' @param session Shiny session for module support
+#' @return A Shiny UI element.
 #' @export
 #' @examples
 #' # Basic usage
@@ -130,6 +131,14 @@ elementId = ns_id, width = 0, height = 0,
 #' @param range New range (c("YYYY-MM-DD", "YYYY-MM-DD"))
 #' @param first_day_of_week New first day of week (1~7)
 #' @param session Shiny session
+#' @return Called for its side effect; returns `NULL` invisibly.
+#' @examples
+#' if (interactive()) {
+#'   # inside a server function
+#'   observeEvent(input$go, {
+#'     update_el_calendar(session, "cal", value = "2026-06-01")
+#'   })
+#' }
 #' @export
 update_el_calendar <- function(session, id, value = NULL, range = NULL, first_day_of_week = NULL) {  
   ns_id <- session$ns(id)  
@@ -138,5 +147,6 @@ update_el_calendar <- function(session, id, value = NULL, range = NULL, first_da
   if (!is.null(range)) message$range <- as.character(range)  
   if (!is.null(first_day_of_week)) message$firstDayOfWeek <- first_day_of_week  
   
-  session$sendCustomMessage('updateElCalendar', message)  
+  session$sendCustomMessage('updateElCalendar', message)
+  invisible(NULL)
 }

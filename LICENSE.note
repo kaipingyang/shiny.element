@@ -1,0 +1,13 @@
+The shiny.element package as a whole is distributed under the MIT licence
+(see LICENSE), with the following exception.
+
+-------------------------------------------------------------------------
+Files: inst/element-ui/**
+Copyright: 2016-present ElemeFE
+Licence: MIT
+Upstream: https://github.com/ElemeFE/element
+-------------------------------------------------------------------------
+
+These files are the unmodified distribution build of Element UI, bundled so
+that applications work without a network connection. Their licence text is
+reproduced in inst/element-ui/LICENSE.

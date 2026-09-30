@@ -27,3 +27,10 @@ incomplete rows, capping row count, prepending a row-name column).
 Note it drops rows with any \code{NA} via \code{\link[stats:na.omit]{stats::na.omit()}} and overwrites a
 column literally named \code{name} when \code{add_name = TRUE}.
 }
+\examples{
+cfg <- el_table_config(head(iris, 3))
+str(cfg$columns, max.level = 2)
+
+# Cap the rows and leave out the row-name column
+el_table_config(iris, max_rows = 5, add_name = FALSE)
+}

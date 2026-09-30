@@ -17,6 +17,7 @@
 #' @param debounce Debounce delay for filter
 #' @param icon Icon for the cascader (shiny.tag or NULL)
 #' @param session Shiny session for module support
+#' @return A Shiny UI element.
 #' @export
 #' @examples
 #' # Basic cascader usage
@@ -157,6 +158,14 @@ elementId = ns_id, width = 0, height = 0,
 #' @param clearable Whether clearable
 #' @param filterable Whether filterable
 #' @param disabled Whether disabled
+#' @return Called for its side effect; returns `NULL` invisibly.
+#' @examples
+#' if (interactive()) {
+#'   # inside a server function
+#'   observeEvent(input$go, {
+#'     update_el_cascader(session, "region", value = list("zj", "hz"))
+#'   })
+#' }
 #' @export
 update_el_cascader <- function(session, id,
                                options = NULL,
@@ -175,6 +184,7 @@ update_el_cascader <- function(session, id,
   if (!is.null(disabled)) message$disabled <- disabled
 
   session$sendCustomMessage('updateElCascader', message)
+  invisible(NULL)
 }
 
 #' Convert a data.frame with custom value/label columns to Element-UI Cascader options list
@@ -183,6 +193,18 @@ update_el_cascader <- function(session, id,
 #' @param value_cols Character vector of value column names (e.g. c("value1", "value2", ...))
 #' @param label_cols Character vector of label column names (e.g. c("label1", "label2", ...)), can be NULL or contain NA for levels without label
 #' @return Nested list for cascader options
+#' @examples
+#' df <- data.frame(
+#'   province = c("Zhejiang", "Zhejiang", "Jiangsu"),
+#'   city     = c("Hangzhou", "Ningbo", "Nanjing"),
+#'   stringsAsFactors = FALSE
+#' )
+#' df_to_cascader_options(df, c("province", "city"))
+#'
+#' # Separate value and label columns
+#' df$province_label <- paste(df$province, "Province")
+#' df_to_cascader_options(df, c("province", "city"),
+#'                        c("province_label", NA))
 #' @export
 df_to_cascader_options <- function(df, value_cols, label_cols = NULL) {
   n <- length(value_cols)

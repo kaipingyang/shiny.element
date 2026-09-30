@@ -29,3 +29,11 @@ Called for its side effect; returns \code{NULL} invisibly.
 \description{
 Update an Element UI Carousel
 }
+\examples{
+if (interactive()) {
+  # inside a server function
+  observeEvent(input$go, {
+    update_el_carousel(session, "banner", active = 2)
+  })
+}
+}

@@ -1,6 +1,6 @@
 Package: shiny.element
 Title: Element UI (Vue2) Integration Helpers for Shiny via vueR
-Version: 0.0.0.9000
+Version: 0.1.0
 Authors@R: c(
     person("Kaiping Yang", role = c("aut", "cre"), email = "1260146556@qq.com"),
     person("ElemeFE", role = c("ctb", "cph"),

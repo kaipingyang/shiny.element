@@ -122,6 +122,14 @@ elementId = ns_id, width = 0, height = 0,
 #' @param min New minimum checked count.
 #' @param max New maximum checked count.
 #'
+#' @return Called for its side effect; returns `NULL` invisibly.
+#' @examples
+#' if (interactive()) {
+#'   # inside a server function
+#'   observeEvent(input$go, {
+#'     update_el_checkbox_group(session, "langs", value = c("r", "py"))
+#'   })
+#' }
 #' @export
 update_el_checkbox_group <- function(
     session,
@@ -140,6 +148,7 @@ update_el_checkbox_group <- function(
   if (!is.null(min))      msg$min      <- min
   if (!is.null(max))      msg$max      <- max
   session$sendCustomMessage("updateElCheckboxGroup", msg)
+  invisible(NULL)
 }
 
 

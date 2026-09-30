@@ -20,3 +20,11 @@ Called for its side effect; returns \code{NULL} invisibly.
 \description{
 Server-side update for \code{\link[=el_collapse]{el_collapse()}}.
 }
+\examples{
+if (interactive()) {
+  # inside a server function
+  observeEvent(input$go, {
+    update_el_collapse(session, "panels", value = "filters")
+  })
+}
+}

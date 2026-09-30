@@ -98,6 +98,14 @@ elementId = ns_id, width = 0, height = 0,
 #' @param type New alert type.
 #' @param description New description text. Use `NULL` to leave unchanged.
 #'
+#' @return Called for its side effect; returns `NULL` invisibly.
+#' @examples
+#' if (interactive()) {
+#'   # inside a server function
+#'   observeEvent(input$go, {
+#'     update_el_alert(session, "hint", title = "Saved", type = "success")
+#'   })
+#' }
 #' @export
 update_el_alert <- function(session, id, title = NULL, type = NULL,
                             description = NULL) {
@@ -107,6 +115,7 @@ update_el_alert <- function(session, id, title = NULL, type = NULL,
   if (!is.null(type))        msg$type        <- type
   if (!is.null(description)) msg$description <- description
   session$sendCustomMessage("updateElAlert", msg)
+  invisible(NULL)
 }
 
 

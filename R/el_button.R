@@ -134,6 +134,14 @@ elementId = ns_id, width = 0, height = 0,
 #' @param loading New loading state.
 #' @param disabled New disabled state.
 #'
+#' @return Called for its side effect; returns `NULL` invisibly.
+#' @examples
+#' if (interactive()) {
+#'   # inside a server function
+#'   observeEvent(input$go, {
+#'     update_el_button(session, "save", loading = TRUE)
+#'   })
+#' }
 #' @export
 update_el_button <- function(
     session,
@@ -156,4 +164,5 @@ update_el_button <- function(
   if (!is.null(loading))  msg$loading  <- loading
   if (!is.null(disabled)) msg$disabled <- disabled
   session$sendCustomMessage("updateElButton", msg)
+  invisible(NULL)
 }

@@ -18,3 +18,11 @@ Called for its side effect; returns \code{NULL} invisibly.
 Empties the list of chosen files, as you would after a form is submitted.
 It does not undo an upload that has already happened.
 }
+\examples{
+if (interactive()) {
+  # inside a server function
+  observeEvent(input$go, {
+    el_upload_clear(session, "files")
+  })
+}
+}

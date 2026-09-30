@@ -26,6 +26,17 @@ update_el_input_number(
 
 \item{disabled}{New disabled state.}
 }
+\value{
+Called for its side effect; returns \code{NULL} invisibly.
+}
 \description{
 Server-side update for \code{\link[=el_input_number]{el_input_number()}}.
+}
+\examples{
+if (interactive()) {
+  # inside a server function
+  observeEvent(input$go, {
+    update_el_input_number(session, "age", value = 42)
+  })
+}
 }

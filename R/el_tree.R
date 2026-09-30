@@ -156,6 +156,13 @@ el_tree <- function(id = NULL,
 #' @param checked Keys to check, replacing the current selection entirely.
 #'   Pass `list()` to clear it.
 #' @return Called for its side effect; returns `NULL` invisibly.
+#' @examples
+#' if (interactive()) {
+#'   # inside a server function
+#'   observeEvent(input$go, {
+#'     update_el_tree(session, "picker", checked = c("apple"))
+#'   })
+#' }
 #' @export
 update_el_tree <- function(session, id,
                            data = NULL,

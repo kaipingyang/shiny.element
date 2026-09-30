@@ -144,6 +144,13 @@ el_tabs <- function(
 #' @param selected Name of the tab to select.
 #'
 #' @return Called for its side effect; returns `NULL` invisibly.
+#' @examples
+#' if (interactive()) {
+#'   # inside a server function
+#'   observeEvent(input$go, {
+#'     update_el_tabs(session, "section", selected = "data")
+#'   })
+#' }
 #' @export
 update_el_tabs <- function(session, id, selected = NULL) {
   msg <- list()

@@ -23,6 +23,9 @@ el_calendar(
 
 \item{session}{Shiny session for module support}
 }
+\value{
+A Shiny UI element.
+}
 \description{
 Create a calendar widget for Shiny using Element UI.
 }

@@ -19,3 +19,11 @@ Called for its side effect; returns \code{NULL} invisibly.
 \description{
 Server-side update for \code{\link[=el_tabs]{el_tabs()}}.
 }
+\examples{
+if (interactive()) {
+  # inside a server function
+  observeEvent(input$go, {
+    update_el_tabs(session, "section", selected = "data")
+  })
+}
+}

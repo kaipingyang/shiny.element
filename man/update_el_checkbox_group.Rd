@@ -29,7 +29,18 @@ update_el_checkbox_group(
 
 \item{max}{New maximum checked count.}
 }
+\value{
+Called for its side effect; returns \code{NULL} invisibly.
+}
 \description{
 Server-side update for \code{\link[=el_checkbox_group]{el_checkbox_group()}}. Pass only the fields to change;
 \code{NULL} fields are excluded from the update message.
+}
+\examples{
+if (interactive()) {
+  # inside a server function
+  observeEvent(input$go, {
+    update_el_checkbox_group(session, "langs", value = c("r", "py"))
+  })
+}
 }

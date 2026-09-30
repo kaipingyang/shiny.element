@@ -19,3 +19,11 @@ Runs the form's rules and reports the outcome the same way a submit does,
 so the same \code{observeEvent} handles both. Use it when the form has no submit
 button of its own (\code{submit_label = NULL}).
 }
+\examples{
+if (interactive()) {
+  # inside a server function
+  observeEvent(input$go, {
+    el_form_validate(session, "signup")
+  })
+}
+}

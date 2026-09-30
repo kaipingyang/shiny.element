@@ -38,7 +38,18 @@ update_el_input(
 
 \item{show_password}{New show-password toggle state.}
 }
+\value{
+Called for its side effect; returns \code{NULL} invisibly.
+}
 \description{
 Server-side update for \code{\link[=el_input]{el_input()}}. Sends a custom message to update
 named fields on the Vue instance.
+}
+\examples{
+if (interactive()) {
+  # inside a server function
+  observeEvent(input$go, {
+    update_el_input(session, "name", value = "Ada")
+  })
+}
 }

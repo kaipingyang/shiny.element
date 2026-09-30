@@ -121,6 +121,14 @@ elementId = ns_id, width = 0, height = 0,
 #' @param max New maximum.
 #' @param disabled New disabled state.
 #'
+#' @return Called for its side effect; returns `NULL` invisibly.
+#' @examples
+#' if (interactive()) {
+#'   # inside a server function
+#'   observeEvent(input$go, {
+#'     update_el_input_number(session, "age", value = 42)
+#'   })
+#' }
 #' @export
 update_el_input_number <- function(session, id, value = NULL, min = NULL,
                                    max = NULL, disabled = NULL) {
@@ -131,6 +139,7 @@ update_el_input_number <- function(session, id, value = NULL, min = NULL,
   if (!is.null(max))      msg$max      <- max
   if (!is.null(disabled)) msg$disabled <- disabled
   session$sendCustomMessage("updateElInputNumber", msg)
+  invisible(NULL)
 }
 
 

@@ -23,6 +23,17 @@ update_el_steps(
 
 \item{finish_status}{New finish status}
 }
+\value{
+Called for its side effect; returns \code{NULL} invisibly.
+}
 \description{
 Update Element UI Steps
+}
+\examples{
+if (interactive()) {
+  # inside a server function
+  observeEvent(input$go, {
+    update_el_steps(session, "wizard", active = 2)
+  })
+}
 }

@@ -15,6 +15,17 @@ update_el_rate(session, id, value = NULL, disabled = NULL)
 
 \item{disabled}{New disabled state.}
 }
+\value{
+Called for its side effect; returns \code{NULL} invisibly.
+}
 \description{
 Server-side update for \code{\link[=el_rate]{el_rate()}}.
+}
+\examples{
+if (interactive()) {
+  # inside a server function
+  observeEvent(input$go, {
+    update_el_rate(session, "stars", value = 5)
+  })
+}
 }

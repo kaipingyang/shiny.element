@@ -32,7 +32,18 @@ update_el_switch(
 
 \item{inactive_color}{New inactive background color.}
 }
+\value{
+Called for its side effect; returns \code{NULL} invisibly.
+}
 \description{
 Server-side update for \code{\link[=el_switch]{el_switch()}}. Pass only the fields to change;
 \code{NULL} fields are excluded from the update message.
+}
+\examples{
+if (interactive()) {
+  # inside a server function
+  observeEvent(input$go, {
+    update_el_switch(session, "live", value = TRUE)
+  })
+}
 }

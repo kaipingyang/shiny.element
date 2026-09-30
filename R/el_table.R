@@ -227,6 +227,13 @@ elementId = ns_id, width = 0, height = 0,
 #' @param border New border state.
 #' @param selection New row-selection state.
 #' @return Called for its side effect; returns `NULL` invisibly.
+#' @examples
+#' if (interactive()) {
+#'   # inside a server function
+#'   observeEvent(input$go, {
+#'     update_el_table(session, "tbl", data = head(mtcars, 10))
+#'   })
+#' }
 #' @export
 update_el_table <- function(session, id,
                             data = NULL,
@@ -269,6 +276,13 @@ update_el_table <- function(session, id,
 #'
 #' Note it drops rows with any `NA` via [stats::na.omit()] and overwrites a
 #' column literally named `name` when `add_name = TRUE`.
+#'
+#' @examples
+#' cfg <- el_table_config(head(iris, 3))
+#' str(cfg$columns, max.level = 2)
+#'
+#' # Cap the rows and leave out the row-name column
+#' el_table_config(iris, max_rows = 5, add_name = FALSE)
 #' @export
 el_table_config <- function(df, max_rows = NULL, add_name = TRUE) {
   if (!is.null(max_rows)) {

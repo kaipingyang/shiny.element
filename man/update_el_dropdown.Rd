@@ -13,6 +13,17 @@ update_el_dropdown(session, id, disabled = NULL)
 
 \item{disabled}{New disabled state.}
 }
+\value{
+Called for its side effect; returns \code{NULL} invisibly.
+}
 \description{
 Server-side update for \code{\link[=el_dropdown]{el_dropdown()}}.
+}
+\examples{
+if (interactive()) {
+  # inside a server function
+  observeEvent(input$go, {
+    update_el_dropdown(session, "actions", disabled = TRUE)
+  })
+}
 }

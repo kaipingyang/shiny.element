@@ -6,6 +6,9 @@
 \usage{
 el
 }
+\value{
+A named list of tag-generating functions, one per Element UI tag.
+}
 \description{
 Provides a list of functions for generating Element UI tags (el-*), similar to \code{tags$p}.
 These functions do not create Vue instances or Shiny bindings.

@@ -147,12 +147,21 @@ elementId = ns_id, width = 0, height = 0,
 #' @param id Dropdown ID (un-namespaced).
 #' @param disabled New disabled state.
 #'
+#' @return Called for its side effect; returns `NULL` invisibly.
+#' @examples
+#' if (interactive()) {
+#'   # inside a server function
+#'   observeEvent(input$go, {
+#'     update_el_dropdown(session, "actions", disabled = TRUE)
+#'   })
+#' }
 #' @export
 update_el_dropdown <- function(session, id, disabled = NULL) {
   ns_id <- session$ns(id)
   msg   <- list(id = ns_id)
   if (!is.null(disabled)) msg$disabled <- disabled
   session$sendCustomMessage("updateElDropdown", msg)
+  invisible(NULL)
 }
 
 

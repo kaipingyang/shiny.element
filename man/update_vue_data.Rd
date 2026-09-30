@@ -13,6 +13,9 @@ update_vue_data(session, id, data)
 
 \item{data}{Named list representing the full Vue data object}
 }
+\value{
+Called for its side effect; returns \code{NULL} invisibly.
+}
 \description{
 Update the entire data object of a Vue component instance by id (namespaced)
 }

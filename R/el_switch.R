@@ -117,6 +117,14 @@ elementId = ns_id, width = 0, height = 0,
 #' @param active_color New active background color.
 #' @param inactive_color New inactive background color.
 #'
+#' @return Called for its side effect; returns `NULL` invisibly.
+#' @examples
+#' if (interactive()) {
+#'   # inside a server function
+#'   observeEvent(input$go, {
+#'     update_el_switch(session, "live", value = TRUE)
+#'   })
+#' }
 #' @export
 update_el_switch <- function(
     session,
@@ -137,6 +145,7 @@ update_el_switch <- function(
   if (!is.null(active_color))  msg$activeColor   <- active_color
   if (!is.null(inactive_color)) msg$inactiveColor <- inactive_color
   session$sendCustomMessage("updateElSwitch", msg)
+  invisible(NULL)
 }
 
 

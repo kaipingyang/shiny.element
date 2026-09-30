@@ -154,6 +154,13 @@ el_menu <- function(id = NULL,
 #' @param active Index of the item to select.
 #' @param collapse New collapsed state.
 #' @return Called for its side effect; returns `NULL` invisibly.
+#' @examples
+#' if (interactive()) {
+#'   # inside a server function
+#'   observeEvent(input$go, {
+#'     update_el_menu(session, "nav", active = "data")
+#'   })
+#' }
 #' @export
 update_el_menu <- function(session, id, active = NULL, collapse = NULL) {
   msg <- list(id = session$ns(id))

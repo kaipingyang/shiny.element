@@ -26,3 +26,11 @@ Called for its side effect; returns \code{NULL} invisibly.
 \description{
 Update an Element UI Tree
 }
+\examples{
+if (interactive()) {
+  # inside a server function
+  observeEvent(input$go, {
+    update_el_tree(session, "picker", checked = c("apple"))
+  })
+}
+}

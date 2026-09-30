@@ -92,6 +92,14 @@ elementId = ns_id, width = 0, height = 0,
 #' @param value New colour string.
 #' @param disabled New disabled state.
 #'
+#' @return Called for its side effect; returns `NULL` invisibly.
+#' @examples
+#' if (interactive()) {
+#'   # inside a server function
+#'   observeEvent(input$go, {
+#'     update_el_color_picker(session, "shade", value = "#67C23A")
+#'   })
+#' }
 #' @export
 update_el_color_picker <- function(session, id, value = NULL, disabled = NULL) {
   ns_id <- session$ns(id)
@@ -99,6 +107,7 @@ update_el_color_picker <- function(session, id, value = NULL, disabled = NULL) {
   if (!is.null(value))    msg$value    <- value
   if (!is.null(disabled)) msg$disabled <- disabled
   session$sendCustomMessage("updateElColorPicker", msg)
+  invisible(NULL)
 }
 
 

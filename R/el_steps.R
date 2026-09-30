@@ -10,6 +10,7 @@
 #' @param align_center Center align title and description  
 #' @param simple Apply simple style  
 #' @param session Shiny session for module support  
+#' @return A Shiny UI element.
 #' @export  
 #' @examples  
 #' # Basic usage  
@@ -116,6 +117,14 @@ elementId = ns_id, width = 0, height = 0,
 #' @param active New active step index  
 #' @param process_status New process status  
 #' @param finish_status New finish status  
+#' @return Called for its side effect; returns `NULL` invisibly.
+#' @examples
+#' if (interactive()) {
+#'   # inside a server function
+#'   observeEvent(input$go, {
+#'     update_el_steps(session, "wizard", active = 2)
+#'   })
+#' }
 #' @export  
 update_el_steps <- function(session, id,   
                             active = NULL,  
@@ -127,5 +136,6 @@ update_el_steps <- function(session, id,
   if (!is.null(process_status)) message$processStatus <- process_status  
   if (!is.null(finish_status)) message$finishStatus <- finish_status  
     
-  session$sendCustomMessage('updateElSteps', message)  
+  session$sendCustomMessage('updateElSteps', message)
+  invisible(NULL)
 }  

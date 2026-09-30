@@ -23,6 +23,17 @@ update_el_calendar(
 
 \item{first_day_of_week}{New first day of week (1~7)}
 }
+\value{
+Called for its side effect; returns \code{NULL} invisibly.
+}
 \description{
 Send a message to update the calendar value, range, first day of week, or slot.
+}
+\examples{
+if (interactive()) {
+  # inside a server function
+  observeEvent(input$go, {
+    update_el_calendar(session, "cal", value = "2026-06-01")
+  })
+}
 }

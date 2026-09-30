@@ -35,7 +35,18 @@ update_el_button(
 
 \item{disabled}{New disabled state.}
 }
+\value{
+Called for its side effect; returns \code{NULL} invisibly.
+}
 \description{
 Server-side update for \code{\link[=el_button]{el_button()}}. Supports all visual states including
 \code{size}, \code{plain}, \code{round}, and \code{loading}.
+}
+\examples{
+if (interactive()) {
+  # inside a server function
+  observeEvent(input$go, {
+    update_el_button(session, "save", loading = TRUE)
+  })
+}
 }

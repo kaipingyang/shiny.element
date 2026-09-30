@@ -171,6 +171,14 @@ elementId = ns_id, width = 0, height = 0,
 #' @param readonly New readonly state.
 #' @param placeholder New placeholder text (non-range types).
 #'
+#' @return Called for its side effect; returns `NULL` invisibly.
+#' @examples
+#' if (interactive()) {
+#'   # inside a server function
+#'   observeEvent(input$go, {
+#'     update_el_date_picker(session, "when", value = "2026-06-01")
+#'   })
+#' }
 #' @export
 update_el_date_picker <- function(
     session,
@@ -191,6 +199,7 @@ update_el_date_picker <- function(
   if (!is.null(readonly))    msg$readonly    <- readonly
   if (!is.null(placeholder)) msg$placeholder <- placeholder
   session$sendCustomMessage("updateElDatePicker", msg)
+  invisible(NULL)
 }
 
 

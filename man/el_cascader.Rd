@@ -53,6 +53,9 @@ el_cascader(
 
 \item{session}{Shiny session for module support}
 }
+\value{
+A Shiny UI element.
+}
 \description{
 Create a cascader (multi-level dropdown) input for Shiny using Element UI.
 }

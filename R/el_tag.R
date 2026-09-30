@@ -105,6 +105,14 @@ elementId = ns_id, width = 0, height = 0,
 #' @param type New colour type.
 #' @param closable New closable state.
 #'
+#' @return Called for its side effect; returns `NULL` invisibly.
+#' @examples
+#' if (interactive()) {
+#'   # inside a server function
+#'   observeEvent(input$go, {
+#'     update_el_tag(session, "status", label = "done", type = "success")
+#'   })
+#' }
 #' @export
 update_el_tag <- function(session, id, label = NULL, type = NULL,
                           closable = NULL) {
@@ -114,6 +122,7 @@ update_el_tag <- function(session, id, label = NULL, type = NULL,
   if (!is.null(type))     msg$type     <- type
   if (!is.null(closable)) msg$closable <- closable
   session$sendCustomMessage("updateElTag", msg)
+  invisible(NULL)
 }
 
 

@@ -28,6 +28,9 @@ Default \code{3000}.}
 
 \item{center}{Whether to centre the message text. Default \code{FALSE}.}
 }
+\value{
+A Shiny UI element.
+}
 \description{
 Server-side function to show a top-centre message toast.
 Requires \code{use_element()} or \code{el_page()} in the UI to load the JS handler.

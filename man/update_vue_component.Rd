@@ -13,6 +13,9 @@ update_vue_component(session, id, ...)
 
 \item{...}{Named fields and values to update}
 }
+\value{
+Called for its side effect; returns \code{NULL} invisibly.
+}
 \description{
 Update one or more fields of a Vue component instance by id (namespaced)
 }

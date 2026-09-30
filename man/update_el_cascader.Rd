@@ -32,6 +32,17 @@ update_el_cascader(
 
 \item{disabled}{Whether disabled}
 }
+\value{
+Called for its side effect; returns \code{NULL} invisibly.
+}
 \description{
 Update Element UI Cascader
+}
+\examples{
+if (interactive()) {
+  # inside a server function
+  observeEvent(input$go, {
+    update_el_cascader(session, "region", value = list("zj", "hz"))
+  })
+}
 }

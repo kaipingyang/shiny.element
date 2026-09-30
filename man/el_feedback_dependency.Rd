@@ -6,7 +6,13 @@
 \usage{
 el_feedback_dependency()
 }
+\value{
+An htmlDependency object.
+}
 \description{
 Loads the JavaScript handlers for \code{\link[=el_notification]{el_notification()}} and \code{\link[=el_message]{el_message()}}.
 Automatically included by \code{\link[=use_element]{use_element()}} and \code{\link[=el_page]{el_page()}}.
+}
+\examples{
+el_feedback_dependency()
 }

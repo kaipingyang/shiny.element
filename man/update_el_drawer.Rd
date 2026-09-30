@@ -23,3 +23,11 @@ Called for its side effect; returns \code{NULL} invisibly.
 \description{
 Server-side update for \code{\link[=el_drawer]{el_drawer()}}.
 }
+\examples{
+if (interactive()) {
+  # inside a server function
+  observeEvent(input$go, {
+    update_el_drawer(session, "settings", visible = TRUE)
+  })
+}
+}

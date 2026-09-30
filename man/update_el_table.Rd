@@ -32,3 +32,11 @@ Called for its side effect; returns \code{NULL} invisibly.
 \description{
 Update Element UI Table
 }
+\examples{
+if (interactive()) {
+  # inside a server function
+  observeEvent(input$go, {
+    update_el_table(session, "tbl", data = head(mtcars, 10))
+  })
+}
+}
