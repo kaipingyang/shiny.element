@@ -10,6 +10,8 @@ el_tree(
   node_key = "id",
   label_field = "label",
   children_field = "children",
+  disabled_field = "disabled",
+  is_leaf_field = "isLeaf",
   show_checkbox = FALSE,
   check_strictly = FALSE,
   default_expand_all = FALSE,
@@ -49,6 +51,12 @@ server sees and what \code{expanded} and \code{checked} refer to.}
 
 \item{label_field, children_field}{Fields holding a node's label and its
 children.}
+
+\item{disabled_field}{Field marking a node disabled. Default \code{"disabled"}.}
+
+\item{is_leaf_field}{Field marking a node as a leaf, so lazy loading knows
+not to ask it for children. Default \code{"isLeaf"}. Element replaces its
+whole field map at once, so all four are sent together.}
 
 \item{show_checkbox}{Show a checkbox beside every node.}
 

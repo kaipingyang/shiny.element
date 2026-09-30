@@ -1,4 +1,20 @@
 # 工具函数示例
+#' Turn a snake_case name into camelCase
+#'
+#' Arguments are snake_case throughout this package, while Vue reads its props
+#' in camelCase. Where a user writes the name themselves -- a key in a column
+#' definition, say -- both spellings have to work, or the snake_case one sits
+#' in the object doing nothing.
+#'
+#' @param x A name.
+#' @return The same name in camelCase.
+#' @keywords internal
+.el_camel_case <- function(x) {
+  parts <- strsplit(x, "_", fixed = TRUE)[[1]]
+  paste0(parts[1], paste0(toupper(substring(parts[-1], 1, 1)),
+                          substring(parts[-1], 2), collapse = ""))
+}
+
 #' Forward Element UI events to Shiny inputs
 #'
 #' Element's events carry different arguments each, some of them DOM nodes or

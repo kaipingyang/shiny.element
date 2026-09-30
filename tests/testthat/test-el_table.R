@@ -249,3 +249,34 @@ test_that("el_table: columns given as something other than a list is caught", {
   expect_error(el_table("tbl", data = data.frame(a = 1), columns = "oops"),
                "must be a list of column definitions")
 })
+
+# ── column props in either spelling ───────────────────────────────────────────
+
+test_that("a column prop written in snake_case reaches the template", {
+  # The template reads col.showOverflowTooltip, so a key left as
+  # show_overflow_tooltip would sit in the object and never be looked at --
+  # the column would render with the prop silently doing nothing.
+  cols <- .el_table_sanitize_columns(list(
+    list(prop = "a", label = "A", show_overflow_tooltip = TRUE,
+         min_width = "100", sort_by = "b")
+  ))
+  expect_named(cols[[1]],
+               c("prop", "label", "showOverflowTooltip", "minWidth", "sortBy"))
+  expect_true(cols[[1]]$showOverflowTooltip)
+})
+
+test_that("camelCase column props are left as they are", {
+  cols <- .el_table_sanitize_columns(list(
+    list(prop = "a", showOverflowTooltip = TRUE, minWidth = "100")
+  ))
+  expect_true(cols[[1]]$showOverflowTooltip)
+  expect_equal(cols[[1]]$minWidth, "100")
+})
+
+test_that("header_html keeps its own spelling rule", {
+  cols <- .el_table_sanitize_columns(list(
+    list(prop = "a", header_html = "<b>A</b>")
+  ))
+  expect_equal(cols[[1]]$headerHtml, "<b>A</b>")
+  expect_null(cols[[1]]$header_html)
+})

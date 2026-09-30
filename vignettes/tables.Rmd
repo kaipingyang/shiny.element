@@ -1,0 +1,174 @@
+---
+title: "Tables"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Tables}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+`el_table()` is the largest component here, and the one whose Element API is
+worth knowing. It takes a data.frame directly.
+
+```r
+el_table("iris", data = head(iris, 10))
+```
+
+Column names with a dot are sanitised on the way in -- `Sepal.Length` becomes
+`Sepal_Length` -- because Element reads a dotted `prop` as a path into a
+nested object.
+
+## Columns
+
+Without `columns`, one is inferred per data.frame column. Passing them lets
+each carry its own props, which is how Element models them:
+
+```r
+el_table("iris",
+  data = head(iris, 10),
+  columns = list(
+    list(prop = "Species", label = "Species", width = "120", fixed = "left"),
+    list(prop = "Sepal_Length", label = "Length", sortable = TRUE,
+         align = "right"),
+    list(prop = "Petal_Width", label = "Width", sortable = TRUE,
+         show_overflow_tooltip = TRUE)
+  ))
+```
+
+Every column attribute Element documents is accepted: `align`,
+`header_align`, `class_name`, `min_width`, `fixed`, `resizable`, `sortable`,
+`sort_by`, `sort_orders`, `show_overflow_tooltip`, `filters`,
+`filtered_value`, `filter_multiple`, `filter_placement`, `reserve_selection`,
+`index`, and the ones taking a function below.
+
+`el_table_config()` derives both halves from a data.frame when you want to
+adjust them:
+
+```r
+cfg <- el_table_config(iris, max_rows = 20)
+cfg$columns[[1]]$sortable <- TRUE
+el_table("iris", data = cfg$data, columns = cfg$columns)
+```
+
+## Formatting a cell
+
+`formatter` is a JavaScript function, given the row, the column, the cell
+value and its index:
+
+```r
+el_table("sales",
+  data = sales,
+  columns = list(
+    list(prop = "amount", label = "Amount", formatter = htmlwidgets::JS(
+      "function(row, col, value) { return '$' + value.toFixed(2); }"
+    ))
+  ))
+```
+
+Formatting in R first is usually simpler, and avoids sending the raw number at
+all. Reach for `formatter` when the display depends on something only the
+browser knows, such as the viewport.
+
+A column can also render its own header:
+
+```r
+list(prop = "amount", label = "Amount", header_html = "<b>Amount</b> (USD)")
+```
+
+which is inserted as markup, so pass only what you control.
+
+## Selection
+
+`selection = TRUE` adds a checkbox column and reports two inputs:
+
+```r
+el_table("iris", data = head(iris, 10), selection = TRUE)
+
+observeEvent(input$iris_selected_rows, {
+  chosen <- head(iris, 10)[input$iris_selected_rows, ]
+})
+```
+
+Use `input$<id>_selected_rows`, the 1-based row numbers, rather than
+`input$<id>_selected`, the row objects: a row with mixed column types is
+simplified to a character vector on the way back through JSON, so numbers
+arrive as strings.
+
+For single selection, `highlight_current_row = TRUE` with
+`input$<id>_current_change`.
+
+## Row events
+
+Every Element table event is forwarded. The useful ones:
+
+```r
+observeEvent(input$iris_row_click, { ... })       # row, column
+observeEvent(input$iris_sort_change, { ... })     # column, prop, order
+observeEvent(input$iris_filter_change, { ... })
+observeEvent(input$iris_current_change, { ... })  # needs highlight_current_row
+```
+
+They are event inputs, so read them with `observeEvent()` rather than polling.
+
+## A fixed header
+
+`height` fixes the header and scrolls the body; `max_height` does the same
+once the content exceeds it:
+
+```r
+el_table("iris", data = iris, height = "400px")
+```
+
+Without one of them the table grows to fit and the page scrolls instead.
+
+## Updating
+
+```r
+update_el_table(session, "iris", data = filtered())
+update_el_table(session, "iris", columns = new_columns)
+```
+
+Methods need `el_call()`:
+
+```r
+el_call(session, "iris", "clearSelection")
+el_call(session, "iris", "toggleRowSelection", args = list(row, TRUE))
+el_call(session, "iris", "clearSort")
+el_call(session, "iris", "doLayout")     # after the table becomes visible
+```
+
+`doLayout()` is the one to remember: a table rendered inside a hidden tab or
+collapse measures its columns as zero, and stays that way until told to
+measure again.
+
+## Server-side paging
+
+There is no `server = TRUE` as in DT. Pair the table with `el_pagination()`
+and send a page at a time:
+
+```r
+ui <- el_page(
+  el_table("rows", data = page_of(1)),
+  el_pagination("pager", total = nrow(big_data), page_size = 20)
+)
+
+server <- function(input, output, session) {
+  observeEvent(input$pager, {
+    update_el_table(session, "rows", data = page_of(input$pager))
+  })
+}
+```
+
+## Tree data
+
+Rows can nest, keyed by `row_key`:
+
+```r
+el_table("org",
+  data = org_rows,            # each row may carry a `children` list
+  row_key = "id",
+  tree_props = list(children = "children", hasChildren = "hasChildren"))
+```
+
+With `lazy = TRUE` and a `load` function, children are fetched as they are
+expanded.

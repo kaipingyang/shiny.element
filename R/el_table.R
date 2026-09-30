@@ -60,7 +60,14 @@
   }
   lapply(columns, function(col) {
     if (!is.null(col$prop)) col$prop <- gsub("\\.", "_", col$prop)
-    # Accept snake_case for the header slot, as elsewhere in the package
+    # The template reads each prop off the column object in camelCase, so a
+    # snake_case key would be there but never looked at -- silently doing
+    # nothing. Accept both, as the rest of the package does.
+    snake <- grep("_", names(col), value = TRUE)
+    for (key in setdiff(snake, "header_html")) {
+      col[[.el_camel_case(key)]] <- col[[key]]
+      col[[key]] <- NULL
+    }
     if (!is.null(col$header_html)) {
       col$headerHtml <- col$header_html
       col$header_html <- NULL

@@ -210,7 +210,39 @@ demos <- list(
   icon = 'tags$div(style = "font-size:22px; display:flex; gap:18px",
     tags$i(class = "el-icon-edit"), tags$i(class = "el-icon-share"),
     tags$i(class = "el-icon-delete"), tags$i(class = "el-icon-search"),
-    tags$i(class = "el-icon-star-on"), tags$i(class = "el-icon-upload"))'
+    tags$i(class = "el-icon-star-on"), tags$i(class = "el-icon-upload"))',
+
+  # ---- components added after the first release ----
+
+  avatar = 'tagList(
+    el_avatar(ID("a"), icon = "el-icon-user-solid"),
+    tags$span(style = "display:inline-block; width:16px"),
+    el_avatar(ID("b"), content = "KY", shape = "square"),
+    tags$span(style = "display:inline-block; width:16px"),
+    el_avatar(ID("c"), content = "40", size = 40))',
+
+  breadcrumb = 'el_breadcrumb(ID("a"), items = list(
+    list(label = "Home"), list(label = "Reports"), list(label = "March")))',
+
+  page_header = 'el_page_header(ID("a"), title = "All reports",
+                                content = "Sales for March")',
+
+  image = 'el_image(ID("a"), width = 160, fit = "cover",
+                    src = "https://shadow.elemecdn.com/app/element/hamburger.9cf7b091-55e9-11e9-a976-7f4d0b07eef6.png")',
+
+  autocomplete = 'el_autocomplete(ID("a"), width = 240, placeholder = "Where to?",
+                                  suggestions = c("Beijing", "Shanghai", "Shenzhen"))',
+
+  transfer = 'el_transfer(ID("a"), width = 560,
+                          data = data.frame(key = names(iris), label = names(iris)),
+                          value = c("Species"), titles = c("Available", "Chosen"))',
+
+  backtop = 'tagList(
+    tags$p("A back-to-top button appears once the page is scrolled."),
+    el_backtop(ID("a"), visibility_height = 0))',
+
+  infinite_scroll = 'el_infinite_scroll(ID("a"), height = "150px", width = 320,
+    lapply(1:8, function(i) tags$p(paste("Row", i))))'
 )
 
 # Components that only exist while open are shown by opening them first.
@@ -221,15 +253,36 @@ opens <- list(
               content = tagList(el_input(ID("i"), value = "still connected"),
                                 el_rate(ID("r"), value = 3)),
               footer = el_button(ID("ok"), "OK", type = "primary")))',
-    js  = "document.querySelectorAll('#open_container button')[0].click()",
+    js  = "document.querySelector('[data-shot] button').click()",
     sel = ".el-dialog"
+  ),
+  tooltip = list(
+    ui  = 'el_tooltip(ID("a"), el$button(type = "primary", "Hover me"),
+                      content = "A hint about this button")',
+    js  = "(function(){var e=document.querySelector('[data-shot] button');
+            ['mouseenter','mouseover'].forEach(function(t){
+              e.dispatchEvent(new MouseEvent(t,{bubbles:true}));});})()",
+    sel = c("[data-shot]", ".el-tooltip__popper")
+  ),
+  popover = list(
+    ui  = 'el_popover(ID("a"), reference = el$button(type = "primary", "Details"),
+                      title = "March", content = "Revenue up 4% on February.",
+                      trigger = "click")',
+    js  = "document.querySelector('[data-shot] button').click()",
+    sel = c("[data-shot]", ".el-popover")
+  ),
+  popconfirm = list(
+    ui  = 'el_popconfirm(ID("a"), reference = el$button(type = "danger", "Delete"),
+                         title = "Delete this row?")',
+    js  = "document.querySelector('[data-shot] button').click()",
+    sel = c("[data-shot]", ".el-popover")
   ),
   drawer = list(
     ui  = 'tagList(el_button(ID("open"), "Open drawer", type = "primary"),
             el_drawer(ID("w"), title = "A drawer", size = "320px",
               content = tagList(el_switch(ID("s"), value = TRUE),
                                 tags$p("Drawers nest components too."))))',
-    js  = "document.querySelectorAll('#open_container button')[0].click()",
+    js  = "document.querySelector('[data-shot] button').click()",
     sel = ".el-drawer"
   )
 )
@@ -257,6 +310,21 @@ writeLines(c(
   "  tags$div(id = 'shot', lapply(names(specs), render_demo))))",
   "shinyApp(ui, function(input, output, session) {})"
 ), app_file)
+
+# Element appends an overlay to body, so the trigger and the thing it opened
+# are not in one element. chromote can capture several at once, which frames
+# both together.
+shot_many <- function(b, name, selectors) {
+  present <- Filter(function(sel) identical(b$Runtime$evaluate(sprintf(
+    "String(!!document.querySelector(%s))", shQuote(sel, type = "cmd")
+  ))$result$value, "true"), selectors)
+  if (!length(present)) { message("  missing: ", name); return(invisible(FALSE)) }
+
+  out <- file.path(OUTDIR, paste0("component-", gsub("_", "-", name), ".png"))
+  b$screenshot(out, selector = present, scale = 2)
+  message(sprintf("  %-16s %s", name, out))
+  invisible(TRUE)
+}
 
 shot_one <- function(b, name, selector) {
   exists <- b$Runtime$evaluate(sprintf(
@@ -318,8 +386,52 @@ run <- function(specs, opens) {
   b$close()
 }
 
+# One component, opened by its own bit of JS, then captured by selector. The
+# overlay Element creates is appended to body, so it is not inside the demo's
+# own box and has to be found on its own.
+run_open <- function(nm, spec) {
+  specs <- stats::setNames(list(spec$ui), nm)
+  spec_file <- tempfile(fileext = ".rds")
+  saveRDS(specs, spec_file)
+
+  proc <- callr::r_bg(function(app, port, spec) {
+    Sys.setenv(EL_SHOT_SPEC = spec)
+    shiny::runApp(app, host = "127.0.0.1", port = port, launch.browser = FALSE)
+  }, args = list(app = app_file, port = PORT, spec = spec_file),
+     stdout = "/tmp/elshots.log", stderr = "2>&1")
+  on.exit(proc$kill(), add = TRUE)
+
+  for (i in 1:90) {
+    Sys.sleep(1)
+    if (!proc$is_alive()) stop(paste(readLines("/tmp/elshots.log"), collapse = "\n"))
+    if (any(grepl("Listening", readLines("/tmp/elshots.log", warn = FALSE)))) break
+  }
+
+  b <- ChromoteSession$new(width = 1000, height = 700)
+  on.exit(try(b$parent$get_browser()$get_process()$kill(), silent = TRUE), add = TRUE)
+  b$Page$navigate(sprintf("http://127.0.0.1:%d/", PORT))
+  b$Page$loadEventFired()
+  Sys.sleep(8)
+
+  b$Runtime$evaluate(spec$js)
+  Sys.sleep(2)
+
+  shot_many(b, nm, spec$sel)
+  b$close()
+}
+
 dir.create(OUTDIR, showWarnings = FALSE, recursive = TRUE)
 if (length(demos)) {
   message("Static components:")
   run(demos, list())
+}
+
+# Components that exist only once opened are shot one app at a time: each
+# needs its own page so the overlay it creates is the only one on screen.
+if (length(opens)) {
+  message("Components that have to be opened first:")
+  for (nm in names(opens)) {
+    spec <- opens[[nm]]
+    run_open(nm, spec)
+  }
 }

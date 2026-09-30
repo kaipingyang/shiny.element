@@ -8,11 +8,23 @@ template:
 
 navbar:
   structure:
-    left: [intro, gallery, reference, news]
+    left: [intro, gallery, guides, reference, news]
   components:
     gallery:
       text: Components
       href: articles/components.html
+    guides:
+      text: Guides
+      menu:
+      - text: Forms
+        href: articles/forms.html
+      - text: Tables
+        href: articles/tables.html
+      - text: Navigation and feedback
+        href: articles/navigation.html
+      - text: -------
+      - text: What works, and what does not
+        href: articles/limitations.html
 
 reference:
   - title: Getting started

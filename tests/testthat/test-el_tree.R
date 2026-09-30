@@ -198,3 +198,47 @@ test_that("df_to_tree_data: factors are handled as their labels", {
   nodes <- df_to_tree_data(df, "g")
   expect_equal(vapply(nodes, function(n) n$label, character(1)), c("x", "y"))
 })
+
+# ── the field map ─────────────────────────────────────────────────────────────
+
+test_that("every field of Element's props map is settable", {
+  # Element replaces the whole map rather than merging, so each field has to
+  # be named here: leaving one out makes that feature stop working silently.
+  # isLeaf in particular tells lazy loading which nodes have no children.
+  ui <- el_tree("t", data = list(list(label = "A")))
+  props <- vue_data_of(ui)$treeProps
+  expect_named(props, c("label", "children", "disabled", "isLeaf"))
+})
+
+test_that("the field map follows the data's own names", {
+  ui <- el_tree("t", data = list(list(name = "A")),
+                label_field = "name", children_field = "kids",
+                disabled_field = "locked", is_leaf_field = "leaf")
+  props <- vue_data_of(ui)$treeProps
+  expect_equal(props$label, "name")
+  expect_equal(props$children, "kids")
+  expect_equal(props$disabled, "locked")
+  expect_equal(props$isLeaf, "leaf")
+})
+
+# ── the field map ─────────────────────────────────────────────────────────────
+
+test_that("every field of Element's props map is settable", {
+  # Element replaces the whole map rather than merging it, so each field has
+  # to be named: leaving one out makes that feature stop working silently.
+  # isLeaf in particular tells lazy loading which nodes have no children.
+  ui <- el_tree("t", data = list(list(label = "A")))
+  props <- vue_data_of(ui)$treeProps
+  expect_named(props, c("label", "children", "disabled", "isLeaf"))
+})
+
+test_that("the field map follows the data's own names", {
+  ui <- el_tree("t", data = list(list(name = "A")),
+                label_field = "name", children_field = "kids",
+                disabled_field = "locked", is_leaf_field = "leaf")
+  props <- vue_data_of(ui)$treeProps
+  expect_equal(props$label, "name")
+  expect_equal(props$children, "kids")
+  expect_equal(props$disabled, "locked")
+  expect_equal(props$isLeaf, "leaf")
+})
