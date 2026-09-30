@@ -1,4 +1,19 @@
 # 工具函数示例
+#' Placeholder for an unset optional prop
+#'
+#' A field left out of the Vue instance's `data` is not reactive, so
+#' `update_el_*()` can never set it later. Unset optional props are therefore
+#' declared as `NA`, which serialises to `null`, and read back through
+#' [.el_optional_bind()], which turns that `null` into `undefined` so Element
+#' applies its own default.
+#'
+#' @param x A value, or `NULL` when the user did not supply one.
+#' @return `x`, or `NA` when `x` is `NULL`.
+#' @keywords internal
+.el_or_na <- function(x) {
+  if (is.null(x)) NA else x
+}
+
 #' @keywords internal
 el_ns <- function(id, session = shiny::getDefaultReactiveDomain()) {
   if (!is.null(session)) session$ns(id) else id

@@ -112,9 +112,8 @@ el_date_picker <- function(
     "@change"          = "handleChange"
   )
   picker_attrs[[":placeholder"]] <- .el_optional_bind("placeholder")
-  if (!is.null(start_placeholder)) picker_attrs[[":start-placeholder"]] <- "startPlaceholder"
-  if (!is.null(end_placeholder))   picker_attrs[[":end-placeholder"]]   <- "endPlaceholder"
-
+  picker_attrs[[":start-placeholder"]] <- .el_optional_bind("startPlaceholder")
+  picker_attrs[[":end-placeholder"]] <- .el_optional_bind("endPlaceholder")
   # Vue data
   vue_data <- list(
     value          = init_value,
@@ -129,9 +128,8 @@ el_date_picker <- function(
     align          = align
   )
   vue_data$placeholder <- if (is.null(placeholder)) NA else placeholder
-  if (!is.null(start_placeholder)) vue_data$startPlaceholder  <- start_placeholder
-  if (!is.null(end_placeholder))   vue_data$endPlaceholder    <- end_placeholder
-
+  vue_data$startPlaceholder <- .el_or_na(start_placeholder)
+  vue_data$endPlaceholder <- .el_or_na(end_placeholder)
   component_ui <- shiny::tagList(
     shiny::tags$div(
       id = container_id, style = .el_host_style(),

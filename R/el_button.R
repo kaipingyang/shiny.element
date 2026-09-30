@@ -77,8 +77,7 @@ el_button <- function(
     ":native-type" = "native_type",
     "@click"       = "handleClick"
   )
-  if (!is.null(size)) btn_attrs[[":size"]] <- "size"
-
+  btn_attrs[[":size"]] <- .el_optional_bind("size")
   btn_content <- shiny::tagList(
     if (!is.null(icon) && inherits(icon, "shiny.tag")) icon,
     "{{label}}"

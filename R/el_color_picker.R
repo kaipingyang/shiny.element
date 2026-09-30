@@ -45,18 +45,17 @@ el_color_picker <- function(
     ":show-alpha"  = "showAlpha",
     "@change"      = "handleChange"
   )
-  if (!is.null(size))         cp_attrs[[":size"]]         <- "size"
-  if (!is.null(color_format)) cp_attrs[[":color-format"]] <- "colorFormat"
-  if (!is.null(predefine))    cp_attrs[[":predefine"]]    <- "predefine"
-
+  cp_attrs[[":size"]] <- .el_optional_bind("size")
+  cp_attrs[[":color-format"]] <- .el_optional_bind("colorFormat")
+  cp_attrs[[":predefine"]] <- .el_optional_bind("predefine")
   vue_data <- list(
     value      = value,
     disabled   = disabled,
     showAlpha  = show_alpha
   )
-  if (!is.null(size))         vue_data$size        <- size
-  if (!is.null(color_format)) vue_data$colorFormat <- color_format
-  if (!is.null(predefine))    vue_data$predefine   <- as.list(predefine)
+  vue_data$size <- .el_or_na(size)
+  vue_data$colorFormat <- .el_or_na(color_format)
+  vue_data$predefine <- if (is.null(predefine)) NA else as.list(predefine)
 
   component_ui <- shiny::tagList(
     shiny::tags$div(

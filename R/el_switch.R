@@ -65,8 +65,7 @@ el_switch <- function(
     ":inactive-value" = "inactiveValue",
     "@change"         = "handleChange"
   )
-  if (!is.null(width)) switch_attrs[[":width"]] <- "width"
-
+  switch_attrs[[":width"]] <- .el_optional_bind("width")
   switch_tag <- htmltools::tag("el-switch", switch_attrs)
 
   vue_data <- list(
@@ -79,8 +78,7 @@ el_switch <- function(
     activeValue   = active_value,
     inactiveValue = inactive_value
   )
-  if (!is.null(width)) vue_data$width <- width
-
+  vue_data$width <- .el_or_na(width)
   component_ui <- shiny::tagList(
     shiny::tags$div(id = container_id, style = .el_host_style(), switch_tag),
     vueR::vue(

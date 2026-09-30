@@ -205,11 +205,13 @@ test_that("el_form: layout options reach the data", {
   expect_match(html, '"labelPosition":"top"')
   expect_match(html, '"inline":true')
   expect_match(html, '"size":"small"')
-  expect_match(html, ':size="size"')
+  expect_match(html, ':size="size === null \\? undefined : size"')
 })
 
-test_that("el_form: size is only bound when supplied", {
-  expect_false(grepl(':size=', render_html(demo_form()), fixed = TRUE))
+test_that("el_form: size is bound even when not supplied", {
+  # Always bound, so update_el_form(size = ) can reach it later.
+  expect_true(binds_attr(demo_form(), "size"))
+  expect_null(vue_data_of(demo_form())$size)
 })
 
 test_that("el_form: an empty form still renders", {

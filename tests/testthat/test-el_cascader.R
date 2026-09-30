@@ -64,15 +64,13 @@ test_that("el_cascader: reports to <id>_value, on mount and on change", {
 
 # ── optional attributes ───────────────────────────────────────────────────────
 
-test_that("el_cascader: props and size are only emitted when supplied", {
-  plain <- render_html(el_cascader(id = "c1"))
-  expect_false(grepl(":props", plain, fixed = TRUE))
-  expect_false(grepl('size="', plain, fixed = TRUE))
+test_that("el_cascader: props stays reachable by update even when not supplied", {
+  plain <- el_cascader(id = "c1")
+  expect_true(binds_attr(plain, "props"))
 
   html <- render_html(el_cascader(
     id = "c1", props = list(expandTrigger = "hover"), size = "small"
   ))
-  expect_match(html, ':props="props"')
   expect_match(html, 'size="small"')
   expect_match(html, '"expandTrigger":"hover"')
 })

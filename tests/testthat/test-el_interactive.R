@@ -36,10 +36,10 @@ test_that("el_tag: close handler fires _closed input", {
   expect_match(html, "t1_closed")
 })
 
-test_that("el_tag: size attribute optional", {
+test_that("el_tag: size is bound whether or not it is supplied", {
   tag1 <- el_tag("t1", "T")
-  html1 <- render_html(tag1)
-  expect_no_match(html1, ":size")
+  expect_true(binds_attr(tag1, "size"))
+  expect_null(vue_data_of(tag1)$size)
 
   tag2 <- el_tag("t2", "T", size = "small")
   html2 <- render_html(tag2)
@@ -217,10 +217,10 @@ test_that("el_input_number: step attribute", {
   expect_match(html, "\"step\":5")
 })
 
-test_that("el_input_number: precision optional", {
+test_that("el_input_number: precision is bound whether or not it is supplied", {
   tag1 <- el_input_number("n1")
-  html1 <- render_html(tag1)
-  expect_no_match(html1, ":precision")
+  expect_true(binds_attr(tag1, "precision"))
+  expect_null(vue_data_of(tag1)$precision)
 
   tag2 <- el_input_number("n2", precision = 2)
   html2 <- render_html(tag2)

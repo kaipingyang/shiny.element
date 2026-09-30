@@ -98,8 +98,7 @@ el_select <- function(
     "@change"         = "handleChange"
   )
   select_attrs[[":placeholder"]] <- .el_optional_bind("placeholder")
-  if (!is.null(size))        select_attrs[[":size"]]        <- "size"
-
+  select_attrs[[":size"]] <- .el_optional_bind("size")
   # Build Vue data
   vue_data <- list(
     value        = if (is.null(selected)) (if (multiple) list() else "") else selected,
@@ -112,8 +111,7 @@ el_select <- function(
     collapseTags  = collapse_tags
   )
   vue_data$placeholder <- if (is.null(placeholder)) NA else placeholder
-  if (!is.null(size))        vue_data$size        <- size
-
+  vue_data$size <- .el_or_na(size)
   component_ui <- shiny::tagList(
     shiny::tags$div(
       id = container_id, style = .el_host_style(),

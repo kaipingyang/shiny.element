@@ -111,10 +111,12 @@ test_that("el_input: maxlength appears in Vue data when set", {
   expect_match(html, '"maxlength"\\s*:\\s*100')
 })
 
-test_that("el_input: maxlength absent from Vue data when NULL", {
-  inp  <- el_input("inp1", maxlength = NULL, session = NULL)
-  html <- render_html(inp)
-  expect_false(grepl('"maxlength"', html))
+test_that("el_input: maxlength is declared as null when not supplied", {
+  # Declared either way: a field missing from the Vue data is not reactive,
+  # so update_el_input() could never set it later.
+  inp <- el_input("inp1", maxlength = NULL, session = NULL)
+  expect_true("maxlength" %in% names(vue_data_of(inp)))
+  expect_null(vue_data_of(inp)$maxlength)
 })
 
 test_that("el_input: rows appears in Vue data when set", {
@@ -123,10 +125,12 @@ test_that("el_input: rows appears in Vue data when set", {
   expect_match(html, '"rows"\\s*:\\s*4')
 })
 
-test_that("el_input: rows absent from Vue data when NULL", {
-  inp  <- el_input("inp1", rows = NULL, session = NULL)
-  html <- render_html(inp)
-  expect_false(grepl('"rows"', html))
+test_that("el_input: rows is declared as null when not supplied", {
+  # Declared either way: a field missing from the Vue data is not reactive,
+  # so update_el_input() could never set it later.
+  inp <- el_input("inp1", rows = NULL, session = NULL)
+  expect_true("rows" %in% names(vue_data_of(inp)))
+  expect_null(vue_data_of(inp)$rows)
 })
 
 test_that("el_input: placeholder appears in Vue data when set", {
@@ -146,13 +150,15 @@ test_that("el_input: label appears in Vue data when set", {
   expect_match(html, '"label"\\s*:\\s*"Name"')
 })
 
-test_that("el_input: label absent from Vue data when NULL", {
-  inp  <- el_input("inp1", label = NULL, session = NULL)
-  html <- render_html(inp)
-  expect_false(grepl('"label"', html))
+test_that("el_input: label is declared as null when not supplied", {
+  # Declared either way: a field missing from the Vue data is not reactive,
+  # so update_el_input() could never set it later.
+  inp <- el_input("inp1", label = NULL, session = NULL)
+  expect_true("label" %in% names(vue_data_of(inp)))
+  expect_null(vue_data_of(inp)$label)
 })
 
-# ── 条件属性：非 NULL 时绑定属性出现，NULL 时不出现 ───────────────────────────
+# ── 可选属性：始终绑定，未提供时回退 Element 默认 ─────────────────────────────
 
 test_that("el_input: :size attr present when size set", {
   inp  <- el_input("inp1", size = "mini", session = NULL)
@@ -173,16 +179,20 @@ test_that("el_input: :placeholder attr present when set", {
   expect_match(html, ":placeholder")
 })
 
-test_that("el_input: :maxlength attr absent when NULL", {
-  inp  <- el_input("inp1", maxlength = NULL, session = NULL)
-  html <- render_html(inp)
-  expect_false(grepl(":maxlength", html, fixed = TRUE))
+test_that("el_input: :maxlength is bound even when not supplied", {
+  # The binding turns a null into undefined, so Element still applies its own
+  # default while the field stays reactive.
+  inp <- el_input("inp1", maxlength = NULL, session = NULL)
+  expect_true(binds_attr(inp, "maxlength"))
+  expect_match(render_html(inp), "maxlength === null \\? undefined")
 })
 
-test_that("el_input: :rows attr absent when NULL", {
-  inp  <- el_input("inp1", rows = NULL, session = NULL)
-  html <- render_html(inp)
-  expect_false(grepl(":rows", html, fixed = TRUE))
+test_that("el_input: :rows is bound even when not supplied", {
+  # The binding turns a null into undefined, so Element still applies its own
+  # default while the field stays reactive.
+  inp <- el_input("inp1", rows = NULL, session = NULL)
+  expect_true(binds_attr(inp, "rows"))
+  expect_match(render_html(inp), "rows === null \\? undefined")
 })
 
 # ── 常驻 Vue 属性绑定 ──────────────────────────────────────────────────────────

@@ -74,7 +74,7 @@ el_checkbox_group <- function(
     ":disabled" = "disabled",
     "@change"   = "handleChange"
   )
-  if (!is.null(size)) group_attrs[[":size"]] <- "size"
+  group_attrs[[":size"]] <- .el_optional_bind("size")
   group_attrs[[":min"]] <- .el_optional_bind("min")
   group_attrs[[":max"]] <- .el_optional_bind("max")
   group_tag <- htmltools::tag("el-checkbox-group", c(group_attrs, list(cb_slot)))
@@ -84,7 +84,7 @@ el_checkbox_group <- function(
     options  = .el_normalize_choices(choices),
     disabled = disabled
   )
-  if (!is.null(size)) vue_data$size <- size
+  vue_data$size <- .el_or_na(size)
   vue_data$min <- if (is.null(min)) NA else min
   vue_data$max <- if (is.null(max)) NA else max
   component_ui <- shiny::tagList(

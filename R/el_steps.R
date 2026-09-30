@@ -70,8 +70,7 @@ el_steps <- function(id = NULL,
     ":align-center" = "alignCenter",  
     ":simple" = "simple"  
   )  
-  if (!is.null(space)) steps_attrs[[":space"]] <- "space"  
-    
+  steps_attrs[[":space"]] <- .el_optional_bind("space")
   # Build Vue data object  
   vue_data <- list(  
     active = active,  
@@ -81,8 +80,7 @@ el_steps <- function(id = NULL,
     alignCenter = align_center,  
     simple = simple  
   )  
-  if (!is.null(space)) vue_data$space <- space  
-    
+  vue_data$space <- .el_or_na(space)
   # Create component UI  
   component_ui <- tagList(  
     tags$div(  

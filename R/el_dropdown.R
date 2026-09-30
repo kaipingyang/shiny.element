@@ -99,9 +99,8 @@ el_dropdown <- function(
     ":split-button"  = "splitButton",
     "@command"       = "handleCommand"
   )
-  if (!is.null(type)) dd_attrs[[":type"]] <- "type"
-  if (!is.null(size)) dd_attrs[[":size"]] <- "size"
-
+  dd_attrs[[":type"]] <- .el_optional_bind("type")
+  dd_attrs[[":size"]] <- .el_optional_bind("size")
   vue_data <- list(
     trigger      = trigger,
     hideOnClick  = hide_on_click,
@@ -110,9 +109,8 @@ el_dropdown <- function(
     splitButton  = split_button,
     count        = 0L
   )
-  if (!is.null(type)) vue_data$type <- type
-  if (!is.null(size)) vue_data$size <- size
-
+  vue_data$type <- .el_or_na(type)
+  vue_data$size <- .el_or_na(size)
   component_ui <- shiny::tagList(
     shiny::tags$div(
       id = container_id, style = .el_host_style(),

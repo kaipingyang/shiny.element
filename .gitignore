@@ -12,3 +12,6 @@ inst/reference/
 # 草稿笔记
 test.md
 tfl.md
+
+# Upstream Element UI source + docs, for API reference only (see .upstream/README.md)
+.upstream/

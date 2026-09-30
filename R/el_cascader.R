@@ -106,7 +106,7 @@ el_cascader <- function(id = NULL,
     ":debounce" = "debounce",
     "@change" = "handleChange"
   )
-  if (!is.null(props)) cascader_attrs[[":props"]] <- "props"
+  cascader_attrs[[":props"]] <- .el_optional_bind("props")
   if (!is.null(size)) cascader_attrs[["size"]] <- size
 
   vue_data <- list(
@@ -121,8 +121,7 @@ el_cascader <- function(id = NULL,
     separator = separator,
     debounce = debounce
   )
-  if (!is.null(props)) vue_data$props <- props
-
+  vue_data$props <- .el_or_na(props)
   component_ui <- tagList(
     tags$div(
       id = container_id, style = .el_host_style(),

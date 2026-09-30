@@ -96,11 +96,10 @@ el_input <- function(
 
   # Conditional attributes (only add when not NULL)
   input_attrs[[":size"]] <- .el_optional_bind("size")
-  if (!is.null(maxlength))   input_attrs[[":maxlength"]]   <- "maxlength"
-  if (!is.null(rows))        input_attrs[[":rows"]]        <- "rows"
+  input_attrs[[":maxlength"]] <- .el_optional_bind("maxlength")
+  input_attrs[[":rows"]] <- .el_optional_bind("rows")
   input_attrs[[":placeholder"]] <- .el_optional_bind("placeholder")
-  if (!is.null(label))       input_attrs[[":label"]]       <- "label"
-
+  input_attrs[[":label"]] <- .el_optional_bind("label")
   # Always-present Vue data fields
   vue_data <- list(
     value         = value,
@@ -117,11 +116,10 @@ el_input <- function(
 
   # Conditional data fields (only add when not NULL)
   vue_data$size <- if (is.null(size)) NA else size
-  if (!is.null(maxlength))   vue_data$maxlength   <- maxlength
-  if (!is.null(rows))        vue_data$rows        <- rows
+  vue_data$maxlength <- .el_or_na(maxlength)
+  vue_data$rows <- .el_or_na(rows)
   vue_data$placeholder <- if (is.null(placeholder)) NA else placeholder
-  if (!is.null(label))       vue_data$label       <- label
-
+  vue_data$label <- .el_or_na(label)
   component_ui <- shiny::tagList(
     shiny::tags$div(
       id = container_id, style = .el_host_style(),

@@ -65,11 +65,10 @@ el_input_number <- function(
     ":controls-position"= "controlsPosition",
     "@change"           = "handleChange"
   )
-  if (!is.null(size))        num_attrs[[":size"]]        <- "size"
-  if (!is.null(precision))   num_attrs[[":precision"]]   <- "precision"
-  if (!is.null(placeholder)) num_attrs[[":placeholder"]] <- "placeholder"
-  if (!is.null(label))       num_attrs[[":label"]]       <- "label"
-
+  num_attrs[[":size"]] <- .el_optional_bind("size")
+  num_attrs[[":precision"]] <- .el_optional_bind("precision")
+  num_attrs[[":placeholder"]] <- .el_optional_bind("placeholder")
+  num_attrs[[":label"]] <- .el_optional_bind("label")
   vue_data <- list(
     value            = value,
     min              = js_min,
@@ -80,11 +79,10 @@ el_input_number <- function(
     controls         = controls,
     controlsPosition = controls_position
   )
-  if (!is.null(size))        vue_data$size        <- size
-  if (!is.null(precision))   vue_data$precision   <- precision
-  if (!is.null(placeholder)) vue_data$placeholder <- placeholder
-  if (!is.null(label))       vue_data$label       <- label
-
+  vue_data$size <- .el_or_na(size)
+  vue_data$precision <- .el_or_na(precision)
+  vue_data$placeholder <- .el_or_na(placeholder)
+  vue_data$label <- .el_or_na(label)
   component_ui <- shiny::tagList(
     shiny::tags$div(
       id = container_id, style = .el_host_style(),

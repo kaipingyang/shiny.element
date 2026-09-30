@@ -90,12 +90,15 @@ test_that("el_steps: layout flags reach the data", {
   expect_match(html, '"simple":true')
 })
 
-test_that("el_steps: space is only bound when supplied", {
-  expect_false(grepl(":space", render_html(el_steps(id = "s1", steps = three_steps)), fixed = TRUE))
+test_that("el_steps: space stays reachable by update even when not supplied", {
+  # Bound either way, so the field exists in the Vue data and
+  # update_el_steps() can set it later; unset, it reads back as null and the
+  # binding hands Element undefined, which falls back to its own default.
+  plain <- el_steps(id = "s1", steps = three_steps)
+  expect_true(binds_attr(plain, "space"))
+  expect_null(vue_data_of(plain)$space)
 
-  html <- render_html(el_steps(id = "s1", steps = three_steps, space = 200))
-  expect_match(html, ':space="space"')
-  expect_match(html, '"space":200')
+  expect_equal(vue_data_of(el_steps(id = "s1", steps = three_steps, space = 200))$space, 200)
 })
 
 # ── reporting to Shiny ────────────────────────────────────────────────────────

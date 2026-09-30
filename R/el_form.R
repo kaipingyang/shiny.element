@@ -299,8 +299,7 @@ el_form <- function(...,
     ":label-position" = "labelPosition",
     ":inline"         = "inline"
   )
-  if (!is.null(size)) form_attrs[[":size"]] <- "size"
-
+  form_attrs[[":size"]] <- .el_optional_bind("size")
   # One template for every control type. `component :is` dispatches on the tag
   # name, so adding a type means adding a row to .el_form_tags, not a branch.
   field_items <- htmltools::HTML(paste0(
@@ -337,8 +336,7 @@ el_form <- function(...,
     submitCount   = 0L,
     valid         = FALSE
   )
-  if (!is.null(size)) vue_data$size <- size
-
+  vue_data$size <- .el_or_na(size)
   js_id <- as.character(jsonlite::toJSON(ns_id, auto_unbox = TRUE))
 
   component_ui <- shiny::tagList(

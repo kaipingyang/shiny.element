@@ -90,16 +90,14 @@ el_radio_group <- function(
     ":disabled" = "disabled",
     "@change"   = "handleChange"
   )
-  if (!is.null(size)) group_attrs[[":size"]] <- "size"
-
+  group_attrs[[":size"]] <- .el_optional_bind("size")
   # Build Vue data
   vue_data <- list(
     value    = if (is.null(selected)) "" else selected,
     options  = .el_normalize_choices(choices),
     disabled = disabled
   )
-  if (!is.null(size)) vue_data$size <- size
-
+  vue_data$size <- .el_or_na(size)
   component_ui <- shiny::tagList(
     shiny::tags$div(
       id = container_id, style = .el_host_style(),

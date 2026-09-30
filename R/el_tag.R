@@ -54,9 +54,8 @@ el_tag <- function(
     "@click"               = "handleClick",
     "@close"               = "handleClose"
   )
-  if (!is.null(size))  tag_attrs[[":size"]]  <- "size"
-  if (!is.null(color)) tag_attrs[[":color"]] <- "color"
-
+  tag_attrs[[":size"]] <- .el_optional_bind("size")
+  tag_attrs[[":color"]] <- .el_optional_bind("color")
   component_ui <- shiny::tagList(
     shiny::tags$div(
       id = container_id, style = .el_host_style(),
