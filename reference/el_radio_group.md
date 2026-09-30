@@ -70,12 +70,12 @@ el_radio_group("size",
   selected = "m"
 )
 #> <div id="size_container" style="display: contents">
-#>   <el-radio-group v-model="value" :disabled="disabled" @change="handleChange">
+#>   <el-radio-group v-model="value" :disabled="disabled" @change="handleChange" :size="size === null ? undefined : size">
 #>     <el-radio :label="opt.value" v-for="opt in options" :key="opt.value">{{opt.label}}</el-radio>
 #>   </el-radio-group>
 #> </div>
 #> <div id="size" style="width:0px;height:0px;" class="vue html-widget"></div>
-#> <script type="application/json" data-for="size">{"x":{"el":"#size_container","data":{"value":"m","options":[{"value":"s","label":"Small"},{"value":"m","label":"Medium"},{"value":"l","label":"Large"}],"disabled":false},"methods":{"handleChange":"function(value) { Shiny.setInputValue('size', value); }"},"mounted":"function() { var self = this; var send = function() { Shiny.setInputValue(\"size\", self.value); }; if (window.Shiny && Shiny.shinyapp && typeof Shiny.shinyapp.isConnected === 'function' && Shiny.shinyapp.isConnected()) { send(); } else { $(document).one('shiny:connected', send); } }"},"evals":["methods.handleChange","mounted"],"jsHooks":[]}</script>
+#> <script type="application/json" data-for="size">{"x":{"el":"#size_container","data":{"value":"m","options":[{"value":"s","label":"Small"},{"value":"m","label":"Medium"},{"value":"l","label":"Large"}],"disabled":false,"size":null},"methods":{"handleChange":"function(value) { Shiny.setInputValue('size', value); }"},"mounted":"function() { var self = this; var send = function() { Shiny.setInputValue(\"size\", self.value); }; if (window.Shiny && Shiny.shinyapp && typeof Shiny.shinyapp.isConnected === 'function' && Shiny.shinyapp.isConnected()) { send(); } else { $(document).one('shiny:connected', send); } }"},"evals":["methods.handleChange","mounted"],"jsHooks":[]}</script>
 
 # Button-style radio group
 el_radio_group("theme",
@@ -84,7 +84,7 @@ el_radio_group("theme",
   size    = "small"
 )
 #> <div id="theme_container" style="display: contents">
-#>   <el-radio-group v-model="value" :disabled="disabled" @change="handleChange" :size="size">
+#>   <el-radio-group v-model="value" :disabled="disabled" @change="handleChange" :size="size === null ? undefined : size">
 #>     <el-radio-button :label="opt.value" v-for="opt in options" :key="opt.value">{{opt.label}}</el-radio-button>
 #>   </el-radio-group>
 #> </div>

@@ -89,10 +89,10 @@ el_container(
 #> <div class="el-container is-vertical">
 #>   <div class="el-header" style="height:60px">
 #>     <div id="dark_mode_container" style="display: contents">
-#>       <el-switch v-model="value" :disabled="disabled" :active-text="activeText" :inactive-text="inactiveText" :active-color="activeColor" :inactive-color="inactiveColor" :active-value="activeValue" :inactive-value="inactiveValue" @change="handleChange"></el-switch>
+#>       <el-switch v-model="value" :disabled="disabled" :active-text="activeText" :inactive-text="inactiveText" :active-color="activeColor" :inactive-color="inactiveColor" :active-value="activeValue" :inactive-value="inactiveValue" @change="handleChange" :width="width === null ? undefined : width"></el-switch>
 #>     </div>
 #>     <div id="dark_mode" style="width:0px;height:0px;" class="vue html-widget"></div>
-#>     <script type="application/json" data-for="dark_mode">{"x":{"el":"#dark_mode_container","data":{"value":false,"disabled":false,"activeText":"","inactiveText":"","activeColor":"","inactiveColor":"","activeValue":true,"inactiveValue":false},"methods":{"handleChange":"function(value) { Shiny.setInputValue('dark_mode', value); }"},"mounted":"function() { var self = this; var send = function() { Shiny.setInputValue(\"dark_mode\", self.value); }; if (window.Shiny && Shiny.shinyapp && typeof Shiny.shinyapp.isConnected === 'function' && Shiny.shinyapp.isConnected()) { send(); } else { $(document).one('shiny:connected', send); } }"},"evals":["methods.handleChange","mounted"],"jsHooks":[]}</script>
+#>     <script type="application/json" data-for="dark_mode">{"x":{"el":"#dark_mode_container","data":{"value":false,"disabled":false,"activeText":"","inactiveText":"","activeColor":"","inactiveColor":"","activeValue":true,"inactiveValue":false,"width":null},"methods":{"handleChange":"function(value) { Shiny.setInputValue('dark_mode', value); }"},"mounted":"function() { var self = this; var send = function() { Shiny.setInputValue(\"dark_mode\", self.value); }; if (window.Shiny && Shiny.shinyapp && typeof Shiny.shinyapp.isConnected === 'function' && Shiny.shinyapp.isConnected()) { send(); } else { $(document).one('shiny:connected', send); } }"},"evals":["methods.handleChange","mounted"],"jsHooks":[]}</script>
 #>   </div>
 #>   <div class="el-main">
 #>     <div id="amount_container" style="display: contents">

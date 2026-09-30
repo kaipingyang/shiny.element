@@ -112,7 +112,7 @@ el_dropdown("dd1", "Actions",
   )
 )
 #> <div id="dd1_container" style="display: contents">
-#>   <el-dropdown :trigger="trigger" :hide-on-click="hideOnClick" :placement="placement" :disabled="disabled" :split-button="splitButton" @command="handleCommand">
+#>   <el-dropdown :trigger="trigger" :hide-on-click="hideOnClick" :placement="placement" :disabled="disabled" :split-button="splitButton" @command="handleCommand" :type="type === null ? undefined : type" :size="size === null ? undefined : size">
 #>     <span class="el-dropdown-link">
 #>       Actions
 #>       <i class="el-icon-arrow-down el-icon--right"></i>
@@ -125,5 +125,5 @@ el_dropdown("dd1", "Actions",
 #>   </el-dropdown>
 #> </div>
 #> <div id="dd1" style="width:0px;height:0px;" class="vue html-widget"></div>
-#> <script type="application/json" data-for="dd1">{"x":{"el":"#dd1_container","data":{"trigger":"hover","hideOnClick":true,"placement":"bottom-end","disabled":false,"splitButton":false,"count":0},"methods":{"handleCommand":"function(cmd) { this.count++; Shiny.setInputValue('dd1', cmd); Shiny.setInputValue('dd1_count', this.count); }"}},"evals":["methods.handleCommand"],"jsHooks":[]}</script>
+#> <script type="application/json" data-for="dd1">{"x":{"el":"#dd1_container","data":{"trigger":"hover","hideOnClick":true,"placement":"bottom-end","disabled":false,"splitButton":false,"count":0,"type":null,"size":null},"methods":{"handleCommand":"function(cmd) { this.count++; Shiny.setInputValue('dd1', cmd); Shiny.setInputValue('dd1_count', this.count); }"}},"evals":["methods.handleCommand"],"jsHooks":[]}</script>
 ```

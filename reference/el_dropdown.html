@@ -151,7 +151,7 @@ Default <code>TRUE</code>.</p></dd>
 <span class="r-in"><span>  <span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> &lt;div id="dd1_container" style="display: contents"&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   &lt;el-dropdown :trigger="trigger" :hide-on-click="hideOnClick" :placement="placement" :disabled="disabled" :split-button="splitButton" @command="handleCommand"&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   &lt;el-dropdown :trigger="trigger" :hide-on-click="hideOnClick" :placement="placement" :disabled="disabled" :split-button="splitButton" @command="handleCommand" :type="type === null ? undefined : type" :size="size === null ? undefined : size"&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     &lt;span class="el-dropdown-link"&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>       Actions</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>       &lt;i class="el-icon-arrow-down el-icon--right"&gt;&lt;/i&gt;</span>
@@ -164,7 +164,7 @@ Default <code>TRUE</code>.</p></dd>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   &lt;/el-dropdown&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> &lt;/div&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> &lt;div id="dd1" style="width:0px;height:0px;" class="vue html-widget"&gt;&lt;/div&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;script type="application/json" data-for="dd1"&gt;{"x":{"el":"#dd1_container","data":{"trigger":"hover","hideOnClick":true,"placement":"bottom-end","disabled":false,"splitButton":false,"count":0},"methods":{"handleCommand":"function(cmd) { this.count++; Shiny.setInputValue('dd1', cmd); Shiny.setInputValue('dd1_count', this.count); }"}},"evals":["methods.handleCommand"],"jsHooks":[]}&lt;/script&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;script type="application/json" data-for="dd1"&gt;{"x":{"el":"#dd1_container","data":{"trigger":"hover","hideOnClick":true,"placement":"bottom-end","disabled":false,"splitButton":false,"count":0,"type":null,"size":null},"methods":{"handleCommand":"function(cmd) { this.count++; Shiny.setInputValue('dd1', cmd); Shiny.setInputValue('dd1_count', this.count); }"}},"evals":["methods.handleCommand"],"jsHooks":[]}&lt;/script&gt;</span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
