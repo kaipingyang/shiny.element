@@ -19,9 +19,17 @@ el_upload(
   tip = NULL,
   action = NULL,
   headers = NULL,
+  extra_data = NULL,
   file_list = NULL,
   with_credentials = NULL,
   thumbnail_mode = NULL,
+  before_upload = NULL,
+  before_remove = NULL,
+  on_change = NULL,
+  on_progress = NULL,
+  on_preview = NULL,
+  on_remove = NULL,
+  on_exceed = NULL,
   session = shiny::getDefaultReactiveDomain()
 )
 }
@@ -59,6 +67,30 @@ duplicate input id.}
 
 \item{action}{Post to this URL using Element's own upload instead of
 Shiny's channel. See details.}
+
+\item{headers}{Request headers, as a named list.}
+
+\item{extra_data}{Extra fields sent alongside the file, as a named list.}
+
+\item{file_list}{Files shown initially, each \code{list(name=, url=)}.}
+
+\item{with_credentials}{Whether to send cookies with the request.}
+
+\item{thumbnail_mode}{Whether files are shown as thumbnails.}
+
+\item{before_upload}{\code{htmlwidgets::JS()} function called before a file is sent; returning \code{false} cancels it.}
+
+\item{before_remove}{\code{htmlwidgets::JS()} function called before a file is removed; returning \code{false} cancels it.}
+
+\item{on_change}{\code{htmlwidgets::JS()} function called when a file is added, or finishes.}
+
+\item{on_progress}{\code{htmlwidgets::JS()} function called as a file uploads.}
+
+\item{on_preview}{\code{htmlwidgets::JS()} function called when an uploaded file is clicked.}
+
+\item{on_remove}{\code{htmlwidgets::JS()} function called after a file is removed.}
+
+\item{on_exceed}{\code{htmlwidgets::JS()} function called when more files are picked than \code{limit}.}
 
 \item{session}{Shiny session for module support.}
 }

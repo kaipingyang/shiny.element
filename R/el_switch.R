@@ -13,6 +13,10 @@
 #' @param active_value Value reported to Shiny when switch is on. Default `TRUE`.
 #' @param inactive_value Value reported to Shiny when switch is off. Default `FALSE`.
 #' @param session Shiny session for module support.
+#' @param active_icon_class Icon class shown on the active side; overrides `active_text`.
+#' @param inactive_icon_class Icon class shown on the inactive side; overrides `inactive_text`.
+#' @param name Native `name` attribute of the inner checkbox.
+#' @param validate_event Whether a change triggers form validation. Default `TRUE`.
 #'
 #' @return An `htmltools` tagList with a Vue-managed switch component.
 #'
@@ -126,10 +130,6 @@ elementId = ns_id, width = 0, height = 0,
 #' @param inactive_text New inactive text.
 #' @param active_color New active background color.
 #' @param inactive_color New inactive background color.
-#' @param active_icon_class Icon class shown on the active side; overrides `active_text`.
-#' @param inactive_icon_class Icon class shown on the inactive side; overrides `inactive_text`.
-#' @param name Native `name` attribute of the inner checkbox.
-#' @param validate_event Whether a change triggers form validation. Default `TRUE`.
 #'
 #' @return Called for its side effect; returns `NULL` invisibly.
 #' @examples

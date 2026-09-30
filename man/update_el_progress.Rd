@@ -34,8 +34,6 @@ update_el_progress(
 \item{show_text}{New show-text flag.}
 
 \item{text_inside}{New text-inside flag.}
-
-\item{stroke_linecap}{Shape of the bar's ends: \code{"round"} (default), \code{"butt"} or \code{"square"}.}
 }
 \value{
 Called for its side effect; returns \code{NULL} invisibly.

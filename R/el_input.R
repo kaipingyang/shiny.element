@@ -26,6 +26,17 @@
 #'   `NULL` means no icon.
 #' @param label ARIA `label` attribute for accessibility. `NULL` omits it.
 #' @param session Shiny session for module support.
+#' @param autocomplete Native `autocomplete` attribute. Default `"off"`.
+#' @param autofocus Whether the input takes focus on page load. Default `FALSE`.
+#' @param name Native `name` attribute.
+#' @param form Native `form` attribute.
+#' @param minlength Minimum input length.
+#' @param max Native `max` attribute, for number-like types.
+#' @param min Native `min` attribute, for number-like types.
+#' @param step Native `step` attribute, for number-like types.
+#' @param resize Resize behaviour of a textarea: `"none"`, `"both"`, `"horizontal"` or `"vertical"`.
+#' @param tabindex Tab index of the input.
+#' @param validate_event Whether a change triggers form validation. Default `TRUE`.
 #'
 #' @return An `htmltools` tagList with a Vue-managed input component.
 #'
@@ -193,17 +204,6 @@ elementId = ns_id, width = 0, height = 0,
 #' @param size New input size.
 #' @param clearable New clearable state.
 #' @param show_password New show-password toggle state.
-#' @param autocomplete Native `autocomplete` attribute. Default `"off"`.
-#' @param autofocus Whether the input takes focus on page load. Default `FALSE`.
-#' @param name Native `name` attribute.
-#' @param form Native `form` attribute.
-#' @param minlength Minimum input length.
-#' @param max Native `max` attribute, for number-like types.
-#' @param min Native `min` attribute, for number-like types.
-#' @param step Native `step` attribute, for number-like types.
-#' @param resize Resize behaviour of a textarea: `"none"`, `"both"`, `"horizontal"` or `"vertical"`.
-#' @param tabindex Tab index of the input.
-#' @param validate_event Whether a change triggers form validation. Default `TRUE`.
 #'
 #' @return Called for its side effect; returns `NULL` invisibly.
 #' @examples

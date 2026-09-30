@@ -40,6 +40,14 @@ submenu. An item with \code{group = TRUE} becomes a titled group of its
 
 \item{background_color, text_color, active_text_color}{Menu colours.}
 
+\item{default_openeds}{Character vector of sub-menu indexes open at start.}
+
+\item{menu_trigger}{How a horizontal sub-menu opens: \code{"hover"} (default) or \code{"click"}.}
+
+\item{collapse_transition}{Whether to animate collapsing. Default \code{TRUE}.}
+
+\item{router}{Whether to use vue-router mode, taking each index as a path.}
+
 \item{session}{Shiny session for module support.}
 }
 \value{

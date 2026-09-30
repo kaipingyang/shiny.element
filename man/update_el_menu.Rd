@@ -14,14 +14,6 @@ update_el_menu(session, id, active = NULL, collapse = NULL)
 \item{active}{Index of the item to select.}
 
 \item{collapse}{New collapsed state.}
-
-\item{default_openeds}{Character vector of sub-menu indexes open at start.}
-
-\item{menu_trigger}{How a horizontal sub-menu opens: \code{"hover"} (default) or \code{"click"}.}
-
-\item{collapse_transition}{Whether to animate collapsing. Default \code{TRUE}.}
-
-\item{router}{Whether to use vue-router mode, taking each index as a path.}
 }
 \value{
 Called for its side effect; returns \code{NULL} invisibly.

@@ -28,10 +28,6 @@ update_el_checkbox_group(
 \item{min}{New minimum checked count.}
 
 \item{max}{New maximum checked count.}
-
-\item{fill}{Border and background colour when \code{button = TRUE} and checked.}
-
-\item{text_color}{Text colour when \code{button = TRUE} and checked.}
 }
 \value{
 Called for its side effect; returns \code{NULL} invisibly.

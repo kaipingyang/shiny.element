@@ -53,6 +53,10 @@
 #' @param unique_opened Keep only one submenu open at a time.
 #' @param background_color,text_color,active_text_color Menu colours.
 #' @param session Shiny session for module support.
+#' @param default_openeds Character vector of sub-menu indexes open at start.
+#' @param menu_trigger How a horizontal sub-menu opens: `"hover"` (default) or `"click"`.
+#' @param collapse_transition Whether to animate collapsing. Default `TRUE`.
+#' @param router Whether to use vue-router mode, taking each index as a path.
 #'
 #' @section Server inputs:
 #' `input$<id>` holds the selected item's `index`, reported on load and on
@@ -173,10 +177,6 @@ el_menu <- function(id = NULL,
 #' @param id Menu ID (un-namespaced).
 #' @param active Index of the item to select.
 #' @param collapse New collapsed state.
-#' @param default_openeds Character vector of sub-menu indexes open at start.
-#' @param menu_trigger How a horizontal sub-menu opens: `"hover"` (default) or `"click"`.
-#' @param collapse_transition Whether to animate collapsing. Default `TRUE`.
-#' @param router Whether to use vue-router mode, taking each index as a path.
 #' @return Called for its side effect; returns `NULL` invisibly.
 #' @examples
 #' if (interactive()) {

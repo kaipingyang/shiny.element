@@ -20,6 +20,8 @@ el_cascader(
   debounce = 300,
   icon = NULL,
   popper_class = NULL,
+  filter_method = NULL,
+  before_filter = NULL,
   session = getDefaultReactiveDomain()
 )
 }
@@ -51,6 +53,12 @@ el_cascader(
 \item{debounce}{Debounce delay for filter}
 
 \item{icon}{Icon for the cascader (shiny.tag or NULL)}
+
+\item{popper_class}{Extra class name for the dropdown panel.}
+
+\item{filter_method}{\code{htmlwidgets::JS()} function filtering the options as the user types.}
+
+\item{before_filter}{\code{htmlwidgets::JS()} function called before filtering; returning \code{false} cancels it.}
 
 \item{session}{Shiny session for module support}
 }

@@ -18,6 +18,7 @@
 #' @param width Width in pixels for `"circle"` and `"dashboard"` types.
 #'   Default `126`.
 #' @param session Shiny session for module support.
+#' @param stroke_linecap Shape of the bar's ends: `"round"` (default), `"butt"` or `"square"`.
 #'
 #' @return An `htmltools` tagList with a Vue-managed progress component.
 #'
@@ -121,7 +122,6 @@ elementId = ns_id, width = 0, height = 0,
 #' @param stroke_width New stroke width in pixels.
 #' @param show_text New show-text flag.
 #' @param text_inside New text-inside flag.
-#' @param stroke_linecap Shape of the bar's ends: `"round"` (default), `"butt"` or `"square"`.
 #'
 #' @return Called for its side effect; returns `NULL` invisibly.
 #' @examples

@@ -16,6 +16,14 @@
 #' @param score_template Template for score display. `{value}` is replaced.
 #'   Default `"{value}"`.
 #' @param session Shiny session for module support.
+#' @param colors Colours for the three score levels, or a named list keyed by threshold.
+#' @param void_color Colour of unselected icons.
+#' @param disabled_void_color Colour of unselected icons when `disabled = TRUE`.
+#' @param icon_classes Icon classes for the three score levels, or a named list keyed by threshold.
+#' @param void_icon_class Icon class for unselected icons.
+#' @param disabled_void_icon_class Icon class for unselected icons when `disabled = TRUE`.
+#' @param low_threshold Scores at or below this use the first colour and icon. Default `2`.
+#' @param high_threshold Scores above this use the third colour and icon. Default `4`.
 #'
 #' @return An `htmltools` tagList with a Vue-managed rate component.
 #'
@@ -137,14 +145,6 @@ elementId = ns_id, width = 0, height = 0,
 #' @param id Rate ID (un-namespaced).
 #' @param value New rating value.
 #' @param disabled New disabled state.
-#' @param colors Colours for the three score levels, or a named list keyed by threshold.
-#' @param void_color Colour of unselected icons.
-#' @param disabled_void_color Colour of unselected icons when `disabled = TRUE`.
-#' @param icon_classes Icon classes for the three score levels, or a named list keyed by threshold.
-#' @param void_icon_class Icon class for unselected icons.
-#' @param disabled_void_icon_class Icon class for unselected icons when `disabled = TRUE`.
-#' @param low_threshold Scores at or below this use the first colour and icon. Default `2`.
-#' @param high_threshold Scores above this use the third colour and icon. Default `4`.
 #'
 #' @return Called for its side effect; returns `NULL` invisibly.
 #' @examples

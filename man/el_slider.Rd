@@ -23,6 +23,7 @@ el_slider(
   input_size = NULL,
   show_input_controls = NULL,
   tooltip_class = NULL,
+  format_tooltip = NULL,
   session = shiny::getDefaultReactiveDomain()
 )
 }
@@ -57,6 +58,18 @@ Defaults to \code{"200px"} when \code{vertical = TRUE} and not explicitly provid
 
 \item{marks}{Named list of mark labels, e.g.,
 \code{list("0" = "0km", "50" = "50km")}. Default \code{NULL} (no marks).}
+
+\item{label}{Accessible label for screen readers.}
+
+\item{debounce}{Debounce in ms while dragging, when \code{show_input = TRUE}. Default \code{300}.}
+
+\item{input_size}{Size of the companion input when \code{show_input = TRUE}.}
+
+\item{show_input_controls}{Whether the companion input shows its spinner buttons.}
+
+\item{tooltip_class}{Extra class name for the value tooltip.}
+
+\item{format_tooltip}{\code{htmlwidgets::JS()} function formatting the value shown in the tooltip.}
 
 \item{session}{Shiny session for module support.}
 }

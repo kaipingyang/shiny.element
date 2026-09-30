@@ -41,6 +41,20 @@ case drive the form with \code{\link[=el_form_validate]{el_form_validate()}}.}
 
 \item{reset_label}{Reset button text. \code{NULL} renders no button.}
 
+\item{disabled}{Whether every control in the form is disabled.}
+
+\item{show_message}{Whether to show validation messages. Default \code{TRUE}.}
+
+\item{inline_message}{Whether to show validation messages inline.}
+
+\item{status_icon}{Whether to show a validation status icon in each field.}
+
+\item{hide_required_asterisk}{Whether to hide the asterisk next to required fields' labels.}
+
+\item{label_suffix}{Suffix appended to every label.}
+
+\item{validate_on_rule_change}{Whether changing the rules triggers validation immediately.}
+
 \item{session}{Shiny session for module support.}
 }
 \value{

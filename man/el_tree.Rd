@@ -27,6 +27,11 @@ el_tree(
   check_on_click_node = NULL,
   current_node_key = NULL,
   render_after_expand = NULL,
+  load = NULL,
+  filter_node_method = NULL,
+  render_content = NULL,
+  allow_drag = NULL,
+  allow_drop = NULL,
   session = shiny::getDefaultReactiveDomain()
 )
 }
@@ -61,6 +66,32 @@ expand.}
 \item{expanded, checked}{Keys to expand and to check initially.}
 
 \item{empty_text}{Text shown when \code{data} is empty.}
+
+\item{indent}{Horizontal indent between levels, in pixels. Default \code{16}.}
+
+\item{icon_class}{Icon class of the expand arrow.}
+
+\item{lazy}{Whether child nodes are loaded on demand. Needs \code{load}.}
+
+\item{draggable}{Whether nodes can be dragged.}
+
+\item{auto_expand_parent}{Whether expanding a node expands its parents. Default \code{TRUE}.}
+
+\item{check_on_click_node}{Whether clicking a node's label also checks it.}
+
+\item{current_node_key}{Key of the node that starts out highlighted.}
+
+\item{render_after_expand}{Whether child nodes are rendered only once expanded. Default \code{TRUE}.}
+
+\item{load}{\code{htmlwidgets::JS()} function loading child nodes lazily. Needs \code{lazy = TRUE}.}
+
+\item{filter_node_method}{\code{htmlwidgets::JS()} function deciding whether a node survives filtering.}
+
+\item{render_content}{\code{htmlwidgets::JS()} render function for a node's content.}
+
+\item{allow_drag}{\code{htmlwidgets::JS()} function deciding whether a node may be dragged.}
+
+\item{allow_drop}{\code{htmlwidgets::JS()} function deciding whether a node may be dropped somewhere.}
 
 \item{session}{Shiny session for module support.}
 }

@@ -34,6 +34,8 @@ When \code{TRUE}, the returned value is an \code{rgba(...)} string.}
 \item{predefine}{Character vector of preset colour swatches. \code{NULL} for
 none.}
 
+\item{popper_class}{Extra class name for the dropdown panel.}
+
 \item{session}{Shiny session for module support.}
 }
 \value{

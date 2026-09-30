@@ -31,26 +31,6 @@ update_el_date_picker(
 \item{readonly}{New readonly state.}
 
 \item{placeholder}{New placeholder text (non-range types).}
-
-\item{size}{Input size: \code{"medium"}, \code{"small"} or \code{"mini"}.}
-
-\item{name}{Native \code{name} attribute.}
-
-\item{prefix_icon}{Icon class shown at the start of the input.}
-
-\item{clear_icon}{Icon class of the clear button.}
-
-\item{popper_class}{Extra class name for the picker panel.}
-
-\item{default_value}{Date the panel opens on when nothing is selected.}
-
-\item{default_time}{Time part used when a date is picked, as \code{"HH:mm:ss"}.}
-
-\item{unlink_panels}{Whether the two panels of a range picker move independently.}
-
-\item{picker_options}{Additional Element picker options, as a named list.}
-
-\item{validate_event}{Whether a change triggers form validation. Default \code{TRUE}.}
 }
 \value{
 Called for its side effect; returns \code{NULL} invisibly.

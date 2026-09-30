@@ -33,6 +33,10 @@ Only affects button-style radios (\code{button = TRUE}).}
 \item{button}{Whether to render as \verb{<el-radio-button>} (pill/button style)
 instead of standard \verb{<el-radio>}. Default \code{FALSE}.}
 
+\item{fill}{Border and background colour of a checked radio button.}
+
+\item{text_color}{Text colour of a checked radio button.}
+
 \item{session}{Shiny session for module namespace support.}
 }
 \value{

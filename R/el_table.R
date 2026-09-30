@@ -124,6 +124,37 @@
 #' @param selection Enable row selection
 #' @param border Show table border
 #' @param session Shiny session for module support
+#' @param stripe Whether rows alternate background colour.
+#' @param size Row density: `"medium"`, `"small"` or `"mini"`.
+#' @param height Table height. Fixes the header and scrolls the body.
+#' @param max_height Maximum table height, beyond which the body scrolls.
+#' @param fit Whether column widths stretch to fill the table. Default `TRUE`.
+#' @param show_header Whether the header row is shown. Default `TRUE`.
+#' @param highlight_current_row Whether the clicked row stays highlighted; pairs with `input$<id>_current`.
+#' @param current_row_key Key of the row highlighted at start. Needs `row_key`.
+#' @param row_key Column whose value identifies a row. Needed for tree data and reserved selection.
+#' @param empty_text Text shown when there are no rows. Default `"No Data"`.
+#' @param default_expand_all Whether expandable rows start expanded.
+#' @param expand_row_keys Keys of the rows that start expanded. Needs `row_key`.
+#' @param default_sort Initial sort, as `list(prop =, order =)`.
+#' @param tooltip_effect Theme of overflow tooltips: `"dark"` (default) or `"light"`.
+#' @param show_summary Whether to add a summary row at the bottom.
+#' @param sum_text Label of the summary row's first cell. Default `"Sum"`.
+#' @param select_on_indeterminate What the header checkbox does when only some rows are selected. Default `TRUE`.
+#' @param indent Horizontal indent between tree levels, in pixels. Default `16`.
+#' @param lazy Whether child rows of tree data are loaded on demand.
+#' @param tree_props Field names for tree data, as `list(children =, hasChildren =)`.
+#' @param row_class_name Class name for every row, or a JS function returning one.
+#' @param row_style Inline style for every row, or a JS function returning one.
+#' @param cell_class_name Class name for every cell, or a JS function returning one.
+#' @param cell_style Inline style for every cell, or a JS function returning one.
+#' @param header_row_class_name Class name for the header row, or a JS function returning one.
+#' @param header_row_style Inline style for the header row, or a JS function returning one.
+#' @param header_cell_class_name Class name for header cells, or a JS function returning one.
+#' @param header_cell_style Inline style for header cells, or a JS function returning one.
+#' @param span_method `htmlwidgets::JS()` function deciding row/column spans for merged cells.
+#' @param summary_method `htmlwidgets::JS()` function returning the summary row's cells.
+#' @param load `htmlwidgets::JS()` function loading child rows lazily. Needs `lazy = TRUE`.
 #'
 #' @section Server inputs:
 #' With `selection = TRUE` the component reports two inputs:
@@ -203,6 +234,9 @@ el_table <- function(id = NULL,
                      header_row_style = NULL,
                      header_cell_class_name = NULL,
                      header_cell_style = NULL,
+                     span_method = NULL,
+                     summary_method = NULL,
+                     load    = NULL,
                      session = shiny::getDefaultReactiveDomain()) {
   args <- .el_table_args(id, data, columns)
   id <- args$id
@@ -252,7 +286,14 @@ el_table <- function(id = NULL,
     ":filter-multiple" = "col.filterMultiple",
     ":filter-placement" = "col.filterPlacement",
     ":reserve-selection" = "col.reserveSelection",
-    ":index" = "col.index"
+    ":index" = "col.index",
+    # Props taking a function: pass htmlwidgets::JS("function(...) {...}") in
+    # the column definition and it is evaluated in the browser.
+    ":formatter" = "col.formatter",
+    ":filter-method" = "col.filterMethod",
+    ":sort-method" = "col.sortMethod",
+    ":render-header" = "col.renderHeader",
+    ":selectable" = "col.selectable"
   ))
 
   table_attrs <- list(
@@ -319,6 +360,12 @@ el_table <- function(id = NULL,
 
   table_attrs[[":header-cell-style"]] <- .el_optional_bind("headerCellStyle")
 
+  table_attrs[[":span-method"]] <- .el_optional_bind("spanMethod")
+
+  table_attrs[[":summary-method"]] <- .el_optional_bind("summaryMethod")
+
+  table_attrs[[":load"]] <- .el_optional_bind("load")
+
 
   table_content <- c(table_attrs, list(selection_col, data_col))
 
@@ -365,7 +412,10 @@ elementId = ns_id, width = 0, height = 0,
         headerRowClassName = .el_or_na(header_row_class_name),
         headerRowStyle = .el_or_na(header_row_style),
         headerCellClassName = .el_or_na(header_cell_class_name),
-        headerCellStyle = .el_or_na(header_cell_style)
+        headerCellStyle = .el_or_na(header_cell_style),
+        spanMethod = .el_or_na(span_method),
+        summaryMethod = .el_or_na(summary_method),
+        load = .el_or_na(load)
         ),
         methods = list(
           handleSelectionChange = htmlwidgets::JS(sprintf(
@@ -445,34 +495,6 @@ update_el_table <- function(session, id,
 #' @param df Data frame
 #' @param max_rows Max rows to show
 #' @param add_name Add row names
-#' @param stripe Whether rows alternate background colour.
-#' @param size Row density: `"medium"`, `"small"` or `"mini"`.
-#' @param height Table height. Fixes the header and scrolls the body.
-#' @param max_height Maximum table height, beyond which the body scrolls.
-#' @param fit Whether column widths stretch to fill the table. Default `TRUE`.
-#' @param show_header Whether the header row is shown. Default `TRUE`.
-#' @param highlight_current_row Whether the clicked row stays highlighted; pairs with `input$<id>_current`.
-#' @param current_row_key Key of the row highlighted at start. Needs `row_key`.
-#' @param row_key Column whose value identifies a row. Needed for tree data and reserved selection.
-#' @param empty_text Text shown when there are no rows. Default `"No Data"`.
-#' @param default_expand_all Whether expandable rows start expanded.
-#' @param expand_row_keys Keys of the rows that start expanded. Needs `row_key`.
-#' @param default_sort Initial sort, as `list(prop =, order =)`.
-#' @param tooltip_effect Theme of overflow tooltips: `"dark"` (default) or `"light"`.
-#' @param show_summary Whether to add a summary row at the bottom.
-#' @param sum_text Label of the summary row's first cell. Default `"Sum"`.
-#' @param select_on_indeterminate What the header checkbox does when only some rows are selected. Default `TRUE`.
-#' @param indent Horizontal indent between tree levels, in pixels. Default `16`.
-#' @param lazy Whether child rows of tree data are loaded on demand.
-#' @param tree_props Field names for tree data, as `list(children =, hasChildren =)`.
-#' @param row_class_name Class name for every row, or a JS function returning one.
-#' @param row_style Inline style for every row, or a JS function returning one.
-#' @param cell_class_name Class name for every cell, or a JS function returning one.
-#' @param cell_style Inline style for every cell, or a JS function returning one.
-#' @param header_row_class_name Class name for the header row, or a JS function returning one.
-#' @param header_row_style Inline style for the header row, or a JS function returning one.
-#' @param header_cell_class_name Class name for header cells, or a JS function returning one.
-#' @param header_cell_style Inline style for header cells, or a JS function returning one.
 #' @return List with data and columns
 #'
 #' @details

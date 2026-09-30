@@ -81,6 +81,15 @@ docs = api
 ours = json.load(open("/tmp/elapi/ours.json"))
 
 OWNER = {"el-button": "el_button", "el-option": "el_select"}
+
+# Props deliberately not exposed, with the reason. Counted as out of scope
+# rather than missing, so the coverage figure means something.
+EXCLUDED = {
+    ("el-select", "autoComplete"): "upstream marks auto-complete @DEPRECATED; autocomplete is bound",
+    ("el-input", "autoComplete"): "upstream marks auto-complete @DEPRECATED; autocomplete is bound",
+    ("el-checkbox", "value"): "the group owns the value through v-model; a child's own value is unused inside one",
+    ("el-radio", "value"): "the group owns the value through v-model; a child's own value is unused inside one",
+}
 SPECIAL = {"submenu": "el-submenu", "menu-group": "el-menu-item-group"}
 
 def section_tag(fileslug, title):
@@ -139,6 +148,7 @@ for fn, info in sorted(ours.items()):
         if tag in OWNER and OWNER[tag] != fn: continue
         seen.add(tag)
         upa = {camel(x) for x in up[tag].get("Attributes", [])}
+        upa -= {p for (t, p) in EXCLUDED if t == tag}
         upe = set(up[tag].get("Events", []))
         upm = set(up[tag].get("Methods", []))
         ups = set(up[tag].get("Slot", []))
@@ -189,4 +199,6 @@ ta = [sum(r["attr"][i] for r in report) for i in (0,1)]
 te = [sum(r["evt"][i] for r in report) for i in (0,1)]
 tm = sum(r["method"][1] for r in report); ts = sum(r["slot"][1] for r in report)
 print("-"*74)
+if any(True for _ in EXCLUDED):
+    print(f"  ({len(EXCLUDED)} 个上游 prop 按设计排除，见 tools/api-coverage.py 的 EXCLUDED)")
 print(f"  合计  可设 {ta[0]}/{ta[1]} ({100*ta[0]//ta[1]}%)  其中已绑定 {tb}, 仅条件绑定 {tc}   事件 {te[0]}/{te[1]} ({100*te[0]//max(te[1],1)}%)   方法 0/{tm}   插槽 0/{ts}")

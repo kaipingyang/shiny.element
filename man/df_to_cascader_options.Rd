@@ -12,8 +12,6 @@ df_to_cascader_options(df, value_cols, label_cols = NULL)
 \item{value_cols}{Character vector of value column names (e.g. c("value1", "value2", ...))}
 
 \item{label_cols}{Character vector of label column names (e.g. c("label1", "label2", ...)), can be NULL or contain NA for levels without label}
-
-\item{popper_class}{Extra class name for the dropdown panel.}
 }
 \value{
 Nested list for cascader options

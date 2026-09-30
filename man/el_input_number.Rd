@@ -52,6 +52,8 @@ auto.}
 
 \item{label}{Accessible label text. \code{NULL} for none.}
 
+\item{name}{Native \code{name} attribute of the inner input.}
+
 \item{session}{Shiny session for module support.}
 }
 \value{

@@ -14,8 +14,6 @@ update_el_color_picker(session, id, value = NULL, disabled = NULL)
 \item{value}{New colour string.}
 
 \item{disabled}{New disabled state.}
-
-\item{popper_class}{Extra class name for the dropdown panel.}
 }
 \value{
 Called for its side effect; returns \code{NULL} invisibly.

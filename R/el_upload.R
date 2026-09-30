@@ -101,6 +101,18 @@
 #' @param action Post to this URL using Element's own upload instead of
 #'   Shiny's channel. See details.
 #' @param session Shiny session for module support.
+#' @param headers Request headers, as a named list.
+#' @param extra_data Extra fields sent alongside the file, as a named list.
+#' @param file_list Files shown initially, each `list(name=, url=)`.
+#' @param with_credentials Whether to send cookies with the request.
+#' @param thumbnail_mode Whether files are shown as thumbnails.
+#' @param before_upload `htmlwidgets::JS()` function called before a file is sent; returning `false` cancels it.
+#' @param before_remove `htmlwidgets::JS()` function called before a file is removed; returning `false` cancels it.
+#' @param on_change `htmlwidgets::JS()` function called when a file is added, or finishes.
+#' @param on_progress `htmlwidgets::JS()` function called as a file uploads.
+#' @param on_preview `htmlwidgets::JS()` function called when an uploaded file is clicked.
+#' @param on_remove `htmlwidgets::JS()` function called after a file is removed.
+#' @param on_exceed `htmlwidgets::JS()` function called when more files are picked than `limit`.
 #'
 #' @section Server inputs:
 #' Without `action`, `input$<id>` is a data frame of `name`, `size`, `type`
@@ -154,9 +166,17 @@ el_upload <- function(id = NULL,
                       tip = NULL,
                       action = NULL,
                       headers = NULL,
+                      extra_data = NULL,
                       file_list = NULL,
                       with_credentials = NULL,
                       thumbnail_mode = NULL,
+                      before_upload = NULL,
+                      before_remove = NULL,
+                      on_change = NULL,
+                      on_progress = NULL,
+                      on_preview = NULL,
+                      on_remove = NULL,
+                      on_exceed = NULL,
                       session = shiny::getDefaultReactiveDomain()) {
   if (is.null(id)) id <- paste0("el_upload_", uuid::UUIDgenerate())
   ns_id        <- if (!is.null(session)) session$ns(id) else id
@@ -195,9 +215,17 @@ el_upload <- function(id = NULL,
   )
   upload_attrs[[":drag"]] <- "drag"
   upload_attrs[[":headers"]] <- .el_optional_bind("headers")
+  upload_attrs[[":data"]] <- .el_optional_bind("extraData")
   upload_attrs[[":file-list"]] <- .el_optional_bind("fileList")
   upload_attrs[[":with-credentials"]] <- .el_optional_bind("withCredentials")
   upload_attrs[[":thumbnail-mode"]] <- .el_optional_bind("thumbnailMode")
+  upload_attrs[[":before-upload"]] <- .el_optional_bind("beforeUpload")
+  upload_attrs[[":before-remove"]] <- .el_optional_bind("beforeRemove")
+  upload_attrs[[":on-change"]] <- .el_optional_bind("onChange")
+  upload_attrs[[":on-progress"]] <- .el_optional_bind("onProgress")
+  upload_attrs[[":on-preview"]] <- .el_optional_bind("onPreview")
+  upload_attrs[[":on-remove"]] <- .el_optional_bind("onRemove")
+  upload_attrs[[":on-exceed"]] <- .el_optional_bind("onExceed")
   if (via_shiny) upload_attrs[[":http-request"]] <- "shinyUpload"
 
   # Both triggers are rendered and switched by v-if, so update_el_upload(drag =)
@@ -231,12 +259,27 @@ el_upload <- function(id = NULL,
   )
 
   vue_data$headers <- .el_or_na(headers)
+  vue_data$extraData <- .el_or_na(extra_data)
 
   vue_data$fileList <- .el_or_na(file_list)
 
   vue_data$withCredentials <- .el_or_na(with_credentials)
 
   vue_data$thumbnailMode <- .el_or_na(thumbnail_mode)
+
+  vue_data$beforeUpload <- .el_or_na(before_upload)
+
+  vue_data$beforeRemove <- .el_or_na(before_remove)
+
+  vue_data$onChange <- .el_or_na(on_change)
+
+  vue_data$onProgress <- .el_or_na(on_progress)
+
+  vue_data$onPreview <- .el_or_na(on_preview)
+
+  vue_data$onRemove <- .el_or_na(on_remove)
+
+  vue_data$onExceed <- .el_or_na(on_exceed)
 
   methods <- list(
     handleSuccess = htmlwidgets::JS(sprintf(
@@ -302,10 +345,8 @@ update_el_upload <- function(session, id, disabled = NULL, limit = NULL) {
 #'
 #' @param session Shiny session object.
 #' @param id Upload ID (un-namespaced).
-#' @param headers Request headers, as a named list.
-#' @param file_list Files shown initially, each `list(name=, url=)`.
-#' @param with_credentials Whether to send cookies with the request.
-#' @param thumbnail_mode Whether files are shown as thumbnails.
+#'   This is Element's `data` prop, renamed to keep it distinct from the
+#'   uploaded file itself.
 #' @return Called for its side effect; returns `NULL` invisibly.
 #' @examples
 #' if (interactive()) {

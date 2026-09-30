@@ -32,34 +32,6 @@ update_el_select(
 \item{clearable}{New clearable state.}
 
 \item{filterable}{New filterable state.}
-
-\item{value_key}{Key that identifies an option when values are objects. Default \code{"value"}.}
-
-\item{name}{Native \code{name} attribute.}
-
-\item{autocomplete}{Native \code{autocomplete} attribute. Default \code{"off"}.}
-
-\item{automatic_dropdown}{Whether a filterable select opens its menu on focus.}
-
-\item{allow_create}{Whether the user may create options not in the list. Needs \code{filterable = TRUE}.}
-
-\item{loading}{Whether to show the loading state while options are being fetched.}
-
-\item{loading_text}{Text shown while loading. Default \code{"Loading"}.}
-
-\item{no_match_text}{Text shown when filtering matches nothing.}
-
-\item{no_data_text}{Text shown when there are no options at all.}
-
-\item{popper_class}{Extra class name for the dropdown panel.}
-
-\item{popper_append_to_body}{Whether the dropdown is appended to \code{body}. Default \code{TRUE}.}
-
-\item{reserve_keyword}{Whether a multiple filterable select keeps the search term after selecting.}
-
-\item{default_first_option}{Whether Enter picks the first matching option.}
-
-\item{remote}{Whether options are fetched from the server as the user types.}
 }
 \value{
 Called for its side effect; returns \code{NULL} invisibly.

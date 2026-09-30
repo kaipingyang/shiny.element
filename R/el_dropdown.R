@@ -26,6 +26,9 @@
 #'   `"bottom-start"`, `"top"`, `"top-start"`, `"top-end"`.
 #' @param disabled Whether the entire dropdown is disabled. Default `FALSE`.
 #' @param session Shiny session for module support.
+#' @param show_timeout Delay in ms before the menu appears, for `trigger = "hover"`.
+#' @param hide_timeout Delay in ms before the menu hides, for `trigger = "hover"`.
+#' @param tabindex Tab index of the dropdown trigger.
 #'
 #' @return An `htmltools` tagList with a Vue-managed dropdown component.
 #'
@@ -153,9 +156,6 @@ elementId = ns_id, width = 0, height = 0,
 #' @param session Shiny session object.
 #' @param id Dropdown ID (un-namespaced).
 #' @param disabled New disabled state.
-#' @param show_timeout Delay in ms before the menu appears, for `trigger = "hover"`.
-#' @param hide_timeout Delay in ms before the menu hides, for `trigger = "hover"`.
-#' @param tabindex Tab index of the dropdown trigger.
 #'
 #' @return Called for its side effect; returns `NULL` invisibly.
 #' @examples

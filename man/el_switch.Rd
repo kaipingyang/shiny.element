@@ -43,6 +43,14 @@ el_switch(
 
 \item{inactive_value}{Value reported to Shiny when switch is off. Default \code{FALSE}.}
 
+\item{active_icon_class}{Icon class shown on the active side; overrides \code{active_text}.}
+
+\item{inactive_icon_class}{Icon class shown on the inactive side; overrides \code{inactive_text}.}
+
+\item{name}{Native \code{name} attribute of the inner checkbox.}
+
+\item{validate_event}{Whether a change triggers form validation. Default \code{TRUE}.}
+
 \item{session}{Shiny session for module support.}
 }
 \value{

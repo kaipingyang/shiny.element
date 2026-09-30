@@ -14,22 +14,6 @@ update_el_rate(session, id, value = NULL, disabled = NULL)
 \item{value}{New rating value.}
 
 \item{disabled}{New disabled state.}
-
-\item{colors}{Colours for the three score levels, or a named list keyed by threshold.}
-
-\item{void_color}{Colour of unselected icons.}
-
-\item{disabled_void_color}{Colour of unselected icons when \code{disabled = TRUE}.}
-
-\item{icon_classes}{Icon classes for the three score levels, or a named list keyed by threshold.}
-
-\item{void_icon_class}{Icon class for unselected icons.}
-
-\item{disabled_void_icon_class}{Icon class for unselected icons when \code{disabled = TRUE}.}
-
-\item{low_threshold}{Scores at or below this use the first colour and icon. Default \code{2}.}
-
-\item{high_threshold}{Scores above this use the third colour and icon. Default \code{4}.}
 }
 \value{
 Called for its side effect; returns \code{NULL} invisibly.

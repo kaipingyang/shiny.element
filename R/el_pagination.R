@@ -15,6 +15,11 @@
 #' @param disabled Whether the pagination is disabled. Default `FALSE`.
 #' @param pager_count Number of pager buttons to show. Default `7`.
 #' @param session Shiny session for module support.
+#' @param prev_text Text of the previous-page button, in place of the arrow icon.
+#' @param next_text Text of the next-page button, in place of the arrow icon.
+#' @param hide_on_single_page Whether to hide the pager when there is only one page.
+#' @param page_count Total page count. Set either this or `total`.
+#' @param popper_class Extra class name for the page-size dropdown.
 #'
 #' @return An `htmltools` tagList with a Vue-managed pagination component.
 #'
@@ -162,11 +167,6 @@ elementId = ns_id, width = 0, height = 0,
 #' @param current_page New current page number.
 #' @param page_size New page size.
 #' @param disabled New disabled state.
-#' @param prev_text Text of the previous-page button, in place of the arrow icon.
-#' @param next_text Text of the next-page button, in place of the arrow icon.
-#' @param hide_on_single_page Whether to hide the pager when there is only one page.
-#' @param page_count Total page count. Set either this or `total`.
-#' @param popper_class Extra class name for the page-size dropdown.
 #'
 #' @return Called for its side effect; returns `NULL` invisibly.
 #' @examples

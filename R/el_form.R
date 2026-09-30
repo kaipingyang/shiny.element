@@ -218,6 +218,13 @@ el_form_field <- function(prop,
 #'   case drive the form with [el_form_validate()].
 #' @param reset_label Reset button text. `NULL` renders no button.
 #' @param session Shiny session for module support.
+#' @param disabled Whether every control in the form is disabled.
+#' @param show_message Whether to show validation messages. Default `TRUE`.
+#' @param inline_message Whether to show validation messages inline.
+#' @param status_icon Whether to show a validation status icon in each field.
+#' @param hide_required_asterisk Whether to hide the asterisk next to required fields' labels.
+#' @param label_suffix Suffix appended to every label.
+#' @param validate_on_rule_change Whether changing the rules triggers validation immediately.
 #'
 #' @section Server inputs:
 #' `input$<id>` holds the whole model as a list, reported once on load and
@@ -317,7 +324,12 @@ el_form <- function(...,
   # One template for every control type. `component :is` dispatches on the tag
   # name, so adding a type means adding a row to .el_form_tags, not a branch.
   field_items <- htmltools::HTML(paste0(
-    '<el-form-item v-for="f in fields" :key="f.prop" :prop="f.prop" :label="f.label">',
+    paste0('<el-form-item v-for="f in fields" :key="f.prop" :prop="f.prop" ',
+           # Per-field props read off the field object: a field may carry
+           # required, rules, error, label-width or size of its own.
+           ':label="f.label" :required="f.required" :rules="f.rules" ',
+           ':error="f.error" :label-width="f.labelWidth" :size="f.size" ',
+           ':inline-message="f.inlineMessage" :show-message="f.showMessage">'),
     '<component :is="f.tag" v-model="model[f.prop]" v-bind="f.props">',
     '<component v-for="o in (f.options || [])" :is="f.optionTag" :key="o.label" ',
     ':label="o.label" :value="o.value">{{ o.text }}</component>',
@@ -484,13 +496,6 @@ el_form_reset <- function(session, id) {
 #' @param session Shiny session object.
 #' @param id Form ID (un-namespaced).
 #' @param props Fields to clear. `NULL` clears all of them.
-#' @param disabled Whether every control in the form is disabled.
-#' @param show_message Whether to show validation messages. Default `TRUE`.
-#' @param inline_message Whether to show validation messages inline.
-#' @param status_icon Whether to show a validation status icon in each field.
-#' @param hide_required_asterisk Whether to hide the asterisk next to required fields' labels.
-#' @param label_suffix Suffix appended to every label.
-#' @param validate_on_rule_change Whether changing the rules triggers validation immediately.
 #' @return Called for its side effect; returns `NULL` invisibly.
 #' @examples
 #' if (interactive()) {

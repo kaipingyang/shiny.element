@@ -49,6 +49,8 @@ which Element renders itself and \code{\link[=update_el_button]{update_el_button
 \item{native_type}{HTML native button type: \code{"button"} (default), \code{"submit"},
 \code{"reset"}.}
 
+\item{autofocus}{Whether the button takes focus on page load. Default \code{FALSE}.}
+
 \item{session}{Shiny session for module support.}
 }
 \value{

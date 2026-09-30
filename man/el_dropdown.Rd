@@ -54,6 +54,12 @@ Default \code{TRUE}.}
 
 \item{disabled}{Whether the entire dropdown is disabled. Default \code{FALSE}.}
 
+\item{show_timeout}{Delay in ms before the menu appears, for \code{trigger = "hover"}.}
+
+\item{hide_timeout}{Delay in ms before the menu hides, for \code{trigger = "hover"}.}
+
+\item{tabindex}{Tab index of the dropdown trigger.}
+
 \item{session}{Shiny session for module support.}
 }
 \value{

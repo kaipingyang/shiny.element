@@ -21,6 +21,7 @@
 #' @param native_type HTML native button type: `"button"` (default), `"submit"`,
 #'   `"reset"`.
 #' @param session Shiny session for module support.
+#' @param autofocus Whether the button takes focus on page load. Default `FALSE`.
 #'
 #' @return An `htmltools` tagList with a Vue-managed button component.
 #'
@@ -142,7 +143,6 @@ elementId = ns_id, width = 0, height = 0,
 #' @param round New round state.
 #' @param loading New loading state.
 #' @param disabled New disabled state.
-#' @param autofocus Whether the button takes focus on page load. Default `FALSE`.
 #'
 #' @return Called for its side effect; returns `NULL` invisibly.
 #' @examples

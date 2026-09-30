@@ -22,6 +22,12 @@
 #' @param marks Named list of mark labels, e.g.,
 #'   `list("0" = "0km", "50" = "50km")`. Default `NULL` (no marks).
 #' @param session Shiny session for module support.
+#' @param label Accessible label for screen readers.
+#' @param debounce Debounce in ms while dragging, when `show_input = TRUE`. Default `300`.
+#' @param input_size Size of the companion input when `show_input = TRUE`.
+#' @param show_input_controls Whether the companion input shows its spinner buttons.
+#' @param tooltip_class Extra class name for the value tooltip.
+#' @param format_tooltip `htmlwidgets::JS()` function formatting the value shown in the tooltip.
 #'
 #' @return An `htmltools` tagList with a Vue-managed slider component.
 #'
@@ -74,6 +80,7 @@ el_slider <- function(
     input_size   = NULL,
     show_input_controls = NULL,
     tooltip_class = NULL,
+    format_tooltip = NULL,
     session      = shiny::getDefaultReactiveDomain()
 ) {
   if (is.null(id)) id <- paste0("el_slider_", uuid::UUIDgenerate())
@@ -106,6 +113,7 @@ el_slider <- function(
   slider_attrs[[":input-size"]] <- .el_optional_bind("inputSize")
   slider_attrs[[":show-input-controls"]] <- .el_optional_bind("showInputControls")
   slider_attrs[[":tooltip-class"]] <- .el_optional_bind("tooltipClass")
+  slider_attrs[[":format-tooltip"]] <- .el_optional_bind("formatTooltip")
 
   # Vue data
   vue_data <- list(
@@ -127,6 +135,7 @@ el_slider <- function(
   vue_data$inputSize <- .el_or_na(input_size)
   vue_data$showInputControls <- .el_or_na(show_input_controls)
   vue_data$tooltipClass <- .el_or_na(tooltip_class)
+  vue_data$formatTooltip <- .el_or_na(format_tooltip)
 
   component_ui <- shiny::tagList(
     shiny::tags$div(
@@ -166,11 +175,6 @@ elementId = ns_id, width = 0, height = 0,
 #' @param max New maximum value.
 #' @param step New step size.
 #' @param disabled New disabled state.
-#' @param label Accessible label for screen readers.
-#' @param debounce Debounce in ms while dragging, when `show_input = TRUE`. Default `300`.
-#' @param input_size Size of the companion input when `show_input = TRUE`.
-#' @param show_input_controls Whether the companion input shows its spinner buttons.
-#' @param tooltip_class Extra class name for the value tooltip.
 #'
 #' @return Called for its side effect; returns `NULL` invisibly.
 #' @examples

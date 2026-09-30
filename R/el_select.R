@@ -27,6 +27,22 @@ el_select_handler_dependency <- function() {
 #' @param collapse_tags Whether to collapse selected tags into a summary when
 #'   `multiple = TRUE`. Default `FALSE`.
 #' @param session Shiny session for module namespace support.
+#' @param value_key Key that identifies an option when values are objects. Default `"value"`.
+#' @param name Native `name` attribute.
+#' @param autocomplete Native `autocomplete` attribute. Default `"off"`.
+#' @param automatic_dropdown Whether a filterable select opens its menu on focus.
+#' @param allow_create Whether the user may create options not in the list. Needs `filterable = TRUE`.
+#' @param loading Whether to show the loading state while options are being fetched.
+#' @param loading_text Text shown while loading. Default `"Loading"`.
+#' @param no_match_text Text shown when filtering matches nothing.
+#' @param no_data_text Text shown when there are no options at all.
+#' @param popper_class Extra class name for the dropdown panel.
+#' @param popper_append_to_body Whether the dropdown is appended to `body`. Default `TRUE`.
+#' @param reserve_keyword Whether a multiple filterable select keeps the search term after selecting.
+#' @param default_first_option Whether Enter picks the first matching option.
+#' @param remote Whether options are fetched from the server as the user types.
+#' @param filter_method `htmlwidgets::JS()` function filtering the options as the user types.
+#' @param remote_method `htmlwidgets::JS()` function fetching options from the server. Needs `remote = TRUE`.
 #'
 #' @return An `htmltools` tagList containing the Vue-managed select component.
 #'
@@ -86,6 +102,8 @@ el_select <- function(
     reserve_keyword = NULL,
     default_first_option = NULL,
     remote         = NULL,
+    filter_method  = NULL,
+    remote_method  = NULL,
     session        = shiny::getDefaultReactiveDomain()
 ) {
   if (is.null(id)) id <- paste0("el_select_", uuid::UUIDgenerate())
@@ -127,6 +145,8 @@ el_select <- function(
   select_attrs[[":reserve-keyword"]] <- .el_optional_bind("reserveKeyword")
   select_attrs[[":default-first-option"]] <- .el_optional_bind("defaultFirstOption")
   select_attrs[[":remote"]] <- .el_optional_bind("remote")
+  select_attrs[[":filter-method"]] <- .el_optional_bind("filterMethod")
+  select_attrs[[":remote-method"]] <- .el_optional_bind("remoteMethod")
   # Build Vue data
   vue_data <- list(
     value        = if (is.null(selected)) (if (multiple) list() else "") else selected,
@@ -154,6 +174,8 @@ el_select <- function(
   vue_data$reserveKeyword <- .el_or_na(reserve_keyword)
   vue_data$defaultFirstOption <- .el_or_na(default_first_option)
   vue_data$remote <- .el_or_na(remote)
+  vue_data$filterMethod <- .el_or_na(filter_method)
+  vue_data$remoteMethod <- .el_or_na(remote_method)
   component_ui <- shiny::tagList(
     shiny::tags$div(
       id = container_id, style = .el_host_style(),
@@ -193,20 +215,6 @@ elementId = ns_id, width = 0, height = 0,
 #' @param placeholder New placeholder text.
 #' @param clearable New clearable state.
 #' @param filterable New filterable state.
-#' @param value_key Key that identifies an option when values are objects. Default `"value"`.
-#' @param name Native `name` attribute.
-#' @param autocomplete Native `autocomplete` attribute. Default `"off"`.
-#' @param automatic_dropdown Whether a filterable select opens its menu on focus.
-#' @param allow_create Whether the user may create options not in the list. Needs `filterable = TRUE`.
-#' @param loading Whether to show the loading state while options are being fetched.
-#' @param loading_text Text shown while loading. Default `"Loading"`.
-#' @param no_match_text Text shown when filtering matches nothing.
-#' @param no_data_text Text shown when there are no options at all.
-#' @param popper_class Extra class name for the dropdown panel.
-#' @param popper_append_to_body Whether the dropdown is appended to `body`. Default `TRUE`.
-#' @param reserve_keyword Whether a multiple filterable select keeps the search term after selecting.
-#' @param default_first_option Whether Enter picks the first matching option.
-#' @param remote Whether options are fetched from the server as the user types.
 #'
 #' @return Called for its side effect; returns `NULL` invisibly.
 #' @examples

@@ -16,6 +16,8 @@
 #' @param button Whether to use button-style checkboxes (`el-checkbox-button`).
 #'   Default `FALSE`.
 #' @param session Shiny session for module support.
+#' @param fill Border and background colour when `button = TRUE` and checked.
+#' @param text_color Text colour when `button = TRUE` and checked.
 #'
 #' @return An `htmltools` tagList with a Vue-managed checkbox group component.
 #'
@@ -64,10 +66,20 @@ el_checkbox_group <- function(
   container_id <- paste0(ns_id, "_container")
 
   cb_tag_name <- if (button) "el-checkbox-button" else "el-checkbox"
+  # Per-choice props are read off the option object, so a choice may be given
+  # as list(value =, label =, disabled = TRUE, border = TRUE). A key that is
+  # absent reads back as undefined, which is Element's own default.
   cb_slot <- htmltools::tag(cb_tag_name, list(
-    ":label" = "opt.value",
-    "v-for"  = "opt in options",
-    ":key"   = "opt.value",
+    ":label"         = "opt.value",
+    "v-for"          = "opt in options",
+    ":key"           = "opt.value",
+    ":disabled"      = "opt.disabled",
+    ":border"        = "opt.border",
+    ":name"          = "opt.name",
+    ":checked"       = "opt.checked",
+    ":indeterminate" = "opt.indeterminate",
+    ":true-label"    = "opt.trueLabel",
+    ":false-label"   = "opt.falseLabel",
     htmltools::HTML("{{opt.label}}")
   ))
 
@@ -127,8 +139,6 @@ elementId = ns_id, width = 0, height = 0,
 #' @param disabled New disabled state.
 #' @param min New minimum checked count.
 #' @param max New maximum checked count.
-#' @param fill Border and background colour when `button = TRUE` and checked.
-#' @param text_color Text colour when `button = TRUE` and checked.
 #'
 #' @return Called for its side effect; returns `NULL` invisibly.
 #' @examples

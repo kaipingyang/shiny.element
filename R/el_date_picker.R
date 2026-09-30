@@ -25,6 +25,16 @@
 #'   range types. Default `"-"`.
 #' @param align Input alignment: `"left"` (default), `"center"`, `"right"`.
 #' @param session Shiny session for module support.
+#' @param size Input size: `"medium"`, `"small"` or `"mini"`.
+#' @param name Native `name` attribute.
+#' @param prefix_icon Icon class shown at the start of the input.
+#' @param clear_icon Icon class of the clear button.
+#' @param popper_class Extra class name for the picker panel.
+#' @param default_value Date the panel opens on when nothing is selected.
+#' @param default_time Time part used when a date is picked, as `"HH:mm:ss"`.
+#' @param unlink_panels Whether the two panels of a range picker move independently.
+#' @param picker_options Additional Element picker options, as a named list.
+#' @param validate_event Whether a change triggers form validation. Default `TRUE`.
 #'
 #' @return An `htmltools` tagList with a Vue-managed date picker component.
 #'
@@ -198,16 +208,6 @@ elementId = ns_id, width = 0, height = 0,
 #' @param clearable New clearable state.
 #' @param readonly New readonly state.
 #' @param placeholder New placeholder text (non-range types).
-#' @param size Input size: `"medium"`, `"small"` or `"mini"`.
-#' @param name Native `name` attribute.
-#' @param prefix_icon Icon class shown at the start of the input.
-#' @param clear_icon Icon class of the clear button.
-#' @param popper_class Extra class name for the picker panel.
-#' @param default_value Date the panel opens on when nothing is selected.
-#' @param default_time Time part used when a date is picked, as `"HH:mm:ss"`.
-#' @param unlink_panels Whether the two panels of a range picker move independently.
-#' @param picker_options Additional Element picker options, as a named list.
-#' @param validate_event Whether a change triggers form validation. Default `TRUE`.
 #'
 #' @return Called for its side effect; returns `NULL` invisibly.
 #' @examples

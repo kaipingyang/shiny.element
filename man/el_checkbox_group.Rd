@@ -37,6 +37,10 @@ el_checkbox_group(
 \item{button}{Whether to use button-style checkboxes (\code{el-checkbox-button}).
 Default \code{FALSE}.}
 
+\item{fill}{Border and background colour when \code{button = TRUE} and checked.}
+
+\item{text_color}{Text colour when \code{button = TRUE} and checked.}
+
 \item{session}{Shiny session for module support.}
 }
 \value{

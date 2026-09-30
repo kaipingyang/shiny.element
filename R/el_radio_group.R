@@ -22,6 +22,8 @@ el_radio_group_handler_dependency <- function() {
 #' @param button Whether to render as `<el-radio-button>` (pill/button style)
 #'   instead of standard `<el-radio>`. Default `FALSE`.
 #' @param session Shiny session for module namespace support.
+#' @param fill Border and background colour of a checked radio button.
+#' @param text_color Text colour of a checked radio button.
 #'
 #' @return An `htmltools` tagList containing the Vue-managed radio group.
 #'
@@ -79,10 +81,14 @@ el_radio_group <- function(
   # Choose el-radio or el-radio-button based on button param
   radio_tag_name <- if (button) "el-radio-button" else "el-radio"
 
+  # Per-choice props are read off the option object, as in el_checkbox_group().
   radio_slot <- htmltools::tag(radio_tag_name, list(
-    ":label" = "opt.value",
-    "v-for"  = "opt in options",
-    ":key"   = "opt.value",
+    ":label"    = "opt.value",
+    "v-for"     = "opt in options",
+    ":key"      = "opt.value",
+    ":disabled" = "opt.disabled",
+    ":border"   = "opt.border",
+    ":name"     = "opt.name",
     htmltools::HTML("{{opt.label}}")
   ))
 
@@ -140,8 +146,6 @@ elementId = ns_id, width = 0, height = 0,
 #' @param options New choices: named character vector or
 #'   `list(list(value=, label=), ...)`.
 #' @param disabled New disabled state.
-#' @param fill Border and background colour of a checked radio button.
-#' @param text_color Text colour of a checked radio button.
 #'
 #' @return Called for its side effect; returns `NULL` invisibly.
 #' @examples

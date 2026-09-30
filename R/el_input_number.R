@@ -19,6 +19,7 @@
 #' @param placeholder Placeholder text. `NULL` for none.
 #' @param label Accessible label text. `NULL` for none.
 #' @param session Shiny session for module support.
+#' @param name Native `name` attribute of the inner input.
 #'
 #' @return An `htmltools` tagList with a Vue-managed input-number component.
 #'
@@ -121,7 +122,6 @@ elementId = ns_id, width = 0, height = 0,
 #' @param min New minimum.
 #' @param max New maximum.
 #' @param disabled New disabled state.
-#' @param name Native `name` attribute of the inner input.
 #'
 #' @return Called for its side effect; returns `NULL` invisibly.
 #' @examples

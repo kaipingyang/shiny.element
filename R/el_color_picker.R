@@ -13,6 +13,7 @@
 #' @param predefine Character vector of preset colour swatches. `NULL` for
 #'   none.
 #' @param session Shiny session for module support.
+#' @param popper_class Extra class name for the dropdown panel.
 #'
 #' @return An `htmltools` tagList with a Vue-managed color-picker component.
 #'
@@ -93,7 +94,6 @@ elementId = ns_id, width = 0, height = 0,
 #' @param id Color picker ID (un-namespaced).
 #' @param value New colour string.
 #' @param disabled New disabled state.
-#' @param popper_class Extra class name for the dropdown panel.
 #'
 #' @return Called for its side effect; returns `NULL` invisibly.
 #' @examples

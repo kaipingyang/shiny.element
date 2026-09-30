@@ -25,8 +25,6 @@ update_el_input_number(
 \item{max}{New maximum.}
 
 \item{disabled}{New disabled state.}
-
-\item{name}{Native \code{name} attribute of the inner input.}
 }
 \value{
 Called for its side effect; returns \code{NULL} invisibly.

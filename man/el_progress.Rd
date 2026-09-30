@@ -42,6 +42,8 @@ colour when set. Default \code{NULL}.}
 \item{width}{Width in pixels for \code{"circle"} and \code{"dashboard"} types.
 Default \code{126}.}
 
+\item{stroke_linecap}{Shape of the bar's ends: \code{"round"} (default), \code{"butt"} or \code{"square"}.}
+
 \item{session}{Shiny session for module support.}
 }
 \value{

@@ -50,6 +50,22 @@ Defaults to \code{c("极差", "失望", "一般", "满意", "惊喜")}.}
 \item{score_template}{Template for score display. \code{{value}} is replaced.
 Default \code{"{value}"}.}
 
+\item{colors}{Colours for the three score levels, or a named list keyed by threshold.}
+
+\item{void_color}{Colour of unselected icons.}
+
+\item{disabled_void_color}{Colour of unselected icons when \code{disabled = TRUE}.}
+
+\item{icon_classes}{Icon classes for the three score levels, or a named list keyed by threshold.}
+
+\item{void_icon_class}{Icon class for unselected icons.}
+
+\item{disabled_void_icon_class}{Icon class for unselected icons when \code{disabled = TRUE}.}
+
+\item{low_threshold}{Scores at or below this use the first colour and icon. Default \code{2}.}
+
+\item{high_threshold}{Scores above this use the third colour and icon. Default \code{4}.}
+
 \item{session}{Shiny session for module support.}
 }
 \value{

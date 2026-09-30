@@ -25,6 +25,19 @@
 #' @param expanded,checked Keys to expand and to check initially.
 #' @param empty_text Text shown when `data` is empty.
 #' @param session Shiny session for module support.
+#' @param indent Horizontal indent between levels, in pixels. Default `16`.
+#' @param icon_class Icon class of the expand arrow.
+#' @param lazy Whether child nodes are loaded on demand. Needs `load`.
+#' @param draggable Whether nodes can be dragged.
+#' @param auto_expand_parent Whether expanding a node expands its parents. Default `TRUE`.
+#' @param check_on_click_node Whether clicking a node's label also checks it.
+#' @param current_node_key Key of the node that starts out highlighted.
+#' @param render_after_expand Whether child nodes are rendered only once expanded. Default `TRUE`.
+#' @param load `htmlwidgets::JS()` function loading child nodes lazily. Needs `lazy = TRUE`.
+#' @param filter_node_method `htmlwidgets::JS()` function deciding whether a node survives filtering.
+#' @param render_content `htmlwidgets::JS()` render function for a node's content.
+#' @param allow_drag `htmlwidgets::JS()` function deciding whether a node may be dragged.
+#' @param allow_drop `htmlwidgets::JS()` function deciding whether a node may be dropped somewhere.
 #'
 #' @section Server inputs:
 #' `input$<id>` holds the key of the most recently clicked node, and
@@ -72,6 +85,11 @@ el_tree <- function(id = NULL,
                     check_on_click_node = NULL,
                     current_node_key = NULL,
                     render_after_expand = NULL,
+                    load    = NULL,
+                    filter_node_method = NULL,
+                    render_content = NULL,
+                    allow_drag = NULL,
+                    allow_drop = NULL,
                     session = shiny::getDefaultReactiveDomain()) {
   if (is.null(id)) id <- paste0("el_tree_", uuid::UUIDgenerate())
   ns_id        <- if (!is.null(session)) session$ns(id) else id
@@ -113,6 +131,16 @@ el_tree <- function(id = NULL,
 
   tree_attrs[[":render-after-expand"]] <- .el_optional_bind("renderAfterExpand")
 
+  tree_attrs[[":load"]] <- .el_optional_bind("load")
+
+  tree_attrs[[":filter-node-method"]] <- .el_optional_bind("filterNodeMethod")
+
+  tree_attrs[[":render-content"]] <- .el_optional_bind("renderContent")
+
+  tree_attrs[[":allow-drag"]] <- .el_optional_bind("allowDrag")
+
+  tree_attrs[[":allow-drop"]] <- .el_optional_bind("allowDrop")
+
   vue_data <- list(
     treeData          = data,
     # Element's default props map is replaced wholesale, not merged, so
@@ -148,6 +176,16 @@ el_tree <- function(id = NULL,
   vue_data$currentNodeKey <- .el_or_na(current_node_key)
 
   vue_data$renderAfterExpand <- .el_or_na(render_after_expand)
+
+  vue_data$load <- .el_or_na(load)
+
+  vue_data$filterNodeMethod <- .el_or_na(filter_node_method)
+
+  vue_data$renderContent <- .el_or_na(render_content)
+
+  vue_data$allowDrag <- .el_or_na(allow_drag)
+
+  vue_data$allowDrop <- .el_or_na(allow_drop)
 
   component_ui <- shiny::tagList(
     shiny::tags$div(
@@ -227,14 +265,6 @@ update_el_tree <- function(session, id,
 #' @param df A data frame.
 #' @param cols Column names, outermost level first.
 #' @param sep Separator used when joining values into a key.
-#' @param indent Horizontal indent between levels, in pixels. Default `16`.
-#' @param icon_class Icon class of the expand arrow.
-#' @param lazy Whether child nodes are loaded on demand. Needs `load`.
-#' @param draggable Whether nodes can be dragged.
-#' @param auto_expand_parent Whether expanding a node expands its parents. Default `TRUE`.
-#' @param check_on_click_node Whether clicking a node's label also checks it.
-#' @param current_node_key Key of the node that starts out highlighted.
-#' @param render_after_expand Whether child nodes are rendered only once expanded. Default `TRUE`.
 #' @return A list of nodes.
 #' @export
 #' @examples

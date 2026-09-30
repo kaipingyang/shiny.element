@@ -29,16 +29,6 @@ range mode.}
 \item{step}{New step size.}
 
 \item{disabled}{New disabled state.}
-
-\item{label}{Accessible label for screen readers.}
-
-\item{debounce}{Debounce in ms while dragging, when \code{show_input = TRUE}. Default \code{300}.}
-
-\item{input_size}{Size of the companion input when \code{show_input = TRUE}.}
-
-\item{show_input_controls}{Whether the companion input shows its spinner buttons.}
-
-\item{tooltip_class}{Extra class name for the value tooltip.}
 }
 \value{
 Called for its side effect; returns \code{NULL} invisibly.

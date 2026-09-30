@@ -45,6 +45,16 @@ Default \code{"total, sizes, prev, pager, next, jumper"}.}
 
 \item{pager_count}{Number of pager buttons to show. Default \code{7}.}
 
+\item{prev_text}{Text of the previous-page button, in place of the arrow icon.}
+
+\item{next_text}{Text of the next-page button, in place of the arrow icon.}
+
+\item{hide_on_single_page}{Whether to hide the pager when there is only one page.}
+
+\item{page_count}{Total page count. Set either this or \code{total}.}
+
+\item{popper_class}{Extra class name for the page-size dropdown.}
+
 \item{session}{Shiny session for module support.}
 }
 \value{
