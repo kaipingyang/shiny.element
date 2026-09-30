@@ -146,6 +146,10 @@ el_menu <- function(id = NULL,
 
     "close"
 
+  ),
+    shapes = list(
+    "open"  = "function(index, path) { return {index: index, path: path}; }",
+    "close" = "function(index, path) { return {index: index, path: path}; }"
   ))
 
   menu_attrs <- c(menu_attrs, events$attrs)

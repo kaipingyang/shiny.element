@@ -280,3 +280,34 @@ test_that("header_html keeps its own spelling rule", {
   expect_equal(cols[[1]]$headerHtml, "<b>A</b>")
   expect_null(cols[[1]]$header_html)
 })
+
+# ── row names ─────────────────────────────────────────────────────────────────
+
+test_that("row names that name something are kept as the first column", {
+  # mtcars keeps its car names in the row names; dropping them dropped the
+  # one column saying what each row was.
+  cols <- vapply(vue_data_of(el_table("t", data = head(mtcars[, 1:2], 2)))$columns,
+                 `[[`, "", "prop")
+  expect_equal(cols[1], "rowname")
+})
+
+test_that("row numbers are not treated as names", {
+  for (d in list(head(iris[, 1:2], 2), iris[3:5, 1:2])) {
+    cols <- vapply(vue_data_of(el_table("t", data = d))$columns, `[[`, "", "prop")
+    expect_false("rowname" %in% cols)
+  }
+})
+
+test_that("rownames can be forced either way", {
+  props <- function(...) vapply(vue_data_of(el_table("t", ...))$columns, `[[`, "", "prop")
+  expect_false("rowname" %in% props(data = head(mtcars[, 1:2]), rownames = FALSE))
+  expect_true("rowname" %in% props(data = head(iris[, 1:2]), rownames = TRUE))
+})
+
+test_that("every forwarded table event with arguments has a shape", {
+  shapes <- .el_table_event_shapes()
+  expect_true(all(c("row-click", "cell-click", "sort-change", "current-change",
+                    "select", "expand-change") %in% names(shapes)))
+  html <- paste(as.character(el_table("t", data = head(iris, 2))), collapse = "")
+  expect_match(html, "rowIndex", fixed = TRUE)
+})

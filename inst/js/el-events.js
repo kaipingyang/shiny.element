@@ -58,6 +58,19 @@
   window.shinyElement.plain = plain;
   window.shinyElement.serialisable = serialisable;
 
+  // Where a table row sits, 1-based, so R can index its own data with it.
+  window.shinyElement.rowIndex = function (vm, row) {
+    if (!row || !vm || !vm.tableData) return null;
+    var i = vm.tableData.indexOf(row);
+    return i < 0 ? null : i + 1;
+  };
+
+  // An Element table column object is mostly render machinery; what R wants
+  // is the prop it shows.
+  window.shinyElement.colProp = function (column) {
+    return column ? (column.property || column.label || null) : null;
+  };
+
   window.shinyElement.emit = function (id, event, args) {
     if (typeof Shiny === "undefined" || !Shiny.setInputValue) return;
     // Not .map(plain): map passes (value, index, array), which would arrive
@@ -67,7 +80,20 @@
       .filter(serialisable)
       .map(function (a) { return plain(a); })
       .filter(function (a) { return a !== undefined; });
-    var value = usable.length === 0 ? true : (usable.length === 1 ? usable[0] : usable);
+    // Several arguments are sent as an object, never an array: Shiny unlists
+    // an unnamed list, so [row, column] arrived as one flat character vector
+    // with the row's and the column's fields run together and every number
+    // turned into a string. Events worth reading get a shape of their own
+    // (see .el_event_bindings()); this is only the fallback.
+    var value;
+    if (usable.length === 0) {
+      value = true;
+    } else if (usable.length === 1) {
+      value = usable[0];
+    } else {
+      value = {};
+      usable.forEach(function (u, i) { value["arg" + (i + 1)] = u; });
+    }
     Shiny.setInputValue(id + "_" + event, value, { priority: "event" });
   };
 })();

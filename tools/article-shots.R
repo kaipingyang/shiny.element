@@ -211,8 +211,28 @@ for (s in shots) {
   Sys.sleep(1.5)   # Vue instances mount after the widgets are bound
 
   if (!is.null(s$js)) {
-    js(s$js)
+    # A selector that matches nothing throws, the interaction never happens,
+    # and the picture shows the untouched page -- so a throw is a failure.
+    res <- b$Runtime$evaluate(s$js)
+    if (!is.null(res$exceptionDetails)) {
+      problems <- c(problems, sprintf("%s: shot_js threw: %s", s$key,
+        res$exceptionDetails$exception$description %||% res$exceptionDetails$text))
+      message(sprintf("  x %-34s shot_js threw", s$key))
+      next
+    }
     Sys.sleep(s$wait)
+  }
+
+  # A server that errors while handling the example's own interaction greys
+  # the page out and the screenshot still gets taken -- the first version of
+  # the row-click example did exactly that and was reported as clean.
+  if (isTRUE(js("!!document.getElementById('shiny-disconnected-overlay')"))) {
+    log_tail <- grep("Error|error", readLines("/tmp/article-shots.log", warn = FALSE),
+                     value = TRUE)
+    problems <- c(problems, sprintf("%s: the server disconnected: %s", s$key,
+                                    substr(paste(tail(log_tail, 1), collapse = ""), 1, 160)))
+    message(sprintf("  x %-34s the server disconnected", s$key))
+    next
   }
 
   selectors <- c("#shot", s$sel)

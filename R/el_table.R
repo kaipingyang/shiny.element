@@ -41,8 +41,10 @@
   }
   if (!length(nms)) return(list())
 
+  # Row names carry no heading, as when R prints a data.frame
+  labels <- ifelse(nms == "rowname", "", nms)
   Map(function(prop, label) list(prop = prop, label = label),
-      gsub("\\.", "_", nms), nms, USE.NAMES = FALSE)
+      gsub("\\.", "_", nms), labels, USE.NAMES = FALSE)
 }
 
 #' Align user-supplied column configs with sanitised data keys
@@ -75,6 +77,89 @@
     col
   })
 }
+
+#' What each table event reports
+#'
+#' Element hands most table events the row object and its internal column
+#' object. Sent as they are they reach R flattened into one character vector,
+#' so each event is shaped into a named list instead: the 1-based
+#' `row_index` to index the original data with, the `row` itself, and the
+#' column's `prop` rather than the column object.
+#'
+#' @return A named list of JavaScript functions, one per event.
+#' @keywords internal
+.el_table_event_shapes <- function() {
+  idx <- "window.shinyElement.rowIndex(this, %s)"
+  col <- "window.shinyElement.colProp(%s)"
+  row_event <- sprintf(
+    "function(row, column) { return {row_index: %s, row: row, column: %s}; }",
+    sprintf(idx, "row"), sprintf(col, "column"))
+  cell_event <- sprintf(paste0(
+    "function(row, column) { var prop = %s; ",
+    "return {row_index: %s, row: row, column: prop, value: row[prop]}; }"),
+    sprintf(col, "column"), sprintf(idx, "row"))
+  header_event <- sprintf(
+    "function(column) { return {column: %s, label: column.label}; }",
+    sprintf(col, "column"))
+  sel_rows <- paste0(
+    "(selection || []).map(function(r) { return window.shinyElement.rowIndex(vm, r); })")
+
+  list(
+    "row-click"          = row_event,
+    "row-dblclick"       = row_event,
+    "row-contextmenu"    = row_event,
+    "cell-click"         = cell_event,
+    "cell-dblclick"      = cell_event,
+    "cell-mouse-enter"   = cell_event,
+    "cell-mouse-leave"   = cell_event,
+    "header-click"       = header_event,
+    "header-contextmenu" = header_event,
+    "select" = paste0(
+      "function(selection, row) { var vm = this; return {rows: ", sel_rows,
+      ", row_index: window.shinyElement.rowIndex(vm, row)}; }"),
+    "select-all" = paste0(
+      "function(selection) { var vm = this; return {rows: ", sel_rows, "}; }"),
+    "sort-change" =
+      "function(s) { return {column: s.prop, order: s.order}; }",
+    "current-change" = sprintf(paste0(
+      "function(row, old) { return {row_index: %s, row: row, ",
+      "previous_index: %s}; }"), sprintf(idx, "row"), sprintf(idx, "old")),
+    "header-dragend" = sprintf(paste0(
+      "function(newWidth, oldWidth, column) { return {column: %s, ",
+      "width: newWidth, previous_width: oldWidth}; }"), sprintf(col, "column")),
+    "expand-change" = sprintf(paste0(
+      "function(row, expanded) { var vm = this; return {row_index: %s, ",
+      "expanded: Array.isArray(expanded) ? expanded.map(function(r) { ",
+      "return window.shinyElement.rowIndex(vm, r); }) : expanded}; }"),
+      sprintf(idx, "row"))
+  )
+}
+
+
+#' Keep a data.frame's row names as a column, when they mean something
+#'
+#' `mtcars` keeps its car names in the row names, and a table that drops them
+#' drops the one column saying what each row is. Automatic row names -- 1 to
+#' n -- say nothing, so they are left out unless asked for.
+#'
+#' @param data A data.frame, or anything else (returned unchanged).
+#' @param rownames `TRUE` or `FALSE` to force it; `NULL` keeps them only when
+#'   they are not the automatic ones.
+#' @return The data, with a `rowname` column first when kept.
+#' @keywords internal
+.el_table_rownames <- function(data, rownames = NULL) {
+  if (!is.data.frame(data)) return(data)
+  # Row numbers are not names, whether automatic (1..n) or left over from a
+  # subset (3, 7, 12) -- .row_names_info() calls head(iris)'s names real ones
+  keep <- if (is.null(rownames)) {
+    !all(grepl("^[0-9]+$", rownames(data)))
+  } else {
+    isTRUE(rownames)
+  }
+  if (!keep || "rowname" %in% names(data)) return(data)
+  cbind(data.frame(rowname = rownames(data), stringsAsFactors = FALSE), data)
+}
+
 
 #' Accept the pre-0.1.0 `el_table(data, columns, id)` argument order
 #'
@@ -135,6 +220,10 @@
 #'   Inferred from `data` when omitted. A column may also carry
 #'   `header_html`, markup for its header cell -- inserted unescaped, so pass
 #'   only what you control.
+#' @param rownames Whether to show a data.frame's row names as the first
+#'   column. `NULL` (the default) shows them when they carry something --
+#'   `mtcars`' car names -- and leaves out automatic ones, which only count
+#'   rows.
 #' @param selection Enable row selection
 #' @param border Show table border
 #' @param session Shiny session for module support
@@ -239,6 +328,7 @@ el_table <- function(id = NULL,
                      data = list(),
                      columns = list(),
                      selection = FALSE,
+                     rownames = NULL,
                      border = TRUE,
                      stripe  = NULL,
                      size    = NULL,
@@ -286,6 +376,7 @@ el_table <- function(id = NULL,
   ns_id <- if (!is.null(session)) session$ns(id) else id
   container_id <- paste0(ns_id, "_container")
 
+  data <- .el_table_rownames(data, rownames)
   prep <- .el_table_prep(data, columns)
 
   # Columns are rendered with v-for rather than baked into the markup, so
@@ -356,7 +447,7 @@ el_table <- function(id = NULL,
     "cell-mouse-enter", "cell-mouse-leave", "row-click", "row-dblclick",
     "row-contextmenu", "header-click", "header-contextmenu", "header-dragend",
     "sort-change", "filter-change", "current-change", "expand-change"
-  ))
+  ), shapes = .el_table_event_shapes())
   table_attrs <- c(table_attrs, events$attrs)
 
   table_attrs[[":stripe"]] <- .el_optional_bind("stripe")

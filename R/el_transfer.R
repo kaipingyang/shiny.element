@@ -91,7 +91,12 @@ el_transfer <- function(id = NULL,
     ":right-default-checked" = .el_optional_bind("rightDefaultChecked"),
     ":render-content"      = .el_optional_bind("renderContent")
   )
-  events <- .el_event_bindings(ns_id, c("change", "left-check-change", "right-check-change"))
+  events <- .el_event_bindings(ns_id, c("change", "left-check-change", "right-check-change"),
+    shapes = list(
+    "change" = "function(value, direction, moved) { return {value: value, direction: direction, moved: moved}; }",
+    "left-check-change"  = "function(checked, changed) { return {checked: checked, changed: changed}; }",
+    "right-check-change" = "function(checked, changed) { return {checked: checked, changed: changed}; }"
+  ))
   attrs <- c(attrs, events$attrs)
 
   el_widget(

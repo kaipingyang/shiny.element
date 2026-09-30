@@ -213,7 +213,7 @@ server <- function(input, output, session) {
     # resets to NULL after every flush -- polling input[[...]] would almost
     # always read the NULL. They are latched by the observers below instead.
     cat("events_seen", "=", paste(names(seen_events), collapse = "/"), "\n")
-    for (nm in c("called_keys", "called_validate")) {
+    for (nm in c("called_keys", "called_validate", "row_index")) {
       if (!is.null(seen_events[[nm]])) cat(nm, "=", fmt(seen_events[[nm]]), "\n")
     }
     cat("raw_row_click", "=", fmt(input$tbl_row_click), "\n")
@@ -223,6 +223,8 @@ server <- function(input, output, session) {
   seen_events <- reactiveValues()
   observeEvent(input$tbl_row_click, {
     seen_events$tbl_row_click <- "fired"
+    # A row event is a named list; its row_index indexes the original data
+    seen_events$row_index <- input$tbl_row_click$row_index
   })
   observeEvent(input$inp_focus, {
     seen_events$inp_focus <- "fired"

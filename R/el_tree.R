@@ -205,7 +205,7 @@ el_tree <- function(id = NULL,
 
     "node-drop"
 
-  ))
+  ), shapes = .el_tree_event_shapes())
 
   tree_attrs <- c(tree_attrs, events$attrs)
 
@@ -350,4 +350,32 @@ df_to_tree_data <- function(df, cols, sep = "/") {
     })
   }
   build(df, 1, "")
+}
+
+
+#' What each tree event reports
+#'
+#' Element hands tree events the node's data, its internal TreeNode -- which
+#' points at its parent and children -- and sometimes the component. Each is
+#' shaped into a named list of the node's `data`, its `key` and its `level`.
+#'
+#' @return A named list of JavaScript functions, one per event.
+#' @keywords internal
+.el_tree_event_shapes <- function() {
+  node <- "function(data, node) { return {data: data, key: node && node.key, level: node && node.level}; }"
+  list(
+    "node-expand"      = node,
+    "node-collapse"    = node,
+    "current-change"   = node,
+    "node-contextmenu" =
+      "function(event, data, node) { return {data: data, key: node && node.key, level: node && node.level}; }",
+    "check-change" =
+      "function(data, checked, indeterminate) { return {data: data, checked: checked, indeterminate: indeterminate}; }",
+    "node-drag-start" = "function(node) { return {data: node && node.data}; }",
+    "node-drag-enter" = "function(dragging, drop) { return {dragging: dragging && dragging.data, drop: drop && drop.data}; }",
+    "node-drag-leave" = "function(dragging, drop) { return {dragging: dragging && dragging.data, drop: drop && drop.data}; }",
+    "node-drag-over"  = "function(dragging, drop) { return {dragging: dragging && dragging.data, drop: drop && drop.data}; }",
+    "node-drag-end"   = "function(dragging, drop, type) { return {dragging: dragging && dragging.data, drop: drop && drop.data, type: type}; }",
+    "node-drop"       = "function(dragging, drop, type) { return {dragging: dragging && dragging.data, drop: drop && drop.data, type: type}; }"
+  )
 }

@@ -748,3 +748,13 @@ test_that("confirming an el_popconfirm reaches the server", {
   Sys.sleep(2)
   expect_match(bdump()[["events_seen"]], "pc_confirm")
 })
+
+test_that("a row event arrives as a named list with a usable row_index", {
+  skip_if_no_browser()
+  # Sent as Element's raw arguments, [row, column] reached R as one flat
+  # character vector -- row fields and column internals run together, every
+  # number a string. Shaped, it is a list whose row_index indexes the data.
+  bev("document.querySelectorAll('#tbl_container .el-table__body tr')[1].querySelector('td').click()")
+  Sys.sleep(2)
+  expect_equal(unname(bdump()[["row_index"]]), "2")
+})

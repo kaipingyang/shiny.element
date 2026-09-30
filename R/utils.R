@@ -25,10 +25,14 @@
 #'
 #' @param ns_id The namespaced element id.
 #' @param events Character vector of Element event names, in kebab-case.
+#' @param shapes Named list of JavaScript functions, one per event that
+#'   carries more than one argument, turning the arguments into a single
+#'   object. `this` is the Vue instance. Without one, several arguments are
+#'   sent as `arg1`, `arg2`, ...
 #' @return A list with `attrs` (to merge into the tag) and `methods` (to merge
 #'   into the Vue options).
 #' @keywords internal
-.el_event_bindings <- function(ns_id, events) {
+.el_event_bindings <- function(ns_id, events, shapes = list()) {
   if (!length(events)) {
     return(list(attrs = list(), methods = list()))
   }
@@ -45,9 +49,20 @@
   )
   methods <- stats::setNames(
     lapply(events, function(event) {
+      shape <- shapes[[event]]
+      if (is.null(shape)) {
+        return(htmlwidgets::JS(sprintf(
+          "function() { window.shinyElement.emit('%s', '%s', arguments); }",
+          ns_id, input_name(event)
+        )))
+      }
+      # The shape runs with `this` as the Vue instance, so it can look a row
+      # up in the instance's own data.
       htmlwidgets::JS(sprintf(
-        "function() { window.shinyElement.emit('%s', '%s', arguments); }",
-        ns_id, input_name(event)
+        paste0("function() { var shape = %s; ",
+               "window.shinyElement.emit('%s', '%s', ",
+               "[shape.apply(this, arguments)]); }"),
+        shape, ns_id, input_name(event)
       ))
     }),
     vapply(events, method_name, character(1))
