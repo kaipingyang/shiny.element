@@ -17,4 +17,6 @@ Merge what several absorbed components contribute
 
 ## Value
 
-One set of Vue options, plus the dependencies to attach.
+One set of Vue options, the dependencies to attach, and each part's
+markup as it now stands – renaming rewrites it, so the caller must
+render `markups` rather than what it passed in.
