@@ -29,16 +29,17 @@ el_popover(
 \arguments{
 \item{id}{Popover ID. Auto-generated if \code{NULL}.}
 
-\item{reference}{The element the popover hangs off. Markup only -- raw
-Element tags from \link{el}, or ordinary Shiny UI. It cannot be another
-shiny.element component: the popover compiles this into its own Vue
-instance, which would discard a mounted one.}
+\item{reference}{The element the popover hangs off. Any Shiny UI,
+including another shiny.element component -- that component is folded
+into the popover's Vue instance rather than nested inside it, so its
+inputs keep reporting. Its \verb{update_el_*()} no longer reaches it.}
 
 \item{title}{Title of the card.}
 
 \item{content}{Body text. For richer content pass \code{body}.}
 
-\item{body}{Body markup, used instead of \code{content}. Markup only, as above.}
+\item{body}{Body markup, used instead of \code{content}. Components are
+absorbed here too.}
 
 \item{trigger}{How it opens: \code{"click"} (default), \code{"focus"}, \code{"hover"} or
 \code{"manual"}.}

@@ -1,42 +1,4 @@
 # 工具函数示例
-#' Refuse markup that contains a mounted component
-#'
-#' A component that wraps its trigger -- tooltip, popover, popconfirm --
-#' compiles that markup as part of its own Vue instance. Vue creates fresh DOM
-#' nodes when it compiles, and an htmlwidget's instance does not travel with
-#' the copy: the inner component disappears and its inputs never report. The
-#' mount point does get cloned, so nothing errors and nothing is logged.
-#'
-#' Raw Element tags from [el] and ordinary Shiny UI are fine, because they are
-#' only markup. This turns the silent case into an error naming the way out.
-#'
-#' @param ui The markup to check.
-#' @param arg Name of the argument it came from, for the message.
-#' @param component Name of the component doing the wrapping.
-#' @return `ui`, unchanged, when it holds no widget.
-#' @keywords internal
-.el_reject_widgets <- function(ui, arg, component) {
-  if (is.null(ui)) return(ui)
-
-  html <- tryCatch(
-    paste(as.character(htmltools::renderTags(ui)$html), collapse = ""),
-    error = function(e) ""
-  )
-  if (!grepl("html-widget", html, fixed = TRUE)) return(ui)
-
-  stop(
-    component, "(): `", arg, "` cannot contain another shiny.element ",
-    "component.\n",
-    "  ", component, "() compiles this markup into its own Vue instance, ",
-    "which rebuilds the DOM -- a mounted component inside would be lost and ",
-    "its inputs would never report.\n",
-    "  Use a raw Element tag instead, which is markup only: ",
-    "el$button(type = \"primary\", \"Save\") rather than ",
-    "el_button(\"save\", \"Save\").",
-    call. = FALSE
-  )
-}
-
 #' Forward Element UI events to Shiny inputs
 #'
 #' Element's events carry different arguments each, some of them DOM nodes or

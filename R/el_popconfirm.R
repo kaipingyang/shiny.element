@@ -4,10 +4,10 @@
 #' for actions that warrant a check but not a dialog.
 #'
 #' @param id Popconfirm ID. Auto-generated if `NULL`.
-#' @param reference The element that opens the prompt. Markup only -- raw
-#'   Element tags from [el], or ordinary Shiny UI. It cannot be another
-#'   shiny.element component: the prompt compiles this into its own Vue
-#'   instance, which would discard a mounted one.
+#' @param reference The element that opens the prompt. Any Shiny UI,
+#'   including another shiny.element component -- that component is folded
+#'   into this one's Vue instance rather than nested inside it, so its inputs
+#'   keep reporting. Its `update_el_*()` no longer reaches it, though.
 #' @param title The question.
 #' @param confirm_button_text,cancel_button_text Button labels.
 #' @param confirm_button_type,cancel_button_type Button types, as in
@@ -58,42 +58,42 @@ el_popconfirm <- function(id = NULL,
                           hide_icon = NULL,
                           width = NULL,
                           session = shiny::getDefaultReactiveDomain()) {
-  reference <- .el_reject_widgets(reference, "reference", "el_popconfirm")
+  inner <- .el_absorb(reference)
 
   if (is.null(id)) id <- paste0("el_popconfirm_", uuid::UUIDgenerate())
   ns_id <- if (!is.null(session)) session$ns(id) else id
 
   attrs <- list(
-    ":title"               = .el_optional_bind("title"),
-    ":confirm-button-text" = .el_optional_bind("confirmButtonText"),
-    ":cancel-button-text"  = .el_optional_bind("cancelButtonText"),
-    ":confirm-button-type" = .el_optional_bind("confirmButtonType"),
-    ":cancel-button-type"  = .el_optional_bind("cancelButtonType"),
-    ":icon"                = .el_optional_bind("icon"),
-    ":icon-color"          = .el_optional_bind("iconColor"),
-    ":hide-icon"           = .el_optional_bind("hideIcon"),
+    ":title"               = .el_optional_bind("pcTitle"),
+    ":confirm-button-text" = .el_optional_bind("pcConfirmButtonText"),
+    ":cancel-button-text"  = .el_optional_bind("pcCancelButtonText"),
+    ":confirm-button-type" = .el_optional_bind("pcConfirmButtonType"),
+    ":cancel-button-type"  = .el_optional_bind("pcCancelButtonType"),
+    ":icon"                = .el_optional_bind("pcIcon"),
+    ":icon-color"          = .el_optional_bind("pcIconColor"),
+    ":hide-icon"           = .el_optional_bind("pcHideIcon"),
     # Upstream emits these in camelCase, unlike every other Element event
     "@onConfirm"           = "handleConfirm",
     "@onCancel"            = "handleCancel"
   )
 
-  children <- if (is.null(reference)) list() else list(
-    htmltools::tags$span(slot = "reference", reference)
+  children <- if (is.null(inner$markup)) list() else list(
+    htmltools::tags$span(slot = "reference", inner$markup)
   )
 
-  el_widget(
-    id     = ns_id,
-    markup = htmltools::tag("el-popconfirm", c(attrs, children)),
-    data   = list(
-      title             = .el_or_na(title),
-      confirmButtonText = .el_or_na(confirm_button_text),
-      cancelButtonText  = .el_or_na(cancel_button_text),
-      confirmButtonType = .el_or_na(confirm_button_type),
-      cancelButtonType  = .el_or_na(cancel_button_type),
-      icon              = .el_or_na(icon),
-      iconColor         = .el_or_na(icon_color),
-      hideIcon          = .el_or_na(hide_icon)
+  own <- list(
+    markup = NULL,
+    data = list(
+      pcTitle             = .el_or_na(title),
+      pcConfirmButtonText = .el_or_na(confirm_button_text),
+      pcCancelButtonText  = .el_or_na(cancel_button_text),
+      pcConfirmButtonType = .el_or_na(confirm_button_type),
+      pcCancelButtonType  = .el_or_na(cancel_button_type),
+      pcIcon              = .el_or_na(icon),
+      pcIconColor         = .el_or_na(icon_color),
+      pcHideIcon          = .el_or_na(hide_icon)
     ),
+    watch = list(), computed = list(), mounted = NULL, dependencies = list(),
     methods = list(
       handleConfirm = htmlwidgets::JS(sprintf(
         "function() { Shiny.setInputValue('%s_confirm', true, {priority: 'event'}); }",
@@ -103,9 +103,20 @@ el_popconfirm <- function(id = NULL,
         "function() { Shiny.setInputValue('%s_cancel', true, {priority: 'event'}); }",
         ns_id
       ))
-    ),
-    width      = width,
-    dependency = el_popconfirm_handler_dependency()
+    )
+  )
+  merged <- .el_absorb_merge(own, inner)
+
+  el_widget(
+    id       = ns_id,
+    markup   = htmltools::tag("el-popconfirm", c(attrs, children)),
+    data     = merged$data,
+    methods  = merged$methods,
+    watch    = merged$watch,
+    computed = merged$computed,
+    mounted  = merged$mounted,
+    width    = width,
+    dependency = c(el_popconfirm_handler_dependency(), merged$dependencies)
   )
 }
 

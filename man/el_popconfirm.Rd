@@ -22,10 +22,10 @@ el_popconfirm(
 \arguments{
 \item{id}{Popconfirm ID. Auto-generated if \code{NULL}.}
 
-\item{reference}{The element that opens the prompt. Markup only -- raw
-Element tags from \link{el}, or ordinary Shiny UI. It cannot be another
-shiny.element component: the prompt compiles this into its own Vue
-instance, which would discard a mounted one.}
+\item{reference}{The element that opens the prompt. Any Shiny UI,
+including another shiny.element component -- that component is folded
+into this one's Vue instance rather than nested inside it, so its inputs
+keep reporting. Its \verb{update_el_*()} no longer reaches it, though.}
 
 \item{title}{The question.}
 

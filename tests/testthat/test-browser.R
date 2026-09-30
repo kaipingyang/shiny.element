@@ -680,3 +680,38 @@ test_that("el_call on a method that does not exist warns rather than failing", {
   bclick("#call_missing_container button", wait = 3)
   expect_match(paste(bconsole(), collapse = " "), "not a method")
 })
+
+# ── wrapping a component rather than plain markup ─────────────────────────────
+
+test_that("a component used as a tooltip trigger keeps working", {
+  skip_if_no_browser()
+  # Nesting one Vue instance inside another loses the inner one: Element's
+  # tooltip keeps only its first child node, and the widget's mount point goes
+  # with the rest. .el_absorb() folds the two into a single instance instead.
+  expect_true(bev("!!document.querySelector('#wrap_container button')"))
+  expect_equal(bev("document.querySelector('#wrap_container button').innerText"),
+               "Nested")
+
+  # the tooltip still behaves as a tooltip
+  bev("(function(){var e=document.querySelector('#wrap_container button');
+       ['mouseenter','mouseover'].forEach(function(t){
+         e.dispatchEvent(new MouseEvent(t,{bubbles:true}));});})()")
+  Sys.sleep(1)
+  expect_true(bev("!!document.querySelector('.el-tooltip__popper')"))
+})
+
+test_that("an absorbed component still reports its inputs", {
+  skip_if_no_browser()
+  bclick("#wrap_container button", wait = 2)
+  expect_gt(bev("Shiny.shinyapp.$inputValues['nested_btn'] || 0"), 0)
+})
+
+test_that("absorbing a component raises no Vue warning", {
+  skip_if_no_browser()
+  # An empty methods list serialises to [], and Vue rejects an array where it
+  # wants an options object -- which is what the first merged instance did.
+  # An earlier test deliberately logs one of the package's own warnings, so
+  # look only at what Vue said.
+  expect_equal(grep("[Vue warn]", bconsole(), fixed = TRUE, value = TRUE),
+               character(0))
+})

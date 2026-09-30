@@ -19,10 +19,10 @@ el_infinite_scroll(
 \arguments{
 \item{id}{Container ID. Auto-generated if \code{NULL}.}
 
-\item{...}{Content of the scrolling area. Markup only -- raw Element tags
-from \link{el}, or ordinary Shiny UI. It cannot contain another shiny.element
-component: the container compiles this into its own Vue instance, which
-would discard a mounted one.}
+\item{...}{Content of the scrolling area. Any Shiny UI, including
+shiny.element components -- those are folded into this container's Vue
+instance rather than nested inside it, so their inputs keep reporting.
+Their \verb{update_el_*()} no longer reaches them, though.}
 
 \item{height}{Height of the area, as a CSS unit. Needed for it to scroll at
 all. Default \code{"300px"}.}

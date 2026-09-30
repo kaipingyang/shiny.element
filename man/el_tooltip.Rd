@@ -28,11 +28,11 @@ el_tooltip(
 \arguments{
 \item{id}{Tooltip ID. Auto-generated if \code{NULL}.}
 
-\item{trigger}{The element the tooltip describes. Markup only -- raw
-Element tags from \link{el}, or ordinary Shiny UI. It cannot be another
-shiny.element component: the tooltip compiles this into its own Vue
-instance, which would discard a mounted one. Use
-\code{el$button(type = "primary", "Save")} rather than \code{el_button()}.}
+\item{trigger}{The element the tooltip describes. Any Shiny UI, including
+another shiny.element component -- that component is folded into the
+tooltip's own Vue instance rather than nested inside it, so its inputs
+keep reporting. Its \verb{update_el_*()} no longer reaches it, though; see
+Details.}
 
 \item{content}{Text of the hint.}
 
@@ -75,9 +75,20 @@ A Shiny UI element.
 \description{
 A hint shown when the pointer rests on something.
 }
+\details{
+A component passed as \code{trigger} becomes part of the tooltip's Vue instance
+rather than a separate one, which is what lets it survive being compiled
+into the tooltip's markup. It reports its inputs as usual, but it no longer
+has a widget of its own, so its \verb{update_el_*()} cannot find it -- drive it
+through \code{\link[=update_vue_data]{update_vue_data()}} on the tooltip's id instead.
+}
 \examples{
+# A plain tag as the trigger
 el_tooltip("hint", el$button(type = "primary", "Save"),
            content = "Writes to disk")
+
+# Or a component, which keeps working
+el_tooltip("hint", el_button("save", "Save"), content = "Writes to disk")
 
 el_tooltip("hint",
   trigger = el$button(type = "danger", "Delete"),

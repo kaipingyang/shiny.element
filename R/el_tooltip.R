@@ -2,12 +2,19 @@
 #'
 #' A hint shown when the pointer rests on something.
 #'
+#' @details
+#' A component passed as `trigger` becomes part of the tooltip's Vue instance
+#' rather than a separate one, which is what lets it survive being compiled
+#' into the tooltip's markup. It reports its inputs as usual, but it no longer
+#' has a widget of its own, so its `update_el_*()` cannot find it -- drive it
+#' through [update_vue_data()] on the tooltip's id instead.
+#'
 #' @param id Tooltip ID. Auto-generated if `NULL`.
-#' @param trigger The element the tooltip describes. Markup only -- raw
-#'   Element tags from [el], or ordinary Shiny UI. It cannot be another
-#'   shiny.element component: the tooltip compiles this into its own Vue
-#'   instance, which would discard a mounted one. Use
-#'   `el$button(type = "primary", "Save")` rather than `el_button()`.
+#' @param trigger The element the tooltip describes. Any Shiny UI, including
+#'   another shiny.element component -- that component is folded into the
+#'   tooltip's own Vue instance rather than nested inside it, so its inputs
+#'   keep reporting. Its `update_el_*()` no longer reaches it, though; see
+#'   Details.
 #' @param content Text of the hint.
 #' @param placement Where the hint appears: `"top"` (default), `"bottom"`,
 #'   `"left"`, `"right"`, each also with `-start` and `-end`.
@@ -30,8 +37,12 @@
 #'
 #' @return A Shiny UI element.
 #' @examples
+#' # A plain tag as the trigger
 #' el_tooltip("hint", el$button(type = "primary", "Save"),
 #'            content = "Writes to disk")
+#'
+#' # Or a component, which keeps working
+#' el_tooltip("hint", el_button("save", "Save"), content = "Writes to disk")
 #'
 #' el_tooltip("hint",
 #'   trigger = el$button(type = "danger", "Delete"),
@@ -57,51 +68,65 @@ el_tooltip <- function(id = NULL,
                        tabindex = NULL,
                        width = NULL,
                        session = shiny::getDefaultReactiveDomain()) {
-  trigger <- .el_reject_widgets(trigger, "trigger", "el_tooltip")
+  # A component handed in here is folded into this one's Vue instance rather
+  # than nested inside it -- see .el_absorb().
+  inner <- .el_absorb(trigger)
 
   if (is.null(id)) id <- paste0("el_tooltip_", uuid::UUIDgenerate())
   ns_id <- if (!is.null(session)) session$ns(id) else id
 
   attrs <- list(
-    "v-model"          = "value",
-    ":content"         = .el_optional_bind("content"),
-    ":placement"       = .el_optional_bind("placement"),
-    ":effect"          = .el_optional_bind("effect"),
-    ":disabled"        = .el_optional_bind("disabled"),
-    ":offset"          = .el_optional_bind("offset"),
-    ":open-delay"      = .el_optional_bind("openDelay"),
-    ":hide-after"      = .el_optional_bind("hideAfter"),
-    ":enterable"       = .el_optional_bind("enterable"),
-    ":visible-arrow"   = .el_optional_bind("visibleArrow"),
-    ":transition"      = .el_optional_bind("transition"),
-    ":popper-class"    = .el_optional_bind("popperClass"),
-    ":popper-options"  = .el_optional_bind("popperOptions"),
-    ":manual"          = .el_optional_bind("manual"),
-    ":tabindex"        = .el_optional_bind("tabindex")
+    "v-model"          = "tipValue",
+    ":content"         = .el_optional_bind("tipContent"),
+    ":placement"       = .el_optional_bind("tipPlacement"),
+    ":effect"          = .el_optional_bind("tipEffect"),
+    ":disabled"        = .el_optional_bind("tipDisabled"),
+    ":offset"          = .el_optional_bind("tipOffset"),
+    ":open-delay"      = .el_optional_bind("tipOpenDelay"),
+    ":hide-after"      = .el_optional_bind("tipHideAfter"),
+    ":enterable"       = .el_optional_bind("tipEnterable"),
+    ":visible-arrow"   = .el_optional_bind("tipVisibleArrow"),
+    ":transition"      = .el_optional_bind("tipTransition"),
+    ":popper-class"    = .el_optional_bind("tipPopperClass"),
+    ":popper-options"  = .el_optional_bind("tipPopperOptions"),
+    ":manual"          = .el_optional_bind("tipManual"),
+    ":tabindex"        = .el_optional_bind("tipTabindex")
   )
 
-  el_widget(
-    id     = ns_id,
-    markup = htmltools::tag("el-tooltip", c(attrs, list(trigger))),
-    data   = list(
-      value          = FALSE,
-      content        = .el_or_na(content),
-      placement      = .el_or_na(placement),
-      effect         = .el_or_na(effect),
-      disabled       = .el_or_na(disabled),
-      offset         = .el_or_na(offset),
-      openDelay      = .el_or_na(open_delay),
-      hideAfter      = .el_or_na(hide_after),
-      enterable      = .el_or_na(enterable),
-      visibleArrow   = .el_or_na(visible_arrow),
-      transition     = .el_or_na(transition),
-      popperClass    = .el_or_na(popper_class),
-      popperOptions  = .el_or_na(popper_options),
-      manual         = .el_or_na(manual),
-      tabindex       = .el_or_na(tabindex)
+  own <- list(
+    markup = NULL,
+    data = list(
+      tipValue          = FALSE,
+      tipContent        = .el_or_na(content),
+      tipPlacement      = .el_or_na(placement),
+      tipEffect         = .el_or_na(effect),
+      tipDisabled       = .el_or_na(disabled),
+      tipOffset         = .el_or_na(offset),
+      tipOpenDelay      = .el_or_na(open_delay),
+      tipHideAfter      = .el_or_na(hide_after),
+      tipEnterable      = .el_or_na(enterable),
+      tipVisibleArrow   = .el_or_na(visible_arrow),
+      tipTransition     = .el_or_na(transition),
+      tipPopperClass    = .el_or_na(popper_class),
+      tipPopperOptions  = .el_or_na(popper_options),
+      tipManual         = .el_or_na(manual),
+      tipTabindex       = .el_or_na(tabindex)
     ),
-    width      = width,
-    dependency = el_tooltip_handler_dependency()
+    methods = list(), watch = list(), computed = list(), mounted = NULL,
+    dependencies = list()
+  )
+  merged <- .el_absorb_merge(own, inner)
+
+  el_widget(
+    id       = ns_id,
+    markup   = htmltools::tag("el-tooltip", c(attrs, list(inner$markup))),
+    data     = merged$data,
+    methods  = merged$methods,
+    watch    = merged$watch,
+    computed = merged$computed,
+    mounted  = merged$mounted,
+    width    = width,
+    dependency = c(el_tooltip_handler_dependency(), merged$dependencies)
   )
 }
 

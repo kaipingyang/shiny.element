@@ -5,10 +5,10 @@
 #' the area is a container you put content into.
 #'
 #' @param id Container ID. Auto-generated if `NULL`.
-#' @param ... Content of the scrolling area. Markup only -- raw Element tags
-#'   from [el], or ordinary Shiny UI. It cannot contain another shiny.element
-#'   component: the container compiles this into its own Vue instance, which
-#'   would discard a mounted one.
+#' @param ... Content of the scrolling area. Any Shiny UI, including
+#'   shiny.element components -- those are folded into this container's Vue
+#'   instance rather than nested inside it, so their inputs keep reporting.
+#'   Their `update_el_*()` no longer reaches them, though.
 #' @param height Height of the area, as a CSS unit. Needed for it to scroll at
 #'   all. Default `"300px"`.
 #' @param disabled Whether loading is suspended. Set it from the server while
@@ -57,38 +57,49 @@ el_infinite_scroll <- function(id = NULL,
                                immediate = NULL,
                                width = NULL,
                                session = shiny::getDefaultReactiveDomain()) {
-  content <- .el_reject_widgets(list(...), "...", "el_infinite_scroll")
+  inner <- .el_absorb(list(...))
 
   if (is.null(id)) id <- paste0("el_infinite_scroll_", uuid::UUIDgenerate())
   ns_id <- if (!is.null(session)) session$ns(id) else id
 
   attrs <- list(
     "v-infinite-scroll"           = "handleLoad",
-    ":infinite-scroll-disabled"   = "disabled",
-    ":infinite-scroll-delay"      = .el_optional_bind("delay"),
-    ":infinite-scroll-distance"   = .el_optional_bind("distance"),
-    ":infinite-scroll-immediate"  = .el_optional_bind("immediate"),
+    ":infinite-scroll-disabled"   = "scrollDisabled",
+    ":infinite-scroll-delay"      = .el_optional_bind("scrollDelay"),
+    ":infinite-scroll-distance"   = .el_optional_bind("scrollDistance"),
+    ":infinite-scroll-immediate"  = .el_optional_bind("scrollImmediate"),
     style = paste0("overflow: auto; height: ", shiny::validateCssUnit(height))
   )
 
-  el_widget(
-    id     = ns_id,
-    markup = htmltools::tag("div", c(attrs, list(content))),
-    data   = list(
-      disabled  = if (is.null(disabled)) FALSE else disabled,
-      delay     = .el_or_na(delay),
-      distance  = .el_or_na(distance),
-      immediate = .el_or_na(immediate),
-      count     = 0L
+  own <- list(
+    markup = NULL,
+    data = list(
+      scrollDisabled  = if (is.null(disabled)) FALSE else disabled,
+      scrollDelay     = .el_or_na(delay),
+      scrollDistance  = .el_or_na(distance),
+      scrollImmediate = .el_or_na(immediate),
+      scrollCount     = 0L
     ),
     methods = list(
       handleLoad = htmlwidgets::JS(sprintf(
-        "function() { this.count++; Shiny.setInputValue('%s_load', this.count); }",
+        "function() { this.scrollCount++; Shiny.setInputValue('%s_load', this.scrollCount); }",
         ns_id
       ))
     ),
-    width      = width,
-    dependency = el_infinite_scroll_handler_dependency()
+    watch = list(), computed = list(), mounted = NULL, dependencies = list()
+  )
+  merged <- .el_absorb_merge(own, inner)
+
+  el_widget(
+    id       = ns_id,
+    markup   = htmltools::tag("div", c(attrs, list(inner$markup))),
+    data     = merged$data,
+    methods  = merged$methods,
+    watch    = merged$watch,
+    computed = merged$computed,
+    mounted  = merged$mounted,
+    width    = width,
+    dependency = c(el_infinite_scroll_handler_dependency(), merged$dependencies)
   )
 }
 

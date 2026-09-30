@@ -180,7 +180,10 @@ ui <- el_page(
   # Does a widget survive being wrapped by another component's Vue instance?
   tags$div(id = "nest_probe",
     el_tooltip("tip", el$button(type = "primary", "Hover me"), content = "a hint"),
-    el_popconfirm("pc", el$button(type = "danger", "Delete"), title = "Sure?"),
+    # A real component as a tooltip trigger, absorbed rather than nested
+    tags$div(id = "nest_raw",
+      el_tooltip("wrap", el_button("nested_btn", "Nested"), content = "works")),
+    el_popconfirm("pc", el_button("pc_btn", "Delete", type = "danger"), title = "Sure?"),
     el_avatar("av", content = "KY"),
     el_breadcrumb("crumb", items = list(list(label = "Home"), list(label = "Here")))),
 
