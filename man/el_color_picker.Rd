@@ -13,6 +13,7 @@ el_color_picker(
   color_format = NULL,
   predefine = NULL,
   popper_class = NULL,
+  width = NULL,
   session = shiny::getDefaultReactiveDomain()
 )
 }
@@ -35,6 +36,10 @@ When \code{TRUE}, the returned value is an \code{rgba(...)} string.}
 none.}
 
 \item{popper_class}{Extra class name for the dropdown panel.}
+
+\item{width}{Component width, as a CSS unit -- \code{"200px"}, \code{"50\%"}, or a
+number taken as pixels. Element's own markup carries it, so it behaves
+like the \code{width} argument of a Shiny input.}
 
 \item{session}{Shiny session for module support.}
 }

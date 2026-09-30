@@ -22,6 +22,7 @@ el_cascader(
   popper_class = NULL,
   filter_method = NULL,
   before_filter = NULL,
+  width = NULL,
   session = getDefaultReactiveDomain()
 )
 }
@@ -59,6 +60,10 @@ el_cascader(
 \item{filter_method}{\code{htmlwidgets::JS()} function filtering the options as the user types.}
 
 \item{before_filter}{\code{htmlwidgets::JS()} function called before filtering; returning \code{false} cancels it.}
+
+\item{width}{Component width, as a CSS unit -- \code{"200px"}, \code{"50\%"}, or a
+number taken as pixels. Element's own markup carries it, so it behaves
+like the \code{width} argument of a Shiny input.}
 
 \item{session}{Shiny session for module support}
 }

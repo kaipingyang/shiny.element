@@ -9,6 +9,7 @@ el_timeline(
   items = list(),
   reverse = FALSE,
   html = FALSE,
+  width = NULL,
   session = shiny::getDefaultReactiveDomain()
 )
 }
@@ -26,6 +27,10 @@ where the timestamp goes).}
 \item{html}{Render each entry's \code{content} as HTML rather than text. Only
 use it with content you control: it goes through \code{v-html}, which does not
 escape anything.}
+
+\item{width}{Component width, as a CSS unit -- \code{"200px"}, \code{"50\%"}, or a
+number taken as pixels. Element's own markup carries it, so it behaves
+like the \code{width} argument of a Shiny input.}
 
 \item{session}{Shiny session for module support.}
 }

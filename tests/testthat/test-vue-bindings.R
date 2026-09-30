@@ -79,3 +79,75 @@ test_that("every template binding references a declared field", {
   }
   expect_equal(report, character(0))
 })
+
+# ── the shared widget constructor ─────────────────────────────────────────────
+
+test_that("no component assembles its own Vue instance", {
+  # .el_widget() carries three things each component used to repeat, all of
+  # them added to fix a bug: display:contents on the host, a zero-sized widget
+  # element, and the `el` selector. A component that goes around it silently
+  # loses whichever one it forgets.
+  sources <- list.files("../../R", pattern = "^el_.*[.]R$", full.names = TRUE)
+  sources <- setdiff(sources, grep("el_widget[.]R$", sources, value = TRUE))
+
+  offenders <- vapply(sources, function(path) {
+    any(grepl("vueR::vue(", readLines(path, warn = FALSE), fixed = TRUE))
+  }, logical(1))
+
+  expect_equal(basename(sources[offenders]), character(0))
+})
+
+test_that("the widget element takes up no space", {
+  # The widget element is only a carrier for the payload -- the Vue instance
+  # renders into the host div beside it, which is display:contents. Left to
+  # htmlwidgets' sizing policy it would be 960x500 of empty space, which is
+  # exactly the layout jump .el_widget() exists to prevent. A component's own
+  # size comes from Element's props (el_table's height, el_slider's height),
+  # which have nothing to do with this.
+  exports <- getNamespaceExports("shiny.element")
+  fns <- setdiff(grep("^el_", exports, value = TRUE),
+                 grep(binding_skip, exports, value = TRUE))
+
+  sized <- character(0)
+  for (f in sort(fns)) {
+    args <- if (!is.null(binding_fixtures[[f]])) binding_fixtures[[f]] else list()
+    ui <- tryCatch(do.call(f, args), error = function(e) NULL)
+    if (is.null(ui)) next
+    html <- paste(as.character(ui), collapse = "")
+    if (!grepl("html-widget", html, fixed = TRUE)) next
+    if (!grepl("width:0px;height:0px", html, fixed = TRUE)) sized <- c(sized, f)
+  }
+  expect_equal(sized, character(0))
+})
+
+# ── width ─────────────────────────────────────────────────────────────────────
+
+test_that("width lands on the Element markup, not on the host", {
+  # The host is display:contents and generates no box, so a width set there
+  # would be ignored by the browser -- measured at 953px either way.
+  html <- paste(as.character(el_input("i", width = 200)), collapse = "")
+  expect_match(html, '<el-input[^>]*style="width: 200px"')
+  expect_no_match(html, 'id="i_container" style="display: contents; width')
+})
+
+test_that("width replaces a width the component already declares", {
+  # el_table's markup carries width: 100%. htmltools joins repeated attributes
+  # with a space, so appending a second style would produce
+  # style="width: 100% width: 300px" and neither would apply.
+  html <- paste(as.character(el_table("t", data = head(iris, 2), width = "300px")),
+                collapse = "")
+  expect_match(html, 'style="width: 300px"')
+  expect_no_match(html, "width: 100% width")
+
+  # and without it, the default stands
+  expect_match(paste(as.character(el_table("t", data = head(iris, 2))), collapse = ""),
+               'style="width: 100%"')
+})
+
+test_that("width accepts what a Shiny input accepts", {
+  expect_match(paste(as.character(el_select("s", choices = "A", width = "50%")), collapse = ""),
+               "width: 50%")
+  # a bare number means pixels, as in shiny::textInput()
+  expect_match(paste(as.character(el_select("s", choices = "A", width = 150)), collapse = ""),
+               "width: 150px")
+})

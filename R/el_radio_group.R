@@ -24,6 +24,9 @@ el_radio_group_handler_dependency <- function() {
 #' @param session Shiny session for module namespace support.
 #' @param fill Border and background colour of a checked radio button.
 #' @param text_color Text colour of a checked radio button.
+#' @param width Component width, as a CSS unit -- `"200px"`, `"50%"`, or a
+#'   number taken as pixels. Element's own markup carries it, so it behaves
+#'   like the `width` argument of a Shiny input.
 #'
 #' @return An `htmltools` tagList containing the Vue-managed radio group.
 #'
@@ -72,6 +75,7 @@ el_radio_group <- function(
     button   = FALSE,
     fill     = NULL,
     text_color = NULL,
+    width    = NULL,
     session  = shiny::getDefaultReactiveDomain()
 ) {
   if (is.null(id)) id <- paste0("el_radio_group_", uuid::UUIDgenerate())
@@ -111,35 +115,27 @@ el_radio_group <- function(
   vue_data$size <- .el_or_na(size)
   vue_data$fill <- .el_or_na(fill)
   vue_data$textColor <- .el_or_na(text_color)
-  component_ui <- shiny::tagList(
-    shiny::tags$div(
-      id = container_id, style = .el_host_style(),
-      htmltools::tag("el-radio-group", c(group_attrs, list(radio_slot)))
+  .el_widget(
+    id     = ns_id,
+    markup = htmltools::tag("el-radio-group", c(group_attrs, list(radio_slot))),
+    data    = vue_data,
+    methods = list(
+      # Which choice changed, and to what: input$<id>_item_change
+      handleItemChange = htmlwidgets::JS(sprintf(
+        paste0("function(opt, checked) { ",
+               "window.shinyElement.emit('%s', 'item_change', ",
+               "[{value: opt.value, label: opt.label, checked: checked}]); }"),
+        ns_id
+      )),
+      handleChange = htmlwidgets::JS(sprintf(
+        "function(value) { Shiny.setInputValue('%s', value); }",
+        ns_id
+      ))
     ),
-    vueR::vue(
-elementId = ns_id, width = 0, height = 0,
-      list(
-        el      = paste0("#", container_id),
-        data    = vue_data,
-        methods = list(
-          # Which choice changed, and to what: input$<id>_item_change
-          handleItemChange = htmlwidgets::JS(sprintf(
-            paste0("function(opt, checked) { ",
-                   "window.shinyElement.emit('%s', 'item_change', ",
-                   "[{value: opt.value, label: opt.label, checked: checked}]); }"),
-            ns_id
-          )),
-          handleChange = htmlwidgets::JS(sprintf(
-            "function(value) { Shiny.setInputValue('%s', value); }",
-            ns_id
-          ))
-        ),
-        mounted = .el_mounted_init(stats::setNames("value", ns_id))
-      )
-    )
+    mounted = .el_mounted_init(stats::setNames("value", ns_id)),
+    width      = width,
+    dependency = el_radio_group_handler_dependency()
   )
-
-  htmltools::attachDependencies(component_ui, el_radio_group_handler_dependency())
 }
 
 

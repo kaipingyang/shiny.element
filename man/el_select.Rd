@@ -32,6 +32,7 @@ el_select(
   remote = NULL,
   filter_method = NULL,
   remote_method = NULL,
+  width = NULL,
   session = shiny::getDefaultReactiveDomain()
 )
 }
@@ -94,6 +95,10 @@ multiple selection. Defaults to \code{""} (single) or \code{list()} (multiple).}
 \item{filter_method}{\code{htmlwidgets::JS()} function filtering the options as the user types.}
 
 \item{remote_method}{\code{htmlwidgets::JS()} function fetching options from the server. Needs \code{remote = TRUE}.}
+
+\item{width}{Component width, as a CSS unit -- \code{"200px"}, \code{"50\%"}, or a
+number taken as pixels. Element's own markup carries it, so it behaves
+like the \code{width} argument of a Shiny input.}
 
 \item{session}{Shiny session for module namespace support.}
 }

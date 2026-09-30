@@ -20,6 +20,7 @@ el_pagination(
   hide_on_single_page = NULL,
   page_count = NULL,
   popper_class = NULL,
+  width = NULL,
   session = shiny::getDefaultReactiveDomain()
 )
 }
@@ -54,6 +55,10 @@ Default \code{"total, sizes, prev, pager, next, jumper"}.}
 \item{page_count}{Total page count. Set either this or \code{total}.}
 
 \item{popper_class}{Extra class name for the page-size dropdown.}
+
+\item{width}{Component width, as a CSS unit -- \code{"200px"}, \code{"50\%"}, or a
+number taken as pixels. Element's own markup carries it, so it behaves
+like the \code{width} argument of a Shiny input.}
 
 \item{session}{Shiny session for module support.}
 }

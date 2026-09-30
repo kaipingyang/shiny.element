@@ -38,6 +38,9 @@
 #' @param render_content `htmlwidgets::JS()` render function for a node's content.
 #' @param allow_drag `htmlwidgets::JS()` function deciding whether a node may be dragged.
 #' @param allow_drop `htmlwidgets::JS()` function deciding whether a node may be dropped somewhere.
+#' @param width Component width, as a CSS unit -- `"200px"`, `"50%"`, or a
+#'   number taken as pixels. Element's own markup carries it, so it behaves
+#'   like the `width` argument of a Shiny input.
 #'
 #' @section Server inputs:
 #' `input$<id>` holds the key of the most recently clicked node, and
@@ -112,6 +115,7 @@ el_tree <- function(id = NULL,
                     render_content = NULL,
                     allow_drag = NULL,
                     allow_drop = NULL,
+                    width   = NULL,
                     session = shiny::getDefaultReactiveDomain()) {
   if (is.null(id)) id <- paste0("el_tree_", uuid::UUIDgenerate())
   ns_id        <- if (!is.null(session)) session$ns(id) else id
@@ -240,40 +244,32 @@ el_tree <- function(id = NULL,
 
   vue_data$allowDrop <- .el_or_na(allow_drop)
 
-  component_ui <- shiny::tagList(
-    shiny::tags$div(
-      id = container_id, style = .el_host_style(),
-      htmltools::tag("el-tree", tree_attrs)
-    ),
-    vueR::vue(
-      elementId = ns_id, width = 0, height = 0,
-      list(
-        el   = paste0("#", container_id),
-        data = vue_data,
-        methods = c(events$methods, list(
-          handleNodeClick = htmlwidgets::JS(sprintf(
-            paste0(
-              "function(data) { this.current = data[this.nodeKey]; ",
-              "Shiny.setInputValue('%s', this.current); }"
-            ), ns_id
-          )),
-          handleCheck = htmlwidgets::JS(sprintf(
-            paste0(
-              # Element hands the check event the node plus a summary object;
-              # checkedKeys is the part worth reporting.
-              "function(node, info) { this.checked = info.checkedKeys; ",
-              "Shiny.setInputValue('%s_checked', this.checked); }"
-            ), ns_id
-          ))
-        )),
-        mounted = .el_mounted_init(stats::setNames(
-          c("current", "checked"), paste0(ns_id, c("", "_checked"))
-        ))
-      )
-    )
+  .el_widget(
+    id     = ns_id,
+    markup = htmltools::tag("el-tree", tree_attrs),
+    data = vue_data,
+    methods = c(events$methods, list(
+      handleNodeClick = htmlwidgets::JS(sprintf(
+        paste0(
+          "function(data) { this.current = data[this.nodeKey]; ",
+          "Shiny.setInputValue('%s', this.current); }"
+        ), ns_id
+      )),
+      handleCheck = htmlwidgets::JS(sprintf(
+        paste0(
+          # Element hands the check event the node plus a summary object;
+          # checkedKeys is the part worth reporting.
+          "function(node, info) { this.checked = info.checkedKeys; ",
+          "Shiny.setInputValue('%s_checked', this.checked); }"
+        ), ns_id
+      ))
+    )),
+    mounted = .el_mounted_init(stats::setNames(
+      c("current", "checked"), paste0(ns_id, c("", "_checked"))
+    )),
+    width      = width,
+    dependency = el_tree_handler_dependency()
   )
-
-  htmltools::attachDependencies(component_ui, el_tree_handler_dependency())
 }
 
 #' Update an Element UI Tree

@@ -20,6 +20,7 @@ el_form(
   hide_required_asterisk = NULL,
   label_suffix = NULL,
   validate_on_rule_change = NULL,
+  width = NULL,
   session = shiny::getDefaultReactiveDomain()
 )
 }
@@ -54,6 +55,10 @@ case drive the form with \code{\link[=el_form_validate]{el_form_validate()}}.}
 \item{label_suffix}{Suffix appended to every label.}
 
 \item{validate_on_rule_change}{Whether changing the rules triggers validation immediately.}
+
+\item{width}{Component width, as a CSS unit -- \code{"200px"}, \code{"50\%"}, or a
+number taken as pixels. Element's own markup carries it, so it behaves
+like the \code{width} argument of a Shiny input.}
 
 \item{session}{Shiny session for module support.}
 }

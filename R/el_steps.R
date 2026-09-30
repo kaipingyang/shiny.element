@@ -10,6 +10,9 @@
 #' @param align_center Center align title and description  
 #' @param simple Apply simple style  
 #' @param session Shiny session for module support  
+#' @param width Component width, as a CSS unit -- `"200px"`, `"50%"`, or a
+#'   number taken as pixels. Element's own markup carries it, so it behaves
+#'   like the `width` argument of a Shiny input.
 #' @return A Shiny UI element.
 #' @export  
 #' @examples  
@@ -43,6 +46,7 @@ el_steps <- function(id = NULL,
                      finish_status = "finish",  
                      align_center = FALSE,  
                      simple = FALSE,  
+                     width   = NULL,
                      session = getDefaultReactiveDomain()) {  
   if (is.null(id)) {  
     id <- paste0("el_steps_", uuid::UUIDgenerate())  
@@ -82,30 +86,18 @@ el_steps <- function(id = NULL,
   )  
   vue_data$space <- .el_or_na(space)
   # Create component UI  
-  component_ui <- tagList(  
-    tags$div(  
-      id = container_id, style = .el_host_style(),  
-      htmltools::tag("el-steps", c(steps_attrs, step_tags))  
-    ),  
-    vueR::vue(
-elementId = ns_id, width = 0, height = 0,  
-      list(  
-        el = paste0("#", container_id),  
-        data = vue_data,  
-        watch = list(  
-          active = htmlwidgets::JS(sprintf(  
-            "function(newVal) { Shiny.setInputValue('%s', newVal); }",  
-            ns_id  
-          ))  
-        ),  
-        mounted = .el_mounted_init(stats::setNames("active", ns_id))  
-      )  
-    )  
-  )  
-    
-  htmltools::attachDependencies(  
-    component_ui,  
-    el_steps_handler_dependency()  
+  .el_widget(
+    id     = ns_id,
+    markup = htmltools::tag("el-steps", c(steps_attrs, step_tags)),
+    data   = vue_data,
+    watch  = list(
+      active = htmlwidgets::JS(sprintf(
+        "function(newVal) { Shiny.setInputValue('%s', newVal); }", ns_id
+      ))
+    ),
+    mounted    = .el_mounted_init(stats::setNames("active", ns_id)),
+    width      = width,
+    dependency = el_steps_handler_dependency()
   )  
 }  
   

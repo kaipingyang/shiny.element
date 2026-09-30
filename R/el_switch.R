@@ -100,25 +100,18 @@ el_switch <- function(
   vue_data$inactiveIconClass <- .el_or_na(inactive_icon_class)
   vue_data$name <- .el_or_na(name)
   vue_data$validateEvent <- .el_or_na(validate_event)
-  component_ui <- shiny::tagList(
-    shiny::tags$div(id = container_id, style = .el_host_style(), switch_tag),
-    vueR::vue(
-elementId = ns_id, width = 0, height = 0,
-      list(
-        el   = paste0("#", container_id),
-        data = vue_data,
-        methods = list(
-          handleChange = htmlwidgets::JS(sprintf(
-            "function(value) { Shiny.setInputValue('%s', value); }",
-            ns_id
-          ))
-        ),
-        mounted = .el_mounted_init(stats::setNames("value", ns_id))
-      )
-    )
+  .el_widget(
+    id      = ns_id,
+    markup  = switch_tag,
+    data    = vue_data,
+    methods = list(
+      handleChange = htmlwidgets::JS(sprintf(
+        "function(value) { Shiny.setInputValue('%s', value); }", ns_id
+      ))
+    ),
+    mounted    = .el_mounted_init(stats::setNames("value", ns_id)),
+    dependency = el_switch_handler_dependency()
   )
-
-  htmltools::attachDependencies(component_ui, el_switch_handler_dependency())
 }
 
 

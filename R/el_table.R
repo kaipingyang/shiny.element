@@ -155,6 +155,8 @@
 #' @param span_method `htmlwidgets::JS()` function deciding row/column spans for merged cells.
 #' @param summary_method `htmlwidgets::JS()` function returning the summary row's cells.
 #' @param load `htmlwidgets::JS()` function loading child rows lazily. Needs `lazy = TRUE`.
+#' @param width Component width, as a CSS unit. Replaces the table's default
+#'   `width: 100%`. For a fixed header use `height` instead.
 #'
 #' @section Server inputs:
 #' With `selection = TRUE` the component reports two inputs:
@@ -250,6 +252,7 @@ el_table <- function(id = NULL,
                      span_method = NULL,
                      summary_method = NULL,
                      load    = NULL,
+                     width  = NULL,
                      session = shiny::getDefaultReactiveDomain()) {
   args <- .el_table_args(id, data, columns)
   id <- args$id
@@ -392,80 +395,70 @@ el_table <- function(id = NULL,
 
   table_content <- c(table_attrs, list(selection_col, data_col))
 
-  component_ui <- htmltools::tagList(
-    htmltools::tags$div(
-      id = container_id, style = .el_host_style(),
-      htmltools::tag("el-table", table_content)
+  .el_widget(
+    id     = ns_id,
+    markup = htmltools::tag("el-table", table_content),
+    data = list(
+      tableData    = prep$rows,
+      columns      = prep$columns,
+      border       = border,
+      selection    = selection,
+      selected     = list(),
+      selectedRows = list(),
+    stripe = .el_or_na(stripe),
+    size = .el_or_na(size),
+    height = .el_or_na(height),
+    maxHeight = .el_or_na(max_height),
+    fit = .el_or_na(fit),
+    showHeader = .el_or_na(show_header),
+    highlightCurrentRow = .el_or_na(highlight_current_row),
+    currentRowKey = .el_or_na(current_row_key),
+    rowKey = .el_or_na(row_key),
+    emptyText = .el_or_na(empty_text),
+    defaultExpandAll = .el_or_na(default_expand_all),
+    expandRowKeys = .el_or_na(expand_row_keys),
+    defaultSort = .el_or_na(default_sort),
+    tooltipEffect = .el_or_na(tooltip_effect),
+    showSummary = .el_or_na(show_summary),
+    sumText = .el_or_na(sum_text),
+    selectOnIndeterminate = .el_or_na(select_on_indeterminate),
+    indent = .el_or_na(indent),
+    lazy = .el_or_na(lazy),
+    treeProps = .el_or_na(tree_props),
+    rowClassName = .el_or_na(row_class_name),
+    rowStyle = .el_or_na(row_style),
+    cellClassName = .el_or_na(cell_class_name),
+    cellStyle = .el_or_na(cell_style),
+    headerRowClassName = .el_or_na(header_row_class_name),
+    headerRowStyle = .el_or_na(header_row_style),
+    headerCellClassName = .el_or_na(header_cell_class_name),
+    headerCellStyle = .el_or_na(header_cell_style),
+    spanMethod = .el_or_na(span_method),
+    summaryMethod = .el_or_na(summary_method),
+    load = .el_or_na(load)
     ),
-    vueR::vue(
-elementId = ns_id, width = 0, height = 0,
-      list(
-        el = paste0("#", container_id),
-        data = list(
-          tableData    = prep$rows,
-          columns      = prep$columns,
-          border       = border,
-          selection    = selection,
-          selected     = list(),
-          selectedRows = list(),
-        stripe = .el_or_na(stripe),
-        size = .el_or_na(size),
-        height = .el_or_na(height),
-        maxHeight = .el_or_na(max_height),
-        fit = .el_or_na(fit),
-        showHeader = .el_or_na(show_header),
-        highlightCurrentRow = .el_or_na(highlight_current_row),
-        currentRowKey = .el_or_na(current_row_key),
-        rowKey = .el_or_na(row_key),
-        emptyText = .el_or_na(empty_text),
-        defaultExpandAll = .el_or_na(default_expand_all),
-        expandRowKeys = .el_or_na(expand_row_keys),
-        defaultSort = .el_or_na(default_sort),
-        tooltipEffect = .el_or_na(tooltip_effect),
-        showSummary = .el_or_na(show_summary),
-        sumText = .el_or_na(sum_text),
-        selectOnIndeterminate = .el_or_na(select_on_indeterminate),
-        indent = .el_or_na(indent),
-        lazy = .el_or_na(lazy),
-        treeProps = .el_or_na(tree_props),
-        rowClassName = .el_or_na(row_class_name),
-        rowStyle = .el_or_na(row_style),
-        cellClassName = .el_or_na(cell_class_name),
-        cellStyle = .el_or_na(cell_style),
-        headerRowClassName = .el_or_na(header_row_class_name),
-        headerRowStyle = .el_or_na(header_row_style),
-        headerCellClassName = .el_or_na(header_cell_class_name),
-        headerCellStyle = .el_or_na(header_cell_style),
-        spanMethod = .el_or_na(span_method),
-        summaryMethod = .el_or_na(summary_method),
-        load = .el_or_na(load)
+    methods = c(events$methods, list(
+      handleSelectionChange = htmlwidgets::JS(sprintf(
+        paste0(
+          "function(selection) { var self = this; ",
+          "self.selected = selection; ",
+          "self.selectedRows = selection.map(function(r) { ",
+          "return self.tableData.indexOf(r) + 1; }); ",
+          "Shiny.setInputValue('%s_selected', self.selected); ",
+          # Row numbers survive the JSON round-trip with their R types
+          # intact, unlike the row objects themselves: a mixed-type row
+          # is simplified to a character vector on the way back.
+          "Shiny.setInputValue('%s_selected_rows', self.selectedRows); }"
         ),
-        methods = c(events$methods, list(
-          handleSelectionChange = htmlwidgets::JS(sprintf(
-            paste0(
-              "function(selection) { var self = this; ",
-              "self.selected = selection; ",
-              "self.selectedRows = selection.map(function(r) { ",
-              "return self.tableData.indexOf(r) + 1; }); ",
-              "Shiny.setInputValue('%s_selected', self.selected); ",
-              # Row numbers survive the JSON round-trip with their R types
-              # intact, unlike the row objects themselves: a mixed-type row
-              # is simplified to a character vector on the way back.
-              "Shiny.setInputValue('%s_selected_rows', self.selectedRows); }"
-            ),
-            ns_id, ns_id
-          ))
-        )),
-        mounted = .el_mounted_init(stats::setNames(
-          c("selected", "selectedRows"),
-          paste0(ns_id, c("_selected", "_selected_rows"))
-        ))
-      )
-    )
-  )
-  htmltools::attachDependencies(
-    component_ui,
-    el_table_handler_dependency()
+        ns_id, ns_id
+      ))
+    )),
+    mounted = .el_mounted_init(stats::setNames(
+      c("selected", "selectedRows"),
+      paste0(ns_id, c("_selected", "_selected_rows"))
+    )),
+    width      = width,
+    dependency = el_table_handler_dependency()
   )
 }
 

@@ -225,6 +225,9 @@ el_form_field <- function(prop,
 #' @param hide_required_asterisk Whether to hide the asterisk next to required fields' labels.
 #' @param label_suffix Suffix appended to every label.
 #' @param validate_on_rule_change Whether changing the rules triggers validation immediately.
+#' @param width Component width, as a CSS unit -- `"200px"`, `"50%"`, or a
+#'   number taken as pixels. Element's own markup carries it, so it behaves
+#'   like the `width` argument of a Shiny input.
 #'
 #' @section Server inputs:
 #' `input$<id>` holds the whole model as a list, reported once on load and
@@ -296,6 +299,7 @@ el_form <- function(...,
                     hide_required_asterisk = NULL,
                     label_suffix = NULL,
                     validate_on_rule_change = NULL,
+                    width   = NULL,
                     session = shiny::getDefaultReactiveDomain()) {
   if (is.null(id)) id <- paste0("el_form_", uuid::UUIDgenerate())
   ns_id        <- if (!is.null(session)) session$ns(id) else id
@@ -386,43 +390,35 @@ el_form <- function(...,
   vue_data$validateOnRuleChange <- .el_or_na(validate_on_rule_change)
   js_id <- as.character(jsonlite::toJSON(ns_id, auto_unbox = TRUE))
 
-  component_ui <- shiny::tagList(
-    shiny::tags$div(
-      id = container_id, style = .el_host_style(),
-      htmltools::tag("el-form", c(form_attrs, list(field_items, buttons)))
-    ),
-    vueR::vue(
-elementId = ns_id, width = 0, height = 0,
-      list(
-        el   = paste0("#", container_id),
-        data = vue_data,
-        methods = c(events$methods, list(
-          handleSubmit = htmlwidgets::JS(sprintf(
-            paste0(
-              "function() { var self = this; ",
-              "this.$refs.form.validate(function(ok) { ",
-              "self.submitCount++; self.valid = ok; ",
-              # The model and the verdict are set before the counter, so an
-              # observeEvent on the counter sees this submit's values.
-              "Shiny.setInputValue(%1$s, self.model); ",
-              "Shiny.setInputValue(%1$s + '_valid', ok); ",
-              "Shiny.setInputValue(%1$s + '_submit', self.submitCount); ",
-              "}); }"
-            ), js_id
-          )),
-          handleReset = htmlwidgets::JS(sprintf(
-            paste0(
-              "function() { this.$refs.form.resetFields(); ",
-              "Shiny.setInputValue(%1$s, this.model); }"
-            ), js_id
-          ))
-        )),
-        mounted = .el_mounted_init(stats::setNames("model", ns_id))
-      )
-    )
+  .el_widget(
+    id     = ns_id,
+    markup = htmltools::tag("el-form", c(form_attrs, list(field_items, buttons))),
+    data = vue_data,
+    methods = c(events$methods, list(
+      handleSubmit = htmlwidgets::JS(sprintf(
+        paste0(
+          "function() { var self = this; ",
+          "this.$refs.form.validate(function(ok) { ",
+          "self.submitCount++; self.valid = ok; ",
+          # The model and the verdict are set before the counter, so an
+          # observeEvent on the counter sees this submit's values.
+          "Shiny.setInputValue(%1$s, self.model); ",
+          "Shiny.setInputValue(%1$s + '_valid', ok); ",
+          "Shiny.setInputValue(%1$s + '_submit', self.submitCount); ",
+          "}); }"
+        ), js_id
+      )),
+      handleReset = htmlwidgets::JS(sprintf(
+        paste0(
+          "function() { this.$refs.form.resetFields(); ",
+          "Shiny.setInputValue(%1$s, this.model); }"
+        ), js_id
+      ))
+    )),
+    mounted = .el_mounted_init(stats::setNames("model", ns_id)),
+    width      = width,
+    dependency = el_form_handler_dependency()
   )
-
-  htmltools::attachDependencies(component_ui, el_form_handler_dependency())
 }
 
 #' Update an Element UI Form

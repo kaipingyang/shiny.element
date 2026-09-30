@@ -29,6 +29,9 @@
 #' @param show_timeout Delay in ms before the menu appears, for `trigger = "hover"`.
 #' @param hide_timeout Delay in ms before the menu hides, for `trigger = "hover"`.
 #' @param tabindex Tab index of the dropdown trigger.
+#' @param width Component width, as a CSS unit -- `"200px"`, `"50%"`, or a
+#'   number taken as pixels. Element's own markup carries it, so it behaves
+#'   like the `width` argument of a Shiny input.
 #'
 #' @return An `htmltools` tagList with a Vue-managed dropdown component.
 #'
@@ -62,6 +65,7 @@ el_dropdown <- function(
     show_timeout = NULL,
     hide_timeout = NULL,
     tabindex     = NULL,
+    width        = NULL,
     session      = shiny::getDefaultReactiveDomain()
 ) {
   if (is.null(id)) id <- paste0("el_dropdown_", uuid::UUIDgenerate())
@@ -130,29 +134,19 @@ el_dropdown <- function(
   vue_data$showTimeout <- .el_or_na(show_timeout)
   vue_data$hideTimeout <- .el_or_na(hide_timeout)
   vue_data$tabindex <- .el_or_na(tabindex)
-  component_ui <- shiny::tagList(
-    shiny::tags$div(
-      id = container_id, style = .el_host_style(),
-      htmltools::tag("el-dropdown",
-        c(dd_attrs, list(trigger_content, menu_tag))
-      )
-    ),
-    vueR::vue(
-elementId = ns_id, width = 0, height = 0,
-      list(
-        el      = paste0("#", container_id),
-        data    = vue_data,
-        methods = c(events$methods, list(
-          handleCommand = htmlwidgets::JS(sprintf(
-            "function(cmd) { this.count++; Shiny.setInputValue('%s', cmd); Shiny.setInputValue('%s_count', this.count); }",
-            ns_id, ns_id
-          ))
-        ))
-      )
-    )
+  .el_widget(
+    id     = ns_id,
+    markup = htmltools::tag("el-dropdown", c(dd_attrs, list(trigger_content, menu_tag))),
+    data   = vue_data,
+    methods = c(events$methods, list(
+      handleCommand = htmlwidgets::JS(sprintf(
+        "function(cmd) { this.count++; Shiny.setInputValue('%s', cmd); Shiny.setInputValue('%s_count', this.count); }",
+        ns_id, ns_id
+      ))
+    )),
+    width      = width,
+    dependency = el_dropdown_handler_dependency()
   )
-
-  htmltools::attachDependencies(component_ui, el_dropdown_handler_dependency())
 }
 
 

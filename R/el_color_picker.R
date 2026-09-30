@@ -14,6 +14,9 @@
 #'   none.
 #' @param session Shiny session for module support.
 #' @param popper_class Extra class name for the dropdown panel.
+#' @param width Component width, as a CSS unit -- `"200px"`, `"50%"`, or a
+#'   number taken as pixels. Element's own markup carries it, so it behaves
+#'   like the `width` argument of a Shiny input.
 #'
 #' @return An `htmltools` tagList with a Vue-managed color-picker component.
 #'
@@ -35,6 +38,7 @@ el_color_picker <- function(
     color_format = NULL,
     predefine    = NULL,
     popper_class = NULL,
+    width        = NULL,
     session      = shiny::getDefaultReactiveDomain()
 ) {
   if (is.null(id)) id <- paste0("el_color_picker_", uuid::UUIDgenerate())
@@ -67,28 +71,20 @@ el_color_picker <- function(
   vue_data$predefine <- if (is.null(predefine)) NA else as.list(predefine)
   vue_data$popperClass <- .el_or_na(popper_class)
 
-  component_ui <- shiny::tagList(
-    shiny::tags$div(
-      id = container_id, style = .el_host_style(),
-      htmltools::tag("el-color-picker", cp_attrs)
-    ),
-    vueR::vue(
-elementId = ns_id, width = 0, height = 0,
-      list(
-        el      = paste0("#", container_id),
-        data    = vue_data,
-        methods = c(events$methods, list(
-          handleChange = htmlwidgets::JS(sprintf(
-            "function(val) { Shiny.setInputValue('%s', val); }",
-            ns_id
-          ))
-        )),
-        mounted = .el_mounted_init(stats::setNames("value", ns_id))
-      )
-    )
+  .el_widget(
+    id     = ns_id,
+    markup = htmltools::tag("el-color-picker", cp_attrs),
+    data    = vue_data,
+    methods = c(events$methods, list(
+      handleChange = htmlwidgets::JS(sprintf(
+        "function(val) { Shiny.setInputValue('%s', val); }",
+        ns_id
+      ))
+    )),
+    mounted = .el_mounted_init(stats::setNames("value", ns_id)),
+    width      = width,
+    dependency = el_color_picker_handler_dependency()
   )
-
-  htmltools::attachDependencies(component_ui, el_color_picker_handler_dependency())
 }
 
 

@@ -30,6 +30,7 @@ el_upload(
   on_preview = NULL,
   on_remove = NULL,
   on_exceed = NULL,
+  width = NULL,
   session = shiny::getDefaultReactiveDomain()
 )
 }
@@ -91,6 +92,10 @@ Shiny's channel. See details.}
 \item{on_remove}{\code{htmlwidgets::JS()} function called after a file is removed.}
 
 \item{on_exceed}{\code{htmlwidgets::JS()} function called when more files are picked than \code{limit}.}
+
+\item{width}{Component width, as a CSS unit -- \code{"200px"}, \code{"50\%"}, or a
+number taken as pixels. Element's own markup carries it, so it behaves
+like the \code{width} argument of a Shiny input.}
 
 \item{session}{Shiny session for module support.}
 }

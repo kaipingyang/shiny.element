@@ -15,6 +15,9 @@
 #' @param hit Whether to show a solid border. Default `FALSE`.
 #' @param disable_transitions Disable the zoom-in-center animation. Default `FALSE`.
 #' @param session Shiny session for module support.
+#' @param width Component width, as a CSS unit -- `"200px"`, `"50%"`, or a
+#'   number taken as pixels. Element's own markup carries it, so it behaves
+#'   like the `width` argument of a Shiny input.
 #'
 #' @return An `htmltools` tagList with a Vue-managed tag component.
 #'
@@ -39,6 +42,7 @@ el_tag <- function(
     color                = NULL,
     hit                  = FALSE,
     disable_transitions  = FALSE,
+    width                = NULL,
     session              = shiny::getDefaultReactiveDomain()
 ) {
   if (is.null(id)) id <- paste0("el_tag_", uuid::UUIDgenerate())
@@ -56,41 +60,33 @@ el_tag <- function(
   )
   tag_attrs[[":size"]] <- .el_optional_bind("size")
   tag_attrs[[":color"]] <- .el_optional_bind("color")
-  component_ui <- shiny::tagList(
-    shiny::tags$div(
-      id = container_id, style = .el_host_style(),
-      htmltools::tag("el-tag", c(tag_attrs, list("{{label}}")))
+  .el_widget(
+    id     = ns_id,
+    markup = htmltools::tag("el-tag", c(tag_attrs, list("{{label}}"))),
+    data = list(
+      label              = label,
+      type               = type,
+      closable           = closable,
+      size               = size,
+      effect             = effect,
+      color              = color,
+      hit                = hit,
+      disableTransitions = disable_transitions,
+      count              = 0L
     ),
-    vueR::vue(
-elementId = ns_id, width = 0, height = 0,
-      list(
-        el   = paste0("#", container_id),
-        data = list(
-          label              = label,
-          type               = type,
-          closable           = closable,
-          size               = size,
-          effect             = effect,
-          color              = color,
-          hit                = hit,
-          disableTransitions = disable_transitions,
-          count              = 0L
-        ),
-        methods = list(
-          handleClick = htmlwidgets::JS(sprintf(
-            "function() { this.count++; Shiny.setInputValue('%s', this.count); }",
-            ns_id
-          )),
-          handleClose = htmlwidgets::JS(sprintf(
-            "function() { Shiny.setInputValue('%s_closed', 1, {priority: 'event'}); }",
-            ns_id
-          ))
-        )
-      )
-    )
+    methods = list(
+      handleClick = htmlwidgets::JS(sprintf(
+        "function() { this.count++; Shiny.setInputValue('%s', this.count); }",
+        ns_id
+      )),
+      handleClose = htmlwidgets::JS(sprintf(
+        "function() { Shiny.setInputValue('%s_closed', 1, {priority: 'event'}); }",
+        ns_id
+      ))
+    ),
+    width      = width,
+    dependency = el_tag_handler_dependency()
   )
-
-  htmltools::attachDependencies(component_ui, el_tag_handler_dependency())
 }
 
 

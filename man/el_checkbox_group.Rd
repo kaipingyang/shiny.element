@@ -15,6 +15,7 @@ el_checkbox_group(
   button = FALSE,
   fill = NULL,
   text_color = NULL,
+  width = NULL,
   session = shiny::getDefaultReactiveDomain()
 )
 }
@@ -40,6 +41,10 @@ Default \code{FALSE}.}
 \item{fill}{Border and background colour when \code{button = TRUE} and checked.}
 
 \item{text_color}{Text colour when \code{button = TRUE} and checked.}
+
+\item{width}{Component width, as a CSS unit -- \code{"200px"}, \code{"50\%"}, or a
+number taken as pixels. Element's own markup carries it, so it behaves
+like the \code{width} argument of a Shiny input.}
 
 \item{session}{Shiny session for module support.}
 }

@@ -19,6 +19,7 @@ el_input_number(
   placeholder = NULL,
   label = NULL,
   name = NULL,
+  width = NULL,
   session = shiny::getDefaultReactiveDomain()
 )
 }
@@ -53,6 +54,10 @@ auto.}
 \item{label}{Accessible label text. \code{NULL} for none.}
 
 \item{name}{Native \code{name} attribute of the inner input.}
+
+\item{width}{Component width, as a CSS unit -- \code{"200px"}, \code{"50\%"}, or a
+number taken as pixels. Element's own markup carries it, so it behaves
+like the \code{width} argument of a Shiny input.}
 
 \item{session}{Shiny session for module support.}
 }

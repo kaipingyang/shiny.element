@@ -14,6 +14,7 @@ el_tag(
   color = NULL,
   hit = FALSE,
   disable_transitions = FALSE,
+  width = NULL,
   session = shiny::getDefaultReactiveDomain()
 )
 }
@@ -37,6 +38,10 @@ el_tag(
 \item{hit}{Whether to show a solid border. Default \code{FALSE}.}
 
 \item{disable_transitions}{Disable the zoom-in-center animation. Default \code{FALSE}.}
+
+\item{width}{Component width, as a CSS unit -- \code{"200px"}, \code{"50\%"}, or a
+number taken as pixels. Element's own markup carries it, so it behaves
+like the \code{width} argument of a Shiny input.}
 
 \item{session}{Shiny session for module support.}
 }

@@ -91,21 +91,12 @@ el_progress <- function(
   # The empty string is its own default and means the same thing.
   vue_data$color <- if (is.null(color)) "" else color
   vue_data$strokeLinecap <- .el_or_na(stroke_linecap)
-  component_ui <- shiny::tagList(
-    shiny::tags$div(
-      id = container_id, style = .el_host_style(),
-      htmltools::tag("el-progress", progress_attrs)
-    ),
-    vueR::vue(
-elementId = ns_id, width = 0, height = 0,
-      list(
-        el   = paste0("#", container_id),
-        data = vue_data
-      )
-    )
+  .el_widget(
+    id     = ns_id,
+    markup = htmltools::tag("el-progress", progress_attrs),
+    data = vue_data,
+    dependency = el_progress_handler_dependency()
   )
-
-  htmltools::attachDependencies(component_ui, el_progress_handler_dependency())
 }
 
 

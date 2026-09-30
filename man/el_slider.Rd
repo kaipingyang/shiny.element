@@ -24,6 +24,7 @@ el_slider(
   show_input_controls = NULL,
   tooltip_class = NULL,
   format_tooltip = NULL,
+  width = NULL,
   session = shiny::getDefaultReactiveDomain()
 )
 }
@@ -70,6 +71,10 @@ Defaults to \code{"200px"} when \code{vertical = TRUE} and not explicitly provid
 \item{tooltip_class}{Extra class name for the value tooltip.}
 
 \item{format_tooltip}{\code{htmlwidgets::JS()} function formatting the value shown in the tooltip.}
+
+\item{width}{Component width, as a CSS unit -- \code{"200px"}, \code{"50\%"}, or a
+number taken as pixels. Element's own markup carries it, so it behaves
+like the \code{width} argument of a Shiny input.}
 
 \item{session}{Shiny session for module support.}
 }

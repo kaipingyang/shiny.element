@@ -6,6 +6,8 @@
 #' @param value Bound value (Date/string/number)
 #' @param range Date range, c("YYYY-MM-DD", "YYYY-MM-DD")
 #' @param first_day_of_week First day of week (1~7), default 1
+#' @param width Component width, as a CSS unit -- `"200px"`, `"50%"`, or a
+#'   number taken as pixels.
 #' @param session Shiny session for module support
 #' @return A Shiny UI element.
 #' @export
@@ -56,6 +58,7 @@ el_calendar <- function(id = NULL,
                         value = NULL,  
                         range = NULL,  
                         first_day_of_week = 1,  
+                        width   = NULL,
                         session = getDefaultReactiveDomain()) {  
   
   if (is.null(id)) {  
@@ -89,36 +92,24 @@ el_calendar <- function(id = NULL,
   )  
   vue_data$range <- if (is.null(range)) NA else as.character(range)  
   
-  component_ui <- tagList(  
-    tags$style(HTML("  
-      .is-selected {  
-        color: #1989FA;  
-        font-weight: bold;  
-      }  
-    ")),  
-    tags$div(  
-      id = container_id, style = .el_host_style(),  
-      tag("el-calendar", append(calendar_attrs, list(date_cell_slot)))  
-    ),  
-    vueR::vue(
-elementId = ns_id, width = 0, height = 0,  
-      list(  
-        el = paste0("#", container_id),  
-        data = vue_data,  
-        watch = list(  
-          value = htmlwidgets::JS(sprintf(  
-            "function(newVal) { Shiny.setInputValue('%s', newVal); }",   
-            ns_id  
-          ))  
-        ),  
-        mounted = .el_mounted_init(stats::setNames("value", ns_id))  
-      )  
-    )  
-  )  
-  
-  htmltools::attachDependencies(  
-    component_ui,  
-    el_calendar_handler_dependency()  
+  .el_widget(
+    id     = ns_id,
+    markup = tag("el-calendar", append(calendar_attrs, list(date_cell_slot))),
+    head   = tags$style(HTML("
+      .is-selected {
+        color: #1989FA;
+        font-weight: bold;
+      }
+    ")),
+    data  = vue_data,
+    watch = list(
+      value = htmlwidgets::JS(sprintf(
+        "function(newVal) { Shiny.setInputValue('%s', newVal); }", ns_id
+      ))
+    ),
+    mounted    = .el_mounted_init(stats::setNames("value", ns_id)),
+    width      = width,
+    dependency = el_calendar_handler_dependency()
   )  
 }  
 

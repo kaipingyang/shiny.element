@@ -24,6 +24,9 @@
 #' @param disabled_void_icon_class Icon class for unselected icons when `disabled = TRUE`.
 #' @param low_threshold Scores at or below this use the first colour and icon. Default `2`.
 #' @param high_threshold Scores above this use the third colour and icon. Default `4`.
+#' @param width Component width, as a CSS unit -- `"200px"`, `"50%"`, or a
+#'   number taken as pixels. Element's own markup carries it, so it behaves
+#'   like the `width` argument of a Shiny input.
 #'
 #' @return An `htmltools` tagList with a Vue-managed rate component.
 #'
@@ -59,6 +62,7 @@ el_rate <- function(
     disabled_void_icon_class = NULL,
     low_threshold  = NULL,
     high_threshold = NULL,
+    width          = NULL,
     session        = shiny::getDefaultReactiveDomain()
 ) {
   if (is.null(id)) id <- paste0("el_rate_", uuid::UUIDgenerate())
@@ -94,46 +98,38 @@ el_rate <- function(
 
   rate_attrs[[":high-threshold"]] <- .el_optional_bind("highThreshold")
 
-  component_ui <- shiny::tagList(
-    shiny::tags$div(
-      id = container_id, style = .el_host_style(),
-      htmltools::tag("el-rate", rate_attrs)
+  .el_widget(
+    id     = ns_id,
+    markup = htmltools::tag("el-rate", rate_attrs),
+    data = list(
+      value         = value,
+      max           = max,
+      disabled      = disabled,
+      allowHalf     = allow_half,
+      showText      = show_text,
+      showScore     = show_score,
+      textColor     = text_color,
+      scoreTemplate = score_template,
+      texts         = as.list(texts),
+    colors = .el_or_na(colors),
+    voidColor = .el_or_na(void_color),
+    disabledVoidColor = .el_or_na(disabled_void_color),
+    iconClasses = .el_or_na(icon_classes),
+    voidIconClass = .el_or_na(void_icon_class),
+    disabledVoidIconClass = .el_or_na(disabled_void_icon_class),
+    lowThreshold = .el_or_na(low_threshold),
+    highThreshold = .el_or_na(high_threshold)
     ),
-    vueR::vue(
-elementId = ns_id, width = 0, height = 0,
-      list(
-        el   = paste0("#", container_id),
-        data = list(
-          value         = value,
-          max           = max,
-          disabled      = disabled,
-          allowHalf     = allow_half,
-          showText      = show_text,
-          showScore     = show_score,
-          textColor     = text_color,
-          scoreTemplate = score_template,
-          texts         = as.list(texts),
-        colors = .el_or_na(colors),
-        voidColor = .el_or_na(void_color),
-        disabledVoidColor = .el_or_na(disabled_void_color),
-        iconClasses = .el_or_na(icon_classes),
-        voidIconClass = .el_or_na(void_icon_class),
-        disabledVoidIconClass = .el_or_na(disabled_void_icon_class),
-        lowThreshold = .el_or_na(low_threshold),
-        highThreshold = .el_or_na(high_threshold)
-        ),
-        methods = list(
-          handleChange = htmlwidgets::JS(sprintf(
-            "function(val) { Shiny.setInputValue('%s', val); }",
-            ns_id
-          ))
-        ),
-        mounted = .el_mounted_init(stats::setNames("value", ns_id))
-      )
-    )
+    methods = list(
+      handleChange = htmlwidgets::JS(sprintf(
+        "function(val) { Shiny.setInputValue('%s', val); }",
+        ns_id
+      ))
+    ),
+    mounted = .el_mounted_init(stats::setNames("value", ns_id)),
+    width      = width,
+    dependency = el_rate_handler_dependency()
   )
-
-  htmltools::attachDependencies(component_ui, el_rate_handler_dependency())
 }
 
 

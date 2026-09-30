@@ -22,6 +22,9 @@
 #' @param loop Return to the first slide after the last.
 #' @param direction `"horizontal"` (default) or `"vertical"`.
 #' @param session Shiny session for module support.
+#' @param width Component width, as a CSS unit -- `"200px"`, `"50%"`, or a
+#'   number taken as pixels. Element's own markup carries it, so it behaves
+#'   like the `width` argument of a Shiny input.
 #'
 #' @section Server inputs:
 #' `input$<id>` holds the index of the slide currently showing, 0-based, and
@@ -65,6 +68,7 @@ el_carousel <- function(id = NULL,
                         type = NULL,
                         loop = TRUE,
                         direction = "horizontal",
+                        width   = NULL,
                         session = shiny::getDefaultReactiveDomain()) {
   if (is.null(id)) id <- paste0("el_carousel_", uuid::UUIDgenerate())
   ns_id        <- if (!is.null(session)) session$ns(id) else id
@@ -115,34 +119,26 @@ el_carousel <- function(id = NULL,
     }
   )
 
-  component_ui <- shiny::tagList(
-    shiny::tags$div(
-      id = container_id, style = .el_host_style(),
-      htmltools::tag("el-carousel", c(carousel_attrs, item_tags))
+  .el_widget(
+    id     = ns_id,
+    markup = htmltools::tag("el-carousel", c(carousel_attrs, item_tags)),
+    data = vue_data,
+    methods = list(
+      handleChange = htmlwidgets::JS(sprintf(
+        paste0(
+          "function(index) { var self = this; self.active = index; ",
+          "self.activeName = self.itemNames[index] || ''; ",
+          "Shiny.setInputValue('%1$s', index); ",
+          "Shiny.setInputValue('%1$s_name', self.activeName); }"
+        ), ns_id
+      ))
     ),
-    vueR::vue(
-      elementId = ns_id, width = 0, height = 0,
-      list(
-        el   = paste0("#", container_id),
-        data = vue_data,
-        methods = list(
-          handleChange = htmlwidgets::JS(sprintf(
-            paste0(
-              "function(index) { var self = this; self.active = index; ",
-              "self.activeName = self.itemNames[index] || ''; ",
-              "Shiny.setInputValue('%1$s', index); ",
-              "Shiny.setInputValue('%1$s_name', self.activeName); }"
-            ), ns_id
-          ))
-        ),
-        mounted = .el_mounted_init(stats::setNames(
-          c("active", "activeName"), paste0(ns_id, c("", "_name"))
-        ))
-      )
-    )
+    mounted = .el_mounted_init(stats::setNames(
+      c("active", "activeName"), paste0(ns_id, c("", "_name"))
+    )),
+    width      = width,
+    dependency = el_carousel_handler_dependency()
   )
-
-  htmltools::attachDependencies(component_ui, el_carousel_handler_dependency())
 }
 
 #' Update an Element UI Carousel

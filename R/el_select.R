@@ -43,6 +43,9 @@ el_select_handler_dependency <- function() {
 #' @param remote Whether options are fetched from the server as the user types.
 #' @param filter_method `htmlwidgets::JS()` function filtering the options as the user types.
 #' @param remote_method `htmlwidgets::JS()` function fetching options from the server. Needs `remote = TRUE`.
+#' @param width Component width, as a CSS unit -- `"200px"`, `"50%"`, or a
+#'   number taken as pixels. Element's own markup carries it, so it behaves
+#'   like the `width` argument of a Shiny input.
 #'
 #' @section Element methods:
 #' Callable with [el_call()]:
@@ -110,6 +113,7 @@ el_select <- function(
     remote         = NULL,
     filter_method  = NULL,
     remote_method  = NULL,
+    width          = NULL,
     session        = shiny::getDefaultReactiveDomain()
 ) {
   if (is.null(id)) id <- paste0("el_select_", uuid::UUIDgenerate())
@@ -192,28 +196,20 @@ el_select <- function(
   vue_data$remote <- .el_or_na(remote)
   vue_data$filterMethod <- .el_or_na(filter_method)
   vue_data$remoteMethod <- .el_or_na(remote_method)
-  component_ui <- shiny::tagList(
-    shiny::tags$div(
-      id = container_id, style = .el_host_style(),
-      htmltools::tag("el-select", c(select_attrs, list(option_slot)))
-    ),
-    vueR::vue(
-elementId = ns_id, width = 0, height = 0,
-      list(
-        el      = paste0("#", container_id),
-        data    = vue_data,
-        methods = c(events$methods, list(
-          handleChange = htmlwidgets::JS(sprintf(
-            "function(value) { Shiny.setInputValue('%s', value); }",
-            ns_id
-          ))
-        )),
-        mounted = .el_mounted_init(stats::setNames("value", ns_id))
-      )
-    )
+  .el_widget(
+    id     = ns_id,
+    markup = htmltools::tag("el-select", c(select_attrs, list(option_slot))),
+    data    = vue_data,
+    methods = c(events$methods, list(
+      handleChange = htmlwidgets::JS(sprintf(
+        "function(value) { Shiny.setInputValue('%s', value); }",
+        ns_id
+      ))
+    )),
+    mounted = .el_mounted_init(stats::setNames("value", ns_id)),
+    width      = width,
+    dependency = el_select_handler_dependency()
   )
-
-  htmltools::attachDependencies(component_ui, el_select_handler_dependency())
 }
 
 

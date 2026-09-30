@@ -57,6 +57,9 @@
 #' @param menu_trigger How a horizontal sub-menu opens: `"hover"` (default) or `"click"`.
 #' @param collapse_transition Whether to animate collapsing. Default `TRUE`.
 #' @param router Whether to use vue-router mode, taking each index as a path.
+#' @param width Component width, as a CSS unit -- `"200px"`, `"50%"`, or a
+#'   number taken as pixels. Element's own markup carries it, so it behaves
+#'   like the `width` argument of a Shiny input.
 #'
 #' @section Server inputs:
 #' `input$<id>` holds the selected item's `index`, reported on load and on
@@ -104,6 +107,7 @@ el_menu <- function(id = NULL,
                     menu_trigger = NULL,
                     collapse_transition = NULL,
                     router  = NULL,
+                    width   = NULL,
                     session = shiny::getDefaultReactiveDomain()) {
   if (is.null(id)) id <- paste0("el_menu_", uuid::UUIDgenerate())
   ns_id        <- if (!is.null(session)) session$ns(id) else id
@@ -160,34 +164,26 @@ el_menu <- function(id = NULL,
 
   vue_data$router <- .el_or_na(router)
 
-  component_ui <- shiny::tagList(
-    shiny::tags$div(
-      id = container_id, style = .el_host_style(),
-      htmltools::tag("el-menu", c(menu_attrs, .el_menu_nodes(items)))
-    ),
-    vueR::vue(
-      elementId = ns_id, width = 0, height = 0,
-      list(
-        el   = paste0("#", container_id),
-        data = vue_data,
-        methods = c(events$methods, list(
-          handleSelect = htmlwidgets::JS(sprintf(
-            paste0(
-              "function(index, indexPath) { var self = this; ",
-              "self.active = index; self.path = indexPath; ",
-              "Shiny.setInputValue('%1$s', index); ",
-              "Shiny.setInputValue('%1$s_path', indexPath); }"
-            ), ns_id
-          ))
-        )),
-        mounted = .el_mounted_init(stats::setNames(
-          c("active", "path"), paste0(ns_id, c("", "_path"))
-        ))
-      )
-    )
+  .el_widget(
+    id     = ns_id,
+    markup = htmltools::tag("el-menu", c(menu_attrs, .el_menu_nodes(items))),
+    data = vue_data,
+    methods = c(events$methods, list(
+      handleSelect = htmlwidgets::JS(sprintf(
+        paste0(
+          "function(index, indexPath) { var self = this; ",
+          "self.active = index; self.path = indexPath; ",
+          "Shiny.setInputValue('%1$s', index); ",
+          "Shiny.setInputValue('%1$s_path', indexPath); }"
+        ), ns_id
+      ))
+    )),
+    mounted = .el_mounted_init(stats::setNames(
+      c("active", "path"), paste0(ns_id, c("", "_path"))
+    )),
+    width      = width,
+    dependency = el_menu_handler_dependency()
   )
-
-  htmltools::attachDependencies(component_ui, el_menu_handler_dependency())
 }
 
 #' Update an Element UI Menu

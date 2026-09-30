@@ -9,6 +9,7 @@ el_calendar(
   value = NULL,
   range = NULL,
   first_day_of_week = 1,
+  width = NULL,
   session = getDefaultReactiveDomain()
 )
 }
@@ -20,6 +21,9 @@ el_calendar(
 \item{range}{Date range, c("YYYY-MM-DD", "YYYY-MM-DD")}
 
 \item{first_day_of_week}{First day of week (1~7), default 1}
+
+\item{width}{Component width, as a CSS unit -- \code{"200px"}, \code{"50\%"}, or a
+number taken as pixels.}
 
 \item{session}{Shiny session for module support}
 }

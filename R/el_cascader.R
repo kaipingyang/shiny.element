@@ -20,6 +20,9 @@
 #' @param popper_class Extra class name for the dropdown panel.
 #' @param filter_method `htmlwidgets::JS()` function filtering the options as the user types.
 #' @param before_filter `htmlwidgets::JS()` function called before filtering; returning `false` cancels it.
+#' @param width Component width, as a CSS unit -- `"200px"`, `"50%"`, or a
+#'   number taken as pixels. Element's own markup carries it, so it behaves
+#'   like the `width` argument of a Shiny input.
 #' @section Element methods:
 #' Callable with [el_call()]:
 #'
@@ -97,6 +100,7 @@ el_cascader <- function(id = NULL,
                         popper_class = NULL,
                         filter_method = NULL,
                         before_filter = NULL,
+                        width   = NULL,
                         session = getDefaultReactiveDomain()) {
   if (is.null(id)) {
     id <- paste0("el_cascader_", uuid::UUIDgenerate())
@@ -150,28 +154,17 @@ el_cascader <- function(id = NULL,
   vue_data$popperClass <- .el_or_na(popper_class)
   vue_data$filterMethod <- .el_or_na(filter_method)
   vue_data$beforeFilter <- .el_or_na(before_filter)
-  component_ui <- tagList(
-    tags$div(
-      id = container_id, style = .el_host_style(),
-      tag("el-cascader", cascader_attrs)
-    ),
-    vueR::vue(
-elementId = ns_id, width = 0, height = 0,
-      list(
-        el = paste0("#", container_id),
-        data = vue_data,
-        methods = c(events$methods, list(
-          handleChange = htmlwidgets::JS(sprintf(
-            "function(value) {\n  Shiny.setInputValue('%s_value', value);\n}", ns_id))
-        )),
-        mounted = .el_mounted_init(stats::setNames("value", paste0(ns_id, "_value")))
-      )
-    )
-  )
-
-  htmltools::attachDependencies(
-    component_ui,
-    el_cascader_handler_dependency()
+  .el_widget(
+    id     = ns_id,
+    markup = tag("el-cascader", cascader_attrs),
+    data = vue_data,
+    methods = c(events$methods, list(
+      handleChange = htmlwidgets::JS(sprintf(
+        "function(value) {\n  Shiny.setInputValue('%s_value', value);\n}", ns_id))
+    )),
+    mounted = .el_mounted_init(stats::setNames("value", paste0(ns_id, "_value"))),
+    width      = width,
+    dependency = el_cascader_handler_dependency()
   )
 }
 

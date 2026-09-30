@@ -14,6 +14,7 @@ el_alert(
   show_icon = FALSE,
   center = FALSE,
   effect = "light",
+  width = NULL,
   session = shiny::getDefaultReactiveDomain()
 )
 }
@@ -37,6 +38,10 @@ icon is rendered at the larger size.}
 \item{center}{Whether to centre the content. Default \code{FALSE}.}
 
 \item{effect}{Visual effect: \code{"light"} (default) or \code{"dark"}.}
+
+\item{width}{Component width, as a CSS unit -- \code{"200px"}, \code{"50\%"}, or a
+number taken as pixels. Element's own markup carries it, so it behaves
+like the \code{width} argument of a Shiny input.}
 
 \item{session}{Shiny session for module support.}
 }

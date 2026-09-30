@@ -17,6 +17,7 @@ el_carousel(
   type = NULL,
   loop = TRUE,
   direction = "horizontal",
+  width = NULL,
   session = shiny::getDefaultReactiveDomain()
 )
 }
@@ -51,6 +52,10 @@ it instead.}
 \item{loop}{Return to the first slide after the last.}
 
 \item{direction}{\code{"horizontal"} (default) or \code{"vertical"}.}
+
+\item{width}{Component width, as a CSS unit -- \code{"200px"}, \code{"50\%"}, or a
+number taken as pixels. Element's own markup carries it, so it behaves
+like the \code{width} argument of a Shiny input.}
 
 \item{session}{Shiny session for module support.}
 }

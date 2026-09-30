@@ -22,6 +22,9 @@
 #'   `"reset"`.
 #' @param session Shiny session for module support.
 #' @param autofocus Whether the button takes focus on page load. Default `FALSE`.
+#' @param width Component width, as a CSS unit -- `"200px"`, `"50%"`, or a
+#'   number taken as pixels. Element's own markup carries it, so it behaves
+#'   like the `width` argument of a Shiny input.
 #'
 #' @return An `htmltools` tagList with a Vue-managed button component.
 #'
@@ -61,6 +64,7 @@ el_button <- function(
     icon        = NULL,
     native_type = "button",
     autofocus   = FALSE,
+    width       = NULL,
     session     = shiny::getDefaultReactiveDomain()
 ) {
   if (is.null(id)) id <- paste0("el_button_", uuid::UUIDgenerate())
@@ -92,40 +96,32 @@ el_button <- function(
     "{{label}}"
   )
 
-  component_ui <- shiny::tagList(
-    shiny::tags$div(
-      id = container_id, style = .el_host_style(),
-      htmltools::tag("el-button", append(btn_attrs, btn_content))
+  .el_widget(
+    id     = ns_id,
+    markup = htmltools::tag("el-button", append(btn_attrs, btn_content)),
+    data = list(
+      label       = label,
+      type        = type,
+      size        = size,
+      plain       = plain,
+      round       = round,
+      circle      = circle,
+      loading     = loading,
+      disabled    = disabled,
+      native_type = native_type,
+      icon        = if (is.character(icon)) icon else NA,
+      count       = 0L,
+      autofocus   = .el_or_na(autofocus)
     ),
-    vueR::vue(
-elementId = ns_id, width = 0, height = 0,
-      list(
-        el   = paste0("#", container_id),
-        data = list(
-          label       = label,
-          type        = type,
-          size        = size,
-          plain       = plain,
-          round       = round,
-          circle      = circle,
-          loading     = loading,
-          disabled    = disabled,
-          native_type = native_type,
-          icon        = if (is.character(icon)) icon else NA,
-          count       = 0L,
-          autofocus   = .el_or_na(autofocus)
-        ),
-        methods = list(
-          handleClick = htmlwidgets::JS(sprintf(
-            "function() { if (!this.disabled && !this.loading) { this.count++; Shiny.setInputValue('%s', this.count); } }",
-            ns_id
-          ))
-        )
-      )
-    )
+    methods = list(
+      handleClick = htmlwidgets::JS(sprintf(
+        "function() { if (!this.disabled && !this.loading) { this.count++; Shiny.setInputValue('%s', this.count); } }",
+        ns_id
+      ))
+    ),
+    width      = width,
+    dependency = el_button_handler_dependency()
   )
-
-  htmltools::attachDependencies(component_ui, el_button_handler_dependency())
 }
 
 

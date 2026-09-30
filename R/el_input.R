@@ -37,6 +37,9 @@
 #' @param resize Resize behaviour of a textarea: `"none"`, `"both"`, `"horizontal"` or `"vertical"`.
 #' @param tabindex Tab index of the input.
 #' @param validate_event Whether a change triggers form validation. Default `TRUE`.
+#' @param width Component width, as a CSS unit -- `"200px"`, `"50%"`, or a
+#'   number taken as pixels. Element's own markup carries it, so it behaves
+#'   like the `width` argument of a Shiny input.
 #'
 #' @section Element methods:
 #' Callable with [el_call()]:
@@ -102,6 +105,7 @@ el_input <- function(
     resize          = NULL,
     tabindex        = NULL,
     validate_event  = NULL,
+    width           = NULL,
     session         = shiny::getDefaultReactiveDomain()
 ) {
   if (is.null(id)) id <- paste0("el_input_", uuid::UUIDgenerate())
@@ -180,28 +184,20 @@ el_input <- function(
   vue_data$resize <- .el_or_na(resize)
   vue_data$tabindex <- .el_or_na(tabindex)
   vue_data$validateEvent <- .el_or_na(validate_event)
-  component_ui <- shiny::tagList(
-    shiny::tags$div(
-      id = container_id, style = .el_host_style(),
-      htmltools::tag("el-input", input_attrs)
-    ),
-    vueR::vue(
-elementId = ns_id, width = 0, height = 0,
-      list(
-        el      = paste0("#", container_id),
-        data    = vue_data,
-        methods = c(events$methods, list(
-          handleChange = htmlwidgets::JS(sprintf(
-            "function(value) { Shiny.setInputValue('%s', value); }",
-            ns_id
-          ))
-        )),
-        mounted = .el_mounted_init(stats::setNames("value", ns_id))
-      )
-    )
+  .el_widget(
+    id     = ns_id,
+    markup = htmltools::tag("el-input", input_attrs),
+    data    = vue_data,
+    methods = c(events$methods, list(
+      handleChange = htmlwidgets::JS(sprintf(
+        "function(value) { Shiny.setInputValue('%s', value); }",
+        ns_id
+      ))
+    )),
+    mounted = .el_mounted_init(stats::setNames("value", ns_id)),
+    width      = width,
+    dependency = el_input_handler_dependency()
   )
-
-  htmltools::attachDependencies(component_ui, el_input_handler_dependency())
 }
 
 

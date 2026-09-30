@@ -18,6 +18,9 @@
 #'   use it with content you control: it goes through `v-html`, which does not
 #'   escape anything.
 #' @param session Shiny session for module support.
+#' @param width Component width, as a CSS unit -- `"200px"`, `"50%"`, or a
+#'   number taken as pixels. Element's own markup carries it, so it behaves
+#'   like the `width` argument of a Shiny input.
 #'
 #' @return A Shiny UI element.
 #' @export
@@ -44,6 +47,7 @@ el_timeline <- function(id = NULL,
                         items = list(),
                         reverse = FALSE,
                         html = FALSE,
+                        width   = NULL,
                         session = shiny::getDefaultReactiveDomain()) {
   if (is.null(id)) id <- paste0("el_timeline_", uuid::UUIDgenerate())
   ns_id        <- if (!is.null(session)) session$ns(id) else id
@@ -74,18 +78,13 @@ el_timeline <- function(id = NULL,
     reverse = reverse
   )
 
-  component_ui <- shiny::tagList(
-    shiny::tags$div(
-      id = container_id, style = .el_host_style(),
-      htmltools::tag("el-timeline", list(":reverse" = "reverse", item_tag))
-    ),
-    vueR::vue(
-      elementId = ns_id, width = 0, height = 0,
-      list(el = paste0("#", container_id), data = vue_data)
-    )
+  .el_widget(
+    id     = ns_id,
+    markup = htmltools::tag("el-timeline", list(":reverse" = "reverse", item_tag)),
+    data   = vue_data,
+    width      = width,
+    dependency = el_timeline_handler_dependency()
   )
-
-  htmltools::attachDependencies(component_ui, el_timeline_handler_dependency())
 }
 
 #' Keep only the fields an entry actually sets

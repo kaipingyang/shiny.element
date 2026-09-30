@@ -18,6 +18,7 @@ el_dropdown(
   show_timeout = NULL,
   hide_timeout = NULL,
   tabindex = NULL,
+  width = NULL,
   session = shiny::getDefaultReactiveDomain()
 )
 }
@@ -59,6 +60,10 @@ Default \code{TRUE}.}
 \item{hide_timeout}{Delay in ms before the menu hides, for \code{trigger = "hover"}.}
 
 \item{tabindex}{Tab index of the dropdown trigger.}
+
+\item{width}{Component width, as a CSS unit -- \code{"200px"}, \code{"50\%"}, or a
+number taken as pixels. Element's own markup carries it, so it behaves
+like the \code{width} argument of a Shiny input.}
 
 \item{session}{Shiny session for module support.}
 }

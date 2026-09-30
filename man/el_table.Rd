@@ -41,6 +41,7 @@ el_table(
   span_method = NULL,
   summary_method = NULL,
   load = NULL,
+  width = NULL,
   session = shiny::getDefaultReactiveDomain()
 )
 }
@@ -119,6 +120,9 @@ Inferred from \code{data} when omitted.}
 \item{summary_method}{\code{htmlwidgets::JS()} function returning the summary row's cells.}
 
 \item{load}{\code{htmlwidgets::JS()} function loading child rows lazily. Needs \code{lazy = TRUE}.}
+
+\item{width}{Component width, as a CSS unit. Replaces the table's default
+\verb{width: 100\%}. For a fixed header use \code{height} instead.}
 
 \item{session}{Shiny session for module support}
 }

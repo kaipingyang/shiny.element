@@ -32,6 +32,7 @@ el_tree(
   render_content = NULL,
   allow_drag = NULL,
   allow_drop = NULL,
+  width = NULL,
   session = shiny::getDefaultReactiveDomain()
 )
 }
@@ -92,6 +93,10 @@ expand.}
 \item{allow_drag}{\code{htmlwidgets::JS()} function deciding whether a node may be dragged.}
 
 \item{allow_drop}{\code{htmlwidgets::JS()} function deciding whether a node may be dropped somewhere.}
+
+\item{width}{Component width, as a CSS unit -- \code{"200px"}, \code{"50\%"}, or a
+number taken as pixels. Element's own markup carries it, so it behaves
+like the \code{width} argument of a Shiny input.}
 
 \item{session}{Shiny session for module support.}
 }

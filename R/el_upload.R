@@ -113,6 +113,9 @@
 #' @param on_preview `htmlwidgets::JS()` function called when an uploaded file is clicked.
 #' @param on_remove `htmlwidgets::JS()` function called after a file is removed.
 #' @param on_exceed `htmlwidgets::JS()` function called when more files are picked than `limit`.
+#' @param width Component width, as a CSS unit -- `"200px"`, `"50%"`, or a
+#'   number taken as pixels. Element's own markup carries it, so it behaves
+#'   like the `width` argument of a Shiny input.
 #'
 #' @section Server inputs:
 #' Without `action`, `input$<id>` is a data frame of `name`, `size`, `type`
@@ -184,6 +187,7 @@ el_upload <- function(id = NULL,
                       on_preview = NULL,
                       on_remove = NULL,
                       on_exceed = NULL,
+                      width   = NULL,
                       session = shiny::getDefaultReactiveDomain()) {
   if (is.null(id)) id <- paste0("el_upload_", uuid::UUIDgenerate())
   ns_id        <- if (!is.null(session)) session$ns(id) else id
@@ -304,22 +308,14 @@ el_upload <- function(id = NULL,
   )
   if (via_shiny) methods$shinyUpload <- .el_upload_js(ns_id)
 
-  component_ui <- shiny::tagList(
-    shiny::tags$div(
-      id = container_id, style = .el_host_style(),
-      htmltools::tag("el-upload", c(upload_attrs, trigger))
-    ),
-    vueR::vue(
-      elementId = ns_id, width = 0, height = 0,
-      list(
-        el      = paste0("#", container_id),
-        data    = vue_data,
-        methods = methods
-      )
-    )
+  .el_widget(
+    id     = ns_id,
+    markup = htmltools::tag("el-upload", c(upload_attrs, trigger)),
+    data    = vue_data,
+    methods = methods,
+    width      = width,
+    dependency = el_upload_handler_dependency()
   )
-
-  htmltools::attachDependencies(component_ui, el_upload_handler_dependency())
 }
 
 #' Update an Element UI Upload

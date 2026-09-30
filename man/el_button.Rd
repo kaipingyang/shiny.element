@@ -17,6 +17,7 @@ el_button(
   icon = NULL,
   native_type = "button",
   autofocus = FALSE,
+  width = NULL,
   session = shiny::getDefaultReactiveDomain()
 )
 }
@@ -50,6 +51,10 @@ which Element renders itself and \code{\link[=update_el_button]{update_el_button
 \code{"reset"}.}
 
 \item{autofocus}{Whether the button takes focus on page load. Default \code{FALSE}.}
+
+\item{width}{Component width, as a CSS unit -- \code{"200px"}, \code{"50\%"}, or a
+number taken as pixels. Element's own markup carries it, so it behaves
+like the \code{width} argument of a Shiny input.}
 
 \item{session}{Shiny session for module support.}
 }

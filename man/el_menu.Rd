@@ -18,6 +18,7 @@ el_menu(
   menu_trigger = NULL,
   collapse_transition = NULL,
   router = NULL,
+  width = NULL,
   session = shiny::getDefaultReactiveDomain()
 )
 }
@@ -47,6 +48,10 @@ submenu. An item with \code{group = TRUE} becomes a titled group of its
 \item{collapse_transition}{Whether to animate collapsing. Default \code{TRUE}.}
 
 \item{router}{Whether to use vue-router mode, taking each index as a path.}
+
+\item{width}{Component width, as a CSS unit -- \code{"200px"}, \code{"50\%"}, or a
+number taken as pixels. Element's own markup carries it, so it behaves
+like the \code{width} argument of a Shiny input.}
 
 \item{session}{Shiny session for module support.}
 }
