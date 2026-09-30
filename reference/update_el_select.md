@@ -54,3 +54,18 @@ update_el_select(
 - filterable:
 
   New filterable state.
+
+## Value
+
+Called for its side effect; returns `NULL` invisibly.
+
+## Examples
+
+``` r
+if (interactive()) {
+  # inside a server function
+  observeEvent(input$go, {
+    update_el_select(session, "city", selected = "sh")
+  })
+}
+```

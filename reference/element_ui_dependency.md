@@ -22,3 +22,36 @@ element_ui_dependency(offline = TRUE)
 ## Value
 
 An htmlDependency object for Element UI.
+
+## Examples
+
+``` r
+element_ui_dependency()
+#> List of 10
+#>  $ name      : chr "element-ui"
+#>  $ version   : chr "2.13.2"
+#>  $ src       :List of 1
+#>   ..$ file: chr "/home/runner/work/_temp/Library/shiny.element/element-ui"
+#>  $ meta      : NULL
+#>  $ script    : chr "index.js"
+#>  $ stylesheet: chr "theme-chalk/index.css"
+#>  $ head      : NULL
+#>  $ attachment: NULL
+#>  $ package   : NULL
+#>  $ all_files : logi TRUE
+#>  - attr(*, "class")= chr "html_dependency"
+element_ui_dependency(offline = FALSE)
+#> List of 10
+#>  $ name      : chr "element-ui"
+#>  $ version   : chr "2.13.2"
+#>  $ src       :List of 1
+#>   ..$ href: chr "https://unpkg.com/element-ui@2.13.2/lib/"
+#>  $ meta      : NULL
+#>  $ script    : chr "index.js"
+#>  $ stylesheet: chr "theme-chalk/index.css"
+#>  $ head      : NULL
+#>  $ attachment: NULL
+#>  $ package   : NULL
+#>  $ all_files : logi TRUE
+#>  - attr(*, "class")= chr "html_dependency"
+```

@@ -29,3 +29,14 @@ update_el_menu(session, id, active = NULL, collapse = NULL)
 ## Value
 
 Called for its side effect; returns `NULL` invisibly.
+
+## Examples
+
+``` r
+if (interactive()) {
+  # inside a server function
+  observeEvent(input$go, {
+    update_el_menu(session, "nav", active = "data")
+  })
+}
+```

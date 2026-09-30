@@ -53,3 +53,18 @@ update_el_date_picker(
 - placeholder:
 
   New placeholder text (non-range types).
+
+## Value
+
+Called for its side effect; returns `NULL` invisibly.
+
+## Examples
+
+``` r
+if (interactive()) {
+  # inside a server function
+  observeEvent(input$go, {
+    update_el_date_picker(session, "when", value = "2026-06-01")
+  })
+}
+```

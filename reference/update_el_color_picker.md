@@ -26,3 +26,18 @@ update_el_color_picker(session, id, value = NULL, disabled = NULL)
 - disabled:
 
   New disabled state.
+
+## Value
+
+Called for its side effect; returns `NULL` invisibly.
+
+## Examples
+
+``` r
+if (interactive()) {
+  # inside a server function
+  observeEvent(input$go, {
+    update_el_color_picker(session, "shade", value = "#67C23A")
+  })
+}
+```

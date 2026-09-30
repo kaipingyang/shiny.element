@@ -36,6 +36,10 @@ el_calendar(
 
   Shiny session for module support
 
+## Value
+
+A Shiny UI element.
+
 ## Examples
 
 ``` r
@@ -58,7 +62,7 @@ el_calendar(id = "calendar1", value = Sys.Date())
 #>   </el-calendar>
 #> </div>
 #> <div id="calendar1" style="width:0px;height:0px;" class="vue html-widget"></div>
-#> <script type="application/json" data-for="calendar1">{"x":{"el":"#calendar1_container","data":{"value":"2026-09-29","firstDayOfWeek":1,"range":null},"watch":{"value":"function(newVal) { Shiny.setInputValue('calendar1', newVal); }"},"mounted":"function() { var self = this; var send = function() { Shiny.setInputValue(\"calendar1\", self.value); }; if (window.Shiny && Shiny.shinyapp && typeof Shiny.shinyapp.isConnected === 'function' && Shiny.shinyapp.isConnected()) { send(); } else { $(document).one('shiny:connected', send); } }"},"evals":["watch.value","mounted"],"jsHooks":[]}</script>
+#> <script type="application/json" data-for="calendar1">{"x":{"el":"#calendar1_container","data":{"value":"2026-09-30","firstDayOfWeek":1,"range":null},"watch":{"value":"function(newVal) { Shiny.setInputValue('calendar1', newVal); }"},"mounted":"function() { var self = this; var send = function() { Shiny.setInputValue(\"calendar1\", self.value); }; if (window.Shiny && Shiny.shinyapp && typeof Shiny.shinyapp.isConnected === 'function' && Shiny.shinyapp.isConnected()) { send(); } else { $(document).one('shiny:connected', send); } }"},"evals":["watch.value","mounted"],"jsHooks":[]}</script>
 
 # With date range
 el_calendar(id = "calendar2", range = c("2025-01-01", "2025-01-31"))
@@ -79,7 +83,7 @@ el_calendar(id = "calendar2", range = c("2025-01-01", "2025-01-31"))
 #>   </el-calendar>
 #> </div>
 #> <div id="calendar2" style="width:0px;height:0px;" class="vue html-widget"></div>
-#> <script type="application/json" data-for="calendar2">{"x":{"el":"#calendar2_container","data":{"value":"2026-09-29","firstDayOfWeek":1,"range":["2025-01-01","2025-01-31"]},"watch":{"value":"function(newVal) { Shiny.setInputValue('calendar2', newVal); }"},"mounted":"function() { var self = this; var send = function() { Shiny.setInputValue(\"calendar2\", self.value); }; if (window.Shiny && Shiny.shinyapp && typeof Shiny.shinyapp.isConnected === 'function' && Shiny.shinyapp.isConnected()) { send(); } else { $(document).one('shiny:connected', send); } }"},"evals":["watch.value","mounted"],"jsHooks":[]}</script>
+#> <script type="application/json" data-for="calendar2">{"x":{"el":"#calendar2_container","data":{"value":"2026-09-30","firstDayOfWeek":1,"range":["2025-01-01","2025-01-31"]},"watch":{"value":"function(newVal) { Shiny.setInputValue('calendar2', newVal); }"},"mounted":"function() { var self = this; var send = function() { Shiny.setInputValue(\"calendar2\", self.value); }; if (window.Shiny && Shiny.shinyapp && typeof Shiny.shinyapp.isConnected === 'function' && Shiny.shinyapp.isConnected()) { send(); } else { $(document).one('shiny:connected', send); } }"},"evals":["watch.value","mounted"],"jsHooks":[]}</script>
 
 # Shiny app example: interactive calendar with update
 if (interactive()) {

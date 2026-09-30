@@ -53,3 +53,18 @@ update_el_switch(
 - inactive_color:
 
   New inactive background color.
+
+## Value
+
+Called for its side effect; returns `NULL` invisibly.
+
+## Examples
+
+``` r
+if (interactive()) {
+  # inside a server function
+  observeEvent(input$go, {
+    update_el_switch(session, "live", value = TRUE)
+  })
+}
+```

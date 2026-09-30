@@ -56,3 +56,18 @@ update_el_progress(
 - text_inside:
 
   New text-inside flag.
+
+## Value
+
+Called for its side effect; returns `NULL` invisibly.
+
+## Examples
+
+``` r
+if (interactive()) {
+  # inside a server function
+  observeEvent(input$go, {
+    update_el_progress(session, "pct", percentage = 100)
+  })
+}
+```

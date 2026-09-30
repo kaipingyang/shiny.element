@@ -44,3 +44,14 @@ update_el_table(
 ## Value
 
 Called for its side effect; returns `NULL` invisibly.
+
+## Examples
+
+``` r
+if (interactive()) {
+  # inside a server function
+  observeEvent(input$go, {
+    update_el_table(session, "tbl", data = head(mtcars, 10))
+  })
+}
+```

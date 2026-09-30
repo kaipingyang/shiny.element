@@ -36,3 +36,18 @@ update_el_calendar(
 - first_day_of_week:
 
   New first day of week (1~7)
+
+## Value
+
+Called for its side effect; returns `NULL` invisibly.
+
+## Examples
+
+``` r
+if (interactive()) {
+  # inside a server function
+  observeEvent(input$go, {
+    update_el_calendar(session, "cal", value = "2026-06-01")
+  })
+}
+```

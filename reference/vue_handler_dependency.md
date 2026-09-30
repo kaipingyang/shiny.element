@@ -17,3 +17,22 @@ vue_handler_dependency()
 ## Value
 
 An htmlDependency object for vue_handlers.js
+
+## Examples
+
+``` r
+vue_handler_dependency()
+#> List of 10
+#>  $ name      : chr "vue-handlers"
+#>  $ version   : chr "1.0.0"
+#>  $ src       :List of 1
+#>   ..$ file: chr "/home/runner/work/_temp/Library/shiny.element/js"
+#>  $ meta      : NULL
+#>  $ script    : chr "vue-handlers.js"
+#>  $ stylesheet: NULL
+#>  $ head      : NULL
+#>  $ attachment: NULL
+#>  $ package   : NULL
+#>  $ all_files : logi TRUE
+#>  - attr(*, "class")= chr "html_dependency"
+```

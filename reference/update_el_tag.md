@@ -30,3 +30,18 @@ update_el_tag(session, id, label = NULL, type = NULL, closable = NULL)
 - closable:
 
   New closable state.
+
+## Value
+
+Called for its side effect; returns `NULL` invisibly.
+
+## Examples
+
+``` r
+if (interactive()) {
+  # inside a server function
+  observeEvent(input$go, {
+    update_el_tag(session, "status", label = "done", type = "success")
+  })
+}
+```

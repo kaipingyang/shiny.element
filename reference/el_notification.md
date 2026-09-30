@@ -59,6 +59,10 @@ el_notification(
 
   Distance from the corner edge in pixels. Default `0`.
 
+## Value
+
+A Shiny UI element.
+
 ## Examples
 
 ``` r

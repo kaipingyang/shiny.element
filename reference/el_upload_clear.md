@@ -22,3 +22,14 @@ el_upload_clear(session, id)
 ## Value
 
 Called for its side effect; returns `NULL` invisibly.
+
+## Examples
+
+``` r
+if (interactive()) {
+  # inside a server function
+  observeEvent(input$go, {
+    el_upload_clear(session, "files")
+  })
+}
+```

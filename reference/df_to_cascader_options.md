@@ -28,3 +28,107 @@ df_to_cascader_options(df, value_cols, label_cols = NULL)
 ## Value
 
 Nested list for cascader options
+
+## Examples
+
+``` r
+df <- data.frame(
+  province = c("Zhejiang", "Zhejiang", "Jiangsu"),
+  city     = c("Hangzhou", "Ningbo", "Nanjing"),
+  stringsAsFactors = FALSE
+)
+df_to_cascader_options(df, c("province", "city"))
+#> [[1]]
+#> [[1]]$value
+#> [1] "Jiangsu"
+#> 
+#> [[1]]$label
+#> [1] "Jiangsu"
+#> 
+#> [[1]]$children
+#> [[1]]$children[[1]]
+#> [[1]]$children[[1]]$value
+#> [1] "Nanjing"
+#> 
+#> [[1]]$children[[1]]$label
+#> [1] "Nanjing"
+#> 
+#> 
+#> 
+#> 
+#> [[2]]
+#> [[2]]$value
+#> [1] "Zhejiang"
+#> 
+#> [[2]]$label
+#> [1] "Zhejiang"
+#> 
+#> [[2]]$children
+#> [[2]]$children[[1]]
+#> [[2]]$children[[1]]$value
+#> [1] "Hangzhou"
+#> 
+#> [[2]]$children[[1]]$label
+#> [1] "Hangzhou"
+#> 
+#> 
+#> [[2]]$children[[2]]
+#> [[2]]$children[[2]]$value
+#> [1] "Ningbo"
+#> 
+#> [[2]]$children[[2]]$label
+#> [1] "Ningbo"
+#> 
+#> 
+#> 
+#> 
+
+# Separate value and label columns
+df$province_label <- paste(df$province, "Province")
+df_to_cascader_options(df, c("province", "city"),
+                       c("province_label", NA))
+#> [[1]]
+#> [[1]]$value
+#> [1] "Jiangsu"
+#> 
+#> [[1]]$label
+#> [1] "Jiangsu Province"
+#> 
+#> [[1]]$children
+#> [[1]]$children[[1]]
+#> [[1]]$children[[1]]$value
+#> [1] "Nanjing"
+#> 
+#> [[1]]$children[[1]]$label
+#> [1] "Nanjing"
+#> 
+#> 
+#> 
+#> 
+#> [[2]]
+#> [[2]]$value
+#> [1] "Zhejiang"
+#> 
+#> [[2]]$label
+#> [1] "Zhejiang Province"
+#> 
+#> [[2]]$children
+#> [[2]]$children[[1]]
+#> [[2]]$children[[1]]$value
+#> [1] "Hangzhou"
+#> 
+#> [[2]]$children[[1]]$label
+#> [1] "Hangzhou"
+#> 
+#> 
+#> [[2]]$children[[2]]
+#> [[2]]$children[[2]]$value
+#> [1] "Ningbo"
+#> 
+#> [[2]]$children[[2]]$label
+#> [1] "Ningbo"
+#> 
+#> 
+#> 
+#> 
+```

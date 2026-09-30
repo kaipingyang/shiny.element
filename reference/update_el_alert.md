@@ -30,3 +30,18 @@ update_el_alert(session, id, title = NULL, type = NULL, description = NULL)
 - description:
 
   New description text. Use `NULL` to leave unchanged.
+
+## Value
+
+Called for its side effect; returns `NULL` invisibly.
+
+## Examples
+
+``` r
+if (interactive()) {
+  # inside a server function
+  observeEvent(input$go, {
+    update_el_alert(session, "hint", title = "Saved", type = "success")
+  })
+}
+```

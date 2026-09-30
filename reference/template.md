@@ -22,6 +22,10 @@ template(..., slot = NULL, scope = NULL)
 
   Slot scope or v-slot syntax (optional)
 
+## Value
+
+A Shiny UI element.
+
 ## Examples
 
 ``` r

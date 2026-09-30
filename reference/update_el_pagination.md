@@ -41,3 +41,18 @@ update_el_pagination(
 - disabled:
 
   New disabled state.
+
+## Value
+
+Called for its side effect; returns `NULL` invisibly.
+
+## Examples
+
+``` r
+if (interactive()) {
+  # inside a server function
+  observeEvent(input$go, {
+    update_el_pagination(session, "pager", current_page = 2)
+  })
+}
+```

@@ -29,3 +29,14 @@ update_el_upload(session, id, disabled = NULL, limit = NULL)
 ## Value
 
 Called for its side effect; returns `NULL` invisibly.
+
+## Examples
+
+``` r
+if (interactive()) {
+  # inside a server function
+  observeEvent(input$go, {
+    update_el_upload(session, "files", disabled = TRUE)
+  })
+}
+```

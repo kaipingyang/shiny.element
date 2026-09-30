@@ -34,3 +34,14 @@ update_el_dialog(session, id, visible = NULL, title = NULL, width = NULL)
 ## Value
 
 Called for its side effect; returns `NULL` invisibly.
+
+## Examples
+
+``` r
+if (interactive()) {
+  # inside a server function
+  observeEvent(input$go, {
+    update_el_dialog(session, "confirm", visible = TRUE)
+  })
+}
+```

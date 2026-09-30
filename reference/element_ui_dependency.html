@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">shiny.element</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.0.9000</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.1.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -17,6 +17,7 @@
     <div id="navbar" class="collapse navbar-collapse ms-3">
       <ul class="navbar-nav me-auto"><li class="nav-item"><a class="nav-link" href="../articles/components.html">Components</a></li>
 <li class="active nav-item"><a class="nav-link" href="../reference/index.html">Reference</a></li>
+<li class="nav-item"><a class="nav-link" href="../news/index.html">Changelog</a></li>
       </ul><ul class="navbar-nav"><li class="nav-item"><form class="form-inline" role="search">
  <input class="form-control" type="search" name="search-input" id="search-input" autocomplete="off" aria-label="Search site" placeholder="Search for" data-search-index="../search.json"></form></li>
 <li class="nav-item"><a class="external-link nav-link" href="https://github.com/kaipingyang/shiny.element/" aria-label="GitHub"><span class="fa fab fa-github fa-lg"></span></a></li>
@@ -60,6 +61,38 @@ deployment bundle.</p></dd>
     <p>An htmlDependency object for Element UI.</p>
     </div>
 
+    <div class="section level2">
+    <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu">element_ui_dependency</span><span class="op">(</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> List of 10</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  $ name      : chr "element-ui"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  $ version   : chr "2.13.2"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  $ src       :List of 1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ file: chr "/home/runner/work/_temp/Library/shiny.element/element-ui"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  $ meta      : NULL</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  $ script    : chr "index.js"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  $ stylesheet: chr "theme-chalk/index.css"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  $ head      : NULL</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  $ attachment: NULL</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  $ package   : NULL</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  $ all_files : logi TRUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  - attr(*, "class")= chr "html_dependency"</span>
+<span class="r-in"><span><span class="fu">element_ui_dependency</span><span class="op">(</span>offline <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> List of 10</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  $ name      : chr "element-ui"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  $ version   : chr "2.13.2"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  $ src       :List of 1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ href: chr "https://unpkg.com/element-ui@2.13.2/lib/"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  $ meta      : NULL</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  $ script    : chr "index.js"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  $ stylesheet: chr "theme-chalk/index.css"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  $ head      : NULL</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  $ attachment: NULL</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  $ package   : NULL</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  $ all_files : logi TRUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  - attr(*, "class")= chr "html_dependency"</span>
+</code></pre></div>
+    </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
     </nav></aside></div>
 

@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">shiny.element</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.0.9000</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.1.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -17,6 +17,7 @@
     <div id="navbar" class="collapse navbar-collapse ms-3">
       <ul class="navbar-nav me-auto"><li class="nav-item"><a class="nav-link" href="../articles/components.html">Components</a></li>
 <li class="active nav-item"><a class="nav-link" href="../reference/index.html">Reference</a></li>
+<li class="nav-item"><a class="nav-link" href="../news/index.html">Changelog</a></li>
       </ul><ul class="navbar-nav"><li class="nav-item"><form class="form-inline" role="search">
  <input class="form-control" type="search" name="search-input" id="search-input" autocomplete="off" aria-label="Search site" placeholder="Search for" data-search-index="../search.json"></form></li>
 <li class="nav-item"><a class="external-link nav-link" href="https://github.com/kaipingyang/shiny.element/" aria-label="GitHub"><span class="fa fab fa-github fa-lg"></span></a></li>
@@ -72,6 +73,10 @@
 <dd><p>Shiny session for module support</p></dd>
 
 </dl></div>
+    <div class="section level2">
+    <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
+    <p>A Shiny UI element.</p>
+    </div>
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
@@ -94,7 +99,7 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span>   &lt;/el-calendar&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> &lt;/div&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> &lt;div id="calendar1" style="width:0px;height:0px;" class="vue html-widget"&gt;&lt;/div&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;script type="application/json" data-for="calendar1"&gt;{"x":{"el":"#calendar1_container","data":{"value":"2026-09-29","firstDayOfWeek":1,"range":null},"watch":{"value":"function(newVal) { Shiny.setInputValue('calendar1', newVal); }"},"mounted":"function() { var self = this; var send = function() { Shiny.setInputValue(\"calendar1\", self.value); }; if (window.Shiny &amp;&amp; Shiny.shinyapp &amp;&amp; typeof Shiny.shinyapp.isConnected === 'function' &amp;&amp; Shiny.shinyapp.isConnected()) { send(); } else { $(document).one('shiny:connected', send); } }"},"evals":["watch.value","mounted"],"jsHooks":[]}&lt;/script&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;script type="application/json" data-for="calendar1"&gt;{"x":{"el":"#calendar1_container","data":{"value":"2026-09-30","firstDayOfWeek":1,"range":null},"watch":{"value":"function(newVal) { Shiny.setInputValue('calendar1', newVal); }"},"mounted":"function() { var self = this; var send = function() { Shiny.setInputValue(\"calendar1\", self.value); }; if (window.Shiny &amp;&amp; Shiny.shinyapp &amp;&amp; typeof Shiny.shinyapp.isConnected === 'function' &amp;&amp; Shiny.shinyapp.isConnected()) { send(); } else { $(document).one('shiny:connected', send); } }"},"evals":["watch.value","mounted"],"jsHooks":[]}&lt;/script&gt;</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># With date range</span></span></span>
 <span class="r-in"><span><span class="fu">el_calendar</span><span class="op">(</span>id <span class="op">=</span> <span class="st">"calendar2"</span>, range <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"2025-01-01"</span>, <span class="st">"2025-01-31"</span><span class="op">)</span><span class="op">)</span></span></span>
@@ -115,7 +120,7 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span>   &lt;/el-calendar&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> &lt;/div&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> &lt;div id="calendar2" style="width:0px;height:0px;" class="vue html-widget"&gt;&lt;/div&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;script type="application/json" data-for="calendar2"&gt;{"x":{"el":"#calendar2_container","data":{"value":"2026-09-29","firstDayOfWeek":1,"range":["2025-01-01","2025-01-31"]},"watch":{"value":"function(newVal) { Shiny.setInputValue('calendar2', newVal); }"},"mounted":"function() { var self = this; var send = function() { Shiny.setInputValue(\"calendar2\", self.value); }; if (window.Shiny &amp;&amp; Shiny.shinyapp &amp;&amp; typeof Shiny.shinyapp.isConnected === 'function' &amp;&amp; Shiny.shinyapp.isConnected()) { send(); } else { $(document).one('shiny:connected', send); } }"},"evals":["watch.value","mounted"],"jsHooks":[]}&lt;/script&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;script type="application/json" data-for="calendar2"&gt;{"x":{"el":"#calendar2_container","data":{"value":"2026-09-30","firstDayOfWeek":1,"range":["2025-01-01","2025-01-31"]},"watch":{"value":"function(newVal) { Shiny.setInputValue('calendar2', newVal); }"},"mounted":"function() { var self = this; var send = function() { Shiny.setInputValue(\"calendar2\", self.value); }; if (window.Shiny &amp;&amp; Shiny.shinyapp &amp;&amp; typeof Shiny.shinyapp.isConnected === 'function' &amp;&amp; Shiny.shinyapp.isConnected()) { send(); } else { $(document).one('shiny:connected', send); } }"},"evals":["watch.value","mounted"],"jsHooks":[]}&lt;/script&gt;</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Shiny app example: interactive calendar with update</span></span></span>
 <span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/interactive.html" class="external-link">interactive</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span></span>

@@ -25,3 +25,14 @@ el_form_clear_validate(session, id, props = NULL)
 ## Value
 
 Called for its side effect; returns `NULL` invisibly.
+
+## Examples
+
+``` r
+if (interactive()) {
+  # inside a server function
+  observeEvent(input$go, {
+    el_form_clear_validate(session, "signup")
+  })
+}
+```

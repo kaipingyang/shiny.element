@@ -23,3 +23,14 @@ el_form_validate(session, id)
 ## Value
 
 Called for its side effect; returns `NULL` invisibly.
+
+## Examples
+
+``` r
+if (interactive()) {
+  # inside a server function
+  observeEvent(input$go, {
+    el_form_validate(session, "signup")
+  })
+}
+```

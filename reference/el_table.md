@@ -6,9 +6,9 @@ Create a table widget for Shiny using Element UI.
 
 ``` r
 el_table(
+  id = NULL,
   data = list(),
   columns = list(),
-  id = NULL,
   selection = FALSE,
   border = TRUE,
   session = shiny::getDefaultReactiveDomain()
@@ -16,6 +16,10 @@ el_table(
 ```
 
 ## Arguments
+
+- id:
+
+  Table ID (auto-generated if NULL)
 
 - data:
 
@@ -27,10 +31,6 @@ el_table(
 
   List of column configs, each `list(prop=, label=, width=)`. Inferred
   from `data` when omitted.
-
-- id:
-
-  Table ID (auto-generated if NULL)
 
 - selection:
 
@@ -63,39 +63,40 @@ selected, matching how Shiny reports an empty
 
 ``` r
 # A data.frame is enough -- columns are inferred
-el_table(data = head(iris, 3))
-#> <div id="el_table_cec08a9a-b219-44e9-9150-4c7849257885_container" style="display: contents">
+el_table("iris_preview", data = head(iris, 3))
+#> <div id="iris_preview_container" style="display: contents">
 #>   <el-table :data="tableData" :border="border" style="width: 100%" @selection-change="handleSelectionChange">
 #>     <el-table-column v-if="selection" type="selection" width="55"></el-table-column>
 #>     <el-table-column v-for="col in columns" :key="col.prop" :prop="col.prop" :label="col.label" :width="col.width"></el-table-column>
 #>   </el-table>
 #> </div>
-#> <div id="el_table_cec08a9a-b219-44e9-9150-4c7849257885" style="width:0px;height:0px;" class="vue html-widget"></div>
-#> <script type="application/json" data-for="el_table_cec08a9a-b219-44e9-9150-4c7849257885">{"x":{"el":"#el_table_cec08a9a-b219-44e9-9150-4c7849257885_container","data":{"tableData":[{"Sepal_Length":5.1,"Sepal_Width":3.5,"Petal_Length":1.4,"Petal_Width":0.2,"Species":"setosa"},{"Sepal_Length":4.9,"Sepal_Width":3,"Petal_Length":1.4,"Petal_Width":0.2,"Species":"setosa"},{"Sepal_Length":4.7,"Sepal_Width":3.2,"Petal_Length":1.3,"Petal_Width":0.2,"Species":"setosa"}],"columns":[{"prop":"Sepal_Length","label":"Sepal.Length"},{"prop":"Sepal_Width","label":"Sepal.Width"},{"prop":"Petal_Length","label":"Petal.Length"},{"prop":"Petal_Width","label":"Petal.Width"},{"prop":"Species","label":"Species"}],"border":true,"selection":false,"selected":[],"selectedRows":[]},"methods":{"handleSelectionChange":"function(selection) { var self = this; self.selected = selection; self.selectedRows = selection.map(function(r) { return self.tableData.indexOf(r) + 1; }); Shiny.setInputValue('el_table_cec08a9a-b219-44e9-9150-4c7849257885_selected', self.selected); Shiny.setInputValue('el_table_cec08a9a-b219-44e9-9150-4c7849257885_selected_rows', self.selectedRows); }"},"mounted":"function() { var self = this; var send = function() { Shiny.setInputValue(\"el_table_cec08a9a-b219-44e9-9150-4c7849257885_selected\", self.selected); Shiny.setInputValue(\"el_table_cec08a9a-b219-44e9-9150-4c7849257885_selected_rows\", self.selectedRows); }; if (window.Shiny && Shiny.shinyapp && typeof Shiny.shinyapp.isConnected === 'function' && Shiny.shinyapp.isConnected()) { send(); } else { $(document).one('shiny:connected', send); } }"},"evals":["methods.handleSelectionChange","mounted"],"jsHooks":[]}</script>
+#> <div id="iris_preview" style="width:0px;height:0px;" class="vue html-widget"></div>
+#> <script type="application/json" data-for="iris_preview">{"x":{"el":"#iris_preview_container","data":{"tableData":[{"Sepal_Length":5.1,"Sepal_Width":3.5,"Petal_Length":1.4,"Petal_Width":0.2,"Species":"setosa"},{"Sepal_Length":4.9,"Sepal_Width":3,"Petal_Length":1.4,"Petal_Width":0.2,"Species":"setosa"},{"Sepal_Length":4.7,"Sepal_Width":3.2,"Petal_Length":1.3,"Petal_Width":0.2,"Species":"setosa"}],"columns":[{"prop":"Sepal_Length","label":"Sepal.Length"},{"prop":"Sepal_Width","label":"Sepal.Width"},{"prop":"Petal_Length","label":"Petal.Length"},{"prop":"Petal_Width","label":"Petal.Width"},{"prop":"Species","label":"Species"}],"border":true,"selection":false,"selected":[],"selectedRows":[]},"methods":{"handleSelectionChange":"function(selection) { var self = this; self.selected = selection; self.selectedRows = selection.map(function(r) { return self.tableData.indexOf(r) + 1; }); Shiny.setInputValue('iris_preview_selected', self.selected); Shiny.setInputValue('iris_preview_selected_rows', self.selectedRows); }"},"mounted":"function() { var self = this; var send = function() { Shiny.setInputValue(\"iris_preview_selected\", self.selected); Shiny.setInputValue(\"iris_preview_selected_rows\", self.selectedRows); }; if (window.Shiny && Shiny.shinyapp && typeof Shiny.shinyapp.isConnected === 'function' && Shiny.shinyapp.isConnected()) { send(); } else { $(document).one('shiny:connected', send); } }"},"evals":["methods.handleSelectionChange","mounted"],"jsHooks":[]}</script>
 
 # Explicit columns
 el_table(
+  "scores",
   data = data.frame(name = c("A", "B"), value = c(1, 2)),
   columns = list(
     list(prop = "name", label = "Name"),
     list(prop = "value", label = "Value", width = "100")
   )
 )
-#> <div id="el_table_7ad6439b-b28a-4db2-bdeb-5ed7bb3ae5ef_container" style="display: contents">
+#> <div id="scores_container" style="display: contents">
 #>   <el-table :data="tableData" :border="border" style="width: 100%" @selection-change="handleSelectionChange">
 #>     <el-table-column v-if="selection" type="selection" width="55"></el-table-column>
 #>     <el-table-column v-for="col in columns" :key="col.prop" :prop="col.prop" :label="col.label" :width="col.width"></el-table-column>
 #>   </el-table>
 #> </div>
-#> <div id="el_table_7ad6439b-b28a-4db2-bdeb-5ed7bb3ae5ef" style="width:0px;height:0px;" class="vue html-widget"></div>
-#> <script type="application/json" data-for="el_table_7ad6439b-b28a-4db2-bdeb-5ed7bb3ae5ef">{"x":{"el":"#el_table_7ad6439b-b28a-4db2-bdeb-5ed7bb3ae5ef_container","data":{"tableData":[{"name":"A","value":1},{"name":"B","value":2}],"columns":[{"prop":"name","label":"Name"},{"prop":"value","label":"Value","width":"100"}],"border":true,"selection":false,"selected":[],"selectedRows":[]},"methods":{"handleSelectionChange":"function(selection) { var self = this; self.selected = selection; self.selectedRows = selection.map(function(r) { return self.tableData.indexOf(r) + 1; }); Shiny.setInputValue('el_table_7ad6439b-b28a-4db2-bdeb-5ed7bb3ae5ef_selected', self.selected); Shiny.setInputValue('el_table_7ad6439b-b28a-4db2-bdeb-5ed7bb3ae5ef_selected_rows', self.selectedRows); }"},"mounted":"function() { var self = this; var send = function() { Shiny.setInputValue(\"el_table_7ad6439b-b28a-4db2-bdeb-5ed7bb3ae5ef_selected\", self.selected); Shiny.setInputValue(\"el_table_7ad6439b-b28a-4db2-bdeb-5ed7bb3ae5ef_selected_rows\", self.selectedRows); }; if (window.Shiny && Shiny.shinyapp && typeof Shiny.shinyapp.isConnected === 'function' && Shiny.shinyapp.isConnected()) { send(); } else { $(document).one('shiny:connected', send); } }"},"evals":["methods.handleSelectionChange","mounted"],"jsHooks":[]}</script>
+#> <div id="scores" style="width:0px;height:0px;" class="vue html-widget"></div>
+#> <script type="application/json" data-for="scores">{"x":{"el":"#scores_container","data":{"tableData":[{"name":"A","value":1},{"name":"B","value":2}],"columns":[{"prop":"name","label":"Name"},{"prop":"value","label":"Value","width":"100"}],"border":true,"selection":false,"selected":[],"selectedRows":[]},"methods":{"handleSelectionChange":"function(selection) { var self = this; self.selected = selection; self.selectedRows = selection.map(function(r) { return self.tableData.indexOf(r) + 1; }); Shiny.setInputValue('scores_selected', self.selected); Shiny.setInputValue('scores_selected_rows', self.selectedRows); }"},"mounted":"function() { var self = this; var send = function() { Shiny.setInputValue(\"scores_selected\", self.selected); Shiny.setInputValue(\"scores_selected_rows\", self.selectedRows); }; if (window.Shiny && Shiny.shinyapp && typeof Shiny.shinyapp.isConnected === 'function' && Shiny.shinyapp.isConnected()) { send(); } else { $(document).one('shiny:connected', send); } }"},"evals":["methods.handleSelectionChange","mounted"],"jsHooks":[]}</script>
 
 # Shiny app with row selection and server-side updates
 if (interactive()) {
   library(shiny)
   library(shiny.element)
   ui <- el_page(
-    el_table(id = "my_table", data = head(iris, 5), selection = TRUE),
+    el_table("my_table", data = head(iris, 5), selection = TRUE),
     el_button("reload", "Show more rows"),
     verbatimTextOutput("selected_rows")
   )

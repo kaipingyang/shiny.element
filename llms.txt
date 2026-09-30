@@ -1,11 +1,11 @@
 # shiny.element
 
-**shiny.element** provides R/Shiny bindings for Element-UI (Vue2)
-components, enabling modern, interactive, and flexible UI development in
-Shiny apps.
+Use [Element UI](https://element.eleme.io/) components in Shiny —
+inputs, tables, trees, dialogs, menus — each reporting through
+`input$<id>` and updatable from the server, like any other Shiny input.
 
-[![Ask
-DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/kaipingyang/shiny.element)
+Element UI ships inside the package, so apps work without a network
+connection.
 
 ## Installation
 
@@ -14,227 +14,126 @@ DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/kaipingyang/shin
 remotes::install_github("kaipingyang/shiny.element")
 ```
 
-## Features
-
-- Element-UI buttons, tables, cascader, calendar and layout components
-  for Shiny
-- Automatic Vue mounting—no manual setup required
-- Shiny module namespace support
-- Seamless integration with Shiny’s reactive system
-
-## Quick Example
+## Quick start
 
 ``` r
 
 library(shiny)
 library(shiny.element)
-
-cascader_options <- list(
-  list(
-    value = "guide",
-    label = "Guide",
-    children = list(
-      list(value = "principle", label = "Principle"),
-      list(value = "navigation", label = "Navigation")
-    )
-  ),
-  list(
-    value = "component",
-    label = "Component",
-    children = list(
-      list(value = "basic", label = "Basic"),
-      list(value = "form", label = "Form")
-    )
-  )
-)
-
-ui <- fluidPage(
-  use_element(),
-  el_button(id = "button1", label = "Click Me"),
-  el_cascader(
-    id = "cascader1",
-    options = cascader_options,
-    placeholder = "Please select",
-    clearable = TRUE
-  ),
-  el_table(
-    id = "table1",
-    data = list(
-      list(RowName = "A", Value = 1),
-      list(RowName = "B", Value = 2)
-    ),
-    columns = list(
-      list(prop = "RowName", label = "Row Name", width = "120"),
-      list(prop = "Value", label = "Value", width = "80")
-    )
-  )
-
-)
-
-server <- function(input, output, session) {
-  observeEvent(input$button1, {
-    showNotification(paste("Button clicked!", "Count:", input$button1))
-  })
-}
-
-shinyApp(ui, server)
-```
-
-## el_page
-
-``` r
-
-library(shiny)
-library(shiny.element)
-
-cascader_options <- list(
-  list(
-    value = "guide",
-    label = "Guide",
-    children = list(
-      list(value = "principle", label = "Principle"),
-      list(value = "navigation", label = "Navigation")
-    )
-  ),
-  list(
-    value = "component",
-    label = "Component",
-    children = list(
-      list(value = "basic", label = "Basic"),
-      list(value = "form", label = "Form")
-    )
-  )
-)
 
 ui <- el_page(
-  el_button(id = "button1", label = "Click Me"),
-  el_cascader(
-    id = "cascader1",
-    options = cascader_options,
-    placeholder = "Please select",
-    clearable = TRUE
-  ),
-  el_table(
-    id = "table1",
-    data = list(
-      list(RowName = "A", Value = 1),
-      list(RowName = "B", Value = 2)
-    ),
-    columns = list(
-      list(prop = "RowName", label = "Row Name", width = "120"),
-      list(prop = "Value", label = "Value", width = "80")
-    )
-  )
+  el_input("name", label = "Name", placeholder = "Your name"),
+  el_rate("score", value = 3),
+  el_button("save", "Save", type = "primary"),
+  el_alert("hint", title = "Nothing saved yet", type = "info")
 )
 
 server <- function(input, output, session) {
-  observeEvent(input$button1, {
-    showNotification(paste("Button clicked!", "Count:", input$button1))
+  observeEvent(input$save, {
+    update_el_alert(session, "hint",
+      title = paste0("Saved ", input$name, " (", input$score, "/5)"),
+      type = "success"
+    )
   })
 }
 
 shinyApp(ui, server)
 ```
 
-## Using bslib Layouts with Element-UI Components
-
-You can use Element-UI components (such as el_button) inside bslib
-layouts. Just call use_element() at the top of your UI to load all
-required dependencies, then use Element-UI widgets inside bslib layout
-functions:
+[`el_page()`](https://kaipingyang.github.io/shiny.element/reference/el_page.md)
+sets up the Vue root and loads the dependencies. Inside an existing
+layout — a
+[`fluidPage()`](https://rdrr.io/pkg/shiny/man/fluidPage.html), or
+bslib’s `page_sidebar()` — call
+[`use_element()`](https://kaipingyang.github.io/shiny.element/reference/use_element.md)
+once at the top instead:
 
 ``` r
 
-library(shiny)
-library(shiny.element)
-library(bslib)
-
-cascader_options <- list(
-  list(
-    value = "guide",
-    label = "Guide",
-    children = list(
-      list(value = "principle", label = "Principle"),
-      list(value = "navigation", label = "Navigation")
-    )
-  ),
-  list(
-    value = "component",
-    label = "Component",
-    children = list(
-      list(value = "basic", label = "Basic"),
-      list(value = "form", label = "Form")
-    )
-  )
+ui <- bslib::page_sidebar(
+  use_element(),
+  sidebar = bslib::sidebar(el_select("metric", choices = c("Mean", "Median"))),
+  el_table(data = head(iris), id = "summary")
 )
-
-ui <- page_sidebar(
-  use_element(), # Loads Element-UI dependencies
-  sidebar = sidebar(
-    el_button("sidebar_btn", "Sidebar Button", type = "primary")
-  ),
-  layout_columns(
-    col_widths = c(4, 4, 12),
-    row_heights = c(2, 8),
-    el_button("btn1", "Primary", type = "primary"),
-    el_cascader(
-      id = "cascader1",
-      options = cascader_options,
-      placeholder = "Please select",
-      clearable = TRUE
-    ),
-    el_table(
-      id = "table1",
-      data = list(
-        list(RowName = "A", Value = 1),
-        list(RowName = "B", Value = 2)
-      ),
-      columns = list(
-        list(prop = "RowName", label = "Row Name", width = "120"),
-        list(prop = "Value", label = "Value", width = "80")
-      )
-    )
-  )
-)
-
-server <- function(input, output, session) {
-  observeEvent(input$button1, {
-    showNotification(paste("Button clicked!", "Count:", input$button1))
-  })
-}
-
-shinyApp(ui, server)
 ```
 
-Note: The Element-UI layout functions (el_container, el_row, el_col) are
-experimental and fundamentally different from bslib’s layout system
-(page_sidebar, layout_columns). They cannot be directly nested or mixed.
-For most use cases, prefer bslib layouts with Element-UI components. The
-Element-UI layout functions may be deprecated in future releases.
+## Components
 
-## Main Components
+|  |  |
+|----|----|
+| **Input** | [`el_input()`](https://kaipingyang.github.io/shiny.element/reference/el_input.md) [`el_input_number()`](https://kaipingyang.github.io/shiny.element/reference/el_input_number.md) [`el_select()`](https://kaipingyang.github.io/shiny.element/reference/el_select.md) [`el_radio_group()`](https://kaipingyang.github.io/shiny.element/reference/el_radio_group.md) [`el_checkbox_group()`](https://kaipingyang.github.io/shiny.element/reference/el_checkbox_group.md) [`el_switch()`](https://kaipingyang.github.io/shiny.element/reference/el_switch.md) [`el_slider()`](https://kaipingyang.github.io/shiny.element/reference/el_slider.md) [`el_rate()`](https://kaipingyang.github.io/shiny.element/reference/el_rate.md) [`el_date_picker()`](https://kaipingyang.github.io/shiny.element/reference/el_date_picker.md) [`el_color_picker()`](https://kaipingyang.github.io/shiny.element/reference/el_color_picker.md) [`el_cascader()`](https://kaipingyang.github.io/shiny.element/reference/el_cascader.md) [`el_upload()`](https://kaipingyang.github.io/shiny.element/reference/el_upload.md) |
+| **Display** | [`el_table()`](https://kaipingyang.github.io/shiny.element/reference/el_table.md) [`el_tag()`](https://kaipingyang.github.io/shiny.element/reference/el_tag.md) [`el_progress()`](https://kaipingyang.github.io/shiny.element/reference/el_progress.md) [`el_alert()`](https://kaipingyang.github.io/shiny.element/reference/el_alert.md) [`el_badge()`](https://kaipingyang.github.io/shiny.element/reference/el_badge.md) [`el_card()`](https://kaipingyang.github.io/shiny.element/reference/el_card.md) [`el_calendar()`](https://kaipingyang.github.io/shiny.element/reference/el_calendar.md) [`el_tree()`](https://kaipingyang.github.io/shiny.element/reference/el_tree.md) [`el_timeline()`](https://kaipingyang.github.io/shiny.element/reference/el_timeline.md) [`el_carousel()`](https://kaipingyang.github.io/shiny.element/reference/el_carousel.md) [`el_icon()`](https://kaipingyang.github.io/shiny.element/reference/el_icon.md) [`el_link()`](https://kaipingyang.github.io/shiny.element/reference/el_link.md) [`el_divider()`](https://kaipingyang.github.io/shiny.element/reference/el_divider.md) |
+| **Navigation** | [`el_menu()`](https://kaipingyang.github.io/shiny.element/reference/el_menu.md) [`el_tabs()`](https://kaipingyang.github.io/shiny.element/reference/el_tabs.md) [`el_steps()`](https://kaipingyang.github.io/shiny.element/reference/el_steps.md) [`el_pagination()`](https://kaipingyang.github.io/shiny.element/reference/el_pagination.md) [`el_dropdown()`](https://kaipingyang.github.io/shiny.element/reference/el_dropdown.md) |
+| **Container** | [`el_collapse()`](https://kaipingyang.github.io/shiny.element/reference/el_collapse.md) [`el_dialog()`](https://kaipingyang.github.io/shiny.element/reference/el_dialog.md) [`el_drawer()`](https://kaipingyang.github.io/shiny.element/reference/el_drawer.md) [`el_form()`](https://kaipingyang.github.io/shiny.element/reference/el_form.md) [`el_row()`](https://kaipingyang.github.io/shiny.element/reference/el_row.md) [`el_col()`](https://kaipingyang.github.io/shiny.element/reference/el_col.md) [`el_container()`](https://kaipingyang.github.io/shiny.element/reference/el_container.md) [`el_header()`](https://kaipingyang.github.io/shiny.element/reference/el_header.md) [`el_aside()`](https://kaipingyang.github.io/shiny.element/reference/el_aside.md) [`el_main()`](https://kaipingyang.github.io/shiny.element/reference/el_main.md) [`el_footer()`](https://kaipingyang.github.io/shiny.element/reference/el_footer.md) |
+| **Feedback** | [`el_message()`](https://kaipingyang.github.io/shiny.element/reference/el_message.md) [`el_notification()`](https://kaipingyang.github.io/shiny.element/reference/el_notification.md) |
 
-- [`el_button()`](https://kaipingyang.github.io/shiny.element/reference/el_button.md):
-  Element-UI Button
-- [`el_table()`](https://kaipingyang.github.io/shiny.element/reference/el_table.md):
-  Element-UI Table
-- [`el_cascader()`](https://kaipingyang.github.io/shiny.element/reference/el_cascader.md):
-  Element-UI Cascader
-- [`el_header()`](https://kaipingyang.github.io/shiny.element/reference/el_header.md),
-  [`el_main()`](https://kaipingyang.github.io/shiny.element/reference/el_main.md),
-  [`el_footer()`](https://kaipingyang.github.io/shiny.element/reference/el_footer.md),
-  [`el_aside()`](https://kaipingyang.github.io/shiny.element/reference/el_aside.md):
-  Element-UI Layout Containers (may be deprecated in future releases)
+The [component
+gallery](https://kaipingyang.github.io/shiny.element/articles/components.html)
+shows each one rendered, with the code that produced it.
 
-## Dependencies
+![Buttons](reference/figures/component-button.png)![Steps](reference/figures/component-steps.png)![Table](reference/figures/component-table.png)![Tree](reference/figures/component-tree.png)
 
-- [Element-UI](https://element.eleme.io/)
-- [vueR](https://github.com/renozao/vueR)
-- [shiny](https://shiny.rstudio.com/)
+## Reading and writing values
 
-## Contributing
+Every component reports through `input$<id>`, and every component has a
+matching `update_el_*()`:
 
-Feedback and contributions are welcome via GitHub issues.
+``` r
+
+server <- function(input, output, session) {
+  # read
+  output$chosen <- renderText(input$city)
+
+  # write
+  observeEvent(input$reset, {
+    update_el_select(session, "city", value = "beijing")
+  })
+}
+```
+
+Tables take a data frame directly, and
+[`el_table_config()`](https://kaipingyang.github.io/shiny.element/reference/el_table_config.md)
+derives the column definitions from it:
+
+``` r
+
+cfg <- el_table_config(iris, max_rows = 20)
+el_table(data = cfg$data, columns = cfg$columns, id = "iris")
+```
+
+## Layout
+
+[`el_row()`](https://kaipingyang.github.io/shiny.element/reference/el_row.md)
+/
+[`el_col()`](https://kaipingyang.github.io/shiny.element/reference/el_col.md)
+implement Element’s 24-column grid, and
+[`el_container()`](https://kaipingyang.github.io/shiny.element/reference/el_container.md)
+its header/aside/main/footer frame. Both nest freely and accept any
+Shiny UI inside, including other Element components.
+
+For whole-page structure, bslib’s `page_sidebar()` and
+`layout_columns()` remain the better tool — they handle responsive
+breakpoints and theming that Element’s grid does not. Mixing the two is
+supported: use bslib for the page, Element for the controls.
+
+## Debugging
+
+`el_page(dev = TRUE)` loads Vue’s development build, which reports
+template errors in the browser console instead of failing silently. The
+package’s own test suite runs in this mode and asserts that the console
+stays clean.
+
+## Learn more
+
+- [Component
+  gallery](https://kaipingyang.github.io/shiny.element/articles/components.html)
+- [Function
+  reference](https://kaipingyang.github.io/shiny.element/reference/index.html)
+
+## Licence
+
+MIT. The bundled Element UI distribution is MIT-licensed by ElemeFE; see
+`LICENSE.note`.
 
 # Package index
 

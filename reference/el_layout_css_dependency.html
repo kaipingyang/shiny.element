@@ -11,7 +11,7 @@ This dependency is automatically attached by el_page() for consistent layout app
 
     <a class="navbar-brand me-2" href="../index.html">shiny.element</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.0.9000</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.1.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -21,6 +21,7 @@ This dependency is automatically attached by el_page() for consistent layout app
     <div id="navbar" class="collapse navbar-collapse ms-3">
       <ul class="navbar-nav me-auto"><li class="nav-item"><a class="nav-link" href="../articles/components.html">Components</a></li>
 <li class="active nav-item"><a class="nav-link" href="../reference/index.html">Reference</a></li>
+<li class="nav-item"><a class="nav-link" href="../news/index.html">Changelog</a></li>
       </ul><ul class="navbar-nav"><li class="nav-item"><form class="form-inline" role="search">
  <input class="form-control" type="search" name="search-input" id="search-input" autocomplete="off" aria-label="Search site" placeholder="Search for" data-search-index="../search.json"></form></li>
 <li class="nav-item"><a class="external-link nav-link" href="https://github.com/kaipingyang/shiny.element/" aria-label="GitHub"><span class="fa fab fa-github fa-lg"></span></a></li>
@@ -48,8 +49,31 @@ This dependency is automatically attached by el_page() for consistent layout app
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">el_layout_css_dependency</span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
     </div>
 
+    <div class="section level2">
+    <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
+    <p>An htmlDependency object.</p>
+    </div>
 
-  </main></div>
+    <div class="section level2">
+    <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu">el_layout_css_dependency</span><span class="op">(</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> List of 10</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  $ name      : chr "el-layout-css"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  $ version   : chr "1.0.0"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  $ src       :List of 1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ file: chr "css"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  $ meta      : NULL</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  $ script    : NULL</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  $ stylesheet: chr "el-layout.css"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  $ head      : NULL</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  $ attachment: NULL</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  $ package   : chr "shiny.element"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  $ all_files : logi TRUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  - attr(*, "class")= chr "html_dependency"</span>
+</code></pre></div>
+    </div>
+  </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
+    </nav></aside></div>
 
 
     <footer><div class="pkgdown-footer-left">

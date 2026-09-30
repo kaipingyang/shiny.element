@@ -23,6 +23,10 @@ update_vue_data(session, id, data)
 
   Named list representing the full Vue data object
 
+## Value
+
+Called for its side effect; returns `NULL` invisibly.
+
 ## Examples
 
 ``` r

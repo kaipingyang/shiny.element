@@ -22,6 +22,10 @@ update_vue_component(session, id, ...)
 
   Named fields and values to update
 
+## Value
+
+Called for its side effect; returns `NULL` invisibly.
+
 ## Examples
 
 ``` r

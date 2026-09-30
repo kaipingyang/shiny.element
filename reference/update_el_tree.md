@@ -36,3 +36,14 @@ update_el_tree(session, id, data = NULL, expanded = NULL, checked = NULL)
 ## Value
 
 Called for its side effect; returns `NULL` invisibly.
+
+## Examples
+
+``` r
+if (interactive()) {
+  # inside a server function
+  observeEvent(input$go, {
+    update_el_tree(session, "picker", checked = c("apple"))
+  })
+}
+```

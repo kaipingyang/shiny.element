@@ -22,7 +22,7 @@
 
     <a class="navbar-brand me-2" href="index.html">shiny.element</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.0.9000</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.1.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -33,6 +33,7 @@
       <ul class="navbar-nav me-auto">
 <li class="nav-item"><a class="nav-link" href="articles/components.html">Components</a></li>
 <li class="nav-item"><a class="nav-link" href="reference/index.html">Reference</a></li>
+<li class="nav-item"><a class="nav-link" href="news/index.html">Changelog</a></li>
       </ul>
 <ul class="navbar-nav">
 <li class="nav-item"><form class="form-inline" role="search">
@@ -49,8 +50,10 @@
   <main id="main" class="col-md-9"><div class="section level1">
 <div class="page-header"><h1 id="shinyelement">shiny.element<a class="anchor" aria-label="anchor" href="#shinyelement"></a>
 </h1></div>
-<p><strong>shiny.element</strong> provides R/Shiny bindings for Element-UI (Vue2) components, enabling modern, interactive, and flexible UI development in Shiny apps.</p>
-<p><a href="https://deepwiki.com/kaipingyang/shiny.element" class="external-link"><img src="https://deepwiki.com/badge.svg" alt="Ask DeepWiki"></a></p>
+<!-- badges: start -->
+
+<p>Use <a href="https://element.eleme.io/" class="external-link">Element UI</a> components in Shiny — inputs, tables, trees, dialogs, menus — each reporting through <code>input$&lt;id&gt;</code> and updatable from the server, like any other Shiny input.</p>
+<p>Element UI ships inside the package, so apps work without a network connection.</p>
 <div class="section level2">
 <h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
 </h2>
@@ -58,220 +61,123 @@
 <code class="sourceCode R"><span><span class="fu">remotes</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"kaipingyang/shiny.element"</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level2">
-<h2 id="features">Features<a class="anchor" aria-label="anchor" href="#features"></a>
-</h2>
-<ul>
-<li>Element-UI buttons, tables, cascader, calendar and layout components for Shiny</li>
-<li>Automatic Vue mounting—no manual setup required</li>
-<li>Shiny module namespace support</li>
-<li>Seamless integration with Shiny’s reactive system</li>
-</ul>
-</div>
-<div class="section level2">
-<h2 id="quick-example">Quick Example<a class="anchor" aria-label="anchor" href="#quick-example"></a>
+<h2 id="quick-start">Quick start<a class="anchor" aria-label="anchor" href="#quick-start"></a>
 </h2>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://shiny.posit.co/" class="external-link">shiny</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://kaipingyang.github.io/shiny.element/">shiny.element</a></span><span class="op">)</span></span>
 <span></span>
-<span><span class="va">cascader_options</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
-<span>    value <span class="op">=</span> <span class="st">"guide"</span>,</span>
-<span>    label <span class="op">=</span> <span class="st">"Guide"</span>,</span>
-<span>    children <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
-<span>      <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>value <span class="op">=</span> <span class="st">"principle"</span>, label <span class="op">=</span> <span class="st">"Principle"</span><span class="op">)</span>,</span>
-<span>      <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>value <span class="op">=</span> <span class="st">"navigation"</span>, label <span class="op">=</span> <span class="st">"Navigation"</span><span class="op">)</span></span>
-<span>    <span class="op">)</span></span>
-<span>  <span class="op">)</span>,</span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
-<span>    value <span class="op">=</span> <span class="st">"component"</span>,</span>
-<span>    label <span class="op">=</span> <span class="st">"Component"</span>,</span>
-<span>    children <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
-<span>      <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>value <span class="op">=</span> <span class="st">"basic"</span>, label <span class="op">=</span> <span class="st">"Basic"</span><span class="op">)</span>,</span>
-<span>      <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>value <span class="op">=</span> <span class="st">"form"</span>, label <span class="op">=</span> <span class="st">"Form"</span><span class="op">)</span></span>
-<span>    <span class="op">)</span></span>
-<span>  <span class="op">)</span></span>
-<span><span class="op">)</span></span>
-<span></span>
-<span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/fluidPage.html" class="external-link">fluidPage</a></span><span class="op">(</span></span>
-<span>  <span class="fu"><a href="reference/use_element.html">use_element</a></span><span class="op">(</span><span class="op">)</span>,</span>
-<span>  <span class="fu"><a href="reference/el_button.html">el_button</a></span><span class="op">(</span>id <span class="op">=</span> <span class="st">"button1"</span>, label <span class="op">=</span> <span class="st">"Click Me"</span><span class="op">)</span>,</span>
-<span>  <span class="fu"><a href="reference/el_cascader.html">el_cascader</a></span><span class="op">(</span></span>
-<span>    id <span class="op">=</span> <span class="st">"cascader1"</span>,</span>
-<span>    options <span class="op">=</span> <span class="va">cascader_options</span>,</span>
-<span>    placeholder <span class="op">=</span> <span class="st">"Please select"</span>,</span>
-<span>    clearable <span class="op">=</span> <span class="cn">TRUE</span></span>
-<span>  <span class="op">)</span>,</span>
-<span>  <span class="fu"><a href="reference/el_table.html">el_table</a></span><span class="op">(</span></span>
-<span>    id <span class="op">=</span> <span class="st">"table1"</span>,</span>
-<span>    data <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
-<span>      <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>RowName <span class="op">=</span> <span class="st">"A"</span>, Value <span class="op">=</span> <span class="fl">1</span><span class="op">)</span>,</span>
-<span>      <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>RowName <span class="op">=</span> <span class="st">"B"</span>, Value <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span>
-<span>    <span class="op">)</span>,</span>
-<span>    columns <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
-<span>      <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>prop <span class="op">=</span> <span class="st">"RowName"</span>, label <span class="op">=</span> <span class="st">"Row Name"</span>, width <span class="op">=</span> <span class="st">"120"</span><span class="op">)</span>,</span>
-<span>      <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>prop <span class="op">=</span> <span class="st">"Value"</span>, label <span class="op">=</span> <span class="st">"Value"</span>, width <span class="op">=</span> <span class="st">"80"</span><span class="op">)</span></span>
-<span>    <span class="op">)</span></span>
-<span>  <span class="op">)</span></span>
-<span></span>
-<span><span class="op">)</span></span>
-<span></span>
-<span><span class="va">server</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span>, <span class="va">session</span><span class="op">)</span> <span class="op">{</span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/observeEvent.html" class="external-link">observeEvent</a></span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">button1</span>, <span class="op">{</span></span>
-<span>    <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/showNotification.html" class="external-link">showNotification</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="st">"Button clicked!"</span>, <span class="st">"Count:"</span>, <span class="va">input</span><span class="op">$</span><span class="va">button1</span><span class="op">)</span><span class="op">)</span></span>
-<span>  <span class="op">}</span><span class="op">)</span></span>
-<span><span class="op">}</span></span>
-<span></span>
-<span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/shinyApp.html" class="external-link">shinyApp</a></span><span class="op">(</span><span class="va">ui</span>, <span class="va">server</span><span class="op">)</span></span></code></pre></div>
-</div>
-<div class="section level2">
-<h2 id="el_page">el_page<a class="anchor" aria-label="anchor" href="#el_page"></a>
-</h2>
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://shiny.posit.co/" class="external-link">shiny</a></span><span class="op">)</span></span>
-<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://kaipingyang.github.io/shiny.element/">shiny.element</a></span><span class="op">)</span></span>
-<span></span>
-<span><span class="va">cascader_options</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
-<span>    value <span class="op">=</span> <span class="st">"guide"</span>,</span>
-<span>    label <span class="op">=</span> <span class="st">"Guide"</span>,</span>
-<span>    children <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
-<span>      <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>value <span class="op">=</span> <span class="st">"principle"</span>, label <span class="op">=</span> <span class="st">"Principle"</span><span class="op">)</span>,</span>
-<span>      <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>value <span class="op">=</span> <span class="st">"navigation"</span>, label <span class="op">=</span> <span class="st">"Navigation"</span><span class="op">)</span></span>
-<span>    <span class="op">)</span></span>
-<span>  <span class="op">)</span>,</span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
-<span>    value <span class="op">=</span> <span class="st">"component"</span>,</span>
-<span>    label <span class="op">=</span> <span class="st">"Component"</span>,</span>
-<span>    children <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
-<span>      <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>value <span class="op">=</span> <span class="st">"basic"</span>, label <span class="op">=</span> <span class="st">"Basic"</span><span class="op">)</span>,</span>
-<span>      <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>value <span class="op">=</span> <span class="st">"form"</span>, label <span class="op">=</span> <span class="st">"Form"</span><span class="op">)</span></span>
-<span>    <span class="op">)</span></span>
-<span>  <span class="op">)</span></span>
-<span><span class="op">)</span></span>
-<span></span>
 <span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/el_page.html">el_page</a></span><span class="op">(</span></span>
-<span>  <span class="fu"><a href="reference/el_button.html">el_button</a></span><span class="op">(</span>id <span class="op">=</span> <span class="st">"button1"</span>, label <span class="op">=</span> <span class="st">"Click Me"</span><span class="op">)</span>,</span>
-<span>  <span class="fu"><a href="reference/el_cascader.html">el_cascader</a></span><span class="op">(</span></span>
-<span>    id <span class="op">=</span> <span class="st">"cascader1"</span>,</span>
-<span>    options <span class="op">=</span> <span class="va">cascader_options</span>,</span>
-<span>    placeholder <span class="op">=</span> <span class="st">"Please select"</span>,</span>
-<span>    clearable <span class="op">=</span> <span class="cn">TRUE</span></span>
-<span>  <span class="op">)</span>,</span>
-<span>  <span class="fu"><a href="reference/el_table.html">el_table</a></span><span class="op">(</span></span>
-<span>    id <span class="op">=</span> <span class="st">"table1"</span>,</span>
-<span>    data <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
-<span>      <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>RowName <span class="op">=</span> <span class="st">"A"</span>, Value <span class="op">=</span> <span class="fl">1</span><span class="op">)</span>,</span>
-<span>      <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>RowName <span class="op">=</span> <span class="st">"B"</span>, Value <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span>
-<span>    <span class="op">)</span>,</span>
-<span>    columns <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
-<span>      <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>prop <span class="op">=</span> <span class="st">"RowName"</span>, label <span class="op">=</span> <span class="st">"Row Name"</span>, width <span class="op">=</span> <span class="st">"120"</span><span class="op">)</span>,</span>
-<span>      <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>prop <span class="op">=</span> <span class="st">"Value"</span>, label <span class="op">=</span> <span class="st">"Value"</span>, width <span class="op">=</span> <span class="st">"80"</span><span class="op">)</span></span>
-<span>    <span class="op">)</span></span>
-<span>  <span class="op">)</span></span>
+<span>  <span class="fu"><a href="reference/el_input.html">el_input</a></span><span class="op">(</span><span class="st">"name"</span>, label <span class="op">=</span> <span class="st">"Name"</span>, placeholder <span class="op">=</span> <span class="st">"Your name"</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="reference/el_rate.html">el_rate</a></span><span class="op">(</span><span class="st">"score"</span>, value <span class="op">=</span> <span class="fl">3</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="reference/el_button.html">el_button</a></span><span class="op">(</span><span class="st">"save"</span>, <span class="st">"Save"</span>, type <span class="op">=</span> <span class="st">"primary"</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="reference/el_alert.html">el_alert</a></span><span class="op">(</span><span class="st">"hint"</span>, title <span class="op">=</span> <span class="st">"Nothing saved yet"</span>, type <span class="op">=</span> <span class="st">"info"</span><span class="op">)</span></span>
 <span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">server</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span>, <span class="va">session</span><span class="op">)</span> <span class="op">{</span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/observeEvent.html" class="external-link">observeEvent</a></span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">button1</span>, <span class="op">{</span></span>
-<span>    <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/showNotification.html" class="external-link">showNotification</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="st">"Button clicked!"</span>, <span class="st">"Count:"</span>, <span class="va">input</span><span class="op">$</span><span class="va">button1</span><span class="op">)</span><span class="op">)</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/observeEvent.html" class="external-link">observeEvent</a></span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">save</span>, <span class="op">{</span></span>
+<span>    <span class="fu"><a href="reference/update_el_alert.html">update_el_alert</a></span><span class="op">(</span><span class="va">session</span>, <span class="st">"hint"</span>,</span>
+<span>      title <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="st">"Saved "</span>, <span class="va">input</span><span class="op">$</span><span class="va">name</span>, <span class="st">" ("</span>, <span class="va">input</span><span class="op">$</span><span class="va">score</span>, <span class="st">"/5)"</span><span class="op">)</span>,</span>
+<span>      type <span class="op">=</span> <span class="st">"success"</span></span>
+<span>    <span class="op">)</span></span>
 <span>  <span class="op">}</span><span class="op">)</span></span>
 <span><span class="op">}</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/shinyApp.html" class="external-link">shinyApp</a></span><span class="op">(</span><span class="va">ui</span>, <span class="va">server</span><span class="op">)</span></span></code></pre></div>
+<p><code><a href="reference/el_page.html">el_page()</a></code> sets up the Vue root and loads the dependencies. Inside an existing layout — a <code><a href="https://rdrr.io/pkg/shiny/man/fluidPage.html" class="external-link">fluidPage()</a></code>, or bslib’s <code>page_sidebar()</code> — call <code><a href="reference/use_element.html">use_element()</a></code> once at the top instead:</p>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu">bslib</span><span class="fu">::</span><span class="fu"><a href="https://rstudio.github.io/bslib/reference/page_sidebar.html" class="external-link">page_sidebar</a></span><span class="op">(</span></span>
+<span>  <span class="fu"><a href="reference/use_element.html">use_element</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>  sidebar <span class="op">=</span> <span class="fu">bslib</span><span class="fu">::</span><span class="fu"><a href="https://rstudio.github.io/bslib/reference/sidebar.html" class="external-link">sidebar</a></span><span class="op">(</span><span class="fu"><a href="reference/el_select.html">el_select</a></span><span class="op">(</span><span class="st">"metric"</span>, choices <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Mean"</span>, <span class="st">"Median"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="reference/el_table.html">el_table</a></span><span class="op">(</span>data <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">iris</span><span class="op">)</span>, id <span class="op">=</span> <span class="st">"summary"</span><span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level2">
-<h2 id="using-bslib-layouts-with-element-ui-components">Using bslib Layouts with Element-UI Components<a class="anchor" aria-label="anchor" href="#using-bslib-layouts-with-element-ui-components"></a>
+<h2 id="components">Components<a class="anchor" aria-label="anchor" href="#components"></a>
 </h2>
-<p>You can use Element-UI components (such as el_button) inside bslib layouts. Just call use_element() at the top of your UI to load all required dependencies, then use Element-UI widgets inside bslib layout functions:</p>
+<table class="table">
+<colgroup>
+<col width="50%">
+<col width="50%">
+</colgroup>
+<tbody>
+<tr>
+<td><strong>Input</strong></td>
+<td>
+<code><a href="reference/el_input.html">el_input()</a></code> <code><a href="reference/el_input_number.html">el_input_number()</a></code> <code><a href="reference/el_select.html">el_select()</a></code> <code><a href="reference/el_radio_group.html">el_radio_group()</a></code> <code><a href="reference/el_checkbox_group.html">el_checkbox_group()</a></code> <code><a href="reference/el_switch.html">el_switch()</a></code> <code><a href="reference/el_slider.html">el_slider()</a></code> <code><a href="reference/el_rate.html">el_rate()</a></code> <code><a href="reference/el_date_picker.html">el_date_picker()</a></code> <code><a href="reference/el_color_picker.html">el_color_picker()</a></code> <code><a href="reference/el_cascader.html">el_cascader()</a></code> <code><a href="reference/el_upload.html">el_upload()</a></code>
+</td>
+</tr>
+<tr>
+<td><strong>Display</strong></td>
+<td>
+<code><a href="reference/el_table.html">el_table()</a></code> <code><a href="reference/el_tag.html">el_tag()</a></code> <code><a href="reference/el_progress.html">el_progress()</a></code> <code><a href="reference/el_alert.html">el_alert()</a></code> <code><a href="reference/el_badge.html">el_badge()</a></code> <code><a href="reference/el_card.html">el_card()</a></code> <code><a href="reference/el_calendar.html">el_calendar()</a></code> <code><a href="reference/el_tree.html">el_tree()</a></code> <code><a href="reference/el_timeline.html">el_timeline()</a></code> <code><a href="reference/el_carousel.html">el_carousel()</a></code> <code><a href="reference/el_icon.html">el_icon()</a></code> <code><a href="reference/el_link.html">el_link()</a></code> <code><a href="reference/el_divider.html">el_divider()</a></code>
+</td>
+</tr>
+<tr>
+<td><strong>Navigation</strong></td>
+<td>
+<code><a href="reference/el_menu.html">el_menu()</a></code> <code><a href="reference/el_tabs.html">el_tabs()</a></code> <code><a href="reference/el_steps.html">el_steps()</a></code> <code><a href="reference/el_pagination.html">el_pagination()</a></code> <code><a href="reference/el_dropdown.html">el_dropdown()</a></code>
+</td>
+</tr>
+<tr>
+<td><strong>Container</strong></td>
+<td>
+<code><a href="reference/el_collapse.html">el_collapse()</a></code> <code><a href="reference/el_dialog.html">el_dialog()</a></code> <code><a href="reference/el_drawer.html">el_drawer()</a></code> <code><a href="reference/el_form.html">el_form()</a></code> <code><a href="reference/el_row.html">el_row()</a></code> <code><a href="reference/el_col.html">el_col()</a></code> <code><a href="reference/el_container.html">el_container()</a></code> <code><a href="reference/el_header.html">el_header()</a></code> <code><a href="reference/el_aside.html">el_aside()</a></code> <code><a href="reference/el_main.html">el_main()</a></code> <code><a href="reference/el_footer.html">el_footer()</a></code>
+</td>
+</tr>
+<tr>
+<td><strong>Feedback</strong></td>
+<td>
+<code><a href="reference/el_message.html">el_message()</a></code> <code><a href="reference/el_notification.html">el_notification()</a></code>
+</td>
+</tr>
+</tbody>
+</table>
+<p>The <a href="https://kaipingyang.github.io/shiny.element/articles/components.html">component gallery</a> shows each one rendered, with the code that produced it.</p>
+<p><img src="reference/figures/component-button.png" width="49%" alt="Buttons"><img src="reference/figures/component-steps.png" width="49%" alt="Steps"><img src="reference/figures/component-table.png" width="49%" alt="Table"><img src="reference/figures/component-tree.png" width="49%" alt="Tree"></p>
+</div>
+<div class="section level2">
+<h2 id="reading-and-writing-values">Reading and writing values<a class="anchor" aria-label="anchor" href="#reading-and-writing-values"></a>
+</h2>
+<p>Every component reports through <code>input$&lt;id&gt;</code>, and every component has a matching <code>update_el_*()</code>:</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://shiny.posit.co/" class="external-link">shiny</a></span><span class="op">)</span></span>
-<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://kaipingyang.github.io/shiny.element/">shiny.element</a></span><span class="op">)</span></span>
-<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://rstudio.github.io/bslib/" class="external-link">bslib</a></span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="va">server</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span>, <span class="va">session</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="co"># read</span></span>
+<span>  <span class="va">output</span><span class="op">$</span><span class="va">chosen</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/renderPrint.html" class="external-link">renderText</a></span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">city</span><span class="op">)</span></span>
 <span></span>
-<span><span class="va">cascader_options</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
-<span>    value <span class="op">=</span> <span class="st">"guide"</span>,</span>
-<span>    label <span class="op">=</span> <span class="st">"Guide"</span>,</span>
-<span>    children <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
-<span>      <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>value <span class="op">=</span> <span class="st">"principle"</span>, label <span class="op">=</span> <span class="st">"Principle"</span><span class="op">)</span>,</span>
-<span>      <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>value <span class="op">=</span> <span class="st">"navigation"</span>, label <span class="op">=</span> <span class="st">"Navigation"</span><span class="op">)</span></span>
-<span>    <span class="op">)</span></span>
-<span>  <span class="op">)</span>,</span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
-<span>    value <span class="op">=</span> <span class="st">"component"</span>,</span>
-<span>    label <span class="op">=</span> <span class="st">"Component"</span>,</span>
-<span>    children <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
-<span>      <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>value <span class="op">=</span> <span class="st">"basic"</span>, label <span class="op">=</span> <span class="st">"Basic"</span><span class="op">)</span>,</span>
-<span>      <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>value <span class="op">=</span> <span class="st">"form"</span>, label <span class="op">=</span> <span class="st">"Form"</span><span class="op">)</span></span>
-<span>    <span class="op">)</span></span>
-<span>  <span class="op">)</span></span>
-<span><span class="op">)</span></span>
-<span></span>
-<span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rstudio.github.io/bslib/reference/page_sidebar.html" class="external-link">page_sidebar</a></span><span class="op">(</span></span>
-<span>  <span class="fu"><a href="reference/use_element.html">use_element</a></span><span class="op">(</span><span class="op">)</span>, <span class="co"># Loads Element-UI dependencies</span></span>
-<span>  sidebar <span class="op">=</span> <span class="fu"><a href="https://rstudio.github.io/bslib/reference/sidebar.html" class="external-link">sidebar</a></span><span class="op">(</span></span>
-<span>    <span class="fu"><a href="reference/el_button.html">el_button</a></span><span class="op">(</span><span class="st">"sidebar_btn"</span>, <span class="st">"Sidebar Button"</span>, type <span class="op">=</span> <span class="st">"primary"</span><span class="op">)</span></span>
-<span>  <span class="op">)</span>,</span>
-<span>  <span class="fu"><a href="https://rstudio.github.io/bslib/reference/layout_columns.html" class="external-link">layout_columns</a></span><span class="op">(</span></span>
-<span>    col_widths <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">4</span>, <span class="fl">4</span>, <span class="fl">12</span><span class="op">)</span>,</span>
-<span>    row_heights <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fl">8</span><span class="op">)</span>,</span>
-<span>    <span class="fu"><a href="reference/el_button.html">el_button</a></span><span class="op">(</span><span class="st">"btn1"</span>, <span class="st">"Primary"</span>, type <span class="op">=</span> <span class="st">"primary"</span><span class="op">)</span>,</span>
-<span>    <span class="fu"><a href="reference/el_cascader.html">el_cascader</a></span><span class="op">(</span></span>
-<span>      id <span class="op">=</span> <span class="st">"cascader1"</span>,</span>
-<span>      options <span class="op">=</span> <span class="va">cascader_options</span>,</span>
-<span>      placeholder <span class="op">=</span> <span class="st">"Please select"</span>,</span>
-<span>      clearable <span class="op">=</span> <span class="cn">TRUE</span></span>
-<span>    <span class="op">)</span>,</span>
-<span>    <span class="fu"><a href="reference/el_table.html">el_table</a></span><span class="op">(</span></span>
-<span>      id <span class="op">=</span> <span class="st">"table1"</span>,</span>
-<span>      data <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
-<span>        <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>RowName <span class="op">=</span> <span class="st">"A"</span>, Value <span class="op">=</span> <span class="fl">1</span><span class="op">)</span>,</span>
-<span>        <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>RowName <span class="op">=</span> <span class="st">"B"</span>, Value <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span>
-<span>      <span class="op">)</span>,</span>
-<span>      columns <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
-<span>        <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>prop <span class="op">=</span> <span class="st">"RowName"</span>, label <span class="op">=</span> <span class="st">"Row Name"</span>, width <span class="op">=</span> <span class="st">"120"</span><span class="op">)</span>,</span>
-<span>        <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>prop <span class="op">=</span> <span class="st">"Value"</span>, label <span class="op">=</span> <span class="st">"Value"</span>, width <span class="op">=</span> <span class="st">"80"</span><span class="op">)</span></span>
-<span>      <span class="op">)</span></span>
-<span>    <span class="op">)</span></span>
-<span>  <span class="op">)</span></span>
-<span><span class="op">)</span></span>
-<span></span>
-<span><span class="va">server</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span>, <span class="va">session</span><span class="op">)</span> <span class="op">{</span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/observeEvent.html" class="external-link">observeEvent</a></span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">button1</span>, <span class="op">{</span></span>
-<span>    <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/showNotification.html" class="external-link">showNotification</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="st">"Button clicked!"</span>, <span class="st">"Count:"</span>, <span class="va">input</span><span class="op">$</span><span class="va">button1</span><span class="op">)</span><span class="op">)</span></span>
+<span>  <span class="co"># write</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/observeEvent.html" class="external-link">observeEvent</a></span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">reset</span>, <span class="op">{</span></span>
+<span>    <span class="fu"><a href="reference/update_el_select.html">update_el_select</a></span><span class="op">(</span><span class="va">session</span>, <span class="st">"city"</span>, value <span class="op">=</span> <span class="st">"beijing"</span><span class="op">)</span></span>
 <span>  <span class="op">}</span><span class="op">)</span></span>
-<span><span class="op">}</span></span>
-<span></span>
-<span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/shinyApp.html" class="external-link">shinyApp</a></span><span class="op">(</span><span class="va">ui</span>, <span class="va">server</span><span class="op">)</span></span></code></pre></div>
-<p>Note: The Element-UI layout functions (el_container, el_row, el_col) are experimental and fundamentally different from bslib’s layout system (page_sidebar, layout_columns). They cannot be directly nested or mixed. For most use cases, prefer bslib layouts with Element-UI components. The Element-UI layout functions may be deprecated in future releases.</p>
+<span><span class="op">}</span></span></code></pre></div>
+<p>Tables take a data frame directly, and <code><a href="reference/el_table_config.html">el_table_config()</a></code> derives the column definitions from it:</p>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">cfg</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/el_table_config.html">el_table_config</a></span><span class="op">(</span><span class="va">iris</span>, max_rows <span class="op">=</span> <span class="fl">20</span><span class="op">)</span></span>
+<span><span class="fu"><a href="reference/el_table.html">el_table</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">cfg</span><span class="op">$</span><span class="va">data</span>, columns <span class="op">=</span> <span class="va">cfg</span><span class="op">$</span><span class="va">columns</span>, id <span class="op">=</span> <span class="st">"iris"</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level2">
-<h2 id="main-components">Main Components<a class="anchor" aria-label="anchor" href="#main-components"></a>
+<h2 id="layout">Layout<a class="anchor" aria-label="anchor" href="#layout"></a>
+</h2>
+<p><code><a href="reference/el_row.html">el_row()</a></code> / <code><a href="reference/el_col.html">el_col()</a></code> implement Element’s 24-column grid, and <code><a href="reference/el_container.html">el_container()</a></code> its header/aside/main/footer frame. Both nest freely and accept any Shiny UI inside, including other Element components.</p>
+<p>For whole-page structure, bslib’s <code>page_sidebar()</code> and <code>layout_columns()</code> remain the better tool — they handle responsive breakpoints and theming that Element’s grid does not. Mixing the two is supported: use bslib for the page, Element for the controls.</p>
+</div>
+<div class="section level2">
+<h2 id="debugging">Debugging<a class="anchor" aria-label="anchor" href="#debugging"></a>
+</h2>
+<p><code>el_page(dev = TRUE)</code> loads Vue’s development build, which reports template errors in the browser console instead of failing silently. The package’s own test suite runs in this mode and asserts that the console stays clean.</p>
+</div>
+<div class="section level2">
+<h2 id="learn-more">Learn more<a class="anchor" aria-label="anchor" href="#learn-more"></a>
 </h2>
 <ul>
-<li>
-<code><a href="reference/el_button.html">el_button()</a></code>: Element-UI Button</li>
-<li>
-<code><a href="reference/el_table.html">el_table()</a></code>: Element-UI Table</li>
-<li>
-<code><a href="reference/el_cascader.html">el_cascader()</a></code>: Element-UI Cascader</li>
-<li>
-<code><a href="reference/el_header.html">el_header()</a></code>, <code><a href="reference/el_main.html">el_main()</a></code>, <code><a href="reference/el_footer.html">el_footer()</a></code>, <code><a href="reference/el_aside.html">el_aside()</a></code>: Element-UI Layout Containers (may be deprecated in future releases)</li>
+<li><a href="https://kaipingyang.github.io/shiny.element/articles/components.html">Component gallery</a></li>
+<li><a href="https://kaipingyang.github.io/shiny.element/reference/index.html">Function reference</a></li>
 </ul>
 </div>
 <div class="section level2">
-<h2 id="dependencies">Dependencies<a class="anchor" aria-label="anchor" href="#dependencies"></a>
+<h2 id="licence">Licence<a class="anchor" aria-label="anchor" href="#licence"></a>
 </h2>
-<ul>
-<li><a href="https://element.eleme.io/" class="external-link">Element-UI</a></li>
-<li><a href="https://github.com/renozao/vueR" class="external-link">vueR</a></li>
-<li><a href="https://shiny.rstudio.com/" class="external-link">shiny</a></li>
-</ul>
-</div>
-<div class="section level2">
-<h2 id="contributing">Contributing<a class="anchor" aria-label="anchor" href="#contributing"></a>
-</h2>
-<p>Feedback and contributions are welcome via GitHub issues.</p>
+<p>MIT. The bundled Element UI distribution is MIT-licensed by ElemeFE; see <code>LICENSE.note</code>.</p>
 </div>
 </div>
   </main><aside class="col-md-3"><div class="links">
@@ -306,7 +212,12 @@
 </ul>
 </div>
 
-
+<div class="dev-status">
+<h2 data-toc-skip>Dev status</h2>
+<ul class="list-unstyled">
+<li><a href="https://deepwiki.com/kaipingyang/shiny.element" class="external-link"><img src="https://deepwiki.com/badge.svg" alt="Ask DeepWiki"></a></li>
+</ul>
+</div>
 
   </aside>
 </div>

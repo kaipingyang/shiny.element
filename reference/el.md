@@ -10,6 +10,10 @@ Shiny bindings.
 el
 ```
 
+## Value
+
+A named list of tag-generating functions, one per Element UI tag.
+
 ## Details
 
 Categories:

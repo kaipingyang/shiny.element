@@ -62,3 +62,18 @@ update_el_input(
 - show_password:
 
   New show-password toggle state.
+
+## Value
+
+Called for its side effect; returns `NULL` invisibly.
+
+## Examples
+
+``` r
+if (interactive()) {
+  # inside a server function
+  observeEvent(input$go, {
+    update_el_input(session, "name", value = "Ada")
+  })
+}
+```

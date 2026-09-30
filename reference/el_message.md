@@ -47,6 +47,10 @@ el_message(
 
   Whether to centre the message text. Default `FALSE`.
 
+## Value
+
+A Shiny UI element.
+
 ## Examples
 
 ``` r

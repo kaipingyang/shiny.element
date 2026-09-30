@@ -61,6 +61,10 @@ el_steps(
 
   Shiny session for module support
 
+## Value
+
+A Shiny UI element.
+
 ## Examples
 
 ``` r

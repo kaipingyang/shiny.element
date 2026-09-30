@@ -26,3 +26,14 @@ update_el_tabs(session, id, selected = NULL)
 ## Value
 
 Called for its side effect; returns `NULL` invisibly.
+
+## Examples
+
+``` r
+if (interactive()) {
+  # inside a server function
+  observeEvent(input$go, {
+    update_el_tabs(session, "section", selected = "data")
+  })
+}
+```
