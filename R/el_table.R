@@ -304,6 +304,16 @@ el_table <- function(id = NULL,
     "@selection-change" = "handleSelectionChange"
   )
 
+  # The rest of Element's table events are forwarded as-is; each sets
+  # input$<id>_<event>, e.g. input$tbl_row_click.
+  events <- .el_event_bindings(ns_id, c(
+    "select", "select-all", "cell-click", "cell-dblclick",
+    "cell-mouse-enter", "cell-mouse-leave", "row-click", "row-dblclick",
+    "row-contextmenu", "header-click", "header-contextmenu", "header-dragend",
+    "sort-change", "filter-change", "current-change", "expand-change"
+  ))
+  table_attrs <- c(table_attrs, events$attrs)
+
   table_attrs[[":stripe"]] <- .el_optional_bind("stripe")
 
   table_attrs[[":size"]] <- .el_optional_bind("size")
@@ -417,7 +427,7 @@ elementId = ns_id, width = 0, height = 0,
         summaryMethod = .el_or_na(summary_method),
         load = .el_or_na(load)
         ),
-        methods = list(
+        methods = c(events$methods, list(
           handleSelectionChange = htmlwidgets::JS(sprintf(
             paste0(
               "function(selection) { var self = this; ",
@@ -432,7 +442,7 @@ elementId = ns_id, width = 0, height = 0,
             ),
             ns_id, ns_id
           ))
-        ),
+        )),
         mounted = .el_mounted_init(stats::setNames(
           c("selected", "selectedRows"),
           paste0(ns_id, c("_selected", "_selected_rows"))

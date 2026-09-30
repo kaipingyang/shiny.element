@@ -133,6 +133,15 @@ el_input <- function(
   input_attrs[[":resize"]] <- .el_optional_bind("resize")
   input_attrs[[":tabindex"]] <- .el_optional_bind("tabindex")
   input_attrs[[":validate-event"]] <- .el_optional_bind("validateEvent")
+
+  # Forwarded to input$<id>_<event>; see .el_event_bindings().
+  events <- .el_event_bindings(ns_id, c(
+    "input",
+    "blur",
+    "focus",
+    "clear"
+  ))
+  input_attrs <- c(input_attrs, events$attrs)
   # Always-present Vue data fields
   vue_data <- list(
     value         = value,
@@ -174,12 +183,12 @@ elementId = ns_id, width = 0, height = 0,
       list(
         el      = paste0("#", container_id),
         data    = vue_data,
-        methods = list(
+        methods = c(events$methods, list(
           handleChange = htmlwidgets::JS(sprintf(
             "function(value) { Shiny.setInputValue('%s', value); }",
             ns_id
           ))
-        ),
+        )),
         mounted = .el_mounted_init(stats::setNames("value", ns_id))
       )
     )

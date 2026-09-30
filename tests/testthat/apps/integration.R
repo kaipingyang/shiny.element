@@ -190,6 +190,23 @@ server <- function(input, output, session) {
              "tab_nested", "dlg", "drw", "dlg_nested")
     for (i in ids) cat(i, "=", fmt(input[[i]]), "\n")
     cat("up_rows", "=", if (is.null(input$up)) "<NULL>" else nrow(input$up), "\n")
+    # Forwarded Element events are set with priority "event", which Shiny
+    # resets to NULL after every flush -- polling input[[...]] would almost
+    # always read the NULL. They are latched by the observers below instead.
+    cat("events_seen", "=", paste(names(seen_events), collapse = "/"), "\n")
+    cat("raw_row_click", "=", fmt(input$tbl_row_click), "\n")
+  })
+
+  # Prove a forwarded event reaches the server at all
+  seen_events <- reactiveValues()
+  observeEvent(input$tbl_row_click, {
+    seen_events$tbl_row_click <- "fired"
+  })
+  observeEvent(input$inp_focus, {
+    seen_events$inp_focus <- "fired"
+  })
+  observeEvent(input$tree_node_expand, {
+    seen_events$tree_node_expand <- "fired"
   })
 
   n_steps <- 3L

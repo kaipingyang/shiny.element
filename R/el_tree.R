@@ -141,6 +141,37 @@ el_tree <- function(id = NULL,
 
   tree_attrs[[":allow-drop"]] <- .el_optional_bind("allowDrop")
 
+
+  # Forwarded to input$<id>_<event>; see .el_event_bindings().
+
+  events <- .el_event_bindings(ns_id, c(
+
+    "check-change",
+
+    "current-change",
+
+    "node-expand",
+
+    "node-collapse",
+
+    "node-contextmenu",
+
+    "node-drag-start",
+
+    "node-drag-enter",
+
+    "node-drag-leave",
+
+    "node-drag-over",
+
+    "node-drag-end",
+
+    "node-drop"
+
+  ))
+
+  tree_attrs <- c(tree_attrs, events$attrs)
+
   vue_data <- list(
     treeData          = data,
     # Element's default props map is replaced wholesale, not merged, so
@@ -197,7 +228,7 @@ el_tree <- function(id = NULL,
       list(
         el   = paste0("#", container_id),
         data = vue_data,
-        methods = list(
+        methods = c(events$methods, list(
           handleNodeClick = htmlwidgets::JS(sprintf(
             paste0(
               "function(data) { this.current = data[this.nodeKey]; ",
@@ -212,7 +243,7 @@ el_tree <- function(id = NULL,
               "Shiny.setInputValue('%s_checked', this.checked); }"
             ), ns_id
           ))
-        ),
+        )),
         mounted = .el_mounted_init(stats::setNames(
           c("current", "checked"), paste0(ns_id, c("", "_checked"))
         ))

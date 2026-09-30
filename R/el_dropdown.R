@@ -110,6 +110,13 @@ el_dropdown <- function(
   dd_attrs[[":show-timeout"]] <- .el_optional_bind("showTimeout")
   dd_attrs[[":hide-timeout"]] <- .el_optional_bind("hideTimeout")
   dd_attrs[[":tabindex"]] <- .el_optional_bind("tabindex")
+
+  # Forwarded to input$<id>_<event>; see .el_event_bindings().
+  events <- .el_event_bindings(ns_id, c(
+    "click",
+    "visible-change"
+  ))
+  dd_attrs <- c(dd_attrs, events$attrs)
   vue_data <- list(
     trigger      = trigger,
     hideOnClick  = hide_on_click,
@@ -135,12 +142,12 @@ elementId = ns_id, width = 0, height = 0,
       list(
         el      = paste0("#", container_id),
         data    = vue_data,
-        methods = list(
+        methods = c(events$methods, list(
           handleCommand = htmlwidgets::JS(sprintf(
             "function(cmd) { this.count++; Shiny.setInputValue('%s', cmd); Shiny.setInputValue('%s_count', this.count); }",
             ns_id, ns_id
           ))
-        )
+        ))
       )
     )
   )

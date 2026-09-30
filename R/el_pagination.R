@@ -105,6 +105,19 @@ el_pagination <- function(
 
   pagination_attrs[[":popper-class"]] <- .el_optional_bind("popperClass")
 
+
+  # Forwarded to input$<id>_<event>; see .el_event_bindings().
+
+  events <- .el_event_bindings(ns_id, c(
+
+    "prev-click",
+
+    "next-click"
+
+  ))
+
+  pagination_attrs <- c(pagination_attrs, events$attrs)
+
   vue_data <- list(
     total       = total,
     pageSize    = page_size,
@@ -137,7 +150,7 @@ elementId = ns_id, width = 0, height = 0,
       list(
         el      = paste0("#", container_id),
         data    = vue_data,
-        methods = list(
+        methods = c(events$methods, list(
           handlePageChange = htmlwidgets::JS(sprintf(
             "function(page) { Shiny.setInputValue('%s_page', page); }",
             ns_id
@@ -146,7 +159,7 @@ elementId = ns_id, width = 0, height = 0,
             "function(size) { Shiny.setInputValue('%s_size', size); }",
             ns_id
           ))
-        ),
+        )),
         mounted = .el_mounted_init(stats::setNames(c("currentPage", "pageSize"),
                                   paste0(ns_id, c("_page", "_size"))))
       )

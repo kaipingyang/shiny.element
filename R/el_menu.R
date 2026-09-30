@@ -122,6 +122,19 @@ el_menu <- function(id = NULL,
 
   menu_attrs[[":router"]] <- .el_optional_bind("router")
 
+
+  # Forwarded to input$<id>_<event>; see .el_event_bindings().
+
+  events <- .el_event_bindings(ns_id, c(
+
+    "open",
+
+    "close"
+
+  ))
+
+  menu_attrs <- c(menu_attrs, events$attrs)
+
   vue_data <- list(
     active          = if (is.null(active)) "" else active,
     mode            = mode,
@@ -151,7 +164,7 @@ el_menu <- function(id = NULL,
       list(
         el   = paste0("#", container_id),
         data = vue_data,
-        methods = list(
+        methods = c(events$methods, list(
           handleSelect = htmlwidgets::JS(sprintf(
             paste0(
               "function(index, indexPath) { var self = this; ",
@@ -160,7 +173,7 @@ el_menu <- function(id = NULL,
               "Shiny.setInputValue('%1$s_path', indexPath); }"
             ), ns_id
           ))
-        ),
+        )),
         mounted = .el_mounted_init(stats::setNames(
           c("active", "path"), paste0(ns_id, c("", "_path"))
         ))

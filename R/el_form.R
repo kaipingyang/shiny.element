@@ -321,6 +321,10 @@ el_form <- function(...,
   form_attrs[[":hide-required-asterisk"]] <- .el_optional_bind("hideRequiredAsterisk")
   form_attrs[[":label-suffix"]] <- .el_optional_bind("labelSuffix")
   form_attrs[[":validate-on-rule-change"]] <- .el_optional_bind("validateOnRuleChange")
+
+  # Forwarded to input$<id>_validate as list(prop, valid, message).
+  events <- .el_event_bindings(ns_id, "validate")
+  form_attrs <- c(form_attrs, events$attrs)
   # One template for every control type. `component :is` dispatches on the tag
   # name, so adding a type means adding a row to .el_form_tags, not a branch.
   field_items <- htmltools::HTML(paste0(
@@ -382,7 +386,7 @@ elementId = ns_id, width = 0, height = 0,
       list(
         el   = paste0("#", container_id),
         data = vue_data,
-        methods = list(
+        methods = c(events$methods, list(
           handleSubmit = htmlwidgets::JS(sprintf(
             paste0(
               "function() { var self = this; ",
@@ -402,7 +406,7 @@ elementId = ns_id, width = 0, height = 0,
               "Shiny.setInputValue(%1$s, this.model); }"
             ), js_id
           ))
-        ),
+        )),
         mounted = .el_mounted_init(stats::setNames("model", ns_id))
       )
     )

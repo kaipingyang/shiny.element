@@ -72,6 +72,13 @@ el_input_number <- function(
   num_attrs[[":placeholder"]] <- .el_optional_bind("placeholder")
   num_attrs[[":label"]] <- .el_optional_bind("label")
   num_attrs[[":name"]] <- .el_optional_bind("name")
+
+  # Forwarded to input$<id>_<event>; see .el_event_bindings().
+  events <- .el_event_bindings(ns_id, c(
+    "blur",
+    "focus"
+  ))
+  num_attrs <- c(num_attrs, events$attrs)
   vue_data <- list(
     value            = value,
     min              = js_min,
@@ -97,12 +104,12 @@ elementId = ns_id, width = 0, height = 0,
       list(
         el      = paste0("#", container_id),
         data    = vue_data,
-        methods = list(
+        methods = c(events$methods, list(
           handleChange = htmlwidgets::JS(sprintf(
             "function(val) { Shiny.setInputValue('%s', val); }",
             ns_id
           ))
-        ),
+        )),
         mounted = .el_mounted_init(stats::setNames("value", ns_id))
       )
     )

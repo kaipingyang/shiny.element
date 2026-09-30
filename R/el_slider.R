@@ -115,6 +115,12 @@ el_slider <- function(
   slider_attrs[[":tooltip-class"]] <- .el_optional_bind("tooltipClass")
   slider_attrs[[":format-tooltip"]] <- .el_optional_bind("formatTooltip")
 
+  # Forwarded to input$<id>_<event>; see .el_event_bindings().
+  events <- .el_event_bindings(ns_id, c(
+    "input"
+  ))
+  slider_attrs <- c(slider_attrs, events$attrs)
+
   # Vue data
   vue_data <- list(
     value       = if (range) as.list(value) else value[1],
@@ -147,12 +153,12 @@ elementId = ns_id, width = 0, height = 0,
       list(
         el   = paste0("#", container_id),
         data = vue_data,
-        methods = list(
+        methods = c(events$methods, list(
           handleChange = htmlwidgets::JS(sprintf(
             "function(value) { Shiny.setInputValue('%s', value); }",
             ns_id
           ))
-        ),
+        )),
         mounted = .el_mounted_init(stats::setNames("value", ns_id))
       )
     )

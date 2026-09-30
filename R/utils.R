@@ -1,4 +1,44 @@
 # 工具函数示例
+#' Forward Element UI events to Shiny inputs
+#'
+#' Element's events carry different arguments each, some of them DOM nodes or
+#' native events that cannot be serialised. Rather than write a handler per
+#' event, each one is bound to a generated method that hands its arguments to
+#' `shinyElement.emit()` (see `inst/js/el-events.js`), which drops what cannot
+#' travel and sets `input$<id>_<event>`.
+#'
+#' @param ns_id The namespaced element id.
+#' @param events Character vector of Element event names, in kebab-case.
+#' @return A list with `attrs` (to merge into the tag) and `methods` (to merge
+#'   into the Vue options).
+#' @keywords internal
+.el_event_bindings <- function(ns_id, events) {
+  if (!length(events)) {
+    return(list(attrs = list(), methods = list()))
+  }
+  method_name <- function(event) {
+    parts <- strsplit(event, "-", fixed = TRUE)[[1]]
+    paste0("elEmit", paste0(toupper(substring(parts, 1, 1)), substring(parts, 2),
+                            collapse = ""))
+  }
+  input_name <- function(event) gsub("-", "_", event, fixed = TRUE)
+
+  attrs <- stats::setNames(
+    lapply(events, method_name),
+    paste0("@", events)
+  )
+  methods <- stats::setNames(
+    lapply(events, function(event) {
+      htmlwidgets::JS(sprintf(
+        "function() { window.shinyElement.emit('%s', '%s', arguments); }",
+        ns_id, input_name(event)
+      ))
+    }),
+    vapply(events, method_name, character(1))
+  )
+  list(attrs = attrs, methods = methods)
+}
+
 #' Placeholder for an unset optional prop
 #'
 #' A field left out of the Vue instance's `data` is not reactive, so
@@ -100,6 +140,13 @@ el_ns <- function(id, session = shiny::getDefaultReactiveDomain()) {
   js <- system.file("js", package = "shiny.element")
 
   list(
+    htmltools::htmlDependency(
+      name      = "el-events",
+      version   = "1.0.0",
+      src       = js,
+      script    = "el-events.js",
+      all_files = FALSE
+    ),
     htmltools::htmlDependency(
       name      = "el-update",
       version   = "1.0.0",

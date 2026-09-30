@@ -50,7 +50,9 @@ undeclared_refs <- function(ui) {
     regmatches(e, gregexpr("(?<=\\.)[A-Za-z_$][A-Za-z0-9_$]*", e, perl = TRUE))[[1]])))
 
   literals <- c("null", "undefined", "true", "false", "Shiny", "Math", "JSON",
-                "this", "self", "window", "document")
+                "this", "self", "window", "document",
+                # Vue's own template variables
+                "$event", "$refs", "$emit")
   setdiff(refs, c(declared, locals, scoped, members, literals))
 }
 

@@ -147,6 +147,16 @@ el_select <- function(
   select_attrs[[":remote"]] <- .el_optional_bind("remote")
   select_attrs[[":filter-method"]] <- .el_optional_bind("filterMethod")
   select_attrs[[":remote-method"]] <- .el_optional_bind("remoteMethod")
+
+  # Forwarded to input$<id>_<event>; see .el_event_bindings().
+  events <- .el_event_bindings(ns_id, c(
+    "visible-change",
+    "remove-tag",
+    "clear",
+    "blur",
+    "focus"
+  ))
+  select_attrs <- c(select_attrs, events$attrs)
   # Build Vue data
   vue_data <- list(
     value        = if (is.null(selected)) (if (multiple) list() else "") else selected,
@@ -186,12 +196,12 @@ elementId = ns_id, width = 0, height = 0,
       list(
         el      = paste0("#", container_id),
         data    = vue_data,
-        methods = list(
+        methods = c(events$methods, list(
           handleChange = htmlwidgets::JS(sprintf(
             "function(value) { Shiny.setInputValue('%s', value); }",
             ns_id
           ))
-        ),
+        )),
         mounted = .el_mounted_init(stats::setNames("value", ns_id))
       )
     )

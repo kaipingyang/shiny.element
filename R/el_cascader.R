@@ -118,6 +118,16 @@ el_cascader <- function(id = NULL,
   cascader_attrs[[":filter-method"]] <- .el_optional_bind("filterMethod")
   cascader_attrs[[":before-filter"]] <- .el_optional_bind("beforeFilter")
 
+  # Forwarded to input$<id>_<event>; see .el_event_bindings().
+  events <- .el_event_bindings(ns_id, c(
+    "expand-change",
+    "blur",
+    "focus",
+    "visible-change",
+    "remove-tag"
+  ))
+  cascader_attrs <- c(cascader_attrs, events$attrs)
+
   vue_data <- list(
     options = options,
     value = if(is.null(value)) list() else value,
@@ -145,10 +155,10 @@ elementId = ns_id, width = 0, height = 0,
       list(
         el = paste0("#", container_id),
         data = vue_data,
-        methods = list(
+        methods = c(events$methods, list(
           handleChange = htmlwidgets::JS(sprintf(
             "function(value) {\n  Shiny.setInputValue('%s_value', value);\n}", ns_id))
-        ),
+        )),
         mounted = .el_mounted_init(stats::setNames("value", paste0(ns_id, "_value")))
       )
     )

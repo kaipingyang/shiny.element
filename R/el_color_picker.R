@@ -51,6 +51,12 @@ el_color_picker <- function(
   cp_attrs[[":color-format"]] <- .el_optional_bind("colorFormat")
   cp_attrs[[":predefine"]] <- .el_optional_bind("predefine")
   cp_attrs[[":popper-class"]] <- .el_optional_bind("popperClass")
+
+  # Forwarded to input$<id>_<event>; see .el_event_bindings().
+  events <- .el_event_bindings(ns_id, c(
+    "active-change"
+  ))
+  cp_attrs <- c(cp_attrs, events$attrs)
   vue_data <- list(
     value      = value,
     disabled   = disabled,
@@ -71,12 +77,12 @@ elementId = ns_id, width = 0, height = 0,
       list(
         el      = paste0("#", container_id),
         data    = vue_data,
-        methods = list(
+        methods = c(events$methods, list(
           handleChange = htmlwidgets::JS(sprintf(
             "function(val) { Shiny.setInputValue('%s', val); }",
             ns_id
           ))
-        ),
+        )),
         mounted = .el_mounted_init(stats::setNames("value", ns_id))
       )
     )

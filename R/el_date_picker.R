@@ -144,6 +144,13 @@ el_date_picker <- function(
   picker_attrs[[":unlink-panels"]] <- .el_optional_bind("unlinkPanels")
   picker_attrs[[":picker-options"]] <- .el_optional_bind("pickerOptions")
   picker_attrs[[":validate-event"]] <- .el_optional_bind("validateEvent")
+
+  # Forwarded to input$<id>_<event>; see .el_event_bindings().
+  events <- .el_event_bindings(ns_id, c(
+    "blur",
+    "focus"
+  ))
+  picker_attrs <- c(picker_attrs, events$attrs)
   # Vue data
   vue_data <- list(
     value          = init_value,
@@ -180,12 +187,12 @@ elementId = ns_id, width = 0, height = 0,
       list(
         el   = paste0("#", container_id),
         data = vue_data,
-        methods = list(
+        methods = c(events$methods, list(
           handleChange = htmlwidgets::JS(sprintf(
             "function(value) { Shiny.setInputValue('%s', value); }",
             ns_id
           ))
-        ),
+        )),
         mounted = .el_mounted_init(stats::setNames("value", ns_id))
       )
     )

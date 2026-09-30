@@ -612,3 +612,35 @@ test_that("Vue raises no warnings", {
   # nothing at all went unnoticed.
   expect_equal(bconsole(), character(0))
 })
+
+# ── forwarded Element events ──────────────────────────────────────────────────
+
+test_that("a forwarded Element event reaches the server", {
+  skip_if_no_browser()
+
+  # The fixture latches these with observeEvent: they are set with priority
+  # "event", which Shiny resets to NULL after each flush, so reading
+  # input[[...]] from a polling output would almost always see the NULL.
+  expect_false(grepl("tbl_row_click", bdump()[["events_seen"]], fixed = TRUE))
+
+  bclick("#tbl_container .el-table__row td", wait = 3)
+  expect_match(bdump()[["events_seen"]], "tbl_row_click")
+})
+
+test_that("an event carrying no serialisable argument still reports", {
+  skip_if_no_browser()
+  # focus hands over a native FocusEvent and nothing else. Dropping it leaves
+  # no value, so the input is set to TRUE -- the event did happen.
+  bev("document.querySelector('#inp_container input').focus()")
+  Sys.sleep(2)
+  expect_match(bdump()[["events_seen"]], "inp_focus")
+})
+
+test_that("forwarding an event raises no Vue warning", {
+  skip_if_no_browser()
+  # el_tree's events carry TreeNode objects, which point back at their parent
+  # and at their children -- serialising one without a cycle guard overflowed
+  # the stack the first time these were forwarded.
+  bclick("#tree_container .el-tree-node__expand-icon", wait = 2)
+  expect_equal(bconsole(), character(0))
+})

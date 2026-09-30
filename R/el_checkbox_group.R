@@ -76,6 +76,7 @@ el_checkbox_group <- function(
     ":disabled"      = "opt.disabled",
     ":border"        = "opt.border",
     ":name"          = "opt.name",
+    "@change"        = "handleItemChange(opt, $event)",
     ":checked"       = "opt.checked",
     ":indeterminate" = "opt.indeterminate",
     ":true-label"    = "opt.trueLabel",
@@ -113,6 +114,13 @@ elementId = ns_id, width = 0, height = 0,
         el   = paste0("#", container_id),
         data = vue_data,
         methods = list(
+          # Which choice changed, and to what: input$<id>_item_change
+          handleItemChange = htmlwidgets::JS(sprintf(
+            paste0("function(opt, checked) { ",
+                   "window.shinyElement.emit('%s', 'item_change', ",
+                   "[{value: opt.value, label: opt.label, checked: checked}]); }"),
+            ns_id
+          )),
           handleChange = htmlwidgets::JS(sprintf(
             "function(value) { Shiny.setInputValue('%s', value); }",
             ns_id
