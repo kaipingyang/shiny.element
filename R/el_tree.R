@@ -45,6 +45,28 @@
 #' Both are reported on load, where they start empty and therefore arrive as
 #' `NULL`, as Shiny reports any empty selection.
 #'
+#' @section Element methods:
+#' Callable with [el_call()]:
+#'
+#' - `append()` -- Append a child node to a given node in the tree
+#' - `filter()` -- Filter all tree nodes, filtered nodes will be hidden
+#' - `getCheckedKeys()` -- If the node can be selected (show-checkbox is true), it returns the currently selected array of node's keys
+#' - `getCheckedNodes()` -- If the node can be selected (show-checkbox is true), it returns the currently selected array of nodes
+#' - `getCurrentKey()` -- Return the highlight node's key (null if no node is highlighted)
+#' - `getCurrentNode()` -- Return the highlight node's data (null if no node is highlighted)
+#' - `getHalfCheckedKeys()` -- If the node can be selected (show-checkbox is true), it returns the currently half selected array of...
+#' - `getHalfCheckedNodes()` -- If the node can be selected (show-checkbox is true), it returns the currently half selected array of nodes
+#' - `getNode()` -- Get node by data or key
+#' - `insertAfter()` -- Insert a node after a given node in the tree
+#' - `insertBefore()` -- Insert a node before a given node in the tree
+#' - `remove()` -- Remove a node, only works when node-key is assigned
+#' - `setChecked()` -- Set node to be checked or not, only works when node-key is assigned
+#' - `setCheckedKeys()` -- Set certain nodes to be checked, only works when node-key is assigned
+#' - `setCheckedNodes()` -- Set certain nodes to be checked, only works when node-key is assigned
+#' - `setCurrentKey()` -- Set highlighted node by key, only works when node-key is assigned
+#' - `setCurrentNode()` -- Set highlighted node, only works when node-key is assigned
+#' - `updateKeyChildren()` -- Set new data to node, only works when node-key is assigned
+#'
 #' @return A Shiny UI element.
 #' @export
 #' @examples

@@ -21,6 +21,12 @@
 #' @param session Shiny session for module support.
 #' @param name Native `name` attribute of the inner input.
 #'
+#' @section Element methods:
+#' Callable with [el_call()]:
+#'
+#' - `focus()` -- Focus the Input component
+#' - `select()` -- Select the text in input element
+#'
 #' @return An `htmltools` tagList with a Vue-managed input-number component.
 #'
 #' @section Shiny input:

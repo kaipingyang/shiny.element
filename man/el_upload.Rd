@@ -122,6 +122,16 @@ names of files Element uploaded successfully, and \verb{input$<id>_error} the
 name of the last one that failed.
 }
 
+\section{Element methods}{
+
+Callable with \code{\link[=el_call]{el_call()}}:
+\itemize{
+\item \code{abort()} -- Cancel upload request
+\item \code{clearFiles()} -- Clear the uploaded file list (this method is not supported in the before-upload hook)
+\item \code{submit()} -- Upload the file list manually
+}
+}
+
 \examples{
 # A drop zone taking several CSVs, read on the server like fileInput()
 el_upload("files", drag = TRUE, multiple = TRUE, accept = ".csv",

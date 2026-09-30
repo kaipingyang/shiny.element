@@ -171,6 +171,12 @@ ui <- el_page(
   tags$div(id = "inline_probe",
     el_button("probe_b1", "One"), el_button("probe_b2", "Two")),
 
+  tags$div(id = "call_probe",
+    el_button("call_clear", "clearSelection"),
+    el_button("call_keys", "getCheckedKeys"),
+    el_button("call_validate", "validate"),
+    el_button("call_missing", "no such method")),
+
   verbatimTextOutput("dump")
 )
 
@@ -194,6 +200,9 @@ server <- function(input, output, session) {
     # resets to NULL after every flush -- polling input[[...]] would almost
     # always read the NULL. They are latched by the observers below instead.
     cat("events_seen", "=", paste(names(seen_events), collapse = "/"), "\n")
+    for (nm in c("called_keys", "called_validate")) {
+      if (!is.null(seen_events[[nm]])) cat(nm, "=", fmt(seen_events[[nm]]), "\n")
+    }
     cat("raw_row_click", "=", fmt(input$tbl_row_click), "\n")
   })
 
@@ -207,6 +216,29 @@ server <- function(input, output, session) {
   })
   observeEvent(input$tree_node_expand, {
     seen_events$tree_node_expand <- "fired"
+  })
+
+  # el_call(): a command, a query, and a promise-returning method
+  observeEvent(input$call_clear, {
+    el_call(session, "tbl", "clearSelection")
+  })
+  observeEvent(input$call_keys, {
+    el_call(session, "tree", "getCheckedKeys")
+  })
+  observeEvent(input$call_validate, {
+    el_call(session, "signup", "validate")
+  })
+  observeEvent(input$call_missing, {
+    el_call(session, "tbl", "noSuchMethod")
+  })
+  observeEvent(input$tbl_clear_selection, {
+    seen_events$called_clear <- "fired"
+  })
+  observeEvent(input$tree_get_checked_keys, {
+    seen_events$called_keys <- paste(input$tree_get_checked_keys, collapse = "/")
+  })
+  observeEvent(input$signup_validate, {
+    seen_events$called_validate <- as.character(input$signup_validate)
   })
 
   n_steps <- 3L

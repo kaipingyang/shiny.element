@@ -68,6 +68,14 @@ A Shiny UI element.
 \description{
 Create a cascader (multi-level dropdown) input for Shiny using Element UI.
 }
+\section{Element methods}{
+
+Callable with \code{\link[=el_call]{el_call()}}:
+\itemize{
+\item \code{getCheckedNodes()} -- Get an array of currently selected node
+}
+}
+
 \examples{
 # Basic cascader usage
 cascader_options <- list(

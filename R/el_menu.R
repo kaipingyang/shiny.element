@@ -64,6 +64,12 @@
 #' it, so a nested item can be told apart from a top-level one with the same
 #' index.
 #'
+#' @section Element methods:
+#' Callable with [el_call()]:
+#'
+#' - `close()` -- Close a specific sub-menu
+#' - `open()` -- Open a specific sub-menu
+#'
 #' @return A Shiny UI element.
 #' @export
 #' @examples

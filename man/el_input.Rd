@@ -105,6 +105,16 @@ Creates an Element UI input component (\verb{<el-input>}) with a Vue instance,
 supporting text, textarea, and password modes, plus clearable, prefix/suffix
 icons, word-limit display, and autosize textarea.
 }
+\section{Element methods}{
+
+Callable with \code{\link[=el_call]{el_call()}}:
+\itemize{
+\item \code{blur()} -- Blur the input element
+\item \code{focus()} -- Focus the input element
+\item \code{select()} -- Select the text in input element
+}
+}
+
 \section{Shiny input}{
 
 \verb{input$<id>} — string value of the input, updated on \code{change} event

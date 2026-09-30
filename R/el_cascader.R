@@ -20,6 +20,11 @@
 #' @param popper_class Extra class name for the dropdown panel.
 #' @param filter_method `htmlwidgets::JS()` function filtering the options as the user types.
 #' @param before_filter `htmlwidgets::JS()` function called before filtering; returning `false` cancels it.
+#' @section Element methods:
+#' Callable with [el_call()]:
+#'
+#' - `getCheckedNodes()` -- Get an array of currently selected node
+#'
 #' @return A Shiny UI element.
 #' @export
 #' @examples

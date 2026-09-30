@@ -138,6 +138,14 @@ reference:
       - el_calendar
       - update_el_calendar
 
+  - title: Component methods
+    desc: >
+      Element documents methods as well as props -- clearSelection(),
+      setCheckedKeys(), validate(). These are functions on the component, so
+      update_el_*() cannot reach them.
+    contents:
+      - el_call
+
   - title: Escape hatches
     desc: >
       Raw tag generators and generic Vue updates, for anything the wrappers do

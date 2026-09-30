@@ -65,6 +65,15 @@ it, so a nested item can be told apart from a top-level one with the same
 index.
 }
 
+\section{Element methods}{
+
+Callable with \code{\link[=el_call]{el_call()}}:
+\itemize{
+\item \code{close()} -- Close a specific sub-menu
+\item \code{open()} -- Open a specific sub-menu
+}
+}
+
 \examples{
 el_menu(
   id = "nav",

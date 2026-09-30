@@ -113,6 +113,31 @@ Both are reported on load, where they start empty and therefore arrive as
 \code{NULL}, as Shiny reports any empty selection.
 }
 
+\section{Element methods}{
+
+Callable with \code{\link[=el_call]{el_call()}}:
+\itemize{
+\item \code{append()} -- Append a child node to a given node in the tree
+\item \code{filter()} -- Filter all tree nodes, filtered nodes will be hidden
+\item \code{getCheckedKeys()} -- If the node can be selected (show-checkbox is true), it returns the currently selected array of node's keys
+\item \code{getCheckedNodes()} -- If the node can be selected (show-checkbox is true), it returns the currently selected array of nodes
+\item \code{getCurrentKey()} -- Return the highlight node's key (null if no node is highlighted)
+\item \code{getCurrentNode()} -- Return the highlight node's data (null if no node is highlighted)
+\item \code{getHalfCheckedKeys()} -- If the node can be selected (show-checkbox is true), it returns the currently half selected array of...
+\item \code{getHalfCheckedNodes()} -- If the node can be selected (show-checkbox is true), it returns the currently half selected array of nodes
+\item \code{getNode()} -- Get node by data or key
+\item \code{insertAfter()} -- Insert a node after a given node in the tree
+\item \code{insertBefore()} -- Insert a node before a given node in the tree
+\item \code{remove()} -- Remove a node, only works when node-key is assigned
+\item \code{setChecked()} -- Set node to be checked or not, only works when node-key is assigned
+\item \code{setCheckedKeys()} -- Set certain nodes to be checked, only works when node-key is assigned
+\item \code{setCheckedNodes()} -- Set certain nodes to be checked, only works when node-key is assigned
+\item \code{setCurrentKey()} -- Set highlighted node by key, only works when node-key is assigned
+\item \code{setCurrentNode()} -- Set highlighted node, only works when node-key is assigned
+\item \code{updateKeyChildren()} -- Set new data to node, only works when node-key is assigned
+}
+}
+
 \examples{
 nodes <- list(
   list(id = "fruit", label = "Fruit", children = list(

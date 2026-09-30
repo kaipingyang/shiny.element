@@ -36,6 +36,11 @@
 #' @param picker_options Additional Element picker options, as a named list.
 #' @param validate_event Whether a change triggers form validation. Default `TRUE`.
 #'
+#' @section Element methods:
+#' Callable with [el_call()]:
+#'
+#' - `focus()` -- Focus the Input component
+#'
 #' @return An `htmltools` tagList with a Vue-managed date picker component.
 #'
 #' @section Shiny input:

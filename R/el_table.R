@@ -165,6 +165,19 @@
 #' arrive as strings. Both are `NULL` while nothing is selected, matching how
 #' Shiny reports an empty [shiny::checkboxGroupInput()].
 #'
+#' @section Element methods:
+#' Callable with [el_call()]:
+#'
+#' - `clearFilter()` -- Clear filters of the columns whose columnKey are passed in. If no params, clear all filters
+#' - `clearSelection()` -- Used in multiple selection Table, clear user selection
+#' - `clearSort()` -- Clear sorting, restore data to the original order
+#' - `doLayout()` -- Refresh the layout of Table. When the visibility of Table changes, you may need to call this method to get...
+#' - `setCurrentRow()` -- Used in single selection Table, set a certain row selected. If called without any parameter, it will clear...
+#' - `sort()` -- Sort Table manually. Property prop is used to set sort column, property order is used to set sort order
+#' - `toggleAllSelection()` -- Used in multiple selection Table, toggle the selected state of all rows
+#' - `toggleRowExpansion()` -- Used in expandable Table or tree Table, toggle if a certain row is expanded. With the second parameter,...
+#' - `toggleRowSelection()` -- Used in multiple selection Table, toggle if a certain row is selected. With the second parameter, you can...
+#'
 #' @return A Shiny UI element.
 #' @export
 #' @examples

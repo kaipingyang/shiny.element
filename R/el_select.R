@@ -44,6 +44,12 @@ el_select_handler_dependency <- function() {
 #' @param filter_method `htmlwidgets::JS()` function filtering the options as the user types.
 #' @param remote_method `htmlwidgets::JS()` function fetching options from the server. Needs `remote = TRUE`.
 #'
+#' @section Element methods:
+#' Callable with [el_call()]:
+#'
+#' - `blur()` -- Blur the Input component, and hide the dropdown
+#' - `focus()` -- Focus the Input component
+#'
 #' @return An `htmltools` tagList containing the Vue-managed select component.
 #'
 #' @section Shiny input:

@@ -38,6 +38,13 @@
 #' @param tabindex Tab index of the input.
 #' @param validate_event Whether a change triggers form validation. Default `TRUE`.
 #'
+#' @section Element methods:
+#' Callable with [el_call()]:
+#'
+#' - `blur()` -- Blur the input element
+#' - `focus()` -- Focus the input element
+#' - `select()` -- Select the text in input element
+#'
 #' @return An `htmltools` tagList with a Vue-managed input component.
 #'
 #' @section Shiny input:

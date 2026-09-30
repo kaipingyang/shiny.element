@@ -644,3 +644,39 @@ test_that("forwarding an event raises no Vue warning", {
   bclick("#tree_container .el-tree-node__expand-icon", wait = 2)
   expect_equal(bconsole(), character(0))
 })
+
+# ── el_call(): reaching the component's own methods ───────────────────────────
+
+test_that("el_call runs a method that returns nothing", {
+  skip_if_no_browser()
+  bclick("#call_clear_container button", wait = 3)
+  # clearSelection() returns undefined, which is reported as TRUE so an
+  # observeEvent can still tell that it ran
+  expect_match(bdump()[["events_seen"]], "called_clear")
+})
+
+test_that("el_call reports a method's return value", {
+  skip_if_no_browser()
+  bclick("#call_keys_container button", wait = 3)
+  # getCheckedKeys() answers with whatever is checked at the time; earlier
+  # tests drive the tree, so assert that an answer came back rather than
+  # which keys it names.
+  keys <- unname(bdump()[["called_keys"]])
+  expect_false(is.na(keys))
+  expect_true(nzchar(keys))
+})
+
+test_that("el_call awaits a method that returns a promise", {
+  skip_if_no_browser()
+  # el-form's validate() returns a promise when called without a callback; it
+  # rejects when the form is invalid, which arrives as FALSE rather than as an
+  # unhandled rejection.
+  bclick("#call_validate_container button", wait = 3)
+  expect_equal(unname(bdump()[["called_validate"]]), "FALSE")
+})
+
+test_that("el_call on a method that does not exist warns rather than failing", {
+  skip_if_no_browser()
+  bclick("#call_missing_container button", wait = 3)
+  expect_match(paste(bconsole(), collapse = " "), "not a method")
+})

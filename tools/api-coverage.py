@@ -167,7 +167,9 @@ for fn, info in sorted(ours.items()):
             "bound": [len(upa & mine_a), len(upa)],
             "attr_missing": sorted(upa - mine_a - params),
             "evt": [len(upe & mine_e), len(upe)], "evt_missing": sorted(upe - mine_e),
-            "method": [0, len(upm)], "method_missing": sorted(upm),
+            # el_call() can invoke any of them where el-invoke is loaded
+            "method": [len(upm) if info.get("invokable") else 0, len(upm)],
+            "method_missing": [] if info.get("invokable") else sorted(upm),
             "slot": [0, len(ups)], "slot_missing": sorted(ups),
         })
 
@@ -197,8 +199,9 @@ tc = sum(len(r["conditional"]) for r in report)
 tb = sum(r["bound"][0] for r in report)
 ta = [sum(r["attr"][i] for r in report) for i in (0,1)]
 te = [sum(r["evt"][i] for r in report) for i in (0,1)]
-tm = sum(r["method"][1] for r in report); ts = sum(r["slot"][1] for r in report)
+tm = [sum(r["method"][i] for r in report) for i in (0, 1)]
+ts = [sum(r["slot"][i] for r in report) for i in (0, 1)]
 print("-"*74)
 if any(True for _ in EXCLUDED):
     print(f"  ({len(EXCLUDED)} 个上游 prop 按设计排除，见 tools/api-coverage.py 的 EXCLUDED)")
-print(f"  合计  可设 {ta[0]}/{ta[1]} ({100*ta[0]//ta[1]}%)  其中已绑定 {tb}, 仅条件绑定 {tc}   事件 {te[0]}/{te[1]} ({100*te[0]//max(te[1],1)}%)   方法 0/{tm}   插槽 0/{ts}")
+print(f"  合计  可设 {ta[0]}/{ta[1]} ({100*ta[0]//ta[1]}%)  其中已绑定 {tb}, 仅条件绑定 {tc}   事件 {te[0]}/{te[1]} ({100*te[0]//max(te[1],1)}%)   方法 {tm[0]}/{tm[1]}   插槽 {ts[0]}/{ts[1]}")

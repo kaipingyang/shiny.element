@@ -52,6 +52,12 @@
     return out;
   }
 
+  // Shared with el-invoke.js: a method's return value needs the same
+  // treatment as an event's arguments -- getCheckedNodes() hands back tree
+  // nodes, which point at their parents.
+  window.shinyElement.plain = plain;
+  window.shinyElement.serialisable = serialisable;
+
   window.shinyElement.emit = function (id, event, args) {
     if (typeof Shiny === "undefined" || !Shiny.setInputValue) return;
     // Not .map(plain): map passes (value, index, array), which would arrive

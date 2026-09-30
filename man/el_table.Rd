@@ -139,6 +139,22 @@ arrive as strings. Both are \code{NULL} while nothing is selected, matching how
 Shiny reports an empty \code{\link[shiny:checkboxGroupInput]{shiny::checkboxGroupInput()}}.
 }
 
+\section{Element methods}{
+
+Callable with \code{\link[=el_call]{el_call()}}:
+\itemize{
+\item \code{clearFilter()} -- Clear filters of the columns whose columnKey are passed in. If no params, clear all filters
+\item \code{clearSelection()} -- Used in multiple selection Table, clear user selection
+\item \code{clearSort()} -- Clear sorting, restore data to the original order
+\item \code{doLayout()} -- Refresh the layout of Table. When the visibility of Table changes, you may need to call this method to get...
+\item \code{setCurrentRow()} -- Used in single selection Table, set a certain row selected. If called without any parameter, it will clear...
+\item \code{sort()} -- Sort Table manually. Property prop is used to set sort column, property order is used to set sort order
+\item \code{toggleAllSelection()} -- Used in multiple selection Table, toggle the selected state of all rows
+\item \code{toggleRowExpansion()} -- Used in expandable Table or tree Table, toggle if a certain row is expanded. With the second parameter,...
+\item \code{toggleRowSelection()} -- Used in multiple selection Table, toggle if a certain row is selected. With the second parameter, you can...
+}
+}
+
 \examples{
 # A data.frame is enough -- columns are inferred
 el_table("iris_preview", data = head(iris, 3))

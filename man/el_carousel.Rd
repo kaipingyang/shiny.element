@@ -67,6 +67,16 @@ A slideshow of items, horizontal or vertical.
 whenever the slide changes.
 }
 
+\section{Element methods}{
+
+Callable with \code{\link[=el_call]{el_call()}}:
+\itemize{
+\item \code{next()} -- Switch to the next slide
+\item \code{prev()} -- Switch to the previous slide
+\item \code{setActiveItem()} -- Manually switch slide
+}
+}
+
 \examples{
 el_carousel(
   id = "banner",

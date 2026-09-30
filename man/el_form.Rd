@@ -80,6 +80,19 @@ The model is deliberately \emph{not} sent on every keystroke: that is the point 
 the form owning its state rather than each field reporting separately.
 }
 
+\section{Element methods}{
+
+Callable with \code{\link[=el_call]{el_call()}}:
+\itemize{
+\item \code{clearValidate()} -- Clear validation message for certain fields. The parameter is prop name or an array of prop names of the...
+\item \code{clearValidate()} -- Remove validation status of the field
+\item \code{resetField()} -- Reset current field and remove validation result
+\item \code{resetFields()} -- Reset all the fields and remove validation result
+\item \code{validate()} -- Validate the whole form. Takes a callback as a param. After validation, the callback will be executed with...
+\item \code{validateField()} -- Validate one or several form items
+}
+}
+
 \examples{
 el_form(
   id = "signup",

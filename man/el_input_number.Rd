@@ -62,6 +62,15 @@ An \code{htmltools} tagList with a Vue-managed input-number component.
 \description{
 A numeric input with increment/decrement buttons.
 }
+\section{Element methods}{
+
+Callable with \code{\link[=el_call]{el_call()}}:
+\itemize{
+\item \code{focus()} -- Focus the Input component
+\item \code{select()} -- Select the text in input element
+}
+}
+
 \section{Shiny input}{
 
 \verb{input$<id>} — numeric value, updated on each valid change.

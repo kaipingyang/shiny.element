@@ -18,6 +18,11 @@
 #' @param name Native `name` attribute of the inner checkbox.
 #' @param validate_event Whether a change triggers form validation. Default `TRUE`.
 #'
+#' @section Element methods:
+#' Callable with [el_call()]:
+#'
+#' - `focus()` -- Focus the Switch component
+#'
 #' @return An `htmltools` tagList with a Vue-managed switch component.
 #'
 #' @section Shiny input:

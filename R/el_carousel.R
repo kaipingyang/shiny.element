@@ -28,6 +28,13 @@
 #' `input$<id>_name` its `name` if one was given. Both are reported on load and
 #' whenever the slide changes.
 #'
+#' @section Element methods:
+#' Callable with [el_call()]:
+#'
+#' - `next()` -- Switch to the next slide
+#' - `prev()` -- Switch to the previous slide
+#' - `setActiveItem()` -- Manually switch slide
+#'
 #' @return A Shiny UI element.
 #' @export
 #' @examples

@@ -97,6 +97,14 @@ An \code{htmltools} tagList with a Vue-managed date picker component.
 Creates an Element UI date picker with Vue instance, supporting single date,
 datetime, month, year, week, and date range selection modes.
 }
+\section{Element methods}{
+
+Callable with \code{\link[=el_call]{el_call()}}:
+\itemize{
+\item \code{focus()} -- Focus the Input component
+}
+}
+
 \section{Shiny input}{
 
 \verb{input$<id>} — String for single-date types, or two-element array for range

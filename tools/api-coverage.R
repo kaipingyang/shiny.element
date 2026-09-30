@@ -17,7 +17,7 @@ fixtures <- list(
 )
 
 # Server-side helpers and dependency getters render nothing
-skip <- "_dependency$|^el$|^el_page$|^el_rule$|^el_table_config$|^el_form_(validate|reset|clear)|^el_upload_clear$|^el_message$|^el_notification$"
+skip <- "^el_call$|_dependency$|^el$|^el_page$|^el_rule$|^el_table_config$|^el_form_(validate|reset|clear)|^el_upload_clear$|^el_message$|^el_notification$"
 
 ui_fns <- setdiff(grep("^el_", getNamespaceExports("shiny.element"), value = TRUE),
                   grep(skip, getNamespaceExports("shiny.element"), value = TRUE))
@@ -47,7 +47,13 @@ for (f in sort(ui_fns)) {
   # Formals say what a user may set; rendered attributes say what is actually
   # bound. A prop bound conditionally (if (!is.null(x))) shows up in the first
   # but not the second -- and cannot be changed later by update_el_*().
+  # el_call() reaches a component's methods, but only where the component
+  # carries the el-invoke script -- record that so methods can be counted.
+  deps <- tryCatch(htmltools::renderTags(ui)$dependencies, error = function(e) list())
+  dep_names <- vapply(deps, function(d) d$name, character(1))
+
   out[[f]] <- list(ok = TRUE, tags = attrs_of(html),
+                   invokable = "el-invoke" %in% dep_names,
                    params = setdiff(names(formals(f)), c("session", "id", "...")))
 }
 

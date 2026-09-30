@@ -91,16 +91,16 @@ test_that("every handler dependency resolves to files that exist", {
 })
 
 test_that("every handler dependency carries the shared scripts too", {
-  # el-events.js and el-update.js have to be present and load before the
-  # component's own handler; relying on el_page() to provide them would break
-  # a page assembled some other way.
+  # The shared scripts have to be present and load before the component's own
+  # handler; relying on el_page() to provide them would break a page assembled
+  # some other way.
   fns <- ls(asNamespace("shiny.element"), pattern = "^el_.*_handler_dependency$")
 
   for (fn in fns) {
     deps  <- do.call(fn, list())
     names <- vapply(deps, function(d) d$name, character(1))
-    expect_equal(names[1:2], c("el-events", "el-update"), info = fn)
-    expect_length(deps, 3)
+    expect_equal(names[1:3], c("el-invoke", "el-events", "el-update"), info = fn)
+    expect_length(deps, 4)
   }
 })
 

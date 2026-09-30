@@ -141,6 +141,13 @@ el_ns <- function(id, session = shiny::getDefaultReactiveDomain()) {
 
   list(
     htmltools::htmlDependency(
+      name      = "el-invoke",
+      version   = "1.0.0",
+      src       = js,
+      script    = "el-invoke.js",
+      all_files = FALSE
+    ),
+    htmltools::htmlDependency(
       name      = "el-events",
       version   = "1.0.0",
       src       = js,

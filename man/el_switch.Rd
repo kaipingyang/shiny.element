@@ -59,6 +59,14 @@ An \code{htmltools} tagList with a Vue-managed switch component.
 \description{
 Creates an Element UI switch with Vue instance.
 }
+\section{Element methods}{
+
+Callable with \code{\link[=el_call]{el_call()}}:
+\itemize{
+\item \code{focus()} -- Focus the Switch component
+}
+}
+
 \section{Shiny input}{
 
 \verb{input$<id>} — the value of \code{active_value} (when on) or \code{inactive_value}

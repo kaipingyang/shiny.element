@@ -105,6 +105,15 @@ Creates an Element UI \verb{<el-select>} component backed by a Vue instance.
 Supports single and multiple selection, filtering, and all standard
 Element UI select props.
 }
+\section{Element methods}{
+
+Callable with \code{\link[=el_call]{el_call()}}:
+\itemize{
+\item \code{blur()} -- Blur the Input component, and hide the dropdown
+\item \code{focus()} -- Focus the Input component
+}
+}
+
 \section{Shiny input}{
 
 \verb{input$<id>} — string (single) or character vector (multiple), updated on
