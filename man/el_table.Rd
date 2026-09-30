@@ -5,23 +5,23 @@
 \title{Element UI Table Component}
 \usage{
 el_table(
+  id = NULL,
   data = list(),
   columns = list(),
-  id = NULL,
   selection = FALSE,
   border = TRUE,
   session = shiny::getDefaultReactiveDomain()
 )
 }
 \arguments{
+\item{id}{Table ID (auto-generated if NULL)}
+
 \item{data}{A data.frame, or a list of rows (each a named list). A
 data.frame is converted to rows automatically and its column names are
 sanitised (\code{.} becomes \verb{_}) so \code{el-table}'s dotted \code{prop} lookup works.}
 
 \item{columns}{List of column configs, each \code{list(prop=, label=, width=)}.
 Inferred from \code{data} when omitted.}
-
-\item{id}{Table ID (auto-generated if NULL)}
 
 \item{selection}{Enable row selection}
 
@@ -48,10 +48,11 @@ Shiny reports an empty \code{\link[shiny:checkboxGroupInput]{shiny::checkboxGrou
 
 \examples{
 # A data.frame is enough -- columns are inferred
-el_table(data = head(iris, 3))
+el_table("iris_preview", data = head(iris, 3))
 
 # Explicit columns
 el_table(
+  "scores",
   data = data.frame(name = c("A", "B"), value = c(1, 2)),
   columns = list(
     list(prop = "name", label = "Name"),
@@ -64,7 +65,7 @@ if (interactive()) {
   library(shiny)
   library(shiny.element)
   ui <- el_page(
-    el_table(id = "my_table", data = head(iris, 5), selection = TRUE),
+    el_table("my_table", data = head(iris, 5), selection = TRUE),
     el_button("reload", "Show more rows"),
     verbatimTextOutput("selected_rows")
   )

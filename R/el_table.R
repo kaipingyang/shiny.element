@@ -51,10 +51,47 @@
 #' @return The same list with each `prop` sanitised.
 #' @keywords internal
 .el_table_sanitize_columns <- function(columns) {
+  if (!is.list(columns)) {
+    stop(
+      "`columns` must be a list of column definitions, not ",
+      class(columns)[1], ". Did you mean el_table(id = ..., data = ...)?",
+      call. = FALSE
+    )
+  }
   lapply(columns, function(col) {
     if (!is.null(col$prop)) col$prop <- gsub("\\.", "_", col$prop)
     col
   })
+}
+
+#' Accept the pre-0.1.0 `el_table(data, columns, id)` argument order
+#'
+#' `el_table()` used to take `data` first, which put it out of step with every
+#' other component. Positional calls written against the old order land a
+#' data.frame in `id`, so shift them back one slot and warn, rather than
+#' letting the data be used as an element id.
+#'
+#' @param id,data,columns The arguments as received by [el_table()].
+#' @return A list with elements `id`, `data` and `columns`.
+#' @keywords internal
+.el_table_args <- function(id, data, columns) {
+  if (is.null(id) || (is.character(id) && length(id) == 1L)) {
+    return(list(id = id, data = data, columns = columns))
+  }
+
+  warning(
+    "el_table() now takes `id` first, to match the other components. ",
+    "Interpreting the first argument as `data`. Name the arguments to ",
+    "silence this: el_table(id = \"my_table\", data = df).",
+    call. = FALSE
+  )
+
+  list(
+    # The old order was (data, columns, id): each argument moves one slot left.
+    id = if (is.character(columns) && length(columns) == 1L) columns else NULL,
+    data = id,
+    columns = if (is.list(data)) data else list()
+  )
 }
 
 #' Normalise the data/columns pair for `el_table()`
@@ -78,12 +115,12 @@
 #'
 #' Create a table widget for Shiny using Element UI.
 #'
+#' @param id Table ID (auto-generated if NULL)
 #' @param data A data.frame, or a list of rows (each a named list). A
 #'   data.frame is converted to rows automatically and its column names are
 #'   sanitised (`.` becomes `_`) so `el-table`'s dotted `prop` lookup works.
 #' @param columns List of column configs, each `list(prop=, label=, width=)`.
 #'   Inferred from `data` when omitted.
-#' @param id Table ID (auto-generated if NULL)
 #' @param selection Enable row selection
 #' @param border Show table border
 #' @param session Shiny session for module support
@@ -101,10 +138,11 @@
 #' @export
 #' @examples
 #' # A data.frame is enough -- columns are inferred
-#' el_table(data = head(iris, 3))
+#' el_table("iris_preview", data = head(iris, 3))
 #'
 #' # Explicit columns
 #' el_table(
+#'   "scores",
 #'   data = data.frame(name = c("A", "B"), value = c(1, 2)),
 #'   columns = list(
 #'     list(prop = "name", label = "Name"),
@@ -117,7 +155,7 @@
 #'   library(shiny)
 #'   library(shiny.element)
 #'   ui <- el_page(
-#'     el_table(id = "my_table", data = head(iris, 5), selection = TRUE),
+#'     el_table("my_table", data = head(iris, 5), selection = TRUE),
 #'     el_button("reload", "Show more rows"),
 #'     verbatimTextOutput("selected_rows")
 #'   )
@@ -132,12 +170,17 @@
 #'   }
 #'   shinyApp(ui, server)
 #' }
-el_table <- function(data = list(),
+el_table <- function(id = NULL,
+                     data = list(),
                      columns = list(),
-                     id = NULL,
                      selection = FALSE,
                      border = TRUE,
                      session = shiny::getDefaultReactiveDomain()) {
+  args <- .el_table_args(id, data, columns)
+  id <- args$id
+  data <- args$data
+  columns <- args$columns
+
   if (is.null(id)) {
     id <- paste0("el_table_", uuid::UUIDgenerate())
   }

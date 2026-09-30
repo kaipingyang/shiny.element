@@ -189,3 +189,63 @@ test_that("el_table_config: still produces rows plus columns", {
 test_that("el_table_config: max_rows caps the row count", {
   expect_length(el_table_config(iris, max_rows = 3)$data, 3)
 })
+
+# ── argument order (id first since 0.1.0) ─────────────────────────────────────
+
+test_that(".el_table_args: the documented order passes through untouched", {
+  df <- data.frame(name = c("A", "B"), value = c(1, 2))
+  cols <- list(list(prop = "name", label = "Name"))
+
+  expect_silent(res <- .el_table_args("tbl", df, cols))
+  expect_equal(res$id, "tbl")
+  expect_equal(res$data, df)
+  expect_equal(res$columns, cols)
+})
+
+test_that(".el_table_args: an absent id stays NULL, for the caller to generate", {
+  df <- data.frame(name = "A")
+  expect_silent(res <- .el_table_args(NULL, df, list()))
+  expect_null(res$id)
+  expect_equal(res$data, df)
+})
+
+test_that(".el_table_args: the pre-0.1.0 order is shifted back, with a warning", {
+  df <- data.frame(name = c("A", "B"), value = c(1, 2))
+  cols <- list(list(prop = "name", label = "Name"))
+
+  # el_table(data, columns, id)
+  expect_warning(res <- .el_table_args(df, cols, "t2"), "takes `id` first")
+  expect_equal(res$id, "t2")
+  expect_equal(res$data, df)
+  expect_equal(res$columns, cols)
+
+  # el_table(data, columns)
+  expect_warning(res <- .el_table_args(df, cols, list()), "takes `id` first")
+  expect_null(res$id)
+  expect_equal(res$columns, cols)
+
+  # el_table(data)
+  expect_warning(res <- .el_table_args(df, list(), list()), "takes `id` first")
+  expect_null(res$id)
+  expect_equal(res$data, df)
+  expect_equal(res$columns, list())
+})
+
+test_that("el_table: a data.frame in the id slot still renders its rows", {
+  df <- data.frame(name = c("A", "B"), value = c(1, 2))
+  expect_warning(ui <- el_table(df), "takes `id` first")
+  html <- paste(as.character(htmltools::renderTags(ui)$html), collapse = "")
+  expect_match(html, "el-table")
+
+  # the same data, addressed the documented way, produces the same markup
+  quiet <- el_table(data = df)
+  expect_equal(
+    gsub("el_table_[a-f0-9-]+", "<id>", paste(as.character(ui), collapse = "")),
+    gsub("el_table_[a-f0-9-]+", "<id>", paste(as.character(quiet), collapse = ""))
+  )
+})
+
+test_that("el_table: columns given as something other than a list is caught", {
+  expect_error(el_table("tbl", data = data.frame(a = 1), columns = "oops"),
+               "must be a list of column definitions")
+})
