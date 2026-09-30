@@ -6,9 +6,9 @@ First release.
 
 ### Components
 
-Every component Element UI 2.13.2 documents is wrapped – 74 of them,
-with each component’s documented attributes, events and methods
-reachable from R.
+Every component Element UI 2.13.2 documents is wrapped – 74 of them –
+with everything each one documents reachable from R: 506 attributes, 94
+events, 53 methods and 26 slots.
 
 - **Input** —
   [`el_input()`](https://kaipingyang.github.io/shiny.element/reference/el_input.md),
@@ -97,6 +97,32 @@ el_table(data = df, id = "my_table")  # also fine, and always was
 Positional calls written against the old `el_table(data, columns, id)`
 order still work – the arguments are shifted back with a warning – but
 naming them is the way to keep it quiet.
+
+### Filling a slot
+
+Every component takes `slots`, a named list, one entry per Element slot:
+
+``` r
+
+el_alert("a", slots = list(title = tags$b("Something went wrong")))
+
+# A component works as slot content too, and keeps reporting its inputs
+el_alert("a", slots = list(title = el_tag("sev", "critical", type = "danger")))
+```
+
+A scoped slot, where Element hands the template its own data, is written
+with
+[`template()`](https://kaipingyang.github.io/shiny.element/reference/template.md):
+
+``` r
+
+el_calendar("cal", slots = list(
+  dateCell = template(
+    htmltools::HTML("<p>{{ data.day.slice(8) }}</p>"),
+    slot = "dateCell", scope = "{date, data}"
+  )
+))
+```
 
 ### Reaching a component’s methods
 

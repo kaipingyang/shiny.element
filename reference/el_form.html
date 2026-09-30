@@ -63,6 +63,7 @@ async-validator running them on blur or change.</p>
 <span>  label_suffix <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  validate_on_rule_change <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  width <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  slots <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  session <span class="op">=</span> <span class="fu">shiny</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/domains.html" class="external-link">getDefaultReactiveDomain</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
@@ -133,7 +134,14 @@ case drive the form with <code><a href="el_form_validate.html">el_form_validate(
 
 
 <dt id="arg-width">width<a class="anchor" aria-label="anchor" href="#arg-width"></a></dt>
-<dd><p>Component width, as a CSS unit – <code>"200px"</code>, <code>"50%"</code>, or a
+<dd><p>Component width, as a CSS unit – <code>"200px"</code>, <code>"50%"</code>, or a</p></dd>
+
+
+<dt id="arg-slots">slots<a class="anchor" aria-label="anchor" href="#arg-slots"></a></dt>
+<dd><p>Named list of Element slot contents, such as
+<code>list(title = shiny::tags$b("Bold"))</code>. A shiny.element component
+given here is absorbed rather than nested. For a scoped slot, write
+the template with <code><a href="template.html">template()</a></code>.
 number taken as pixels. Element's own markup carries it, so it behaves
 like the <code>width</code> argument of a Shiny input.</p></dd>
 
@@ -191,7 +199,7 @@ the form owning its state rather than each field reporting separately.</p>
 <span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> &lt;div id="signup_container" style="display: contents"&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   &lt;el-form :model="model" :rules="rules" ref="form" :label-width="labelWidth" :label-position="labelPosition" :inline="inline" :size="size === null ? undefined : size" :disabled="disabled === null ? undefined : disabled" :show-message="showMessage === null ? undefined : showMessage" :inline-message="inlineMessage === null ? undefined : inlineMessage" :status-icon="statusIcon === null ? undefined : statusIcon" :hide-required-asterisk="hideRequiredAsterisk === null ? undefined : hideRequiredAsterisk" :label-suffix="labelSuffix === null ? undefined : labelSuffix" :validate-on-rule-change="validateOnRuleChange === null ? undefined : validateOnRuleChange" @validate="elEmitValidate"&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     &lt;el-form-item v-for="f in fields" :key="f.prop" :prop="f.prop" :label="f.label" :required="f.required" :rules="f.rules" :error="f.error" :label-width="f.labelWidth" :size="f.size" :inline-message="f.inlineMessage" :show-message="f.showMessage"&gt;&lt;component :is="f.tag" v-model="model[f.prop]" v-bind="f.props"&gt;&lt;component v-for="o in (f.options || [])" :is="f.optionTag" :key="o.label" :label="o.label" :value="o.value"&gt;{{ o.text }}&lt;/component&gt;&lt;/component&gt;&lt;/el-form-item&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     &lt;el-form-item v-for="f in fields" :key="f.prop" :prop="f.prop" :label="f.label" :required="f.required" :rules="f.rules" :error="f.error" :label-width="f.labelWidth" :size="f.size" :inline-message="f.inlineMessage" :show-message="f.showMessage"&gt;&lt;template slot="label"&gt;&lt;span v-if="f.labelHtml" v-html="f.labelHtml"&gt;&lt;/span&gt;&lt;span v-else&gt;{{f.label}}&lt;/span&gt;&lt;/template&gt;&lt;template slot="error" slot-scope="scope"&gt;&lt;div class="el-form-item__error"&gt;&lt;span v-if="f.errorHtml" v-html="f.errorHtml"&gt;&lt;/span&gt;&lt;span v-else&gt;{{scope.error}}&lt;/span&gt;&lt;/div&gt;&lt;/template&gt;&lt;component :is="f.tag" v-model="model[f.prop]" v-bind="f.props"&gt;&lt;component v-for="o in (f.options || [])" :is="f.optionTag" :key="o.label" :label="o.label" :value="o.value"&gt;{{ o.text }}&lt;/component&gt;&lt;/component&gt;&lt;/el-form-item&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     &lt;el-form-item&gt;&lt;el-button type="primary" @click="handleSubmit"&gt;{{ submitLabel }}&lt;/el-button&gt;&lt;/el-form-item&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   &lt;/el-form&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> &lt;/div&gt;</span>

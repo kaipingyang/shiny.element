@@ -38,7 +38,7 @@
 <p>First release.</p>
 <div class="section level3">
 <h3 id="components-0-1-0">Components<a class="anchor" aria-label="anchor" href="#components-0-1-0"></a></h3>
-<p>Every component Element UI 2.13.2 documents is wrapped – 74 of them, with each component’s documented attributes, events and methods reachable from R.</p>
+<p>Every component Element UI 2.13.2 documents is wrapped – 74 of them – with everything each one documents reachable from R: 506 attributes, 94 events, 53 methods and 26 slots.</p>
 <ul><li>
 <strong>Input</strong> — <code><a href="../reference/el_input.html">el_input()</a></code>, <code><a href="../reference/el_input_number.html">el_input_number()</a></code>, <code><a href="../reference/el_select.html">el_select()</a></code>, <code><a href="../reference/el_radio_group.html">el_radio_group()</a></code>, <code><a href="../reference/el_checkbox_group.html">el_checkbox_group()</a></code>, <code><a href="../reference/el_switch.html">el_switch()</a></code>, <code><a href="../reference/el_slider.html">el_slider()</a></code>, <code><a href="../reference/el_rate.html">el_rate()</a></code>, <code><a href="../reference/el_date_picker.html">el_date_picker()</a></code>, <code><a href="../reference/el_color_picker.html">el_color_picker()</a></code>, <code><a href="../reference/el_cascader.html">el_cascader()</a></code>, <code><a href="../reference/el_upload.html">el_upload()</a></code>, <code><a href="../reference/el_autocomplete.html">el_autocomplete()</a></code>, <code><a href="../reference/el_transfer.html">el_transfer()</a></code>.</li>
 <li>
@@ -62,9 +62,26 @@
 <p>Positional calls written against the old <code>el_table(data, columns, id)</code> order still work – the arguments are shifted back with a warning – but naming them is the way to keep it quiet.</p>
 </div>
 <div class="section level3">
+<h3 id="filling-a-slot-0-1-0">Filling a slot<a class="anchor" aria-label="anchor" href="#filling-a-slot-0-1-0"></a></h3>
+<p>Every component takes <code>slots</code>, a named list, one entry per Element slot:</p>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/el_alert.html">el_alert</a></span><span class="op">(</span><span class="st">"a"</span>, slots <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>title <span class="op">=</span> <span class="va">tags</span><span class="op">$</span><span class="fu">b</span><span class="op">(</span><span class="st">"Something went wrong"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># A component works as slot content too, and keeps reporting its inputs</span></span>
+<span><span class="fu"><a href="../reference/el_alert.html">el_alert</a></span><span class="op">(</span><span class="st">"a"</span>, slots <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>title <span class="op">=</span> <span class="fu"><a href="../reference/el_tag.html">el_tag</a></span><span class="op">(</span><span class="st">"sev"</span>, <span class="st">"critical"</span>, type <span class="op">=</span> <span class="st">"danger"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<p>A scoped slot, where Element hands the template its own data, is written with <code><a href="../reference/template.html">template()</a></code>:</p>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/el_calendar.html">el_calendar</a></span><span class="op">(</span><span class="st">"cal"</span>, slots <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>  dateCell <span class="op">=</span> <span class="fu"><a href="../reference/template.html">template</a></span><span class="op">(</span></span>
+<span>    <span class="fu">htmltools</span><span class="fu">::</span><span class="fu"><a href="https://rstudio.github.io/htmltools/reference/HTML.html" class="external-link">HTML</a></span><span class="op">(</span><span class="st">"&lt;p&gt;{{ data.day.slice(8) }}&lt;/p&gt;"</span><span class="op">)</span>,</span>
+<span>    slot <span class="op">=</span> <span class="st">"dateCell"</span>, scope <span class="op">=</span> <span class="st">"{date, data}"</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+</div>
+<div class="section level3">
 <h3 id="reaching-a-components-methods-0-1-0">Reaching a component’s methods<a class="anchor" aria-label="anchor" href="#reaching-a-components-methods-0-1-0"></a></h3>
 <p>Element documents methods as well as props. <code><a href="../reference/el_call.html">el_call()</a></code> invokes one:</p>
-<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/observeEvent.html" class="external-link">observeEvent</a></span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">clear</span>, <span class="op">{</span></span>
 <span>  <span class="fu"><a href="../reference/el_call.html">el_call</a></span><span class="op">(</span><span class="va">session</span>, <span class="st">"tbl"</span>, <span class="st">"clearSelection"</span><span class="op">)</span></span>
 <span><span class="op">}</span><span class="op">)</span></span>

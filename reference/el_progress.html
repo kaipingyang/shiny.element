@@ -54,6 +54,7 @@ update it from the server with <code><a href="update_el_progress.html">update_el
 <span>  color <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  width <span class="op">=</span> <span class="fl">126</span>,</span>
 <span>  stroke_linecap <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  slots <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  session <span class="op">=</span> <span class="fu">shiny</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/domains.html" class="external-link">getDefaultReactiveDomain</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
@@ -105,6 +106,13 @@ Default <code>126</code>.</p></dd>
 
 <dt id="arg-stroke-linecap">stroke_linecap<a class="anchor" aria-label="anchor" href="#arg-stroke-linecap"></a></dt>
 <dd><p>Shape of the bar's ends: <code>"round"</code> (default), <code>"butt"</code> or <code>"square"</code>.</p></dd>
+
+
+<dt id="arg-slots">slots<a class="anchor" aria-label="anchor" href="#arg-slots"></a></dt>
+<dd><p>Named list of Element slot contents, such as
+<code>list(title = shiny::tags$b("Bold"))</code>. A shiny.element component
+given here is absorbed rather than nested. For a scoped slot, write
+the template with <code><a href="template.html">template()</a></code>.</p></dd>
 
 
 <dt id="arg-session">session<a class="anchor" aria-label="anchor" href="#arg-session"></a></dt>

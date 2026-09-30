@@ -20,7 +20,8 @@ el_widget(
   computed = NULL,
   dependency = NULL,
   head = NULL,
-  width = NULL
+  width = NULL,
+  slots = NULL
 )
 ```
 
@@ -62,6 +63,17 @@ el_widget(
   Component width, as a CSS unit. Applied to the Element markup itself –
   the host carries `display: contents` and generates no box, so a width
   set on it would do nothing.
+
+- slots:
+
+  Named list of slot contents, one entry per Element slot:
+  `list(title = tags$b("Bold"))` fills the `title` slot. A component
+  given here is absorbed like any other
+  ([`.el_absorb()`](https://kaipingyang.github.io/shiny.element/reference/dot-el_absorb.md)).
+  For a scoped slot, where Element hands the template its own data,
+  write the template with
+  [`template()`](https://kaipingyang.github.io/shiny.element/reference/template.md)
+  and the value is used as it stands.
 
 ## Value
 

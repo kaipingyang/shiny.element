@@ -11,6 +11,7 @@ el_calendar(
   range = NULL,
   first_day_of_week = 1,
   width = NULL,
+  slots = NULL,
   session = getDefaultReactiveDomain()
 )
 ```
@@ -38,6 +39,13 @@ el_calendar(
   Component width, as a CSS unit – `"200px"`, `"50%"`, or a number taken
   as pixels.
 
+- slots:
+
+  Named list of Element slot contents. `dateCell` renders one day:
+  Element hands the template `date` and `data`, so write it with
+  [`template()`](https://kaipingyang.github.io/shiny.element/reference/template.md).
+  A default is used when none is given.
+
 - session:
 
   Shiny session for module support
@@ -49,6 +57,38 @@ A Shiny UI element.
 ## Examples
 
 ``` r
+# The default day cell
+el_calendar("cal")
+#> <style>
+#>       .is-selected {
+#>         color: #1989FA;
+#>         font-weight: bold;
+#>       }
+#>     </style>
+#> <div id="cal_container" style="display: contents">
+#>   <el-calendar v-model="value" :first-day-of-week="firstDayOfWeek" :range="range === null ? undefined : range"><template slot="dateCell" slot-scope="{date, data}"><p :class="data.isSelected ? 'is-selected' : ''">{{ data.day.split('-').slice(1).join('-') }}<span v-if="data.isSelected">✔</span></p></template></el-calendar>
+#> </div>
+#> <div id="cal" style="width:0px;height:0px;" class="vue html-widget"></div>
+#> <script type="application/json" data-for="cal">{"x":{"el":"#cal_container","data":{"value":"2026-09-30","firstDayOfWeek":1,"range":null},"watch":{"value":"function(newVal) { Shiny.setInputValue('cal', newVal); }"},"mounted":"function() { var self = this; var send = function() { Shiny.setInputValue(\"cal\", self.value); }; if (window.Shiny && Shiny.shinyapp && typeof Shiny.shinyapp.isConnected === 'function' && Shiny.shinyapp.isConnected()) { send(); } else { $(document).one('shiny:connected', send); } }"},"evals":["watch.value","mounted"],"jsHooks":[]}</script>
+
+# Your own, with whatever Element hands the template
+el_calendar("cal", slots = list(
+  dateCell = template(
+    htmltools::HTML("<p>{{ data.day.slice(8) }}</p>"),
+    slot = "dateCell", scope = "{date, data}"
+  )
+))
+#> <style>
+#>       .is-selected {
+#>         color: #1989FA;
+#>         font-weight: bold;
+#>       }
+#>     </style>
+#> <div id="cal_container" style="display: contents">
+#>   <el-calendar v-model="value" :first-day-of-week="firstDayOfWeek" :range="range === null ? undefined : range"><template slot="dateCell" slot-scope="{date, data}"><p>{{ data.day.slice(8) }}</p></template></el-calendar>
+#> </div>
+#> <div id="cal" style="width:0px;height:0px;" class="vue html-widget"></div>
+#> <script type="application/json" data-for="cal">{"x":{"el":"#cal_container","data":{"value":"2026-09-30","firstDayOfWeek":1,"range":null},"watch":{"value":"function(newVal) { Shiny.setInputValue('cal', newVal); }"},"mounted":"function() { var self = this; var send = function() { Shiny.setInputValue(\"cal\", self.value); }; if (window.Shiny && Shiny.shinyapp && typeof Shiny.shinyapp.isConnected === 'function' && Shiny.shinyapp.isConnected()) { send(); } else { $(document).one('shiny:connected', send); } }"},"evals":["watch.value","mounted"],"jsHooks":[]}</script>
 # Basic usage
 el_calendar(id = "calendar1", value = Sys.Date())
 #> <style>
@@ -58,14 +98,7 @@ el_calendar(id = "calendar1", value = Sys.Date())
 #>       }
 #>     </style>
 #> <div id="calendar1_container" style="display: contents">
-#>   <el-calendar v-model="value" :first-day-of-week="firstDayOfWeek" :range="range === null ? undefined : range">  
-#>     <template slot="dateCell" slot-scope="{date, data}">  
-#>       <p :class="data.isSelected ? 'is-selected' : ''">  
-#>         {{ data.day.split('-').slice(1).join('-') }}  
-#>         <span v-if="data.isSelected">✔</span>  
-#>       </p>  
-#>     </template>  
-#>   </el-calendar>
+#>   <el-calendar v-model="value" :first-day-of-week="firstDayOfWeek" :range="range === null ? undefined : range"><template slot="dateCell" slot-scope="{date, data}"><p :class="data.isSelected ? 'is-selected' : ''">{{ data.day.split('-').slice(1).join('-') }}<span v-if="data.isSelected">✔</span></p></template></el-calendar>
 #> </div>
 #> <div id="calendar1" style="width:0px;height:0px;" class="vue html-widget"></div>
 #> <script type="application/json" data-for="calendar1">{"x":{"el":"#calendar1_container","data":{"value":"2026-09-30","firstDayOfWeek":1,"range":null},"watch":{"value":"function(newVal) { Shiny.setInputValue('calendar1', newVal); }"},"mounted":"function() { var self = this; var send = function() { Shiny.setInputValue(\"calendar1\", self.value); }; if (window.Shiny && Shiny.shinyapp && typeof Shiny.shinyapp.isConnected === 'function' && Shiny.shinyapp.isConnected()) { send(); } else { $(document).one('shiny:connected', send); } }"},"evals":["watch.value","mounted"],"jsHooks":[]}</script>
@@ -79,14 +112,7 @@ el_calendar(id = "calendar2", range = c("2025-01-01", "2025-01-31"))
 #>       }
 #>     </style>
 #> <div id="calendar2_container" style="display: contents">
-#>   <el-calendar v-model="value" :first-day-of-week="firstDayOfWeek" :range="range === null ? undefined : range">  
-#>     <template slot="dateCell" slot-scope="{date, data}">  
-#>       <p :class="data.isSelected ? 'is-selected' : ''">  
-#>         {{ data.day.split('-').slice(1).join('-') }}  
-#>         <span v-if="data.isSelected">✔</span>  
-#>       </p>  
-#>     </template>  
-#>   </el-calendar>
+#>   <el-calendar v-model="value" :first-day-of-week="firstDayOfWeek" :range="range === null ? undefined : range"><template slot="dateCell" slot-scope="{date, data}"><p :class="data.isSelected ? 'is-selected' : ''">{{ data.day.split('-').slice(1).join('-') }}<span v-if="data.isSelected">✔</span></p></template></el-calendar>
 #> </div>
 #> <div id="calendar2" style="width:0px;height:0px;" class="vue html-widget"></div>
 #> <script type="application/json" data-for="calendar2">{"x":{"el":"#calendar2_container","data":{"value":"2026-09-30","firstDayOfWeek":1,"range":["2025-01-01","2025-01-31"]},"watch":{"value":"function(newVal) { Shiny.setInputValue('calendar2', newVal); }"},"mounted":"function() { var self = this; var send = function() { Shiny.setInputValue(\"calendar2\", self.value); }; if (window.Shiny && Shiny.shinyapp && typeof Shiny.shinyapp.isConnected === 'function' && Shiny.shinyapp.isConnected()) { send(); } else { $(document).one('shiny:connected', send); } }"},"evals":["watch.value","mounted"],"jsHooks":[]}</script>

@@ -32,6 +32,7 @@ el_upload(
   on_remove = NULL,
   on_exceed = NULL,
   width = NULL,
+  slots = NULL,
   session = shiny::getDefaultReactiveDomain()
 )
 ```
@@ -156,9 +157,17 @@ el_upload(
 
 - width:
 
-  Component width, as a CSS unit – `"200px"`, `"50%"`, or a number taken
-  as pixels. Element's own markup carries it, so it behaves like the
-  `width` argument of a Shiny input.
+  Component width, as a CSS unit – `"200px"`, `"50%"`, or a
+
+- slots:
+
+  Named list of Element slot contents, such as
+  `list(title = shiny::tags$b("Bold"))`. A shiny.element component given
+  here is absorbed rather than nested. For a scoped slot, write the
+  template with
+  [`template()`](https://kaipingyang.github.io/shiny.element/reference/template.md).
+  number taken as pixels. Element's own markup carries it, so it behaves
+  like the `width` argument of a Shiny input.
 
 - session:
 

@@ -24,6 +24,7 @@ el_form(
   label_suffix = NULL,
   validate_on_rule_change = NULL,
   width = NULL,
+  slots = NULL,
   session = shiny::getDefaultReactiveDomain()
 )
 ```
@@ -95,9 +96,17 @@ el_form(
 
 - width:
 
-  Component width, as a CSS unit – `"200px"`, `"50%"`, or a number taken
-  as pixels. Element's own markup carries it, so it behaves like the
-  `width` argument of a Shiny input.
+  Component width, as a CSS unit – `"200px"`, `"50%"`, or a
+
+- slots:
+
+  Named list of Element slot contents, such as
+  `list(title = shiny::tags$b("Bold"))`. A shiny.element component given
+  here is absorbed rather than nested. For a scoped slot, write the
+  template with
+  [`template()`](https://kaipingyang.github.io/shiny.element/reference/template.md).
+  number taken as pixels. Element's own markup carries it, so it behaves
+  like the `width` argument of a Shiny input.
 
 - session:
 
@@ -162,7 +171,7 @@ el_form(
 )
 #> <div id="signup_container" style="display: contents">
 #>   <el-form :model="model" :rules="rules" ref="form" :label-width="labelWidth" :label-position="labelPosition" :inline="inline" :size="size === null ? undefined : size" :disabled="disabled === null ? undefined : disabled" :show-message="showMessage === null ? undefined : showMessage" :inline-message="inlineMessage === null ? undefined : inlineMessage" :status-icon="statusIcon === null ? undefined : statusIcon" :hide-required-asterisk="hideRequiredAsterisk === null ? undefined : hideRequiredAsterisk" :label-suffix="labelSuffix === null ? undefined : labelSuffix" :validate-on-rule-change="validateOnRuleChange === null ? undefined : validateOnRuleChange" @validate="elEmitValidate">
-#>     <el-form-item v-for="f in fields" :key="f.prop" :prop="f.prop" :label="f.label" :required="f.required" :rules="f.rules" :error="f.error" :label-width="f.labelWidth" :size="f.size" :inline-message="f.inlineMessage" :show-message="f.showMessage"><component :is="f.tag" v-model="model[f.prop]" v-bind="f.props"><component v-for="o in (f.options || [])" :is="f.optionTag" :key="o.label" :label="o.label" :value="o.value">{{ o.text }}</component></component></el-form-item>
+#>     <el-form-item v-for="f in fields" :key="f.prop" :prop="f.prop" :label="f.label" :required="f.required" :rules="f.rules" :error="f.error" :label-width="f.labelWidth" :size="f.size" :inline-message="f.inlineMessage" :show-message="f.showMessage"><template slot="label"><span v-if="f.labelHtml" v-html="f.labelHtml"></span><span v-else>{{f.label}}</span></template><template slot="error" slot-scope="scope"><div class="el-form-item__error"><span v-if="f.errorHtml" v-html="f.errorHtml"></span><span v-else>{{scope.error}}</span></div></template><component :is="f.tag" v-model="model[f.prop]" v-bind="f.props"><component v-for="o in (f.options || [])" :is="f.optionTag" :key="o.label" :label="o.label" :value="o.value">{{ o.text }}</component></component></el-form-item>
 #>     <el-form-item><el-button type="primary" @click="handleSubmit">{{ submitLabel }}</el-button></el-form-item>
 #>   </el-form>
 #> </div>

@@ -69,6 +69,7 @@
 <span>  allow_drag <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  allow_drop <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  width <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  slots <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  session <span class="op">=</span> <span class="fu">shiny</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/domains.html" class="external-link">getDefaultReactiveDomain</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
@@ -185,7 +186,14 @@ expand.</p></dd>
 
 
 <dt id="arg-width">width<a class="anchor" aria-label="anchor" href="#arg-width"></a></dt>
-<dd><p>Component width, as a CSS unit – <code>"200px"</code>, <code>"50%"</code>, or a
+<dd><p>Component width, as a CSS unit – <code>"200px"</code>, <code>"50%"</code>, or a</p></dd>
+
+
+<dt id="arg-slots">slots<a class="anchor" aria-label="anchor" href="#arg-slots"></a></dt>
+<dd><p>Named list of Element slot contents, such as
+<code>list(title = shiny::tags$b("Bold"))</code>. A shiny.element component
+given here is absorbed rather than nested. For a scoped slot, write
+the template with <code><a href="template.html">template()</a></code>.
 number taken as pixels. Element's own markup carries it, so it behaves
 like the <code>width</code> argument of a Shiny input.</p></dd>
 

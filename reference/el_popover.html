@@ -59,6 +59,7 @@
 <span>  popper_options <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  tabindex <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  width <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  slots <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  session <span class="op">=</span> <span class="fu">shiny</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/domains.html" class="external-link">getDefaultReactiveDomain</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
@@ -141,6 +142,13 @@ prop, named apart from <code>width</code> so the two are not confused.</p></dd>
 
 <dt id="arg-width">width<a class="anchor" aria-label="anchor" href="#arg-width"></a></dt>
 <dd><p>Component width, as a CSS unit.</p></dd>
+
+
+<dt id="arg-slots">slots<a class="anchor" aria-label="anchor" href="#arg-slots"></a></dt>
+<dd><p>Named list of Element slot contents, such as
+<code>list(title = shiny::tags$b("Bold"))</code>. A shiny.element component
+given here is absorbed rather than nested. For a scoped slot, write
+the template with <code><a href="template.html">template()</a></code>.</p></dd>
 
 
 <dt id="arg-session">session<a class="anchor" aria-label="anchor" href="#arg-session"></a></dt>

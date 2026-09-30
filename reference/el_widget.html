@@ -59,7 +59,8 @@ what the package's own components are made of.</p>
 <span>  computed <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  dependency <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  head <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  width <span class="op">=</span> <span class="cn">NULL</span></span>
+<span>  width <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  slots <span class="op">=</span> <span class="cn">NULL</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
 
@@ -98,6 +99,14 @@ pass <code><a href="element_ui_dependency.html">element_ui_dependency()</a></cod
 <dd><p>Component width, as a CSS unit. Applied to the Element markup
 itself – the host carries <code>display: contents</code> and generates no box, so a
 width set on it would do nothing.</p></dd>
+
+
+<dt id="arg-slots">slots<a class="anchor" aria-label="anchor" href="#arg-slots"></a></dt>
+<dd><p>Named list of slot contents, one entry per Element slot:
+<code>list(title = tags$b("Bold"))</code> fills the <code>title</code> slot. A component given
+here is absorbed like any other (<code><a href="dot-el_absorb.html">.el_absorb()</a></code>). For a scoped slot,
+where Element hands the template its own data, write the template with
+<code><a href="template.html">template()</a></code> and the value is used as it stands.</p></dd>
 
 </dl></div>
     <div class="section level2">

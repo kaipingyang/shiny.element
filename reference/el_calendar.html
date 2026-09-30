@@ -46,6 +46,7 @@
 <span>  range <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  first_day_of_week <span class="op">=</span> <span class="fl">1</span>,</span>
 <span>  width <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  slots <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  session <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/domains.html" class="external-link">getDefaultReactiveDomain</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
@@ -75,6 +76,12 @@
 number taken as pixels.</p></dd>
 
 
+<dt id="arg-slots">slots<a class="anchor" aria-label="anchor" href="#arg-slots"></a></dt>
+<dd><p>Named list of Element slot contents. <code>dateCell</code> renders one
+day: Element hands the template <code>date</code> and <code>data</code>, so write it with
+<code><a href="template.html">template()</a></code>. A default is used when none is given.</p></dd>
+
+
 <dt id="arg-session">session<a class="anchor" aria-label="anchor" href="#arg-session"></a></dt>
 <dd><p>Shiny session for module support</p></dd>
 
@@ -86,7 +93,39 @@ number taken as pixels.</p></dd>
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># Basic usage</span></span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># The default day cell</span></span></span>
+<span class="r-in"><span><span class="fu">el_calendar</span><span class="op">(</span><span class="st">"cal"</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;style&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       .is-selected {</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>         color: #1989FA;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>         font-weight: bold;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       }</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     &lt;/style&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;div id="cal_container" style="display: contents"&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   &lt;el-calendar v-model="value" :first-day-of-week="firstDayOfWeek" :range="range === null ? undefined : range"&gt;&lt;template slot="dateCell" slot-scope="{date, data}"&gt;&lt;p :class="data.isSelected ? 'is-selected' : ''"&gt;{{ data.day.split('-').slice(1).join('-') }}&lt;span v-if="data.isSelected"&gt;✔&lt;/span&gt;&lt;/p&gt;&lt;/template&gt;&lt;/el-calendar&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;/div&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;div id="cal" style="width:0px;height:0px;" class="vue html-widget"&gt;&lt;/div&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;script type="application/json" data-for="cal"&gt;{"x":{"el":"#cal_container","data":{"value":"2026-09-30","firstDayOfWeek":1,"range":null},"watch":{"value":"function(newVal) { Shiny.setInputValue('cal', newVal); }"},"mounted":"function() { var self = this; var send = function() { Shiny.setInputValue(\"cal\", self.value); }; if (window.Shiny &amp;&amp; Shiny.shinyapp &amp;&amp; typeof Shiny.shinyapp.isConnected === 'function' &amp;&amp; Shiny.shinyapp.isConnected()) { send(); } else { $(document).one('shiny:connected', send); } }"},"evals":["watch.value","mounted"],"jsHooks":[]}&lt;/script&gt;</span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Your own, with whatever Element hands the template</span></span></span>
+<span class="r-in"><span><span class="fu">el_calendar</span><span class="op">(</span><span class="st">"cal"</span>, slots <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>  dateCell <span class="op">=</span> <span class="fu"><a href="template.html">template</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>    <span class="fu">htmltools</span><span class="fu">::</span><span class="fu"><a href="https://rstudio.github.io/htmltools/reference/HTML.html" class="external-link">HTML</a></span><span class="op">(</span><span class="st">"&lt;p&gt;{{ data.day.slice(8) }}&lt;/p&gt;"</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>    slot <span class="op">=</span> <span class="st">"dateCell"</span>, scope <span class="op">=</span> <span class="st">"{date, data}"</span></span></span>
+<span class="r-in"><span>  <span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;style&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       .is-selected {</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>         color: #1989FA;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>         font-weight: bold;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       }</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     &lt;/style&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;div id="cal_container" style="display: contents"&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   &lt;el-calendar v-model="value" :first-day-of-week="firstDayOfWeek" :range="range === null ? undefined : range"&gt;&lt;template slot="dateCell" slot-scope="{date, data}"&gt;&lt;p&gt;{{ data.day.slice(8) }}&lt;/p&gt;&lt;/template&gt;&lt;/el-calendar&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;/div&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;div id="cal" style="width:0px;height:0px;" class="vue html-widget"&gt;&lt;/div&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;script type="application/json" data-for="cal"&gt;{"x":{"el":"#cal_container","data":{"value":"2026-09-30","firstDayOfWeek":1,"range":null},"watch":{"value":"function(newVal) { Shiny.setInputValue('cal', newVal); }"},"mounted":"function() { var self = this; var send = function() { Shiny.setInputValue(\"cal\", self.value); }; if (window.Shiny &amp;&amp; Shiny.shinyapp &amp;&amp; typeof Shiny.shinyapp.isConnected === 'function' &amp;&amp; Shiny.shinyapp.isConnected()) { send(); } else { $(document).one('shiny:connected', send); } }"},"evals":["watch.value","mounted"],"jsHooks":[]}&lt;/script&gt;</span>
+<span class="r-in"><span><span class="co"># Basic usage</span></span></span>
 <span class="r-in"><span><span class="fu">el_calendar</span><span class="op">(</span>id <span class="op">=</span> <span class="st">"calendar1"</span>, value <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Sys.time.html" class="external-link">Sys.Date</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> &lt;style&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>       .is-selected {</span>
@@ -95,14 +134,7 @@ number taken as pixels.</p></dd>
 <span class="r-out co"><span class="r-pr">#&gt;</span>       }</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     &lt;/style&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> &lt;div id="calendar1_container" style="display: contents"&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   &lt;el-calendar v-model="value" :first-day-of-week="firstDayOfWeek" :range="range === null ? undefined : range"&gt;  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     &lt;template slot="dateCell" slot-scope="{date, data}"&gt;  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       &lt;p :class="data.isSelected ? 'is-selected' : ''"&gt;  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>         {{ data.day.split('-').slice(1).join('-') }}  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>         &lt;span v-if="data.isSelected"&gt;✔&lt;/span&gt;  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       &lt;/p&gt;  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     &lt;/template&gt;  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   &lt;/el-calendar&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   &lt;el-calendar v-model="value" :first-day-of-week="firstDayOfWeek" :range="range === null ? undefined : range"&gt;&lt;template slot="dateCell" slot-scope="{date, data}"&gt;&lt;p :class="data.isSelected ? 'is-selected' : ''"&gt;{{ data.day.split('-').slice(1).join('-') }}&lt;span v-if="data.isSelected"&gt;✔&lt;/span&gt;&lt;/p&gt;&lt;/template&gt;&lt;/el-calendar&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> &lt;/div&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> &lt;div id="calendar1" style="width:0px;height:0px;" class="vue html-widget"&gt;&lt;/div&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> &lt;script type="application/json" data-for="calendar1"&gt;{"x":{"el":"#calendar1_container","data":{"value":"2026-09-30","firstDayOfWeek":1,"range":null},"watch":{"value":"function(newVal) { Shiny.setInputValue('calendar1', newVal); }"},"mounted":"function() { var self = this; var send = function() { Shiny.setInputValue(\"calendar1\", self.value); }; if (window.Shiny &amp;&amp; Shiny.shinyapp &amp;&amp; typeof Shiny.shinyapp.isConnected === 'function' &amp;&amp; Shiny.shinyapp.isConnected()) { send(); } else { $(document).one('shiny:connected', send); } }"},"evals":["watch.value","mounted"],"jsHooks":[]}&lt;/script&gt;</span>
@@ -116,14 +148,7 @@ number taken as pixels.</p></dd>
 <span class="r-out co"><span class="r-pr">#&gt;</span>       }</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     &lt;/style&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> &lt;div id="calendar2_container" style="display: contents"&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   &lt;el-calendar v-model="value" :first-day-of-week="firstDayOfWeek" :range="range === null ? undefined : range"&gt;  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     &lt;template slot="dateCell" slot-scope="{date, data}"&gt;  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       &lt;p :class="data.isSelected ? 'is-selected' : ''"&gt;  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>         {{ data.day.split('-').slice(1).join('-') }}  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>         &lt;span v-if="data.isSelected"&gt;✔&lt;/span&gt;  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       &lt;/p&gt;  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     &lt;/template&gt;  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   &lt;/el-calendar&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   &lt;el-calendar v-model="value" :first-day-of-week="firstDayOfWeek" :range="range === null ? undefined : range"&gt;&lt;template slot="dateCell" slot-scope="{date, data}"&gt;&lt;p :class="data.isSelected ? 'is-selected' : ''"&gt;{{ data.day.split('-').slice(1).join('-') }}&lt;span v-if="data.isSelected"&gt;✔&lt;/span&gt;&lt;/p&gt;&lt;/template&gt;&lt;/el-calendar&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> &lt;/div&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> &lt;div id="calendar2" style="width:0px;height:0px;" class="vue html-widget"&gt;&lt;/div&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> &lt;script type="application/json" data-for="calendar2"&gt;{"x":{"el":"#calendar2_container","data":{"value":"2026-09-30","firstDayOfWeek":1,"range":["2025-01-01","2025-01-31"]},"watch":{"value":"function(newVal) { Shiny.setInputValue('calendar2', newVal); }"},"mounted":"function() { var self = this; var send = function() { Shiny.setInputValue(\"calendar2\", self.value); }; if (window.Shiny &amp;&amp; Shiny.shinyapp &amp;&amp; typeof Shiny.shinyapp.isConnected === 'function' &amp;&amp; Shiny.shinyapp.isConnected()) { send(); } else { $(document).one('shiny:connected', send); } }"},"evals":["watch.value","mounted"],"jsHooks":[]}&lt;/script&gt;</span>
