@@ -390,7 +390,7 @@ el_form <- function(...,
   vue_data$validateOnRuleChange <- .el_or_na(validate_on_rule_change)
   js_id <- as.character(jsonlite::toJSON(ns_id, auto_unbox = TRUE))
 
-  .el_widget(
+  el_widget(
     id     = ns_id,
     markup = htmltools::tag("el-form", c(form_attrs, list(field_items, buttons))),
     data = vue_data,

@@ -186,7 +186,7 @@ el_date_picker <- function(
   vue_data$unlinkPanels <- .el_or_na(unlink_panels)
   vue_data$pickerOptions <- .el_or_na(picker_options)
   vue_data$validateEvent <- .el_or_na(validate_event)
-  .el_widget(
+  el_widget(
     id     = ns_id,
     markup = htmltools::tag("el-date-picker", picker_attrs),
     data = vue_data,

@@ -244,7 +244,7 @@ el_tree <- function(id = NULL,
 
   vue_data$allowDrop <- .el_or_na(allow_drop)
 
-  .el_widget(
+  el_widget(
     id     = ns_id,
     markup = htmltools::tag("el-tree", tree_attrs),
     data = vue_data,

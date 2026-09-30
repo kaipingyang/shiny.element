@@ -92,7 +92,7 @@ el_calendar <- function(id = NULL,
   )  
   vue_data$range <- if (is.null(range)) NA else as.character(range)  
   
-  .el_widget(
+  el_widget(
     id     = ns_id,
     markup = tag("el-calendar", append(calendar_attrs, list(date_cell_slot))),
     head   = tags$style(HTML("

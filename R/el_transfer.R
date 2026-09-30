@@ -1,0 +1,173 @@
+#' Element UI Transfer
+#'
+#' Two lists side by side, for moving items from one to the other.
+#'
+#' @param id Transfer ID. Auto-generated if `NULL`.
+#' @param data The items to choose from, as a data.frame with columns `key`
+#'   and `label` (and optionally `disabled`), or a list of
+#'   `list(key =, label =, disabled =)`.
+#' @param value Keys that start out on the right.
+#' @param titles Headings of the two panels, as a length-2 character vector.
+#'   Default `c("List 1", "List 2")`.
+#' @param button_texts Labels of the two buttons, as a length-2 character
+#'   vector. Default is arrows only.
+#' @param filterable Whether each panel gets a search box.
+#' @param filter_placeholder Placeholder of the search boxes.
+#' @param filter_method `htmlwidgets::JS()` function `function(query, item)`
+#'   returning whether an item survives the search.
+#' @param target_order Order of the right-hand panel: `"original"` (default),
+#'   `"push"` or `"unshift"`.
+#' @param format Counts shown in each heading, as
+#'   `list(noChecked =, hasChecked =)`, for example
+#'   `list(noChecked = "${total}", hasChecked = "${checked}/${total}")`.
+#' @param props Field names when `data` uses other ones, as
+#'   `list(key =, label =, disabled =)`.
+#' @param left_default_checked,right_default_checked Keys ticked at the start.
+#' @param render_content `htmlwidgets::JS()` render function for an item.
+#' @param width Component width, as a CSS unit.
+#' @param session Shiny session for module support.
+#'
+#' @section Shiny inputs:
+#' - `input$<id>` -- keys currently on the right.
+#' - `input$<id>_change` -- fires on each move.
+#' - `input$<id>_left_check_change`, `input$<id>_right_check_change` -- fire
+#'   as items are ticked.
+#'
+#' @section Element methods:
+#' Callable with [el_call()]:
+#'
+#' - `clearQuery()` -- clear one panel's search box; pass `"left"` or
+#'   `"right"`
+#'
+#' @return A Shiny UI element.
+#' @examples
+#' el_transfer("cols",
+#'   data = data.frame(key = names(iris), label = names(iris)),
+#'   value = c("Species")
+#' )
+#'
+#' el_transfer("cols",
+#'   data = data.frame(key = names(mtcars), label = names(mtcars)),
+#'   titles = c("Available", "Chosen"),
+#'   filterable = TRUE, width = "100%"
+#' )
+#' @export
+el_transfer <- function(id = NULL,
+                        data = list(),
+                        value = NULL,
+                        titles = NULL,
+                        button_texts = NULL,
+                        filterable = NULL,
+                        filter_placeholder = NULL,
+                        filter_method = NULL,
+                        target_order = NULL,
+                        format = NULL,
+                        props = NULL,
+                        left_default_checked = NULL,
+                        right_default_checked = NULL,
+                        render_content = NULL,
+                        width = NULL,
+                        session = shiny::getDefaultReactiveDomain()) {
+  if (is.null(id)) id <- paste0("el_transfer_", uuid::UUIDgenerate())
+  ns_id <- if (!is.null(session)) session$ns(id) else id
+
+  attrs <- list(
+    "v-model"              = "value",
+    ":data"                = "data",
+    ":titles"              = .el_optional_bind("titles"),
+    ":button-texts"        = .el_optional_bind("buttonTexts"),
+    ":filterable"          = .el_optional_bind("filterable"),
+    ":filter-placeholder"  = .el_optional_bind("filterPlaceholder"),
+    ":filter-method"       = .el_optional_bind("filterMethod"),
+    ":target-order"        = .el_optional_bind("targetOrder"),
+    ":format"              = .el_optional_bind("format"),
+    ":props"               = .el_optional_bind("props"),
+    ":left-default-checked"  = .el_optional_bind("leftDefaultChecked"),
+    ":right-default-checked" = .el_optional_bind("rightDefaultChecked"),
+    ":render-content"      = .el_optional_bind("renderContent")
+  )
+  events <- .el_event_bindings(ns_id, c("change", "left-check-change", "right-check-change"))
+  attrs <- c(attrs, events$attrs)
+
+  el_widget(
+    id     = ns_id,
+    markup = htmltools::tag("el-transfer", attrs),
+    data   = list(
+      value               = if (is.null(value)) list() else as.list(value),
+      data                = .el_transfer_data(data),
+      titles              = if (is.null(titles)) NA else as.list(titles),
+      buttonTexts         = if (is.null(button_texts)) NA else as.list(button_texts),
+      filterable          = .el_or_na(filterable),
+      filterPlaceholder   = .el_or_na(filter_placeholder),
+      filterMethod        = .el_or_na(filter_method),
+      targetOrder         = .el_or_na(target_order),
+      format              = .el_or_na(format),
+      props               = .el_or_na(props),
+      leftDefaultChecked  = if (is.null(left_default_checked)) NA else as.list(left_default_checked),
+      rightDefaultChecked = if (is.null(right_default_checked)) NA else as.list(right_default_checked),
+      renderContent       = .el_or_na(render_content)
+    ),
+    methods = events$methods,
+    watch = list(
+      value = htmlwidgets::JS(sprintf(
+        "function(newVal) { Shiny.setInputValue('%s', newVal); }", ns_id
+      ))
+    ),
+    mounted    = .el_mounted_init(stats::setNames("value", ns_id)),
+    width      = width,
+    dependency = el_transfer_handler_dependency()
+  )
+}
+
+
+#' Normalise transfer items
+#'
+#' Element reads `key`, `label` and `disabled` off each item, so a data.frame
+#' is turned into one object per row.
+#'
+#' @param data A data.frame or a list of items.
+#' @return A list of items.
+#' @keywords internal
+.el_transfer_data <- function(data) {
+  if (is.null(data) || !length(data)) return(list())
+  if (is.data.frame(data)) {
+    return(lapply(seq_len(nrow(data)), function(i) as.list(data[i, , drop = FALSE])))
+  }
+  unname(data)
+}
+
+
+#' Update Element UI Transfer
+#'
+#' Server-side update for [el_transfer()].
+#'
+#' @param session Shiny session object.
+#' @param id Transfer ID (un-namespaced).
+#' @param value,data,titles,filterable New values; `NULL` leaves one unchanged.
+#'
+#' @return Called for its side effect; returns `NULL` invisibly.
+#' @examples
+#' if (interactive()) {
+#'   # inside a server function
+#'   observeEvent(input$reset, {
+#'     update_el_transfer(session, "cols", value = list())
+#'   })
+#' }
+#' @export
+update_el_transfer <- function(session, id, value = NULL, data = NULL,
+                               titles = NULL, filterable = NULL) {
+  ns_id <- session$ns(id)
+  msg <- list(id = ns_id)
+  if (!is.null(value))      msg$value      <- as.list(value)
+  if (!is.null(data))       msg$data       <- .el_transfer_data(data)
+  if (!is.null(titles))     msg$titles     <- as.list(titles)
+  if (!is.null(filterable)) msg$filterable <- filterable
+  session$sendCustomMessage("updateElTransfer", msg)
+  invisible(NULL)
+}
+
+
+#' @keywords internal
+el_transfer_handler_dependency <- function() {
+  .el_handler_dependency("transfer")
+}

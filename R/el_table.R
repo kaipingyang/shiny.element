@@ -395,7 +395,7 @@ el_table <- function(id = NULL,
 
   table_content <- c(table_attrs, list(selection_col, data_col))
 
-  .el_widget(
+  el_widget(
     id     = ns_id,
     markup = htmltools::tag("el-table", table_content),
     data = list(

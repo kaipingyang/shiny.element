@@ -30,6 +30,10 @@ reference:
     desc: >
       Each reports to the server as `input$<id>`, on load as well as on change.
     contents:
+      - el_autocomplete
+      - update_el_autocomplete
+      - el_transfer
+      - update_el_transfer
       - el_input
       - el_input_number
       - el_select
@@ -71,6 +75,16 @@ reference:
 
   - title: Display
     contents:
+      - el_avatar
+      - update_el_avatar
+      - el_image
+      - update_el_image
+      - el_tooltip
+      - update_el_tooltip
+      - el_popover
+      - update_el_popover
+      - el_popconfirm
+      - update_el_popconfirm
       - el_button
       - el_tag
       - el_alert
@@ -119,6 +133,14 @@ reference:
 
   - title: Navigation
     contents:
+      - el_breadcrumb
+      - update_el_breadcrumb
+      - el_page_header
+      - update_el_page_header
+      - el_backtop
+      - update_el_backtop
+      - el_infinite_scroll
+      - update_el_infinite_scroll
       - el_menu
       - el_tree
       - el_dropdown
@@ -130,6 +152,9 @@ reference:
   - title: Feedback
     desc: Called from the server; nothing to place in the UI.
     contents:
+      - el_message_box
+      - el_loading
+      - el_loading_close
       - el_notification
       - el_message
 
@@ -148,9 +173,11 @@ reference:
 
   - title: Escape hatches
     desc: >
-      Raw tag generators and generic Vue updates, for anything the wrappers do
-      not cover.
+      For anything the wrappers do not cover: build your own component the way
+      this package builds its own, write raw Element tags, or update a Vue
+      instance directly.
     contents:
+      - el_widget
       - el
       - template
       - update_vue_component

@@ -115,7 +115,7 @@ el_radio_group <- function(
   vue_data$size <- .el_or_na(size)
   vue_data$fill <- .el_or_na(fill)
   vue_data$textColor <- .el_or_na(text_color)
-  .el_widget(
+  el_widget(
     id     = ns_id,
     markup = htmltools::tag("el-radio-group", c(group_attrs, list(radio_slot))),
     data    = vue_data,

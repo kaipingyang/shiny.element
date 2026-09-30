@@ -154,7 +154,7 @@ el_cascader <- function(id = NULL,
   vue_data$popperClass <- .el_or_na(popper_class)
   vue_data$filterMethod <- .el_or_na(filter_method)
   vue_data$beforeFilter <- .el_or_na(before_filter)
-  .el_widget(
+  el_widget(
     id     = ns_id,
     markup = tag("el-cascader", cascader_attrs),
     data = vue_data,

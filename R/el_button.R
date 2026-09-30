@@ -96,7 +96,7 @@ el_button <- function(
     "{{label}}"
   )
 
-  .el_widget(
+  el_widget(
     id     = ns_id,
     markup = htmltools::tag("el-button", append(btn_attrs, btn_content)),
     data = list(

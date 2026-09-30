@@ -147,7 +147,7 @@ el_slider <- function(
   vue_data$tooltipClass <- .el_or_na(tooltip_class)
   vue_data$formatTooltip <- .el_or_na(format_tooltip)
 
-  .el_widget(
+  el_widget(
     id     = ns_id,
     markup = htmltools::tag("el-slider", slider_attrs),
     data = vue_data,

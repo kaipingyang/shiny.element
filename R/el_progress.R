@@ -91,7 +91,7 @@ el_progress <- function(
   # The empty string is its own default and means the same thing.
   vue_data$color <- if (is.null(color)) "" else color
   vue_data$strokeLinecap <- .el_or_na(stroke_linecap)
-  .el_widget(
+  el_widget(
     id     = ns_id,
     markup = htmltools::tag("el-progress", progress_attrs),
     data = vue_data,

@@ -104,7 +104,7 @@ el_input_number <- function(
   vue_data$placeholder <- .el_or_na(placeholder)
   vue_data$label <- .el_or_na(label)
   vue_data$name <- .el_or_na(name)
-  .el_widget(
+  el_widget(
     id     = ns_id,
     markup = htmltools::tag("el-input-number", num_attrs),
     data    = vue_data,

@@ -308,7 +308,7 @@ el_upload <- function(id = NULL,
   )
   if (via_shiny) methods$shinyUpload <- .el_upload_js(ns_id)
 
-  .el_widget(
+  el_widget(
     id     = ns_id,
     markup = htmltools::tag("el-upload", c(upload_attrs, trigger)),
     data    = vue_data,

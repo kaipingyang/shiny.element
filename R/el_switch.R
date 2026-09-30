@@ -100,7 +100,7 @@ el_switch <- function(
   vue_data$inactiveIconClass <- .el_or_na(inactive_icon_class)
   vue_data$name <- .el_or_na(name)
   vue_data$validateEvent <- .el_or_na(validate_event)
-  .el_widget(
+  el_widget(
     id      = ns_id,
     markup  = switch_tag,
     data    = vue_data,

@@ -4,21 +4,25 @@ First release.
 
 ## Components
 
-Wrappers for Element UI components, exposed as 94 functions:
+Every component Element UI 2.13.2 documents is wrapped -- 74 of them, with
+each component's documented attributes, events and methods reachable from R.
 
 * **Input** — `el_input()`, `el_input_number()`, `el_select()`,
   `el_radio_group()`, `el_checkbox_group()`, `el_switch()`, `el_slider()`,
   `el_rate()`, `el_date_picker()`, `el_color_picker()`, `el_cascader()`,
-  `el_upload()`.
+  `el_upload()`, `el_autocomplete()`, `el_transfer()`.
 * **Display** — `el_table()`, `el_tag()`, `el_progress()`, `el_alert()`,
   `el_badge()`, `el_card()`, `el_calendar()`, `el_tree()`, `el_timeline()`,
-  `el_carousel()`, `el_icon()`, `el_link()`, `el_divider()`.
+  `el_carousel()`, `el_icon()`, `el_link()`, `el_divider()`, `el_avatar()`,
+  `el_image()`, `el_tooltip()`, `el_popover()`, `el_popconfirm()`.
 * **Navigation** — `el_menu()`, `el_tabs()`, `el_steps()`, `el_pagination()`,
-  `el_dropdown()`.
+  `el_dropdown()`, `el_breadcrumb()`, `el_page_header()`, `el_backtop()`,
+  `el_infinite_scroll()`.
 * **Containers** — `el_collapse()`, `el_dialog()`, `el_drawer()`, `el_form()`,
   `el_row()`, `el_col()`, `el_container()`, `el_header()`, `el_aside()`,
   `el_main()`, `el_footer()`.
-* **Feedback** — `el_message()`, `el_notification()`.
+* **Feedback** — `el_message()`, `el_notification()`, `el_message_box()`,
+  `el_loading()`, `el_loading_close()`.
 * **Helpers** — `el_page()`, `use_element()`, `el_table_config()`,
   `df_to_tree_data()`, `df_to_cascader_options()`, `el_form_validate()`.
 

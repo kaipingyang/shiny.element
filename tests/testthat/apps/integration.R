@@ -177,6 +177,13 @@ ui <- el_page(
     el_button("call_validate", "validate"),
     el_button("call_missing", "no such method")),
 
+  # Does a widget survive being wrapped by another component's Vue instance?
+  tags$div(id = "nest_probe",
+    el_tooltip("tip", el$button(type = "primary", "Hover me"), content = "a hint"),
+    el_popconfirm("pc", el$button(type = "danger", "Delete"), title = "Sure?"),
+    el_avatar("av", content = "KY"),
+    el_breadcrumb("crumb", items = list(list(label = "Home"), list(label = "Here")))),
+
   verbatimTextOutput("dump")
 )
 

@@ -164,7 +164,7 @@ el_menu <- function(id = NULL,
 
   vue_data$router <- .el_or_na(router)
 
-  .el_widget(
+  el_widget(
     id     = ns_id,
     markup = htmltools::tag("el-menu", c(menu_attrs, .el_menu_nodes(items))),
     data = vue_data,

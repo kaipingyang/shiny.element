@@ -119,7 +119,7 @@ el_carousel <- function(id = NULL,
     }
   )
 
-  .el_widget(
+  el_widget(
     id     = ns_id,
     markup = htmltools::tag("el-carousel", c(carousel_attrs, item_tags)),
     data = vue_data,

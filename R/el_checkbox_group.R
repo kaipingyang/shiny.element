@@ -110,7 +110,7 @@ el_checkbox_group <- function(
   vue_data$max <- if (is.null(max)) NA else max
   vue_data$fill <- .el_or_na(fill)
   vue_data$textColor <- .el_or_na(text_color)
-  .el_widget(
+  el_widget(
     id     = ns_id,
     markup = group_tag,
     data = vue_data,

@@ -98,7 +98,7 @@ el_rate <- function(
 
   rate_attrs[[":high-threshold"]] <- .el_optional_bind("highThreshold")
 
-  .el_widget(
+  el_widget(
     id     = ns_id,
     markup = htmltools::tag("el-rate", rate_attrs),
     data = list(

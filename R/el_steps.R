@@ -86,7 +86,7 @@ el_steps <- function(id = NULL,
   )  
   vue_data$space <- .el_or_na(space)
   # Create component UI  
-  .el_widget(
+  el_widget(
     id     = ns_id,
     markup = htmltools::tag("el-steps", c(steps_attrs, step_tags)),
     data   = vue_data,

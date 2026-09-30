@@ -68,7 +68,7 @@ el_alert <- function(
     effect      = effect
   )
   vue_data$description <- if (is.null(description)) NA else description
-  .el_widget(
+  el_widget(
     id     = ns_id,
     markup = htmltools::tag("el-alert", alert_attrs),
     data    = vue_data,

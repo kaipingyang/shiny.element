@@ -144,7 +144,7 @@ el_pagination <- function(
 
   vue_data$popperClass <- .el_or_na(popper_class)
 
-  .el_widget(
+  el_widget(
     id     = ns_id,
     markup = htmltools::tag("el-pagination", pagination_attrs),
     data    = vue_data,

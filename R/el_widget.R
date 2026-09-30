@@ -2,28 +2,59 @@
 #'
 #' Every control in this package has the same shape: a host `div` holding the
 #' Element markup, a Vue instance mounted on it, and the scripts that let
-#' `update_el_*()` and [el_call()] reach it. Writing that out per component
-#' meant repeating three things that are easy to get wrong and were each added
-#' to fix a bug:
+#' `update_el_*()` and [el_call()] reach it. This builds that shape, and is
+#' what the package's own components are made of.
+#'
+#' Reach for it to wrap an Element component this package does not cover, or
+#' to build one that behaves differently from the wrapper here. Calling
+#' [vueR::vue()] yourself works too -- nothing stops you -- but then three
+#' things are yours to remember, each of which is here because of a bug:
 #'
 #' * `display: contents` on the host, or every component starts its own line;
-#' * `width = 0, height = 0` on the widget, or it holds open a 960x500 box
-#'   until its script runs and the page jumps;
+#' * `width = 0, height = 0` on the widget, or it holds open a 960x500 empty
+#'   box until its script runs, and the page jumps when it does;
 #' * the `el` selector pointing at the host, which Vue compiles in place.
+#'
+#' The raw Element tags come from [el], and [template()] writes a slot.
 #'
 #' @param id The namespaced element id.
 #' @param markup The Element markup to mount on, usually one `htmltools::tag()`.
 #' @param data The Vue instance's data. Every field that `update_el_*()` may
 #'   set has to be declared here -- Vue does not track one that is not.
 #' @param methods,watch,mounted,computed Vue options, included when not `NULL`.
-#' @param dependency htmlDependency objects to attach.
+#' @param dependency htmlDependency objects to attach. Outside this package
+#'   pass [element_ui_dependency()], unless the page already loads it through
+#'   [el_page()] or [use_element()].
 #' @param head Tags to place before the host, such as a `<style>` block.
 #' @param width Component width, as a CSS unit. Applied to the Element markup
 #'   itself -- the host carries `display: contents` and generates no box, so a
 #'   width set on it would do nothing.
 #' @return A Shiny UI element with its dependencies attached.
-#' @keywords internal
-.el_widget <- function(id, markup, data, methods = NULL, watch = NULL,
+#' @examples
+#' # Wrapping el-avatar, which this package does not provide
+#' my_avatar <- function(id, src, size = 50) {
+#'   el_widget(
+#'     id     = id,
+#'     markup = el$avatar(":src" = "src", ":size" = "size"),
+#'     data   = list(src = src, size = size)
+#'   )
+#' }
+#' my_avatar("face", "https://example.org/face.png")
+#'
+#' # Reporting to Shiny works as it does inside the package: a method that
+#' # calls Shiny.setInputValue().
+#' el_widget(
+#'   id      = "score",
+#'   markup  = el$rate("v-model" = "value", "@change" = "handleChange"),
+#'   data    = list(value = 3),
+#'   methods = list(
+#'     handleChange = htmlwidgets::JS(
+#'       "function(v) { Shiny.setInputValue('score', v); }"
+#'     )
+#'   )
+#' )
+#' @export
+el_widget <- function(id, markup, data, methods = NULL, watch = NULL,
                        mounted = NULL, computed = NULL, dependency = NULL,
                        head = NULL, width = NULL) {
   container_id <- paste0(id, "_container")

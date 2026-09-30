@@ -196,7 +196,7 @@ el_select <- function(
   vue_data$remote <- .el_or_na(remote)
   vue_data$filterMethod <- .el_or_na(filter_method)
   vue_data$remoteMethod <- .el_or_na(remote_method)
-  .el_widget(
+  el_widget(
     id     = ns_id,
     markup = htmltools::tag("el-select", c(select_attrs, list(option_slot))),
     data    = vue_data,

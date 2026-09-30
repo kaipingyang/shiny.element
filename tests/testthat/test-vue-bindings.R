@@ -82,11 +82,13 @@ test_that("every template binding references a declared field", {
 
 # ── the shared widget constructor ─────────────────────────────────────────────
 
-test_that("no component assembles its own Vue instance", {
-  # .el_widget() carries three things each component used to repeat, all of
-  # them added to fix a bug: display:contents on the host, a zero-sized widget
-  # element, and the `el` selector. A component that goes around it silently
-  # loses whichever one it forgets.
+test_that("the package's own components go through el_widget()", {
+  # This is a rule for the package, not for its users: el_widget() is exported
+  # and vueR::vue() is not hidden, so an app or another package can assemble a
+  # Vue instance however it likes. What the rule protects is the three things
+  # el_widget() carries, each added to fix a bug -- display:contents on the
+  # host, a zero-sized widget element, and the `el` selector. A component here
+  # that went around it would silently lose whichever one it forgot.
   sources <- list.files("../../R", pattern = "^el_.*[.]R$", full.names = TRUE)
   sources <- setdiff(sources, grep("el_widget[.]R$", sources, value = TRUE))
 
@@ -97,11 +99,44 @@ test_that("no component assembles its own Vue instance", {
   expect_equal(basename(sources[offenders]), character(0))
 })
 
+test_that("el_widget() lets a user wrap a component the package does not cover", {
+  # el-avatar has no wrapper here. Building one should need nothing but
+  # exported functions -- and should not need the user to know about
+  # display:contents or the widget's size.
+  avatar <- el_widget(
+    id         = "face",
+    markup     = el$avatar(":src" = "src", ":size" = "size"),
+    data       = list(src = "a.png", size = 50),
+    dependency = element_ui_dependency()
+  )
+  html <- paste(as.character(htmltools::renderTags(avatar)$html), collapse = "")
+
+  expect_match(html, "<el-avatar")
+  expect_match(html, "display: contents", fixed = TRUE)
+  expect_match(html, "width:0px;height:0px", fixed = TRUE)
+  expect_equal(names(vue_data_of(avatar)), c("src", "size"))
+})
+
+test_that("a user's component can report to Shiny the same way", {
+  w <- el_widget(
+    id      = "score",
+    markup  = el$rate("v-model" = "value", "@change" = "onChange"),
+    data    = list(value = 3),
+    methods = list(onChange = htmlwidgets::JS(
+      "function(v) { Shiny.setInputValue('score', v); }"
+    )),
+    dependency = element_ui_dependency()
+  )
+  expect_equal(names(vue_payload_of(w)$methods), "onChange")
+  expect_true("onChange" %in% unlist(vue_payload_of(w)$evals) ||
+                grepl("setInputValue", vue_payload_of(w)$methods$onChange))
+})
+
 test_that("the widget element takes up no space", {
   # The widget element is only a carrier for the payload -- the Vue instance
   # renders into the host div beside it, which is display:contents. Left to
   # htmlwidgets' sizing policy it would be 960x500 of empty space, which is
-  # exactly the layout jump .el_widget() exists to prevent. A component's own
+  # exactly the layout jump el_widget() exists to prevent. A component's own
   # size comes from Element's props (el_table's height, el_slider's height),
   # which have nothing to do with this.
   exports <- getNamespaceExports("shiny.element")

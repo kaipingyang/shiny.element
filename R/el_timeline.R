@@ -78,7 +78,7 @@ el_timeline <- function(id = NULL,
     reverse = reverse
   )
 
-  .el_widget(
+  el_widget(
     id     = ns_id,
     markup = htmltools::tag("el-timeline", list(":reverse" = "reverse", item_tag)),
     data   = vue_data,

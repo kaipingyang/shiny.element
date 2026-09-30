@@ -60,7 +60,7 @@ el_tag <- function(
   )
   tag_attrs[[":size"]] <- .el_optional_bind("size")
   tag_attrs[[":color"]] <- .el_optional_bind("color")
-  .el_widget(
+  el_widget(
     id     = ns_id,
     markup = htmltools::tag("el-tag", c(tag_attrs, list("{{label}}"))),
     data = list(

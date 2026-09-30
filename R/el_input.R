@@ -184,7 +184,7 @@ el_input <- function(
   vue_data$resize <- .el_or_na(resize)
   vue_data$tabindex <- .el_or_na(tabindex)
   vue_data$validateEvent <- .el_or_na(validate_event)
-  .el_widget(
+  el_widget(
     id     = ns_id,
     markup = htmltools::tag("el-input", input_attrs),
     data    = vue_data,

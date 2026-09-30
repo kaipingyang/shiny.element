@@ -134,7 +134,7 @@ el_dropdown <- function(
   vue_data$showTimeout <- .el_or_na(show_timeout)
   vue_data$hideTimeout <- .el_or_na(hide_timeout)
   vue_data$tabindex <- .el_or_na(tabindex)
-  .el_widget(
+  el_widget(
     id     = ns_id,
     markup = htmltools::tag("el-dropdown", c(dd_attrs, list(trigger_content, menu_tag))),
     data   = vue_data,
