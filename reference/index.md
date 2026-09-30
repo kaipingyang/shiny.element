@@ -27,6 +27,14 @@ Page wrappers that load Vue, Element UI and the package’s own assets.
 Each reports to the server as `input$<id>`, on load as well as on
 change.
 
+- [`el_autocomplete()`](https://kaipingyang.github.io/shiny.element/reference/el_autocomplete.md)
+  : Element UI Autocomplete
+- [`update_el_autocomplete()`](https://kaipingyang.github.io/shiny.element/reference/update_el_autocomplete.md)
+  : Update Element UI Autocomplete
+- [`el_transfer()`](https://kaipingyang.github.io/shiny.element/reference/el_transfer.md)
+  : Element UI Transfer
+- [`update_el_transfer()`](https://kaipingyang.github.io/shiny.element/reference/update_el_transfer.md)
+  : Update Element UI Transfer
 - [`el_input()`](https://kaipingyang.github.io/shiny.element/reference/el_input.md)
   : Element UI Input with Vue Instance
 - [`el_input_number()`](https://kaipingyang.github.io/shiny.element/reference/el_input_number.md)
@@ -103,6 +111,26 @@ form reports once on submit.
 
 ## Display
 
+- [`el_avatar()`](https://kaipingyang.github.io/shiny.element/reference/el_avatar.md)
+  : Element UI Avatar
+- [`update_el_avatar()`](https://kaipingyang.github.io/shiny.element/reference/update_el_avatar.md)
+  : Update Element UI Avatar
+- [`el_image()`](https://kaipingyang.github.io/shiny.element/reference/el_image.md)
+  : Element UI Image
+- [`update_el_image()`](https://kaipingyang.github.io/shiny.element/reference/update_el_image.md)
+  : Update Element UI Image
+- [`el_tooltip()`](https://kaipingyang.github.io/shiny.element/reference/el_tooltip.md)
+  : Element UI Tooltip
+- [`update_el_tooltip()`](https://kaipingyang.github.io/shiny.element/reference/update_el_tooltip.md)
+  : Update Element UI Tooltip
+- [`el_popover()`](https://kaipingyang.github.io/shiny.element/reference/el_popover.md)
+  : Element UI Popover
+- [`update_el_popover()`](https://kaipingyang.github.io/shiny.element/reference/update_el_popover.md)
+  : Update Element UI Popover
+- [`el_popconfirm()`](https://kaipingyang.github.io/shiny.element/reference/el_popconfirm.md)
+  : Element UI Confirmation Bubble
+- [`update_el_popconfirm()`](https://kaipingyang.github.io/shiny.element/reference/update_el_popconfirm.md)
+  : Update Element UI Confirmation Bubble
 - [`el_button()`](https://kaipingyang.github.io/shiny.element/reference/el_button.md)
   : Element UI Button with Vue Instance
 - [`el_tag()`](https://kaipingyang.github.io/shiny.element/reference/el_tag.md)
@@ -190,6 +218,22 @@ hold other components from this package.
 
 ## Navigation
 
+- [`el_breadcrumb()`](https://kaipingyang.github.io/shiny.element/reference/el_breadcrumb.md)
+  : Element UI Breadcrumb
+- [`update_el_breadcrumb()`](https://kaipingyang.github.io/shiny.element/reference/update_el_breadcrumb.md)
+  : Update Element UI Breadcrumb
+- [`el_page_header()`](https://kaipingyang.github.io/shiny.element/reference/el_page_header.md)
+  : Element UI Page Header
+- [`update_el_page_header()`](https://kaipingyang.github.io/shiny.element/reference/update_el_page_header.md)
+  : Update Element UI Page Header
+- [`el_backtop()`](https://kaipingyang.github.io/shiny.element/reference/el_backtop.md)
+  : Element UI Back to Top
+- [`update_el_backtop()`](https://kaipingyang.github.io/shiny.element/reference/update_el_backtop.md)
+  : Update Element UI Back to Top
+- [`el_infinite_scroll()`](https://kaipingyang.github.io/shiny.element/reference/el_infinite_scroll.md)
+  : Element UI Infinite Scroll
+- [`update_el_infinite_scroll()`](https://kaipingyang.github.io/shiny.element/reference/update_el_infinite_scroll.md)
+  : Update Element UI Infinite Scroll
 - [`el_menu()`](https://kaipingyang.github.io/shiny.element/reference/el_menu.md)
   : Element UI Menu
 - [`el_tree()`](https://kaipingyang.github.io/shiny.element/reference/el_tree.md)
@@ -209,6 +253,12 @@ hold other components from this package.
 
 Called from the server; nothing to place in the UI.
 
+- [`el_message_box()`](https://kaipingyang.github.io/shiny.element/reference/el_message_box.md)
+  : Element UI Message Box
+- [`el_loading()`](https://kaipingyang.github.io/shiny.element/reference/el_loading.md)
+  : Element UI Loading Mask
+- [`el_loading_close()`](https://kaipingyang.github.io/shiny.element/reference/el_loading_close.md)
+  : Close a loading mask
 - [`el_notification()`](https://kaipingyang.github.io/shiny.element/reference/el_notification.md)
   : Show Element UI Notification
 - [`el_message()`](https://kaipingyang.github.io/shiny.element/reference/el_message.md)
@@ -232,8 +282,12 @@ update_el\_\*() cannot reach them.
 
 ## Escape hatches
 
-Raw tag generators and generic Vue updates, for anything the wrappers do
-not cover.
+For anything the wrappers do not cover: build your own component the way
+this package builds its own, write raw Element tags, or update a Vue
+instance directly.
+
+- [`el_widget()`](https://kaipingyang.github.io/shiny.element/reference/el_widget.md)
+  : Assemble a component: mount point, Vue instance, dependencies
 
 - [`el`](https://kaipingyang.github.io/shiny.element/reference/el.md) :
   Element UI Tags (auto-generated, pure tag generators)

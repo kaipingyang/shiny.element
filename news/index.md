@@ -6,7 +6,9 @@ First release.
 
 ### Components
 
-Wrappers for Element UI components, exposed as 94 functions:
+Every component Element UI 2.13.2 documents is wrapped – 74 of them,
+with each component’s documented attributes, events and methods
+reachable from R.
 
 - **Input** —
   [`el_input()`](https://kaipingyang.github.io/shiny.element/reference/el_input.md),
@@ -20,7 +22,9 @@ Wrappers for Element UI components, exposed as 94 functions:
   [`el_date_picker()`](https://kaipingyang.github.io/shiny.element/reference/el_date_picker.md),
   [`el_color_picker()`](https://kaipingyang.github.io/shiny.element/reference/el_color_picker.md),
   [`el_cascader()`](https://kaipingyang.github.io/shiny.element/reference/el_cascader.md),
-  [`el_upload()`](https://kaipingyang.github.io/shiny.element/reference/el_upload.md).
+  [`el_upload()`](https://kaipingyang.github.io/shiny.element/reference/el_upload.md),
+  [`el_autocomplete()`](https://kaipingyang.github.io/shiny.element/reference/el_autocomplete.md),
+  [`el_transfer()`](https://kaipingyang.github.io/shiny.element/reference/el_transfer.md).
 - **Display** —
   [`el_table()`](https://kaipingyang.github.io/shiny.element/reference/el_table.md),
   [`el_tag()`](https://kaipingyang.github.io/shiny.element/reference/el_tag.md),
@@ -34,13 +38,22 @@ Wrappers for Element UI components, exposed as 94 functions:
   [`el_carousel()`](https://kaipingyang.github.io/shiny.element/reference/el_carousel.md),
   [`el_icon()`](https://kaipingyang.github.io/shiny.element/reference/el_icon.md),
   [`el_link()`](https://kaipingyang.github.io/shiny.element/reference/el_link.md),
-  [`el_divider()`](https://kaipingyang.github.io/shiny.element/reference/el_divider.md).
+  [`el_divider()`](https://kaipingyang.github.io/shiny.element/reference/el_divider.md),
+  [`el_avatar()`](https://kaipingyang.github.io/shiny.element/reference/el_avatar.md),
+  [`el_image()`](https://kaipingyang.github.io/shiny.element/reference/el_image.md),
+  [`el_tooltip()`](https://kaipingyang.github.io/shiny.element/reference/el_tooltip.md),
+  [`el_popover()`](https://kaipingyang.github.io/shiny.element/reference/el_popover.md),
+  [`el_popconfirm()`](https://kaipingyang.github.io/shiny.element/reference/el_popconfirm.md).
 - **Navigation** —
   [`el_menu()`](https://kaipingyang.github.io/shiny.element/reference/el_menu.md),
   [`el_tabs()`](https://kaipingyang.github.io/shiny.element/reference/el_tabs.md),
   [`el_steps()`](https://kaipingyang.github.io/shiny.element/reference/el_steps.md),
   [`el_pagination()`](https://kaipingyang.github.io/shiny.element/reference/el_pagination.md),
-  [`el_dropdown()`](https://kaipingyang.github.io/shiny.element/reference/el_dropdown.md).
+  [`el_dropdown()`](https://kaipingyang.github.io/shiny.element/reference/el_dropdown.md),
+  [`el_breadcrumb()`](https://kaipingyang.github.io/shiny.element/reference/el_breadcrumb.md),
+  [`el_page_header()`](https://kaipingyang.github.io/shiny.element/reference/el_page_header.md),
+  [`el_backtop()`](https://kaipingyang.github.io/shiny.element/reference/el_backtop.md),
+  [`el_infinite_scroll()`](https://kaipingyang.github.io/shiny.element/reference/el_infinite_scroll.md).
 - **Containers** —
   [`el_collapse()`](https://kaipingyang.github.io/shiny.element/reference/el_collapse.md),
   [`el_dialog()`](https://kaipingyang.github.io/shiny.element/reference/el_dialog.md),
@@ -55,7 +68,10 @@ Wrappers for Element UI components, exposed as 94 functions:
   [`el_footer()`](https://kaipingyang.github.io/shiny.element/reference/el_footer.md).
 - **Feedback** —
   [`el_message()`](https://kaipingyang.github.io/shiny.element/reference/el_message.md),
-  [`el_notification()`](https://kaipingyang.github.io/shiny.element/reference/el_notification.md).
+  [`el_notification()`](https://kaipingyang.github.io/shiny.element/reference/el_notification.md),
+  [`el_message_box()`](https://kaipingyang.github.io/shiny.element/reference/el_message_box.md),
+  [`el_loading()`](https://kaipingyang.github.io/shiny.element/reference/el_loading.md),
+  [`el_loading_close()`](https://kaipingyang.github.io/shiny.element/reference/el_loading_close.md).
 - **Helpers** —
   [`el_page()`](https://kaipingyang.github.io/shiny.element/reference/el_page.md),
   [`use_element()`](https://kaipingyang.github.io/shiny.element/reference/use_element.md),
