@@ -736,3 +736,15 @@ test_that("two components in one wrapper both work", {
   expect_equal(grep("[Vue warn]", bconsole(), fixed = TRUE, value = TRUE),
                character(0))
 })
+
+test_that("confirming an el_popconfirm reaches the server", {
+  skip_if_no_browser()
+  # Element renamed this event between 2.13 and 2.15 (onConfirm -> confirm).
+  # Bound under the old name the prompt still opened and closed, and the
+  # answer never arrived -- nothing short of clicking it would show that.
+  bclick("#pc_container button", wait = 1)
+  bev("(function(){var b=document.querySelectorAll('.el-popconfirm .el-button');
+       b[b.length-1].click();})()")
+  Sys.sleep(2)
+  expect_match(bdump()[["events_seen"]], "pc_confirm")
+})

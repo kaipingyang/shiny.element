@@ -12,7 +12,7 @@ use_element(
   theme = el_layout_css_dependency(),
   offline = TRUE,
   dev = getOption("shiny.element.dev", FALSE),
-  locale = NULL
+  locale = getOption("shiny.element.locale", "en")
 )
 }
 \arguments{
@@ -25,7 +25,8 @@ rather than the unpkg CDN. See \code{\link[=element_ui_dependency]{element_ui_de
 Vue's warnings are not stripped. Defaults to
 \code{getOption("shiny.element.dev", FALSE)}.}
 
-\item{locale}{Language for Element UI's built-in text. See
+\item{locale}{Language for Element UI's built-in text. English by default,
+or \code{getOption("shiny.element.locale")} when set. See
 \code{\link[=el_locale_dependency]{el_locale_dependency()}}.}
 }
 \value{

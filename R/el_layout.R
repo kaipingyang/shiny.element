@@ -170,8 +170,9 @@ el_col <- function(..., span = 24, offset = NULL, push = NULL, pull = NULL,
 #' @param offline Serve Element UI from the copy bundled with this package
 #'   rather than the unpkg CDN. See [element_ui_dependency()].
 #' @param locale Language for Element UI's built-in text -- pagination
-#'   summaries, date-picker buttons and so on. `NULL` keeps its bundled
-#'   Simplified Chinese; `"en"` is also bundled. See [el_locale_dependency()].
+#'   summaries, date-picker buttons, select placeholders. English by default,
+#'   or `getOption("shiny.element.locale")` when set; `"zh-CN"` gives Element's
+#'   own Simplified Chinese. See [el_locales()] for the rest.
 #' @param dev Load the development build of Vue instead of `vue.min.js`.
 #'   The production build strips every warning, which is why a template that
 #'   fails to compile renders nothing and says nothing. Defaults to
@@ -202,7 +203,7 @@ el_page <- function(
   theme = bslib::bs_theme(version = 5, bootswatch = "minty"), 
   theme_css = el_layout_css_dependency(),
   offline = TRUE,
-  locale = NULL,
+  locale = getOption("shiny.element.locale", "en"),
   dev = getOption("shiny.element.dev", FALSE)
 ) {
   deps <- c(

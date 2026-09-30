@@ -14,6 +14,7 @@ el_image(
   preview_src_list = NULL,
   z_index = NULL,
   referrer_policy = NULL,
+  initial_index = NULL,
   width = NULL,
   slots = NULL,
   session = shiny::getDefaultReactiveDomain()
@@ -40,6 +41,9 @@ full-screen preview when the image is clicked.}
 \item{z_index}{Stacking order of the preview. Default \code{2000}.}
 
 \item{referrer_policy}{Value of the image's \code{referrerPolicy} attribute.}
+
+\item{initial_index}{Which image of \code{preview_src_list} the preview opens
+on, 0-based.}
 
 \item{width}{Component width, as a CSS unit.}
 

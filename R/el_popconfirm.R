@@ -77,9 +77,11 @@ el_popconfirm <- function(id = NULL,
     ":icon"                = .el_optional_bind("pcIcon"),
     ":icon-color"          = .el_optional_bind("pcIconColor"),
     ":hide-icon"           = .el_optional_bind("pcHideIcon"),
-    # Upstream emits these in camelCase, unlike every other Element event
-    "@onConfirm"           = "handleConfirm",
-    "@onCancel"            = "handleCancel"
+    # Element 2.13 emitted these as onConfirm and onCancel; 2.15 renamed them
+    # to confirm and cancel. Bound under the old names they are simply never
+    # heard, so the prompt still opens and closes but reports nothing.
+    "@confirm"             = "handleConfirm",
+    "@cancel"              = "handleCancel"
   )
 
 

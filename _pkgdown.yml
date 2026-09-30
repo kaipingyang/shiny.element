@@ -30,6 +30,7 @@ reference:
   - title: Getting started
     desc: Page wrappers that load Vue, Element UI and the package's own assets.
     contents:
+      - el_locales
       - el_page
       - use_element
       - element_ui_dependency
@@ -87,6 +88,14 @@ reference:
 
   - title: Display
     contents:
+      - el_descriptions
+      - update_el_descriptions
+      - el_statistic
+      - update_el_statistic
+      - el_empty
+      - update_el_empty
+      - el_result
+      - update_el_result
       - el_avatar
       - update_el_avatar
       - el_image
@@ -164,6 +173,8 @@ reference:
   - title: Feedback
     desc: Called from the server; nothing to place in the UI.
     contents:
+      - el_skeleton
+      - update_el_skeleton
       - el_message_box
       - el_loading
       - el_loading_close

@@ -31,6 +31,7 @@ el_date_picker(
   validate_event = NULL,
   width = NULL,
   slots = NULL,
+  append_to_body = NULL,
   session = shiny::getDefaultReactiveDomain()
 )
 }
@@ -92,7 +93,9 @@ range types. Default \code{"-"}.}
 
 \item{width}{Component width, as a CSS unit -- \code{"200px"}, \code{"50\%"}, or a}
 
-\item{slots}{Named list of Element slot contents, such as
+\item{slots}{Named list of Element slot contents, such as}
+
+\item{append_to_body}{Whether the picker panel is appended to \code{body}. Default \code{TRUE}; \code{FALSE} keeps it inside a dialog or a scrolling container.
 \code{list(title = shiny::tags$b("Bold"))}. A shiny.element component
 given here is absorbed rather than nested. For a scoped slot, write
 the template with \code{\link[=template]{template()}}.

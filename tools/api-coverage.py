@@ -4,8 +4,8 @@
 Needs the upstream sources, which are not in the repo (see .gitignore):
 
     mkdir -p .upstream && cd .upstream
-    curl -sL https://github.com/ElemeFE/element/archive/refs/tags/v2.13.2.tar.gz | tar xz
-    mv element-2.13.2 element
+    curl -sL https://github.com/ElemeFE/element/archive/refs/tags/v2.15.14.tar.gz | tar xz
+    mv element-2.15.14 element
 
 and a snapshot of what we render, written by tools/api-coverage.R:
 
@@ -51,8 +51,13 @@ def parse(path):
         if cur and ln.count("|") >= 2 and not re.match(r'^[\s:\-|]+$', ln):
             cells = [c.strip() for c in ln.strip().strip("|").split("|")]
             if not cells or not cells[0]: continue
-            # Header row, whatever the first column happens to be called
-            if len(cells) > 1 and cells[1].strip().lower() in ("description", "desc"): continue
+            # Header row: a header word in the first column and "Description"
+            # in the second. Checking the second alone dropped el-empty's
+            # `description` prop, whose own description is "description".
+            if (len(cells) > 1 and cells[1].strip().lower() in ("description", "desc")
+                    and re.match(r'^(attribute|attributes|name|event|method|slot|param|parameter|option)s?(\s+name)?$',
+                                 cells[0].strip("`*_ ").lower())):
+                continue
             name = cells[0].strip("`*_ ")
             # "value / v-model" documents one prop under two spellings
             name = name.split("/")[0].strip().strip("`*_ ")

@@ -5,14 +5,14 @@ test_that("element_ui_dependency: serves from the package by default", {
   # so the bundled copy is the default.
   dep <- element_ui_dependency()
   expect_equal(dep$name, "element-ui")
-  expect_equal(dep$version, "2.13.2")
+  expect_equal(dep$version, "2.15.14")
   expect_false(grepl("unpkg", paste(unlist(dep$src), collapse = " ")))
   expect_true(dir.exists(unname(dep$src[["file"]])))
 })
 
 test_that("element_ui_dependency: offline = FALSE falls back to the CDN", {
   dep <- element_ui_dependency(offline = FALSE)
-  expect_match(unname(dep$src[["href"]]), "^https://unpkg\\.com/element-ui@2\\.13\\.2/")
+  expect_match(unname(dep$src[["href"]]), "^https://unpkg\\.com/element-ui@2\\.15\\.14/")
 })
 
 test_that("element_ui_dependency: serves the whole directory", {
@@ -196,17 +196,41 @@ test_that("el_locale_dependency: the bundled locale file is really there", {
   expect_match(js, "ELEMENT.lang.en", fixed = TRUE)
 })
 
-test_that("el_locale_dependency: an unbundled locale fails with a usable message", {
-  expect_error(el_locale_dependency("fr"), "No bundled locale")
-  expect_error(el_locale_dependency("fr"), "element-ui")
+test_that("el_locale_dependency: an unknown locale fails naming the real ones", {
+  expect_error(el_locale_dependency("xx"), "No bundled locale")
+  expect_error(el_locale_dependency("xx"), "zh-TW")
+})
+
+test_that("every locale Element ships is bundled", {
+  expect_gte(length(el_locales()), 50)
+  expect_true(all(c("en", "fr", "ja", "zh-CN", "zh-TW") %in% el_locales()))
+  expect_type(el_locale_dependency("fr"), "list")
+})
+
+test_that("el_page speaks English unless told otherwise", {
+  # Element's own default is Simplified Chinese, which put the select
+  # placeholder of every example in this package's English docs in Chinese.
+  names_of <- function(tags) {
+    vapply(htmltools::findDependencies(tags), function(d) d$name, character(1))
+  }
+  expect_true("element-ui-locale-en" %in% names_of(el_page()))
+  expect_true("element-ui-locale-en" %in% names_of(use_element()))
+
+  # and the option switches it for a whole session
+  withr::with_options(list(shiny.element.locale = "zh-CN"), {
+    expect_false(any(grepl("locale", names_of(el_page()))))
+  })
+  withr::with_options(list(shiny.element.locale = "fr"), {
+    expect_true("element-ui-locale-fr" %in% names_of(el_page()))
+  })
 })
 
 test_that("el_page and use_element pass locale through", {
   names_of <- function(tags) {
     vapply(htmltools::findDependencies(tags), function(d) d$name, character(1))
   }
-  expect_false(any(grepl("locale", names_of(el_page()))))
-  expect_true("element-ui-locale-en" %in% names_of(el_page(locale = "en")))
+  expect_false(any(grepl("locale", names_of(el_page(locale = "zh-CN")))))
+  expect_true("element-ui-locale-ja" %in% names_of(el_page(locale = "ja")))
   expect_true("element-ui-locale-en" %in% names_of(use_element(locale = "en")))
 })
 

@@ -7,31 +7,41 @@ vignette: >
   %\VignetteEncoding{UTF-8}
 ---
 
+```{r setup, include = FALSE}
+source("shots.R")
+```
+
 Element's form components each report to `input$<id>` and are set from the
 server with `update_el_*()`. This covers the pieces that differ from what you
-would write with Shiny's own inputs.
+would write with Shiny's own inputs. Every example runs as it stands, and the
+picture under it was taken from that code.
 
 ## Choices
 
-Anything taking `choices` accepts the shapes Shiny does:
+Anything taking `choices` accepts the shapes Shiny does -- an unnamed vector,
+where value and label are the same; a named one, label = value; or a list of
+objects, which is how a single choice carries props of its own.
 
-```r
-el_select("city", choices = c("Beijing", "Shanghai"))            # value = label
-el_select("city", choices = c(Beijing = "bj", Shanghai = "sh"))  # named
-el_select("city", choices = list(
-  list(value = "bj", label = "Beijing", disabled = TRUE),
+```{r choices, eval = FALSE, shot = TRUE}
+el_select("plain", choices = c("Beijing", "Shanghai"), value = "Beijing")
+
+el_select("named", choices = c(Beijing = "bj", Shanghai = "sh"), value = "sh")
+
+el_select("objects", value = "sh", choices = list(
+  list(value = "bj", label = "Beijing (full)", disabled = TRUE),
   list(value = "sh", label = "Shanghai")
 ))
 ```
 
-The third shape is how a single choice carries its own props -- `disabled`,
-and for a checkbox or radio group also `border` and `name`, which Element
-documents on the individual item rather than the group.
+For a checkbox or radio group, Element documents `border`, `name` and
+`disabled` on the individual item rather than the group, so they go on the
+choice:
 
-```r
-el_checkbox_group("opts", choices = list(
+```{r item-props, eval = FALSE, shot = TRUE}
+el_checkbox_group("terms", selected = "a", choices = list(
   list(value = "a", label = "Agree", border = TRUE),
-  list(value = "b", label = "Unavailable", disabled = TRUE)
+  list(value = "b", label = "Subscribe", border = TRUE),
+  list(value = "c", label = "Unavailable", border = TRUE, disabled = TRUE)
 ))
 ```
 
@@ -42,120 +52,161 @@ components, because Element's validation only works inside one component tree:
 a form item finds its control through Vue's child chain and listens for events
 dispatched up it. A separate Vue instance dropped in is not in that chain.
 
-```r
-el_form(
-  id = "signup",
-  el_form_field("name", "input", label = "Name",
-                rules = el_rule(required = TRUE, message = "Name is required")),
-  el_form_field("age", "input-number", label = "Age", value = 18),
-  el_form_field("city", "select", label = "City",
-                options = c("Beijing", "Shanghai"),
-                rules = el_rule(required = TRUE, message = "Pick a city"))
+The form reports three inputs: `input$<id>` is the model as a list,
+`input$<id>_valid` whether validation passed, and `input$<id>_submit` a
+counter. Here the form was submitted empty:
+
+```{r validation, eval = FALSE, shot = TRUE, shot_js = "document.querySelector('#shot .el-button--primary').click()"}
+ui <- el_page(
+  el_form(
+    id = "signup", label_width = "90px",
+    el_form_field("name", "input", label = "Name",
+                  rules = el_rule(required = TRUE, message = "Name is required")),
+    el_form_field("age", "input-number", label = "Age", value = 18),
+    el_form_field("city", "select", label = "City",
+                  options = c("Beijing", "Shanghai"),
+                  rules = el_rule(required = TRUE, message = "Pick a city"))
+  ),
+  verbatimTextOutput("result")
 )
+
+server <- function(input, output, session) {
+  output$result <- renderPrint({
+    req(input$signup_submit)
+    list(valid = input$signup_valid, model = input$signup)
+  })
+}
+
+shinyApp(ui, server)
 ```
 
-The form reports three inputs: `input$signup` is the model as a list,
-`input$signup_valid` whether validation passed, and `input$signup_submit` a
-counter.
+Validation can be driven from the server as well. `validate()` returns a
+promise, which resolves when the form is valid and rejects when it is not;
+both arrive as `input$<id>_validate`:
 
-```r
-observeEvent(input$signup_submit, {
-  if (isTRUE(input$signup_valid)) {
-    save_record(input$signup)
-  }
-})
+```{r validate-call, eval = FALSE, shot = TRUE, shot_js = "document.querySelector('#check_container button').click()", shot_wait = 2}
+ui <- el_page(
+  el_form(
+    id = "profile", submit_label = NULL,
+    el_form_field("email", "input", label = "Email",
+                  rules = el_rule(required = TRUE, message = "Email is required"))
+  ),
+  el_button("check", "Check from the server"),
+  el_button("clear", "Clear messages"),
+  verbatimTextOutput("answer")
+)
+
+server <- function(input, output, session) {
+  observeEvent(input$check, el_call(session, "profile", "validate"))
+  observeEvent(input$clear, el_call(session, "profile", "clearValidate"))
+  output$answer <- renderPrint(input$profile_validate)
+}
+
+shinyApp(ui, server)
 ```
-
-Validation can also be driven from the server:
-
-```r
-el_call(session, "signup", "validate")        # answers as input$signup_validate
-el_call(session, "signup", "clearValidate")
-el_call(session, "signup", "resetFields")
-```
-
-`validate()` returns a promise, which resolves when the form is valid and
-rejects when it is not -- both arrive as `input$signup_validate`, `TRUE` or
-`FALSE`.
 
 ## Uploads
 
-`el_upload()` has two modes. By default it sends files through Shiny's own
-upload transport, so they land in `input$<id>` as a data.frame with the same
-columns `fileInput()` gives:
+`el_upload()` sends files through Shiny's own upload transport by default, so
+they arrive in `input$<id>` as the data.frame `fileInput()` gives: `name`,
+`size`, `type`, `datapath`.
 
-```r
-el_upload("docs", multiple = TRUE)
+```{r upload, eval = FALSE, shot = TRUE}
+ui <- el_page(
+  el_upload("docs", label = "Choose CSV files", multiple = TRUE, accept = ".csv",
+            tip = "CSV only, up to 5 MB"),
+  tableOutput("files")
+)
 
-observeEvent(input$docs, {
-  # name, size, type, datapath
-  readr::read_csv(input$docs$datapath[1])
-})
+server <- function(input, output, session) {
+  output$files <- renderTable(input$docs[, c("name", "size")])
+}
+
+shinyApp(ui, server)
 ```
 
-Pointing `action` somewhere else switches to Element's own transport, and the
-file never reaches R:
+`drag = TRUE` gives the drop zone instead of a button:
 
-```r
-el_upload("docs", action = "https://example.org/upload",
-          headers = list(Authorization = "Bearer ..."),
+```{r upload-drag, eval = FALSE, shot = TRUE}
+el_upload("photos", label = "Drop images here, or click to choose",
+          drag = TRUE, accept = "image/*")
+```
+
+Pointing `action` elsewhere switches to Element's own transport, and the file
+goes straight to that URL without reaching R. `extra_data` is Element's `data`
+prop, renamed so it is not confused with the file itself.
+
+```{r upload-direct, eval = FALSE, shot = TRUE}
+el_upload("archive", label = "Upload to the archive",
+          action = "https://example.org/upload",
+          headers = list(`X-Requested-With` = "shiny.element"),
           extra_data = list(folder = "reports"))
 ```
 
-`extra_data` is Element's `data` prop, renamed so it is not confused with the
-file itself.
-
 ## Autocomplete
 
-Suggestions filter in the browser when passed up front:
+Suggestions passed up front are filtered in the browser as the user types:
 
-```r
-el_autocomplete("city", suggestions = c("Beijing", "Shanghai", "Shenzhen"))
+```{r autocomplete, eval = FALSE, shot = TRUE, shot_js = "document.querySelector('#shot input').focus()", shot_sel = ".el-autocomplete-suggestion"}
+el_autocomplete("city", placeholder = "Where to?", width = 260,
+                suggestions = c("Beijing", "Shanghai", "Shenzhen", "Chengdu"))
 ```
 
-When the list is too large, or lives in a database, pass a JavaScript function
-that calls back:
+When the list lives on the server -- a database, an API -- update the
+suggestions from what has been typed:
 
-```r
-el_autocomplete("city", fetch_suggestions = htmlwidgets::JS(
-  "function(query, callback) {",
-  "  Shiny.setInputValue('city_query', query, {priority: 'event'});",
-  "  window._cityCallback = callback;",
-  "}"
-))
+```{r autocomplete-server, eval = FALSE, shot = TRUE, shot_js = "document.querySelector('#shot input').focus()", shot_sel = ".el-autocomplete-suggestion"}
+cities <- c("Beijing", "Baoding", "Baotou", "Shanghai", "Shenzhen", "Chengdu")
 
-# server
-observeEvent(input$city_query, {
-  session$sendCustomMessage("cities", lookup(input$city_query))
-})
+ui <- el_page(el_autocomplete("city", placeholder = "Type a city", width = 260))
+
+server <- function(input, output, session) {
+  observeEvent(input$city, {
+    typed <- tolower(input$city)
+    update_el_autocomplete(session, "city",
+      suggestions = cities[startsWith(tolower(cities), typed)])
+  }, ignoreNULL = FALSE)
+}
+
+shinyApp(ui, server)
 ```
-
-with a handler that hands the answer to the stored callback.
 
 ## Transfer
 
 `el_transfer()` takes a data.frame of `key` and `label`, and reports the keys
-on the right:
+on the right -- here driving which columns a table shows:
 
-```r
-el_transfer("cols",
-            data = data.frame(key = names(iris), label = names(iris)),
-            value = "Species",
-            titles = c("Available", "Chosen"),
-            filterable = TRUE)
+```{r transfer, eval = FALSE, shot = TRUE}
+ui <- el_page(
+  el_transfer("cols",
+              data = data.frame(key = names(iris), label = names(iris)),
+              value = c("Species", "Sepal.Length"),
+              titles = c("Available", "Shown"),
+              filterable = TRUE),
+  tableOutput("preview")
+)
 
-observeEvent(input$cols, {
-  chosen <- iris[, input$cols, drop = FALSE]
-})
+server <- function(input, output, session) {
+  output$preview <- renderTable(head(iris[, input$cols, drop = FALSE], 3))
+}
+
+shinyApp(ui, server)
 ```
 
 ## Sizing and layout
 
 Every component takes `width`, which behaves like the `width` of a Shiny
-input. For the form as a whole, `label_width` and `label_position` do what
-Element's do:
+input: `"200px"`, `"50%"`, or a number meaning pixels. For a form,
+`label_width` and `label_position` do what Element's do:
 
-```r
-el_form(id = "f", label_width = "120px", label_position = "left",
-        el_form_field("name", "input", label = "Name"))
+```{r layout, eval = FALSE, shot = TRUE}
+el_form(
+  id = "compact", label_width = "80px", label_position = "left",
+  submit_label = NULL,
+  el_form_field("name", "input", label = "Name"),
+  el_form_field("team", "select", label = "Team", options = c("Data", "Design"))
+)
+
+el_input("wide", placeholder = "width = '100%'", width = "100%")
+el_input("narrow", placeholder = "width = 160", width = 160)
 ```

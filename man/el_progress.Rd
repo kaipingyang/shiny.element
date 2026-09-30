@@ -16,6 +16,9 @@ el_progress(
   width = 126,
   stroke_linecap = NULL,
   slots = NULL,
+  define_back_color = NULL,
+  text_color = NULL,
+  format = NULL,
   session = shiny::getDefaultReactiveDomain()
 )
 }
@@ -45,7 +48,13 @@ Default \code{126}.}
 
 \item{stroke_linecap}{Shape of the bar's ends: \code{"round"} (default), \code{"butt"} or \code{"square"}.}
 
-\item{slots}{Named list of Element slot contents, such as
+\item{slots}{Named list of Element slot contents, such as}
+
+\item{define_back_color}{Background colour of the track.}
+
+\item{text_color}{Colour of the percentage text.}
+
+\item{format}{\code{htmlwidgets::JS()} function \verb{function(percentage)} returning the text shown.
 \code{list(title = shiny::tags$b("Bold"))}. A shiny.element component
 given here is absorbed rather than nested. For a scoped slot, write
 the template with \code{\link[=template]{template()}}.}

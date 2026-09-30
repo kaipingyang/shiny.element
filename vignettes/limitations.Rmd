@@ -7,8 +7,8 @@ vignette: >
   %\VignetteEncoding{UTF-8}
 ---
 
-Everything Element UI 2.13.2 documents is wrapped: 74 components, 506
-attributes, 94 events, 53 methods and 26 slots. What follows is the small
+Everything Element UI 2.15.14 documents is wrapped: 83 components, 552
+attributes, 94 events, 54 methods and 42 slots. What follows is the small
 print -- the places where this package behaves differently from Element in a
 browser, and why.
 

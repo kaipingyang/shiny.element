@@ -20,6 +20,9 @@
 #' @param session Shiny session for module support.
 #' @param stroke_linecap Shape of the bar's ends: `"round"` (default), `"butt"` or `"square"`.
 #' @param slots Named list of Element slot contents, such as
+#' @param define_back_color Background colour of the track.
+#' @param text_color Colour of the percentage text.
+#' @param format `htmlwidgets::JS()` function `function(percentage)` returning the text shown.
 #'   `list(title = shiny::tags$b("Bold"))`. A shiny.element component
 #'   given here is absorbed rather than nested. For a scoped slot, write
 #'   the template with [template()].
@@ -65,6 +68,9 @@ el_progress <- function(
     width        = 126,
     stroke_linecap = NULL,
     slots        = NULL,
+    define_back_color = NULL,
+    text_color   = NULL,
+    format       = NULL,
     session      = shiny::getDefaultReactiveDomain()
 ) {
   if (is.null(id)) id <- paste0("el_progress_", uuid::UUIDgenerate())
@@ -82,6 +88,9 @@ el_progress <- function(
   progress_attrs[[":status"]] <- .el_optional_bind("status")
   progress_attrs[[":color"]] <- "color"
   progress_attrs[[":stroke-linecap"]] <- .el_optional_bind("strokeLinecap")
+  progress_attrs[[":define-back-color"]] <- .el_optional_bind("defineBackColor")
+  progress_attrs[[":text-color"]] <- .el_optional_bind("textColor")
+  progress_attrs[[":format"]] <- .el_optional_bind("format")
   vue_data <- list(
     percentage  = percentage,
     type        = type,
@@ -96,6 +105,9 @@ el_progress <- function(
   # The empty string is its own default and means the same thing.
   vue_data$color <- if (is.null(color)) "" else color
   vue_data$strokeLinecap <- .el_or_na(stroke_linecap)
+  vue_data$defineBackColor <- .el_or_na(define_back_color)
+  vue_data$textColor <- .el_or_na(text_color)
+  vue_data$format <- .el_or_na(format)
   el_widget(
     id     = ns_id,
     markup = htmltools::tag("el-progress", progress_attrs),

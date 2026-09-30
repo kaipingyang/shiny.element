@@ -10,7 +10,8 @@
 #' @param dev Load the development build of Vue instead of `vue.min.js`, so
 #'   Vue's warnings are not stripped. Defaults to
 #'   `getOption("shiny.element.dev", FALSE)`.
-#' @param locale Language for Element UI's built-in text. See
+#' @param locale Language for Element UI's built-in text. English by default,
+#'   or `getOption("shiny.element.locale")` when set. See
 #'   [el_locale_dependency()].  
 #' @return A list of htmlDependency objects  
 #' @export  
@@ -24,7 +25,7 @@
 #' }  
 use_element <- function(theme = el_layout_css_dependency(), offline = TRUE,
                         dev = getOption("shiny.element.dev", FALSE),
-                        locale = NULL) {
+                        locale = getOption("shiny.element.locale", "en")) {
   deps <- c(
     list(
       vueR::html_dependency_vue(minified = !dev),
@@ -44,34 +45,43 @@ use_element <- function(theme = el_layout_css_dependency(), offline = TRUE,
 
 #' Element UI Locale Dependency
 #'
-#' Element UI's bundled build ships Simplified Chinese, and that is what every
-#' component's built-in text uses — a pagination control reads "共 200 条" and
-#' a date picker's buttons are "清空" and "确定". Loading a locale file and
-#' calling `ELEMENT.locale()` switches all of it.
+#' Element UI's own build defaults to Simplified Chinese for every
+#' component's built-in text -- a pagination control's total, a date picker's
+#' buttons, a select's placeholder, a table's empty message. Loading a locale
+#' file and calling `ELEMENT.locale()` switches all of it.
 #'
-#' @param locale Language to switch to. `NULL` (the default) keeps Element
-#'   UI's built-in Simplified Chinese. `"en"` is bundled with this package.
-#'   Any other value loads `locale/<locale>.js` from the package, which you
-#'   would have to add yourself.
+#' [el_page()] and [use_element()] ask for English unless told otherwise, so
+#' a page built from this package's English documentation reads in English.
+#' All 59 of Element's locales are bundled; `el_locales()` lists them.
+#'
+#' @param locale Language to switch to, such as `"en"`, `"fr"` or `"zh-TW"`.
+#'   `NULL` or `"zh-CN"` leaves Element's built-in Simplified Chinese.
 #' @return A list of htmlDependency objects, or `NULL` for the built-in locale.
 #' @export
 #' @examples
-#' # English built-in text
-#' el_page(locale = "en")
+#' el_locales()
+#'
+#' # English is the default
+#' el_page(el_select("city", choices = c("Beijing", "Shanghai")))
+#'
+#' # Anything Element ships
+#' el_page(locale = "ja", el_select("city", choices = c("Beijing", "Shanghai")))
+#'
+#' # Or set it for the whole session
+#' options(shiny.element.locale = "zh-CN")
 el_locale_dependency <- function(locale = NULL) {
   if (is.null(locale) || identical(locale, "zh-CN")) return(NULL)
 
   root <- system.file("element-ui", package = "shiny.element")
   if (!file.exists(file.path(root, "locale", paste0(locale, ".js")))) {
-    stop("No bundled locale '", locale, "'. Only 'en' ships with the package; ",
-         "add locale/", locale, ".js from element-ui to use another.",
-         call. = FALSE)
+    stop("No bundled locale '", locale, "'. Element ships these: ",
+         paste(el_locales(), collapse = ", "), ".", call. = FALSE)
   }
 
   list(
     htmltools::htmlDependency(
       name      = paste0("element-ui-locale-", locale),
-      version   = "2.13.2",
+      version   = "2.15.14",
       src       = root,
       script    = paste0("locale/", locale, ".js"),
       all_files = FALSE
@@ -81,7 +91,7 @@ el_locale_dependency <- function(locale = NULL) {
     # is a dependency of its own rather than part of either.
     htmltools::htmlDependency(
       name    = paste0("element-ui-locale-apply-", locale),
-      version = "2.13.2",
+      version = "2.15.14",
       src     = root,
       head    = sprintf(
         paste0("<script>if (window.ELEMENT && ELEMENT.locale && ELEMENT.lang && ",
@@ -129,12 +139,12 @@ element_ui_dependency <- function(offline = TRUE) {
   src <- if (offline) {
     system.file("element-ui", package = "shiny.element")
   } else {
-    c(href = "https://unpkg.com/element-ui@2.13.2/lib/")
+    c(href = "https://unpkg.com/element-ui@2.15.14/lib/")
   }
 
   htmltools::htmlDependency(
     name       = "element-ui",
-    version    = "2.13.2",
+    version    = "2.15.14",
     src        = src,
     script     = "index.js",
     stylesheet = "theme-chalk/index.css",
@@ -286,4 +296,17 @@ el_carousel_handler_dependency <- function() {
 #' @keywords internal
 el_timeline_handler_dependency <- function() {
   .el_handler_dependency("timeline")
+}
+
+
+#' Languages Element UI can use for its built-in text
+#'
+#' @return A character vector of locale codes, such as `"en"` and `"zh-TW"`,
+#'   any of which can be passed as `locale` to [el_page()].
+#' @export
+#' @examples
+#' el_locales()
+el_locales <- function() {
+  root <- system.file("element-ui", "locale", package = "shiny.element")
+  sort(sub("[.]js$", "", list.files(root, pattern = "[.]js$")))
 }

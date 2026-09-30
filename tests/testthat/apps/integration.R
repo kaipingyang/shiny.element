@@ -230,6 +230,9 @@ server <- function(input, output, session) {
   observeEvent(input$tree_node_expand, {
     seen_events$tree_node_expand <- "fired"
   })
+  observeEvent(input$pc_confirm, {
+    seen_events$pc_confirm <- "fired"
+  })
 
   # el_call(): a command, a query, and a promise-returning method
   observeEvent(input$call_clear, {

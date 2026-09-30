@@ -7,21 +7,32 @@
 el_locale_dependency(locale = NULL)
 }
 \arguments{
-\item{locale}{Language to switch to. \code{NULL} (the default) keeps Element
-UI's built-in Simplified Chinese. \code{"en"} is bundled with this package.
-Any other value loads \verb{locale/<locale>.js} from the package, which you
-would have to add yourself.}
+\item{locale}{Language to switch to, such as \code{"en"}, \code{"fr"} or \code{"zh-TW"}.
+\code{NULL} or \code{"zh-CN"} leaves Element's built-in Simplified Chinese.}
 }
 \value{
 A list of htmlDependency objects, or \code{NULL} for the built-in locale.
 }
 \description{
-Element UI's bundled build ships Simplified Chinese, and that is what every
-component's built-in text uses — a pagination control reads "共 200 条" and
-a date picker's buttons are "清空" and "确定". Loading a locale file and
-calling \code{ELEMENT.locale()} switches all of it.
+Element UI's own build defaults to Simplified Chinese for every
+component's built-in text -- a pagination control's total, a date picker's
+buttons, a select's placeholder, a table's empty message. Loading a locale
+file and calling \code{ELEMENT.locale()} switches all of it.
+}
+\details{
+\code{\link[=el_page]{el_page()}} and \code{\link[=use_element]{use_element()}} ask for English unless told otherwise, so
+a page built from this package's English documentation reads in English.
+All 59 of Element's locales are bundled; \code{el_locales()} lists them.
 }
 \examples{
-# English built-in text
-el_page(locale = "en")
+el_locales()
+
+# English is the default
+el_page(el_select("city", choices = c("Beijing", "Shanghai")))
+
+# Anything Element ships
+el_page(locale = "ja", el_select("city", choices = c("Beijing", "Shanghai")))
+
+# Or set it for the whole session
+options(shiny.element.locale = "zh-CN")
 }

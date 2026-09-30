@@ -23,7 +23,8 @@ checkbox, checkbox-group, switch, select, option, option-group, cascader, cascad
 slider, time-picker, time-select, date-picker, upload, rate, color-picker, transfer, autocomplete
 \item Data: table, table-column, tag, progress, tree, pagination, badge, avatar, calendar, card,
 carousel, carousel-item, collapse, collapse-item, timeline, timeline-item, divider, image,
-empty, skeleton, result, statistic, descriptions, descriptions-item
+empty, skeleton, skeleton-item, result, statistic, descriptions,
+descriptions-item
 \item Navigation: menu, submenu, menu-item, menu-item-group, tabs, tab-pane, breadcrumb,
 breadcrumb-item, dropdown, dropdown-menu, dropdown-item, steps, step, page-header,
 backtop, anchor, anchor-link

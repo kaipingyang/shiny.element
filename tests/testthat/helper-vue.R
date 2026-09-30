@@ -31,3 +31,16 @@ binds_attr <- function(ui, attr) {
   html <- paste(as.character(ui), collapse = "")
   grepl(paste0(":", attr, "=\""), html, fixed = TRUE)
 }
+
+# A stand-in session that records the last custom message sent through it
+mock_session <- function() {
+  env <- new.env()
+  list(
+    ns = function(id) id,
+    sendCustomMessage = function(type, msg) {
+      env$type <- type
+      env$msg  <- msg
+    },
+    captured = function() env
+  )
+}

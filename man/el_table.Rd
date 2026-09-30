@@ -43,6 +43,7 @@ el_table(
   load = NULL,
   width = NULL,
   slots = NULL,
+  highlight_selection_row = NULL,
   session = shiny::getDefaultReactiveDomain()
 )
 }
@@ -126,7 +127,9 @@ only what you control.}
 
 \item{width}{Component width, as a CSS unit. Replaces the table's default}
 
-\item{slots}{Named list of Element slot contents, such as
+\item{slots}{Named list of Element slot contents, such as}
+
+\item{highlight_selection_row}{Whether rows ticked with \code{selection = TRUE} are highlighted.
 \code{list(title = shiny::tags$b("Bold"))}. A shiny.element component
 given here is absorbed rather than nested. For a scoped slot, write
 the template with \code{\link[=template]{template()}}.

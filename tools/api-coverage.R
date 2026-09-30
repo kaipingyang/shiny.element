@@ -13,7 +13,17 @@ fixtures <- list(
   el_select         = list("sel", choices = c("A", "B")),
   el_form_field     = list(prop = "f", label = "F"),
   el_icon           = list("edit"),
-  el_pagination     = list("pg", total = 100)
+  el_pagination     = list("pg", total = 100),
+  # Per-item props only render once there is an item to carry them
+  el_descriptions   = list("d", items = list(
+    list(label = htmltools::tags$b("L"), content = "y"),
+    list(
+    label = "A", content = "x", span = 1, label_class_name = "a",
+    content_class_name = "b", label_style = list(color = "red"),
+    content_style = list(color = "red")))),
+  el_skeleton       = list("sk", slots = list(
+    template = htmltools::tag("template", list(slot = "template",
+      htmltools::tag("el-skeleton-item", list(variant = "text"))))))
 )
 
 # Server-side helpers and dependency getters render nothing
@@ -51,7 +61,10 @@ slot_names <- list(
   el_popover = "reference", el_select = c("prefix", "empty"),
   el_table = "append", el_timeline = "dot",
   el_transfer = c("left-footer", "right-footer"),
-  el_upload = c("tip", "trigger"), el_dropdown = "dropdown"
+  el_upload = c("tip", "trigger"), el_dropdown = "dropdown",
+  el_descriptions = c("title", "extra"), el_empty = c("image", "description"),
+  el_result = c("icon", "title", "subTitle", "extra"),
+  el_statistic = c("prefix", "suffix", "title", "formatter")
 )
 
 out <- list()
@@ -87,7 +100,9 @@ for (f in sort(ui_fns)) {
   dep_names <- vapply(deps, function(d) d$name, character(1))
 
   out[[f]] <- list(ok = TRUE, tags = attrs_of(html),
-                   slots = slots_of(html),
+                   slots = c(slots_of(html),
+                             # Content passed through ... is the default slot
+                             if ("..." %in% names(formals(f))) "default"),
                    invokable = "el-invoke" %in% dep_names,
                    params = setdiff(names(formals(f)), c("session", "id", "...")))
 }

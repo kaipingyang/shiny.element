@@ -14,6 +14,8 @@
 #' @param preview_src_list Character vector of image URLs to show in a
 #'   full-screen preview when the image is clicked.
 #' @param z_index Stacking order of the preview. Default `2000`.
+#' @param initial_index Which image of `preview_src_list` the preview opens
+#'   on, 0-based.
 #' @param referrer_policy Value of the image's `referrerPolicy` attribute.
 #' @param width Component width, as a CSS unit.
 #' @param session Shiny session for module support.
@@ -46,6 +48,7 @@ el_image <- function(id = NULL,
                      preview_src_list = NULL,
                      z_index = NULL,
                      referrer_policy = NULL,
+                     initial_index   = NULL,
                      width = NULL,
                      slots   = NULL,
                      session = shiny::getDefaultReactiveDomain()) {
@@ -60,7 +63,8 @@ el_image <- function(id = NULL,
     ":scroll-container" = .el_optional_bind("scrollContainer"),
     ":preview-src-list" = .el_optional_bind("previewSrcList"),
     ":z-index"          = .el_optional_bind("zIndex"),
-    ":referrer-policy"  = .el_optional_bind("referrerPolicy")
+    ":referrer-policy"  = .el_optional_bind("referrerPolicy"),
+    ":initial-index"    = .el_optional_bind("initialIndex")
   )
   events <- .el_event_bindings(ns_id, c("load", "error"))
   attrs <- c(attrs, events$attrs)
@@ -76,7 +80,8 @@ el_image <- function(id = NULL,
       scrollContainer = .el_or_na(scroll_container),
       previewSrcList  = if (is.null(preview_src_list)) NA else as.list(preview_src_list),
       zIndex          = .el_or_na(z_index),
-      referrerPolicy  = .el_or_na(referrer_policy)
+      referrerPolicy  = .el_or_na(referrer_policy),
+      initialIndex    = .el_or_na(initial_index)
     ),
     methods    = events$methods,
     width      = width,

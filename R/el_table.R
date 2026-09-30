@@ -171,6 +171,7 @@
 #' @param load `htmlwidgets::JS()` function loading child rows lazily. Needs `lazy = TRUE`.
 #' @param width Component width, as a CSS unit. Replaces the table's default
 #' @param slots Named list of Element slot contents, such as
+#' @param highlight_selection_row Whether rows ticked with `selection = TRUE` are highlighted.
 #'   `list(title = shiny::tags$b("Bold"))`. A shiny.element component
 #'   given here is absorbed rather than nested. For a scoped slot, write
 #'   the template with [template()].
@@ -272,6 +273,7 @@ el_table <- function(id = NULL,
                      load    = NULL,
                      width  = NULL,
                      slots   = NULL,
+                     highlight_selection_row = NULL,
                      session = shiny::getDefaultReactiveDomain()) {
   args <- .el_table_args(id, data, columns)
   id <- args$id
@@ -419,6 +421,8 @@ el_table <- function(id = NULL,
 
   table_attrs[[":load"]] <- .el_optional_bind("load")
 
+  table_attrs[[":highlight-selection-row"]] <- .el_optional_bind("highlightSelectionRow")
+
 
   table_content <- c(table_attrs, list(selection_col, data_col))
 
@@ -462,7 +466,8 @@ el_table <- function(id = NULL,
     headerCellStyle = .el_or_na(header_cell_style),
     spanMethod = .el_or_na(span_method),
     summaryMethod = .el_or_na(summary_method),
-    load = .el_or_na(load)
+    load = .el_or_na(load),
+    highlightSelectionRow = .el_or_na(highlight_selection_row)
     ),
     methods = c(events$methods, list(
       handleSelectionChange = htmlwidgets::JS(sprintf(
