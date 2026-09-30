@@ -14,6 +14,7 @@ el_color_picker(
   color_format = NULL,
   predefine = NULL,
   popper_class = NULL,
+  width = NULL,
   session = shiny::getDefaultReactiveDomain()
 )
 ```
@@ -52,6 +53,12 @@ el_color_picker(
 - popper_class:
 
   Extra class name for the dropdown panel.
+
+- width:
+
+  Component width, as a CSS unit – `"200px"`, `"50%"`, or a number taken
+  as pixels. Element's own markup carries it, so it behaves like the
+  `width` argument of a Shiny input.
 
 - session:
 

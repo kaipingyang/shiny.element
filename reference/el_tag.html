@@ -53,6 +53,7 @@ Shiny inputs.</p>
 <span>  color <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  hit <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  disable_transitions <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  width <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  session <span class="op">=</span> <span class="fu">shiny</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/domains.html" class="external-link">getDefaultReactiveDomain</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
@@ -97,6 +98,12 @@ Shiny inputs.</p>
 
 <dt id="arg-disable-transitions">disable_transitions<a class="anchor" aria-label="anchor" href="#arg-disable-transitions"></a></dt>
 <dd><p>Disable the zoom-in-center animation. Default <code>FALSE</code>.</p></dd>
+
+
+<dt id="arg-width">width<a class="anchor" aria-label="anchor" href="#arg-width"></a></dt>
+<dd><p>Component width, as a CSS unit – <code>"200px"</code>, <code>"50%"</code>, or a
+number taken as pixels. Element's own markup carries it, so it behaves
+like the <code>width</code> argument of a Shiny input.</p></dd>
 
 
 <dt id="arg-session">session<a class="anchor" aria-label="anchor" href="#arg-session"></a></dt>

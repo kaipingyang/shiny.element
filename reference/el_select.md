@@ -35,6 +35,7 @@ el_select(
   remote = NULL,
   filter_method = NULL,
   remote_method = NULL,
+  width = NULL,
   session = shiny::getDefaultReactiveDomain()
 )
 ```
@@ -159,6 +160,12 @@ el_select(
 
   [`htmlwidgets::JS()`](https://rdrr.io/pkg/htmlwidgets/man/JS.html)
   function fetching options from the server. Needs `remote = TRUE`.
+
+- width:
+
+  Component width, as a CSS unit – `"200px"`, `"50%"`, or a number taken
+  as pixels. Element's own markup carries it, so it behaves like the
+  `width` argument of a Shiny input.
 
 - session:
 

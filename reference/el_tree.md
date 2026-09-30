@@ -33,6 +33,7 @@ el_tree(
   render_content = NULL,
   allow_drag = NULL,
   allow_drop = NULL,
+  width = NULL,
   session = shiny::getDefaultReactiveDomain()
 )
 ```
@@ -148,6 +149,12 @@ el_tree(
 
   [`htmlwidgets::JS()`](https://rdrr.io/pkg/htmlwidgets/man/JS.html)
   function deciding whether a node may be dropped somewhere.
+
+- width:
+
+  Component width, as a CSS unit – `"200px"`, `"50%"`, or a number taken
+  as pixels. Element's own markup carries it, so it behaves like the
+  `width` argument of a Shiny input.
 
 - session:
 

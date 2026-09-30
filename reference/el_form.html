@@ -62,6 +62,7 @@ async-validator running them on blur or change.</p>
 <span>  hide_required_asterisk <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  label_suffix <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  validate_on_rule_change <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  width <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  session <span class="op">=</span> <span class="fu">shiny</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/domains.html" class="external-link">getDefaultReactiveDomain</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
@@ -129,6 +130,12 @@ case drive the form with <code><a href="el_form_validate.html">el_form_validate(
 
 <dt id="arg-validate-on-rule-change">validate_on_rule_change<a class="anchor" aria-label="anchor" href="#arg-validate-on-rule-change"></a></dt>
 <dd><p>Whether changing the rules triggers validation immediately.</p></dd>
+
+
+<dt id="arg-width">width<a class="anchor" aria-label="anchor" href="#arg-width"></a></dt>
+<dd><p>Component width, as a CSS unit – <code>"200px"</code>, <code>"50%"</code>, or a
+number taken as pixels. Element's own markup carries it, so it behaves
+like the <code>width</code> argument of a Shiny input.</p></dd>
 
 
 <dt id="arg-session">session<a class="anchor" aria-label="anchor" href="#arg-session"></a></dt>

@@ -74,6 +74,7 @@ icons, word-limit display, and autosize textarea.</p>
 <span>  resize <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  tabindex <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  validate_event <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  width <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  session <span class="op">=</span> <span class="fu">shiny</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/domains.html" class="external-link">getDefaultReactiveDomain</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
@@ -193,6 +194,12 @@ or a named list <code>list(minRows = 2, maxRows = 4)</code>. Default <code>FALSE
 
 <dt id="arg-validate-event">validate_event<a class="anchor" aria-label="anchor" href="#arg-validate-event"></a></dt>
 <dd><p>Whether a change triggers form validation. Default <code>TRUE</code>.</p></dd>
+
+
+<dt id="arg-width">width<a class="anchor" aria-label="anchor" href="#arg-width"></a></dt>
+<dd><p>Component width, as a CSS unit – <code>"200px"</code>, <code>"50%"</code>, or a
+number taken as pixels. Element's own markup carries it, so it behaves
+like the <code>width</code> argument of a Shiny input.</p></dd>
 
 
 <dt id="arg-session">session<a class="anchor" aria-label="anchor" href="#arg-session"></a></dt>

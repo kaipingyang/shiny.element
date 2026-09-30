@@ -20,6 +20,7 @@ el_button(
   icon = NULL,
   native_type = "button",
   autofocus = FALSE,
+  width = NULL,
   session = shiny::getDefaultReactiveDomain()
 )
 ```
@@ -81,6 +82,12 @@ el_button(
 - autofocus:
 
   Whether the button takes focus on page load. Default `FALSE`.
+
+- width:
+
+  Component width, as a CSS unit – `"200px"`, `"50%"`, or a number taken
+  as pixels. Element's own markup carries it, so it behaves like the
+  `width` argument of a Shiny input.
 
 - session:
 

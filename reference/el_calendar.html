@@ -45,6 +45,7 @@
 <span>  value <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  range <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  first_day_of_week <span class="op">=</span> <span class="fl">1</span>,</span>
+<span>  width <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  session <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/domains.html" class="external-link">getDefaultReactiveDomain</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
@@ -69,6 +70,11 @@
 <dd><p>First day of week (1~7), default 1</p></dd>
 
 
+<dt id="arg-width">width<a class="anchor" aria-label="anchor" href="#arg-width"></a></dt>
+<dd><p>Component width, as a CSS unit – <code>"200px"</code>, <code>"50%"</code>, or a
+number taken as pixels.</p></dd>
+
+
 <dt id="arg-session">session<a class="anchor" aria-label="anchor" href="#arg-session"></a></dt>
 <dd><p>Shiny session for module support</p></dd>
 
@@ -82,11 +88,11 @@
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># Basic usage</span></span></span>
 <span class="r-in"><span><span class="fu">el_calendar</span><span class="op">(</span>id <span class="op">=</span> <span class="st">"calendar1"</span>, value <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Sys.time.html" class="external-link">Sys.Date</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;style&gt;  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       .is-selected {  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>         color: #1989FA;  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>         font-weight: bold;  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       }  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;style&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       .is-selected {</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>         color: #1989FA;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>         font-weight: bold;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       }</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     &lt;/style&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> &lt;div id="calendar1_container" style="display: contents"&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   &lt;el-calendar v-model="value" :first-day-of-week="firstDayOfWeek" :range="range === null ? undefined : range"&gt;  </span>
@@ -103,11 +109,11 @@
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># With date range</span></span></span>
 <span class="r-in"><span><span class="fu">el_calendar</span><span class="op">(</span>id <span class="op">=</span> <span class="st">"calendar2"</span>, range <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"2025-01-01"</span>, <span class="st">"2025-01-31"</span><span class="op">)</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;style&gt;  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       .is-selected {  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>         color: #1989FA;  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>         font-weight: bold;  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       }  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;style&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       .is-selected {</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>         color: #1989FA;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>         font-weight: bold;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       }</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     &lt;/style&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> &lt;div id="calendar2_container" style="display: contents"&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   &lt;el-calendar v-model="value" :first-day-of-week="firstDayOfWeek" :range="range === null ? undefined : range"&gt;  </span>

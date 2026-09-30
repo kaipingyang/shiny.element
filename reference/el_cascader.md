@@ -24,6 +24,7 @@ el_cascader(
   popper_class = NULL,
   filter_method = NULL,
   before_filter = NULL,
+  width = NULL,
   session = getDefaultReactiveDomain()
 )
 ```
@@ -99,6 +100,12 @@ el_cascader(
 
   [`htmlwidgets::JS()`](https://rdrr.io/pkg/htmlwidgets/man/JS.html)
   function called before filtering; returning `false` cancels it.
+
+- width:
+
+  Component width, as a CSS unit – `"200px"`, `"50%"`, or a number taken
+  as pixels. Element's own markup carries it, so it behaves like the
+  `width` argument of a Shiny input.
 
 - session:
 

@@ -22,6 +22,7 @@ el_pagination(
   hide_on_single_page = NULL,
   page_count = NULL,
   popper_class = NULL,
+  width = NULL,
   session = shiny::getDefaultReactiveDomain()
 )
 ```
@@ -88,6 +89,12 @@ el_pagination(
 - popper_class:
 
   Extra class name for the page-size dropdown.
+
+- width:
+
+  Component width, as a CSS unit – `"200px"`, `"50%"`, or a number taken
+  as pixels. Element's own markup carries it, so it behaves like the
+  `width` argument of a Shiny input.
 
 - session:
 

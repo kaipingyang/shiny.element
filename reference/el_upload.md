@@ -31,6 +31,7 @@ el_upload(
   on_preview = NULL,
   on_remove = NULL,
   on_exceed = NULL,
+  width = NULL,
   session = shiny::getDefaultReactiveDomain()
 )
 ```
@@ -152,6 +153,12 @@ el_upload(
 
   [`htmlwidgets::JS()`](https://rdrr.io/pkg/htmlwidgets/man/JS.html)
   function called when more files are picked than `limit`.
+
+- width:
+
+  Component width, as a CSS unit – `"200px"`, `"50%"`, or a number taken
+  as pixels. Element's own markup carries it, so it behaves like the
+  `width` argument of a Shiny input.
 
 - session:
 

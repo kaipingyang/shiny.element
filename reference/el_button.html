@@ -56,6 +56,7 @@ button variants including <code>plain</code>, <code>round</code>, <code>circle</
 <span>  icon <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  native_type <span class="op">=</span> <span class="st">"button"</span>,</span>
 <span>  autofocus <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  width <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  session <span class="op">=</span> <span class="fu">shiny</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/domains.html" class="external-link">getDefaultReactiveDomain</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
@@ -116,6 +117,12 @@ which Element renders itself and <code><a href="update_el_button.html">update_el
 
 <dt id="arg-autofocus">autofocus<a class="anchor" aria-label="anchor" href="#arg-autofocus"></a></dt>
 <dd><p>Whether the button takes focus on page load. Default <code>FALSE</code>.</p></dd>
+
+
+<dt id="arg-width">width<a class="anchor" aria-label="anchor" href="#arg-width"></a></dt>
+<dd><p>Component width, as a CSS unit – <code>"200px"</code>, <code>"50%"</code>, or a
+number taken as pixels. Element's own markup carries it, so it behaves
+like the <code>width</code> argument of a Shiny input.</p></dd>
 
 
 <dt id="arg-session">session<a class="anchor" aria-label="anchor" href="#arg-session"></a></dt>

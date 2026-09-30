@@ -10,6 +10,7 @@ el_calendar(
   value = NULL,
   range = NULL,
   first_day_of_week = 1,
+  width = NULL,
   session = getDefaultReactiveDomain()
 )
 ```
@@ -32,6 +33,11 @@ el_calendar(
 
   First day of week (1~7), default 1
 
+- width:
+
+  Component width, as a CSS unit – `"200px"`, `"50%"`, or a number taken
+  as pixels.
+
 - session:
 
   Shiny session for module support
@@ -45,11 +51,11 @@ A Shiny UI element.
 ``` r
 # Basic usage
 el_calendar(id = "calendar1", value = Sys.Date())
-#> <style>  
-#>       .is-selected {  
-#>         color: #1989FA;  
-#>         font-weight: bold;  
-#>       }  
+#> <style>
+#>       .is-selected {
+#>         color: #1989FA;
+#>         font-weight: bold;
+#>       }
 #>     </style>
 #> <div id="calendar1_container" style="display: contents">
 #>   <el-calendar v-model="value" :first-day-of-week="firstDayOfWeek" :range="range === null ? undefined : range">  
@@ -66,11 +72,11 @@ el_calendar(id = "calendar1", value = Sys.Date())
 
 # With date range
 el_calendar(id = "calendar2", range = c("2025-01-01", "2025-01-31"))
-#> <style>  
-#>       .is-selected {  
-#>         color: #1989FA;  
-#>         font-weight: bold;  
-#>       }  
+#> <style>
+#>       .is-selected {
+#>         color: #1989FA;
+#>         font-weight: bold;
+#>       }
 #>     </style>
 #> <div id="calendar2_container" style="display: contents">
 #>   <el-calendar v-model="value" :first-day-of-week="firstDayOfWeek" :range="range === null ? undefined : range">  

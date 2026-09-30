@@ -16,6 +16,7 @@ el_radio_group(
   button = FALSE,
   fill = NULL,
   text_color = NULL,
+  width = NULL,
   session = shiny::getDefaultReactiveDomain()
 )
 ```
@@ -57,6 +58,12 @@ el_radio_group(
 - text_color:
 
   Text colour of a checked radio button.
+
+- width:
+
+  Component width, as a CSS unit – `"200px"`, `"50%"`, or a number taken
+  as pixels. Element's own markup carries it, so it behaves like the
+  `width` argument of a Shiny input.
 
 - session:
 

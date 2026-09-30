@@ -27,6 +27,7 @@ el_slider(
   show_input_controls = NULL,
   tooltip_class = NULL,
   format_tooltip = NULL,
+  width = NULL,
   session = shiny::getDefaultReactiveDomain()
 )
 ```
@@ -115,6 +116,12 @@ el_slider(
 
   [`htmlwidgets::JS()`](https://rdrr.io/pkg/htmlwidgets/man/JS.html)
   function formatting the value shown in the tooltip.
+
+- width:
+
+  Component width, as a CSS unit – `"200px"`, `"50%"`, or a number taken
+  as pixels. Element's own markup carries it, so it behaves like the
+  `width` argument of a Shiny input.
 
 - session:
 

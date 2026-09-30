@@ -15,6 +15,7 @@ el_steps(
   finish_status = "finish",
   align_center = FALSE,
   simple = FALSE,
+  width = NULL,
   session = getDefaultReactiveDomain()
 )
 ```
@@ -56,6 +57,12 @@ el_steps(
 - simple:
 
   Apply simple style
+
+- width:
+
+  Component width, as a CSS unit – `"200px"`, `"50%"`, or a number taken
+  as pixels. Element's own markup carries it, so it behaves like the
+  `width` argument of a Shiny input.
 
 - session:
 

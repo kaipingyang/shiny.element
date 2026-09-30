@@ -63,6 +63,7 @@ range modes, marks, vertical orientation, and optional numeric input box.</p>
 <span>  show_input_controls <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  tooltip_class <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  format_tooltip <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  width <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  session <span class="op">=</span> <span class="fu">shiny</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/domains.html" class="external-link">getDefaultReactiveDomain</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
@@ -150,6 +151,12 @@ Defaults to <code>"200px"</code> when <code>vertical = TRUE</code> and not expli
 
 <dt id="arg-format-tooltip">format_tooltip<a class="anchor" aria-label="anchor" href="#arg-format-tooltip"></a></dt>
 <dd><p><code><a href="https://rdrr.io/pkg/htmlwidgets/man/JS.html" class="external-link">htmlwidgets::JS()</a></code> function formatting the value shown in the tooltip.</p></dd>
+
+
+<dt id="arg-width">width<a class="anchor" aria-label="anchor" href="#arg-width"></a></dt>
+<dd><p>Component width, as a CSS unit – <code>"200px"</code>, <code>"50%"</code>, or a
+number taken as pixels. Element's own markup carries it, so it behaves
+like the <code>width</code> argument of a Shiny input.</p></dd>
 
 
 <dt id="arg-session">session<a class="anchor" aria-label="anchor" href="#arg-session"></a></dt>

@@ -16,6 +16,7 @@ el_alert(
   show_icon = FALSE,
   center = FALSE,
   effect = "light",
+  width = NULL,
   session = shiny::getDefaultReactiveDomain()
 )
 ```
@@ -58,6 +59,12 @@ el_alert(
 - effect:
 
   Visual effect: `"light"` (default) or `"dark"`.
+
+- width:
+
+  Component width, as a CSS unit – `"200px"`, `"50%"`, or a number taken
+  as pixels. Element's own markup carries it, so it behaves like the
+  `width` argument of a Shiny input.
 
 - session:
 

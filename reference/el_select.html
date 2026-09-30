@@ -74,6 +74,7 @@ Element UI select props.</p>
 <span>  remote <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  filter_method <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  remote_method <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  width <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  session <span class="op">=</span> <span class="fu">shiny</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/domains.html" class="external-link">getDefaultReactiveDomain</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
@@ -193,6 +194,12 @@ multiple selection. Defaults to <code>""</code> (single) or <code><a href="https
 
 <dt id="arg-remote-method">remote_method<a class="anchor" aria-label="anchor" href="#arg-remote-method"></a></dt>
 <dd><p><code><a href="https://rdrr.io/pkg/htmlwidgets/man/JS.html" class="external-link">htmlwidgets::JS()</a></code> function fetching options from the server. Needs <code>remote = TRUE</code>.</p></dd>
+
+
+<dt id="arg-width">width<a class="anchor" aria-label="anchor" href="#arg-width"></a></dt>
+<dd><p>Component width, as a CSS unit – <code>"200px"</code>, <code>"50%"</code>, or a
+number taken as pixels. Element's own markup carries it, so it behaves
+like the <code>width</code> argument of a Shiny input.</p></dd>
 
 
 <dt id="arg-session">session<a class="anchor" aria-label="anchor" href="#arg-session"></a></dt>

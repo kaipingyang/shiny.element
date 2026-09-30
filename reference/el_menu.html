@@ -57,6 +57,7 @@ depth.</p>
 <span>  menu_trigger <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  collapse_transition <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  router <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  width <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  session <span class="op">=</span> <span class="fu">shiny</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/domains.html" class="external-link">getDefaultReactiveDomain</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
@@ -111,6 +112,12 @@ submenu. An item with <code>group = TRUE</code> becomes a titled group of its
 
 <dt id="arg-router">router<a class="anchor" aria-label="anchor" href="#arg-router"></a></dt>
 <dd><p>Whether to use vue-router mode, taking each index as a path.</p></dd>
+
+
+<dt id="arg-width">width<a class="anchor" aria-label="anchor" href="#arg-width"></a></dt>
+<dd><p>Component width, as a CSS unit – <code>"200px"</code>, <code>"50%"</code>, or a
+number taken as pixels. Element's own markup carries it, so it behaves
+like the <code>width</code> argument of a Shiny input.</p></dd>
 
 
 <dt id="arg-session">session<a class="anchor" aria-label="anchor" href="#arg-session"></a></dt>

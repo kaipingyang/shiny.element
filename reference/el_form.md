@@ -23,6 +23,7 @@ el_form(
   hide_required_asterisk = NULL,
   label_suffix = NULL,
   validate_on_rule_change = NULL,
+  width = NULL,
   session = shiny::getDefaultReactiveDomain()
 )
 ```
@@ -91,6 +92,12 @@ el_form(
 - validate_on_rule_change:
 
   Whether changing the rules triggers validation immediately.
+
+- width:
+
+  Component width, as a CSS unit – `"200px"`, `"50%"`, or a number taken
+  as pixels. Element's own markup carries it, so it behaves like the
+  `width` argument of a Shiny input.
 
 - session:
 

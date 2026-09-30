@@ -25,6 +25,7 @@ el_rate(
   disabled_void_icon_class = NULL,
   low_threshold = NULL,
   high_threshold = NULL,
+  width = NULL,
   session = shiny::getDefaultReactiveDomain()
 )
 ```
@@ -107,6 +108,12 @@ el_rate(
 - high_threshold:
 
   Scores above this use the third colour and icon. Default `4`.
+
+- width:
+
+  Component width, as a CSS unit – `"200px"`, `"50%"`, or a number taken
+  as pixels. Element's own markup carries it, so it behaves like the
+  `width` argument of a Shiny input.
 
 - session:
 

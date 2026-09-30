@@ -42,6 +42,7 @@ el_table(
   span_method = NULL,
   summary_method = NULL,
   load = NULL,
+  width = NULL,
   session = shiny::getDefaultReactiveDomain()
 )
 ```
@@ -200,6 +201,11 @@ el_table(
 
   [`htmlwidgets::JS()`](https://rdrr.io/pkg/htmlwidgets/man/JS.html)
   function loading child rows lazily. Needs `lazy = TRUE`.
+
+- width:
+
+  Component width, as a CSS unit. Replaces the table's default
+  `width: 100%`. For a fixed header use `height` instead.
 
 - session:
 

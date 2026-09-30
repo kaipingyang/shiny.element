@@ -35,6 +35,7 @@ el_input(
   resize = NULL,
   tabindex = NULL,
   validate_event = NULL,
+  width = NULL,
   session = shiny::getDefaultReactiveDomain()
 )
 ```
@@ -154,6 +155,12 @@ el_input(
 - validate_event:
 
   Whether a change triggers form validation. Default `TRUE`.
+
+- width:
+
+  Component width, as a CSS unit – `"200px"`, `"50%"`, or a number taken
+  as pixels. Element's own markup carries it, so it behaves like the
+  `width` argument of a Shiny input.
 
 - session:
 

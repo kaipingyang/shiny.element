@@ -18,6 +18,7 @@ el_carousel(
   type = NULL,
   loop = TRUE,
   direction = "horizontal",
+  width = NULL,
   session = shiny::getDefaultReactiveDomain()
 )
 ```
@@ -77,6 +78,12 @@ el_carousel(
 - direction:
 
   `"horizontal"` (default) or `"vertical"`.
+
+- width:
+
+  Component width, as a CSS unit – `"200px"`, `"50%"`, or a number taken
+  as pixels. Element's own markup carries it, so it behaves like the
+  `width` argument of a Shiny input.
 
 - session:
 

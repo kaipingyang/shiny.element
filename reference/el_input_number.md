@@ -20,6 +20,7 @@ el_input_number(
   placeholder = NULL,
   label = NULL,
   name = NULL,
+  width = NULL,
   session = shiny::getDefaultReactiveDomain()
 )
 ```
@@ -82,6 +83,12 @@ el_input_number(
 - name:
 
   Native `name` attribute of the inner input.
+
+- width:
+
+  Component width, as a CSS unit – `"200px"`, `"50%"`, or a number taken
+  as pixels. Element's own markup carries it, so it behaves like the
+  `width` argument of a Shiny input.
 
 - session:
 
