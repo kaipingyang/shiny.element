@@ -50,10 +50,10 @@ Called for its side effect; returns `NULL` invisibly.
 A method that returns something reports it as `input$<id>_<method>`,
 with the method name in snake_case, matching how events are reported:
 `getCheckedKeys` arrives as `input$<id>_get_checked_keys`. The input is
-set with event priority, so Shiny resets it to `NULL` after each flush –
-read it in an
-[`observeEvent()`](https://rdrr.io/pkg/shiny/man/observeEvent.html)
-rather than polling it.
+set with event priority, so asking twice and getting the same answer
+still fires an
+[`observeEvent()`](https://rdrr.io/pkg/shiny/man/observeEvent.html) the
+second time.
 
 A method that returns nothing reports `TRUE`, so an
 [`observeEvent()`](https://rdrr.io/pkg/shiny/man/observeEvent.html) can

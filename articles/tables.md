@@ -1,35 +1,45 @@
 # Tables
 
 [`el_table()`](https://kaipingyang.github.io/shiny.element/reference/el_table.md)
-is the largest component here, and the one whose Element API is worth
-knowing. It takes a data.frame directly.
+is the largest component here, and the one whose Element API is most
+worth knowing. It takes a data.frame directly.
 
 ``` r
 
-el_table("iris", data = head(iris, 10))
+el_table("cars", data = head(mtcars[, 1:6], 5))
 ```
 
-Column names with a dot are sanitised on the way in – `Sepal.Length`
-becomes `Sepal_Length` – because Element reads a dotted `prop` as a path
-into a nested object.
+![](../shots/tables-basic.png)
+
+Row names that name something – `mtcars`’ car names – are kept as a
+first column, while row numbers are left out; `rownames = TRUE` or
+`FALSE` decides it yourself. Column names with a dot are sanitised on
+the way in – `Sepal.Length` becomes `Sepal_Length` – because Element
+reads a dotted `prop` as a path into a nested object.
 
 ## Columns
 
 Without `columns`, one is inferred per data.frame column. Passing them
-lets each carry its own props, which is how Element models them:
+lets each carry its own props, which is how Element models them. Names
+may be written in snake_case or in Element’s own camelCase:
 
 ``` r
 
-el_table("iris",
-  data = head(iris, 10),
+el_table("flowers",
+  data = head(iris, 6),
+  border = TRUE,
   columns = list(
-    list(prop = "Species", label = "Species", width = "120", fixed = "left"),
-    list(prop = "Sepal_Length", label = "Length", sortable = TRUE,
+    list(prop = "Species", label = "Species", width = "110", fixed = "left"),
+    list(prop = "Sepal_Length", label = "Sepal length", sortable = TRUE,
          align = "right"),
-    list(prop = "Petal_Width", label = "Width", sortable = TRUE,
-         show_overflow_tooltip = TRUE)
+    list(prop = "Sepal_Width", label = "Sepal width", sortable = TRUE,
+         align = "right"),
+    list(prop = "Petal_Length", label = "Petal length", align = "right",
+         header_align = "center")
   ))
 ```
+
+![](../shots/tables-columns.png)
 
 Every column attribute Element documents is accepted: `align`,
 `header_align`, `class_name`, `min_width`, `fixed`, `resizable`,
@@ -38,80 +48,111 @@ Every column attribute Element documents is accepted: `align`,
 `reserve_selection`, `index`, and the ones taking a function below.
 
 [`el_table_config()`](https://kaipingyang.github.io/shiny.element/reference/el_table_config.md)
-derives both halves from a data.frame when you want to adjust them:
+derives both halves from a data.frame, for when you want to adjust the
+inferred columns rather than write them out:
 
 ``` r
 
-cfg <- el_table_config(iris, max_rows = 20)
-cfg$columns[[1]]$sortable <- TRUE
-el_table("iris", data = cfg$data, columns = cfg$columns)
+cfg <- el_table_config(mtcars[, 1:5], max_rows = 4)
+cfg$columns <- lapply(cfg$columns, function(col) {
+  col$sortable <- TRUE
+  col
+})
+el_table("cfg", data = cfg$data, columns = cfg$columns, stripe = TRUE)
 ```
 
-## Formatting a cell
+![](../shots/tables-config.png)
 
-`formatter` is a JavaScript function, given the row, the column, the
-cell value and its index:
+## Formatting
+
+A column’s `formatter` is a JavaScript function, given the row, the
+column, the cell value and its index. A column may also render its own
+header:
 
 ``` r
 
-el_table("sales",
-  data = sales,
-  columns = list(
-    list(prop = "amount", label = "Amount", formatter = htmlwidgets::JS(
-      "function(row, col, value) { return '$' + value.toFixed(2); }"
-    ))
-  ))
+sales <- data.frame(region = c("North", "South", "East"),
+                    amount = c(1234.5, 987.25, 2050))
+
+el_table("sales", data = sales, columns = list(
+  list(prop = "region", label = "Region"),
+  list(prop = "amount", label = "Amount", align = "right",
+       header_html = "<b>Amount</b> <small>(USD)</small>",
+       formatter = htmlwidgets::JS(
+         "function(row, col, value) { return '$' + value.toFixed(2); }"
+       ))
+))
 ```
 
-Formatting in R first is usually simpler, and avoids sending the raw
-number at all. Reach for `formatter` when the display depends on
-something only the browser knows, such as the viewport.
+![](../shots/tables-formatter.png)
 
-A column can also render its own header:
-
-``` r
-
-list(prop = "amount", label = "Amount", header_html = "<b>Amount</b> (USD)")
-```
-
-which is inserted as markup, so pass only what you control.
+`header_html` is inserted as markup, so pass only what you control.
+Formatting in R first is usually simpler; reach for `formatter` when the
+display depends on something only the browser knows.
 
 ## Selection
 
 `selection = TRUE` adds a checkbox column and reports two inputs:
+`input$<id>_selected_rows`, the 1-based row numbers, and
+`input$<id>_selected`, the rows themselves. Prefer the row numbers: a
+row with mixed column types is simplified to a character vector on its
+way back through JSON, so numbers arrive as strings.
 
 ``` r
 
-el_table("iris", data = head(iris, 10), selection = TRUE)
+cars <- head(mtcars[, 1:4], 5)
 
-observeEvent(input$iris_selected_rows, {
-  chosen <- head(iris, 10)[input$iris_selected_rows, ]
-})
+ui <- el_page(
+  el_table("cars", data = cars, selection = TRUE,
+           highlight_selection_row = TRUE),
+  verbatimTextOutput("picked")
+)
+
+server <- function(input, output, session) {
+  output$picked <- renderPrint(cars[input$cars_selected_rows, ])
+}
+
+shinyApp(ui, server)
 ```
 
-Use `input$<id>_selected_rows`, the 1-based row numbers, rather than
-`input$<id>_selected`, the row objects: a row with mixed column types is
-simplified to a character vector on the way back through JSON, so
-numbers arrive as strings.
+![](../shots/tables-selection.png)
 
-For single selection, `highlight_current_row = TRUE` with
-`input$<id>_current_change`.
+For single selection, `highlight_current_row = TRUE` reports the clicked
+row as `input$<id>_current_change`.
 
 ## Row events
 
-Every Element table event is forwarded. The useful ones:
+Every Element table event is forwarded as `input$<id>_<event>`. They are
+event inputs, so read them with
+[`observeEvent()`](https://rdrr.io/pkg/shiny/man/observeEvent.html):
 
 ``` r
 
-observeEvent(input$iris_row_click, { ... })       # row, column
-observeEvent(input$iris_sort_change, { ... })     # column, prop, order
-observeEvent(input$iris_filter_change, { ... })
-observeEvent(input$iris_current_change, { ... })  # needs highlight_current_row
+ui <- el_page(
+  el_table("flowers", data = head(iris, 4), highlight_current_row = TRUE),
+  verbatimTextOutput("clicked")
+)
+
+server <- function(input, output, session) {
+  clicked <- reactiveVal("Click a row")
+  observeEvent(input$flowers_row_click, {
+    click <- input$flowers_row_click
+    clicked(sprintf("Row %d: %s, sepal %s cm", click$row_index,
+                    click$row$Species, click$row$Sepal_Length))
+  })
+  output$clicked <- renderText(clicked())
+}
+
+shinyApp(ui, server)
 ```
 
-They are event inputs, so read them with
-[`observeEvent()`](https://rdrr.io/pkg/shiny/man/observeEvent.html)
-rather than polling.
+![](../shots/tables-events.png)
+
+Each arrives as a named list rather than Element’s raw arguments. A row
+event carries `row_index` – 1-based, to index your own data with – the
+`row`, and the `column` prop; a cell event adds the cell’s `value`;
+`sort_change` gives `column` and `order`; `current_change` gives
+`row_index` and `previous_index`.
 
 ## A fixed header
 
@@ -120,45 +161,69 @@ same once the content exceeds it:
 
 ``` r
 
-el_table("iris", data = iris, height = "400px")
+el_table("all", data = iris, height = "240px", stripe = TRUE)
 ```
 
-Without one of them the table grows to fit and the page scrolls instead.
+![](../shots/tables-height.png)
 
-## Updating
+## Summaries
+
+`show_summary` adds a row of column totals. `sum_text` labels it, and
+`summary_method` replaces the arithmetic:
 
 ``` r
 
-update_el_table(session, "iris", data = filtered())
-update_el_table(session, "iris", columns = new_columns)
+el_table("sums", data = head(mtcars[, c("mpg", "hp", "wt")], 5),
+         show_summary = TRUE, sum_text = "Total", border = TRUE)
 ```
 
-Methods need
-[`el_call()`](https://kaipingyang.github.io/shiny.element/reference/el_call.md):
+![](../shots/tables-summary.png)
+
+## Methods
+
+[`update_el_table()`](https://kaipingyang.github.io/shiny.element/reference/update_el_table.md)
+changes data and settings; methods need
+[`el_call()`](https://kaipingyang.github.io/shiny.element/reference/el_call.md).
+`doLayout()` is the one to remember: a table rendered inside a tab or a
+collapse that starts hidden measures its columns as zero, and stays that
+way until told to measure again.
 
 ``` r
 
-el_call(session, "iris", "clearSelection")
-el_call(session, "iris", "toggleRowSelection", args = list(row, TRUE))
-el_call(session, "iris", "clearSort")
-el_call(session, "iris", "doLayout")     # after the table becomes visible
+ui <- el_page(
+  el_tabs("views", selected = "about", tabs = list(
+    list(name = "about", label = "About", content = tags$p("Open the Data tab.")),
+    list(name = "data", label = "Data",
+         content = el_table("hidden", data = head(iris, 4)))
+  ))
+)
+
+server <- function(input, output, session) {
+  observeEvent(input$views, {
+    if (identical(input$views, "data")) el_call(session, "hidden", "doLayout")
+  })
+}
+
+shinyApp(ui, server)
 ```
 
-`doLayout()` is the one to remember: a table rendered inside a hidden
-tab or collapse measures its columns as zero, and stays that way until
-told to measure again.
+![](../shots/tables-methods.png)
 
 ## Server-side paging
 
 There is no `server = TRUE` as in DT. Pair the table with
 [`el_pagination()`](https://kaipingyang.github.io/shiny.element/reference/el_pagination.md)
-and send a page at a time:
+and send one page at a time:
 
 ``` r
 
+page_size <- 5
+page_of <- function(n) iris[(n - 1) * page_size + seq_len(page_size), ]
+
 ui <- el_page(
   el_table("rows", data = page_of(1)),
-  el_pagination("pager", total = nrow(big_data), page_size = 20)
+  el_pagination("pager", total = nrow(iris), page_size = page_size,
+                layout = "total, prev, pager, next")
 )
 
 server <- function(input, output, session) {
@@ -166,19 +231,32 @@ server <- function(input, output, session) {
     update_el_table(session, "rows", data = page_of(input$pager))
   })
 }
+
+shinyApp(ui, server)
 ```
+
+![](../shots/tables-paging.png)
 
 ## Tree data
 
-Rows can nest, keyed by `row_key`:
+Rows can nest, keyed by `row_key`. Each row may carry a `children` list:
 
 ``` r
 
-el_table("org",
-  data = org_rows,            # each row may carry a `children` list
-  row_key = "id",
-  tree_props = list(children = "children", hasChildren = "hasChildren"))
+org <- list(
+  list(id = 1, name = "Engineering", size = 42, children = list(
+    list(id = 11, name = "Platform", size = 18),
+    list(id = 12, name = "Product", size = 24)
+  )),
+  list(id = 2, name = "Design", size = 9)
+)
+
+el_table("org", data = org, row_key = "id", default_expand_all = TRUE,
+         columns = list(list(prop = "name", label = "Team"),
+                        list(prop = "size", label = "People")))
 ```
 
-With `lazy = TRUE` and a `load` function, children are fetched as they
-are expanded.
+![](../shots/tables-tree.png)
+
+With `lazy = TRUE` and a `load` function, children are fetched as their
+parent is expanded.

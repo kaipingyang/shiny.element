@@ -77,118 +77,175 @@ blocks on its own – what happens next is your app’s decision.</p>
 <h2 id="menus">Menus<a class="anchor" aria-label="anchor" href="#menus"></a>
 </h2>
 <p><code><a href="../reference/el_menu.html">el_menu()</a></code> takes a nested list. Each item’s
-<code>index</code> is what it reports.</p>
+<code>index</code> is what it reports, and
+<code>input$&lt;id&gt;_path</code> gives the trail to it:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/el_menu.html">el_menu</a></span><span class="op">(</span><span class="st">"nav"</span>,</span>
-<span>  mode <span class="op">=</span> <span class="st">"horizontal"</span>,</span>
-<span>  default_active <span class="op">=</span> <span class="st">"reports"</span>,</span>
-<span>  items <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<code class="sourceCode R"><span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/el_page.html">el_page</a></span><span class="op">(</span></span>
+<span>  <span class="fu"><a href="../reference/el_menu.html">el_menu</a></span><span class="op">(</span><span class="st">"nav"</span>, mode <span class="op">=</span> <span class="st">"horizontal"</span>, active <span class="op">=</span> <span class="st">"reports"</span>, items <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
 <span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>index <span class="op">=</span> <span class="st">"home"</span>, title <span class="op">=</span> <span class="st">"Home"</span>, icon <span class="op">=</span> <span class="st">"el-icon-s-home"</span><span class="op">)</span>,</span>
 <span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>index <span class="op">=</span> <span class="st">"reports"</span>, title <span class="op">=</span> <span class="st">"Reports"</span>, children <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
 <span>      <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>index <span class="op">=</span> <span class="st">"monthly"</span>, title <span class="op">=</span> <span class="st">"Monthly"</span><span class="op">)</span>,</span>
-<span>      <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>index <span class="op">=</span> <span class="st">"annual"</span>,  title <span class="op">=</span> <span class="st">"Annual"</span><span class="op">)</span></span>
+<span>      <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>index <span class="op">=</span> <span class="st">"annual"</span>, title <span class="op">=</span> <span class="st">"Annual"</span><span class="op">)</span></span>
 <span>    <span class="op">)</span><span class="op">)</span>,</span>
 <span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>index <span class="op">=</span> <span class="st">"settings"</span>, title <span class="op">=</span> <span class="st">"Settings"</span>, disabled <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
-<span>  <span class="op">)</span><span class="op">)</span></span>
+<span>  <span class="op">)</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/textOutput.html" class="external-link">verbatimTextOutput</a></span><span class="op">(</span><span class="st">"where"</span><span class="op">)</span></span>
+<span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/observeEvent.html" class="external-link">observeEvent</a></span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">nav</span>, <span class="op">{</span></span>
-<span>  <span class="co"># "monthly" when that sub-item is picked</span></span>
-<span><span class="op">}</span><span class="op">)</span></span></code></pre></div>
-<p><code>input$nav_path</code> gives the trail to the item, for a
-sub-item that needs its parent for context.</p>
+<span><span class="va">server</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span>, <span class="va">session</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="va">output</span><span class="op">$</span><span class="va">where</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/renderPrint.html" class="external-link">renderPrint</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>index <span class="op">=</span> <span class="va">input</span><span class="op">$</span><span class="va">nav</span>, path <span class="op">=</span> <span class="va">input</span><span class="op">$</span><span class="va">nav_path</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="op">}</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/shinyApp.html" class="external-link">shinyApp</a></span><span class="op">(</span><span class="va">ui</span>, <span class="va">server</span><span class="op">)</span></span></code></pre></div>
+<p><img src="../shots/navigation-menu.png"></p>
+<p><code>active</code> is Element’s <code>default-active</code>: it is
+the current item, and <code><a href="../reference/update_el_menu.html">update_el_menu()</a></code> moves it, so
+“default” would undersell it.</p>
 </div>
 <div class="section level2">
 <h2 id="breadcrumbs">Breadcrumbs<a class="anchor" aria-label="anchor" href="#breadcrumbs"></a>
 </h2>
-<p>A breadcrumb is usually rendered from where the app already is, and
-reports the label clicked, so it can drive navigation without any
-routing:</p>
+<p>A breadcrumb reports the label clicked, so it can drive navigation
+inside a Shiny app without any routing:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">page</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/reactiveVal.html" class="external-link">reactiveVal</a></span><span class="op">(</span><span class="st">"March"</span><span class="op">)</span></span>
-<span></span>
-<span><span class="va">output</span><span class="op">$</span><span class="va">trail</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/renderUI.html" class="external-link">renderUI</a></span><span class="op">(</span><span class="op">{</span></span>
+<code class="sourceCode R"><span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/el_page.html">el_page</a></span><span class="op">(</span></span>
 <span>  <span class="fu"><a href="../reference/el_breadcrumb.html">el_breadcrumb</a></span><span class="op">(</span><span class="st">"trail"</span>, items <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
-<span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>label <span class="op">=</span> <span class="st">"Home"</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>label <span class="op">=</span> <span class="st">"Reports"</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>label <span class="op">=</span> <span class="fu"><a href="https://rstudio.github.io/bslib/reference/page.html" class="external-link">page</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
-<span>  <span class="op">)</span><span class="op">)</span></span>
-<span><span class="op">}</span><span class="op">)</span></span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>label <span class="op">=</span> <span class="st">"Home"</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>label <span class="op">=</span> <span class="st">"Reports"</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>label <span class="op">=</span> <span class="st">"March"</span><span class="op">)</span></span>
+<span>  <span class="op">)</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/textOutput.html" class="external-link">verbatimTextOutput</a></span><span class="op">(</span><span class="st">"went"</span><span class="op">)</span></span>
+<span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/observeEvent.html" class="external-link">observeEvent</a></span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">trail</span>, <span class="op">{</span></span>
-<span>  <span class="kw">if</span> <span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">trail</span> <span class="op">==</span> <span class="st">"Home"</span><span class="op">)</span> <span class="fu"><a href="https://rstudio.github.io/bslib/reference/page.html" class="external-link">page</a></span><span class="op">(</span><span class="st">"Home"</span><span class="op">)</span></span>
-<span><span class="op">}</span><span class="op">)</span></span></code></pre></div>
+<span><span class="va">server</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span>, <span class="va">session</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="va">output</span><span class="op">$</span><span class="va">went</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/renderPrint.html" class="external-link">renderText</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="st">"Go to:"</span>, <span class="va">input</span><span class="op">$</span><span class="va">trail</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="op">}</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/shinyApp.html" class="external-link">shinyApp</a></span><span class="op">(</span><span class="va">ui</span>, <span class="va">server</span><span class="op">)</span></span></code></pre></div>
+<p><img src="../shots/navigation-breadcrumb.png"></p>
 </div>
 <div class="section level2">
-<h2 id="tabs-and-steps">Tabs and steps<a class="anchor" aria-label="anchor" href="#tabs-and-steps"></a>
+<h2 id="steps">Steps<a class="anchor" aria-label="anchor" href="#steps"></a>
+</h2>
+<p><code><a href="../reference/el_steps.html">el_steps()</a></code> reports the active step and is moved from the
+server:</p>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/el_page.html">el_page</a></span><span class="op">(</span></span>
+<span>  <span class="fu"><a href="../reference/el_steps.html">el_steps</a></span><span class="op">(</span><span class="st">"wizard"</span>, active <span class="op">=</span> <span class="fl">0</span>, finish_status <span class="op">=</span> <span class="st">"success"</span>, steps <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Details"</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Payment"</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Done"</span><span class="op">)</span></span>
+<span>  <span class="op">)</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="../reference/el_button.html">el_button</a></span><span class="op">(</span><span class="st">"next"</span>, <span class="st">"Next step"</span>, type <span class="op">=</span> <span class="st">"primary"</span><span class="op">)</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">server</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span>, <span class="va">session</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/observeEvent.html" class="external-link">observeEvent</a></span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">`next`</span>, <span class="op">{</span></span>
+<span>    <span class="fu"><a href="../reference/update_el_steps.html">update_el_steps</a></span><span class="op">(</span><span class="va">session</span>, <span class="st">"wizard"</span>, active <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">min</a></span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">wizard</span> <span class="op">+</span> <span class="fl">1</span>, <span class="fl">3</span><span class="op">)</span><span class="op">)</span></span>
+<span>  <span class="op">}</span><span class="op">)</span></span>
+<span><span class="op">}</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/shinyApp.html" class="external-link">shinyApp</a></span><span class="op">(</span><span class="va">ui</span>, <span class="va">server</span><span class="op">)</span></span></code></pre></div>
+<p><img src="../shots/navigation-steps.png"></p>
+</div>
+<div class="section level2">
+<h2 id="tabs">Tabs<a class="anchor" aria-label="anchor" href="#tabs"></a>
 </h2>
 <p><code><a href="../reference/el_tabs.html">el_tabs()</a></code> holds live components, because it renders as
-markup rather than its own Vue instance:</p>
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/el_tabs.html">el_tabs</a></span><span class="op">(</span><span class="st">"views"</span>, tabs <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">"table"</span>, label <span class="op">=</span> <span class="st">"Table"</span>,  content <span class="op">=</span> <span class="fu"><a href="../reference/el_table.html">el_table</a></span><span class="op">(</span><span class="st">"t"</span>, data <span class="op">=</span> <span class="va">iris</span><span class="op">)</span><span class="op">)</span>,</span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">"chart"</span>, label <span class="op">=</span> <span class="st">"Chart"</span>,  content <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/plotOutput.html" class="external-link">plotOutput</a></span><span class="op">(</span><span class="st">"p"</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<p>A table inside a tab that starts hidden measures its columns as zero.
-Tell it to measure again when the tab is shown:</p>
+markup rather than as a Vue instance of its own:</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/observeEvent.html" class="external-link">observeEvent</a></span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">views</span>, <span class="op">{</span></span>
-<span>  <span class="kw">if</span> <span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">views</span> <span class="op">==</span> <span class="st">"table"</span><span class="op">)</span> <span class="fu"><a href="../reference/el_call.html">el_call</a></span><span class="op">(</span><span class="va">session</span>, <span class="st">"t"</span>, <span class="st">"doLayout"</span><span class="op">)</span></span>
-<span><span class="op">}</span><span class="op">)</span></span></code></pre></div>
-<p><code><a href="../reference/el_steps.html">el_steps()</a></code> reports the active step as a number, and is
-moved from the server:</p>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/el_steps.html">el_steps</a></span><span class="op">(</span><span class="st">"wizard"</span>, active <span class="op">=</span> <span class="fl">1</span>, steps <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Details"</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Payment"</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Done"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
-<span></span>
-<span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/observeEvent.html" class="external-link">observeEvent</a></span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">next_step</span>, <span class="op">{</span></span>
-<span>  <span class="fu"><a href="../reference/update_el_steps.html">update_el_steps</a></span><span class="op">(</span><span class="va">session</span>, <span class="st">"wizard"</span>, active <span class="op">=</span> <span class="va">input</span><span class="op">$</span><span class="va">wizard</span> <span class="op">+</span> <span class="fl">1</span><span class="op">)</span></span>
-<span><span class="op">}</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/el_tabs.html">el_tabs</a></span><span class="op">(</span><span class="st">"views"</span>, type <span class="op">=</span> <span class="st">"border-card"</span>, tabs <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">"settings"</span>, label <span class="op">=</span> <span class="st">"Settings"</span>, content <span class="op">=</span> <span class="fu"><a href="https://rstudio.github.io/htmltools/reference/tagList.html" class="external-link">tagList</a></span><span class="op">(</span></span>
+<span>    <span class="fu"><a href="../reference/el_switch.html">el_switch</a></span><span class="op">(</span><span class="st">"dark"</span>, value <span class="op">=</span> <span class="cn">TRUE</span>, active_text <span class="op">=</span> <span class="st">"Dark mode"</span><span class="op">)</span>,</span>
+<span>    <span class="fu"><a href="../reference/el_slider.html">el_slider</a></span><span class="op">(</span><span class="st">"size"</span>, value <span class="op">=</span> <span class="fl">14</span>, min <span class="op">=</span> <span class="fl">10</span>, max <span class="op">=</span> <span class="fl">24</span><span class="op">)</span></span>
+<span>  <span class="op">)</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">"about"</span>, label <span class="op">=</span> <span class="st">"About"</span>, content <span class="op">=</span> <span class="va">tags</span><span class="op">$</span><span class="fu">p</span><span class="op">(</span><span class="st">"Version 0.1.0"</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<p><img src="../shots/navigation-tabs.png"></p>
 </div>
 <div class="section level2">
 <h2 id="messages-and-notifications">Messages and notifications<a class="anchor" aria-label="anchor" href="#messages-and-notifications"></a>
 </h2>
-<p>These are server-side calls rather than UI:</p>
+<p>These are calls from the server rather than UI. Neither waits for an
+answer:</p>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/el_page.html">el_page</a></span><span class="op">(</span><span class="fu"><a href="../reference/el_button.html">el_button</a></span><span class="op">(</span><span class="st">"save"</span>, <span class="st">"Save"</span>, type <span class="op">=</span> <span class="st">"primary"</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">server</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span>, <span class="va">session</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/observeEvent.html" class="external-link">observeEvent</a></span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">save</span>, <span class="op">{</span></span>
+<span>    <span class="fu"><a href="../reference/el_message.html">el_message</a></span><span class="op">(</span><span class="va">session</span>, <span class="st">"Saved"</span>, type <span class="op">=</span> <span class="st">"success"</span><span class="op">)</span></span>
+<span>  <span class="op">}</span><span class="op">)</span></span>
+<span><span class="op">}</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/shinyApp.html" class="external-link">shinyApp</a></span><span class="op">(</span><span class="va">ui</span>, <span class="va">server</span><span class="op">)</span></span></code></pre></div>
+<p><img src="../shots/navigation-message.png"></p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/el_message.html">el_message</a></span><span class="op">(</span><span class="va">session</span>, <span class="st">"Saved"</span>, type <span class="op">=</span> <span class="st">"success"</span><span class="op">)</span></span>
-<span><span class="fu"><a href="../reference/el_notification.html">el_notification</a></span><span class="op">(</span><span class="va">session</span>, <span class="st">"Report ready"</span>, title <span class="op">=</span> <span class="st">"Done"</span>, position <span class="op">=</span> <span class="st">"bottom-right"</span><span class="op">)</span></span></code></pre></div>
-<p>Neither waits for an answer. When you need one, use
-<code><a href="../reference/el_message_box.html">el_message_box()</a></code>:</p>
+<code class="sourceCode R"><span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/el_page.html">el_page</a></span><span class="op">(</span><span class="fu"><a href="../reference/el_button.html">el_button</a></span><span class="op">(</span><span class="st">"run"</span>, <span class="st">"Build report"</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">server</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span>, <span class="va">session</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/observeEvent.html" class="external-link">observeEvent</a></span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">run</span>, <span class="op">{</span></span>
+<span>    <span class="fu"><a href="../reference/el_notification.html">el_notification</a></span><span class="op">(</span><span class="va">session</span>, <span class="st">"The March report is ready to download."</span>,</span>
+<span>                    title <span class="op">=</span> <span class="st">"Report ready"</span>, type <span class="op">=</span> <span class="st">"success"</span><span class="op">)</span></span>
+<span>  <span class="op">}</span><span class="op">)</span></span>
+<span><span class="op">}</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/shinyApp.html" class="external-link">shinyApp</a></span><span class="op">(</span><span class="va">ui</span>, <span class="va">server</span><span class="op">)</span></span></code></pre></div>
+<p><img src="../shots/navigation-notification.png"></p>
+</div>
+<div class="section level2">
+<h2 id="asking-a-question">Asking a question<a class="anchor" aria-label="anchor" href="#asking-a-question"></a>
+</h2>
+<p>When you need an answer, <code><a href="../reference/el_message_box.html">el_message_box()</a></code> asks and
+reports it as <code>input$&lt;id&gt;</code>: <code>"confirm"</code>,
+<code>"cancel"</code> or <code>"close"</code>. For
+<code>box_type = "prompt"</code>, a confirmed answer is a list of
+<code>action</code> and the <code>value</code> typed.</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/observeEvent.html" class="external-link">observeEvent</a></span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">delete</span>, <span class="op">{</span></span>
-<span>  <span class="fu"><a href="../reference/el_message_box.html">el_message_box</a></span><span class="op">(</span><span class="va">session</span>, <span class="st">"confirm_delete"</span>,</span>
-<span>                 <span class="st">"This cannot be undone."</span>,</span>
-<span>                 title <span class="op">=</span> <span class="st">"Delete the row?"</span>, type <span class="op">=</span> <span class="st">"warning"</span><span class="op">)</span></span>
-<span><span class="op">}</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/el_page.html">el_page</a></span><span class="op">(</span></span>
+<span>  <span class="fu"><a href="../reference/el_button.html">el_button</a></span><span class="op">(</span><span class="st">"delete"</span>, <span class="st">"Delete row"</span>, type <span class="op">=</span> <span class="st">"danger"</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/textOutput.html" class="external-link">verbatimTextOutput</a></span><span class="op">(</span><span class="st">"answer"</span><span class="op">)</span></span>
+<span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/observeEvent.html" class="external-link">observeEvent</a></span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">confirm_delete</span>, <span class="op">{</span></span>
-<span>  <span class="kw">if</span> <span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">confirm_delete</span> <span class="op">==</span> <span class="st">"confirm"</span><span class="op">)</span> <span class="fu">delete_row</span><span class="op">(</span><span class="op">)</span></span>
-<span><span class="op">}</span><span class="op">)</span></span></code></pre></div>
-<p>The answer is <code>"confirm"</code>, <code>"cancel"</code> or
-<code>"close"</code>. For <code>box_type = "prompt"</code> a confirmed
-answer is a list of <code>action</code> and <code>value</code>, where
-<code>value</code> is what the user typed.</p>
+<span><span class="va">server</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span>, <span class="va">session</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/observeEvent.html" class="external-link">observeEvent</a></span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">delete</span>, <span class="op">{</span></span>
+<span>    <span class="fu"><a href="../reference/el_message_box.html">el_message_box</a></span><span class="op">(</span><span class="va">session</span>, <span class="st">"confirm_delete"</span>, <span class="st">"This cannot be undone."</span>,</span>
+<span>                   title <span class="op">=</span> <span class="st">"Delete the row?"</span>, type <span class="op">=</span> <span class="st">"warning"</span><span class="op">)</span></span>
+<span>  <span class="op">}</span><span class="op">)</span></span>
+<span>  <span class="va">output</span><span class="op">$</span><span class="va">answer</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/renderPrint.html" class="external-link">renderPrint</a></span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">confirm_delete</span><span class="op">)</span></span>
+<span><span class="op">}</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/shinyApp.html" class="external-link">shinyApp</a></span><span class="op">(</span><span class="va">ui</span>, <span class="va">server</span><span class="op">)</span></span></code></pre></div>
+<p><img src="../shots/navigation-message-box.png"></p>
 <p>For something smaller than a dialog, <code><a href="../reference/el_popconfirm.html">el_popconfirm()</a></code>
-anchors the question to the button that raised it:</p>
+anchors the question to the button that raised it, and reports
+<code>input$&lt;id&gt;_confirm</code>:</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/el_popconfirm.html">el_popconfirm</a></span><span class="op">(</span><span class="st">"del"</span>,</span>
-<span>  reference <span class="op">=</span> <span class="va">el</span><span class="op">$</span><span class="fu">button</span><span class="op">(</span>type <span class="op">=</span> <span class="st">"danger"</span>, <span class="st">"Delete"</span><span class="op">)</span>,</span>
-<span>  title <span class="op">=</span> <span class="st">"Delete this row?"</span><span class="op">)</span></span>
-<span></span>
-<span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/observeEvent.html" class="external-link">observeEvent</a></span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">del_confirm</span>, <span class="op">{</span> <span class="fu">delete_row</span><span class="op">(</span><span class="op">)</span> <span class="op">}</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/el_popconfirm.html">el_popconfirm</a></span><span class="op">(</span><span class="st">"remove"</span>,</span>
+<span>  reference <span class="op">=</span> <span class="fu"><a href="../reference/el_button.html">el_button</a></span><span class="op">(</span><span class="st">"remove_btn"</span>, <span class="st">"Remove"</span>, type <span class="op">=</span> <span class="st">"danger"</span><span class="op">)</span>,</span>
+<span>  title <span class="op">=</span> <span class="st">"Remove this item?"</span><span class="op">)</span></span></code></pre></div>
+<p><img src="../shots/navigation-popconfirm.png"></p>
 </div>
 <div class="section level2">
 <h2 id="loading">Loading<a class="anchor" aria-label="anchor" href="#loading"></a>
 </h2>
 <p><code><a href="../reference/el_loading.html">el_loading()</a></code> opens a named mask and
-<code><a href="../reference/el_loading_close.html">el_loading_close()</a></code> shuts it:</p>
+<code><a href="../reference/el_loading_close.html">el_loading_close()</a></code> shuts it. The message goes out as soon
+as it is sent, so a mask opened before slow work is on screen while the
+work runs:</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/observeEvent.html" class="external-link">observeEvent</a></span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">refresh</span>, <span class="op">{</span></span>
-<span>  <span class="fu"><a href="../reference/el_loading.html">el_loading</a></span><span class="op">(</span><span class="va">session</span>, <span class="st">"refreshing"</span>, text <span class="op">=</span> <span class="st">"Fetching rows..."</span><span class="op">)</span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/on.exit.html" class="external-link">on.exit</a></span><span class="op">(</span><span class="fu"><a href="../reference/el_loading_close.html">el_loading_close</a></span><span class="op">(</span><span class="va">session</span>, <span class="st">"refreshing"</span><span class="op">)</span>, add <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/el_page.html">el_page</a></span><span class="op">(</span></span>
+<span>  <span class="fu"><a href="../reference/el_button.html">el_button</a></span><span class="op">(</span><span class="st">"refresh"</span>, <span class="st">"Refresh"</span><span class="op">)</span>,</span>
+<span>  <span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span>id <span class="op">=</span> <span class="st">"panel"</span>, style <span class="op">=</span> <span class="st">"height: 160px; border: 1px solid #ebeef5"</span>,</span>
+<span>           <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/renderTable.html" class="external-link">tableOutput</a></span><span class="op">(</span><span class="st">"rows"</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="op">)</span></span>
 <span></span>
-<span>  <span class="fu"><a href="../reference/update_el_table.html">update_el_table</a></span><span class="op">(</span><span class="va">session</span>, <span class="st">"rows"</span>, data <span class="op">=</span> <span class="fu">slow_query</span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="op">}</span><span class="op">)</span></span></code></pre></div>
-<p><code>target</code> covers one element rather than the page:</p>
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/el_loading.html">el_loading</a></span><span class="op">(</span><span class="va">session</span>, <span class="st">"table_busy"</span>, target <span class="op">=</span> <span class="st">"#rows_container"</span><span class="op">)</span></span></code></pre></div>
+<span><span class="va">server</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span>, <span class="va">session</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/observeEvent.html" class="external-link">observeEvent</a></span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">refresh</span>, <span class="op">{</span></span>
+<span>    <span class="fu"><a href="../reference/el_loading.html">el_loading</a></span><span class="op">(</span><span class="va">session</span>, <span class="st">"busy"</span>, target <span class="op">=</span> <span class="st">"#panel"</span>, text <span class="op">=</span> <span class="st">"Fetching rows..."</span><span class="op">)</span></span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/on.exit.html" class="external-link">on.exit</a></span><span class="op">(</span><span class="fu"><a href="../reference/el_loading_close.html">el_loading_close</a></span><span class="op">(</span><span class="va">session</span>, <span class="st">"busy"</span><span class="op">)</span>, add <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/Sys.sleep.html" class="external-link">Sys.sleep</a></span><span class="op">(</span><span class="fl">3</span><span class="op">)</span>   <span class="co"># the slow part</span></span>
+<span>    <span class="va">output</span><span class="op">$</span><span class="va">rows</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/renderTable.html" class="external-link">renderTable</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">mtcars</span>, <span class="fl">3</span><span class="op">)</span><span class="op">)</span></span>
+<span>  <span class="op">}</span><span class="op">)</span></span>
+<span><span class="op">}</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/shinyApp.html" class="external-link">shinyApp</a></span><span class="op">(</span><span class="va">ui</span>, <span class="va">server</span><span class="op">)</span></span></code></pre></div>
+<p><img src="../shots/navigation-loading.png"></p>
 <p>Because the mask is named, a second call under the same name replaces
 the first rather than stacking.</p>
 </div>
@@ -196,20 +253,27 @@ the first rather than stacking.</p>
 <h2 id="dialogs-and-drawers">Dialogs and drawers<a class="anchor" aria-label="anchor" href="#dialogs-and-drawers"></a>
 </h2>
 <p>Both are markup with a Shiny input binding, so they hold live
-components:</p>
-<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/el_dialog.html">el_dialog</a></span><span class="op">(</span><span class="st">"settings"</span>, title <span class="op">=</span> <span class="st">"Settings"</span>, width <span class="op">=</span> <span class="st">"480px"</span>,</span>
-<span>          content <span class="op">=</span> <span class="fu"><a href="https://rstudio.github.io/htmltools/reference/tagList.html" class="external-link">tagList</a></span><span class="op">(</span></span>
-<span>            <span class="fu"><a href="../reference/el_switch.html">el_switch</a></span><span class="op">(</span><span class="st">"dark"</span>, value <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,</span>
-<span>            <span class="fu"><a href="../reference/el_slider.html">el_slider</a></span><span class="op">(</span><span class="st">"size"</span>, value <span class="op">=</span> <span class="fl">14</span>, min <span class="op">=</span> <span class="fl">10</span>, max <span class="op">=</span> <span class="fl">24</span><span class="op">)</span></span>
-<span>          <span class="op">)</span>,</span>
-<span>          footer <span class="op">=</span> <span class="fu"><a href="../reference/el_button.html">el_button</a></span><span class="op">(</span><span class="st">"apply"</span>, <span class="st">"Apply"</span>, type <span class="op">=</span> <span class="st">"primary"</span><span class="op">)</span><span class="op">)</span></span>
+components. <code>input$&lt;id&gt;</code> is whether it is open –
+closing by the cross or the backdrop is visible to the server too.</p>
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/el_page.html">el_page</a></span><span class="op">(</span></span>
+<span>  <span class="fu"><a href="../reference/el_button.html">el_button</a></span><span class="op">(</span><span class="st">"open"</span>, <span class="st">"Settings"</span>, type <span class="op">=</span> <span class="st">"primary"</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="../reference/el_dialog.html">el_dialog</a></span><span class="op">(</span><span class="st">"settings"</span>, title <span class="op">=</span> <span class="st">"Settings"</span>, width <span class="op">=</span> <span class="st">"420px"</span>,</span>
+<span>    content <span class="op">=</span> <span class="fu"><a href="https://rstudio.github.io/htmltools/reference/tagList.html" class="external-link">tagList</a></span><span class="op">(</span></span>
+<span>      <span class="fu"><a href="../reference/el_switch.html">el_switch</a></span><span class="op">(</span><span class="st">"dark"</span>, value <span class="op">=</span> <span class="cn">TRUE</span>, active_text <span class="op">=</span> <span class="st">"Dark mode"</span><span class="op">)</span>,</span>
+<span>      <span class="va">tags</span><span class="op">$</span><span class="fu">br</span><span class="op">(</span><span class="op">)</span>, <span class="va">tags</span><span class="op">$</span><span class="fu">br</span><span class="op">(</span><span class="op">)</span>,</span>
+<span>      <span class="fu"><a href="../reference/el_slider.html">el_slider</a></span><span class="op">(</span><span class="st">"size"</span>, value <span class="op">=</span> <span class="fl">14</span>, min <span class="op">=</span> <span class="fl">10</span>, max <span class="op">=</span> <span class="fl">24</span><span class="op">)</span></span>
+<span>    <span class="op">)</span>,</span>
+<span>    footer <span class="op">=</span> <span class="fu"><a href="../reference/el_button.html">el_button</a></span><span class="op">(</span><span class="st">"apply"</span>, <span class="st">"Apply"</span>, type <span class="op">=</span> <span class="st">"primary"</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/observeEvent.html" class="external-link">observeEvent</a></span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">open</span>, <span class="op">{</span></span>
-<span>  <span class="fu"><a href="../reference/update_el_dialog.html">update_el_dialog</a></span><span class="op">(</span><span class="va">session</span>, <span class="st">"settings"</span>, visible <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
-<span><span class="op">}</span><span class="op">)</span></span></code></pre></div>
-<p><code>input$settings</code> is whether it is open, so closing by the
-cross or the backdrop is visible to the server too.</p>
+<span><span class="va">server</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span>, <span class="va">session</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/observeEvent.html" class="external-link">observeEvent</a></span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">open</span>, <span class="fu"><a href="../reference/update_el_dialog.html">update_el_dialog</a></span><span class="op">(</span><span class="va">session</span>, <span class="st">"settings"</span>, visible <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/observeEvent.html" class="external-link">observeEvent</a></span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">apply</span>, <span class="fu"><a href="../reference/update_el_dialog.html">update_el_dialog</a></span><span class="op">(</span><span class="va">session</span>, <span class="st">"settings"</span>, visible <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="op">}</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/shinyApp.html" class="external-link">shinyApp</a></span><span class="op">(</span><span class="va">ui</span>, <span class="va">server</span><span class="op">)</span></span></code></pre></div>
+<p><img src="../shots/navigation-dialog.png"></p>
 </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
     </nav></aside>

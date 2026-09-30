@@ -119,9 +119,11 @@ Unlike
 and
 [`el_notification()`](https://kaipingyang.github.io/shiny.element/reference/el_notification.md),
 this one answers back. The reply arrives as `input$<id>`, so read it
-with [`observeEvent()`](https://rdrr.io/pkg/shiny/man/observeEvent.html)
-– the input is set with event priority and Shiny clears it after each
-flush.
+with
+[`observeEvent()`](https://rdrr.io/pkg/shiny/man/observeEvent.html): the
+input is set with event priority, so answering "confirm" twice in a row
+fires the observer twice, where an output reading the value would see no
+change.
 
 ## Shiny inputs
 

@@ -163,8 +163,9 @@ placeholder and the initial text.</p></dd>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
     <p>Unlike <code><a href="el_message.html">el_message()</a></code> and <code><a href="el_notification.html">el_notification()</a></code>, this one answers back. The
-reply arrives as <code>input$&lt;id&gt;</code>, so read it with <code><a href="https://rdrr.io/pkg/shiny/man/observeEvent.html" class="external-link">observeEvent()</a></code> – the
-input is set with event priority and Shiny clears it after each flush.</p>
+reply arrives as <code>input$&lt;id&gt;</code>, so read it with <code><a href="https://rdrr.io/pkg/shiny/man/observeEvent.html" class="external-link">observeEvent()</a></code>: the input
+is set with event priority, so answering "confirm" twice in a row fires the
+observer twice, where an output reading the value would see no change.</p>
     </div>
     <div class="section level2">
     <h2 id="shiny-inputs">Shiny inputs<a class="anchor" aria-label="anchor" href="#shiny-inputs"></a></h2>

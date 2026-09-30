@@ -70,8 +70,8 @@
 
     
     
-<p>Everything Element UI 2.13.2 documents is wrapped: 74 components, 506
-attributes, 94 events, 53 methods and 26 slots. What follows is the
+<p>Everything Element UI 2.15.14 documents is wrapped: 83 components,
+552 attributes, 94 events, 54 methods and 42 slots. What follows is the
 small print – the places where this package behaves differently from
 Element in a browser, and why.</p>
 <p>Coverage is measured rather than claimed.
@@ -84,8 +84,17 @@ API tables in Element’s own documentation.</p>
 <p>A component reports to <code>input$&lt;id&gt;</code>, on load as well
 as on change:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/el_select.html">el_select</a></span><span class="op">(</span><span class="st">"city"</span>, choices <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Beijing"</span>, <span class="st">"Shanghai"</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="co"># server: input$city</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/el_page.html">el_page</a></span><span class="op">(</span></span>
+<span>  <span class="fu"><a href="../reference/el_select.html">el_select</a></span><span class="op">(</span><span class="st">"city"</span>, choices <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Beijing"</span>, <span class="st">"Shanghai"</span><span class="op">)</span>, value <span class="op">=</span> <span class="st">"Shanghai"</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/textOutput.html" class="external-link">verbatimTextOutput</a></span><span class="op">(</span><span class="st">"picked"</span><span class="op">)</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">server</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span>, <span class="va">session</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="va">output</span><span class="op">$</span><span class="va">picked</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/renderPrint.html" class="external-link">renderPrint</a></span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">city</span><span class="op">)</span></span>
+<span><span class="op">}</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/shinyApp.html" class="external-link">shinyApp</a></span><span class="op">(</span><span class="va">ui</span>, <span class="va">server</span><span class="op">)</span></span></code></pre></div>
+<p><img src="../shots/limitations-reading.png"></p>
 <p>Three separate channels reach back into it, and they do different
 things:</p>
 <table class="table">
@@ -122,31 +131,58 @@ into the Vue instance’s data and a method is a function. That is what
 <code><a href="../reference/el_call.html">el_call()</a></code> is for. A method with a return value answers
 asynchronously, as <code>input$&lt;id&gt;_&lt;method&gt;</code>:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/observeEvent.html" class="external-link">observeEvent</a></span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">ask</span>, <span class="op">{</span></span>
-<span>  <span class="fu"><a href="../reference/el_call.html">el_call</a></span><span class="op">(</span><span class="va">session</span>, <span class="st">"tree"</span>, <span class="st">"getCheckedKeys"</span><span class="op">)</span></span>
-<span><span class="op">}</span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/observeEvent.html" class="external-link">observeEvent</a></span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">tree_get_checked_keys</span>, <span class="op">{</span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/message.html" class="external-link">message</a></span><span class="op">(</span><span class="st">"checked: "</span>, <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">tree_get_checked_keys</span>, collapse <span class="op">=</span> <span class="st">", "</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="op">}</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/el_page.html">el_page</a></span><span class="op">(</span></span>
+<span>  <span class="fu"><a href="../reference/el_tree.html">el_tree</a></span><span class="op">(</span><span class="st">"tree"</span>, show_checkbox <span class="op">=</span> <span class="cn">TRUE</span>, node_key <span class="op">=</span> <span class="st">"id"</span>,</span>
+<span>          default_expand_all <span class="op">=</span> <span class="cn">TRUE</span>, checked <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"b1"</span>, <span class="st">"c"</span><span class="op">)</span>,</span>
+<span>          data <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>            <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>id <span class="op">=</span> <span class="st">"a"</span>, label <span class="op">=</span> <span class="st">"Fruit"</span>, children <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>              <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>id <span class="op">=</span> <span class="st">"b1"</span>, label <span class="op">=</span> <span class="st">"Apple"</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>id <span class="op">=</span> <span class="st">"b2"</span>, label <span class="op">=</span> <span class="st">"Pear"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>            <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>id <span class="op">=</span> <span class="st">"c"</span>, label <span class="op">=</span> <span class="st">"Bread"</span><span class="op">)</span></span>
+<span>          <span class="op">)</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="../reference/el_button.html">el_button</a></span><span class="op">(</span><span class="st">"ask"</span>, <span class="st">"Which are checked?"</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/textOutput.html" class="external-link">verbatimTextOutput</a></span><span class="op">(</span><span class="st">"answer"</span><span class="op">)</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">server</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span>, <span class="va">session</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/observeEvent.html" class="external-link">observeEvent</a></span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">ask</span>, <span class="fu"><a href="../reference/el_call.html">el_call</a></span><span class="op">(</span><span class="va">session</span>, <span class="st">"tree"</span>, <span class="st">"getCheckedKeys"</span><span class="op">)</span><span class="op">)</span></span>
+<span>  <span class="va">output</span><span class="op">$</span><span class="va">answer</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/renderPrint.html" class="external-link">renderPrint</a></span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">tree_get_checked_keys</span><span class="op">)</span></span>
+<span><span class="op">}</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/shinyApp.html" class="external-link">shinyApp</a></span><span class="op">(</span><span class="va">ui</span>, <span class="va">server</span><span class="op">)</span></span></code></pre></div>
+<p><img src="../shots/limitations-methods.png"></p>
 </div>
 <div class="section level2">
 <h2 id="events-are-event-inputs">Events are event inputs<a class="anchor" aria-label="anchor" href="#events-are-event-inputs"></a>
 </h2>
-<p>Every forwarded Element event sets its input with event priority,
-which Shiny resets to <code>NULL</code> after each flush. That is what
-lets the same value fire twice, and it means polling the input almost
-always reads the <code>NULL</code>:</p>
+<p>Every forwarded Element event sets its input with event priority. The
+input keeps its last value like any other; what event priority adds is
+that sending the same value again still counts as a change. Clicking the
+same row twice fires an <code><a href="https://rdrr.io/pkg/shiny/man/observeEvent.html" class="external-link">observeEvent()</a></code> twice – while an
+output that only reads the value sees nothing new the second time.</p>
+<p>Here is the same row clicked twice. The output reading the value
+shows where the last click landed; only the observer knows there were
+two:</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># Wrong: reads NULL nearly every time</span></span>
-<span><span class="va">output</span><span class="op">$</span><span class="va">last</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/renderPrint.html" class="external-link">renderPrint</a></span><span class="op">(</span><span class="op">{</span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/invalidateLater.html" class="external-link">invalidateLater</a></span><span class="op">(</span><span class="fl">1000</span>, <span class="va">session</span><span class="op">)</span></span>
-<span>  <span class="va">input</span><span class="op">$</span><span class="va">tbl_row_click</span></span>
-<span><span class="op">}</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/el_page.html">el_page</a></span><span class="op">(</span></span>
+<span>  <span class="fu"><a href="../reference/el_table.html">el_table</a></span><span class="op">(</span><span class="st">"tbl"</span>, data <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">iris</span><span class="op">[</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">5</span><span class="op">)</span><span class="op">]</span>, <span class="fl">3</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/textOutput.html" class="external-link">verbatimTextOutput</a></span><span class="op">(</span><span class="st">"polled"</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/textOutput.html" class="external-link">verbatimTextOutput</a></span><span class="op">(</span><span class="st">"latched"</span><span class="op">)</span></span>
+<span><span class="op">)</span></span>
 <span></span>
-<span><span class="co"># Right</span></span>
-<span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/observeEvent.html" class="external-link">observeEvent</a></span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">tbl_row_click</span>, <span class="op">{</span></span>
-<span>  <span class="fu">last_row</span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">tbl_row_click</span><span class="op">)</span></span>
-<span><span class="op">}</span><span class="op">)</span></span></code></pre></div>
+<span><span class="va">server</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span>, <span class="va">session</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="co"># Reading the value: the last row clicked, but not how many times</span></span>
+<span>  <span class="va">output</span><span class="op">$</span><span class="va">polled</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/renderPrint.html" class="external-link">renderText</a></span><span class="op">(</span><span class="op">{</span></span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="st">"last row clicked:"</span>, <span class="va">input</span><span class="op">$</span><span class="va">tbl_row_click</span><span class="op">$</span><span class="va">row_index</span><span class="op">)</span></span>
+<span>  <span class="op">}</span><span class="op">)</span></span>
+<span></span>
+<span>  <span class="co"># Observing the event: runs once per click, repeats included</span></span>
+<span>  <span class="va">clicks</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/reactiveVal.html" class="external-link">reactiveVal</a></span><span class="op">(</span><span class="fl">0</span><span class="op">)</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/observeEvent.html" class="external-link">observeEvent</a></span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">tbl_row_click</span>, <span class="fu">clicks</span><span class="op">(</span><span class="fu">clicks</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> <span class="fl">1</span><span class="op">)</span><span class="op">)</span></span>
+<span>  <span class="va">output</span><span class="op">$</span><span class="va">latched</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/renderPrint.html" class="external-link">renderText</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="st">"clicks seen:"</span>, <span class="fu">clicks</span><span class="op">(</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="op">}</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/shinyApp.html" class="external-link">shinyApp</a></span><span class="op">(</span><span class="va">ui</span>, <span class="va">server</span><span class="op">)</span></span></code></pre></div>
+<p><img src="../shots/limitations-event-inputs.png"></p>
 <p>An event whose arguments cannot cross the wire – a native
 <code>FocusEvent</code>, a DOM node, a whole Vue instance – reports
 <code>TRUE</code> instead, so an observer can still tell that it
@@ -165,9 +201,14 @@ own CSS classes and drive their state through a Shiny input binding.
 They hold anything, and what is inside keeps working as it would on its
 own.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/el_collapse.html">el_collapse</a></span><span class="op">(</span><span class="st">"panels"</span>, items <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">"one"</span>, title <span class="op">=</span> <span class="st">"Settings"</span>, content <span class="op">=</span> <span class="fu"><a href="../reference/el_switch.html">el_switch</a></span><span class="op">(</span><span class="st">"dark"</span>, value <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/el_collapse.html">el_collapse</a></span><span class="op">(</span><span class="st">"panels"</span>, value <span class="op">=</span> <span class="st">"one"</span>, items <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">"one"</span>, title <span class="op">=</span> <span class="st">"Settings"</span>, content <span class="op">=</span> <span class="fu"><a href="https://rstudio.github.io/htmltools/reference/tagList.html" class="external-link">tagList</a></span><span class="op">(</span></span>
+<span>    <span class="fu"><a href="../reference/el_switch.html">el_switch</a></span><span class="op">(</span><span class="st">"dark"</span>, value <span class="op">=</span> <span class="cn">TRUE</span>, active_text <span class="op">=</span> <span class="st">"Dark mode"</span><span class="op">)</span>,</span>
+<span>    <span class="fu"><a href="../reference/el_rate.html">el_rate</a></span><span class="op">(</span><span class="st">"stars"</span>, value <span class="op">=</span> <span class="fl">4</span><span class="op">)</span></span>
+<span>  <span class="op">)</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">"two"</span>, title <span class="op">=</span> <span class="st">"About"</span>, content <span class="op">=</span> <span class="va">tags</span><span class="op">$</span><span class="fu">p</span><span class="op">(</span><span class="st">"Version 0.1.0"</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<p><img src="../shots/limitations-container.png"></p>
 <p><strong>Wrappers absorb what they are given.</strong>
 <code><a href="../reference/el_tooltip.html">el_tooltip()</a></code>, <code><a href="../reference/el_popover.html">el_popover()</a></code>,
 <code><a href="../reference/el_popconfirm.html">el_popconfirm()</a></code> and <code><a href="../reference/el_infinite_scroll.html">el_infinite_scroll()</a></code>
@@ -175,18 +216,39 @@ compile their content into their own Vue instance, so a component handed
 to one is folded in rather than nested: the two become a single instance
 carrying both sets of markup, data and methods.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/el_tooltip.html">el_tooltip</a></span><span class="op">(</span><span class="st">"hint"</span>, <span class="fu"><a href="../reference/el_button.html">el_button</a></span><span class="op">(</span><span class="st">"save"</span>, <span class="st">"Save"</span><span class="op">)</span>, content <span class="op">=</span> <span class="st">"Writes to disk"</span><span class="op">)</span></span>
-<span><span class="co"># input$save still reports</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/el_page.html">el_page</a></span><span class="op">(</span></span>
+<span>  <span class="fu"><a href="../reference/el_tooltip.html">el_tooltip</a></span><span class="op">(</span><span class="st">"hint"</span>, <span class="fu"><a href="../reference/el_button.html">el_button</a></span><span class="op">(</span><span class="st">"save"</span>, <span class="st">"Save"</span>, type <span class="op">=</span> <span class="st">"primary"</span><span class="op">)</span>,</span>
+<span>             content <span class="op">=</span> <span class="st">"Writes to disk"</span>, placement <span class="op">=</span> <span class="st">"right"</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/textOutput.html" class="external-link">verbatimTextOutput</a></span><span class="op">(</span><span class="st">"clicks"</span><span class="op">)</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">server</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span>, <span class="va">session</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="va">output</span><span class="op">$</span><span class="va">clicks</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/renderPrint.html" class="external-link">renderPrint</a></span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">save</span><span class="op">)</span>   <span class="co"># still reports</span></span>
+<span><span class="op">}</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/shinyApp.html" class="external-link">shinyApp</a></span><span class="op">(</span><span class="va">ui</span>, <span class="va">server</span><span class="op">)</span></span></code></pre></div>
+<p><img src="../shots/limitations-absorb.png"></p>
 <p>This costs one thing. An absorbed component has no widget of its own,
 so <code>HTMLWidgets.find()</code> cannot reach it and its
 <code>update_el_*()</code> stops working. Drive it through the wrapper
 instead:</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># Not this</span></span>
-<span><span class="fu"><a href="../reference/update_el_button.html">update_el_button</a></span><span class="op">(</span><span class="va">session</span>, <span class="st">"save"</span>, label <span class="op">=</span> <span class="st">"Saving..."</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/el_page.html">el_page</a></span><span class="op">(</span></span>
+<span>  <span class="fu"><a href="../reference/el_tooltip.html">el_tooltip</a></span><span class="op">(</span><span class="st">"hint"</span>, <span class="fu"><a href="../reference/el_button.html">el_button</a></span><span class="op">(</span><span class="st">"save"</span>, <span class="st">"Save"</span>, type <span class="op">=</span> <span class="st">"primary"</span><span class="op">)</span>,</span>
+<span>             content <span class="op">=</span> <span class="st">"Writes to disk"</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="../reference/el_button.html">el_button</a></span><span class="op">(</span><span class="st">"busy"</span>, <span class="st">"Mark as saving"</span><span class="op">)</span></span>
+<span><span class="op">)</span></span>
 <span></span>
-<span><span class="co"># This</span></span>
-<span><span class="fu"><a href="../reference/update_vue_data.html">update_vue_data</a></span><span class="op">(</span><span class="va">session</span>, <span class="st">"hint"</span>, <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>label <span class="op">=</span> <span class="st">"Saving..."</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<span><span class="va">server</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span>, <span class="va">session</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/observeEvent.html" class="external-link">observeEvent</a></span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">busy</span>, <span class="op">{</span></span>
+<span>    <span class="co"># Not update_el_button(session, "save", ...): the button has no widget</span></span>
+<span>    <span class="co"># of its own any more. Its fields live on the tooltip.</span></span>
+<span>    <span class="fu"><a href="../reference/update_vue_data.html">update_vue_data</a></span><span class="op">(</span><span class="va">session</span>, <span class="st">"hint"</span>, <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>label <span class="op">=</span> <span class="st">"Saving..."</span>, loading <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></span>
+<span>  <span class="op">}</span><span class="op">)</span></span>
+<span><span class="op">}</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/shinyApp.html" class="external-link">shinyApp</a></span><span class="op">(</span><span class="va">ui</span>, <span class="va">server</span><span class="op">)</span></span></code></pre></div>
+<p><img src="../shots/limitations-absorbed-update.png"></p>
 <p>If two absorbed components declare the same field – most declare a
 <code>label</code>, a <code>type</code> and a <code>disabled</code> –
 the second one’s fields are renamed on the way in
@@ -200,17 +262,24 @@ set.</p>
 </h2>
 <p>Every component takes <code>slots</code>, a named list:</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/el_alert.html">el_alert</a></span><span class="op">(</span><span class="st">"a"</span>, slots <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>title <span class="op">=</span> <span class="va">tags</span><span class="op">$</span><span class="fu">b</span><span class="op">(</span><span class="st">"Something went wrong"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/el_alert.html">el_alert</a></span><span class="op">(</span><span class="st">"problem"</span>, type <span class="op">=</span> <span class="st">"error"</span>, show_icon <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>         description <span class="op">=</span> <span class="st">"The upload was larger than 5 MB."</span>,</span>
+<span>         slots <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>title <span class="op">=</span> <span class="va">tags</span><span class="op">$</span><span class="fu">span</span><span class="op">(</span><span class="va">tags</span><span class="op">$</span><span class="fu">b</span><span class="op">(</span><span class="st">"Upload failed"</span><span class="op">)</span>, <span class="st">" -- try again"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<p><img src="../shots/limitations-slots.png"></p>
 <p>A scoped slot – one where Element hands the template variables that
 only exist while Vue renders – is written with <code><a href="../reference/template.html">template()</a></code>
 and passed through untouched:</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/el_calendar.html">el_calendar</a></span><span class="op">(</span><span class="st">"cal"</span>, slots <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/el_calendar.html">el_calendar</a></span><span class="op">(</span><span class="st">"cal"</span>, value <span class="op">=</span> <span class="st">"2026-03-15"</span>, slots <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
 <span>  dateCell <span class="op">=</span> <span class="fu"><a href="../reference/template.html">template</a></span><span class="op">(</span></span>
-<span>    <span class="fu">htmltools</span><span class="fu">::</span><span class="fu"><a href="https://rstudio.github.io/htmltools/reference/HTML.html" class="external-link">HTML</a></span><span class="op">(</span><span class="st">"&lt;p&gt;{{ data.day.slice(8) }}&lt;/p&gt;"</span><span class="op">)</span>,</span>
+<span>    <span class="fu">htmltools</span><span class="fu">::</span><span class="fu"><a href="https://rstudio.github.io/htmltools/reference/HTML.html" class="external-link">HTML</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span></span>
+<span>      <span class="st">"&lt;div&gt;{{ data.day.slice(8) }}"</span>,</span>
+<span>      <span class="st">"&lt;b v-if=\"data.day.slice(8) === '15'\" style=\"color:#F56C6C\"&gt;"</span>,</span>
+<span>      <span class="st">" due&lt;/b&gt;&lt;/div&gt;"</span><span class="op">)</span><span class="op">)</span>,</span>
 <span>    slot <span class="op">=</span> <span class="st">"dateCell"</span>, scope <span class="op">=</span> <span class="st">"{date, data}"</span></span>
 <span>  <span class="op">)</span></span>
 <span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<p><img src="../shots/limitations-scoped-slot.png"></p>
 <p>Filling a slot replaces what Element put there, default and all.
 Element’s <code>el-form-item</code> error slot, for instance, wraps the
 message in <code>div.el-form-item__error</code>; a template that renders
@@ -237,8 +306,9 @@ through <code>size</code> (<code>"medium"</code>, <code>"small"</code>,
 <p><code>el</code> holds a generator for every Element tag, for markup
 that needs no Vue instance of its own:</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">el</span><span class="op">$</span><span class="fu">button</span><span class="op">(</span>type <span class="op">=</span> <span class="st">"primary"</span>, <span class="st">"Save"</span><span class="op">)</span>   <span class="co"># markup only, no input</span></span>
-<span><span class="fu"><a href="../reference/el_button.html">el_button</a></span><span class="op">(</span><span class="st">"save"</span>, <span class="st">"Save"</span><span class="op">)</span>             <span class="co"># a component, reports input$save</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">el</span><span class="op">$</span><span class="fu">button</span><span class="op">(</span>type <span class="op">=</span> <span class="st">"primary"</span>, <span class="st">"Markup only"</span><span class="op">)</span>    <span class="co"># no input</span></span>
+<span><span class="fu"><a href="../reference/el_button.html">el_button</a></span><span class="op">(</span><span class="st">"save"</span>, <span class="st">"A component"</span>, type <span class="op">=</span> <span class="st">"primary"</span><span class="op">)</span>   <span class="co"># reports input$save</span></span></code></pre></div>
+<p><img src="../shots/limitations-raw-tags.png"></p>
 <p>Use the raw tag where a component would be wasted – inside a
 <code><a href="../reference/template.html">template()</a></code>, or as a wrapper’s trigger when you do not need
 to know it was clicked.</p>
@@ -250,14 +320,19 @@ to know it was clicked.</p>
 assembles its own, and is exported for wrapping anything not covered
 here, or covered differently:</p>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">my_avatar</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">id</span>, <span class="va">src</span>, <span class="va">size</span> <span class="op">=</span> <span class="fl">50</span><span class="op">)</span> <span class="op">{</span></span>
+<code class="sourceCode R"><span><span class="va">initials</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">id</span>, <span class="va">name</span>, <span class="va">size</span> <span class="op">=</span> <span class="fl">48</span><span class="op">)</span> <span class="op">{</span></span>
 <span>  <span class="fu"><a href="../reference/el_widget.html">el_widget</a></span><span class="op">(</span></span>
 <span>    id     <span class="op">=</span> <span class="va">id</span>,</span>
-<span>    markup <span class="op">=</span> <span class="va">el</span><span class="op">$</span><span class="fu">avatar</span><span class="op">(</span><span class="st">":src"</span> <span class="op">=</span> <span class="st">"src"</span>, <span class="st">":size"</span> <span class="op">=</span> <span class="st">"size"</span><span class="op">)</span>,</span>
-<span>    data   <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>src <span class="op">=</span> <span class="va">src</span>, size <span class="op">=</span> <span class="va">size</span><span class="op">)</span>,</span>
+<span>    markup <span class="op">=</span> <span class="va">el</span><span class="op">$</span><span class="fu">avatar</span><span class="op">(</span><span class="st">":size"</span> <span class="op">=</span> <span class="st">"size"</span>, <span class="st">"{{ letters }}"</span><span class="op">)</span>,</span>
+<span>    data   <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>size <span class="op">=</span> <span class="va">size</span>, letters <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/substr.html" class="external-link">substr</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/strsplit.html" class="external-link">strsplit</a></span><span class="op">(</span><span class="va">name</span>, <span class="st">" "</span><span class="op">)</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span>, <span class="fl">1</span>, <span class="fl">1</span><span class="op">)</span>,</span>
+<span>                                               collapse <span class="op">=</span> <span class="st">""</span><span class="op">)</span><span class="op">)</span>,</span>
 <span>    dependency <span class="op">=</span> <span class="fu"><a href="../reference/element_ui_dependency.html">element_ui_dependency</a></span><span class="op">(</span><span class="op">)</span></span>
 <span>  <span class="op">)</span></span>
-<span><span class="op">}</span></span></code></pre></div>
+<span><span class="op">}</span></span>
+<span></span>
+<span><span class="fu">initials</span><span class="op">(</span><span class="st">"ada"</span>, <span class="st">"Ada Lovelace"</span><span class="op">)</span></span>
+<span><span class="fu">initials</span><span class="op">(</span><span class="st">"alan"</span>, <span class="st">"Alan Mathison Turing"</span>, size <span class="op">=</span> <span class="fl">64</span><span class="op">)</span></span></code></pre></div>
+<p><img src="../shots/limitations-own-widget.png"></p>
 <p>Calling <code><a href="https://rdrr.io/pkg/vueR/man/vue.html" class="external-link">vueR::vue()</a></code> yourself works too. What
 <code><a href="../reference/el_widget.html">el_widget()</a></code> carries, and what is then yours to remember, is
 <code>display: contents</code> on the host, a zero-sized widget element,

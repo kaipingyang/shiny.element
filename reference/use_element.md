@@ -13,7 +13,7 @@ use_element(
   theme = el_layout_css_dependency(),
   offline = TRUE,
   dev = getOption("shiny.element.dev", FALSE),
-  locale = NULL
+  locale = getOption("shiny.element.locale", "en")
 )
 ```
 
@@ -38,7 +38,8 @@ use_element(
 
 - locale:
 
-  Language for Element UI's built-in text. See
+  Language for Element UI's built-in text. English by default, or
+  `getOption("shiny.element.locale")` when set. See
   [`el_locale_dependency()`](https://kaipingyang.github.io/shiny.element/reference/el_locale_dependency.md).
 
 ## Value

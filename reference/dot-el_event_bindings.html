@@ -60,7 +60,7 @@ travel and sets <code>input$&lt;id&gt;_&lt;event&gt;</code>.</p>
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">.el_event_bindings</span><span class="op">(</span><span class="va">ns_id</span>, <span class="va">events</span><span class="op">)</span></span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">.el_event_bindings</span><span class="op">(</span><span class="va">ns_id</span>, <span class="va">events</span>, shapes <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -73,6 +73,13 @@ travel and sets <code>input$&lt;id&gt;_&lt;event&gt;</code>.</p>
 
 <dt id="arg-events">events<a class="anchor" aria-label="anchor" href="#arg-events"></a></dt>
 <dd><p>Character vector of Element event names, in kebab-case.</p></dd>
+
+
+<dt id="arg-shapes">shapes<a class="anchor" aria-label="anchor" href="#arg-shapes"></a></dt>
+<dd><p>Named list of JavaScript functions, one per event that
+carries more than one argument, turning the arguments into a single
+object. <code>this</code> is the Vue instance. Without one, several arguments are
+sent as <code>arg1</code>, <code>arg2</code>, ...</p></dd>
 
 </dl></div>
     <div class="section level2">

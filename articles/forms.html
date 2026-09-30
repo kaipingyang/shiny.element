@@ -73,28 +73,35 @@
 <p>Element’s form components each report to
 <code>input$&lt;id&gt;</code> and are set from the server with
 <code>update_el_*()</code>. This covers the pieces that differ from what
-you would write with Shiny’s own inputs.</p>
+you would write with Shiny’s own inputs. Every example runs as it
+stands, and the picture under it was taken from that code.</p>
 <div class="section level2">
 <h2 id="choices">Choices<a class="anchor" aria-label="anchor" href="#choices"></a>
 </h2>
-<p>Anything taking <code>choices</code> accepts the shapes Shiny
-does:</p>
+<p>Anything taking <code>choices</code> accepts the shapes Shiny does –
+an unnamed vector, where value and label are the same; a named one,
+label = value; or a list of objects, which is how a single choice
+carries props of its own.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/el_select.html">el_select</a></span><span class="op">(</span><span class="st">"city"</span>, choices <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Beijing"</span>, <span class="st">"Shanghai"</span><span class="op">)</span><span class="op">)</span>            <span class="co"># value = label</span></span>
-<span><span class="fu"><a href="../reference/el_select.html">el_select</a></span><span class="op">(</span><span class="st">"city"</span>, choices <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>Beijing <span class="op">=</span> <span class="st">"bj"</span>, Shanghai <span class="op">=</span> <span class="st">"sh"</span><span class="op">)</span><span class="op">)</span>  <span class="co"># named</span></span>
-<span><span class="fu"><a href="../reference/el_select.html">el_select</a></span><span class="op">(</span><span class="st">"city"</span>, choices <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>value <span class="op">=</span> <span class="st">"bj"</span>, label <span class="op">=</span> <span class="st">"Beijing"</span>, disabled <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,</span>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/el_select.html">el_select</a></span><span class="op">(</span><span class="st">"plain"</span>, choices <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Beijing"</span>, <span class="st">"Shanghai"</span><span class="op">)</span>, value <span class="op">=</span> <span class="st">"Beijing"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="../reference/el_select.html">el_select</a></span><span class="op">(</span><span class="st">"named"</span>, choices <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>Beijing <span class="op">=</span> <span class="st">"bj"</span>, Shanghai <span class="op">=</span> <span class="st">"sh"</span><span class="op">)</span>, value <span class="op">=</span> <span class="st">"sh"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="../reference/el_select.html">el_select</a></span><span class="op">(</span><span class="st">"objects"</span>, value <span class="op">=</span> <span class="st">"sh"</span>, choices <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>value <span class="op">=</span> <span class="st">"bj"</span>, label <span class="op">=</span> <span class="st">"Beijing (full)"</span>, disabled <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,</span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>value <span class="op">=</span> <span class="st">"sh"</span>, label <span class="op">=</span> <span class="st">"Shanghai"</span><span class="op">)</span></span>
 <span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<p>The third shape is how a single choice carries its own props –
-<code>disabled</code>, and for a checkbox or radio group also
-<code>border</code> and <code>name</code>, which Element documents on
-the individual item rather than the group.</p>
+<p><img src="../shots/forms-choices.png"></p>
+<p>For a checkbox or radio group, Element documents <code>border</code>,
+<code>name</code> and <code>disabled</code> on the individual item
+rather than the group, so they go on the choice:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/el_checkbox_group.html">el_checkbox_group</a></span><span class="op">(</span><span class="st">"opts"</span>, choices <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/el_checkbox_group.html">el_checkbox_group</a></span><span class="op">(</span><span class="st">"terms"</span>, selected <span class="op">=</span> <span class="st">"a"</span>, choices <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>value <span class="op">=</span> <span class="st">"a"</span>, label <span class="op">=</span> <span class="st">"Agree"</span>, border <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,</span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>value <span class="op">=</span> <span class="st">"b"</span>, label <span class="op">=</span> <span class="st">"Unavailable"</span>, disabled <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>value <span class="op">=</span> <span class="st">"b"</span>, label <span class="op">=</span> <span class="st">"Subscribe"</span>, border <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>value <span class="op">=</span> <span class="st">"c"</span>, label <span class="op">=</span> <span class="st">"Unavailable"</span>, border <span class="op">=</span> <span class="cn">TRUE</span>, disabled <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
 <span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<p><img src="../shots/forms-item-props.png"></p>
 </div>
 <div class="section level2">
 <h2 id="validation">Validation<a class="anchor" aria-label="anchor" href="#validation"></a>
@@ -104,106 +111,163 @@ standalone input components, because Element’s validation only works
 inside one component tree: a form item finds its control through Vue’s
 child chain and listens for events dispatched up it. A separate Vue
 instance dropped in is not in that chain.</p>
+<p>The form reports three inputs: <code>input$&lt;id&gt;</code> is the
+model as a list, <code>input$&lt;id&gt;_valid</code> whether validation
+passed, and <code>input$&lt;id&gt;_submit</code> a counter. Here the
+form was submitted empty:</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/el_form.html">el_form</a></span><span class="op">(</span></span>
-<span>  id <span class="op">=</span> <span class="st">"signup"</span>,</span>
-<span>  <span class="fu"><a href="../reference/el_form_field.html">el_form_field</a></span><span class="op">(</span><span class="st">"name"</span>, <span class="st">"input"</span>, label <span class="op">=</span> <span class="st">"Name"</span>,</span>
-<span>                rules <span class="op">=</span> <span class="fu"><a href="../reference/el_rule.html">el_rule</a></span><span class="op">(</span>required <span class="op">=</span> <span class="cn">TRUE</span>, message <span class="op">=</span> <span class="st">"Name is required"</span><span class="op">)</span><span class="op">)</span>,</span>
-<span>  <span class="fu"><a href="../reference/el_form_field.html">el_form_field</a></span><span class="op">(</span><span class="st">"age"</span>, <span class="st">"input-number"</span>, label <span class="op">=</span> <span class="st">"Age"</span>, value <span class="op">=</span> <span class="fl">18</span><span class="op">)</span>,</span>
-<span>  <span class="fu"><a href="../reference/el_form_field.html">el_form_field</a></span><span class="op">(</span><span class="st">"city"</span>, <span class="st">"select"</span>, label <span class="op">=</span> <span class="st">"City"</span>,</span>
-<span>                options <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Beijing"</span>, <span class="st">"Shanghai"</span><span class="op">)</span>,</span>
-<span>                rules <span class="op">=</span> <span class="fu"><a href="../reference/el_rule.html">el_rule</a></span><span class="op">(</span>required <span class="op">=</span> <span class="cn">TRUE</span>, message <span class="op">=</span> <span class="st">"Pick a city"</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="op">)</span></span></code></pre></div>
-<p>The form reports three inputs: <code>input$signup</code> is the model
-as a list, <code>input$signup_valid</code> whether validation passed,
-and <code>input$signup_submit</code> a counter.</p>
+<code class="sourceCode R"><span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/el_page.html">el_page</a></span><span class="op">(</span></span>
+<span>  <span class="fu"><a href="../reference/el_form.html">el_form</a></span><span class="op">(</span></span>
+<span>    id <span class="op">=</span> <span class="st">"signup"</span>, label_width <span class="op">=</span> <span class="st">"90px"</span>,</span>
+<span>    <span class="fu"><a href="../reference/el_form_field.html">el_form_field</a></span><span class="op">(</span><span class="st">"name"</span>, <span class="st">"input"</span>, label <span class="op">=</span> <span class="st">"Name"</span>,</span>
+<span>                  rules <span class="op">=</span> <span class="fu"><a href="../reference/el_rule.html">el_rule</a></span><span class="op">(</span>required <span class="op">=</span> <span class="cn">TRUE</span>, message <span class="op">=</span> <span class="st">"Name is required"</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>    <span class="fu"><a href="../reference/el_form_field.html">el_form_field</a></span><span class="op">(</span><span class="st">"age"</span>, <span class="st">"input-number"</span>, label <span class="op">=</span> <span class="st">"Age"</span>, value <span class="op">=</span> <span class="fl">18</span><span class="op">)</span>,</span>
+<span>    <span class="fu"><a href="../reference/el_form_field.html">el_form_field</a></span><span class="op">(</span><span class="st">"city"</span>, <span class="st">"select"</span>, label <span class="op">=</span> <span class="st">"City"</span>,</span>
+<span>                  options <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Beijing"</span>, <span class="st">"Shanghai"</span><span class="op">)</span>,</span>
+<span>                  rules <span class="op">=</span> <span class="fu"><a href="../reference/el_rule.html">el_rule</a></span><span class="op">(</span>required <span class="op">=</span> <span class="cn">TRUE</span>, message <span class="op">=</span> <span class="st">"Pick a city"</span><span class="op">)</span><span class="op">)</span></span>
+<span>  <span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/textOutput.html" class="external-link">verbatimTextOutput</a></span><span class="op">(</span><span class="st">"result"</span><span class="op">)</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">server</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span>, <span class="va">session</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="va">output</span><span class="op">$</span><span class="va">result</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/renderPrint.html" class="external-link">renderPrint</a></span><span class="op">(</span><span class="op">{</span></span>
+<span>    <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/req.html" class="external-link">req</a></span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">signup_submit</span><span class="op">)</span></span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>valid <span class="op">=</span> <span class="va">input</span><span class="op">$</span><span class="va">signup_valid</span>, model <span class="op">=</span> <span class="va">input</span><span class="op">$</span><span class="va">signup</span><span class="op">)</span></span>
+<span>  <span class="op">}</span><span class="op">)</span></span>
+<span><span class="op">}</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/shinyApp.html" class="external-link">shinyApp</a></span><span class="op">(</span><span class="va">ui</span>, <span class="va">server</span><span class="op">)</span></span></code></pre></div>
+<p><img src="../shots/forms-validation.png"></p>
+<p>Validation can be driven from the server as well.
+<code><a href="https://rdrr.io/pkg/shiny/man/validate.html" class="external-link">validate()</a></code> returns a promise, which resolves when the form
+is valid and rejects when it is not; both arrive as
+<code>input$&lt;id&gt;_validate</code>:</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/observeEvent.html" class="external-link">observeEvent</a></span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">signup_submit</span>, <span class="op">{</span></span>
-<span>  <span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Logic.html" class="external-link">isTRUE</a></span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">signup_valid</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
-<span>    <span class="fu">save_record</span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">signup</span><span class="op">)</span></span>
-<span>  <span class="op">}</span></span>
-<span><span class="op">}</span><span class="op">)</span></span></code></pre></div>
-<p>Validation can also be driven from the server:</p>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/el_call.html">el_call</a></span><span class="op">(</span><span class="va">session</span>, <span class="st">"signup"</span>, <span class="st">"validate"</span><span class="op">)</span>        <span class="co"># answers as input$signup_validate</span></span>
-<span><span class="fu"><a href="../reference/el_call.html">el_call</a></span><span class="op">(</span><span class="va">session</span>, <span class="st">"signup"</span>, <span class="st">"clearValidate"</span><span class="op">)</span></span>
-<span><span class="fu"><a href="../reference/el_call.html">el_call</a></span><span class="op">(</span><span class="va">session</span>, <span class="st">"signup"</span>, <span class="st">"resetFields"</span><span class="op">)</span></span></code></pre></div>
-<p><code><a href="https://rdrr.io/pkg/shiny/man/validate.html" class="external-link">validate()</a></code> returns a promise, which resolves when the
-form is valid and rejects when it is not – both arrive as
-<code>input$signup_validate</code>, <code>TRUE</code> or
-<code>FALSE</code>.</p>
+<code class="sourceCode R"><span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/el_page.html">el_page</a></span><span class="op">(</span></span>
+<span>  <span class="fu"><a href="../reference/el_form.html">el_form</a></span><span class="op">(</span></span>
+<span>    id <span class="op">=</span> <span class="st">"profile"</span>, submit_label <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>    <span class="fu"><a href="../reference/el_form_field.html">el_form_field</a></span><span class="op">(</span><span class="st">"email"</span>, <span class="st">"input"</span>, label <span class="op">=</span> <span class="st">"Email"</span>,</span>
+<span>                  rules <span class="op">=</span> <span class="fu"><a href="../reference/el_rule.html">el_rule</a></span><span class="op">(</span>required <span class="op">=</span> <span class="cn">TRUE</span>, message <span class="op">=</span> <span class="st">"Email is required"</span><span class="op">)</span><span class="op">)</span></span>
+<span>  <span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="../reference/el_button.html">el_button</a></span><span class="op">(</span><span class="st">"check"</span>, <span class="st">"Check from the server"</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="../reference/el_button.html">el_button</a></span><span class="op">(</span><span class="st">"clear"</span>, <span class="st">"Clear messages"</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/textOutput.html" class="external-link">verbatimTextOutput</a></span><span class="op">(</span><span class="st">"answer"</span><span class="op">)</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">server</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span>, <span class="va">session</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/observeEvent.html" class="external-link">observeEvent</a></span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">check</span>, <span class="fu"><a href="../reference/el_call.html">el_call</a></span><span class="op">(</span><span class="va">session</span>, <span class="st">"profile"</span>, <span class="st">"validate"</span><span class="op">)</span><span class="op">)</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/observeEvent.html" class="external-link">observeEvent</a></span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">clear</span>, <span class="fu"><a href="../reference/el_call.html">el_call</a></span><span class="op">(</span><span class="va">session</span>, <span class="st">"profile"</span>, <span class="st">"clearValidate"</span><span class="op">)</span><span class="op">)</span></span>
+<span>  <span class="va">output</span><span class="op">$</span><span class="va">answer</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/renderPrint.html" class="external-link">renderPrint</a></span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">profile_validate</span><span class="op">)</span></span>
+<span><span class="op">}</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/shinyApp.html" class="external-link">shinyApp</a></span><span class="op">(</span><span class="va">ui</span>, <span class="va">server</span><span class="op">)</span></span></code></pre></div>
+<p><img src="../shots/forms-validate-call.png"></p>
 </div>
 <div class="section level2">
 <h2 id="uploads">Uploads<a class="anchor" aria-label="anchor" href="#uploads"></a>
 </h2>
-<p><code><a href="../reference/el_upload.html">el_upload()</a></code> has two modes. By default it sends files
-through Shiny’s own upload transport, so they land in
-<code>input$&lt;id&gt;</code> as a data.frame with the same columns
-<code><a href="https://rdrr.io/pkg/shiny/man/fileInput.html" class="external-link">fileInput()</a></code> gives:</p>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/el_upload.html">el_upload</a></span><span class="op">(</span><span class="st">"docs"</span>, multiple <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<p><code><a href="../reference/el_upload.html">el_upload()</a></code> sends files through Shiny’s own upload
+transport by default, so they arrive in <code>input$&lt;id&gt;</code> as
+the data.frame <code><a href="https://rdrr.io/pkg/shiny/man/fileInput.html" class="external-link">fileInput()</a></code> gives: <code>name</code>,
+<code>size</code>, <code>type</code>, <code>datapath</code>.</p>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/el_page.html">el_page</a></span><span class="op">(</span></span>
+<span>  <span class="fu"><a href="../reference/el_upload.html">el_upload</a></span><span class="op">(</span><span class="st">"docs"</span>, label <span class="op">=</span> <span class="st">"Choose CSV files"</span>, multiple <span class="op">=</span> <span class="cn">TRUE</span>, accept <span class="op">=</span> <span class="st">".csv"</span>,</span>
+<span>            tip <span class="op">=</span> <span class="st">"CSV only, up to 5 MB"</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/renderTable.html" class="external-link">tableOutput</a></span><span class="op">(</span><span class="st">"files"</span><span class="op">)</span></span>
+<span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/observeEvent.html" class="external-link">observeEvent</a></span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">docs</span>, <span class="op">{</span></span>
-<span>  <span class="co"># name, size, type, datapath</span></span>
-<span>  <span class="fu">readr</span><span class="fu">::</span><span class="fu">read_csv</span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">docs</span><span class="op">$</span><span class="va">datapath</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span><span class="op">)</span></span>
-<span><span class="op">}</span><span class="op">)</span></span></code></pre></div>
-<p>Pointing <code>action</code> somewhere else switches to Element’s own
-transport, and the file never reaches R:</p>
+<span><span class="va">server</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span>, <span class="va">session</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="va">output</span><span class="op">$</span><span class="va">files</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/renderTable.html" class="external-link">renderTable</a></span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">docs</span><span class="op">[</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"name"</span>, <span class="st">"size"</span><span class="op">)</span><span class="op">]</span><span class="op">)</span></span>
+<span><span class="op">}</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/shinyApp.html" class="external-link">shinyApp</a></span><span class="op">(</span><span class="va">ui</span>, <span class="va">server</span><span class="op">)</span></span></code></pre></div>
+<p><img src="../shots/forms-upload.png"></p>
+<p><code>drag = TRUE</code> gives the drop zone instead of a button:</p>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/el_upload.html">el_upload</a></span><span class="op">(</span><span class="st">"photos"</span>, label <span class="op">=</span> <span class="st">"Drop images here, or click to choose"</span>,</span>
+<span>          drag <span class="op">=</span> <span class="cn">TRUE</span>, accept <span class="op">=</span> <span class="st">"image/*"</span><span class="op">)</span></span></code></pre></div>
+<p><img src="../shots/forms-upload-drag.png"></p>
+<p>Pointing <code>action</code> elsewhere switches to Element’s own
+transport, and the file goes straight to that URL without reaching R.
+<code>extra_data</code> is Element’s <code>data</code> prop, renamed so
+it is not confused with the file itself.</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/el_upload.html">el_upload</a></span><span class="op">(</span><span class="st">"docs"</span>, action <span class="op">=</span> <span class="st">"https://example.org/upload"</span>,</span>
-<span>          headers <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>Authorization <span class="op">=</span> <span class="st">"Bearer ..."</span><span class="op">)</span>,</span>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/el_upload.html">el_upload</a></span><span class="op">(</span><span class="st">"archive"</span>, label <span class="op">=</span> <span class="st">"Upload to the archive"</span>,</span>
+<span>          action <span class="op">=</span> <span class="st">"https://example.org/upload"</span>,</span>
+<span>          headers <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>`X-Requested-With` <span class="op">=</span> <span class="st">"shiny.element"</span><span class="op">)</span>,</span>
 <span>          extra_data <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>folder <span class="op">=</span> <span class="st">"reports"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<p><code>extra_data</code> is Element’s <code>data</code> prop, renamed
-so it is not confused with the file itself.</p>
+<p><img src="../shots/forms-upload-direct.png"></p>
 </div>
 <div class="section level2">
 <h2 id="autocomplete">Autocomplete<a class="anchor" aria-label="anchor" href="#autocomplete"></a>
 </h2>
-<p>Suggestions filter in the browser when passed up front:</p>
+<p>Suggestions passed up front are filtered in the browser as the user
+types:</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/el_autocomplete.html">el_autocomplete</a></span><span class="op">(</span><span class="st">"city"</span>, suggestions <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Beijing"</span>, <span class="st">"Shanghai"</span>, <span class="st">"Shenzhen"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<p>When the list is too large, or lives in a database, pass a JavaScript
-function that calls back:</p>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/el_autocomplete.html">el_autocomplete</a></span><span class="op">(</span><span class="st">"city"</span>, placeholder <span class="op">=</span> <span class="st">"Where to?"</span>, width <span class="op">=</span> <span class="fl">260</span>,</span>
+<span>                suggestions <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Beijing"</span>, <span class="st">"Shanghai"</span>, <span class="st">"Shenzhen"</span>, <span class="st">"Chengdu"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<p><img src="../shots/forms-autocomplete.png"></p>
+<p>When the list lives on the server – a database, an API – update the
+suggestions from what has been typed:</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/el_autocomplete.html">el_autocomplete</a></span><span class="op">(</span><span class="st">"city"</span>, fetch_suggestions <span class="op">=</span> <span class="fu">htmlwidgets</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/htmlwidgets/man/JS.html" class="external-link">JS</a></span><span class="op">(</span></span>
-<span>  <span class="st">"function(query, callback) {"</span>,</span>
-<span>  <span class="st">"  Shiny.setInputValue('city_query', query, {priority: 'event'});"</span>,</span>
-<span>  <span class="st">"  window._cityCallback = callback;"</span>,</span>
-<span>  <span class="st">"}"</span></span>
-<span><span class="op">)</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="va">cities</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Beijing"</span>, <span class="st">"Baoding"</span>, <span class="st">"Baotou"</span>, <span class="st">"Shanghai"</span>, <span class="st">"Shenzhen"</span>, <span class="st">"Chengdu"</span><span class="op">)</span></span>
 <span></span>
-<span><span class="co"># server</span></span>
-<span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/observeEvent.html" class="external-link">observeEvent</a></span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">city_query</span>, <span class="op">{</span></span>
-<span>  <span class="va">session</span><span class="op">$</span><span class="fu">sendCustomMessage</span><span class="op">(</span><span class="st">"cities"</span>, <span class="fu">lookup</span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">city_query</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="op">}</span><span class="op">)</span></span></code></pre></div>
-<p>with a handler that hands the answer to the stored callback.</p>
+<span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/el_page.html">el_page</a></span><span class="op">(</span><span class="fu"><a href="../reference/el_autocomplete.html">el_autocomplete</a></span><span class="op">(</span><span class="st">"city"</span>, placeholder <span class="op">=</span> <span class="st">"Type a city"</span>, width <span class="op">=</span> <span class="fl">260</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">server</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span>, <span class="va">session</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/observeEvent.html" class="external-link">observeEvent</a></span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">city</span>, <span class="op">{</span></span>
+<span>    <span class="va">typed</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/chartr.html" class="external-link">tolower</a></span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">city</span><span class="op">)</span></span>
+<span>    <span class="fu"><a href="../reference/update_el_autocomplete.html">update_el_autocomplete</a></span><span class="op">(</span><span class="va">session</span>, <span class="st">"city"</span>,</span>
+<span>      suggestions <span class="op">=</span> <span class="va">cities</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/startsWith.html" class="external-link">startsWith</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/chartr.html" class="external-link">tolower</a></span><span class="op">(</span><span class="va">cities</span><span class="op">)</span>, <span class="va">typed</span><span class="op">)</span><span class="op">]</span><span class="op">)</span></span>
+<span>  <span class="op">}</span>, ignoreNULL <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
+<span><span class="op">}</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/shinyApp.html" class="external-link">shinyApp</a></span><span class="op">(</span><span class="va">ui</span>, <span class="va">server</span><span class="op">)</span></span></code></pre></div>
+<p><img src="../shots/forms-autocomplete-server.png"></p>
 </div>
 <div class="section level2">
 <h2 id="transfer">Transfer<a class="anchor" aria-label="anchor" href="#transfer"></a>
 </h2>
 <p><code><a href="../reference/el_transfer.html">el_transfer()</a></code> takes a data.frame of <code>key</code> and
-<code>label</code>, and reports the keys on the right:</p>
+<code>label</code>, and reports the keys on the right – here driving
+which columns a table shows:</p>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/el_transfer.html">el_transfer</a></span><span class="op">(</span><span class="st">"cols"</span>,</span>
-<span>            data <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>key <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">iris</span><span class="op">)</span>, label <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">iris</span><span class="op">)</span><span class="op">)</span>,</span>
-<span>            value <span class="op">=</span> <span class="st">"Species"</span>,</span>
-<span>            titles <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Available"</span>, <span class="st">"Chosen"</span><span class="op">)</span>,</span>
-<span>            filterable <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/el_page.html">el_page</a></span><span class="op">(</span></span>
+<span>  <span class="fu"><a href="../reference/el_transfer.html">el_transfer</a></span><span class="op">(</span><span class="st">"cols"</span>,</span>
+<span>              data <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>key <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">iris</span><span class="op">)</span>, label <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">iris</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>              value <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Species"</span>, <span class="st">"Sepal.Length"</span><span class="op">)</span>,</span>
+<span>              titles <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Available"</span>, <span class="st">"Shown"</span><span class="op">)</span>,</span>
+<span>              filterable <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/renderTable.html" class="external-link">tableOutput</a></span><span class="op">(</span><span class="st">"preview"</span><span class="op">)</span></span>
+<span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/observeEvent.html" class="external-link">observeEvent</a></span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">cols</span>, <span class="op">{</span></span>
-<span>  <span class="va">chosen</span> <span class="op">&lt;-</span> <span class="va">iris</span><span class="op">[</span>, <span class="va">input</span><span class="op">$</span><span class="va">cols</span>, drop <span class="op">=</span> <span class="cn">FALSE</span><span class="op">]</span></span>
-<span><span class="op">}</span><span class="op">)</span></span></code></pre></div>
+<span><span class="va">server</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span>, <span class="va">session</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="va">output</span><span class="op">$</span><span class="va">preview</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/renderTable.html" class="external-link">renderTable</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">iris</span><span class="op">[</span>, <span class="va">input</span><span class="op">$</span><span class="va">cols</span>, drop <span class="op">=</span> <span class="cn">FALSE</span><span class="op">]</span>, <span class="fl">3</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="op">}</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/shinyApp.html" class="external-link">shinyApp</a></span><span class="op">(</span><span class="va">ui</span>, <span class="va">server</span><span class="op">)</span></span></code></pre></div>
+<p><img src="../shots/forms-transfer.png"></p>
 </div>
 <div class="section level2">
 <h2 id="sizing-and-layout">Sizing and layout<a class="anchor" aria-label="anchor" href="#sizing-and-layout"></a>
 </h2>
 <p>Every component takes <code>width</code>, which behaves like the
-<code>width</code> of a Shiny input. For the form as a whole,
+<code>width</code> of a Shiny input: <code>"200px"</code>,
+<code>"50%"</code>, or a number meaning pixels. For a form,
 <code>label_width</code> and <code>label_position</code> do what
 Element’s do:</p>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/el_form.html">el_form</a></span><span class="op">(</span>id <span class="op">=</span> <span class="st">"f"</span>, label_width <span class="op">=</span> <span class="st">"120px"</span>, label_position <span class="op">=</span> <span class="st">"left"</span>,</span>
-<span>        <span class="fu"><a href="../reference/el_form_field.html">el_form_field</a></span><span class="op">(</span><span class="st">"name"</span>, <span class="st">"input"</span>, label <span class="op">=</span> <span class="st">"Name"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/el_form.html">el_form</a></span><span class="op">(</span></span>
+<span>  id <span class="op">=</span> <span class="st">"compact"</span>, label_width <span class="op">=</span> <span class="st">"80px"</span>, label_position <span class="op">=</span> <span class="st">"left"</span>,</span>
+<span>  submit_label <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  <span class="fu"><a href="../reference/el_form_field.html">el_form_field</a></span><span class="op">(</span><span class="st">"name"</span>, <span class="st">"input"</span>, label <span class="op">=</span> <span class="st">"Name"</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="../reference/el_form_field.html">el_form_field</a></span><span class="op">(</span><span class="st">"team"</span>, <span class="st">"select"</span>, label <span class="op">=</span> <span class="st">"Team"</span>, options <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Data"</span>, <span class="st">"Design"</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="../reference/el_input.html">el_input</a></span><span class="op">(</span><span class="st">"wide"</span>, placeholder <span class="op">=</span> <span class="st">"width = '100%'"</span>, width <span class="op">=</span> <span class="st">"100%"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="../reference/el_input.html">el_input</a></span><span class="op">(</span><span class="st">"narrow"</span>, placeholder <span class="op">=</span> <span class="st">"width = 160"</span>, width <span class="op">=</span> <span class="fl">160</span><span class="op">)</span></span></code></pre></div>
+<p><img src="../shots/forms-layout.png"></p>
 </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
     </nav></aside>

@@ -1,8 +1,9 @@
 # Component gallery
 
-Every screenshot below is the real component, captured from a running
-Shiny app in headless Chromium. Regenerate them with
-`Rscript tools/screenshots.R` after changing how something looks.
+Every picture below was taken from the code above it, run as it stands
+in a live Shiny app in headless Chromium. Regenerate them with
+`Rscript tools/article-shots.R components` after changing how something
+looks.
 
 Each component reports to the server as `input$<id>`, on load as well as
 on change, and is updated from the server with the matching
@@ -24,7 +25,7 @@ el_input("notes", type = "textarea", rows = 2)
 el_input("pw", type = "password", show_password = TRUE)
 ```
 
-![](../reference/figures/component-input.png)
+![](../shots/components-input.png)
 
 ### `el_input_number()`
 
@@ -33,7 +34,7 @@ el_input("pw", type = "password", show_password = TRUE)
 el_input_number("age", value = 18, min = 0, max = 150)
 ```
 
-![](../reference/figures/component-input-number.png)
+![](../shots/components-input-number.png)
 
 ### `el_select()`
 
@@ -46,7 +47,7 @@ el_select("city", choices = c(Beijing = "bj", Shanghai = "sh"))
 el_select("tags", choices = c(A = "a", B = "b", C = "c"), multiple = TRUE)
 ```
 
-![](../reference/figures/component-select.png)
+![](../shots/components-select.png)
 
 ### `el_radio_group()`
 
@@ -56,7 +57,7 @@ el_radio_group("plan", choices = c(Basic = "x", Pro = "y"))
 el_radio_group("range", choices = c(Day = "d", Week = "w"), button = TRUE)
 ```
 
-![](../reference/figures/component-radio-group.png)
+![](../shots/components-radio-group.png)
 
 ### `el_checkbox_group()`
 
@@ -66,7 +67,7 @@ el_checkbox_group("langs", choices = c(R = "r", Python = "p", SQL = "s"),
                   selected = c("r", "s"))
 ```
 
-![](../reference/figures/component-checkbox-group.png)
+![](../shots/components-checkbox-group.png)
 
 ### `el_switch()`
 
@@ -75,7 +76,7 @@ el_checkbox_group("langs", choices = c(R = "r", Python = "p", SQL = "s"),
 el_switch("live", value = TRUE, active_text = "on", inactive_text = "off")
 ```
 
-![](../reference/figures/component-switch.png)
+![](../shots/components-switch.png)
 
 ### `el_slider()`
 
@@ -85,7 +86,7 @@ el_slider("score", value = 40)
 el_slider("band", value = c(20, 70), range = TRUE)
 ```
 
-![](../reference/figures/component-slider.png)
+![](../shots/components-slider.png)
 
 ### `el_rate()`
 
@@ -94,7 +95,7 @@ el_slider("band", value = c(20, 70), range = TRUE)
 el_rate("stars", value = 3, show_text = TRUE)
 ```
 
-![](../reference/figures/component-rate.png)
+![](../shots/components-rate.png)
 
 ### `el_date_picker()`
 
@@ -104,7 +105,7 @@ el_date_picker("when", value = "2026-03-01")
 el_date_picker("span", type = "daterange")
 ```
 
-![](../reference/figures/component-date-picker.png)
+![](../shots/components-date-picker.png)
 
 ### `el_color_picker()`
 
@@ -113,7 +114,7 @@ el_date_picker("span", type = "daterange")
 el_color_picker("shade", value = "#409EFF")
 ```
 
-![](../reference/figures/component-color-picker.png)
+![](../shots/components-color-picker.png)
 
 ### `el_cascader()`
 
@@ -128,7 +129,7 @@ el_cascader("region", options = list(
     list(value = "hz", label = "Hangzhou")))))
 ```
 
-![](../reference/figures/component-cascader.png)
+![](../shots/components-cascader.png)
 
 ### `el_autocomplete()`
 
@@ -142,7 +143,7 @@ el_autocomplete("city", width = 240, placeholder = "Where to?",
                 suggestions = c("Beijing", "Shanghai", "Shenzhen"))
 ```
 
-![](../reference/figures/component-autocomplete.png)
+![](../shots/components-autocomplete.png)
 
 ### `el_transfer()`
 
@@ -156,7 +157,7 @@ el_transfer("cols", width = 560,
             value = c("Species"), titles = c("Available", "Chosen"))
 ```
 
-![](../reference/figures/component-transfer.png)
+![](../shots/components-transfer.png)
 
 ### `el_upload()`
 
@@ -170,7 +171,7 @@ a URL.
 el_upload("files", drag = TRUE, multiple = TRUE, tip = "CSV only", accept = ".csv")
 ```
 
-![](../reference/figures/component-upload.png)
+![](../shots/components-upload.png)
 
 ### `el_form()`
 
@@ -192,7 +193,7 @@ el_form(
 )
 ```
 
-![](../reference/figures/component-form.png)
+![](../shots/components-form.png)
 
 ## Data
 
@@ -205,7 +206,7 @@ el_button("go", "Round", type = "primary", round = TRUE)
 el_button("wait", "Loading", type = "primary", loading = TRUE)
 ```
 
-![](../reference/figures/component-button.png)
+![](../shots/components-button.png)
 
 ### `el_tag()`
 
@@ -214,7 +215,7 @@ el_button("wait", "Loading", type = "primary", loading = TRUE)
 el_tag("t", label = "closable", type = "warning", closable = TRUE)
 ```
 
-![](../reference/figures/component-tag.png)
+![](../shots/components-tag.png)
 
 ### `el_alert()`
 
@@ -224,7 +225,7 @@ el_alert("hint", title = "info", type = "info", show_icon = TRUE,
          description = "with a description")
 ```
 
-![](../reference/figures/component-alert.png)
+![](../shots/components-alert.png)
 
 ### `el_progress()`
 
@@ -236,7 +237,7 @@ el_progress("pct", percentage = 70)
 el_progress("ring", percentage = 70, type = "circle")
 ```
 
-![](../reference/figures/component-progress.png)
+![](../shots/components-progress.png)
 
 ### `el_badge()`
 
@@ -246,7 +247,7 @@ el_badge(el_button("msg", "messages"), value = 12)
 el_badge(el_button("hi", "capped"), value = 200, max = 99)
 ```
 
-![](../reference/figures/component-badge.png)
+![](../shots/components-badge.png)
 
 ### `el_card()`
 
@@ -255,7 +256,7 @@ el_badge(el_button("hi", "capped"), value = 200, max = 99)
 el_card(header = "Card header", "Cards nest any content.")
 ```
 
-![](../reference/figures/component-card.png)
+![](../shots/components-card.png)
 
 ### `el_table()`
 
@@ -268,7 +269,7 @@ with their R types intact.
 el_table(id = "tbl", data = head(iris, 4), selection = TRUE)
 ```
 
-![](../reference/figures/component-table.png)
+![](../shots/components-table.png)
 
 ### `el_avatar()`
 
@@ -276,12 +277,12 @@ From an image, an icon, or text.
 
 ``` r
 
-el_avatar("me", icon = "el-icon-user-solid")
-el_avatar("me", content = "KY", shape = "square")
-el_avatar("me", content = "40", size = 40)
+el_avatar("anon", icon = "el-icon-user-solid")
+el_avatar("initials", content = "KY", shape = "square")
+el_avatar("big", content = "40", size = 40)
 ```
 
-![](../reference/figures/component-avatar.png)
+![](../shots/components-avatar.png)
 
 ### `el_image()`
 
@@ -290,13 +291,88 @@ full-screen preview.
 
 ``` r
 
-el_image("photo", src = "hamburger.png", width = 160, fit = "cover")
+# Serve a folder of images; here, R's own logo
+addResourcePath("rdoc", R.home("doc/html"))
 
-# Click to open a gallery
-el_image("photo", src = "a.png", preview_src_list = c("a.png", "b.png"))
+el_image("logo", src = "rdoc/logo.jpg", width = 160, fit = "contain")
+
+# Click to open a full-screen preview
+el_image("gallery", src = "rdoc/logo.jpg", width = 80, fit = "cover",
+         preview_src_list = c("rdoc/logo.jpg", "rdoc/logo.jpg"))
 ```
 
-![](../reference/figures/component-image.png)
+![](../shots/components-image.png)
+
+### `el_descriptions()`
+
+A read-only grid of labelled values – the detail view of a record.
+Content may be any UI, components included.
+
+``` r
+
+el_descriptions("account", title = "Account", border = TRUE, column = 2,
+  items = list(
+    list(label = "Name", content = "Ada Lovelace"),
+    list(label = "Plan", content = el_tag("plan", "Pro", type = "success")),
+    list(label = "Joined", content = "2026-01-12"),
+    list(label = "Seats", content = "12"),
+    list(label = "Address", content = "12 St James's Square, London", span = 2)
+  ))
+```
+
+![](../shots/components-descriptions.png)
+
+### `el_statistic()`
+
+A headline number with a title.
+
+``` r
+
+el_row(gutter = 20,
+  el_col(span = 8, el_statistic("users", value = 26048, title = "Active users",
+                                group_separator = ",")),
+  el_col(span = 8, el_statistic("revenue", value = 1318.5, title = "Revenue",
+                                prefix = "$", precision = 2)),
+  el_col(span = 8, el_statistic("growth", value = 4.2, title = "Growth",
+                                suffix = "%", precision = 1))
+)
+```
+
+![](../shots/components-statistic.png)
+
+### `el_empty()` and `el_result()`
+
+What a view shows when there is nothing in it yet, and what it shows
+once something has finished.
+
+``` r
+
+el_empty("none", description = "No reports yet", image_size = 100,
+         el_button("create", "Create one", type = "primary"))
+```
+
+![](../shots/components-empty.png)
+
+``` r
+
+el_result("done", icon = "success", title = "Report submitted",
+          sub_title = "It will be reviewed within a day",
+          el_button("back", "Back to the list", type = "primary"))
+```
+
+![](../shots/components-result.png)
+
+### `el_skeleton()`
+
+Grey shapes in place of content that is still on its way. Switch
+`loading` off from the server when the content is ready.
+
+``` r
+
+el_skeleton("report", rows = 3, animated = TRUE, tableOutput("summary"))
+```
+
+![](../shots/components-skeleton.png)
 
 ### `el_pagination()`
 
@@ -305,7 +381,7 @@ el_image("photo", src = "a.png", preview_src_list = c("a.png", "b.png"))
 el_pagination("pager", total = 200, page_size = 20, current_page = 3)
 ```
 
-![](../reference/figures/component-pagination.png)
+![](../shots/components-pagination.png)
 
 ### `el_timeline()`
 
@@ -321,7 +397,7 @@ el_timeline("log", items = list(
        icon = "el-icon-check", size = "large")))
 ```
 
-![](../reference/figures/component-timeline.png)
+![](../shots/components-timeline.png)
 
 ### `el_carousel()`
 
@@ -332,7 +408,7 @@ el_carousel("banner", height = "160px", items = list(
   list(name = "two", content = tags$h3("Second"))))
 ```
 
-![](../reference/figures/component-carousel.png)
+![](../shots/components-carousel.png)
 
 ### `el_divider()` and `el_link()`
 
@@ -342,9 +418,7 @@ el_divider()
 el_link("primary", type = "primary")
 ```
 
-![](../reference/figures/component-divider.png)
-
-![](../reference/figures/component-link.png)
+![](../shots/components-divider.png)
 
 ### Icons
 
@@ -356,7 +430,7 @@ tags$i(class = "el-icon-edit")
 el_icon("star-on")
 ```
 
-![](../reference/figures/component-icon.png)
+![](../shots/components-icon.png)
 
 ## Others
 
@@ -374,7 +448,7 @@ el_tabs("section", tabs = list(
   list(name = "y", label = "Second", content = "Panes hold components.")))
 ```
 
-![](../reference/figures/component-tabs.png)
+![](../shots/components-tabs.png)
 
 ### `el_collapse()`
 
@@ -385,7 +459,7 @@ el_collapse("panels", value = "p1", items = list(
        content = tagList(el_input("q"), el_switch("live")))))
 ```
 
-![](../reference/figures/component-collapse.png)
+![](../shots/components-collapse.png)
 
 ### `el_steps()`
 
@@ -397,19 +471,49 @@ el_steps("wizard", active = 1, finish_status = "success", steps = list(
   list(title = "Done", description = "all set")))
 ```
 
-![](../reference/figures/component-steps.png)
+![](../shots/components-steps.png)
 
 ### `el_dialog()` and `el_drawer()`
 
 Open and close them from the server; `input$<id>` is `TRUE` while open.
+Both hold live components.
 
 ``` r
 
-el_dialog("confirm", title = "Confirm", content = el_input("reason"))
-update_el_dialog(session, "confirm", visible = TRUE)
+ui <- el_page(
+  el_button("open", "Open dialog", type = "primary"),
+  el_dialog("confirm", title = "Why?", width = "420px",
+            content = el_input("reason", placeholder = "Tell us why"),
+            footer = el_button("ok", "OK", type = "primary"))
+)
 
-el_drawer("settings", title = "Settings", direction = "rtl", size = "320px")
+server <- function(input, output, session) {
+  observeEvent(input$open, update_el_dialog(session, "confirm", visible = TRUE))
+  observeEvent(input$ok, update_el_dialog(session, "confirm", visible = FALSE))
+}
+
+shinyApp(ui, server)
 ```
+
+![](../shots/components-dialog.png)
+
+``` r
+
+ui <- el_page(
+  el_button("open", "Open drawer"),
+  el_drawer("settings", title = "Settings", direction = "rtl", size = "320px",
+            content = tagList(el_switch("dark", value = TRUE, active_text = "Dark"),
+                              tags$p("Drawers hold live components too.")))
+)
+
+server <- function(input, output, session) {
+  observeEvent(input$open, update_el_drawer(session, "settings", visible = TRUE))
+}
+
+shinyApp(ui, server)
+```
+
+![](../shots/components-drawer.png)
 
 ### `el_tooltip()`
 
@@ -423,10 +527,10 @@ el_tooltip("hint", el$button(type = "primary", "Hover me"),
            content = "A hint about this button")
 
 # A component works too
-el_tooltip("hint", el_button("save", "Save"), content = "Writes to disk")
+el_tooltip("save_hint", el_button("save", "Save"), content = "Writes to disk")
 ```
 
-![](../reference/figures/component-tooltip.png)
+![](../shots/components-tooltip.png)
 
 ### `el_popover()`
 
@@ -439,7 +543,7 @@ el_popover("info",
   title = "March", content = "Revenue up 4% on February.")
 ```
 
-![](../reference/figures/component-popover.png)
+![](../shots/components-popover.png)
 
 ### `el_popconfirm()`
 
@@ -454,7 +558,7 @@ el_popconfirm("del",
   title = "Delete this row?")
 ```
 
-![](../reference/figures/component-popconfirm.png)
+![](../shots/components-popconfirm.png)
 
 ### `el_backtop()`
 
@@ -462,11 +566,14 @@ A button that appears once the page is scrolled.
 
 ``` r
 
-el_backtop("top", visibility_height = 200)
-el_backtop("panel_top", target = "#report")   # scroll a panel, not the page
+tags$div(id = "report", style = "height: 180px; overflow: auto",
+         lapply(1:40, function(i) tags$p(paste("Line", i))))
+
+# Scrolls the panel above rather than the page
+el_backtop("to_top", target = "#report", visibility_height = 100)
 ```
 
-![](../reference/figures/component-backtop.png)
+![](../shots/components-backtop.png)
 
 ### `el_infinite_scroll()`
 
@@ -478,7 +585,7 @@ A scrolling area that asks for more as the user nears the bottom.
 el_infinite_scroll("feed", height = "300px", uiOutput("rows"))
 ```
 
-![](../reference/figures/component-infinite-scroll.png)
+![](../shots/components-infinite-scroll.png)
 
 ### `el_row()` / `el_col()`
 
@@ -491,7 +598,7 @@ el_row(gutter = 20,
   el_col(span = 12, "span = 12"))
 ```
 
-![](../reference/figures/component-layout.png)
+![](../shots/components-layout.png)
 
 ### `el_container()`
 
@@ -502,7 +609,7 @@ el_container(
   el_container(el_aside(width = "160px", "Aside"), el_main("Main")))
 ```
 
-![](../reference/figures/component-container.png)
+![](../shots/components-container.png)
 
 ## Navigation
 
@@ -519,7 +626,7 @@ el_menu("nav", active = "home", items = list(
     list(index = "all", label = "All records")))))
 ```
 
-![](../reference/figures/component-menu.png)
+![](../shots/components-menu.png)
 
 ### `el_tree()`
 
@@ -533,7 +640,7 @@ el_tree("picker", show_checkbox = TRUE, checked = "apple", data = list(
     list(id = "apple", label = "Apple")))))
 ```
 
-![](../reference/figures/component-tree.png)
+![](../shots/components-tree.png)
 
 ### `el_breadcrumb()`
 
@@ -546,7 +653,7 @@ el_breadcrumb("trail", items = list(
   list(label = "Home"), list(label = "Reports"), list(label = "March")))
 ```
 
-![](../reference/figures/component-breadcrumb.png)
+![](../shots/components-breadcrumb.png)
 
 ### `el_page_header()`
 
@@ -558,7 +665,7 @@ clicked; what going back means is up to your app.
 el_page_header("hdr", title = "All reports", content = "Sales for March")
 ```
 
-![](../reference/figures/component-page-header.png)
+![](../shots/components-page-header.png)
 
 ### `el_dropdown()`
 
@@ -569,7 +676,7 @@ el_dropdown("actions", trigger_label = "Actions", items = list(
   list(command = "del",  label = "Delete")))
 ```
 
-![](../reference/figures/component-dropdown.png)
+![](../shots/components-dropdown.png)
 
 ## Feedback
 
@@ -581,6 +688,19 @@ place in the UI.
 
 ``` r
 
-el_notification(session, message = "Saved", title = "Done", type = "success")
-el_message(session, message = "Check the form", type = "warning")
+ui <- el_page(
+  el_button("notify", "Notify"),
+  el_button("warn", "Warn")
+)
+
+server <- function(input, output, session) {
+  observeEvent(input$notify, el_notification(session, message = "Saved",
+                                             title = "Done", type = "success"))
+  observeEvent(input$warn, el_message(session, message = "Check the form",
+                                      type = "warning"))
+}
+
+shinyApp(ui, server)
 ```
+
+![](../shots/components-feedback.png)

@@ -13,7 +13,7 @@ el_page(
   theme = bslib::bs_theme(version = 5, bootswatch = "minty"),
   theme_css = el_layout_css_dependency(),
   offline = TRUE,
-  locale = NULL,
+  locale = getOption("shiny.element.locale", "en"),
   dev = getOption("shiny.element.dev", FALSE)
 )
 ```
@@ -48,9 +48,11 @@ el_page(
 - locale:
 
   Language for Element UI's built-in text – pagination summaries,
-  date-picker buttons and so on. `NULL` keeps its bundled Simplified
-  Chinese; `"en"` is also bundled. See
-  [`el_locale_dependency()`](https://kaipingyang.github.io/shiny.element/reference/el_locale_dependency.md).
+  date-picker buttons, select placeholders. English by default, or
+  `getOption("shiny.element.locale")` when set; `"zh-CN"` gives
+  Element's own Simplified Chinese. See
+  [`el_locales()`](https://kaipingyang.github.io/shiny.element/reference/el_locales.md)
+  for the rest.
 
 - dev:
 

@@ -102,8 +102,8 @@ under the widget. Only needed when a component nests another of its own.</p></dd
     <p>A method that returns something reports it as <code>input$&lt;id&gt;_&lt;method&gt;</code>, with
 the method name in snake_case, matching how events are reported:
 <code>getCheckedKeys</code> arrives as <code>input$&lt;id&gt;_get_checked_keys</code>. The input is set
-with event priority, so Shiny resets it to <code>NULL</code> after each flush – read
-it in an <code><a href="https://rdrr.io/pkg/shiny/man/observeEvent.html" class="external-link">observeEvent()</a></code> rather than polling it.</p>
+with event priority, so asking twice and getting the same answer still
+fires an <code><a href="https://rdrr.io/pkg/shiny/man/observeEvent.html" class="external-link">observeEvent()</a></code> the second time.</p>
 <p>A method that returns nothing reports <code>TRUE</code>, so an <code><a href="https://rdrr.io/pkg/shiny/man/observeEvent.html" class="external-link">observeEvent()</a></code> can
 still tell that it ran. Pass <code>result = FALSE</code> to send nothing back.</p>
 <p>Each component's methods are listed in its own help page, under

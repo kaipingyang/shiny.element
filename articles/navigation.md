@@ -7,154 +7,210 @@ its own – what happens next is your app’s decision.
 ## Menus
 
 [`el_menu()`](https://kaipingyang.github.io/shiny.element/reference/el_menu.md)
-takes a nested list. Each item’s `index` is what it reports.
+takes a nested list. Each item’s `index` is what it reports, and
+`input$<id>_path` gives the trail to it:
 
 ``` r
 
-el_menu("nav",
-  mode = "horizontal",
-  default_active = "reports",
-  items = list(
+ui <- el_page(
+  el_menu("nav", mode = "horizontal", active = "reports", items = list(
     list(index = "home", title = "Home", icon = "el-icon-s-home"),
     list(index = "reports", title = "Reports", children = list(
       list(index = "monthly", title = "Monthly"),
-      list(index = "annual",  title = "Annual")
+      list(index = "annual", title = "Annual")
     )),
     list(index = "settings", title = "Settings", disabled = TRUE)
-  ))
+  )),
+  verbatimTextOutput("where")
+)
 
-observeEvent(input$nav, {
-  # "monthly" when that sub-item is picked
-})
+server <- function(input, output, session) {
+  output$where <- renderPrint(list(index = input$nav, path = input$nav_path))
+}
+
+shinyApp(ui, server)
 ```
 
-`input$nav_path` gives the trail to the item, for a sub-item that needs
-its parent for context.
+![](../shots/navigation-menu.png)
+
+`active` is Element’s `default-active`: it is the current item, and
+[`update_el_menu()`](https://kaipingyang.github.io/shiny.element/reference/update_el_menu.md)
+moves it, so “default” would undersell it.
 
 ## Breadcrumbs
 
-A breadcrumb is usually rendered from where the app already is, and
-reports the label clicked, so it can drive navigation without any
-routing:
+A breadcrumb reports the label clicked, so it can drive navigation
+inside a Shiny app without any routing:
 
 ``` r
 
-page <- reactiveVal("March")
-
-output$trail <- renderUI({
+ui <- el_page(
   el_breadcrumb("trail", items = list(
-    list(label = "Home"), list(label = "Reports"), list(label = page())
-  ))
-})
+    list(label = "Home"), list(label = "Reports"), list(label = "March")
+  )),
+  verbatimTextOutput("went")
+)
 
-observeEvent(input$trail, {
-  if (input$trail == "Home") page("Home")
-})
+server <- function(input, output, session) {
+  output$went <- renderText(paste("Go to:", input$trail))
+}
+
+shinyApp(ui, server)
 ```
 
-## Tabs and steps
+![](../shots/navigation-breadcrumb.png)
 
-[`el_tabs()`](https://kaipingyang.github.io/shiny.element/reference/el_tabs.md)
-holds live components, because it renders as markup rather than its own
-Vue instance:
+## Steps
+
+[`el_steps()`](https://kaipingyang.github.io/shiny.element/reference/el_steps.md)
+reports the active step and is moved from the server:
 
 ``` r
 
-el_tabs("views", tabs = list(
-  list(name = "table", label = "Table",  content = el_table("t", data = iris)),
-  list(name = "chart", label = "Chart",  content = plotOutput("p"))
+ui <- el_page(
+  el_steps("wizard", active = 0, finish_status = "success", steps = list(
+    list(title = "Details"), list(title = "Payment"), list(title = "Done")
+  )),
+  el_button("next", "Next step", type = "primary")
+)
+
+server <- function(input, output, session) {
+  observeEvent(input$`next`, {
+    update_el_steps(session, "wizard", active = min(input$wizard + 1, 3))
+  })
+}
+
+shinyApp(ui, server)
+```
+
+![](../shots/navigation-steps.png)
+
+## Tabs
+
+[`el_tabs()`](https://kaipingyang.github.io/shiny.element/reference/el_tabs.md)
+holds live components, because it renders as markup rather than as a Vue
+instance of its own:
+
+``` r
+
+el_tabs("views", type = "border-card", tabs = list(
+  list(name = "settings", label = "Settings", content = tagList(
+    el_switch("dark", value = TRUE, active_text = "Dark mode"),
+    el_slider("size", value = 14, min = 10, max = 24)
+  )),
+  list(name = "about", label = "About", content = tags$p("Version 0.1.0"))
 ))
 ```
 
-A table inside a tab that starts hidden measures its columns as zero.
-Tell it to measure again when the tab is shown:
-
-``` r
-
-observeEvent(input$views, {
-  if (input$views == "table") el_call(session, "t", "doLayout")
-})
-```
-
-[`el_steps()`](https://kaipingyang.github.io/shiny.element/reference/el_steps.md)
-reports the active step as a number, and is moved from the server:
-
-``` r
-
-el_steps("wizard", active = 1, steps = list(
-  list(title = "Details"), list(title = "Payment"), list(title = "Done")))
-
-observeEvent(input$next_step, {
-  update_el_steps(session, "wizard", active = input$wizard + 1)
-})
-```
+![](../shots/navigation-tabs.png)
 
 ## Messages and notifications
 
-These are server-side calls rather than UI:
+These are calls from the server rather than UI. Neither waits for an
+answer:
 
 ``` r
 
-el_message(session, "Saved", type = "success")
-el_notification(session, "Report ready", title = "Done", position = "bottom-right")
+ui <- el_page(el_button("save", "Save", type = "primary"))
+
+server <- function(input, output, session) {
+  observeEvent(input$save, {
+    el_message(session, "Saved", type = "success")
+  })
+}
+
+shinyApp(ui, server)
 ```
 
-Neither waits for an answer. When you need one, use
-[`el_message_box()`](https://kaipingyang.github.io/shiny.element/reference/el_message_box.md):
+![](../shots/navigation-message.png)
 
 ``` r
 
-observeEvent(input$delete, {
-  el_message_box(session, "confirm_delete",
-                 "This cannot be undone.",
-                 title = "Delete the row?", type = "warning")
-})
+ui <- el_page(el_button("run", "Build report"))
 
-observeEvent(input$confirm_delete, {
-  if (input$confirm_delete == "confirm") delete_row()
-})
+server <- function(input, output, session) {
+  observeEvent(input$run, {
+    el_notification(session, "The March report is ready to download.",
+                    title = "Report ready", type = "success")
+  })
+}
+
+shinyApp(ui, server)
 ```
 
-The answer is `"confirm"`, `"cancel"` or `"close"`. For
-`box_type = "prompt"` a confirmed answer is a list of `action` and
-`value`, where `value` is what the user typed.
+![](../shots/navigation-notification.png)
+
+## Asking a question
+
+When you need an answer,
+[`el_message_box()`](https://kaipingyang.github.io/shiny.element/reference/el_message_box.md)
+asks and reports it as `input$<id>`: `"confirm"`, `"cancel"` or
+`"close"`. For `box_type = "prompt"`, a confirmed answer is a list of
+`action` and the `value` typed.
+
+``` r
+
+ui <- el_page(
+  el_button("delete", "Delete row", type = "danger"),
+  verbatimTextOutput("answer")
+)
+
+server <- function(input, output, session) {
+  observeEvent(input$delete, {
+    el_message_box(session, "confirm_delete", "This cannot be undone.",
+                   title = "Delete the row?", type = "warning")
+  })
+  output$answer <- renderPrint(input$confirm_delete)
+}
+
+shinyApp(ui, server)
+```
+
+![](../shots/navigation-message-box.png)
 
 For something smaller than a dialog,
 [`el_popconfirm()`](https://kaipingyang.github.io/shiny.element/reference/el_popconfirm.md)
-anchors the question to the button that raised it:
+anchors the question to the button that raised it, and reports
+`input$<id>_confirm`:
 
 ``` r
 
-el_popconfirm("del",
-  reference = el$button(type = "danger", "Delete"),
-  title = "Delete this row?")
-
-observeEvent(input$del_confirm, { delete_row() })
+el_popconfirm("remove",
+  reference = el_button("remove_btn", "Remove", type = "danger"),
+  title = "Remove this item?")
 ```
+
+![](../shots/navigation-popconfirm.png)
 
 ## Loading
 
 [`el_loading()`](https://kaipingyang.github.io/shiny.element/reference/el_loading.md)
 opens a named mask and
 [`el_loading_close()`](https://kaipingyang.github.io/shiny.element/reference/el_loading_close.md)
-shuts it:
+shuts it. The message goes out as soon as it is sent, so a mask opened
+before slow work is on screen while the work runs:
 
 ``` r
 
-observeEvent(input$refresh, {
-  el_loading(session, "refreshing", text = "Fetching rows...")
-  on.exit(el_loading_close(session, "refreshing"), add = TRUE)
+ui <- el_page(
+  el_button("refresh", "Refresh"),
+  tags$div(id = "panel", style = "height: 160px; border: 1px solid #ebeef5",
+           tableOutput("rows"))
+)
 
-  update_el_table(session, "rows", data = slow_query())
-})
+server <- function(input, output, session) {
+  observeEvent(input$refresh, {
+    el_loading(session, "busy", target = "#panel", text = "Fetching rows...")
+    on.exit(el_loading_close(session, "busy"), add = TRUE)
+    Sys.sleep(3)   # the slow part
+    output$rows <- renderTable(head(mtcars, 3))
+  })
+}
+
+shinyApp(ui, server)
 ```
 
-`target` covers one element rather than the page:
-
-``` r
-
-el_loading(session, "table_busy", target = "#rows_container")
-```
+![](../shots/navigation-loading.png)
 
 Because the mask is named, a second call under the same name replaces
 the first rather than stacking.
@@ -162,21 +218,28 @@ the first rather than stacking.
 ## Dialogs and drawers
 
 Both are markup with a Shiny input binding, so they hold live
-components:
+components. `input$<id>` is whether it is open – closing by the cross or
+the backdrop is visible to the server too.
 
 ``` r
 
-el_dialog("settings", title = "Settings", width = "480px",
-          content = tagList(
-            el_switch("dark", value = TRUE),
-            el_slider("size", value = 14, min = 10, max = 24)
-          ),
-          footer = el_button("apply", "Apply", type = "primary"))
+ui <- el_page(
+  el_button("open", "Settings", type = "primary"),
+  el_dialog("settings", title = "Settings", width = "420px",
+    content = tagList(
+      el_switch("dark", value = TRUE, active_text = "Dark mode"),
+      tags$br(), tags$br(),
+      el_slider("size", value = 14, min = 10, max = 24)
+    ),
+    footer = el_button("apply", "Apply", type = "primary"))
+)
 
-observeEvent(input$open, {
-  update_el_dialog(session, "settings", visible = TRUE)
-})
+server <- function(input, output, session) {
+  observeEvent(input$open, update_el_dialog(session, "settings", visible = TRUE))
+  observeEvent(input$apply, update_el_dialog(session, "settings", visible = FALSE))
+}
+
+shinyApp(ui, server)
 ```
 
-`input$settings` is whether it is open, so closing by the cross or the
-backdrop is visible to the server too.
+![](../shots/navigation-dialog.png)

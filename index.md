@@ -71,7 +71,7 @@ The [component
 gallery](https://kaipingyang.github.io/shiny.element/articles/components.html)
 shows each one rendered, with the code that produced it.
 
-![Buttons](reference/figures/component-button.png)![Steps](reference/figures/component-steps.png)![Table](reference/figures/component-table.png)![Tree](reference/figures/component-tree.png)
+![Buttons](https://kaipingyang.github.io/shiny.element/shots/components-button.png)![Steps](https://kaipingyang.github.io/shiny.element/shots/components-steps.png)![Table](https://kaipingyang.github.io/shiny.element/shots/components-table.png)![Tree](https://kaipingyang.github.io/shiny.element/shots/components-tree.png)
 
 ## Reading and writing values
 

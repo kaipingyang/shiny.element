@@ -71,10 +71,15 @@
     
     
 <p><code><a href="../reference/el_table.html">el_table()</a></code> is the largest component here, and the one
-whose Element API is worth knowing. It takes a data.frame directly.</p>
+whose Element API is most worth knowing. It takes a data.frame
+directly.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/el_table.html">el_table</a></span><span class="op">(</span><span class="st">"iris"</span>, data <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">iris</span>, <span class="fl">10</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<p>Column names with a dot are sanitised on the way in –
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/el_table.html">el_table</a></span><span class="op">(</span><span class="st">"cars"</span>, data <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">mtcars</span><span class="op">[</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">6</span><span class="op">]</span>, <span class="fl">5</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<p><img src="../shots/tables-basic.png"></p>
+<p>Row names that name something – <code>mtcars</code>’ car names – are
+kept as a first column, while row numbers are left out;
+<code>rownames = TRUE</code> or <code>FALSE</code> decides it yourself.
+Column names with a dot are sanitised on the way in –
 <code>Sepal.Length</code> becomes <code>Sepal_Length</code> – because
 Element reads a dotted <code>prop</code> as a path into a nested
 object.</p>
@@ -83,17 +88,22 @@ object.</p>
 </h2>
 <p>Without <code>columns</code>, one is inferred per data.frame column.
 Passing them lets each carry its own props, which is how Element models
-them:</p>
+them. Names may be written in snake_case or in Element’s own
+camelCase:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/el_table.html">el_table</a></span><span class="op">(</span><span class="st">"iris"</span>,</span>
-<span>  data <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">iris</span>, <span class="fl">10</span><span class="op">)</span>,</span>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/el_table.html">el_table</a></span><span class="op">(</span><span class="st">"flowers"</span>,</span>
+<span>  data <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">iris</span>, <span class="fl">6</span><span class="op">)</span>,</span>
+<span>  border <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  columns <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
-<span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>prop <span class="op">=</span> <span class="st">"Species"</span>, label <span class="op">=</span> <span class="st">"Species"</span>, width <span class="op">=</span> <span class="st">"120"</span>, fixed <span class="op">=</span> <span class="st">"left"</span><span class="op">)</span>,</span>
-<span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>prop <span class="op">=</span> <span class="st">"Sepal_Length"</span>, label <span class="op">=</span> <span class="st">"Length"</span>, sortable <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>prop <span class="op">=</span> <span class="st">"Species"</span>, label <span class="op">=</span> <span class="st">"Species"</span>, width <span class="op">=</span> <span class="st">"110"</span>, fixed <span class="op">=</span> <span class="st">"left"</span><span class="op">)</span>,</span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>prop <span class="op">=</span> <span class="st">"Sepal_Length"</span>, label <span class="op">=</span> <span class="st">"Sepal length"</span>, sortable <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>         align <span class="op">=</span> <span class="st">"right"</span><span class="op">)</span>,</span>
-<span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>prop <span class="op">=</span> <span class="st">"Petal_Width"</span>, label <span class="op">=</span> <span class="st">"Width"</span>, sortable <span class="op">=</span> <span class="cn">TRUE</span>,</span>
-<span>         show_overflow_tooltip <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>prop <span class="op">=</span> <span class="st">"Sepal_Width"</span>, label <span class="op">=</span> <span class="st">"Sepal width"</span>, sortable <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>         align <span class="op">=</span> <span class="st">"right"</span><span class="op">)</span>,</span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>prop <span class="op">=</span> <span class="st">"Petal_Length"</span>, label <span class="op">=</span> <span class="st">"Petal length"</span>, align <span class="op">=</span> <span class="st">"right"</span>,</span>
+<span>         header_align <span class="op">=</span> <span class="st">"center"</span><span class="op">)</span></span>
 <span>  <span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<p><img src="../shots/tables-columns.png"></p>
 <p>Every column attribute Element documents is accepted:
 <code>align</code>, <code>header_align</code>, <code>class_name</code>,
 <code>min_width</code>, <code>fixed</code>, <code>resizable</code>,
@@ -102,118 +112,192 @@ them:</p>
 <code>filtered_value</code>, <code>filter_multiple</code>,
 <code>filter_placement</code>, <code>reserve_selection</code>,
 <code>index</code>, and the ones taking a function below.</p>
-<p><code><a href="../reference/el_table_config.html">el_table_config()</a></code> derives both halves from a data.frame
-when you want to adjust them:</p>
+<p><code><a href="../reference/el_table_config.html">el_table_config()</a></code> derives both halves from a data.frame,
+for when you want to adjust the inferred columns rather than write them
+out:</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">cfg</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/el_table_config.html">el_table_config</a></span><span class="op">(</span><span class="va">iris</span>, max_rows <span class="op">=</span> <span class="fl">20</span><span class="op">)</span></span>
-<span><span class="va">cfg</span><span class="op">$</span><span class="va">columns</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">$</span><span class="va">sortable</span> <span class="op">&lt;-</span> <span class="cn">TRUE</span></span>
-<span><span class="fu"><a href="../reference/el_table.html">el_table</a></span><span class="op">(</span><span class="st">"iris"</span>, data <span class="op">=</span> <span class="va">cfg</span><span class="op">$</span><span class="va">data</span>, columns <span class="op">=</span> <span class="va">cfg</span><span class="op">$</span><span class="va">columns</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">cfg</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/el_table_config.html">el_table_config</a></span><span class="op">(</span><span class="va">mtcars</span><span class="op">[</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">5</span><span class="op">]</span>, max_rows <span class="op">=</span> <span class="fl">4</span><span class="op">)</span></span>
+<span><span class="va">cfg</span><span class="op">$</span><span class="va">columns</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply</a></span><span class="op">(</span><span class="va">cfg</span><span class="op">$</span><span class="va">columns</span>, <span class="kw">function</span><span class="op">(</span><span class="va">col</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="va">col</span><span class="op">$</span><span class="va">sortable</span> <span class="op">&lt;-</span> <span class="cn">TRUE</span></span>
+<span>  <span class="va">col</span></span>
+<span><span class="op">}</span><span class="op">)</span></span>
+<span><span class="fu"><a href="../reference/el_table.html">el_table</a></span><span class="op">(</span><span class="st">"cfg"</span>, data <span class="op">=</span> <span class="va">cfg</span><span class="op">$</span><span class="va">data</span>, columns <span class="op">=</span> <span class="va">cfg</span><span class="op">$</span><span class="va">columns</span>, stripe <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
+<p><img src="../shots/tables-config.png"></p>
 </div>
 <div class="section level2">
-<h2 id="formatting-a-cell">Formatting a cell<a class="anchor" aria-label="anchor" href="#formatting-a-cell"></a>
+<h2 id="formatting">Formatting<a class="anchor" aria-label="anchor" href="#formatting"></a>
 </h2>
-<p><code>formatter</code> is a JavaScript function, given the row, the
-column, the cell value and its index:</p>
+<p>A column’s <code>formatter</code> is a JavaScript function, given the
+row, the column, the cell value and its index. A column may also render
+its own header:</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/el_table.html">el_table</a></span><span class="op">(</span><span class="st">"sales"</span>,</span>
-<span>  data <span class="op">=</span> <span class="va">sales</span>,</span>
-<span>  columns <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
-<span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>prop <span class="op">=</span> <span class="st">"amount"</span>, label <span class="op">=</span> <span class="st">"Amount"</span>, formatter <span class="op">=</span> <span class="fu">htmlwidgets</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/htmlwidgets/man/JS.html" class="external-link">JS</a></span><span class="op">(</span></span>
-<span>      <span class="st">"function(row, col, value) { return '$' + value.toFixed(2); }"</span></span>
-<span>    <span class="op">)</span><span class="op">)</span></span>
-<span>  <span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<p>Formatting in R first is usually simpler, and avoids sending the raw
-number at all. Reach for <code>formatter</code> when the display depends
-on something only the browser knows, such as the viewport.</p>
-<p>A column can also render its own header:</p>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>prop <span class="op">=</span> <span class="st">"amount"</span>, label <span class="op">=</span> <span class="st">"Amount"</span>, header_html <span class="op">=</span> <span class="st">"&lt;b&gt;Amount&lt;/b&gt; (USD)"</span><span class="op">)</span></span></code></pre></div>
-<p>which is inserted as markup, so pass only what you control.</p>
+<code class="sourceCode R"><span><span class="va">sales</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>region <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"North"</span>, <span class="st">"South"</span>, <span class="st">"East"</span><span class="op">)</span>,</span>
+<span>                    amount <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1234.5</span>, <span class="fl">987.25</span>, <span class="fl">2050</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="../reference/el_table.html">el_table</a></span><span class="op">(</span><span class="st">"sales"</span>, data <span class="op">=</span> <span class="va">sales</span>, columns <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>prop <span class="op">=</span> <span class="st">"region"</span>, label <span class="op">=</span> <span class="st">"Region"</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>prop <span class="op">=</span> <span class="st">"amount"</span>, label <span class="op">=</span> <span class="st">"Amount"</span>, align <span class="op">=</span> <span class="st">"right"</span>,</span>
+<span>       header_html <span class="op">=</span> <span class="st">"&lt;b&gt;Amount&lt;/b&gt; &lt;small&gt;(USD)&lt;/small&gt;"</span>,</span>
+<span>       formatter <span class="op">=</span> <span class="fu">htmlwidgets</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/htmlwidgets/man/JS.html" class="external-link">JS</a></span><span class="op">(</span></span>
+<span>         <span class="st">"function(row, col, value) { return '$' + value.toFixed(2); }"</span></span>
+<span>       <span class="op">)</span><span class="op">)</span></span>
+<span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<p><img src="../shots/tables-formatter.png"></p>
+<p><code>header_html</code> is inserted as markup, so pass only what you
+control. Formatting in R first is usually simpler; reach for
+<code>formatter</code> when the display depends on something only the
+browser knows.</p>
 </div>
 <div class="section level2">
 <h2 id="selection">Selection<a class="anchor" aria-label="anchor" href="#selection"></a>
 </h2>
 <p><code>selection = TRUE</code> adds a checkbox column and reports two
-inputs:</p>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/el_table.html">el_table</a></span><span class="op">(</span><span class="st">"iris"</span>, data <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">iris</span>, <span class="fl">10</span><span class="op">)</span>, selection <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+inputs: <code>input$&lt;id&gt;_selected_rows</code>, the 1-based row
+numbers, and <code>input$&lt;id&gt;_selected</code>, the rows
+themselves. Prefer the row numbers: a row with mixed column types is
+simplified to a character vector on its way back through JSON, so
+numbers arrive as strings.</p>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">cars</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">mtcars</span><span class="op">[</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">4</span><span class="op">]</span>, <span class="fl">5</span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/observeEvent.html" class="external-link">observeEvent</a></span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">iris_selected_rows</span>, <span class="op">{</span></span>
-<span>  <span class="va">chosen</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">iris</span>, <span class="fl">10</span><span class="op">)</span><span class="op">[</span><span class="va">input</span><span class="op">$</span><span class="va">iris_selected_rows</span>, <span class="op">]</span></span>
-<span><span class="op">}</span><span class="op">)</span></span></code></pre></div>
-<p>Use <code>input$&lt;id&gt;_selected_rows</code>, the 1-based row
-numbers, rather than <code>input$&lt;id&gt;_selected</code>, the row
-objects: a row with mixed column types is simplified to a character
-vector on the way back through JSON, so numbers arrive as strings.</p>
-<p>For single selection, <code>highlight_current_row = TRUE</code> with
+<span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/el_page.html">el_page</a></span><span class="op">(</span></span>
+<span>  <span class="fu"><a href="../reference/el_table.html">el_table</a></span><span class="op">(</span><span class="st">"cars"</span>, data <span class="op">=</span> <span class="va">cars</span>, selection <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>           highlight_selection_row <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/textOutput.html" class="external-link">verbatimTextOutput</a></span><span class="op">(</span><span class="st">"picked"</span><span class="op">)</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">server</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span>, <span class="va">session</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="va">output</span><span class="op">$</span><span class="va">picked</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/renderPrint.html" class="external-link">renderPrint</a></span><span class="op">(</span><span class="va">cars</span><span class="op">[</span><span class="va">input</span><span class="op">$</span><span class="va">cars_selected_rows</span>, <span class="op">]</span><span class="op">)</span></span>
+<span><span class="op">}</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/shinyApp.html" class="external-link">shinyApp</a></span><span class="op">(</span><span class="va">ui</span>, <span class="va">server</span><span class="op">)</span></span></code></pre></div>
+<p><img src="../shots/tables-selection.png"></p>
+<p>For single selection, <code>highlight_current_row = TRUE</code>
+reports the clicked row as
 <code>input$&lt;id&gt;_current_change</code>.</p>
 </div>
 <div class="section level2">
 <h2 id="row-events">Row events<a class="anchor" aria-label="anchor" href="#row-events"></a>
 </h2>
-<p>Every Element table event is forwarded. The useful ones:</p>
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/observeEvent.html" class="external-link">observeEvent</a></span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">iris_row_click</span>, <span class="op">{</span> <span class="va">...</span> <span class="op">}</span><span class="op">)</span>       <span class="co"># row, column</span></span>
-<span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/observeEvent.html" class="external-link">observeEvent</a></span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">iris_sort_change</span>, <span class="op">{</span> <span class="va">...</span> <span class="op">}</span><span class="op">)</span>     <span class="co"># column, prop, order</span></span>
-<span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/observeEvent.html" class="external-link">observeEvent</a></span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">iris_filter_change</span>, <span class="op">{</span> <span class="va">...</span> <span class="op">}</span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/observeEvent.html" class="external-link">observeEvent</a></span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">iris_current_change</span>, <span class="op">{</span> <span class="va">...</span> <span class="op">}</span><span class="op">)</span>  <span class="co"># needs highlight_current_row</span></span></code></pre></div>
-<p>They are event inputs, so read them with <code><a href="https://rdrr.io/pkg/shiny/man/observeEvent.html" class="external-link">observeEvent()</a></code>
-rather than polling.</p>
+<p>Every Element table event is forwarded as
+<code>input$&lt;id&gt;_&lt;event&gt;</code>. They are event inputs, so
+read them with <code><a href="https://rdrr.io/pkg/shiny/man/observeEvent.html" class="external-link">observeEvent()</a></code>:</p>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/el_page.html">el_page</a></span><span class="op">(</span></span>
+<span>  <span class="fu"><a href="../reference/el_table.html">el_table</a></span><span class="op">(</span><span class="st">"flowers"</span>, data <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">iris</span>, <span class="fl">4</span><span class="op">)</span>, highlight_current_row <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/textOutput.html" class="external-link">verbatimTextOutput</a></span><span class="op">(</span><span class="st">"clicked"</span><span class="op">)</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">server</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span>, <span class="va">session</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="va">clicked</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/reactiveVal.html" class="external-link">reactiveVal</a></span><span class="op">(</span><span class="st">"Click a row"</span><span class="op">)</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/observeEvent.html" class="external-link">observeEvent</a></span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">flowers_row_click</span>, <span class="op">{</span></span>
+<span>    <span class="va">click</span> <span class="op">&lt;-</span> <span class="va">input</span><span class="op">$</span><span class="va">flowers_row_click</span></span>
+<span>    <span class="fu">clicked</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/sprintf.html" class="external-link">sprintf</a></span><span class="op">(</span><span class="st">"Row %d: %s, sepal %s cm"</span>, <span class="va">click</span><span class="op">$</span><span class="va">row_index</span>,</span>
+<span>                    <span class="va">click</span><span class="op">$</span><span class="va">row</span><span class="op">$</span><span class="va">Species</span>, <span class="va">click</span><span class="op">$</span><span class="va">row</span><span class="op">$</span><span class="va">Sepal_Length</span><span class="op">)</span><span class="op">)</span></span>
+<span>  <span class="op">}</span><span class="op">)</span></span>
+<span>  <span class="va">output</span><span class="op">$</span><span class="va">clicked</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/renderPrint.html" class="external-link">renderText</a></span><span class="op">(</span><span class="fu">clicked</span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="op">}</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/shinyApp.html" class="external-link">shinyApp</a></span><span class="op">(</span><span class="va">ui</span>, <span class="va">server</span><span class="op">)</span></span></code></pre></div>
+<p><img src="../shots/tables-events.png"></p>
+<p>Each arrives as a named list rather than Element’s raw arguments. A
+row event carries <code>row_index</code> – 1-based, to index your own
+data with – the <code>row</code>, and the <code>column</code> prop; a
+cell event adds the cell’s <code>value</code>; <code>sort_change</code>
+gives <code>column</code> and <code>order</code>;
+<code>current_change</code> gives <code>row_index</code> and
+<code>previous_index</code>.</p>
 </div>
 <div class="section level2">
 <h2 id="a-fixed-header">A fixed header<a class="anchor" aria-label="anchor" href="#a-fixed-header"></a>
 </h2>
 <p><code>height</code> fixes the header and scrolls the body;
 <code>max_height</code> does the same once the content exceeds it:</p>
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/el_table.html">el_table</a></span><span class="op">(</span><span class="st">"iris"</span>, data <span class="op">=</span> <span class="va">iris</span>, height <span class="op">=</span> <span class="st">"400px"</span><span class="op">)</span></span></code></pre></div>
-<p>Without one of them the table grows to fit and the page scrolls
-instead.</p>
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/el_table.html">el_table</a></span><span class="op">(</span><span class="st">"all"</span>, data <span class="op">=</span> <span class="va">iris</span>, height <span class="op">=</span> <span class="st">"240px"</span>, stripe <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
+<p><img src="../shots/tables-height.png"></p>
 </div>
 <div class="section level2">
-<h2 id="updating">Updating<a class="anchor" aria-label="anchor" href="#updating"></a>
+<h2 id="summaries">Summaries<a class="anchor" aria-label="anchor" href="#summaries"></a>
 </h2>
+<p><code>show_summary</code> adds a row of column totals.
+<code>sum_text</code> labels it, and <code>summary_method</code>
+replaces the arithmetic:</p>
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/el_table.html">el_table</a></span><span class="op">(</span><span class="st">"sums"</span>, data <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">mtcars</span><span class="op">[</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"mpg"</span>, <span class="st">"hp"</span>, <span class="st">"wt"</span><span class="op">)</span><span class="op">]</span>, <span class="fl">5</span><span class="op">)</span>,</span>
+<span>         show_summary <span class="op">=</span> <span class="cn">TRUE</span>, sum_text <span class="op">=</span> <span class="st">"Total"</span>, border <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
+<p><img src="../shots/tables-summary.png"></p>
+</div>
+<div class="section level2">
+<h2 id="methods">Methods<a class="anchor" aria-label="anchor" href="#methods"></a>
+</h2>
+<p><code><a href="../reference/update_el_table.html">update_el_table()</a></code> changes data and settings; methods
+need <code><a href="../reference/el_call.html">el_call()</a></code>. <code>doLayout()</code> is the one to
+remember: a table rendered inside a tab or a collapse that starts hidden
+measures its columns as zero, and stays that way until told to measure
+again.</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/update_el_table.html">update_el_table</a></span><span class="op">(</span><span class="va">session</span>, <span class="st">"iris"</span>, data <span class="op">=</span> <span class="fu">filtered</span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="fu"><a href="../reference/update_el_table.html">update_el_table</a></span><span class="op">(</span><span class="va">session</span>, <span class="st">"iris"</span>, columns <span class="op">=</span> <span class="va">new_columns</span><span class="op">)</span></span></code></pre></div>
-<p>Methods need <code><a href="../reference/el_call.html">el_call()</a></code>:</p>
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/el_call.html">el_call</a></span><span class="op">(</span><span class="va">session</span>, <span class="st">"iris"</span>, <span class="st">"clearSelection"</span><span class="op">)</span></span>
-<span><span class="fu"><a href="../reference/el_call.html">el_call</a></span><span class="op">(</span><span class="va">session</span>, <span class="st">"iris"</span>, <span class="st">"toggleRowSelection"</span>, args <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="va">row</span>, <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="fu"><a href="../reference/el_call.html">el_call</a></span><span class="op">(</span><span class="va">session</span>, <span class="st">"iris"</span>, <span class="st">"clearSort"</span><span class="op">)</span></span>
-<span><span class="fu"><a href="../reference/el_call.html">el_call</a></span><span class="op">(</span><span class="va">session</span>, <span class="st">"iris"</span>, <span class="st">"doLayout"</span><span class="op">)</span>     <span class="co"># after the table becomes visible</span></span></code></pre></div>
-<p><code>doLayout()</code> is the one to remember: a table rendered
-inside a hidden tab or collapse measures its columns as zero, and stays
-that way until told to measure again.</p>
+<code class="sourceCode R"><span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/el_page.html">el_page</a></span><span class="op">(</span></span>
+<span>  <span class="fu"><a href="../reference/el_tabs.html">el_tabs</a></span><span class="op">(</span><span class="st">"views"</span>, selected <span class="op">=</span> <span class="st">"about"</span>, tabs <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">"about"</span>, label <span class="op">=</span> <span class="st">"About"</span>, content <span class="op">=</span> <span class="va">tags</span><span class="op">$</span><span class="fu">p</span><span class="op">(</span><span class="st">"Open the Data tab."</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">"data"</span>, label <span class="op">=</span> <span class="st">"Data"</span>,</span>
+<span>         content <span class="op">=</span> <span class="fu"><a href="../reference/el_table.html">el_table</a></span><span class="op">(</span><span class="st">"hidden"</span>, data <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">iris</span>, <span class="fl">4</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
+<span>  <span class="op">)</span><span class="op">)</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">server</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span>, <span class="va">session</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/observeEvent.html" class="external-link">observeEvent</a></span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">views</span>, <span class="op">{</span></span>
+<span>    <span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/identical.html" class="external-link">identical</a></span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">views</span>, <span class="st">"data"</span><span class="op">)</span><span class="op">)</span> <span class="fu"><a href="../reference/el_call.html">el_call</a></span><span class="op">(</span><span class="va">session</span>, <span class="st">"hidden"</span>, <span class="st">"doLayout"</span><span class="op">)</span></span>
+<span>  <span class="op">}</span><span class="op">)</span></span>
+<span><span class="op">}</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/shinyApp.html" class="external-link">shinyApp</a></span><span class="op">(</span><span class="va">ui</span>, <span class="va">server</span><span class="op">)</span></span></code></pre></div>
+<p><img src="../shots/tables-methods.png"></p>
 </div>
 <div class="section level2">
 <h2 id="server-side-paging">Server-side paging<a class="anchor" aria-label="anchor" href="#server-side-paging"></a>
 </h2>
 <p>There is no <code>server = TRUE</code> as in DT. Pair the table with
-<code><a href="../reference/el_pagination.html">el_pagination()</a></code> and send a page at a time:</p>
-<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/el_page.html">el_page</a></span><span class="op">(</span></span>
+<code><a href="../reference/el_pagination.html">el_pagination()</a></code> and send one page at a time:</p>
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">page_size</span> <span class="op">&lt;-</span> <span class="fl">5</span></span>
+<span><span class="va">page_of</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">n</span><span class="op">)</span> <span class="va">iris</span><span class="op">[</span><span class="op">(</span><span class="va">n</span> <span class="op">-</span> <span class="fl">1</span><span class="op">)</span> <span class="op">*</span> <span class="va">page_size</span> <span class="op">+</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq_len</a></span><span class="op">(</span><span class="va">page_size</span><span class="op">)</span>, <span class="op">]</span></span>
+<span></span>
+<span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/el_page.html">el_page</a></span><span class="op">(</span></span>
 <span>  <span class="fu"><a href="../reference/el_table.html">el_table</a></span><span class="op">(</span><span class="st">"rows"</span>, data <span class="op">=</span> <span class="fu">page_of</span><span class="op">(</span><span class="fl">1</span><span class="op">)</span><span class="op">)</span>,</span>
-<span>  <span class="fu"><a href="../reference/el_pagination.html">el_pagination</a></span><span class="op">(</span><span class="st">"pager"</span>, total <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">big_data</span><span class="op">)</span>, page_size <span class="op">=</span> <span class="fl">20</span><span class="op">)</span></span>
+<span>  <span class="fu"><a href="../reference/el_pagination.html">el_pagination</a></span><span class="op">(</span><span class="st">"pager"</span>, total <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">iris</span><span class="op">)</span>, page_size <span class="op">=</span> <span class="va">page_size</span>,</span>
+<span>                layout <span class="op">=</span> <span class="st">"total, prev, pager, next"</span><span class="op">)</span></span>
 <span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">server</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span>, <span class="va">session</span><span class="op">)</span> <span class="op">{</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/observeEvent.html" class="external-link">observeEvent</a></span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">pager</span>, <span class="op">{</span></span>
 <span>    <span class="fu"><a href="../reference/update_el_table.html">update_el_table</a></span><span class="op">(</span><span class="va">session</span>, <span class="st">"rows"</span>, data <span class="op">=</span> <span class="fu">page_of</span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">pager</span><span class="op">)</span><span class="op">)</span></span>
 <span>  <span class="op">}</span><span class="op">)</span></span>
-<span><span class="op">}</span></span></code></pre></div>
+<span><span class="op">}</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/shinyApp.html" class="external-link">shinyApp</a></span><span class="op">(</span><span class="va">ui</span>, <span class="va">server</span><span class="op">)</span></span></code></pre></div>
+<p><img src="../shots/tables-paging.png"></p>
 </div>
 <div class="section level2">
 <h2 id="tree-data">Tree data<a class="anchor" aria-label="anchor" href="#tree-data"></a>
 </h2>
-<p>Rows can nest, keyed by <code>row_key</code>:</p>
-<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/el_table.html">el_table</a></span><span class="op">(</span><span class="st">"org"</span>,</span>
-<span>  data <span class="op">=</span> <span class="va">org_rows</span>,            <span class="co"># each row may carry a `children` list</span></span>
-<span>  row_key <span class="op">=</span> <span class="st">"id"</span>,</span>
-<span>  tree_props <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>children <span class="op">=</span> <span class="st">"children"</span>, hasChildren <span class="op">=</span> <span class="st">"hasChildren"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<p>Rows can nest, keyed by <code>row_key</code>. Each row may carry a
+<code>children</code> list:</p>
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">org</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>id <span class="op">=</span> <span class="fl">1</span>, name <span class="op">=</span> <span class="st">"Engineering"</span>, size <span class="op">=</span> <span class="fl">42</span>, children <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>id <span class="op">=</span> <span class="fl">11</span>, name <span class="op">=</span> <span class="st">"Platform"</span>, size <span class="op">=</span> <span class="fl">18</span><span class="op">)</span>,</span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>id <span class="op">=</span> <span class="fl">12</span>, name <span class="op">=</span> <span class="st">"Product"</span>, size <span class="op">=</span> <span class="fl">24</span><span class="op">)</span></span>
+<span>  <span class="op">)</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>id <span class="op">=</span> <span class="fl">2</span>, name <span class="op">=</span> <span class="st">"Design"</span>, size <span class="op">=</span> <span class="fl">9</span><span class="op">)</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="../reference/el_table.html">el_table</a></span><span class="op">(</span><span class="st">"org"</span>, data <span class="op">=</span> <span class="va">org</span>, row_key <span class="op">=</span> <span class="st">"id"</span>, default_expand_all <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>         columns <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>prop <span class="op">=</span> <span class="st">"name"</span>, label <span class="op">=</span> <span class="st">"Team"</span><span class="op">)</span>,</span>
+<span>                        <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>prop <span class="op">=</span> <span class="st">"size"</span>, label <span class="op">=</span> <span class="st">"People"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<p><img src="../shots/tables-tree.png"></p>
 <p>With <code>lazy = TRUE</code> and a <code>load</code> function,
-children are fetched as they are expanded.</p>
+children are fetched as their parent is expanded.</p>
 </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
     </nav></aside>

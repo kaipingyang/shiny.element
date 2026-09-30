@@ -31,7 +31,8 @@ Categories:
 - Data: table, table-column, tag, progress, tree, pagination, badge,
   avatar, calendar, card, carousel, carousel-item, collapse,
   collapse-item, timeline, timeline-item, divider, image, empty,
-  skeleton, result, statistic, descriptions, descriptions-item
+  skeleton, skeleton-item, result, statistic, descriptions,
+  descriptions-item
 
 - Navigation: menu, submenu, menu-item, menu-item-group, tabs, tab-pane,
   breadcrumb, breadcrumb-item, dropdown, dropdown-menu, dropdown-item,
@@ -63,15 +64,15 @@ names(el)
 #> [49] "timeline"          "timeline_item"     "divider"          
 #> [52] "image"             "empty"             "skeleton"         
 #> [55] "result"            "statistic"         "descriptions"     
-#> [58] "descriptions_item" "menu"              "submenu"          
-#> [61] "menu_item"         "menu_item_group"   "tabs"             
-#> [64] "tab_pane"          "breadcrumb"        "breadcrumb_item"  
-#> [67] "dropdown"          "dropdown_menu"     "dropdown_item"    
-#> [70] "steps"             "step"              "page_header"      
-#> [73] "backtop"           "anchor"            "anchor_link"      
-#> [76] "dialog"            "alert"             "drawer"           
-#> [79] "popover"           "tooltip"           "popconfirm"       
-#> [82] "loading"          
+#> [58] "descriptions_item" "skeleton_item"     "menu"             
+#> [61] "submenu"           "menu_item"         "menu_item_group"  
+#> [64] "tabs"              "tab_pane"          "breadcrumb"       
+#> [67] "breadcrumb_item"   "dropdown"          "dropdown_menu"    
+#> [70] "dropdown_item"     "steps"             "step"             
+#> [73] "page_header"       "backtop"           "anchor"           
+#> [76] "anchor_link"       "dialog"            "alert"            
+#> [79] "drawer"            "popover"           "tooltip"          
+#> [82] "popconfirm"        "loading"          
 
 # Use with auto-generated tag functions
 el$button("Submit", type = "primary")

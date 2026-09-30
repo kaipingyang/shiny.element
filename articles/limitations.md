@@ -1,7 +1,7 @@
 # What works, and what does not
 
-Everything Element UI 2.13.2 documents is wrapped: 74 components, 506
-attributes, 94 events, 53 methods and 26 slots. What follows is the
+Everything Element UI 2.15.14 documents is wrapped: 83 components, 552
+attributes, 94 events, 54 methods and 42 slots. What follows is the
 small print – the places where this package behaves differently from
 Element in a browser, and why.
 
@@ -15,9 +15,19 @@ A component reports to `input$<id>`, on load as well as on change:
 
 ``` r
 
-el_select("city", choices = c("Beijing", "Shanghai"))
-# server: input$city
+ui <- el_page(
+  el_select("city", choices = c("Beijing", "Shanghai"), value = "Shanghai"),
+  verbatimTextOutput("picked")
+)
+
+server <- function(input, output, session) {
+  output$picked <- renderPrint(input$city)
+}
+
+shinyApp(ui, server)
 ```
+
+![](../shots/limitations-reading.png)
 
 Three separate channels reach back into it, and they do different
 things:
@@ -36,34 +46,65 @@ is for. A method with a return value answers asynchronously, as
 
 ``` r
 
-observeEvent(input$ask, {
-  el_call(session, "tree", "getCheckedKeys")
-})
-observeEvent(input$tree_get_checked_keys, {
-  message("checked: ", paste(input$tree_get_checked_keys, collapse = ", "))
-})
+ui <- el_page(
+  el_tree("tree", show_checkbox = TRUE, node_key = "id",
+          default_expand_all = TRUE, checked = c("b1", "c"),
+          data = list(
+            list(id = "a", label = "Fruit", children = list(
+              list(id = "b1", label = "Apple"), list(id = "b2", label = "Pear"))),
+            list(id = "c", label = "Bread")
+          )),
+  el_button("ask", "Which are checked?"),
+  verbatimTextOutput("answer")
+)
+
+server <- function(input, output, session) {
+  observeEvent(input$ask, el_call(session, "tree", "getCheckedKeys"))
+  output$answer <- renderPrint(input$tree_get_checked_keys)
+}
+
+shinyApp(ui, server)
 ```
+
+![](../shots/limitations-methods.png)
 
 ## Events are event inputs
 
-Every forwarded Element event sets its input with event priority, which
-Shiny resets to `NULL` after each flush. That is what lets the same
-value fire twice, and it means polling the input almost always reads the
-`NULL`:
+Every forwarded Element event sets its input with event priority. The
+input keeps its last value like any other; what event priority adds is
+that sending the same value again still counts as a change. Clicking the
+same row twice fires an
+[`observeEvent()`](https://rdrr.io/pkg/shiny/man/observeEvent.html)
+twice – while an output that only reads the value sees nothing new the
+second time.
+
+Here is the same row clicked twice. The output reading the value shows
+where the last click landed; only the observer knows there were two:
 
 ``` r
 
-# Wrong: reads NULL nearly every time
-output$last <- renderPrint({
-  invalidateLater(1000, session)
-  input$tbl_row_click
-})
+ui <- el_page(
+  el_table("tbl", data = head(iris[, c(1, 5)], 3)),
+  verbatimTextOutput("polled"),
+  verbatimTextOutput("latched")
+)
 
-# Right
-observeEvent(input$tbl_row_click, {
-  last_row(input$tbl_row_click)
-})
+server <- function(input, output, session) {
+  # Reading the value: the last row clicked, but not how many times
+  output$polled <- renderText({
+    paste("last row clicked:", input$tbl_row_click$row_index)
+  })
+
+  # Observing the event: runs once per click, repeats included
+  clicks <- reactiveVal(0)
+  observeEvent(input$tbl_row_click, clicks(clicks() + 1))
+  output$latched <- renderText(paste("clicks seen:", clicks()))
+}
+
+shinyApp(ui, server)
 ```
+
+![](../shots/limitations-event-inputs.png)
 
 An event whose arguments cannot cross the wire – a native `FocusEvent`,
 a DOM node, a whole Vue instance – reports `TRUE` instead, so an
@@ -88,10 +129,16 @@ it would on its own.
 
 ``` r
 
-el_collapse("panels", items = list(
-  list(name = "one", title = "Settings", content = el_switch("dark", value = TRUE))
+el_collapse("panels", value = "one", items = list(
+  list(name = "one", title = "Settings", content = tagList(
+    el_switch("dark", value = TRUE, active_text = "Dark mode"),
+    el_rate("stars", value = 4)
+  )),
+  list(name = "two", title = "About", content = tags$p("Version 0.1.0"))
 ))
 ```
+
+![](../shots/limitations-container.png)
 
 **Wrappers absorb what they are given.**
 [`el_tooltip()`](https://kaipingyang.github.io/shiny.element/reference/el_tooltip.md),
@@ -105,9 +152,20 @@ carrying both sets of markup, data and methods.
 
 ``` r
 
-el_tooltip("hint", el_button("save", "Save"), content = "Writes to disk")
-# input$save still reports
+ui <- el_page(
+  el_tooltip("hint", el_button("save", "Save", type = "primary"),
+             content = "Writes to disk", placement = "right"),
+  verbatimTextOutput("clicks")
+)
+
+server <- function(input, output, session) {
+  output$clicks <- renderPrint(input$save)   # still reports
+}
+
+shinyApp(ui, server)
 ```
+
+![](../shots/limitations-absorb.png)
 
 This costs one thing. An absorbed component has no widget of its own, so
 `HTMLWidgets.find()` cannot reach it and its `update_el_*()` stops
@@ -115,12 +173,24 @@ working. Drive it through the wrapper instead:
 
 ``` r
 
-# Not this
-update_el_button(session, "save", label = "Saving...")
+ui <- el_page(
+  el_tooltip("hint", el_button("save", "Save", type = "primary"),
+             content = "Writes to disk"),
+  el_button("busy", "Mark as saving")
+)
 
-# This
-update_vue_data(session, "hint", list(label = "Saving..."))
+server <- function(input, output, session) {
+  observeEvent(input$busy, {
+    # Not update_el_button(session, "save", ...): the button has no widget
+    # of its own any more. Its fields live on the tooltip.
+    update_vue_data(session, "hint", list(label = "Saving...", loading = TRUE))
+  })
+}
+
+shinyApp(ui, server)
 ```
+
+![](../shots/limitations-absorbed-update.png)
 
 If two absorbed components declare the same field – most declare a
 `label`, a `type` and a `disabled` – the second one’s fields are renamed
@@ -135,8 +205,12 @@ Every component takes `slots`, a named list:
 
 ``` r
 
-el_alert("a", slots = list(title = tags$b("Something went wrong")))
+el_alert("problem", type = "error", show_icon = TRUE,
+         description = "The upload was larger than 5 MB.",
+         slots = list(title = tags$span(tags$b("Upload failed"), " -- try again")))
 ```
+
+![](../shots/limitations-slots.png)
 
 A scoped slot – one where Element hands the template variables that only
 exist while Vue renders – is written with
@@ -145,13 +219,18 @@ and passed through untouched:
 
 ``` r
 
-el_calendar("cal", slots = list(
+el_calendar("cal", value = "2026-03-15", slots = list(
   dateCell = template(
-    htmltools::HTML("<p>{{ data.day.slice(8) }}</p>"),
+    htmltools::HTML(paste0(
+      "<div>{{ data.day.slice(8) }}",
+      "<b v-if=\"data.day.slice(8) === '15'\" style=\"color:#F56C6C\">",
+      " due</b></div>")),
     slot = "dateCell", scope = "{date, data}"
   )
 ))
 ```
+
+![](../shots/limitations-scoped-slot.png)
 
 Filling a slot replaces what Element put there, default and all.
 Element’s `el-form-item` error slot, for instance, wraps the message in
@@ -181,9 +260,11 @@ Vue instance of its own:
 
 ``` r
 
-el$button(type = "primary", "Save")   # markup only, no input
-el_button("save", "Save")             # a component, reports input$save
+el$button(type = "primary", "Markup only")    # no input
+el_button("save", "A component", type = "primary")   # reports input$save
 ```
+
+![](../shots/limitations-raw-tags.png)
 
 Use the raw tag where a component would be wasted – inside a
 [`template()`](https://kaipingyang.github.io/shiny.element/reference/template.md),
@@ -197,15 +278,21 @@ exported for wrapping anything not covered here, or covered differently:
 
 ``` r
 
-my_avatar <- function(id, src, size = 50) {
+initials <- function(id, name, size = 48) {
   el_widget(
     id     = id,
-    markup = el$avatar(":src" = "src", ":size" = "size"),
-    data   = list(src = src, size = size),
+    markup = el$avatar(":size" = "size", "{{ letters }}"),
+    data   = list(size = size, letters = paste(substr(strsplit(name, " ")[[1]], 1, 1),
+                                               collapse = "")),
     dependency = element_ui_dependency()
   )
 }
+
+initials("ada", "Ada Lovelace")
+initials("alan", "Alan Mathison Turing", size = 64)
 ```
+
+![](../shots/limitations-own-widget.png)
 
 Calling [`vueR::vue()`](https://rdrr.io/pkg/vueR/man/vue.html) yourself
 works too. What

@@ -29,7 +29,7 @@ An htmlDependency object for Element UI.
 element_ui_dependency()
 #> List of 10
 #>  $ name      : chr "element-ui"
-#>  $ version   : chr "2.13.2"
+#>  $ version   : chr "2.15.14"
 #>  $ src       :List of 1
 #>   ..$ file: chr "/home/runner/work/_temp/Library/shiny.element/element-ui"
 #>  $ meta      : NULL
@@ -43,9 +43,9 @@ element_ui_dependency()
 element_ui_dependency(offline = FALSE)
 #> List of 10
 #>  $ name      : chr "element-ui"
-#>  $ version   : chr "2.13.2"
+#>  $ version   : chr "2.15.14"
 #>  $ src       :List of 1
-#>   ..$ href: chr "https://unpkg.com/element-ui@2.13.2/lib/"
+#>   ..$ href: chr "https://unpkg.com/element-ui@2.15.14/lib/"
 #>  $ meta      : NULL
 #>  $ script    : chr "index.js"
 #>  $ stylesheet: chr "theme-chalk/index.css"

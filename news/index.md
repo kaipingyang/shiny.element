@@ -6,9 +6,9 @@ First release.
 
 ### Components
 
-Every component Element UI 2.13.2 documents is wrapped – 74 of them –
-with everything each one documents reachable from R: 506 attributes, 94
-events, 53 methods and 26 slots.
+Every component Element UI 2.15.14 documents is wrapped – 83 of them –
+with everything each one documents reachable from R: 552 attributes, 94
+events, 54 methods and 42 slots.
 
 - **Input** —
   [`el_input()`](https://kaipingyang.github.io/shiny.element/reference/el_input.md),
@@ -148,6 +148,29 @@ observeEvent(input$tree_get_checked_keys, {
 The answer arrives as `input$<id>_<method>` with the method name in
 snake_case. Each component’s help page lists what it accepts under
 “Element methods”.
+
+### Element UI 2.15.14, and English by default
+
+The bundled Element UI is 2.15.14, the last 2.x release; 2.13.2 was two
+minor versions behind. That brings
+[`el_descriptions()`](https://kaipingyang.github.io/shiny.element/reference/el_descriptions.md),
+[`el_statistic()`](https://kaipingyang.github.io/shiny.element/reference/el_statistic.md),
+[`el_empty()`](https://kaipingyang.github.io/shiny.element/reference/el_empty.md),
+[`el_result()`](https://kaipingyang.github.io/shiny.element/reference/el_result.md)
+and
+[`el_skeleton()`](https://kaipingyang.github.io/shiny.element/reference/el_skeleton.md),
+and a handful of new props on existing components.
+
+[`el_page()`](https://kaipingyang.github.io/shiny.element/reference/el_page.md)
+and
+[`use_element()`](https://kaipingyang.github.io/shiny.element/reference/use_element.md)
+now load English for Element’s built-in text – placeholders, empty-table
+messages, date-picker buttons. Element’s own default is Simplified
+Chinese, which is what every page showed before. All 59 of Element’s
+locales are bundled
+([`el_locales()`](https://kaipingyang.github.io/shiny.element/reference/el_locales.md)),
+and `options(shiny.element.locale = "zh-CN")` sets one for a whole
+session.
 
 ### Design notes
 

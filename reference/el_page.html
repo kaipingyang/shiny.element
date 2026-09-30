@@ -57,7 +57,7 @@ and supports both bslib/shiny themes and Element-UI layout CSS.</p>
 <span>  theme <span class="op">=</span> <span class="fu">bslib</span><span class="fu">::</span><span class="fu"><a href="https://rstudio.github.io/bslib/reference/bs_theme.html" class="external-link">bs_theme</a></span><span class="op">(</span>version <span class="op">=</span> <span class="fl">5</span>, bootswatch <span class="op">=</span> <span class="st">"minty"</span><span class="op">)</span>,</span>
 <span>  theme_css <span class="op">=</span> <span class="fu"><a href="el_layout_css_dependency.html">el_layout_css_dependency</a></span><span class="op">(</span><span class="op">)</span>,</span>
 <span>  offline <span class="op">=</span> <span class="cn">TRUE</span>,</span>
-<span>  locale <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  locale <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">getOption</a></span><span class="op">(</span><span class="st">"shiny.element.locale"</span>, <span class="st">"en"</span><span class="op">)</span>,</span>
 <span>  dev <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">getOption</a></span><span class="op">(</span><span class="st">"shiny.element.dev"</span>, <span class="cn">FALSE</span><span class="op">)</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
@@ -90,8 +90,9 @@ rather than the unpkg CDN. See <code><a href="element_ui_dependency.html">elemen
 
 <dt id="arg-locale">locale<a class="anchor" aria-label="anchor" href="#arg-locale"></a></dt>
 <dd><p>Language for Element UI's built-in text – pagination
-summaries, date-picker buttons and so on. <code>NULL</code> keeps its bundled
-Simplified Chinese; <code>"en"</code> is also bundled. See <code><a href="el_locale_dependency.html">el_locale_dependency()</a></code>.</p></dd>
+summaries, date-picker buttons, select placeholders. English by default,
+or <code>getOption("shiny.element.locale")</code> when set; <code>"zh-CN"</code> gives Element's
+own Simplified Chinese. See <code><a href="el_locales.html">el_locales()</a></code> for the rest.</p></dd>
 
 
 <dt id="arg-dev">dev<a class="anchor" aria-label="anchor" href="#arg-dev"></a></dt>

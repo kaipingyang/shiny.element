@@ -4,6 +4,8 @@
 
 Page wrappers that load Vue, Element UI and the package’s own assets.
 
+- [`el_locales()`](https://kaipingyang.github.io/shiny.element/reference/el_locales.md)
+  : Languages Element UI can use for its built-in text
 - [`el_page()`](https://kaipingyang.github.io/shiny.element/reference/el_page.md)
   : Element UI Page Wrapper with Theme Support
 - [`use_element()`](https://kaipingyang.github.io/shiny.element/reference/use_element.md)
@@ -111,6 +113,22 @@ form reports once on submit.
 
 ## Display
 
+- [`el_descriptions()`](https://kaipingyang.github.io/shiny.element/reference/el_descriptions.md)
+  : Element UI Descriptions
+- [`update_el_descriptions()`](https://kaipingyang.github.io/shiny.element/reference/update_el_descriptions.md)
+  : Update Element UI Descriptions
+- [`el_statistic()`](https://kaipingyang.github.io/shiny.element/reference/el_statistic.md)
+  : Element UI Statistic
+- [`update_el_statistic()`](https://kaipingyang.github.io/shiny.element/reference/update_el_statistic.md)
+  : Update Element UI Statistic
+- [`el_empty()`](https://kaipingyang.github.io/shiny.element/reference/el_empty.md)
+  : Element UI Empty
+- [`update_el_empty()`](https://kaipingyang.github.io/shiny.element/reference/update_el_empty.md)
+  : Update Element UI Empty
+- [`el_result()`](https://kaipingyang.github.io/shiny.element/reference/el_result.md)
+  : Element UI Result
+- [`update_el_result()`](https://kaipingyang.github.io/shiny.element/reference/update_el_result.md)
+  : Update Element UI Result
 - [`el_avatar()`](https://kaipingyang.github.io/shiny.element/reference/el_avatar.md)
   : Element UI Avatar
 - [`update_el_avatar()`](https://kaipingyang.github.io/shiny.element/reference/update_el_avatar.md)
@@ -253,6 +271,10 @@ hold other components from this package.
 
 Called from the server; nothing to place in the UI.
 
+- [`el_skeleton()`](https://kaipingyang.github.io/shiny.element/reference/el_skeleton.md)
+  : Element UI Skeleton
+- [`update_el_skeleton()`](https://kaipingyang.github.io/shiny.element/reference/update_el_skeleton.md)
+  : Update Element UI Skeleton
 - [`el_message_box()`](https://kaipingyang.github.io/shiny.element/reference/el_message_box.md)
   : Element UI Message Box
 - [`el_loading()`](https://kaipingyang.github.io/shiny.element/reference/el_loading.md)

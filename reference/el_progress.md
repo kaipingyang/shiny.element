@@ -19,6 +19,9 @@ el_progress(
   width = 126,
   stroke_linecap = NULL,
   slots = NULL,
+  define_back_color = NULL,
+  text_color = NULL,
+  format = NULL,
   session = shiny::getDefaultReactiveDomain()
 )
 ```
@@ -72,6 +75,19 @@ el_progress(
 - slots:
 
   Named list of Element slot contents, such as
+
+- define_back_color:
+
+  Background colour of the track.
+
+- text_color:
+
+  Colour of the percentage text.
+
+- format:
+
+  [`htmlwidgets::JS()`](https://rdrr.io/pkg/htmlwidgets/man/JS.html)
+  function `function(percentage)` returning the text shown.
   `list(title = shiny::tags$b("Bold"))`. A shiny.element component given
   here is absorbed rather than nested. For a scoped slot, write the
   template with
@@ -91,26 +107,26 @@ An `htmltools` tagList with a Vue-managed progress component.
 # Basic line progress
 el_progress("prog1", percentage = 60)
 #> <div id="prog1_container" style="display: contents">
-#>   <el-progress :percentage="percentage" :type="type" :stroke-width="strokeWidth" :text-inside="textInside" :show-text="showText" :width="width" :status="status === null ? undefined : status" :color="color" :stroke-linecap="strokeLinecap === null ? undefined : strokeLinecap"></el-progress>
+#>   <el-progress :percentage="percentage" :type="type" :stroke-width="strokeWidth" :text-inside="textInside" :show-text="showText" :width="width" :status="status === null ? undefined : status" :color="color" :stroke-linecap="strokeLinecap === null ? undefined : strokeLinecap" :define-back-color="defineBackColor === null ? undefined : defineBackColor" :text-color="textColor === null ? undefined : textColor" :format="format === null ? undefined : format"></el-progress>
 #> </div>
 #> <div id="prog1" style="width:0px;height:0px;" class="vue html-widget"></div>
-#> <script type="application/json" data-for="prog1">{"x":{"el":"#prog1_container","data":{"percentage":60,"type":"line","strokeWidth":6,"textInside":false,"showText":true,"width":126,"status":null,"color":"","strokeLinecap":null}},"evals":[],"jsHooks":[]}</script>
+#> <script type="application/json" data-for="prog1">{"x":{"el":"#prog1_container","data":{"percentage":60,"type":"line","strokeWidth":6,"textInside":false,"showText":true,"width":126,"status":null,"color":"","strokeLinecap":null,"defineBackColor":null,"textColor":null,"format":null}},"evals":[],"jsHooks":[]}</script>
 
 # Circle progress with success status
 el_progress("prog2", percentage = 100, type = "circle", status = "success")
 #> <div id="prog2_container" style="display: contents">
-#>   <el-progress :percentage="percentage" :type="type" :stroke-width="strokeWidth" :text-inside="textInside" :show-text="showText" :width="width" :status="status === null ? undefined : status" :color="color" :stroke-linecap="strokeLinecap === null ? undefined : strokeLinecap"></el-progress>
+#>   <el-progress :percentage="percentage" :type="type" :stroke-width="strokeWidth" :text-inside="textInside" :show-text="showText" :width="width" :status="status === null ? undefined : status" :color="color" :stroke-linecap="strokeLinecap === null ? undefined : strokeLinecap" :define-back-color="defineBackColor === null ? undefined : defineBackColor" :text-color="textColor === null ? undefined : textColor" :format="format === null ? undefined : format"></el-progress>
 #> </div>
 #> <div id="prog2" style="width:0px;height:0px;" class="vue html-widget"></div>
-#> <script type="application/json" data-for="prog2">{"x":{"el":"#prog2_container","data":{"percentage":100,"type":"circle","strokeWidth":6,"textInside":false,"showText":true,"width":126,"status":"success","color":"","strokeLinecap":null}},"evals":[],"jsHooks":[]}</script>
+#> <script type="application/json" data-for="prog2">{"x":{"el":"#prog2_container","data":{"percentage":100,"type":"circle","strokeWidth":6,"textInside":false,"showText":true,"width":126,"status":"success","color":"","strokeLinecap":null,"defineBackColor":null,"textColor":null,"format":null}},"evals":[],"jsHooks":[]}</script>
 
 # Dashboard style with custom colour
 el_progress("prog3", percentage = 75, type = "dashboard", color = "#67C23A")
 #> <div id="prog3_container" style="display: contents">
-#>   <el-progress :percentage="percentage" :type="type" :stroke-width="strokeWidth" :text-inside="textInside" :show-text="showText" :width="width" :status="status === null ? undefined : status" :color="color" :stroke-linecap="strokeLinecap === null ? undefined : strokeLinecap"></el-progress>
+#>   <el-progress :percentage="percentage" :type="type" :stroke-width="strokeWidth" :text-inside="textInside" :show-text="showText" :width="width" :status="status === null ? undefined : status" :color="color" :stroke-linecap="strokeLinecap === null ? undefined : strokeLinecap" :define-back-color="defineBackColor === null ? undefined : defineBackColor" :text-color="textColor === null ? undefined : textColor" :format="format === null ? undefined : format"></el-progress>
 #> </div>
 #> <div id="prog3" style="width:0px;height:0px;" class="vue html-widget"></div>
-#> <script type="application/json" data-for="prog3">{"x":{"el":"#prog3_container","data":{"percentage":75,"type":"dashboard","strokeWidth":6,"textInside":false,"showText":true,"width":126,"status":null,"color":"#67C23A","strokeLinecap":null}},"evals":[],"jsHooks":[]}</script>
+#> <script type="application/json" data-for="prog3">{"x":{"el":"#prog3_container","data":{"percentage":75,"type":"dashboard","strokeWidth":6,"textInside":false,"showText":true,"width":126,"status":null,"color":"#67C23A","strokeLinecap":null,"defineBackColor":null,"textColor":null,"format":null}},"evals":[],"jsHooks":[]}</script>
 
 # Shiny app example
 if (interactive()) {

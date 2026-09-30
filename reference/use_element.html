@@ -61,7 +61,7 @@ Use this when you want to use Element-UI components in non-el_page layouts
 <span>  theme <span class="op">=</span> <span class="fu"><a href="el_layout_css_dependency.html">el_layout_css_dependency</a></span><span class="op">(</span><span class="op">)</span>,</span>
 <span>  offline <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  dev <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">getOption</a></span><span class="op">(</span><span class="st">"shiny.element.dev"</span>, <span class="cn">FALSE</span><span class="op">)</span>,</span>
-<span>  locale <span class="op">=</span> <span class="cn">NULL</span></span>
+<span>  locale <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">getOption</a></span><span class="op">(</span><span class="st">"shiny.element.locale"</span>, <span class="st">"en"</span><span class="op">)</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
 
@@ -85,7 +85,8 @@ Vue's warnings are not stripped. Defaults to
 
 
 <dt id="arg-locale">locale<a class="anchor" aria-label="anchor" href="#arg-locale"></a></dt>
-<dd><p>Language for Element UI's built-in text. See
+<dd><p>Language for Element UI's built-in text. English by default,
+or <code>getOption("shiny.element.locale")</code> when set. See
 <code><a href="el_locale_dependency.html">el_locale_dependency()</a></code>.</p></dd>
 
 </dl></div>

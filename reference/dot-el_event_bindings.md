@@ -9,7 +9,7 @@ drops what cannot travel and sets `input$<id>_<event>`.
 ## Usage
 
 ``` r
-.el_event_bindings(ns_id, events)
+.el_event_bindings(ns_id, events, shapes = list())
 ```
 
 ## Arguments
@@ -21,6 +21,13 @@ drops what cannot travel and sets `input$<id>_<event>`.
 - events:
 
   Character vector of Element event names, in kebab-case.
+
+- shapes:
+
+  Named list of JavaScript functions, one per event that carries more
+  than one argument, turning the arguments into a single object. `this`
+  is the Vue instance. Without one, several arguments are sent as
+  `arg1`, `arg2`, ...
 
 ## Value
 
