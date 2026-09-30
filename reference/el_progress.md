@@ -17,6 +17,7 @@ el_progress(
   show_text = TRUE,
   color = NULL,
   width = 126,
+  stroke_linecap = NULL,
   session = shiny::getDefaultReactiveDomain()
 )
 ```
@@ -63,6 +64,10 @@ el_progress(
 
   Width in pixels for `"circle"` and `"dashboard"` types. Default `126`.
 
+- stroke_linecap:
+
+  Shape of the bar's ends: `"round"` (default), `"butt"` or `"square"`.
+
 - session:
 
   Shiny session for module support.
@@ -77,26 +82,26 @@ An `htmltools` tagList with a Vue-managed progress component.
 # Basic line progress
 el_progress("prog1", percentage = 60)
 #> <div id="prog1_container" style="display: contents">
-#>   <el-progress :percentage="percentage" :type="type" :stroke-width="strokeWidth" :text-inside="textInside" :show-text="showText" :width="width" :status="status === null ? undefined : status" :color="color"></el-progress>
+#>   <el-progress :percentage="percentage" :type="type" :stroke-width="strokeWidth" :text-inside="textInside" :show-text="showText" :width="width" :status="status === null ? undefined : status" :color="color" :stroke-linecap="strokeLinecap === null ? undefined : strokeLinecap"></el-progress>
 #> </div>
 #> <div id="prog1" style="width:0px;height:0px;" class="vue html-widget"></div>
-#> <script type="application/json" data-for="prog1">{"x":{"el":"#prog1_container","data":{"percentage":60,"type":"line","strokeWidth":6,"textInside":false,"showText":true,"width":126,"status":null,"color":""}},"evals":[],"jsHooks":[]}</script>
+#> <script type="application/json" data-for="prog1">{"x":{"el":"#prog1_container","data":{"percentage":60,"type":"line","strokeWidth":6,"textInside":false,"showText":true,"width":126,"status":null,"color":"","strokeLinecap":null}},"evals":[],"jsHooks":[]}</script>
 
 # Circle progress with success status
 el_progress("prog2", percentage = 100, type = "circle", status = "success")
 #> <div id="prog2_container" style="display: contents">
-#>   <el-progress :percentage="percentage" :type="type" :stroke-width="strokeWidth" :text-inside="textInside" :show-text="showText" :width="width" :status="status === null ? undefined : status" :color="color"></el-progress>
+#>   <el-progress :percentage="percentage" :type="type" :stroke-width="strokeWidth" :text-inside="textInside" :show-text="showText" :width="width" :status="status === null ? undefined : status" :color="color" :stroke-linecap="strokeLinecap === null ? undefined : strokeLinecap"></el-progress>
 #> </div>
 #> <div id="prog2" style="width:0px;height:0px;" class="vue html-widget"></div>
-#> <script type="application/json" data-for="prog2">{"x":{"el":"#prog2_container","data":{"percentage":100,"type":"circle","strokeWidth":6,"textInside":false,"showText":true,"width":126,"status":"success","color":""}},"evals":[],"jsHooks":[]}</script>
+#> <script type="application/json" data-for="prog2">{"x":{"el":"#prog2_container","data":{"percentage":100,"type":"circle","strokeWidth":6,"textInside":false,"showText":true,"width":126,"status":"success","color":"","strokeLinecap":null}},"evals":[],"jsHooks":[]}</script>
 
 # Dashboard style with custom colour
 el_progress("prog3", percentage = 75, type = "dashboard", color = "#67C23A")
 #> <div id="prog3_container" style="display: contents">
-#>   <el-progress :percentage="percentage" :type="type" :stroke-width="strokeWidth" :text-inside="textInside" :show-text="showText" :width="width" :status="status === null ? undefined : status" :color="color"></el-progress>
+#>   <el-progress :percentage="percentage" :type="type" :stroke-width="strokeWidth" :text-inside="textInside" :show-text="showText" :width="width" :status="status === null ? undefined : status" :color="color" :stroke-linecap="strokeLinecap === null ? undefined : strokeLinecap"></el-progress>
 #> </div>
 #> <div id="prog3" style="width:0px;height:0px;" class="vue html-widget"></div>
-#> <script type="application/json" data-for="prog3">{"x":{"el":"#prog3_container","data":{"percentage":75,"type":"dashboard","strokeWidth":6,"textInside":false,"showText":true,"width":126,"status":null,"color":"#67C23A"}},"evals":[],"jsHooks":[]}</script>
+#> <script type="application/json" data-for="prog3">{"x":{"el":"#prog3_container","data":{"percentage":75,"type":"dashboard","strokeWidth":6,"textInside":false,"showText":true,"width":126,"status":null,"color":"#67C23A","strokeLinecap":null}},"evals":[],"jsHooks":[]}</script>
 
 # Shiny app example
 if (interactive()) {

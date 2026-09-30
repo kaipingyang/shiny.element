@@ -54,6 +54,11 @@ jump-to-page input, and total count display.</p>
 <span>  small <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  disabled <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  pager_count <span class="op">=</span> <span class="fl">7</span>,</span>
+<span>  prev_text <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  next_text <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  hide_on_single_page <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  page_count <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  popper_class <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  session <span class="op">=</span> <span class="fu">shiny</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/domains.html" class="external-link">getDefaultReactiveDomain</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
@@ -103,6 +108,26 @@ Default <code>"total, sizes, prev, pager, next, jumper"</code>.</p></dd>
 <dd><p>Number of pager buttons to show. Default <code>7</code>.</p></dd>
 
 
+<dt id="arg-prev-text">prev_text<a class="anchor" aria-label="anchor" href="#arg-prev-text"></a></dt>
+<dd><p>Text of the previous-page button, in place of the arrow icon.</p></dd>
+
+
+<dt id="arg-next-text">next_text<a class="anchor" aria-label="anchor" href="#arg-next-text"></a></dt>
+<dd><p>Text of the next-page button, in place of the arrow icon.</p></dd>
+
+
+<dt id="arg-hide-on-single-page">hide_on_single_page<a class="anchor" aria-label="anchor" href="#arg-hide-on-single-page"></a></dt>
+<dd><p>Whether to hide the pager when there is only one page.</p></dd>
+
+
+<dt id="arg-page-count">page_count<a class="anchor" aria-label="anchor" href="#arg-page-count"></a></dt>
+<dd><p>Total page count. Set either this or <code>total</code>.</p></dd>
+
+
+<dt id="arg-popper-class">popper_class<a class="anchor" aria-label="anchor" href="#arg-popper-class"></a></dt>
+<dd><p>Extra class name for the page-size dropdown.</p></dd>
+
+
 <dt id="arg-session">session<a class="anchor" aria-label="anchor" href="#arg-session"></a></dt>
 <dd><p>Shiny session for module support.</p></dd>
 
@@ -129,10 +154,10 @@ Default <code>"total, sizes, prev, pager, next, jumper"</code>.</p></dd>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># Basic usage</span></span></span>
 <span class="r-in"><span><span class="fu">el_pagination</span><span class="op">(</span><span class="st">"pg1"</span>, total <span class="op">=</span> <span class="fl">100</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> &lt;div id="pg1_container" style="display: contents"&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   &lt;el-pagination :total="total" :page-size="pageSize" :current-page.sync="currentPage" :page-sizes="pageSizes" :layout="layout" :background="background" :small="small" :disabled="disabled" :pager-count="pagerCount" @current-change="handlePageChange" @size-change="handleSizeChange"&gt;&lt;/el-pagination&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   &lt;el-pagination :total="total" :page-size="pageSize" :current-page.sync="currentPage" :page-sizes="pageSizes" :layout="layout" :background="background" :small="small" :disabled="disabled" :pager-count="pagerCount" @current-change="handlePageChange" @size-change="handleSizeChange" :prev-text="prevText === null ? undefined : prevText" :next-text="nextText === null ? undefined : nextText" :hide-on-single-page="hideOnSinglePage === null ? undefined : hideOnSinglePage" :page-count="pageCount === null ? undefined : pageCount" :popper-class="popperClass === null ? undefined : popperClass"&gt;&lt;/el-pagination&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> &lt;/div&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> &lt;div id="pg1" style="width:0px;height:0px;" class="vue html-widget"&gt;&lt;/div&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;script type="application/json" data-for="pg1"&gt;{"x":{"el":"#pg1_container","data":{"total":100,"pageSize":10,"currentPage":1,"pageSizes":[10,20,30,50],"layout":"total, sizes, prev, pager, next, jumper","background":false,"small":false,"disabled":false,"pagerCount":7},"methods":{"handlePageChange":"function(page) { Shiny.setInputValue('pg1_page', page); }","handleSizeChange":"function(size) { Shiny.setInputValue('pg1_size', size); }"},"mounted":"function() { var self = this; var send = function() { Shiny.setInputValue(\"pg1_page\", self.currentPage); Shiny.setInputValue(\"pg1_size\", self.pageSize); }; if (window.Shiny &amp;&amp; Shiny.shinyapp &amp;&amp; typeof Shiny.shinyapp.isConnected === 'function' &amp;&amp; Shiny.shinyapp.isConnected()) { send(); } else { $(document).one('shiny:connected', send); } }"},"evals":["methods.handlePageChange","methods.handleSizeChange","mounted"],"jsHooks":[]}&lt;/script&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;script type="application/json" data-for="pg1"&gt;{"x":{"el":"#pg1_container","data":{"total":100,"pageSize":10,"currentPage":1,"pageSizes":[10,20,30,50],"layout":"total, sizes, prev, pager, next, jumper","background":false,"small":false,"disabled":false,"pagerCount":7,"prevText":null,"nextText":null,"hideOnSinglePage":null,"pageCount":null,"popperClass":null},"methods":{"handlePageChange":"function(page) { Shiny.setInputValue('pg1_page', page); }","handleSizeChange":"function(size) { Shiny.setInputValue('pg1_size', size); }"},"mounted":"function() { var self = this; var send = function() { Shiny.setInputValue(\"pg1_page\", self.currentPage); Shiny.setInputValue(\"pg1_size\", self.pageSize); }; if (window.Shiny &amp;&amp; Shiny.shinyapp &amp;&amp; typeof Shiny.shinyapp.isConnected === 'function' &amp;&amp; Shiny.shinyapp.isConnected()) { send(); } else { $(document).one('shiny:connected', send); } }"},"evals":["methods.handlePageChange","methods.handleSizeChange","mounted"],"jsHooks":[]}&lt;/script&gt;</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># With custom page sizes and layout</span></span></span>
 <span class="r-in"><span><span class="fu">el_pagination</span><span class="op">(</span></span></span>
@@ -143,10 +168,10 @@ Default <code>"total, sizes, prev, pager, next, jumper"</code>.</p></dd>
 <span class="r-in"><span>  layout     <span class="op">=</span> <span class="st">"total, sizes, prev, pager, next"</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> &lt;div id="pg2_container" style="display: contents"&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   &lt;el-pagination :total="total" :page-size="pageSize" :current-page.sync="currentPage" :page-sizes="pageSizes" :layout="layout" :background="background" :small="small" :disabled="disabled" :pager-count="pagerCount" @current-change="handlePageChange" @size-change="handleSizeChange"&gt;&lt;/el-pagination&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   &lt;el-pagination :total="total" :page-size="pageSize" :current-page.sync="currentPage" :page-sizes="pageSizes" :layout="layout" :background="background" :small="small" :disabled="disabled" :pager-count="pagerCount" @current-change="handlePageChange" @size-change="handleSizeChange" :prev-text="prevText === null ? undefined : prevText" :next-text="nextText === null ? undefined : nextText" :hide-on-single-page="hideOnSinglePage === null ? undefined : hideOnSinglePage" :page-count="pageCount === null ? undefined : pageCount" :popper-class="popperClass === null ? undefined : popperClass"&gt;&lt;/el-pagination&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> &lt;/div&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> &lt;div id="pg2" style="width:0px;height:0px;" class="vue html-widget"&gt;&lt;/div&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;script type="application/json" data-for="pg2"&gt;{"x":{"el":"#pg2_container","data":{"total":500,"pageSize":20,"currentPage":1,"pageSizes":[10,20,50,100],"layout":"total, sizes, prev, pager, next","background":false,"small":false,"disabled":false,"pagerCount":7},"methods":{"handlePageChange":"function(page) { Shiny.setInputValue('pg2_page', page); }","handleSizeChange":"function(size) { Shiny.setInputValue('pg2_size', size); }"},"mounted":"function() { var self = this; var send = function() { Shiny.setInputValue(\"pg2_page\", self.currentPage); Shiny.setInputValue(\"pg2_size\", self.pageSize); }; if (window.Shiny &amp;&amp; Shiny.shinyapp &amp;&amp; typeof Shiny.shinyapp.isConnected === 'function' &amp;&amp; Shiny.shinyapp.isConnected()) { send(); } else { $(document).one('shiny:connected', send); } }"},"evals":["methods.handlePageChange","methods.handleSizeChange","mounted"],"jsHooks":[]}&lt;/script&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;script type="application/json" data-for="pg2"&gt;{"x":{"el":"#pg2_container","data":{"total":500,"pageSize":20,"currentPage":1,"pageSizes":[10,20,50,100],"layout":"total, sizes, prev, pager, next","background":false,"small":false,"disabled":false,"pagerCount":7,"prevText":null,"nextText":null,"hideOnSinglePage":null,"pageCount":null,"popperClass":null},"methods":{"handlePageChange":"function(page) { Shiny.setInputValue('pg2_page', page); }","handleSizeChange":"function(size) { Shiny.setInputValue('pg2_size', size); }"},"mounted":"function() { var self = this; var send = function() { Shiny.setInputValue(\"pg2_page\", self.currentPage); Shiny.setInputValue(\"pg2_size\", self.pageSize); }; if (window.Shiny &amp;&amp; Shiny.shinyapp &amp;&amp; typeof Shiny.shinyapp.isConnected === 'function' &amp;&amp; Shiny.shinyapp.isConnected()) { send(); } else { $(document).one('shiny:connected', send); } }"},"evals":["methods.handlePageChange","methods.handleSizeChange","mounted"],"jsHooks":[]}&lt;/script&gt;</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Shiny app example</span></span></span>
 <span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/interactive.html" class="external-link">interactive</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span></span>

@@ -21,6 +21,9 @@ el_cascader(
   separator = " / ",
   debounce = 300,
   icon = NULL,
+  popper_class = NULL,
+  filter_method = NULL,
+  before_filter = NULL,
   session = getDefaultReactiveDomain()
 )
 ```
@@ -82,6 +85,20 @@ el_cascader(
 - icon:
 
   Icon for the cascader (shiny.tag or NULL)
+
+- popper_class:
+
+  Extra class name for the dropdown panel.
+
+- filter_method:
+
+  [`htmlwidgets::JS()`](https://rdrr.io/pkg/htmlwidgets/man/JS.html)
+  function filtering the options as the user types.
+
+- before_filter:
+
+  [`htmlwidgets::JS()`](https://rdrr.io/pkg/htmlwidgets/man/JS.html)
+  function called before filtering; returning `false` cancels it.
 
 - session:
 

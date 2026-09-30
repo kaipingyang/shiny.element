@@ -17,7 +17,8 @@ el_upload_clear(session, id)
 
 - id:
 
-  Upload ID (un-namespaced).
+  Upload ID (un-namespaced). This is Element's `data` prop, renamed to
+  keep it distinct from the uploaded file itself.
 
 ## Value
 

@@ -19,6 +19,7 @@ el_button(
   disabled = FALSE,
   icon = NULL,
   native_type = "button",
+  autofocus = FALSE,
   session = shiny::getDefaultReactiveDomain()
 )
 ```
@@ -66,11 +67,20 @@ el_button(
 
 - icon:
 
-  Icon tag (e.g. `el_icon("search")`, `shiny::icon("star")`).
+  Either an Element icon class name such as `"el-icon-search"`, which
+  Element renders itself and
+  [`update_el_button()`](https://kaipingyang.github.io/shiny.element/reference/update_el_button.md)
+  can change, or a tag (for example from
+  [`el_icon()`](https://kaipingyang.github.io/shiny.element/reference/el_icon.md)),
+  which is inserted as button content.
 
 - native_type:
 
   HTML native button type: `"button"` (default), `"submit"`, `"reset"`.
+
+- autofocus:
+
+  Whether the button takes focus on page load. Default `FALSE`.
 
 - session:
 
@@ -91,10 +101,10 @@ neither `disabled` nor `loading` is `TRUE`.
 # Basic usage
 el_button("btn_primary", "Primary", type = "primary")
 #> <div id="btn_primary_container" style="display: contents">
-#>   <el-button :type="type" :plain="plain" :round="round" :circle="circle" :loading="loading" :disabled="disabled" :native-type="native_type" @click="handleClick" :size="size === null ? undefined : size">{{label}}</el-button>
+#>   <el-button :type="type" :plain="plain" :round="round" :circle="circle" :loading="loading" :disabled="disabled" :native-type="native_type" @click="handleClick" :size="size === null ? undefined : size" :icon="icon === null ? undefined : icon" :autofocus="autofocus === null ? undefined : autofocus">{{label}}</el-button>
 #> </div>
 #> <div id="btn_primary" style="width:0px;height:0px;" class="vue html-widget"></div>
-#> <script type="application/json" data-for="btn_primary">{"x":{"el":"#btn_primary_container","data":{"label":"Primary","type":"primary","size":null,"plain":false,"round":false,"circle":false,"loading":false,"disabled":false,"native_type":"button","count":0},"methods":{"handleClick":"function() { if (!this.disabled && !this.loading) { this.count++; Shiny.setInputValue('btn_primary', this.count); } }"}},"evals":["methods.handleClick"],"jsHooks":[]}</script>
+#> <script type="application/json" data-for="btn_primary">{"x":{"el":"#btn_primary_container","data":{"label":"Primary","type":"primary","size":null,"plain":false,"round":false,"circle":false,"loading":false,"disabled":false,"native_type":"button","icon":null,"count":0,"autofocus":false},"methods":{"handleClick":"function() { if (!this.disabled && !this.loading) { this.count++; Shiny.setInputValue('btn_primary', this.count); } }"}},"evals":["methods.handleClick"],"jsHooks":[]}</script>
 
 # Shiny app example
 if (interactive()) {

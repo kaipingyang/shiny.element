@@ -17,6 +17,11 @@ el_pagination(
   small = FALSE,
   disabled = FALSE,
   pager_count = 7,
+  prev_text = NULL,
+  next_text = NULL,
+  hide_on_single_page = NULL,
+  page_count = NULL,
+  popper_class = NULL,
   session = shiny::getDefaultReactiveDomain()
 )
 ```
@@ -64,6 +69,26 @@ el_pagination(
 
   Number of pager buttons to show. Default `7`.
 
+- prev_text:
+
+  Text of the previous-page button, in place of the arrow icon.
+
+- next_text:
+
+  Text of the next-page button, in place of the arrow icon.
+
+- hide_on_single_page:
+
+  Whether to hide the pager when there is only one page.
+
+- page_count:
+
+  Total page count. Set either this or `total`.
+
+- popper_class:
+
+  Extra class name for the page-size dropdown.
+
 - session:
 
   Shiny session for module support.
@@ -88,10 +113,10 @@ An `htmltools` tagList with a Vue-managed pagination component.
 # Basic usage
 el_pagination("pg1", total = 100)
 #> <div id="pg1_container" style="display: contents">
-#>   <el-pagination :total="total" :page-size="pageSize" :current-page.sync="currentPage" :page-sizes="pageSizes" :layout="layout" :background="background" :small="small" :disabled="disabled" :pager-count="pagerCount" @current-change="handlePageChange" @size-change="handleSizeChange"></el-pagination>
+#>   <el-pagination :total="total" :page-size="pageSize" :current-page.sync="currentPage" :page-sizes="pageSizes" :layout="layout" :background="background" :small="small" :disabled="disabled" :pager-count="pagerCount" @current-change="handlePageChange" @size-change="handleSizeChange" :prev-text="prevText === null ? undefined : prevText" :next-text="nextText === null ? undefined : nextText" :hide-on-single-page="hideOnSinglePage === null ? undefined : hideOnSinglePage" :page-count="pageCount === null ? undefined : pageCount" :popper-class="popperClass === null ? undefined : popperClass"></el-pagination>
 #> </div>
 #> <div id="pg1" style="width:0px;height:0px;" class="vue html-widget"></div>
-#> <script type="application/json" data-for="pg1">{"x":{"el":"#pg1_container","data":{"total":100,"pageSize":10,"currentPage":1,"pageSizes":[10,20,30,50],"layout":"total, sizes, prev, pager, next, jumper","background":false,"small":false,"disabled":false,"pagerCount":7},"methods":{"handlePageChange":"function(page) { Shiny.setInputValue('pg1_page', page); }","handleSizeChange":"function(size) { Shiny.setInputValue('pg1_size', size); }"},"mounted":"function() { var self = this; var send = function() { Shiny.setInputValue(\"pg1_page\", self.currentPage); Shiny.setInputValue(\"pg1_size\", self.pageSize); }; if (window.Shiny && Shiny.shinyapp && typeof Shiny.shinyapp.isConnected === 'function' && Shiny.shinyapp.isConnected()) { send(); } else { $(document).one('shiny:connected', send); } }"},"evals":["methods.handlePageChange","methods.handleSizeChange","mounted"],"jsHooks":[]}</script>
+#> <script type="application/json" data-for="pg1">{"x":{"el":"#pg1_container","data":{"total":100,"pageSize":10,"currentPage":1,"pageSizes":[10,20,30,50],"layout":"total, sizes, prev, pager, next, jumper","background":false,"small":false,"disabled":false,"pagerCount":7,"prevText":null,"nextText":null,"hideOnSinglePage":null,"pageCount":null,"popperClass":null},"methods":{"handlePageChange":"function(page) { Shiny.setInputValue('pg1_page', page); }","handleSizeChange":"function(size) { Shiny.setInputValue('pg1_size', size); }"},"mounted":"function() { var self = this; var send = function() { Shiny.setInputValue(\"pg1_page\", self.currentPage); Shiny.setInputValue(\"pg1_size\", self.pageSize); }; if (window.Shiny && Shiny.shinyapp && typeof Shiny.shinyapp.isConnected === 'function' && Shiny.shinyapp.isConnected()) { send(); } else { $(document).one('shiny:connected', send); } }"},"evals":["methods.handlePageChange","methods.handleSizeChange","mounted"],"jsHooks":[]}</script>
 
 # With custom page sizes and layout
 el_pagination(
@@ -102,10 +127,10 @@ el_pagination(
   layout     = "total, sizes, prev, pager, next"
 )
 #> <div id="pg2_container" style="display: contents">
-#>   <el-pagination :total="total" :page-size="pageSize" :current-page.sync="currentPage" :page-sizes="pageSizes" :layout="layout" :background="background" :small="small" :disabled="disabled" :pager-count="pagerCount" @current-change="handlePageChange" @size-change="handleSizeChange"></el-pagination>
+#>   <el-pagination :total="total" :page-size="pageSize" :current-page.sync="currentPage" :page-sizes="pageSizes" :layout="layout" :background="background" :small="small" :disabled="disabled" :pager-count="pagerCount" @current-change="handlePageChange" @size-change="handleSizeChange" :prev-text="prevText === null ? undefined : prevText" :next-text="nextText === null ? undefined : nextText" :hide-on-single-page="hideOnSinglePage === null ? undefined : hideOnSinglePage" :page-count="pageCount === null ? undefined : pageCount" :popper-class="popperClass === null ? undefined : popperClass"></el-pagination>
 #> </div>
 #> <div id="pg2" style="width:0px;height:0px;" class="vue html-widget"></div>
-#> <script type="application/json" data-for="pg2">{"x":{"el":"#pg2_container","data":{"total":500,"pageSize":20,"currentPage":1,"pageSizes":[10,20,50,100],"layout":"total, sizes, prev, pager, next","background":false,"small":false,"disabled":false,"pagerCount":7},"methods":{"handlePageChange":"function(page) { Shiny.setInputValue('pg2_page', page); }","handleSizeChange":"function(size) { Shiny.setInputValue('pg2_size', size); }"},"mounted":"function() { var self = this; var send = function() { Shiny.setInputValue(\"pg2_page\", self.currentPage); Shiny.setInputValue(\"pg2_size\", self.pageSize); }; if (window.Shiny && Shiny.shinyapp && typeof Shiny.shinyapp.isConnected === 'function' && Shiny.shinyapp.isConnected()) { send(); } else { $(document).one('shiny:connected', send); } }"},"evals":["methods.handlePageChange","methods.handleSizeChange","mounted"],"jsHooks":[]}</script>
+#> <script type="application/json" data-for="pg2">{"x":{"el":"#pg2_container","data":{"total":500,"pageSize":20,"currentPage":1,"pageSizes":[10,20,50,100],"layout":"total, sizes, prev, pager, next","background":false,"small":false,"disabled":false,"pagerCount":7,"prevText":null,"nextText":null,"hideOnSinglePage":null,"pageCount":null,"popperClass":null},"methods":{"handlePageChange":"function(page) { Shiny.setInputValue('pg2_page', page); }","handleSizeChange":"function(size) { Shiny.setInputValue('pg2_size', size); }"},"mounted":"function() { var self = this; var send = function() { Shiny.setInputValue(\"pg2_page\", self.currentPage); Shiny.setInputValue(\"pg2_size\", self.pageSize); }; if (window.Shiny && Shiny.shinyapp && typeof Shiny.shinyapp.isConnected === 'function' && Shiny.shinyapp.isConnected()) { send(); } else { $(document).one('shiny:connected', send); } }"},"evals":["methods.handlePageChange","methods.handleSizeChange","mounted"],"jsHooks":[]}</script>
 
 # Shiny app example
 if (interactive()) {

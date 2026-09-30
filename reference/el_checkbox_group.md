@@ -15,6 +15,8 @@ el_checkbox_group(
   min = NULL,
   max = NULL,
   button = FALSE,
+  fill = NULL,
+  text_color = NULL,
   session = shiny::getDefaultReactiveDomain()
 )
 ```
@@ -55,6 +57,14 @@ el_checkbox_group(
   Whether to use button-style checkboxes (`el-checkbox-button`). Default
   `FALSE`.
 
+- fill:
+
+  Border and background colour when `button = TRUE` and checked.
+
+- text_color:
+
+  Text colour when `button = TRUE` and checked.
+
 - session:
 
   Shiny session for module support.
@@ -75,12 +85,12 @@ el_checkbox_group(
   choices = c("Option A" = "a", "Option B" = "b")
 )
 #> <div id="cb1_container" style="display: contents">
-#>   <el-checkbox-group v-model="value" :disabled="disabled" @change="handleChange" :size="size === null ? undefined : size" :min="min === null ? undefined : min" :max="max === null ? undefined : max">
-#>     <el-checkbox :label="opt.value" v-for="opt in options" :key="opt.value">{{opt.label}}</el-checkbox>
+#>   <el-checkbox-group v-model="value" :disabled="disabled" @change="handleChange" :size="size === null ? undefined : size" :min="min === null ? undefined : min" :max="max === null ? undefined : max" :fill="fill === null ? undefined : fill" :text-color="textColor === null ? undefined : textColor">
+#>     <el-checkbox :label="opt.value" v-for="opt in options" :key="opt.value" :disabled="opt.disabled" :border="opt.border" :name="opt.name" :checked="opt.checked" :indeterminate="opt.indeterminate" :true-label="opt.trueLabel" :false-label="opt.falseLabel">{{opt.label}}</el-checkbox>
 #>   </el-checkbox-group>
 #> </div>
 #> <div id="cb1" style="width:0px;height:0px;" class="vue html-widget"></div>
-#> <script type="application/json" data-for="cb1">{"x":{"el":"#cb1_container","data":{"value":[],"options":[{"value":"a","label":"Option A"},{"value":"b","label":"Option B"}],"disabled":false,"size":null,"min":null,"max":null},"methods":{"handleChange":"function(value) { Shiny.setInputValue('cb1', value); }"},"mounted":"function() { var self = this; var send = function() { Shiny.setInputValue(\"cb1\", self.value); }; if (window.Shiny && Shiny.shinyapp && typeof Shiny.shinyapp.isConnected === 'function' && Shiny.shinyapp.isConnected()) { send(); } else { $(document).one('shiny:connected', send); } }"},"evals":["methods.handleChange","mounted"],"jsHooks":[]}</script>
+#> <script type="application/json" data-for="cb1">{"x":{"el":"#cb1_container","data":{"value":[],"options":[{"value":"a","label":"Option A"},{"value":"b","label":"Option B"}],"disabled":false,"size":null,"min":null,"max":null,"fill":null,"textColor":null},"methods":{"handleChange":"function(value) { Shiny.setInputValue('cb1', value); }"},"mounted":"function() { var self = this; var send = function() { Shiny.setInputValue(\"cb1\", self.value); }; if (window.Shiny && Shiny.shinyapp && typeof Shiny.shinyapp.isConnected === 'function' && Shiny.shinyapp.isConnected()) { send(); } else { $(document).one('shiny:connected', send); } }"},"evals":["methods.handleChange","mounted"],"jsHooks":[]}</script>
 
 if (interactive()) {
   library(shiny)

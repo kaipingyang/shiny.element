@@ -20,6 +20,19 @@ el_tree(
   expanded = NULL,
   checked = NULL,
   empty_text = NULL,
+  indent = NULL,
+  icon_class = NULL,
+  lazy = NULL,
+  draggable = NULL,
+  auto_expand_parent = NULL,
+  check_on_click_node = NULL,
+  current_node_key = NULL,
+  render_after_expand = NULL,
+  load = NULL,
+  filter_node_method = NULL,
+  render_content = NULL,
+  allow_drag = NULL,
+  allow_drop = NULL,
   session = shiny::getDefaultReactiveDomain()
 )
 ```
@@ -79,6 +92,63 @@ el_tree(
 
   Text shown when `data` is empty.
 
+- indent:
+
+  Horizontal indent between levels, in pixels. Default `16`.
+
+- icon_class:
+
+  Icon class of the expand arrow.
+
+- lazy:
+
+  Whether child nodes are loaded on demand. Needs `load`.
+
+- draggable:
+
+  Whether nodes can be dragged.
+
+- auto_expand_parent:
+
+  Whether expanding a node expands its parents. Default `TRUE`.
+
+- check_on_click_node:
+
+  Whether clicking a node's label also checks it.
+
+- current_node_key:
+
+  Key of the node that starts out highlighted.
+
+- render_after_expand:
+
+  Whether child nodes are rendered only once expanded. Default `TRUE`.
+
+- load:
+
+  [`htmlwidgets::JS()`](https://rdrr.io/pkg/htmlwidgets/man/JS.html)
+  function loading child nodes lazily. Needs `lazy = TRUE`.
+
+- filter_node_method:
+
+  [`htmlwidgets::JS()`](https://rdrr.io/pkg/htmlwidgets/man/JS.html)
+  function deciding whether a node survives filtering.
+
+- render_content:
+
+  [`htmlwidgets::JS()`](https://rdrr.io/pkg/htmlwidgets/man/JS.html)
+  render function for a node's content.
+
+- allow_drag:
+
+  [`htmlwidgets::JS()`](https://rdrr.io/pkg/htmlwidgets/man/JS.html)
+  function deciding whether a node may be dragged.
+
+- allow_drop:
+
+  [`htmlwidgets::JS()`](https://rdrr.io/pkg/htmlwidgets/man/JS.html)
+  function deciding whether a node may be dropped somewhere.
+
 - session:
 
   Shiny session for module support.
@@ -115,17 +185,17 @@ nodes <- list(
 
 el_tree(id = "picker", data = nodes)
 #> <div id="picker_container" style="display: contents">
-#>   <el-tree ref="tree" :data="treeData" :props="treeProps" :node-key="nodeKey" :show-checkbox="showCheckbox" :check-strictly="checkStrictly" :default-expand-all="defaultExpandAll" :expand-on-click-node="expandOnClickNode" :accordion="accordion" :highlight-current="highlightCurrent" :default-expanded-keys="expandedKeys" :default-checked-keys="checkedKeys" :empty-text="emptyText === null ? undefined : emptyText" @node-click="handleNodeClick" @check="handleCheck"></el-tree>
+#>   <el-tree ref="tree" :data="treeData" :props="treeProps" :node-key="nodeKey" :show-checkbox="showCheckbox" :check-strictly="checkStrictly" :default-expand-all="defaultExpandAll" :expand-on-click-node="expandOnClickNode" :accordion="accordion" :highlight-current="highlightCurrent" :default-expanded-keys="expandedKeys" :default-checked-keys="checkedKeys" :empty-text="emptyText === null ? undefined : emptyText" @node-click="handleNodeClick" @check="handleCheck" :indent="indent === null ? undefined : indent" :icon-class="iconClass === null ? undefined : iconClass" :lazy="lazy === null ? undefined : lazy" :draggable="draggable === null ? undefined : draggable" :auto-expand-parent="autoExpandParent === null ? undefined : autoExpandParent" :check-on-click-node="checkOnClickNode === null ? undefined : checkOnClickNode" :current-node-key="currentNodeKey === null ? undefined : currentNodeKey" :render-after-expand="renderAfterExpand === null ? undefined : renderAfterExpand" :load="load === null ? undefined : load" :filter-node-method="filterNodeMethod === null ? undefined : filterNodeMethod" :render-content="renderContent === null ? undefined : renderContent" :allow-drag="allowDrag === null ? undefined : allowDrag" :allow-drop="allowDrop === null ? undefined : allowDrop"></el-tree>
 #> </div>
 #> <div id="picker" style="width:0px;height:0px;" class="vue html-widget"></div>
-#> <script type="application/json" data-for="picker">{"x":{"el":"#picker_container","data":{"treeData":[{"id":"fruit","label":"Fruit","children":[{"id":"apple","label":"Apple"},{"id":"cherry","label":"Cherry"}]},{"id":"veg","label":"Vegetables","children":[{"id":"leek","label":"Leek","disabled":true}]}],"treeProps":{"label":"label","children":"children","disabled":"disabled"},"nodeKey":"id","showCheckbox":false,"checkStrictly":false,"defaultExpandAll":false,"expandOnClickNode":true,"accordion":false,"highlightCurrent":false,"expandedKeys":[],"checkedKeys":[],"emptyText":null,"current":"","checked":[]},"methods":{"handleNodeClick":"function(data) { this.current = data[this.nodeKey]; Shiny.setInputValue('picker', this.current); }","handleCheck":"function(node, info) { this.checked = info.checkedKeys; Shiny.setInputValue('picker_checked', this.checked); }"},"mounted":"function() { var self = this; var send = function() { Shiny.setInputValue(\"picker\", self.current); Shiny.setInputValue(\"picker_checked\", self.checked); }; if (window.Shiny && Shiny.shinyapp && typeof Shiny.shinyapp.isConnected === 'function' && Shiny.shinyapp.isConnected()) { send(); } else { $(document).one('shiny:connected', send); } }"},"evals":["methods.handleNodeClick","methods.handleCheck","mounted"],"jsHooks":[]}</script>
+#> <script type="application/json" data-for="picker">{"x":{"el":"#picker_container","data":{"treeData":[{"id":"fruit","label":"Fruit","children":[{"id":"apple","label":"Apple"},{"id":"cherry","label":"Cherry"}]},{"id":"veg","label":"Vegetables","children":[{"id":"leek","label":"Leek","disabled":true}]}],"treeProps":{"label":"label","children":"children","disabled":"disabled"},"nodeKey":"id","showCheckbox":false,"checkStrictly":false,"defaultExpandAll":false,"expandOnClickNode":true,"accordion":false,"highlightCurrent":false,"expandedKeys":[],"checkedKeys":[],"emptyText":null,"current":"","checked":[],"indent":null,"iconClass":null,"lazy":null,"draggable":null,"autoExpandParent":null,"checkOnClickNode":null,"currentNodeKey":null,"renderAfterExpand":null,"load":null,"filterNodeMethod":null,"renderContent":null,"allowDrag":null,"allowDrop":null},"methods":{"handleNodeClick":"function(data) { this.current = data[this.nodeKey]; Shiny.setInputValue('picker', this.current); }","handleCheck":"function(node, info) { this.checked = info.checkedKeys; Shiny.setInputValue('picker_checked', this.checked); }"},"mounted":"function() { var self = this; var send = function() { Shiny.setInputValue(\"picker\", self.current); Shiny.setInputValue(\"picker_checked\", self.checked); }; if (window.Shiny && Shiny.shinyapp && typeof Shiny.shinyapp.isConnected === 'function' && Shiny.shinyapp.isConnected()) { send(); } else { $(document).one('shiny:connected', send); } }"},"evals":["methods.handleNodeClick","methods.handleCheck","mounted"],"jsHooks":[]}</script>
 
 # With checkboxes, two nodes checked and the first branch open
 el_tree(id = "picker", data = nodes, show_checkbox = TRUE,
         checked = c("apple", "cherry"), expanded = "fruit")
 #> <div id="picker_container" style="display: contents">
-#>   <el-tree ref="tree" :data="treeData" :props="treeProps" :node-key="nodeKey" :show-checkbox="showCheckbox" :check-strictly="checkStrictly" :default-expand-all="defaultExpandAll" :expand-on-click-node="expandOnClickNode" :accordion="accordion" :highlight-current="highlightCurrent" :default-expanded-keys="expandedKeys" :default-checked-keys="checkedKeys" :empty-text="emptyText === null ? undefined : emptyText" @node-click="handleNodeClick" @check="handleCheck"></el-tree>
+#>   <el-tree ref="tree" :data="treeData" :props="treeProps" :node-key="nodeKey" :show-checkbox="showCheckbox" :check-strictly="checkStrictly" :default-expand-all="defaultExpandAll" :expand-on-click-node="expandOnClickNode" :accordion="accordion" :highlight-current="highlightCurrent" :default-expanded-keys="expandedKeys" :default-checked-keys="checkedKeys" :empty-text="emptyText === null ? undefined : emptyText" @node-click="handleNodeClick" @check="handleCheck" :indent="indent === null ? undefined : indent" :icon-class="iconClass === null ? undefined : iconClass" :lazy="lazy === null ? undefined : lazy" :draggable="draggable === null ? undefined : draggable" :auto-expand-parent="autoExpandParent === null ? undefined : autoExpandParent" :check-on-click-node="checkOnClickNode === null ? undefined : checkOnClickNode" :current-node-key="currentNodeKey === null ? undefined : currentNodeKey" :render-after-expand="renderAfterExpand === null ? undefined : renderAfterExpand" :load="load === null ? undefined : load" :filter-node-method="filterNodeMethod === null ? undefined : filterNodeMethod" :render-content="renderContent === null ? undefined : renderContent" :allow-drag="allowDrag === null ? undefined : allowDrag" :allow-drop="allowDrop === null ? undefined : allowDrop"></el-tree>
 #> </div>
 #> <div id="picker" style="width:0px;height:0px;" class="vue html-widget"></div>
-#> <script type="application/json" data-for="picker">{"x":{"el":"#picker_container","data":{"treeData":[{"id":"fruit","label":"Fruit","children":[{"id":"apple","label":"Apple"},{"id":"cherry","label":"Cherry"}]},{"id":"veg","label":"Vegetables","children":[{"id":"leek","label":"Leek","disabled":true}]}],"treeProps":{"label":"label","children":"children","disabled":"disabled"},"nodeKey":"id","showCheckbox":true,"checkStrictly":false,"defaultExpandAll":false,"expandOnClickNode":true,"accordion":false,"highlightCurrent":false,"expandedKeys":["fruit"],"checkedKeys":["apple","cherry"],"emptyText":null,"current":"","checked":["apple","cherry"]},"methods":{"handleNodeClick":"function(data) { this.current = data[this.nodeKey]; Shiny.setInputValue('picker', this.current); }","handleCheck":"function(node, info) { this.checked = info.checkedKeys; Shiny.setInputValue('picker_checked', this.checked); }"},"mounted":"function() { var self = this; var send = function() { Shiny.setInputValue(\"picker\", self.current); Shiny.setInputValue(\"picker_checked\", self.checked); }; if (window.Shiny && Shiny.shinyapp && typeof Shiny.shinyapp.isConnected === 'function' && Shiny.shinyapp.isConnected()) { send(); } else { $(document).one('shiny:connected', send); } }"},"evals":["methods.handleNodeClick","methods.handleCheck","mounted"],"jsHooks":[]}</script>
+#> <script type="application/json" data-for="picker">{"x":{"el":"#picker_container","data":{"treeData":[{"id":"fruit","label":"Fruit","children":[{"id":"apple","label":"Apple"},{"id":"cherry","label":"Cherry"}]},{"id":"veg","label":"Vegetables","children":[{"id":"leek","label":"Leek","disabled":true}]}],"treeProps":{"label":"label","children":"children","disabled":"disabled"},"nodeKey":"id","showCheckbox":true,"checkStrictly":false,"defaultExpandAll":false,"expandOnClickNode":true,"accordion":false,"highlightCurrent":false,"expandedKeys":["fruit"],"checkedKeys":["apple","cherry"],"emptyText":null,"current":"","checked":["apple","cherry"],"indent":null,"iconClass":null,"lazy":null,"draggable":null,"autoExpandParent":null,"checkOnClickNode":null,"currentNodeKey":null,"renderAfterExpand":null,"load":null,"filterNodeMethod":null,"renderContent":null,"allowDrag":null,"allowDrop":null},"methods":{"handleNodeClick":"function(data) { this.current = data[this.nodeKey]; Shiny.setInputValue('picker', this.current); }","handleCheck":"function(node, info) { this.checked = info.checkedKeys; Shiny.setInputValue('picker_checked', this.checked); }"},"mounted":"function() { var self = this; var send = function() { Shiny.setInputValue(\"picker\", self.current); Shiny.setInputValue(\"picker_checked\", self.checked); }; if (window.Shiny && Shiny.shinyapp && typeof Shiny.shinyapp.isConnected === 'function' && Shiny.shinyapp.isConnected()) { send(); } else { $(document).one('shiny:connected', send); } }"},"evals":["methods.handleNodeClick","methods.handleCheck","mounted"],"jsHooks":[]}</script>
 ```

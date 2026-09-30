@@ -21,6 +21,12 @@ el_slider(
   vertical = FALSE,
   height = NULL,
   marks = NULL,
+  label = NULL,
+  debounce = NULL,
+  input_size = NULL,
+  show_input_controls = NULL,
+  tooltip_class = NULL,
+  format_tooltip = NULL,
   session = shiny::getDefaultReactiveDomain()
 )
 ```
@@ -84,6 +90,32 @@ el_slider(
   Named list of mark labels, e.g., `list("0" = "0km", "50" = "50km")`.
   Default `NULL` (no marks).
 
+- label:
+
+  Accessible label for screen readers.
+
+- debounce:
+
+  Debounce in ms while dragging, when `show_input = TRUE`. Default
+  `300`.
+
+- input_size:
+
+  Size of the companion input when `show_input = TRUE`.
+
+- show_input_controls:
+
+  Whether the companion input shows its spinner buttons.
+
+- tooltip_class:
+
+  Extra class name for the value tooltip.
+
+- format_tooltip:
+
+  [`htmlwidgets::JS()`](https://rdrr.io/pkg/htmlwidgets/man/JS.html)
+  function formatting the value shown in the tooltip.
+
 - session:
 
   Shiny session for module support.
@@ -103,27 +135,27 @@ An `htmltools` tagList with a Vue-managed slider component.
 # Basic usage
 el_slider("slider1", value = 30, min = 0, max = 100)
 #> <div id="slider1_container" style="display: contents">
-#>   <el-slider v-model="value" :min="min" :max="max" :step="step" :range="range" :disabled="disabled" :show-input="showInput" :show-stops="showStops" :show-tooltip="showTooltip" :vertical="vertical" @change="handleChange"></el-slider>
+#>   <el-slider v-model="value" :min="min" :max="max" :step="step" :range="range" :disabled="disabled" :show-input="showInput" :show-stops="showStops" :show-tooltip="showTooltip" :vertical="vertical" @change="handleChange" :height="height === null ? undefined : height" :marks="marks === null ? undefined : marks" :label="label === null ? undefined : label" :debounce="debounce === null ? undefined : debounce" :input-size="inputSize === null ? undefined : inputSize" :show-input-controls="showInputControls === null ? undefined : showInputControls" :tooltip-class="tooltipClass === null ? undefined : tooltipClass" :format-tooltip="formatTooltip === null ? undefined : formatTooltip"></el-slider>
 #> </div>
 #> <div id="slider1" style="width:0px;height:0px;" class="vue html-widget"></div>
-#> <script type="application/json" data-for="slider1">{"x":{"el":"#slider1_container","data":{"value":30,"min":0,"max":100,"step":1,"range":false,"disabled":false,"showInput":false,"showStops":false,"showTooltip":true,"vertical":false},"methods":{"handleChange":"function(value) { Shiny.setInputValue('slider1', value); }"},"mounted":"function() { var self = this; var send = function() { Shiny.setInputValue(\"slider1\", self.value); }; if (window.Shiny && Shiny.shinyapp && typeof Shiny.shinyapp.isConnected === 'function' && Shiny.shinyapp.isConnected()) { send(); } else { $(document).one('shiny:connected', send); } }"},"evals":["methods.handleChange","mounted"],"jsHooks":[]}</script>
+#> <script type="application/json" data-for="slider1">{"x":{"el":"#slider1_container","data":{"value":30,"min":0,"max":100,"step":1,"range":false,"disabled":false,"showInput":false,"showStops":false,"showTooltip":true,"vertical":false,"height":null,"marks":null,"label":null,"debounce":null,"inputSize":null,"showInputControls":null,"tooltipClass":null,"formatTooltip":null},"methods":{"handleChange":"function(value) { Shiny.setInputValue('slider1', value); }"},"mounted":"function() { var self = this; var send = function() { Shiny.setInputValue(\"slider1\", self.value); }; if (window.Shiny && Shiny.shinyapp && typeof Shiny.shinyapp.isConnected === 'function' && Shiny.shinyapp.isConnected()) { send(); } else { $(document).one('shiny:connected', send); } }"},"evals":["methods.handleChange","mounted"],"jsHooks":[]}</script>
 
 # Range slider
 el_slider("slider2", value = c(20, 80), range = TRUE)
 #> <div id="slider2_container" style="display: contents">
-#>   <el-slider v-model="value" :min="min" :max="max" :step="step" :range="range" :disabled="disabled" :show-input="showInput" :show-stops="showStops" :show-tooltip="showTooltip" :vertical="vertical" @change="handleChange"></el-slider>
+#>   <el-slider v-model="value" :min="min" :max="max" :step="step" :range="range" :disabled="disabled" :show-input="showInput" :show-stops="showStops" :show-tooltip="showTooltip" :vertical="vertical" @change="handleChange" :height="height === null ? undefined : height" :marks="marks === null ? undefined : marks" :label="label === null ? undefined : label" :debounce="debounce === null ? undefined : debounce" :input-size="inputSize === null ? undefined : inputSize" :show-input-controls="showInputControls === null ? undefined : showInputControls" :tooltip-class="tooltipClass === null ? undefined : tooltipClass" :format-tooltip="formatTooltip === null ? undefined : formatTooltip"></el-slider>
 #> </div>
 #> <div id="slider2" style="width:0px;height:0px;" class="vue html-widget"></div>
-#> <script type="application/json" data-for="slider2">{"x":{"el":"#slider2_container","data":{"value":[20,80],"min":0,"max":100,"step":1,"range":true,"disabled":false,"showInput":false,"showStops":false,"showTooltip":true,"vertical":false},"methods":{"handleChange":"function(value) { Shiny.setInputValue('slider2', value); }"},"mounted":"function() { var self = this; var send = function() { Shiny.setInputValue(\"slider2\", self.value); }; if (window.Shiny && Shiny.shinyapp && typeof Shiny.shinyapp.isConnected === 'function' && Shiny.shinyapp.isConnected()) { send(); } else { $(document).one('shiny:connected', send); } }"},"evals":["methods.handleChange","mounted"],"jsHooks":[]}</script>
+#> <script type="application/json" data-for="slider2">{"x":{"el":"#slider2_container","data":{"value":[20,80],"min":0,"max":100,"step":1,"range":true,"disabled":false,"showInput":false,"showStops":false,"showTooltip":true,"vertical":false,"height":null,"marks":null,"label":null,"debounce":null,"inputSize":null,"showInputControls":null,"tooltipClass":null,"formatTooltip":null},"methods":{"handleChange":"function(value) { Shiny.setInputValue('slider2', value); }"},"mounted":"function() { var self = this; var send = function() { Shiny.setInputValue(\"slider2\", self.value); }; if (window.Shiny && Shiny.shinyapp && typeof Shiny.shinyapp.isConnected === 'function' && Shiny.shinyapp.isConnected()) { send(); } else { $(document).one('shiny:connected', send); } }"},"evals":["methods.handleChange","mounted"],"jsHooks":[]}</script>
 
 # Vertical slider with marks
 el_slider("slider3", value = 50, vertical = TRUE, height = "200px",
           marks = list("0" = "0km", "50" = "50km", "100" = "100km"))
 #> <div id="slider3_container" style="display: contents">
-#>   <el-slider v-model="value" :min="min" :max="max" :step="step" :range="range" :disabled="disabled" :show-input="showInput" :show-stops="showStops" :show-tooltip="showTooltip" :vertical="vertical" @change="handleChange" :height="height" :marks="marks"></el-slider>
+#>   <el-slider v-model="value" :min="min" :max="max" :step="step" :range="range" :disabled="disabled" :show-input="showInput" :show-stops="showStops" :show-tooltip="showTooltip" :vertical="vertical" @change="handleChange" :height="height === null ? undefined : height" :marks="marks === null ? undefined : marks" :label="label === null ? undefined : label" :debounce="debounce === null ? undefined : debounce" :input-size="inputSize === null ? undefined : inputSize" :show-input-controls="showInputControls === null ? undefined : showInputControls" :tooltip-class="tooltipClass === null ? undefined : tooltipClass" :format-tooltip="formatTooltip === null ? undefined : formatTooltip"></el-slider>
 #> </div>
 #> <div id="slider3" style="width:0px;height:0px;" class="vue html-widget"></div>
-#> <script type="application/json" data-for="slider3">{"x":{"el":"#slider3_container","data":{"value":50,"min":0,"max":100,"step":1,"range":false,"disabled":false,"showInput":false,"showStops":false,"showTooltip":true,"vertical":true,"height":"200px","marks":{"0":"0km","50":"50km","100":"100km"}},"methods":{"handleChange":"function(value) { Shiny.setInputValue('slider3', value); }"},"mounted":"function() { var self = this; var send = function() { Shiny.setInputValue(\"slider3\", self.value); }; if (window.Shiny && Shiny.shinyapp && typeof Shiny.shinyapp.isConnected === 'function' && Shiny.shinyapp.isConnected()) { send(); } else { $(document).one('shiny:connected', send); } }"},"evals":["methods.handleChange","mounted"],"jsHooks":[]}</script>
+#> <script type="application/json" data-for="slider3">{"x":{"el":"#slider3_container","data":{"value":50,"min":0,"max":100,"step":1,"range":false,"disabled":false,"showInput":false,"showStops":false,"showTooltip":true,"vertical":true,"height":"200px","marks":{"0":"0km","50":"50km","100":"100km"},"label":null,"debounce":null,"inputSize":null,"showInputControls":null,"tooltipClass":null,"formatTooltip":null},"methods":{"handleChange":"function(value) { Shiny.setInputValue('slider3', value); }"},"mounted":"function() { var self = this; var send = function() { Shiny.setInputValue(\"slider3\", self.value); }; if (window.Shiny && Shiny.shinyapp && typeof Shiny.shinyapp.isConnected === 'function' && Shiny.shinyapp.isConnected()) { send(); } else { $(document).one('shiny:connected', send); } }"},"evals":["methods.handleChange","mounted"],"jsHooks":[]}</script>
 
 # Shiny app example
 if (interactive()) {

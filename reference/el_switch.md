@@ -16,6 +16,10 @@ el_switch(
   inactive_color = NULL,
   active_value = TRUE,
   inactive_value = FALSE,
+  active_icon_class = NULL,
+  inactive_icon_class = NULL,
+  name = NULL,
+  validate_event = NULL,
   session = shiny::getDefaultReactiveDomain()
 )
 ```
@@ -62,6 +66,22 @@ el_switch(
 
   Value reported to Shiny when switch is off. Default `FALSE`.
 
+- active_icon_class:
+
+  Icon class shown on the active side; overrides `active_text`.
+
+- inactive_icon_class:
+
+  Icon class shown on the inactive side; overrides `inactive_text`.
+
+- name:
+
+  Native `name` attribute of the inner checkbox.
+
+- validate_event:
+
+  Whether a change triggers form validation. Default `TRUE`.
+
 - session:
 
   Shiny session for module support.
@@ -80,10 +100,10 @@ An `htmltools` tagList with a Vue-managed switch component.
 ``` r
 el_switch("sw1", value = TRUE)
 #> <div id="sw1_container" style="display: contents">
-#>   <el-switch v-model="value" :disabled="disabled" :active-text="activeText" :inactive-text="inactiveText" :active-color="activeColor" :inactive-color="inactiveColor" :active-value="activeValue" :inactive-value="inactiveValue" @change="handleChange" :width="width === null ? undefined : width"></el-switch>
+#>   <el-switch v-model="value" :disabled="disabled" :active-text="activeText" :inactive-text="inactiveText" :active-color="activeColor" :inactive-color="inactiveColor" :active-value="activeValue" :inactive-value="inactiveValue" @change="handleChange" :width="width === null ? undefined : width" :active-icon-class="activeIconClass === null ? undefined : activeIconClass" :inactive-icon-class="inactiveIconClass === null ? undefined : inactiveIconClass" :name="name === null ? undefined : name" :validate-event="validateEvent === null ? undefined : validateEvent"></el-switch>
 #> </div>
 #> <div id="sw1" style="width:0px;height:0px;" class="vue html-widget"></div>
-#> <script type="application/json" data-for="sw1">{"x":{"el":"#sw1_container","data":{"value":true,"disabled":false,"activeText":"","inactiveText":"","activeColor":"","inactiveColor":"","activeValue":true,"inactiveValue":false,"width":null},"methods":{"handleChange":"function(value) { Shiny.setInputValue('sw1', value); }"},"mounted":"function() { var self = this; var send = function() { Shiny.setInputValue(\"sw1\", self.value); }; if (window.Shiny && Shiny.shinyapp && typeof Shiny.shinyapp.isConnected === 'function' && Shiny.shinyapp.isConnected()) { send(); } else { $(document).one('shiny:connected', send); } }"},"evals":["methods.handleChange","mounted"],"jsHooks":[]}</script>
+#> <script type="application/json" data-for="sw1">{"x":{"el":"#sw1_container","data":{"value":true,"disabled":false,"activeText":"","inactiveText":"","activeColor":"","inactiveColor":"","activeValue":true,"inactiveValue":false,"width":null,"activeIconClass":null,"inactiveIconClass":null,"name":null,"validateEvent":null},"methods":{"handleChange":"function(value) { Shiny.setInputValue('sw1', value); }"},"mounted":"function() { var self = this; var send = function() { Shiny.setInputValue(\"sw1\", self.value); }; if (window.Shiny && Shiny.shinyapp && typeof Shiny.shinyapp.isConnected === 'function' && Shiny.shinyapp.isConnected()) { send(); } else { $(document).one('shiny:connected', send); } }"},"evals":["methods.handleChange","mounted"],"jsHooks":[]}</script>
 
 if (interactive()) {
   library(shiny)

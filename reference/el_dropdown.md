@@ -17,6 +17,9 @@ el_dropdown(
   hide_on_click = TRUE,
   placement = "bottom-end",
   disabled = FALSE,
+  show_timeout = NULL,
+  hide_timeout = NULL,
+  tabindex = NULL,
   session = shiny::getDefaultReactiveDomain()
 )
 ```
@@ -85,6 +88,18 @@ el_dropdown(
 
   Whether the entire dropdown is disabled. Default `FALSE`.
 
+- show_timeout:
+
+  Delay in ms before the menu appears, for `trigger = "hover"`.
+
+- hide_timeout:
+
+  Delay in ms before the menu hides, for `trigger = "hover"`.
+
+- tabindex:
+
+  Tab index of the dropdown trigger.
+
 - session:
 
   Shiny session for module support.
@@ -112,7 +127,7 @@ el_dropdown("dd1", "Actions",
   )
 )
 #> <div id="dd1_container" style="display: contents">
-#>   <el-dropdown :trigger="trigger" :hide-on-click="hideOnClick" :placement="placement" :disabled="disabled" :split-button="splitButton" @command="handleCommand" :type="type === null ? undefined : type" :size="size === null ? undefined : size">
+#>   <el-dropdown :trigger="trigger" :hide-on-click="hideOnClick" :placement="placement" :disabled="disabled" :split-button="splitButton" @command="handleCommand" :type="type === null ? undefined : type" :size="size === null ? undefined : size" :show-timeout="showTimeout === null ? undefined : showTimeout" :hide-timeout="hideTimeout === null ? undefined : hideTimeout" :tabindex="tabindex === null ? undefined : tabindex">
 #>     <span class="el-dropdown-link">
 #>       Actions
 #>       <i class="el-icon-arrow-down el-icon--right"></i>
@@ -125,5 +140,5 @@ el_dropdown("dd1", "Actions",
 #>   </el-dropdown>
 #> </div>
 #> <div id="dd1" style="width:0px;height:0px;" class="vue html-widget"></div>
-#> <script type="application/json" data-for="dd1">{"x":{"el":"#dd1_container","data":{"trigger":"hover","hideOnClick":true,"placement":"bottom-end","disabled":false,"splitButton":false,"count":0,"type":null,"size":null},"methods":{"handleCommand":"function(cmd) { this.count++; Shiny.setInputValue('dd1', cmd); Shiny.setInputValue('dd1_count', this.count); }"}},"evals":["methods.handleCommand"],"jsHooks":[]}</script>
+#> <script type="application/json" data-for="dd1">{"x":{"el":"#dd1_container","data":{"trigger":"hover","hideOnClick":true,"placement":"bottom-end","disabled":false,"splitButton":false,"count":0,"type":null,"size":null,"showTimeout":null,"hideTimeout":null,"tabindex":null},"methods":{"handleCommand":"function(cmd) { this.count++; Shiny.setInputValue('dd1', cmd); Shiny.setInputValue('dd1_count', this.count); }"}},"evals":["methods.handleCommand"],"jsHooks":[]}</script>
 ```

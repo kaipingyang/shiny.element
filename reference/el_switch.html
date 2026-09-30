@@ -51,6 +51,10 @@
 <span>  inactive_color <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  active_value <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  inactive_value <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  active_icon_class <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  inactive_icon_class <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  name <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  validate_event <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  session <span class="op">=</span> <span class="fu">shiny</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/domains.html" class="external-link">getDefaultReactiveDomain</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
@@ -99,6 +103,22 @@
 <dd><p>Value reported to Shiny when switch is off. Default <code>FALSE</code>.</p></dd>
 
 
+<dt id="arg-active-icon-class">active_icon_class<a class="anchor" aria-label="anchor" href="#arg-active-icon-class"></a></dt>
+<dd><p>Icon class shown on the active side; overrides <code>active_text</code>.</p></dd>
+
+
+<dt id="arg-inactive-icon-class">inactive_icon_class<a class="anchor" aria-label="anchor" href="#arg-inactive-icon-class"></a></dt>
+<dd><p>Icon class shown on the inactive side; overrides <code>inactive_text</code>.</p></dd>
+
+
+<dt id="arg-name">name<a class="anchor" aria-label="anchor" href="#arg-name"></a></dt>
+<dd><p>Native <code>name</code> attribute of the inner checkbox.</p></dd>
+
+
+<dt id="arg-validate-event">validate_event<a class="anchor" aria-label="anchor" href="#arg-validate-event"></a></dt>
+<dd><p>Whether a change triggers form validation. Default <code>TRUE</code>.</p></dd>
+
+
 <dt id="arg-session">session<a class="anchor" aria-label="anchor" href="#arg-session"></a></dt>
 <dd><p>Shiny session for module support.</p></dd>
 
@@ -119,10 +139,10 @@
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu">el_switch</span><span class="op">(</span><span class="st">"sw1"</span>, value <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> &lt;div id="sw1_container" style="display: contents"&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   &lt;el-switch v-model="value" :disabled="disabled" :active-text="activeText" :inactive-text="inactiveText" :active-color="activeColor" :inactive-color="inactiveColor" :active-value="activeValue" :inactive-value="inactiveValue" @change="handleChange" :width="width === null ? undefined : width"&gt;&lt;/el-switch&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   &lt;el-switch v-model="value" :disabled="disabled" :active-text="activeText" :inactive-text="inactiveText" :active-color="activeColor" :inactive-color="inactiveColor" :active-value="activeValue" :inactive-value="inactiveValue" @change="handleChange" :width="width === null ? undefined : width" :active-icon-class="activeIconClass === null ? undefined : activeIconClass" :inactive-icon-class="inactiveIconClass === null ? undefined : inactiveIconClass" :name="name === null ? undefined : name" :validate-event="validateEvent === null ? undefined : validateEvent"&gt;&lt;/el-switch&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> &lt;/div&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> &lt;div id="sw1" style="width:0px;height:0px;" class="vue html-widget"&gt;&lt;/div&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;script type="application/json" data-for="sw1"&gt;{"x":{"el":"#sw1_container","data":{"value":true,"disabled":false,"activeText":"","inactiveText":"","activeColor":"","inactiveColor":"","activeValue":true,"inactiveValue":false,"width":null},"methods":{"handleChange":"function(value) { Shiny.setInputValue('sw1', value); }"},"mounted":"function() { var self = this; var send = function() { Shiny.setInputValue(\"sw1\", self.value); }; if (window.Shiny &amp;&amp; Shiny.shinyapp &amp;&amp; typeof Shiny.shinyapp.isConnected === 'function' &amp;&amp; Shiny.shinyapp.isConnected()) { send(); } else { $(document).one('shiny:connected', send); } }"},"evals":["methods.handleChange","mounted"],"jsHooks":[]}&lt;/script&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;script type="application/json" data-for="sw1"&gt;{"x":{"el":"#sw1_container","data":{"value":true,"disabled":false,"activeText":"","inactiveText":"","activeColor":"","inactiveColor":"","activeValue":true,"inactiveValue":false,"width":null,"activeIconClass":null,"inactiveIconClass":null,"name":null,"validateEvent":null},"methods":{"handleChange":"function(value) { Shiny.setInputValue('sw1', value); }"},"mounted":"function() { var self = this; var send = function() { Shiny.setInputValue(\"sw1\", self.value); }; if (window.Shiny &amp;&amp; Shiny.shinyapp &amp;&amp; typeof Shiny.shinyapp.isConnected === 'function' &amp;&amp; Shiny.shinyapp.isConnected()) { send(); } else { $(document).one('shiny:connected', send); } }"},"evals":["methods.handleChange","mounted"],"jsHooks":[]}&lt;/script&gt;</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/interactive.html" class="external-link">interactive</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span></span>
 <span class="r-in"><span>  <span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://shiny.posit.co/" class="external-link">shiny</a></span><span class="op">)</span></span></span>

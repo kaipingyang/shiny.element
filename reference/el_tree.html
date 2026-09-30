@@ -55,6 +55,19 @@
 <span>  expanded <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  checked <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  empty_text <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  indent <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  icon_class <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  lazy <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  draggable <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  auto_expand_parent <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  check_on_click_node <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  current_node_key <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  render_after_expand <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  load <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  filter_node_method <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  render_content <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  allow_drag <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  allow_drop <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  session <span class="op">=</span> <span class="fu">shiny</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/domains.html" class="external-link">getDefaultReactiveDomain</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
@@ -118,6 +131,58 @@ expand.</p></dd>
 <dd><p>Text shown when <code>data</code> is empty.</p></dd>
 
 
+<dt id="arg-indent">indent<a class="anchor" aria-label="anchor" href="#arg-indent"></a></dt>
+<dd><p>Horizontal indent between levels, in pixels. Default <code>16</code>.</p></dd>
+
+
+<dt id="arg-icon-class">icon_class<a class="anchor" aria-label="anchor" href="#arg-icon-class"></a></dt>
+<dd><p>Icon class of the expand arrow.</p></dd>
+
+
+<dt id="arg-lazy">lazy<a class="anchor" aria-label="anchor" href="#arg-lazy"></a></dt>
+<dd><p>Whether child nodes are loaded on demand. Needs <code>load</code>.</p></dd>
+
+
+<dt id="arg-draggable">draggable<a class="anchor" aria-label="anchor" href="#arg-draggable"></a></dt>
+<dd><p>Whether nodes can be dragged.</p></dd>
+
+
+<dt id="arg-auto-expand-parent">auto_expand_parent<a class="anchor" aria-label="anchor" href="#arg-auto-expand-parent"></a></dt>
+<dd><p>Whether expanding a node expands its parents. Default <code>TRUE</code>.</p></dd>
+
+
+<dt id="arg-check-on-click-node">check_on_click_node<a class="anchor" aria-label="anchor" href="#arg-check-on-click-node"></a></dt>
+<dd><p>Whether clicking a node's label also checks it.</p></dd>
+
+
+<dt id="arg-current-node-key">current_node_key<a class="anchor" aria-label="anchor" href="#arg-current-node-key"></a></dt>
+<dd><p>Key of the node that starts out highlighted.</p></dd>
+
+
+<dt id="arg-render-after-expand">render_after_expand<a class="anchor" aria-label="anchor" href="#arg-render-after-expand"></a></dt>
+<dd><p>Whether child nodes are rendered only once expanded. Default <code>TRUE</code>.</p></dd>
+
+
+<dt id="arg-load">load<a class="anchor" aria-label="anchor" href="#arg-load"></a></dt>
+<dd><p><code><a href="https://rdrr.io/pkg/htmlwidgets/man/JS.html" class="external-link">htmlwidgets::JS()</a></code> function loading child nodes lazily. Needs <code>lazy = TRUE</code>.</p></dd>
+
+
+<dt id="arg-filter-node-method">filter_node_method<a class="anchor" aria-label="anchor" href="#arg-filter-node-method"></a></dt>
+<dd><p><code><a href="https://rdrr.io/pkg/htmlwidgets/man/JS.html" class="external-link">htmlwidgets::JS()</a></code> function deciding whether a node survives filtering.</p></dd>
+
+
+<dt id="arg-render-content">render_content<a class="anchor" aria-label="anchor" href="#arg-render-content"></a></dt>
+<dd><p><code><a href="https://rdrr.io/pkg/htmlwidgets/man/JS.html" class="external-link">htmlwidgets::JS()</a></code> render function for a node's content.</p></dd>
+
+
+<dt id="arg-allow-drag">allow_drag<a class="anchor" aria-label="anchor" href="#arg-allow-drag"></a></dt>
+<dd><p><code><a href="https://rdrr.io/pkg/htmlwidgets/man/JS.html" class="external-link">htmlwidgets::JS()</a></code> function deciding whether a node may be dragged.</p></dd>
+
+
+<dt id="arg-allow-drop">allow_drop<a class="anchor" aria-label="anchor" href="#arg-allow-drop"></a></dt>
+<dd><p><code><a href="https://rdrr.io/pkg/htmlwidgets/man/JS.html" class="external-link">htmlwidgets::JS()</a></code> function deciding whether a node may be dropped somewhere.</p></dd>
+
+
 <dt id="arg-session">session<a class="anchor" aria-label="anchor" href="#arg-session"></a></dt>
 <dd><p>Shiny session for module support.</p></dd>
 
@@ -155,19 +220,19 @@ Both are reported on load, where they start empty and therefore arrive as
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="fu">el_tree</span><span class="op">(</span>id <span class="op">=</span> <span class="st">"picker"</span>, data <span class="op">=</span> <span class="va">nodes</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> &lt;div id="picker_container" style="display: contents"&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   &lt;el-tree ref="tree" :data="treeData" :props="treeProps" :node-key="nodeKey" :show-checkbox="showCheckbox" :check-strictly="checkStrictly" :default-expand-all="defaultExpandAll" :expand-on-click-node="expandOnClickNode" :accordion="accordion" :highlight-current="highlightCurrent" :default-expanded-keys="expandedKeys" :default-checked-keys="checkedKeys" :empty-text="emptyText === null ? undefined : emptyText" @node-click="handleNodeClick" @check="handleCheck"&gt;&lt;/el-tree&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   &lt;el-tree ref="tree" :data="treeData" :props="treeProps" :node-key="nodeKey" :show-checkbox="showCheckbox" :check-strictly="checkStrictly" :default-expand-all="defaultExpandAll" :expand-on-click-node="expandOnClickNode" :accordion="accordion" :highlight-current="highlightCurrent" :default-expanded-keys="expandedKeys" :default-checked-keys="checkedKeys" :empty-text="emptyText === null ? undefined : emptyText" @node-click="handleNodeClick" @check="handleCheck" :indent="indent === null ? undefined : indent" :icon-class="iconClass === null ? undefined : iconClass" :lazy="lazy === null ? undefined : lazy" :draggable="draggable === null ? undefined : draggable" :auto-expand-parent="autoExpandParent === null ? undefined : autoExpandParent" :check-on-click-node="checkOnClickNode === null ? undefined : checkOnClickNode" :current-node-key="currentNodeKey === null ? undefined : currentNodeKey" :render-after-expand="renderAfterExpand === null ? undefined : renderAfterExpand" :load="load === null ? undefined : load" :filter-node-method="filterNodeMethod === null ? undefined : filterNodeMethod" :render-content="renderContent === null ? undefined : renderContent" :allow-drag="allowDrag === null ? undefined : allowDrag" :allow-drop="allowDrop === null ? undefined : allowDrop"&gt;&lt;/el-tree&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> &lt;/div&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> &lt;div id="picker" style="width:0px;height:0px;" class="vue html-widget"&gt;&lt;/div&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;script type="application/json" data-for="picker"&gt;{"x":{"el":"#picker_container","data":{"treeData":[{"id":"fruit","label":"Fruit","children":[{"id":"apple","label":"Apple"},{"id":"cherry","label":"Cherry"}]},{"id":"veg","label":"Vegetables","children":[{"id":"leek","label":"Leek","disabled":true}]}],"treeProps":{"label":"label","children":"children","disabled":"disabled"},"nodeKey":"id","showCheckbox":false,"checkStrictly":false,"defaultExpandAll":false,"expandOnClickNode":true,"accordion":false,"highlightCurrent":false,"expandedKeys":[],"checkedKeys":[],"emptyText":null,"current":"","checked":[]},"methods":{"handleNodeClick":"function(data) { this.current = data[this.nodeKey]; Shiny.setInputValue('picker', this.current); }","handleCheck":"function(node, info) { this.checked = info.checkedKeys; Shiny.setInputValue('picker_checked', this.checked); }"},"mounted":"function() { var self = this; var send = function() { Shiny.setInputValue(\"picker\", self.current); Shiny.setInputValue(\"picker_checked\", self.checked); }; if (window.Shiny &amp;&amp; Shiny.shinyapp &amp;&amp; typeof Shiny.shinyapp.isConnected === 'function' &amp;&amp; Shiny.shinyapp.isConnected()) { send(); } else { $(document).one('shiny:connected', send); } }"},"evals":["methods.handleNodeClick","methods.handleCheck","mounted"],"jsHooks":[]}&lt;/script&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;script type="application/json" data-for="picker"&gt;{"x":{"el":"#picker_container","data":{"treeData":[{"id":"fruit","label":"Fruit","children":[{"id":"apple","label":"Apple"},{"id":"cherry","label":"Cherry"}]},{"id":"veg","label":"Vegetables","children":[{"id":"leek","label":"Leek","disabled":true}]}],"treeProps":{"label":"label","children":"children","disabled":"disabled"},"nodeKey":"id","showCheckbox":false,"checkStrictly":false,"defaultExpandAll":false,"expandOnClickNode":true,"accordion":false,"highlightCurrent":false,"expandedKeys":[],"checkedKeys":[],"emptyText":null,"current":"","checked":[],"indent":null,"iconClass":null,"lazy":null,"draggable":null,"autoExpandParent":null,"checkOnClickNode":null,"currentNodeKey":null,"renderAfterExpand":null,"load":null,"filterNodeMethod":null,"renderContent":null,"allowDrag":null,"allowDrop":null},"methods":{"handleNodeClick":"function(data) { this.current = data[this.nodeKey]; Shiny.setInputValue('picker', this.current); }","handleCheck":"function(node, info) { this.checked = info.checkedKeys; Shiny.setInputValue('picker_checked', this.checked); }"},"mounted":"function() { var self = this; var send = function() { Shiny.setInputValue(\"picker\", self.current); Shiny.setInputValue(\"picker_checked\", self.checked); }; if (window.Shiny &amp;&amp; Shiny.shinyapp &amp;&amp; typeof Shiny.shinyapp.isConnected === 'function' &amp;&amp; Shiny.shinyapp.isConnected()) { send(); } else { $(document).one('shiny:connected', send); } }"},"evals":["methods.handleNodeClick","methods.handleCheck","mounted"],"jsHooks":[]}&lt;/script&gt;</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># With checkboxes, two nodes checked and the first branch open</span></span></span>
 <span class="r-in"><span><span class="fu">el_tree</span><span class="op">(</span>id <span class="op">=</span> <span class="st">"picker"</span>, data <span class="op">=</span> <span class="va">nodes</span>, show_checkbox <span class="op">=</span> <span class="cn">TRUE</span>,</span></span>
 <span class="r-in"><span>        checked <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"apple"</span>, <span class="st">"cherry"</span><span class="op">)</span>, expanded <span class="op">=</span> <span class="st">"fruit"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> &lt;div id="picker_container" style="display: contents"&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   &lt;el-tree ref="tree" :data="treeData" :props="treeProps" :node-key="nodeKey" :show-checkbox="showCheckbox" :check-strictly="checkStrictly" :default-expand-all="defaultExpandAll" :expand-on-click-node="expandOnClickNode" :accordion="accordion" :highlight-current="highlightCurrent" :default-expanded-keys="expandedKeys" :default-checked-keys="checkedKeys" :empty-text="emptyText === null ? undefined : emptyText" @node-click="handleNodeClick" @check="handleCheck"&gt;&lt;/el-tree&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   &lt;el-tree ref="tree" :data="treeData" :props="treeProps" :node-key="nodeKey" :show-checkbox="showCheckbox" :check-strictly="checkStrictly" :default-expand-all="defaultExpandAll" :expand-on-click-node="expandOnClickNode" :accordion="accordion" :highlight-current="highlightCurrent" :default-expanded-keys="expandedKeys" :default-checked-keys="checkedKeys" :empty-text="emptyText === null ? undefined : emptyText" @node-click="handleNodeClick" @check="handleCheck" :indent="indent === null ? undefined : indent" :icon-class="iconClass === null ? undefined : iconClass" :lazy="lazy === null ? undefined : lazy" :draggable="draggable === null ? undefined : draggable" :auto-expand-parent="autoExpandParent === null ? undefined : autoExpandParent" :check-on-click-node="checkOnClickNode === null ? undefined : checkOnClickNode" :current-node-key="currentNodeKey === null ? undefined : currentNodeKey" :render-after-expand="renderAfterExpand === null ? undefined : renderAfterExpand" :load="load === null ? undefined : load" :filter-node-method="filterNodeMethod === null ? undefined : filterNodeMethod" :render-content="renderContent === null ? undefined : renderContent" :allow-drag="allowDrag === null ? undefined : allowDrag" :allow-drop="allowDrop === null ? undefined : allowDrop"&gt;&lt;/el-tree&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> &lt;/div&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> &lt;div id="picker" style="width:0px;height:0px;" class="vue html-widget"&gt;&lt;/div&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;script type="application/json" data-for="picker"&gt;{"x":{"el":"#picker_container","data":{"treeData":[{"id":"fruit","label":"Fruit","children":[{"id":"apple","label":"Apple"},{"id":"cherry","label":"Cherry"}]},{"id":"veg","label":"Vegetables","children":[{"id":"leek","label":"Leek","disabled":true}]}],"treeProps":{"label":"label","children":"children","disabled":"disabled"},"nodeKey":"id","showCheckbox":true,"checkStrictly":false,"defaultExpandAll":false,"expandOnClickNode":true,"accordion":false,"highlightCurrent":false,"expandedKeys":["fruit"],"checkedKeys":["apple","cherry"],"emptyText":null,"current":"","checked":["apple","cherry"]},"methods":{"handleNodeClick":"function(data) { this.current = data[this.nodeKey]; Shiny.setInputValue('picker', this.current); }","handleCheck":"function(node, info) { this.checked = info.checkedKeys; Shiny.setInputValue('picker_checked', this.checked); }"},"mounted":"function() { var self = this; var send = function() { Shiny.setInputValue(\"picker\", self.current); Shiny.setInputValue(\"picker_checked\", self.checked); }; if (window.Shiny &amp;&amp; Shiny.shinyapp &amp;&amp; typeof Shiny.shinyapp.isConnected === 'function' &amp;&amp; Shiny.shinyapp.isConnected()) { send(); } else { $(document).one('shiny:connected', send); } }"},"evals":["methods.handleNodeClick","methods.handleCheck","mounted"],"jsHooks":[]}&lt;/script&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;script type="application/json" data-for="picker"&gt;{"x":{"el":"#picker_container","data":{"treeData":[{"id":"fruit","label":"Fruit","children":[{"id":"apple","label":"Apple"},{"id":"cherry","label":"Cherry"}]},{"id":"veg","label":"Vegetables","children":[{"id":"leek","label":"Leek","disabled":true}]}],"treeProps":{"label":"label","children":"children","disabled":"disabled"},"nodeKey":"id","showCheckbox":true,"checkStrictly":false,"defaultExpandAll":false,"expandOnClickNode":true,"accordion":false,"highlightCurrent":false,"expandedKeys":["fruit"],"checkedKeys":["apple","cherry"],"emptyText":null,"current":"","checked":["apple","cherry"],"indent":null,"iconClass":null,"lazy":null,"draggable":null,"autoExpandParent":null,"checkOnClickNode":null,"currentNodeKey":null,"renderAfterExpand":null,"load":null,"filterNodeMethod":null,"renderContent":null,"allowDrag":null,"allowDrop":null},"methods":{"handleNodeClick":"function(data) { this.current = data[this.nodeKey]; Shiny.setInputValue('picker', this.current); }","handleCheck":"function(node, info) { this.checked = info.checkedKeys; Shiny.setInputValue('picker_checked', this.checked); }"},"mounted":"function() { var self = this; var send = function() { Shiny.setInputValue(\"picker\", self.current); Shiny.setInputValue(\"picker_checked\", self.checked); }; if (window.Shiny &amp;&amp; Shiny.shinyapp &amp;&amp; typeof Shiny.shinyapp.isConnected === 'function' &amp;&amp; Shiny.shinyapp.isConnected()) { send(); } else { $(document).one('shiny:connected', send); } }"},"evals":["methods.handleNodeClick","methods.handleCheck","mounted"],"jsHooks":[]}&lt;/script&gt;</span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>

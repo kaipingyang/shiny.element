@@ -51,6 +51,14 @@
 <span>  texts <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"极差"</span>, <span class="st">"失望"</span>, <span class="st">"一般"</span>, <span class="st">"满意"</span>, <span class="st">"惊喜"</span><span class="op">)</span>,</span>
 <span>  text_color <span class="op">=</span> <span class="st">"#1f2d3d"</span>,</span>
 <span>  score_template <span class="op">=</span> <span class="st">"{value}"</span>,</span>
+<span>  colors <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  void_color <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  disabled_void_color <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  icon_classes <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  void_icon_class <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  disabled_void_icon_class <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  low_threshold <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  high_threshold <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  session <span class="op">=</span> <span class="fu">shiny</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/domains.html" class="external-link">getDefaultReactiveDomain</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
@@ -102,6 +110,38 @@ Defaults to <code>c("极差", "失望", "一般", "满意", "惊喜")</code>.</p
 Default <code>"{value}"</code>.</p></dd>
 
 
+<dt id="arg-colors">colors<a class="anchor" aria-label="anchor" href="#arg-colors"></a></dt>
+<dd><p>Colours for the three score levels, or a named list keyed by threshold.</p></dd>
+
+
+<dt id="arg-void-color">void_color<a class="anchor" aria-label="anchor" href="#arg-void-color"></a></dt>
+<dd><p>Colour of unselected icons.</p></dd>
+
+
+<dt id="arg-disabled-void-color">disabled_void_color<a class="anchor" aria-label="anchor" href="#arg-disabled-void-color"></a></dt>
+<dd><p>Colour of unselected icons when <code>disabled = TRUE</code>.</p></dd>
+
+
+<dt id="arg-icon-classes">icon_classes<a class="anchor" aria-label="anchor" href="#arg-icon-classes"></a></dt>
+<dd><p>Icon classes for the three score levels, or a named list keyed by threshold.</p></dd>
+
+
+<dt id="arg-void-icon-class">void_icon_class<a class="anchor" aria-label="anchor" href="#arg-void-icon-class"></a></dt>
+<dd><p>Icon class for unselected icons.</p></dd>
+
+
+<dt id="arg-disabled-void-icon-class">disabled_void_icon_class<a class="anchor" aria-label="anchor" href="#arg-disabled-void-icon-class"></a></dt>
+<dd><p>Icon class for unselected icons when <code>disabled = TRUE</code>.</p></dd>
+
+
+<dt id="arg-low-threshold">low_threshold<a class="anchor" aria-label="anchor" href="#arg-low-threshold"></a></dt>
+<dd><p>Scores at or below this use the first colour and icon. Default <code>2</code>.</p></dd>
+
+
+<dt id="arg-high-threshold">high_threshold<a class="anchor" aria-label="anchor" href="#arg-high-threshold"></a></dt>
+<dd><p>Scores above this use the third colour and icon. Default <code>4</code>.</p></dd>
+
+
 <dt id="arg-session">session<a class="anchor" aria-label="anchor" href="#arg-session"></a></dt>
 <dd><p>Shiny session for module support.</p></dd>
 
@@ -122,16 +162,16 @@ Default <code>"{value}"</code>.</p></dd>
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu">el_rate</span><span class="op">(</span><span class="st">"rate1"</span>, value <span class="op">=</span> <span class="fl">3</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> &lt;div id="rate1_container" style="display: contents"&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   &lt;el-rate v-model="value" :max="max" :disabled="disabled" :allow-half="allowHalf" :show-text="showText" :show-score="showScore" :text-color="textColor" :score-template="scoreTemplate" :texts="texts" @change="handleChange"&gt;&lt;/el-rate&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   &lt;el-rate v-model="value" :max="max" :disabled="disabled" :allow-half="allowHalf" :show-text="showText" :show-score="showScore" :text-color="textColor" :score-template="scoreTemplate" :texts="texts" @change="handleChange" :colors="colors === null ? undefined : colors" :void-color="voidColor === null ? undefined : voidColor" :disabled-void-color="disabledVoidColor === null ? undefined : disabledVoidColor" :icon-classes="iconClasses === null ? undefined : iconClasses" :void-icon-class="voidIconClass === null ? undefined : voidIconClass" :disabled-void-icon-class="disabledVoidIconClass === null ? undefined : disabledVoidIconClass" :low-threshold="lowThreshold === null ? undefined : lowThreshold" :high-threshold="highThreshold === null ? undefined : highThreshold"&gt;&lt;/el-rate&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> &lt;/div&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> &lt;div id="rate1" style="width:0px;height:0px;" class="vue html-widget"&gt;&lt;/div&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;script type="application/json" data-for="rate1"&gt;{"x":{"el":"#rate1_container","data":{"value":3,"max":5,"disabled":false,"allowHalf":false,"showText":false,"showScore":false,"textColor":"#1f2d3d","scoreTemplate":"{value}","texts":["极差","失望","一般","满意","惊喜"]},"methods":{"handleChange":"function(val) { Shiny.setInputValue('rate1', val); }"},"mounted":"function() { var self = this; var send = function() { Shiny.setInputValue(\"rate1\", self.value); }; if (window.Shiny &amp;&amp; Shiny.shinyapp &amp;&amp; typeof Shiny.shinyapp.isConnected === 'function' &amp;&amp; Shiny.shinyapp.isConnected()) { send(); } else { $(document).one('shiny:connected', send); } }"},"evals":["methods.handleChange","mounted"],"jsHooks":[]}&lt;/script&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;script type="application/json" data-for="rate1"&gt;{"x":{"el":"#rate1_container","data":{"value":3,"max":5,"disabled":false,"allowHalf":false,"showText":false,"showScore":false,"textColor":"#1f2d3d","scoreTemplate":"{value}","texts":["极差","失望","一般","满意","惊喜"],"colors":null,"voidColor":null,"disabledVoidColor":null,"iconClasses":null,"voidIconClass":null,"disabledVoidIconClass":null,"lowThreshold":null,"highThreshold":null},"methods":{"handleChange":"function(val) { Shiny.setInputValue('rate1', val); }"},"mounted":"function() { var self = this; var send = function() { Shiny.setInputValue(\"rate1\", self.value); }; if (window.Shiny &amp;&amp; Shiny.shinyapp &amp;&amp; typeof Shiny.shinyapp.isConnected === 'function' &amp;&amp; Shiny.shinyapp.isConnected()) { send(); } else { $(document).one('shiny:connected', send); } }"},"evals":["methods.handleChange","mounted"],"jsHooks":[]}&lt;/script&gt;</span>
 <span class="r-in"><span><span class="fu">el_rate</span><span class="op">(</span><span class="st">"rate2"</span>, allow_half <span class="op">=</span> <span class="cn">TRUE</span>, show_score <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> &lt;div id="rate2_container" style="display: contents"&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   &lt;el-rate v-model="value" :max="max" :disabled="disabled" :allow-half="allowHalf" :show-text="showText" :show-score="showScore" :text-color="textColor" :score-template="scoreTemplate" :texts="texts" @change="handleChange"&gt;&lt;/el-rate&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   &lt;el-rate v-model="value" :max="max" :disabled="disabled" :allow-half="allowHalf" :show-text="showText" :show-score="showScore" :text-color="textColor" :score-template="scoreTemplate" :texts="texts" @change="handleChange" :colors="colors === null ? undefined : colors" :void-color="voidColor === null ? undefined : voidColor" :disabled-void-color="disabledVoidColor === null ? undefined : disabledVoidColor" :icon-classes="iconClasses === null ? undefined : iconClasses" :void-icon-class="voidIconClass === null ? undefined : voidIconClass" :disabled-void-icon-class="disabledVoidIconClass === null ? undefined : disabledVoidIconClass" :low-threshold="lowThreshold === null ? undefined : lowThreshold" :high-threshold="highThreshold === null ? undefined : highThreshold"&gt;&lt;/el-rate&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> &lt;/div&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> &lt;div id="rate2" style="width:0px;height:0px;" class="vue html-widget"&gt;&lt;/div&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;script type="application/json" data-for="rate2"&gt;{"x":{"el":"#rate2_container","data":{"value":0,"max":5,"disabled":false,"allowHalf":true,"showText":false,"showScore":true,"textColor":"#1f2d3d","scoreTemplate":"{value}","texts":["极差","失望","一般","满意","惊喜"]},"methods":{"handleChange":"function(val) { Shiny.setInputValue('rate2', val); }"},"mounted":"function() { var self = this; var send = function() { Shiny.setInputValue(\"rate2\", self.value); }; if (window.Shiny &amp;&amp; Shiny.shinyapp &amp;&amp; typeof Shiny.shinyapp.isConnected === 'function' &amp;&amp; Shiny.shinyapp.isConnected()) { send(); } else { $(document).one('shiny:connected', send); } }"},"evals":["methods.handleChange","mounted"],"jsHooks":[]}&lt;/script&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;script type="application/json" data-for="rate2"&gt;{"x":{"el":"#rate2_container","data":{"value":0,"max":5,"disabled":false,"allowHalf":true,"showText":false,"showScore":true,"textColor":"#1f2d3d","scoreTemplate":"{value}","texts":["极差","失望","一般","满意","惊喜"],"colors":null,"voidColor":null,"disabledVoidColor":null,"iconClasses":null,"voidIconClass":null,"disabledVoidIconClass":null,"lowThreshold":null,"highThreshold":null},"methods":{"handleChange":"function(val) { Shiny.setInputValue('rate2', val); }"},"mounted":"function() { var self = this; var send = function() { Shiny.setInputValue(\"rate2\", self.value); }; if (window.Shiny &amp;&amp; Shiny.shinyapp &amp;&amp; typeof Shiny.shinyapp.isConnected === 'function' &amp;&amp; Shiny.shinyapp.isConnected()) { send(); } else { $(document).one('shiny:connected', send); } }"},"evals":["methods.handleChange","mounted"],"jsHooks":[]}&lt;/script&gt;</span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
     </div>

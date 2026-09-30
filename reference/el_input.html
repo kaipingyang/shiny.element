@@ -63,6 +63,17 @@ icons, word-limit display, and autosize textarea.</p>
 <span>  prefix_icon <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  suffix_icon <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  label <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  autocomplete <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  autofocus <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  name <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  form <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  minlength <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  max <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  min <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  step <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  resize <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  tabindex <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  validate_event <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  session <span class="op">=</span> <span class="fu">shiny</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/domains.html" class="external-link">getDefaultReactiveDomain</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
@@ -140,6 +151,50 @@ or a named list <code>list(minRows = 2, maxRows = 4)</code>. Default <code>FALSE
 <dd><p>ARIA <code>label</code> attribute for accessibility. <code>NULL</code> omits it.</p></dd>
 
 
+<dt id="arg-autocomplete">autocomplete<a class="anchor" aria-label="anchor" href="#arg-autocomplete"></a></dt>
+<dd><p>Native <code>autocomplete</code> attribute. Default <code>"off"</code>.</p></dd>
+
+
+<dt id="arg-autofocus">autofocus<a class="anchor" aria-label="anchor" href="#arg-autofocus"></a></dt>
+<dd><p>Whether the input takes focus on page load. Default <code>FALSE</code>.</p></dd>
+
+
+<dt id="arg-name">name<a class="anchor" aria-label="anchor" href="#arg-name"></a></dt>
+<dd><p>Native <code>name</code> attribute.</p></dd>
+
+
+<dt id="arg-form">form<a class="anchor" aria-label="anchor" href="#arg-form"></a></dt>
+<dd><p>Native <code>form</code> attribute.</p></dd>
+
+
+<dt id="arg-minlength">minlength<a class="anchor" aria-label="anchor" href="#arg-minlength"></a></dt>
+<dd><p>Minimum input length.</p></dd>
+
+
+<dt id="arg-max">max<a class="anchor" aria-label="anchor" href="#arg-max"></a></dt>
+<dd><p>Native <code>max</code> attribute, for number-like types.</p></dd>
+
+
+<dt id="arg-min">min<a class="anchor" aria-label="anchor" href="#arg-min"></a></dt>
+<dd><p>Native <code>min</code> attribute, for number-like types.</p></dd>
+
+
+<dt id="arg-step">step<a class="anchor" aria-label="anchor" href="#arg-step"></a></dt>
+<dd><p>Native <code>step</code> attribute, for number-like types.</p></dd>
+
+
+<dt id="arg-resize">resize<a class="anchor" aria-label="anchor" href="#arg-resize"></a></dt>
+<dd><p>Resize behaviour of a textarea: <code>"none"</code>, <code>"both"</code>, <code>"horizontal"</code> or <code>"vertical"</code>.</p></dd>
+
+
+<dt id="arg-tabindex">tabindex<a class="anchor" aria-label="anchor" href="#arg-tabindex"></a></dt>
+<dd><p>Tab index of the input.</p></dd>
+
+
+<dt id="arg-validate-event">validate_event<a class="anchor" aria-label="anchor" href="#arg-validate-event"></a></dt>
+<dd><p>Whether a change triggers form validation. Default <code>TRUE</code>.</p></dd>
+
+
 <dt id="arg-session">session<a class="anchor" aria-label="anchor" href="#arg-session"></a></dt>
 <dd><p>Shiny session for module support.</p></dd>
 
@@ -161,19 +216,19 @@ or a named list <code>list(minRows = 2, maxRows = 4)</code>. Default <code>FALSE
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># Basic text input</span></span></span>
 <span class="r-in"><span><span class="fu">el_input</span><span class="op">(</span><span class="st">"name"</span>, placeholder <span class="op">=</span> <span class="st">"Enter your name"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> &lt;div id="name_container" style="display: contents"&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   &lt;el-input v-model="value" :type="type" :disabled="disabled" :readonly="readonly" :clearable="clearable" :show-password="showPassword" :show-word-limit="showWordLimit" :autosize="autosize" :prefix-icon="prefixIcon" :suffix-icon="suffixIcon" @change="handleChange" :size="size === null ? undefined : size" :maxlength="maxlength === null ? undefined : maxlength" :rows="rows === null ? undefined : rows" :placeholder="placeholder === null ? undefined : placeholder" :label="label === null ? undefined : label"&gt;&lt;/el-input&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   &lt;el-input v-model="value" :type="type" :disabled="disabled" :readonly="readonly" :clearable="clearable" :show-password="showPassword" :show-word-limit="showWordLimit" :autosize="autosize" :prefix-icon="prefixIcon" :suffix-icon="suffixIcon" @change="handleChange" :size="size === null ? undefined : size" :maxlength="maxlength === null ? undefined : maxlength" :rows="rows === null ? undefined : rows" :placeholder="placeholder === null ? undefined : placeholder" :label="label === null ? undefined : label" :autocomplete="autocomplete === null ? undefined : autocomplete" :autofocus="autofocus === null ? undefined : autofocus" :name="name === null ? undefined : name" :form="form === null ? undefined : form" :minlength="minlength === null ? undefined : minlength" :max="max === null ? undefined : max" :min="min === null ? undefined : min" :step="step === null ? undefined : step" :resize="resize === null ? undefined : resize" :tabindex="tabindex === null ? undefined : tabindex" :validate-event="validateEvent === null ? undefined : validateEvent"&gt;&lt;/el-input&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> &lt;/div&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> &lt;div id="name" style="width:0px;height:0px;" class="vue html-widget"&gt;&lt;/div&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;script type="application/json" data-for="name"&gt;{"x":{"el":"#name_container","data":{"value":"","type":"text","disabled":false,"readonly":false,"clearable":false,"showPassword":false,"showWordLimit":false,"autosize":false,"prefixIcon":null,"suffixIcon":null,"size":null,"maxlength":null,"rows":null,"placeholder":"Enter your name","label":null},"methods":{"handleChange":"function(value) { Shiny.setInputValue('name', value); }"},"mounted":"function() { var self = this; var send = function() { Shiny.setInputValue(\"name\", self.value); }; if (window.Shiny &amp;&amp; Shiny.shinyapp &amp;&amp; typeof Shiny.shinyapp.isConnected === 'function' &amp;&amp; Shiny.shinyapp.isConnected()) { send(); } else { $(document).one('shiny:connected', send); } }"},"evals":["methods.handleChange","mounted"],"jsHooks":[]}&lt;/script&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;script type="application/json" data-for="name"&gt;{"x":{"el":"#name_container","data":{"value":"","type":"text","disabled":false,"readonly":false,"clearable":false,"showPassword":false,"showWordLimit":false,"autosize":false,"prefixIcon":null,"suffixIcon":null,"size":null,"maxlength":null,"rows":null,"placeholder":"Enter your name","label":null,"autocomplete":null,"autofocus":null,"name":null,"form":null,"minlength":null,"max":null,"min":null,"step":null,"resize":null,"tabindex":null,"validateEvent":null},"methods":{"handleChange":"function(value) { Shiny.setInputValue('name', value); }"},"mounted":"function() { var self = this; var send = function() { Shiny.setInputValue(\"name\", self.value); }; if (window.Shiny &amp;&amp; Shiny.shinyapp &amp;&amp; typeof Shiny.shinyapp.isConnected === 'function' &amp;&amp; Shiny.shinyapp.isConnected()) { send(); } else { $(document).one('shiny:connected', send); } }"},"evals":["methods.handleChange","mounted"],"jsHooks":[]}&lt;/script&gt;</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Clearable search input with icon</span></span></span>
 <span class="r-in"><span><span class="fu">el_input</span><span class="op">(</span><span class="st">"search"</span>, placeholder <span class="op">=</span> <span class="st">"Search..."</span>,</span></span>
 <span class="r-in"><span>         clearable <span class="op">=</span> <span class="cn">TRUE</span>, prefix_icon <span class="op">=</span> <span class="st">"el-icon-search"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> &lt;div id="search_container" style="display: contents"&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   &lt;el-input v-model="value" :type="type" :disabled="disabled" :readonly="readonly" :clearable="clearable" :show-password="showPassword" :show-word-limit="showWordLimit" :autosize="autosize" :prefix-icon="prefixIcon" :suffix-icon="suffixIcon" @change="handleChange" :size="size === null ? undefined : size" :maxlength="maxlength === null ? undefined : maxlength" :rows="rows === null ? undefined : rows" :placeholder="placeholder === null ? undefined : placeholder" :label="label === null ? undefined : label"&gt;&lt;/el-input&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   &lt;el-input v-model="value" :type="type" :disabled="disabled" :readonly="readonly" :clearable="clearable" :show-password="showPassword" :show-word-limit="showWordLimit" :autosize="autosize" :prefix-icon="prefixIcon" :suffix-icon="suffixIcon" @change="handleChange" :size="size === null ? undefined : size" :maxlength="maxlength === null ? undefined : maxlength" :rows="rows === null ? undefined : rows" :placeholder="placeholder === null ? undefined : placeholder" :label="label === null ? undefined : label" :autocomplete="autocomplete === null ? undefined : autocomplete" :autofocus="autofocus === null ? undefined : autofocus" :name="name === null ? undefined : name" :form="form === null ? undefined : form" :minlength="minlength === null ? undefined : minlength" :max="max === null ? undefined : max" :min="min === null ? undefined : min" :step="step === null ? undefined : step" :resize="resize === null ? undefined : resize" :tabindex="tabindex === null ? undefined : tabindex" :validate-event="validateEvent === null ? undefined : validateEvent"&gt;&lt;/el-input&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> &lt;/div&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> &lt;div id="search" style="width:0px;height:0px;" class="vue html-widget"&gt;&lt;/div&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;script type="application/json" data-for="search"&gt;{"x":{"el":"#search_container","data":{"value":"","type":"text","disabled":false,"readonly":false,"clearable":true,"showPassword":false,"showWordLimit":false,"autosize":false,"prefixIcon":"el-icon-search","suffixIcon":null,"size":null,"maxlength":null,"rows":null,"placeholder":"Search...","label":null},"methods":{"handleChange":"function(value) { Shiny.setInputValue('search', value); }"},"mounted":"function() { var self = this; var send = function() { Shiny.setInputValue(\"search\", self.value); }; if (window.Shiny &amp;&amp; Shiny.shinyapp &amp;&amp; typeof Shiny.shinyapp.isConnected === 'function' &amp;&amp; Shiny.shinyapp.isConnected()) { send(); } else { $(document).one('shiny:connected', send); } }"},"evals":["methods.handleChange","mounted"],"jsHooks":[]}&lt;/script&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;script type="application/json" data-for="search"&gt;{"x":{"el":"#search_container","data":{"value":"","type":"text","disabled":false,"readonly":false,"clearable":true,"showPassword":false,"showWordLimit":false,"autosize":false,"prefixIcon":"el-icon-search","suffixIcon":null,"size":null,"maxlength":null,"rows":null,"placeholder":"Search...","label":null,"autocomplete":null,"autofocus":null,"name":null,"form":null,"minlength":null,"max":null,"min":null,"step":null,"resize":null,"tabindex":null,"validateEvent":null},"methods":{"handleChange":"function(value) { Shiny.setInputValue('search', value); }"},"mounted":"function() { var self = this; var send = function() { Shiny.setInputValue(\"search\", self.value); }; if (window.Shiny &amp;&amp; Shiny.shinyapp &amp;&amp; typeof Shiny.shinyapp.isConnected === 'function' &amp;&amp; Shiny.shinyapp.isConnected()) { send(); } else { $(document).one('shiny:connected', send); } }"},"evals":["methods.handleChange","mounted"],"jsHooks":[]}&lt;/script&gt;</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Shiny app example</span></span></span>
 <span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/interactive.html" class="external-link">interactive</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span></span>

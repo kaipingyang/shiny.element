@@ -21,6 +21,16 @@ el_date_picker(
   readonly = FALSE,
   range_separator = "-",
   align = "left",
+  size = NULL,
+  name = NULL,
+  prefix_icon = NULL,
+  clear_icon = NULL,
+  popper_class = NULL,
+  default_value = NULL,
+  default_time = NULL,
+  unlink_panels = NULL,
+  picker_options = NULL,
+  validate_event = NULL,
   session = shiny::getDefaultReactiveDomain()
 )
 ```
@@ -89,6 +99,46 @@ el_date_picker(
 
   Input alignment: `"left"` (default), `"center"`, `"right"`.
 
+- size:
+
+  Input size: `"medium"`, `"small"` or `"mini"`.
+
+- name:
+
+  Native `name` attribute.
+
+- prefix_icon:
+
+  Icon class shown at the start of the input.
+
+- clear_icon:
+
+  Icon class of the clear button.
+
+- popper_class:
+
+  Extra class name for the picker panel.
+
+- default_value:
+
+  Date the panel opens on when nothing is selected.
+
+- default_time:
+
+  Time part used when a date is picked, as `"HH:mm:ss"`.
+
+- unlink_panels:
+
+  Whether the two panels of a range picker move independently.
+
+- picker_options:
+
+  Additional Element picker options, as a named list.
+
+- validate_event:
+
+  Whether a change triggers form validation. Default `TRUE`.
+
 - session:
 
   Shiny session for module support.
@@ -108,28 +158,28 @@ range types. The format is controlled by `value_format`.
 # Basic date picker
 el_date_picker("dp1")
 #> <div id="dp1_container" style="display: contents">
-#>   <el-date-picker v-model="value" :type="type" :value-format="valueFormat" :format="displayFormat" :clearable="clearable" :disabled="disabled" :editable="editable" :readonly="readonly" :range-separator="rangeSeparator" :align="align" @change="handleChange" :placeholder="placeholder === null ? undefined : placeholder" :start-placeholder="startPlaceholder === null ? undefined : startPlaceholder" :end-placeholder="endPlaceholder === null ? undefined : endPlaceholder"></el-date-picker>
+#>   <el-date-picker v-model="value" :type="type" :value-format="valueFormat" :format="displayFormat" :clearable="clearable" :disabled="disabled" :editable="editable" :readonly="readonly" :range-separator="rangeSeparator" :align="align" @change="handleChange" :placeholder="placeholder === null ? undefined : placeholder" :start-placeholder="startPlaceholder === null ? undefined : startPlaceholder" :end-placeholder="endPlaceholder === null ? undefined : endPlaceholder" :size="size === null ? undefined : size" :name="name === null ? undefined : name" :prefix-icon="prefixIcon === null ? undefined : prefixIcon" :clear-icon="clearIcon === null ? undefined : clearIcon" :popper-class="popperClass === null ? undefined : popperClass" :default-value="defaultValue === null ? undefined : defaultValue" :default-time="defaultTime === null ? undefined : defaultTime" :unlink-panels="unlinkPanels === null ? undefined : unlinkPanels" :picker-options="pickerOptions === null ? undefined : pickerOptions" :validate-event="validateEvent === null ? undefined : validateEvent"></el-date-picker>
 #> </div>
 #> <div id="dp1" style="width:0px;height:0px;" class="vue html-widget"></div>
-#> <script type="application/json" data-for="dp1">{"x":{"el":"#dp1_container","data":{"value":"","type":"date","valueFormat":"yyyy-MM-dd","displayFormat":"yyyy-MM-dd","clearable":true,"disabled":false,"editable":true,"readonly":false,"rangeSeparator":"-","align":"left","placeholder":null,"startPlaceholder":null,"endPlaceholder":null},"methods":{"handleChange":"function(value) { Shiny.setInputValue('dp1', value); }"},"mounted":"function() { var self = this; var send = function() { Shiny.setInputValue(\"dp1\", self.value); }; if (window.Shiny && Shiny.shinyapp && typeof Shiny.shinyapp.isConnected === 'function' && Shiny.shinyapp.isConnected()) { send(); } else { $(document).one('shiny:connected', send); } }"},"evals":["methods.handleChange","mounted"],"jsHooks":[]}</script>
+#> <script type="application/json" data-for="dp1">{"x":{"el":"#dp1_container","data":{"value":"","type":"date","valueFormat":"yyyy-MM-dd","displayFormat":"yyyy-MM-dd","clearable":true,"disabled":false,"editable":true,"readonly":false,"rangeSeparator":"-","align":"left","placeholder":null,"startPlaceholder":null,"endPlaceholder":null,"size":null,"name":null,"prefixIcon":null,"clearIcon":null,"popperClass":null,"defaultValue":null,"defaultTime":null,"unlinkPanels":null,"pickerOptions":null,"validateEvent":null},"methods":{"handleChange":"function(value) { Shiny.setInputValue('dp1', value); }"},"mounted":"function() { var self = this; var send = function() { Shiny.setInputValue(\"dp1\", self.value); }; if (window.Shiny && Shiny.shinyapp && typeof Shiny.shinyapp.isConnected === 'function' && Shiny.shinyapp.isConnected()) { send(); } else { $(document).one('shiny:connected', send); } }"},"evals":["methods.handleChange","mounted"],"jsHooks":[]}</script>
 
 # Pre-filled with today's date
 el_date_picker("dp2", value = Sys.Date())
 #> <div id="dp2_container" style="display: contents">
-#>   <el-date-picker v-model="value" :type="type" :value-format="valueFormat" :format="displayFormat" :clearable="clearable" :disabled="disabled" :editable="editable" :readonly="readonly" :range-separator="rangeSeparator" :align="align" @change="handleChange" :placeholder="placeholder === null ? undefined : placeholder" :start-placeholder="startPlaceholder === null ? undefined : startPlaceholder" :end-placeholder="endPlaceholder === null ? undefined : endPlaceholder"></el-date-picker>
+#>   <el-date-picker v-model="value" :type="type" :value-format="valueFormat" :format="displayFormat" :clearable="clearable" :disabled="disabled" :editable="editable" :readonly="readonly" :range-separator="rangeSeparator" :align="align" @change="handleChange" :placeholder="placeholder === null ? undefined : placeholder" :start-placeholder="startPlaceholder === null ? undefined : startPlaceholder" :end-placeholder="endPlaceholder === null ? undefined : endPlaceholder" :size="size === null ? undefined : size" :name="name === null ? undefined : name" :prefix-icon="prefixIcon === null ? undefined : prefixIcon" :clear-icon="clearIcon === null ? undefined : clearIcon" :popper-class="popperClass === null ? undefined : popperClass" :default-value="defaultValue === null ? undefined : defaultValue" :default-time="defaultTime === null ? undefined : defaultTime" :unlink-panels="unlinkPanels === null ? undefined : unlinkPanels" :picker-options="pickerOptions === null ? undefined : pickerOptions" :validate-event="validateEvent === null ? undefined : validateEvent"></el-date-picker>
 #> </div>
 #> <div id="dp2" style="width:0px;height:0px;" class="vue html-widget"></div>
-#> <script type="application/json" data-for="dp2">{"x":{"el":"#dp2_container","data":{"value":"2026-09-30","type":"date","valueFormat":"yyyy-MM-dd","displayFormat":"yyyy-MM-dd","clearable":true,"disabled":false,"editable":true,"readonly":false,"rangeSeparator":"-","align":"left","placeholder":null,"startPlaceholder":null,"endPlaceholder":null},"methods":{"handleChange":"function(value) { Shiny.setInputValue('dp2', value); }"},"mounted":"function() { var self = this; var send = function() { Shiny.setInputValue(\"dp2\", self.value); }; if (window.Shiny && Shiny.shinyapp && typeof Shiny.shinyapp.isConnected === 'function' && Shiny.shinyapp.isConnected()) { send(); } else { $(document).one('shiny:connected', send); } }"},"evals":["methods.handleChange","mounted"],"jsHooks":[]}</script>
+#> <script type="application/json" data-for="dp2">{"x":{"el":"#dp2_container","data":{"value":"2026-09-30","type":"date","valueFormat":"yyyy-MM-dd","displayFormat":"yyyy-MM-dd","clearable":true,"disabled":false,"editable":true,"readonly":false,"rangeSeparator":"-","align":"left","placeholder":null,"startPlaceholder":null,"endPlaceholder":null,"size":null,"name":null,"prefixIcon":null,"clearIcon":null,"popperClass":null,"defaultValue":null,"defaultTime":null,"unlinkPanels":null,"pickerOptions":null,"validateEvent":null},"methods":{"handleChange":"function(value) { Shiny.setInputValue('dp2', value); }"},"mounted":"function() { var self = this; var send = function() { Shiny.setInputValue(\"dp2\", self.value); }; if (window.Shiny && Shiny.shinyapp && typeof Shiny.shinyapp.isConnected === 'function' && Shiny.shinyapp.isConnected()) { send(); } else { $(document).one('shiny:connected', send); } }"},"evals":["methods.handleChange","mounted"],"jsHooks":[]}</script>
 
 # Date range picker
 el_date_picker("dp3", type = "daterange",
                start_placeholder = "Start date",
                end_placeholder   = "End date")
 #> <div id="dp3_container" style="display: contents">
-#>   <el-date-picker v-model="value" :type="type" :value-format="valueFormat" :format="displayFormat" :clearable="clearable" :disabled="disabled" :editable="editable" :readonly="readonly" :range-separator="rangeSeparator" :align="align" @change="handleChange" :placeholder="placeholder === null ? undefined : placeholder" :start-placeholder="startPlaceholder === null ? undefined : startPlaceholder" :end-placeholder="endPlaceholder === null ? undefined : endPlaceholder"></el-date-picker>
+#>   <el-date-picker v-model="value" :type="type" :value-format="valueFormat" :format="displayFormat" :clearable="clearable" :disabled="disabled" :editable="editable" :readonly="readonly" :range-separator="rangeSeparator" :align="align" @change="handleChange" :placeholder="placeholder === null ? undefined : placeholder" :start-placeholder="startPlaceholder === null ? undefined : startPlaceholder" :end-placeholder="endPlaceholder === null ? undefined : endPlaceholder" :size="size === null ? undefined : size" :name="name === null ? undefined : name" :prefix-icon="prefixIcon === null ? undefined : prefixIcon" :clear-icon="clearIcon === null ? undefined : clearIcon" :popper-class="popperClass === null ? undefined : popperClass" :default-value="defaultValue === null ? undefined : defaultValue" :default-time="defaultTime === null ? undefined : defaultTime" :unlink-panels="unlinkPanels === null ? undefined : unlinkPanels" :picker-options="pickerOptions === null ? undefined : pickerOptions" :validate-event="validateEvent === null ? undefined : validateEvent"></el-date-picker>
 #> </div>
 #> <div id="dp3" style="width:0px;height:0px;" class="vue html-widget"></div>
-#> <script type="application/json" data-for="dp3">{"x":{"el":"#dp3_container","data":{"value":[],"type":"daterange","valueFormat":"yyyy-MM-dd","displayFormat":"yyyy-MM-dd","clearable":true,"disabled":false,"editable":true,"readonly":false,"rangeSeparator":"-","align":"left","placeholder":null,"startPlaceholder":"Start date","endPlaceholder":"End date"},"methods":{"handleChange":"function(value) { Shiny.setInputValue('dp3', value); }"},"mounted":"function() { var self = this; var send = function() { Shiny.setInputValue(\"dp3\", self.value); }; if (window.Shiny && Shiny.shinyapp && typeof Shiny.shinyapp.isConnected === 'function' && Shiny.shinyapp.isConnected()) { send(); } else { $(document).one('shiny:connected', send); } }"},"evals":["methods.handleChange","mounted"],"jsHooks":[]}</script>
+#> <script type="application/json" data-for="dp3">{"x":{"el":"#dp3_container","data":{"value":[],"type":"daterange","valueFormat":"yyyy-MM-dd","displayFormat":"yyyy-MM-dd","clearable":true,"disabled":false,"editable":true,"readonly":false,"rangeSeparator":"-","align":"left","placeholder":null,"startPlaceholder":"Start date","endPlaceholder":"End date","size":null,"name":null,"prefixIcon":null,"clearIcon":null,"popperClass":null,"defaultValue":null,"defaultTime":null,"unlinkPanels":null,"pickerOptions":null,"validateEvent":null},"methods":{"handleChange":"function(value) { Shiny.setInputValue('dp3', value); }"},"mounted":"function() { var self = this; var send = function() { Shiny.setInputValue(\"dp3\", self.value); }; if (window.Shiny && Shiny.shinyapp && typeof Shiny.shinyapp.isConnected === 'function' && Shiny.shinyapp.isConnected()) { send(); } else { $(document).one('shiny:connected', send); } }"},"evals":["methods.handleChange","mounted"],"jsHooks":[]}</script>
 
 # Shiny app example
 if (interactive()) {

@@ -11,6 +11,37 @@ el_table(
   columns = list(),
   selection = FALSE,
   border = TRUE,
+  stripe = NULL,
+  size = NULL,
+  height = NULL,
+  max_height = NULL,
+  fit = NULL,
+  show_header = NULL,
+  highlight_current_row = NULL,
+  current_row_key = NULL,
+  row_key = NULL,
+  empty_text = NULL,
+  default_expand_all = NULL,
+  expand_row_keys = NULL,
+  default_sort = NULL,
+  tooltip_effect = NULL,
+  show_summary = NULL,
+  sum_text = NULL,
+  select_on_indeterminate = NULL,
+  indent = NULL,
+  lazy = NULL,
+  tree_props = NULL,
+  row_class_name = NULL,
+  row_style = NULL,
+  cell_class_name = NULL,
+  cell_style = NULL,
+  header_row_class_name = NULL,
+  header_row_style = NULL,
+  header_cell_class_name = NULL,
+  header_cell_style = NULL,
+  span_method = NULL,
+  summary_method = NULL,
+  load = NULL,
   session = shiny::getDefaultReactiveDomain()
 )
 ```
@@ -40,6 +71,136 @@ el_table(
 
   Show table border
 
+- stripe:
+
+  Whether rows alternate background colour.
+
+- size:
+
+  Row density: `"medium"`, `"small"` or `"mini"`.
+
+- height:
+
+  Table height. Fixes the header and scrolls the body.
+
+- max_height:
+
+  Maximum table height, beyond which the body scrolls.
+
+- fit:
+
+  Whether column widths stretch to fill the table. Default `TRUE`.
+
+- show_header:
+
+  Whether the header row is shown. Default `TRUE`.
+
+- highlight_current_row:
+
+  Whether the clicked row stays highlighted; pairs with
+  `input$<id>_current`.
+
+- current_row_key:
+
+  Key of the row highlighted at start. Needs `row_key`.
+
+- row_key:
+
+  Column whose value identifies a row. Needed for tree data and reserved
+  selection.
+
+- empty_text:
+
+  Text shown when there are no rows. Default `"No Data"`.
+
+- default_expand_all:
+
+  Whether expandable rows start expanded.
+
+- expand_row_keys:
+
+  Keys of the rows that start expanded. Needs `row_key`.
+
+- default_sort:
+
+  Initial sort, as `list(prop =, order =)`.
+
+- tooltip_effect:
+
+  Theme of overflow tooltips: `"dark"` (default) or `"light"`.
+
+- show_summary:
+
+  Whether to add a summary row at the bottom.
+
+- sum_text:
+
+  Label of the summary row's first cell. Default `"Sum"`.
+
+- select_on_indeterminate:
+
+  What the header checkbox does when only some rows are selected.
+  Default `TRUE`.
+
+- indent:
+
+  Horizontal indent between tree levels, in pixels. Default `16`.
+
+- lazy:
+
+  Whether child rows of tree data are loaded on demand.
+
+- tree_props:
+
+  Field names for tree data, as `list(children =, hasChildren =)`.
+
+- row_class_name:
+
+  Class name for every row, or a JS function returning one.
+
+- row_style:
+
+  Inline style for every row, or a JS function returning one.
+
+- cell_class_name:
+
+  Class name for every cell, or a JS function returning one.
+
+- cell_style:
+
+  Inline style for every cell, or a JS function returning one.
+
+- header_row_class_name:
+
+  Class name for the header row, or a JS function returning one.
+
+- header_row_style:
+
+  Inline style for the header row, or a JS function returning one.
+
+- header_cell_class_name:
+
+  Class name for header cells, or a JS function returning one.
+
+- header_cell_style:
+
+  Inline style for header cells, or a JS function returning one.
+
+- span_method:
+
+  [`htmlwidgets::JS()`](https://rdrr.io/pkg/htmlwidgets/man/JS.html)
+  function deciding row/column spans for merged cells.
+
+- summary_method:
+
+  [`htmlwidgets::JS()`](https://rdrr.io/pkg/htmlwidgets/man/JS.html)
+  function returning the summary row's cells.
+
+- load:
+
+  [`htmlwidgets::JS()`](https://rdrr.io/pkg/htmlwidgets/man/JS.html)
+  function loading child rows lazily. Needs `lazy = TRUE`.
+
 - session:
 
   Shiny session for module support
@@ -65,13 +226,13 @@ selected, matching how Shiny reports an empty
 # A data.frame is enough -- columns are inferred
 el_table("iris_preview", data = head(iris, 3))
 #> <div id="iris_preview_container" style="display: contents">
-#>   <el-table :data="tableData" :border="border" style="width: 100%" @selection-change="handleSelectionChange">
+#>   <el-table :data="tableData" :border="border" style="width: 100%" @selection-change="handleSelectionChange" :stripe="stripe === null ? undefined : stripe" :size="size === null ? undefined : size" :height="height === null ? undefined : height" :max-height="maxHeight === null ? undefined : maxHeight" :fit="fit === null ? undefined : fit" :show-header="showHeader === null ? undefined : showHeader" :highlight-current-row="highlightCurrentRow === null ? undefined : highlightCurrentRow" :current-row-key="currentRowKey === null ? undefined : currentRowKey" :row-key="rowKey === null ? undefined : rowKey" :empty-text="emptyText === null ? undefined : emptyText" :default-expand-all="defaultExpandAll === null ? undefined : defaultExpandAll" :expand-row-keys="expandRowKeys === null ? undefined : expandRowKeys" :default-sort="defaultSort === null ? undefined : defaultSort" :tooltip-effect="tooltipEffect === null ? undefined : tooltipEffect" :show-summary="showSummary === null ? undefined : showSummary" :sum-text="sumText === null ? undefined : sumText" :select-on-indeterminate="selectOnIndeterminate === null ? undefined : selectOnIndeterminate" :indent="indent === null ? undefined : indent" :lazy="lazy === null ? undefined : lazy" :tree-props="treeProps === null ? undefined : treeProps" :row-class-name="rowClassName === null ? undefined : rowClassName" :row-style="rowStyle === null ? undefined : rowStyle" :cell-class-name="cellClassName === null ? undefined : cellClassName" :cell-style="cellStyle === null ? undefined : cellStyle" :header-row-class-name="headerRowClassName === null ? undefined : headerRowClassName" :header-row-style="headerRowStyle === null ? undefined : headerRowStyle" :header-cell-class-name="headerCellClassName === null ? undefined : headerCellClassName" :header-cell-style="headerCellStyle === null ? undefined : headerCellStyle" :span-method="spanMethod === null ? undefined : spanMethod" :summary-method="summaryMethod === null ? undefined : summaryMethod" :load="load === null ? undefined : load">
 #>     <el-table-column v-if="selection" type="selection" width="55"></el-table-column>
-#>     <el-table-column v-for="col in columns" :key="col.prop" :prop="col.prop" :label="col.label" :width="col.width"></el-table-column>
+#>     <el-table-column v-for="col in columns" :key="col.prop" :prop="col.prop" :label="col.label" :width="col.width" :align="col.align" :header-align="col.headerAlign" :class-name="col.className" :label-class-name="col.labelClassName" :column-key="col.columnKey" :min-width="col.minWidth" :fixed="col.fixed" :resizable="col.resizable" :sortable="col.sortable" :sort-by="col.sortBy" :sort-orders="col.sortOrders" :show-overflow-tooltip="col.showOverflowTooltip" :filters="col.filters" :filtered-value="col.filteredValue" :filter-multiple="col.filterMultiple" :filter-placement="col.filterPlacement" :reserve-selection="col.reserveSelection" :index="col.index" :formatter="col.formatter" :filter-method="col.filterMethod" :sort-method="col.sortMethod" :render-header="col.renderHeader" :selectable="col.selectable"></el-table-column>
 #>   </el-table>
 #> </div>
 #> <div id="iris_preview" style="width:0px;height:0px;" class="vue html-widget"></div>
-#> <script type="application/json" data-for="iris_preview">{"x":{"el":"#iris_preview_container","data":{"tableData":[{"Sepal_Length":5.1,"Sepal_Width":3.5,"Petal_Length":1.4,"Petal_Width":0.2,"Species":"setosa"},{"Sepal_Length":4.9,"Sepal_Width":3,"Petal_Length":1.4,"Petal_Width":0.2,"Species":"setosa"},{"Sepal_Length":4.7,"Sepal_Width":3.2,"Petal_Length":1.3,"Petal_Width":0.2,"Species":"setosa"}],"columns":[{"prop":"Sepal_Length","label":"Sepal.Length"},{"prop":"Sepal_Width","label":"Sepal.Width"},{"prop":"Petal_Length","label":"Petal.Length"},{"prop":"Petal_Width","label":"Petal.Width"},{"prop":"Species","label":"Species"}],"border":true,"selection":false,"selected":[],"selectedRows":[]},"methods":{"handleSelectionChange":"function(selection) { var self = this; self.selected = selection; self.selectedRows = selection.map(function(r) { return self.tableData.indexOf(r) + 1; }); Shiny.setInputValue('iris_preview_selected', self.selected); Shiny.setInputValue('iris_preview_selected_rows', self.selectedRows); }"},"mounted":"function() { var self = this; var send = function() { Shiny.setInputValue(\"iris_preview_selected\", self.selected); Shiny.setInputValue(\"iris_preview_selected_rows\", self.selectedRows); }; if (window.Shiny && Shiny.shinyapp && typeof Shiny.shinyapp.isConnected === 'function' && Shiny.shinyapp.isConnected()) { send(); } else { $(document).one('shiny:connected', send); } }"},"evals":["methods.handleSelectionChange","mounted"],"jsHooks":[]}</script>
+#> <script type="application/json" data-for="iris_preview">{"x":{"el":"#iris_preview_container","data":{"tableData":[{"Sepal_Length":5.1,"Sepal_Width":3.5,"Petal_Length":1.4,"Petal_Width":0.2,"Species":"setosa"},{"Sepal_Length":4.9,"Sepal_Width":3,"Petal_Length":1.4,"Petal_Width":0.2,"Species":"setosa"},{"Sepal_Length":4.7,"Sepal_Width":3.2,"Petal_Length":1.3,"Petal_Width":0.2,"Species":"setosa"}],"columns":[{"prop":"Sepal_Length","label":"Sepal.Length"},{"prop":"Sepal_Width","label":"Sepal.Width"},{"prop":"Petal_Length","label":"Petal.Length"},{"prop":"Petal_Width","label":"Petal.Width"},{"prop":"Species","label":"Species"}],"border":true,"selection":false,"selected":[],"selectedRows":[],"stripe":null,"size":null,"height":null,"maxHeight":null,"fit":null,"showHeader":null,"highlightCurrentRow":null,"currentRowKey":null,"rowKey":null,"emptyText":null,"defaultExpandAll":null,"expandRowKeys":null,"defaultSort":null,"tooltipEffect":null,"showSummary":null,"sumText":null,"selectOnIndeterminate":null,"indent":null,"lazy":null,"treeProps":null,"rowClassName":null,"rowStyle":null,"cellClassName":null,"cellStyle":null,"headerRowClassName":null,"headerRowStyle":null,"headerCellClassName":null,"headerCellStyle":null,"spanMethod":null,"summaryMethod":null,"load":null},"methods":{"handleSelectionChange":"function(selection) { var self = this; self.selected = selection; self.selectedRows = selection.map(function(r) { return self.tableData.indexOf(r) + 1; }); Shiny.setInputValue('iris_preview_selected', self.selected); Shiny.setInputValue('iris_preview_selected_rows', self.selectedRows); }"},"mounted":"function() { var self = this; var send = function() { Shiny.setInputValue(\"iris_preview_selected\", self.selected); Shiny.setInputValue(\"iris_preview_selected_rows\", self.selectedRows); }; if (window.Shiny && Shiny.shinyapp && typeof Shiny.shinyapp.isConnected === 'function' && Shiny.shinyapp.isConnected()) { send(); } else { $(document).one('shiny:connected', send); } }"},"evals":["methods.handleSelectionChange","mounted"],"jsHooks":[]}</script>
 
 # Explicit columns
 el_table(
@@ -83,13 +244,13 @@ el_table(
   )
 )
 #> <div id="scores_container" style="display: contents">
-#>   <el-table :data="tableData" :border="border" style="width: 100%" @selection-change="handleSelectionChange">
+#>   <el-table :data="tableData" :border="border" style="width: 100%" @selection-change="handleSelectionChange" :stripe="stripe === null ? undefined : stripe" :size="size === null ? undefined : size" :height="height === null ? undefined : height" :max-height="maxHeight === null ? undefined : maxHeight" :fit="fit === null ? undefined : fit" :show-header="showHeader === null ? undefined : showHeader" :highlight-current-row="highlightCurrentRow === null ? undefined : highlightCurrentRow" :current-row-key="currentRowKey === null ? undefined : currentRowKey" :row-key="rowKey === null ? undefined : rowKey" :empty-text="emptyText === null ? undefined : emptyText" :default-expand-all="defaultExpandAll === null ? undefined : defaultExpandAll" :expand-row-keys="expandRowKeys === null ? undefined : expandRowKeys" :default-sort="defaultSort === null ? undefined : defaultSort" :tooltip-effect="tooltipEffect === null ? undefined : tooltipEffect" :show-summary="showSummary === null ? undefined : showSummary" :sum-text="sumText === null ? undefined : sumText" :select-on-indeterminate="selectOnIndeterminate === null ? undefined : selectOnIndeterminate" :indent="indent === null ? undefined : indent" :lazy="lazy === null ? undefined : lazy" :tree-props="treeProps === null ? undefined : treeProps" :row-class-name="rowClassName === null ? undefined : rowClassName" :row-style="rowStyle === null ? undefined : rowStyle" :cell-class-name="cellClassName === null ? undefined : cellClassName" :cell-style="cellStyle === null ? undefined : cellStyle" :header-row-class-name="headerRowClassName === null ? undefined : headerRowClassName" :header-row-style="headerRowStyle === null ? undefined : headerRowStyle" :header-cell-class-name="headerCellClassName === null ? undefined : headerCellClassName" :header-cell-style="headerCellStyle === null ? undefined : headerCellStyle" :span-method="spanMethod === null ? undefined : spanMethod" :summary-method="summaryMethod === null ? undefined : summaryMethod" :load="load === null ? undefined : load">
 #>     <el-table-column v-if="selection" type="selection" width="55"></el-table-column>
-#>     <el-table-column v-for="col in columns" :key="col.prop" :prop="col.prop" :label="col.label" :width="col.width"></el-table-column>
+#>     <el-table-column v-for="col in columns" :key="col.prop" :prop="col.prop" :label="col.label" :width="col.width" :align="col.align" :header-align="col.headerAlign" :class-name="col.className" :label-class-name="col.labelClassName" :column-key="col.columnKey" :min-width="col.minWidth" :fixed="col.fixed" :resizable="col.resizable" :sortable="col.sortable" :sort-by="col.sortBy" :sort-orders="col.sortOrders" :show-overflow-tooltip="col.showOverflowTooltip" :filters="col.filters" :filtered-value="col.filteredValue" :filter-multiple="col.filterMultiple" :filter-placement="col.filterPlacement" :reserve-selection="col.reserveSelection" :index="col.index" :formatter="col.formatter" :filter-method="col.filterMethod" :sort-method="col.sortMethod" :render-header="col.renderHeader" :selectable="col.selectable"></el-table-column>
 #>   </el-table>
 #> </div>
 #> <div id="scores" style="width:0px;height:0px;" class="vue html-widget"></div>
-#> <script type="application/json" data-for="scores">{"x":{"el":"#scores_container","data":{"tableData":[{"name":"A","value":1},{"name":"B","value":2}],"columns":[{"prop":"name","label":"Name"},{"prop":"value","label":"Value","width":"100"}],"border":true,"selection":false,"selected":[],"selectedRows":[]},"methods":{"handleSelectionChange":"function(selection) { var self = this; self.selected = selection; self.selectedRows = selection.map(function(r) { return self.tableData.indexOf(r) + 1; }); Shiny.setInputValue('scores_selected', self.selected); Shiny.setInputValue('scores_selected_rows', self.selectedRows); }"},"mounted":"function() { var self = this; var send = function() { Shiny.setInputValue(\"scores_selected\", self.selected); Shiny.setInputValue(\"scores_selected_rows\", self.selectedRows); }; if (window.Shiny && Shiny.shinyapp && typeof Shiny.shinyapp.isConnected === 'function' && Shiny.shinyapp.isConnected()) { send(); } else { $(document).one('shiny:connected', send); } }"},"evals":["methods.handleSelectionChange","mounted"],"jsHooks":[]}</script>
+#> <script type="application/json" data-for="scores">{"x":{"el":"#scores_container","data":{"tableData":[{"name":"A","value":1},{"name":"B","value":2}],"columns":[{"prop":"name","label":"Name"},{"prop":"value","label":"Value","width":"100"}],"border":true,"selection":false,"selected":[],"selectedRows":[],"stripe":null,"size":null,"height":null,"maxHeight":null,"fit":null,"showHeader":null,"highlightCurrentRow":null,"currentRowKey":null,"rowKey":null,"emptyText":null,"defaultExpandAll":null,"expandRowKeys":null,"defaultSort":null,"tooltipEffect":null,"showSummary":null,"sumText":null,"selectOnIndeterminate":null,"indent":null,"lazy":null,"treeProps":null,"rowClassName":null,"rowStyle":null,"cellClassName":null,"cellStyle":null,"headerRowClassName":null,"headerRowStyle":null,"headerCellClassName":null,"headerCellStyle":null,"spanMethod":null,"summaryMethod":null,"load":null},"methods":{"handleSelectionChange":"function(selection) { var self = this; self.selected = selection; self.selectedRows = selection.map(function(r) { return self.tableData.indexOf(r) + 1; }); Shiny.setInputValue('scores_selected', self.selected); Shiny.setInputValue('scores_selected_rows', self.selectedRows); }"},"mounted":"function() { var self = this; var send = function() { Shiny.setInputValue(\"scores_selected\", self.selected); Shiny.setInputValue(\"scores_selected_rows\", self.selectedRows); }; if (window.Shiny && Shiny.shinyapp && typeof Shiny.shinyapp.isConnected === 'function' && Shiny.shinyapp.isConnected()) { send(); } else { $(document).one('shiny:connected', send); } }"},"evals":["methods.handleSelectionChange","mounted"],"jsHooks":[]}</script>
 
 # Shiny app with row selection and server-side updates
 if (interactive()) {
