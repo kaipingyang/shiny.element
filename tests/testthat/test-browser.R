@@ -715,3 +715,24 @@ test_that("absorbing a component raises no Vue warning", {
   expect_equal(grep("[Vue warn]", bconsole(), fixed = TRUE, value = TRUE),
                character(0))
 })
+
+test_that("two components in one wrapper both work", {
+  skip_if_no_browser()
+  # el_button and el_tag both declare label, type, size and handleClick, so
+  # the second one's fields are renamed on the way in -- markup, methods and
+  # interpolation together. Renaming only the data would leave the template
+  # referring to fields that no longer exist, which Vue reports at render
+  # time and which the first attempt did.
+  expect_equal(bev("document.querySelector('#twoup_container button').innerText"),
+               "Open")
+
+  bclick("#twoup_container button", wait = 2)
+  expect_gt(bev("Shiny.shinyapp.$inputValues['pop_btn'] || 0"), 0)
+
+  # the popover opened, and the tag inside it rendered its own label
+  expect_true(bev("!!document.querySelector('.el-popover')"))
+  expect_equal(bev("document.querySelector('.el-popover .el-tag').innerText"),
+               "inside")
+  expect_equal(grep("[Vue warn]", bconsole(), fixed = TRUE, value = TRUE),
+               character(0))
+})

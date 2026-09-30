@@ -94,12 +94,7 @@ el_popover <- function(id = NULL,
   events <- .el_event_bindings(ns_id, c("show", "hide", "after-enter", "after-leave"))
   attrs <- c(attrs, events$attrs)
 
-  children <- list(inner_body$markup)
-  if (!is.null(inner_ref$markup)) {
-    children <- c(children, list(
-      htmltools::tags$span(slot = "reference", inner_ref$markup)
-    ))
-  }
+
 
   own <- list(
     markup = NULL,
@@ -124,6 +119,16 @@ el_popover <- function(id = NULL,
     watch = list(), computed = list(), mounted = NULL, dependencies = list()
   )
   merged <- .el_absorb_merge(own, inner_ref, inner_body)
+  # markups keeps the order the parts went in: own, reference, body
+  ref_markup  <- merged$markups[[2]]
+  body_markup <- merged$markups[[3]]
+
+  children <- list(body_markup)
+  if (!is.null(ref_markup)) {
+    children <- c(children, list(
+      htmltools::tags$span(slot = "reference", ref_markup)
+    ))
+  }
 
   el_widget(
     id       = ns_id,

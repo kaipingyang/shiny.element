@@ -10,7 +10,9 @@
 \item{...}{Results of \code{\link[=.el_absorb]{.el_absorb()}}.}
 }
 \value{
-One set of Vue options, plus the dependencies to attach.
+One set of Vue options, the dependencies to attach, and each
+part's markup as it now stands -- renaming rewrites it, so the caller
+must render \code{markups} rather than what it passed in.
 }
 \description{
 Merge what several absorbed components contribute

@@ -119,7 +119,7 @@ el_tooltip <- function(id = NULL,
 
   el_widget(
     id       = ns_id,
-    markup   = htmltools::tag("el-tooltip", c(attrs, list(inner$markup))),
+    markup   = htmltools::tag("el-tooltip", c(attrs, list(merged$markups[[2]]))),
     data     = merged$data,
     methods  = merged$methods,
     watch    = merged$watch,

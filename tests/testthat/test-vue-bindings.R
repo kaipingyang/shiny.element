@@ -186,3 +186,41 @@ test_that("width accepts what a Shiny input accepts", {
   expect_match(paste(as.character(el_select("s", choices = "A", width = 150)), collapse = ""),
                "width: 150px")
 })
+
+# ── absorbing components into a wrapper ───────────────────────────────────────
+
+test_that("a wrapper absorbs a component rather than nesting it", {
+  ui <- el_tooltip("tip", el_button("btn", "Save"), content = "hint")
+  # One instance, carrying both components' markup and both their fields
+  html <- paste(as.character(htmltools::renderTags(ui)$html), collapse = "")
+  expect_equal(length(gregexpr("html-widget", html)[[1]]), 1L)
+  expect_match(html, "<el-tooltip[^>]*>\\s*<el-button")
+
+  data <- vue_data_of(ui)
+  expect_true("tipContent" %in% names(data))   # the wrapper's, prefixed
+  expect_true("label" %in% names(data))        # the button's, as they were
+})
+
+test_that("a second absorbed component has its fields renamed", {
+  # el_button and el_tag both declare label, type, size, disabled and
+  # handleClick
+  ui <- el_popover("pop", el_button("b", "Open"), body = el_tag("t", "inside"))
+  payload <- vue_payload_of(ui)
+
+  expect_true("label" %in% names(payload$data))
+  expect_true(any(grepl("^el3_", names(payload$data))))
+  expect_true(any(grepl("^el3_", names(payload$methods))))
+
+  # and the markup refers to the renamed fields, not the originals
+  html <- paste(as.character(ui), collapse = "")
+  expect_match(html, '<el-tag[^>]*:type="el3_type"')
+})
+
+test_that("renaming leaves string literals alone", {
+  # :class="data.isSelected ? 'is-selected' : ''" names a CSS class
+  expr <- ":class=\"data.isSelected ? 'is-selected' : ''\""
+  out <- .el_rewrite_expr(expr, c(isSelected = "x_isSelected"))
+  expect_match(out, "'is-selected'", fixed = TRUE)
+  # a member access is not a field of the instance either
+  expect_match(out, "data.isSelected", fixed = TRUE)
+})

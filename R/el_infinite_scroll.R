@@ -57,7 +57,9 @@ el_infinite_scroll <- function(id = NULL,
                                immediate = NULL,
                                width = NULL,
                                session = shiny::getDefaultReactiveDomain()) {
-  inner <- .el_absorb(list(...))
+  # Each piece of content is absorbed on its own, so several components
+  # may sit in the same scrolling area.
+  inners <- lapply(list(...), .el_absorb)
 
   if (is.null(id)) id <- paste0("el_infinite_scroll_", uuid::UUIDgenerate())
   ns_id <- if (!is.null(session)) session$ns(id) else id
@@ -88,11 +90,11 @@ el_infinite_scroll <- function(id = NULL,
     ),
     watch = list(), computed = list(), mounted = NULL, dependencies = list()
   )
-  merged <- .el_absorb_merge(own, inner)
+  merged <- do.call(.el_absorb_merge, c(list(own), inners))
 
   el_widget(
     id       = ns_id,
-    markup   = htmltools::tag("div", c(attrs, list(inner$markup))),
+    markup   = htmltools::tag("div", c(attrs, merged$markups[-1])),
     data     = merged$data,
     methods  = merged$methods,
     watch    = merged$watch,

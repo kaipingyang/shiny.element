@@ -182,7 +182,10 @@ ui <- el_page(
     el_tooltip("tip", el$button(type = "primary", "Hover me"), content = "a hint"),
     # A real component as a tooltip trigger, absorbed rather than nested
     tags$div(id = "nest_raw",
-      el_tooltip("wrap", el_button("nested_btn", "Nested"), content = "works")),
+      el_tooltip("wrap", el_button("nested_btn", "Nested"), content = "works"),
+      # Two components in one wrapper: the second one's fields are renamed
+      el_popover("twoup", el_button("pop_btn", "Open"),
+                 body = el_tag("pop_tag", "inside"), title = "Both")),
     el_popconfirm("pc", el_button("pc_btn", "Delete", type = "danger"), title = "Sure?"),
     el_avatar("av", content = "KY"),
     el_breadcrumb("crumb", items = list(list(label = "Home"), list(label = "Here")))),
