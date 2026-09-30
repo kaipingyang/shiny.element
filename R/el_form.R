@@ -226,6 +226,10 @@ el_form_field <- function(prop,
 #' @param label_suffix Suffix appended to every label.
 #' @param validate_on_rule_change Whether changing the rules triggers validation immediately.
 #' @param width Component width, as a CSS unit -- `"200px"`, `"50%"`, or a
+#' @param slots Named list of Element slot contents, such as
+#'   `list(title = shiny::tags$b("Bold"))`. A shiny.element component
+#'   given here is absorbed rather than nested. For a scoped slot, write
+#'   the template with [template()].
 #'   number taken as pixels. Element's own markup carries it, so it behaves
 #'   like the `width` argument of a Shiny input.
 #'
@@ -300,6 +304,7 @@ el_form <- function(...,
                     label_suffix = NULL,
                     validate_on_rule_change = NULL,
                     width   = NULL,
+                    slots   = NULL,
                     session = shiny::getDefaultReactiveDomain()) {
   if (is.null(id)) id <- paste0("el_form_", uuid::UUIDgenerate())
   ns_id        <- if (!is.null(session)) session$ns(id) else id
@@ -347,7 +352,20 @@ el_form <- function(...,
            # required, rules, error, label-width or size of its own.
            ':label="f.label" :required="f.required" :rules="f.rules" ',
            ':error="f.error" :label-width="f.labelWidth" :size="f.size" ',
-           ':inline-message="f.inlineMessage" :show-message="f.showMessage">'),
+           ':inline-message="f.inlineMessage" :show-message="f.showMessage">',
+           # A field may render its own label and error, from label_html and
+           # error_html in its definition. Inserted as markup, so pass only
+           # what you control.
+           '<template slot="label"><span v-if="f.labelHtml" v-html="f.labelHtml">',
+           '</span><span v-else>{{f.label}}</span></template>',
+           # Element's own error slot renders a div.el-form-item__error, and
+           # filling the slot replaces it -- so keep the class, or the message
+           # loses its styling and anything looking for it stops finding it.
+           '<template slot="error" slot-scope="scope">',
+           '<div class="el-form-item__error">',
+           '<span v-if="f.errorHtml" v-html="f.errorHtml"></span>',
+           '<span v-else>{{scope.error}}</span>',
+           '</div></template>'),
     '<component :is="f.tag" v-model="model[f.prop]" v-bind="f.props">',
     '<component v-for="o in (f.options || [])" :is="f.optionTag" :key="o.label" ',
     ':label="o.label" :value="o.value">{{ o.text }}</component>',
@@ -417,6 +435,7 @@ el_form <- function(...,
     )),
     mounted = .el_mounted_init(stats::setNames("model", ns_id)),
     width      = width,
+    slots      = slots,
     dependency = el_form_handler_dependency()
   )
 }

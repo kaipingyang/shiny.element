@@ -36,6 +36,10 @@
 #' @param picker_options Additional Element picker options, as a named list.
 #' @param validate_event Whether a change triggers form validation. Default `TRUE`.
 #' @param width Component width, as a CSS unit -- `"200px"`, `"50%"`, or a
+#' @param slots Named list of Element slot contents, such as
+#'   `list(title = shiny::tags$b("Bold"))`. A shiny.element component
+#'   given here is absorbed rather than nested. For a scoped slot, write
+#'   the template with [template()].
 #'   number taken as pixels. Element's own markup carries it, so it behaves
 #'   like the `width` argument of a Shiny input.
 #'
@@ -103,6 +107,7 @@ el_date_picker <- function(
     picker_options    = NULL,
     validate_event    = NULL,
     width             = NULL,
+    slots             = NULL,
     session           = shiny::getDefaultReactiveDomain()
 ) {
   if (is.null(id)) id <- paste0("el_date_picker_", uuid::UUIDgenerate())
@@ -198,6 +203,7 @@ el_date_picker <- function(
     )),
     mounted = .el_mounted_init(stats::setNames("value", ns_id)),
     width      = width,
+    slots      = slots,
     dependency = el_date_picker_handler_dependency()
   )
 }

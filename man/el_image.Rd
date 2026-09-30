@@ -15,6 +15,7 @@ el_image(
   z_index = NULL,
   referrer_policy = NULL,
   width = NULL,
+  slots = NULL,
   session = shiny::getDefaultReactiveDomain()
 )
 }
@@ -41,6 +42,11 @@ full-screen preview when the image is clicked.}
 \item{referrer_policy}{Value of the image's \code{referrerPolicy} attribute.}
 
 \item{width}{Component width, as a CSS unit.}
+
+\item{slots}{Named list of Element slot contents, such as
+\code{list(title = shiny::tags$b("Bold"))}. A shiny.element component
+given here is absorbed rather than nested. For a scoped slot, write
+the template with \code{\link[=template]{template()}}.}
 
 \item{session}{Shiny session for module support.}
 }

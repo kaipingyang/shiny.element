@@ -19,6 +19,10 @@
 #'   Default `126`.
 #' @param session Shiny session for module support.
 #' @param stroke_linecap Shape of the bar's ends: `"round"` (default), `"butt"` or `"square"`.
+#' @param slots Named list of Element slot contents, such as
+#'   `list(title = shiny::tags$b("Bold"))`. A shiny.element component
+#'   given here is absorbed rather than nested. For a scoped slot, write
+#'   the template with [template()].
 #'
 #' @return An `htmltools` tagList with a Vue-managed progress component.
 #'
@@ -60,6 +64,7 @@ el_progress <- function(
     color        = NULL,
     width        = 126,
     stroke_linecap = NULL,
+    slots        = NULL,
     session      = shiny::getDefaultReactiveDomain()
 ) {
   if (is.null(id)) id <- paste0("el_progress_", uuid::UUIDgenerate())
@@ -95,6 +100,7 @@ el_progress <- function(
     id     = ns_id,
     markup = htmltools::tag("el-progress", progress_attrs),
     data = vue_data,
+    slots      = slots,
     dependency = el_progress_handler_dependency()
   )
 }

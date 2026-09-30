@@ -23,6 +23,10 @@
 #' @param direction `"horizontal"` (default) or `"vertical"`.
 #' @param session Shiny session for module support.
 #' @param width Component width, as a CSS unit -- `"200px"`, `"50%"`, or a
+#' @param slots Named list of Element slot contents, such as
+#'   `list(title = shiny::tags$b("Bold"))`. A shiny.element component
+#'   given here is absorbed rather than nested. For a scoped slot, write
+#'   the template with [template()].
 #'   number taken as pixels. Element's own markup carries it, so it behaves
 #'   like the `width` argument of a Shiny input.
 #'
@@ -69,6 +73,7 @@ el_carousel <- function(id = NULL,
                         loop = TRUE,
                         direction = "horizontal",
                         width   = NULL,
+                        slots   = NULL,
                         session = shiny::getDefaultReactiveDomain()) {
   if (is.null(id)) id <- paste0("el_carousel_", uuid::UUIDgenerate())
   ns_id        <- if (!is.null(session)) session$ns(id) else id
@@ -137,6 +142,7 @@ el_carousel <- function(id = NULL,
       c("active", "activeName"), paste0(ns_id, c("", "_name"))
     )),
     width      = width,
+    slots      = slots,
     dependency = el_carousel_handler_dependency()
   )
 }

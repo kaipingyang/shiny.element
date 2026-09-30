@@ -26,6 +26,11 @@
 #'   pass [element_ui_dependency()], unless the page already loads it through
 #'   [el_page()] or [use_element()].
 #' @param head Tags to place before the host, such as a `<style>` block.
+#' @param slots Named list of slot contents, one entry per Element slot:
+#'   `list(title = tags$b("Bold"))` fills the `title` slot. A component given
+#'   here is absorbed like any other ([.el_absorb()]). For a scoped slot,
+#'   where Element hands the template its own data, write the template with
+#'   [template()] and the value is used as it stands.
 #' @param width Component width, as a CSS unit. Applied to the Element markup
 #'   itself -- the host carries `display: contents` and generates no box, so a
 #'   width set on it would do nothing.
@@ -55,9 +60,18 @@
 #' )
 #' @export
 el_widget <- function(id, markup, data, methods = NULL, watch = NULL,
-                       mounted = NULL, computed = NULL, dependency = NULL,
-                       head = NULL, width = NULL) {
+                      mounted = NULL, computed = NULL, dependency = NULL,
+                      head = NULL, width = NULL, slots = NULL) {
   container_id <- paste0(id, "_container")
+
+  if (length(slots)) {
+    filled     <- .el_slot_markup(slots)
+    markup     <- .el_append_children(markup, filled$markup)
+    data       <- c(data, filled$data)
+    methods    <- c(methods, filled$methods)
+    watch      <- c(watch, filled$watch)
+    dependency <- c(dependency, filled$dependencies)
+  }
 
   if (!is.null(width)) {
     markup <- .el_set_width(markup, width)
@@ -116,5 +130,51 @@ el_widget <- function(id, markup, data, methods = NULL, watch = NULL,
   declarations <- declarations[!grepl("^width\\s*:", declarations)]
 
   tag$attribs$style <- paste(c(declarations, css), collapse = "; ")
+  tag
+}
+
+
+#' Turn named slot contents into markup, absorbing any components
+#'
+#' @param slots Named list of slot contents.
+#' @return A list of `markup` plus the Vue options its components contribute.
+#' @keywords internal
+.el_slot_markup <- function(slots) {
+  if (!length(slots) || is.null(names(slots))) {
+    stop("`slots` must be a named list, one entry per Element slot.",
+         call. = FALSE)
+  }
+
+  parts <- lapply(slots, .el_absorb)
+  merged <- do.call(.el_absorb_merge, parts)
+
+  markup <- Map(function(name, ui) {
+    # A template written with template() already declares its own slot, and
+    # a scoped one must, so leave it alone.
+    if (inherits(ui, "html") && grepl("^\\s*<template", as.character(ui))) {
+      return(ui)
+    }
+    htmltools::tag("template", list(slot = name, ui))
+  }, names(slots), merged$markups)
+
+  list(markup = unname(markup), data = merged$data, methods = merged$methods,
+       watch = merged$watch, dependencies = merged$dependencies)
+}
+
+
+#' Append children to a tag
+#'
+#' @param tag A tag.
+#' @param children Children to add.
+#' @return The tag, with the children appended.
+#' @keywords internal
+.el_append_children <- function(tag, children) {
+  if (!length(children)) return(tag)
+  if (!inherits(tag, "shiny.tag")) {
+    warning("slots were ignored: this component's markup is not a single tag.",
+            call. = FALSE)
+    return(tag)
+  }
+  tag$children <- c(tag$children, children)
   tag
 }

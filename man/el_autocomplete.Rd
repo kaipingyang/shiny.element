@@ -27,6 +27,7 @@ el_autocomplete(
   popper_class = NULL,
   popper_append_to_body = NULL,
   width = NULL,
+  slots = NULL,
   session = shiny::getDefaultReactiveDomain()
 )
 }
@@ -78,6 +79,11 @@ Default \code{TRUE}.}
 \item{popper_append_to_body}{Whether the list is appended to \code{body}.}
 
 \item{width}{Component width, as a CSS unit.}
+
+\item{slots}{Named list of Element slot contents, such as
+\code{list(title = shiny::tags$b("Bold"))}. A shiny.element component
+given here is absorbed rather than nested. For a scoped slot, write
+the template with \code{\link[=template]{template()}}.}
 
 \item{session}{Shiny session for module support.}
 }

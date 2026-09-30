@@ -20,6 +20,10 @@
 #'   fill the area. Default `TRUE`.
 #' @param width Component width, as a CSS unit.
 #' @param session Shiny session for module support.
+#' @param slots Named list of Element slot contents, such as
+#'   `list(title = shiny::tags$b("Bold"))`. A shiny.element component
+#'   given here is absorbed rather than nested. For a scoped slot, write
+#'   the template with [template()].
 #'
 #' @section Shiny inputs:
 #' - `input$<id>_load` -- rises by one each time more content is wanted.
@@ -56,6 +60,7 @@ el_infinite_scroll <- function(id = NULL,
                                distance = NULL,
                                immediate = NULL,
                                width = NULL,
+                               slots   = NULL,
                                session = shiny::getDefaultReactiveDomain()) {
   # Each piece of content is absorbed on its own, so several components
   # may sit in the same scrolling area.
@@ -101,6 +106,7 @@ el_infinite_scroll <- function(id = NULL,
     computed = merged$computed,
     mounted  = merged$mounted,
     width    = width,
+    slots      = slots,
     dependency = c(el_infinite_scroll_handler_dependency(), merged$dependencies)
   )
 }

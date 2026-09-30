@@ -224,3 +224,55 @@ test_that("renaming leaves string literals alone", {
   # a member access is not a field of the instance either
   expect_match(out, "data.isSelected", fixed = TRUE)
 })
+
+# ── slots ─────────────────────────────────────────────────────────────────────
+
+test_that("slots fill the component's named slots", {
+  ui <- el_alert("a", title = "Plain", slots = list(title = shiny::tags$b("Bold")))
+  html <- paste(as.character(htmltools::renderTags(ui)$html), collapse = "")
+  expect_match(html, '<template slot="title">')
+  expect_match(html, "<b>Bold</b>", fixed = TRUE)
+})
+
+test_that("a component used as slot content is absorbed", {
+  ui <- el_alert("a", slots = list(title = el_tag("t", "Live")))
+  html <- paste(as.character(htmltools::renderTags(ui)$html), collapse = "")
+  # One instance, carrying the tag's fields as well as the alert's
+  expect_equal(length(gregexpr("html-widget", html)[[1]]), 1L)
+  expect_match(html, "<el-tag")
+  expect_true("label" %in% names(vue_data_of(ui)))
+})
+
+test_that("a scoped slot is passed through as written", {
+  # Element hands the template its own data, so the caller writes the
+  # template and it is used as it stands
+  ui <- el_calendar("c", slots = list(
+    dateCell = template(htmltools::HTML("<p>{{data.day}}</p>"),
+                        slot = "dateCell", scope = "{date, data}")
+  ))
+  html <- paste(as.character(htmltools::renderTags(ui)$html), collapse = "")
+  expect_match(html, 'slot-scope="{date, data}"', fixed = TRUE)
+  expect_match(html, "{{data.day}}", fixed = TRUE)
+})
+
+test_that("el_calendar's day cell is a default, not a fixture", {
+  # It used to be hard-coded, so a user could not change how a day rendered
+  plain <- paste(as.character(htmltools::renderTags(el_calendar("c"))$html),
+                 collapse = "")
+  expect_match(plain, "isSelected", fixed = TRUE)
+
+  custom <- paste(as.character(htmltools::renderTags(el_calendar("c", slots = list(
+    dateCell = template(htmltools::HTML("<p>x</p>"),
+                        slot = "dateCell", scope = "{date, data}")
+  )))$html), collapse = "")
+  expect_no_match(custom, "isSelected", fixed = TRUE)
+})
+
+test_that("a column may render its own header", {
+  ui <- el_table("t", data = head(iris, 2), columns = list(
+    list(prop = "Sepal_Length", label = "SL", header_html = "<b>S.L.</b>")
+  ))
+  html <- paste(as.character(htmltools::renderTags(ui)$html), collapse = "")
+  expect_match(html, 'slot="header"', fixed = TRUE)
+  expect_match(html, "headerHtml", fixed = TRUE)
+})

@@ -22,6 +22,12 @@ skip <- "^el_call$|^el_loading$|^el_loading_close$|^el_message_box$|^el_widget$|
 ui_fns <- setdiff(grep("^el_", getNamespaceExports("shiny.element"), value = TRUE),
                   grep(skip, getNamespaceExports("shiny.element"), value = TRUE))
 
+# Which named slots the markup fills, via slot="x" or <template slot="x">
+slots_of <- function(html) {
+  m <- regmatches(html, gregexpr('slot="[^"]+"', html))[[1]]
+  unique(sub('^slot="', "", sub('"$', "", m)))
+}
+
 attrs_of <- function(html) {
   tags <- regmatches(html, gregexpr("<el-[a-z-]+[^>]*>", html))[[1]]
   per <- list()
@@ -32,6 +38,21 @@ attrs_of <- function(html) {
   }
   per
 }
+
+# Slots are only in the markup when something fills them, so each component
+# is rendered again with every slot upstream documents, to record which ones
+# it actually passes through.
+slot_names <- list(
+  el_alert = "title", el_avatar = "default",
+  el_autocomplete = c("prefix", "suffix", "prepend", "append"),
+  el_cascader = "empty", el_date_picker = "range-separator",
+  el_form_field = c("error", "label"), el_image = c("placeholder", "error"),
+  el_page_header = c("title", "content"), el_popconfirm = "reference",
+  el_popover = "reference", el_select = c("prefix", "empty"),
+  el_table = "append", el_timeline = "dot",
+  el_transfer = c("left-footer", "right-footer"),
+  el_upload = c("tip", "trigger"), el_dropdown = "dropdown"
+)
 
 out <- list()
 for (f in sort(ui_fns)) {
@@ -44,6 +65,19 @@ for (f in sort(ui_fns)) {
   }
   html <- tryCatch(paste(as.character(htmltools::renderTags(ui)$html), collapse = ""),
                    error = function(e) "")
+
+  if (!is.null(slot_names[[f]])) {
+    probe <- stats::setNames(
+      lapply(slot_names[[f]], function(n) htmltools::tags$span(n)),
+      slot_names[[f]]
+    )
+    with_slots <- tryCatch(do.call(f, c(args, list(slots = probe))),
+                           error = function(e) NULL)
+    if (!is.null(with_slots)) {
+      html <- paste(html,
+        paste(as.character(htmltools::renderTags(with_slots)$html), collapse = ""))
+    }
+  }
   # Formals say what a user may set; rendered attributes say what is actually
   # bound. A prop bound conditionally (if (!is.null(x))) shows up in the first
   # but not the second -- and cannot be changed later by update_el_*().
@@ -53,6 +87,7 @@ for (f in sort(ui_fns)) {
   dep_names <- vapply(deps, function(d) d$name, character(1))
 
   out[[f]] <- list(ok = TRUE, tags = attrs_of(html),
+                   slots = slots_of(html),
                    invokable = "el-invoke" %in% dep_names,
                    params = setdiff(names(formals(f)), c("session", "id", "...")))
 }

@@ -26,6 +26,10 @@
 #' @param render_content `htmlwidgets::JS()` render function for an item.
 #' @param width Component width, as a CSS unit.
 #' @param session Shiny session for module support.
+#' @param slots Named list of Element slot contents, such as
+#'   `list(title = shiny::tags$b("Bold"))`. A shiny.element component
+#'   given here is absorbed rather than nested. For a scoped slot, write
+#'   the template with [template()].
 #'
 #' @section Shiny inputs:
 #' - `input$<id>` -- keys currently on the right.
@@ -67,6 +71,7 @@ el_transfer <- function(id = NULL,
                         right_default_checked = NULL,
                         render_content = NULL,
                         width = NULL,
+                        slots   = NULL,
                         session = shiny::getDefaultReactiveDomain()) {
   if (is.null(id)) id <- paste0("el_transfer_", uuid::UUIDgenerate())
   ns_id <- if (!is.null(session)) session$ns(id) else id
@@ -115,6 +120,7 @@ el_transfer <- function(id = NULL,
     ),
     mounted    = .el_mounted_init(stats::setNames("value", ns_id)),
     width      = width,
+    slots      = slots,
     dependency = el_transfer_handler_dependency()
   )
 }

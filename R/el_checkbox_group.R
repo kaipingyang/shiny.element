@@ -19,6 +19,10 @@
 #' @param fill Border and background colour when `button = TRUE` and checked.
 #' @param text_color Text colour when `button = TRUE` and checked.
 #' @param width Component width, as a CSS unit -- `"200px"`, `"50%"`, or a
+#' @param slots Named list of Element slot contents, such as
+#'   `list(title = shiny::tags$b("Bold"))`. A shiny.element component
+#'   given here is absorbed rather than nested. For a scoped slot, write
+#'   the template with [template()].
 #'   number taken as pixels. Element's own markup carries it, so it behaves
 #'   like the `width` argument of a Shiny input.
 #'
@@ -63,6 +67,7 @@ el_checkbox_group <- function(
     fill     = NULL,
     text_color = NULL,
     width    = NULL,
+    slots    = NULL,
     session  = shiny::getDefaultReactiveDomain()
 ) {
   if (is.null(id)) id <- paste0("el_checkbox_group_", uuid::UUIDgenerate())
@@ -129,6 +134,7 @@ el_checkbox_group <- function(
     ),
     mounted = .el_mounted_init(stats::setNames("value", ns_id)),
     width      = width,
+    slots      = slots,
     dependency = el_checkbox_group_handler_dependency()
   )
 }

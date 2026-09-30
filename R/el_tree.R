@@ -39,6 +39,10 @@
 #' @param allow_drag `htmlwidgets::JS()` function deciding whether a node may be dragged.
 #' @param allow_drop `htmlwidgets::JS()` function deciding whether a node may be dropped somewhere.
 #' @param width Component width, as a CSS unit -- `"200px"`, `"50%"`, or a
+#' @param slots Named list of Element slot contents, such as
+#'   `list(title = shiny::tags$b("Bold"))`. A shiny.element component
+#'   given here is absorbed rather than nested. For a scoped slot, write
+#'   the template with [template()].
 #'   number taken as pixels. Element's own markup carries it, so it behaves
 #'   like the `width` argument of a Shiny input.
 #'
@@ -116,6 +120,7 @@ el_tree <- function(id = NULL,
                     allow_drag = NULL,
                     allow_drop = NULL,
                     width   = NULL,
+                    slots   = NULL,
                     session = shiny::getDefaultReactiveDomain()) {
   if (is.null(id)) id <- paste0("el_tree_", uuid::UUIDgenerate())
   ns_id        <- if (!is.null(session)) session$ns(id) else id
@@ -268,6 +273,7 @@ el_tree <- function(id = NULL,
       c("current", "checked"), paste0(ns_id, c("", "_checked"))
     )),
     width      = width,
+    slots      = slots,
     dependency = el_tree_handler_dependency()
   )
 }

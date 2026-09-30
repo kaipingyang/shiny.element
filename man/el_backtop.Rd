@@ -12,6 +12,7 @@ el_backtop(
   right = NULL,
   bottom = NULL,
   width = NULL,
+  slots = NULL,
   session = shiny::getDefaultReactiveDomain()
 )
 }
@@ -30,6 +31,11 @@ appears. Default \code{200}.}
 \item{bottom}{Distance from the bottom edge, in pixels. Default \code{40}.}
 
 \item{width}{Component width, as a CSS unit.}
+
+\item{slots}{Named list of Element slot contents, such as
+\code{list(title = shiny::tags$b("Bold"))}. A shiny.element component
+given here is absorbed rather than nested. For a scoped slot, write
+the template with \code{\link[=template]{template()}}.}
 
 \item{session}{Shiny session for module support.}
 }

@@ -16,6 +16,7 @@ el_popconfirm(
   icon_color = NULL,
   hide_icon = NULL,
   width = NULL,
+  slots = NULL,
   session = shiny::getDefaultReactiveDomain()
 )
 }
@@ -41,6 +42,11 @@ keep reporting. Its \verb{update_el_*()} no longer reaches it, though.}
 \item{hide_icon}{Whether to leave the icon out. Default \code{FALSE}.}
 
 \item{width}{Component width, as a CSS unit.}
+
+\item{slots}{Named list of Element slot contents, such as
+\code{list(title = shiny::tags$b("Bold"))}. A shiny.element component
+given here is absorbed rather than nested. For a scoped slot, write
+the template with \code{\link[=template]{template()}}.}
 
 \item{session}{Shiny session for module support.}
 }

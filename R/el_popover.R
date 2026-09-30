@@ -28,6 +28,10 @@
 #' @param tabindex Tab index of the reference.
 #' @param width Component width, as a CSS unit.
 #' @param session Shiny session for module support.
+#' @param slots Named list of Element slot contents, such as
+#'   `list(title = shiny::tags$b("Bold"))`. A shiny.element component
+#'   given here is absorbed rather than nested. For a scoped slot, write
+#'   the template with [template()].
 #'
 #' @section Shiny inputs:
 #' - `input$<id>_show`, `input$<id>_hide` -- fire as the card opens and closes.
@@ -67,6 +71,7 @@ el_popover <- function(id = NULL,
                        popper_options = NULL,
                        tabindex = NULL,
                        width = NULL,
+                       slots   = NULL,
                        session = shiny::getDefaultReactiveDomain()) {
   inner_ref  <- .el_absorb(reference)
   inner_body <- .el_absorb(body)
@@ -139,6 +144,7 @@ el_popover <- function(id = NULL,
     computed = merged$computed,
     mounted  = merged$mounted,
     width    = width,
+    slots      = slots,
     dependency = c(el_popover_handler_dependency(), merged$dependencies)
   )
 }

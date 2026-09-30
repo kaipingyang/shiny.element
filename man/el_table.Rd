@@ -42,6 +42,7 @@ el_table(
   summary_method = NULL,
   load = NULL,
   width = NULL,
+  slots = NULL,
   session = shiny::getDefaultReactiveDomain()
 )
 }
@@ -53,7 +54,9 @@ data.frame is converted to rows automatically and its column names are
 sanitised (\code{.} becomes \verb{_}) so \code{el-table}'s dotted \code{prop} lookup works.}
 
 \item{columns}{List of column configs, each \code{list(prop=, label=, width=)}.
-Inferred from \code{data} when omitted.}
+Inferred from \code{data} when omitted. A column may also carry
+\code{header_html}, markup for its header cell -- inserted unescaped, so pass
+only what you control.}
 
 \item{selection}{Enable row selection}
 
@@ -121,7 +124,12 @@ Inferred from \code{data} when omitted.}
 
 \item{load}{\code{htmlwidgets::JS()} function loading child rows lazily. Needs \code{lazy = TRUE}.}
 
-\item{width}{Component width, as a CSS unit. Replaces the table's default
+\item{width}{Component width, as a CSS unit. Replaces the table's default}
+
+\item{slots}{Named list of Element slot contents, such as
+\code{list(title = shiny::tags$b("Bold"))}. A shiny.element component
+given here is absorbed rather than nested. For a scoped slot, write
+the template with \code{\link[=template]{template()}}.
 \verb{width: 100\%}. For a fixed header use \code{height} instead.}
 
 \item{session}{Shiny session for module support}

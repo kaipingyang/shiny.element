@@ -21,6 +21,10 @@
 #' @param filter_method `htmlwidgets::JS()` function filtering the options as the user types.
 #' @param before_filter `htmlwidgets::JS()` function called before filtering; returning `false` cancels it.
 #' @param width Component width, as a CSS unit -- `"200px"`, `"50%"`, or a
+#' @param slots Named list of Element slot contents, such as
+#'   `list(title = shiny::tags$b("Bold"))`. A shiny.element component
+#'   given here is absorbed rather than nested. For a scoped slot, write
+#'   the template with [template()].
 #'   number taken as pixels. Element's own markup carries it, so it behaves
 #'   like the `width` argument of a Shiny input.
 #' @section Element methods:
@@ -101,6 +105,7 @@ el_cascader <- function(id = NULL,
                         filter_method = NULL,
                         before_filter = NULL,
                         width   = NULL,
+                        slots   = NULL,
                         session = getDefaultReactiveDomain()) {
   if (is.null(id)) {
     id <- paste0("el_cascader_", uuid::UUIDgenerate())
@@ -164,6 +169,7 @@ el_cascader <- function(id = NULL,
     )),
     mounted = .el_mounted_init(stats::setNames("value", paste0(ns_id, "_value"))),
     width      = width,
+    slots      = slots,
     dependency = el_cascader_handler_dependency()
   )
 }

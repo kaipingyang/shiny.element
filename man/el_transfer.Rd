@@ -20,6 +20,7 @@ el_transfer(
   right_default_checked = NULL,
   render_content = NULL,
   width = NULL,
+  slots = NULL,
   session = shiny::getDefaultReactiveDomain()
 )
 }
@@ -60,6 +61,11 @@ returning whether an item survives the search.}
 \item{render_content}{\code{htmlwidgets::JS()} render function for an item.}
 
 \item{width}{Component width, as a CSS unit.}
+
+\item{slots}{Named list of Element slot contents, such as
+\code{list(title = shiny::tags$b("Bold"))}. A shiny.element component
+given here is absorbed rather than nested. For a scoped slot, write
+the template with \code{\link[=template]{template()}}.}
 
 \item{session}{Shiny session for module support.}
 }

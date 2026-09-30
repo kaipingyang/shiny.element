@@ -21,6 +21,7 @@ el_pagination(
   page_count = NULL,
   popper_class = NULL,
   width = NULL,
+  slots = NULL,
   session = shiny::getDefaultReactiveDomain()
 )
 }
@@ -56,7 +57,12 @@ Default \code{"total, sizes, prev, pager, next, jumper"}.}
 
 \item{popper_class}{Extra class name for the page-size dropdown.}
 
-\item{width}{Component width, as a CSS unit -- \code{"200px"}, \code{"50\%"}, or a
+\item{width}{Component width, as a CSS unit -- \code{"200px"}, \code{"50\%"}, or a}
+
+\item{slots}{Named list of Element slot contents, such as
+\code{list(title = shiny::tags$b("Bold"))}. A shiny.element component
+given here is absorbed rather than nested. For a scoped slot, write
+the template with \code{\link[=template]{template()}}.
 number taken as pixels. Element's own markup carries it, so it behaves
 like the \code{width} argument of a Shiny input.}
 

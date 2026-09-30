@@ -60,6 +60,11 @@
   }
   lapply(columns, function(col) {
     if (!is.null(col$prop)) col$prop <- gsub("\\.", "_", col$prop)
+    # Accept snake_case for the header slot, as elsewhere in the package
+    if (!is.null(col$header_html)) {
+      col$headerHtml <- col$header_html
+      col$header_html <- NULL
+    }
     col
   })
 }
@@ -120,7 +125,9 @@
 #'   data.frame is converted to rows automatically and its column names are
 #'   sanitised (`.` becomes `_`) so `el-table`'s dotted `prop` lookup works.
 #' @param columns List of column configs, each `list(prop=, label=, width=)`.
-#'   Inferred from `data` when omitted.
+#'   Inferred from `data` when omitted. A column may also carry
+#'   `header_html`, markup for its header cell -- inserted unescaped, so pass
+#'   only what you control.
 #' @param selection Enable row selection
 #' @param border Show table border
 #' @param session Shiny session for module support
@@ -156,6 +163,10 @@
 #' @param summary_method `htmlwidgets::JS()` function returning the summary row's cells.
 #' @param load `htmlwidgets::JS()` function loading child rows lazily. Needs `lazy = TRUE`.
 #' @param width Component width, as a CSS unit. Replaces the table's default
+#' @param slots Named list of Element slot contents, such as
+#'   `list(title = shiny::tags$b("Bold"))`. A shiny.element component
+#'   given here is absorbed rather than nested. For a scoped slot, write
+#'   the template with [template()].
 #'   `width: 100%`. For a fixed header use `height` instead.
 #'
 #' @section Server inputs:
@@ -253,6 +264,7 @@ el_table <- function(id = NULL,
                      summary_method = NULL,
                      load    = NULL,
                      width  = NULL,
+                     slots   = NULL,
                      session = shiny::getDefaultReactiveDomain()) {
   args <- .el_table_args(id, data, columns)
   id <- args$id
@@ -309,7 +321,15 @@ el_table <- function(id = NULL,
     ":filter-method" = "col.filterMethod",
     ":sort-method" = "col.sortMethod",
     ":render-header" = "col.renderHeader",
-    ":selectable" = "col.selectable"
+    ":selectable" = "col.selectable",
+    # A column may render its own header: give it header_html in the column
+    # definition. It is inserted as markup, so only pass what you control.
+    htmltools::tag("template", list(
+      slot = "header", "slot-scope" = "scope",
+      htmltools::tag("span", list("v-if" = "col.headerHtml",
+                                  "v-html" = "col.headerHtml")),
+      htmltools::tag("span", list("v-else" = NA, "{{col.label}}"))
+    ))
   ))
 
   table_attrs <- list(
@@ -458,6 +478,7 @@ el_table <- function(id = NULL,
       paste0(ns_id, c("_selected", "_selected_rows"))
     )),
     width      = width,
+    slots      = slots,
     dependency = el_table_handler_dependency()
   )
 }

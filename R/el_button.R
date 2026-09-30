@@ -23,6 +23,10 @@
 #' @param session Shiny session for module support.
 #' @param autofocus Whether the button takes focus on page load. Default `FALSE`.
 #' @param width Component width, as a CSS unit -- `"200px"`, `"50%"`, or a
+#' @param slots Named list of Element slot contents, such as
+#'   `list(title = shiny::tags$b("Bold"))`. A shiny.element component
+#'   given here is absorbed rather than nested. For a scoped slot, write
+#'   the template with [template()].
 #'   number taken as pixels. Element's own markup carries it, so it behaves
 #'   like the `width` argument of a Shiny input.
 #'
@@ -65,6 +69,7 @@ el_button <- function(
     native_type = "button",
     autofocus   = FALSE,
     width       = NULL,
+    slots       = NULL,
     session     = shiny::getDefaultReactiveDomain()
 ) {
   if (is.null(id)) id <- paste0("el_button_", uuid::UUIDgenerate())
@@ -120,6 +125,7 @@ el_button <- function(
       ))
     ),
     width      = width,
+    slots      = slots,
     dependency = el_button_handler_dependency()
   )
 }

@@ -29,6 +29,10 @@
 #' @param tooltip_class Extra class name for the value tooltip.
 #' @param format_tooltip `htmlwidgets::JS()` function formatting the value shown in the tooltip.
 #' @param width Component width, as a CSS unit -- `"200px"`, `"50%"`, or a
+#' @param slots Named list of Element slot contents, such as
+#'   `list(title = shiny::tags$b("Bold"))`. A shiny.element component
+#'   given here is absorbed rather than nested. For a scoped slot, write
+#'   the template with [template()].
 #'   number taken as pixels. Element's own markup carries it, so it behaves
 #'   like the `width` argument of a Shiny input.
 #'
@@ -85,6 +89,7 @@ el_slider <- function(
     tooltip_class = NULL,
     format_tooltip = NULL,
     width        = NULL,
+    slots        = NULL,
     session      = shiny::getDefaultReactiveDomain()
 ) {
   if (is.null(id)) id <- paste0("el_slider_", uuid::UUIDgenerate())
@@ -159,6 +164,7 @@ el_slider <- function(
     )),
     mounted = .el_mounted_init(stats::setNames("value", ns_id)),
     width      = width,
+    slots      = slots,
     dependency = el_slider_handler_dependency()
   )
 }

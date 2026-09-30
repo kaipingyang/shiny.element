@@ -30,6 +30,10 @@
 #' @param hide_timeout Delay in ms before the menu hides, for `trigger = "hover"`.
 #' @param tabindex Tab index of the dropdown trigger.
 #' @param width Component width, as a CSS unit -- `"200px"`, `"50%"`, or a
+#' @param slots Named list of Element slot contents, such as
+#'   `list(title = shiny::tags$b("Bold"))`. A shiny.element component
+#'   given here is absorbed rather than nested. For a scoped slot, write
+#'   the template with [template()].
 #'   number taken as pixels. Element's own markup carries it, so it behaves
 #'   like the `width` argument of a Shiny input.
 #'
@@ -66,6 +70,7 @@ el_dropdown <- function(
     hide_timeout = NULL,
     tabindex     = NULL,
     width        = NULL,
+    slots        = NULL,
     session      = shiny::getDefaultReactiveDomain()
 ) {
   if (is.null(id)) id <- paste0("el_dropdown_", uuid::UUIDgenerate())
@@ -145,6 +150,7 @@ el_dropdown <- function(
       ))
     )),
     width      = width,
+    slots      = slots,
     dependency = el_dropdown_handler_dependency()
   )
 }

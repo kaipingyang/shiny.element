@@ -15,6 +15,7 @@ el_progress(
   color = NULL,
   width = 126,
   stroke_linecap = NULL,
+  slots = NULL,
   session = shiny::getDefaultReactiveDomain()
 )
 }
@@ -43,6 +44,11 @@ colour when set. Default \code{NULL}.}
 Default \code{126}.}
 
 \item{stroke_linecap}{Shape of the bar's ends: \code{"round"} (default), \code{"butt"} or \code{"square"}.}
+
+\item{slots}{Named list of Element slot contents, such as
+\code{list(title = shiny::tags$b("Bold"))}. A shiny.element component
+given here is absorbed rather than nested. For a scoped slot, write
+the template with \code{\link[=template]{template()}}.}
 
 \item{session}{Shiny session for module support.}
 }

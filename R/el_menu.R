@@ -58,6 +58,10 @@
 #' @param collapse_transition Whether to animate collapsing. Default `TRUE`.
 #' @param router Whether to use vue-router mode, taking each index as a path.
 #' @param width Component width, as a CSS unit -- `"200px"`, `"50%"`, or a
+#' @param slots Named list of Element slot contents, such as
+#'   `list(title = shiny::tags$b("Bold"))`. A shiny.element component
+#'   given here is absorbed rather than nested. For a scoped slot, write
+#'   the template with [template()].
 #'   number taken as pixels. Element's own markup carries it, so it behaves
 #'   like the `width` argument of a Shiny input.
 #'
@@ -108,6 +112,7 @@ el_menu <- function(id = NULL,
                     collapse_transition = NULL,
                     router  = NULL,
                     width   = NULL,
+                    slots   = NULL,
                     session = shiny::getDefaultReactiveDomain()) {
   if (is.null(id)) id <- paste0("el_menu_", uuid::UUIDgenerate())
   ns_id        <- if (!is.null(session)) session$ns(id) else id
@@ -182,6 +187,7 @@ el_menu <- function(id = NULL,
       c("active", "path"), paste0(ns_id, c("", "_path"))
     )),
     width      = width,
+    slots      = slots,
     dependency = el_menu_handler_dependency()
   )
 }

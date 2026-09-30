@@ -17,6 +17,10 @@
 #' @param hide_icon Whether to leave the icon out. Default `FALSE`.
 #' @param width Component width, as a CSS unit.
 #' @param session Shiny session for module support.
+#' @param slots Named list of Element slot contents, such as
+#'   `list(title = shiny::tags$b("Bold"))`. A shiny.element component
+#'   given here is absorbed rather than nested. For a scoped slot, write
+#'   the template with [template()].
 #'
 #' @section Shiny inputs:
 #' - `input$<id>_confirm` -- fires when the user confirms.
@@ -57,6 +61,7 @@ el_popconfirm <- function(id = NULL,
                           icon_color = NULL,
                           hide_icon = NULL,
                           width = NULL,
+                          slots   = NULL,
                           session = shiny::getDefaultReactiveDomain()) {
   inner <- .el_absorb(reference)
 
@@ -118,6 +123,7 @@ el_popconfirm <- function(id = NULL,
     computed = merged$computed,
     mounted  = merged$mounted,
     width    = width,
+    slots      = slots,
     dependency = c(el_popconfirm_handler_dependency(), merged$dependencies)
   )
 }

@@ -7,6 +7,10 @@
 #' @param content The page's own title, shown after the separator.
 #' @param width Component width, as a CSS unit.
 #' @param session Shiny session for module support.
+#' @param slots Named list of Element slot contents, such as
+#'   `list(title = shiny::tags$b("Bold"))`. A shiny.element component
+#'   given here is absorbed rather than nested. For a scoped slot, write
+#'   the template with [template()].
 #'
 #' @section Shiny inputs:
 #' - `input$<id>_back` -- fires when the back link is clicked. Observe it to
@@ -34,6 +38,7 @@ el_page_header <- function(id = NULL,
                            title = NULL,
                            content = NULL,
                            width = NULL,
+                           slots   = NULL,
                            session = shiny::getDefaultReactiveDomain()) {
   if (is.null(id)) id <- paste0("el_page_header_", uuid::UUIDgenerate())
   ns_id <- if (!is.null(session)) session$ns(id) else id
@@ -51,6 +56,7 @@ el_page_header <- function(id = NULL,
     data   = list(title = .el_or_na(title), content = .el_or_na(content)),
     methods    = events$methods,
     width      = width,
+    slots      = slots,
     dependency = el_page_header_handler_dependency()
   )
 }

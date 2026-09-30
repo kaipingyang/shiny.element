@@ -21,6 +21,10 @@
 #' @param page_count Total page count. Set either this or `total`.
 #' @param popper_class Extra class name for the page-size dropdown.
 #' @param width Component width, as a CSS unit -- `"200px"`, `"50%"`, or a
+#' @param slots Named list of Element slot contents, such as
+#'   `list(title = shiny::tags$b("Bold"))`. A shiny.element component
+#'   given here is absorbed rather than nested. For a scoped slot, write
+#'   the template with [template()].
 #'   number taken as pixels. Element's own markup carries it, so it behaves
 #'   like the `width` argument of a Shiny input.
 #'
@@ -79,6 +83,7 @@ el_pagination <- function(
     page_count   = NULL,
     popper_class = NULL,
     width        = NULL,
+    slots        = NULL,
     session      = shiny::getDefaultReactiveDomain()
 ) {
   if (is.null(id)) id <- paste0("el_pagination_", uuid::UUIDgenerate())
@@ -161,6 +166,7 @@ el_pagination <- function(
     mounted = .el_mounted_init(stats::setNames(c("currentPage", "pageSize"),
                               paste0(ns_id, c("_page", "_size")))),
     width      = width,
+    slots      = slots,
     dependency = el_pagination_handler_dependency()
   )
 }

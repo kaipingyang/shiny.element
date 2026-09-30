@@ -10,6 +10,7 @@ el_calendar(
   range = NULL,
   first_day_of_week = 1,
   width = NULL,
+  slots = NULL,
   session = getDefaultReactiveDomain()
 )
 }
@@ -25,6 +26,10 @@ el_calendar(
 \item{width}{Component width, as a CSS unit -- \code{"200px"}, \code{"50\%"}, or a
 number taken as pixels.}
 
+\item{slots}{Named list of Element slot contents. \code{dateCell} renders one
+day: Element hands the template \code{date} and \code{data}, so write it with
+\code{\link[=template]{template()}}. A default is used when none is given.}
+
 \item{session}{Shiny session for module support}
 }
 \value{
@@ -34,6 +39,16 @@ A Shiny UI element.
 Create a calendar widget for Shiny using Element UI.
 }
 \examples{
+# The default day cell
+el_calendar("cal")
+
+# Your own, with whatever Element hands the template
+el_calendar("cal", slots = list(
+  dateCell = template(
+    htmltools::HTML("<p>{{ data.day.slice(8) }}</p>"),
+    slot = "dateCell", scope = "{date, data}"
+  )
+))
 # Basic usage
 el_calendar(id = "calendar1", value = Sys.Date())
 

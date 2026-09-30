@@ -38,6 +38,10 @@
 #' @param tabindex Tab index of the input.
 #' @param validate_event Whether a change triggers form validation. Default `TRUE`.
 #' @param width Component width, as a CSS unit -- `"200px"`, `"50%"`, or a
+#' @param slots Named list of Element slot contents, such as
+#'   `list(title = shiny::tags$b("Bold"))`. A shiny.element component
+#'   given here is absorbed rather than nested. For a scoped slot, write
+#'   the template with [template()].
 #'   number taken as pixels. Element's own markup carries it, so it behaves
 #'   like the `width` argument of a Shiny input.
 #'
@@ -106,6 +110,7 @@ el_input <- function(
     tabindex        = NULL,
     validate_event  = NULL,
     width           = NULL,
+    slots           = NULL,
     session         = shiny::getDefaultReactiveDomain()
 ) {
   if (is.null(id)) id <- paste0("el_input_", uuid::UUIDgenerate())
@@ -196,6 +201,7 @@ el_input <- function(
     )),
     mounted = .el_mounted_init(stats::setNames("value", ns_id)),
     width      = width,
+    slots      = slots,
     dependency = el_input_handler_dependency()
   )
 }

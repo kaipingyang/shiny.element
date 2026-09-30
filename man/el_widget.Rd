@@ -14,7 +14,8 @@ el_widget(
   computed = NULL,
   dependency = NULL,
   head = NULL,
-  width = NULL
+  width = NULL,
+  slots = NULL
 )
 }
 \arguments{
@@ -36,6 +37,12 @@ pass \code{\link[=element_ui_dependency]{element_ui_dependency()}}, unless the p
 \item{width}{Component width, as a CSS unit. Applied to the Element markup
 itself -- the host carries \code{display: contents} and generates no box, so a
 width set on it would do nothing.}
+
+\item{slots}{Named list of slot contents, one entry per Element slot:
+\code{list(title = tags$b("Bold"))} fills the \code{title} slot. A component given
+here is absorbed like any other (\code{\link[=.el_absorb]{.el_absorb()}}). For a scoped slot,
+where Element hands the template its own data, write the template with
+\code{\link[=template]{template()}} and the value is used as it stands.}
 }
 \value{
 A Shiny UI element with its dependencies attached.

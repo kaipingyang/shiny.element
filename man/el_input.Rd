@@ -33,6 +33,7 @@ el_input(
   tabindex = NULL,
   validate_event = NULL,
   width = NULL,
+  slots = NULL,
   session = shiny::getDefaultReactiveDomain()
 )
 }
@@ -96,7 +97,12 @@ or a named list \code{list(minRows = 2, maxRows = 4)}. Default \code{FALSE}.}
 
 \item{validate_event}{Whether a change triggers form validation. Default \code{TRUE}.}
 
-\item{width}{Component width, as a CSS unit -- \code{"200px"}, \code{"50\%"}, or a
+\item{width}{Component width, as a CSS unit -- \code{"200px"}, \code{"50\%"}, or a}
+
+\item{slots}{Named list of Element slot contents, such as
+\code{list(title = shiny::tags$b("Bold"))}. A shiny.element component
+given here is absorbed rather than nested. For a scoped slot, write
+the template with \code{\link[=template]{template()}}.
 number taken as pixels. Element's own markup carries it, so it behaves
 like the \code{width} argument of a Shiny input.}
 

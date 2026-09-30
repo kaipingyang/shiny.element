@@ -34,6 +34,10 @@
 #' @param tabindex Tab index of the trigger.
 #' @param width Component width, as a CSS unit.
 #' @param session Shiny session for module support.
+#' @param slots Named list of Element slot contents, such as
+#'   `list(title = shiny::tags$b("Bold"))`. A shiny.element component
+#'   given here is absorbed rather than nested. For a scoped slot, write
+#'   the template with [template()].
 #'
 #' @return A Shiny UI element.
 #' @examples
@@ -67,6 +71,7 @@ el_tooltip <- function(id = NULL,
                        manual = NULL,
                        tabindex = NULL,
                        width = NULL,
+                       slots   = NULL,
                        session = shiny::getDefaultReactiveDomain()) {
   # A component handed in here is folded into this one's Vue instance rather
   # than nested inside it -- see .el_absorb().
@@ -126,6 +131,7 @@ el_tooltip <- function(id = NULL,
     computed = merged$computed,
     mounted  = merged$mounted,
     width    = width,
+    slots      = slots,
     dependency = c(el_tooltip_handler_dependency(), merged$dependencies)
   )
 }

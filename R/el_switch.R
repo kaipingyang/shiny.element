@@ -17,6 +17,10 @@
 #' @param inactive_icon_class Icon class shown on the inactive side; overrides `inactive_text`.
 #' @param name Native `name` attribute of the inner checkbox.
 #' @param validate_event Whether a change triggers form validation. Default `TRUE`.
+#' @param slots Named list of Element slot contents, such as
+#'   `list(title = shiny::tags$b("Bold"))`. A shiny.element component
+#'   given here is absorbed rather than nested. For a scoped slot, write
+#'   the template with [template()].
 #'
 #' @section Element methods:
 #' Callable with [el_call()]:
@@ -61,6 +65,7 @@ el_switch <- function(
     inactive_icon_class = NULL,
     name           = NULL,
     validate_event = NULL,
+    slots          = NULL,
     session        = shiny::getDefaultReactiveDomain()
 ) {
   if (is.null(id)) id <- paste0("el_switch_", uuid::UUIDgenerate())
@@ -110,6 +115,7 @@ el_switch <- function(
       ))
     ),
     mounted    = .el_mounted_init(stats::setNames("value", ns_id)),
+    slots      = slots,
     dependency = el_switch_handler_dependency()
   )
 }

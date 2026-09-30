@@ -14,6 +14,10 @@
 #' @param alt Alternative text for the image.
 #' @param width Component width, as a CSS unit.
 #' @param session Shiny session for module support.
+#' @param slots Named list of Element slot contents, such as
+#'   `list(title = shiny::tags$b("Bold"))`. A shiny.element component
+#'   given here is absorbed rather than nested. For a scoped slot, write
+#'   the template with [template()].
 #'
 #' @section Shiny inputs:
 #' - `input$<id>_error` -- fires when the image fails to load.
@@ -34,6 +38,7 @@ el_avatar <- function(id = NULL,
                       src_set = NULL,
                       alt = NULL,
                       width = NULL,
+                      slots   = NULL,
                       session = shiny::getDefaultReactiveDomain()) {
   if (is.null(id)) id <- paste0("el_avatar_", uuid::UUIDgenerate())
   ns_id <- if (!is.null(session)) session$ns(id) else id
@@ -65,6 +70,7 @@ el_avatar <- function(id = NULL,
     ),
     methods    = events$methods,
     width      = width,
+    slots      = slots,
     dependency = el_avatar_handler_dependency()
   )
 }

@@ -8,10 +8,23 @@
 #' @param first_day_of_week First day of week (1~7), default 1
 #' @param width Component width, as a CSS unit -- `"200px"`, `"50%"`, or a
 #'   number taken as pixels.
+#' @param slots Named list of Element slot contents. `dateCell` renders one
+#'   day: Element hands the template `date` and `data`, so write it with
+#'   [template()]. A default is used when none is given.
 #' @param session Shiny session for module support
 #' @return A Shiny UI element.
 #' @export
 #' @examples
+#' # The default day cell
+#' el_calendar("cal")
+#'
+#' # Your own, with whatever Element hands the template
+#' el_calendar("cal", slots = list(
+#'   dateCell = template(
+#'     htmltools::HTML("<p>{{ data.day.slice(8) }}</p>"),
+#'     slot = "dateCell", scope = "{date, data}"
+#'   )
+#' ))
 #' # Basic usage
 #' el_calendar(id = "calendar1", value = Sys.Date())
 #'
@@ -59,6 +72,7 @@ el_calendar <- function(id = NULL,
                         range = NULL,  
                         first_day_of_week = 1,  
                         width   = NULL,
+                        slots   = NULL,
                         session = getDefaultReactiveDomain()) {  
   
   if (is.null(id)) {  
@@ -75,14 +89,20 @@ el_calendar <- function(id = NULL,
   # field left out of the Vue data is not reactive.
   calendar_attrs[[":range"]] <- .el_optional_bind("range")  
   
-  date_cell_slot <- htmltools::HTML('  
-    <template slot="dateCell" slot-scope="{date, data}">  
-      <p :class="data.isSelected ? \'is-selected\' : \'\'">  
-        {{ data.day.split(\'-\').slice(1).join(\'-\') }}  
-        <span v-if="data.isSelected">\u2714</span>  
-      </p>  
-    </template>  
-  ')  
+  # Element's own day cell is bare, so this is the default -- but it is only
+  # a default: slots = list(dateCell = ...) replaces it.
+  if (is.null(slots$dateCell)) {
+    slots$dateCell <- template(
+      htmltools::HTML(paste0(
+        '<p :class="data.isSelected ? \'is-selected\' : \'\'">',
+        "{{ data.day.split('-').slice(1).join('-') }}",
+        '<span v-if="data.isSelected">\u2714</span>',
+        "</p>"
+      )),
+      slot = "dateCell", scope = "{date, data}"
+    )
+  }
+ 
   
   vue_data <- list(  
     value = if (is.null(value)) format(Sys.Date(), "%Y-%m-%d") else {  
@@ -94,7 +114,7 @@ el_calendar <- function(id = NULL,
   
   el_widget(
     id     = ns_id,
-    markup = tag("el-calendar", append(calendar_attrs, list(date_cell_slot))),
+    markup = tag("el-calendar", calendar_attrs),
     head   = tags$style(HTML("
       .is-selected {
         color: #1989FA;
@@ -109,6 +129,7 @@ el_calendar <- function(id = NULL,
     ),
     mounted    = .el_mounted_init(stats::setNames("value", ns_id)),
     width      = width,
+    slots      = slots,
     dependency = el_calendar_handler_dependency()
   )  
 }  

@@ -152,6 +152,14 @@ for fn, info in sorted(ours.items()):
         upe = set(up[tag].get("Events", []))
         upm = set(up[tag].get("Methods", []))
         ups = set(up[tag].get("Slot", []))
+        filled = info.get("slots") or []
+        if isinstance(filled, str): filled = [filled]
+        filled = set(filled)
+        # "default" is the unnamed slot: markup passed straight in
+        if any(not a.startswith(("@", ":", "v-")) for a in
+               sum(([x] if isinstance(x, str) else x
+                    for x in (info.get("tags") or {}).values()), [])):
+            pass
         mine_a = {camel(a) for a in attrs if not a.startswith("@")} - VUE
         raw_params = info.get("params") or []
         if isinstance(raw_params, str): raw_params = [raw_params]
@@ -170,7 +178,8 @@ for fn, info in sorted(ours.items()):
             # el_call() can invoke any of them where el-invoke is loaded
             "method": [len(upm) if info.get("invokable") else 0, len(upm)],
             "method_missing": [] if info.get("invokable") else sorted(upm),
-            "slot": [0, len(ups)], "slot_missing": sorted(ups),
+            "slot": [len(ups & filled), len(ups)],
+            "slot_missing": sorted(ups - filled),
         })
 
 json.dump({"report": report, "upstream_tags": sorted(up)}, open("/tmp/elapi/final.json","w"), indent=1)

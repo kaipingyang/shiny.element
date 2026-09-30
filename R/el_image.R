@@ -17,6 +17,10 @@
 #' @param referrer_policy Value of the image's `referrerPolicy` attribute.
 #' @param width Component width, as a CSS unit.
 #' @param session Shiny session for module support.
+#' @param slots Named list of Element slot contents, such as
+#'   `list(title = shiny::tags$b("Bold"))`. A shiny.element component
+#'   given here is absorbed rather than nested. For a scoped slot, write
+#'   the template with [template()].
 #'
 #' @section Shiny inputs:
 #' - `input$<id>_load` -- fires when the image has loaded.
@@ -43,6 +47,7 @@ el_image <- function(id = NULL,
                      z_index = NULL,
                      referrer_policy = NULL,
                      width = NULL,
+                     slots   = NULL,
                      session = shiny::getDefaultReactiveDomain()) {
   if (is.null(id)) id <- paste0("el_image_", uuid::UUIDgenerate())
   ns_id <- if (!is.null(session)) session$ns(id) else id
@@ -75,6 +80,7 @@ el_image <- function(id = NULL,
     ),
     methods    = events$methods,
     width      = width,
+    slots      = slots,
     dependency = el_image_handler_dependency()
   )
 }

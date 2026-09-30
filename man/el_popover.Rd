@@ -23,6 +23,7 @@ el_popover(
   popper_options = NULL,
   tabindex = NULL,
   width = NULL,
+  slots = NULL,
   session = shiny::getDefaultReactiveDomain()
 )
 }
@@ -68,6 +69,11 @@ prop, named apart from \code{width} so the two are not confused.}
 \item{tabindex}{Tab index of the reference.}
 
 \item{width}{Component width, as a CSS unit.}
+
+\item{slots}{Named list of Element slot contents, such as
+\code{list(title = shiny::tags$b("Bold"))}. A shiny.element component
+given here is absorbed rather than nested. For a scoped slot, write
+the template with \code{\link[=template]{template()}}.}
 
 \item{session}{Shiny session for module support.}
 }
