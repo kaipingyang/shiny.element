@@ -30,6 +30,16 @@
     <div id="navbar" class="collapse navbar-collapse ms-3">
       <ul class="navbar-nav me-auto">
 <li class="active nav-item"><a class="nav-link" href="../articles/components.html">Components</a></li>
+<li class="nav-item dropdown">
+  <button class="nav-link dropdown-toggle" type="button" id="dropdown-guides" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Guides</button>
+  <ul class="dropdown-menu" aria-labelledby="dropdown-guides">
+<li><a class="dropdown-item" href="../articles/forms.html">Forms</a></li>
+    <li><a class="dropdown-item" href="../articles/tables.html">Tables</a></li>
+    <li><a class="dropdown-item" href="../articles/navigation.html">Navigation and feedback</a></li>
+    <li><hr class="dropdown-divider"></li>
+    <li><a class="dropdown-item" href="../articles/limitations.html">What works, and what does not</a></li>
+  </ul>
+</li>
 <li class="nav-item"><a class="nav-link" href="../reference/index.html">Reference</a></li>
 <li class="nav-item"><a class="nav-link" href="../news/index.html">Changelog</a></li>
       </ul>
@@ -68,8 +78,10 @@ looks.</p>
 <code>input$&lt;id&gt;</code>, on load as well as on change, and is
 updated from the server with the matching
 <code>update_el_*()</code>.</p>
+<p>The sections follow Element UI’s own documentation, so a page there
+has a counterpart here.</p>
 <div class="section level2">
-<h2 id="inputs">Inputs<a class="anchor" aria-label="anchor" href="#inputs"></a>
+<h2 id="form">Form<a class="anchor" aria-label="anchor" href="#form"></a>
 </h2>
 <div class="section level3">
 <h3 id="el_input">
@@ -174,6 +186,30 @@ from a data frame.</p>
 <p><img src="../reference/figures/component-cascader.png"></p>
 </div>
 <div class="section level3">
+<h3 id="el_autocomplete">
+<code>el_autocomplete()</code><a class="anchor" aria-label="anchor" href="#el_autocomplete"></a>
+</h3>
+<p>A text input that suggests as you type. Filtering happens in the
+browser; for suggestions that come from the server pass
+<code>fetch_suggestions</code>.</p>
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/el_autocomplete.html">el_autocomplete</a></span><span class="op">(</span><span class="st">"city"</span>, width <span class="op">=</span> <span class="fl">240</span>, placeholder <span class="op">=</span> <span class="st">"Where to?"</span>,</span>
+<span>                suggestions <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Beijing"</span>, <span class="st">"Shanghai"</span>, <span class="st">"Shenzhen"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<p><img src="../reference/figures/component-autocomplete.png"></p>
+</div>
+<div class="section level3">
+<h3 id="el_transfer">
+<code>el_transfer()</code><a class="anchor" aria-label="anchor" href="#el_transfer"></a>
+</h3>
+<p>Two lists, for moving items between them.
+<code>input$&lt;id&gt;</code> holds the keys on the right.</p>
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/el_transfer.html">el_transfer</a></span><span class="op">(</span><span class="st">"cols"</span>, width <span class="op">=</span> <span class="fl">560</span>,</span>
+<span>            data <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>key <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">iris</span><span class="op">)</span>, label <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">iris</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>            value <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Species"</span><span class="op">)</span>, titles <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Available"</span>, <span class="st">"Chosen"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<p><img src="../reference/figures/component-transfer.png"></p>
+</div>
+<div class="section level3">
 <h3 id="el_upload">
 <code>el_upload()</code><a class="anchor" aria-label="anchor" href="#el_upload"></a>
 </h3>
@@ -181,14 +217,10 @@ from a data frame.</p>
 <code>input$files</code> is the data frame <code><a href="https://rdrr.io/pkg/shiny/man/fileInput.html" class="external-link">fileInput()</a></code>
 produces, <code>datapath</code> and all. Pass <code>action</code>
 instead to post straight to a URL.</p>
-<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/el_upload.html">el_upload</a></span><span class="op">(</span><span class="st">"files"</span>, drag <span class="op">=</span> <span class="cn">TRUE</span>, multiple <span class="op">=</span> <span class="cn">TRUE</span>, tip <span class="op">=</span> <span class="st">"CSV only"</span>, accept <span class="op">=</span> <span class="st">".csv"</span><span class="op">)</span></span></code></pre></div>
 <p><img src="../reference/figures/component-upload.png"></p>
 </div>
-</div>
-<div class="section level2">
-<h2 id="forms">Forms<a class="anchor" aria-label="anchor" href="#forms"></a>
-</h2>
 <div class="section level3">
 <h3 id="el_form">
 <code>el_form()</code><a class="anchor" aria-label="anchor" href="#el_form"></a>
@@ -198,7 +230,7 @@ whole form reports once on submit rather than field by field.
 <code>input$signup</code> carries the model,
 <code>input$signup_valid</code> the verdict,
 <code>input$signup_submit</code> a counter.</p>
-<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/el_form.html">el_form</a></span><span class="op">(</span></span>
 <span>  id <span class="op">=</span> <span class="st">"signup"</span>, label_width <span class="op">=</span> <span class="st">"110px"</span>,</span>
 <span>  <span class="fu"><a href="../reference/el_form_field.html">el_form_field</a></span><span class="op">(</span><span class="st">"name"</span>, <span class="st">"input"</span>, label <span class="op">=</span> <span class="st">"Name"</span>,</span>
@@ -212,13 +244,13 @@ whole form reports once on submit rather than field by field.
 </div>
 </div>
 <div class="section level2">
-<h2 id="display">Display<a class="anchor" aria-label="anchor" href="#display"></a>
+<h2 id="data">Data<a class="anchor" aria-label="anchor" href="#data"></a>
 </h2>
 <div class="section level3">
 <h3 id="el_button">
 <code>el_button()</code><a class="anchor" aria-label="anchor" href="#el_button"></a>
 </h3>
-<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/el_button.html">el_button</a></span><span class="op">(</span><span class="st">"save"</span>, <span class="st">"Primary"</span>, type <span class="op">=</span> <span class="st">"primary"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="../reference/el_button.html">el_button</a></span><span class="op">(</span><span class="st">"go"</span>, <span class="st">"Round"</span>, type <span class="op">=</span> <span class="st">"primary"</span>, round <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
 <span><span class="fu"><a href="../reference/el_button.html">el_button</a></span><span class="op">(</span><span class="st">"wait"</span>, <span class="st">"Loading"</span>, type <span class="op">=</span> <span class="st">"primary"</span>, loading <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
@@ -228,7 +260,7 @@ whole form reports once on submit rather than field by field.
 <h3 id="el_tag">
 <code>el_tag()</code><a class="anchor" aria-label="anchor" href="#el_tag"></a>
 </h3>
-<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/el_tag.html">el_tag</a></span><span class="op">(</span><span class="st">"t"</span>, label <span class="op">=</span> <span class="st">"closable"</span>, type <span class="op">=</span> <span class="st">"warning"</span>, closable <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
 <p><img src="../reference/figures/component-tag.png"></p>
 </div>
@@ -236,7 +268,7 @@ whole form reports once on submit rather than field by field.
 <h3 id="el_alert">
 <code>el_alert()</code><a class="anchor" aria-label="anchor" href="#el_alert"></a>
 </h3>
-<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/el_alert.html">el_alert</a></span><span class="op">(</span><span class="st">"hint"</span>, title <span class="op">=</span> <span class="st">"info"</span>, type <span class="op">=</span> <span class="st">"info"</span>, show_icon <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>         description <span class="op">=</span> <span class="st">"with a description"</span><span class="op">)</span></span></code></pre></div>
 <p><img src="../reference/figures/component-alert.png"></p>
@@ -246,7 +278,7 @@ whole form reports once on submit rather than field by field.
 <code>el_progress()</code><a class="anchor" aria-label="anchor" href="#el_progress"></a>
 </h3>
 <p>Line, circle and dashboard.</p>
-<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/el_progress.html">el_progress</a></span><span class="op">(</span><span class="st">"pct"</span>, percentage <span class="op">=</span> <span class="fl">70</span><span class="op">)</span></span>
 <span><span class="fu"><a href="../reference/el_progress.html">el_progress</a></span><span class="op">(</span><span class="st">"ring"</span>, percentage <span class="op">=</span> <span class="fl">70</span>, type <span class="op">=</span> <span class="st">"circle"</span><span class="op">)</span></span></code></pre></div>
 <p><img src="../reference/figures/component-progress.png"></p>
@@ -255,7 +287,7 @@ whole form reports once on submit rather than field by field.
 <h3 id="el_badge">
 <code>el_badge()</code><a class="anchor" aria-label="anchor" href="#el_badge"></a>
 </h3>
-<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/el_badge.html">el_badge</a></span><span class="op">(</span><span class="fu"><a href="../reference/el_button.html">el_button</a></span><span class="op">(</span><span class="st">"msg"</span>, <span class="st">"messages"</span><span class="op">)</span>, value <span class="op">=</span> <span class="fl">12</span><span class="op">)</span></span>
 <span><span class="fu"><a href="../reference/el_badge.html">el_badge</a></span><span class="op">(</span><span class="fu"><a href="../reference/el_button.html">el_button</a></span><span class="op">(</span><span class="st">"hi"</span>, <span class="st">"capped"</span><span class="op">)</span>, value <span class="op">=</span> <span class="fl">200</span>, max <span class="op">=</span> <span class="fl">99</span><span class="op">)</span></span></code></pre></div>
 <p><img src="../reference/figures/component-badge.png"></p>
@@ -264,7 +296,7 @@ whole form reports once on submit rather than field by field.
 <h3 id="el_card">
 <code>el_card()</code><a class="anchor" aria-label="anchor" href="#el_card"></a>
 </h3>
-<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/el_card.html">el_card</a></span><span class="op">(</span>header <span class="op">=</span> <span class="st">"Card header"</span>, <span class="st">"Cards nest any content."</span><span class="op">)</span></span></code></pre></div>
 <p><img src="../reference/figures/component-card.png"></p>
 </div>
@@ -275,15 +307,39 @@ whole form reports once on submit rather than field by field.
 <p>Takes a data frame directly and infers its columns. With
 <code>selection = TRUE</code>, <code>input$tbl_selected_rows</code>
 gives 1-based row numbers with their R types intact.</p>
-<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/el_table.html">el_table</a></span><span class="op">(</span>id <span class="op">=</span> <span class="st">"tbl"</span>, data <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">iris</span>, <span class="fl">4</span><span class="op">)</span>, selection <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
 <p><img src="../reference/figures/component-table.png"></p>
+</div>
+<div class="section level3">
+<h3 id="el_avatar">
+<code>el_avatar()</code><a class="anchor" aria-label="anchor" href="#el_avatar"></a>
+</h3>
+<p>From an image, an icon, or text.</p>
+<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/el_avatar.html">el_avatar</a></span><span class="op">(</span><span class="st">"me"</span>, icon <span class="op">=</span> <span class="st">"el-icon-user-solid"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="../reference/el_avatar.html">el_avatar</a></span><span class="op">(</span><span class="st">"me"</span>, content <span class="op">=</span> <span class="st">"KY"</span>, shape <span class="op">=</span> <span class="st">"square"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="../reference/el_avatar.html">el_avatar</a></span><span class="op">(</span><span class="st">"me"</span>, content <span class="op">=</span> <span class="st">"40"</span>, size <span class="op">=</span> <span class="fl">40</span><span class="op">)</span></span></code></pre></div>
+<p><img src="../reference/figures/component-avatar.png"></p>
+</div>
+<div class="section level3">
+<h3 id="el_image">
+<code>el_image()</code><a class="anchor" aria-label="anchor" href="#el_image"></a>
+</h3>
+<p>An image with a fit mode, optional lazy loading, and an optional
+full-screen preview.</p>
+<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/el_image.html">el_image</a></span><span class="op">(</span><span class="st">"photo"</span>, src <span class="op">=</span> <span class="st">"hamburger.png"</span>, width <span class="op">=</span> <span class="fl">160</span>, fit <span class="op">=</span> <span class="st">"cover"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Click to open a gallery</span></span>
+<span><span class="fu"><a href="../reference/el_image.html">el_image</a></span><span class="op">(</span><span class="st">"photo"</span>, src <span class="op">=</span> <span class="st">"a.png"</span>, preview_src_list <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"a.png"</span>, <span class="st">"b.png"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<p><img src="../reference/figures/component-image.png"></p>
 </div>
 <div class="section level3">
 <h3 id="el_pagination">
 <code>el_pagination()</code><a class="anchor" aria-label="anchor" href="#el_pagination"></a>
 </h3>
-<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/el_pagination.html">el_pagination</a></span><span class="op">(</span><span class="st">"pager"</span>, total <span class="op">=</span> <span class="fl">200</span>, page_size <span class="op">=</span> <span class="fl">20</span>, current_page <span class="op">=</span> <span class="fl">3</span><span class="op">)</span></span></code></pre></div>
 <p><img src="../reference/figures/component-pagination.png"></p>
 </div>
@@ -293,7 +349,7 @@ gives 1-based row numbers with their R types intact.</p>
 </h3>
 <p>Entries can be replaced wholesale with
 <code><a href="../reference/update_el_timeline.html">update_el_timeline()</a></code>, which suits a log that grows.</p>
-<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/el_timeline.html">el_timeline</a></span><span class="op">(</span><span class="st">"log"</span>, items <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>content <span class="op">=</span> <span class="st">"Order placed"</span>, timestamp <span class="op">=</span> <span class="st">"2026-03-01"</span>, type <span class="op">=</span> <span class="st">"primary"</span><span class="op">)</span>,</span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>content <span class="op">=</span> <span class="st">"Shipped"</span>, timestamp <span class="op">=</span> <span class="st">"2026-03-02"</span>, type <span class="op">=</span> <span class="st">"success"</span>,</span>
@@ -304,7 +360,7 @@ gives 1-based row numbers with their R types intact.</p>
 <h3 id="el_carousel">
 <code>el_carousel()</code><a class="anchor" aria-label="anchor" href="#el_carousel"></a>
 </h3>
-<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb27"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/el_carousel.html">el_carousel</a></span><span class="op">(</span><span class="st">"banner"</span>, height <span class="op">=</span> <span class="st">"160px"</span>, items <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">"one"</span>, content <span class="op">=</span> <span class="va">tags</span><span class="op">$</span><span class="fu">h3</span><span class="op">(</span><span class="st">"First"</span><span class="op">)</span><span class="op">)</span>,</span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">"two"</span>, content <span class="op">=</span> <span class="va">tags</span><span class="op">$</span><span class="fu">h3</span><span class="op">(</span><span class="st">"Second"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
@@ -314,7 +370,7 @@ gives 1-based row numbers with their R types intact.</p>
 <h3 id="el_divider-and-el_link">
 <code>el_divider()</code> and <code>el_link()</code><a class="anchor" aria-label="anchor" href="#el_divider-and-el_link"></a>
 </h3>
-<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb28"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/el_divider.html">el_divider</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="fu"><a href="../reference/el_link.html">el_link</a></span><span class="op">(</span><span class="st">"primary"</span>, type <span class="op">=</span> <span class="st">"primary"</span><span class="op">)</span></span></code></pre></div>
 <p><img src="../reference/figures/component-divider.png"></p>
@@ -325,14 +381,14 @@ gives 1-based row numbers with their R types intact.</p>
 </h3>
 <p>Element’s icon font ships with the package; any
 <code>el-icon-*</code> class works.</p>
-<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb29"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">tags</span><span class="op">$</span><span class="fu">i</span><span class="op">(</span>class <span class="op">=</span> <span class="st">"el-icon-edit"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="../reference/el_icon.html">el_icon</a></span><span class="op">(</span><span class="st">"star-on"</span><span class="op">)</span></span></code></pre></div>
 <p><img src="../reference/figures/component-icon.png"></p>
 </div>
 </div>
 <div class="section level2">
-<h2 id="containers">Containers<a class="anchor" aria-label="anchor" href="#containers"></a>
+<h2 id="others">Others<a class="anchor" aria-label="anchor" href="#others"></a>
 </h2>
 <p>These render as plain markup rather than Vue instances, which is what
 lets them hold other components from this package. A component placed
@@ -341,7 +397,7 @@ inside one stays connected to the server.</p>
 <h3 id="el_tabs">
 <code>el_tabs()</code><a class="anchor" aria-label="anchor" href="#el_tabs"></a>
 </h3>
-<div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb30"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/el_tabs.html">el_tabs</a></span><span class="op">(</span><span class="st">"section"</span>, tabs <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">"x"</span>, label <span class="op">=</span> <span class="st">"Inputs"</span>,</span>
 <span>       content <span class="op">=</span> <span class="fu"><a href="https://rstudio.github.io/htmltools/reference/tagList.html" class="external-link">tagList</a></span><span class="op">(</span><span class="fu"><a href="../reference/el_input.html">el_input</a></span><span class="op">(</span><span class="st">"q"</span><span class="op">)</span>, <span class="fu"><a href="../reference/el_rate.html">el_rate</a></span><span class="op">(</span><span class="st">"stars"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>,</span>
@@ -352,7 +408,7 @@ inside one stays connected to the server.</p>
 <h3 id="el_collapse">
 <code>el_collapse()</code><a class="anchor" aria-label="anchor" href="#el_collapse"></a>
 </h3>
-<div class="sourceCode" id="cb27"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb31"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/el_collapse.html">el_collapse</a></span><span class="op">(</span><span class="st">"panels"</span>, value <span class="op">=</span> <span class="st">"p1"</span>, items <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">"p1"</span>, title <span class="op">=</span> <span class="st">"Filters"</span>,</span>
 <span>       content <span class="op">=</span> <span class="fu"><a href="https://rstudio.github.io/htmltools/reference/tagList.html" class="external-link">tagList</a></span><span class="op">(</span><span class="fu"><a href="../reference/el_input.html">el_input</a></span><span class="op">(</span><span class="st">"q"</span><span class="op">)</span>, <span class="fu"><a href="../reference/el_switch.html">el_switch</a></span><span class="op">(</span><span class="st">"live"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
@@ -362,7 +418,7 @@ inside one stays connected to the server.</p>
 <h3 id="el_steps">
 <code>el_steps()</code><a class="anchor" aria-label="anchor" href="#el_steps"></a>
 </h3>
-<div class="sourceCode" id="cb28"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb32"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/el_steps.html">el_steps</a></span><span class="op">(</span><span class="st">"wizard"</span>, active <span class="op">=</span> <span class="fl">1</span>, finish_status <span class="op">=</span> <span class="st">"success"</span>, steps <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Pick"</span>, description <span class="op">=</span> <span class="st">"choose a plan"</span><span class="op">)</span>,</span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Pay"</span>,  description <span class="op">=</span> <span class="st">"enter card"</span><span class="op">)</span>,</span>
@@ -375,18 +431,77 @@ inside one stays connected to the server.</p>
 </h3>
 <p>Open and close them from the server; <code>input$&lt;id&gt;</code> is
 <code>TRUE</code> while open.</p>
-<div class="sourceCode" id="cb29"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb33"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/el_dialog.html">el_dialog</a></span><span class="op">(</span><span class="st">"confirm"</span>, title <span class="op">=</span> <span class="st">"Confirm"</span>, content <span class="op">=</span> <span class="fu"><a href="../reference/el_input.html">el_input</a></span><span class="op">(</span><span class="st">"reason"</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="fu"><a href="../reference/update_el_dialog.html">update_el_dialog</a></span><span class="op">(</span><span class="va">session</span>, <span class="st">"confirm"</span>, visible <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu"><a href="../reference/el_drawer.html">el_drawer</a></span><span class="op">(</span><span class="st">"settings"</span>, title <span class="op">=</span> <span class="st">"Settings"</span>, direction <span class="op">=</span> <span class="st">"rtl"</span>, size <span class="op">=</span> <span class="st">"320px"</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level3">
+<h3 id="el_tooltip">
+<code>el_tooltip()</code><a class="anchor" aria-label="anchor" href="#el_tooltip"></a>
+</h3>
+<p>A hint shown on hover. The trigger can be plain markup or a whole
+component – a component is folded into the tooltip’s own Vue instance,
+so it keeps reporting its inputs.</p>
+<div class="sourceCode" id="cb34"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/el_tooltip.html">el_tooltip</a></span><span class="op">(</span><span class="st">"hint"</span>, <span class="va">el</span><span class="op">$</span><span class="fu">button</span><span class="op">(</span>type <span class="op">=</span> <span class="st">"primary"</span>, <span class="st">"Hover me"</span><span class="op">)</span>,</span>
+<span>           content <span class="op">=</span> <span class="st">"A hint about this button"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># A component works too</span></span>
+<span><span class="fu"><a href="../reference/el_tooltip.html">el_tooltip</a></span><span class="op">(</span><span class="st">"hint"</span>, <span class="fu"><a href="../reference/el_button.html">el_button</a></span><span class="op">(</span><span class="st">"save"</span>, <span class="st">"Save"</span><span class="op">)</span>, content <span class="op">=</span> <span class="st">"Writes to disk"</span><span class="op">)</span></span></code></pre></div>
+<p><img src="../reference/figures/component-tooltip.png"></p>
+</div>
+<div class="section level3">
+<h3 id="el_popover">
+<code>el_popover()</code><a class="anchor" aria-label="anchor" href="#el_popover"></a>
+</h3>
+<p>A card on click or hover, with a title and body.</p>
+<div class="sourceCode" id="cb35"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/el_popover.html">el_popover</a></span><span class="op">(</span><span class="st">"info"</span>,</span>
+<span>  reference <span class="op">=</span> <span class="va">el</span><span class="op">$</span><span class="fu">button</span><span class="op">(</span>type <span class="op">=</span> <span class="st">"primary"</span>, <span class="st">"Details"</span><span class="op">)</span>,</span>
+<span>  title <span class="op">=</span> <span class="st">"March"</span>, content <span class="op">=</span> <span class="st">"Revenue up 4% on February."</span><span class="op">)</span></span></code></pre></div>
+<p><img src="../reference/figures/component-popover.png"></p>
+</div>
+<div class="section level3">
+<h3 id="el_popconfirm">
+<code>el_popconfirm()</code><a class="anchor" aria-label="anchor" href="#el_popconfirm"></a>
+</h3>
+<p>A confirmation anchored to what triggers it, for actions that warrant
+a check but not a dialog. <code>input$&lt;id&gt;_confirm</code> and
+<code>input$&lt;id&gt;_cancel</code> report the answer.</p>
+<div class="sourceCode" id="cb36"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/el_popconfirm.html">el_popconfirm</a></span><span class="op">(</span><span class="st">"del"</span>,</span>
+<span>  reference <span class="op">=</span> <span class="va">el</span><span class="op">$</span><span class="fu">button</span><span class="op">(</span>type <span class="op">=</span> <span class="st">"danger"</span>, <span class="st">"Delete"</span><span class="op">)</span>,</span>
+<span>  title <span class="op">=</span> <span class="st">"Delete this row?"</span><span class="op">)</span></span></code></pre></div>
+<p><img src="../reference/figures/component-popconfirm.png"></p>
+</div>
+<div class="section level3">
+<h3 id="el_backtop">
+<code>el_backtop()</code><a class="anchor" aria-label="anchor" href="#el_backtop"></a>
+</h3>
+<p>A button that appears once the page is scrolled.</p>
+<div class="sourceCode" id="cb37"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/el_backtop.html">el_backtop</a></span><span class="op">(</span><span class="st">"top"</span>, visibility_height <span class="op">=</span> <span class="fl">200</span><span class="op">)</span></span>
+<span><span class="fu"><a href="../reference/el_backtop.html">el_backtop</a></span><span class="op">(</span><span class="st">"panel_top"</span>, target <span class="op">=</span> <span class="st">"#report"</span><span class="op">)</span>   <span class="co"># scroll a panel, not the page</span></span></code></pre></div>
+<p><img src="../reference/figures/component-backtop.png"></p>
+</div>
+<div class="section level3">
+<h3 id="el_infinite_scroll">
+<code>el_infinite_scroll()</code><a class="anchor" aria-label="anchor" href="#el_infinite_scroll"></a>
+</h3>
+<p>A scrolling area that asks for more as the user nears the bottom.
+<code>input$&lt;id&gt;_load</code> rises by one each time.</p>
+<div class="sourceCode" id="cb38"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/el_infinite_scroll.html">el_infinite_scroll</a></span><span class="op">(</span><span class="st">"feed"</span>, height <span class="op">=</span> <span class="st">"300px"</span>, <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/htmlOutput.html" class="external-link">uiOutput</a></span><span class="op">(</span><span class="st">"rows"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<p><img src="../reference/figures/component-infinite-scroll.png"></p>
+</div>
+<div class="section level3">
 <h3 id="el_row-el_col">
 <code>el_row()</code> / <code>el_col()</code><a class="anchor" aria-label="anchor" href="#el_row-el_col"></a>
 </h3>
 <p>A 24-column grid.</p>
-<div class="sourceCode" id="cb30"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb39"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/el_row.html">el_row</a></span><span class="op">(</span>gutter <span class="op">=</span> <span class="fl">20</span>,</span>
 <span>  <span class="fu"><a href="../reference/el_col.html">el_col</a></span><span class="op">(</span>span <span class="op">=</span> <span class="fl">12</span>, <span class="st">"span = 12"</span><span class="op">)</span>,</span>
 <span>  <span class="fu"><a href="../reference/el_col.html">el_col</a></span><span class="op">(</span>span <span class="op">=</span> <span class="fl">12</span>, <span class="st">"span = 12"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
@@ -396,7 +511,7 @@ inside one stays connected to the server.</p>
 <h3 id="el_container">
 <code>el_container()</code><a class="anchor" aria-label="anchor" href="#el_container"></a>
 </h3>
-<div class="sourceCode" id="cb31"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb40"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/el_container.html">el_container</a></span><span class="op">(</span></span>
 <span>  <span class="fu"><a href="../reference/el_header.html">el_header</a></span><span class="op">(</span><span class="st">"Header"</span><span class="op">)</span>,</span>
 <span>  <span class="fu"><a href="../reference/el_container.html">el_container</a></span><span class="op">(</span><span class="fu"><a href="../reference/el_aside.html">el_aside</a></span><span class="op">(</span>width <span class="op">=</span> <span class="st">"160px"</span>, <span class="st">"Aside"</span><span class="op">)</span>, <span class="fu"><a href="../reference/el_main.html">el_main</a></span><span class="op">(</span><span class="st">"Main"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
@@ -412,7 +527,7 @@ inside one stays connected to the server.</p>
 </h3>
 <p>Nests to any depth. <code>input$nav</code> gives the selected index,
 <code>input$nav_path</code> the full path down to it.</p>
-<div class="sourceCode" id="cb32"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb41"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/el_menu.html">el_menu</a></span><span class="op">(</span><span class="st">"nav"</span>, active <span class="op">=</span> <span class="st">"home"</span>, items <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>index <span class="op">=</span> <span class="st">"home"</span>, label <span class="op">=</span> <span class="st">"Home"</span>, icon <span class="op">=</span> <span class="st">"el-icon-house"</span><span class="op">)</span>,</span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>index <span class="op">=</span> <span class="st">"data"</span>, label <span class="op">=</span> <span class="st">"Data"</span>, children <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
@@ -425,17 +540,39 @@ inside one stays connected to the server.</p>
 </h3>
 <p><code><a href="../reference/df_to_tree_data.html">df_to_tree_data()</a></code> builds the node list from a data
 frame.</p>
-<div class="sourceCode" id="cb33"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb42"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/el_tree.html">el_tree</a></span><span class="op">(</span><span class="st">"picker"</span>, show_checkbox <span class="op">=</span> <span class="cn">TRUE</span>, checked <span class="op">=</span> <span class="st">"apple"</span>, data <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>id <span class="op">=</span> <span class="st">"fruit"</span>, label <span class="op">=</span> <span class="st">"Fruit"</span>, children <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
 <span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>id <span class="op">=</span> <span class="st">"apple"</span>, label <span class="op">=</span> <span class="st">"Apple"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <p><img src="../reference/figures/component-tree.png"></p>
 </div>
 <div class="section level3">
+<h3 id="el_breadcrumb">
+<code>el_breadcrumb()</code><a class="anchor" aria-label="anchor" href="#el_breadcrumb"></a>
+</h3>
+<p>A trail of links. <code>input$&lt;id&gt;</code> is the label of the
+step last clicked, so it can drive navigation inside a Shiny app without
+any routing.</p>
+<div class="sourceCode" id="cb43"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/el_breadcrumb.html">el_breadcrumb</a></span><span class="op">(</span><span class="st">"trail"</span>, items <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>label <span class="op">=</span> <span class="st">"Home"</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>label <span class="op">=</span> <span class="st">"Reports"</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>label <span class="op">=</span> <span class="st">"March"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<p><img src="../reference/figures/component-breadcrumb.png"></p>
+</div>
+<div class="section level3">
+<h3 id="el_page_header">
+<code>el_page_header()</code><a class="anchor" aria-label="anchor" href="#el_page_header"></a>
+</h3>
+<p>A page title with a back link. <code>input$&lt;id&gt;_back</code>
+fires when it is clicked; what going back means is up to your app.</p>
+<div class="sourceCode" id="cb44"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/el_page_header.html">el_page_header</a></span><span class="op">(</span><span class="st">"hdr"</span>, title <span class="op">=</span> <span class="st">"All reports"</span>, content <span class="op">=</span> <span class="st">"Sales for March"</span><span class="op">)</span></span></code></pre></div>
+<p><img src="../reference/figures/component-page-header.png"></p>
+</div>
+<div class="section level3">
 <h3 id="el_dropdown">
 <code>el_dropdown()</code><a class="anchor" aria-label="anchor" href="#el_dropdown"></a>
 </h3>
-<div class="sourceCode" id="cb34"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb45"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/el_dropdown.html">el_dropdown</a></span><span class="op">(</span><span class="st">"actions"</span>, trigger_label <span class="op">=</span> <span class="st">"Actions"</span>, items <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>command <span class="op">=</span> <span class="st">"edit"</span>, label <span class="op">=</span> <span class="st">"Edit"</span><span class="op">)</span>,</span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>command <span class="op">=</span> <span class="st">"del"</span>,  label <span class="op">=</span> <span class="st">"Delete"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
@@ -448,7 +585,7 @@ frame.</p>
 <p><code><a href="../reference/el_notification.html">el_notification()</a></code> and <code><a href="../reference/el_message.html">el_message()</a></code> are
 called from the server and render themselves; there is nothing to place
 in the UI.</p>
-<div class="sourceCode" id="cb35"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb46"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/el_notification.html">el_notification</a></span><span class="op">(</span><span class="va">session</span>, message <span class="op">=</span> <span class="st">"Saved"</span>, title <span class="op">=</span> <span class="st">"Done"</span>, type <span class="op">=</span> <span class="st">"success"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="../reference/el_message.html">el_message</a></span><span class="op">(</span><span class="va">session</span>, message <span class="op">=</span> <span class="st">"Check the form"</span>, type <span class="op">=</span> <span class="st">"warning"</span><span class="op">)</span></span></code></pre></div>
 </div>

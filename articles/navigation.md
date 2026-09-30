@@ -1,0 +1,182 @@
+# Navigation and feedback
+
+Element’s navigation components report where the user went; its feedback
+components are called from the server. Neither navigates or blocks on
+its own – what happens next is your app’s decision.
+
+## Menus
+
+[`el_menu()`](https://kaipingyang.github.io/shiny.element/reference/el_menu.md)
+takes a nested list. Each item’s `index` is what it reports.
+
+``` r
+
+el_menu("nav",
+  mode = "horizontal",
+  default_active = "reports",
+  items = list(
+    list(index = "home", title = "Home", icon = "el-icon-s-home"),
+    list(index = "reports", title = "Reports", children = list(
+      list(index = "monthly", title = "Monthly"),
+      list(index = "annual",  title = "Annual")
+    )),
+    list(index = "settings", title = "Settings", disabled = TRUE)
+  ))
+
+observeEvent(input$nav, {
+  # "monthly" when that sub-item is picked
+})
+```
+
+`input$nav_path` gives the trail to the item, for a sub-item that needs
+its parent for context.
+
+## Breadcrumbs
+
+A breadcrumb is usually rendered from where the app already is, and
+reports the label clicked, so it can drive navigation without any
+routing:
+
+``` r
+
+page <- reactiveVal("March")
+
+output$trail <- renderUI({
+  el_breadcrumb("trail", items = list(
+    list(label = "Home"), list(label = "Reports"), list(label = page())
+  ))
+})
+
+observeEvent(input$trail, {
+  if (input$trail == "Home") page("Home")
+})
+```
+
+## Tabs and steps
+
+[`el_tabs()`](https://kaipingyang.github.io/shiny.element/reference/el_tabs.md)
+holds live components, because it renders as markup rather than its own
+Vue instance:
+
+``` r
+
+el_tabs("views", tabs = list(
+  list(name = "table", label = "Table",  content = el_table("t", data = iris)),
+  list(name = "chart", label = "Chart",  content = plotOutput("p"))
+))
+```
+
+A table inside a tab that starts hidden measures its columns as zero.
+Tell it to measure again when the tab is shown:
+
+``` r
+
+observeEvent(input$views, {
+  if (input$views == "table") el_call(session, "t", "doLayout")
+})
+```
+
+[`el_steps()`](https://kaipingyang.github.io/shiny.element/reference/el_steps.md)
+reports the active step as a number, and is moved from the server:
+
+``` r
+
+el_steps("wizard", active = 1, steps = list(
+  list(title = "Details"), list(title = "Payment"), list(title = "Done")))
+
+observeEvent(input$next_step, {
+  update_el_steps(session, "wizard", active = input$wizard + 1)
+})
+```
+
+## Messages and notifications
+
+These are server-side calls rather than UI:
+
+``` r
+
+el_message(session, "Saved", type = "success")
+el_notification(session, "Report ready", title = "Done", position = "bottom-right")
+```
+
+Neither waits for an answer. When you need one, use
+[`el_message_box()`](https://kaipingyang.github.io/shiny.element/reference/el_message_box.md):
+
+``` r
+
+observeEvent(input$delete, {
+  el_message_box(session, "confirm_delete",
+                 "This cannot be undone.",
+                 title = "Delete the row?", type = "warning")
+})
+
+observeEvent(input$confirm_delete, {
+  if (input$confirm_delete == "confirm") delete_row()
+})
+```
+
+The answer is `"confirm"`, `"cancel"` or `"close"`. For
+`box_type = "prompt"` a confirmed answer is a list of `action` and
+`value`, where `value` is what the user typed.
+
+For something smaller than a dialog,
+[`el_popconfirm()`](https://kaipingyang.github.io/shiny.element/reference/el_popconfirm.md)
+anchors the question to the button that raised it:
+
+``` r
+
+el_popconfirm("del",
+  reference = el$button(type = "danger", "Delete"),
+  title = "Delete this row?")
+
+observeEvent(input$del_confirm, { delete_row() })
+```
+
+## Loading
+
+[`el_loading()`](https://kaipingyang.github.io/shiny.element/reference/el_loading.md)
+opens a named mask and
+[`el_loading_close()`](https://kaipingyang.github.io/shiny.element/reference/el_loading_close.md)
+shuts it:
+
+``` r
+
+observeEvent(input$refresh, {
+  el_loading(session, "refreshing", text = "Fetching rows...")
+  on.exit(el_loading_close(session, "refreshing"), add = TRUE)
+
+  update_el_table(session, "rows", data = slow_query())
+})
+```
+
+`target` covers one element rather than the page:
+
+``` r
+
+el_loading(session, "table_busy", target = "#rows_container")
+```
+
+Because the mask is named, a second call under the same name replaces
+the first rather than stacking.
+
+## Dialogs and drawers
+
+Both are markup with a Shiny input binding, so they hold live
+components:
+
+``` r
+
+el_dialog("settings", title = "Settings", width = "480px",
+          content = tagList(
+            el_switch("dark", value = TRUE),
+            el_slider("size", value = 14, min = 10, max = 24)
+          ),
+          footer = el_button("apply", "Apply", type = "primary"))
+
+observeEvent(input$open, {
+  update_el_dialog(session, "settings", visible = TRUE)
+})
+```
+
+`input$settings` is whether it is open, so closing by the cross or the
+backdrop is visible to the server too.
