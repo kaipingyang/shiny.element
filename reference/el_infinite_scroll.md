@@ -28,11 +28,10 @@ el_infinite_scroll(
 
 - ...:
 
-  Content of the scrolling area. Markup only – raw Element tags from
-  [el](https://kaipingyang.github.io/shiny.element/reference/el.md), or
-  ordinary Shiny UI. It cannot contain another shiny.element component:
-  the container compiles this into its own Vue instance, which would
-  discard a mounted one.
+  Content of the scrolling area. Any Shiny UI, including shiny.element
+  components – those are folded into this container's Vue instance
+  rather than nested inside it, so their inputs keep reporting. Their
+  `update_el_*()` no longer reaches them, though.
 
 - height:
 
@@ -81,12 +80,12 @@ A Shiny UI element.
 ``` r
 el_infinite_scroll("feed", shiny::uiOutput("rows"), height = "400px")
 #> <div id="feed_container" style="display: contents">
-#>   <div v-infinite-scroll="handleLoad" :infinite-scroll-disabled="disabled" :infinite-scroll-delay="delay === null ? undefined : delay" :infinite-scroll-distance="distance === null ? undefined : distance" :infinite-scroll-immediate="immediate === null ? undefined : immediate" style="overflow: auto; height: 400px">
+#>   <div v-infinite-scroll="handleLoad" :infinite-scroll-disabled="scrollDisabled" :infinite-scroll-delay="scrollDelay === null ? undefined : scrollDelay" :infinite-scroll-distance="scrollDistance === null ? undefined : scrollDistance" :infinite-scroll-immediate="scrollImmediate === null ? undefined : scrollImmediate" style="overflow: auto; height: 400px">
 #>     <div id="rows" class="shiny-html-output"></div>
 #>   </div>
 #> </div>
 #> <div id="feed" style="width:0px;height:0px;" class="vue html-widget"></div>
-#> <script type="application/json" data-for="feed">{"x":{"el":"#feed_container","data":{"disabled":false,"delay":null,"distance":null,"immediate":null,"count":0},"methods":{"handleLoad":"function() { this.count++; Shiny.setInputValue('feed_load', this.count); }"}},"evals":["methods.handleLoad"],"jsHooks":[]}</script>
+#> <script type="application/json" data-for="feed">{"x":{"el":"#feed_container","data":{"scrollDisabled":false,"scrollDelay":null,"scrollDistance":null,"scrollImmediate":null,"scrollCount":0},"methods":{"handleLoad":"function() { this.scrollCount++; Shiny.setInputValue('feed_load', this.scrollCount); }"}},"evals":["methods.handleLoad"],"jsHooks":[]}</script>
 
 if (interactive()) {
   library(shiny)

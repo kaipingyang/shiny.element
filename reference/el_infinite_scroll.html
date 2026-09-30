@@ -68,10 +68,10 @@ the area is a container you put content into.</p>
 
 
 <dt id="arg--">...<a class="anchor" aria-label="anchor" href="#arg--"></a></dt>
-<dd><p>Content of the scrolling area. Markup only – raw Element tags
-from <a href="el.html">el</a>, or ordinary Shiny UI. It cannot contain another shiny.element
-component: the container compiles this into its own Vue instance, which
-would discard a mounted one.</p></dd>
+<dd><p>Content of the scrolling area. Any Shiny UI, including
+shiny.element components – those are folded into this container's Vue
+instance rather than nested inside it, so their inputs keep reporting.
+Their <code>update_el_*()</code> no longer reaches them, though.</p></dd>
 
 
 <dt id="arg-height">height<a class="anchor" aria-label="anchor" href="#arg-height"></a></dt>
@@ -123,12 +123,12 @@ inside the area.</p></li>
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu">el_infinite_scroll</span><span class="op">(</span><span class="st">"feed"</span>, <span class="fu">shiny</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/htmlOutput.html" class="external-link">uiOutput</a></span><span class="op">(</span><span class="st">"rows"</span><span class="op">)</span>, height <span class="op">=</span> <span class="st">"400px"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> &lt;div id="feed_container" style="display: contents"&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   &lt;div v-infinite-scroll="handleLoad" :infinite-scroll-disabled="disabled" :infinite-scroll-delay="delay === null ? undefined : delay" :infinite-scroll-distance="distance === null ? undefined : distance" :infinite-scroll-immediate="immediate === null ? undefined : immediate" style="overflow: auto; height: 400px"&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   &lt;div v-infinite-scroll="handleLoad" :infinite-scroll-disabled="scrollDisabled" :infinite-scroll-delay="scrollDelay === null ? undefined : scrollDelay" :infinite-scroll-distance="scrollDistance === null ? undefined : scrollDistance" :infinite-scroll-immediate="scrollImmediate === null ? undefined : scrollImmediate" style="overflow: auto; height: 400px"&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     &lt;div id="rows" class="shiny-html-output"&gt;&lt;/div&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   &lt;/div&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> &lt;/div&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> &lt;div id="feed" style="width:0px;height:0px;" class="vue html-widget"&gt;&lt;/div&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;script type="application/json" data-for="feed"&gt;{"x":{"el":"#feed_container","data":{"disabled":false,"delay":null,"distance":null,"immediate":null,"count":0},"methods":{"handleLoad":"function() { this.count++; Shiny.setInputValue('feed_load', this.count); }"}},"evals":["methods.handleLoad"],"jsHooks":[]}&lt;/script&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;script type="application/json" data-for="feed"&gt;{"x":{"el":"#feed_container","data":{"scrollDisabled":false,"scrollDelay":null,"scrollDistance":null,"scrollImmediate":null,"scrollCount":0},"methods":{"handleLoad":"function() { this.scrollCount++; Shiny.setInputValue('feed_load', this.scrollCount); }"}},"evals":["methods.handleLoad"],"jsHooks":[]}&lt;/script&gt;</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/interactive.html" class="external-link">interactive</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span></span>
 <span class="r-in"><span>  <span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://shiny.posit.co/" class="external-link">shiny</a></span><span class="op">)</span></span></span>

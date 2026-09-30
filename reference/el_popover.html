@@ -72,10 +72,10 @@
 
 
 <dt id="arg-reference">reference<a class="anchor" aria-label="anchor" href="#arg-reference"></a></dt>
-<dd><p>The element the popover hangs off. Markup only – raw
-Element tags from <a href="el.html">el</a>, or ordinary Shiny UI. It cannot be another
-shiny.element component: the popover compiles this into its own Vue
-instance, which would discard a mounted one.</p></dd>
+<dd><p>The element the popover hangs off. Any Shiny UI,
+including another shiny.element component – that component is folded
+into the popover's Vue instance rather than nested inside it, so its
+inputs keep reporting. Its <code>update_el_*()</code> no longer reaches it.</p></dd>
 
 
 <dt id="arg-title">title<a class="anchor" aria-label="anchor" href="#arg-title"></a></dt>
@@ -87,7 +87,8 @@ instance, which would discard a mounted one.</p></dd>
 
 
 <dt id="arg-body">body<a class="anchor" aria-label="anchor" href="#arg-body"></a></dt>
-<dd><p>Body markup, used instead of <code>content</code>. Markup only, as above.</p></dd>
+<dd><p>Body markup, used instead of <code>content</code>. Components are
+absorbed here too.</p></dd>
 
 
 <dt id="arg-trigger">trigger<a class="anchor" aria-label="anchor" href="#arg-trigger"></a></dt>
@@ -167,14 +168,14 @@ animation has finished.</p></li>
 <span class="r-in"><span>  content <span class="op">=</span> <span class="st">"Revenue up 4% on February."</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> &lt;div id="info_container" style="display: contents"&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   &lt;el-popover v-model="value" :title="title === null ? undefined : title" :content="content === null ? undefined : content" :trigger="trigger === null ? undefined : trigger" :placement="placement === null ? undefined : placement" :width="popoverWidth === null ? undefined : popoverWidth" :disabled="disabled === null ? undefined : disabled" :offset="offset === null ? undefined : offset" :open-delay="openDelay === null ? undefined : openDelay" :close-delay="closeDelay === null ? undefined : closeDelay" :visible-arrow="visibleArrow === null ? undefined : visibleArrow" :transition="transition === null ? undefined : transition" :popper-class="popperClass === null ? undefined : popperClass" :popper-options="popperOptions === null ? undefined : popperOptions" :tabindex="tabindex === null ? undefined : tabindex" @show="elEmitShow" @hide="elEmitHide" @after-enter="elEmitAfterEnter" @after-leave="elEmitAfterLeave"&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   &lt;el-popover v-model="popValue" :title="popTitle === null ? undefined : popTitle" :content="popContent === null ? undefined : popContent" :trigger="popTrigger === null ? undefined : popTrigger" :placement="popPlacement === null ? undefined : popPlacement" :width="popPopoverWidth === null ? undefined : popPopoverWidth" :disabled="popDisabled === null ? undefined : popDisabled" :offset="popOffset === null ? undefined : popOffset" :open-delay="popOpenDelay === null ? undefined : popOpenDelay" :close-delay="popCloseDelay === null ? undefined : popCloseDelay" :visible-arrow="popVisibleArrow === null ? undefined : popVisibleArrow" :transition="popTransition === null ? undefined : popTransition" :popper-class="popPopperClass === null ? undefined : popPopperClass" :popper-options="popPopperOptions === null ? undefined : popPopperOptions" :tabindex="popTabindex === null ? undefined : popTabindex" @show="elEmitShow" @hide="elEmitHide" @after-enter="elEmitAfterEnter" @after-leave="elEmitAfterLeave"&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     &lt;span slot="reference"&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>       &lt;el-button&gt;Details&lt;/el-button&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     &lt;/span&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   &lt;/el-popover&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> &lt;/div&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> &lt;div id="info" style="width:0px;height:0px;" class="vue html-widget"&gt;&lt;/div&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;script type="application/json" data-for="info"&gt;{"x":{"el":"#info_container","data":{"value":false,"title":"March","content":"Revenue up 4% on February.","trigger":null,"placement":null,"popoverWidth":null,"disabled":null,"offset":null,"openDelay":null,"closeDelay":null,"visibleArrow":null,"transition":null,"popperClass":null,"popperOptions":null,"tabindex":null},"methods":{"elEmitShow":"function() { window.shinyElement.emit('info', 'show', arguments); }","elEmitHide":"function() { window.shinyElement.emit('info', 'hide', arguments); }","elEmitAfterEnter":"function() { window.shinyElement.emit('info', 'after_enter', arguments); }","elEmitAfterLeave":"function() { window.shinyElement.emit('info', 'after_leave', arguments); }"}},"evals":["methods.elEmitShow","methods.elEmitHide","methods.elEmitAfterEnter","methods.elEmitAfterLeave"],"jsHooks":[]}&lt;/script&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;script type="application/json" data-for="info"&gt;{"x":{"el":"#info_container","data":{"popValue":false,"popTitle":"March","popContent":"Revenue up 4% on February.","popTrigger":null,"popPlacement":null,"popPopoverWidth":null,"popDisabled":null,"popOffset":null,"popOpenDelay":null,"popCloseDelay":null,"popVisibleArrow":null,"popTransition":null,"popPopperClass":null,"popPopperOptions":null,"popTabindex":null},"methods":{"elEmitShow":"function() { window.shinyElement.emit('info', 'show', arguments); }","elEmitHide":"function() { window.shinyElement.emit('info', 'hide', arguments); }","elEmitAfterEnter":"function() { window.shinyElement.emit('info', 'after_enter', arguments); }","elEmitAfterLeave":"function() { window.shinyElement.emit('info', 'after_leave', arguments); }"}},"evals":["methods.elEmitShow","methods.elEmitHide","methods.elEmitAfterEnter","methods.elEmitAfterLeave"],"jsHooks":[]}&lt;/script&gt;</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Hover, with markup in the body</span></span></span>
 <span class="r-in"><span><span class="fu">el_popover</span><span class="op">(</span><span class="st">"info"</span>,</span></span>
@@ -183,7 +184,7 @@ animation has finished.</p></li>
 <span class="r-in"><span>  trigger <span class="op">=</span> <span class="st">"hover"</span>, placement <span class="op">=</span> <span class="st">"right"</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> &lt;div id="info_container" style="display: contents"&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   &lt;el-popover v-model="value" :title="title === null ? undefined : title" :content="content === null ? undefined : content" :trigger="trigger === null ? undefined : trigger" :placement="placement === null ? undefined : placement" :width="popoverWidth === null ? undefined : popoverWidth" :disabled="disabled === null ? undefined : disabled" :offset="offset === null ? undefined : offset" :open-delay="openDelay === null ? undefined : openDelay" :close-delay="closeDelay === null ? undefined : closeDelay" :visible-arrow="visibleArrow === null ? undefined : visibleArrow" :transition="transition === null ? undefined : transition" :popper-class="popperClass === null ? undefined : popperClass" :popper-options="popperOptions === null ? undefined : popperOptions" :tabindex="tabindex === null ? undefined : tabindex" @show="elEmitShow" @hide="elEmitHide" @after-enter="elEmitAfterEnter" @after-leave="elEmitAfterLeave"&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   &lt;el-popover v-model="popValue" :title="popTitle === null ? undefined : popTitle" :content="popContent === null ? undefined : popContent" :trigger="popTrigger === null ? undefined : popTrigger" :placement="popPlacement === null ? undefined : popPlacement" :width="popPopoverWidth === null ? undefined : popPopoverWidth" :disabled="popDisabled === null ? undefined : popDisabled" :offset="popOffset === null ? undefined : popOffset" :open-delay="popOpenDelay === null ? undefined : popOpenDelay" :close-delay="popCloseDelay === null ? undefined : popCloseDelay" :visible-arrow="popVisibleArrow === null ? undefined : popVisibleArrow" :transition="popTransition === null ? undefined : popTransition" :popper-class="popPopperClass === null ? undefined : popPopperClass" :popper-options="popPopperOptions === null ? undefined : popPopperOptions" :tabindex="popTabindex === null ? undefined : popTabindex" @show="elEmitShow" @hide="elEmitHide" @after-enter="elEmitAfterEnter" @after-leave="elEmitAfterLeave"&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     &lt;ul&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>       &lt;li&gt;One&lt;/li&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>       &lt;li&gt;Two&lt;/li&gt;</span>
@@ -194,7 +195,7 @@ animation has finished.</p></li>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   &lt;/el-popover&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> &lt;/div&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> &lt;div id="info" style="width:0px;height:0px;" class="vue html-widget"&gt;&lt;/div&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;script type="application/json" data-for="info"&gt;{"x":{"el":"#info_container","data":{"value":false,"title":null,"content":null,"trigger":"hover","placement":"right","popoverWidth":null,"disabled":null,"offset":null,"openDelay":null,"closeDelay":null,"visibleArrow":null,"transition":null,"popperClass":null,"popperOptions":null,"tabindex":null},"methods":{"elEmitShow":"function() { window.shinyElement.emit('info', 'show', arguments); }","elEmitHide":"function() { window.shinyElement.emit('info', 'hide', arguments); }","elEmitAfterEnter":"function() { window.shinyElement.emit('info', 'after_enter', arguments); }","elEmitAfterLeave":"function() { window.shinyElement.emit('info', 'after_leave', arguments); }"}},"evals":["methods.elEmitShow","methods.elEmitHide","methods.elEmitAfterEnter","methods.elEmitAfterLeave"],"jsHooks":[]}&lt;/script&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;script type="application/json" data-for="info"&gt;{"x":{"el":"#info_container","data":{"popValue":false,"popTitle":null,"popContent":null,"popTrigger":"hover","popPlacement":"right","popPopoverWidth":null,"popDisabled":null,"popOffset":null,"popOpenDelay":null,"popCloseDelay":null,"popVisibleArrow":null,"popTransition":null,"popPopperClass":null,"popPopperOptions":null,"popTabindex":null},"methods":{"elEmitShow":"function() { window.shinyElement.emit('info', 'show', arguments); }","elEmitHide":"function() { window.shinyElement.emit('info', 'hide', arguments); }","elEmitAfterEnter":"function() { window.shinyElement.emit('info', 'after_enter', arguments); }","elEmitAfterLeave":"function() { window.shinyElement.emit('info', 'after_leave', arguments); }"}},"evals":["methods.elEmitShow","methods.elEmitHide","methods.elEmitAfterEnter","methods.elEmitAfterLeave"],"jsHooks":[]}&lt;/script&gt;</span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>

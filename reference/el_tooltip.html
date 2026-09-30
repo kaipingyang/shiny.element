@@ -71,11 +71,11 @@
 
 
 <dt id="arg-trigger">trigger<a class="anchor" aria-label="anchor" href="#arg-trigger"></a></dt>
-<dd><p>The element the tooltip describes. Markup only – raw
-Element tags from <a href="el.html">el</a>, or ordinary Shiny UI. It cannot be another
-shiny.element component: the tooltip compiles this into its own Vue
-instance, which would discard a mounted one. Use
-<code>el$button(type = "primary", "Save")</code> rather than <code><a href="el_button.html">el_button()</a></code>.</p></dd>
+<dd><p>The element the tooltip describes. Any Shiny UI, including
+another shiny.element component – that component is folded into the
+tooltip's own Vue instance rather than nested inside it, so its inputs
+keep reporting. Its <code>update_el_*()</code> no longer reaches it, though; see
+Details.</p></dd>
 
 
 <dt id="arg-content">content<a class="anchor" aria-label="anchor" href="#arg-content"></a></dt>
@@ -149,18 +149,37 @@ instance, which would discard a mounted one. Use
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
     <p>A Shiny UI element.</p>
     </div>
+    <div class="section level2">
+    <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
+    <p>A component passed as <code>trigger</code> becomes part of the tooltip's Vue instance
+rather than a separate one, which is what lets it survive being compiled
+into the tooltip's markup. It reports its inputs as usual, but it no longer
+has a widget of its own, so its <code>update_el_*()</code> cannot find it – drive it
+through <code><a href="update_vue_data.html">update_vue_data()</a></code> on the tooltip's id instead.</p>
+    </div>
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu">el_tooltip</span><span class="op">(</span><span class="st">"hint"</span>, <span class="va">el</span><span class="op">$</span><span class="fu">button</span><span class="op">(</span>type <span class="op">=</span> <span class="st">"primary"</span>, <span class="st">"Save"</span><span class="op">)</span>,</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># A plain tag as the trigger</span></span></span>
+<span class="r-in"><span><span class="fu">el_tooltip</span><span class="op">(</span><span class="st">"hint"</span>, <span class="va">el</span><span class="op">$</span><span class="fu">button</span><span class="op">(</span>type <span class="op">=</span> <span class="st">"primary"</span>, <span class="st">"Save"</span><span class="op">)</span>,</span></span>
 <span class="r-in"><span>           content <span class="op">=</span> <span class="st">"Writes to disk"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> &lt;div id="hint_container" style="display: contents"&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   &lt;el-tooltip v-model="value" :content="content === null ? undefined : content" :placement="placement === null ? undefined : placement" :effect="effect === null ? undefined : effect" :disabled="disabled === null ? undefined : disabled" :offset="offset === null ? undefined : offset" :open-delay="openDelay === null ? undefined : openDelay" :hide-after="hideAfter === null ? undefined : hideAfter" :enterable="enterable === null ? undefined : enterable" :visible-arrow="visibleArrow === null ? undefined : visibleArrow" :transition="transition === null ? undefined : transition" :popper-class="popperClass === null ? undefined : popperClass" :popper-options="popperOptions === null ? undefined : popperOptions" :manual="manual === null ? undefined : manual" :tabindex="tabindex === null ? undefined : tabindex"&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   &lt;el-tooltip v-model="tipValue" :content="tipContent === null ? undefined : tipContent" :placement="tipPlacement === null ? undefined : tipPlacement" :effect="tipEffect === null ? undefined : tipEffect" :disabled="tipDisabled === null ? undefined : tipDisabled" :offset="tipOffset === null ? undefined : tipOffset" :open-delay="tipOpenDelay === null ? undefined : tipOpenDelay" :hide-after="tipHideAfter === null ? undefined : tipHideAfter" :enterable="tipEnterable === null ? undefined : tipEnterable" :visible-arrow="tipVisibleArrow === null ? undefined : tipVisibleArrow" :transition="tipTransition === null ? undefined : tipTransition" :popper-class="tipPopperClass === null ? undefined : tipPopperClass" :popper-options="tipPopperOptions === null ? undefined : tipPopperOptions" :manual="tipManual === null ? undefined : tipManual" :tabindex="tipTabindex === null ? undefined : tipTabindex"&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     &lt;el-button type="primary"&gt;Save&lt;/el-button&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   &lt;/el-tooltip&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> &lt;/div&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> &lt;div id="hint" style="width:0px;height:0px;" class="vue html-widget"&gt;&lt;/div&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;script type="application/json" data-for="hint"&gt;{"x":{"el":"#hint_container","data":{"value":false,"content":"Writes to disk","placement":null,"effect":null,"disabled":null,"offset":null,"openDelay":null,"hideAfter":null,"enterable":null,"visibleArrow":null,"transition":null,"popperClass":null,"popperOptions":null,"manual":null,"tabindex":null}},"evals":[],"jsHooks":[]}&lt;/script&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;script type="application/json" data-for="hint"&gt;{"x":{"el":"#hint_container","data":{"tipValue":false,"tipContent":"Writes to disk","tipPlacement":null,"tipEffect":null,"tipDisabled":null,"tipOffset":null,"tipOpenDelay":null,"tipHideAfter":null,"tipEnterable":null,"tipVisibleArrow":null,"tipTransition":null,"tipPopperClass":null,"tipPopperOptions":null,"tipManual":null,"tipTabindex":null}},"evals":[],"jsHooks":[]}&lt;/script&gt;</span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Or a component, which keeps working</span></span></span>
+<span class="r-in"><span><span class="fu">el_tooltip</span><span class="op">(</span><span class="st">"hint"</span>, <span class="fu"><a href="el_button.html">el_button</a></span><span class="op">(</span><span class="st">"save"</span>, <span class="st">"Save"</span><span class="op">)</span>, content <span class="op">=</span> <span class="st">"Writes to disk"</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;div id="hint_container" style="display: contents"&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   &lt;el-tooltip v-model="tipValue" :content="tipContent === null ? undefined : tipContent" :placement="tipPlacement === null ? undefined : tipPlacement" :effect="tipEffect === null ? undefined : tipEffect" :disabled="tipDisabled === null ? undefined : tipDisabled" :offset="tipOffset === null ? undefined : tipOffset" :open-delay="tipOpenDelay === null ? undefined : tipOpenDelay" :hide-after="tipHideAfter === null ? undefined : tipHideAfter" :enterable="tipEnterable === null ? undefined : tipEnterable" :visible-arrow="tipVisibleArrow === null ? undefined : tipVisibleArrow" :transition="tipTransition === null ? undefined : tipTransition" :popper-class="tipPopperClass === null ? undefined : tipPopperClass" :popper-options="tipPopperOptions === null ? undefined : tipPopperOptions" :manual="tipManual === null ? undefined : tipManual" :tabindex="tipTabindex === null ? undefined : tipTabindex"&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     &lt;el-button :type="type" :plain="plain" :round="round" :circle="circle" :loading="loading" :disabled="disabled" :native-type="native_type" @click="handleClick" :size="size === null ? undefined : size" :icon="icon === null ? undefined : icon" :autofocus="autofocus === null ? undefined : autofocus"&gt;{{label}}&lt;/el-button&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   &lt;/el-tooltip&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;/div&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;div id="hint" style="width:0px;height:0px;" class="vue html-widget"&gt;&lt;/div&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;script type="application/json" data-for="hint"&gt;{"x":{"el":"#hint_container","data":{"tipValue":false,"tipContent":"Writes to disk","tipPlacement":null,"tipEffect":null,"tipDisabled":null,"tipOffset":null,"tipOpenDelay":null,"tipHideAfter":null,"tipEnterable":null,"tipVisibleArrow":null,"tipTransition":null,"tipPopperClass":null,"tipPopperOptions":null,"tipManual":null,"tipTabindex":null,"label":"Save","type":"default","size":null,"plain":false,"round":false,"circle":false,"loading":false,"disabled":false,"native_type":"button","icon":null,"count":0,"autofocus":false},"methods":{"handleClick":"function() { if (!this.disabled &amp;&amp; !this.loading) { this.count++; Shiny.setInputValue('save', this.count); } }"}},"evals":["methods.handleClick"],"jsHooks":[]}&lt;/script&gt;</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="fu">el_tooltip</span><span class="op">(</span><span class="st">"hint"</span>,</span></span>
 <span class="r-in"><span>  trigger <span class="op">=</span> <span class="va">el</span><span class="op">$</span><span class="fu">button</span><span class="op">(</span>type <span class="op">=</span> <span class="st">"danger"</span>, <span class="st">"Delete"</span><span class="op">)</span>,</span></span>
@@ -168,12 +187,12 @@ instance, which would discard a mounted one. Use
 <span class="r-in"><span>  placement <span class="op">=</span> <span class="st">"right"</span>, effect <span class="op">=</span> <span class="st">"light"</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> &lt;div id="hint_container" style="display: contents"&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   &lt;el-tooltip v-model="value" :content="content === null ? undefined : content" :placement="placement === null ? undefined : placement" :effect="effect === null ? undefined : effect" :disabled="disabled === null ? undefined : disabled" :offset="offset === null ? undefined : offset" :open-delay="openDelay === null ? undefined : openDelay" :hide-after="hideAfter === null ? undefined : hideAfter" :enterable="enterable === null ? undefined : enterable" :visible-arrow="visibleArrow === null ? undefined : visibleArrow" :transition="transition === null ? undefined : transition" :popper-class="popperClass === null ? undefined : popperClass" :popper-options="popperOptions === null ? undefined : popperOptions" :manual="manual === null ? undefined : manual" :tabindex="tabindex === null ? undefined : tabindex"&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   &lt;el-tooltip v-model="tipValue" :content="tipContent === null ? undefined : tipContent" :placement="tipPlacement === null ? undefined : tipPlacement" :effect="tipEffect === null ? undefined : tipEffect" :disabled="tipDisabled === null ? undefined : tipDisabled" :offset="tipOffset === null ? undefined : tipOffset" :open-delay="tipOpenDelay === null ? undefined : tipOpenDelay" :hide-after="tipHideAfter === null ? undefined : tipHideAfter" :enterable="tipEnterable === null ? undefined : tipEnterable" :visible-arrow="tipVisibleArrow === null ? undefined : tipVisibleArrow" :transition="tipTransition === null ? undefined : tipTransition" :popper-class="tipPopperClass === null ? undefined : tipPopperClass" :popper-options="tipPopperOptions === null ? undefined : tipPopperOptions" :manual="tipManual === null ? undefined : tipManual" :tabindex="tipTabindex === null ? undefined : tipTabindex"&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     &lt;el-button type="danger"&gt;Delete&lt;/el-button&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   &lt;/el-tooltip&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> &lt;/div&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> &lt;div id="hint" style="width:0px;height:0px;" class="vue html-widget"&gt;&lt;/div&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;script type="application/json" data-for="hint"&gt;{"x":{"el":"#hint_container","data":{"value":false,"content":"This cannot be undone","placement":"right","effect":"light","disabled":null,"offset":null,"openDelay":null,"hideAfter":null,"enterable":null,"visibleArrow":null,"transition":null,"popperClass":null,"popperOptions":null,"manual":null,"tabindex":null}},"evals":[],"jsHooks":[]}&lt;/script&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;script type="application/json" data-for="hint"&gt;{"x":{"el":"#hint_container","data":{"tipValue":false,"tipContent":"This cannot be undone","tipPlacement":"right","tipEffect":"light","tipDisabled":null,"tipOffset":null,"tipOpenDelay":null,"tipHideAfter":null,"tipEnterable":null,"tipVisibleArrow":null,"tipTransition":null,"tipPopperClass":null,"tipPopperOptions":null,"tipManual":null,"tipTabindex":null}},"evals":[],"jsHooks":[]}&lt;/script&gt;</span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>

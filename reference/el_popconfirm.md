@@ -30,11 +30,10 @@ el_popconfirm(
 
 - reference:
 
-  The element that opens the prompt. Markup only – raw Element tags from
-  [el](https://kaipingyang.github.io/shiny.element/reference/el.md), or
-  ordinary Shiny UI. It cannot be another shiny.element component: the
-  prompt compiles this into its own Vue instance, which would discard a
-  mounted one.
+  The element that opens the prompt. Any Shiny UI, including another
+  shiny.element component – that component is folded into this one's Vue
+  instance rather than nested inside it, so its inputs keep reporting.
+  Its `update_el_*()` no longer reaches it, though.
 
 - title:
 
@@ -91,14 +90,14 @@ el_popconfirm("del",
   title = "Delete this row?"
 )
 #> <div id="del_container" style="display: contents">
-#>   <el-popconfirm :title="title === null ? undefined : title" :confirm-button-text="confirmButtonText === null ? undefined : confirmButtonText" :cancel-button-text="cancelButtonText === null ? undefined : cancelButtonText" :confirm-button-type="confirmButtonType === null ? undefined : confirmButtonType" :cancel-button-type="cancelButtonType === null ? undefined : cancelButtonType" :icon="icon === null ? undefined : icon" :icon-color="iconColor === null ? undefined : iconColor" :hide-icon="hideIcon === null ? undefined : hideIcon" @onConfirm="handleConfirm" @onCancel="handleCancel">
+#>   <el-popconfirm :title="pcTitle === null ? undefined : pcTitle" :confirm-button-text="pcConfirmButtonText === null ? undefined : pcConfirmButtonText" :cancel-button-text="pcCancelButtonText === null ? undefined : pcCancelButtonText" :confirm-button-type="pcConfirmButtonType === null ? undefined : pcConfirmButtonType" :cancel-button-type="pcCancelButtonType === null ? undefined : pcCancelButtonType" :icon="pcIcon === null ? undefined : pcIcon" :icon-color="pcIconColor === null ? undefined : pcIconColor" :hide-icon="pcHideIcon === null ? undefined : pcHideIcon" @onConfirm="handleConfirm" @onCancel="handleCancel">
 #>     <span slot="reference">
 #>       <el-button type="danger">Delete</el-button>
 #>     </span>
 #>   </el-popconfirm>
 #> </div>
 #> <div id="del" style="width:0px;height:0px;" class="vue html-widget"></div>
-#> <script type="application/json" data-for="del">{"x":{"el":"#del_container","data":{"title":"Delete this row?","confirmButtonText":null,"cancelButtonText":null,"confirmButtonType":null,"cancelButtonType":null,"icon":null,"iconColor":null,"hideIcon":null},"methods":{"handleConfirm":"function() { Shiny.setInputValue('del_confirm', true, {priority: 'event'}); }","handleCancel":"function() { Shiny.setInputValue('del_cancel', true, {priority: 'event'}); }"}},"evals":["methods.handleConfirm","methods.handleCancel"],"jsHooks":[]}</script>
+#> <script type="application/json" data-for="del">{"x":{"el":"#del_container","data":{"pcTitle":"Delete this row?","pcConfirmButtonText":null,"pcCancelButtonText":null,"pcConfirmButtonType":null,"pcCancelButtonType":null,"pcIcon":null,"pcIconColor":null,"pcHideIcon":null},"methods":{"handleConfirm":"function() { Shiny.setInputValue('del_confirm', true, {priority: 'event'}); }","handleCancel":"function() { Shiny.setInputValue('del_cancel', true, {priority: 'event'}); }"}},"evals":["methods.handleConfirm","methods.handleCancel"],"jsHooks":[]}</script>
 
 if (interactive()) {
   library(shiny)
