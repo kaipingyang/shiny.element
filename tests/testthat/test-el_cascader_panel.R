@@ -27,6 +27,6 @@ test_that("el_cascader_panel reports its path and forwards expand-change", {
 test_that("update_el_cascader_panel sends the new value and options", {
   s <- mock_session()
   update_el_cascader_panel(s, "where", value = c("asia", "cn"))
-  expect_equal(s$captured()$type, "updateElCascaderPanel")
+  expect_equal(s$captured()$type, "shinyVueUpdate")
   expect_equal(s$captured()$msg, list(id = "where", value = list("asia", "cn")))
 })

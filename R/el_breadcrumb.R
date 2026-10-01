@@ -75,8 +75,7 @@ el_breadcrumb <- function(id = NULL,
       ))
     ),
     width      = width,
-    slots      = slots,
-    dependency = el_breadcrumb_handler_dependency()
+    slots      = slots
   )
 }
 
@@ -106,12 +105,8 @@ update_el_breadcrumb <- function(session = shiny::getDefaultReactiveDomain(), id
   msg <- list(id = ns_id)
   if (!is.null(items))     msg$items     <- unname(items)
   if (!is.null(separator)) msg$separator <- separator
-  session$sendCustomMessage("updateElBreadcrumb", msg)
+  .el_send_update(session, msg)
   invisible(NULL)
 }
 
 
-#' @keywords internal
-el_breadcrumb_handler_dependency <- function() {
-  .el_handler_dependency("breadcrumb")
-}

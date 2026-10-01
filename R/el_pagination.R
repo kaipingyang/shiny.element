@@ -171,8 +171,7 @@ el_pagination <- function(
     mounted = .el_mounted_init(stats::setNames(c("currentPage", "pageSize"),
                               paste0(ns_id, c("_page", "_size")))),
     width      = width,
-    slots      = slots,
-    dependency = el_pagination_handler_dependency()
+    slots      = slots
   )
 }
 
@@ -212,13 +211,8 @@ update_el_pagination <- function(
   if (!is.null(current_page)) msg$currentPage <- current_page
   if (!is.null(page_size))    msg$pageSize    <- page_size
   if (!is.null(disabled))     msg$disabled    <- disabled
-  session$sendCustomMessage("updateElPagination", msg)
+  .el_send_update(session, msg)
   invisible(NULL)
 }
 
 
-#' Pagination Handler Dependency
-#' @keywords internal
-el_pagination_handler_dependency <- function() {
-  .el_handler_dependency("pagination")
-}

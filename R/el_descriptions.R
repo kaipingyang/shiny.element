@@ -127,7 +127,7 @@ el_descriptions <- function(id = NULL,
     mounted  = merged$mounted,
     width    = width,
     slots    = slots,
-    dependency = c(el_descriptions_handler_dependency(), merged$dependencies)
+    dependency = merged$dependencies
   )
 }
 
@@ -199,12 +199,8 @@ update_el_descriptions <- function(session = shiny::getDefaultReactiveDomain(), 
   if (!is.null(column))    msg$dColumn    <- column
   if (!is.null(direction)) msg$dDirection <- direction
   if (!is.null(border))    msg$dBorder    <- border
-  session$sendCustomMessage("updateElDescriptions", msg)
+  .el_send_update(session, msg)
   invisible(NULL)
 }
 
 
-#' @keywords internal
-el_descriptions_handler_dependency <- function() {
-  .el_handler_dependency("descriptions")
-}

@@ -115,8 +115,7 @@ el_progress <- function(
     id     = ns_id,
     markup = htmltools::tag("el-progress", progress_attrs),
     data = vue_data,
-    slots      = slots,
-    dependency = el_progress_handler_dependency()
+    slots      = slots
   )
 }
 
@@ -165,13 +164,8 @@ update_el_progress <- function(
   if (!is.null(stroke_width)) msg$strokeWidth <- stroke_width
   if (!is.null(show_text))    msg$showText    <- show_text
   if (!is.null(text_inside))  msg$textInside  <- text_inside
-  session$sendCustomMessage("updateElProgress", msg)
+  .el_send_update(session, msg)
   invisible(NULL)
 }
 
 
-#' Progress Handler Dependency
-#' @keywords internal
-el_progress_handler_dependency <- function() {
-  .el_handler_dependency("progress")
-}

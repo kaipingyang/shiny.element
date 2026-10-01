@@ -107,5 +107,5 @@ test_that("el_col: content is rendered inside", {
 test_that("el_row: a nested widget keeps its html dependencies", {
   # The old custom-tag/template approach dropped these.
   deps <- htmltools::findDependencies(el_row(el_col(span = 12, el_switch("sw"))))
-  expect_true("el-switch-handler" %in% vapply(deps, function(d) d$name, character(1)))
+  expect_true("shiny-vue" %in% vapply(deps, function(d) d$name, character(1)))
 })

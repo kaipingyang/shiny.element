@@ -75,10 +75,12 @@ test_that("el_slider: @change binding present on el-slider tag", {
   expect_match(html, "@change")
 })
 
-test_that("el_slider: handleChange contains ns_id for Shiny input", {
-  s    <- el_slider("s1", session = NULL)
-  html <- render_html(s)
-  expect_match(html, "setInputValue[^']*'s1'")
+test_that("el_slider: its value is the binding's, sent once", {
+  # The value is the binding's alone; the change handler no longer sends it
+  # under the same id, which sent it twice (and once unconverted, for a date)
+  ui <- el_slider("s1")
+  expect_equal(vue_spec_of(ui)$input, "value")
+  expect_false(grepl("setInputValue('s1'", render_html(ui), fixed = TRUE))
 })
 
 test_that("el_slider: :min and :max bindings present", {

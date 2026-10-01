@@ -86,8 +86,7 @@ el_cascader_panel <- function(id = NULL,
     )),
     mounted    = .el_mounted_init(stats::setNames("value", ns_id)),
     width      = width,
-    slots      = slots,
-    dependency = el_cascader_panel_handler_dependency()
+    slots      = slots
   )
 }
 
@@ -112,12 +111,8 @@ update_el_cascader_panel <- function(session = shiny::getDefaultReactiveDomain()
   msg <- list(id = session$ns(id))
   if (!is.null(value))   msg$value   <- as.list(value)
   if (!is.null(options)) msg$options <- unname(options)
-  session$sendCustomMessage("updateElCascaderPanel", msg)
+  .el_send_update(session, msg)
   invisible(NULL)
 }
 
 
-#' @keywords internal
-el_cascader_panel_handler_dependency <- function() {
-  .el_handler_dependency("cascader-panel")
-}

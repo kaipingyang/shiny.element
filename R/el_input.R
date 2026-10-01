@@ -61,7 +61,8 @@
 #' @return An `htmltools` tagList with a Vue-managed input component.
 #'
 #' @section Shiny input:
-#' `input$<id>` — string value of the input, updated on `change` event
+#' `input$<id>` -- the text, reported as it is typed, debounced by 250 ms
+#' as [shiny::textInput()] does, and after an [update_el_input()].
 #' (triggered on blur or Enter key press).
 #'
 #' @examples
@@ -198,6 +199,8 @@ el_input <- function(
   vue_data$tabindex <- .el_or_na(tabindex)
   vue_data$validateEvent <- .el_or_na(validate_event)
   el_widget(
+    # Reported as the value changes, debounced, as Shiny's own inputs are
+    rate = list(policy = "debounce", delay = 250),
     label = label, label_position = label_position,
     id     = ns_id,
     markup = htmltools::tag("el-input", input_attrs),
@@ -210,8 +213,7 @@ el_input <- function(
     )),
     mounted = .el_mounted_init(stats::setNames("value", ns_id)),
     width      = width,
-    slots      = slots,
-    dependency = el_input_handler_dependency()
+    slots      = slots
   )
 }
 
@@ -264,13 +266,8 @@ update_el_input <- function(
   if (!is.null(size))         msg$size         <- size
   if (!is.null(clearable))    msg$clearable    <- clearable
   if (!is.null(show_password)) msg$showPassword <- show_password
-  session$sendCustomMessage("updateElInput", msg)
+  .el_send_update(session, msg)
   invisible(NULL)
 }
 
 
-#' Input Handler Dependency
-#' @keywords internal
-el_input_handler_dependency <- function() {
-  .el_handler_dependency("input")
-}

@@ -1,8 +1,5 @@
 
 # Private dependency loader (not exported)
-el_select_handler_dependency <- function() {
-  .el_handler_dependency("select")
-}
 
 #' Element UI Select Component
 #'
@@ -247,8 +244,7 @@ el_select <- function(
     )),
     mounted = .el_mounted_init(stats::setNames("value", ns_id)),
     width      = width,
-    slots      = slots,
-    dependency = el_select_handler_dependency()
+    slots      = slots
   )
 }
 
@@ -316,7 +312,7 @@ update_el_select <- function(
   if (!is.null(loading_text))  msg$loadingText   <- loading_text
   if (!is.null(no_match_text)) msg$noMatchText   <- no_match_text
   if (!is.null(no_data_text))  msg$noDataText    <- no_data_text
-  session$sendCustomMessage("updateElSelect", msg)
+  .el_send_update(session, msg)
   invisible(NULL)
 }
 

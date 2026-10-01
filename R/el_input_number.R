@@ -118,6 +118,8 @@ el_input_number <- function(
   vue_data$label <- .el_or_na(label)
   vue_data$name <- .el_or_na(name)
   el_widget(
+    # Reported as the value changes, debounced, as Shiny's own inputs are
+    rate = list(policy = "debounce", delay = 250),
     label = label, label_position = label_position,
     id     = ns_id,
     markup = htmltools::tag("el-input-number", num_attrs),
@@ -130,8 +132,7 @@ el_input_number <- function(
     )),
     mounted = .el_mounted_init(stats::setNames("value", ns_id)),
     width      = width,
-    slots      = slots,
-    dependency = el_input_number_handler_dependency()
+    slots      = slots
   )
 }
 
@@ -165,12 +166,8 @@ update_el_input_number <- function(session = shiny::getDefaultReactiveDomain(), 
   if (!is.null(min))      msg$min      <- min
   if (!is.null(max))      msg$max      <- max
   if (!is.null(disabled)) msg$disabled <- disabled
-  session$sendCustomMessage("updateElInputNumber", msg)
+  .el_send_update(session, msg)
   invisible(NULL)
 }
 
 
-#' @keywords internal
-el_input_number_handler_dependency <- function() {
-  .el_handler_dependency("input-number")
-}

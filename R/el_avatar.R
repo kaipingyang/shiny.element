@@ -73,8 +73,7 @@ el_avatar <- function(id = NULL,
     ),
     methods    = events$methods,
     width      = width,
-    slots      = slots,
-    dependency = el_avatar_handler_dependency()
+    slots      = slots
   )
 }
 
@@ -106,12 +105,8 @@ update_el_avatar <- function(session = shiny::getDefaultReactiveDomain(), id, co
   if (!is.null(icon))    msg$icon    <- icon
   if (!is.null(size))    msg$size    <- size
   if (!is.null(shape))   msg$shape   <- shape
-  session$sendCustomMessage("updateElAvatar", msg)
+  .el_send_update(session, msg)
   invisible(NULL)
 }
 
 
-#' @keywords internal
-el_avatar_handler_dependency <- function() {
-  .el_handler_dependency("avatar")
-}

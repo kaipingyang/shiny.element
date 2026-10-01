@@ -139,8 +139,7 @@ el_calendar <- function(id = NULL,
     ),
     mounted    = .el_mounted_init(stats::setNames("value", ns_id)),
     width      = width,
-    slots      = slots,
-    dependency = el_calendar_handler_dependency()
+    slots      = slots
   )  
 }  
 
@@ -170,6 +169,6 @@ update_el_calendar <- function(session = shiny::getDefaultReactiveDomain(), id, 
   if (!is.null(range)) message$range <- as.character(range)  
   if (!is.null(first_day_of_week)) message$firstDayOfWeek <- first_day_of_week  
   
-  session$sendCustomMessage('updateElCalendar', message)
+  .el_send_update(session, message)
   invisible(NULL)
 }

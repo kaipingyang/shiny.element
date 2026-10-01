@@ -28,9 +28,9 @@ test_that("el_calendar: binds value and first-day-of-week", {
   expect_match(html, ':first-day-of-week="firstDayOfWeek"')
 })
 
-test_that("el_calendar: attaches its own handler dependency", {
+test_that("el_calendar: attaches the shared bridge", {
   deps <- htmltools::findDependencies(el_calendar(id = "c1"))
-  expect_true("el-calendar-handler" %in% vapply(deps, function(d) d$name, character(1)))
+  expect_true("shiny-vue" %in% vapply(deps, function(d) d$name, character(1)))
 })
 
 # ── value ─────────────────────────────────────────────────────────────────────
@@ -86,7 +86,7 @@ test_that("el_calendar: reports its value on mount as well as on change", {
 
 test_that("update_el_calendar: sends under the right message type", {
   out <- sent_message(function(s) update_el_calendar(s, "c1", value = "2026-05-05"))
-  expect_equal(out$type, "updateElCalendar")
+  expect_equal(out$type, "shinyVueUpdate")
   expect_equal(out$msg$id, "c1")
   expect_equal(out$msg$value, "2026-05-05")
 })

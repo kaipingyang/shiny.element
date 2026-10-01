@@ -56,9 +56,9 @@ test_that("el_timeline: returns a tagList with the container id", {
   expect_match(render_html(t), 'id="log_container"')
 })
 
-test_that("el_timeline: attaches its own handler dependency", {
+test_that("el_timeline: attaches the shared bridge", {
   deps <- htmltools::findDependencies(el_timeline(id = "log"))
-  expect_true("el-timeline-handler" %in% vapply(deps, function(d) d$name, character(1)))
+  expect_true("shiny-vue" %in% vapply(deps, function(d) d$name, character(1)))
 })
 
 test_that("el_timeline: entries render through one v-for so they stay replaceable", {
@@ -112,7 +112,7 @@ test_that("el_timeline: is display-only, with no Shiny input", {
 
 test_that("update_el_timeline: sends under the right message type", {
   out <- sent_message(function(s) update_el_timeline(s, "log", items = demo_items))
-  expect_equal(out$type, "updateElTimeline")
+  expect_equal(out$type, "shinyVueUpdate")
   expect_equal(out$msg$id, "log")
   expect_length(out$msg$items, 3)
   expect_equal(out$msg$items[[1]]$content, "Placed")

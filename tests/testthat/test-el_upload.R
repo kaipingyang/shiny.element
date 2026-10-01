@@ -78,9 +78,9 @@ test_that("el_upload: returns a tagList with the container id", {
   expect_match(render_html(u), 'id="files_container"')
 })
 
-test_that("el_upload: attaches its own handler dependency", {
+test_that("el_upload: attaches the shared bridge", {
   deps <- htmltools::findDependencies(el_upload("files"))
-  expect_true("el-upload-handler" %in% vapply(deps, function(d) d$name, character(1)))
+  expect_true("shiny-vue" %in% vapply(deps, function(d) d$name, character(1)))
 })
 
 test_that("el_upload: drag renders a drop zone, otherwise a button", {
@@ -143,7 +143,7 @@ test_that("el_upload: reports successes and failures separately", {
 
 test_that("update_el_upload: sends under the right message type", {
   out <- sent_message(function(s) update_el_upload(s, "files", disabled = TRUE))
-  expect_equal(out$type, "updateElUpload")
+  expect_equal(out$type, "shinyVueUpdate")
   expect_equal(out$msg$id, "files")
   expect_true(out$msg$disabled)
 })
@@ -154,17 +154,15 @@ test_that("update_el_upload: NULL fields are excluded", {
   expect_null(out$msg$disabled)
 })
 
-test_that("el_upload_clear: sends just the id", {
+test_that("el_upload_clear: sends the id and the operation", {
   out <- sent_message(function(s) el_upload_clear(s, "files"))
-  expect_equal(out$type, "clearElUpload")
-  expect_equal(out$msg, list(id = "files"))
+  expect_equal(out$type, "shinyVueUpdate")
+  expect_equal(out$msg, list(id = "files", .action = "clear"))
 })
 
-test_that("the upload handler clears through the component's own method", {
-  js <- paste(readLines(
-    system.file("js", "el-upload-handler.js", package = "shiny.element"), warn = FALSE
-  ), collapse = "\n")
+test_that("el_upload_clear() empties the list through the component's own method", {
   # Emptying the list is a method, not a prop.
-  expect_match(js, "clearFiles", fixed = TRUE)
-  expect_match(js, "elRegisterUpdate", fixed = TRUE)
+  m <- vue_payload_of(el_upload("files"))$methods
+  expect_match(m$shinyVueReceive, "clearFiles", fixed = TRUE)
+  expect_match(m$shinyVueReceive, "files_success", fixed = TRUE)
 })

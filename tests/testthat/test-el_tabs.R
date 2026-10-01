@@ -33,7 +33,7 @@ test_that("el_tabs: loads the input binding, not a message handler", {
   deps  <- htmltools::findDependencies(el_tabs("t1", tabs = demo_tabs))
   names <- vapply(deps, function(d) d$name, character(1))
   expect_true("el-tabs-binding" %in% names)
-  expect_false("el-tabs-handler" %in% names)
+  expect_false("shiny-vue" %in% names)
 })
 
 test_that("el_tabs: the selected tab is marked and its pane shown", {
@@ -109,7 +109,7 @@ test_that("el_tabs: nested components keep their own dependencies", {
     list(name = "a", label = "A", content = el_switch("sw"))
   )))
   names <- vapply(deps, function(d) d$name, character(1))
-  expect_true("el-switch-handler" %in% names)
+  expect_true("shiny-vue" %in% names)
   expect_true("el-tabs-binding" %in% names)
 })
 

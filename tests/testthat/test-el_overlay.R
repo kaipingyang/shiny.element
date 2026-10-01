@@ -77,7 +77,7 @@ test_that("nested components keep their own dependencies", {
     htmltools::findDependencies(el_dialog("d1", content = el_switch("sw"))),
     function(d) d$name, character(1)
   )
-  expect_true("el-switch-handler" %in% names)
+  expect_true("shiny-vue" %in% names)
   expect_true("el-overlay-binding" %in% names)
 })
 

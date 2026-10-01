@@ -84,68 +84,42 @@ test_that("Vue is bundled, in the version Element UI 2 runs on", {
             package_version(.el_vue_dependency(FALSE)$version))
 })
 
-test_that("every handler dependency resolves to files that exist", {
-  fns <- ls(asNamespace("shiny.element"), pattern = "^el_.*_handler_dependency$")
-  expect_gt(length(fns), 20)
-
-  for (fn in fns) {
-    for (dep in do.call(fn, list())) {
-      # jQuery comes from jquerylib, its src relative to that package
-      dir <- unname(dep$src[["file"]])
-      if (!is.null(dep$package)) dir <- system.file(dir, package = dep$package)
-      expect_true(
-        file.exists(file.path(dir, dep$script)),
-        info = paste(fn, "->", dep$script)
-      )
-    }
+test_that("every script a component brings resolves to a file", {
+  for (dep in .el_vue_dependencies()) {
+    # jQuery comes from jquerylib, its src relative to that package
+    dir <- unname(dep$src[["file"]])
+    if (!is.null(dep$package)) dir <- system.file(dir, package = dep$package)
+    expect_true(file.exists(file.path(dir, dep$script)), info = dep$script)
   }
 })
 
-test_that("every handler dependency carries the shared scripts too", {
-  # The shared scripts have to be present and load before the component's own
-  # handler; relying on el_page() to provide them would break a page assembled
-  # some other way.
-  fns <- ls(asNamespace("shiny.element"), pattern = "^el_.*_handler_dependency$")
-
-  for (fn in fns) {
-    deps  <- do.call(fn, list())
-    names <- vapply(deps, function(d) d$name, character(1))
-    # jQuery first: every script after it is written against it
-    expect_equal(names[1:4], c("jquery", "el-invoke", "el-events", "el-update"),
-                 info = fn)
-    expect_length(deps, 5)
-  }
+test_that("every component brings the bridge, after jQuery and Vue", {
+  names <- vapply(htmltools::findDependencies(el_input("x")), `[[`, "", "name")
+  expect_equal(names[1:4], c("jquery", "vue", "shiny-vue", "el-events"))
 })
 
-test_that("the shared updater checks each key against the component's data", {
+test_that("the bridge checks each updated key against the component's data", {
   js <- paste(readLines(
-    system.file("js", "el-update.js", package = "shiny.element"), warn = FALSE
+    system.file("js", "shiny-vue.js", package = "shiny.element"), warn = FALSE
   ), collapse = "\n")
-  # This check is the whole point: writing a field the component never declared
-  # is a silent no-op in Vue 2, which is how el-table's handler shipped three
-  # assignments that could never have worked.
+  # Writing a field the component never declared is a silent no-op in Vue 2,
+  # which is how el-table's handler shipped three assignments that could
+  # never have worked.
   expect_match(js, "in vm.$data", fixed = TRUE)
-  expect_match(js, "console.warn", fixed = TRUE)
+  expect_match(js, "is not a field of", fixed = TRUE)
+  expect_match(js, "no component with id", fixed = TRUE)
+  expect_match(js, "shinyVueUpdate", fixed = TRUE)
+  expect_match(js, "shinyVueCall", fixed = TRUE)
 })
 
-test_that("component handlers delegate to the shared updater", {
-  js_dir <- system.file("js", package = "shiny.element")
-  handlers <- setdiff(
-    list.files(js_dir, pattern = "-handler\\.js$"),
-    # These do more than assign fields: feedback calls Message and
-    # Notification, form calls validate/resetFields/clearValidate, and tree
-    # calls setCheckedKeys because assigning default-checked-keys only ever
-    # adds to the selection.
-    c("el-feedback-handler.js", "el-form-handler.js", "el-tree-handler.js",
-      "el-carousel-handler.js")
-  )
-  expect_gt(length(handlers), 20)
-
-  for (h in handlers) {
-    js <- paste(readLines(file.path(js_dir, h), warn = FALSE), collapse = "\n")
-    expect_match(js, "elRegisterUpdate", fixed = TRUE, info = h)
-    expect_false(grepl("!== undefined", js, fixed = TRUE), info = h)
-  }
+test_that("no component brings a handler script of its own", {
+  # Forty-odd scripts each registered one message type; a component whose
+  # script arrived late -- through renderUI() -- or was never attached (the
+  # cascader once got the button's) heard nothing. One message, handled by
+  # the bridge, replaced them. Feedback stays: it belongs to no component.
+  handlers <- list.files(system.file("js", package = "shiny.element"),
+                         pattern = "-handler\\.js$")
+  expect_equal(handlers, "el-feedback-handler.js")
 })
 
 # ── layout stylesheet ─────────────────────────────────────────────────────────

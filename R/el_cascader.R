@@ -180,8 +180,7 @@ el_cascader <- function(id = NULL,
     )),
     mounted = .el_mounted_init(stats::setNames("value", paste0(ns_id, "_value"))),
     width      = width,
-    slots      = slots,
-    dependency = el_cascader_handler_dependency()
+    slots      = slots
   )
 }
 
@@ -221,7 +220,7 @@ update_el_cascader <- function(session = shiny::getDefaultReactiveDomain(), id,
   if (!is.null(filterable)) message$filterable <- filterable
   if (!is.null(disabled)) message$disabled <- disabled
 
-  session$sendCustomMessage('updateElCascader', message)
+  .el_send_update(session, message)
   invisible(NULL)
 }
 

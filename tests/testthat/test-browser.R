@@ -184,10 +184,12 @@ test_that("update_el_table swaps the data and re-infers the columns", {
   expect_match(headers, "mpg", fixed = TRUE)
 })
 
-test_that("the cascader's own handler is loaded and its updates land", {
+test_that("the cascader's updates land", {
   skip_if_no_browser()
+  # Once it had a handler script of its own, which went unloaded and every
+  # update unheard. Updates now share one message, handled by the bridge.
   scripts <- bev("JSON.stringify(Array.from(document.querySelectorAll('script[src]')).map(function(s){var m=s.src.match(/el-[a-z-]+-handler/); return m?m[0]:null}).filter(Boolean))")
-  expect_match(scripts, "el-cascader-handler", fixed = TRUE)
+  expect_false(grepl("el-cascader-handler", scripts, fixed = TRUE))
 
   bclick("#casc_update", wait = 2.5)
   expect_equal(bev("document.querySelector('#casc_container input').placeholder"), "updated")

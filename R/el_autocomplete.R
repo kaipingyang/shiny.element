@@ -130,6 +130,8 @@ el_autocomplete <- function(id = NULL,
   attrs <- c(attrs, events$attrs)
 
   el_widget(
+    # Reported as the value changes, debounced, as Shiny's own inputs are
+    rate = list(policy = "debounce", delay = 250),
     label = label, label_position = label_position,
     id     = ns_id,
     markup = htmltools::tag("el-autocomplete", attrs),
@@ -167,8 +169,7 @@ el_autocomplete <- function(id = NULL,
     ),
     mounted    = .el_mounted_init(stats::setNames("value", ns_id)),
     width      = width,
-    slots      = slots,
-    dependency = el_autocomplete_handler_dependency()
+    slots      = slots
   )
 }
 
@@ -216,12 +217,8 @@ update_el_autocomplete <- function(session = shiny::getDefaultReactiveDomain(), 
   if (!is.null(suggestions)) msg$suggestions <- .el_autocomplete_suggestions(suggestions)
   if (!is.null(placeholder)) msg$placeholder <- placeholder
   if (!is.null(disabled))    msg$disabled    <- disabled
-  session$sendCustomMessage("updateElAutocomplete", msg)
+  .el_send_update(session, msg)
   invisible(NULL)
 }
 
 
-#' @keywords internal
-el_autocomplete_handler_dependency <- function() {
-  .el_handler_dependency("autocomplete")
-}

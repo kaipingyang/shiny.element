@@ -153,8 +153,7 @@ el_checkbox_group <- function(
     ),
     mounted = .el_mounted_init(stats::setNames("value", ns_id)),
     width      = width,
-    slots      = slots,
-    dependency = el_checkbox_group_handler_dependency()
+    slots      = slots
   )
 }
 
@@ -204,13 +203,8 @@ update_el_checkbox_group <- function(
   if (!is.null(disabled)) msg$disabled <- disabled
   if (!is.null(min))      msg$min      <- min
   if (!is.null(max))      msg$max      <- max
-  session$sendCustomMessage("updateElCheckboxGroup", msg)
+  .el_send_update(session, msg)
   invisible(NULL)
 }
 
 
-#' Checkbox Group Handler Dependency
-#' @keywords internal
-el_checkbox_group_handler_dependency <- function() {
-  .el_handler_dependency("checkbox-group")
-}

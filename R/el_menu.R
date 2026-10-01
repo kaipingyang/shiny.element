@@ -240,8 +240,7 @@ el_menu <- function(id = NULL,
       c("active || null", "path"), paste0(ns_id, c("", "_path"))
     )),
     width      = width,
-    slots      = slots,
-    dependency = el_menu_handler_dependency()
+    slots      = slots
   )
 }
 
@@ -265,6 +264,6 @@ update_el_menu <- function(session = shiny::getDefaultReactiveDomain(), id, acti
   msg <- list(id = session$ns(id))
   if (!is.null(active))   msg$active   <- active
   if (!is.null(collapse)) msg$collapse <- collapse
-  session$sendCustomMessage("updateElMenu", msg)
+  .el_send_update(session, msg)
   invisible(NULL)
 }

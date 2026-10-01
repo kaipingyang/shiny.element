@@ -143,8 +143,7 @@ el_rate <- function(
     ),
     mounted = .el_mounted_init(stats::setNames("value", ns_id)),
     width      = width,
-    slots      = slots,
-    dependency = el_rate_handler_dependency()
+    slots      = slots
   )
 }
 
@@ -173,12 +172,8 @@ update_el_rate <- function(session = shiny::getDefaultReactiveDomain(), id, valu
   msg   <- list(id = ns_id)
   if (!is.null(value))    msg$value    <- value
   if (!is.null(disabled)) msg$disabled <- disabled
-  session$sendCustomMessage("updateElRate", msg)
+  .el_send_update(session, msg)
   invisible(NULL)
 }
 
 
-#' @keywords internal
-el_rate_handler_dependency <- function() {
-  .el_handler_dependency("rate")
-}

@@ -227,8 +227,7 @@ el_date_picker <- function(
     type    = if (type %in% c("date", "dates", "daterange") &&
                   identical(value_format, "yyyy-MM-dd")) "shiny.element.date",
     width      = width,
-    slots      = slots,
-    dependency = el_date_picker_handler_dependency()
+    slots      = slots
   )
 }
 
@@ -275,12 +274,9 @@ update_el_date_picker <- function(
   if (!is.null(clearable))   msg$clearable   <- clearable
   if (!is.null(readonly))    msg$readonly    <- readonly
   if (!is.null(placeholder)) msg$placeholder <- placeholder
-  session$sendCustomMessage("updateElDatePicker", msg)
+  .el_send_update(session, msg)
   invisible(NULL)
 }
 
 
 # Date picker handler dependency (internal)
-el_date_picker_handler_dependency <- function() {
-  .el_handler_dependency("date-picker")
-}

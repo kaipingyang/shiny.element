@@ -33,9 +33,9 @@ test_that("el_steps: one el-step tag per step", {
   expect_equal(lengths(regmatches(html, gregexpr("<el-step ", html, fixed = TRUE)))[[1]], 3L)
 })
 
-test_that("el_steps: attaches its own handler dependency", {
+test_that("el_steps: attaches the shared bridge", {
   deps <- htmltools::findDependencies(el_steps(id = "s1", steps = three_steps))
-  expect_true("el-steps-handler" %in% vapply(deps, function(d) d$name, character(1)))
+  expect_true("shiny-vue" %in% vapply(deps, function(d) d$name, character(1)))
 })
 
 # ── step attributes ───────────────────────────────────────────────────────────
@@ -115,7 +115,7 @@ test_that("el_steps: reports active on mount as well as on change", {
 
 test_that("update_el_steps: sends under the right message type", {
   out <- sent_message(function(s) update_el_steps(s, "s1", active = 2))
-  expect_equal(out$type, "updateElSteps")
+  expect_equal(out$type, "shinyVueUpdate")
   expect_equal(out$msg$id, "s1")
   expect_equal(out$msg$active, 2)
 })

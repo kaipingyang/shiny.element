@@ -93,8 +93,7 @@ el_tag <- function(
       ))
     ),
     width      = width,
-    slots      = slots,
-    dependency = el_tag_handler_dependency()
+    slots      = slots
   )
 }
 
@@ -126,12 +125,8 @@ update_el_tag <- function(session = shiny::getDefaultReactiveDomain(), id, label
   if (!is.null(label))    msg$label    <- label
   if (!is.null(type))     msg$type     <- type
   if (!is.null(closable)) msg$closable <- closable
-  session$sendCustomMessage("updateElTag", msg)
+  .el_send_update(session, msg)
   invisible(NULL)
 }
 
 
-#' @keywords internal
-el_tag_handler_dependency <- function() {
-  .el_handler_dependency("tag")
-}

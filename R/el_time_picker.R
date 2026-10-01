@@ -188,8 +188,7 @@ el_time_select <- function(id = NULL,
     )),
     mounted    = .el_mounted_init(stats::setNames("value", ns_id)),
     width      = width,
-    slots      = slots,
-    dependency = el_time_picker_handler_dependency()
+    slots      = slots
   )
 }
 
@@ -217,12 +216,8 @@ update_el_time_picker <- function(session = shiny::getDefaultReactiveDomain(), i
   if (!is.null(value))          msg$value         <- if (length(value) > 1) as.list(value) else value
   if (!is.null(disabled))       msg$disabled      <- disabled
   if (!is.null(picker_options)) msg$pickerOptions <- picker_options
-  session$sendCustomMessage("updateElTimePicker", msg)
+  .el_send_update(session, msg)
   invisible(NULL)
 }
 
 
-#' @keywords internal
-el_time_picker_handler_dependency <- function() {
-  .el_handler_dependency("time-picker")
-}

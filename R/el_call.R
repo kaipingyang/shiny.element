@@ -74,7 +74,7 @@ el_call <- function(session = shiny::getDefaultReactiveDomain(), id, method, arg
   if (!is.list(args)) args <- list(args)
 
   ns_id <- session$ns(id)
-  session$sendCustomMessage("elInvoke", list(
+  session$sendCustomMessage("shinyVueCall", list(
     id        = ns_id,
     method    = method,
     # Unnamed, so jsonlite writes an array and the arguments stay positional

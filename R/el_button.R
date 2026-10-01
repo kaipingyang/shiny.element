@@ -128,8 +128,7 @@ el_button <- function(
       ))
     ),
     width      = width,
-    slots      = slots,
-    dependency = el_button_handler_dependency()
+    slots      = slots
   )
 }
 
@@ -179,6 +178,6 @@ update_el_button <- function(
   if (!is.null(round))    msg$round    <- round
   if (!is.null(loading))  msg$loading  <- loading
   if (!is.null(disabled)) msg$disabled <- disabled
-  session$sendCustomMessage("updateElButton", msg)
+  .el_send_update(session, msg)
   invisible(NULL)
 }

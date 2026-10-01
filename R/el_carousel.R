@@ -155,14 +155,18 @@ el_carousel <- function(id = NULL,
     id       = ns_id,
     markup   = htmltools::tag("el-carousel", c(carousel_attrs, unname(item_tags))),
     data     = merged$data,
-    methods  = merged$methods,
+    # update_el_carousel(active =) moves the carousel rather than set a field
+    methods  = c(merged$methods, list(shinyVueReceive = htmlwidgets::JS(paste0(
+      "function(d) { if ('active' in d) { ",
+      "if (this.$refs.carousel) this.$refs.carousel.setActiveItem(d.active); ",
+      "delete d.active; } return d; }")))),
     watch    = merged$watch,
     computed = merged$computed,
     # The carousel's own hook and those of any component on a slide
     mounted  = merged$mounted,
     width      = width,
     slots      = slots,
-    dependency = c(el_carousel_handler_dependency(), merged$dependencies)
+    dependency = merged$dependencies
   )
 }
 
@@ -193,6 +197,6 @@ update_el_carousel <- function(session = shiny::getDefaultReactiveDomain(), id,
   if (!is.null(active))   msg$active   <- active
   if (!is.null(autoplay)) msg$autoplay <- autoplay
   if (!is.null(interval)) msg$interval <- interval
-  session$sendCustomMessage("updateElCarousel", msg)
+  .el_send_update(session, msg)
   invisible(NULL)
 }

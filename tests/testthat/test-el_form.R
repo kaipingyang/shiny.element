@@ -134,9 +134,9 @@ test_that("el_form: returns a tagList with the container id", {
   expect_match(render_html(demo_form()), 'id="f1_container"')
 })
 
-test_that("el_form: attaches its own handler dependency", {
+test_that("el_form: attaches the shared bridge", {
   deps <- htmltools::findDependencies(demo_form())
-  expect_true("el-form-handler" %in% vapply(deps, function(d) d$name, character(1)))
+  expect_true("shiny-vue" %in% vapply(deps, function(d) d$name, character(1)))
 })
 
 test_that("el_form: collects the fields' values into one model", {
@@ -225,7 +225,7 @@ test_that("el_form: an empty form still renders", {
 
 test_that("update_el_form: sends a partial model for merging", {
   out <- sent_message(function(s) update_el_form(s, "f1", model = list(name = "Ada")))
-  expect_equal(out$type, "updateElForm")
+  expect_equal(out$type, "shinyVueUpdate")
   expect_equal(out$msg$id, "f1")
   expect_equal(out$msg$model, list(name = "Ada"))
 })
@@ -245,32 +245,31 @@ test_that("update_el_form: NULL fields are excluded", {
   expect_null(out$msg$rules)
 })
 
-test_that("el_form_validate: sends just the id", {
+test_that("el_form_validate: sends the id and the operation", {
   out <- sent_message(function(s) el_form_validate(s, "f1"))
-  expect_equal(out$type, "elFormValidate")
-  expect_equal(out$msg, list(id = "f1"))
+  expect_equal(out$type, "shinyVueUpdate")
+  expect_equal(out$msg, list(id = "f1", .action = "validate"))
 })
 
-test_that("el_form_reset: sends just the id", {
+test_that("el_form_reset: sends the id and the operation", {
   out <- sent_message(function(s) el_form_reset(s, "f1"))
-  expect_equal(out$type, "elFormReset")
-  expect_equal(out$msg, list(id = "f1"))
+  expect_equal(out$type, "shinyVueUpdate")
+  expect_equal(out$msg, list(id = "f1", .action = "reset"))
 })
 
 test_that("el_form_clear_validate: props are optional", {
   out <- sent_message(function(s) el_form_clear_validate(s, "f1"))
-  expect_equal(out$type, "elFormClearValidate")
+  expect_equal(out$type, "shinyVueUpdate")
+  expect_equal(out$msg$.action, "clearValidate")
   expect_null(out$msg$props)
 
   scoped <- sent_message(function(s) el_form_clear_validate(s, "f1", c("name", "age")))
   expect_equal(scoped$msg$props, list("name", "age"))
 })
 
-test_that("the form handler registers every message type it is sent", {
-  js <- paste(readLines(
-    system.file("js", "el-form-handler.js", package = "shiny.element"), warn = FALSE
-  ), collapse = "\n")
-  for (type in c("updateElForm", "elFormValidate", "elFormReset", "elFormClearValidate")) {
-    expect_match(js, type, fixed = TRUE)
+test_that("the form's receiver handles every operation it is sent", {
+  m <- vue_payload_of(demo_form())$methods
+  for (op in c("validate", "reset", "clearValidate", "$set(self.model")) {
+    expect_match(m$shinyVueReceive, op, fixed = TRUE)
   }
 })

@@ -99,8 +99,7 @@ el_color_picker <- function(
     )),
     mounted = .el_mounted_init(stats::setNames("value", ns_id)),
     width      = width,
-    slots      = slots,
-    dependency = el_color_picker_handler_dependency()
+    slots      = slots
   )
 }
 
@@ -129,12 +128,8 @@ update_el_color_picker <- function(session = shiny::getDefaultReactiveDomain(), 
   msg   <- list(id = ns_id)
   if (!is.null(value))    msg$value    <- value
   if (!is.null(disabled)) msg$disabled <- disabled
-  session$sendCustomMessage("updateElColorPicker", msg)
+  .el_send_update(session, msg)
   invisible(NULL)
 }
 
 
-#' @keywords internal
-el_color_picker_handler_dependency <- function() {
-  .el_handler_dependency("color-picker")
-}

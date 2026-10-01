@@ -680,8 +680,7 @@ el_table <- function(id = NULL,
       paste0(ns_id, c("_selected", "_selected_rows"))
     )),
     width      = width,
-    slots      = slots,
-    dependency = el_table_handler_dependency()
+    slots      = slots
   )
 }
 
@@ -739,7 +738,7 @@ update_el_table <- function(session = shiny::getDefaultReactiveDomain(), id,
   if (!is.null(selection)) msg$selection <- selection
   if (!is.null(loading))   msg$loading   <- loading
 
-  session$sendCustomMessage("updateElTable", msg)
+  .el_send_update(session, msg)
   invisible(NULL)
 }
 

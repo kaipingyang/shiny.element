@@ -102,9 +102,9 @@ test_that("el_menu: returns a tagList with the container id", {
   expect_match(render_html(m), 'id="nav_container"')
 })
 
-test_that("el_menu: attaches its own handler dependency", {
+test_that("el_menu: attaches the shared bridge", {
   deps <- htmltools::findDependencies(el_menu(id = "nav", items = demo_items))
-  expect_true("el-menu-handler" %in% vapply(deps, function(d) d$name, character(1)))
+  expect_true("shiny-vue" %in% vapply(deps, function(d) d$name, character(1)))
 })
 
 test_that("el_menu: active and layout options reach the Vue data", {
@@ -148,7 +148,7 @@ test_that("el_menu: an empty menu still renders", {
 
 test_that("update_el_menu: sends under the right message type", {
   out <- sent_message(function(s) update_el_menu(s, "nav", active = "home"))
-  expect_equal(out$type, "updateElMenu")
+  expect_equal(out$type, "shinyVueUpdate")
   expect_equal(out$msg$id, "nav")
   expect_equal(out$msg$active, "home")
 })

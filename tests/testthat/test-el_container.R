@@ -63,8 +63,8 @@ test_that("el_container: nested widgets keep their html dependencies", {
     el_container(el_header(el_switch("sw")), el_main(el_slider("sld")))
   )
   names <- vapply(deps, function(d) d$name, character(1))
-  expect_true("el-switch-handler" %in% names)
-  expect_true("el-slider-handler" %in% names)
+  expect_true("shiny-vue" %in% names)
+  expect_true("shiny-vue" %in% names)
 })
 
 # ── header / aside / main / footer ────────────────────────────────────────────

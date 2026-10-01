@@ -88,8 +88,7 @@ el_image <- function(id = NULL,
     ),
     methods    = events$methods,
     width      = width,
-    slots      = slots,
-    dependency = el_image_handler_dependency()
+    slots      = slots
   )
 }
 
@@ -119,12 +118,8 @@ update_el_image <- function(session = shiny::getDefaultReactiveDomain(), id, src
   if (!is.null(src)) msg$src <- src
   if (!is.null(fit)) msg$fit <- fit
   if (!is.null(preview_src_list)) msg$previewSrcList <- as.list(preview_src_list)
-  session$sendCustomMessage("updateElImage", msg)
+  .el_send_update(session, msg)
   invisible(NULL)
 }
 
 
-#' @keywords internal
-el_image_handler_dependency <- function() {
-  .el_handler_dependency("image")
-}

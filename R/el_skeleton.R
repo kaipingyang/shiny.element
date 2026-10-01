@@ -86,7 +86,7 @@ el_skeleton <- function(id = NULL,
     mounted  = merged$mounted,
     width    = width,
     slots    = slots,
-    dependency = c(el_skeleton_handler_dependency(), merged$dependencies)
+    dependency = merged$dependencies
   )
 }
 
@@ -114,12 +114,8 @@ update_el_skeleton <- function(session = shiny::getDefaultReactiveDomain(), id, 
   msg <- list(id = session$ns(id))
   if (!is.null(loading)) msg$skLoading <- loading
   if (!is.null(rows))    msg$skRows    <- rows
-  session$sendCustomMessage("updateElSkeleton", msg)
+  .el_send_update(session, msg)
   invisible(NULL)
 }
 
 
-#' @keywords internal
-el_skeleton_handler_dependency <- function() {
-  .el_handler_dependency("skeleton")
-}

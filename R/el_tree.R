@@ -270,6 +270,12 @@ el_tree <- function(id = NULL,
     markup = htmltools::tag("el-tree", tree_attrs),
     data = vue_data,
     methods = c(events$methods, list(
+      # update_el_tree(checked =): Element's setCheckedKeys(), which also
+      # updates the half-checked parents a plain assignment would leave alone
+      shinyVueReceive = htmlwidgets::JS(paste0(
+        "function(d) { if ('checkedKeys' in d) { var keys = d.checkedKeys || []; ",
+        "if (this.$refs.tree) this.$refs.tree.setCheckedKeys(keys); ",
+        "this.checked = keys; delete d.checkedKeys; } return d; }")),
       handleNodeClick = htmlwidgets::JS(sprintf(
         paste0(
           "function(data) { this.current = data[this.nodeKey]; ",
@@ -289,8 +295,7 @@ el_tree <- function(id = NULL,
       c("current", "checked"), paste0(ns_id, c("", "_checked"))
     )),
     width      = width,
-    slots      = slots,
-    dependency = el_tree_handler_dependency()
+    slots      = slots
   )
 }
 
@@ -324,7 +329,7 @@ update_el_tree <- function(session = shiny::getDefaultReactiveDomain(), id,
   if (!is.null(data))     msg$treeData     <- data
   if (!is.null(expanded)) msg$expandedKeys <- as.list(expanded)
   if (!is.null(checked))  msg$checkedKeys  <- as.list(checked)
-  session$sendCustomMessage("updateElTree", msg)
+  .el_send_update(session, msg)
   invisible(NULL)
 }
 

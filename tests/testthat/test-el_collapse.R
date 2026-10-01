@@ -40,7 +40,7 @@ test_that("el_collapse: loads the input binding, not a message handler", {
   deps  <- htmltools::findDependencies(el_collapse("c1", items = demo_items))
   names <- vapply(deps, function(d) d$name, character(1))
   expect_true("el-collapse-binding" %in% names)
-  expect_false("el-collapse-handler" %in% names)
+  expect_false("shiny-vue" %in% names)
 })
 
 test_that("el_collapse: open panels are marked on all three elements", {
@@ -85,7 +85,7 @@ test_that("el_collapse: nested components keep their own dependencies", {
     list(name = "p", title = "T", content = el_switch("sw"))
   )))
   names <- vapply(deps, function(d) d$name, character(1))
-  expect_true("el-switch-handler" %in% names)
+  expect_true("shiny-vue" %in% names)
   expect_true("el-collapse-binding" %in% names)
 })
 

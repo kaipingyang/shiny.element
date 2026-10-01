@@ -90,8 +90,7 @@ el_timeline <- function(id = NULL,
     markup = htmltools::tag("el-timeline", list(":reverse" = "reverse", item_tag)),
     data   = vue_data,
     width      = width,
-    slots      = slots,
-    dependency = el_timeline_handler_dependency()
+    slots      = slots
   )
 }
 
@@ -136,6 +135,6 @@ update_el_timeline <- function(session = shiny::getDefaultReactiveDomain(), id, 
   msg <- list(id = session$ns(id))
   if (!is.null(items))   msg$items   <- .el_timeline_items(items)
   if (!is.null(reverse)) msg$reverse <- reverse
-  session$sendCustomMessage("updateElTimeline", msg)
+  .el_send_update(session, msg)
   invisible(NULL)
 }

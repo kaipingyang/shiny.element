@@ -68,7 +68,7 @@ el_result <- function(id = NULL,
     mounted  = merged$mounted,
     width    = width,
     slots    = slots,
-    dependency = c(el_result_handler_dependency(), merged$dependencies)
+    dependency = merged$dependencies
   )
 }
 
@@ -100,12 +100,8 @@ update_el_result <- function(session = shiny::getDefaultReactiveDomain(), id, ic
   if (!is.null(icon))      msg$resultIcon     <- icon
   if (!is.null(title))     msg$resultTitle    <- title
   if (!is.null(sub_title)) msg$resultSubTitle <- sub_title
-  session$sendCustomMessage("updateElResult", msg)
+  .el_send_update(session, msg)
   invisible(NULL)
 }
 
 
-#' @keywords internal
-el_result_handler_dependency <- function() {
-  .el_handler_dependency("result")
-}

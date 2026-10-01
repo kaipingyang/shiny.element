@@ -128,7 +128,7 @@ el_popconfirm <- function(id = NULL,
     mounted  = merged$mounted,
     width    = width,
     slots      = slots,
-    dependency = c(el_popconfirm_handler_dependency(), merged$dependencies)
+    dependency = merged$dependencies
   )
 }
 
@@ -161,12 +161,8 @@ update_el_popconfirm <- function(session = shiny::getDefaultReactiveDomain(), id
   if (!is.null(title))               msg$title             <- title
   if (!is.null(confirm_button_text)) msg$confirmButtonText <- confirm_button_text
   if (!is.null(cancel_button_text))  msg$cancelButtonText  <- cancel_button_text
-  session$sendCustomMessage("updateElPopconfirm", msg)
+  .el_send_update(session, msg)
   invisible(NULL)
 }
 
 
-#' @keywords internal
-el_popconfirm_handler_dependency <- function() {
-  .el_handler_dependency("popconfirm")
-}

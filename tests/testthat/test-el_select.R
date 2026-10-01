@@ -89,10 +89,12 @@ test_that("el_select: @change binding present on el-select tag", {
   expect_match(html, "@change")
 })
 
-test_that("el_select: handleChange uses correct Shiny id", {
-  sel  <- el_select("s1", choices = c(A = "a"), session = NULL)
-  html <- render_html(sel)
-  expect_match(html, "Shiny.setInputValue\\('s1'")
+test_that("el_select: its value is the binding's, sent once", {
+  # The value is the binding's alone; the change handler no longer sends it
+  # under the same id, which sent it twice (and once unconverted, for a date)
+  ui <- el_select("s1", choices = c(A = "a"))
+  expect_equal(vue_spec_of(ui)$input, "value")
+  expect_false(grepl("setInputValue('s1'", render_html(ui), fixed = TRUE))
 })
 
 # ── v-for 选项槽 ──────────────────────────────────────────────────────────────

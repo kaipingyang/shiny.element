@@ -33,7 +33,7 @@ test_that("both report on load and on change, and forward focus and blur", {
   for (ui in list(el_time_picker("t"), el_time_select("t"))) {
     p <- vue_payload_of(ui)
     expect_equal(vue_spec_of(ui)$input, "value")
-    expect_match(p$methods$handleChange, "Shiny.setInputValue('t'", fixed = TRUE)
+    expect_false(grepl("setInputValue('t'", p$methods$handleChange, fixed = TRUE))
     expect_true(all(c("elEmitBlur", "elEmitFocus") %in% names(p$methods)))
   }
 })
@@ -42,7 +42,7 @@ test_that("update_el_time_picker sends only what was given", {
   s <- mock_session()
   update_el_time_picker(s, "t", value = c("08:00:00", "12:00:00"))
   got <- s$captured()
-  expect_equal(got$type, "updateElTimePicker")
+  expect_equal(got$type, "shinyVueUpdate")
   expect_equal(got$msg, list(id = "t", value = list("08:00:00", "12:00:00")))
 
   update_el_time_picker(s, "t", disabled = TRUE)

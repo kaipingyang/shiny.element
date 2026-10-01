@@ -136,8 +136,7 @@ el_transfer <- function(id = NULL,
     ),
     mounted    = .el_mounted_init(stats::setNames("value", ns_id)),
     width      = width,
-    slots      = slots,
-    dependency = el_transfer_handler_dependency()
+    slots      = slots
   )
 }
 
@@ -185,12 +184,8 @@ update_el_transfer <- function(session = shiny::getDefaultReactiveDomain(), id, 
   if (!is.null(data))       msg$data       <- .el_transfer_data(data)
   if (!is.null(titles))     msg$titles     <- as.list(titles)
   if (!is.null(filterable)) msg$filterable <- filterable
-  session$sendCustomMessage("updateElTransfer", msg)
+  .el_send_update(session, msg)
   invisible(NULL)
 }
 
 
-#' @keywords internal
-el_transfer_handler_dependency <- function() {
-  .el_handler_dependency("transfer")
-}

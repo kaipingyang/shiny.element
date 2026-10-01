@@ -2,7 +2,8 @@
 % Please edit documentation in R/el_dependencies.R
 \name{el_locales}
 \alias{el_locales}
-\title{Languages Element UI can use for its built-in text}
+\title{Collapse Handler Dependency
+Languages Element UI can use for its built-in text}
 \usage{
 el_locales()
 }
@@ -11,6 +12,7 @@ A character vector of locale codes, such as \code{"en"} and \code{"zh-TW"},
 any of which can be passed as \code{locale} to \code{\link[=el_page]{el_page()}}.
 }
 \description{
+Collapse Handler Dependency
 Languages Element UI can use for its built-in text
 }
 \examples{

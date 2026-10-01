@@ -17,7 +17,7 @@
 update_vue_component <- function(session = shiny::getDefaultReactiveDomain(), id, ...) {
   ns_id <- session$ns(id)
   message <- list(id = ns_id, ...)
-  session$sendCustomMessage("update_vue_component", message)
+  .el_send_update(session, message)
   invisible(NULL)
 }
 
@@ -39,7 +39,6 @@ update_vue_component <- function(session = shiny::getDefaultReactiveDomain(), id
 #' }
 update_vue_data <- function(session = shiny::getDefaultReactiveDomain(), id, data) {
   ns_id <- session$ns(id)
-  message <- list(id = ns_id, data = data)
-  session$sendCustomMessage("update_vue_data", message)
+  .el_send_update(session, c(list(id = ns_id), data))
   invisible(NULL)
 }

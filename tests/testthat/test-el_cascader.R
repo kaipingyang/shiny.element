@@ -28,13 +28,14 @@ test_that("el_cascader: returns a tagList with the container id", {
   expect_match(render_html(cs), 'id="c1_container"')
 })
 
-test_that("el_cascader: loads its own handler, not another component's", {
+test_that("el_cascader: loads the shared bridge, not another component's handler", {
   # It used to attach el_button_handler_dependency(), so
   # el-cascader-handler.js was never on the page and every update was ignored.
   deps  <- htmltools::findDependencies(el_cascader(id = "c1"))
   names <- vapply(deps, function(d) d$name, character(1))
-  expect_true("el-cascader-handler" %in% names)
-  expect_false("el-button-handler" %in% names)
+  expect_true("shiny-vue" %in% names)
+  # and no per-component handler at all, its own or another's
+  expect_false(any(grepl("-handler$", names)))
 })
 
 test_that("el_cascader: binds options and value", {
@@ -93,7 +94,7 @@ test_that("el_cascader: flags reach the Vue data", {
 
 test_that("update_el_cascader: sends under the right message type", {
   out <- sent_message(function(s) update_el_cascader(s, "c1", value = list("zj")))
-  expect_equal(out$type, "updateElCascader")
+  expect_equal(out$type, "shinyVueUpdate")
   expect_equal(out$msg$id, "c1")
   expect_equal(out$msg$value, list("zj"))
 })

@@ -115,8 +115,7 @@ el_steps <- function(id = NULL,
     ),
     mounted    = .el_mounted_init(stats::setNames("active", ns_id)),
     width      = width,
-    slots      = slots,
-    dependency = el_steps_handler_dependency()
+    slots      = slots
   )  
 }  
   
@@ -146,6 +145,6 @@ update_el_steps <- function(session = shiny::getDefaultReactiveDomain(), id,
   if (!is.null(process_status)) message$processStatus <- process_status  
   if (!is.null(finish_status)) message$finishStatus <- finish_status  
     
-  session$sendCustomMessage('updateElSteps', message)
+  .el_send_update(session, message)
   invisible(NULL)
 }  

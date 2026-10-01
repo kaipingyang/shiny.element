@@ -87,8 +87,7 @@ el_alert <- function(
       ))
     ),
     width      = width,
-    slots      = slots,
-    dependency = el_alert_handler_dependency()
+    slots      = slots
   )
 }
 
@@ -120,12 +119,8 @@ update_el_alert <- function(session = shiny::getDefaultReactiveDomain(), id, tit
   if (!is.null(title))       msg$title       <- title
   if (!is.null(type))        msg$type        <- type
   if (!is.null(description)) msg$description <- description
-  session$sendCustomMessage("updateElAlert", msg)
+  .el_send_update(session, msg)
   invisible(NULL)
 }
 
 
-#' @keywords internal
-el_alert_handler_dependency <- function() {
-  .el_handler_dependency("alert")
-}

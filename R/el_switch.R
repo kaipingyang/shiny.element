@@ -125,8 +125,7 @@ el_switch <- function(
       ))
     ),
     mounted    = .el_mounted_init(stats::setNames("value", ns_id)),
-    slots      = slots,
-    dependency = el_switch_handler_dependency()
+    slots      = slots
   )
 }
 
@@ -173,13 +172,8 @@ update_el_switch <- function(
   if (!is.null(inactive_text)) msg$inactiveText  <- inactive_text
   if (!is.null(active_color))  msg$activeColor   <- active_color
   if (!is.null(inactive_color)) msg$inactiveColor <- inactive_color
-  session$sendCustomMessage("updateElSwitch", msg)
+  .el_send_update(session, msg)
   invisible(NULL)
 }
 
 
-#' Switch Handler Dependency
-#' @keywords internal
-el_switch_handler_dependency <- function() {
-  .el_handler_dependency("switch")
-}

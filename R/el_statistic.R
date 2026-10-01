@@ -114,8 +114,7 @@ el_statistic <- function(id = NULL,
     ),
     methods    = events$methods,
     width      = width,
-    slots      = slots,
-    dependency = el_statistic_handler_dependency()
+    slots      = slots
   )
 }
 
@@ -146,12 +145,8 @@ update_el_statistic <- function(session = shiny::getDefaultReactiveDomain(), id,
   if (!is.null(title))  msg$title  <- title
   if (!is.null(prefix)) msg$prefix <- prefix
   if (!is.null(suffix)) msg$suffix <- suffix
-  session$sendCustomMessage("updateElStatistic", msg)
+  .el_send_update(session, msg)
   invisible(NULL)
 }
 
 
-#' @keywords internal
-el_statistic_handler_dependency <- function() {
-  .el_handler_dependency("statistic")
-}

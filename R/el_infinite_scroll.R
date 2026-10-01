@@ -109,7 +109,7 @@ el_infinite_scroll <- function(id = NULL,
     mounted  = merged$mounted,
     width    = width,
     slots      = slots,
-    dependency = c(el_infinite_scroll_handler_dependency(), merged$dependencies)
+    dependency = merged$dependencies
   )
 }
 
@@ -142,12 +142,8 @@ update_el_infinite_scroll <- function(session = shiny::getDefaultReactiveDomain(
   if (!is.null(disabled)) msg$disabled <- disabled
   if (!is.null(delay))    msg$delay    <- delay
   if (!is.null(distance)) msg$distance <- distance
-  session$sendCustomMessage("updateElInfiniteScroll", msg)
+  .el_send_update(session, msg)
   invisible(NULL)
 }
 
 
-#' @keywords internal
-el_infinite_scroll_handler_dependency <- function() {
-  .el_handler_dependency("infinite-scroll")
-}

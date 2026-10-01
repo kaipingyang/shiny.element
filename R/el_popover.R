@@ -148,7 +148,7 @@ el_popover <- function(id = NULL,
     mounted  = merged$mounted,
     width    = width,
     slots      = slots,
-    dependency = c(el_popover_handler_dependency(), merged$dependencies)
+    dependency = merged$dependencies
   )
 }
 
@@ -180,12 +180,8 @@ update_el_popover <- function(session = shiny::getDefaultReactiveDomain(), id, t
   if (!is.null(content))  msg$content  <- content
   if (!is.null(disabled)) msg$disabled <- disabled
   if (!is.null(value))    msg$value    <- value
-  session$sendCustomMessage("updateElPopover", msg)
+  .el_send_update(session, msg)
   invisible(NULL)
 }
 
 
-#' @keywords internal
-el_popover_handler_dependency <- function() {
-  .el_handler_dependency("popover")
-}

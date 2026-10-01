@@ -144,6 +144,19 @@ el_widget <- function(id, markup, data, methods = NULL, watch = NULL,
     data[input[[1]]] <- list(.el_restore(id, data[[input[[1]]]]))
   }
 
+  # The value goes through the binding alone. A change handler that also
+  # sends it under the component's own id would send it twice -- and, for a
+  # typed value, unconverted, overwriting the Date the binding delivers.
+  if (length(input) && length(methods)) {
+    pattern <- sprintf(
+      "window\\.Shiny && Shiny\\.setInputValue && Shiny\\.setInputValue\\((['\"])%s\\1, [^;]*\\);\\s*",
+      gsub("([.\\-])", "\\\\\\1", id))
+    methods <- lapply(methods, function(m) {
+      if (!inherits(m, "JS_EVAL")) return(m)
+      htmlwidgets::JS(gsub(pattern, "", as.character(m), perl = TRUE))
+    })
+  }
+
   options <- list(data = data)
   for (nm in c("methods", "watch", "computed", "mounted")) {
     value <- get(nm)

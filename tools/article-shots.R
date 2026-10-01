@@ -341,7 +341,8 @@ for (s in shots) {
   # is not there, a method that does not exist. Both mean the example does
   # not do what it shows.
   warns <- console[grepl("[Vue warn]", console, fixed = TRUE) |
-                   grepl("[shiny.element]", console, fixed = TRUE)]
+                   grepl("[shiny.element]", console, fixed = TRUE) |
+                   grepl("[shiny-vue]", console, fixed = TRUE)]
   if (length(warns)) {
     problems <- c(problems, sprintf("%s: %s", s$key, substr(warns[1], 1, 160)))
   }

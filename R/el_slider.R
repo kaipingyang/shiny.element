@@ -161,6 +161,8 @@ el_slider <- function(
   vue_data$formatTooltip <- .el_or_na(format_tooltip)
 
   el_widget(
+    # Reported as the value changes, debounced, as Shiny's own inputs are
+    rate = list(policy = "debounce", delay = 250),
     label = label, label_position = label_position,
     id     = ns_id,
     markup = htmltools::tag("el-slider", slider_attrs),
@@ -173,8 +175,7 @@ el_slider <- function(
     )),
     mounted = .el_mounted_init(stats::setNames("value", ns_id)),
     width      = width,
-    slots      = slots,
-    dependency = el_slider_handler_dependency()
+    slots      = slots
   )
 }
 
@@ -219,12 +220,9 @@ update_el_slider <- function(
   if (!is.null(max))      msg$max      <- max
   if (!is.null(step))     msg$step     <- step
   if (!is.null(disabled)) msg$disabled <- disabled
-  session$sendCustomMessage("updateElSlider", msg)
+  .el_send_update(session, msg)
   invisible(NULL)
 }
 
 
 # Slider handler dependency (internal)
-el_slider_handler_dependency <- function() {
-  .el_handler_dependency("slider")
-}

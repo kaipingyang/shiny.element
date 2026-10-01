@@ -429,6 +429,18 @@ el_form <- function(...,
           "}); }"
         ), js_id
       )),
+      # update_el_form() and el_form_validate()/_reset()/_clear_validate()
+      shinyVueReceive = htmlwidgets::JS(paste0(
+        "function(d) { var self = this, action = d['.action']; delete d['.action']; ",
+        # merged key by key, so fields not mentioned keep their values
+        "if (d.model) { Object.keys(d.model).forEach(function(k) { ",
+        "self.$set(self.model, k, d.model[k]); }); delete d.model; } ",
+        "if (action === 'validate') self.handleSubmit(); ",
+        "else if (action === 'reset') self.handleReset(); ",
+        "else if (action === 'clearValidate') { ",
+        "if (self.$refs.form) self.$refs.form.clearValidate(d.props || undefined); ",
+        "delete d.props; } ",
+        "return d; }")),
       handleReset = htmlwidgets::JS(sprintf(
         paste0(
           "function() { this.$refs.form.resetFields(); ",
@@ -438,8 +450,7 @@ el_form <- function(...,
     )),
     mounted = .el_mounted_init(stats::setNames("model", ns_id)),
     width      = width,
-    slots      = slots,
-    dependency = el_form_handler_dependency()
+    slots      = slots
   )
 }
 
@@ -473,7 +484,7 @@ update_el_form <- function(session = shiny::getDefaultReactiveDomain(), id,
   }
   if (!is.null(label_width)) msg$labelWidth <- label_width
 
-  session$sendCustomMessage("updateElForm", msg)
+  .el_send_update(session, msg)
   invisible(NULL)
 }
 
@@ -496,7 +507,7 @@ update_el_form <- function(session = shiny::getDefaultReactiveDomain(), id,
 #' }
 #' @export
 el_form_validate <- function(session = shiny::getDefaultReactiveDomain(), id) {
-  session$sendCustomMessage("elFormValidate", list(id = session$ns(id)))
+  .el_send_update(session, list(id = session$ns(id), .action = "validate"))
   invisible(NULL)
 }
 
@@ -520,7 +531,7 @@ el_form_validate <- function(session = shiny::getDefaultReactiveDomain(), id) {
 #' }
 #' @export
 el_form_reset <- function(session = shiny::getDefaultReactiveDomain(), id) {
-  session$sendCustomMessage("elFormReset", list(id = session$ns(id)))
+  .el_send_update(session, list(id = session$ns(id), .action = "reset"))
   invisible(NULL)
 }
 
@@ -544,6 +555,7 @@ el_form_reset <- function(session = shiny::getDefaultReactiveDomain(), id) {
 el_form_clear_validate <- function(session = shiny::getDefaultReactiveDomain(), id, props = NULL) {
   msg <- list(id = session$ns(id))
   if (!is.null(props)) msg$props <- as.list(props)
-  session$sendCustomMessage("elFormClearValidate", msg)
+  msg$.action <- "clearValidate"
+  .el_send_update(session, msg)
   invisible(NULL)
 }

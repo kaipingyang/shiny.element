@@ -136,7 +136,8 @@ Callable with \code{\link[=el_call]{el_call()}}:
 
 \section{Shiny input}{
 
-\verb{input$<id>} — string value of the input, updated on \code{change} event
+\verb{input$<id>} -- the text, reported as it is typed, debounced by 250 ms
+as \code{\link[shiny:textInput]{shiny::textInput()}} does, and after an \code{\link[=update_el_input]{update_el_input()}}.
 (triggered on blur or Enter key press).
 }
 

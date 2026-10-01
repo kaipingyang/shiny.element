@@ -62,7 +62,7 @@ el_empty <- function(id = NULL,
     mounted  = merged$mounted,
     width    = width,
     slots    = slots,
-    dependency = c(el_empty_handler_dependency(), merged$dependencies)
+    dependency = merged$dependencies
   )
 }
 
@@ -90,12 +90,8 @@ update_el_empty <- function(session = shiny::getDefaultReactiveDomain(), id, des
   msg <- list(id = session$ns(id))
   if (!is.null(description)) msg$emptyDescription <- description
   if (!is.null(image))       msg$emptyImage       <- image
-  session$sendCustomMessage("updateElEmpty", msg)
+  .el_send_update(session, msg)
   invisible(NULL)
 }
 
 
-#' @keywords internal
-el_empty_handler_dependency <- function() {
-  .el_handler_dependency("empty")
-}

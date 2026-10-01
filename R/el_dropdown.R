@@ -158,8 +158,7 @@ el_dropdown <- function(
       ))
     )),
     width      = width,
-    slots      = slots,
-    dependency = el_dropdown_handler_dependency()
+    slots      = slots
   )
 }
 
@@ -186,12 +185,8 @@ update_el_dropdown <- function(session = shiny::getDefaultReactiveDomain(), id, 
   ns_id <- session$ns(id)
   msg   <- list(id = ns_id)
   if (!is.null(disabled)) msg$disabled <- disabled
-  session$sendCustomMessage("updateElDropdown", msg)
+  .el_send_update(session, msg)
   invisible(NULL)
 }
 
 
-#' @keywords internal
-el_dropdown_handler_dependency <- function() {
-  .el_handler_dependency("dropdown")
-}

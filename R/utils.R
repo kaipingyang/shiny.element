@@ -193,52 +193,6 @@
   lapply(choices, function(x) list(value = x, label = as.character(x)))
 }
 
-#' Build a component's JS handler dependency
-#'
-#' Every handler is paired with el-update.js, the shared updater it calls.
-#' htmltools de-duplicates the shared entry, so listing it here rather than
-#' relying on `el_page()` guarantees it is present and loaded first, whatever
-#' the page is built from.
-#'
-#' @param name The component's handler name, e.g. `"input"` for
-#'   `el-input-handler.js`.
-#' @return A list of htmlDependency objects.
-#' @keywords internal
-.el_handler_dependency <- function(name) {
-  js <- system.file("js", package = "shiny.element")
-
-  list(
-    .el_jquery_dependency(),
-    htmltools::htmlDependency(
-      name      = "el-invoke",
-      version   = "1.0.0",
-      src       = js,
-      script    = "el-invoke.js",
-      all_files = FALSE
-    ),
-    htmltools::htmlDependency(
-      name      = "el-events",
-      version   = "1.0.0",
-      src       = js,
-      script    = "el-events.js",
-      all_files = FALSE
-    ),
-    htmltools::htmlDependency(
-      name      = "el-update",
-      version   = "1.0.0",
-      src       = js,
-      script    = "el-update.js",
-      all_files = FALSE
-    ),
-    htmltools::htmlDependency(
-      name      = paste0("el-", name, "-handler"),
-      version   = "1.0.0",
-      src       = js,
-      script    = paste0("el-", name, "-handler.js"),
-      all_files = FALSE
-    )
-  )
-}
 
 #' Inline style for a component's Vue mount point
 #'
@@ -394,4 +348,22 @@
     return(if (is.null(value)) list() else as.list(value))
   }
   value
+}
+
+
+#' Send an update to a component
+#'
+#' One message type for every component, handled by shiny-vue.js: the fields
+#' a component declares are assigned, one it does not is refused with a
+#' warning, and a component with more to do -- move a carousel, validate a
+#' form -- does it in its `shinyVueReceive` method. `.action` names such an
+#' operation.
+#'
+#' @param session A Shiny session.
+#' @param msg The message: `id`, namespaced, and the fields to set.
+#' @return `NULL`, invisibly.
+#' @keywords internal
+.el_send_update <- function(session, msg) {
+  session$sendCustomMessage("shinyVueUpdate", msg)
+  invisible(NULL)
 }

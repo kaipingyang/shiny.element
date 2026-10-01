@@ -62,8 +62,7 @@ el_backtop <- function(id = NULL,
     ),
     methods    = events$methods,
     width      = width,
-    slots      = slots,
-    dependency = el_backtop_handler_dependency()
+    slots      = slots
   )
 }
 
@@ -93,12 +92,8 @@ update_el_backtop <- function(session = shiny::getDefaultReactiveDomain(), id, v
   if (!is.null(visibility_height)) msg$visibilityHeight <- visibility_height
   if (!is.null(right))             msg$right            <- right
   if (!is.null(bottom))            msg$bottom           <- bottom
-  session$sendCustomMessage("updateElBacktop", msg)
+  .el_send_update(session, msg)
   invisible(NULL)
 }
 
 
-#' @keywords internal
-el_backtop_handler_dependency <- function() {
-  .el_handler_dependency("backtop")
-}

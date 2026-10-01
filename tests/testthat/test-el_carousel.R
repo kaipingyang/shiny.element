@@ -24,9 +24,9 @@ test_that("el_carousel: returns a tagList with the container id", {
   expect_match(render_html(c1), 'id="banner_container"')
 })
 
-test_that("el_carousel: attaches its own handler dependency", {
+test_that("el_carousel: attaches the shared bridge", {
   deps <- htmltools::findDependencies(el_carousel(id = "banner"))
-  expect_true("el-carousel-handler" %in% vapply(deps, function(d) d$name, character(1)))
+  expect_true("shiny-vue" %in% vapply(deps, function(d) d$name, character(1)))
 })
 
 test_that("el_carousel: one el-carousel-item per slide, with its markup", {
@@ -104,7 +104,7 @@ test_that("el_carousel: an empty carousel still renders", {
 
 test_that("update_el_carousel: sends under the right message type", {
   out <- sent_message(function(s) update_el_carousel(s, "banner", active = 2))
-  expect_equal(out$type, "updateElCarousel")
+  expect_equal(out$type, "shinyVueUpdate")
   expect_equal(out$msg$id, "banner")
   expect_equal(out$msg$active, 2)
 })
@@ -128,11 +128,9 @@ test_that("update_el_carousel: NULL fields are excluded", {
   expect_null(out$msg$interval)
 })
 
-test_that("the carousel handler moves slides through setActiveItem", {
-  js <- paste(readLines(
-    system.file("js", "el-carousel-handler.js", package = "shiny.element"), warn = FALSE
-  ), collapse = "\n")
+test_that("an update moves the carousel through setActiveItem", {
   # initial-index is read once at mount and has no watcher, so assigning it
-  # moves nothing.
-  expect_match(js, "setActiveItem", fixed = TRUE)
+  # moves nothing; the carousel's receiver calls Element's method instead.
+  m <- vue_payload_of(el_carousel("c", items = list(list(content = "a"))))$methods
+  expect_match(m$shinyVueReceive, "setActiveItem", fixed = TRUE)
 })

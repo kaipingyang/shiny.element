@@ -214,111 +214,26 @@ el_feedback_dependency <- function() {
   )
 }
 
-#' Button Handler Dependency
-#' @keywords internal
-el_button_handler_dependency <- function() {
-  .el_handler_dependency("button")
-}
 
-#' Cascader Handler Dependency
-#' @keywords internal
-el_cascader_handler_dependency <- function() {
-  .el_handler_dependency("cascader")
-}
 
-#' Table Handler Dependency
-#' @keywords internal
-el_table_handler_dependency <- function() {
-  .el_handler_dependency("table")
-}
 
-#' Calendar Handler Dependency
-#' @keywords internal
-el_calendar_handler_dependency <- function() {
-  .el_handler_dependency("calendar")
-}
 
-#' Steps Handler Dependency
-#' @keywords internal
-el_steps_handler_dependency <- function() {
-  .el_handler_dependency("steps")
-}
 
-#' Tag Handler Dependency
-#' @keywords internal
-el_tag_handler_dependency <- function() {
-  .el_handler_dependency("tag")
-}
 
-#' Alert Handler Dependency
-#' @keywords internal
-el_alert_handler_dependency <- function() {
-  .el_handler_dependency("alert")
-}
 
 #' Collapse Handler Dependency
 
 
-#' Rate Handler Dependency
-#' @keywords internal
-el_rate_handler_dependency <- function() {
-  .el_handler_dependency("rate")
-}
-
-#' Input Number Handler Dependency
-#' @keywords internal
-el_input_number_handler_dependency <- function() {
-  .el_handler_dependency("input-number")
-}
-
-#' Color Picker Handler Dependency
-#' @keywords internal
-el_color_picker_handler_dependency <- function() {
-  .el_handler_dependency("color-picker")
-}
 
 
-#' Dropdown Handler Dependency
-#' @keywords internal
-el_dropdown_handler_dependency <- function() {
-  .el_handler_dependency("dropdown")
-}
 
-#' Form Handler Dependency
-#' @keywords internal
-el_form_handler_dependency <- function() {
-  .el_handler_dependency("form")
-}
 
-#' Menu Handler Dependency
-#' @keywords internal
-el_menu_handler_dependency <- function() {
-  .el_handler_dependency("menu")
-}
 
-#' Tree Handler Dependency
-#' @keywords internal
-el_tree_handler_dependency <- function() {
-  .el_handler_dependency("tree")
-}
 
-#' Upload Handler Dependency
-#' @keywords internal
-el_upload_handler_dependency <- function() {
-  .el_handler_dependency("upload")
-}
 
-#' Carousel Handler Dependency
-#' @keywords internal
-el_carousel_handler_dependency <- function() {
-  .el_handler_dependency("carousel")
-}
 
-#' Timeline Handler Dependency
-#' @keywords internal
-el_timeline_handler_dependency <- function() {
-  .el_handler_dependency("timeline")
-}
+
+
 
 
 #' Languages Element UI can use for its built-in text

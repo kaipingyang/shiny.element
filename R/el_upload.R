@@ -329,6 +329,12 @@ el_upload <- function(id = NULL,
     ))
   )
   if (via_shiny) methods$shinyUpload <- .el_upload_js(ns_id)
+  # el_upload_clear(): empty the list and what was reported of it
+  methods$shinyVueReceive <- htmlwidgets::JS(sprintf(paste0(
+    "function(d) { if (d['.action'] === 'clear') { ",
+    "if (this.$refs.upload) this.$refs.upload.clearFiles(); this.succeeded = []; ",
+    "window.Shiny && Shiny.setInputValue && Shiny.setInputValue('%s_success', []); } ",
+    "delete d['.action']; return d; }"), ns_id))
 
   el_widget(
     label = label, label_position = label_position,
@@ -337,8 +343,7 @@ el_upload <- function(id = NULL,
     data    = vue_data,
     methods = methods,
     width      = width,
-    slots      = slots,
-    dependency = el_upload_handler_dependency()
+    slots      = slots
   )
 }
 
@@ -362,7 +367,7 @@ update_el_upload <- function(session = shiny::getDefaultReactiveDomain(), id, di
   msg <- list(id = session$ns(id))
   if (!is.null(disabled)) msg$disabled <- disabled
   if (!is.null(limit))    msg$limit    <- limit
-  session$sendCustomMessage("updateElUpload", msg)
+  .el_send_update(session, msg)
   invisible(NULL)
 }
 
@@ -386,6 +391,6 @@ update_el_upload <- function(session = shiny::getDefaultReactiveDomain(), id, di
 #' }
 #' @export
 el_upload_clear <- function(session = shiny::getDefaultReactiveDomain(), id) {
-  session$sendCustomMessage("clearElUpload", list(id = session$ns(id)))
+  .el_send_update(session, list(id = session$ns(id), .action = "clear"))
   invisible(NULL)
 }

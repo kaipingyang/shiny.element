@@ -58,8 +58,7 @@ el_page_header <- function(id = NULL,
     data   = list(title = .el_or_na(title), content = .el_or_na(content)),
     methods    = events$methods,
     width      = width,
-    slots      = slots,
-    dependency = el_page_header_handler_dependency()
+    slots      = slots
   )
 }
 
@@ -87,12 +86,8 @@ update_el_page_header <- function(session = shiny::getDefaultReactiveDomain(), i
   msg <- list(id = ns_id)
   if (!is.null(title))   msg$title   <- title
   if (!is.null(content)) msg$content <- content
-  session$sendCustomMessage("updateElPageHeader", msg)
+  .el_send_update(session, msg)
   invisible(NULL)
 }
 
 
-#' @keywords internal
-el_page_header_handler_dependency <- function() {
-  .el_handler_dependency("page-header")
-}

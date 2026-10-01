@@ -1,9 +1,6 @@
 # Private helper: normalise choices to list of list(value=, label=)
 
 # Private dependency loader (not exported)
-el_radio_group_handler_dependency <- function() {
-  .el_handler_dependency("radio-group")
-}
 
 #' Element UI Radio Group Component
 #'
@@ -159,8 +156,7 @@ el_radio_group <- function(
     ),
     mounted = .el_mounted_init(stats::setNames("value", ns_id)),
     width      = width,
-    slots      = slots,
-    dependency = el_radio_group_handler_dependency()
+    slots      = slots
   )
 }
 
@@ -204,6 +200,6 @@ update_el_radio_group <- function(
   if (!is.null(selected)) msg$value    <- selected
   if (!is.null(choices))  msg$options  <- .el_normalize_choices(choices)
   if (!is.null(disabled)) msg$disabled <- disabled
-  session$sendCustomMessage("updateElRadioGroup", msg)
+  .el_send_update(session, msg)
   invisible(NULL)
 }

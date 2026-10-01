@@ -259,10 +259,12 @@ test_that("el_input: :suffix-icon binding present", {
 
 # ── handleChange 使用正确的 ns_id ────────────────────────────────────────────
 
-test_that("el_input: handleChange references correct ns_id", {
-  inp  <- el_input("inp1", session = NULL)
-  html <- render_html(inp)
-  expect_match(html, "setInputValue\\('inp1'")
+test_that("el_input: its value is the binding's, sent once", {
+  # The value is the binding's alone; the change handler no longer sends it
+  # under the same id, which sent it twice (and once unconverted, for a date)
+  ui <- el_input("inp1")
+  expect_equal(vue_spec_of(ui)$input, "value")
+  expect_false(grepl("setInputValue('inp1'", render_html(ui), fixed = TRUE))
 })
 
 # ── update_el_input ───────────────────────────────────────────────────────────
@@ -334,4 +336,11 @@ test_that("update_el_input: uses session$ns for id namespacing", {
   )
   update_el_input(mock_session, "inp1", value = "v")
   expect_equal(captured$id, "module-inp1")
+})
+
+test_that("text-like inputs report as they change, debounced as Shiny's are", {
+  for (ui in list(el_input("x"), el_autocomplete("x"), el_input_number("x"), el_slider("x"))) {
+    expect_equal(vue_spec_of(ui)$rate, list(policy = "debounce", delay = 250))
+  }
+  expect_null(vue_spec_of(el_select("x", choices = "a"))$rate)
 })

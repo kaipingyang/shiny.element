@@ -28,9 +28,9 @@ test_that("el_tree: returns a tagList with the container id", {
   expect_match(render_html(t), 'id="picker_container"')
 })
 
-test_that("el_tree: attaches its own handler dependency", {
+test_that("el_tree: attaches the shared bridge", {
   deps <- htmltools::findDependencies(el_tree(id = "picker"))
-  expect_true("el-tree-handler" %in% vapply(deps, function(d) d$name, character(1)))
+  expect_true("shiny-vue" %in% vapply(deps, function(d) d$name, character(1)))
 })
 
 test_that("el_tree: the node data goes through as nested JSON", {
@@ -109,7 +109,7 @@ test_that("el_tree: reports the clicked node and the checked set", {
 
 test_that("update_el_tree: sends under the right message type", {
   out <- sent_message(function(s) update_el_tree(s, "picker", data = demo_nodes))
-  expect_equal(out$type, "updateElTree")
+  expect_equal(out$type, "shinyVueUpdate")
   expect_equal(out$msg$id, "picker")
   expect_equal(out$msg$treeData, demo_nodes)
 })
@@ -133,15 +133,13 @@ test_that("update_el_tree: NULL fields are excluded", {
   expect_null(out$msg$checkedKeys)
 })
 
-test_that("the tree handler replaces the selection through setCheckedKeys", {
-  js <- paste(readLines(
-    system.file("js", "el-tree-handler.js", package = "shiny.element"), warn = FALSE
-  ), collapse = "\n")
+test_that("an update replaces the tree's selection through setCheckedKeys", {
   # Assigning default-checked-keys only ever adds: Element runs it through
   # _initDefaultCheckedNodes(), which never unchecks anything.
-  expect_match(js, "setCheckedKeys", fixed = TRUE)
-  # setCheckedKeys fires no check event, so the input is updated by hand.
-  expect_match(js, "setInputValue", fixed = TRUE)
+  m <- vue_payload_of(el_tree("t", data = list(list(id = 1, label = "a"))))$methods
+  expect_match(m$shinyVueReceive, "setCheckedKeys", fixed = TRUE)
+  # setCheckedKeys fires no check event; the field it sets is reported after
+  expect_match(m$shinyVueReceive, "this.checked = keys", fixed = TRUE)
 })
 
 # ── df_to_tree_data ───────────────────────────────────────────────────────────

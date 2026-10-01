@@ -137,7 +137,7 @@ mock_session <- function() {
 test_that("update_el_table: sends row-shaped data under the right message type", {
   s <- mock_session()
   update_el_table(s, "t1", data = data.frame(a = 1:2))
-  expect_equal(s$captured()$type, "updateElTable")
+  expect_equal(s$captured()$type, "shinyVueUpdate")
   expect_equal(s$captured()$msg$id, "t1")
   # The field is named tableData because the shared updater assigns straight
   # onto the Vue data field of that name.
