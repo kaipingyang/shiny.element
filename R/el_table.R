@@ -276,7 +276,8 @@
 #'   `mtcars`' car names -- and leaves out automatic ones, which only count
 #'   rows.
 #' @param selection Enable row selection
-#' @param border Show table border
+#' @param border Draw vertical borders between columns and a frame around
+#'   the table. Default `FALSE`, as in Element.
 #' @param session Shiny session for module support
 #' @param stripe Whether rows alternate background colour.
 #' @param size Row density: `"medium"`, `"small"` or `"mini"`.
@@ -395,7 +396,7 @@ el_table <- function(id = NULL,
                      columns = list(),
                      selection = FALSE,
                      rownames = NULL,
-                     border = TRUE,
+                     border = FALSE,
                      stripe  = NULL,
                      size    = NULL,
                      height  = NULL,

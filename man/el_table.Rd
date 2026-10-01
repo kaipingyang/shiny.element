@@ -10,7 +10,7 @@ el_table(
   columns = list(),
   selection = FALSE,
   rownames = NULL,
-  border = TRUE,
+  border = FALSE,
   stripe = NULL,
   size = NULL,
   height = NULL,
@@ -77,7 +77,8 @@ column. \code{NULL} (the default) shows them when they carry something --
 \code{mtcars}' car names -- and leaves out automatic ones, which only count
 rows.}
 
-\item{border}{Show table border}
+\item{border}{Draw vertical borders between columns and a frame around
+the table. Default \code{FALSE}, as in Element.}
 
 \item{stripe}{Whether rows alternate background colour.}
 

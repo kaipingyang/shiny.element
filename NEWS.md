@@ -51,6 +51,9 @@ and a `type` of `"index"` or `"expand"`. A button in a cell reports with
 `rowAction('edit', scope)`, setting `input$<id>_edit` to the row's number
 and the row. `loading` shows Element's loading mask, from the server too.
 
+`el_table()` draws no column borders by default, as Element does; pass
+`border = TRUE` for them.
+
 `update_el_table(data =)` keeps the columns the table was created with.
 It used to re-infer them from the new data, discarding every label,
 formatter and template.

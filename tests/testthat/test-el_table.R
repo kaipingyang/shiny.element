@@ -330,3 +330,8 @@ test_that("every forwarded table event with arguments has a shape", {
   html <- paste(as.character(el_table("t", data = head(iris, 2))), collapse = "")
   expect_match(html, "rowIndex", fixed = TRUE)
 })
+
+test_that("el_table draws no borders unless asked, as Element", {
+  expect_false(vue_data_of(el_table("t", data = head(iris, 2)))$border)
+  expect_true(vue_data_of(el_table("t", data = head(iris, 2), border = TRUE))$border)
+})
