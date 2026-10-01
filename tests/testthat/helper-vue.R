@@ -50,7 +50,7 @@ mock_session <- function() {
 # with its `rate` and `type`.
 vue_spec_of <- function(ui) {
   html <- paste(as.character(htmltools::renderTags(ui)$html), collapse = "")
-  json <- sub('^.*?<script type="application/json" data-el-vue>', "", html)
+  json <- sub('^.*?<script type="application/json" data-shiny-vue-options>', "", html)
   json <- sub("</script>.*$", "", json)
   jsonlite::fromJSON(json, simplifyVector = FALSE)
 }

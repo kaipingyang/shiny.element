@@ -222,7 +222,7 @@ for (s in shots) {
   # nothing logs it -- the gallery's first version did this with three
   # el_avatar("me") calls in one chunk.
   dup <- js("(function(){ var seen = {}, dup = [];
-    document.querySelectorAll('[data-el-vue-host]').forEach(function(e){
+    document.querySelectorAll('[data-shiny-vue]').forEach(function(e){
       if (seen[e.id]) dup.push(e.id); seen[e.id] = true; });
     return dup.join(', '); })()")
   if (nzchar(dup %||% "")) {

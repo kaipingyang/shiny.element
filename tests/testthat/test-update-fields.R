@@ -112,7 +112,7 @@ test_that("the component is its host: id, no box of its own, no placeholder", {
                    el_button("x"), el_table(id = "x", data = head(iris, 2)),
                    el_form(id = "x"))) {
     html <- paste(as.character(htmltools::renderTags(tag)$html), collapse = "")
-    expect_match(html, '<div id="x" data-el-vue-host style="display: contents">',
+    expect_match(html, '<div id="x" data-shiny-vue style="display: contents">',
                  fixed = TRUE)
     expect_false(grepl("html-widget", html, fixed = TRUE))
   }

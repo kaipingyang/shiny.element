@@ -125,6 +125,16 @@ el_widget <- function(id, markup, data, methods = NULL, watch = NULL,
       }
     }
   }
+  # Bookmarking: a restored session hands the value back, as every Shiny input
+  # does through restoreInput(). An array stays an array -- a restored
+  # selection of one would otherwise unbox to a string.
+  if (length(input) && grepl("^[A-Za-z_$][A-Za-z0-9_$]*$", input[[1]]) &&
+      input[[1]] %in% names(data)) {
+    # `[<-` with a list, because `[[<-` with NULL would delete a field whose
+    # default is NULL -- and Vue would then have no such field to bind
+    data[input[[1]]] <- list(.el_restore(id, data[[input[[1]]]]))
+  }
+
   options <- list(data = data)
   for (nm in c("methods", "watch", "computed", "mounted")) {
     value <- get(nm)
@@ -133,11 +143,19 @@ el_widget <- function(id, markup, data, methods = NULL, watch = NULL,
   spec <- list(options = options, input = if (length(input)) input[[1]],
                rate = rate, type = type)
 
+  # The template travels as a script, which the browser does not parse: no
+  # flash of raw <el-*> tags before Vue runs, and camelCase attribute names
+  # survive -- an HTML parser lowercases them. Its root keeps the
+  # `<id>_container` id the component's selectors have always used.
+  rendered <- htmltools::renderTags(
+    htmltools::tags$div(id = container_id, style = .el_host_style(), markup))
+  template <- gsub("</script", "<\\/script", rendered$html, ignore.case = TRUE)
+
   host <- htmltools::tags$div(
-    id = id, `data-el-vue-host` = NA, style = .el_host_style(),
-    htmltools::tags$div(id = container_id, `data-el-mount` = NA,
-                        style = .el_host_style(), markup),
-    htmltools::tags$script(type = "application/json", `data-el-vue` = NA,
+    id = id, `data-shiny-vue` = NA, style = .el_host_style(),
+    htmltools::tags$script(type = "text/x-template", `data-shiny-vue-template` = NA,
+                           htmltools::HTML(template)),
+    htmltools::tags$script(type = "application/json", `data-shiny-vue-options` = NA,
                            htmltools::HTML(.el_vue_json(spec)))
   )
   # What .el_absorb() needs to fold this component into another: its options
@@ -151,9 +169,13 @@ el_widget <- function(id, markup, data, methods = NULL, watch = NULL,
   }
   attr(host, "el_spec") <- list(options = full, markup = markup)
 
+  # Dependencies the markup carried -- an absorbed component's handler, a
+  # slot's -- come out of the template with it
   htmltools::attachDependencies(
     htmltools::tagList(head, host),
-    c(.el_vue_dependencies(), if (inherits(dependency, "html_dependency")) list(dependency) else dependency)
+    c(.el_vue_dependencies(),
+      if (inherits(dependency, "html_dependency")) list(dependency) else dependency,
+      rendered$dependencies)
   )
 }
 

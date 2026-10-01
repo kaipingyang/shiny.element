@@ -113,7 +113,7 @@ test_that("el_widget() lets a user wrap a component the package does not cover",
 
   expect_match(html, "<el-avatar")
   # The host is the component: it carries the id and generates no box
-  expect_match(html, '<div id="face" data-el-vue-host style="display: contents">', fixed = TRUE)
+  expect_match(html, '<div id="face" data-shiny-vue style="display: contents">', fixed = TRUE)
   expect_false(grepl("html-widget", html, fixed = TRUE))
   expect_equal(names(vue_data_of(avatar)), c("src", "size"))
 })

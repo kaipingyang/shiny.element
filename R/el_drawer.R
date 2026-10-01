@@ -76,6 +76,7 @@ el_drawer <- function(
 ) {
   if (is.null(id)) id <- paste0("el_drawer_", uuid::UUIDgenerate())
   ns_id <- .el_ui_id(id, session)
+  visible <- isTRUE(shiny::restoreInput(ns_id, visible))
 
   vertical  <- direction %in% c("ttb", "btt")
   title_id  <- paste0(ns_id, "-title")

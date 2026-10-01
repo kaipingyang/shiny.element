@@ -155,6 +155,7 @@ el_menu <- function(id = NULL,
   if (is.null(id)) id <- paste0("el_menu_", uuid::UUIDgenerate())
   ns_id        <- .el_ui_id(id, session)
   container_id <- paste0(ns_id, "_container")
+  active       <- shiny::restoreInput(ns_id, active)
 
   menu_attrs <- list(
     ":default-active"    = "active",

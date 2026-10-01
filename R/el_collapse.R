@@ -57,6 +57,7 @@ el_collapse <- function(
 ) {
   if (is.null(id)) id <- paste0("el_collapse_", uuid::UUIDgenerate())
   ns_id <- .el_ui_id(id, session)
+  value <- shiny::restoreInput(ns_id, value)
 
   if (accordion && length(value) > 1) value <- value[1]
 

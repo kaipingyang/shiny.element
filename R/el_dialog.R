@@ -85,6 +85,7 @@ el_dialog <- function(
 ) {
   if (is.null(id)) id <- paste0("el_dialog_", uuid::UUIDgenerate())
   ns_id <- .el_ui_id(id, session)
+  visible <- isTRUE(shiny::restoreInput(ns_id, visible))
 
   header <- shiny::tags$div(
     class = "el-dialog__header",

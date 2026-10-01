@@ -337,7 +337,9 @@
 
 #' The scripts every Vue component needs
 #'
-#' jQuery, Vue, the event helpers and the mounting bridge, in load order.
+#' jQuery, Vue, the generic bridge (`shiny-vue.js`: mounting, the Shiny input
+#' binding, serialising values, forwarding events) and Element's side of it
+#' (`el-events.js`), in load order.
 #'
 #' @return A list of htmlDependency objects.
 #' @keywords internal
@@ -346,10 +348,10 @@
   list(
     .el_jquery_dependency(),
     .el_vue_dependency(),
+    htmltools::htmlDependency("shiny-vue", "1.0.0", src = js,
+                              script = "shiny-vue.js", all_files = FALSE),
     htmltools::htmlDependency("el-events", "1.0.0", src = js,
-                              script = "el-events.js", all_files = FALSE),
-    htmltools::htmlDependency("el-vue", "1.0.0", src = js,
-                              script = "el-vue.js", all_files = FALSE)
+                              script = "el-events.js", all_files = FALSE)
   )
 }
 
@@ -371,4 +373,25 @@
     keep_vec_names = TRUE, dataframe = "columns", json_verbatim = TRUE
   )
   gsub("</", "<\\/", as.character(json), fixed = TRUE)
+}
+
+
+#' A value as a bookmarked session left it
+#'
+#' [shiny::restoreInput()], keeping the shape the component expects: a field
+#' that is an array stays one, so a restored one-item selection is not unboxed
+#' to a string, and an empty selection comes back as an empty array rather
+#' than `NULL`.
+#'
+#' @param id The input id, namespaced as the page has it.
+#' @param default The value to use when nothing is being restored.
+#' @return The restored value, or `default`.
+#' @keywords internal
+.el_restore <- function(id, default) {
+  value <- shiny::restoreInput(id = id, default = default)
+  if (identical(value, default)) return(default)
+  if (is.list(default) && is.null(names(default))) {
+    return(if (is.null(value)) list() else as.list(value))
+  }
+  value
 }

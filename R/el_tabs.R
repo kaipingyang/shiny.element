@@ -77,6 +77,7 @@ el_tabs <- function(
 ) {
   if (is.null(id)) id <- paste0("el_tabs_", uuid::UUIDgenerate())
   ns_id <- .el_ui_id(id, session)
+  selected <- shiny::restoreInput(ns_id, selected)
 
   # Element's editable is closable and addable together
   if (isTRUE(editable)) {

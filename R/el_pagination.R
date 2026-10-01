@@ -91,6 +91,9 @@ el_pagination <- function(
   if (is.null(id)) id <- paste0("el_pagination_", uuid::UUIDgenerate())
   ns_id        <- .el_ui_id(id, session)
   container_id <- paste0(ns_id, "_container")
+  # The page and the size are what the pager reports, so what a bookmark keeps
+  current_page <- shiny::restoreInput(paste0(ns_id, "_page"), current_page)
+  page_size    <- shiny::restoreInput(paste0(ns_id, "_size"), page_size)
 
   pagination_attrs <- list(
     ":total"             = "total",
