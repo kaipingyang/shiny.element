@@ -42,7 +42,7 @@
   }
 
   function report(wrapper, what) {
-    hasShiny && Shiny.setInputValue(wrapper.id + what, true, { priority: 'event' });
+    hasShiny && Shiny.setInputValue && Shiny.setInputValue(wrapper.id + what, true, { priority: 'event' });
   }
 
   function syncBody() {
@@ -103,7 +103,8 @@
     live.setAttribute('data-el-live', 'true');
     live.appendChild(document.importNode(tpl.content, true));
     body.appendChild(live);
-    if (window.HTMLWidgets) window.HTMLWidgets.staticRender();
+    // Shiny's bindAll() mounts the components inside; without Shiny, mount them here
+    if (!hasShiny && window.shinyElement) window.shinyElement.mount(live);
     hasShiny && Shiny.bindAll(live);
   }
 

@@ -10,7 +10,7 @@
 })(function() {
 
   function formInstance(id) {
-    var widget = HTMLWidgets.find('#' + id);
+    var widget = (window.shinyElement && shinyElement.find(id));
     return widget && widget.instance ? widget.instance : null;
   }
 

@@ -60,7 +60,7 @@
         return;
       }
 
-      var widget = HTMLWidgets.find('#' + message.id);
+      var widget = (window.shinyElement && shinyElement.find(message.id));
       // A component rendered as markup, not a Vue instance, offers its
       // methods on the element itself.
       var host = document.getElementById(message.id);

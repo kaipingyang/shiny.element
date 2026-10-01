@@ -173,6 +173,25 @@ slots, table cells, a wrapper’s trigger. At the top level of a page
 nothing compiles them; the browser console now says so instead of
 leaving bare text.
 
+### Every component is a Shiny input
+
+Components are no longer vueR htmlwidgets. vueR renders Vue as an
+htmlwidget *output*, so the id sat on a hidden 0x0 element beside the
+component and Shiny did not know there was an input:
+[`shinyjs::hide()`](https://rdrr.io/pkg/shinyjs/man/visibilityFuncs.html)
+and `disable()` missed it,
+[`removeUI()`](https://rdrr.io/pkg/shiny/man/insertUI.html) left it on
+the page with its Vue instance alive, and no test driver could set it.
+Each component is now a host element carrying its id, with a Shiny input
+binding on it – the way reactR binds React components – so all of those
+reach it. vueR is no longer a dependency; Vue 2.7.14, the version
+Element UI 2 runs on, is bundled beside Element.
+
+[`el_widget()`](https://kaipingyang.github.io/shiny.element/reference/el_widget.md)
+builds the same shape for components of your own, and its new `report`
+argument names the value – an input made of `el$` tags, as the
+limitations article shows, needs no JavaScript.
+
 ### Note for users of the development version
 
 [`el_table()`](https://kaipingyang.github.io/shiny.element/reference/el_table.md)

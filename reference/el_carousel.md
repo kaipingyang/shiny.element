@@ -131,35 +131,37 @@ el_carousel(
     list(name = "three", content = shiny::tags$h3("Third slide"))
   )
 )
-#> <div id="banner_container" style="display: contents">
-#>   <el-carousel ref="carousel" :height="height" :initial-index="initialIndex" :autoplay="autoplay" :interval="interval" :trigger="trigger" :arrow="arrow" :loop="loop" :direction="direction" :indicator-position="indicatorPosition === null ? undefined : indicatorPosition" :type="carouselType === null ? undefined : carouselType" @change="handleChange">
-#>     <el-carousel-item name="one">
-#>       <h3>First slide</h3>
-#>     </el-carousel-item>
-#>     <el-carousel-item name="two">
-#>       <h3>Second slide</h3>
-#>     </el-carousel-item>
-#>     <el-carousel-item name="three">
-#>       <h3>Third slide</h3>
-#>     </el-carousel-item>
-#>   </el-carousel>
+#> <div id="banner" data-el-vue-host style="display: contents">
+#>   <div id="banner_container" data-el-mount style="display: contents">
+#>     <el-carousel ref="carousel" :height="height" :initial-index="initialIndex" :autoplay="autoplay" :interval="interval" :trigger="trigger" :arrow="arrow" :loop="loop" :direction="direction" :indicator-position="indicatorPosition === null ? undefined : indicatorPosition" :type="carouselType === null ? undefined : carouselType" @change="handleChange">
+#>       <el-carousel-item name="one">
+#>         <h3>First slide</h3>
+#>       </el-carousel-item>
+#>       <el-carousel-item name="two">
+#>         <h3>Second slide</h3>
+#>       </el-carousel-item>
+#>       <el-carousel-item name="three">
+#>         <h3>Third slide</h3>
+#>       </el-carousel-item>
+#>     </el-carousel>
+#>   </div>
+#>   <script type="application/json" data-el-vue>{"options":{"data":{"height":"200px","initialIndex":0,"autoplay":true,"interval":3000,"trigger":"hover","arrow":"hover","loop":true,"direction":"horizontal","indicatorPosition":null,"carouselType":null,"itemNames":["one","two","three"],"active":0,"activeName":"one"},"methods":{"handleChange":"function(index) { var self = this; self.active = index; self.activeName = self.itemNames[index] || ''; window.Shiny && Shiny.setInputValue && Shiny.setInputValue('banner', index); window.Shiny && Shiny.setInputValue && Shiny.setInputValue('banner_name', self.activeName); }"},"mounted":"function() { var self = this; [\nfunction() { var self = this; var send = function() { window.Shiny && Shiny.setInputValue && Shiny.setInputValue(\"banner\", self.active); window.Shiny && Shiny.setInputValue && Shiny.setInputValue(\"banner_name\", self.activeName); }; if (window.Shiny && Shiny.shinyapp && typeof Shiny.shinyapp.isConnected === 'function' && Shiny.shinyapp.isConnected()) { send(); } else if (window.jQuery) { jQuery(document).one('shiny:connected', send); } var prev = self._elReport; self._elReport = function() { if (prev) prev(); self.$nextTick(send); }; }\n].forEach(function(f) { f.call(self); }); }"},"input":null,"rate":null,"type":null,"evals":["options.methods.handleChange","options.mounted"]}</script>
 #> </div>
-#> <div id="banner" style="width:0px;height:0px;" class="vue html-widget"></div>
-#> <script type="application/json" data-for="banner">{"x":{"el":"#banner_container","data":{"height":"200px","initialIndex":0,"autoplay":true,"interval":3000,"trigger":"hover","arrow":"hover","loop":true,"direction":"horizontal","indicatorPosition":null,"carouselType":null,"itemNames":["one","two","three"],"active":0,"activeName":"one"},"methods":{"handleChange":"function(index) { var self = this; self.active = index; self.activeName = self.itemNames[index] || ''; window.Shiny && Shiny.setInputValue && Shiny.setInputValue('banner', index); window.Shiny && Shiny.setInputValue && Shiny.setInputValue('banner_name', self.activeName); }"},"mounted":"function() { var self = this; [\nfunction() { var self = this; var send = function() { window.Shiny && Shiny.setInputValue && Shiny.setInputValue(\"banner\", self.active); window.Shiny && Shiny.setInputValue && Shiny.setInputValue(\"banner_name\", self.activeName); }; if (window.Shiny && Shiny.shinyapp && typeof Shiny.shinyapp.isConnected === 'function' && Shiny.shinyapp.isConnected()) { send(); } else if (window.jQuery) { jQuery(document).one('shiny:connected', send); } var prev = self._elReport; self._elReport = function() { if (prev) prev(); self.$nextTick(send); }; }\n].forEach(function(f) { f.call(self); }); }"},"evals":["methods.handleChange","mounted"],"jsHooks":[]}</script>
 
 # Card layout, switching on click rather than hover
 el_carousel(
   id = "cards", type = "card", trigger = "click", height = "180px",
   items = lapply(1:4, function(i) list(content = paste("Card", i)))
 )
-#> <div id="cards_container" style="display: contents">
-#>   <el-carousel ref="carousel" :height="height" :initial-index="initialIndex" :autoplay="autoplay" :interval="interval" :trigger="trigger" :arrow="arrow" :loop="loop" :direction="direction" :indicator-position="indicatorPosition === null ? undefined : indicatorPosition" :type="carouselType === null ? undefined : carouselType" @change="handleChange">
-#>     <el-carousel-item>Card 1</el-carousel-item>
-#>     <el-carousel-item>Card 2</el-carousel-item>
-#>     <el-carousel-item>Card 3</el-carousel-item>
-#>     <el-carousel-item>Card 4</el-carousel-item>
-#>   </el-carousel>
+#> <div id="cards" data-el-vue-host style="display: contents">
+#>   <div id="cards_container" data-el-mount style="display: contents">
+#>     <el-carousel ref="carousel" :height="height" :initial-index="initialIndex" :autoplay="autoplay" :interval="interval" :trigger="trigger" :arrow="arrow" :loop="loop" :direction="direction" :indicator-position="indicatorPosition === null ? undefined : indicatorPosition" :type="carouselType === null ? undefined : carouselType" @change="handleChange">
+#>       <el-carousel-item>Card 1</el-carousel-item>
+#>       <el-carousel-item>Card 2</el-carousel-item>
+#>       <el-carousel-item>Card 3</el-carousel-item>
+#>       <el-carousel-item>Card 4</el-carousel-item>
+#>     </el-carousel>
+#>   </div>
+#>   <script type="application/json" data-el-vue>{"options":{"data":{"height":"180px","initialIndex":0,"autoplay":true,"interval":3000,"trigger":"click","arrow":"hover","loop":true,"direction":"horizontal","indicatorPosition":null,"carouselType":"card","itemNames":["","","",""],"active":0,"activeName":""},"methods":{"handleChange":"function(index) { var self = this; self.active = index; self.activeName = self.itemNames[index] || ''; window.Shiny && Shiny.setInputValue && Shiny.setInputValue('cards', index); window.Shiny && Shiny.setInputValue && Shiny.setInputValue('cards_name', self.activeName); }"},"mounted":"function() { var self = this; [\nfunction() { var self = this; var send = function() { window.Shiny && Shiny.setInputValue && Shiny.setInputValue(\"cards\", self.active); window.Shiny && Shiny.setInputValue && Shiny.setInputValue(\"cards_name\", self.activeName); }; if (window.Shiny && Shiny.shinyapp && typeof Shiny.shinyapp.isConnected === 'function' && Shiny.shinyapp.isConnected()) { send(); } else if (window.jQuery) { jQuery(document).one('shiny:connected', send); } var prev = self._elReport; self._elReport = function() { if (prev) prev(); self.$nextTick(send); }; }\n].forEach(function(f) { f.call(self); }); }"},"input":null,"rate":null,"type":null,"evals":["options.methods.handleChange","options.mounted"]}</script>
 #> </div>
-#> <div id="cards" style="width:0px;height:0px;" class="vue html-widget"></div>
-#> <script type="application/json" data-for="cards">{"x":{"el":"#cards_container","data":{"height":"180px","initialIndex":0,"autoplay":true,"interval":3000,"trigger":"click","arrow":"hover","loop":true,"direction":"horizontal","indicatorPosition":null,"carouselType":"card","itemNames":["","","",""],"active":0,"activeName":""},"methods":{"handleChange":"function(index) { var self = this; self.active = index; self.activeName = self.itemNames[index] || ''; window.Shiny && Shiny.setInputValue && Shiny.setInputValue('cards', index); window.Shiny && Shiny.setInputValue && Shiny.setInputValue('cards_name', self.activeName); }"},"mounted":"function() { var self = this; [\nfunction() { var self = this; var send = function() { window.Shiny && Shiny.setInputValue && Shiny.setInputValue(\"cards\", self.active); window.Shiny && Shiny.setInputValue && Shiny.setInputValue(\"cards_name\", self.activeName); }; if (window.Shiny && Shiny.shinyapp && typeof Shiny.shinyapp.isConnected === 'function' && Shiny.shinyapp.isConnected()) { send(); } else if (window.jQuery) { jQuery(document).one('shiny:connected', send); } var prev = self._elReport; self._elReport = function() { if (prev) prev(); self.$nextTick(send); }; }\n].forEach(function(f) { f.call(self); }); }"},"evals":["methods.handleChange","mounted"],"jsHooks":[]}</script>
 ```

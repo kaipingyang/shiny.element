@@ -71,24 +71,26 @@ el_breadcrumb("trail", items = list(
   list(label = "Reports"),
   list(label = "March")
 ))
-#> <div id="trail_container" style="display: contents">
-#>   <el-breadcrumb :separator="separator === null ? undefined : separator" :separator-class="separatorClass === null ? undefined : separatorClass">
-#>     <el-breadcrumb-item v-for="(item, index) in items" :key="index" :to="item.to" :replace="item.replace" @click.native="handleClick(item)">{{item.label}}</el-breadcrumb-item>
-#>   </el-breadcrumb>
+#> <div id="trail" data-el-vue-host style="display: contents">
+#>   <div id="trail_container" data-el-mount style="display: contents">
+#>     <el-breadcrumb :separator="separator === null ? undefined : separator" :separator-class="separatorClass === null ? undefined : separatorClass">
+#>       <el-breadcrumb-item v-for="(item, index) in items" :key="index" :to="item.to" :replace="item.replace" @click.native="handleClick(item)">{{item.label}}</el-breadcrumb-item>
+#>     </el-breadcrumb>
+#>   </div>
+#>   <script type="application/json" data-el-vue>{"options":{"data":{"items":[{"label":"Home"},{"label":"Reports"},{"label":"March"}],"separator":null,"separatorClass":null},"methods":{"handleClick":"function(item) { window.Shiny && Shiny.setInputValue && Shiny.setInputValue('trail', item.label, {priority: 'event'}); }"}},"input":null,"rate":null,"type":null,"evals":["options.methods.handleClick"]}</script>
 #> </div>
-#> <div id="trail" style="width:0px;height:0px;" class="vue html-widget"></div>
-#> <script type="application/json" data-for="trail">{"x":{"el":"#trail_container","data":{"items":[{"label":"Home"},{"label":"Reports"},{"label":"March"}],"separator":null,"separatorClass":null},"methods":{"handleClick":"function(item) { window.Shiny && Shiny.setInputValue && Shiny.setInputValue('trail', item.label, {priority: 'event'}); }"}},"evals":["methods.handleClick"],"jsHooks":[]}</script>
 
 # An arrow instead of a slash
 el_breadcrumb("trail",
   items = list(list(label = "Home"), list(label = "Detail")),
   separator_class = "el-icon-arrow-right"
 )
-#> <div id="trail_container" style="display: contents">
-#>   <el-breadcrumb :separator="separator === null ? undefined : separator" :separator-class="separatorClass === null ? undefined : separatorClass">
-#>     <el-breadcrumb-item v-for="(item, index) in items" :key="index" :to="item.to" :replace="item.replace" @click.native="handleClick(item)">{{item.label}}</el-breadcrumb-item>
-#>   </el-breadcrumb>
+#> <div id="trail" data-el-vue-host style="display: contents">
+#>   <div id="trail_container" data-el-mount style="display: contents">
+#>     <el-breadcrumb :separator="separator === null ? undefined : separator" :separator-class="separatorClass === null ? undefined : separatorClass">
+#>       <el-breadcrumb-item v-for="(item, index) in items" :key="index" :to="item.to" :replace="item.replace" @click.native="handleClick(item)">{{item.label}}</el-breadcrumb-item>
+#>     </el-breadcrumb>
+#>   </div>
+#>   <script type="application/json" data-el-vue>{"options":{"data":{"items":[{"label":"Home"},{"label":"Detail"}],"separator":null,"separatorClass":"el-icon-arrow-right"},"methods":{"handleClick":"function(item) { window.Shiny && Shiny.setInputValue && Shiny.setInputValue('trail', item.label, {priority: 'event'}); }"}},"input":null,"rate":null,"type":null,"evals":["options.methods.handleClick"]}</script>
 #> </div>
-#> <div id="trail" style="width:0px;height:0px;" class="vue html-widget"></div>
-#> <script type="application/json" data-for="trail">{"x":{"el":"#trail_container","data":{"items":[{"label":"Home"},{"label":"Detail"}],"separator":null,"separatorClass":"el-icon-arrow-right"},"methods":{"handleClick":"function(item) { window.Shiny && Shiny.setInputValue && Shiny.setInputValue('trail', item.label, {priority: 'event'}); }"}},"evals":["methods.handleClick"],"jsHooks":[]}</script>
 ```

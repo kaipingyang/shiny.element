@@ -106,13 +106,14 @@ el_checkbox_group(
   "cb1",
   choices = c("Option A" = "a", "Option B" = "b")
 )
-#> <div id="cb1_container" style="display: contents">
-#>   <el-checkbox-group v-model="value" :disabled="disabled" @change="handleChange" :size="size === null ? undefined : size" :min="min === null ? undefined : min" :max="max === null ? undefined : max" :fill="fill === null ? undefined : fill" :text-color="textColor === null ? undefined : textColor">
-#>     <el-checkbox :label="opt.value" v-for="opt in options" :key="opt.value" :disabled="opt.disabled" :border="opt.border" :name="opt.name" @change="handleItemChange(opt, $event)" :checked="opt.checked" :indeterminate="opt.indeterminate" :true-label="opt.trueLabel" :false-label="opt.falseLabel">{{opt.label}}</el-checkbox>
-#>   </el-checkbox-group>
+#> <div id="cb1" data-el-vue-host style="display: contents">
+#>   <div id="cb1_container" data-el-mount style="display: contents">
+#>     <el-checkbox-group v-model="value" :disabled="disabled" @change="handleChange" :size="size === null ? undefined : size" :min="min === null ? undefined : min" :max="max === null ? undefined : max" :fill="fill === null ? undefined : fill" :text-color="textColor === null ? undefined : textColor">
+#>       <el-checkbox :label="opt.value" v-for="opt in options" :key="opt.value" :disabled="opt.disabled" :border="opt.border" :name="opt.name" @change="handleItemChange(opt, $event)" :checked="opt.checked" :indeterminate="opt.indeterminate" :true-label="opt.trueLabel" :false-label="opt.falseLabel">{{opt.label}}</el-checkbox>
+#>     </el-checkbox-group>
+#>   </div>
+#>   <script type="application/json" data-el-vue>{"options":{"data":{"value":[],"options":[{"value":"a","label":"Option A"},{"value":"b","label":"Option B"}],"disabled":false,"size":null,"min":null,"max":null,"fill":null,"textColor":null},"methods":{"handleItemChange":"function(opt, checked) { window.shinyElement.emit('cb1', 'item_change', [{value: opt.value, label: opt.label, checked: checked}]); }","handleChange":"function(value) { window.Shiny && Shiny.setInputValue && Shiny.setInputValue('cb1', value); }"}},"input":"value","rate":null,"type":null,"evals":["options.methods.handleItemChange","options.methods.handleChange"]}</script>
 #> </div>
-#> <div id="cb1" style="width:0px;height:0px;" class="vue html-widget"></div>
-#> <script type="application/json" data-for="cb1">{"x":{"el":"#cb1_container","data":{"value":[],"options":[{"value":"a","label":"Option A"},{"value":"b","label":"Option B"}],"disabled":false,"size":null,"min":null,"max":null,"fill":null,"textColor":null},"methods":{"handleItemChange":"function(opt, checked) { window.shinyElement.emit('cb1', 'item_change', [{value: opt.value, label: opt.label, checked: checked}]); }","handleChange":"function(value) { window.Shiny && Shiny.setInputValue && Shiny.setInputValue('cb1', value); }"},"mounted":"function() { var self = this; var send = function() { window.Shiny && Shiny.setInputValue && Shiny.setInputValue(\"cb1\", self.value); }; if (window.Shiny && Shiny.shinyapp && typeof Shiny.shinyapp.isConnected === 'function' && Shiny.shinyapp.isConnected()) { send(); } else if (window.jQuery) { jQuery(document).one('shiny:connected', send); } var prev = self._elReport; self._elReport = function() { if (prev) prev(); self.$nextTick(send); }; }"},"evals":["methods.handleItemChange","methods.handleChange","mounted"],"jsHooks":[]}</script>
 
 if (interactive()) {
   library(shiny)

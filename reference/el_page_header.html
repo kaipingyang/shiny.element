@@ -108,17 +108,19 @@ on its own.</p></li>
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu">el_page_header</span><span class="op">(</span><span class="st">"hdr"</span>, content <span class="op">=</span> <span class="st">"Sales for March"</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;div id="hdr_container" style="display: contents"&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   &lt;el-page-header :title="title === null ? undefined : title" :content="content === null ? undefined : content" @back="elEmitBack"&gt;&lt;/el-page-header&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;div id="hdr" data-el-vue-host style="display: contents"&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   &lt;div id="hdr_container" data-el-mount style="display: contents"&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     &lt;el-page-header :title="title === null ? undefined : title" :content="content === null ? undefined : content" @back="elEmitBack"&gt;&lt;/el-page-header&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   &lt;/div&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   &lt;script type="application/json" data-el-vue&gt;{"options":{"data":{"title":null,"content":"Sales for March"},"methods":{"elEmitBack":"function() { window.shinyElement.emit('hdr', 'back', arguments); }"}},"input":null,"rate":null,"type":null,"evals":["options.methods.elEmitBack"]}&lt;/script&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> &lt;/div&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;div id="hdr" style="width:0px;height:0px;" class="vue html-widget"&gt;&lt;/div&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;script type="application/json" data-for="hdr"&gt;{"x":{"el":"#hdr_container","data":{"title":null,"content":"Sales for March"},"methods":{"elEmitBack":"function() { window.shinyElement.emit('hdr', 'back', arguments); }"}},"evals":["methods.elEmitBack"],"jsHooks":[]}&lt;/script&gt;</span>
 <span class="r-in"><span><span class="fu">el_page_header</span><span class="op">(</span><span class="st">"hdr"</span>, title <span class="op">=</span> <span class="st">"All reports"</span>, content <span class="op">=</span> <span class="st">"Sales for March"</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;div id="hdr_container" style="display: contents"&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   &lt;el-page-header :title="title === null ? undefined : title" :content="content === null ? undefined : content" @back="elEmitBack"&gt;&lt;/el-page-header&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;div id="hdr" data-el-vue-host style="display: contents"&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   &lt;div id="hdr_container" data-el-mount style="display: contents"&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     &lt;el-page-header :title="title === null ? undefined : title" :content="content === null ? undefined : content" @back="elEmitBack"&gt;&lt;/el-page-header&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   &lt;/div&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   &lt;script type="application/json" data-el-vue&gt;{"options":{"data":{"title":"All reports","content":"Sales for March"},"methods":{"elEmitBack":"function() { window.shinyElement.emit('hdr', 'back', arguments); }"}},"input":null,"rate":null,"type":null,"evals":["options.methods.elEmitBack"]}&lt;/script&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> &lt;/div&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;div id="hdr" style="width:0px;height:0px;" class="vue html-widget"&gt;&lt;/div&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;script type="application/json" data-for="hdr"&gt;{"x":{"el":"#hdr_container","data":{"title":"All reports","content":"Sales for March"},"methods":{"elEmitBack":"function() { window.shinyElement.emit('hdr', 'back', arguments); }"}},"evals":["methods.elEmitBack"],"jsHooks":[]}&lt;/script&gt;</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/interactive.html" class="external-link">interactive</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span></span>
 <span class="r-in"><span>  <span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://shiny.posit.co/" class="external-link">shiny</a></span><span class="op">)</span></span></span>

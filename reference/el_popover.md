@@ -138,15 +138,16 @@ el_popover("info",
   title = "March",
   content = "Revenue up 4% on February."
 )
-#> <div id="info_container" style="display: contents">
-#>   <el-popover v-model="popValue" :title="popTitle === null ? undefined : popTitle" :content="popContent === null ? undefined : popContent" :trigger="popTrigger === null ? undefined : popTrigger" :placement="popPlacement === null ? undefined : popPlacement" :width="popPopoverWidth === null ? undefined : popPopoverWidth" :disabled="popDisabled === null ? undefined : popDisabled" :offset="popOffset === null ? undefined : popOffset" :open-delay="popOpenDelay === null ? undefined : popOpenDelay" :close-delay="popCloseDelay === null ? undefined : popCloseDelay" :visible-arrow="popVisibleArrow === null ? undefined : popVisibleArrow" :transition="popTransition === null ? undefined : popTransition" :popper-class="popPopperClass === null ? undefined : popPopperClass" :popper-options="popPopperOptions === null ? undefined : popPopperOptions" :tabindex="popTabindex === null ? undefined : popTabindex" @show="elEmitShow" @hide="elEmitHide" @after-enter="elEmitAfterEnter" @after-leave="elEmitAfterLeave">
-#>     <span slot="reference">
-#>       <el-button>Details</el-button>
-#>     </span>
-#>   </el-popover>
+#> <div id="info" data-el-vue-host style="display: contents">
+#>   <div id="info_container" data-el-mount style="display: contents">
+#>     <el-popover v-model="popValue" :title="popTitle === null ? undefined : popTitle" :content="popContent === null ? undefined : popContent" :trigger="popTrigger === null ? undefined : popTrigger" :placement="popPlacement === null ? undefined : popPlacement" :width="popPopoverWidth === null ? undefined : popPopoverWidth" :disabled="popDisabled === null ? undefined : popDisabled" :offset="popOffset === null ? undefined : popOffset" :open-delay="popOpenDelay === null ? undefined : popOpenDelay" :close-delay="popCloseDelay === null ? undefined : popCloseDelay" :visible-arrow="popVisibleArrow === null ? undefined : popVisibleArrow" :transition="popTransition === null ? undefined : popTransition" :popper-class="popPopperClass === null ? undefined : popPopperClass" :popper-options="popPopperOptions === null ? undefined : popPopperOptions" :tabindex="popTabindex === null ? undefined : popTabindex" @show="elEmitShow" @hide="elEmitHide" @after-enter="elEmitAfterEnter" @after-leave="elEmitAfterLeave">
+#>       <span slot="reference">
+#>         <el-button>Details</el-button>
+#>       </span>
+#>     </el-popover>
+#>   </div>
+#>   <script type="application/json" data-el-vue>{"options":{"data":{"popValue":false,"popTitle":"March","popContent":"Revenue up 4% on February.","popTrigger":null,"popPlacement":null,"popPopoverWidth":null,"popDisabled":null,"popOffset":null,"popOpenDelay":null,"popCloseDelay":null,"popVisibleArrow":null,"popTransition":null,"popPopperClass":null,"popPopperOptions":null,"popTabindex":null},"methods":{"elEmitShow":"function() { window.shinyElement.emit('info', 'show', arguments); }","elEmitHide":"function() { window.shinyElement.emit('info', 'hide', arguments); }","elEmitAfterEnter":"function() { window.shinyElement.emit('info', 'after_enter', arguments); }","elEmitAfterLeave":"function() { window.shinyElement.emit('info', 'after_leave', arguments); }"}},"input":null,"rate":null,"type":null,"evals":["options.methods.elEmitShow","options.methods.elEmitHide","options.methods.elEmitAfterEnter","options.methods.elEmitAfterLeave"]}</script>
 #> </div>
-#> <div id="info" style="width:0px;height:0px;" class="vue html-widget"></div>
-#> <script type="application/json" data-for="info">{"x":{"el":"#info_container","data":{"popValue":false,"popTitle":"March","popContent":"Revenue up 4% on February.","popTrigger":null,"popPlacement":null,"popPopoverWidth":null,"popDisabled":null,"popOffset":null,"popOpenDelay":null,"popCloseDelay":null,"popVisibleArrow":null,"popTransition":null,"popPopperClass":null,"popPopperOptions":null,"popTabindex":null},"methods":{"elEmitShow":"function() { window.shinyElement.emit('info', 'show', arguments); }","elEmitHide":"function() { window.shinyElement.emit('info', 'hide', arguments); }","elEmitAfterEnter":"function() { window.shinyElement.emit('info', 'after_enter', arguments); }","elEmitAfterLeave":"function() { window.shinyElement.emit('info', 'after_leave', arguments); }"}},"evals":["methods.elEmitShow","methods.elEmitHide","methods.elEmitAfterEnter","methods.elEmitAfterLeave"],"jsHooks":[]}</script>
 
 # Hover, with markup in the body
 el_popover("info",
@@ -154,17 +155,18 @@ el_popover("info",
   body = shiny::tags$ul(shiny::tags$li("One"), shiny::tags$li("Two")),
   trigger = "hover", placement = "right"
 )
-#> <div id="info_container" style="display: contents">
-#>   <el-popover v-model="popValue" :title="popTitle === null ? undefined : popTitle" :content="popContent === null ? undefined : popContent" :trigger="popTrigger === null ? undefined : popTrigger" :placement="popPlacement === null ? undefined : popPlacement" :width="popPopoverWidth === null ? undefined : popPopoverWidth" :disabled="popDisabled === null ? undefined : popDisabled" :offset="popOffset === null ? undefined : popOffset" :open-delay="popOpenDelay === null ? undefined : popOpenDelay" :close-delay="popCloseDelay === null ? undefined : popCloseDelay" :visible-arrow="popVisibleArrow === null ? undefined : popVisibleArrow" :transition="popTransition === null ? undefined : popTransition" :popper-class="popPopperClass === null ? undefined : popPopperClass" :popper-options="popPopperOptions === null ? undefined : popPopperOptions" :tabindex="popTabindex === null ? undefined : popTabindex" @show="elEmitShow" @hide="elEmitHide" @after-enter="elEmitAfterEnter" @after-leave="elEmitAfterLeave">
-#>     <ul>
-#>       <li>One</li>
-#>       <li>Two</li>
-#>     </ul>
-#>     <span slot="reference">
-#>       <el-button>Details</el-button>
-#>     </span>
-#>   </el-popover>
+#> <div id="info" data-el-vue-host style="display: contents">
+#>   <div id="info_container" data-el-mount style="display: contents">
+#>     <el-popover v-model="popValue" :title="popTitle === null ? undefined : popTitle" :content="popContent === null ? undefined : popContent" :trigger="popTrigger === null ? undefined : popTrigger" :placement="popPlacement === null ? undefined : popPlacement" :width="popPopoverWidth === null ? undefined : popPopoverWidth" :disabled="popDisabled === null ? undefined : popDisabled" :offset="popOffset === null ? undefined : popOffset" :open-delay="popOpenDelay === null ? undefined : popOpenDelay" :close-delay="popCloseDelay === null ? undefined : popCloseDelay" :visible-arrow="popVisibleArrow === null ? undefined : popVisibleArrow" :transition="popTransition === null ? undefined : popTransition" :popper-class="popPopperClass === null ? undefined : popPopperClass" :popper-options="popPopperOptions === null ? undefined : popPopperOptions" :tabindex="popTabindex === null ? undefined : popTabindex" @show="elEmitShow" @hide="elEmitHide" @after-enter="elEmitAfterEnter" @after-leave="elEmitAfterLeave">
+#>       <ul>
+#>         <li>One</li>
+#>         <li>Two</li>
+#>       </ul>
+#>       <span slot="reference">
+#>         <el-button>Details</el-button>
+#>       </span>
+#>     </el-popover>
+#>   </div>
+#>   <script type="application/json" data-el-vue>{"options":{"data":{"popValue":false,"popTitle":null,"popContent":null,"popTrigger":"hover","popPlacement":"right","popPopoverWidth":null,"popDisabled":null,"popOffset":null,"popOpenDelay":null,"popCloseDelay":null,"popVisibleArrow":null,"popTransition":null,"popPopperClass":null,"popPopperOptions":null,"popTabindex":null},"methods":{"elEmitShow":"function() { window.shinyElement.emit('info', 'show', arguments); }","elEmitHide":"function() { window.shinyElement.emit('info', 'hide', arguments); }","elEmitAfterEnter":"function() { window.shinyElement.emit('info', 'after_enter', arguments); }","elEmitAfterLeave":"function() { window.shinyElement.emit('info', 'after_leave', arguments); }"}},"input":null,"rate":null,"type":null,"evals":["options.methods.elEmitShow","options.methods.elEmitHide","options.methods.elEmitAfterEnter","options.methods.elEmitAfterLeave"]}</script>
 #> </div>
-#> <div id="info" style="width:0px;height:0px;" class="vue html-widget"></div>
-#> <script type="application/json" data-for="info">{"x":{"el":"#info_container","data":{"popValue":false,"popTitle":null,"popContent":null,"popTrigger":"hover","popPlacement":"right","popPopoverWidth":null,"popDisabled":null,"popOffset":null,"popOpenDelay":null,"popCloseDelay":null,"popVisibleArrow":null,"popTransition":null,"popPopperClass":null,"popPopperOptions":null,"popTabindex":null},"methods":{"elEmitShow":"function() { window.shinyElement.emit('info', 'show', arguments); }","elEmitHide":"function() { window.shinyElement.emit('info', 'hide', arguments); }","elEmitAfterEnter":"function() { window.shinyElement.emit('info', 'after_enter', arguments); }","elEmitAfterLeave":"function() { window.shinyElement.emit('info', 'after_leave', arguments); }"}},"evals":["methods.elEmitShow","methods.elEmitHide","methods.elEmitAfterEnter","methods.elEmitAfterLeave"],"jsHooks":[]}</script>
 ```

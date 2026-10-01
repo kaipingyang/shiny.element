@@ -74,23 +74,26 @@ A Shiny UI element.
 
 ``` r
 el_backtop("top")
-#> <div id="top_container" style="display: contents">
-#>   <el-backtop :target="target === null ? undefined : target" :visibility-height="visibilityHeight === null ? undefined : visibilityHeight" :right="right === null ? undefined : right" :bottom="bottom === null ? undefined : bottom" @click="elEmitClick"></el-backtop>
+#> <div id="top" data-el-vue-host style="display: contents">
+#>   <div id="top_container" data-el-mount style="display: contents">
+#>     <el-backtop :target="target === null ? undefined : target" :visibility-height="visibilityHeight === null ? undefined : visibilityHeight" :right="right === null ? undefined : right" :bottom="bottom === null ? undefined : bottom" @click="elEmitClick"></el-backtop>
+#>   </div>
+#>   <script type="application/json" data-el-vue>{"options":{"data":{"target":null,"visibilityHeight":null,"right":null,"bottom":null},"methods":{"elEmitClick":"function() { window.shinyElement.emit('top', 'click', arguments); }"}},"input":null,"rate":null,"type":null,"evals":["options.methods.elEmitClick"]}</script>
 #> </div>
-#> <div id="top" style="width:0px;height:0px;" class="vue html-widget"></div>
-#> <script type="application/json" data-for="top">{"x":{"el":"#top_container","data":{"target":null,"visibilityHeight":null,"right":null,"bottom":null},"methods":{"elEmitClick":"function() { window.shinyElement.emit('top', 'click', arguments); }"}},"evals":["methods.elEmitClick"],"jsHooks":[]}</script>
 el_backtop("top", visibility_height = 100, right = 20, bottom = 20)
-#> <div id="top_container" style="display: contents">
-#>   <el-backtop :target="target === null ? undefined : target" :visibility-height="visibilityHeight === null ? undefined : visibilityHeight" :right="right === null ? undefined : right" :bottom="bottom === null ? undefined : bottom" @click="elEmitClick"></el-backtop>
+#> <div id="top" data-el-vue-host style="display: contents">
+#>   <div id="top_container" data-el-mount style="display: contents">
+#>     <el-backtop :target="target === null ? undefined : target" :visibility-height="visibilityHeight === null ? undefined : visibilityHeight" :right="right === null ? undefined : right" :bottom="bottom === null ? undefined : bottom" @click="elEmitClick"></el-backtop>
+#>   </div>
+#>   <script type="application/json" data-el-vue>{"options":{"data":{"target":null,"visibilityHeight":100,"right":20,"bottom":20},"methods":{"elEmitClick":"function() { window.shinyElement.emit('top', 'click', arguments); }"}},"input":null,"rate":null,"type":null,"evals":["options.methods.elEmitClick"]}</script>
 #> </div>
-#> <div id="top" style="width:0px;height:0px;" class="vue html-widget"></div>
-#> <script type="application/json" data-for="top">{"x":{"el":"#top_container","data":{"target":null,"visibilityHeight":100,"right":20,"bottom":20},"methods":{"elEmitClick":"function() { window.shinyElement.emit('top', 'click', arguments); }"}},"evals":["methods.elEmitClick"],"jsHooks":[]}</script>
 
 # Scrolling a panel rather than the page
 el_backtop("panel_top", target = "#report")
-#> <div id="panel_top_container" style="display: contents">
-#>   <el-backtop :target="target === null ? undefined : target" :visibility-height="visibilityHeight === null ? undefined : visibilityHeight" :right="right === null ? undefined : right" :bottom="bottom === null ? undefined : bottom" @click="elEmitClick"></el-backtop>
+#> <div id="panel_top" data-el-vue-host style="display: contents">
+#>   <div id="panel_top_container" data-el-mount style="display: contents">
+#>     <el-backtop :target="target === null ? undefined : target" :visibility-height="visibilityHeight === null ? undefined : visibilityHeight" :right="right === null ? undefined : right" :bottom="bottom === null ? undefined : bottom" @click="elEmitClick"></el-backtop>
+#>   </div>
+#>   <script type="application/json" data-el-vue>{"options":{"data":{"target":"#report","visibilityHeight":null,"right":null,"bottom":null},"methods":{"elEmitClick":"function() { window.shinyElement.emit('panel_top', 'click', arguments); }"}},"input":null,"rate":null,"type":null,"evals":["options.methods.elEmitClick"]}</script>
 #> </div>
-#> <div id="panel_top" style="width:0px;height:0px;" class="vue html-widget"></div>
-#> <script type="application/json" data-for="panel_top">{"x":{"el":"#panel_top_container","data":{"target":"#report","visibilityHeight":null,"right":null,"bottom":null},"methods":{"elEmitClick":"function() { window.shinyElement.emit('panel_top', 'click', arguments); }"}},"evals":["methods.elEmitClick"],"jsHooks":[]}</script>
 ```

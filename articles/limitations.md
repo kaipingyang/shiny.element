@@ -221,9 +221,9 @@ shinyApp(ui, server)
 
 ![](../shots/limitations-absorb.png)
 
-This costs one thing. An absorbed component has no widget of its own, so
-`HTMLWidgets.find()` cannot reach it and its `update_el_*()` stops
-working. Drive it through the wrapper instead:
+This costs one thing. An absorbed component has no host of its own, so
+nothing to send its `update_el_*()` to, and that stops working. Drive it
+through the wrapper instead:
 
 ``` r
 
@@ -235,7 +235,7 @@ ui <- el_page(
 
 server <- function(input, output, session) {
   observeEvent(input$busy, {
-    # Not update_el_button(session, "save", ...): the button has no widget
+    # Not update_el_button(session, "save", ...): the button has no host
     # of its own any more. Its fields live on the tooltip.
     update_vue_data(session, "hint", list(label = "Saving...", loading = TRUE))
   })
@@ -455,12 +455,16 @@ shinyApp(ui, server)
 
 ![](../shots/limitations-own-input.png)
 
-Calling [`vueR::vue()`](https://rdrr.io/pkg/vueR/man/vue.html) yourself
-works too. What
+Each component is a host element carrying its id, with the Element
+markup inside and a Shiny input binding on it – the way reactR binds
+React components – so the rest of Shiny can reach it:
+[`shinyjs::hide()`](https://rdrr.io/pkg/shinyjs/man/visibilityFuncs.html),
+[`shinyjs::disable()`](https://rdrr.io/pkg/shinyjs/man/stateFuncs.html),
+[`removeUI()`](https://rdrr.io/pkg/shiny/man/insertUI.html), a test
+driver’s `set_inputs()`. A component built with
 [`el_widget()`](https://kaipingyang.github.io/shiny.element/reference/el_widget.md)
-carries, and what is then yours to remember, is `display: contents` on
-the host, a zero-sized widget element, and the `el` selector – each of
-which is there because of a bug.
+gets all of that. Mounting Vue yourself gets none of it: there is then
+no binding, and the id is wherever you put it.
 
 ## Where the argument name differs from Element’s
 

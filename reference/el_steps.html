@@ -142,15 +142,16 @@ a warning.</p></dd>
 <span class="r-in"><span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Step 3"</span><span class="op">)</span></span></span>
 <span class="r-in"><span>  <span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;div id="my_steps_container" style="display: contents"&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   &lt;el-steps :active="active" :direction="direction" :process-status="processStatus" :finish-status="finishStatus" :align-center="alignCenter" :simple="simple" :space="space === null ? undefined : space"&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     &lt;el-step title="Step 1"&gt;&lt;/el-step&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     &lt;el-step title="Step 2"&gt;&lt;/el-step&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     &lt;el-step title="Step 3"&gt;&lt;/el-step&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   &lt;/el-steps&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;div id="my_steps" data-el-vue-host style="display: contents"&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   &lt;div id="my_steps_container" data-el-mount style="display: contents"&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     &lt;el-steps :active="active" :direction="direction" :process-status="processStatus" :finish-status="finishStatus" :align-center="alignCenter" :simple="simple" :space="space === null ? undefined : space"&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       &lt;el-step title="Step 1"&gt;&lt;/el-step&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       &lt;el-step title="Step 2"&gt;&lt;/el-step&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       &lt;el-step title="Step 3"&gt;&lt;/el-step&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     &lt;/el-steps&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   &lt;/div&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   &lt;script type="application/json" data-el-vue&gt;{"options":{"data":{"active":0,"direction":"horizontal","processStatus":"process","finishStatus":"finish","alignCenter":false,"simple":false,"space":null},"watch":{"active":"function(newVal) { window.Shiny &amp;&amp; Shiny.setInputValue &amp;&amp; Shiny.setInputValue('my_steps', newVal); }"}},"input":"active","rate":null,"type":null,"evals":["options.watch.active"]}&lt;/script&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> &lt;/div&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;div id="my_steps" style="width:0px;height:0px;" class="vue html-widget"&gt;&lt;/div&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;script type="application/json" data-for="my_steps"&gt;{"x":{"el":"#my_steps_container","data":{"active":0,"direction":"horizontal","processStatus":"process","finishStatus":"finish","alignCenter":false,"simple":false,"space":null},"watch":{"active":"function(newVal) { window.Shiny &amp;&amp; Shiny.setInputValue &amp;&amp; Shiny.setInputValue('my_steps', newVal); }"},"mounted":"function() { var self = this; var send = function() { window.Shiny &amp;&amp; Shiny.setInputValue &amp;&amp; Shiny.setInputValue(\"my_steps\", self.active); }; if (window.Shiny &amp;&amp; Shiny.shinyapp &amp;&amp; typeof Shiny.shinyapp.isConnected === 'function' &amp;&amp; Shiny.shinyapp.isConnected()) { send(); } else if (window.jQuery) { jQuery(document).one('shiny:connected', send); } var prev = self._elReport; self._elReport = function() { if (prev) prev(); self.$nextTick(send); }; }"},"evals":["watch.active","mounted"],"jsHooks":[]}&lt;/script&gt;</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># With descriptions and icons</span></span></span>
 <span class="r-in"><span><span class="fu">el_steps</span><span class="op">(</span></span></span>
@@ -163,15 +164,16 @@ a warning.</p></dd>
 <span class="r-in"><span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Step 3"</span>, description <span class="op">=</span> <span class="st">"Finish"</span>, icon <span class="op">=</span> <span class="st">"el-icon-picture"</span><span class="op">)</span></span></span>
 <span class="r-in"><span>  <span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;div id="my_steps_container" style="display: contents"&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   &lt;el-steps :active="active" :direction="direction" :process-status="processStatus" :finish-status="finishStatus" :align-center="alignCenter" :simple="simple" :space="space === null ? undefined : space"&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     &lt;el-step title="Step 1" description="Complete registration" icon="el-icon-edit"&gt;&lt;/el-step&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     &lt;el-step title="Step 2" description="Upload documents" icon="el-icon-upload"&gt;&lt;/el-step&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     &lt;el-step title="Step 3" description="Finish" icon="el-icon-picture"&gt;&lt;/el-step&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   &lt;/el-steps&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;div id="my_steps" data-el-vue-host style="display: contents"&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   &lt;div id="my_steps_container" data-el-mount style="display: contents"&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     &lt;el-steps :active="active" :direction="direction" :process-status="processStatus" :finish-status="finishStatus" :align-center="alignCenter" :simple="simple" :space="space === null ? undefined : space"&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       &lt;el-step title="Step 1" description="Complete registration" icon="el-icon-edit"&gt;&lt;/el-step&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       &lt;el-step title="Step 2" description="Upload documents" icon="el-icon-upload"&gt;&lt;/el-step&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       &lt;el-step title="Step 3" description="Finish" icon="el-icon-picture"&gt;&lt;/el-step&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     &lt;/el-steps&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   &lt;/div&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   &lt;script type="application/json" data-el-vue&gt;{"options":{"data":{"active":1,"direction":"horizontal","processStatus":"process","finishStatus":"success","alignCenter":false,"simple":false,"space":null},"watch":{"active":"function(newVal) { window.Shiny &amp;&amp; Shiny.setInputValue &amp;&amp; Shiny.setInputValue('my_steps', newVal); }"}},"input":"active","rate":null,"type":null,"evals":["options.watch.active"]}&lt;/script&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> &lt;/div&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;div id="my_steps" style="width:0px;height:0px;" class="vue html-widget"&gt;&lt;/div&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;script type="application/json" data-for="my_steps"&gt;{"x":{"el":"#my_steps_container","data":{"active":1,"direction":"horizontal","processStatus":"process","finishStatus":"success","alignCenter":false,"simple":false,"space":null},"watch":{"active":"function(newVal) { window.Shiny &amp;&amp; Shiny.setInputValue &amp;&amp; Shiny.setInputValue('my_steps', newVal); }"},"mounted":"function() { var self = this; var send = function() { window.Shiny &amp;&amp; Shiny.setInputValue &amp;&amp; Shiny.setInputValue(\"my_steps\", self.active); }; if (window.Shiny &amp;&amp; Shiny.shinyapp &amp;&amp; typeof Shiny.shinyapp.isConnected === 'function' &amp;&amp; Shiny.shinyapp.isConnected()) { send(); } else if (window.jQuery) { jQuery(document).one('shiny:connected', send); } var prev = self._elReport; self._elReport = function() { if (prev) prev(); self.$nextTick(send); }; }"},"evals":["watch.active","mounted"],"jsHooks":[]}&lt;/script&gt;</span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>

@@ -89,21 +89,24 @@ A Shiny UI element.
 
 ``` r
 el_avatar("me", src = "https://example.org/face.png")
-#> <div id="me_container" style="display: contents">
-#>   <el-avatar :src="src === null ? undefined : src" :icon="icon === null ? undefined : icon" :size="size === null ? undefined : size" :shape="shape === null ? undefined : shape" :fit="fit === null ? undefined : fit" :src-set="srcSet === null ? undefined : srcSet" :alt="alt === null ? undefined : alt" @error="elEmitError">{{content}}</el-avatar>
+#> <div id="me" data-el-vue-host style="display: contents">
+#>   <div id="me_container" data-el-mount style="display: contents">
+#>     <el-avatar :src="src === null ? undefined : src" :icon="icon === null ? undefined : icon" :size="size === null ? undefined : size" :shape="shape === null ? undefined : shape" :fit="fit === null ? undefined : fit" :src-set="srcSet === null ? undefined : srcSet" :alt="alt === null ? undefined : alt" @error="elEmitError">{{content}}</el-avatar>
+#>   </div>
+#>   <script type="application/json" data-el-vue>{"options":{"data":{"content":null,"src":"https://example.org/face.png","icon":null,"size":null,"shape":null,"fit":null,"srcSet":null,"alt":null},"methods":{"elEmitError":"function() { window.shinyElement.emit('me', 'error', arguments); }"}},"input":null,"rate":null,"type":null,"evals":["options.methods.elEmitError"]}</script>
 #> </div>
-#> <div id="me" style="width:0px;height:0px;" class="vue html-widget"></div>
-#> <script type="application/json" data-for="me">{"x":{"el":"#me_container","data":{"content":null,"src":"https://example.org/face.png","icon":null,"size":null,"shape":null,"fit":null,"srcSet":null,"alt":null},"methods":{"elEmitError":"function() { window.shinyElement.emit('me', 'error', arguments); }"}},"evals":["methods.elEmitError"],"jsHooks":[]}</script>
 el_avatar("initials", content = "KY", shape = "square", size = 40)
-#> <div id="initials_container" style="display: contents">
-#>   <el-avatar :src="src === null ? undefined : src" :icon="icon === null ? undefined : icon" :size="size === null ? undefined : size" :shape="shape === null ? undefined : shape" :fit="fit === null ? undefined : fit" :src-set="srcSet === null ? undefined : srcSet" :alt="alt === null ? undefined : alt" @error="elEmitError">{{content}}</el-avatar>
+#> <div id="initials" data-el-vue-host style="display: contents">
+#>   <div id="initials_container" data-el-mount style="display: contents">
+#>     <el-avatar :src="src === null ? undefined : src" :icon="icon === null ? undefined : icon" :size="size === null ? undefined : size" :shape="shape === null ? undefined : shape" :fit="fit === null ? undefined : fit" :src-set="srcSet === null ? undefined : srcSet" :alt="alt === null ? undefined : alt" @error="elEmitError">{{content}}</el-avatar>
+#>   </div>
+#>   <script type="application/json" data-el-vue>{"options":{"data":{"content":"KY","src":null,"icon":null,"size":40,"shape":"square","fit":null,"srcSet":null,"alt":null},"methods":{"elEmitError":"function() { window.shinyElement.emit('initials', 'error', arguments); }"}},"input":null,"rate":null,"type":null,"evals":["options.methods.elEmitError"]}</script>
 #> </div>
-#> <div id="initials" style="width:0px;height:0px;" class="vue html-widget"></div>
-#> <script type="application/json" data-for="initials">{"x":{"el":"#initials_container","data":{"content":"KY","src":null,"icon":null,"size":40,"shape":"square","fit":null,"srcSet":null,"alt":null},"methods":{"elEmitError":"function() { window.shinyElement.emit('initials', 'error', arguments); }"}},"evals":["methods.elEmitError"],"jsHooks":[]}</script>
 el_avatar("anon", icon = "el-icon-user-solid")
-#> <div id="anon_container" style="display: contents">
-#>   <el-avatar :src="src === null ? undefined : src" :icon="icon === null ? undefined : icon" :size="size === null ? undefined : size" :shape="shape === null ? undefined : shape" :fit="fit === null ? undefined : fit" :src-set="srcSet === null ? undefined : srcSet" :alt="alt === null ? undefined : alt" @error="elEmitError">{{content}}</el-avatar>
+#> <div id="anon" data-el-vue-host style="display: contents">
+#>   <div id="anon_container" data-el-mount style="display: contents">
+#>     <el-avatar :src="src === null ? undefined : src" :icon="icon === null ? undefined : icon" :size="size === null ? undefined : size" :shape="shape === null ? undefined : shape" :fit="fit === null ? undefined : fit" :src-set="srcSet === null ? undefined : srcSet" :alt="alt === null ? undefined : alt" @error="elEmitError">{{content}}</el-avatar>
+#>   </div>
+#>   <script type="application/json" data-el-vue>{"options":{"data":{"content":null,"src":null,"icon":"el-icon-user-solid","size":null,"shape":null,"fit":null,"srcSet":null,"alt":null},"methods":{"elEmitError":"function() { window.shinyElement.emit('anon', 'error', arguments); }"}},"input":null,"rate":null,"type":null,"evals":["options.methods.elEmitError"]}</script>
 #> </div>
-#> <div id="anon" style="width:0px;height:0px;" class="vue html-widget"></div>
-#> <script type="application/json" data-for="anon">{"x":{"el":"#anon_container","data":{"content":null,"src":null,"icon":"el-icon-user-solid","size":null,"shape":null,"fit":null,"srcSet":null,"alt":null},"methods":{"elEmitError":"function() { window.shinyElement.emit('anon', 'error', arguments); }"}},"evals":["methods.elEmitError"],"jsHooks":[]}</script>
 ```

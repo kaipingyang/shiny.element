@@ -1,7 +1,9 @@
-# shiny.element: Element UI (Vue2) Integration Helpers for Shiny via vueR
+# shiny.element: 'Element UI' Components for 'Shiny'
 
-Provide htmlDependency and helper wrappers for using Element-UI (Vue2)
-components in Shiny apps built with vueR.
+'Element UI' ('Vue' 2) components for 'Shiny': forms, tables, trees,
+menus, dialogs and the rest, each reporting to the server and updated
+from it like any other 'Shiny' input. 'Element UI' and 'Vue' are
+bundled, so applications work offline.
 
 ## See also
 
@@ -25,3 +27,6 @@ Other contributors:
 
 - ElemeFE (Element UI library bundled in inst/element-ui, MIT licence)
   \[contributor, copyright holder\]
+
+- Evan You (Vue library bundled in inst/vue, MIT licence) \[contributor,
+  copyright holder\]

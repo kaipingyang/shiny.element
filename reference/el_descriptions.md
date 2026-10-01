@@ -103,30 +103,32 @@ el_descriptions("user", title = "Account", border = TRUE, items = list(
   list(label = "Plan", content = el_tag("plan", "Pro", type = "success")),
   list(label = "Address", content = "12 St James's Square, London", span = 2)
 ))
-#> <div id="user_container" style="display: contents">
-#>   <el-descriptions :title="dTitle === null ? undefined : dTitle" :extra="dExtra === null ? undefined : dExtra" :column="dColumn === null ? undefined : dColumn" :direction="dDirection === null ? undefined : dDirection" :border="dBorder === null ? undefined : dBorder" :size="dSize === null ? undefined : dSize" :colon="dColon === null ? undefined : dColon" :label-class-name="dLabelClassName === null ? undefined : dLabelClassName" :content-class-name="dContentClassName === null ? undefined : dContentClassName" :label-style="dLabelStyle === null ? undefined : dLabelStyle" :content-style="dContentStyle === null ? undefined : dContentStyle">
-#>     <el-descriptions-item label="Name">Ada Lovelace</el-descriptions-item>
-#>     <el-descriptions-item label="Plan">
-#>       <el-tag :type="type" :closable="closable" :effect="effect" :hit="hit" :disable-transitions="disableTransitions" @click="handleClick" @close="handleClose" :size="size === null ? undefined : size" :color="color === null ? undefined : color">{{label}}</el-tag>
-#>     </el-descriptions-item>
-#>     <el-descriptions-item label="Address" :span="2">12 St James's Square, London</el-descriptions-item>
-#>   </el-descriptions>
+#> <div id="user" data-el-vue-host style="display: contents">
+#>   <div id="user_container" data-el-mount style="display: contents">
+#>     <el-descriptions :title="dTitle === null ? undefined : dTitle" :extra="dExtra === null ? undefined : dExtra" :column="dColumn === null ? undefined : dColumn" :direction="dDirection === null ? undefined : dDirection" :border="dBorder === null ? undefined : dBorder" :size="dSize === null ? undefined : dSize" :colon="dColon === null ? undefined : dColon" :label-class-name="dLabelClassName === null ? undefined : dLabelClassName" :content-class-name="dContentClassName === null ? undefined : dContentClassName" :label-style="dLabelStyle === null ? undefined : dLabelStyle" :content-style="dContentStyle === null ? undefined : dContentStyle">
+#>       <el-descriptions-item label="Name">Ada Lovelace</el-descriptions-item>
+#>       <el-descriptions-item label="Plan">
+#>         <el-tag :type="type" :closable="closable" :effect="effect" :hit="hit" :disable-transitions="disableTransitions" @click="handleClick" @close="handleClose" :size="size === null ? undefined : size" :color="color === null ? undefined : color">{{label}}</el-tag>
+#>       </el-descriptions-item>
+#>       <el-descriptions-item label="Address" :span="2">12 St James's Square, London</el-descriptions-item>
+#>     </el-descriptions>
+#>   </div>
+#>   <script type="application/json" data-el-vue>{"options":{"data":{"dTitle":"Account","dExtra":null,"dColumn":null,"dDirection":null,"dBorder":true,"dSize":null,"dColon":null,"dLabelClassName":null,"dContentClassName":null,"dLabelStyle":null,"dContentStyle":null,"label":"Pro","type":"success","closable":false,"size":null,"effect":"light","color":null,"hit":false,"disableTransitions":false,"count":0},"methods":{"handleClick":"function() { this.count++; window.Shiny && Shiny.setInputValue && Shiny.setInputValue('plan', this.count); }","handleClose":"function() { window.Shiny && Shiny.setInputValue && Shiny.setInputValue('plan_closed', 1, {priority: 'event'}); }"}},"input":null,"rate":null,"type":null,"evals":["options.methods.handleClick","options.methods.handleClose"]}</script>
 #> </div>
-#> <div id="user" style="width:0px;height:0px;" class="vue html-widget"></div>
-#> <script type="application/json" data-for="user">{"x":{"el":"#user_container","data":{"dTitle":"Account","dExtra":null,"dColumn":null,"dDirection":null,"dBorder":true,"dSize":null,"dColon":null,"dLabelClassName":null,"dContentClassName":null,"dLabelStyle":null,"dContentStyle":null,"label":"Pro","type":"success","closable":false,"size":null,"effect":"light","color":null,"hit":false,"disableTransitions":false,"count":0},"methods":{"handleClick":"function() { this.count++; window.Shiny && Shiny.setInputValue && Shiny.setInputValue('plan', this.count); }","handleClose":"function() { window.Shiny && Shiny.setInputValue && Shiny.setInputValue('plan_closed', 1, {priority: 'event'}); }"}},"evals":["methods.handleClick","methods.handleClose"],"jsHooks":[]}</script>
 
 # The quick form: names are labels
 el_descriptions("car", items = as.list(mtcars[1, 1:6]))
-#> <div id="car_container" style="display: contents">
-#>   <el-descriptions :title="dTitle === null ? undefined : dTitle" :extra="dExtra === null ? undefined : dExtra" :column="dColumn === null ? undefined : dColumn" :direction="dDirection === null ? undefined : dDirection" :border="dBorder === null ? undefined : dBorder" :size="dSize === null ? undefined : dSize" :colon="dColon === null ? undefined : dColon" :label-class-name="dLabelClassName === null ? undefined : dLabelClassName" :content-class-name="dContentClassName === null ? undefined : dContentClassName" :label-style="dLabelStyle === null ? undefined : dLabelStyle" :content-style="dContentStyle === null ? undefined : dContentStyle">
-#>     <el-descriptions-item label="mpg">21</el-descriptions-item>
-#>     <el-descriptions-item label="cyl">6</el-descriptions-item>
-#>     <el-descriptions-item label="disp">160</el-descriptions-item>
-#>     <el-descriptions-item label="hp">110</el-descriptions-item>
-#>     <el-descriptions-item label="drat">3.9</el-descriptions-item>
-#>     <el-descriptions-item label="wt">2.62</el-descriptions-item>
-#>   </el-descriptions>
+#> <div id="car" data-el-vue-host style="display: contents">
+#>   <div id="car_container" data-el-mount style="display: contents">
+#>     <el-descriptions :title="dTitle === null ? undefined : dTitle" :extra="dExtra === null ? undefined : dExtra" :column="dColumn === null ? undefined : dColumn" :direction="dDirection === null ? undefined : dDirection" :border="dBorder === null ? undefined : dBorder" :size="dSize === null ? undefined : dSize" :colon="dColon === null ? undefined : dColon" :label-class-name="dLabelClassName === null ? undefined : dLabelClassName" :content-class-name="dContentClassName === null ? undefined : dContentClassName" :label-style="dLabelStyle === null ? undefined : dLabelStyle" :content-style="dContentStyle === null ? undefined : dContentStyle">
+#>       <el-descriptions-item label="mpg">21</el-descriptions-item>
+#>       <el-descriptions-item label="cyl">6</el-descriptions-item>
+#>       <el-descriptions-item label="disp">160</el-descriptions-item>
+#>       <el-descriptions-item label="hp">110</el-descriptions-item>
+#>       <el-descriptions-item label="drat">3.9</el-descriptions-item>
+#>       <el-descriptions-item label="wt">2.62</el-descriptions-item>
+#>     </el-descriptions>
+#>   </div>
+#>   <script type="application/json" data-el-vue>{"options":{"data":{"dTitle":null,"dExtra":null,"dColumn":null,"dDirection":null,"dBorder":null,"dSize":null,"dColon":null,"dLabelClassName":null,"dContentClassName":null,"dLabelStyle":null,"dContentStyle":null}},"input":null,"rate":null,"type":null,"evals":[]}</script>
 #> </div>
-#> <div id="car" style="width:0px;height:0px;" class="vue html-widget"></div>
-#> <script type="application/json" data-for="car">{"x":{"el":"#car_container","data":{"dTitle":null,"dExtra":null,"dColumn":null,"dDirection":null,"dBorder":null,"dSize":null,"dColon":null,"dLabelClassName":null,"dContentClassName":null,"dLabelStyle":null,"dContentStyle":null}},"evals":[],"jsHooks":[]}</script>
 ```

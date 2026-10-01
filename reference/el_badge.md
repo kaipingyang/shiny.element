@@ -53,29 +53,32 @@ An `htmltools` tag.
 ``` r
 el_badge(el_button("btn1", "Messages"), value = 5)
 #> <div class="el-badge">
-#>   <div id="btn1_container" style="display: contents">
-#>     <el-button :type="type" :plain="plain" :round="round" :circle="circle" :loading="loading" :disabled="disabled" :native-type="native_type" @click="handleClick" :size="size === null ? undefined : size" :icon="icon === null ? undefined : icon" :autofocus="autofocus === null ? undefined : autofocus">{{label}}</el-button>
+#>   <div id="btn1" data-el-vue-host style="display: contents">
+#>     <div id="btn1_container" data-el-mount style="display: contents">
+#>       <el-button :type="type" :plain="plain" :round="round" :circle="circle" :loading="loading" :disabled="disabled" :native-type="native_type" @click="handleClick" :size="size === null ? undefined : size" :icon="icon === null ? undefined : icon" :autofocus="autofocus === null ? undefined : autofocus">{{label}}</el-button>
+#>     </div>
+#>     <script type="application/json" data-el-vue>{"options":{"data":{"label":"Messages","type":"default","size":null,"plain":false,"round":false,"circle":false,"loading":false,"disabled":false,"native_type":"button","icon":null,"count":0,"autofocus":false},"methods":{"handleClick":"function() { if (!this.disabled && !this.loading) { this.count++; window.Shiny && Shiny.setInputValue && Shiny.setInputValue('btn1', this.count); } }"}},"input":null,"rate":null,"type":null,"evals":["options.methods.handleClick"]}</script>
 #>   </div>
-#>   <div id="btn1" style="width:0px;height:0px;" class="vue html-widget"></div>
-#>   <script type="application/json" data-for="btn1">{"x":{"el":"#btn1_container","data":{"label":"Messages","type":"default","size":null,"plain":false,"round":false,"circle":false,"loading":false,"disabled":false,"native_type":"button","icon":null,"count":0,"autofocus":false},"methods":{"handleClick":"function() { if (!this.disabled && !this.loading) { this.count++; window.Shiny && Shiny.setInputValue && Shiny.setInputValue('btn1', this.count); } }"}},"evals":["methods.handleClick"],"jsHooks":[]}</script>
 #>   <sup class="el-badge__content is-fixed">5</sup>
 #> </div>
 el_badge(el_button("btn2", "Alerts"),   value = 200, max = 99)
 #> <div class="el-badge">
-#>   <div id="btn2_container" style="display: contents">
-#>     <el-button :type="type" :plain="plain" :round="round" :circle="circle" :loading="loading" :disabled="disabled" :native-type="native_type" @click="handleClick" :size="size === null ? undefined : size" :icon="icon === null ? undefined : icon" :autofocus="autofocus === null ? undefined : autofocus">{{label}}</el-button>
+#>   <div id="btn2" data-el-vue-host style="display: contents">
+#>     <div id="btn2_container" data-el-mount style="display: contents">
+#>       <el-button :type="type" :plain="plain" :round="round" :circle="circle" :loading="loading" :disabled="disabled" :native-type="native_type" @click="handleClick" :size="size === null ? undefined : size" :icon="icon === null ? undefined : icon" :autofocus="autofocus === null ? undefined : autofocus">{{label}}</el-button>
+#>     </div>
+#>     <script type="application/json" data-el-vue>{"options":{"data":{"label":"Alerts","type":"default","size":null,"plain":false,"round":false,"circle":false,"loading":false,"disabled":false,"native_type":"button","icon":null,"count":0,"autofocus":false},"methods":{"handleClick":"function() { if (!this.disabled && !this.loading) { this.count++; window.Shiny && Shiny.setInputValue && Shiny.setInputValue('btn2', this.count); } }"}},"input":null,"rate":null,"type":null,"evals":["options.methods.handleClick"]}</script>
 #>   </div>
-#>   <div id="btn2" style="width:0px;height:0px;" class="vue html-widget"></div>
-#>   <script type="application/json" data-for="btn2">{"x":{"el":"#btn2_container","data":{"label":"Alerts","type":"default","size":null,"plain":false,"round":false,"circle":false,"loading":false,"disabled":false,"native_type":"button","icon":null,"count":0,"autofocus":false},"methods":{"handleClick":"function() { if (!this.disabled && !this.loading) { this.count++; window.Shiny && Shiny.setInputValue && Shiny.setInputValue('btn2', this.count); } }"}},"evals":["methods.handleClick"],"jsHooks":[]}</script>
 #>   <sup class="el-badge__content is-fixed">99+</sup>
 #> </div>
 el_badge(el_button("btn3", "Updates"),  is_dot = TRUE)
 #> <div class="el-badge">
-#>   <div id="btn3_container" style="display: contents">
-#>     <el-button :type="type" :plain="plain" :round="round" :circle="circle" :loading="loading" :disabled="disabled" :native-type="native_type" @click="handleClick" :size="size === null ? undefined : size" :icon="icon === null ? undefined : icon" :autofocus="autofocus === null ? undefined : autofocus">{{label}}</el-button>
+#>   <div id="btn3" data-el-vue-host style="display: contents">
+#>     <div id="btn3_container" data-el-mount style="display: contents">
+#>       <el-button :type="type" :plain="plain" :round="round" :circle="circle" :loading="loading" :disabled="disabled" :native-type="native_type" @click="handleClick" :size="size === null ? undefined : size" :icon="icon === null ? undefined : icon" :autofocus="autofocus === null ? undefined : autofocus">{{label}}</el-button>
+#>     </div>
+#>     <script type="application/json" data-el-vue>{"options":{"data":{"label":"Updates","type":"default","size":null,"plain":false,"round":false,"circle":false,"loading":false,"disabled":false,"native_type":"button","icon":null,"count":0,"autofocus":false},"methods":{"handleClick":"function() { if (!this.disabled && !this.loading) { this.count++; window.Shiny && Shiny.setInputValue && Shiny.setInputValue('btn3', this.count); } }"}},"input":null,"rate":null,"type":null,"evals":["options.methods.handleClick"]}</script>
 #>   </div>
-#>   <div id="btn3" style="width:0px;height:0px;" class="vue html-widget"></div>
-#>   <script type="application/json" data-for="btn3">{"x":{"el":"#btn3_container","data":{"label":"Updates","type":"default","size":null,"plain":false,"round":false,"circle":false,"loading":false,"disabled":false,"native_type":"button","icon":null,"count":0,"autofocus":false},"methods":{"handleClick":"function() { if (!this.disabled && !this.loading) { this.count++; window.Shiny && Shiny.setInputValue && Shiny.setInputValue('btn3', this.count); } }"}},"evals":["methods.handleClick"],"jsHooks":[]}</script>
 #>   <sup class="el-badge__content is-fixed is-dot"></sup>
 #> </div>
 ```

@@ -107,27 +107,30 @@ An `htmltools` tagList with a Vue-managed progress component.
 ``` r
 # Basic line progress
 el_progress("prog1", percentage = 60)
-#> <div id="prog1_container" style="display: contents">
-#>   <el-progress :percentage="percentage" :type="type" :stroke-width="strokeWidth" :text-inside="textInside" :show-text="showText" :width="width" :status="status === null ? undefined : status" :color="color" :stroke-linecap="strokeLinecap === null ? undefined : strokeLinecap" :define-back-color="defineBackColor === null ? undefined : defineBackColor" :text-color="textColor === null ? undefined : textColor" :format="format === null ? undefined : format"></el-progress>
+#> <div id="prog1" data-el-vue-host style="display: contents">
+#>   <div id="prog1_container" data-el-mount style="display: contents">
+#>     <el-progress :percentage="percentage" :type="type" :stroke-width="strokeWidth" :text-inside="textInside" :show-text="showText" :width="width" :status="status === null ? undefined : status" :color="color" :stroke-linecap="strokeLinecap === null ? undefined : strokeLinecap" :define-back-color="defineBackColor === null ? undefined : defineBackColor" :text-color="textColor === null ? undefined : textColor" :format="format === null ? undefined : format"></el-progress>
+#>   </div>
+#>   <script type="application/json" data-el-vue>{"options":{"data":{"percentage":60,"type":"line","strokeWidth":6,"textInside":false,"showText":true,"width":126,"status":null,"color":"","strokeLinecap":null,"defineBackColor":null,"textColor":null,"format":null}},"input":null,"rate":null,"type":null,"evals":[]}</script>
 #> </div>
-#> <div id="prog1" style="width:0px;height:0px;" class="vue html-widget"></div>
-#> <script type="application/json" data-for="prog1">{"x":{"el":"#prog1_container","data":{"percentage":60,"type":"line","strokeWidth":6,"textInside":false,"showText":true,"width":126,"status":null,"color":"","strokeLinecap":null,"defineBackColor":null,"textColor":null,"format":null}},"evals":[],"jsHooks":[]}</script>
 
 # Circle progress with success status
 el_progress("prog2", percentage = 100, type = "circle", status = "success")
-#> <div id="prog2_container" style="display: contents">
-#>   <el-progress :percentage="percentage" :type="type" :stroke-width="strokeWidth" :text-inside="textInside" :show-text="showText" :width="width" :status="status === null ? undefined : status" :color="color" :stroke-linecap="strokeLinecap === null ? undefined : strokeLinecap" :define-back-color="defineBackColor === null ? undefined : defineBackColor" :text-color="textColor === null ? undefined : textColor" :format="format === null ? undefined : format"></el-progress>
+#> <div id="prog2" data-el-vue-host style="display: contents">
+#>   <div id="prog2_container" data-el-mount style="display: contents">
+#>     <el-progress :percentage="percentage" :type="type" :stroke-width="strokeWidth" :text-inside="textInside" :show-text="showText" :width="width" :status="status === null ? undefined : status" :color="color" :stroke-linecap="strokeLinecap === null ? undefined : strokeLinecap" :define-back-color="defineBackColor === null ? undefined : defineBackColor" :text-color="textColor === null ? undefined : textColor" :format="format === null ? undefined : format"></el-progress>
+#>   </div>
+#>   <script type="application/json" data-el-vue>{"options":{"data":{"percentage":100,"type":"circle","strokeWidth":6,"textInside":false,"showText":true,"width":126,"status":"success","color":"","strokeLinecap":null,"defineBackColor":null,"textColor":null,"format":null}},"input":null,"rate":null,"type":null,"evals":[]}</script>
 #> </div>
-#> <div id="prog2" style="width:0px;height:0px;" class="vue html-widget"></div>
-#> <script type="application/json" data-for="prog2">{"x":{"el":"#prog2_container","data":{"percentage":100,"type":"circle","strokeWidth":6,"textInside":false,"showText":true,"width":126,"status":"success","color":"","strokeLinecap":null,"defineBackColor":null,"textColor":null,"format":null}},"evals":[],"jsHooks":[]}</script>
 
 # Dashboard style with custom colour
 el_progress("prog3", percentage = 75, type = "dashboard", color = "#67C23A")
-#> <div id="prog3_container" style="display: contents">
-#>   <el-progress :percentage="percentage" :type="type" :stroke-width="strokeWidth" :text-inside="textInside" :show-text="showText" :width="width" :status="status === null ? undefined : status" :color="color" :stroke-linecap="strokeLinecap === null ? undefined : strokeLinecap" :define-back-color="defineBackColor === null ? undefined : defineBackColor" :text-color="textColor === null ? undefined : textColor" :format="format === null ? undefined : format"></el-progress>
+#> <div id="prog3" data-el-vue-host style="display: contents">
+#>   <div id="prog3_container" data-el-mount style="display: contents">
+#>     <el-progress :percentage="percentage" :type="type" :stroke-width="strokeWidth" :text-inside="textInside" :show-text="showText" :width="width" :status="status === null ? undefined : status" :color="color" :stroke-linecap="strokeLinecap === null ? undefined : strokeLinecap" :define-back-color="defineBackColor === null ? undefined : defineBackColor" :text-color="textColor === null ? undefined : textColor" :format="format === null ? undefined : format"></el-progress>
+#>   </div>
+#>   <script type="application/json" data-el-vue>{"options":{"data":{"percentage":75,"type":"dashboard","strokeWidth":6,"textInside":false,"showText":true,"width":126,"status":null,"color":"#67C23A","strokeLinecap":null,"defineBackColor":null,"textColor":null,"format":null}},"input":null,"rate":null,"type":null,"evals":[]}</script>
 #> </div>
-#> <div id="prog3" style="width:0px;height:0px;" class="vue html-widget"></div>
-#> <script type="application/json" data-for="prog3">{"x":{"el":"#prog3_container","data":{"percentage":75,"type":"dashboard","strokeWidth":6,"textInside":false,"showText":true,"width":126,"status":null,"color":"#67C23A","strokeLinecap":null,"defineBackColor":null,"textColor":null,"format":null}},"evals":[],"jsHooks":[]}</script>
 
 # Shiny app example
 if (interactive()) {

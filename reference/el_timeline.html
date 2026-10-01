@@ -128,13 +128,14 @@ to render it as HTML.</p>
 <span class="r-in"><span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>content <span class="op">=</span> <span class="st">"Delivered"</span>,     timestamp <span class="op">=</span> <span class="st">"2026-03-04"</span>, color <span class="op">=</span> <span class="st">"#0bbd87"</span><span class="op">)</span></span></span>
 <span class="r-in"><span>  <span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;div id="log_container" style="display: contents"&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   &lt;el-timeline :reverse="reverse"&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     &lt;el-timeline-item v-for="(item, index) in items" :key="index" :timestamp="item.timestamp" :type="item.type" :color="item.color" :size="item.size" :icon="item.icon" :placement="item.placement" :hide-timestamp="!item.timestamp"&gt;{{ item.content }}&lt;/el-timeline-item&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   &lt;/el-timeline&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;div id="log" data-el-vue-host style="display: contents"&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   &lt;div id="log_container" data-el-mount style="display: contents"&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     &lt;el-timeline :reverse="reverse"&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       &lt;el-timeline-item v-for="(item, index) in items" :key="index" :timestamp="item.timestamp" :type="item.type" :color="item.color" :size="item.size" :icon="item.icon" :placement="item.placement" :hide-timestamp="!item.timestamp"&gt;{{ item.content }}&lt;/el-timeline-item&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     &lt;/el-timeline&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   &lt;/div&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   &lt;script type="application/json" data-el-vue&gt;{"options":{"data":{"items":[{"content":"Order placed","timestamp":"2026-03-01","type":"primary"},{"content":"Order shipped","timestamp":"2026-03-02","type":"success","size":"large","icon":"el-icon-check"},{"content":"Delivered","timestamp":"2026-03-04","color":"#0bbd87"}],"reverse":false}},"input":null,"rate":null,"type":null,"evals":[]}&lt;/script&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> &lt;/div&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;div id="log" style="width:0px;height:0px;" class="vue html-widget"&gt;&lt;/div&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;script type="application/json" data-for="log"&gt;{"x":{"el":"#log_container","data":{"items":[{"content":"Order placed","timestamp":"2026-03-01","type":"primary"},{"content":"Order shipped","timestamp":"2026-03-02","type":"success","size":"large","icon":"el-icon-check"},{"content":"Delivered","timestamp":"2026-03-04","color":"#0bbd87"}],"reverse":false}},"evals":[],"jsHooks":[]}&lt;/script&gt;</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Newest first, timestamps above each entry</span></span></span>
 <span class="r-in"><span><span class="fu">el_timeline</span><span class="op">(</span></span></span>
@@ -144,13 +145,14 @@ to render it as HTML.</p>
 <span class="r-in"><span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>content <span class="op">=</span> <span class="st">"First"</span>,  timestamp <span class="op">=</span> <span class="st">"09:15"</span>, placement <span class="op">=</span> <span class="st">"top"</span><span class="op">)</span></span></span>
 <span class="r-in"><span>  <span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;div id="log_container" style="display: contents"&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   &lt;el-timeline :reverse="reverse"&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     &lt;el-timeline-item v-for="(item, index) in items" :key="index" :timestamp="item.timestamp" :type="item.type" :color="item.color" :size="item.size" :icon="item.icon" :placement="item.placement" :hide-timestamp="!item.timestamp"&gt;{{ item.content }}&lt;/el-timeline-item&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   &lt;/el-timeline&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;div id="log" data-el-vue-host style="display: contents"&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   &lt;div id="log_container" data-el-mount style="display: contents"&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     &lt;el-timeline :reverse="reverse"&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       &lt;el-timeline-item v-for="(item, index) in items" :key="index" :timestamp="item.timestamp" :type="item.type" :color="item.color" :size="item.size" :icon="item.icon" :placement="item.placement" :hide-timestamp="!item.timestamp"&gt;{{ item.content }}&lt;/el-timeline-item&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     &lt;/el-timeline&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   &lt;/div&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   &lt;script type="application/json" data-el-vue&gt;{"options":{"data":{"items":[{"content":"Second","timestamp":"10:30","placement":"top"},{"content":"First","timestamp":"09:15","placement":"top"}],"reverse":true}},"input":null,"rate":null,"type":null,"evals":[]}&lt;/script&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> &lt;/div&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;div id="log" style="width:0px;height:0px;" class="vue html-widget"&gt;&lt;/div&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;script type="application/json" data-for="log"&gt;{"x":{"el":"#log_container","data":{"items":[{"content":"Second","timestamp":"10:30","placement":"top"},{"content":"First","timestamp":"09:15","placement":"top"}],"reverse":true}},"evals":[],"jsHooks":[]}&lt;/script&gt;</span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>

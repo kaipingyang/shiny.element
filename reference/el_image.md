@@ -99,26 +99,29 @@ A Shiny UI element.
 
 ``` r
 el_image("photo", src = "https://example.org/a.png", width = 200)
-#> <div id="photo_container" style="display: contents">
-#>   <el-image :src="src === null ? undefined : src" :fit="fit === null ? undefined : fit" :alt="alt === null ? undefined : alt" :lazy="lazy === null ? undefined : lazy" :scroll-container="scrollContainer === null ? undefined : scrollContainer" :preview-src-list="previewSrcList === null ? undefined : previewSrcList" :z-index="zIndex === null ? undefined : zIndex" :referrer-policy="referrerPolicy === null ? undefined : referrerPolicy" :initial-index="initialIndex === null ? undefined : initialIndex" @load="elEmitLoad" @error="elEmitError" style="width: 200px"></el-image>
+#> <div id="photo" data-el-vue-host style="display: contents">
+#>   <div id="photo_container" data-el-mount style="display: contents">
+#>     <el-image :src="src === null ? undefined : src" :fit="fit === null ? undefined : fit" :alt="alt === null ? undefined : alt" :lazy="lazy === null ? undefined : lazy" :scroll-container="scrollContainer === null ? undefined : scrollContainer" :preview-src-list="previewSrcList === null ? undefined : previewSrcList" :z-index="zIndex === null ? undefined : zIndex" :referrer-policy="referrerPolicy === null ? undefined : referrerPolicy" :initial-index="initialIndex === null ? undefined : initialIndex" @load="elEmitLoad" @error="elEmitError" style="width: 200px"></el-image>
+#>   </div>
+#>   <script type="application/json" data-el-vue>{"options":{"data":{"src":"https://example.org/a.png","fit":null,"alt":null,"lazy":null,"scrollContainer":null,"previewSrcList":null,"zIndex":null,"referrerPolicy":null,"initialIndex":null},"methods":{"elEmitLoad":"function() { window.shinyElement.emit('photo', 'load', arguments); }","elEmitError":"function() { window.shinyElement.emit('photo', 'error', arguments); }"}},"input":null,"rate":null,"type":null,"evals":["options.methods.elEmitLoad","options.methods.elEmitError"]}</script>
 #> </div>
-#> <div id="photo" style="width:0px;height:0px;" class="vue html-widget"></div>
-#> <script type="application/json" data-for="photo">{"x":{"el":"#photo_container","data":{"src":"https://example.org/a.png","fit":null,"alt":null,"lazy":null,"scrollContainer":null,"previewSrcList":null,"zIndex":null,"referrerPolicy":null,"initialIndex":null},"methods":{"elEmitLoad":"function() { window.shinyElement.emit('photo', 'load', arguments); }","elEmitError":"function() { window.shinyElement.emit('photo', 'error', arguments); }"}},"evals":["methods.elEmitLoad","methods.elEmitError"],"jsHooks":[]}</script>
 el_image("photo", src = "a.png", fit = "cover", lazy = TRUE)
-#> <div id="photo_container" style="display: contents">
-#>   <el-image :src="src === null ? undefined : src" :fit="fit === null ? undefined : fit" :alt="alt === null ? undefined : alt" :lazy="lazy === null ? undefined : lazy" :scroll-container="scrollContainer === null ? undefined : scrollContainer" :preview-src-list="previewSrcList === null ? undefined : previewSrcList" :z-index="zIndex === null ? undefined : zIndex" :referrer-policy="referrerPolicy === null ? undefined : referrerPolicy" :initial-index="initialIndex === null ? undefined : initialIndex" @load="elEmitLoad" @error="elEmitError"></el-image>
+#> <div id="photo" data-el-vue-host style="display: contents">
+#>   <div id="photo_container" data-el-mount style="display: contents">
+#>     <el-image :src="src === null ? undefined : src" :fit="fit === null ? undefined : fit" :alt="alt === null ? undefined : alt" :lazy="lazy === null ? undefined : lazy" :scroll-container="scrollContainer === null ? undefined : scrollContainer" :preview-src-list="previewSrcList === null ? undefined : previewSrcList" :z-index="zIndex === null ? undefined : zIndex" :referrer-policy="referrerPolicy === null ? undefined : referrerPolicy" :initial-index="initialIndex === null ? undefined : initialIndex" @load="elEmitLoad" @error="elEmitError"></el-image>
+#>   </div>
+#>   <script type="application/json" data-el-vue>{"options":{"data":{"src":"a.png","fit":"cover","alt":null,"lazy":true,"scrollContainer":null,"previewSrcList":null,"zIndex":null,"referrerPolicy":null,"initialIndex":null},"methods":{"elEmitLoad":"function() { window.shinyElement.emit('photo', 'load', arguments); }","elEmitError":"function() { window.shinyElement.emit('photo', 'error', arguments); }"}},"input":null,"rate":null,"type":null,"evals":["options.methods.elEmitLoad","options.methods.elEmitError"]}</script>
 #> </div>
-#> <div id="photo" style="width:0px;height:0px;" class="vue html-widget"></div>
-#> <script type="application/json" data-for="photo">{"x":{"el":"#photo_container","data":{"src":"a.png","fit":"cover","alt":null,"lazy":true,"scrollContainer":null,"previewSrcList":null,"zIndex":null,"referrerPolicy":null,"initialIndex":null},"methods":{"elEmitLoad":"function() { window.shinyElement.emit('photo', 'load', arguments); }","elEmitError":"function() { window.shinyElement.emit('photo', 'error', arguments); }"}},"evals":["methods.elEmitLoad","methods.elEmitError"],"jsHooks":[]}</script>
 
 # Click to open a gallery
 el_image("photo",
   src = "a.png",
   preview_src_list = c("a.png", "b.png", "c.png")
 )
-#> <div id="photo_container" style="display: contents">
-#>   <el-image :src="src === null ? undefined : src" :fit="fit === null ? undefined : fit" :alt="alt === null ? undefined : alt" :lazy="lazy === null ? undefined : lazy" :scroll-container="scrollContainer === null ? undefined : scrollContainer" :preview-src-list="previewSrcList === null ? undefined : previewSrcList" :z-index="zIndex === null ? undefined : zIndex" :referrer-policy="referrerPolicy === null ? undefined : referrerPolicy" :initial-index="initialIndex === null ? undefined : initialIndex" @load="elEmitLoad" @error="elEmitError"></el-image>
+#> <div id="photo" data-el-vue-host style="display: contents">
+#>   <div id="photo_container" data-el-mount style="display: contents">
+#>     <el-image :src="src === null ? undefined : src" :fit="fit === null ? undefined : fit" :alt="alt === null ? undefined : alt" :lazy="lazy === null ? undefined : lazy" :scroll-container="scrollContainer === null ? undefined : scrollContainer" :preview-src-list="previewSrcList === null ? undefined : previewSrcList" :z-index="zIndex === null ? undefined : zIndex" :referrer-policy="referrerPolicy === null ? undefined : referrerPolicy" :initial-index="initialIndex === null ? undefined : initialIndex" @load="elEmitLoad" @error="elEmitError"></el-image>
+#>   </div>
+#>   <script type="application/json" data-el-vue>{"options":{"data":{"src":"a.png","fit":null,"alt":null,"lazy":null,"scrollContainer":null,"previewSrcList":["a.png","b.png","c.png"],"zIndex":null,"referrerPolicy":null,"initialIndex":null},"methods":{"elEmitLoad":"function() { window.shinyElement.emit('photo', 'load', arguments); }","elEmitError":"function() { window.shinyElement.emit('photo', 'error', arguments); }"}},"input":null,"rate":null,"type":null,"evals":["options.methods.elEmitLoad","options.methods.elEmitError"]}</script>
 #> </div>
-#> <div id="photo" style="width:0px;height:0px;" class="vue html-widget"></div>
-#> <script type="application/json" data-for="photo">{"x":{"el":"#photo_container","data":{"src":"a.png","fit":null,"alt":null,"lazy":null,"scrollContainer":null,"previewSrcList":["a.png","b.png","c.png"],"zIndex":null,"referrerPolicy":null,"initialIndex":null},"methods":{"elEmitLoad":"function() { window.shinyElement.emit('photo', 'load', arguments); }","elEmitError":"function() { window.shinyElement.emit('photo', 'error', arguments); }"}},"evals":["methods.elEmitLoad","methods.elEmitError"],"jsHooks":[]}</script>
 ```

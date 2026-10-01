@@ -323,7 +323,7 @@ this package builds its own, write raw Element tags, or update a Vue
 instance directly.
 
 - [`el_widget()`](https://kaipingyang.github.io/shiny.element/reference/el_widget.md)
-  : Assemble a component: mount point, Vue instance, dependencies
+  : Assemble a component: host, Vue instance, Shiny input binding
 
 - [`el`](https://kaipingyang.github.io/shiny.element/reference/el.md) :
   Element UI tags, for markup inside a component

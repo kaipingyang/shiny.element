@@ -66,11 +66,12 @@ el_calendar("cal")
 #>         font-weight: bold;
 #>       }
 #>     </style>
-#> <div id="cal_container" style="display: contents">
-#>   <el-calendar v-model="value" :first-day-of-week="firstDayOfWeek" :range="range === null ? undefined : range"><template slot="dateCell" slot-scope="{date, data}"><p :class="data.isSelected ? 'is-selected' : ''">{{ data.day.split('-').slice(1).join('-') }}<span v-if="data.isSelected">✔</span></p></template></el-calendar>
+#> <div id="cal" data-el-vue-host style="display: contents">
+#>   <div id="cal_container" data-el-mount style="display: contents">
+#>     <el-calendar v-model="value" :first-day-of-week="firstDayOfWeek" :range="range === null ? undefined : range"><template slot="dateCell" slot-scope="{date, data}"><p :class="data.isSelected ? 'is-selected' : ''">{{ data.day.split('-').slice(1).join('-') }}<span v-if="data.isSelected">✔</span></p></template></el-calendar>
+#>   </div>
+#>   <script type="application/json" data-el-vue>{"options":{"data":{"value":"2026-10-01","firstDayOfWeek":1,"range":null},"watch":{"value":"function(newVal) { window.Shiny && Shiny.setInputValue && Shiny.setInputValue('cal', newVal); }"}},"input":"value","rate":null,"type":null,"evals":["options.watch.value"]}</script>
 #> </div>
-#> <div id="cal" style="width:0px;height:0px;" class="vue html-widget"></div>
-#> <script type="application/json" data-for="cal">{"x":{"el":"#cal_container","data":{"value":"2026-10-01","firstDayOfWeek":1,"range":null},"watch":{"value":"function(newVal) { window.Shiny && Shiny.setInputValue && Shiny.setInputValue('cal', newVal); }"},"mounted":"function() { var self = this; var send = function() { window.Shiny && Shiny.setInputValue && Shiny.setInputValue(\"cal\", self.value); }; if (window.Shiny && Shiny.shinyapp && typeof Shiny.shinyapp.isConnected === 'function' && Shiny.shinyapp.isConnected()) { send(); } else if (window.jQuery) { jQuery(document).one('shiny:connected', send); } var prev = self._elReport; self._elReport = function() { if (prev) prev(); self.$nextTick(send); }; }"},"evals":["watch.value","mounted"],"jsHooks":[]}</script>
 
 # Your own, with whatever Element hands the template
 el_calendar("cal", slots = list(
@@ -85,11 +86,12 @@ el_calendar("cal", slots = list(
 #>         font-weight: bold;
 #>       }
 #>     </style>
-#> <div id="cal_container" style="display: contents">
-#>   <el-calendar v-model="value" :first-day-of-week="firstDayOfWeek" :range="range === null ? undefined : range"><template slot="dateCell" slot-scope="{date, data}"><p>{{ data.day.slice(8) }}</p></template></el-calendar>
+#> <div id="cal" data-el-vue-host style="display: contents">
+#>   <div id="cal_container" data-el-mount style="display: contents">
+#>     <el-calendar v-model="value" :first-day-of-week="firstDayOfWeek" :range="range === null ? undefined : range"><template slot="dateCell" slot-scope="{date, data}"><p>{{ data.day.slice(8) }}</p></template></el-calendar>
+#>   </div>
+#>   <script type="application/json" data-el-vue>{"options":{"data":{"value":"2026-10-01","firstDayOfWeek":1,"range":null},"watch":{"value":"function(newVal) { window.Shiny && Shiny.setInputValue && Shiny.setInputValue('cal', newVal); }"}},"input":"value","rate":null,"type":null,"evals":["options.watch.value"]}</script>
 #> </div>
-#> <div id="cal" style="width:0px;height:0px;" class="vue html-widget"></div>
-#> <script type="application/json" data-for="cal">{"x":{"el":"#cal_container","data":{"value":"2026-10-01","firstDayOfWeek":1,"range":null},"watch":{"value":"function(newVal) { window.Shiny && Shiny.setInputValue && Shiny.setInputValue('cal', newVal); }"},"mounted":"function() { var self = this; var send = function() { window.Shiny && Shiny.setInputValue && Shiny.setInputValue(\"cal\", self.value); }; if (window.Shiny && Shiny.shinyapp && typeof Shiny.shinyapp.isConnected === 'function' && Shiny.shinyapp.isConnected()) { send(); } else if (window.jQuery) { jQuery(document).one('shiny:connected', send); } var prev = self._elReport; self._elReport = function() { if (prev) prev(); self.$nextTick(send); }; }"},"evals":["watch.value","mounted"],"jsHooks":[]}</script>
 # Basic usage
 el_calendar(id = "calendar1", value = Sys.Date())
 #> <style>
@@ -98,11 +100,12 @@ el_calendar(id = "calendar1", value = Sys.Date())
 #>         font-weight: bold;
 #>       }
 #>     </style>
-#> <div id="calendar1_container" style="display: contents">
-#>   <el-calendar v-model="value" :first-day-of-week="firstDayOfWeek" :range="range === null ? undefined : range"><template slot="dateCell" slot-scope="{date, data}"><p :class="data.isSelected ? 'is-selected' : ''">{{ data.day.split('-').slice(1).join('-') }}<span v-if="data.isSelected">✔</span></p></template></el-calendar>
+#> <div id="calendar1" data-el-vue-host style="display: contents">
+#>   <div id="calendar1_container" data-el-mount style="display: contents">
+#>     <el-calendar v-model="value" :first-day-of-week="firstDayOfWeek" :range="range === null ? undefined : range"><template slot="dateCell" slot-scope="{date, data}"><p :class="data.isSelected ? 'is-selected' : ''">{{ data.day.split('-').slice(1).join('-') }}<span v-if="data.isSelected">✔</span></p></template></el-calendar>
+#>   </div>
+#>   <script type="application/json" data-el-vue>{"options":{"data":{"value":"2026-10-01","firstDayOfWeek":1,"range":null},"watch":{"value":"function(newVal) { window.Shiny && Shiny.setInputValue && Shiny.setInputValue('calendar1', newVal); }"}},"input":"value","rate":null,"type":null,"evals":["options.watch.value"]}</script>
 #> </div>
-#> <div id="calendar1" style="width:0px;height:0px;" class="vue html-widget"></div>
-#> <script type="application/json" data-for="calendar1">{"x":{"el":"#calendar1_container","data":{"value":"2026-10-01","firstDayOfWeek":1,"range":null},"watch":{"value":"function(newVal) { window.Shiny && Shiny.setInputValue && Shiny.setInputValue('calendar1', newVal); }"},"mounted":"function() { var self = this; var send = function() { window.Shiny && Shiny.setInputValue && Shiny.setInputValue(\"calendar1\", self.value); }; if (window.Shiny && Shiny.shinyapp && typeof Shiny.shinyapp.isConnected === 'function' && Shiny.shinyapp.isConnected()) { send(); } else if (window.jQuery) { jQuery(document).one('shiny:connected', send); } var prev = self._elReport; self._elReport = function() { if (prev) prev(); self.$nextTick(send); }; }"},"evals":["watch.value","mounted"],"jsHooks":[]}</script>
 
 # With date range
 el_calendar(id = "calendar2", range = c("2025-01-01", "2025-01-31"))
@@ -112,11 +115,12 @@ el_calendar(id = "calendar2", range = c("2025-01-01", "2025-01-31"))
 #>         font-weight: bold;
 #>       }
 #>     </style>
-#> <div id="calendar2_container" style="display: contents">
-#>   <el-calendar v-model="value" :first-day-of-week="firstDayOfWeek" :range="range === null ? undefined : range"><template slot="dateCell" slot-scope="{date, data}"><p :class="data.isSelected ? 'is-selected' : ''">{{ data.day.split('-').slice(1).join('-') }}<span v-if="data.isSelected">✔</span></p></template></el-calendar>
+#> <div id="calendar2" data-el-vue-host style="display: contents">
+#>   <div id="calendar2_container" data-el-mount style="display: contents">
+#>     <el-calendar v-model="value" :first-day-of-week="firstDayOfWeek" :range="range === null ? undefined : range"><template slot="dateCell" slot-scope="{date, data}"><p :class="data.isSelected ? 'is-selected' : ''">{{ data.day.split('-').slice(1).join('-') }}<span v-if="data.isSelected">✔</span></p></template></el-calendar>
+#>   </div>
+#>   <script type="application/json" data-el-vue>{"options":{"data":{"value":"2026-10-01","firstDayOfWeek":1,"range":["2025-01-01","2025-01-31"]},"watch":{"value":"function(newVal) { window.Shiny && Shiny.setInputValue && Shiny.setInputValue('calendar2', newVal); }"}},"input":"value","rate":null,"type":null,"evals":["options.watch.value"]}</script>
 #> </div>
-#> <div id="calendar2" style="width:0px;height:0px;" class="vue html-widget"></div>
-#> <script type="application/json" data-for="calendar2">{"x":{"el":"#calendar2_container","data":{"value":"2026-10-01","firstDayOfWeek":1,"range":["2025-01-01","2025-01-31"]},"watch":{"value":"function(newVal) { window.Shiny && Shiny.setInputValue && Shiny.setInputValue('calendar2', newVal); }"},"mounted":"function() { var self = this; var send = function() { window.Shiny && Shiny.setInputValue && Shiny.setInputValue(\"calendar2\", self.value); }; if (window.Shiny && Shiny.shinyapp && typeof Shiny.shinyapp.isConnected === 'function' && Shiny.shinyapp.isConnected()) { send(); } else if (window.jQuery) { jQuery(document).one('shiny:connected', send); } var prev = self._elReport; self._elReport = function() { if (prev) prev(); self.$nextTick(send); }; }"},"evals":["watch.value","mounted"],"jsHooks":[]}</script>
 
 # Shiny app example: interactive calendar with update
 if (interactive()) {

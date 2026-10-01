@@ -19,7 +19,7 @@
 
   window.elRegisterUpdate = function(messageType) {
     Shiny.addCustomMessageHandler(messageType, function(message) {
-      var widget = HTMLWidgets.find('#' + message.id);
+      var widget = (window.shinyElement && shinyElement.find(message.id));
       if (!widget || !widget.instance) {
         console.warn('[shiny.element] ' + messageType +
                      ': no mounted widget with id "' + message.id + '"');

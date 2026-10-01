@@ -48,7 +48,7 @@
   }
 
   function report(el, what, value) {
-    hasShiny && Shiny.setInputValue(el.id + what, value, { priority: 'event' });
+    hasShiny && Shiny.setInputValue && Shiny.setInputValue(el.id + what, value, { priority: 'event' });
   }
 
   // The active bar's size and offset are inline styles in Element too --
@@ -80,7 +80,8 @@
     if (!tpl) return;
     p.appendChild(document.importNode(tpl.content, true));
     tpl.parentNode.removeChild(tpl);
-    if (window.HTMLWidgets) window.HTMLWidgets.staticRender();
+    // Shiny's bindAll() mounts the components inside; without Shiny, mount them here
+    if (!hasShiny && window.shinyElement) window.shinyElement.mount(p);
     hasShiny && Shiny.bindAll(p);
   }
 
