@@ -9,7 +9,7 @@ is called with the same `id`.
 
 ``` r
 el_loading(
-  session,
+  session = shiny::getDefaultReactiveDomain(),
   id = "default",
   text = NULL,
   target = NULL,
@@ -26,7 +26,8 @@ el_loading(
 
 - session:
 
-  Shiny session object.
+  Shiny session; the current one by default, as for
+  [`shiny::updateTextInput()`](https://rdrr.io/pkg/shiny/man/updateTextInput.html).
 
 - id:
 

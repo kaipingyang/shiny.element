@@ -7,16 +7,17 @@ Closes the one opened under `id`, or every one currently showing when
 ## Usage
 
 ``` r
-el_message_close(session, id = NULL)
+el_message_close(session = shiny::getDefaultReactiveDomain(), id = NULL)
 
-el_notification_close(session, id = NULL)
+el_notification_close(session = shiny::getDefaultReactiveDomain(), id = NULL)
 ```
 
 ## Arguments
 
 - session:
 
-  Shiny session object.
+  Shiny session; the current one by default, as for
+  [`shiny::updateTextInput()`](https://rdrr.io/pkg/shiny/man/updateTextInput.html).
 
 - id:
 

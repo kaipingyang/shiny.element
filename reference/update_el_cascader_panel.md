@@ -6,14 +6,20 @@ Server-side update for
 ## Usage
 
 ``` r
-update_el_cascader_panel(session, id, value = NULL, options = NULL)
+update_el_cascader_panel(
+  session = shiny::getDefaultReactiveDomain(),
+  id,
+  value = NULL,
+  options = NULL
+)
 ```
 
 ## Arguments
 
 - session:
 
-  Shiny session object.
+  Shiny session; the current one by default, as for
+  [`shiny::updateTextInput()`](https://rdrr.io/pkg/shiny/man/updateTextInput.html).
 
 - id:
 

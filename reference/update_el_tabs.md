@@ -6,14 +6,19 @@ Server-side update for
 ## Usage
 
 ``` r
-update_el_tabs(session, id, selected = NULL)
+update_el_tabs(
+  session = shiny::getDefaultReactiveDomain(),
+  id,
+  selected = NULL
+)
 ```
 
 ## Arguments
 
 - session:
 
-  Shiny session object.
+  Shiny session; the current one by default, as for
+  [`shiny::updateTextInput()`](https://rdrr.io/pkg/shiny/man/updateTextInput.html).
 
 - id:
 

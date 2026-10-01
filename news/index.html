@@ -97,6 +97,17 @@
 <p><code><a href="../reference/el_widget.html">el_widget()</a></code> builds the same shape for components of your own, and its new <code>report</code> argument names the value – an input made of <code>el$</code> tags, as the limitations article shows, needs no JavaScript.</p>
 </div>
 <div class="section level3">
+<h3 id="shiny-conventions-0-1-0">Shiny conventions<a class="anchor" aria-label="anchor" href="#shiny-conventions-0-1-0"></a></h3>
+<ul><li>
+<strong>Bookmarking.</strong> Every component’s value goes through <code><a href="https://rdrr.io/pkg/shiny/man/restoreInput.html" class="external-link">shiny::restoreInput()</a></code>, so a bookmarked page reopens as it was left – inputs, the selected tab, open panels, an open dialog, the pager’s page.</li>
+<li>
+<strong>Dates.</strong> <code><a href="../reference/el_date_picker.html">el_date_picker()</a></code> reports <code>Date</code> for <code>"date"</code>, <code>"dates"</code> and <code>"daterange"</code> with the default <code>value_format</code>, as <code><a href="https://rdrr.io/pkg/shiny/man/dateInput.html" class="external-link">dateInput()</a></code> does. A <code>value_format</code> of your own still reports text in that format.</li>
+<li>
+<strong>The session argument.</strong> Every server function – <code>update_el_*()</code>, <code><a href="../reference/el_message.html">el_message()</a></code>, <code><a href="../reference/el_call.html">el_call()</a></code> and the rest – takes the current session by default, as <code><a href="https://rdrr.io/pkg/shiny/man/updateTextInput.html" class="external-link">updateTextInput()</a></code> does.</li>
+<li>
+<strong>Templates.</strong> Each component’s template travels as a script the browser does not parse: nothing flashes before Vue runs, and camelCase attribute names reach Vue unchanged.</li>
+</ul></div>
+<div class="section level3">
 <h3 id="note-for-users-of-the-development-version-0-1-0">Note for users of the development version<a class="anchor" aria-label="anchor" href="#note-for-users-of-the-development-version-0-1-0"></a></h3>
 <p><code><a href="../reference/el_table.html">el_table()</a></code> now takes <code>id</code> first, like every other component:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">

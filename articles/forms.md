@@ -38,8 +38,6 @@ el_checkbox_group("terms", selected = "a", choices = list(
 ))
 ```
 
-{{opt.label}}
-
 ## Validation
 
 [`el_form()`](https://kaipingyang.github.io/shiny.element/reference/el_form.md)
@@ -142,10 +140,6 @@ el_upload("photos", label = "Drop images here, or click to choose",
           drag = TRUE, accept = "image/*")
 ```
 
-{{label}}
-
-{{label}}
-
 Pointing `action` elsewhere switches to Element’s own transport, and the
 file goes straight to that URL without reaching R. `extra_data` is
 Element’s `data` prop, renamed so it is not confused with the file
@@ -158,10 +152,6 @@ el_upload("archive", label = "Upload to the archive",
           headers = list(`X-Requested-With` = "shiny.element"),
           extra_data = list(folder = "reports"))
 ```
-
-{{label}}
-
-{{label}}
 
 ## Autocomplete
 
@@ -240,9 +230,3 @@ el_form(
 el_input("wide", placeholder = "width = '100%'", width = "100%")
 el_input("narrow", placeholder = "width = 160", width = 160)
 ```
-
-{{f.label}}
-
-{{scope.error}}
-
-{{ o.text }}

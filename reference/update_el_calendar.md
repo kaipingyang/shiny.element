@@ -7,7 +7,7 @@ or slot.
 
 ``` r
 update_el_calendar(
-  session,
+  session = shiny::getDefaultReactiveDomain(),
   id,
   value = NULL,
   range = NULL,
@@ -19,7 +19,8 @@ update_el_calendar(
 
 - session:
 
-  Shiny session
+  Shiny session; the current one by default, as for
+  [`shiny::updateTextInput()`](https://rdrr.io/pkg/shiny/man/updateTextInput.html).
 
 - id:
 

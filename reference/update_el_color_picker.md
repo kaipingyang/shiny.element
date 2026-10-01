@@ -6,14 +6,20 @@ Server-side update for
 ## Usage
 
 ``` r
-update_el_color_picker(session, id, value = NULL, disabled = NULL)
+update_el_color_picker(
+  session = shiny::getDefaultReactiveDomain(),
+  id,
+  value = NULL,
+  disabled = NULL
+)
 ```
 
 ## Arguments
 
 - session:
 
-  Shiny session object.
+  Shiny session; the current one by default, as for
+  [`shiny::updateTextInput()`](https://rdrr.io/pkg/shiny/man/updateTextInput.html).
 
 - id:
 

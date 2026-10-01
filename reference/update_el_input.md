@@ -8,7 +8,7 @@ Sends a custom message to update named fields on the Vue instance.
 
 ``` r
 update_el_input(
-  session,
+  session = shiny::getDefaultReactiveDomain(),
   id,
   value = NULL,
   placeholder = NULL,
@@ -25,7 +25,8 @@ update_el_input(
 
 - session:
 
-  Shiny session object.
+  Shiny session; the current one by default, as for
+  [`shiny::updateTextInput()`](https://rdrr.io/pkg/shiny/man/updateTextInput.html).
 
 - id:
 

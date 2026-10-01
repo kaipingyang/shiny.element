@@ -7,7 +7,7 @@ Server-side update for
 
 ``` r
 update_el_transfer(
-  session,
+  session = shiny::getDefaultReactiveDomain(),
   id,
   value = NULL,
   data = NULL,
@@ -20,7 +20,8 @@ update_el_transfer(
 
 - session:
 
-  Shiny session object.
+  Shiny session; the current one by default, as for
+  [`shiny::updateTextInput()`](https://rdrr.io/pkg/shiny/man/updateTextInput.html).
 
 - id:
 

@@ -7,14 +7,15 @@ opened under this `id`. Closing one that is not open does nothing.
 ## Usage
 
 ``` r
-el_loading_close(session, id = "default")
+el_loading_close(session = shiny::getDefaultReactiveDomain(), id = "default")
 ```
 
 ## Arguments
 
 - session:
 
-  Shiny session object.
+  Shiny session; the current one by default, as for
+  [`shiny::updateTextInput()`](https://rdrr.io/pkg/shiny/man/updateTextInput.html).
 
 - id:
 

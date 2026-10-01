@@ -192,21 +192,21 @@ a warning.</p></dd>
 <span class="r-in"><span>         divided <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
 <span class="r-in"><span>  <span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;div id="dd1" data-el-vue-host style="display: contents"&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   &lt;div id="dd1_container" data-el-mount style="display: contents"&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     &lt;el-dropdown :trigger="trigger" :hide-on-click="hideOnClick" :placement="placement" :disabled="disabled" :split-button="splitButton" @command="handleCommand" :type="type === null ? undefined : type" :size="size === null ? undefined : size" :show-timeout="showTimeout === null ? undefined : showTimeout" :hide-timeout="hideTimeout === null ? undefined : hideTimeout" :tabindex="tabindex === null ? undefined : tabindex" @click="elEmitClick" @visible-change="elEmitVisibleChange"&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       &lt;span class="el-dropdown-link"&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>         Actions</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>         &lt;i class="el-icon-arrow-down el-icon--right"&gt;&lt;/i&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       &lt;/span&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       &lt;el-dropdown-menu slot="dropdown"&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>         &lt;el-dropdown-item :command="&amp;quot;edit&amp;quot;" icon="el-icon-edit"&gt;Edit&lt;/el-dropdown-item&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>         &lt;el-dropdown-item :command="&amp;quot;copy&amp;quot;" icon="el-icon-document"&gt;Copy&lt;/el-dropdown-item&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>         &lt;el-dropdown-item :command="&amp;quot;delete&amp;quot;" :divided="true" icon="el-icon-delete"&gt;Delete&lt;/el-dropdown-item&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       &lt;/el-dropdown-menu&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     &lt;/el-dropdown&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   &lt;/div&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   &lt;script type="application/json" data-el-vue&gt;{"options":{"data":{"trigger":"hover","hideOnClick":true,"placement":"bottom-end","disabled":false,"splitButton":false,"count":0,"type":null,"size":null,"showTimeout":null,"hideTimeout":null,"tabindex":null},"methods":{"elEmitClick":"function() { window.shinyElement.emit('dd1', 'click', arguments); }","elEmitVisibleChange":"function() { window.shinyElement.emit('dd1', 'visible_change', arguments); }","handleCommand":"function(cmd) { this.count++; window.Shiny &amp;&amp; Shiny.setInputValue &amp;&amp; Shiny.setInputValue('dd1', cmd); window.Shiny &amp;&amp; Shiny.setInputValue &amp;&amp; Shiny.setInputValue('dd1_count', this.count); }"}},"input":null,"rate":null,"type":null,"evals":["options.methods.elEmitClick","options.methods.elEmitVisibleChange","options.methods.handleCommand"]}&lt;/script&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;div id="dd1" data-shiny-vue style="display: contents"&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   &lt;script type="text/x-template" data-shiny-vue-template&gt;&lt;div id="dd1_container" style="display: contents"&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   &lt;el-dropdown :trigger="trigger" :hide-on-click="hideOnClick" :placement="placement" :disabled="disabled" :split-button="splitButton" @command="handleCommand" :type="type === null ? undefined : type" :size="size === null ? undefined : size" :show-timeout="showTimeout === null ? undefined : showTimeout" :hide-timeout="hideTimeout === null ? undefined : hideTimeout" :tabindex="tabindex === null ? undefined : tabindex" @click="elEmitClick" @visible-change="elEmitVisibleChange"&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     &lt;span class="el-dropdown-link"&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       Actions</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       &lt;i class="el-icon-arrow-down el-icon--right"&gt;&lt;/i&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     &lt;/span&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     &lt;el-dropdown-menu slot="dropdown"&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       &lt;el-dropdown-item :command="&amp;quot;edit&amp;quot;" icon="el-icon-edit"&gt;Edit&lt;/el-dropdown-item&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       &lt;el-dropdown-item :command="&amp;quot;copy&amp;quot;" icon="el-icon-document"&gt;Copy&lt;/el-dropdown-item&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       &lt;el-dropdown-item :command="&amp;quot;delete&amp;quot;" :divided="true" icon="el-icon-delete"&gt;Delete&lt;/el-dropdown-item&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     &lt;/el-dropdown-menu&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   &lt;/el-dropdown&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;/div&gt;&lt;/script&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   &lt;script type="application/json" data-shiny-vue-options&gt;{"options":{"data":{"trigger":"hover","hideOnClick":true,"placement":"bottom-end","disabled":false,"splitButton":false,"count":0,"type":null,"size":null,"showTimeout":null,"hideTimeout":null,"tabindex":null},"methods":{"elEmitClick":"function() { window.shinyElement.emit('dd1', 'click', arguments); }","elEmitVisibleChange":"function() { window.shinyElement.emit('dd1', 'visible_change', arguments); }","handleCommand":"function(cmd) { this.count++; window.Shiny &amp;&amp; Shiny.setInputValue &amp;&amp; Shiny.setInputValue('dd1', cmd); window.Shiny &amp;&amp; Shiny.setInputValue &amp;&amp; Shiny.setInputValue('dd1_count', this.count); }"}},"input":null,"rate":null,"type":null,"evals":["options.methods.elEmitClick","options.methods.elEmitVisibleChange","options.methods.handleCommand"]}&lt;/script&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> &lt;/div&gt;</span>
 <span class="r-in"><span></span></span>
 </code></pre></div>

@@ -6,14 +6,20 @@ Server-side update for
 ## Usage
 
 ``` r
-update_el_page_header(session, id, title = NULL, content = NULL)
+update_el_page_header(
+  session = shiny::getDefaultReactiveDomain(),
+  id,
+  title = NULL,
+  content = NULL
+)
 ```
 
 ## Arguments
 
 - session:
 
-  Shiny session object.
+  Shiny session; the current one by default, as for
+  [`shiny::updateTextInput()`](https://rdrr.io/pkg/shiny/man/updateTextInput.html).
 
 - id:
 

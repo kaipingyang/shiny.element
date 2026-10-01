@@ -6,14 +6,15 @@ Update the entire data object of a Vue component instance by id
 ## Usage
 
 ``` r
-update_vue_data(session, id, data)
+update_vue_data(session = shiny::getDefaultReactiveDomain(), id, data)
 ```
 
 ## Arguments
 
 - session:
 
-  Shiny session object
+  Shiny session; the current one by default, as for
+  [`shiny::updateTextInput()`](https://rdrr.io/pkg/shiny/man/updateTextInput.html).
 
 - id:
 

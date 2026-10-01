@@ -8,7 +8,7 @@ Supports updating value, range bounds, step size, and disabled state.
 
 ``` r
 update_el_slider(
-  session,
+  session = shiny::getDefaultReactiveDomain(),
   id,
   value = NULL,
   min = NULL,
@@ -22,7 +22,8 @@ update_el_slider(
 
 - session:
 
-  Shiny session object.
+  Shiny session; the current one by default, as for
+  [`shiny::updateTextInput()`](https://rdrr.io/pkg/shiny/man/updateTextInput.html).
 
 - id:
 

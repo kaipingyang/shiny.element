@@ -5,14 +5,20 @@ Update an Element UI Timeline
 ## Usage
 
 ``` r
-update_el_timeline(session, id, items = NULL, reverse = NULL)
+update_el_timeline(
+  session = shiny::getDefaultReactiveDomain(),
+  id,
+  items = NULL,
+  reverse = NULL
+)
 ```
 
 ## Arguments
 
 - session:
 
-  Shiny session object.
+  Shiny session; the current one by default, as for
+  [`shiny::updateTextInput()`](https://rdrr.io/pkg/shiny/man/updateTextInput.html).
 
 - id:
 

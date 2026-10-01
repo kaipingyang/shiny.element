@@ -1,6 +1,8 @@
 # The scripts every Vue component needs
 
-jQuery, Vue, the event helpers and the mounting bridge, in load order.
+jQuery, Vue, the generic bridge (`shiny-vue.js`: mounting, the Shiny
+input binding, serialising values, forwarding events) and Element's side
+of it (`el-events.js`), in load order.
 
 ## Usage
 

@@ -65,10 +65,6 @@ el_radio_group("plan", choices = c(Basic = "x", Pro = "y"))
 el_radio_group("range", choices = c(Day = "d", Week = "w"), button = TRUE)
 ```
 
-{{opt.label}}
-
-{{opt.label}}
-
 ### `el_checkbox_group()`
 
 ``` r
@@ -76,8 +72,6 @@ el_radio_group("range", choices = c(Day = "d", Week = "w"), button = TRUE)
 el_checkbox_group("langs", choices = c(R = "r", Python = "p", SQL = "s"),
                   selected = c("r", "s"))
 ```
-
-{{opt.label}}
 
 ### `el_switch()`
 
@@ -193,12 +187,6 @@ a URL.
 el_upload("files", drag = TRUE, multiple = TRUE, tip = "CSV only", accept = ".csv")
 ```
 
-{{label}}
-
-{{label}}
-
-CSV only
-
 ### `el_form()`
 
 The form owns its model, so validation runs in the browser and the whole
@@ -219,12 +207,6 @@ el_form(
 )
 ```
 
-{{f.label}}
-
-{{scope.error}}
-
-{{ o.text }}{{ submitLabel }}
-
 ## Data
 
 ### `el_button()`
@@ -236,20 +218,12 @@ el_button("go", "Round", type = "primary", round = TRUE)
 el_button("wait", "Loading", type = "primary", loading = TRUE)
 ```
 
-{{label}}
-
-{{label}}
-
-{{label}}
-
 ### `el_tag()`
 
 ``` r
 
 el_tag("t", label = "closable", type = "warning", closable = TRUE)
 ```
-
-{{label}}
 
 ### `el_alert()`
 
@@ -277,11 +251,7 @@ el_badge(el_button("msg", "messages"), value = 12)
 el_badge(el_button("hi", "capped"), value = 200, max = 99)
 ```
 
-{{label}}
-
 ¹²
-
-{{label}}
 
 ⁹⁹⁺
 
@@ -307,8 +277,6 @@ with their R types intact.
 el_table(id = "tbl", data = head(iris, 4), selection = TRUE)
 ```
 
-{{col.label}}
-
 ### `el_avatar()`
 
 From an image, an icon, or text.
@@ -319,12 +287,6 @@ el_avatar("anon", icon = "el-icon-user-solid")
 el_avatar("initials", content = "KY", shape = "square")
 el_avatar("big", content = "40", size = 40)
 ```
-
-{{content}}
-
-{{content}}
-
-{{content}}
 
 ### `el_image()`
 
@@ -359,8 +321,6 @@ el_descriptions("account", title = "Account", border = TRUE, column = 2,
     list(label = "Address", content = "12 St James's Square, London", span = 2)
   ))
 ```
-
-Ada Lovelace{{label}}2026-01-121212 St James's Square, London
 
 ### `el_statistic()`
 
@@ -398,16 +358,12 @@ el_empty("none", description = "No reports yet", image_size = 100,
          el_button("create", "Create one", type = "primary"))
 ```
 
-{{label}}
-
 ``` r
 
 el_result("done", icon = "success", title = "Report submitted",
           sub_title = "It will be reviewed within a day",
           el_button("back", "Back to the list", type = "primary"))
 ```
-
-{{label}}
 
 ### `el_skeleton()`
 
@@ -440,8 +396,6 @@ el_timeline("log", items = list(
        icon = "el-icon-check", size = "large")))
 ```
 
-{{ item.content }}
-
 ### `el_carousel()`
 
 ``` r
@@ -450,10 +404,6 @@ el_carousel("banner", height = "160px", items = list(
   list(name = "one", content = tags$h3("First")),
   list(name = "two", content = tags$h3("Second"))))
 ```
-
-### First
-
-### Second
 
 ### `el_divider()` and `el_link()`
 
@@ -604,10 +554,6 @@ el_tooltip("hint", el$button(type = "primary", "Hover me"),
 el_tooltip("save_hint", el_button("save", "Save"), content = "Writes to disk")
 ```
 
-Hover me
-
-{{label}}
-
 ### `el_popover()`
 
 A card on click or hover, with a title and body.
@@ -618,8 +564,6 @@ el_popover("info",
   reference = el$button(type = "primary", "Details"),
   title = "March", content = "Revenue up 4% on February.")
 ```
-
-Details
 
 ### `el_popconfirm()`
 
@@ -633,8 +577,6 @@ el_popconfirm("del",
   reference = el$button(type = "danger", "Delete"),
   title = "Delete this row?")
 ```
-
-Delete
 
 ### `el_backtop()`
 
@@ -784,8 +726,6 @@ el_menu("nav", active = "home", items = list(
     list(index = "all", label = "All records")))))
 ```
 
-Home Data All records
-
 ### `el_tree()`
 
 [`df_to_tree_data()`](https://kaipingyang.github.io/shiny.element/reference/df_to_tree_data.md)
@@ -809,8 +749,6 @@ el_breadcrumb("trail", items = list(
   list(label = "Home"), list(label = "Reports"), list(label = "March")))
 ```
 
-{{item.label}}
-
 ### `el_page_header()`
 
 A page title with a back link. `input$<id>_back` fires when it is
@@ -829,8 +767,6 @@ el_dropdown("actions", trigger_label = "Actions", items = list(
   list(command = "edit", label = "Edit"),
   list(command = "del",  label = "Delete")))
 ```
-
-Actions EditDelete
 
 ## Feedback
 

@@ -7,14 +7,15 @@ no submit button of its own (`submit_label = NULL`).
 ## Usage
 
 ``` r
-el_form_validate(session, id)
+el_form_validate(session = shiny::getDefaultReactiveDomain(), id)
 ```
 
 ## Arguments
 
 - session:
 
-  Shiny session object.
+  Shiny session; the current one by default, as for
+  [`shiny::updateTextInput()`](https://rdrr.io/pkg/shiny/man/updateTextInput.html).
 
 - id:
 

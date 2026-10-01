@@ -264,8 +264,6 @@ el_alert("problem", type = "error", show_icon = TRUE,
          slots = list(title = tags$span(tags$b("Upload failed"), " -- try again")))
 ```
 
-**Upload failed** -- try again
-
 A scoped slot – one where Element hands the template variables that only
 exist while Vue renders – is written with
 [`template()`](https://kaipingyang.github.io/shiny.element/reference/template.md)
@@ -283,8 +281,6 @@ el_calendar("cal", value = "2026-03-15", slots = list(
   )
 ))
 ```
-
-{{ data.day.slice(8) }} **due**
 
 Filling a slot replaces what Element put there, default and all.
 Element’s `el-form-item` error slot, for instance, wraps the message in
@@ -336,8 +332,6 @@ actionButton()
 
 Element's el_input()
 
-{{label}}
-
 `el_theme(primary = "#7c3aed")` changes the brand colour, and any other
 argument of
 [`bslib::bs_theme()`](https://rstudio.github.io/bslib/reference/bs_theme.html)
@@ -361,10 +355,6 @@ a slot, a table `cell`, a wrapper’s trigger.
 el_tooltip("hint", el$button(type = "primary", "Markup only"), content = "No input")
 el_button("save", "A component", type = "primary")   # reports input$save
 ```
-
-Markup only
-
-{{label}}
 
 Placed at the top level of a page, the same `el$button()` is never
 compiled and shows as its bare text. Use the raw tag where a component
@@ -392,10 +382,6 @@ initials <- function(id, name, size = 48) {
 initials("ada", "Ada Lovelace")
 initials("alan", "Alan Mathison Turing", size = 64)
 ```
-
-{{ letters }}
-
-{{ letters }}
 
 ### An input of your own, built from `el$` tags
 

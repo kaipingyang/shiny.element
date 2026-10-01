@@ -83,13 +83,13 @@ el_timeline(
     list(content = "Delivered",     timestamp = "2026-03-04", color = "#0bbd87")
   )
 )
-#> <div id="log" data-el-vue-host style="display: contents">
-#>   <div id="log_container" data-el-mount style="display: contents">
-#>     <el-timeline :reverse="reverse">
-#>       <el-timeline-item v-for="(item, index) in items" :key="index" :timestamp="item.timestamp" :type="item.type" :color="item.color" :size="item.size" :icon="item.icon" :placement="item.placement" :hide-timestamp="!item.timestamp">{{ item.content }}</el-timeline-item>
-#>     </el-timeline>
-#>   </div>
-#>   <script type="application/json" data-el-vue>{"options":{"data":{"items":[{"content":"Order placed","timestamp":"2026-03-01","type":"primary"},{"content":"Order shipped","timestamp":"2026-03-02","type":"success","size":"large","icon":"el-icon-check"},{"content":"Delivered","timestamp":"2026-03-04","color":"#0bbd87"}],"reverse":false}},"input":null,"rate":null,"type":null,"evals":[]}</script>
+#> <div id="log" data-shiny-vue style="display: contents">
+#>   <script type="text/x-template" data-shiny-vue-template><div id="log_container" style="display: contents">
+#>   <el-timeline :reverse="reverse">
+#>     <el-timeline-item v-for="(item, index) in items" :key="index" :timestamp="item.timestamp" :type="item.type" :color="item.color" :size="item.size" :icon="item.icon" :placement="item.placement" :hide-timestamp="!item.timestamp">{{ item.content }}</el-timeline-item>
+#>   </el-timeline>
+#> </div></script>
+#>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"items":[{"content":"Order placed","timestamp":"2026-03-01","type":"primary"},{"content":"Order shipped","timestamp":"2026-03-02","type":"success","size":"large","icon":"el-icon-check"},{"content":"Delivered","timestamp":"2026-03-04","color":"#0bbd87"}],"reverse":false}},"input":null,"rate":null,"type":null,"evals":[]}</script>
 #> </div>
 
 # Newest first, timestamps above each entry
@@ -100,12 +100,12 @@ el_timeline(
     list(content = "First",  timestamp = "09:15", placement = "top")
   )
 )
-#> <div id="log" data-el-vue-host style="display: contents">
-#>   <div id="log_container" data-el-mount style="display: contents">
-#>     <el-timeline :reverse="reverse">
-#>       <el-timeline-item v-for="(item, index) in items" :key="index" :timestamp="item.timestamp" :type="item.type" :color="item.color" :size="item.size" :icon="item.icon" :placement="item.placement" :hide-timestamp="!item.timestamp">{{ item.content }}</el-timeline-item>
-#>     </el-timeline>
-#>   </div>
-#>   <script type="application/json" data-el-vue>{"options":{"data":{"items":[{"content":"Second","timestamp":"10:30","placement":"top"},{"content":"First","timestamp":"09:15","placement":"top"}],"reverse":true}},"input":null,"rate":null,"type":null,"evals":[]}</script>
+#> <div id="log" data-shiny-vue style="display: contents">
+#>   <script type="text/x-template" data-shiny-vue-template><div id="log_container" style="display: contents">
+#>   <el-timeline :reverse="reverse">
+#>     <el-timeline-item v-for="(item, index) in items" :key="index" :timestamp="item.timestamp" :type="item.type" :color="item.color" :size="item.size" :icon="item.icon" :placement="item.placement" :hide-timestamp="!item.timestamp">{{ item.content }}</el-timeline-item>
+#>   </el-timeline>
+#> </div></script>
+#>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"items":[{"content":"Second","timestamp":"10:30","placement":"top"},{"content":"First","timestamp":"09:15","placement":"top"}],"reverse":true}},"input":null,"rate":null,"type":null,"evals":[]}</script>
 #> </div>
 ```

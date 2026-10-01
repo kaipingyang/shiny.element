@@ -139,24 +139,24 @@ on the tooltip's id instead.
 # A plain tag as the trigger
 el_tooltip("hint", el$button(type = "primary", "Save"),
            content = "Writes to disk")
-#> <div id="hint" data-el-vue-host style="display: contents">
-#>   <div id="hint_container" data-el-mount style="display: contents">
-#>     <el-tooltip v-model="tipValue" :content="tipContent === null ? undefined : tipContent" :placement="tipPlacement === null ? undefined : tipPlacement" :effect="tipEffect === null ? undefined : tipEffect" :disabled="tipDisabled === null ? undefined : tipDisabled" :offset="tipOffset === null ? undefined : tipOffset" :open-delay="tipOpenDelay === null ? undefined : tipOpenDelay" :hide-after="tipHideAfter === null ? undefined : tipHideAfter" :enterable="tipEnterable === null ? undefined : tipEnterable" :visible-arrow="tipVisibleArrow === null ? undefined : tipVisibleArrow" :transition="tipTransition === null ? undefined : tipTransition" :popper-class="tipPopperClass === null ? undefined : tipPopperClass" :popper-options="tipPopperOptions === null ? undefined : tipPopperOptions" :manual="tipManual === null ? undefined : tipManual" :tabindex="tipTabindex === null ? undefined : tipTabindex">
-#>       <el-button type="primary">Save</el-button>
-#>     </el-tooltip>
-#>   </div>
-#>   <script type="application/json" data-el-vue>{"options":{"data":{"tipValue":false,"tipContent":"Writes to disk","tipPlacement":null,"tipEffect":null,"tipDisabled":null,"tipOffset":null,"tipOpenDelay":null,"tipHideAfter":null,"tipEnterable":null,"tipVisibleArrow":null,"tipTransition":null,"tipPopperClass":null,"tipPopperOptions":null,"tipManual":null,"tipTabindex":null}},"input":null,"rate":null,"type":null,"evals":[]}</script>
+#> <div id="hint" data-shiny-vue style="display: contents">
+#>   <script type="text/x-template" data-shiny-vue-template><div id="hint_container" style="display: contents">
+#>   <el-tooltip v-model="tipValue" :content="tipContent === null ? undefined : tipContent" :placement="tipPlacement === null ? undefined : tipPlacement" :effect="tipEffect === null ? undefined : tipEffect" :disabled="tipDisabled === null ? undefined : tipDisabled" :offset="tipOffset === null ? undefined : tipOffset" :open-delay="tipOpenDelay === null ? undefined : tipOpenDelay" :hide-after="tipHideAfter === null ? undefined : tipHideAfter" :enterable="tipEnterable === null ? undefined : tipEnterable" :visible-arrow="tipVisibleArrow === null ? undefined : tipVisibleArrow" :transition="tipTransition === null ? undefined : tipTransition" :popper-class="tipPopperClass === null ? undefined : tipPopperClass" :popper-options="tipPopperOptions === null ? undefined : tipPopperOptions" :manual="tipManual === null ? undefined : tipManual" :tabindex="tipTabindex === null ? undefined : tipTabindex">
+#>     <el-button type="primary">Save</el-button>
+#>   </el-tooltip>
+#> </div></script>
+#>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"tipValue":false,"tipContent":"Writes to disk","tipPlacement":null,"tipEffect":null,"tipDisabled":null,"tipOffset":null,"tipOpenDelay":null,"tipHideAfter":null,"tipEnterable":null,"tipVisibleArrow":null,"tipTransition":null,"tipPopperClass":null,"tipPopperOptions":null,"tipManual":null,"tipTabindex":null}},"input":null,"rate":null,"type":null,"evals":[]}</script>
 #> </div>
 
 # Or a component, which keeps working
 el_tooltip("hint", el_button("save", "Save"), content = "Writes to disk")
-#> <div id="hint" data-el-vue-host style="display: contents">
-#>   <div id="hint_container" data-el-mount style="display: contents">
-#>     <el-tooltip v-model="tipValue" :content="tipContent === null ? undefined : tipContent" :placement="tipPlacement === null ? undefined : tipPlacement" :effect="tipEffect === null ? undefined : tipEffect" :disabled="tipDisabled === null ? undefined : tipDisabled" :offset="tipOffset === null ? undefined : tipOffset" :open-delay="tipOpenDelay === null ? undefined : tipOpenDelay" :hide-after="tipHideAfter === null ? undefined : tipHideAfter" :enterable="tipEnterable === null ? undefined : tipEnterable" :visible-arrow="tipVisibleArrow === null ? undefined : tipVisibleArrow" :transition="tipTransition === null ? undefined : tipTransition" :popper-class="tipPopperClass === null ? undefined : tipPopperClass" :popper-options="tipPopperOptions === null ? undefined : tipPopperOptions" :manual="tipManual === null ? undefined : tipManual" :tabindex="tipTabindex === null ? undefined : tipTabindex">
-#>       <el-button :type="type" :plain="plain" :round="round" :circle="circle" :loading="loading" :disabled="disabled" :native-type="native_type" @click="handleClick" :size="size === null ? undefined : size" :icon="icon === null ? undefined : icon" :autofocus="autofocus === null ? undefined : autofocus">{{label}}</el-button>
-#>     </el-tooltip>
-#>   </div>
-#>   <script type="application/json" data-el-vue>{"options":{"data":{"tipValue":false,"tipContent":"Writes to disk","tipPlacement":null,"tipEffect":null,"tipDisabled":null,"tipOffset":null,"tipOpenDelay":null,"tipHideAfter":null,"tipEnterable":null,"tipVisibleArrow":null,"tipTransition":null,"tipPopperClass":null,"tipPopperOptions":null,"tipManual":null,"tipTabindex":null,"label":"Save","type":"default","size":null,"plain":false,"round":false,"circle":false,"loading":false,"disabled":false,"native_type":"button","icon":null,"count":0,"autofocus":false},"methods":{"handleClick":"function() { if (!this.disabled && !this.loading) { this.count++; window.Shiny && Shiny.setInputValue && Shiny.setInputValue('save', this.count); } }"}},"input":null,"rate":null,"type":null,"evals":["options.methods.handleClick"]}</script>
+#> <div id="hint" data-shiny-vue style="display: contents">
+#>   <script type="text/x-template" data-shiny-vue-template><div id="hint_container" style="display: contents">
+#>   <el-tooltip v-model="tipValue" :content="tipContent === null ? undefined : tipContent" :placement="tipPlacement === null ? undefined : tipPlacement" :effect="tipEffect === null ? undefined : tipEffect" :disabled="tipDisabled === null ? undefined : tipDisabled" :offset="tipOffset === null ? undefined : tipOffset" :open-delay="tipOpenDelay === null ? undefined : tipOpenDelay" :hide-after="tipHideAfter === null ? undefined : tipHideAfter" :enterable="tipEnterable === null ? undefined : tipEnterable" :visible-arrow="tipVisibleArrow === null ? undefined : tipVisibleArrow" :transition="tipTransition === null ? undefined : tipTransition" :popper-class="tipPopperClass === null ? undefined : tipPopperClass" :popper-options="tipPopperOptions === null ? undefined : tipPopperOptions" :manual="tipManual === null ? undefined : tipManual" :tabindex="tipTabindex === null ? undefined : tipTabindex">
+#>     <el-button :type="type" :plain="plain" :round="round" :circle="circle" :loading="loading" :disabled="disabled" :native-type="native_type" @click="handleClick" :size="size === null ? undefined : size" :icon="icon === null ? undefined : icon" :autofocus="autofocus === null ? undefined : autofocus">{{label}}</el-button>
+#>   </el-tooltip>
+#> </div></script>
+#>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"tipValue":false,"tipContent":"Writes to disk","tipPlacement":null,"tipEffect":null,"tipDisabled":null,"tipOffset":null,"tipOpenDelay":null,"tipHideAfter":null,"tipEnterable":null,"tipVisibleArrow":null,"tipTransition":null,"tipPopperClass":null,"tipPopperOptions":null,"tipManual":null,"tipTabindex":null,"label":"Save","type":"default","size":null,"plain":false,"round":false,"circle":false,"loading":false,"disabled":false,"native_type":"button","icon":null,"count":0,"autofocus":false},"methods":{"handleClick":"function() { if (!this.disabled && !this.loading) { this.count++; window.Shiny && Shiny.setInputValue && Shiny.setInputValue('save', this.count); } }"}},"input":null,"rate":null,"type":null,"evals":["options.methods.handleClick"]}</script>
 #> </div>
 
 el_tooltip("hint",
@@ -164,12 +164,12 @@ el_tooltip("hint",
   content = "This cannot be undone",
   placement = "right", effect = "light"
 )
-#> <div id="hint" data-el-vue-host style="display: contents">
-#>   <div id="hint_container" data-el-mount style="display: contents">
-#>     <el-tooltip v-model="tipValue" :content="tipContent === null ? undefined : tipContent" :placement="tipPlacement === null ? undefined : tipPlacement" :effect="tipEffect === null ? undefined : tipEffect" :disabled="tipDisabled === null ? undefined : tipDisabled" :offset="tipOffset === null ? undefined : tipOffset" :open-delay="tipOpenDelay === null ? undefined : tipOpenDelay" :hide-after="tipHideAfter === null ? undefined : tipHideAfter" :enterable="tipEnterable === null ? undefined : tipEnterable" :visible-arrow="tipVisibleArrow === null ? undefined : tipVisibleArrow" :transition="tipTransition === null ? undefined : tipTransition" :popper-class="tipPopperClass === null ? undefined : tipPopperClass" :popper-options="tipPopperOptions === null ? undefined : tipPopperOptions" :manual="tipManual === null ? undefined : tipManual" :tabindex="tipTabindex === null ? undefined : tipTabindex">
-#>       <el-button type="danger">Delete</el-button>
-#>     </el-tooltip>
-#>   </div>
-#>   <script type="application/json" data-el-vue>{"options":{"data":{"tipValue":false,"tipContent":"This cannot be undone","tipPlacement":"right","tipEffect":"light","tipDisabled":null,"tipOffset":null,"tipOpenDelay":null,"tipHideAfter":null,"tipEnterable":null,"tipVisibleArrow":null,"tipTransition":null,"tipPopperClass":null,"tipPopperOptions":null,"tipManual":null,"tipTabindex":null}},"input":null,"rate":null,"type":null,"evals":[]}</script>
+#> <div id="hint" data-shiny-vue style="display: contents">
+#>   <script type="text/x-template" data-shiny-vue-template><div id="hint_container" style="display: contents">
+#>   <el-tooltip v-model="tipValue" :content="tipContent === null ? undefined : tipContent" :placement="tipPlacement === null ? undefined : tipPlacement" :effect="tipEffect === null ? undefined : tipEffect" :disabled="tipDisabled === null ? undefined : tipDisabled" :offset="tipOffset === null ? undefined : tipOffset" :open-delay="tipOpenDelay === null ? undefined : tipOpenDelay" :hide-after="tipHideAfter === null ? undefined : tipHideAfter" :enterable="tipEnterable === null ? undefined : tipEnterable" :visible-arrow="tipVisibleArrow === null ? undefined : tipVisibleArrow" :transition="tipTransition === null ? undefined : tipTransition" :popper-class="tipPopperClass === null ? undefined : tipPopperClass" :popper-options="tipPopperOptions === null ? undefined : tipPopperOptions" :manual="tipManual === null ? undefined : tipManual" :tabindex="tipTabindex === null ? undefined : tipTabindex">
+#>     <el-button type="danger">Delete</el-button>
+#>   </el-tooltip>
+#> </div></script>
+#>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"tipValue":false,"tipContent":"This cannot be undone","tipPlacement":"right","tipEffect":"light","tipDisabled":null,"tipOffset":null,"tipOpenDelay":null,"tipHideAfter":null,"tipEnterable":null,"tipVisibleArrow":null,"tipTransition":null,"tipPopperClass":null,"tipPopperOptions":null,"tipManual":null,"tipTabindex":null}},"input":null,"rate":null,"type":null,"evals":[]}</script>
 #> </div>
 ```

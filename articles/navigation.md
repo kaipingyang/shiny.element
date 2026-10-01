@@ -207,8 +207,6 @@ el_popconfirm("remove",
   title = "Remove this item?")
 ```
 
-{{label}}
-
 ## Loading
 
 [`el_loading()`](https://kaipingyang.github.io/shiny.element/reference/el_loading.md)

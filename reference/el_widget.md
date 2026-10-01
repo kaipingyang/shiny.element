@@ -135,11 +135,11 @@ my_avatar <- function(id, src, size = 50) {
   )
 }
 my_avatar("face", "https://example.org/face.png")
-#> <div id="face" data-el-vue-host style="display: contents">
-#>   <div id="face_container" data-el-mount style="display: contents">
-#>     <el-avatar :src="src" :size="size"></el-avatar>
-#>   </div>
-#>   <script type="application/json" data-el-vue>{"options":{"data":{"src":"https://example.org/face.png","size":50}},"input":null,"rate":null,"type":null,"evals":[]}</script>
+#> <div id="face" data-shiny-vue style="display: contents">
+#>   <script type="text/x-template" data-shiny-vue-template><div id="face_container" style="display: contents">
+#>   <el-avatar :src="src" :size="size"></el-avatar>
+#> </div></script>
+#>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"src":"https://example.org/face.png","size":50}},"input":null,"rate":null,"type":null,"evals":[]}</script>
 #> </div>
 
 # An input of your own: v-model keeps `value` in step with the control,
@@ -151,10 +151,10 @@ el_widget(
   data   = list(value = 3, max = 5),
   report = c(value = "score")
 )
-#> <div id="score" data-el-vue-host style="display: contents">
-#>   <div id="score_container" data-el-mount style="display: contents">
-#>     <el-rate v-model="value" :max="max"></el-rate>
-#>   </div>
-#>   <script type="application/json" data-el-vue>{"options":{"data":{"value":3,"max":5}},"input":"value","rate":null,"type":null,"evals":[]}</script>
+#> <div id="score" data-shiny-vue style="display: contents">
+#>   <script type="text/x-template" data-shiny-vue-template><div id="score_container" style="display: contents">
+#>   <el-rate v-model="value" :max="max"></el-rate>
+#> </div></script>
+#>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":3,"max":5}},"input":"value","rate":null,"type":null,"evals":[]}</script>
 #> </div>
 ```

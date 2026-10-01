@@ -89,13 +89,13 @@ A Shiny UI element.
 
 ``` r
 el_infinite_scroll("feed", shiny::uiOutput("rows"), height = "400px")
-#> <div id="feed" data-el-vue-host style="display: contents">
-#>   <div id="feed_container" data-el-mount style="display: contents">
-#>     <div v-infinite-scroll="handleLoad" :infinite-scroll-disabled="scrollDisabled" :infinite-scroll-delay="scrollDelay === null ? undefined : scrollDelay" :infinite-scroll-distance="scrollDistance === null ? undefined : scrollDistance" :infinite-scroll-immediate="scrollImmediate === null ? undefined : scrollImmediate" style="overflow: auto; height: 400px">
-#>       <div id="rows" class="shiny-html-output"></div>
-#>     </div>
+#> <div id="feed" data-shiny-vue style="display: contents">
+#>   <script type="text/x-template" data-shiny-vue-template><div id="feed_container" style="display: contents">
+#>   <div v-infinite-scroll="handleLoad" :infinite-scroll-disabled="scrollDisabled" :infinite-scroll-delay="scrollDelay === null ? undefined : scrollDelay" :infinite-scroll-distance="scrollDistance === null ? undefined : scrollDistance" :infinite-scroll-immediate="scrollImmediate === null ? undefined : scrollImmediate" style="overflow: auto; height: 400px">
+#>     <div id="rows" class="shiny-html-output"></div>
 #>   </div>
-#>   <script type="application/json" data-el-vue>{"options":{"data":{"scrollDisabled":false,"scrollDelay":null,"scrollDistance":null,"scrollImmediate":null,"scrollCount":0},"methods":{"handleLoad":"function() { this.scrollCount++; window.Shiny && Shiny.setInputValue && Shiny.setInputValue('feed_load', this.scrollCount); }"}},"input":null,"rate":null,"type":null,"evals":["options.methods.handleLoad"]}</script>
+#> </div></script>
+#>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"scrollDisabled":false,"scrollDelay":null,"scrollDistance":null,"scrollImmediate":null,"scrollCount":0},"methods":{"handleLoad":"function() { this.scrollCount++; window.Shiny && Shiny.setInputValue && Shiny.setInputValue('feed_load', this.scrollCount); }"}},"input":null,"rate":null,"type":null,"evals":["options.methods.handleLoad"]}</script>
 #> </div>
 
 if (interactive()) {

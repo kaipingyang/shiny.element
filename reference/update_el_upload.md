@@ -5,14 +5,20 @@ Update an Element UI Upload
 ## Usage
 
 ``` r
-update_el_upload(session, id, disabled = NULL, limit = NULL)
+update_el_upload(
+  session = shiny::getDefaultReactiveDomain(),
+  id,
+  disabled = NULL,
+  limit = NULL
+)
 ```
 
 ## Arguments
 
 - session:
 
-  Shiny session object.
+  Shiny session; the current one by default, as for
+  [`shiny::updateTextInput()`](https://rdrr.io/pkg/shiny/man/updateTextInput.html).
 
 - id:
 

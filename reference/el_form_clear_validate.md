@@ -5,14 +5,19 @@ Leaves the values alone and only removes the error state.
 ## Usage
 
 ``` r
-el_form_clear_validate(session, id, props = NULL)
+el_form_clear_validate(
+  session = shiny::getDefaultReactiveDomain(),
+  id,
+  props = NULL
+)
 ```
 
 ## Arguments
 
 - session:
 
-  Shiny session object.
+  Shiny session; the current one by default, as for
+  [`shiny::updateTextInput()`](https://rdrr.io/pkg/shiny/man/updateTextInput.html).
 
 - id:
 

@@ -9,7 +9,7 @@ Supports all visual states including `size`, `plain`, `round`, and
 
 ``` r
 update_el_button(
-  session,
+  session = shiny::getDefaultReactiveDomain(),
   id,
   label = NULL,
   type = NULL,
@@ -25,7 +25,8 @@ update_el_button(
 
 - session:
 
-  Shiny session object.
+  Shiny session; the current one by default, as for
+  [`shiny::updateTextInput()`](https://rdrr.io/pkg/shiny/man/updateTextInput.html).
 
 - id:
 

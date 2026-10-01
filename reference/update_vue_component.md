@@ -5,14 +5,15 @@ Update one or more fields of a Vue component instance by id (namespaced)
 ## Usage
 
 ``` r
-update_vue_component(session, id, ...)
+update_vue_component(session = shiny::getDefaultReactiveDomain(), id, ...)
 ```
 
 ## Arguments
 
 - session:
 
-  Shiny session object
+  Shiny session; the current one by default, as for
+  [`shiny::updateTextInput()`](https://rdrr.io/pkg/shiny/man/updateTextInput.html).
 
 - id:
 

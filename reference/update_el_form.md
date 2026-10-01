@@ -5,14 +5,21 @@ Update an Element UI Form
 ## Usage
 
 ``` r
-update_el_form(session, id, model = NULL, rules = NULL, label_width = NULL)
+update_el_form(
+  session = shiny::getDefaultReactiveDomain(),
+  id,
+  model = NULL,
+  rules = NULL,
+  label_width = NULL
+)
 ```
 
 ## Arguments
 
 - session:
 
-  Shiny session object.
+  Shiny session; the current one by default, as for
+  [`shiny::updateTextInput()`](https://rdrr.io/pkg/shiny/man/updateTextInput.html).
 
 - id:
 

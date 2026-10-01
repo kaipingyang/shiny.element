@@ -8,14 +8,15 @@ the *initial* values, not empty ones, so a field declared with
 ## Usage
 
 ``` r
-el_form_reset(session, id)
+el_form_reset(session = shiny::getDefaultReactiveDomain(), id)
 ```
 
 ## Arguments
 
 - session:
 
-  Shiny session object.
+  Shiny session; the current one by default, as for
+  [`shiny::updateTextInput()`](https://rdrr.io/pkg/shiny/man/updateTextInput.html).
 
 - id:
 

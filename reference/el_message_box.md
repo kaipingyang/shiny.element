@@ -7,7 +7,7 @@ acknowledgement, or a line of text.
 
 ``` r
 el_message_box(
-  session,
+  session = shiny::getDefaultReactiveDomain(),
   id,
   message,
   title = NULL,
@@ -45,7 +45,8 @@ el_message_box(
 
 - session:
 
-  Shiny session object.
+  Shiny session; the current one by default, as for
+  [`shiny::updateTextInput()`](https://rdrr.io/pkg/shiny/man/updateTextInput.html).
 
 - id:
 

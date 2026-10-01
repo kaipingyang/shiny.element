@@ -9,8 +9,6 @@ worth knowing. It takes a data.frame directly.
 el_table("cars", data = head(mtcars[, 1:6], 5))
 ```
 
-{{col.label}}
-
 Row names that name something – `mtcars`’ car names – are kept as a
 first column, while row numbers are left out; `rownames = TRUE` or
 `FALSE` decides it yourself. Column names with a dot are sanitised on
@@ -39,8 +37,6 @@ el_table("flowers",
   ))
 ```
 
-{{col.label}}
-
 Every column attribute Element documents is accepted: `align`,
 `header_align`, `class_name`, `min_width`, `fixed`, `resizable`,
 `sortable`, `sort_by`, `sort_orders`, `show_overflow_tooltip`,
@@ -60,8 +56,6 @@ cfg$columns <- lapply(cfg$columns, function(col) {
 })
 el_table("cfg", data = cfg$data, columns = cfg$columns, stripe = TRUE)
 ```
-
-{{col.label}}
 
 ## Formatting
 
@@ -83,8 +77,6 @@ el_table("sales", data = sales, columns = list(
        ))
 ))
 ```
-
-{{col.label}}
 
 `header_html` is inserted as markup, so pass only what you control.
 Formatting in R first is usually simpler; reach for `formatter` when the
@@ -208,8 +200,6 @@ same once the content exceeds it:
 el_table("all", data = iris, height = "240px", stripe = TRUE)
 ```
 
-{{col.label}}
-
 ## Summaries
 
 `show_summary` adds a row of column totals. `sum_text` labels it, and
@@ -220,8 +210,6 @@ el_table("all", data = iris, height = "240px", stripe = TRUE)
 el_table("sums", data = head(mtcars[, c("mpg", "hp", "wt")], 5),
          show_summary = TRUE, sum_text = "Total", border = TRUE)
 ```
-
-{{col.label}}
 
 ## Methods
 
@@ -300,8 +288,6 @@ el_table("org", data = org, row_key = "id", default_expand_all = TRUE,
          columns = list(list(prop = "name", label = "Team"),
                         list(prop = "size", label = "People")))
 ```
-
-{{col.label}}
 
 With `lazy = TRUE` and a `load` function, children are fetched as their
 parent is expanded.

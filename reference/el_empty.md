@@ -62,21 +62,21 @@ A Shiny UI element.
 
 ``` r
 el_empty("none", description = "No reports yet")
-#> <div id="none" data-el-vue-host style="display: contents">
-#>   <div id="none_container" data-el-mount style="display: contents">
-#>     <el-empty :description="emptyDescription === null ? undefined : emptyDescription" :image="emptyImage === null ? undefined : emptyImage" :image-size="emptyImageSize === null ? undefined : emptyImageSize"></el-empty>
-#>   </div>
-#>   <script type="application/json" data-el-vue>{"options":{"data":{"emptyDescription":"No reports yet","emptyImage":null,"emptyImageSize":null}},"input":null,"rate":null,"type":null,"evals":[]}</script>
+#> <div id="none" data-shiny-vue style="display: contents">
+#>   <script type="text/x-template" data-shiny-vue-template><div id="none_container" style="display: contents">
+#>   <el-empty :description="emptyDescription === null ? undefined : emptyDescription" :image="emptyImage === null ? undefined : emptyImage" :image-size="emptyImageSize === null ? undefined : emptyImageSize"></el-empty>
+#> </div></script>
+#>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"emptyDescription":"No reports yet","emptyImage":null,"emptyImageSize":null}},"input":null,"rate":null,"type":null,"evals":[]}</script>
 #> </div>
 
 el_empty("none", description = "No reports yet",
          el_button("create", "Create one", type = "primary"))
-#> <div id="none" data-el-vue-host style="display: contents">
-#>   <div id="none_container" data-el-mount style="display: contents">
-#>     <el-empty :description="emptyDescription === null ? undefined : emptyDescription" :image="emptyImage === null ? undefined : emptyImage" :image-size="emptyImageSize === null ? undefined : emptyImageSize">
-#>       <el-button :type="type" :plain="plain" :round="round" :circle="circle" :loading="loading" :disabled="disabled" :native-type="native_type" @click="handleClick" :size="size === null ? undefined : size" :icon="icon === null ? undefined : icon" :autofocus="autofocus === null ? undefined : autofocus">{{label}}</el-button>
-#>     </el-empty>
-#>   </div>
-#>   <script type="application/json" data-el-vue>{"options":{"data":{"emptyDescription":"No reports yet","emptyImage":null,"emptyImageSize":null,"label":"Create one","type":"primary","size":null,"plain":false,"round":false,"circle":false,"loading":false,"disabled":false,"native_type":"button","icon":null,"count":0,"autofocus":false},"methods":{"handleClick":"function() { if (!this.disabled && !this.loading) { this.count++; window.Shiny && Shiny.setInputValue && Shiny.setInputValue('create', this.count); } }"}},"input":null,"rate":null,"type":null,"evals":["options.methods.handleClick"]}</script>
+#> <div id="none" data-shiny-vue style="display: contents">
+#>   <script type="text/x-template" data-shiny-vue-template><div id="none_container" style="display: contents">
+#>   <el-empty :description="emptyDescription === null ? undefined : emptyDescription" :image="emptyImage === null ? undefined : emptyImage" :image-size="emptyImageSize === null ? undefined : emptyImageSize">
+#>     <el-button :type="type" :plain="plain" :round="round" :circle="circle" :loading="loading" :disabled="disabled" :native-type="native_type" @click="handleClick" :size="size === null ? undefined : size" :icon="icon === null ? undefined : icon" :autofocus="autofocus === null ? undefined : autofocus">{{label}}</el-button>
+#>   </el-empty>
+#> </div></script>
+#>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"emptyDescription":"No reports yet","emptyImage":null,"emptyImageSize":null,"label":"Create one","type":"primary","size":null,"plain":false,"round":false,"circle":false,"loading":false,"disabled":false,"native_type":"button","icon":null,"count":0,"autofocus":false},"methods":{"handleClick":"function() { if (!this.disabled && !this.loading) { this.count++; window.Shiny && Shiny.setInputValue && Shiny.setInputValue('create', this.count); } }"}},"input":null,"rate":null,"type":null,"evals":["options.methods.handleClick"]}</script>
 #> </div>
 ```

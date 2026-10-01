@@ -7,7 +7,7 @@ Server-side update for
 
 ``` r
 update_el_backtop(
-  session,
+  session = shiny::getDefaultReactiveDomain(),
   id,
   visibility_height = NULL,
   right = NULL,
@@ -19,7 +19,8 @@ update_el_backtop(
 
 - session:
 
-  Shiny session object.
+  Shiny session; the current one by default, as for
+  [`shiny::updateTextInput()`](https://rdrr.io/pkg/shiny/man/updateTextInput.html).
 
 - id:
 

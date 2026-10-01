@@ -9,7 +9,7 @@ changes the settings around them.
 
 ``` r
 update_el_descriptions(
-  session,
+  session = shiny::getDefaultReactiveDomain(),
   id,
   title = NULL,
   extra = NULL,
@@ -23,7 +23,8 @@ update_el_descriptions(
 
 - session:
 
-  Shiny session object.
+  Shiny session; the current one by default, as for
+  [`shiny::updateTextInput()`](https://rdrr.io/pkg/shiny/man/updateTextInput.html).
 
 - id:
 

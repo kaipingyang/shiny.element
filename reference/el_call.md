@@ -11,14 +11,22 @@ invokes one.
 ## Usage
 
 ``` r
-el_call(session, id, method, args = list(), result = TRUE, component = NULL)
+el_call(
+  session = shiny::getDefaultReactiveDomain(),
+  id,
+  method,
+  args = list(),
+  result = TRUE,
+  component = NULL
+)
 ```
 
 ## Arguments
 
 - session:
 
-  Shiny session object.
+  Shiny session; the current one by default, as for
+  [`shiny::updateTextInput()`](https://rdrr.io/pkg/shiny/man/updateTextInput.html).
 
 - id:
 

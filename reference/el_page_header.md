@@ -60,18 +60,18 @@ A Shiny UI element.
 
 ``` r
 el_page_header("hdr", content = "Sales for March")
-#> <div id="hdr" data-el-vue-host style="display: contents">
-#>   <div id="hdr_container" data-el-mount style="display: contents">
-#>     <el-page-header :title="title === null ? undefined : title" :content="content === null ? undefined : content" @back="elEmitBack"></el-page-header>
-#>   </div>
-#>   <script type="application/json" data-el-vue>{"options":{"data":{"title":null,"content":"Sales for March"},"methods":{"elEmitBack":"function() { window.shinyElement.emit('hdr', 'back', arguments); }"}},"input":null,"rate":null,"type":null,"evals":["options.methods.elEmitBack"]}</script>
+#> <div id="hdr" data-shiny-vue style="display: contents">
+#>   <script type="text/x-template" data-shiny-vue-template><div id="hdr_container" style="display: contents">
+#>   <el-page-header :title="title === null ? undefined : title" :content="content === null ? undefined : content" @back="elEmitBack"></el-page-header>
+#> </div></script>
+#>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"title":null,"content":"Sales for March"},"methods":{"elEmitBack":"function() { window.shinyElement.emit('hdr', 'back', arguments); }"}},"input":null,"rate":null,"type":null,"evals":["options.methods.elEmitBack"]}</script>
 #> </div>
 el_page_header("hdr", title = "All reports", content = "Sales for March")
-#> <div id="hdr" data-el-vue-host style="display: contents">
-#>   <div id="hdr_container" data-el-mount style="display: contents">
-#>     <el-page-header :title="title === null ? undefined : title" :content="content === null ? undefined : content" @back="elEmitBack"></el-page-header>
-#>   </div>
-#>   <script type="application/json" data-el-vue>{"options":{"data":{"title":"All reports","content":"Sales for March"},"methods":{"elEmitBack":"function() { window.shinyElement.emit('hdr', 'back', arguments); }"}},"input":null,"rate":null,"type":null,"evals":["options.methods.elEmitBack"]}</script>
+#> <div id="hdr" data-shiny-vue style="display: contents">
+#>   <script type="text/x-template" data-shiny-vue-template><div id="hdr_container" style="display: contents">
+#>   <el-page-header :title="title === null ? undefined : title" :content="content === null ? undefined : content" @back="elEmitBack"></el-page-header>
+#> </div></script>
+#>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"title":"All reports","content":"Sales for March"},"methods":{"elEmitBack":"function() { window.shinyElement.emit('hdr', 'back', arguments); }"}},"input":null,"rate":null,"type":null,"evals":["options.methods.elEmitBack"]}</script>
 #> </div>
 
 if (interactive()) {

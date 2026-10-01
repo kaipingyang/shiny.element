@@ -9,7 +9,7 @@ update message.
 
 ``` r
 update_el_switch(
-  session,
+  session = shiny::getDefaultReactiveDomain(),
   id,
   value = NULL,
   disabled = NULL,
@@ -24,7 +24,8 @@ update_el_switch(
 
 - session:
 
-  Shiny session object.
+  Shiny session; the current one by default, as for
+  [`shiny::updateTextInput()`](https://rdrr.io/pkg/shiny/man/updateTextInput.html).
 
 - id:
 

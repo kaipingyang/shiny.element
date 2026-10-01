@@ -96,15 +96,15 @@ el_steps(
     list(title = "Step 3")
   )
 )
-#> <div id="my_steps" data-el-vue-host style="display: contents">
-#>   <div id="my_steps_container" data-el-mount style="display: contents">
-#>     <el-steps :active="active" :direction="direction" :process-status="processStatus" :finish-status="finishStatus" :align-center="alignCenter" :simple="simple" :space="space === null ? undefined : space">
-#>       <el-step title="Step 1"></el-step>
-#>       <el-step title="Step 2"></el-step>
-#>       <el-step title="Step 3"></el-step>
-#>     </el-steps>
-#>   </div>
-#>   <script type="application/json" data-el-vue>{"options":{"data":{"active":0,"direction":"horizontal","processStatus":"process","finishStatus":"finish","alignCenter":false,"simple":false,"space":null},"watch":{"active":"function(newVal) { window.Shiny && Shiny.setInputValue && Shiny.setInputValue('my_steps', newVal); }"}},"input":"active","rate":null,"type":null,"evals":["options.watch.active"]}</script>
+#> <div id="my_steps" data-shiny-vue style="display: contents">
+#>   <script type="text/x-template" data-shiny-vue-template><div id="my_steps_container" style="display: contents">
+#>   <el-steps :active="active" :direction="direction" :process-status="processStatus" :finish-status="finishStatus" :align-center="alignCenter" :simple="simple" :space="space === null ? undefined : space">
+#>     <el-step title="Step 1"></el-step>
+#>     <el-step title="Step 2"></el-step>
+#>     <el-step title="Step 3"></el-step>
+#>   </el-steps>
+#> </div></script>
+#>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"active":0,"direction":"horizontal","processStatus":"process","finishStatus":"finish","alignCenter":false,"simple":false,"space":null},"watch":{"active":"function(newVal) { window.Shiny && Shiny.setInputValue && Shiny.setInputValue('my_steps', newVal); }"}},"input":"active","rate":null,"type":null,"evals":["options.watch.active"]}</script>
 #> </div>
 
 # With descriptions and icons
@@ -118,14 +118,14 @@ el_steps(
     list(title = "Step 3", description = "Finish", icon = "el-icon-picture")
   )
 )
-#> <div id="my_steps" data-el-vue-host style="display: contents">
-#>   <div id="my_steps_container" data-el-mount style="display: contents">
-#>     <el-steps :active="active" :direction="direction" :process-status="processStatus" :finish-status="finishStatus" :align-center="alignCenter" :simple="simple" :space="space === null ? undefined : space">
-#>       <el-step title="Step 1" description="Complete registration" icon="el-icon-edit"></el-step>
-#>       <el-step title="Step 2" description="Upload documents" icon="el-icon-upload"></el-step>
-#>       <el-step title="Step 3" description="Finish" icon="el-icon-picture"></el-step>
-#>     </el-steps>
-#>   </div>
-#>   <script type="application/json" data-el-vue>{"options":{"data":{"active":1,"direction":"horizontal","processStatus":"process","finishStatus":"success","alignCenter":false,"simple":false,"space":null},"watch":{"active":"function(newVal) { window.Shiny && Shiny.setInputValue && Shiny.setInputValue('my_steps', newVal); }"}},"input":"active","rate":null,"type":null,"evals":["options.watch.active"]}</script>
+#> <div id="my_steps" data-shiny-vue style="display: contents">
+#>   <script type="text/x-template" data-shiny-vue-template><div id="my_steps_container" style="display: contents">
+#>   <el-steps :active="active" :direction="direction" :process-status="processStatus" :finish-status="finishStatus" :align-center="alignCenter" :simple="simple" :space="space === null ? undefined : space">
+#>     <el-step title="Step 1" description="Complete registration" icon="el-icon-edit"></el-step>
+#>     <el-step title="Step 2" description="Upload documents" icon="el-icon-upload"></el-step>
+#>     <el-step title="Step 3" description="Finish" icon="el-icon-picture"></el-step>
+#>   </el-steps>
+#> </div></script>
+#>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"active":1,"direction":"horizontal","processStatus":"process","finishStatus":"success","alignCenter":false,"simple":false,"space":null},"watch":{"active":"function(newVal) { window.Shiny && Shiny.setInputValue && Shiny.setInputValue('my_steps', newVal); }"}},"input":"active","rate":null,"type":null,"evals":["options.watch.active"]}</script>
 #> </div>
 ```

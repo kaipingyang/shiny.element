@@ -6,14 +6,15 @@ submitted. It does not undo an upload that has already happened.
 ## Usage
 
 ``` r
-el_upload_clear(session, id)
+el_upload_clear(session = shiny::getDefaultReactiveDomain(), id)
 ```
 
 ## Arguments
 
 - session:
 
-  Shiny session object.
+  Shiny session; the current one by default, as for
+  [`shiny::updateTextInput()`](https://rdrr.io/pkg/shiny/man/updateTextInput.html).
 
 - id:
 

@@ -11,7 +11,7 @@ The content may hold any UI, this package's components included.
 
 ``` r
 insert_el_tab(
-  session,
+  session = shiny::getDefaultReactiveDomain(),
   id,
   name,
   label,
@@ -20,14 +20,15 @@ insert_el_tab(
   select = TRUE
 )
 
-remove_el_tab(session, id, name)
+remove_el_tab(session = shiny::getDefaultReactiveDomain(), id, name)
 ```
 
 ## Arguments
 
 - session:
 
-  Shiny session object.
+  Shiny session; the current one by default, as for
+  [`shiny::updateTextInput()`](https://rdrr.io/pkg/shiny/man/updateTextInput.html).
 
 - id:
 

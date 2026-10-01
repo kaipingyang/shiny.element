@@ -144,20 +144,20 @@ el_dropdown("dd1", "Actions",
          divided = TRUE)
   )
 )
-#> <div id="dd1" data-el-vue-host style="display: contents">
-#>   <div id="dd1_container" data-el-mount style="display: contents">
-#>     <el-dropdown :trigger="trigger" :hide-on-click="hideOnClick" :placement="placement" :disabled="disabled" :split-button="splitButton" @command="handleCommand" :type="type === null ? undefined : type" :size="size === null ? undefined : size" :show-timeout="showTimeout === null ? undefined : showTimeout" :hide-timeout="hideTimeout === null ? undefined : hideTimeout" :tabindex="tabindex === null ? undefined : tabindex" @click="elEmitClick" @visible-change="elEmitVisibleChange">
-#>       <span class="el-dropdown-link">
-#>         Actions
-#>         <i class="el-icon-arrow-down el-icon--right"></i>
-#>       </span>
-#>       <el-dropdown-menu slot="dropdown">
-#>         <el-dropdown-item :command="&quot;edit&quot;" icon="el-icon-edit">Edit</el-dropdown-item>
-#>         <el-dropdown-item :command="&quot;copy&quot;" icon="el-icon-document">Copy</el-dropdown-item>
-#>         <el-dropdown-item :command="&quot;delete&quot;" :divided="true" icon="el-icon-delete">Delete</el-dropdown-item>
-#>       </el-dropdown-menu>
-#>     </el-dropdown>
-#>   </div>
-#>   <script type="application/json" data-el-vue>{"options":{"data":{"trigger":"hover","hideOnClick":true,"placement":"bottom-end","disabled":false,"splitButton":false,"count":0,"type":null,"size":null,"showTimeout":null,"hideTimeout":null,"tabindex":null},"methods":{"elEmitClick":"function() { window.shinyElement.emit('dd1', 'click', arguments); }","elEmitVisibleChange":"function() { window.shinyElement.emit('dd1', 'visible_change', arguments); }","handleCommand":"function(cmd) { this.count++; window.Shiny && Shiny.setInputValue && Shiny.setInputValue('dd1', cmd); window.Shiny && Shiny.setInputValue && Shiny.setInputValue('dd1_count', this.count); }"}},"input":null,"rate":null,"type":null,"evals":["options.methods.elEmitClick","options.methods.elEmitVisibleChange","options.methods.handleCommand"]}</script>
+#> <div id="dd1" data-shiny-vue style="display: contents">
+#>   <script type="text/x-template" data-shiny-vue-template><div id="dd1_container" style="display: contents">
+#>   <el-dropdown :trigger="trigger" :hide-on-click="hideOnClick" :placement="placement" :disabled="disabled" :split-button="splitButton" @command="handleCommand" :type="type === null ? undefined : type" :size="size === null ? undefined : size" :show-timeout="showTimeout === null ? undefined : showTimeout" :hide-timeout="hideTimeout === null ? undefined : hideTimeout" :tabindex="tabindex === null ? undefined : tabindex" @click="elEmitClick" @visible-change="elEmitVisibleChange">
+#>     <span class="el-dropdown-link">
+#>       Actions
+#>       <i class="el-icon-arrow-down el-icon--right"></i>
+#>     </span>
+#>     <el-dropdown-menu slot="dropdown">
+#>       <el-dropdown-item :command="&quot;edit&quot;" icon="el-icon-edit">Edit</el-dropdown-item>
+#>       <el-dropdown-item :command="&quot;copy&quot;" icon="el-icon-document">Copy</el-dropdown-item>
+#>       <el-dropdown-item :command="&quot;delete&quot;" :divided="true" icon="el-icon-delete">Delete</el-dropdown-item>
+#>     </el-dropdown-menu>
+#>   </el-dropdown>
+#> </div></script>
+#>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"trigger":"hover","hideOnClick":true,"placement":"bottom-end","disabled":false,"splitButton":false,"count":0,"type":null,"size":null,"showTimeout":null,"hideTimeout":null,"tabindex":null},"methods":{"elEmitClick":"function() { window.shinyElement.emit('dd1', 'click', arguments); }","elEmitVisibleChange":"function() { window.shinyElement.emit('dd1', 'visible_change', arguments); }","handleCommand":"function(cmd) { this.count++; window.Shiny && Shiny.setInputValue && Shiny.setInputValue('dd1', cmd); window.Shiny && Shiny.setInputValue && Shiny.setInputValue('dd1_count', this.count); }"}},"input":null,"rate":null,"type":null,"evals":["options.methods.elEmitClick","options.methods.elEmitVisibleChange","options.methods.handleCommand"]}</script>
 #> </div>
 ```

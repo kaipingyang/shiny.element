@@ -5,14 +5,21 @@ Update an Element UI Tree
 ## Usage
 
 ``` r
-update_el_tree(session, id, data = NULL, expanded = NULL, checked = NULL)
+update_el_tree(
+  session = shiny::getDefaultReactiveDomain(),
+  id,
+  data = NULL,
+  expanded = NULL,
+  checked = NULL
+)
 ```
 
 ## Arguments
 
 - session:
 
-  Shiny session object.
+  Shiny session; the current one by default, as for
+  [`shiny::updateTextInput()`](https://rdrr.io/pkg/shiny/man/updateTextInput.html).
 
 - id:
 

@@ -9,7 +9,7 @@ Setting `value` opens or closes the card, which is how
 
 ``` r
 update_el_popover(
-  session,
+  session = shiny::getDefaultReactiveDomain(),
   id,
   title = NULL,
   content = NULL,
@@ -22,7 +22,8 @@ update_el_popover(
 
 - session:
 
-  Shiny session object.
+  Shiny session; the current one by default, as for
+  [`shiny::updateTextInput()`](https://rdrr.io/pkg/shiny/man/updateTextInput.html).
 
 - id:
 

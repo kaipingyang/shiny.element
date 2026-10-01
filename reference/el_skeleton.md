@@ -77,15 +77,15 @@ A Shiny UI element.
 ``` r
 el_skeleton("report", rows = 4, animated = TRUE,
             shiny::tableOutput("summary"))
-#> <div id="report" data-el-vue-host style="display: contents">
-#>   <div id="report_container" data-el-mount style="display: contents">
-#>     <el-skeleton :loading="skLoading" :rows="skRows === null ? undefined : skRows" :animated="skAnimated === null ? undefined : skAnimated" :count="skCount === null ? undefined : skCount" :throttle="skThrottle === null ? undefined : skThrottle">
-#>       <div>
-#>         <div id="summary" class="shiny-html-output shiny-table-output"></div>
-#>       </div>
-#>     </el-skeleton>
-#>   </div>
-#>   <script type="application/json" data-el-vue>{"options":{"data":{"skLoading":true,"skRows":4,"skAnimated":true,"skCount":null,"skThrottle":null}},"input":null,"rate":null,"type":null,"evals":[]}</script>
+#> <div id="report" data-shiny-vue style="display: contents">
+#>   <script type="text/x-template" data-shiny-vue-template><div id="report_container" style="display: contents">
+#>   <el-skeleton :loading="skLoading" :rows="skRows === null ? undefined : skRows" :animated="skAnimated === null ? undefined : skAnimated" :count="skCount === null ? undefined : skCount" :throttle="skThrottle === null ? undefined : skThrottle">
+#>     <div>
+#>       <div id="summary" class="shiny-html-output shiny-table-output"></div>
+#>     </div>
+#>   </el-skeleton>
+#> </div></script>
+#>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"skLoading":true,"skRows":4,"skAnimated":true,"skCount":null,"skThrottle":null}},"input":null,"rate":null,"type":null,"evals":[]}</script>
 #> </div>
 
 if (interactive()) {

@@ -11,7 +11,7 @@ in the UI to load the JS handler.
 
 ``` r
 el_notification(
-  session,
+  session = shiny::getDefaultReactiveDomain(),
   message,
   title = "",
   type = "info",
@@ -30,7 +30,8 @@ el_notification(
 
 - session:
 
-  Shiny session object.
+  Shiny session; the current one by default, as for
+  [`shiny::updateTextInput()`](https://rdrr.io/pkg/shiny/man/updateTextInput.html).
 
 - message:
 

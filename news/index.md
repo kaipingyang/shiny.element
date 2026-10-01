@@ -192,6 +192,28 @@ builds the same shape for components of your own, and its new `report`
 argument names the value – an input made of `el$` tags, as the
 limitations article shows, needs no JavaScript.
 
+### Shiny conventions
+
+- **Bookmarking.** Every component’s value goes through
+  [`shiny::restoreInput()`](https://rdrr.io/pkg/shiny/man/restoreInput.html),
+  so a bookmarked page reopens as it was left – inputs, the selected
+  tab, open panels, an open dialog, the pager’s page.
+- **Dates.**
+  [`el_date_picker()`](https://kaipingyang.github.io/shiny.element/reference/el_date_picker.md)
+  reports `Date` for `"date"`, `"dates"` and `"daterange"` with the
+  default `value_format`, as
+  [`dateInput()`](https://rdrr.io/pkg/shiny/man/dateInput.html) does. A
+  `value_format` of your own still reports text in that format.
+- **The session argument.** Every server function – `update_el_*()`,
+  [`el_message()`](https://kaipingyang.github.io/shiny.element/reference/el_message.md),
+  [`el_call()`](https://kaipingyang.github.io/shiny.element/reference/el_call.md)
+  and the rest – takes the current session by default, as
+  [`updateTextInput()`](https://rdrr.io/pkg/shiny/man/updateTextInput.html)
+  does.
+- **Templates.** Each component’s template travels as a script the
+  browser does not parse: nothing flashes before Vue runs, and camelCase
+  attribute names reach Vue unchanged.
+
 ### Note for users of the development version
 
 [`el_table()`](https://kaipingyang.github.io/shiny.element/reference/el_table.md)

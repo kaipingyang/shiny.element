@@ -6,7 +6,7 @@ Update Element UI Cascader
 
 ``` r
 update_el_cascader(
-  session,
+  session = shiny::getDefaultReactiveDomain(),
   id,
   options = NULL,
   value = NULL,
@@ -21,7 +21,8 @@ update_el_cascader(
 
 - session:
 
-  Shiny session object
+  Shiny session; the current one by default, as for
+  [`shiny::updateTextInput()`](https://rdrr.io/pkg/shiny/man/updateTextInput.html).
 
 - id:
 

@@ -88,17 +88,17 @@ picker.
 
 ``` r
 el_color_picker("cp1", value = "#409EFF")
-#> <div id="cp1" data-el-vue-host style="display: contents">
-#>   <div id="cp1_container" data-el-mount style="display: contents">
-#>     <el-color-picker v-model="value" :disabled="disabled" :show-alpha="showAlpha" @change="handleChange" :size="size === null ? undefined : size" :color-format="colorFormat === null ? undefined : colorFormat" :predefine="predefine === null ? undefined : predefine" :popper-class="popperClass === null ? undefined : popperClass" @active-change="elEmitActiveChange"></el-color-picker>
-#>   </div>
-#>   <script type="application/json" data-el-vue>{"options":{"data":{"value":"#409EFF","disabled":false,"showAlpha":false,"size":null,"colorFormat":null,"predefine":null,"popperClass":null},"methods":{"elEmitActiveChange":"function() { window.shinyElement.emit('cp1', 'active_change', arguments); }","handleChange":"function(val) { window.Shiny && Shiny.setInputValue && Shiny.setInputValue('cp1', val); }"}},"input":"value","rate":null,"type":null,"evals":["options.methods.elEmitActiveChange","options.methods.handleChange"]}</script>
+#> <div id="cp1" data-shiny-vue style="display: contents">
+#>   <script type="text/x-template" data-shiny-vue-template><div id="cp1_container" style="display: contents">
+#>   <el-color-picker v-model="value" :disabled="disabled" :show-alpha="showAlpha" @change="handleChange" :size="size === null ? undefined : size" :color-format="colorFormat === null ? undefined : colorFormat" :predefine="predefine === null ? undefined : predefine" :popper-class="popperClass === null ? undefined : popperClass" @active-change="elEmitActiveChange"></el-color-picker>
+#> </div></script>
+#>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":"#409EFF","disabled":false,"showAlpha":false,"size":null,"colorFormat":null,"predefine":null,"popperClass":null},"methods":{"elEmitActiveChange":"function() { window.shinyElement.emit('cp1', 'active_change', arguments); }","handleChange":"function(val) { window.Shiny && Shiny.setInputValue && Shiny.setInputValue('cp1', val); }"}},"input":"value","rate":null,"type":null,"evals":["options.methods.elEmitActiveChange","options.methods.handleChange"]}</script>
 #> </div>
 el_color_picker("cp2", show_alpha = TRUE, predefine = c("#ff4500", "#ff8c00"))
-#> <div id="cp2" data-el-vue-host style="display: contents">
-#>   <div id="cp2_container" data-el-mount style="display: contents">
-#>     <el-color-picker v-model="value" :disabled="disabled" :show-alpha="showAlpha" @change="handleChange" :size="size === null ? undefined : size" :color-format="colorFormat === null ? undefined : colorFormat" :predefine="predefine === null ? undefined : predefine" :popper-class="popperClass === null ? undefined : popperClass" @active-change="elEmitActiveChange"></el-color-picker>
-#>   </div>
-#>   <script type="application/json" data-el-vue>{"options":{"data":{"value":null,"disabled":false,"showAlpha":true,"size":null,"colorFormat":null,"predefine":["#ff4500","#ff8c00"],"popperClass":null},"methods":{"elEmitActiveChange":"function() { window.shinyElement.emit('cp2', 'active_change', arguments); }","handleChange":"function(val) { window.Shiny && Shiny.setInputValue && Shiny.setInputValue('cp2', val); }"}},"input":"value","rate":null,"type":null,"evals":["options.methods.elEmitActiveChange","options.methods.handleChange"]}</script>
+#> <div id="cp2" data-shiny-vue style="display: contents">
+#>   <script type="text/x-template" data-shiny-vue-template><div id="cp2_container" style="display: contents">
+#>   <el-color-picker v-model="value" :disabled="disabled" :show-alpha="showAlpha" @change="handleChange" :size="size === null ? undefined : size" :color-format="colorFormat === null ? undefined : colorFormat" :predefine="predefine === null ? undefined : predefine" :popper-class="popperClass === null ? undefined : popperClass" @active-change="elEmitActiveChange"></el-color-picker>
+#> </div></script>
+#>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":null,"disabled":false,"showAlpha":true,"size":null,"colorFormat":null,"predefine":["#ff4500","#ff8c00"],"popperClass":null},"methods":{"elEmitActiveChange":"function() { window.shinyElement.emit('cp2', 'active_change', arguments); }","handleChange":"function(val) { window.Shiny && Shiny.setInputValue && Shiny.setInputValue('cp2', val); }"}},"input":"value","rate":null,"type":null,"evals":["options.methods.elEmitActiveChange","options.methods.handleChange"]}</script>
 #> </div>
 ```
