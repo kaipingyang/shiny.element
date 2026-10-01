@@ -247,3 +247,24 @@ el_ns <- function(id, session = shiny::getDefaultReactiveDomain()) {
 .el_optional_bind <- function(field) {
   sprintf("%1$s === null ? undefined : %1$s", field)
 }
+
+
+#' Take an argument given under either of its two names
+#'
+#' The choice components take Shiny's names, `choices` and `selected`, and
+#' Element's, `options` and `value`. Given both, the two must agree: letting
+#' one silently win, as `colour <- color %||% colour` does, hides a call
+#' that says two different things.
+#'
+#' @param main,alias The argument's values under each name.
+#' @param main_name,alias_name The names, for the error message.
+#' @return Whichever was given; `main` when neither was.
+#' @keywords internal
+.el_alias <- function(main, alias, main_name, alias_name) {
+  if (is.null(alias)) return(main)
+  if (!is.null(main) && !identical(main, alias)) {
+    stop(sprintf("`%s` and `%s` are the same argument; give one of them.",
+                 main_name, alias_name), call. = FALSE)
+  }
+  alias
+}

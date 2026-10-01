@@ -145,3 +145,17 @@ test_that("update_el_checkbox_group: NULL fields are excluded from message", {
   expect_null(captured$max)
   expect_null(captured$options)
 })
+
+test_that("el_checkbox_group and its update take Shiny's names and Element's", {
+  expect_identical(
+    vue_data_of(el_checkbox_group("c", choices = c(P = "p", Q = "q"), selected = "p")),
+    vue_data_of(el_checkbox_group("c", options = c(P = "p", Q = "q"), value = "p")))
+  expect_error(el_checkbox_group("c", c(P = "p"), selected = "p", value = "q"), "same argument")
+  expect_error(el_checkbox_group("c"), "`choices` \\(or `options`\\) is required")
+
+  s <- mock_session()
+  update_el_checkbox_group(s, "c", selected = "p", choices = c(P = "p"))
+  a <- s$captured()$msg
+  update_el_checkbox_group(s, "c", value = "p", options = c(P = "p"))
+  expect_identical(a, s$captured()$msg)
+})

@@ -214,3 +214,62 @@ test_that("a single option can be disabled", {
   html <- paste(as.character(el_select("s", choices = c(A = "a"))), collapse = "")
   expect_match(html, ':disabled="opt.disabled"', fixed = TRUE)
 })
+
+# ── Shiny's names and Element's ───────────────────────────────────────────────
+
+test_that("el_select takes choices/selected or options/value alike", {
+  shiny_way   <- vue_data_of(el_select("s", choices = c(A = "a", B = "b"), selected = "b"))
+  element_way <- vue_data_of(el_select("s", options = c(A = "a", B = "b"), value = "b"))
+  mixed       <- vue_data_of(el_select("s", choices = c(A = "a", B = "b"), value = "b"))
+  expect_identical(shiny_way, element_way)
+  expect_identical(shiny_way, mixed)
+  expect_equal(shiny_way$value, "b")
+})
+
+test_that("positional calls are unchanged by the second names", {
+  d <- vue_data_of(el_select("s", c(A = "a", B = "b"), "b"))
+  expect_equal(d$value, "b")
+  expect_equal(length(d$options), 2L)
+})
+
+test_that("two different values under the two names are an error", {
+  expect_error(el_select("s", c(A = "a"), selected = "a", value = "b"),
+               "`selected` and `value` are the same argument")
+  expect_error(el_select("s", choices = c(A = "a"), options = c(B = "b")),
+               "`choices` and `options` are the same argument")
+  # The same value twice says one thing
+  expect_no_error(el_select("s", c(A = "a"), selected = "a", value = "a"))
+})
+
+test_that("a select may start with no choices, for remote search", {
+  expect_equal(vue_data_of(el_select("s", remote = TRUE))$options, list())
+})
+
+test_that("update_el_select takes both names and the remote-search state", {
+  s <- mock_session()
+  update_el_select(s, "s1", selected = "b", choices = c(Cat = "cat"))
+  a <- s$captured()$msg
+  update_el_select(s, "s1", value = "b", options = c(Cat = "cat"))
+  expect_identical(a, s$captured()$msg)
+  expect_equal(a$value, "b")
+  expect_error(update_el_select(s, "s1", selected = "a", value = "b"),
+               "same argument")
+
+  update_el_select(s, "s1", loading = TRUE, loading_text = "Searching",
+                   no_match_text = "None", no_data_text = "Empty",
+                   multiple_limit = 2)
+  expect_equal(s$captured()$msg,
+               list(id = "s1", multipleLimit = 2, loading = TRUE,
+                    loadingText = "Searching", noMatchText = "None",
+                    noDataText = "Empty"))
+})
+
+test_that("every field update_el_select sets is declared on the instance", {
+  s <- mock_session()
+  update_el_select(s, "s1", selected = "a", choices = c(A = "a"), disabled = TRUE,
+                   placeholder = "p", clearable = TRUE, filterable = TRUE,
+                   multiple_limit = 1, loading = TRUE, loading_text = "l",
+                   no_match_text = "m", no_data_text = "d")
+  fields <- setdiff(names(s$captured()$msg), "id")
+  expect_true(all(fields %in% names(vue_data_of(el_select("s1", c(A = "a"))))))
+})

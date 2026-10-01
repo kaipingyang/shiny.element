@@ -12,10 +12,14 @@ el_radio_group_handler_dependency <- function() {
 #' (`<el-radio-button>`).
 #'
 #' @param id Input ID. Auto-generated UUID if `NULL`.
-#' @param choices Named character vector (`c(Label = value)`) or a list of
-#'   `list(value = ..., label = ...)` items. Unnamed vectors are allowed; the
-#'   element is used as both value and label.
-#' @param selected Initial selected value. Defaults to `""` (nothing selected).
+#' @param choices,options The choices: a named character vector
+#'   (`c(Label = value)`) or a list of `list(value = ..., label = ...)`.
+#'   Unnamed vectors are allowed; the element is used as both value and
+#'   label. `choices` is Shiny's name for it, `options` Element's; give
+#'   either.
+#' @param selected,value Initially selected value; nothing by default.
+#'   `selected` is Shiny's name, `value` Element's (its `v-model`); give
+#'   either.
 #' @param disabled Whether the entire group is disabled. Default `FALSE`.
 #' @param size Component size: `NULL`, `"medium"`, `"small"`, or `"mini"`.
 #'   Only affects button-style radios (`button = TRUE`).
@@ -72,7 +76,7 @@ el_radio_group_handler_dependency <- function() {
 #' @export
 el_radio_group <- function(
     id       = NULL,
-    choices,
+    choices  = NULL,
     selected = NULL,
     disabled = FALSE,
     size     = NULL,
@@ -81,8 +85,13 @@ el_radio_group <- function(
     text_color = NULL,
     width    = NULL,
     slots    = NULL,
+    value    = NULL,
+    options  = NULL,
     session  = shiny::getDefaultReactiveDomain()
 ) {
+  selected <- .el_alias(selected, value, "selected", "value")
+  choices  <- .el_alias(choices, options, "choices", "options")
+  if (is.null(choices)) stop("`choices` (or `options`) is required.", call. = FALSE)
   if (is.null(id)) id <- paste0("el_radio_group_", uuid::UUIDgenerate())
   ns_id        <- if (!is.null(session)) session$ns(id) else id
   container_id <- paste0(ns_id, "_container")
@@ -152,9 +161,10 @@ el_radio_group <- function(
 #'
 #' @param session Shiny session object.
 #' @param id Radio group input ID (un-namespaced).
-#' @param value New selected value.
-#' @param options New choices: named character vector or
-#'   `list(list(value=, label=), ...)`.
+#' @param selected,value New selected value. `selected` is Shiny's name,
+#'   `value` Element's; give either.
+#' @param choices,options New choices, as for [el_radio_group()]. `choices`
+#'   is Shiny's name, `options` Element's; give either.
 #' @param disabled New disabled state.
 #'
 #' @return Called for its side effect; returns `NULL` invisibly.
@@ -162,21 +172,25 @@ el_radio_group <- function(
 #' if (interactive()) {
 #'   # inside a server function
 #'   observeEvent(input$go, {
-#'     update_el_radio_group(session, "plan", value = "pro")
+#'     update_el_radio_group(session, "plan", selected = "pro")
 #'   })
 #' }
 #' @export
 update_el_radio_group <- function(
     session,
     id,
+    selected = NULL,
+    choices  = NULL,
+    disabled = NULL,
     value    = NULL,
-    options  = NULL,
-    disabled = NULL
+    options  = NULL
 ) {
+  selected <- .el_alias(selected, value, "selected", "value")
+  choices  <- .el_alias(choices, options, "choices", "options")
   ns_id <- session$ns(id)
   msg   <- list(id = ns_id)
-  if (!is.null(value))    msg$value    <- value
-  if (!is.null(options))  msg$options  <- .el_normalize_choices(options)
+  if (!is.null(selected)) msg$value    <- selected
+  if (!is.null(choices))  msg$options  <- .el_normalize_choices(choices)
   if (!is.null(disabled)) msg$disabled <- disabled
   session$sendCustomMessage("updateElRadioGroup", msg)
   invisible(NULL)

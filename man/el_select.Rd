@@ -6,7 +6,7 @@
 \usage{
 el_select(
   id = NULL,
-  choices,
+  choices = NULL,
   selected = NULL,
   multiple = FALSE,
   placeholder = NULL,
@@ -34,18 +34,24 @@ el_select(
   remote_method = NULL,
   width = NULL,
   slots = NULL,
+  value = NULL,
+  options = NULL,
   session = shiny::getDefaultReactiveDomain()
 )
 }
 \arguments{
 \item{id}{Input ID. Auto-generated UUID if \code{NULL}.}
 
-\item{choices}{Named character vector (\code{c(Label = value)}) or a list of
-\code{list(value = ..., label = ...)} items. Unnamed vectors are allowed; the
-element is used as both value and label.}
+\item{choices, options}{The choices: a named character vector
+(\code{c(Label = value)}), a list of \code{list(value = ..., label = ...)}, or
+a named list of those for option groups. Unnamed vectors are allowed;
+the element is used as both value and label. \code{choices} is Shiny's name
+for it, \code{options} Element's; give either. Empty by default, for a
+select whose options arrive later (\code{remote = TRUE}).}
 
-\item{selected}{Initial selected value(s). Use a character vector for
-multiple selection. Defaults to \code{""} (single) or \code{list()} (multiple).}
+\item{selected, value}{Initially selected value(s); a character vector for
+multiple selection. \code{selected} is Shiny's name, \code{value} Element's
+(its \code{v-model}); give either.}
 
 \item{multiple}{Whether multiple items can be selected. Default \code{FALSE}.}
 

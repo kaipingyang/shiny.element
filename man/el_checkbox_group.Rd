@@ -6,7 +6,7 @@
 \usage{
 el_checkbox_group(
   id = NULL,
-  choices,
+  choices = NULL,
   selected = NULL,
   disabled = FALSE,
   size = NULL,
@@ -17,16 +17,21 @@ el_checkbox_group(
   text_color = NULL,
   width = NULL,
   slots = NULL,
+  value = NULL,
+  options = NULL,
   session = shiny::getDefaultReactiveDomain()
 )
 }
 \arguments{
 \item{id}{Checkbox group ID. Auto-generated UUID if \code{NULL}.}
 
-\item{choices}{Named character vector \code{c(Label = value)} or list of
-\code{list(value = ..., label = ...)} defining available options.}
+\item{choices, options}{The choices: a named character vector
+(\code{c(Label = value)}) or a list of \code{list(value = ..., label = ...)}.
+\code{choices} is Shiny's name for it, \code{options} Element's; give either.}
 
-\item{selected}{Character vector of initially checked values. \code{NULL} for none.}
+\item{selected, value}{Character vector of initially checked values; none
+by default. \code{selected} is Shiny's name, \code{value} Element's (its
+\code{v-model}); give either.}
 
 \item{disabled}{Whether the entire group is disabled. Default \code{FALSE}.}
 

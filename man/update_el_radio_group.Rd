@@ -7,9 +7,11 @@
 update_el_radio_group(
   session,
   id,
+  selected = NULL,
+  choices = NULL,
+  disabled = NULL,
   value = NULL,
-  options = NULL,
-  disabled = NULL
+  options = NULL
 )
 }
 \arguments{
@@ -17,10 +19,11 @@ update_el_radio_group(
 
 \item{id}{Radio group input ID (un-namespaced).}
 
-\item{value}{New selected value.}
+\item{selected, value}{New selected value. \code{selected} is Shiny's name,
+\code{value} Element's; give either.}
 
-\item{options}{New choices: named character vector or
-\code{list(list(value=, label=), ...)}.}
+\item{choices, options}{New choices, as for \code{\link[=el_radio_group]{el_radio_group()}}. \code{choices}
+is Shiny's name, \code{options} Element's; give either.}
 
 \item{disabled}{New disabled state.}
 }
@@ -35,7 +38,7 @@ reactive fields on the underlying Vue instance.
 if (interactive()) {
   # inside a server function
   observeEvent(input$go, {
-    update_el_radio_group(session, "plan", value = "pro")
+    update_el_radio_group(session, "plan", selected = "pro")
   })
 }
 }

@@ -173,3 +173,17 @@ test_that("update_el_radio_group: all fields sent when provided", {
   expect_equal(captured$options[[1]]$value, "y")
   expect_false(captured$disabled)
 })
+
+test_that("el_radio_group and its update take Shiny's names and Element's", {
+  expect_identical(
+    vue_data_of(el_radio_group("r", choices = c(X = "x", Y = "y"), selected = "y")),
+    vue_data_of(el_radio_group("r", options = c(X = "x", Y = "y"), value = "y")))
+  expect_error(el_radio_group("r", c(X = "x"), selected = "x", value = "y"), "same argument")
+  expect_error(el_radio_group("r"), "`choices` \\(or `options`\\) is required")
+
+  s <- mock_session()
+  update_el_radio_group(s, "r", selected = "x", choices = c(X = "x"))
+  a <- s$captured()$msg
+  update_el_radio_group(s, "r", value = "x", options = c(X = "x"))
+  expect_identical(a, s$captured()$msg)
+})

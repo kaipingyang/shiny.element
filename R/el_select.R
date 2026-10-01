@@ -11,11 +11,15 @@ el_select_handler_dependency <- function() {
 #' Element UI select props.
 #'
 #' @param id Input ID. Auto-generated UUID if `NULL`.
-#' @param choices Named character vector (`c(Label = value)`) or a list of
-#'   `list(value = ..., label = ...)` items. Unnamed vectors are allowed; the
-#'   element is used as both value and label.
-#' @param selected Initial selected value(s). Use a character vector for
-#'   multiple selection. Defaults to `""` (single) or `list()` (multiple).
+#' @param choices,options The choices: a named character vector
+#'   (`c(Label = value)`), a list of `list(value = ..., label = ...)`, or
+#'   a named list of those for option groups. Unnamed vectors are allowed;
+#'   the element is used as both value and label. `choices` is Shiny's name
+#'   for it, `options` Element's; give either. Empty by default, for a
+#'   select whose options arrive later (`remote = TRUE`).
+#' @param selected,value Initially selected value(s); a character vector for
+#'   multiple selection. `selected` is Shiny's name, `value` Element's
+#'   (its `v-model`); give either.
 #' @param multiple Whether multiple items can be selected. Default `FALSE`.
 #' @param placeholder Placeholder text shown when nothing is selected.
 #' @param disabled Whether the select is disabled. Default `FALSE`.
@@ -91,7 +95,7 @@ el_select_handler_dependency <- function() {
 #' @export
 el_select <- function(
     id             = NULL,
-    choices,
+    choices        = NULL,
     selected       = NULL,
     multiple       = FALSE,
     placeholder    = NULL,
@@ -119,8 +123,13 @@ el_select <- function(
     remote_method  = NULL,
     width          = NULL,
     slots          = NULL,
+    value          = NULL,
+    options        = NULL,
     session        = shiny::getDefaultReactiveDomain()
 ) {
+  selected <- .el_alias(selected, value, "selected", "value")
+  choices  <- .el_alias(choices, options, "choices", "options")
+  if (is.null(choices)) choices <- list()
   if (is.null(id)) id <- paste0("el_select_", uuid::UUIDgenerate())
   ns_id        <- if (!is.null(session)) session$ns(id) else id
   container_id <- paste0(ns_id, "_container")
@@ -240,38 +249,49 @@ el_select <- function(
 #'
 #' @param session Shiny session object.
 #' @param id Select input ID (un-namespaced).
-#' @param value New selected value (string or character vector).
-#' @param options New choices: named character vector or
-#'   `list(list(value=, label=), ...)`.
-#' @param disabled New disabled state.
-#' @param placeholder New placeholder text.
-#' @param clearable New clearable state.
-#' @param filterable New filterable state.
+#' @param selected,value New selected value(s). `selected` is Shiny's name,
+#'   `value` Element's; give either.
+#' @param choices,options New choices, in any form [el_select()] takes.
+#'   `choices` is Shiny's name, `options` Element's; give either.
+#' @param disabled,placeholder,clearable,filterable,multiple_limit New
+#'   values for these props.
+#' @param loading,loading_text,no_match_text,no_data_text The remote-search
+#'   state: show the spinner while options are fetched, and the messages for
+#'   no match and no data.
 #'
 #' @return Called for its side effect; returns `NULL` invisibly.
 #' @examples
 #' if (interactive()) {
 #'   # inside a server function
 #'   observeEvent(input$go, {
-#'     update_el_select(session, "city", value = "sh")
+#'     update_el_select(session, "city", selected = "sh")
 #'   })
 #' }
 #' @export
 update_el_select <- function(
     session,
     id,
-    value       = NULL,
-    options     = NULL,
-    disabled    = NULL,
-    placeholder = NULL,
-    clearable   = NULL,
-    filterable  = NULL
+    selected       = NULL,
+    choices        = NULL,
+    disabled       = NULL,
+    placeholder    = NULL,
+    clearable      = NULL,
+    filterable     = NULL,
+    multiple_limit = NULL,
+    loading        = NULL,
+    loading_text   = NULL,
+    no_match_text  = NULL,
+    no_data_text   = NULL,
+    value          = NULL,
+    options        = NULL
 ) {
+  selected <- .el_alias(selected, value, "selected", "value")
+  choices  <- .el_alias(choices, options, "choices", "options")
   ns_id <- session$ns(id)
   msg   <- list(id = ns_id)
-  if (!is.null(value))       msg$value       <- value
-  if (!is.null(options)) {
-    parts <- .el_select_choices(options)
+  if (!is.null(selected))    msg$value       <- selected
+  if (!is.null(choices)) {
+    parts <- .el_select_choices(choices)
     msg$options <- parts$options
     msg$groups  <- parts$groups
   }
@@ -279,6 +299,11 @@ update_el_select <- function(
   if (!is.null(placeholder)) msg$placeholder <- placeholder
   if (!is.null(clearable))   msg$clearable   <- clearable
   if (!is.null(filterable))  msg$filterable  <- filterable
+  if (!is.null(multiple_limit)) msg$multipleLimit <- multiple_limit
+  if (!is.null(loading))       msg$loading       <- loading
+  if (!is.null(loading_text))  msg$loadingText   <- loading_text
+  if (!is.null(no_match_text)) msg$noMatchText   <- no_match_text
+  if (!is.null(no_data_text))  msg$noDataText    <- no_data_text
   session$sendCustomMessage("updateElSelect", msg)
   invisible(NULL)
 }

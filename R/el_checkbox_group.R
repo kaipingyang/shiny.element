@@ -6,9 +6,12 @@
 #' checkboxes or button-style variants.
 #'
 #' @param id Checkbox group ID. Auto-generated UUID if `NULL`.
-#' @param choices Named character vector `c(Label = value)` or list of
-#'   `list(value = ..., label = ...)` defining available options.
-#' @param selected Character vector of initially checked values. `NULL` for none.
+#' @param choices,options The choices: a named character vector
+#'   (`c(Label = value)`) or a list of `list(value = ..., label = ...)`.
+#'   `choices` is Shiny's name for it, `options` Element's; give either.
+#' @param selected,value Character vector of initially checked values; none
+#'   by default. `selected` is Shiny's name, `value` Element's (its
+#'   `v-model`); give either.
 #' @param disabled Whether the entire group is disabled. Default `FALSE`.
 #' @param size Size for button style only: `"medium"`, `"small"`, `"mini"`.
 #' @param min Minimum number of checked items.
@@ -57,7 +60,7 @@
 #' @export
 el_checkbox_group <- function(
     id       = NULL,
-    choices,
+    choices  = NULL,
     selected = NULL,
     disabled = FALSE,
     size     = NULL,
@@ -68,8 +71,13 @@ el_checkbox_group <- function(
     text_color = NULL,
     width    = NULL,
     slots    = NULL,
+    value    = NULL,
+    options  = NULL,
     session  = shiny::getDefaultReactiveDomain()
 ) {
+  selected <- .el_alias(selected, value, "selected", "value")
+  choices  <- .el_alias(choices, options, "choices", "options")
+  if (is.null(choices)) stop("`choices` (or `options`) is required.", call. = FALSE)
   if (is.null(id)) id <- paste0("el_checkbox_group_", uuid::UUIDgenerate())
   ns_id        <- if (!is.null(session)) session$ns(id) else id
   container_id <- paste0(ns_id, "_container")
@@ -147,8 +155,10 @@ el_checkbox_group <- function(
 #'
 #' @param session Shiny session object.
 #' @param id Checkbox group ID (un-namespaced).
-#' @param value New character vector of selected values.
-#' @param options New choices list (same format as the `choices` argument).
+#' @param selected,value New character vector of checked values.
+#'   `selected` is Shiny's name, `value` Element's; give either.
+#' @param choices,options New choices, as for [el_checkbox_group()].
+#'   `choices` is Shiny's name, `options` Element's; give either.
 #' @param disabled New disabled state.
 #' @param min New minimum checked count.
 #' @param max New maximum checked count.
@@ -158,23 +168,27 @@ el_checkbox_group <- function(
 #' if (interactive()) {
 #'   # inside a server function
 #'   observeEvent(input$go, {
-#'     update_el_checkbox_group(session, "langs", value = c("r", "py"))
+#'     update_el_checkbox_group(session, "langs", selected = c("r", "py"))
 #'   })
 #' }
 #' @export
 update_el_checkbox_group <- function(
     session,
     id,
-    value    = NULL,
-    options  = NULL,
+    selected = NULL,
+    choices  = NULL,
     disabled = NULL,
     min      = NULL,
-    max      = NULL
+    max      = NULL,
+    value    = NULL,
+    options  = NULL
 ) {
+  selected <- .el_alias(selected, value, "selected", "value")
+  choices  <- .el_alias(choices, options, "choices", "options")
   ns_id <- session$ns(id)
   msg   <- list(id = ns_id)
-  if (!is.null(value))    msg$value    <- value
-  if (!is.null(options))  msg$options  <- .el_normalize_choices(options)
+  if (!is.null(selected)) msg$value    <- selected
+  if (!is.null(choices))  msg$options  <- .el_normalize_choices(choices)
   if (!is.null(disabled)) msg$disabled <- disabled
   if (!is.null(min))      msg$min      <- min
   if (!is.null(max))      msg$max      <- max

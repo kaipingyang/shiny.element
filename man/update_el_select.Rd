@@ -7,12 +7,19 @@
 update_el_select(
   session,
   id,
-  value = NULL,
-  options = NULL,
+  selected = NULL,
+  choices = NULL,
   disabled = NULL,
   placeholder = NULL,
   clearable = NULL,
-  filterable = NULL
+  filterable = NULL,
+  multiple_limit = NULL,
+  loading = NULL,
+  loading_text = NULL,
+  no_match_text = NULL,
+  no_data_text = NULL,
+  value = NULL,
+  options = NULL
 )
 }
 \arguments{
@@ -20,18 +27,18 @@ update_el_select(
 
 \item{id}{Select input ID (un-namespaced).}
 
-\item{value}{New selected value (string or character vector).}
+\item{selected, value}{New selected value(s). \code{selected} is Shiny's name,
+\code{value} Element's; give either.}
 
-\item{options}{New choices: named character vector or
-\code{list(list(value=, label=), ...)}.}
+\item{choices, options}{New choices, in any form \code{\link[=el_select]{el_select()}} takes.
+\code{choices} is Shiny's name, \code{options} Element's; give either.}
 
-\item{disabled}{New disabled state.}
+\item{disabled, placeholder, clearable, filterable, multiple_limit}{New
+values for these props.}
 
-\item{placeholder}{New placeholder text.}
-
-\item{clearable}{New clearable state.}
-
-\item{filterable}{New filterable state.}
+\item{loading, loading_text, no_match_text, no_data_text}{The remote-search
+state: show the spinner while options are fetched, and the messages for
+no match and no data.}
 }
 \value{
 Called for its side effect; returns \code{NULL} invisibly.
@@ -44,7 +51,7 @@ reactive fields on the underlying Vue instance.
 if (interactive()) {
   # inside a server function
   observeEvent(input$go, {
-    update_el_select(session, "city", value = "sh")
+    update_el_select(session, "city", selected = "sh")
   })
 }
 }

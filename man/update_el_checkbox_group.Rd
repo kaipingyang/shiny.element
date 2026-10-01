@@ -7,11 +7,13 @@
 update_el_checkbox_group(
   session,
   id,
-  value = NULL,
-  options = NULL,
+  selected = NULL,
+  choices = NULL,
   disabled = NULL,
   min = NULL,
-  max = NULL
+  max = NULL,
+  value = NULL,
+  options = NULL
 )
 }
 \arguments{
@@ -19,9 +21,11 @@ update_el_checkbox_group(
 
 \item{id}{Checkbox group ID (un-namespaced).}
 
-\item{value}{New character vector of selected values.}
+\item{selected, value}{New character vector of checked values.
+\code{selected} is Shiny's name, \code{value} Element's; give either.}
 
-\item{options}{New choices list (same format as the \code{choices} argument).}
+\item{choices, options}{New choices, as for \code{\link[=el_checkbox_group]{el_checkbox_group()}}.
+\code{choices} is Shiny's name, \code{options} Element's; give either.}
 
 \item{disabled}{New disabled state.}
 
@@ -40,7 +44,7 @@ Server-side update for \code{\link[=el_checkbox_group]{el_checkbox_group()}}. Pa
 if (interactive()) {
   # inside a server function
   observeEvent(input$go, {
-    update_el_checkbox_group(session, "langs", value = c("r", "py"))
+    update_el_checkbox_group(session, "langs", selected = c("r", "py"))
   })
 }
 }

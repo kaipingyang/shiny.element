@@ -311,7 +311,7 @@ server <- function(input, output, session) {
 
   observeEvent(input$set_values, {
     update_el_input(session, "inp", value = "from server")
-    update_el_select(session, "sel", value = "a")
+    update_el_select(session, "sel", selected = "a")
     update_el_switch(session, "sw", value = FALSE)
     update_el_slider(session, "sld", value = 7)
     update_el_input_number(session, "num", value = 9)

@@ -27,7 +27,8 @@ el_menu(
 \item{id}{Menu ID (auto-generated if NULL).}
 
 \item{items}{A list of items. Each is a list with \code{index} (the value
-reported when selected), \code{label}, and optionally \code{icon} (an Element icon
+reported when selected), \code{label} (or \code{title}, Element's name for it),
+and optionally \code{icon} (an Element icon
 class such as \code{"el-icon-house"}), \code{disabled}, \code{route} (for
 \code{router = TRUE}), or \code{children} for a submenu. A submenu may also carry
 \code{popper_class}, \code{show_timeout}, \code{hide_timeout} and

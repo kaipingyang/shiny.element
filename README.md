@@ -89,7 +89,7 @@ server <- function(input, output, session) {
 
   # write
   observeEvent(input$reset, {
-    update_el_select(session, "city", value = "beijing")
+    update_el_select(session, "city", selected = "beijing")
   })
 }
 ```

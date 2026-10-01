@@ -6,7 +6,7 @@
 \usage{
 el_radio_group(
   id = NULL,
-  choices,
+  choices = NULL,
   selected = NULL,
   disabled = FALSE,
   size = NULL,
@@ -15,17 +15,23 @@ el_radio_group(
   text_color = NULL,
   width = NULL,
   slots = NULL,
+  value = NULL,
+  options = NULL,
   session = shiny::getDefaultReactiveDomain()
 )
 }
 \arguments{
 \item{id}{Input ID. Auto-generated UUID if \code{NULL}.}
 
-\item{choices}{Named character vector (\code{c(Label = value)}) or a list of
-\code{list(value = ..., label = ...)} items. Unnamed vectors are allowed; the
-element is used as both value and label.}
+\item{choices, options}{The choices: a named character vector
+(\code{c(Label = value)}) or a list of \code{list(value = ..., label = ...)}.
+Unnamed vectors are allowed; the element is used as both value and
+label. \code{choices} is Shiny's name for it, \code{options} Element's; give
+either.}
 
-\item{selected}{Initial selected value. Defaults to \code{""} (nothing selected).}
+\item{selected, value}{Initially selected value; nothing by default.
+\code{selected} is Shiny's name, \code{value} Element's (its \code{v-model}); give
+either.}
 
 \item{disabled}{Whether the entire group is disabled. Default \code{FALSE}.}
 
