@@ -18,7 +18,11 @@ el_notification(
   duration = 4500,
   position = "top-right",
   show_close = TRUE,
-  offset = 0
+  offset = 0,
+  icon_class = NULL,
+  custom_class = NULL,
+  dangerously_use_html_string = FALSE,
+  id = NULL
 )
 ```
 
@@ -58,6 +62,26 @@ el_notification(
 - offset:
 
   Distance from the corner edge in pixels. Default `0`.
+
+- icon_class:
+
+  Icon class to show instead of the one `type` implies.
+
+- custom_class:
+
+  Extra class name.
+
+- dangerously_use_html_string:
+
+  Whether `message` is inserted as HTML. Only pass `TRUE` for markup you
+  control – it is not escaped.
+
+- id:
+
+  Name for this notification, so
+  [`el_notification_close()`](https://kaipingyang.github.io/shiny.element/reference/el_feedback_close.md)
+  can close it, `input$<id>_close` reports when it closes and
+  `input$<id>_click` when it is clicked.
 
 ## Value
 

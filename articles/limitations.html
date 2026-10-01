@@ -301,11 +301,36 @@ through <code>size</code> (<code>"medium"</code>, <code>"small"</code>,
 <code>"mini"</code>) rather than a height.</p>
 </div>
 <div class="section level2">
+<h2 id="the-page-around-the-components">The page around the components<a class="anchor" aria-label="anchor" href="#the-page-around-the-components"></a>
+</h2>
+<p>Element styles its components, not the page they sit on, and most of
+its components set no font of their own – they inherit the page’s.
+<code><a href="../reference/el_page.html">el_page()</a></code> therefore themes the page too: its default,
+<code><a href="../reference/el_theme.html">el_theme()</a></code>, is a bslib theme carrying Element’s blue,
+greys, borders, corners, type size and font stack, so Shiny’s own inputs
+and outputs match the Element ones beside them.</p>
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/el_row.html">el_row</a></span><span class="op">(</span>gutter <span class="op">=</span> <span class="fl">16</span>,</span>
+<span>  <span class="fu"><a href="../reference/el_col.html">el_col</a></span><span class="op">(</span>span <span class="op">=</span> <span class="fl">12</span>,</span>
+<span>    <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/textInput.html" class="external-link">textInput</a></span><span class="op">(</span><span class="st">"shiny_text"</span>, <span class="st">"Shiny's textInput()"</span>, <span class="st">"Ada"</span><span class="op">)</span>,</span>
+<span>    <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/actionButton.html" class="external-link">actionButton</a></span><span class="op">(</span><span class="st">"shiny_go"</span>, <span class="st">"actionButton()"</span>, class <span class="op">=</span> <span class="st">"btn-primary"</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="../reference/el_col.html">el_col</a></span><span class="op">(</span>span <span class="op">=</span> <span class="fl">12</span>,</span>
+<span>    <span class="va">tags</span><span class="op">$</span><span class="fu">label</span><span class="op">(</span><span class="st">"Element's el_input()"</span><span class="op">)</span>, <span class="fu"><a href="../reference/el_input.html">el_input</a></span><span class="op">(</span><span class="st">"el_text"</span>, value <span class="op">=</span> <span class="st">"Ada"</span><span class="op">)</span>,</span>
+<span>    <span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span>style <span class="op">=</span> <span class="st">"margin-top: 15px"</span>,</span>
+<span>      <span class="fu"><a href="../reference/el_button.html">el_button</a></span><span class="op">(</span><span class="st">"el_go"</span>, <span class="st">"el_button()"</span>, type <span class="op">=</span> <span class="st">"primary"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<p><img src="../shots/limitations-theme.png"></p>
+<p><code>el_theme(primary = "#7c3aed")</code> changes the brand colour,
+and any other argument of <code><a href="https://rstudio.github.io/bslib/reference/bs_theme.html" class="external-link">bslib::bs_theme()</a></code> or Bootstrap
+variable can be overridden the same way. Element’s own components keep
+Element’s colours whatever the theme says: they are compiled into its
+stylesheet, and changing them means building a custom Element theme.</p>
+</div>
+<div class="section level2">
 <h2 id="elements-own-markup">Element’s own markup<a class="anchor" aria-label="anchor" href="#elements-own-markup"></a>
 </h2>
 <p><code>el</code> holds a generator for every Element tag, for markup
 that needs no Vue instance of its own:</p>
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">el</span><span class="op">$</span><span class="fu">button</span><span class="op">(</span>type <span class="op">=</span> <span class="st">"primary"</span>, <span class="st">"Markup only"</span><span class="op">)</span>    <span class="co"># no input</span></span>
 <span><span class="fu"><a href="../reference/el_button.html">el_button</a></span><span class="op">(</span><span class="st">"save"</span>, <span class="st">"A component"</span>, type <span class="op">=</span> <span class="st">"primary"</span><span class="op">)</span>   <span class="co"># reports input$save</span></span></code></pre></div>
 <p><img src="../shots/limitations-raw-tags.png"></p>
@@ -319,7 +344,7 @@ to know it was clicked.</p>
 <p><code><a href="../reference/el_widget.html">el_widget()</a></code> assembles a component the way this package
 assembles its own, and is exported for wrapping anything not covered
 here, or covered differently:</p>
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">initials</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">id</span>, <span class="va">name</span>, <span class="va">size</span> <span class="op">=</span> <span class="fl">48</span><span class="op">)</span> <span class="op">{</span></span>
 <span>  <span class="fu"><a href="../reference/el_widget.html">el_widget</a></span><span class="op">(</span></span>
 <span>    id     <span class="op">=</span> <span class="va">id</span>,</span>

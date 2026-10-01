@@ -17,6 +17,8 @@ el_statistic(
   rate = NULL,
   value_style = NULL,
   formatter = NULL,
+  time_indices = FALSE,
+  format = NULL,
   width = NULL,
   slots = NULL,
   session = shiny::getDefaultReactiveDomain()
@@ -70,6 +72,16 @@ el_statistic(
   function `function(value)` returning the text to show, in place of
   Element's formatting.
 
+- time_indices:
+
+  Count down to `value` rather than show it. `value` is then the moment
+  to count down to, a `POSIXct` or milliseconds since the epoch.
+
+- format:
+
+  How a countdown is shown, such as `"HH:mm:ss"`. Default
+  `"HH:mm:ss:SSS"`.
+
 - width:
 
   Component width, as a CSS unit.
@@ -87,6 +99,16 @@ el_statistic(
 
 A Shiny UI element.
 
+## Shiny inputs
+
+With `time_indices = TRUE`:
+
+- `input$<id>_finish` – fires when the countdown reaches zero.
+
+- `input$<id>_change` – the milliseconds left. Element raises this on
+  every frame; it is sent at most once a second, which is as often as a
+  server can usefully hear it.
+
 ## Element methods
 
 Callable with
@@ -100,15 +122,24 @@ Callable with
 el_statistic("users", value = 26048, title = "Active users",
              group_separator = ",")
 #> <div id="users_container" style="display: contents">
-#>   <el-statistic :value="value" :title="title === null ? undefined : title" :prefix="prefix === null ? undefined : prefix" :suffix="suffix === null ? undefined : suffix" :precision="precision === null ? undefined : precision" :decimal-separator="decimalSeparator === null ? undefined : decimalSeparator" :group-separator="groupSeparator === null ? undefined : groupSeparator" :rate="rate === null ? undefined : rate" :value-style="valueStyle === null ? undefined : valueStyle" :formatter="formatter === null ? undefined : formatter"></el-statistic>
+#>   <el-statistic :value="value" :title="title === null ? undefined : title" :prefix="prefix === null ? undefined : prefix" :suffix="suffix === null ? undefined : suffix" :precision="precision === null ? undefined : precision" :decimal-separator="decimalSeparator === null ? undefined : decimalSeparator" :group-separator="groupSeparator === null ? undefined : groupSeparator" :rate="rate === null ? undefined : rate" :value-style="valueStyle === null ? undefined : valueStyle" :formatter="formatter === null ? undefined : formatter" :time-indices="timeIndices" :format="format === null ? undefined : format" @finish="elEmitFinish" @change="elEmitChange"></el-statistic>
 #> </div>
 #> <div id="users" style="width:0px;height:0px;" class="vue html-widget"></div>
-#> <script type="application/json" data-for="users">{"x":{"el":"#users_container","data":{"value":26048,"title":"Active users","prefix":null,"suffix":null,"precision":null,"decimalSeparator":null,"groupSeparator":",","rate":null,"valueStyle":null,"formatter":null}},"evals":[],"jsHooks":[]}</script>
+#> <script type="application/json" data-for="users">{"x":{"el":"#users_container","data":{"value":26048,"title":"Active users","prefix":null,"suffix":null,"precision":null,"decimalSeparator":null,"groupSeparator":",","rate":null,"valueStyle":null,"formatter":null,"timeIndices":false,"format":null},"methods":{"elEmitFinish":"function() { var shape = function() { return true; }; var v = shape.apply(this, arguments); if (v === undefined) return; window.shinyElement.emit('users', 'finish', [v]); }","elEmitChange":"function() { var shape = function(ms) { var now = Date.now(); if (this._elLastChange && now - this._elLastChange < 1000) return undefined; this._elLastChange = now; return ms; }; var v = shape.apply(this, arguments); if (v === undefined) return; window.shinyElement.emit('users', 'change', [v]); }"}},"evals":["methods.elEmitFinish","methods.elEmitChange"],"jsHooks":[]}</script>
 el_statistic("revenue", value = 1318.5, title = "Revenue", prefix = "$",
              precision = 2)
 #> <div id="revenue_container" style="display: contents">
-#>   <el-statistic :value="value" :title="title === null ? undefined : title" :prefix="prefix === null ? undefined : prefix" :suffix="suffix === null ? undefined : suffix" :precision="precision === null ? undefined : precision" :decimal-separator="decimalSeparator === null ? undefined : decimalSeparator" :group-separator="groupSeparator === null ? undefined : groupSeparator" :rate="rate === null ? undefined : rate" :value-style="valueStyle === null ? undefined : valueStyle" :formatter="formatter === null ? undefined : formatter"></el-statistic>
+#>   <el-statistic :value="value" :title="title === null ? undefined : title" :prefix="prefix === null ? undefined : prefix" :suffix="suffix === null ? undefined : suffix" :precision="precision === null ? undefined : precision" :decimal-separator="decimalSeparator === null ? undefined : decimalSeparator" :group-separator="groupSeparator === null ? undefined : groupSeparator" :rate="rate === null ? undefined : rate" :value-style="valueStyle === null ? undefined : valueStyle" :formatter="formatter === null ? undefined : formatter" :time-indices="timeIndices" :format="format === null ? undefined : format" @finish="elEmitFinish" @change="elEmitChange"></el-statistic>
 #> </div>
 #> <div id="revenue" style="width:0px;height:0px;" class="vue html-widget"></div>
-#> <script type="application/json" data-for="revenue">{"x":{"el":"#revenue_container","data":{"value":1318.5,"title":"Revenue","prefix":"$","suffix":null,"precision":2,"decimalSeparator":null,"groupSeparator":null,"rate":null,"valueStyle":null,"formatter":null}},"evals":[],"jsHooks":[]}</script>
+#> <script type="application/json" data-for="revenue">{"x":{"el":"#revenue_container","data":{"value":1318.5,"title":"Revenue","prefix":"$","suffix":null,"precision":2,"decimalSeparator":null,"groupSeparator":null,"rate":null,"valueStyle":null,"formatter":null,"timeIndices":false,"format":null},"methods":{"elEmitFinish":"function() { var shape = function() { return true; }; var v = shape.apply(this, arguments); if (v === undefined) return; window.shinyElement.emit('revenue', 'finish', [v]); }","elEmitChange":"function() { var shape = function(ms) { var now = Date.now(); if (this._elLastChange && now - this._elLastChange < 1000) return undefined; this._elLastChange = now; return ms; }; var v = shape.apply(this, arguments); if (v === undefined) return; window.shinyElement.emit('revenue', 'change', [v]); }"}},"evals":["methods.elEmitFinish","methods.elEmitChange"],"jsHooks":[]}</script>
+
+# A countdown to an hour from now
+el_statistic("sale", title = "Sale ends in", time_indices = TRUE,
+             value = Sys.time() + 3600, format = "HH:mm:ss")
+#> <div id="sale_container" style="display: contents">
+#>   <el-statistic :value="value" :title="title === null ? undefined : title" :prefix="prefix === null ? undefined : prefix" :suffix="suffix === null ? undefined : suffix" :precision="precision === null ? undefined : precision" :decimal-separator="decimalSeparator === null ? undefined : decimalSeparator" :group-separator="groupSeparator === null ? undefined : groupSeparator" :rate="rate === null ? undefined : rate" :value-style="valueStyle === null ? undefined : valueStyle" :formatter="formatter === null ? undefined : formatter" :time-indices="timeIndices" :format="format === null ? undefined : format" @finish="elEmitFinish" @change="elEmitChange"></el-statistic>
+#> </div>
+#> <div id="sale" style="width:0px;height:0px;" class="vue html-widget"></div>
+#> <script type="application/json" data-for="sale">{"x":{"el":"#sale_container","data":{"value":1790831516866.615,"title":"Sale ends in","prefix":null,"suffix":null,"precision":null,"decimalSeparator":null,"groupSeparator":null,"rate":null,"valueStyle":null,"formatter":null,"timeIndices":true,"format":"HH:mm:ss"},"methods":{"elEmitFinish":"function() { var shape = function() { return true; }; var v = shape.apply(this, arguments); if (v === undefined) return; window.shinyElement.emit('sale', 'finish', [v]); }","elEmitChange":"function() { var shape = function(ms) { var now = Date.now(); if (this._elLastChange && now - this._elLastChange < 1000) return undefined; this._elLastChange = now; return ms; }; var v = shape.apply(this, arguments); if (v === undefined) return; window.shinyElement.emit('sale', 'change', [v]); }"}},"evals":["methods.elEmitFinish","methods.elEmitChange"],"jsHooks":[]}</script>
 ```

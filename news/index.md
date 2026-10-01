@@ -6,9 +6,9 @@ First release.
 
 ### Components
 
-Every component Element UI 2.15.14 documents is wrapped – 83 of them –
-with everything each one documents reachable from R: 552 attributes, 94
-events, 54 methods and 42 slots.
+Every component Element UI 2.15.14 documents is wrapped – 82 tags,
+services included – with everything each one documents reachable from R:
+757 attributes, 115 events, 60 methods and 48 slots.
 
 - **Input** —
   [`el_input()`](https://kaipingyang.github.io/shiny.element/reference/el_input.md),
@@ -20,8 +20,11 @@ events, 54 methods and 42 slots.
   [`el_slider()`](https://kaipingyang.github.io/shiny.element/reference/el_slider.md),
   [`el_rate()`](https://kaipingyang.github.io/shiny.element/reference/el_rate.md),
   [`el_date_picker()`](https://kaipingyang.github.io/shiny.element/reference/el_date_picker.md),
+  [`el_time_picker()`](https://kaipingyang.github.io/shiny.element/reference/el_time_picker.md),
+  [`el_time_select()`](https://kaipingyang.github.io/shiny.element/reference/el_time_picker.md),
   [`el_color_picker()`](https://kaipingyang.github.io/shiny.element/reference/el_color_picker.md),
   [`el_cascader()`](https://kaipingyang.github.io/shiny.element/reference/el_cascader.md),
+  [`el_cascader_panel()`](https://kaipingyang.github.io/shiny.element/reference/el_cascader_panel.md),
   [`el_upload()`](https://kaipingyang.github.io/shiny.element/reference/el_upload.md),
   [`el_autocomplete()`](https://kaipingyang.github.io/shiny.element/reference/el_autocomplete.md),
   [`el_transfer()`](https://kaipingyang.github.io/shiny.element/reference/el_transfer.md).
@@ -74,6 +77,7 @@ events, 54 methods and 42 slots.
   [`el_loading_close()`](https://kaipingyang.github.io/shiny.element/reference/el_loading_close.md).
 - **Helpers** —
   [`el_page()`](https://kaipingyang.github.io/shiny.element/reference/el_page.md),
+  [`el_theme()`](https://kaipingyang.github.io/shiny.element/reference/el_theme.md),
   [`use_element()`](https://kaipingyang.github.io/shiny.element/reference/use_element.md),
   [`el_table_config()`](https://kaipingyang.github.io/shiny.element/reference/el_table_config.md),
   [`df_to_tree_data()`](https://kaipingyang.github.io/shiny.element/reference/df_to_tree_data.md),
@@ -82,6 +86,24 @@ events, 54 methods and 42 slots.
 
 Most components have a matching `update_el_*()` for server-side updates,
 and report their value through `input$<id>` like any other Shiny input.
+As with Shiny’s own `update*Input()`, a value set from the server is
+reported back through `input$<id>` too.
+
+[`el_page()`](https://kaipingyang.github.io/shiny.element/reference/el_page.md)
+themes the page around the components with
+[`el_theme()`](https://kaipingyang.github.io/shiny.element/reference/el_theme.md),
+a bslib theme carrying Element’s colours, font and control sizes, so
+Shiny’s own inputs and outputs match the Element ones beside them.
+`theme = NULL` leaves Shiny’s plain Bootstrap.
+
+Tabs can be added and removed from the server
+([`insert_el_tab()`](https://kaipingyang.github.io/shiny.element/reference/insert_el_tab.md),
+[`remove_el_tab()`](https://kaipingyang.github.io/shiny.element/reference/insert_el_tab.md))
+or by the user (`editable = TRUE`), and a lazy pane binds its content
+when first shown. Messages and notifications given an `id` can be closed
+by it
+([`el_message_close()`](https://kaipingyang.github.io/shiny.element/reference/el_feedback_close.md),
+[`el_notification_close()`](https://kaipingyang.github.io/shiny.element/reference/el_feedback_close.md)).
 
 ### Note for users of the development version
 

@@ -27,7 +27,17 @@ el_message_box(
   input_placeholder = NULL,
   input_value = NULL,
   input_pattern = NULL,
-  input_error_message = NULL
+  input_error_message = NULL,
+  input_type = NULL,
+  input_validator = NULL,
+  show_input = NULL,
+  show_confirm_button = NULL,
+  confirm_button_class = NULL,
+  cancel_button_class = NULL,
+  distinguish_cancel_and_close = NULL,
+  lock_scroll = NULL,
+  close_on_hash_change = NULL,
+  before_close = NULL
 )
 ```
 
@@ -107,6 +117,47 @@ el_message_box(
 - input_error_message:
 
   Message shown when it does not match.
+
+- input_type:
+
+  For a prompt, the input's type, such as `"password"`.
+
+- input_validator:
+
+  For a prompt,
+  [`htmlwidgets::JS()`](https://rdrr.io/pkg/htmlwidgets/man/JS.html)
+  function checking the text; return `true`, or an error message.
+
+- show_input:
+
+  Whether to show a text input, as a prompt does.
+
+- show_confirm_button:
+
+  Whether to show the confirm button.
+
+- confirm_button_class, cancel_button_class:
+
+  Extra class names for the buttons.
+
+- distinguish_cancel_and_close:
+
+  Whether closing by the cross or Escape reports `"close"` rather than
+  `"cancel"`.
+
+- lock_scroll:
+
+  Whether the page stops scrolling while the box is open.
+
+- close_on_hash_change:
+
+  Whether a change of the URL hash closes it.
+
+- before_close:
+
+  [`htmlwidgets::JS()`](https://rdrr.io/pkg/htmlwidgets/man/JS.html)
+  function `function(action, instance, done)`, called before the box
+  closes; call `done()` to let it.
 
 ## Value
 

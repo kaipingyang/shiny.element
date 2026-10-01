@@ -34,10 +34,9 @@ el_carousel(
 
   A list of slides. Each is a list with `content` (a tag, tagList or
   string) and optionally `name`, used as the value reported when that
-  slide is showing. Slides are static markup: putting one of this
-  package's components inside will render but not stay connected to the
-  server, since the carousel is itself a Vue instance. Compose those
-  outside it instead.
+  slide is showing, and `label`, shown on its indicator. A slide's
+  content may hold this package's components: they are folded into the
+  carousel's own Vue instance and keep reporting their inputs.
 
 - height:
 
@@ -133,19 +132,19 @@ el_carousel(
 )
 #> <div id="banner_container" style="display: contents">
 #>   <el-carousel ref="carousel" :height="height" :initial-index="initialIndex" :autoplay="autoplay" :interval="interval" :trigger="trigger" :arrow="arrow" :loop="loop" :direction="direction" :indicator-position="indicatorPosition === null ? undefined : indicatorPosition" :type="carouselType === null ? undefined : carouselType" @change="handleChange">
-#>     <el-carousel-item>
+#>     <el-carousel-item name="one">
 #>       <h3>First slide</h3>
 #>     </el-carousel-item>
-#>     <el-carousel-item>
+#>     <el-carousel-item name="two">
 #>       <h3>Second slide</h3>
 #>     </el-carousel-item>
-#>     <el-carousel-item>
+#>     <el-carousel-item name="three">
 #>       <h3>Third slide</h3>
 #>     </el-carousel-item>
 #>   </el-carousel>
 #> </div>
 #> <div id="banner" style="width:0px;height:0px;" class="vue html-widget"></div>
-#> <script type="application/json" data-for="banner">{"x":{"el":"#banner_container","data":{"height":"200px","initialIndex":0,"autoplay":true,"interval":3000,"trigger":"hover","arrow":"hover","loop":true,"direction":"horizontal","indicatorPosition":null,"carouselType":null,"itemNames":["one","two","three"],"active":0,"activeName":"one"},"methods":{"handleChange":"function(index) { var self = this; self.active = index; self.activeName = self.itemNames[index] || ''; Shiny.setInputValue('banner', index); Shiny.setInputValue('banner_name', self.activeName); }"},"mounted":"function() { var self = this; var send = function() { Shiny.setInputValue(\"banner\", self.active); Shiny.setInputValue(\"banner_name\", self.activeName); }; if (window.Shiny && Shiny.shinyapp && typeof Shiny.shinyapp.isConnected === 'function' && Shiny.shinyapp.isConnected()) { send(); } else { $(document).one('shiny:connected', send); } }"},"evals":["methods.handleChange","mounted"],"jsHooks":[]}</script>
+#> <script type="application/json" data-for="banner">{"x":{"el":"#banner_container","data":{"height":"200px","initialIndex":0,"autoplay":true,"interval":3000,"trigger":"hover","arrow":"hover","loop":true,"direction":"horizontal","indicatorPosition":null,"carouselType":null,"itemNames":["one","two","three"],"active":0,"activeName":"one"},"methods":{"handleChange":"function(index) { var self = this; self.active = index; self.activeName = self.itemNames[index] || ''; Shiny.setInputValue('banner', index); Shiny.setInputValue('banner_name', self.activeName); }"},"mounted":"function() { var self = this; [\nfunction() { var self = this; var send = function() { Shiny.setInputValue(\"banner\", self.active); Shiny.setInputValue(\"banner_name\", self.activeName); }; if (window.Shiny && Shiny.shinyapp && typeof Shiny.shinyapp.isConnected === 'function' && Shiny.shinyapp.isConnected()) { send(); } else { $(document).one('shiny:connected', send); } var prev = self._elReport; self._elReport = function() { if (prev) prev(); self.$nextTick(send); }; }\n].forEach(function(f) { f.call(self); }); }"},"evals":["methods.handleChange","mounted"],"jsHooks":[]}</script>
 
 # Card layout, switching on click rather than hover
 el_carousel(
@@ -161,5 +160,5 @@ el_carousel(
 #>   </el-carousel>
 #> </div>
 #> <div id="cards" style="width:0px;height:0px;" class="vue html-widget"></div>
-#> <script type="application/json" data-for="cards">{"x":{"el":"#cards_container","data":{"height":"180px","initialIndex":0,"autoplay":true,"interval":3000,"trigger":"click","arrow":"hover","loop":true,"direction":"horizontal","indicatorPosition":null,"carouselType":"card","itemNames":["","","",""],"active":0,"activeName":""},"methods":{"handleChange":"function(index) { var self = this; self.active = index; self.activeName = self.itemNames[index] || ''; Shiny.setInputValue('cards', index); Shiny.setInputValue('cards_name', self.activeName); }"},"mounted":"function() { var self = this; var send = function() { Shiny.setInputValue(\"cards\", self.active); Shiny.setInputValue(\"cards_name\", self.activeName); }; if (window.Shiny && Shiny.shinyapp && typeof Shiny.shinyapp.isConnected === 'function' && Shiny.shinyapp.isConnected()) { send(); } else { $(document).one('shiny:connected', send); } }"},"evals":["methods.handleChange","mounted"],"jsHooks":[]}</script>
+#> <script type="application/json" data-for="cards">{"x":{"el":"#cards_container","data":{"height":"180px","initialIndex":0,"autoplay":true,"interval":3000,"trigger":"click","arrow":"hover","loop":true,"direction":"horizontal","indicatorPosition":null,"carouselType":"card","itemNames":["","","",""],"active":0,"activeName":""},"methods":{"handleChange":"function(index) { var self = this; self.active = index; self.activeName = self.itemNames[index] || ''; Shiny.setInputValue('cards', index); Shiny.setInputValue('cards_name', self.activeName); }"},"mounted":"function() { var self = this; [\nfunction() { var self = this; var send = function() { Shiny.setInputValue(\"cards\", self.active); Shiny.setInputValue(\"cards_name\", self.activeName); }; if (window.Shiny && Shiny.shinyapp && typeof Shiny.shinyapp.isConnected === 'function' && Shiny.shinyapp.isConnected()) { send(); } else { $(document).one('shiny:connected', send); } var prev = self._elReport; self._elReport = function() { if (prev) prev(); self.$nextTick(send); }; }\n].forEach(function(f) { f.call(self); }); }"},"evals":["methods.handleChange","mounted"],"jsHooks":[]}</script>
 ```

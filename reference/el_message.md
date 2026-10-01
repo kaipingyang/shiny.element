@@ -15,7 +15,12 @@ el_message(
   type = "info",
   duration = 3000,
   show_close = FALSE,
-  center = FALSE
+  center = FALSE,
+  offset = 20,
+  icon_class = NULL,
+  custom_class = NULL,
+  dangerously_use_html_string = FALSE,
+  id = NULL
 )
 ```
 
@@ -46,6 +51,29 @@ el_message(
 - center:
 
   Whether to centre the message text. Default `FALSE`.
+
+- offset:
+
+  Distance from the top of the window, in pixels.
+
+- icon_class:
+
+  Icon class to show instead of the one `type` implies.
+
+- custom_class:
+
+  Extra class name.
+
+- dangerously_use_html_string:
+
+  Whether `message` is inserted as HTML. Only pass `TRUE` for markup you
+  control – it is not escaped.
+
+- id:
+
+  Name for this message, so
+  [`el_message_close()`](https://kaipingyang.github.io/shiny.element/reference/el_feedback_close.md)
+  can close it and `input$<id>_close` reports when it closes.
 
 ## Value
 

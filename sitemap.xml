@@ -31,20 +31,25 @@
 <url><loc>https://kaipingyang.github.io/shiny.element/reference/dot-el_has_class.html</loc></url>
 <url><loc>https://kaipingyang.github.io/shiny.element/reference/dot-el_host_style.html</loc></url>
 <url><loc>https://kaipingyang.github.io/shiny.element/reference/dot-el_kebab_case.html</loc></url>
+<url><loc>https://kaipingyang.github.io/shiny.element/reference/dot-el_menu_item_props.html</loc></url>
 <url><loc>https://kaipingyang.github.io/shiny.element/reference/dot-el_menu_nodes.html</loc></url>
 <url><loc>https://kaipingyang.github.io/shiny.element/reference/dot-el_mounted_init.html</loc></url>
 <url><loc>https://kaipingyang.github.io/shiny.element/reference/dot-el_normalize_choices.html</loc></url>
 <url><loc>https://kaipingyang.github.io/shiny.element/reference/dot-el_normalize_rules.html</loc></url>
 <url><loc>https://kaipingyang.github.io/shiny.element/reference/dot-el_optional_bind.html</loc></url>
 <url><loc>https://kaipingyang.github.io/shiny.element/reference/dot-el_or_na.html</loc></url>
+<url><loc>https://kaipingyang.github.io/shiny.element/reference/dot-el_overlay_content.html</loc></url>
 <url><loc>https://kaipingyang.github.io/shiny.element/reference/dot-el_prefix_absorbed.html</loc></url>
 <url><loc>https://kaipingyang.github.io/shiny.element/reference/dot-el_rewrite_expr.html</loc></url>
 <url><loc>https://kaipingyang.github.io/shiny.element/reference/dot-el_rewrite_js.html</loc></url>
 <url><loc>https://kaipingyang.github.io/shiny.element/reference/dot-el_rewrite_markup.html</loc></url>
+<url><loc>https://kaipingyang.github.io/shiny.element/reference/dot-el_select_choices.html</loc></url>
 <url><loc>https://kaipingyang.github.io/shiny.element/reference/dot-el_set_width.html</loc></url>
 <url><loc>https://kaipingyang.github.io/shiny.element/reference/dot-el_slot_markup.html</loc></url>
 <url><loc>https://kaipingyang.github.io/shiny.element/reference/dot-el_snake_case.html</loc></url>
 <url><loc>https://kaipingyang.github.io/shiny.element/reference/dot-el_style.html</loc></url>
+<url><loc>https://kaipingyang.github.io/shiny.element/reference/dot-el_tab_item.html</loc></url>
+<url><loc>https://kaipingyang.github.io/shiny.element/reference/dot-el_tab_pane.html</loc></url>
 <url><loc>https://kaipingyang.github.io/shiny.element/reference/dot-el_table_args.html</loc></url>
 <url><loc>https://kaipingyang.github.io/shiny.element/reference/dot-el_table_event_shapes.html</loc></url>
 <url><loc>https://kaipingyang.github.io/shiny.element/reference/dot-el_table_infer_columns.html</loc></url>
@@ -52,6 +57,7 @@
 <url><loc>https://kaipingyang.github.io/shiny.element/reference/dot-el_table_rownames.html</loc></url>
 <url><loc>https://kaipingyang.github.io/shiny.element/reference/dot-el_table_rows.html</loc></url>
 <url><loc>https://kaipingyang.github.io/shiny.element/reference/dot-el_table_sanitize_columns.html</loc></url>
+<url><loc>https://kaipingyang.github.io/shiny.element/reference/dot-el_time_widget.html</loc></url>
 <url><loc>https://kaipingyang.github.io/shiny.element/reference/dot-el_timeline_items.html</loc></url>
 <url><loc>https://kaipingyang.github.io/shiny.element/reference/dot-el_transfer_data.html</loc></url>
 <url><loc>https://kaipingyang.github.io/shiny.element/reference/dot-el_tree_event_shapes.html</loc></url>
@@ -75,6 +81,7 @@
 <url><loc>https://kaipingyang.github.io/shiny.element/reference/el_carousel_handler_dependency.html</loc></url>
 <url><loc>https://kaipingyang.github.io/shiny.element/reference/el_cascader.html</loc></url>
 <url><loc>https://kaipingyang.github.io/shiny.element/reference/el_cascader_handler_dependency.html</loc></url>
+<url><loc>https://kaipingyang.github.io/shiny.element/reference/el_cascader_panel.html</loc></url>
 <url><loc>https://kaipingyang.github.io/shiny.element/reference/el_checkbox_group.html</loc></url>
 <url><loc>https://kaipingyang.github.io/shiny.element/reference/el_checkbox_group_handler_dependency.html</loc></url>
 <url><loc>https://kaipingyang.github.io/shiny.element/reference/el_col.html</loc></url>
@@ -91,6 +98,7 @@
 <url><loc>https://kaipingyang.github.io/shiny.element/reference/el_dropdown.html</loc></url>
 <url><loc>https://kaipingyang.github.io/shiny.element/reference/el_dropdown_handler_dependency.html</loc></url>
 <url><loc>https://kaipingyang.github.io/shiny.element/reference/el_empty.html</loc></url>
+<url><loc>https://kaipingyang.github.io/shiny.element/reference/el_feedback_close.html</loc></url>
 <url><loc>https://kaipingyang.github.io/shiny.element/reference/el_feedback_dependency.html</loc></url>
 <url><loc>https://kaipingyang.github.io/shiny.element/reference/el_footer.html</loc></url>
 <url><loc>https://kaipingyang.github.io/shiny.element/reference/el_form.html</loc></url>
@@ -149,6 +157,8 @@
 <url><loc>https://kaipingyang.github.io/shiny.element/reference/el_tabs_dependency.html</loc></url>
 <url><loc>https://kaipingyang.github.io/shiny.element/reference/el_tag.html</loc></url>
 <url><loc>https://kaipingyang.github.io/shiny.element/reference/el_tag_handler_dependency.html</loc></url>
+<url><loc>https://kaipingyang.github.io/shiny.element/reference/el_theme.html</loc></url>
+<url><loc>https://kaipingyang.github.io/shiny.element/reference/el_time_picker.html</loc></url>
 <url><loc>https://kaipingyang.github.io/shiny.element/reference/el_timeline.html</loc></url>
 <url><loc>https://kaipingyang.github.io/shiny.element/reference/el_timeline_handler_dependency.html</loc></url>
 <url><loc>https://kaipingyang.github.io/shiny.element/reference/el_tooltip.html</loc></url>
@@ -161,6 +171,7 @@
 <url><loc>https://kaipingyang.github.io/shiny.element/reference/el_widget.html</loc></url>
 <url><loc>https://kaipingyang.github.io/shiny.element/reference/element_ui_dependency.html</loc></url>
 <url><loc>https://kaipingyang.github.io/shiny.element/reference/index.html</loc></url>
+<url><loc>https://kaipingyang.github.io/shiny.element/reference/insert_el_tab.html</loc></url>
 <url><loc>https://kaipingyang.github.io/shiny.element/reference/shiny.element-package.html</loc></url>
 <url><loc>https://kaipingyang.github.io/shiny.element/reference/template.html</loc></url>
 <url><loc>https://kaipingyang.github.io/shiny.element/reference/update_el_alert.html</loc></url>
@@ -172,6 +183,7 @@
 <url><loc>https://kaipingyang.github.io/shiny.element/reference/update_el_calendar.html</loc></url>
 <url><loc>https://kaipingyang.github.io/shiny.element/reference/update_el_carousel.html</loc></url>
 <url><loc>https://kaipingyang.github.io/shiny.element/reference/update_el_cascader.html</loc></url>
+<url><loc>https://kaipingyang.github.io/shiny.element/reference/update_el_cascader_panel.html</loc></url>
 <url><loc>https://kaipingyang.github.io/shiny.element/reference/update_el_checkbox_group.html</loc></url>
 <url><loc>https://kaipingyang.github.io/shiny.element/reference/update_el_collapse.html</loc></url>
 <url><loc>https://kaipingyang.github.io/shiny.element/reference/update_el_color_picker.html</loc></url>
@@ -204,6 +216,7 @@
 <url><loc>https://kaipingyang.github.io/shiny.element/reference/update_el_table.html</loc></url>
 <url><loc>https://kaipingyang.github.io/shiny.element/reference/update_el_tabs.html</loc></url>
 <url><loc>https://kaipingyang.github.io/shiny.element/reference/update_el_tag.html</loc></url>
+<url><loc>https://kaipingyang.github.io/shiny.element/reference/update_el_time_picker.html</loc></url>
 <url><loc>https://kaipingyang.github.io/shiny.element/reference/update_el_timeline.html</loc></url>
 <url><loc>https://kaipingyang.github.io/shiny.element/reference/update_el_tooltip.html</loc></url>
 <url><loc>https://kaipingyang.github.io/shiny.element/reference/update_el_transfer.html</loc></url>

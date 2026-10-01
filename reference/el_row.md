@@ -15,6 +15,7 @@ el_row(
   type = NULL,
   justify = NULL,
   align = NULL,
+  tag = "div",
   class = NULL,
   style = NULL
 )
@@ -45,6 +46,11 @@ el_row(
 - align:
 
   Flex vertical alignment: `"top"` (default), `"middle"` or `"bottom"`.
+
+- tag:
+
+  HTML element to render, as Element's `tag`. Default `"div"`; `"ul"`
+  and `"li"` suit a grid of list items.
 
 - class:
 

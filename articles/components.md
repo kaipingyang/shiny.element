@@ -49,6 +49,22 @@ el_select("tags", choices = c(A = "a", B = "b", C = "c"), multiple = TRUE)
 
 ![](../shots/components-select.png)
 
+A named list groups the choices under headings, as in
+[`selectInput()`](https://rdrr.io/pkg/shiny/man/selectInput.html);
+`list(label =, disabled =, options =)` names a group that cannot be
+picked from:
+
+``` r
+
+el_select("food", choices = list(
+  Fruit = c(Apple = "apple", Pear = "pear"),
+  Veg   = list(label = "Vegetables (sold out)", disabled = TRUE,
+               options = c(Kale = "kale", Leek = "leek"))
+))
+```
+
+![](../shots/components-select-group.png)
+
 ### `el_radio_group()`
 
 ``` r
@@ -107,6 +123,23 @@ el_date_picker("span", type = "daterange")
 
 ![](../shots/components-date-picker.png)
 
+### `el_time_picker()` and `el_time_select()`
+
+Any time of day, or a range of them;
+[`el_time_select()`](https://kaipingyang.github.io/shiny.element/reference/el_time_picker.md)
+offers fixed times at an interval instead.
+
+``` r
+
+el_time_picker("start", value = "09:30:00",
+               picker_options = list(selectableRange = "08:00:00 - 18:00:00"))
+el_time_picker("shift", is_range = TRUE, value = c("09:00:00", "17:30:00"))
+el_time_select("slot", value = "10:30",
+               picker_options = list(start = "09:00", step = "00:30", end = "18:00"))
+```
+
+![](../shots/components-time-picker.png)
+
 ### `el_color_picker()`
 
 ``` r
@@ -130,6 +163,21 @@ el_cascader("region", options = list(
 ```
 
 ![](../shots/components-cascader.png)
+
+### `el_cascader_panel()`
+
+The cascader’s columns on their own, always open.
+
+``` r
+
+el_cascader_panel("where", value = c("asia", "jp"), width = "fit-content", options = list(
+  list(value = "asia", label = "Asia", children = list(
+    list(value = "cn", label = "China"), list(value = "jp", label = "Japan"))),
+  list(value = "europe", label = "Europe", children = list(
+    list(value = "fr", label = "France")))))
+```
+
+![](../shots/components-cascader-panel.png)
 
 ### `el_autocomplete()`
 
@@ -340,6 +388,17 @@ el_row(gutter = 20,
 
 ![](../shots/components-statistic.png)
 
+With `time_indices = TRUE` it counts down to a date-time, and reports
+`input$<id>_finish` when it gets there:
+
+``` r
+
+el_statistic("sale", value = Sys.time() + 5 * 3600, time_indices = TRUE,
+             title = "Sale ends in", format = "HH:mm:ss")
+```
+
+![](../shots/components-countdown.png)
+
 ### `el_empty()` and `el_result()`
 
 What a view shows when there is nothing in it yet, and what it shows
@@ -449,6 +508,35 @@ el_tabs("section", tabs = list(
 ```
 
 ![](../shots/components-tabs.png)
+
+`editable = TRUE` adds Element’s close buttons and new-tab button. The
+tabs close themselves; a new one is the server’s to make, with
+[`insert_el_tab()`](https://kaipingyang.github.io/shiny.element/reference/insert_el_tab.md),
+and it can hold components like any other:
+
+``` r
+
+ui <- el_page(
+  el_tabs("docs", editable = TRUE, tabs = list(
+    list(name = "readme", label = "README", content = tags$p("The first page."))
+  )),
+  verbatimTextOutput("edit")
+)
+
+server <- function(input, output, session) {
+  n <- 0
+  observeEvent(input$docs_tab_add, {
+    n <<- n + 1
+    insert_el_tab(session, "docs", paste0("doc", n), paste("Untitled", n),
+                  content = el_input(paste0("note", n), placeholder = "Notes"))
+  })
+  output$edit <- renderPrint(input$docs_edit)
+}
+
+shinyApp(ui, server)
+```
+
+![](../shots/components-tabs-editable.png)
 
 ### `el_collapse()`
 

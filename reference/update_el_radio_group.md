@@ -50,7 +50,7 @@ Called for its side effect; returns `NULL` invisibly.
 if (interactive()) {
   # inside a server function
   observeEvent(input$go, {
-    update_el_radio_group(session, "plan", selected = "pro")
+    update_el_radio_group(session, "plan", value = "pro")
   })
 }
 ```

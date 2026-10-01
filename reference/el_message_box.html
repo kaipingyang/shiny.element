@@ -72,7 +72,17 @@ acknowledgement, or a line of text.</p>
 <span>  input_placeholder <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  input_value <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  input_pattern <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  input_error_message <span class="op">=</span> <span class="cn">NULL</span></span>
+<span>  input_error_message <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  input_type <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  input_validator <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  show_input <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  show_confirm_button <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  confirm_button_class <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  cancel_button_class <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  distinguish_cancel_and_close <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  lock_scroll <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  close_on_hash_change <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  before_close <span class="op">=</span> <span class="cn">NULL</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
 
@@ -154,6 +164,47 @@ placeholder and the initial text.</p></dd>
 
 <dt id="arg-input-error-message">input_error_message<a class="anchor" aria-label="anchor" href="#arg-input-error-message"></a></dt>
 <dd><p>Message shown when it does not match.</p></dd>
+
+
+<dt id="arg-input-type">input_type<a class="anchor" aria-label="anchor" href="#arg-input-type"></a></dt>
+<dd><p>For a prompt, the input's type, such as <code>"password"</code>.</p></dd>
+
+
+<dt id="arg-input-validator">input_validator<a class="anchor" aria-label="anchor" href="#arg-input-validator"></a></dt>
+<dd><p>For a prompt, <code><a href="https://rdrr.io/pkg/htmlwidgets/man/JS.html" class="external-link">htmlwidgets::JS()</a></code> function checking
+the text; return <code>true</code>, or an error message.</p></dd>
+
+
+<dt id="arg-show-input">show_input<a class="anchor" aria-label="anchor" href="#arg-show-input"></a></dt>
+<dd><p>Whether to show a text input, as a prompt does.</p></dd>
+
+
+<dt id="arg-show-confirm-button">show_confirm_button<a class="anchor" aria-label="anchor" href="#arg-show-confirm-button"></a></dt>
+<dd><p>Whether to show the confirm button.</p></dd>
+
+
+<dt id="arg-confirm-button-class-cancel-button-class">confirm_button_class, cancel_button_class<a class="anchor" aria-label="anchor" href="#arg-confirm-button-class-cancel-button-class"></a></dt>
+<dd><p>Extra class names for the
+buttons.</p></dd>
+
+
+<dt id="arg-distinguish-cancel-and-close">distinguish_cancel_and_close<a class="anchor" aria-label="anchor" href="#arg-distinguish-cancel-and-close"></a></dt>
+<dd><p>Whether closing by the cross or Escape
+reports <code>"close"</code> rather than <code>"cancel"</code>.</p></dd>
+
+
+<dt id="arg-lock-scroll">lock_scroll<a class="anchor" aria-label="anchor" href="#arg-lock-scroll"></a></dt>
+<dd><p>Whether the page stops scrolling while the box is open.</p></dd>
+
+
+<dt id="arg-close-on-hash-change">close_on_hash_change<a class="anchor" aria-label="anchor" href="#arg-close-on-hash-change"></a></dt>
+<dd><p>Whether a change of the URL hash closes it.</p></dd>
+
+
+<dt id="arg-before-close">before_close<a class="anchor" aria-label="anchor" href="#arg-before-close"></a></dt>
+<dd><p><code><a href="https://rdrr.io/pkg/htmlwidgets/man/JS.html" class="external-link">htmlwidgets::JS()</a></code> function
+<code>function(action, instance, done)</code>, called before the box closes; call
+<code>done()</code> to let it.</p></dd>
 
 </dl></div>
     <div class="section level2">

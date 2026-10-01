@@ -36,9 +36,14 @@ el_menu(
 
   A list of items. Each is a list with `index` (the value reported when
   selected), `label`, and optionally `icon` (an Element icon class such
-  as `"el-icon-house"`), `disabled`, or `children` for a submenu. An
-  item with `group = TRUE` becomes a titled group of its `children`
-  rather than a submenu.
+  as `"el-icon-house"`), `disabled`, `route` (for `router = TRUE`), or
+  `children` for a submenu. A submenu may also carry `popper_class`,
+  `show_timeout`, `hide_timeout` and `popper_append_to_body`. An item
+  with `group = TRUE` becomes a titled group of its `children` rather
+  than a submenu.
+
+  Clicking an item reports `input$<id>` (the index selected) and
+  `input$<id>_item_click` (the index clicked).
 
 - active:
 
@@ -134,7 +139,7 @@ el_menu(
 )
 #> <div id="nav_container" style="display: contents">
 #>   <el-menu :default-active="active" :mode="mode" :collapse="collapse" :unique-opened="uniqueOpened" :background-color="backgroundColor === null ? undefined : backgroundColor" :text-color="textColor === null ? undefined : textColor" :active-text-color="activeTextColor === null ? undefined : activeTextColor" @select="handleSelect" :default-openeds="defaultOpeneds === null ? undefined : defaultOpeneds" :menu-trigger="menuTrigger === null ? undefined : menuTrigger" :collapse-transition="collapseTransition === null ? undefined : collapseTransition" :router="router === null ? undefined : router" @open="elEmitOpen" @close="elEmitClose">
-#>     <el-menu-item index="home">
+#>     <el-menu-item index="home" @click="elMenuItemClick(&quot;home&quot;)">
 #>       <i class="el-icon-house"></i>
 #>       <span>Home</span>
 #>     </el-menu-item>
@@ -143,20 +148,20 @@ el_menu(
 #>         <i class="el-icon-goods"></i>
 #>         <span>Products</span>
 #>       </template>
-#>       <el-menu-item index="products-all">
+#>       <el-menu-item index="products-all" @click="elMenuItemClick(&quot;products-all&quot;)">
 #>         <span>All</span>
 #>       </el-menu-item>
-#>       <el-menu-item index="products-new">
+#>       <el-menu-item index="products-new" @click="elMenuItemClick(&quot;products-new&quot;)">
 #>         <span>New</span>
 #>       </el-menu-item>
 #>     </el-submenu>
-#>     <el-menu-item index="help" disabled>
+#>     <el-menu-item index="help" :disabled="true" @click="elMenuItemClick(&quot;help&quot;)">
 #>       <span>Help</span>
 #>     </el-menu-item>
 #>   </el-menu>
 #> </div>
 #> <div id="nav" style="width:0px;height:0px;" class="vue html-widget"></div>
-#> <script type="application/json" data-for="nav">{"x":{"el":"#nav_container","data":{"active":"home","mode":"vertical","collapse":false,"uniqueOpened":false,"backgroundColor":null,"textColor":null,"activeTextColor":null,"path":[],"defaultOpeneds":null,"menuTrigger":null,"collapseTransition":null,"router":null},"methods":{"elEmitOpen":"function() { var shape = function(index, path) { return {index: index, path: path}; }; window.shinyElement.emit('nav', 'open', [shape.apply(this, arguments)]); }","elEmitClose":"function() { var shape = function(index, path) { return {index: index, path: path}; }; window.shinyElement.emit('nav', 'close', [shape.apply(this, arguments)]); }","handleSelect":"function(index, indexPath) { var self = this; self.active = index; self.path = indexPath; Shiny.setInputValue('nav', index); Shiny.setInputValue('nav_path', indexPath); }"},"mounted":"function() { var self = this; var send = function() { Shiny.setInputValue(\"nav\", self.active); Shiny.setInputValue(\"nav_path\", self.path); }; if (window.Shiny && Shiny.shinyapp && typeof Shiny.shinyapp.isConnected === 'function' && Shiny.shinyapp.isConnected()) { send(); } else { $(document).one('shiny:connected', send); } }"},"evals":["methods.elEmitOpen","methods.elEmitClose","methods.handleSelect","mounted"],"jsHooks":[]}</script>
+#> <script type="application/json" data-for="nav">{"x":{"el":"#nav_container","data":{"active":"home","mode":"vertical","collapse":false,"uniqueOpened":false,"backgroundColor":null,"textColor":null,"activeTextColor":null,"path":[],"defaultOpeneds":null,"menuTrigger":null,"collapseTransition":null,"router":null},"methods":{"elEmitOpen":"function() { var shape = function(index, path) { return {index: index, path: path}; }; var v = shape.apply(this, arguments); if (v === undefined) return; window.shinyElement.emit('nav', 'open', [v]); }","elEmitClose":"function() { var shape = function(index, path) { return {index: index, path: path}; }; var v = shape.apply(this, arguments); if (v === undefined) return; window.shinyElement.emit('nav', 'close', [v]); }","elMenuItemClick":"function(index) { Shiny.setInputValue('nav_item_click', index, {priority: 'event'}); }","handleSelect":"function(index, indexPath) { var self = this; self.active = index; self.path = indexPath; Shiny.setInputValue('nav', index); Shiny.setInputValue('nav_path', indexPath); }"},"mounted":"function() { var self = this; var send = function() { Shiny.setInputValue(\"nav\", self.active); Shiny.setInputValue(\"nav_path\", self.path); }; if (window.Shiny && Shiny.shinyapp && typeof Shiny.shinyapp.isConnected === 'function' && Shiny.shinyapp.isConnected()) { send(); } else { $(document).one('shiny:connected', send); } var prev = self._elReport; self._elReport = function() { if (prev) prev(); self.$nextTick(send); }; }"},"evals":["methods.elEmitOpen","methods.elEmitClose","methods.elMenuItemClick","methods.handleSelect","mounted"],"jsHooks":[]}</script>
 
 # Horizontal, as a top bar
 el_menu(id = "topnav", mode = "horizontal", active = "a",
@@ -164,14 +169,14 @@ el_menu(id = "topnav", mode = "horizontal", active = "a",
                      list(index = "b", label = "Two")))
 #> <div id="topnav_container" style="display: contents">
 #>   <el-menu :default-active="active" :mode="mode" :collapse="collapse" :unique-opened="uniqueOpened" :background-color="backgroundColor === null ? undefined : backgroundColor" :text-color="textColor === null ? undefined : textColor" :active-text-color="activeTextColor === null ? undefined : activeTextColor" @select="handleSelect" :default-openeds="defaultOpeneds === null ? undefined : defaultOpeneds" :menu-trigger="menuTrigger === null ? undefined : menuTrigger" :collapse-transition="collapseTransition === null ? undefined : collapseTransition" :router="router === null ? undefined : router" @open="elEmitOpen" @close="elEmitClose">
-#>     <el-menu-item index="a">
+#>     <el-menu-item index="a" @click="elMenuItemClick(&quot;a&quot;)">
 #>       <span>One</span>
 #>     </el-menu-item>
-#>     <el-menu-item index="b">
+#>     <el-menu-item index="b" @click="elMenuItemClick(&quot;b&quot;)">
 #>       <span>Two</span>
 #>     </el-menu-item>
 #>   </el-menu>
 #> </div>
 #> <div id="topnav" style="width:0px;height:0px;" class="vue html-widget"></div>
-#> <script type="application/json" data-for="topnav">{"x":{"el":"#topnav_container","data":{"active":"a","mode":"horizontal","collapse":false,"uniqueOpened":false,"backgroundColor":null,"textColor":null,"activeTextColor":null,"path":[],"defaultOpeneds":null,"menuTrigger":null,"collapseTransition":null,"router":null},"methods":{"elEmitOpen":"function() { var shape = function(index, path) { return {index: index, path: path}; }; window.shinyElement.emit('topnav', 'open', [shape.apply(this, arguments)]); }","elEmitClose":"function() { var shape = function(index, path) { return {index: index, path: path}; }; window.shinyElement.emit('topnav', 'close', [shape.apply(this, arguments)]); }","handleSelect":"function(index, indexPath) { var self = this; self.active = index; self.path = indexPath; Shiny.setInputValue('topnav', index); Shiny.setInputValue('topnav_path', indexPath); }"},"mounted":"function() { var self = this; var send = function() { Shiny.setInputValue(\"topnav\", self.active); Shiny.setInputValue(\"topnav_path\", self.path); }; if (window.Shiny && Shiny.shinyapp && typeof Shiny.shinyapp.isConnected === 'function' && Shiny.shinyapp.isConnected()) { send(); } else { $(document).one('shiny:connected', send); } }"},"evals":["methods.elEmitOpen","methods.elEmitClose","methods.handleSelect","mounted"],"jsHooks":[]}</script>
+#> <script type="application/json" data-for="topnav">{"x":{"el":"#topnav_container","data":{"active":"a","mode":"horizontal","collapse":false,"uniqueOpened":false,"backgroundColor":null,"textColor":null,"activeTextColor":null,"path":[],"defaultOpeneds":null,"menuTrigger":null,"collapseTransition":null,"router":null},"methods":{"elEmitOpen":"function() { var shape = function(index, path) { return {index: index, path: path}; }; var v = shape.apply(this, arguments); if (v === undefined) return; window.shinyElement.emit('topnav', 'open', [v]); }","elEmitClose":"function() { var shape = function(index, path) { return {index: index, path: path}; }; var v = shape.apply(this, arguments); if (v === undefined) return; window.shinyElement.emit('topnav', 'close', [v]); }","elMenuItemClick":"function(index) { Shiny.setInputValue('topnav_item_click', index, {priority: 'event'}); }","handleSelect":"function(index, indexPath) { var self = this; self.active = index; self.path = indexPath; Shiny.setInputValue('topnav', index); Shiny.setInputValue('topnav_path', indexPath); }"},"mounted":"function() { var self = this; var send = function() { Shiny.setInputValue(\"topnav\", self.active); Shiny.setInputValue(\"topnav_path\", self.path); }; if (window.Shiny && Shiny.shinyapp && typeof Shiny.shinyapp.isConnected === 'function' && Shiny.shinyapp.isConnected()) { send(); } else { $(document).one('shiny:connected', send); } var prev = self._elReport; self._elReport = function() { if (prev) prev(); self.$nextTick(send); }; }"},"evals":["methods.elEmitOpen","methods.elEmitClose","methods.elMenuItemClick","methods.handleSelect","mounted"],"jsHooks":[]}</script>
 ```

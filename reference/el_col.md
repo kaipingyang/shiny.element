@@ -18,6 +18,7 @@ el_col(
   md = NULL,
   lg = NULL,
   xl = NULL,
+  tag = "div",
   class = NULL,
   style = NULL
 )
@@ -49,6 +50,11 @@ el_col(
 
   Responsive spans. Either a number (the span) or a list such as
   `list(span = 12, offset = 6)`.
+
+- tag:
+
+  HTML element to render, as Element's `tag`. Default `"div"`; `"ul"`
+  and `"li"` suit a grid of list items.
 
 - class:
 

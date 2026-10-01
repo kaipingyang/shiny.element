@@ -14,12 +14,12 @@ takes a nested list. Each item’s `index` is what it reports, and
 
 ui <- el_page(
   el_menu("nav", mode = "horizontal", active = "reports", items = list(
-    list(index = "home", title = "Home", icon = "el-icon-s-home"),
-    list(index = "reports", title = "Reports", children = list(
-      list(index = "monthly", title = "Monthly"),
-      list(index = "annual", title = "Annual")
+    list(index = "home", label = "Home", icon = "el-icon-s-home"),
+    list(index = "reports", label = "Reports", children = list(
+      list(index = "monthly", label = "Monthly"),
+      list(index = "annual", label = "Annual")
     )),
-    list(index = "settings", title = "Settings", disabled = TRUE)
+    list(index = "settings", label = "Settings", disabled = TRUE)
   )),
   verbatimTextOutput("where")
 )
@@ -139,6 +139,29 @@ shinyApp(ui, server)
 ```
 
 ![](../shots/navigation-notification.png)
+
+A message given an `id` can be closed from the server by it – one that
+stays up while work runs, say, with `duration = 0`:
+
+``` r
+
+ui <- el_page(el_button("upload", "Upload", type = "primary"))
+
+server <- function(input, output, session) {
+  observeEvent(input$upload, {
+    el_message(session, "Uploading...", id = "busy", duration = 0,
+               icon_class = "el-icon-loading")
+    later::later(function() {
+      el_message_close(session, "busy")
+      el_message(session, "Uploaded", type = "success")
+    }, 5)
+  })
+}
+
+shinyApp(ui, server)
+```
+
+![](../shots/navigation-message-close.png)
 
 ## Asking a question
 

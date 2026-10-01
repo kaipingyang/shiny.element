@@ -8,6 +8,8 @@ Page wrappers that load Vue, Element UI and the package’s own assets.
   : Languages Element UI can use for its built-in text
 - [`el_page()`](https://kaipingyang.github.io/shiny.element/reference/el_page.md)
   : Element UI Page Wrapper with Theme Support
+- [`el_theme()`](https://kaipingyang.github.io/shiny.element/reference/el_theme.md)
+  : Element UI's look, as a Bootstrap theme
 - [`use_element()`](https://kaipingyang.github.io/shiny.element/reference/use_element.md)
   : Load All Element-UI Dependencies Convenience function to load Vue,
   Element-UI, and layout CSS dependencies. Use this when you want to use
@@ -55,10 +57,15 @@ change.
   : Element UI Rate (Star Rating)
 - [`el_date_picker()`](https://kaipingyang.github.io/shiny.element/reference/el_date_picker.md)
   : Element UI Date Picker Component
+- [`el_time_picker()`](https://kaipingyang.github.io/shiny.element/reference/el_time_picker.md)
+  [`el_time_select()`](https://kaipingyang.github.io/shiny.element/reference/el_time_picker.md)
+  : Element UI Time Picker
 - [`el_color_picker()`](https://kaipingyang.github.io/shiny.element/reference/el_color_picker.md)
   : Element UI Color Picker
 - [`el_cascader()`](https://kaipingyang.github.io/shiny.element/reference/el_cascader.md)
   : Element UI Cascader Widget
+- [`el_cascader_panel()`](https://kaipingyang.github.io/shiny.element/reference/el_cascader_panel.md)
+  : Element UI Cascader Panel
 - [`el_upload()`](https://kaipingyang.github.io/shiny.element/reference/el_upload.md)
   : Element UI Upload
 - [`update_el_input()`](https://kaipingyang.github.io/shiny.element/reference/update_el_input.md)
@@ -79,10 +86,14 @@ change.
   : Update Element UI Rate
 - [`update_el_date_picker()`](https://kaipingyang.github.io/shiny.element/reference/update_el_date_picker.md)
   : Update Element UI Date Picker
+- [`update_el_time_picker()`](https://kaipingyang.github.io/shiny.element/reference/update_el_time_picker.md)
+  : Update Element UI Time Picker
 - [`update_el_color_picker()`](https://kaipingyang.github.io/shiny.element/reference/update_el_color_picker.md)
   : Update Element UI Color Picker
 - [`update_el_cascader()`](https://kaipingyang.github.io/shiny.element/reference/update_el_cascader.md)
   : Update Element UI Cascader
+- [`update_el_cascader_panel()`](https://kaipingyang.github.io/shiny.element/reference/update_el_cascader_panel.md)
+  : Update Element UI Cascader Panel
 - [`update_el_upload()`](https://kaipingyang.github.io/shiny.element/reference/update_el_upload.md)
   : Update an Element UI Upload
 - [`el_upload_clear()`](https://kaipingyang.github.io/shiny.element/reference/el_upload_clear.md)
@@ -225,6 +236,9 @@ hold other components from this package.
   : Element UI Layout Column
 - [`update_el_tabs()`](https://kaipingyang.github.io/shiny.element/reference/update_el_tabs.md)
   : Update Element UI Tabs
+- [`insert_el_tab()`](https://kaipingyang.github.io/shiny.element/reference/insert_el_tab.md)
+  [`remove_el_tab()`](https://kaipingyang.github.io/shiny.element/reference/insert_el_tab.md)
+  : Add or remove a tab from the server
 - [`update_el_collapse()`](https://kaipingyang.github.io/shiny.element/reference/update_el_collapse.md)
   : Update Element UI Collapse
 - [`update_el_steps()`](https://kaipingyang.github.io/shiny.element/reference/update_el_steps.md)
@@ -285,6 +299,9 @@ Called from the server; nothing to place in the UI.
   : Show Element UI Notification
 - [`el_message()`](https://kaipingyang.github.io/shiny.element/reference/el_message.md)
   : Show Element UI Message
+- [`el_message_close()`](https://kaipingyang.github.io/shiny.element/reference/el_feedback_close.md)
+  [`el_notification_close()`](https://kaipingyang.github.io/shiny.element/reference/el_feedback_close.md)
+  : Close a message or a notification
 
 ## Calendar
 

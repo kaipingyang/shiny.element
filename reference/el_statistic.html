@@ -60,6 +60,8 @@
 <span>  rate <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  value_style <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  formatter <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  time_indices <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  format <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  width <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  slots <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  session <span class="op">=</span> <span class="fu">shiny</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/domains.html" class="external-link">getDefaultReactiveDomain</a></span><span class="op">(</span><span class="op">)</span></span>
@@ -115,6 +117,17 @@ effect with a <code>group_separator</code>.</p></dd>
 the text to show, in place of Element's formatting.</p></dd>
 
 
+<dt id="arg-time-indices">time_indices<a class="anchor" aria-label="anchor" href="#arg-time-indices"></a></dt>
+<dd><p>Count down to <code>value</code> rather than show it. <code>value</code> is
+then the moment to count down to, a <code>POSIXct</code> or milliseconds since the
+epoch.</p></dd>
+
+
+<dt id="arg-format">format<a class="anchor" aria-label="anchor" href="#arg-format"></a></dt>
+<dd><p>How a countdown is shown, such as <code>"HH:mm:ss"</code>. Default
+<code>"HH:mm:ss:SSS"</code>.</p></dd>
+
+
 <dt id="arg-width">width<a class="anchor" aria-label="anchor" href="#arg-width"></a></dt>
 <dd><p>Component width, as a CSS unit.</p></dd>
 
@@ -133,6 +146,15 @@ the text to show, in place of Element's formatting.</p></dd>
     <p>A Shiny UI element.</p>
     </div>
     <div class="section level2">
+    <h2 id="shiny-inputs">Shiny inputs<a class="anchor" aria-label="anchor" href="#shiny-inputs"></a></h2>
+
+
+<p>With <code>time_indices = TRUE</code>:</p><ul><li><p><code>input$&lt;id&gt;_finish</code> – fires when the countdown reaches zero.</p></li>
+<li><p><code>input$&lt;id&gt;_change</code> – the milliseconds left. Element raises this on every
+frame; it is sent at most once a second, which is as often as a server
+can usefully hear it.</p></li>
+</ul></div>
+    <div class="section level2">
     <h2 id="element-methods">Element methods<a class="anchor" aria-label="anchor" href="#element-methods"></a></h2>
 
 
@@ -144,17 +166,26 @@ the text to show, in place of Element's formatting.</p></dd>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu">el_statistic</span><span class="op">(</span><span class="st">"users"</span>, value <span class="op">=</span> <span class="fl">26048</span>, title <span class="op">=</span> <span class="st">"Active users"</span>,</span></span>
 <span class="r-in"><span>             group_separator <span class="op">=</span> <span class="st">","</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> &lt;div id="users_container" style="display: contents"&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   &lt;el-statistic :value="value" :title="title === null ? undefined : title" :prefix="prefix === null ? undefined : prefix" :suffix="suffix === null ? undefined : suffix" :precision="precision === null ? undefined : precision" :decimal-separator="decimalSeparator === null ? undefined : decimalSeparator" :group-separator="groupSeparator === null ? undefined : groupSeparator" :rate="rate === null ? undefined : rate" :value-style="valueStyle === null ? undefined : valueStyle" :formatter="formatter === null ? undefined : formatter"&gt;&lt;/el-statistic&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   &lt;el-statistic :value="value" :title="title === null ? undefined : title" :prefix="prefix === null ? undefined : prefix" :suffix="suffix === null ? undefined : suffix" :precision="precision === null ? undefined : precision" :decimal-separator="decimalSeparator === null ? undefined : decimalSeparator" :group-separator="groupSeparator === null ? undefined : groupSeparator" :rate="rate === null ? undefined : rate" :value-style="valueStyle === null ? undefined : valueStyle" :formatter="formatter === null ? undefined : formatter" :time-indices="timeIndices" :format="format === null ? undefined : format" @finish="elEmitFinish" @change="elEmitChange"&gt;&lt;/el-statistic&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> &lt;/div&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> &lt;div id="users" style="width:0px;height:0px;" class="vue html-widget"&gt;&lt;/div&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;script type="application/json" data-for="users"&gt;{"x":{"el":"#users_container","data":{"value":26048,"title":"Active users","prefix":null,"suffix":null,"precision":null,"decimalSeparator":null,"groupSeparator":",","rate":null,"valueStyle":null,"formatter":null}},"evals":[],"jsHooks":[]}&lt;/script&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;script type="application/json" data-for="users"&gt;{"x":{"el":"#users_container","data":{"value":26048,"title":"Active users","prefix":null,"suffix":null,"precision":null,"decimalSeparator":null,"groupSeparator":",","rate":null,"valueStyle":null,"formatter":null,"timeIndices":false,"format":null},"methods":{"elEmitFinish":"function() { var shape = function() { return true; }; var v = shape.apply(this, arguments); if (v === undefined) return; window.shinyElement.emit('users', 'finish', [v]); }","elEmitChange":"function() { var shape = function(ms) { var now = Date.now(); if (this._elLastChange &amp;&amp; now - this._elLastChange &lt; 1000) return undefined; this._elLastChange = now; return ms; }; var v = shape.apply(this, arguments); if (v === undefined) return; window.shinyElement.emit('users', 'change', [v]); }"}},"evals":["methods.elEmitFinish","methods.elEmitChange"],"jsHooks":[]}&lt;/script&gt;</span>
 <span class="r-in"><span><span class="fu">el_statistic</span><span class="op">(</span><span class="st">"revenue"</span>, value <span class="op">=</span> <span class="fl">1318.5</span>, title <span class="op">=</span> <span class="st">"Revenue"</span>, prefix <span class="op">=</span> <span class="st">"$"</span>,</span></span>
 <span class="r-in"><span>             precision <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> &lt;div id="revenue_container" style="display: contents"&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   &lt;el-statistic :value="value" :title="title === null ? undefined : title" :prefix="prefix === null ? undefined : prefix" :suffix="suffix === null ? undefined : suffix" :precision="precision === null ? undefined : precision" :decimal-separator="decimalSeparator === null ? undefined : decimalSeparator" :group-separator="groupSeparator === null ? undefined : groupSeparator" :rate="rate === null ? undefined : rate" :value-style="valueStyle === null ? undefined : valueStyle" :formatter="formatter === null ? undefined : formatter"&gt;&lt;/el-statistic&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   &lt;el-statistic :value="value" :title="title === null ? undefined : title" :prefix="prefix === null ? undefined : prefix" :suffix="suffix === null ? undefined : suffix" :precision="precision === null ? undefined : precision" :decimal-separator="decimalSeparator === null ? undefined : decimalSeparator" :group-separator="groupSeparator === null ? undefined : groupSeparator" :rate="rate === null ? undefined : rate" :value-style="valueStyle === null ? undefined : valueStyle" :formatter="formatter === null ? undefined : formatter" :time-indices="timeIndices" :format="format === null ? undefined : format" @finish="elEmitFinish" @change="elEmitChange"&gt;&lt;/el-statistic&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> &lt;/div&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> &lt;div id="revenue" style="width:0px;height:0px;" class="vue html-widget"&gt;&lt;/div&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;script type="application/json" data-for="revenue"&gt;{"x":{"el":"#revenue_container","data":{"value":1318.5,"title":"Revenue","prefix":"$","suffix":null,"precision":2,"decimalSeparator":null,"groupSeparator":null,"rate":null,"valueStyle":null,"formatter":null}},"evals":[],"jsHooks":[]}&lt;/script&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;script type="application/json" data-for="revenue"&gt;{"x":{"el":"#revenue_container","data":{"value":1318.5,"title":"Revenue","prefix":"$","suffix":null,"precision":2,"decimalSeparator":null,"groupSeparator":null,"rate":null,"valueStyle":null,"formatter":null,"timeIndices":false,"format":null},"methods":{"elEmitFinish":"function() { var shape = function() { return true; }; var v = shape.apply(this, arguments); if (v === undefined) return; window.shinyElement.emit('revenue', 'finish', [v]); }","elEmitChange":"function() { var shape = function(ms) { var now = Date.now(); if (this._elLastChange &amp;&amp; now - this._elLastChange &lt; 1000) return undefined; this._elLastChange = now; return ms; }; var v = shape.apply(this, arguments); if (v === undefined) return; window.shinyElement.emit('revenue', 'change', [v]); }"}},"evals":["methods.elEmitFinish","methods.elEmitChange"],"jsHooks":[]}&lt;/script&gt;</span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># A countdown to an hour from now</span></span></span>
+<span class="r-in"><span><span class="fu">el_statistic</span><span class="op">(</span><span class="st">"sale"</span>, title <span class="op">=</span> <span class="st">"Sale ends in"</span>, time_indices <span class="op">=</span> <span class="cn">TRUE</span>,</span></span>
+<span class="r-in"><span>             value <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Sys.time.html" class="external-link">Sys.time</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> <span class="fl">3600</span>, format <span class="op">=</span> <span class="st">"HH:mm:ss"</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;div id="sale_container" style="display: contents"&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   &lt;el-statistic :value="value" :title="title === null ? undefined : title" :prefix="prefix === null ? undefined : prefix" :suffix="suffix === null ? undefined : suffix" :precision="precision === null ? undefined : precision" :decimal-separator="decimalSeparator === null ? undefined : decimalSeparator" :group-separator="groupSeparator === null ? undefined : groupSeparator" :rate="rate === null ? undefined : rate" :value-style="valueStyle === null ? undefined : valueStyle" :formatter="formatter === null ? undefined : formatter" :time-indices="timeIndices" :format="format === null ? undefined : format" @finish="elEmitFinish" @change="elEmitChange"&gt;&lt;/el-statistic&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;/div&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;div id="sale" style="width:0px;height:0px;" class="vue html-widget"&gt;&lt;/div&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;script type="application/json" data-for="sale"&gt;{"x":{"el":"#sale_container","data":{"value":1790831516866.615,"title":"Sale ends in","prefix":null,"suffix":null,"precision":null,"decimalSeparator":null,"groupSeparator":null,"rate":null,"valueStyle":null,"formatter":null,"timeIndices":true,"format":"HH:mm:ss"},"methods":{"elEmitFinish":"function() { var shape = function() { return true; }; var v = shape.apply(this, arguments); if (v === undefined) return; window.shinyElement.emit('sale', 'finish', [v]); }","elEmitChange":"function() { var shape = function(ms) { var now = Date.now(); if (this._elLastChange &amp;&amp; now - this._elLastChange &lt; 1000) return undefined; this._elLastChange = now; return ms; }; var v = shape.apply(this, arguments); if (v === undefined) return; window.shinyElement.emit('sale', 'change', [v]); }"}},"evals":["methods.elEmitFinish","methods.elEmitChange"],"jsHooks":[]}&lt;/script&gt;</span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>

@@ -26,8 +26,8 @@ drops what cannot travel and sets `input$<id>_<event>`.
 
   Named list of JavaScript functions, one per event that carries more
   than one argument, turning the arguments into a single object. `this`
-  is the Vue instance. Without one, several arguments are sent as
-  `arg1`, `arg2`, ...
+  is the Vue instance. Returning `undefined` skips that emission.
+  Without a shape, several arguments are sent as `arg1`, `arg2`, ...
 
 ## Value
 
