@@ -23,6 +23,11 @@
 #'   a warning.
 #' @param fill Border and background colour when `button = TRUE` and checked.
 #' @param text_color Text colour when `button = TRUE` and checked.
+#' @param label A label shown with the component, as Shiny's inputs have:
+#'   text or a tag. `NULL`, the default, shows none. It is the component's
+#'   accessible name too.
+#' @param label_position `"top"` (the default, as Shiny's labels sit) or
+#'   `"left"`, beside the component as in a horizontal Element form.
 #' @param width Component width, as a CSS unit -- `"200px"`, `"50%"`, or a
 #'   number taken as pixels. Element's own markup carries it, so it behaves
 #'   like the `width` argument of a Shiny input.
@@ -71,12 +76,15 @@ el_checkbox_group <- function(
     button   = FALSE,
     fill     = NULL,
     text_color = NULL,
+    label = NULL,
+    label_position = c("top", "left"),
     width    = NULL,
     slots    = NULL,
     value    = NULL,
     options  = NULL,
     session  = NULL
 ) {
+  .el_check_choices("el_checkbox_group", environment())
   selected <- .el_alias(selected, value, "selected", "value")
   choices  <- .el_alias(choices, options, "choices", "options")
   if (is.null(choices)) stop("`choices` (or `options`) is required.", call. = FALSE)
@@ -126,6 +134,7 @@ el_checkbox_group <- function(
   vue_data$fill <- .el_or_na(fill)
   vue_data$textColor <- .el_or_na(text_color)
   el_widget(
+    label = label, label_position = label_position,
     id     = ns_id,
     markup = group_tag,
     data = vue_data,

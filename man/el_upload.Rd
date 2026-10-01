@@ -6,7 +6,7 @@
 \usage{
 el_upload(
   id = NULL,
-  label = "Upload",
+  button_label = "Upload",
   drag = FALSE,
   multiple = FALSE,
   accept = NULL,
@@ -30,6 +30,8 @@ el_upload(
   on_preview = NULL,
   on_remove = NULL,
   on_exceed = NULL,
+  label = NULL,
+  label_position = c("top", "left"),
   width = NULL,
   slots = NULL,
   session = NULL
@@ -38,8 +40,9 @@ el_upload(
 \arguments{
 \item{id}{Upload ID (auto-generated if NULL).}
 
-\item{label}{Text for the trigger. Shown on the button when \code{drag = FALSE},
-and inside the drop zone otherwise.}
+\item{button_label}{Text for the trigger, as \code{buttonLabel} is for
+\code{\link[shiny:fileInput]{shiny::fileInput()}}: on the button when \code{drag = FALSE}, inside the
+drop zone otherwise.}
 
 \item{drag}{Render a drop zone rather than a button.}
 
@@ -93,6 +96,13 @@ Shiny's channel. See details.}
 \item{on_remove}{\code{htmlwidgets::JS()} function called after a file is removed.}
 
 \item{on_exceed}{\code{htmlwidgets::JS()} function called when more files are picked than \code{limit}.}
+
+\item{label}{A label shown with the component, as Shiny's inputs have:
+text or a tag. \code{NULL}, the default, shows none. It is the component's
+accessible name too.}
+
+\item{label_position}{\code{"top"} (the default, as Shiny's labels sit) or
+\code{"left"}, beside the component as in a horizontal Element form.}
 
 \item{width}{Component width, as a CSS unit -- \code{"200px"}, \code{"50\%"}, or a
 number taken as pixels. Element's own markup carries it, so it behaves
@@ -151,7 +161,7 @@ el_upload("files", drag = TRUE, multiple = TRUE, accept = ".csv",
           tip = "CSV files only")
 
 # A plain button
-el_upload("avatar", label = "Choose a picture", accept = "image/*")
+el_upload("avatar", button_label = "Choose a picture", accept = "image/*")
 
 # Element's own upload, straight to a pre-signed URL
 el_upload("direct", action = "https://example.invalid/presigned")

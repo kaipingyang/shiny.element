@@ -86,8 +86,9 @@
 #' existing file service, but the server sees no `datapath`.
 #'
 #' @param id Upload ID (auto-generated if NULL).
-#' @param label Text for the trigger. Shown on the button when `drag = FALSE`,
-#'   and inside the drop zone otherwise.
+#' @param button_label Text for the trigger, as `buttonLabel` is for
+#'   [shiny::fileInput()]: on the button when `drag = FALSE`, inside the
+#'   drop zone otherwise.
 #' @param drag Render a drop zone rather than a button.
 #' @param multiple Allow selecting several files at once.
 #' @param accept File types to accept, as an `accept` attribute would have
@@ -121,6 +122,11 @@
 #' @param on_preview `htmlwidgets::JS()` function called when an uploaded file is clicked.
 #' @param on_remove `htmlwidgets::JS()` function called after a file is removed.
 #' @param on_exceed `htmlwidgets::JS()` function called when more files are picked than `limit`.
+#' @param label A label shown with the component, as Shiny's inputs have:
+#'   text or a tag. `NULL`, the default, shows none. It is the component's
+#'   accessible name too.
+#' @param label_position `"top"` (the default, as Shiny's labels sit) or
+#'   `"left"`, beside the component as in a horizontal Element form.
 #' @param width Component width, as a CSS unit -- `"200px"`, `"50%"`, or a
 #'   number taken as pixels. Element's own markup carries it, so it behaves
 #'   like the `width` argument of a Shiny input.
@@ -154,7 +160,7 @@
 #'           tip = "CSV files only")
 #'
 #' # A plain button
-#' el_upload("avatar", label = "Choose a picture", accept = "image/*")
+#' el_upload("avatar", button_label = "Choose a picture", accept = "image/*")
 #'
 #' # Element's own upload, straight to a pre-signed URL
 #' el_upload("direct", action = "https://example.invalid/presigned")
@@ -175,7 +181,7 @@
 #'   shinyApp(ui, server)
 #' }
 el_upload <- function(id = NULL,
-                      label = "Upload",
+                      button_label = "Upload",
                       drag = FALSE,
                       multiple = FALSE,
                       accept = NULL,
@@ -199,9 +205,12 @@ el_upload <- function(id = NULL,
                       on_preview = NULL,
                       on_remove = NULL,
                       on_exceed = NULL,
+                      label = NULL,
+                      label_position = c("top", "left"),
                       width   = NULL,
                       slots   = NULL,
                       session = NULL) {
+  .el_check_choices("el_upload", environment())
   if (is.null(id)) id <- paste0("el_upload_", uuid::UUIDgenerate())
   ns_id        <- .el_ui_id(id, session)
   container_id <- paste0(ns_id, "_container")
@@ -257,9 +266,9 @@ el_upload <- function(id = NULL,
   # leave the markup stuck in whichever shape it had at render time.
   trigger <- list(
     htmltools::tags$i(class = "el-icon-upload", "v-if" = "drag"),
-    htmltools::tags$div(class = "el-upload__text", "v-if" = "drag", "{{label}}"),
+    htmltools::tags$div(class = "el-upload__text", "v-if" = "drag", "{{buttonLabel}}"),
     htmltools::tag("el-button", list(
-      "v-if" = "!drag", size = "small", type = "primary", "{{label}}"
+      "v-if" = "!drag", size = "small", type = "primary", "{{buttonLabel}}"
     ))
   )
   if (!is.null(tip)) {
@@ -270,7 +279,7 @@ el_upload <- function(id = NULL,
 
   vue_data <- list(
     drag         = drag,
-    label        = label,
+    buttonLabel  = button_label,
     multiple     = multiple,
     showFileList = show_file_list,
     listType     = list_type,
@@ -322,6 +331,7 @@ el_upload <- function(id = NULL,
   if (via_shiny) methods$shinyUpload <- .el_upload_js(ns_id)
 
   el_widget(
+    label = label, label_position = label_position,
     id     = ns_id,
     markup = htmltools::tag("el-upload", c(upload_attrs, trigger)),
     data    = vue_data,

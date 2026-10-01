@@ -24,6 +24,7 @@ el_slider(
   show_input_controls = NULL,
   tooltip_class = NULL,
   format_tooltip = NULL,
+  label_position = c("top", "left"),
   width = NULL,
   slots = NULL,
   session = NULL
@@ -61,7 +62,9 @@ Defaults to \code{"200px"} when \code{vertical = TRUE} and not explicitly provid
 \item{marks}{Named list of mark labels, e.g.,
 \code{list("0" = "0km", "50" = "50km")}. Default \code{NULL} (no marks).}
 
-\item{label}{Accessible label for screen readers.}
+\item{label}{A label shown with the component, as Shiny's inputs have:
+text or a tag. \code{NULL}, the default, shows none. It is the component's
+accessible name too.}
 
 \item{debounce}{Debounce in ms while dragging, when \code{show_input = TRUE}. Default \code{300}.}
 
@@ -72,6 +75,9 @@ Defaults to \code{"200px"} when \code{vertical = TRUE} and not explicitly provid
 \item{tooltip_class}{Extra class name for the value tooltip.}
 
 \item{format_tooltip}{\code{htmlwidgets::JS()} function formatting the value shown in the tooltip.}
+
+\item{label_position}{\code{"top"} (the default, as Shiny's labels sit) or
+\code{"left"}, beside the component as in a horizontal Element form.}
 
 \item{width}{Component width, as a CSS unit -- \code{"200px"}, \code{"50\%"}, or a
 number taken as pixels. Element's own markup carries it, so it behaves

@@ -31,6 +31,7 @@ el_result <- function(id = NULL,
                       width = NULL,
                       slots = NULL,
                       session = NULL) {
+  .el_check_choices("el_result", environment())
   if (is.null(id)) id <- paste0("el_result_", uuid::UUIDgenerate())
   ns_id <- .el_ui_id(id, session)
 

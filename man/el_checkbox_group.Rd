@@ -15,6 +15,8 @@ el_checkbox_group(
   button = FALSE,
   fill = NULL,
   text_color = NULL,
+  label = NULL,
+  label_position = c("top", "left"),
   width = NULL,
   slots = NULL,
   value = NULL,
@@ -47,6 +49,13 @@ Default \code{FALSE}.}
 \item{fill}{Border and background colour when \code{button = TRUE} and checked.}
 
 \item{text_color}{Text colour when \code{button = TRUE} and checked.}
+
+\item{label}{A label shown with the component, as Shiny's inputs have:
+text or a tag. \code{NULL}, the default, shows none. It is the component's
+accessible name too.}
+
+\item{label_position}{\code{"top"} (the default, as Shiny's labels sit) or
+\code{"left"}, beside the component as in a horizontal Element form.}
 
 \item{width}{Component width, as a CSS unit -- \code{"200px"}, \code{"50\%"}, or a
 number taken as pixels. Element's own markup carries it, so it behaves

@@ -65,6 +65,7 @@ el_steps <- function(id = NULL,
     
   # Generate el-step tags from list  
   step_tags <- lapply(steps, function(step) {
+  .el_check_choices("el_steps", environment())
     # Text goes in the attribute; markup -- an icon beside a title, a link in
     # a description -- goes in the step's slot of the same name.
     attrs <- list()

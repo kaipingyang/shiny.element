@@ -34,6 +34,8 @@ el_tree(
   render_content = NULL,
   allow_drag = NULL,
   allow_drop = NULL,
+  label = NULL,
+  label_position = c("top", "left"),
   width = NULL,
   slots = NULL,
   session = NULL
@@ -102,6 +104,13 @@ expand.}
 \item{allow_drag}{\code{htmlwidgets::JS()} function deciding whether a node may be dragged.}
 
 \item{allow_drop}{\code{htmlwidgets::JS()} function deciding whether a node may be dropped somewhere.}
+
+\item{label}{A label shown with the component, as Shiny's inputs have:
+text or a tag. \code{NULL}, the default, shows none. It is the component's
+accessible name too.}
+
+\item{label_position}{\code{"top"} (the default, as Shiny's labels sit) or
+\code{"left"}, beside the component as in a horizontal Element form.}
 
 \item{width}{Component width, as a CSS unit -- \code{"200px"}, \code{"50\%"}, or a
 number taken as pixels. Element's own markup carries it, so it behaves

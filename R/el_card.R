@@ -17,6 +17,7 @@
 #'
 #' @export
 el_card <- function(..., header = NULL, body_style = NULL, shadow = "always") {
+  .el_check_choices("el_card", environment())
   shadow <- match.arg(shadow, c("always", "hover", "never"))
   card_class <- paste0("el-card is-", shadow, "-shadow")
 

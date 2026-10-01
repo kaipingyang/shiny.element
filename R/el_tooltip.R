@@ -75,6 +75,7 @@ el_tooltip <- function(id = NULL,
                        width = NULL,
                        slots   = NULL,
                        session = NULL) {
+  .el_check_choices("el_tooltip", environment())
   # A component handed in here is folded into this one's Vue instance rather
   # than nested inside it -- see .el_absorb().
   inner <- .el_absorb(trigger)

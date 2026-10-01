@@ -24,7 +24,11 @@
 #'   `NULL` means no icon.
 #' @param suffix_icon Icon class for the suffix slot (e.g. `"el-icon-date"`).
 #'   `NULL` means no icon.
-#' @param label ARIA `label` attribute for accessibility. `NULL` omits it.
+#' @param label A label shown with the component, as Shiny's inputs have:
+#'   text or a tag. `NULL`, the default, shows none. It is the component's
+#'   accessible name too.
+#' @param label_position `"top"` (the default, as Shiny's labels sit) or
+#'   `"left"`, beside the component as in a horizontal Element form.
 #' @param session Deprecated. Inside a module, wrap `id` in `ns()`, as for
 #'   any Shiny input; a session given here namespaces `id` once more, with
 #'   a warning.
@@ -111,10 +115,12 @@ el_input <- function(
     resize          = NULL,
     tabindex        = NULL,
     validate_event  = NULL,
+    label_position = c("top", "left"),
     width           = NULL,
     slots           = NULL,
     session         = NULL
 ) {
+  .el_check_choices("el_input", environment())
   if (is.null(id)) id <- paste0("el_input_", uuid::UUIDgenerate())
   ns_id        <- .el_ui_id(id, session)
   container_id <- paste0(ns_id, "_container")
@@ -192,6 +198,7 @@ el_input <- function(
   vue_data$tabindex <- .el_or_na(tabindex)
   vue_data$validateEvent <- .el_or_na(validate_event)
   el_widget(
+    label = label, label_position = label_position,
     id     = ns_id,
     markup = htmltools::tag("el-input", input_attrs),
     data    = vue_data,

@@ -875,3 +875,14 @@ test_that("shinyvalidate's message is drawn as Element draws a failed rule", {
   expect_equal(bev("getComputedStyle(document.querySelector('#val_email .el-input__inner')).borderColor"),
                "rgb(245, 108, 108)")
 })
+
+test_that("a label names its component for assistive technology", {
+  skip_if_no_browser()
+  # A select's id reaches its native input, so <label for> works
+  expect_equal(bev("document.getElementById('lab_city-input').labels[0].textContent"), "City")
+  # A switch has no single native input: aria-labelledby on its root
+  expect_equal(bev("document.querySelector('#lab_on .el-switch').getAttribute('aria-labelledby')"),
+               "lab_on-label")
+  # hiding the component by its id hides its label too
+  expect_true(bev("document.getElementById('lab_city').contains(document.getElementById('lab_city-label'))"))
+})

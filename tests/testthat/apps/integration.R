@@ -246,6 +246,8 @@ ui <- el_page(
   el_input("js_gone", value = "remove me"),
   actionButton("js_go", "shinyjs"),
   el_input("val_email", placeholder = "Email"),
+  el_select("lab_city", choices = c("bj", "sh"), label = "City"),
+  el_switch("lab_on", label = "Notify", label_position = "left"),
   actionButton("val_go", "validate"),
 
   # A component type that appears nowhere else on the page, only through

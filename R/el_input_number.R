@@ -17,7 +17,11 @@
 #' @param controls_position Button layout: `""` (default, left-right) or
 #'   `"right"` (both on the right).
 #' @param placeholder Placeholder text. `NULL` for none.
-#' @param label Accessible label text. `NULL` for none.
+#' @param label A label shown with the component, as Shiny's inputs have:
+#'   text or a tag. `NULL`, the default, shows none. It is the component's
+#'   accessible name too.
+#' @param label_position `"top"` (the default, as Shiny's labels sit) or
+#'   `"left"`, beside the component as in a horizontal Element form.
 #' @param session Deprecated. Inside a module, wrap `id` in `ns()`, as for
 #'   any Shiny input; a session given here namespaces `id` once more, with
 #'   a warning.
@@ -61,10 +65,12 @@ el_input_number <- function(
     placeholder       = NULL,
     label             = NULL,
     name              = NULL,
+    label_position = c("top", "left"),
     width             = NULL,
     slots             = NULL,
     session           = NULL
 ) {
+  .el_check_choices("el_input_number", environment())
   if (is.null(id)) id <- paste0("el_input_number_", uuid::UUIDgenerate())
   ns_id        <- .el_ui_id(id, session)
   container_id <- paste0(ns_id, "_container")
@@ -112,6 +118,7 @@ el_input_number <- function(
   vue_data$label <- .el_or_na(label)
   vue_data$name <- .el_or_na(name)
   el_widget(
+    label = label, label_position = label_position,
     id     = ns_id,
     markup = htmltools::tag("el-input-number", num_attrs),
     data    = vue_data,

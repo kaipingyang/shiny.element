@@ -44,6 +44,11 @@
 #' @param render_content `htmlwidgets::JS()` render function for a node's content.
 #' @param allow_drag `htmlwidgets::JS()` function deciding whether a node may be dragged.
 #' @param allow_drop `htmlwidgets::JS()` function deciding whether a node may be dropped somewhere.
+#' @param label A label shown with the component, as Shiny's inputs have:
+#'   text or a tag. `NULL`, the default, shows none. It is the component's
+#'   accessible name too.
+#' @param label_position `"top"` (the default, as Shiny's labels sit) or
+#'   `"left"`, beside the component as in a horizontal Element form.
 #' @param width Component width, as a CSS unit -- `"200px"`, `"50%"`, or a
 #'   number taken as pixels. Element's own markup carries it, so it behaves
 #'   like the `width` argument of a Shiny input.
@@ -127,6 +132,8 @@ el_tree <- function(id = NULL,
                     render_content = NULL,
                     allow_drag = NULL,
                     allow_drop = NULL,
+                    label = NULL,
+                    label_position = c("top", "left"),
                     width   = NULL,
                     slots   = NULL,
                     session = NULL) {
@@ -258,6 +265,7 @@ el_tree <- function(id = NULL,
   vue_data$allowDrop <- .el_or_na(allow_drop)
 
   el_widget(
+    label = label, label_position = label_position,
     id     = ns_id,
     markup = htmltools::tag("el-tree", tree_attrs),
     data = vue_data,

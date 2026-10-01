@@ -52,6 +52,7 @@ el_tag <- function(
     slots                = NULL,
     session              = NULL
 ) {
+  .el_check_choices("el_tag", environment())
   if (is.null(id)) id <- paste0("el_tag_", uuid::UUIDgenerate())
   ns_id        <- .el_ui_id(id, session)
   container_id <- paste0(ns_id, "_container")

@@ -435,6 +435,7 @@ el_table <- function(id = NULL,
                      highlight_selection_row = NULL,
                      loading = FALSE,
                      session = NULL) {
+  .el_check_choices("el_table", environment())
   args <- .el_table_args(id, data, columns)
   id <- args$id
   data <- args$data

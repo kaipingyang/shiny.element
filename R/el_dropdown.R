@@ -76,6 +76,7 @@ el_dropdown <- function(
     slots        = NULL,
     session      = NULL
 ) {
+  .el_check_choices("el_dropdown", environment())
   if (is.null(id)) id <- paste0("el_dropdown_", uuid::UUIDgenerate())
   ns_id        <- .el_ui_id(id, session)
   container_id <- paste0(ns_id, "_container")

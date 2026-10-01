@@ -54,6 +54,7 @@ el_image <- function(id = NULL,
                      width = NULL,
                      slots   = NULL,
                      session = NULL) {
+  .el_check_choices("el_image", environment())
   if (is.null(id)) id <- paste0("el_image_", uuid::UUIDgenerate())
   ns_id <- .el_ui_id(id, session)
 

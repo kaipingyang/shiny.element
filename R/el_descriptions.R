@@ -55,6 +55,7 @@ el_descriptions <- function(id = NULL,
                             width = NULL,
                             slots = NULL,
                             session = NULL) {
+  .el_check_choices("el_descriptions", environment())
   if (is.null(id)) id <- paste0("el_descriptions_", uuid::UUIDgenerate())
   ns_id <- .el_ui_id(id, session)
 

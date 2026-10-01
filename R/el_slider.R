@@ -24,7 +24,11 @@
 #' @param session Deprecated. Inside a module, wrap `id` in `ns()`, as for
 #'   any Shiny input; a session given here namespaces `id` once more, with
 #'   a warning.
-#' @param label Accessible label for screen readers.
+#' @param label A label shown with the component, as Shiny's inputs have:
+#'   text or a tag. `NULL`, the default, shows none. It is the component's
+#'   accessible name too.
+#' @param label_position `"top"` (the default, as Shiny's labels sit) or
+#'   `"left"`, beside the component as in a horizontal Element form.
 #' @param debounce Debounce in ms while dragging, when `show_input = TRUE`. Default `300`.
 #' @param input_size Size of the companion input when `show_input = TRUE`.
 #' @param show_input_controls Whether the companion input shows its spinner buttons.
@@ -90,10 +94,12 @@ el_slider <- function(
     show_input_controls = NULL,
     tooltip_class = NULL,
     format_tooltip = NULL,
+    label_position = c("top", "left"),
     width        = NULL,
     slots        = NULL,
     session      = NULL
 ) {
+  .el_check_choices("el_slider", environment())
   if (is.null(id)) id <- paste0("el_slider_", uuid::UUIDgenerate())
   ns_id        <- .el_ui_id(id, session)
   container_id <- paste0(ns_id, "_container")
@@ -155,6 +161,7 @@ el_slider <- function(
   vue_data$formatTooltip <- .el_or_na(format_tooltip)
 
   el_widget(
+    label = label, label_position = label_position,
     id     = ns_id,
     markup = htmltools::tag("el-slider", slider_attrs),
     data = vue_data,

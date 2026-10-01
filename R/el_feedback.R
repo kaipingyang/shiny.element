@@ -58,6 +58,7 @@ el_notification <- function(
     dangerously_use_html_string = FALSE,
     id         = NULL
 ) {
+  .el_check_choices("el_notification", environment())
   session$sendCustomMessage("elNotification", list(
     id        = if (!is.null(id)) session$ns(id),
     title     = title,
@@ -130,6 +131,7 @@ el_message <- function(
     dangerously_use_html_string = FALSE,
     id         = NULL
 ) {
+  .el_check_choices("el_message", environment())
   session$sendCustomMessage("elMessage", list(
     id        = if (!is.null(id)) session$ns(id),
     message   = message,
@@ -249,6 +251,7 @@ el_message_box <- function(session = shiny::getDefaultReactiveDomain(), id, mess
                            lock_scroll = NULL,
                            close_on_hash_change = NULL,
                            before_close = NULL) {
+  .el_check_choices("el_message_box", environment())
   box_type <- match.arg(box_type)
 
   session$sendCustomMessage("elMessageBox", list(

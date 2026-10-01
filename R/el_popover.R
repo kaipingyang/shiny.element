@@ -75,6 +75,7 @@ el_popover <- function(id = NULL,
                        width = NULL,
                        slots   = NULL,
                        session = NULL) {
+  .el_check_choices("el_popover", environment())
   inner_ref  <- .el_absorb(reference)
   inner_body <- .el_absorb(body)
 

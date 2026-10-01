@@ -26,6 +26,7 @@ el_autocomplete(
   name = NULL,
   popper_class = NULL,
   popper_append_to_body = NULL,
+  label_position = c("top", "left"),
   width = NULL,
   slots = NULL,
   session = NULL
@@ -70,13 +71,18 @@ Default \code{TRUE}.}
 
 \item{icon, prefix_icon, suffix_icon}{Icon classes.}
 
-\item{label}{Accessible label.}
+\item{label}{A label shown with the component, as Shiny's inputs have:
+text or a tag. \code{NULL}, the default, shows none. It is the component's
+accessible name too.}
 
 \item{name}{Native \code{name} attribute.}
 
 \item{popper_class}{Extra class name for the suggestion list.}
 
 \item{popper_append_to_body}{Whether the list is appended to \code{body}.}
+
+\item{label_position}{\code{"top"} (the default, as Shiny's labels sit) or
+\code{"left"}, beside the component as in a horizontal Element form.}
 
 \item{width}{Component width, as a CSS unit.}
 

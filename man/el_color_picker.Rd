@@ -13,6 +13,8 @@ el_color_picker(
   color_format = NULL,
   predefine = NULL,
   popper_class = NULL,
+  label = NULL,
+  label_position = c("top", "left"),
   width = NULL,
   slots = NULL,
   session = NULL
@@ -37,6 +39,13 @@ When \code{TRUE}, the returned value is an \code{rgba(...)} string.}
 none.}
 
 \item{popper_class}{Extra class name for the dropdown panel.}
+
+\item{label}{A label shown with the component, as Shiny's inputs have:
+text or a tag. \code{NULL}, the default, shows none. It is the component's
+accessible name too.}
+
+\item{label_position}{\code{"top"} (the default, as Shiny's labels sit) or
+\code{"left"}, beside the component as in a horizontal Element form.}
 
 \item{width}{Component width, as a CSS unit -- \code{"200px"}, \code{"50\%"}, or a
 number taken as pixels. Element's own markup carries it, so it behaves

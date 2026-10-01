@@ -25,7 +25,11 @@
 #' @param highlight_first_item Whether to preselect the first suggestion.
 #' @param hide_loading Whether to hide the loading spinner.
 #' @param icon,prefix_icon,suffix_icon Icon classes.
-#' @param label Accessible label.
+#' @param label A label shown with the component, as Shiny's inputs have:
+#'   text or a tag. `NULL`, the default, shows none. It is the component's
+#'   accessible name too.
+#' @param label_position `"top"` (the default, as Shiny's labels sit) or
+#'   `"left"`, beside the component as in a horizontal Element form.
 #' @param name Native `name` attribute.
 #' @param popper_class Extra class name for the suggestion list.
 #' @param popper_append_to_body Whether the list is appended to `body`.
@@ -78,9 +82,11 @@ el_autocomplete <- function(id = NULL,
                             name = NULL,
                             popper_class = NULL,
                             popper_append_to_body = NULL,
+                            label_position = c("top", "left"),
                             width = NULL,
                             slots   = NULL,
                             session = NULL) {
+  .el_check_choices("el_autocomplete", environment())
   if (is.null(id)) id <- paste0("el_autocomplete_", uuid::UUIDgenerate())
   ns_id <- .el_ui_id(id, session)
 
@@ -124,6 +130,7 @@ el_autocomplete <- function(id = NULL,
   attrs <- c(attrs, events$attrs)
 
   el_widget(
+    label = label, label_position = label_position,
     id     = ns_id,
     markup = htmltools::tag("el-autocomplete", attrs),
     data   = list(

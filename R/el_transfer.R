@@ -24,6 +24,11 @@
 #'   `list(key =, label =, disabled =)`.
 #' @param left_default_checked,right_default_checked Keys ticked at the start.
 #' @param render_content `htmlwidgets::JS()` render function for an item.
+#' @param label A label shown with the component, as Shiny's inputs have:
+#'   text or a tag. `NULL`, the default, shows none. It is the component's
+#'   accessible name too.
+#' @param label_position `"top"` (the default, as Shiny's labels sit) or
+#'   `"left"`, beside the component as in a horizontal Element form.
 #' @param width Component width, as a CSS unit.
 #' @param session Deprecated. Inside a module, wrap `id` in `ns()`, as for
 #'   any Shiny input; a session given here namespaces `id` once more, with
@@ -72,9 +77,12 @@ el_transfer <- function(id = NULL,
                         left_default_checked = NULL,
                         right_default_checked = NULL,
                         render_content = NULL,
+                        label = NULL,
+                        label_position = c("top", "left"),
                         width = NULL,
                         slots   = NULL,
                         session = NULL) {
+  .el_check_choices("el_transfer", environment())
   if (is.null(id)) id <- paste0("el_transfer_", uuid::UUIDgenerate())
   ns_id <- .el_ui_id(id, session)
 
@@ -102,6 +110,7 @@ el_transfer <- function(id = NULL,
   attrs <- c(attrs, events$attrs)
 
   el_widget(
+    label = label, label_position = label_position,
     id     = ns_id,
     markup = htmltools::tag("el-transfer", attrs),
     data   = list(

@@ -9,6 +9,8 @@ el_cascader_panel(
   options = list(),
   value = NULL,
   props = NULL,
+  label = NULL,
+  label_position = c("top", "left"),
   width = NULL,
   slots = NULL,
   session = NULL
@@ -28,6 +30,13 @@ level down -- or a list of paths with \code{props = list(multiple = TRUE)}.}
 \code{checkStrictly}, \code{expandTrigger} (\code{"click"} or \code{"hover"}), \code{lazy},
 \code{lazyLoad}, and the field names \code{value}, \code{label}, \code{children},
 \code{disabled}, \code{leaf}.}
+
+\item{label}{A label shown with the component, as Shiny's inputs have:
+text or a tag. \code{NULL}, the default, shows none. It is the component's
+accessible name too.}
+
+\item{label_position}{\code{"top"} (the default, as Shiny's labels sit) or
+\code{"left"}, beside the component as in a horizontal Element form.}
 
 \item{width}{Component width, as a CSS unit.}
 

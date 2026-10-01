@@ -6,6 +6,11 @@
 #' @param value Bound value (Date/string/number)
 #' @param range Date range, c("YYYY-MM-DD", "YYYY-MM-DD")
 #' @param first_day_of_week First day of week (1~7), default 1
+#' @param label A label shown with the component, as Shiny's inputs have:
+#'   text or a tag. `NULL`, the default, shows none. It is the component's
+#'   accessible name too.
+#' @param label_position `"top"` (the default, as Shiny's labels sit) or
+#'   `"left"`, beside the component as in a horizontal Element form.
 #' @param width Component width, as a CSS unit -- `"200px"`, `"50%"`, or a
 #'   number taken as pixels.
 #' @param slots Named list of Element slot contents. `dateCell` renders one
@@ -73,6 +78,8 @@ el_calendar <- function(id = NULL,
                         value = NULL,  
                         range = NULL,  
                         first_day_of_week = 1,  
+                        label = NULL,
+                        label_position = c("top", "left"),
                         width   = NULL,
                         slots   = NULL,
                         session = NULL) {  
@@ -115,6 +122,7 @@ el_calendar <- function(id = NULL,
   vue_data$range <- if (is.null(range)) NA else as.character(range)  
   
   el_widget(
+    label = label, label_position = label_position,
     id     = ns_id,
     markup = tag("el-calendar", calendar_attrs),
     head   = tags$style(HTML("

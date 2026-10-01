@@ -78,6 +78,7 @@ el_container <- function(...,
                          style = NULL,
                          class = NULL,
                          session = NULL) {
+  .el_check_choices("el_container", environment())
   children <- list(...)
 
   vertical <- if (!is.null(direction)) {

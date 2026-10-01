@@ -18,6 +18,7 @@
 #' @export
 el_divider <- function(content = NULL, direction = "horizontal",
                        content_position = "center") {
+  .el_check_choices("el_divider", environment())
   direction        <- match.arg(direction, c("horizontal", "vertical"))
   content_position <- match.arg(content_position, c("center", "left", "right"))
 

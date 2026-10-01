@@ -22,6 +22,11 @@
 #' @param popper_class Extra class name for the dropdown panel.
 #' @param filter_method `htmlwidgets::JS()` function filtering the options as the user types.
 #' @param before_filter `htmlwidgets::JS()` function called before filtering; returning `false` cancels it.
+#' @param label A label shown with the component, as Shiny's inputs have:
+#'   text or a tag. `NULL`, the default, shows none. It is the component's
+#'   accessible name too.
+#' @param label_position `"top"` (the default, as Shiny's labels sit) or
+#'   `"left"`, beside the component as in a horizontal Element form.
 #' @param width Component width, as a CSS unit -- `"200px"`, `"50%"`, or a
 #'   number taken as pixels. Element's own markup carries it, so it behaves
 #'   like the `width` argument of a Shiny input.
@@ -106,9 +111,12 @@ el_cascader <- function(id = NULL,
                         popper_class = NULL,
                         filter_method = NULL,
                         before_filter = NULL,
+                        label = NULL,
+                        label_position = c("top", "left"),
                         width   = NULL,
                         slots   = NULL,
                         session = NULL) {
+  .el_check_choices("el_cascader", environment())
   if (is.null(id)) {
     id <- paste0("el_cascader_", uuid::UUIDgenerate())
   }
@@ -162,6 +170,7 @@ el_cascader <- function(id = NULL,
   vue_data$filterMethod <- .el_or_na(filter_method)
   vue_data$beforeFilter <- .el_or_na(before_filter)
   el_widget(
+    label = label, label_position = label_position,
     id     = ns_id,
     markup = tag("el-cascader", cascader_attrs),
     data = vue_data,

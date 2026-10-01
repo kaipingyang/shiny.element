@@ -70,6 +70,7 @@
 #' )
 el_row <- function(..., gutter = NULL, type = NULL, justify = NULL,
                    align = NULL, tag = "div", class = NULL, style = NULL) {
+  .el_check_choices("el_row", environment())
   children <- list(...)
   is_flex  <- identical(type, "flex")
 

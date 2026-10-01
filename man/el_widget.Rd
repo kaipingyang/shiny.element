@@ -18,7 +18,9 @@ el_widget(
   slots = NULL,
   report = NULL,
   rate = NULL,
-  type = NULL
+  type = NULL,
+  label = NULL,
+  label_position = c("top", "left")
 )
 }
 \arguments{
@@ -62,6 +64,15 @@ or \code{"throttle"}. \code{NULL}, the default, sends every change.}
 
 \item{type}{An input type for \code{\link[shiny:registerInputHandler]{shiny::registerInputHandler()}}, which
 converts the value on its way into R.}
+
+\item{label}{A label shown with the component, as Shiny's inputs have:
+text or a tag. \code{NULL}, the default, shows none. It is the component's
+accessible name too -- tied to it with \code{for} where the component has a
+native input that takes the id \verb{<id>-input}, else with
+\code{aria-labelledby}.}
+
+\item{label_position}{\code{"top"} (the default, as Shiny lays its labels out)
+or \code{"left"}, beside the component as in a horizontal Element form.}
 }
 \value{
 A Shiny UI element with its dependencies attached.

@@ -32,6 +32,7 @@ el_input(
   resize = NULL,
   tabindex = NULL,
   validate_event = NULL,
+  label_position = c("top", "left"),
   width = NULL,
   slots = NULL,
   session = NULL
@@ -73,7 +74,9 @@ or a named list \code{list(minRows = 2, maxRows = 4)}. Default \code{FALSE}.}
 \item{suffix_icon}{Icon class for the suffix slot (e.g. \code{"el-icon-date"}).
 \code{NULL} means no icon.}
 
-\item{label}{ARIA \code{label} attribute for accessibility. \code{NULL} omits it.}
+\item{label}{A label shown with the component, as Shiny's inputs have:
+text or a tag. \code{NULL}, the default, shows none. It is the component's
+accessible name too.}
 
 \item{autocomplete}{Native \code{autocomplete} attribute. Default \code{"off"}.}
 
@@ -96,6 +99,9 @@ or a named list \code{list(minRows = 2, maxRows = 4)}. Default \code{FALSE}.}
 \item{tabindex}{Tab index of the input.}
 
 \item{validate_event}{Whether a change triggers form validation. Default \code{TRUE}.}
+
+\item{label_position}{\code{"top"} (the default, as Shiny's labels sit) or
+\code{"left"}, beside the component as in a horizontal Element form.}
 
 \item{width}{Component width, as a CSS unit -- \code{"200px"}, \code{"50\%"}, or a
 number taken as pixels. Element's own markup carries it, so it behaves

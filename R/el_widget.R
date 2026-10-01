@@ -40,6 +40,13 @@
 #'   other ids -- `c(value = id, open = paste0(id, "_open"))` -- are sent on
 #'   load and on every change too. An [update_vue_data()] from the server
 #'   counts as a change. Inside a module, pass the namespaced ids.
+#' @param label A label shown with the component, as Shiny's inputs have:
+#'   text or a tag. `NULL`, the default, shows none. It is the component's
+#'   accessible name too -- tied to it with `for` where the component has a
+#'   native input that takes the id `<id>-input`, else with
+#'   `aria-labelledby`.
+#' @param label_position `"top"` (the default, as Shiny lays its labels out)
+#'   or `"left"`, beside the component as in a horizontal Element form.
 #' @param rate How often the value is sent while it changes:
 #'   `list(policy = "debounce", delay = 250)`, as Shiny's `textInput()` does,
 #'   or `"throttle"`. `NULL`, the default, sends every change.
@@ -70,8 +77,10 @@
 el_widget <- function(id, markup, data, methods = NULL, watch = NULL,
                       mounted = NULL, computed = NULL, dependency = NULL,
                       head = NULL, width = NULL, slots = NULL, report = NULL,
-                      rate = NULL, type = NULL) {
+                      rate = NULL, type = NULL, label = NULL,
+                      label_position = c("top", "left")) {
   container_id <- paste0(id, "_container")
+  label_position <- match.arg(label_position)
   mounted_given <- mounted
 
   if (length(slots)) {
@@ -147,8 +156,23 @@ el_widget <- function(id, markup, data, methods = NULL, watch = NULL,
   # flash of raw <el-*> tags before Vue runs, and camelCase attribute names
   # survive -- an HTML parser lowercases them. Its root keeps the
   # `<id>_container` id the component's selectors have always used.
-  rendered <- htmltools::renderTags(
-    htmltools::tags$div(id = container_id, style = .el_host_style(), markup))
+  # Element tags that hand an `id` on to their native input are labelled with
+  # `for`; the rest with aria-labelledby on their root
+  if (!is.null(label) && inherits(markup, "shiny.tag")) {
+    # Checked in a browser: el-input-number and el-cascader put an id on their
+    # outer div, not on the input, so they take aria-labelledby
+    native <- markup$name %in% c("el-input", "el-autocomplete",
+                                 "el-select", "el-date-picker", "el-time-picker",
+                                 "el-time-select")
+    markup <- do.call(htmltools::tagAppendAttributes,
+                      c(list(markup), .el_label_attrs(list(), id, label, native)))
+  }
+  root <- if (is.null(label)) {
+    htmltools::tags$div(id = container_id, style = .el_host_style(), markup)
+  } else {
+    .el_labelled(container_id, id, label, label_position, markup)
+  }
+  rendered <- htmltools::renderTags(root)
   template <- gsub("</script", "<\\/script", rendered$html, ignore.case = TRUE)
 
   host <- htmltools::tags$div(
@@ -259,4 +283,58 @@ el_widget <- function(id, markup, data, methods = NULL, watch = NULL,
   }
   tag$children <- c(tag$children, children)
   tag
+}
+
+
+#' Lay a component out under (or beside) a label
+#'
+#' Element's own form-item markup -- `.el-form-item__label` and
+#' `.el-form-item__content` -- so the label looks as it does in an `el_form()`,
+#' laid out with flexbox rather than Element's floats, which assume an
+#' enclosing form. It is the template's root, inside the host: hiding or
+#' removing the component by its id takes the label with it.
+#'
+#' @param container_id The root's id, `<id>_container`.
+#' @param id The component's id.
+#' @param label Text or a tag.
+#' @param position `"top"` or `"left"`.
+#' @param markup The component's Element markup.
+#' @return A tag.
+#' @keywords internal
+.el_labelled <- function(container_id, id, label, position, markup) {
+  left <- identical(position, "left")
+  htmltools::tags$div(
+    id = container_id,
+    class = paste("el-form-item", if (left) "el-form-item--label-left" else "el-form-item--label-top"),
+    style = if (left) "display: flex; align-items: center; margin-bottom: 15px"
+            else "margin-bottom: 15px",
+    htmltools::tags$label(
+      id = paste0(id, "-label"), `for` = paste0(id, "-input"),
+      class = "el-form-item__label",
+      style = if (left) "float: none; padding: 0 12px 0 0; line-height: 1.4; flex: none"
+              else "float: none; display: block; text-align: left; padding: 0 0 6px; line-height: 1.4",
+      label
+    ),
+    htmltools::tags$div(class = "el-form-item__content",
+                        style = "margin-left: 0; line-height: normal", markup)
+  )
+}
+
+#' Tie a component's Element tag to its label
+#'
+#' A component whose Element tag hands an `id` on to a native input -- an
+#' input, a select, a picker -- is labelled with `for`; any other, with
+#' `aria-labelledby` on its root.
+#'
+#' @param attrs The Element tag's attributes.
+#' @param id The component's id.
+#' @param label The label; nothing is added when it is `NULL`.
+#' @param native Whether the tag passes `id` to a native input.
+#' @return The attributes, with the tie added.
+#' @keywords internal
+.el_label_attrs <- function(attrs, id, label, native = FALSE) {
+  if (is.null(label)) return(attrs)
+  if (native) attrs$id <- paste0(id, "-input")
+  else attrs[["aria-labelledby"]] <- paste0(id, "-label")
+  attrs
 }

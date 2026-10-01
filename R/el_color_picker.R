@@ -16,6 +16,11 @@
 #'   any Shiny input; a session given here namespaces `id` once more, with
 #'   a warning.
 #' @param popper_class Extra class name for the dropdown panel.
+#' @param label A label shown with the component, as Shiny's inputs have:
+#'   text or a tag. `NULL`, the default, shows none. It is the component's
+#'   accessible name too.
+#' @param label_position `"top"` (the default, as Shiny's labels sit) or
+#'   `"left"`, beside the component as in a horizontal Element form.
 #' @param width Component width, as a CSS unit -- `"200px"`, `"50%"`, or a
 #'   number taken as pixels. Element's own markup carries it, so it behaves
 #'   like the `width` argument of a Shiny input.
@@ -44,10 +49,13 @@ el_color_picker <- function(
     color_format = NULL,
     predefine    = NULL,
     popper_class = NULL,
+    label = NULL,
+    label_position = c("top", "left"),
     width        = NULL,
     slots        = NULL,
     session      = NULL
 ) {
+  .el_check_choices("el_color_picker", environment())
   if (is.null(id)) id <- paste0("el_color_picker_", uuid::UUIDgenerate())
   ns_id        <- .el_ui_id(id, session)
   container_id <- paste0(ns_id, "_container")
@@ -79,6 +87,7 @@ el_color_picker <- function(
   vue_data$popperClass <- .el_or_na(popper_class)
 
   el_widget(
+    label = label, label_position = label_position,
     id     = ns_id,
     markup = htmltools::tag("el-color-picker", cp_attrs),
     data    = vue_data,

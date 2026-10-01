@@ -22,6 +22,7 @@
 #' @export
 el_link <- function(label = "Link", href = NULL, type = "default",
                     underline = TRUE, disabled = FALSE, icon = NULL, ...) {
+  .el_check_choices("el_link", environment())
   link_classes <- c(
     "el-link",
     paste0("el-link--", type),

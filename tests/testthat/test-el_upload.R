@@ -84,12 +84,12 @@ test_that("el_upload: attaches its own handler dependency", {
 })
 
 test_that("el_upload: drag renders a drop zone, otherwise a button", {
-  dragged <- render_html(el_upload("files", drag = TRUE, label = "Drop here"))
+  dragged <- render_html(el_upload("files", drag = TRUE, button_label = "Drop here"))
   expect_match(dragged, "drag", fixed = TRUE)
   expect_match(dragged, "el-icon-upload", fixed = TRUE)
   expect_match(dragged, "Drop here", fixed = TRUE)
 
-  plain <- render_html(el_upload("files", label = "Pick"))
+  plain <- render_html(el_upload("files", button_label = "Pick"))
   expect_match(plain, "<el-button", fixed = TRUE)
   expect_false(grepl("el-upload-dragger", plain, fixed = TRUE))
 })

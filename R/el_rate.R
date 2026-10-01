@@ -26,6 +26,11 @@
 #' @param disabled_void_icon_class Icon class for unselected icons when `disabled = TRUE`.
 #' @param low_threshold Scores at or below this use the first colour and icon. Default `2`.
 #' @param high_threshold Scores above this use the third colour and icon. Default `4`.
+#' @param label A label shown with the component, as Shiny's inputs have:
+#'   text or a tag. `NULL`, the default, shows none. It is the component's
+#'   accessible name too.
+#' @param label_position `"top"` (the default, as Shiny's labels sit) or
+#'   `"left"`, beside the component as in a horizontal Element form.
 #' @param width Component width, as a CSS unit -- `"200px"`, `"50%"`, or a
 #'   number taken as pixels. Element's own markup carries it, so it behaves
 #'   like the `width` argument of a Shiny input.
@@ -68,6 +73,8 @@ el_rate <- function(
     disabled_void_icon_class = NULL,
     low_threshold  = NULL,
     high_threshold = NULL,
+    label = NULL,
+    label_position = c("top", "left"),
     width          = NULL,
     slots          = NULL,
     session        = NULL
@@ -106,6 +113,7 @@ el_rate <- function(
   rate_attrs[[":high-threshold"]] <- .el_optional_bind("highThreshold")
 
   el_widget(
+    label = label, label_position = label_position,
     id     = ns_id,
     markup = htmltools::tag("el-rate", rate_attrs),
     data = list(

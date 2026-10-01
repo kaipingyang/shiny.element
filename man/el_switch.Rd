@@ -8,6 +8,8 @@ el_switch(
   id = NULL,
   value = FALSE,
   disabled = FALSE,
+  label = NULL,
+  label_position = c("top", "left"),
   width = NULL,
   active_text = NULL,
   inactive_text = NULL,
@@ -29,6 +31,13 @@ el_switch(
 \item{value}{Initial switch state. Default \code{FALSE}.}
 
 \item{disabled}{Whether the switch is disabled. Default \code{FALSE}.}
+
+\item{label}{A label shown with the component, as Shiny's inputs have:
+text or a tag. \code{NULL}, the default, shows none. It is the component's
+accessible name too.}
+
+\item{label_position}{\code{"top"} (the default, as Shiny's labels sit) or
+\code{"left"}, beside the component as in a horizontal Element form.}
 
 \item{width}{Switch width in pixels (integer).}
 

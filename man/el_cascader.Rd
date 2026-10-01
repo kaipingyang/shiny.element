@@ -22,6 +22,8 @@ el_cascader(
   popper_class = NULL,
   filter_method = NULL,
   before_filter = NULL,
+  label = NULL,
+  label_position = c("top", "left"),
   width = NULL,
   slots = NULL,
   session = NULL
@@ -61,6 +63,13 @@ el_cascader(
 \item{filter_method}{\code{htmlwidgets::JS()} function filtering the options as the user types.}
 
 \item{before_filter}{\code{htmlwidgets::JS()} function called before filtering; returning \code{false} cancels it.}
+
+\item{label}{A label shown with the component, as Shiny's inputs have:
+text or a tag. \code{NULL}, the default, shows none. It is the component's
+accessible name too.}
+
+\item{label_position}{\code{"top"} (the default, as Shiny's labels sit) or
+\code{"left"}, beside the component as in a horizontal Element form.}
 
 \item{width}{Component width, as a CSS unit -- \code{"200px"}, \code{"50\%"}, or a
 number taken as pixels. Element's own markup carries it, so it behaves

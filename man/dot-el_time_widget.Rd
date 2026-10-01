@@ -29,7 +29,9 @@
   clear_icon,
   width,
   slots,
-  session
+  session,
+  label = NULL,
+  label_position = "top"
 )
 }
 \arguments{
@@ -79,6 +81,13 @@ latter two for a range.}
 \item{session}{Deprecated. Inside a module, wrap \code{id} in \code{ns()}, as for
 any Shiny input; a session given here namespaces \code{id} once more, with
 a warning.}
+
+\item{label}{A label shown with the component, as Shiny's inputs have:
+text or a tag. \code{NULL}, the default, shows none. It is the component's
+accessible name too.}
+
+\item{label_position}{\code{"top"} (the default, as Shiny's labels sit) or
+\code{"left"}, beside the component as in a horizontal Element form.}
 }
 \value{
 A Shiny UI element.

@@ -22,6 +22,7 @@
 #' @export
 el_badge <- function(..., value = NULL, max = NULL, is_dot = FALSE,
                      hidden = FALSE, type = NULL) {
+  .el_check_choices("el_badge", environment())
   # Compute display content in R (mirrors ElementUI's computed `content`)
   display_value <- if (is_dot) {
     NULL
