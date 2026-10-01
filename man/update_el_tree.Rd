@@ -4,10 +4,17 @@
 \alias{update_el_tree}
 \title{Update an Element UI Tree}
 \usage{
-update_el_tree(session, id, data = NULL, expanded = NULL, checked = NULL)
+update_el_tree(
+  session = shiny::getDefaultReactiveDomain(),
+  id,
+  data = NULL,
+  expanded = NULL,
+  checked = NULL
+)
 }
 \arguments{
-\item{session}{Shiny session object.}
+\item{session}{Shiny session; the current one by default, as for
+\code{\link[shiny:updateTextInput]{shiny::updateTextInput()}}.}
 
 \item{id}{Tree ID (un-namespaced).}
 

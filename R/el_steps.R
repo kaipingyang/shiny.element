@@ -120,7 +120,8 @@ el_steps <- function(id = NULL,
 }  
   
 #' Update Element UI Steps
-#' @param session Shiny session object
+#' @param session Shiny session; the current one by default, as for
+#'   [shiny::updateTextInput()].
 #' @param id Steps ID
 #' @param active New active step index
 #' @param process_status New process status
@@ -134,7 +135,7 @@ el_steps <- function(id = NULL,
 #'   })
 #' }
 #' @export
-update_el_steps <- function(session, id,   
+update_el_steps <- function(session = shiny::getDefaultReactiveDomain(), id,   
                             active = NULL,  
                             process_status = NULL,  
                             finish_status = NULL) {  

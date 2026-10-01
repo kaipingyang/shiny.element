@@ -4,10 +4,16 @@
 \alias{update_el_page_header}
 \title{Update Element UI Page Header}
 \usage{
-update_el_page_header(session, id, title = NULL, content = NULL)
+update_el_page_header(
+  session = shiny::getDefaultReactiveDomain(),
+  id,
+  title = NULL,
+  content = NULL
+)
 }
 \arguments{
-\item{session}{Shiny session object.}
+\item{session}{Shiny session; the current one by default, as for
+\code{\link[shiny:updateTextInput]{shiny::updateTextInput()}}.}
 
 \item{id}{Header ID (un-namespaced).}
 

@@ -4,10 +4,16 @@
 \alias{update_el_menu}
 \title{Update an Element UI Menu}
 \usage{
-update_el_menu(session, id, active = NULL, collapse = NULL)
+update_el_menu(
+  session = shiny::getDefaultReactiveDomain(),
+  id,
+  active = NULL,
+  collapse = NULL
+)
 }
 \arguments{
-\item{session}{Shiny session object.}
+\item{session}{Shiny session; the current one by default, as for
+\code{\link[shiny:updateTextInput]{shiny::updateTextInput()}}.}
 
 \item{id}{Menu ID (un-namespaced).}
 

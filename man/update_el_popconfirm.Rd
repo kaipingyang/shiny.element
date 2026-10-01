@@ -5,7 +5,7 @@
 \title{Update Element UI Confirmation Bubble}
 \usage{
 update_el_popconfirm(
-  session,
+  session = shiny::getDefaultReactiveDomain(),
   id,
   title = NULL,
   confirm_button_text = NULL,
@@ -13,7 +13,8 @@ update_el_popconfirm(
 )
 }
 \arguments{
-\item{session}{Shiny session object.}
+\item{session}{Shiny session; the current one by default, as for
+\code{\link[shiny:updateTextInput]{shiny::updateTextInput()}}.}
 
 \item{id}{Popconfirm ID (un-namespaced).}
 

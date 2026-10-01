@@ -4,10 +4,11 @@
 \alias{el_form_validate}
 \title{Validate an Element UI Form from the server}
 \usage{
-el_form_validate(session, id)
+el_form_validate(session = shiny::getDefaultReactiveDomain(), id)
 }
 \arguments{
-\item{session}{Shiny session object.}
+\item{session}{Shiny session; the current one by default, as for
+\code{\link[shiny:updateTextInput]{shiny::updateTextInput()}}.}
 
 \item{id}{Form ID (un-namespaced).}
 }

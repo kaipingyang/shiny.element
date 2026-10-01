@@ -4,10 +4,18 @@
 \alias{el_call}
 \title{Call a method on the Element UI component behind a widget}
 \usage{
-el_call(session, id, method, args = list(), result = TRUE, component = NULL)
+el_call(
+  session = shiny::getDefaultReactiveDomain(),
+  id,
+  method,
+  args = list(),
+  result = TRUE,
+  component = NULL
+)
 }
 \arguments{
-\item{session}{Shiny session object.}
+\item{session}{Shiny session; the current one by default, as for
+\code{\link[shiny:updateTextInput]{shiny::updateTextInput()}}.}
 
 \item{id}{Component ID (un-namespaced).}
 

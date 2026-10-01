@@ -288,7 +288,8 @@ el_tree <- function(id = NULL,
 
 #' Update an Element UI Tree
 #'
-#' @param session Shiny session object.
+#' @param session Shiny session; the current one by default, as for
+#'   [shiny::updateTextInput()].
 #' @param id Tree ID (un-namespaced).
 #' @param data Replacement node data.
 #' @param expanded Keys to expand. Expanding is additive: a node already open
@@ -305,7 +306,7 @@ el_tree <- function(id = NULL,
 #'   })
 #' }
 #' @export
-update_el_tree <- function(session, id,
+update_el_tree <- function(session = shiny::getDefaultReactiveDomain(), id,
                            data = NULL,
                            expanded = NULL,
                            checked = NULL) {

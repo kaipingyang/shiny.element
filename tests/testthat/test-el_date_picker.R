@@ -91,10 +91,12 @@ test_that("el_date_picker: @change binding present", {
   expect_match(html, "@change")
 })
 
-test_that("el_date_picker: handleChange contains ns_id for Shiny input", {
-  dp   <- el_date_picker("dp1", session = NULL)
-  html <- render_html(dp)
-  expect_match(html, "setInputValue[^']*'dp1'")
+test_that("el_date_picker: its value is the binding's, not the change handler's", {
+  # A handler sending the value too would send it unconverted, overwriting
+  # the Date the binding delivers
+  spec <- vue_spec_of(el_date_picker("dp1"))
+  expect_equal(spec$input, "value")
+  expect_false(grepl("setInputValue", spec$options$methods$handleChange, fixed = TRUE))
 })
 
 test_that("el_date_picker: :value-format binding present", {
@@ -173,4 +175,21 @@ test_that("update_el_date_picker: placeholder field included when supplied", {
   )
   update_el_date_picker(mock_session, "dp1", placeholder = "Choose date")
   expect_equal(captured$placeholder, "Choose date")
+})
+
+test_that("date types with the default format are converted to Date", {
+  expect_equal(vue_spec_of(el_date_picker("d"))$type, "shiny.element.date")
+  expect_equal(vue_spec_of(el_date_picker("d", type = "daterange"))$type, "shiny.element.date")
+  expect_null(vue_spec_of(el_date_picker("d", type = "month"))$type)
+  expect_null(vue_spec_of(el_date_picker("d", value_format = "dd/MM/yyyy"))$type)
+  expect_null(vue_spec_of(el_date_picker("d", type = "datetime"))$type)
+})
+
+test_that("the input handler turns picker text into Date", {
+  h <- shiny:::inputHandlers$get("shiny.element.date")
+  expect_equal(h("2026-01-15"), as.Date("2026-01-15"))
+  expect_equal(h(list("2026-01-01", "2026-01-31")), as.Date(c("2026-01-01", "2026-01-31")))
+  expect_null(h(NULL))
+  expect_null(h(""))
+  expect_null(h(list()))
 })

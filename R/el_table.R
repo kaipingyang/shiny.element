@@ -686,7 +686,8 @@ el_table <- function(id = NULL,
 
 #' Update Element UI Table
 #'
-#' @param session Shiny session object.
+#' @param session Shiny session; the current one by default, as for
+#'   [shiny::updateTextInput()].
 #' @param id Table ID (un-namespaced).
 #' @param data New data: a data.frame or a list of rows.
 #' @param columns New column configs. Omitted, the table keeps the columns
@@ -709,7 +710,7 @@ el_table <- function(id = NULL,
 #'   })
 #' }
 #' @export
-update_el_table <- function(session, id,
+update_el_table <- function(session = shiny::getDefaultReactiveDomain(), id,
                             data = NULL,
                             columns = NULL,
                             border = NULL,

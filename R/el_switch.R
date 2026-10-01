@@ -128,7 +128,8 @@ el_switch <- function(
 #' Server-side update for [el_switch()]. Pass only the fields to change;
 #' `NULL` fields are excluded from the update message.
 #'
-#' @param session Shiny session object.
+#' @param session Shiny session; the current one by default, as for
+#'   [shiny::updateTextInput()].
 #' @param id Switch ID (un-namespaced).
 #' @param value New switch value.
 #' @param disabled New disabled state.
@@ -147,7 +148,7 @@ el_switch <- function(
 #' }
 #' @export
 update_el_switch <- function(
-    session,
+    session = shiny::getDefaultReactiveDomain(),
     id,
     value          = NULL,
     disabled       = NULL,

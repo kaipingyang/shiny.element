@@ -85,7 +85,8 @@ el_breadcrumb <- function(id = NULL,
 #'
 #' Server-side update for [el_breadcrumb()].
 #'
-#' @param session Shiny session object.
+#' @param session Shiny session; the current one by default, as for
+#'   [shiny::updateTextInput()].
 #' @param id Breadcrumb ID (un-namespaced).
 #' @param items,separator New values; `NULL` leaves one unchanged.
 #'
@@ -100,7 +101,7 @@ el_breadcrumb <- function(id = NULL,
 #'   })
 #' }
 #' @export
-update_el_breadcrumb <- function(session, id, items = NULL, separator = NULL) {
+update_el_breadcrumb <- function(session = shiny::getDefaultReactiveDomain(), id, items = NULL, separator = NULL) {
   ns_id <- session$ns(id)
   msg <- list(id = ns_id)
   if (!is.null(items))     msg$items     <- unname(items)

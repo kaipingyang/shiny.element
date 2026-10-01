@@ -161,7 +161,8 @@ el_radio_group <- function(
 #' Server-side update for [el_radio_group()]. Sends a custom message to update
 #' reactive fields on the underlying Vue instance.
 #'
-#' @param session Shiny session object.
+#' @param session Shiny session; the current one by default, as for
+#'   [shiny::updateTextInput()].
 #' @param id Radio group input ID (un-namespaced).
 #' @param selected,value New selected value. `selected` is Shiny's name,
 #'   `value` Element's; give either.
@@ -179,7 +180,7 @@ el_radio_group <- function(
 #' }
 #' @export
 update_el_radio_group <- function(
-    session,
+    session = shiny::getDefaultReactiveDomain(),
     id,
     selected = NULL,
     choices  = NULL,

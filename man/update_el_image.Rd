@@ -4,10 +4,17 @@
 \alias{update_el_image}
 \title{Update Element UI Image}
 \usage{
-update_el_image(session, id, src = NULL, fit = NULL, preview_src_list = NULL)
+update_el_image(
+  session = shiny::getDefaultReactiveDomain(),
+  id,
+  src = NULL,
+  fit = NULL,
+  preview_src_list = NULL
+)
 }
 \arguments{
-\item{session}{Shiny session object.}
+\item{session}{Shiny session; the current one by default, as for
+\code{\link[shiny:updateTextInput]{shiny::updateTextInput()}}.}
 
 \item{id}{Image ID (un-namespaced).}
 

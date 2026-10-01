@@ -5,7 +5,7 @@
 \title{Update Element UI Back to Top}
 \usage{
 update_el_backtop(
-  session,
+  session = shiny::getDefaultReactiveDomain(),
   id,
   visibility_height = NULL,
   right = NULL,
@@ -13,7 +13,8 @@ update_el_backtop(
 )
 }
 \arguments{
-\item{session}{Shiny session object.}
+\item{session}{Shiny session; the current one by default, as for
+\code{\link[shiny:updateTextInput]{shiny::updateTextInput()}}.}
 
 \item{id}{Button ID (un-namespaced).}
 

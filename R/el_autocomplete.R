@@ -185,7 +185,8 @@ el_autocomplete <- function(id = NULL,
 #'
 #' Server-side update for [el_autocomplete()].
 #'
-#' @param session Shiny session object.
+#' @param session Shiny session; the current one by default, as for
+#'   [shiny::updateTextInput()].
 #' @param id Input ID (un-namespaced).
 #' @param value,suggestions,placeholder,disabled New values; `NULL` leaves one
 #'   unchanged.
@@ -199,7 +200,7 @@ el_autocomplete <- function(id = NULL,
 #'   })
 #' }
 #' @export
-update_el_autocomplete <- function(session, id, value = NULL,
+update_el_autocomplete <- function(session = shiny::getDefaultReactiveDomain(), id, value = NULL,
                                    suggestions = NULL, placeholder = NULL,
                                    disabled = NULL) {
   ns_id <- session$ns(id)

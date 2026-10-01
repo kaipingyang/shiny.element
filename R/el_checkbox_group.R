@@ -155,7 +155,8 @@ el_checkbox_group <- function(
 #' Server-side update for [el_checkbox_group()]. Pass only the fields to change;
 #' `NULL` fields are excluded from the update message.
 #'
-#' @param session Shiny session object.
+#' @param session Shiny session; the current one by default, as for
+#'   [shiny::updateTextInput()].
 #' @param id Checkbox group ID (un-namespaced).
 #' @param selected,value New character vector of checked values.
 #'   `selected` is Shiny's name, `value` Element's; give either.
@@ -175,7 +176,7 @@ el_checkbox_group <- function(
 #' }
 #' @export
 update_el_checkbox_group <- function(
-    session,
+    session = shiny::getDefaultReactiveDomain(),
     id,
     selected = NULL,
     choices  = NULL,

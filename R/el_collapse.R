@@ -130,7 +130,8 @@ el_collapse_dependency <- function() {
 #'
 #' Server-side update for [el_collapse()].
 #'
-#' @param session Shiny session object.
+#' @param session Shiny session; the current one by default, as for
+#'   [shiny::updateTextInput()].
 #' @param id Collapse ID (un-namespaced).
 #' @param value Character vector of panel names to open. Pass
 #'   `character(0)` to close them all.
@@ -144,7 +145,7 @@ el_collapse_dependency <- function() {
 #'   })
 #' }
 #' @export
-update_el_collapse <- function(session, id, value = NULL) {
+update_el_collapse <- function(session = shiny::getDefaultReactiveDomain(), id, value = NULL) {
   msg <- list()
   # An input message rather than a custom message: the binding owns this
   # element, and Shiny routes the message to it by id.

@@ -6,12 +6,13 @@
 \alias{el_notification_close}
 \title{Close a message or a notification}
 \usage{
-el_message_close(session, id = NULL)
+el_message_close(session = shiny::getDefaultReactiveDomain(), id = NULL)
 
-el_notification_close(session, id = NULL)
+el_notification_close(session = shiny::getDefaultReactiveDomain(), id = NULL)
 }
 \arguments{
-\item{session}{Shiny session object.}
+\item{session}{Shiny session; the current one by default, as for
+\code{\link[shiny:updateTextInput]{shiny::updateTextInput()}}.}
 
 \item{id}{The \code{id} it was opened with, or \code{NULL} for all of them.}
 }

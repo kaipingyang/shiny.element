@@ -5,7 +5,7 @@
 \title{Update Element UI Popover}
 \usage{
 update_el_popover(
-  session,
+  session = shiny::getDefaultReactiveDomain(),
   id,
   title = NULL,
   content = NULL,
@@ -14,7 +14,8 @@ update_el_popover(
 )
 }
 \arguments{
-\item{session}{Shiny session object.}
+\item{session}{Shiny session; the current one by default, as for
+\code{\link[shiny:updateTextInput]{shiny::updateTextInput()}}.}
 
 \item{id}{Popover ID (un-namespaced).}
 

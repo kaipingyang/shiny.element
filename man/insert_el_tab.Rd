@@ -6,7 +6,7 @@
 \title{Add or remove a tab from the server}
 \usage{
 insert_el_tab(
-  session,
+  session = shiny::getDefaultReactiveDomain(),
   id,
   name,
   label,
@@ -15,10 +15,11 @@ insert_el_tab(
   select = TRUE
 )
 
-remove_el_tab(session, id, name)
+remove_el_tab(session = shiny::getDefaultReactiveDomain(), id, name)
 }
 \arguments{
-\item{session}{Shiny session object.}
+\item{session}{Shiny session; the current one by default, as for
+\code{\link[shiny:updateTextInput]{shiny::updateTextInput()}}.}
 
 \item{id}{Tabs ID (un-namespaced).}
 

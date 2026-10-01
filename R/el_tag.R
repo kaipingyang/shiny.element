@@ -102,7 +102,8 @@ el_tag <- function(
 #'
 #' Server-side update for [el_tag()].
 #'
-#' @param session Shiny session object.
+#' @param session Shiny session; the current one by default, as for
+#'   [shiny::updateTextInput()].
 #' @param id Tag ID (un-namespaced).
 #' @param label New label text.
 #' @param type New colour type.
@@ -117,7 +118,7 @@ el_tag <- function(
 #'   })
 #' }
 #' @export
-update_el_tag <- function(session, id, label = NULL, type = NULL,
+update_el_tag <- function(session = shiny::getDefaultReactiveDomain(), id, label = NULL, type = NULL,
                           closable = NULL) {
   ns_id <- session$ns(id)
   msg   <- list(id = ns_id)

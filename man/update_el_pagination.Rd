@@ -5,7 +5,7 @@
 \title{Update Element UI Pagination}
 \usage{
 update_el_pagination(
-  session,
+  session = shiny::getDefaultReactiveDomain(),
   id,
   total = NULL,
   current_page = NULL,
@@ -14,7 +14,8 @@ update_el_pagination(
 )
 }
 \arguments{
-\item{session}{Shiny session object.}
+\item{session}{Shiny session; the current one by default, as for
+\code{\link[shiny:updateTextInput]{shiny::updateTextInput()}}.}
 
 \item{id}{Pagination ID (un-namespaced).}
 

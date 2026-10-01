@@ -82,7 +82,8 @@ el_avatar <- function(id = NULL,
 #'
 #' Server-side update for [el_avatar()].
 #'
-#' @param session Shiny session object.
+#' @param session Shiny session; the current one by default, as for
+#'   [shiny::updateTextInput()].
 #' @param id Avatar ID (un-namespaced).
 #' @param content,src,icon,size,shape New values; `NULL` leaves one unchanged.
 #'
@@ -95,7 +96,7 @@ el_avatar <- function(id = NULL,
 #'   })
 #' }
 #' @export
-update_el_avatar <- function(session, id, content = NULL, src = NULL,
+update_el_avatar <- function(session = shiny::getDefaultReactiveDomain(), id, content = NULL, src = NULL,
                              icon = NULL, size = NULL, shape = NULL) {
   ns_id <- session$ns(id)
   msg <- list(id = ns_id)

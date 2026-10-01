@@ -5,7 +5,7 @@
 \title{Update Element UI Descriptions}
 \usage{
 update_el_descriptions(
-  session,
+  session = shiny::getDefaultReactiveDomain(),
   id,
   title = NULL,
   extra = NULL,
@@ -15,7 +15,8 @@ update_el_descriptions(
 )
 }
 \arguments{
-\item{session}{Shiny session object.}
+\item{session}{Shiny session; the current one by default, as for
+\code{\link[shiny:updateTextInput]{shiny::updateTextInput()}}.}
 
 \item{id}{Component ID (un-namespaced).}
 

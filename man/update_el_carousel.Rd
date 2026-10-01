@@ -5,7 +5,7 @@
 \title{Update an Element UI Carousel}
 \usage{
 update_el_carousel(
-  session,
+  session = shiny::getDefaultReactiveDomain(),
   id,
   active = NULL,
   autoplay = NULL,
@@ -13,7 +13,8 @@ update_el_carousel(
 )
 }
 \arguments{
-\item{session}{Shiny session object.}
+\item{session}{Shiny session; the current one by default, as for
+\code{\link[shiny:updateTextInput]{shiny::updateTextInput()}}.}
 
 \item{id}{Carousel ID (un-namespaced).}
 

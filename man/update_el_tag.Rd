@@ -4,10 +4,17 @@
 \alias{update_el_tag}
 \title{Update Element UI Tag}
 \usage{
-update_el_tag(session, id, label = NULL, type = NULL, closable = NULL)
+update_el_tag(
+  session = shiny::getDefaultReactiveDomain(),
+  id,
+  label = NULL,
+  type = NULL,
+  closable = NULL
+)
 }
 \arguments{
-\item{session}{Shiny session object.}
+\item{session}{Shiny session; the current one by default, as for
+\code{\link[shiny:updateTextInput]{shiny::updateTextInput()}}.}
 
 \item{id}{Tag ID (un-namespaced).}
 

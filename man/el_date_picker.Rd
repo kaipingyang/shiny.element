@@ -126,8 +126,11 @@ Callable with \code{\link[=el_call]{el_call()}}:
 
 \section{Shiny input}{
 
-\verb{input$<id>} — String for single-date types, or two-element array for range
-types. The format is controlled by \code{value_format}.
+\verb{input$<id>} -- for \code{type} \code{"date"}, \code{"dates"} and \code{"daterange"} with the
+default \code{value_format}, a \code{Date} (two for a range, several for \code{"dates"}),
+as \code{\link[shiny:dateInput]{shiny::dateInput()}} gives one; \code{NULL} while empty. Any other type or
+\code{value_format} reports the text the picker produces, in that format -- you
+asked for that format, so it is not converted.
 }
 
 \examples{

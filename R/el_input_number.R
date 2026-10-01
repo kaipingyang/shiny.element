@@ -133,7 +133,8 @@ el_input_number <- function(
 #'
 #' Server-side update for [el_input_number()].
 #'
-#' @param session Shiny session object.
+#' @param session Shiny session; the current one by default, as for
+#'   [shiny::updateTextInput()].
 #' @param id Input ID (un-namespaced).
 #' @param value New numeric value.
 #' @param min New minimum.
@@ -149,7 +150,7 @@ el_input_number <- function(
 #'   })
 #' }
 #' @export
-update_el_input_number <- function(session, id, value = NULL, min = NULL,
+update_el_input_number <- function(session = shiny::getDefaultReactiveDomain(), id, value = NULL, min = NULL,
                                    max = NULL, disabled = NULL) {
   ns_id <- session$ns(id)
   msg   <- list(id = ns_id)

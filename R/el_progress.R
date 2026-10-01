@@ -124,7 +124,8 @@ el_progress <- function(
 #'
 #' Server-side update for [el_progress()].
 #'
-#' @param session Shiny session object.
+#' @param session Shiny session; the current one by default, as for
+#'   [shiny::updateTextInput()].
 #' @param id Progress ID (un-namespaced).
 #' @param percentage New percentage value (`0`–`100`).
 #' @param type New progress type.
@@ -144,7 +145,7 @@ el_progress <- function(
 #' }
 #' @export
 update_el_progress <- function(
-    session,
+    session = shiny::getDefaultReactiveDomain(),
     id,
     percentage   = NULL,
     type         = NULL,

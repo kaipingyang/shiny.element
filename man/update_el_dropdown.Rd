@@ -4,10 +4,15 @@
 \alias{update_el_dropdown}
 \title{Update Element UI Dropdown}
 \usage{
-update_el_dropdown(session, id, disabled = NULL)
+update_el_dropdown(
+  session = shiny::getDefaultReactiveDomain(),
+  id,
+  disabled = NULL
+)
 }
 \arguments{
-\item{session}{Shiny session object.}
+\item{session}{Shiny session; the current one by default, as for
+\code{\link[shiny:updateTextInput]{shiny::updateTextInput()}}.}
 
 \item{id}{Dropdown ID (un-namespaced).}
 

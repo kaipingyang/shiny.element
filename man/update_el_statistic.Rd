@@ -5,7 +5,7 @@
 \title{Update Element UI Statistic}
 \usage{
 update_el_statistic(
-  session,
+  session = shiny::getDefaultReactiveDomain(),
   id,
   value = NULL,
   title = NULL,
@@ -14,7 +14,8 @@ update_el_statistic(
 )
 }
 \arguments{
-\item{session}{Shiny session object.}
+\item{session}{Shiny session; the current one by default, as for
+\code{\link[shiny:updateTextInput]{shiny::updateTextInput()}}.}
 
 \item{id}{Component ID (un-namespaced).}
 

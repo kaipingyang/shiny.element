@@ -1,5 +1,6 @@
 #' Update one or more fields of a Vue component instance by id (namespaced)
-#' @param session Shiny session object
+#' @param session Shiny session; the current one by default, as for
+#'   [shiny::updateTextInput()].
 #' @param id Vue component id (string)
 #' @param ... Named fields and values to update
 #' @return Called for its side effect; returns `NULL` invisibly.
@@ -13,7 +14,7 @@
 #' # Update multiple fields at once
 #' update_vue_component(session, "my_calendar", value = "2025-12-31", first_day_of_week = 3)
 #' }
-update_vue_component <- function(session, id, ...) {
+update_vue_component <- function(session = shiny::getDefaultReactiveDomain(), id, ...) {
   ns_id <- session$ns(id)
   message <- list(id = ns_id, ...)
   session$sendCustomMessage("update_vue_component", message)
@@ -21,7 +22,8 @@ update_vue_component <- function(session, id, ...) {
 }
 
 #' Update the entire data object of a Vue component instance by id (namespaced)
-#' @param session Shiny session object
+#' @param session Shiny session; the current one by default, as for
+#'   [shiny::updateTextInput()].
 #' @param id Vue component id (string)
 #' @param data Named list representing the full Vue data object
 #' @return Called for its side effect; returns `NULL` invisibly.
@@ -35,7 +37,7 @@ update_vue_component <- function(session, id, ...) {
 #'   first_day_of_week = 3
 #' ))
 #' }
-update_vue_data <- function(session, id, data) {
+update_vue_data <- function(session = shiny::getDefaultReactiveDomain(), id, data) {
   ns_id <- session$ns(id)
   message <- list(id = ns_id, data = data)
   session$sendCustomMessage("update_vue_data", message)

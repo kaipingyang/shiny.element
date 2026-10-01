@@ -5,7 +5,7 @@
 \title{Update Element UI Cascader}
 \usage{
 update_el_cascader(
-  session,
+  session = shiny::getDefaultReactiveDomain(),
   id,
   options = NULL,
   value = NULL,
@@ -16,7 +16,8 @@ update_el_cascader(
 )
 }
 \arguments{
-\item{session}{Shiny session object}
+\item{session}{Shiny session; the current one by default, as for
+\code{\link[shiny:updateTextInput]{shiny::updateTextInput()}}.}
 
 \item{id}{Cascader ID}
 

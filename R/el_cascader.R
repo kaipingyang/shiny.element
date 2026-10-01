@@ -178,7 +178,8 @@ el_cascader <- function(id = NULL,
 
 #' Update Element UI Cascader
 #'
-#' @param session Shiny session object
+#' @param session Shiny session; the current one by default, as for
+#'   [shiny::updateTextInput()].
 #' @param id Cascader ID
 #' @param options New cascader options
 #' @param value New selected value
@@ -195,7 +196,7 @@ el_cascader <- function(id = NULL,
 #'   })
 #' }
 #' @export
-update_el_cascader <- function(session, id,
+update_el_cascader <- function(session = shiny::getDefaultReactiveDomain(), id,
                                options = NULL,
                                value = NULL,
                                placeholder = NULL,

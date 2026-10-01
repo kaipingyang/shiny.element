@@ -76,7 +76,8 @@ el_result <- function(id = NULL,
 #'
 #' Server-side update for [el_result()].
 #'
-#' @param session Shiny session object.
+#' @param session Shiny session; the current one by default, as for
+#'   [shiny::updateTextInput()].
 #' @param id Component ID (un-namespaced).
 #' @param icon,title,sub_title New values; `NULL` leaves one unchanged.
 #'
@@ -92,7 +93,7 @@ el_result <- function(id = NULL,
 #'   })
 #' }
 #' @export
-update_el_result <- function(session, id, icon = NULL, title = NULL,
+update_el_result <- function(session = shiny::getDefaultReactiveDomain(), id, icon = NULL, title = NULL,
                              sub_title = NULL) {
   msg <- list(id = session$ns(id))
   if (!is.null(icon))      msg$resultIcon     <- icon

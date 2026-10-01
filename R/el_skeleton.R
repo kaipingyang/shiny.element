@@ -96,7 +96,8 @@ el_skeleton <- function(id = NULL,
 #' Server-side update for [el_skeleton()]. `loading = FALSE` swaps the
 #' placeholder for the real content.
 #'
-#' @param session Shiny session object.
+#' @param session Shiny session; the current one by default, as for
+#'   [shiny::updateTextInput()].
 #' @param id Component ID (un-namespaced).
 #' @param loading,rows New values; `NULL` leaves one unchanged.
 #'
@@ -109,7 +110,7 @@ el_skeleton <- function(id = NULL,
 #'   })
 #' }
 #' @export
-update_el_skeleton <- function(session, id, loading = NULL, rows = NULL) {
+update_el_skeleton <- function(session = shiny::getDefaultReactiveDomain(), id, loading = NULL, rows = NULL) {
   msg <- list(id = session$ns(id))
   if (!is.null(loading)) msg$skLoading <- loading
   if (!is.null(rows))    msg$skRows    <- rows

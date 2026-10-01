@@ -5,7 +5,7 @@
 \title{Update Element UI Button}
 \usage{
 update_el_button(
-  session,
+  session = shiny::getDefaultReactiveDomain(),
   id,
   label = NULL,
   type = NULL,
@@ -17,7 +17,8 @@ update_el_button(
 )
 }
 \arguments{
-\item{session}{Shiny session object.}
+\item{session}{Shiny session; the current one by default, as for
+\code{\link[shiny:updateTextInput]{shiny::updateTextInput()}}.}
 
 \item{id}{Button ID (un-namespaced).}
 

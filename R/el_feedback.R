@@ -3,7 +3,8 @@
 #' Server-side function to show a desktop-corner notification popup.
 #' Requires `use_element()` or `el_page()` in the UI to load the JS handler.
 #'
-#' @param session Shiny session object.
+#' @param session Shiny session; the current one by default, as for
+#'   [shiny::updateTextInput()].
 #' @param message Notification body text.
 #' @param title Notification title. Default `""`.
 #' @param type Notification type: `"info"`, `"success"`, `"warning"`,
@@ -44,7 +45,7 @@
 #' @return A Shiny UI element.
 #' @export
 el_notification <- function(
-    session,
+    session = shiny::getDefaultReactiveDomain(),
     message,
     title      = "",
     type       = "info",
@@ -79,7 +80,8 @@ el_notification <- function(
 #' Server-side function to show a top-centre message toast.
 #' Requires `use_element()` or `el_page()` in the UI to load the JS handler.
 #'
-#' @param session Shiny session object.
+#' @param session Shiny session; the current one by default, as for
+#'   [shiny::updateTextInput()].
 #' @param message Message text.
 #' @param type Message type: `"info"`, `"success"`, `"warning"`, or `"error"`.
 #'   Default `"info"`.
@@ -116,7 +118,7 @@ el_notification <- function(
 #' @return A Shiny UI element.
 #' @export
 el_message <- function(
-    session,
+    session = shiny::getDefaultReactiveDomain(),
     message,
     type       = "info",
     duration   = 3000,
@@ -154,7 +156,8 @@ el_message <- function(
 #' is set with event priority, so answering "confirm" twice in a row fires the
 #' observer twice, where an output reading the value would see no change.
 #'
-#' @param session Shiny session object.
+#' @param session Shiny session; the current one by default, as for
+#'   [shiny::updateTextInput()].
 #' @param id Input ID the answer is reported to.
 #' @param message The question or statement.
 #' @param title Title of the box.
@@ -218,7 +221,7 @@ el_message <- function(
 #'   shinyApp(ui, server)
 #' }
 #' @export
-el_message_box <- function(session, id, message, title = NULL,
+el_message_box <- function(session = shiny::getDefaultReactiveDomain(), id, message, title = NULL,
                            type = NULL,
                            box_type = c("confirm", "alert", "prompt"),
                            confirm_button_text = NULL,
@@ -292,7 +295,8 @@ el_message_box <- function(session, id, message, title = NULL,
 #' Each mask is named, and stays until [el_loading_close()] is called with the
 #' same `id`.
 #'
-#' @param session Shiny session object.
+#' @param session Shiny session; the current one by default, as for
+#'   [shiny::updateTextInput()].
 #' @param id Name for this mask, used to close it again.
 #' @param text Text shown under the spinner.
 #' @param target CSS selector of the element to cover. `NULL` covers the page.
@@ -323,7 +327,7 @@ el_message_box <- function(session, id, message, title = NULL,
 #'   shinyApp(ui, server)
 #' }
 #' @export
-el_loading <- function(session, id = "default", text = NULL, target = NULL,
+el_loading <- function(session = shiny::getDefaultReactiveDomain(), id = "default", text = NULL, target = NULL,
                        fullscreen = NULL, lock = NULL, body = NULL,
                        spinner = NULL, background = NULL,
                        custom_class = NULL) {
@@ -347,7 +351,8 @@ el_loading <- function(session, id = "default", text = NULL, target = NULL,
 #' Closes the mask [el_loading()] opened under this `id`. Closing one that is
 #' not open does nothing.
 #'
-#' @param session Shiny session object.
+#' @param session Shiny session; the current one by default, as for
+#'   [shiny::updateTextInput()].
 #' @param id The `id` the mask was opened with.
 #'
 #' @return Called for its side effect; returns `NULL` invisibly.
@@ -359,7 +364,7 @@ el_loading <- function(session, id = "default", text = NULL, target = NULL,
 #'   })
 #' }
 #' @export
-el_loading_close <- function(session, id = "default") {
+el_loading_close <- function(session = shiny::getDefaultReactiveDomain(), id = "default") {
   session$sendCustomMessage("elLoading", list(id = session$ns(id), close = TRUE))
   invisible(NULL)
 }
@@ -370,7 +375,8 @@ el_loading_close <- function(session, id = "default") {
 #' Closes the one opened under `id`, or every one currently showing when `id`
 #' is `NULL` -- Element's `close()` and `closeAll()`.
 #'
-#' @param session Shiny session object.
+#' @param session Shiny session; the current one by default, as for
+#'   [shiny::updateTextInput()].
 #' @param id The `id` it was opened with, or `NULL` for all of them.
 #'
 #' @return Called for its side effect; returns `NULL` invisibly.
@@ -389,7 +395,7 @@ NULL
 
 #' @rdname el_feedback_close
 #' @export
-el_message_close <- function(session, id = NULL) {
+el_message_close <- function(session = shiny::getDefaultReactiveDomain(), id = NULL) {
   session$sendCustomMessage("elMessageClose",
                             list(id = if (!is.null(id)) session$ns(id)))
   invisible(NULL)
@@ -397,7 +403,7 @@ el_message_close <- function(session, id = NULL) {
 
 #' @rdname el_feedback_close
 #' @export
-el_notification_close <- function(session, id = NULL) {
+el_notification_close <- function(session = shiny::getDefaultReactiveDomain(), id = NULL) {
   session$sendCustomMessage("elNotificationClose",
                             list(id = if (!is.null(id)) session$ns(id)))
   invisible(NULL)

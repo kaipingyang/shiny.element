@@ -249,7 +249,8 @@ el_select <- function(
 #' Server-side update for [el_select()]. Sends a custom message to update
 #' reactive fields on the underlying Vue instance.
 #'
-#' @param session Shiny session object.
+#' @param session Shiny session; the current one by default, as for
+#'   [shiny::updateTextInput()].
 #' @param id Select input ID (un-namespaced).
 #' @param selected,value New selected value(s). `selected` is Shiny's name,
 #'   `value` Element's; give either.
@@ -271,7 +272,7 @@ el_select <- function(
 #' }
 #' @export
 update_el_select <- function(
-    session,
+    session = shiny::getDefaultReactiveDomain(),
     id,
     selected       = NULL,
     choices        = NULL,

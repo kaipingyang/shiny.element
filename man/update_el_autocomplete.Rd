@@ -5,7 +5,7 @@
 \title{Update Element UI Autocomplete}
 \usage{
 update_el_autocomplete(
-  session,
+  session = shiny::getDefaultReactiveDomain(),
   id,
   value = NULL,
   suggestions = NULL,
@@ -14,7 +14,8 @@ update_el_autocomplete(
 )
 }
 \arguments{
-\item{session}{Shiny session object.}
+\item{session}{Shiny session; the current one by default, as for
+\code{\link[shiny:updateTextInput]{shiny::updateTextInput()}}.}
 
 \item{id}{Input ID (un-namespaced).}
 

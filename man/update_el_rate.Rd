@@ -4,10 +4,16 @@
 \alias{update_el_rate}
 \title{Update Element UI Rate}
 \usage{
-update_el_rate(session, id, value = NULL, disabled = NULL)
+update_el_rate(
+  session = shiny::getDefaultReactiveDomain(),
+  id,
+  value = NULL,
+  disabled = NULL
+)
 }
 \arguments{
-\item{session}{Shiny session object.}
+\item{session}{Shiny session; the current one by default, as for
+\code{\link[shiny:updateTextInput]{shiny::updateTextInput()}}.}
 
 \item{id}{Rate ID (un-namespaced).}
 

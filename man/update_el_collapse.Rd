@@ -4,10 +4,15 @@
 \alias{update_el_collapse}
 \title{Update Element UI Collapse}
 \usage{
-update_el_collapse(session, id, value = NULL)
+update_el_collapse(
+  session = shiny::getDefaultReactiveDomain(),
+  id,
+  value = NULL
+)
 }
 \arguments{
-\item{session}{Shiny session object.}
+\item{session}{Shiny session; the current one by default, as for
+\code{\link[shiny:updateTextInput]{shiny::updateTextInput()}}.}
 
 \item{id}{Collapse ID (un-namespaced).}
 

@@ -19,6 +19,7 @@ test_that("a bookmark brings every component back", {
     if (any(grepl("Listening on", readLines(log, warn = FALSE)))) break
   }
 
+  use_browser_args()
   b <- chromote::ChromoteSession$new()
   on.exit(try(b$close(), silent = TRUE), add = TRUE)
   js <- function(x) b$Runtime$evaluate(x, awaitPromise = TRUE)$result$value

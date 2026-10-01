@@ -5,7 +5,7 @@
 \title{Show Element UI Notification}
 \usage{
 el_notification(
-  session,
+  session = shiny::getDefaultReactiveDomain(),
   message,
   title = "",
   type = "info",
@@ -20,7 +20,8 @@ el_notification(
 )
 }
 \arguments{
-\item{session}{Shiny session object.}
+\item{session}{Shiny session; the current one by default, as for
+\code{\link[shiny:updateTextInput]{shiny::updateTextInput()}}.}
 
 \item{message}{Notification body text.}
 

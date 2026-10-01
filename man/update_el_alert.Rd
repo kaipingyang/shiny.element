@@ -4,10 +4,17 @@
 \alias{update_el_alert}
 \title{Update Element UI Alert}
 \usage{
-update_el_alert(session, id, title = NULL, type = NULL, description = NULL)
+update_el_alert(
+  session = shiny::getDefaultReactiveDomain(),
+  id,
+  title = NULL,
+  type = NULL,
+  description = NULL
+)
 }
 \arguments{
-\item{session}{Shiny session object.}
+\item{session}{Shiny session; the current one by default, as for
+\code{\link[shiny:updateTextInput]{shiny::updateTextInput()}}.}
 
 \item{id}{Alert ID (un-namespaced).}
 

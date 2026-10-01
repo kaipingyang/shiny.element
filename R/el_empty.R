@@ -71,7 +71,8 @@ el_empty <- function(id = NULL,
 #'
 #' Server-side update for [el_empty()].
 #'
-#' @param session Shiny session object.
+#' @param session Shiny session; the current one by default, as for
+#'   [shiny::updateTextInput()].
 #' @param id Component ID (un-namespaced).
 #' @param description,image New values; `NULL` leaves one unchanged.
 #'
@@ -85,7 +86,7 @@ el_empty <- function(id = NULL,
 #'   })
 #' }
 #' @export
-update_el_empty <- function(session, id, description = NULL, image = NULL) {
+update_el_empty <- function(session = shiny::getDefaultReactiveDomain(), id, description = NULL, image = NULL) {
   msg <- list(id = session$ns(id))
   if (!is.null(description)) msg$emptyDescription <- description
   if (!is.null(image))       msg$emptyImage       <- image

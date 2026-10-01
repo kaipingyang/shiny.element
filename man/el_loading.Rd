@@ -5,7 +5,7 @@
 \title{Element UI Loading Mask}
 \usage{
 el_loading(
-  session,
+  session = shiny::getDefaultReactiveDomain(),
   id = "default",
   text = NULL,
   target = NULL,
@@ -18,7 +18,8 @@ el_loading(
 )
 }
 \arguments{
-\item{session}{Shiny session object.}
+\item{session}{Shiny session; the current one by default, as for
+\code{\link[shiny:updateTextInput]{shiny::updateTextInput()}}.}
 
 \item{id}{Name for this mask, used to close it again.}
 

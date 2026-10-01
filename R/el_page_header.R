@@ -68,7 +68,8 @@ el_page_header <- function(id = NULL,
 #'
 #' Server-side update for [el_page_header()].
 #'
-#' @param session Shiny session object.
+#' @param session Shiny session; the current one by default, as for
+#'   [shiny::updateTextInput()].
 #' @param id Header ID (un-namespaced).
 #' @param title,content New values; `NULL` leaves one unchanged.
 #'
@@ -81,7 +82,7 @@ el_page_header <- function(id = NULL,
 #'   })
 #' }
 #' @export
-update_el_page_header <- function(session, id, title = NULL, content = NULL) {
+update_el_page_header <- function(session = shiny::getDefaultReactiveDomain(), id, title = NULL, content = NULL) {
   ns_id <- session$ns(id)
   msg <- list(id = ns_id)
   if (!is.null(title))   msg$title   <- title

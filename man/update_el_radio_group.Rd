@@ -5,7 +5,7 @@
 \title{Update Element UI Radio Group}
 \usage{
 update_el_radio_group(
-  session,
+  session = shiny::getDefaultReactiveDomain(),
   id,
   selected = NULL,
   choices = NULL,
@@ -15,7 +15,8 @@ update_el_radio_group(
 )
 }
 \arguments{
-\item{session}{Shiny session object.}
+\item{session}{Shiny session; the current one by default, as for
+\code{\link[shiny:updateTextInput]{shiny::updateTextInput()}}.}
 
 \item{id}{Radio group input ID (un-namespaced).}
 

@@ -119,7 +119,8 @@ el_infinite_scroll <- function(id = NULL,
 #' Server-side update for [el_infinite_scroll()]. Setting `disabled` is how a
 #' feed stops asking once everything has been sent.
 #'
-#' @param session Shiny session object.
+#' @param session Shiny session; the current one by default, as for
+#'   [shiny::updateTextInput()].
 #' @param id Container ID (un-namespaced).
 #' @param disabled,delay,distance New values; `NULL` leaves one unchanged.
 #'
@@ -134,7 +135,7 @@ el_infinite_scroll <- function(id = NULL,
 #'   })
 #' }
 #' @export
-update_el_infinite_scroll <- function(session, id, disabled = NULL,
+update_el_infinite_scroll <- function(session = shiny::getDefaultReactiveDomain(), id, disabled = NULL,
                                       delay = NULL, distance = NULL) {
   ns_id <- session$ns(id)
   msg <- list(id = ns_id)

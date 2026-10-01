@@ -4,10 +4,17 @@
 \alias{update_el_form}
 \title{Update an Element UI Form}
 \usage{
-update_el_form(session, id, model = NULL, rules = NULL, label_width = NULL)
+update_el_form(
+  session = shiny::getDefaultReactiveDomain(),
+  id,
+  model = NULL,
+  rules = NULL,
+  label_width = NULL
+)
 }
 \arguments{
-\item{session}{Shiny session object.}
+\item{session}{Shiny session; the current one by default, as for
+\code{\link[shiny:updateTextInput]{shiny::updateTextInput()}}.}
 
 \item{id}{Form ID (un-namespaced).}
 

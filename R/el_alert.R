@@ -96,7 +96,8 @@ el_alert <- function(
 #'
 #' Server-side update for [el_alert()].
 #'
-#' @param session Shiny session object.
+#' @param session Shiny session; the current one by default, as for
+#'   [shiny::updateTextInput()].
 #' @param id Alert ID (un-namespaced).
 #' @param title New title text.
 #' @param type New alert type.
@@ -111,7 +112,7 @@ el_alert <- function(
 #'   })
 #' }
 #' @export
-update_el_alert <- function(session, id, title = NULL, type = NULL,
+update_el_alert <- function(session = shiny::getDefaultReactiveDomain(), id, title = NULL, type = NULL,
                             description = NULL) {
   ns_id <- session$ns(id)
   msg   <- list(id = ns_id)

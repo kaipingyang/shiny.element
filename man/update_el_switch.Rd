@@ -5,7 +5,7 @@
 \title{Update Element UI Switch}
 \usage{
 update_el_switch(
-  session,
+  session = shiny::getDefaultReactiveDomain(),
   id,
   value = NULL,
   disabled = NULL,
@@ -16,7 +16,8 @@ update_el_switch(
 )
 }
 \arguments{
-\item{session}{Shiny session object.}
+\item{session}{Shiny session; the current one by default, as for
+\code{\link[shiny:updateTextInput]{shiny::updateTextInput()}}.}
 
 \item{id}{Switch ID (un-namespaced).}
 

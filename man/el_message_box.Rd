@@ -5,7 +5,7 @@
 \title{Element UI Message Box}
 \usage{
 el_message_box(
-  session,
+  session = shiny::getDefaultReactiveDomain(),
   id,
   message,
   title = NULL,
@@ -39,7 +39,8 @@ el_message_box(
 )
 }
 \arguments{
-\item{session}{Shiny session object.}
+\item{session}{Shiny session; the current one by default, as for
+\code{\link[shiny:updateTextInput]{shiny::updateTextInput()}}.}
 
 \item{id}{Input ID the answer is reported to.}
 

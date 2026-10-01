@@ -4,10 +4,11 @@
 \alias{update_vue_component}
 \title{Update one or more fields of a Vue component instance by id (namespaced)}
 \usage{
-update_vue_component(session, id, ...)
+update_vue_component(session = shiny::getDefaultReactiveDomain(), id, ...)
 }
 \arguments{
-\item{session}{Shiny session object}
+\item{session}{Shiny session; the current one by default, as for
+\code{\link[shiny:updateTextInput]{shiny::updateTextInput()}}.}
 
 \item{id}{Vue component id (string)}
 

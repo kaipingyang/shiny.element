@@ -97,7 +97,8 @@ el_image <- function(id = NULL,
 #'
 #' Server-side update for [el_image()].
 #'
-#' @param session Shiny session object.
+#' @param session Shiny session; the current one by default, as for
+#'   [shiny::updateTextInput()].
 #' @param id Image ID (un-namespaced).
 #' @param src,fit,preview_src_list New values; `NULL` leaves one unchanged.
 #'
@@ -110,7 +111,7 @@ el_image <- function(id = NULL,
 #'   })
 #' }
 #' @export
-update_el_image <- function(session, id, src = NULL, fit = NULL,
+update_el_image <- function(session = shiny::getDefaultReactiveDomain(), id, src = NULL, fit = NULL,
                             preview_src_list = NULL) {
   ns_id <- session$ns(id)
   msg <- list(id = ns_id)

@@ -4,10 +4,17 @@
 \alias{update_el_tooltip}
 \title{Update Element UI Tooltip}
 \usage{
-update_el_tooltip(session, id, content = NULL, disabled = NULL, value = NULL)
+update_el_tooltip(
+  session = shiny::getDefaultReactiveDomain(),
+  id,
+  content = NULL,
+  disabled = NULL,
+  value = NULL
+)
 }
 \arguments{
-\item{session}{Shiny session object.}
+\item{session}{Shiny session; the current one by default, as for
+\code{\link[shiny:updateTextInput]{shiny::updateTextInput()}}.}
 
 \item{id}{Tooltip ID (un-namespaced).}
 

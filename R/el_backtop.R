@@ -72,7 +72,8 @@ el_backtop <- function(id = NULL,
 #'
 #' Server-side update for [el_backtop()].
 #'
-#' @param session Shiny session object.
+#' @param session Shiny session; the current one by default, as for
+#'   [shiny::updateTextInput()].
 #' @param id Button ID (un-namespaced).
 #' @param visibility_height,right,bottom New values; `NULL` leaves one unchanged.
 #'
@@ -85,7 +86,7 @@ el_backtop <- function(id = NULL,
 #'   })
 #' }
 #' @export
-update_el_backtop <- function(session, id, visibility_height = NULL,
+update_el_backtop <- function(session = shiny::getDefaultReactiveDomain(), id, visibility_height = NULL,
                               right = NULL, bottom = NULL) {
   ns_id <- session$ns(id)
   msg <- list(id = ns_id)

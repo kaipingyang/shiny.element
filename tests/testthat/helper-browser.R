@@ -23,6 +23,19 @@ skip_if_no_browser <- function() {
   )
 }
 
+#' Chrome's flags for every browser test
+#'
+#' /dev/shm is tiny in containers, which crashes the renderer on heavier pages.
+#' The flags only apply to a Chrome not yet running, so every test file that
+#' opens a session calls this first: the bookmark test, running first, once
+#' started Chrome without them, and the integration page crashed it later.
+use_browser_args <- function() {
+  chromote::set_chrome_args(c(
+    chromote::default_chrome_args(),
+    "--disable-dev-shm-usage", "--no-sandbox", "--disable-gpu"
+  ))
+}
+
 #' Boot the fixture app once and hand back a live browser session
 #'
 #' The app and the session are cached: booting Shiny and Chromium costs several
@@ -70,11 +83,7 @@ browser_session <- function() {
     stop("fixture app failed to start:\n", paste(readLines(log, warn = FALSE), collapse = "\n"))
   }
 
-  # /dev/shm is tiny in containers, which crashes the renderer on heavier pages.
-  chromote::set_chrome_args(c(
-    chromote::default_chrome_args(),
-    "--disable-dev-shm-usage", "--no-sandbox", "--disable-gpu"
-  ))
+  use_browser_args()
   b <- chromote::ChromoteSession$new()
 
   errs <- new.env(parent = emptyenv())

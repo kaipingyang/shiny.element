@@ -154,7 +154,8 @@ el_transfer <- function(id = NULL,
 #'
 #' Server-side update for [el_transfer()].
 #'
-#' @param session Shiny session object.
+#' @param session Shiny session; the current one by default, as for
+#'   [shiny::updateTextInput()].
 #' @param id Transfer ID (un-namespaced).
 #' @param value,data,titles,filterable New values; `NULL` leaves one unchanged.
 #'
@@ -167,7 +168,7 @@ el_transfer <- function(id = NULL,
 #'   })
 #' }
 #' @export
-update_el_transfer <- function(session, id, value = NULL, data = NULL,
+update_el_transfer <- function(session = shiny::getDefaultReactiveDomain(), id, value = NULL, data = NULL,
                                titles = NULL, filterable = NULL) {
   ns_id <- session$ns(id)
   msg <- list(id = ns_id)

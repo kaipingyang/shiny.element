@@ -145,7 +145,8 @@ el_rate <- function(
 #'
 #' Server-side update for [el_rate()].
 #'
-#' @param session Shiny session object.
+#' @param session Shiny session; the current one by default, as for
+#'   [shiny::updateTextInput()].
 #' @param id Rate ID (un-namespaced).
 #' @param value New rating value.
 #' @param disabled New disabled state.
@@ -159,7 +160,7 @@ el_rate <- function(
 #'   })
 #' }
 #' @export
-update_el_rate <- function(session, id, value = NULL, disabled = NULL) {
+update_el_rate <- function(session = shiny::getDefaultReactiveDomain(), id, value = NULL, disabled = NULL) {
   ns_id <- session$ns(id)
   msg   <- list(id = ns_id)
   if (!is.null(value))    msg$value    <- value

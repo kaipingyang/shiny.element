@@ -4,10 +4,11 @@
 \alias{el_upload_clear}
 \title{Clear an Element UI Upload's file list}
 \usage{
-el_upload_clear(session, id)
+el_upload_clear(session = shiny::getDefaultReactiveDomain(), id)
 }
 \arguments{
-\item{session}{Shiny session object.}
+\item{session}{Shiny session; the current one by default, as for
+\code{\link[shiny:updateTextInput]{shiny::updateTextInput()}}.}
 
 \item{id}{Upload ID (un-namespaced).
 This is Element's \code{data} prop, renamed to keep it distinct from the

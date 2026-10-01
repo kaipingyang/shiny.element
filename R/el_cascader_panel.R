@@ -88,7 +88,8 @@ el_cascader_panel <- function(id = NULL,
 #'
 #' Server-side update for [el_cascader_panel()].
 #'
-#' @param session Shiny session object.
+#' @param session Shiny session; the current one by default, as for
+#'   [shiny::updateTextInput()].
 #' @param id Panel ID (un-namespaced).
 #' @param value,options New values; `NULL` leaves one unchanged.
 #'
@@ -99,7 +100,7 @@ el_cascader_panel <- function(id = NULL,
 #'   observeEvent(input$reset, update_el_cascader_panel(session, "where", value = list()))
 #' }
 #' @export
-update_el_cascader_panel <- function(session, id, value = NULL, options = NULL) {
+update_el_cascader_panel <- function(session = shiny::getDefaultReactiveDomain(), id, value = NULL, options = NULL) {
   msg <- list(id = session$ns(id))
   if (!is.null(value))   msg$value   <- as.list(value)
   if (!is.null(options)) msg$options <- unname(options)

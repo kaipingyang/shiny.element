@@ -174,7 +174,8 @@ el_descriptions <- function(id = NULL,
 #' markup, so replace them by re-rendering; this changes the settings around
 #' them.
 #'
-#' @param session Shiny session object.
+#' @param session Shiny session; the current one by default, as for
+#'   [shiny::updateTextInput()].
 #' @param id Component ID (un-namespaced).
 #' @param title,extra,column,direction,border New values; `NULL` leaves one
 #'   unchanged.
@@ -188,7 +189,7 @@ el_descriptions <- function(id = NULL,
 #'   })
 #' }
 #' @export
-update_el_descriptions <- function(session, id, title = NULL, extra = NULL,
+update_el_descriptions <- function(session = shiny::getDefaultReactiveDomain(), id, title = NULL, extra = NULL,
                                    column = NULL, direction = NULL,
                                    border = NULL) {
   msg <- list(id = session$ns(id))

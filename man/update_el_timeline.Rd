@@ -4,10 +4,16 @@
 \alias{update_el_timeline}
 \title{Update an Element UI Timeline}
 \usage{
-update_el_timeline(session, id, items = NULL, reverse = NULL)
+update_el_timeline(
+  session = shiny::getDefaultReactiveDomain(),
+  id,
+  items = NULL,
+  reverse = NULL
+)
 }
 \arguments{
-\item{session}{Shiny session object.}
+\item{session}{Shiny session; the current one by default, as for
+\code{\link[shiny:updateTextInput]{shiny::updateTextInput()}}.}
 
 \item{id}{Timeline ID (un-namespaced).}
 

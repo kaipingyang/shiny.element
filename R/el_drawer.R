@@ -136,7 +136,8 @@ el_drawer <- function(
 #'
 #' Server-side update for [el_drawer()].
 #'
-#' @param session Shiny session object.
+#' @param session Shiny session; the current one by default, as for
+#'   [shiny::updateTextInput()].
 #' @param id Drawer ID (un-namespaced).
 #' @param visible Open or close it.
 #' @param title New header text.
@@ -151,7 +152,7 @@ el_drawer <- function(
 #'   })
 #' }
 #' @export
-update_el_drawer <- function(session, id, visible = NULL, title = NULL,
+update_el_drawer <- function(session = shiny::getDefaultReactiveDomain(), id, visible = NULL, title = NULL,
                              size = NULL) {
   msg <- list()
   if (!is.null(visible)) msg$visible <- visible

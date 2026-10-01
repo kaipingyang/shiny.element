@@ -4,10 +4,15 @@
 \alias{update_el_tabs}
 \title{Update Element UI Tabs}
 \usage{
-update_el_tabs(session, id, selected = NULL)
+update_el_tabs(
+  session = shiny::getDefaultReactiveDomain(),
+  id,
+  selected = NULL
+)
 }
 \arguments{
-\item{session}{Shiny session object.}
+\item{session}{Shiny session; the current one by default, as for
+\code{\link[shiny:updateTextInput]{shiny::updateTextInput()}}.}
 
 \item{id}{Tabs ID (un-namespaced).}
 

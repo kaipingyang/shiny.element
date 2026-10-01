@@ -5,7 +5,7 @@
 \title{Update Element UI Slider}
 \usage{
 update_el_slider(
-  session,
+  session = shiny::getDefaultReactiveDomain(),
   id,
   value = NULL,
   min = NULL,
@@ -15,7 +15,8 @@ update_el_slider(
 )
 }
 \arguments{
-\item{session}{Shiny session object.}
+\item{session}{Shiny session; the current one by default, as for
+\code{\link[shiny:updateTextInput]{shiny::updateTextInput()}}.}
 
 \item{id}{Slider ID (un-namespaced).}
 

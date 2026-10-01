@@ -137,7 +137,8 @@ el_dialog <- function(
 #'
 #' Server-side update for [el_dialog()].
 #'
-#' @param session Shiny session object.
+#' @param session Shiny session; the current one by default, as for
+#'   [shiny::updateTextInput()].
 #' @param id Dialog ID (un-namespaced).
 #' @param visible Open or close it.
 #' @param title New header text.
@@ -152,7 +153,7 @@ el_dialog <- function(
 #'   })
 #' }
 #' @export
-update_el_dialog <- function(session, id, visible = NULL, title = NULL,
+update_el_dialog <- function(session = shiny::getDefaultReactiveDomain(), id, visible = NULL, title = NULL,
                              width = NULL) {
   msg <- list()
   if (!is.null(visible)) msg$visible <- visible

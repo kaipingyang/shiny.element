@@ -4,10 +4,17 @@
 \alias{update_el_dialog}
 \title{Update Element UI Dialog}
 \usage{
-update_el_dialog(session, id, visible = NULL, title = NULL, width = NULL)
+update_el_dialog(
+  session = shiny::getDefaultReactiveDomain(),
+  id,
+  visible = NULL,
+  title = NULL,
+  width = NULL
+)
 }
 \arguments{
-\item{session}{Shiny session object.}
+\item{session}{Shiny session; the current one by default, as for
+\code{\link[shiny:updateTextInput]{shiny::updateTextInput()}}.}
 
 \item{id}{Dialog ID (un-namespaced).}
 

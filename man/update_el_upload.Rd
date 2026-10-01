@@ -4,10 +4,16 @@
 \alias{update_el_upload}
 \title{Update an Element UI Upload}
 \usage{
-update_el_upload(session, id, disabled = NULL, limit = NULL)
+update_el_upload(
+  session = shiny::getDefaultReactiveDomain(),
+  id,
+  disabled = NULL,
+  limit = NULL
+)
 }
 \arguments{
-\item{session}{Shiny session object.}
+\item{session}{Shiny session; the current one by default, as for
+\code{\link[shiny:updateTextInput]{shiny::updateTextInput()}}.}
 
 \item{id}{Upload ID (un-namespaced).}
 

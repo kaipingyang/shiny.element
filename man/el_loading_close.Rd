@@ -4,10 +4,11 @@
 \alias{el_loading_close}
 \title{Close a loading mask}
 \usage{
-el_loading_close(session, id = "default")
+el_loading_close(session = shiny::getDefaultReactiveDomain(), id = "default")
 }
 \arguments{
-\item{session}{Shiny session object.}
+\item{session}{Shiny session; the current one by default, as for
+\code{\link[shiny:updateTextInput]{shiny::updateTextInput()}}.}
 
 \item{id}{The \code{id} the mask was opened with.}
 }

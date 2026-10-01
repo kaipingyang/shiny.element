@@ -5,7 +5,7 @@
 \title{Update Element UI Infinite Scroll}
 \usage{
 update_el_infinite_scroll(
-  session,
+  session = shiny::getDefaultReactiveDomain(),
   id,
   disabled = NULL,
   delay = NULL,
@@ -13,7 +13,8 @@ update_el_infinite_scroll(
 )
 }
 \arguments{
-\item{session}{Shiny session object.}
+\item{session}{Shiny session; the current one by default, as for
+\code{\link[shiny:updateTextInput]{shiny::updateTextInput()}}.}
 
 \item{id}{Container ID (un-namespaced).}
 

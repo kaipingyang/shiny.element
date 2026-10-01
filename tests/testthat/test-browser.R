@@ -850,3 +850,14 @@ test_that("shinyjs::hide(), shinyjs::disable() and removeUI() reach the componen
   expect_false(bev("!!document.getElementById('js_gone')"))
   expect_false(bev("!!document.querySelector('#js_gone_container')"))
 })
+
+# ── typed values ──────────────────────────────────────────────────────────────
+
+test_that("a date picker reports Date, as dateInput() does", {
+  skip_if_no_browser()
+  vals <- bdump()
+  expect_equal(vals[["dp_class"]], "Date")
+  expect_equal(vals[["dr_class"]], "Date")
+  # A format of the caller's own is text in that format
+  expect_equal(vals[["dmonth_class"]], "character")
+})

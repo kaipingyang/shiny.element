@@ -366,3 +366,26 @@ test_that("report must name fields the component declares", {
   expect_error(el_widget("s", markup = el$rate(), data = list(value = 3),
                          report = "s"), "must name fields")
 })
+
+# ── wrappers: their own value through the binding ────────────────────────────
+
+test_that("a carousel's own value goes through the binding, absorbed ones as before", {
+  ui <- el_carousel("car", items = list(
+    list(name = "a", content = el_switch("inner", value = TRUE)),
+    list(name = "b", content = "two")))
+  spec <- vue_spec_of(ui)
+  expect_equal(spec$input, "active")
+  # the slide name and the absorbed switch still report under their own ids
+  expect_match(spec$options$mounted, 'Shiny.setInputValue("car_name"', fixed = TRUE)
+  expect_match(spec$options$mounted, 'Shiny.setInputValue("inner"', fixed = TRUE)
+})
+
+test_that("a renamed absorbed component reports its renamed field", {
+  # Two switches in one popover clash on every field; the later is renamed
+  # with a prefix, and its report must follow
+  ui <- el_popover("pop", reference = el_switch("s1", value = TRUE),
+                   body = el_switch("s2", value = FALSE))
+  m <- vue_payload_of(ui)$mounted
+  expect_match(m, 'Shiny.setInputValue("s1", self.value)', fixed = TRUE)
+  expect_match(m, 'setInputValue[(]"s2", self[.]el[0-9]+_value[)]')
+})

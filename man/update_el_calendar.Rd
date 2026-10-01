@@ -5,7 +5,7 @@
 \title{Update Element UI Calendar Component}
 \usage{
 update_el_calendar(
-  session,
+  session = shiny::getDefaultReactiveDomain(),
   id,
   value = NULL,
   range = NULL,
@@ -13,7 +13,8 @@ update_el_calendar(
 )
 }
 \arguments{
-\item{session}{Shiny session}
+\item{session}{Shiny session; the current one by default, as for
+\code{\link[shiny:updateTextInput]{shiny::updateTextInput()}}.}
 
 \item{id}{Component id}
 

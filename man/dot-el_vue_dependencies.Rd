@@ -10,6 +10,8 @@
 A list of htmlDependency objects.
 }
 \description{
-jQuery, Vue, the event helpers and the mounting bridge, in load order.
+jQuery, Vue, the generic bridge (\code{shiny-vue.js}: mounting, the Shiny input
+binding, serialising values, forwarding events) and Element's side of it
+(\code{el-events.js}), in load order.
 }
 \keyword{internal}

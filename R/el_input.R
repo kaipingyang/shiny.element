@@ -214,7 +214,8 @@ el_input <- function(
 #' Server-side update for [el_input()]. Sends a custom message to update
 #' named fields on the Vue instance.
 #'
-#' @param session Shiny session object.
+#' @param session Shiny session; the current one by default, as for
+#'   [shiny::updateTextInput()].
 #' @param id Input ID (un-namespaced).
 #' @param value New value string.
 #' @param placeholder New placeholder text.
@@ -235,7 +236,7 @@ el_input <- function(
 #' }
 #' @export
 update_el_input <- function(
-    session,
+    session = shiny::getDefaultReactiveDomain(),
     id,
     value        = NULL,
     placeholder  = NULL,

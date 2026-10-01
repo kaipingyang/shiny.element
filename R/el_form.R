@@ -444,7 +444,8 @@ el_form <- function(...,
 
 #' Update an Element UI Form
 #'
-#' @param session Shiny session object.
+#' @param session Shiny session; the current one by default, as for
+#'   [shiny::updateTextInput()].
 #' @param id Form ID (un-namespaced).
 #' @param model New field values. Merged into the existing model, so a partial
 #'   list only changes the fields it names.
@@ -458,7 +459,7 @@ el_form <- function(...,
 #'   # Prefill the form from the server
 #'   update_el_form(session, "signup", model = list(name = "Ada", age = 36))
 #' }
-update_el_form <- function(session, id,
+update_el_form <- function(session = shiny::getDefaultReactiveDomain(), id,
                            model = NULL,
                            rules = NULL,
                            label_width = NULL) {
@@ -481,7 +482,8 @@ update_el_form <- function(session, id,
 #' so the same `observeEvent` handles both. Use it when the form has no submit
 #' button of its own (`submit_label = NULL`).
 #'
-#' @param session Shiny session object.
+#' @param session Shiny session; the current one by default, as for
+#'   [shiny::updateTextInput()].
 #' @param id Form ID (un-namespaced).
 #' @return Called for its side effect; returns `NULL` invisibly.
 #' @examples
@@ -492,7 +494,7 @@ update_el_form <- function(session, id,
 #'   })
 #' }
 #' @export
-el_form_validate <- function(session, id) {
+el_form_validate <- function(session = shiny::getDefaultReactiveDomain(), id) {
   session$sendCustomMessage("elFormValidate", list(id = session$ns(id)))
   invisible(NULL)
 }
@@ -504,7 +506,8 @@ el_form_validate <- function(session, id) {
 #' *initial* values, not empty ones, so a field declared with `value = 18`
 #' resets to 18.
 #'
-#' @param session Shiny session object.
+#' @param session Shiny session; the current one by default, as for
+#'   [shiny::updateTextInput()].
 #' @param id Form ID (un-namespaced).
 #' @return Called for its side effect; returns `NULL` invisibly.
 #' @examples
@@ -515,7 +518,7 @@ el_form_validate <- function(session, id) {
 #'   })
 #' }
 #' @export
-el_form_reset <- function(session, id) {
+el_form_reset <- function(session = shiny::getDefaultReactiveDomain(), id) {
   session$sendCustomMessage("elFormReset", list(id = session$ns(id)))
   invisible(NULL)
 }
@@ -524,7 +527,8 @@ el_form_reset <- function(session, id) {
 #'
 #' Leaves the values alone and only removes the error state.
 #'
-#' @param session Shiny session object.
+#' @param session Shiny session; the current one by default, as for
+#'   [shiny::updateTextInput()].
 #' @param id Form ID (un-namespaced).
 #' @param props Fields to clear. `NULL` clears all of them.
 #' @return Called for its side effect; returns `NULL` invisibly.
@@ -536,7 +540,7 @@ el_form_reset <- function(session, id) {
 #'   })
 #' }
 #' @export
-el_form_clear_validate <- function(session, id, props = NULL) {
+el_form_clear_validate <- function(session = shiny::getDefaultReactiveDomain(), id, props = NULL) {
   msg <- list(id = session$ns(id))
   if (!is.null(props)) msg$props <- as.list(props)
   session$sendCustomMessage("elFormClearValidate", msg)

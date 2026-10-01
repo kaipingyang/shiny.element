@@ -4,10 +4,16 @@
 \alias{update_el_empty}
 \title{Update Element UI Empty}
 \usage{
-update_el_empty(session, id, description = NULL, image = NULL)
+update_el_empty(
+  session = shiny::getDefaultReactiveDomain(),
+  id,
+  description = NULL,
+  image = NULL
+)
 }
 \arguments{
-\item{session}{Shiny session object.}
+\item{session}{Shiny session; the current one by default, as for
+\code{\link[shiny:updateTextInput]{shiny::updateTextInput()}}.}
 
 \item{id}{Component ID (un-namespaced).}
 

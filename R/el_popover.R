@@ -157,7 +157,8 @@ el_popover <- function(id = NULL,
 #' Server-side update for [el_popover()]. Setting `value` opens or closes the
 #' card, which is how `trigger = "manual"` is driven.
 #'
-#' @param session Shiny session object.
+#' @param session Shiny session; the current one by default, as for
+#'   [shiny::updateTextInput()].
 #' @param id Popover ID (un-namespaced).
 #' @param title,content,disabled,value New values; `NULL` leaves one unchanged.
 #'
@@ -170,7 +171,7 @@ el_popover <- function(id = NULL,
 #'   })
 #' }
 #' @export
-update_el_popover <- function(session, id, title = NULL, content = NULL,
+update_el_popover <- function(session = shiny::getDefaultReactiveDomain(), id, title = NULL, content = NULL,
                               disabled = NULL, value = NULL) {
   ns_id <- session$ns(id)
   msg <- list(id = ns_id)

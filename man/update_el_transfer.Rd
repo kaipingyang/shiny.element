@@ -5,7 +5,7 @@
 \title{Update Element UI Transfer}
 \usage{
 update_el_transfer(
-  session,
+  session = shiny::getDefaultReactiveDomain(),
   id,
   value = NULL,
   data = NULL,
@@ -14,7 +14,8 @@ update_el_transfer(
 )
 }
 \arguments{
-\item{session}{Shiny session object.}
+\item{session}{Shiny session; the current one by default, as for
+\code{\link[shiny:updateTextInput]{shiny::updateTextInput()}}.}
 
 \item{id}{Transfer ID (un-namespaced).}
 

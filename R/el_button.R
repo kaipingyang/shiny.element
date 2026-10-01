@@ -138,7 +138,8 @@ el_button <- function(
 #' Server-side update for [el_button()]. Supports all visual states including
 #' `size`, `plain`, `round`, and `loading`.
 #'
-#' @param session Shiny session object.
+#' @param session Shiny session; the current one by default, as for
+#'   [shiny::updateTextInput()].
 #' @param id Button ID (un-namespaced).
 #' @param label New label text.
 #' @param type New button type.
@@ -158,7 +159,7 @@ el_button <- function(
 #' }
 #' @export
 update_el_button <- function(
-    session,
+    session = shiny::getDefaultReactiveDomain(),
     id,
     label    = NULL,
     type     = NULL,

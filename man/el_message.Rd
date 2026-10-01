@@ -5,7 +5,7 @@
 \title{Show Element UI Message}
 \usage{
 el_message(
-  session,
+  session = shiny::getDefaultReactiveDomain(),
   message,
   type = "info",
   duration = 3000,
@@ -19,7 +19,8 @@ el_message(
 )
 }
 \arguments{
-\item{session}{Shiny session object.}
+\item{session}{Shiny session; the current one by default, as for
+\code{\link[shiny:updateTextInput]{shiny::updateTextInput()}}.}
 
 \item{message}{Message text.}
 

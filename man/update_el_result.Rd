@@ -4,10 +4,17 @@
 \alias{update_el_result}
 \title{Update Element UI Result}
 \usage{
-update_el_result(session, id, icon = NULL, title = NULL, sub_title = NULL)
+update_el_result(
+  session = shiny::getDefaultReactiveDomain(),
+  id,
+  icon = NULL,
+  title = NULL,
+  sub_title = NULL
+)
 }
 \arguments{
-\item{session}{Shiny session object.}
+\item{session}{Shiny session; the current one by default, as for
+\code{\link[shiny:updateTextInput]{shiny::updateTextInput()}}.}
 
 \item{id}{Component ID (un-namespaced).}
 

@@ -5,7 +5,7 @@
 \title{Update Element UI Input}
 \usage{
 update_el_input(
-  session,
+  session = shiny::getDefaultReactiveDomain(),
   id,
   value = NULL,
   placeholder = NULL,
@@ -18,7 +18,8 @@ update_el_input(
 )
 }
 \arguments{
-\item{session}{Shiny session object.}
+\item{session}{Shiny session; the current one by default, as for
+\code{\link[shiny:updateTextInput]{shiny::updateTextInput()}}.}
 
 \item{id}{Input ID (un-namespaced).}
 

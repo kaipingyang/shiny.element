@@ -144,7 +144,8 @@ el_calendar <- function(id = NULL,
 #' @param value New value (Date/string/number)
 #' @param range New range (c("YYYY-MM-DD", "YYYY-MM-DD"))
 #' @param first_day_of_week New first day of week (1~7)
-#' @param session Shiny session
+#' @param session Shiny session; the current one by default, as for
+#'   [shiny::updateTextInput()].
 #' @return Called for its side effect; returns `NULL` invisibly.
 #' @examples
 #' if (interactive()) {
@@ -154,7 +155,7 @@ el_calendar <- function(id = NULL,
 #'   })
 #' }
 #' @export
-update_el_calendar <- function(session, id, value = NULL, range = NULL, first_day_of_week = NULL) {  
+update_el_calendar <- function(session = shiny::getDefaultReactiveDomain(), id, value = NULL, range = NULL, first_day_of_week = NULL) {  
   ns_id <- session$ns(id)  
   message <- list(id = ns_id)  
   if (!is.null(value)) message$value <- if (inherits(value, "Date")) format(value, "%Y-%m-%d") else value  

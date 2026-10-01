@@ -72,6 +72,8 @@ ui <- el_page(
   el_checkbox_group("cg", choices = c(P = "p", Q = "q"), selected = "p"),
   el_input_number("num", value = 7),
   el_date_picker("dp", value = "2026-01-15"),
+  el_date_picker("dr", type = "daterange", value = c("2026-01-01", "2026-01-31")),
+  el_date_picker("dmonth", type = "month", value = "2026-03", value_format = "yyyy-MM"),
   el_color_picker("cp", value = "#409EFF"),
   # Tabs are plain markup driven by an input binding, so a pane can hold
   # another component and it stays connected to the server.
@@ -284,6 +286,7 @@ server <- function(input, output, session) {
              "tree", "tree_checked", "car", "car_name", "col_nested",
              "tab_nested", "dlg", "drw", "dlg_nested")
     for (i in ids) cat(i, "=", fmt(input[[i]]), "\n")
+    for (i in c("dp", "dr", "dmonth")) cat(paste0(i, "_class"), "=", class(input[[i]])[1], "\n")
     cat("up_rows", "=", if (is.null(input$up)) "<NULL>" else nrow(input$up), "\n")
     # Forwarded Element events are latched by the observers below, which is
     # how an app acts on each one -- repeats included.

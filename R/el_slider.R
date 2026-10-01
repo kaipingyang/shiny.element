@@ -177,7 +177,8 @@ el_slider <- function(
 #' Server-side update for [el_slider()]. Supports updating value, range bounds,
 #' step size, and disabled state.
 #'
-#' @param session Shiny session object.
+#' @param session Shiny session; the current one by default, as for
+#'   [shiny::updateTextInput()].
 #' @param id Slider ID (un-namespaced).
 #' @param value New slider value. A single number or two-element vector for
 #'   range mode.
@@ -196,7 +197,7 @@ el_slider <- function(
 #' }
 #' @export
 update_el_slider <- function(
-    session,
+    session = shiny::getDefaultReactiveDomain(),
     id,
     value    = NULL,
     min      = NULL,

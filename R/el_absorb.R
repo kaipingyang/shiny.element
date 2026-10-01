@@ -98,6 +98,19 @@
   }
 
   mounts <- Filter(Negate(is.null), lapply(parts, `[[`, "mounted"))
+  mounted <- if (!length(mounts)) NULL else htmlwidgets::JS(
+    "function() { var self = this; [",
+    paste(vapply(mounts, as.character, character(1)), collapse = ", "),
+    "].forEach(function(f) { f.call(self); }); }"
+  )
+  # When every hook is only reporting -- what .el_mounted_init() writes --
+  # say so, with every field each reports. el_widget() then binds the
+  # wrapper's own value to Shiny, as it does for any other component, and
+  # reports the absorbed components' under their ids as before.
+  reports <- lapply(mounts, attr, "el_report")
+  if (length(mounts) && !any(vapply(reports, is.null, logical(1)))) {
+    attr(mounted, "el_report") <- do.call(c, unname(reports))
+  }
 
   list(
     # Renaming rewrites the markup too, so the caller has to use what comes
@@ -108,11 +121,7 @@
     watch    = pick("watch"),
     computed = pick("computed"),
     # Each component's mounted hook runs in turn, on the shared instance
-    mounted  = if (!length(mounts)) NULL else htmlwidgets::JS(
-      "function() { var self = this; [",
-      paste(vapply(mounts, as.character, character(1)), collapse = ", "),
-      "].forEach(function(f) { f.call(self); }); }"
-    ),
+    mounted  = mounted,
     dependencies = unlist(lapply(parts, `[[`, "dependencies"), recursive = FALSE)
   )
 }
@@ -162,7 +171,13 @@
   absorbed$methods <- lapply(absorbed$methods, .el_rewrite_js, rename = rename)
   absorbed$computed <- lapply(absorbed$computed, .el_rewrite_js, rename = rename)
   if (!is.null(absorbed$mounted)) {
+    report <- attr(absorbed$mounted, "el_report")
     absorbed$mounted <- .el_rewrite_js(absorbed$mounted, rename)
+    # The fields it reports are renamed with the rest
+    if (!is.null(report)) {
+      attr(absorbed$mounted, "el_report") <- vapply(
+        report, .el_rewrite_expr, character(1), rename = rename)
+    }
   }
   if (length(absorbed$watch)) {
     absorbed$watch <- lapply(absorbed$watch, .el_rewrite_js, rename = rename)

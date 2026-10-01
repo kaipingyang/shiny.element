@@ -5,7 +5,7 @@
 \title{Update Element UI Steps}
 \usage{
 update_el_steps(
-  session,
+  session = shiny::getDefaultReactiveDomain(),
   id,
   active = NULL,
   process_status = NULL,
@@ -13,7 +13,8 @@ update_el_steps(
 )
 }
 \arguments{
-\item{session}{Shiny session object}
+\item{session}{Shiny session; the current one by default, as for
+\code{\link[shiny:updateTextInput]{shiny::updateTextInput()}}.}
 
 \item{id}{Steps ID}
 

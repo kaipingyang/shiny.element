@@ -144,7 +144,8 @@ el_tooltip <- function(id = NULL,
 #' Server-side update for [el_tooltip()]. Setting `value` only shows or hides
 #' the hint when the tooltip was created with `manual = TRUE`.
 #'
-#' @param session Shiny session object.
+#' @param session Shiny session; the current one by default, as for
+#'   [shiny::updateTextInput()].
 #' @param id Tooltip ID (un-namespaced).
 #' @param content,disabled,value New values; `NULL` leaves one unchanged.
 #'
@@ -157,7 +158,7 @@ el_tooltip <- function(id = NULL,
 #'   })
 #' }
 #' @export
-update_el_tooltip <- function(session, id, content = NULL, disabled = NULL,
+update_el_tooltip <- function(session = shiny::getDefaultReactiveDomain(), id, content = NULL, disabled = NULL,
                               value = NULL) {
   ns_id <- session$ns(id)
   msg <- list(id = ns_id)

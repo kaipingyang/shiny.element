@@ -334,7 +334,8 @@ el_upload <- function(id = NULL,
 
 #' Update an Element UI Upload
 #'
-#' @param session Shiny session object.
+#' @param session Shiny session; the current one by default, as for
+#'   [shiny::updateTextInput()].
 #' @param id Upload ID (un-namespaced).
 #' @param disabled New disabled state.
 #' @param limit New maximum number of files.
@@ -347,7 +348,7 @@ el_upload <- function(id = NULL,
 #'   })
 #' }
 #' @export
-update_el_upload <- function(session, id, disabled = NULL, limit = NULL) {
+update_el_upload <- function(session = shiny::getDefaultReactiveDomain(), id, disabled = NULL, limit = NULL) {
   msg <- list(id = session$ns(id))
   if (!is.null(disabled)) msg$disabled <- disabled
   if (!is.null(limit))    msg$limit    <- limit
@@ -360,7 +361,8 @@ update_el_upload <- function(session, id, disabled = NULL, limit = NULL) {
 #' Empties the list of chosen files, as you would after a form is submitted.
 #' It does not undo an upload that has already happened.
 #'
-#' @param session Shiny session object.
+#' @param session Shiny session; the current one by default, as for
+#'   [shiny::updateTextInput()].
 #' @param id Upload ID (un-namespaced).
 #'   This is Element's `data` prop, renamed to keep it distinct from the
 #'   uploaded file itself.
@@ -373,7 +375,7 @@ update_el_upload <- function(session, id, disabled = NULL, limit = NULL) {
 #'   })
 #' }
 #' @export
-el_upload_clear <- function(session, id) {
+el_upload_clear <- function(session = shiny::getDefaultReactiveDomain(), id) {
   session$sendCustomMessage("clearElUpload", list(id = session$ns(id)))
   invisible(NULL)
 }

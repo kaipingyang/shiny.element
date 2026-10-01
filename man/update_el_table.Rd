@@ -5,7 +5,7 @@
 \title{Update Element UI Table}
 \usage{
 update_el_table(
-  session,
+  session = shiny::getDefaultReactiveDomain(),
   id,
   data = NULL,
   columns = NULL,
@@ -15,7 +15,8 @@ update_el_table(
 )
 }
 \arguments{
-\item{session}{Shiny session object.}
+\item{session}{Shiny session; the current one by default, as for
+\code{\link[shiny:updateTextInput]{shiny::updateTextInput()}}.}
 
 \item{id}{Table ID (un-namespaced).}
 

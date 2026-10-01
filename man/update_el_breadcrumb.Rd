@@ -4,10 +4,16 @@
 \alias{update_el_breadcrumb}
 \title{Update Element UI Breadcrumb}
 \usage{
-update_el_breadcrumb(session, id, items = NULL, separator = NULL)
+update_el_breadcrumb(
+  session = shiny::getDefaultReactiveDomain(),
+  id,
+  items = NULL,
+  separator = NULL
+)
 }
 \arguments{
-\item{session}{Shiny session object.}
+\item{session}{Shiny session; the current one by default, as for
+\code{\link[shiny:updateTextInput]{shiny::updateTextInput()}}.}
 
 \item{id}{Breadcrumb ID (un-namespaced).}
 

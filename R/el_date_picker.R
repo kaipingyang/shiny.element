@@ -55,8 +55,11 @@
 #' @return An `htmltools` tagList with a Vue-managed date picker component.
 #'
 #' @section Shiny input:
-#' `input$<id>` — String for single-date types, or two-element array for range
-#' types. The format is controlled by `value_format`.
+#' `input$<id>` -- for `type` `"date"`, `"dates"` and `"daterange"` with the
+#' default `value_format`, a `Date` (two for a range, several for `"dates"`),
+#' as [shiny::dateInput()] gives one; `NULL` while empty. Any other type or
+#' `value_format` reports the text the picker produces, in that format -- you
+#' asked for that format, so it is not converted.
 #'
 #' @examples
 #' # Basic date picker
@@ -205,13 +208,15 @@ el_date_picker <- function(
     id     = ns_id,
     markup = htmltools::tag("el-date-picker", picker_attrs),
     data = vue_data,
+    # The value is the binding's: reported on load and on every change, and
+    # converted on the way in. A change handler sending it too would send it
+    # unconverted, overwriting the Date.
     methods = c(events$methods, list(
-      handleChange = htmlwidgets::JS(sprintf(
-        "function(value) { window.Shiny && Shiny.setInputValue && Shiny.setInputValue('%s', value); }",
-        ns_id
-      ))
+      handleChange = htmlwidgets::JS("function() {}")
     )),
     mounted = .el_mounted_init(stats::setNames("value", ns_id)),
+    type    = if (type %in% c("date", "dates", "daterange") &&
+                  identical(value_format, "yyyy-MM-dd")) "shiny.element.date",
     width      = width,
     slots      = slots,
     dependency = el_date_picker_handler_dependency()
@@ -224,7 +229,8 @@ el_date_picker <- function(
 #' Server-side update for [el_date_picker()]. Supports updating value, disabled
 #' state, type, clearable, readonly, and placeholder text.
 #'
-#' @param session Shiny session object.
+#' @param session Shiny session; the current one by default, as for
+#'   [shiny::updateTextInput()].
 #' @param id Date picker ID (un-namespaced).
 #' @param value New picker value (string or two-element vector for range types).
 #' @param disabled New disabled state.
@@ -243,7 +249,7 @@ el_date_picker <- function(
 #' }
 #' @export
 update_el_date_picker <- function(
-    session,
+    session = shiny::getDefaultReactiveDomain(),
     id,
     value       = NULL,
     disabled    = NULL,

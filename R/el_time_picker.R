@@ -183,7 +183,8 @@ el_time_select <- function(id = NULL,
 #'
 #' Server-side update for [el_time_picker()] and [el_time_select()].
 #'
-#' @param session Shiny session object.
+#' @param session Shiny session; the current one by default, as for
+#'   [shiny::updateTextInput()].
 #' @param id Picker ID (un-namespaced).
 #' @param value,disabled,picker_options New values; `NULL` leaves one
 #'   unchanged.
@@ -195,7 +196,7 @@ el_time_select <- function(id = NULL,
 #'   observeEvent(input$reset, update_el_time_picker(session, "start", value = "09:00:00"))
 #' }
 #' @export
-update_el_time_picker <- function(session, id, value = NULL, disabled = NULL,
+update_el_time_picker <- function(session = shiny::getDefaultReactiveDomain(), id, value = NULL, disabled = NULL,
                                   picker_options = NULL) {
   msg <- list(id = session$ns(id))
   if (!is.null(value))          msg$value         <- if (length(value) > 1) as.list(value) else value

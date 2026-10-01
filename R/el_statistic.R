@@ -124,7 +124,8 @@ el_statistic <- function(id = NULL,
 #'
 #' Server-side update for [el_statistic()].
 #'
-#' @param session Shiny session object.
+#' @param session Shiny session; the current one by default, as for
+#'   [shiny::updateTextInput()].
 #' @param id Component ID (un-namespaced).
 #' @param value,title,prefix,suffix New values; `NULL` leaves one unchanged.
 #'
@@ -138,7 +139,7 @@ el_statistic <- function(id = NULL,
 #'   })
 #' }
 #' @export
-update_el_statistic <- function(session, id, value = NULL, title = NULL,
+update_el_statistic <- function(session = shiny::getDefaultReactiveDomain(), id, value = NULL, title = NULL,
                                 prefix = NULL, suffix = NULL) {
   msg <- list(id = session$ns(id))
   if (!is.null(value))  msg$value  <- value

@@ -246,7 +246,8 @@ el_menu <- function(id = NULL,
 
 #' Update an Element UI Menu
 #'
-#' @param session Shiny session object.
+#' @param session Shiny session; the current one by default, as for
+#'   [shiny::updateTextInput()].
 #' @param id Menu ID (un-namespaced).
 #' @param active Index of the item to select.
 #' @param collapse New collapsed state.
@@ -259,7 +260,7 @@ el_menu <- function(id = NULL,
 #'   })
 #' }
 #' @export
-update_el_menu <- function(session, id, active = NULL, collapse = NULL) {
+update_el_menu <- function(session = shiny::getDefaultReactiveDomain(), id, active = NULL, collapse = NULL) {
   msg <- list(id = session$ns(id))
   if (!is.null(active))   msg$active   <- active
   if (!is.null(collapse)) msg$collapse <- collapse

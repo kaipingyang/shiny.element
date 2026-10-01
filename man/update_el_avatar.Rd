@@ -5,7 +5,7 @@
 \title{Update Element UI Avatar}
 \usage{
 update_el_avatar(
-  session,
+  session = shiny::getDefaultReactiveDomain(),
   id,
   content = NULL,
   src = NULL,
@@ -15,7 +15,8 @@ update_el_avatar(
 )
 }
 \arguments{
-\item{session}{Shiny session object.}
+\item{session}{Shiny session; the current one by default, as for
+\code{\link[shiny:updateTextInput]{shiny::updateTextInput()}}.}
 
 \item{id}{Avatar ID (un-namespaced).}
 

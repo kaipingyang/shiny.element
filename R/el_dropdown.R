@@ -167,7 +167,8 @@ el_dropdown <- function(
 #'
 #' Server-side update for [el_dropdown()].
 #'
-#' @param session Shiny session object.
+#' @param session Shiny session; the current one by default, as for
+#'   [shiny::updateTextInput()].
 #' @param id Dropdown ID (un-namespaced).
 #' @param disabled New disabled state.
 #'
@@ -180,7 +181,7 @@ el_dropdown <- function(
 #'   })
 #' }
 #' @export
-update_el_dropdown <- function(session, id, disabled = NULL) {
+update_el_dropdown <- function(session = shiny::getDefaultReactiveDomain(), id, disabled = NULL) {
   ns_id <- session$ns(id)
   msg   <- list(id = ns_id)
   if (!is.null(disabled)) msg$disabled <- disabled

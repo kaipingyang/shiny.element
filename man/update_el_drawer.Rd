@@ -4,10 +4,17 @@
 \alias{update_el_drawer}
 \title{Update Element UI Drawer}
 \usage{
-update_el_drawer(session, id, visible = NULL, title = NULL, size = NULL)
+update_el_drawer(
+  session = shiny::getDefaultReactiveDomain(),
+  id,
+  visible = NULL,
+  title = NULL,
+  size = NULL
+)
 }
 \arguments{
-\item{session}{Shiny session object.}
+\item{session}{Shiny session; the current one by default, as for
+\code{\link[shiny:updateTextInput]{shiny::updateTextInput()}}.}
 
 \item{id}{Drawer ID (un-namespaced).}
 

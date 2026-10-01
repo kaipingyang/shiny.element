@@ -4,10 +4,15 @@
 \alias{el_form_clear_validate}
 \title{Clear an Element UI Form's validation messages}
 \usage{
-el_form_clear_validate(session, id, props = NULL)
+el_form_clear_validate(
+  session = shiny::getDefaultReactiveDomain(),
+  id,
+  props = NULL
+)
 }
 \arguments{
-\item{session}{Shiny session object.}
+\item{session}{Shiny session; the current one by default, as for
+\code{\link[shiny:updateTextInput]{shiny::updateTextInput()}}.}
 
 \item{id}{Form ID (un-namespaced).}
 

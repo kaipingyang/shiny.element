@@ -167,7 +167,8 @@ el_carousel <- function(id = NULL,
 
 #' Update an Element UI Carousel
 #'
-#' @param session Shiny session object.
+#' @param session Shiny session; the current one by default, as for
+#'   [shiny::updateTextInput()].
 #' @param id Carousel ID (un-namespaced).
 #' @param active Index of the slide to show, 0-based.
 #' @param autoplay Start or stop cycling.
@@ -181,7 +182,7 @@ el_carousel <- function(id = NULL,
 #'   })
 #' }
 #' @export
-update_el_carousel <- function(session, id,
+update_el_carousel <- function(session = shiny::getDefaultReactiveDomain(), id,
                                active = NULL,
                                autoplay = NULL,
                                interval = NULL) {

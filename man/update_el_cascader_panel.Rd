@@ -4,10 +4,16 @@
 \alias{update_el_cascader_panel}
 \title{Update Element UI Cascader Panel}
 \usage{
-update_el_cascader_panel(session, id, value = NULL, options = NULL)
+update_el_cascader_panel(
+  session = shiny::getDefaultReactiveDomain(),
+  id,
+  value = NULL,
+  options = NULL
+)
 }
 \arguments{
-\item{session}{Shiny session object.}
+\item{session}{Shiny session; the current one by default, as for
+\code{\link[shiny:updateTextInput]{shiny::updateTextInput()}}.}
 
 \item{id}{Panel ID (un-namespaced).}
 

@@ -5,7 +5,7 @@
 \title{Update Element UI Time Picker}
 \usage{
 update_el_time_picker(
-  session,
+  session = shiny::getDefaultReactiveDomain(),
   id,
   value = NULL,
   disabled = NULL,
@@ -13,7 +13,8 @@ update_el_time_picker(
 )
 }
 \arguments{
-\item{session}{Shiny session object.}
+\item{session}{Shiny session; the current one by default, as for
+\code{\link[shiny:updateTextInput]{shiny::updateTextInput()}}.}
 
 \item{id}{Picker ID (un-namespaced).}
 

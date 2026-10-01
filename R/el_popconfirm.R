@@ -137,7 +137,8 @@ el_popconfirm <- function(id = NULL,
 #'
 #' Server-side update for [el_popconfirm()].
 #'
-#' @param session Shiny session object.
+#' @param session Shiny session; the current one by default, as for
+#'   [shiny::updateTextInput()].
 #' @param id Popconfirm ID (un-namespaced).
 #' @param title,confirm_button_text,cancel_button_text New values; `NULL`
 #'   leaves one unchanged.
@@ -152,7 +153,7 @@ el_popconfirm <- function(id = NULL,
 #'   })
 #' }
 #' @export
-update_el_popconfirm <- function(session, id, title = NULL,
+update_el_popconfirm <- function(session = shiny::getDefaultReactiveDomain(), id, title = NULL,
                                  confirm_button_text = NULL,
                                  cancel_button_text = NULL) {
   ns_id <- session$ns(id)

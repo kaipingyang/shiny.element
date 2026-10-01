@@ -116,7 +116,8 @@ el_timeline <- function(id = NULL,
 
 #' Update an Element UI Timeline
 #'
-#' @param session Shiny session object.
+#' @param session Shiny session; the current one by default, as for
+#'   [shiny::updateTextInput()].
 #' @param id Timeline ID (un-namespaced).
 #' @param items Replacement entries, in the same shape [el_timeline()] takes.
 #' @param reverse New ordering.
@@ -131,7 +132,7 @@ el_timeline <- function(id = NULL,
 #'     update_el_timeline(session, "log", items = log_entries())
 #'   })
 #' }
-update_el_timeline <- function(session, id, items = NULL, reverse = NULL) {
+update_el_timeline <- function(session = shiny::getDefaultReactiveDomain(), id, items = NULL, reverse = NULL) {
   msg <- list(id = session$ns(id))
   if (!is.null(items))   msg$items   <- .el_timeline_items(items)
   if (!is.null(reverse)) msg$reverse <- reverse

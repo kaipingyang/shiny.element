@@ -18,7 +18,8 @@
 #' Each component's methods are listed in its own help page, under
 #' "Element methods".
 #'
-#' @param session Shiny session object.
+#' @param session Shiny session; the current one by default, as for
+#'   [shiny::updateTextInput()].
 #' @param id Component ID (un-namespaced).
 #' @param method Name of the Element method to call.
 #' @param args A list of arguments, passed positionally.
@@ -61,7 +62,7 @@
 #'   shinyApp(ui, server)
 #' }
 #' @export
-el_call <- function(session, id, method, args = list(), result = TRUE,
+el_call <- function(session = shiny::getDefaultReactiveDomain(), id, method, args = list(), result = TRUE,
                     component = NULL) {
   if (!is.character(method) || length(method) != 1L || !nzchar(method)) {
     stop("`method` must be a single method name.", call. = FALSE)

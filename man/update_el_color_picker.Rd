@@ -4,10 +4,16 @@
 \alias{update_el_color_picker}
 \title{Update Element UI Color Picker}
 \usage{
-update_el_color_picker(session, id, value = NULL, disabled = NULL)
+update_el_color_picker(
+  session = shiny::getDefaultReactiveDomain(),
+  id,
+  value = NULL,
+  disabled = NULL
+)
 }
 \arguments{
-\item{session}{Shiny session object.}
+\item{session}{Shiny session; the current one by default, as for
+\code{\link[shiny:updateTextInput]{shiny::updateTextInput()}}.}
 
 \item{id}{Color picker ID (un-namespaced).}
 

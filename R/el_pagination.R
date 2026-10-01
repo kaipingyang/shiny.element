@@ -181,7 +181,8 @@ el_pagination <- function(
 #'
 #' Server-side update for [el_pagination()].
 #'
-#' @param session Shiny session object.
+#' @param session Shiny session; the current one by default, as for
+#'   [shiny::updateTextInput()].
 #' @param id Pagination ID (un-namespaced).
 #' @param total New total item count.
 #' @param current_page New current page number.
@@ -198,7 +199,7 @@ el_pagination <- function(
 #' }
 #' @export
 update_el_pagination <- function(
-    session,
+    session = shiny::getDefaultReactiveDomain(),
     id,
     total        = NULL,
     current_page = NULL,

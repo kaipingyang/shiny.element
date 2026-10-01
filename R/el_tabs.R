@@ -208,7 +208,8 @@ el_tabs <- function(
 #'
 #' Server-side update for [el_tabs()].
 #'
-#' @param session Shiny session object.
+#' @param session Shiny session; the current one by default, as for
+#'   [shiny::updateTextInput()].
 #' @param id Tabs ID (un-namespaced).
 #' @param selected Name of the tab to select.
 #'
@@ -221,7 +222,7 @@ el_tabs <- function(
 #'   })
 #' }
 #' @export
-update_el_tabs <- function(session, id, selected = NULL) {
+update_el_tabs <- function(session = shiny::getDefaultReactiveDomain(), id, selected = NULL) {
   msg <- list()
   if (!is.null(selected)) msg$selected <- selected
   session$sendInputMessage(id, msg)
@@ -237,7 +238,8 @@ update_el_tabs <- function(session, id, selected = NULL) {
 #' [shiny::removeTab()]. The content may hold any UI, this package's
 #' components included.
 #'
-#' @param session Shiny session object.
+#' @param session Shiny session; the current one by default, as for
+#'   [shiny::updateTextInput()].
 #' @param id Tabs ID (un-namespaced).
 #' @param name,label The new tab's name and label.
 #' @param content The new tab's content.
@@ -263,7 +265,7 @@ update_el_tabs <- function(session, id, selected = NULL) {
 #'   shinyApp(ui, server)
 #' }
 #' @export
-insert_el_tab <- function(session, id, name, label, content = NULL,
+insert_el_tab <- function(session = shiny::getDefaultReactiveDomain(), id, name, label, content = NULL,
                           closable = NULL, select = TRUE) {
   ns_id <- session$ns(id)
   # The pane goes in through insertUI, which renders its dependencies and
@@ -283,7 +285,7 @@ insert_el_tab <- function(session, id, name, label, content = NULL,
 
 #' @rdname insert_el_tab
 #' @export
-remove_el_tab <- function(session, id, name) {
+remove_el_tab <- function(session = shiny::getDefaultReactiveDomain(), id, name) {
   session$sendInputMessage(id, list(remove_tab = name))
   invisible(NULL)
 }
