@@ -2,7 +2,7 @@
 % Please edit documentation in R/el_tags.R
 \name{el}
 \alias{el}
-\title{Element UI Tags (auto-generated, pure tag generators)}
+\title{Element UI tags, for markup inside a component}
 \usage{
 el
 }
@@ -10,36 +10,46 @@ el
 A named list of tag-generating functions, one per Element UI tag.
 }
 \description{
-Provides a list of functions for generating Element UI tags (el-*), similar to \code{tags$p}.
-These functions do not create Vue instances or Shiny bindings.
+A tag generator for every Element tag, as \code{tags$p} is for HTML:
+\code{el$button(type = "primary", "Go")} writes \verb{<el-button type="primary">}.
+Nothing more -- no Vue instance, no Shiny input, no id.
 }
 \details{
-Categories:
+An \verb{<el-*>} tag becomes an Element component only when a Vue instance
+compiles it, so these belong where one already does:
 \itemize{
-\item Basic: button, link, icon
-\item Layout: container, header, aside, main, footer, row, col
-\item Form: form, form-item, input, input-number, radio, radio-group, radio-button,
-checkbox, checkbox-group, switch, select, option, option-group, cascader, cascader-panel,
-slider, time-picker, time-select, date-picker, upload, rate, color-picker, transfer, autocomplete
-\item Data: table, table-column, tag, progress, tree, pagination, badge, avatar, calendar, card,
-carousel, carousel-item, collapse, collapse-item, timeline, timeline-item, divider, image,
-empty, skeleton, skeleton-item, result, statistic, descriptions,
-descriptions-item
-\item Navigation: menu, submenu, menu-item, menu-item-group, tabs, tab-pane, breadcrumb,
-breadcrumb-item, dropdown, dropdown-menu, dropdown-item, steps, step, page-header,
-backtop, anchor, anchor-link
-\item Feedback: dialog, alert, drawer, popover, tooltip, popconfirm, loading
+\item the \code{markup} of \code{\link[=el_widget]{el_widget()}}, when building a component of your own;
+\item a \code{\link[=template]{template()}} or a component's \code{slots};
+\item a table column's \code{cell} in \code{\link[=el_table]{el_table()}};
+\item the trigger of a wrapper -- \code{\link[=el_tooltip]{el_tooltip()}}, \code{\link[=el_popover]{el_popover()}},
+\code{\link[=el_popconfirm]{el_popconfirm()}}.
 }
+
+Anywhere else -- the top level of a page, or inside the markup-only
+containers (\code{\link[=el_tabs]{el_tabs()}}, \code{\link[=el_collapse]{el_collapse()}}, \code{\link[=el_dialog]{el_dialog()}}, \code{\link[=el_drawer]{el_drawer()}},
+\code{\link[=el_row]{el_row()}}, \code{\link[=el_container]{el_container()}}) -- nothing compiles them and they show as
+bare text; the browser console says so. There, use the component
+functions: \code{\link[=el_button]{el_button()}}, \code{\link[=el_tag]{el_tag()}} and the rest.
+
+Mounting a Vue instance over such markup automatically is deliberately not
+done: it would rebuild every component and Shiny input inside it, leaving
+them on screen but disconnected from the server.
 }
 \examples{
-# List all available Element UI tag generators
 names(el)
 
-# Use with auto-generated tag functions
-el$button("Submit", type = "primary")
-el$table(
-  el$table_column(prop = "name", label = "Name"),
-  el$table_column(prop = "age", label = "Age")
-)
-el$icon("star")
+# As a wrapper's trigger, compiled by the tooltip's own instance
+el_tooltip("hint", el$button(type = "primary", "Hover me"), content = "Help")
+
+# In a table cell, once per row
+el_table("tasks", data = data.frame(task = c("Draft", "Review"), done = c(TRUE, FALSE)),
+  columns = list(
+    list(prop = "task", label = "Task"),
+    list(label = "State", cell = el$tag(
+      ":type" = "scope.row.done ? 'success' : 'info'",
+      "{{ scope.row.done ? 'done' : 'open' }}"))))
+
+# As the markup of a component of your own
+el_widget("me", markup = el$avatar(":size" = "size", "{{ initials }}"),
+          data = list(size = 48, initials = "KY"))
 }
