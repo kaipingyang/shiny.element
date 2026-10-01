@@ -15,3 +15,4 @@ tfl.md
 
 # Upstream Element UI source + docs, for API reference only (see .upstream/README.md)
 .upstream/
+tests/testthat/_problems/
