@@ -59,7 +59,13 @@
 <span>  predefine <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  popper_class <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  label <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  label_position <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"top"</span>, <span class="st">"left"</span><span class="op">)</span>,</span>
+<span>  label_position <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"top"</span>, <span class="st">"left"</span>, <span class="st">"right"</span><span class="op">)</span>,</span>
+<span>  label_width <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  label_suffix <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  required <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  error <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  show_message <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  inline_message <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  width <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  slots <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  session <span class="op">=</span> <span class="cn">NULL</span></span>
@@ -108,12 +114,42 @@ none.</p></dd>
 <dt id="arg-label">label<a class="anchor" aria-label="anchor" href="#arg-label"></a></dt>
 <dd><p>A label shown with the component, as Shiny's inputs have:
 text or a tag. <code>NULL</code>, the default, shows none. It is the component's
-accessible name too.</p></dd>
+accessible name too – tied to it with <code>for</code> where the component has a
+native input that takes the id <code>&lt;id&gt;-input</code>, else with
+<code>aria-labelledby</code>.</p></dd>
 
 
 <dt id="arg-label-position">label_position<a class="anchor" aria-label="anchor" href="#arg-label-position"></a></dt>
-<dd><p><code>"top"</code> (the default, as Shiny's labels sit) or
-<code>"left"</code>, beside the component as in a horizontal Element form.</p></dd>
+<dd><p>Where the label sits, as <code><a href="el_form.html">el_form()</a></code>'s
+<code>label_position</code>: <code>"top"</code> (the default, as Shiny's labels sit), or
+beside the component, its text aligned <code>"left"</code> or <code>"right"</code> – which
+shows once <code>label_width</code> gives the labels a common width.</p></dd>
+
+
+<dt id="arg-label-width">label_width<a class="anchor" aria-label="anchor" href="#arg-label-width"></a></dt>
+<dd><p>Width of a label beside the component, as a CSS unit,
+so that several line up. Element's <code>label-width</code>.</p></dd>
+
+
+<dt id="arg-label-suffix">label_suffix<a class="anchor" aria-label="anchor" href="#arg-label-suffix"></a></dt>
+<dd><p>Text after the label, such as <code>":"</code>. Element's
+<code>label-suffix</code>.</p></dd>
+
+
+<dt id="arg-required">required<a class="anchor" aria-label="anchor" href="#arg-required"></a></dt>
+<dd><p>Draw Element's red asterisk before the label. It marks the
+field; it does not check it – shinyvalidate or <code><a href="el_form.html">el_form()</a></code> does that.</p></dd>
+
+
+<dt id="arg-error">error<a class="anchor" aria-label="anchor" href="#arg-error"></a></dt>
+<dd><p>An error message shown under the component in Element's
+style, the field framed in red. Element's <code>error</code>.</p></dd>
+
+
+<dt id="arg-show-message-inline-message">show_message, inline_message<a class="anchor" aria-label="anchor" href="#arg-show-message-inline-message"></a></dt>
+<dd><p>Whether <code>error</code>'s message is shown, and
+whether beside the component rather than under it. Element's
+<code>show-message</code> and <code>inline-message</code>.</p></dd>
 
 
 <dt id="arg-width">width<a class="anchor" aria-label="anchor" href="#arg-width"></a></dt>
@@ -154,14 +190,14 @@ a warning.</p></dd>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   &lt;script type="text/x-template" data-shiny-vue-template&gt;&lt;div id="cp1_container" style="display: contents"&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   &lt;el-color-picker v-model="value" :disabled="disabled" :show-alpha="showAlpha" @change="handleChange" :size="size === null ? undefined : size" :color-format="colorFormat === null ? undefined : colorFormat" :predefine="predefine === null ? undefined : predefine" :popper-class="popperClass === null ? undefined : popperClass" @active-change="elEmitActiveChange"&gt;&lt;/el-color-picker&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> &lt;/div&gt;&lt;/script&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   &lt;script type="application/json" data-shiny-vue-options&gt;{"options":{"data":{"value":"#409EFF","disabled":false,"showAlpha":false,"size":null,"colorFormat":null,"predefine":null,"popperClass":null},"methods":{"elEmitActiveChange":"function() { window.shinyElement.emit('cp1', 'active_change', arguments); }","handleChange":"function(val) { window.Shiny &amp;&amp; Shiny.setInputValue &amp;&amp; Shiny.setInputValue('cp1', val); }"}},"input":"value","rate":null,"type":null,"evals":["options.methods.elEmitActiveChange","options.methods.handleChange"]}&lt;/script&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   &lt;script type="application/json" data-shiny-vue-options&gt;{"options":{"data":{"value":"#409EFF","disabled":false,"showAlpha":false,"size":null,"colorFormat":null,"predefine":null,"popperClass":null},"methods":{"elEmitActiveChange":"function() { window.shinyElement.emit('cp1', 'active_change', arguments); }","handleChange":"function(val) { }"}},"input":"value","rate":null,"type":null,"evals":["options.methods.elEmitActiveChange","options.methods.handleChange"]}&lt;/script&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> &lt;/div&gt;</span>
 <span class="r-in"><span><span class="fu">el_color_picker</span><span class="op">(</span><span class="st">"cp2"</span>, show_alpha <span class="op">=</span> <span class="cn">TRUE</span>, predefine <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"#ff4500"</span>, <span class="st">"#ff8c00"</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> &lt;div id="cp2" data-shiny-vue style="display: contents"&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   &lt;script type="text/x-template" data-shiny-vue-template&gt;&lt;div id="cp2_container" style="display: contents"&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   &lt;el-color-picker v-model="value" :disabled="disabled" :show-alpha="showAlpha" @change="handleChange" :size="size === null ? undefined : size" :color-format="colorFormat === null ? undefined : colorFormat" :predefine="predefine === null ? undefined : predefine" :popper-class="popperClass === null ? undefined : popperClass" @active-change="elEmitActiveChange"&gt;&lt;/el-color-picker&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> &lt;/div&gt;&lt;/script&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   &lt;script type="application/json" data-shiny-vue-options&gt;{"options":{"data":{"value":null,"disabled":false,"showAlpha":true,"size":null,"colorFormat":null,"predefine":["#ff4500","#ff8c00"],"popperClass":null},"methods":{"elEmitActiveChange":"function() { window.shinyElement.emit('cp2', 'active_change', arguments); }","handleChange":"function(val) { window.Shiny &amp;&amp; Shiny.setInputValue &amp;&amp; Shiny.setInputValue('cp2', val); }"}},"input":"value","rate":null,"type":null,"evals":["options.methods.elEmitActiveChange","options.methods.handleChange"]}&lt;/script&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   &lt;script type="application/json" data-shiny-vue-options&gt;{"options":{"data":{"value":null,"disabled":false,"showAlpha":true,"size":null,"colorFormat":null,"predefine":["#ff4500","#ff8c00"],"popperClass":null},"methods":{"elEmitActiveChange":"function() { window.shinyElement.emit('cp2', 'active_change', arguments); }","handleChange":"function(val) { }"}},"input":"value","rate":null,"type":null,"evals":["options.methods.elEmitActiveChange","options.methods.handleChange"]}&lt;/script&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> &lt;/div&gt;</span>
 <span class="r-in"><span></span></span>
 </code></pre></div>

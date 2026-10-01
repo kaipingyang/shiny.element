@@ -27,7 +27,13 @@ el_slider(
   show_input_controls = NULL,
   tooltip_class = NULL,
   format_tooltip = NULL,
-  label_position = c("top", "left"),
+  label_position = c("top", "left", "right"),
+  label_width = NULL,
+  label_suffix = NULL,
+  required = FALSE,
+  error = NULL,
+  show_message = TRUE,
+  inline_message = FALSE,
   width = NULL,
   slots = NULL,
   session = NULL
@@ -97,7 +103,8 @@ el_slider(
 
   A label shown with the component, as Shiny's inputs have: text or a
   tag. `NULL`, the default, shows none. It is the component's accessible
-  name too.
+  name too – tied to it with `for` where the component has a native
+  input that takes the id `<id>-input`, else with `aria-labelledby`.
 
 - debounce:
 
@@ -123,8 +130,37 @@ el_slider(
 
 - label_position:
 
-  `"top"` (the default, as Shiny's labels sit) or `"left"`, beside the
-  component as in a horizontal Element form.
+  Where the label sits, as
+  [`el_form()`](https://kaipingyang.github.io/shiny.element/reference/el_form.md)'s
+  `label_position`: `"top"` (the default, as Shiny's labels sit), or
+  beside the component, its text aligned `"left"` or `"right"` – which
+  shows once `label_width` gives the labels a common width.
+
+- label_width:
+
+  Width of a label beside the component, as a CSS unit, so that several
+  line up. Element's `label-width`.
+
+- label_suffix:
+
+  Text after the label, such as `":"`. Element's `label-suffix`.
+
+- required:
+
+  Draw Element's red asterisk before the label. It marks the field; it
+  does not check it – shinyvalidate or
+  [`el_form()`](https://kaipingyang.github.io/shiny.element/reference/el_form.md)
+  does that.
+
+- error:
+
+  An error message shown under the component in Element's style, the
+  field framed in red. Element's `error`.
+
+- show_message, inline_message:
+
+  Whether `error`'s message is shown, and whether beside the component
+  rather than under it. Element's `show-message` and `inline-message`.
 
 - width:
 
@@ -163,7 +199,7 @@ el_slider("slider1", value = 30, min = 0, max = 100)
 #>   <script type="text/x-template" data-shiny-vue-template><div id="slider1_container" style="display: contents">
 #>   <el-slider v-model="value" :min="min" :max="max" :step="step" :range="range" :disabled="disabled" :show-input="showInput" :show-stops="showStops" :show-tooltip="showTooltip" :vertical="vertical" @change="handleChange" :height="height === null ? undefined : height" :marks="marks === null ? undefined : marks" :label="label === null ? undefined : label" :debounce="debounce === null ? undefined : debounce" :input-size="inputSize === null ? undefined : inputSize" :show-input-controls="showInputControls === null ? undefined : showInputControls" :tooltip-class="tooltipClass === null ? undefined : tooltipClass" :format-tooltip="formatTooltip === null ? undefined : formatTooltip" @input="elEmitInput"></el-slider>
 #> </div></script>
-#>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":30,"min":0,"max":100,"step":1,"range":false,"disabled":false,"showInput":false,"showStops":false,"showTooltip":true,"vertical":false,"height":null,"marks":null,"label":null,"debounce":null,"inputSize":null,"showInputControls":null,"tooltipClass":null,"formatTooltip":null},"methods":{"elEmitInput":"function() { window.shinyElement.emit('slider1', 'input', arguments); }","handleChange":"function(value) { window.Shiny && Shiny.setInputValue && Shiny.setInputValue('slider1', value); }"}},"input":"value","rate":null,"type":null,"evals":["options.methods.elEmitInput","options.methods.handleChange"]}</script>
+#>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":30,"min":0,"max":100,"step":1,"range":false,"disabled":false,"showInput":false,"showStops":false,"showTooltip":true,"vertical":false,"height":null,"marks":null,"label":null,"debounce":null,"inputSize":null,"showInputControls":null,"tooltipClass":null,"formatTooltip":null},"methods":{"elEmitInput":"function() { window.shinyElement.emit('slider1', 'input', arguments); }","handleChange":"function(value) { }"}},"input":"value","rate":{"policy":"debounce","delay":250},"type":null,"evals":["options.methods.elEmitInput","options.methods.handleChange"]}</script>
 #> </div>
 
 # Range slider
@@ -172,7 +208,7 @@ el_slider("slider2", value = c(20, 80), range = TRUE)
 #>   <script type="text/x-template" data-shiny-vue-template><div id="slider2_container" style="display: contents">
 #>   <el-slider v-model="value" :min="min" :max="max" :step="step" :range="range" :disabled="disabled" :show-input="showInput" :show-stops="showStops" :show-tooltip="showTooltip" :vertical="vertical" @change="handleChange" :height="height === null ? undefined : height" :marks="marks === null ? undefined : marks" :label="label === null ? undefined : label" :debounce="debounce === null ? undefined : debounce" :input-size="inputSize === null ? undefined : inputSize" :show-input-controls="showInputControls === null ? undefined : showInputControls" :tooltip-class="tooltipClass === null ? undefined : tooltipClass" :format-tooltip="formatTooltip === null ? undefined : formatTooltip" @input="elEmitInput"></el-slider>
 #> </div></script>
-#>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":[20,80],"min":0,"max":100,"step":1,"range":true,"disabled":false,"showInput":false,"showStops":false,"showTooltip":true,"vertical":false,"height":null,"marks":null,"label":null,"debounce":null,"inputSize":null,"showInputControls":null,"tooltipClass":null,"formatTooltip":null},"methods":{"elEmitInput":"function() { window.shinyElement.emit('slider2', 'input', arguments); }","handleChange":"function(value) { window.Shiny && Shiny.setInputValue && Shiny.setInputValue('slider2', value); }"}},"input":"value","rate":null,"type":null,"evals":["options.methods.elEmitInput","options.methods.handleChange"]}</script>
+#>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":[20,80],"min":0,"max":100,"step":1,"range":true,"disabled":false,"showInput":false,"showStops":false,"showTooltip":true,"vertical":false,"height":null,"marks":null,"label":null,"debounce":null,"inputSize":null,"showInputControls":null,"tooltipClass":null,"formatTooltip":null},"methods":{"elEmitInput":"function() { window.shinyElement.emit('slider2', 'input', arguments); }","handleChange":"function(value) { }"}},"input":"value","rate":{"policy":"debounce","delay":250},"type":null,"evals":["options.methods.elEmitInput","options.methods.handleChange"]}</script>
 #> </div>
 
 # Vertical slider with marks
@@ -182,7 +218,7 @@ el_slider("slider3", value = 50, vertical = TRUE, height = "200px",
 #>   <script type="text/x-template" data-shiny-vue-template><div id="slider3_container" style="display: contents">
 #>   <el-slider v-model="value" :min="min" :max="max" :step="step" :range="range" :disabled="disabled" :show-input="showInput" :show-stops="showStops" :show-tooltip="showTooltip" :vertical="vertical" @change="handleChange" :height="height === null ? undefined : height" :marks="marks === null ? undefined : marks" :label="label === null ? undefined : label" :debounce="debounce === null ? undefined : debounce" :input-size="inputSize === null ? undefined : inputSize" :show-input-controls="showInputControls === null ? undefined : showInputControls" :tooltip-class="tooltipClass === null ? undefined : tooltipClass" :format-tooltip="formatTooltip === null ? undefined : formatTooltip" @input="elEmitInput"></el-slider>
 #> </div></script>
-#>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":50,"min":0,"max":100,"step":1,"range":false,"disabled":false,"showInput":false,"showStops":false,"showTooltip":true,"vertical":true,"height":"200px","marks":{"0":"0km","50":"50km","100":"100km"},"label":null,"debounce":null,"inputSize":null,"showInputControls":null,"tooltipClass":null,"formatTooltip":null},"methods":{"elEmitInput":"function() { window.shinyElement.emit('slider3', 'input', arguments); }","handleChange":"function(value) { window.Shiny && Shiny.setInputValue && Shiny.setInputValue('slider3', value); }"}},"input":"value","rate":null,"type":null,"evals":["options.methods.elEmitInput","options.methods.handleChange"]}</script>
+#>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":50,"min":0,"max":100,"step":1,"range":false,"disabled":false,"showInput":false,"showStops":false,"showTooltip":true,"vertical":true,"height":"200px","marks":{"0":"0km","50":"50km","100":"100km"},"label":null,"debounce":null,"inputSize":null,"showInputControls":null,"tooltipClass":null,"formatTooltip":null},"methods":{"elEmitInput":"function() { window.shinyElement.emit('slider3', 'input', arguments); }","handleChange":"function(value) { }"}},"input":"value","rate":{"policy":"debounce","delay":250},"type":null,"evals":["options.methods.elEmitInput","options.methods.handleChange"]}</script>
 #> </div>
 
 # Shiny app example

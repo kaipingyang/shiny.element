@@ -10,7 +10,13 @@ el_switch(
   value = FALSE,
   disabled = FALSE,
   label = NULL,
-  label_position = c("top", "left"),
+  label_position = c("top", "left", "right"),
+  label_width = NULL,
+  label_suffix = NULL,
+  required = FALSE,
+  error = NULL,
+  show_message = TRUE,
+  inline_message = FALSE,
   width = NULL,
   active_text = NULL,
   inactive_text = NULL,
@@ -45,12 +51,42 @@ el_switch(
 
   A label shown with the component, as Shiny's inputs have: text or a
   tag. `NULL`, the default, shows none. It is the component's accessible
-  name too.
+  name too – tied to it with `for` where the component has a native
+  input that takes the id `<id>-input`, else with `aria-labelledby`.
 
 - label_position:
 
-  `"top"` (the default, as Shiny's labels sit) or `"left"`, beside the
-  component as in a horizontal Element form.
+  Where the label sits, as
+  [`el_form()`](https://kaipingyang.github.io/shiny.element/reference/el_form.md)'s
+  `label_position`: `"top"` (the default, as Shiny's labels sit), or
+  beside the component, its text aligned `"left"` or `"right"` – which
+  shows once `label_width` gives the labels a common width.
+
+- label_width:
+
+  Width of a label beside the component, as a CSS unit, so that several
+  line up. Element's `label-width`.
+
+- label_suffix:
+
+  Text after the label, such as `":"`. Element's `label-suffix`.
+
+- required:
+
+  Draw Element's red asterisk before the label. It marks the field; it
+  does not check it – shinyvalidate or
+  [`el_form()`](https://kaipingyang.github.io/shiny.element/reference/el_form.md)
+  does that.
+
+- error:
+
+  An error message shown under the component in Element's style, the
+  field framed in red. Element's `error`.
+
+- show_message, inline_message:
+
+  Whether `error`'s message is shown, and whether beside the component
+  rather than under it. Element's `show-message` and `inline-message`.
 
 - width:
 
@@ -133,7 +169,7 @@ el_switch("sw1", value = TRUE)
 #>   <script type="text/x-template" data-shiny-vue-template><div id="sw1_container" style="display: contents">
 #>   <el-switch v-model="value" :disabled="disabled" :active-text="activeText" :inactive-text="inactiveText" :active-color="activeColor" :inactive-color="inactiveColor" :active-value="activeValue" :inactive-value="inactiveValue" @change="handleChange" :width="width === null ? undefined : width" :active-icon-class="activeIconClass === null ? undefined : activeIconClass" :inactive-icon-class="inactiveIconClass === null ? undefined : inactiveIconClass" :name="name === null ? undefined : name" :validate-event="validateEvent === null ? undefined : validateEvent"></el-switch>
 #> </div></script>
-#>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":true,"disabled":false,"activeText":"","inactiveText":"","activeColor":"","inactiveColor":"","activeValue":true,"inactiveValue":false,"width":null,"activeIconClass":null,"inactiveIconClass":null,"name":null,"validateEvent":null},"methods":{"handleChange":"function(value) { window.Shiny && Shiny.setInputValue && Shiny.setInputValue('sw1', value); }"}},"input":"value","rate":null,"type":null,"evals":["options.methods.handleChange"]}</script>
+#>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":true,"disabled":false,"activeText":"","inactiveText":"","activeColor":"","inactiveColor":"","activeValue":true,"inactiveValue":false,"width":null,"activeIconClass":null,"inactiveIconClass":null,"name":null,"validateEvent":null},"methods":{"handleChange":"function(value) { }"}},"input":"value","rate":null,"type":null,"evals":["options.methods.handleChange"]}</script>
 #> </div>
 
 if (interactive()) {

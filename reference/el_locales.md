@@ -1,6 +1,7 @@
-# Languages Element UI can use for its built-in text
+# Collapse Handler Dependency Languages Element UI can use for its built-in text
 
-Languages Element UI can use for its built-in text
+Collapse Handler Dependency Languages Element UI can use for its
+built-in text
 
 ## Usage
 

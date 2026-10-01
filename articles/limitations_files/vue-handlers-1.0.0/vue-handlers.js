@@ -1,28 +1,5 @@
-if (typeof Shiny !== 'undefined' && Shiny.addCustomMessageHandler) {
-
-// update_vue_component() and update_vue_data(). Nothing to do without Shiny.
-
-Shiny.addCustomMessageHandler('update_vue_component', function(message) {
-  var widget = (window.shinyElement && shinyElement.find(message.id));
-  if (widget && widget.instance) {
-    Object.keys(message).forEach(function(key) {
-      if (key !== 'id' && widget.instance.hasOwnProperty(key)) {
-        widget.instance[key] = message[key];
-      }
-    });
-    if (widget.instance._elReport) widget.instance._elReport();
-  }
-});
-
-Shiny.addCustomMessageHandler('update_vue_data', function(message) {
-  var widget = (window.shinyElement && shinyElement.find(message.id));
-  if (widget && widget.instance && message.data) {
-    Object.assign(widget.instance.$data, message.data);
-    if (widget.instance._elReport) widget.instance._elReport();
-  }
-});
-
-}
+// Page-wide checks for an Element page. update_vue_data() and
+// update_vue_component() go through shiny-vue.js like every other update.
 
 // A raw Element tag -- el$button() -- is compiled only inside a Vue instance.
 // Placed anywhere else it stays an unknown <el-button> element and shows its

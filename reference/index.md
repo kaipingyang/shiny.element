@@ -5,7 +5,8 @@
 Page wrappers that load Vue, Element UI and the package’s own assets.
 
 - [`el_locales()`](https://kaipingyang.github.io/shiny.element/reference/el_locales.md)
-  : Languages Element UI can use for its built-in text
+  : Collapse Handler Dependency Languages Element UI can use for its
+  built-in text
 - [`el_page()`](https://kaipingyang.github.io/shiny.element/reference/el_page.md)
   : Element UI Page Wrapper with Theme Support
 - [`el_theme()`](https://kaipingyang.github.io/shiny.element/reference/el_theme.md)

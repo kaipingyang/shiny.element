@@ -14,7 +14,13 @@ el_cascader_panel(
   value = NULL,
   props = NULL,
   label = NULL,
-  label_position = c("top", "left"),
+  label_position = c("top", "left", "right"),
+  label_width = NULL,
+  label_suffix = NULL,
+  required = FALSE,
+  error = NULL,
+  show_message = TRUE,
+  inline_message = FALSE,
   width = NULL,
   slots = NULL,
   session = NULL
@@ -49,12 +55,42 @@ el_cascader_panel(
 
   A label shown with the component, as Shiny's inputs have: text or a
   tag. `NULL`, the default, shows none. It is the component's accessible
-  name too.
+  name too – tied to it with `for` where the component has a native
+  input that takes the id `<id>-input`, else with `aria-labelledby`.
 
 - label_position:
 
-  `"top"` (the default, as Shiny's labels sit) or `"left"`, beside the
-  component as in a horizontal Element form.
+  Where the label sits, as
+  [`el_form()`](https://kaipingyang.github.io/shiny.element/reference/el_form.md)'s
+  `label_position`: `"top"` (the default, as Shiny's labels sit), or
+  beside the component, its text aligned `"left"` or `"right"` – which
+  shows once `label_width` gives the labels a common width.
+
+- label_width:
+
+  Width of a label beside the component, as a CSS unit, so that several
+  line up. Element's `label-width`.
+
+- label_suffix:
+
+  Text after the label, such as `":"`. Element's `label-suffix`.
+
+- required:
+
+  Draw Element's red asterisk before the label. It marks the field; it
+  does not check it – shinyvalidate or
+  [`el_form()`](https://kaipingyang.github.io/shiny.element/reference/el_form.md)
+  does that.
+
+- error:
+
+  An error message shown under the component in Element's style, the
+  field framed in red. Element's `error`.
+
+- show_message, inline_message:
+
+  Whether `error`'s message is shown, and whether beside the component
+  rather than under it. Element's `show-message` and `inline-message`.
 
 - width:
 
@@ -104,7 +140,7 @@ el_cascader_panel("where", options = regions, value = c("asia", "jp"))
 #>   <script type="text/x-template" data-shiny-vue-template><div id="where_container" style="display: contents">
 #>   <el-cascader-panel v-model="value" :options="options" :props="props === null ? undefined : props" @change="handleChange" @expand-change="elEmitExpandChange"></el-cascader-panel>
 #> </div></script>
-#>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":["asia","jp"],"options":[{"value":"asia","label":"Asia","children":[{"value":"cn","label":"China"},{"value":"jp","label":"Japan"}]},{"value":"europe","label":"Europe","children":[{"value":"fr","label":"France"}]}],"props":null},"methods":{"elEmitExpandChange":"function() { window.shinyElement.emit('where', 'expand_change', arguments); }","handleChange":"function(v) { window.Shiny && Shiny.setInputValue && Shiny.setInputValue('where', v); }"}},"input":"value","rate":null,"type":null,"evals":["options.methods.elEmitExpandChange","options.methods.handleChange"]}</script>
+#>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":["asia","jp"],"options":[{"value":"asia","label":"Asia","children":[{"value":"cn","label":"China"},{"value":"jp","label":"Japan"}]},{"value":"europe","label":"Europe","children":[{"value":"fr","label":"France"}]}],"props":null},"methods":{"elEmitExpandChange":"function() { window.shinyElement.emit('where', 'expand_change', arguments); }","handleChange":"function(v) { }"}},"input":"value","rate":null,"type":null,"evals":["options.methods.elEmitExpandChange","options.methods.handleChange"]}</script>
 #> </div>
 
 # Several at once
@@ -113,6 +149,6 @@ el_cascader_panel("where", options = regions, props = list(multiple = TRUE))
 #>   <script type="text/x-template" data-shiny-vue-template><div id="where_container" style="display: contents">
 #>   <el-cascader-panel v-model="value" :options="options" :props="props === null ? undefined : props" @change="handleChange" @expand-change="elEmitExpandChange"></el-cascader-panel>
 #> </div></script>
-#>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":[],"options":[{"value":"asia","label":"Asia","children":[{"value":"cn","label":"China"},{"value":"jp","label":"Japan"}]},{"value":"europe","label":"Europe","children":[{"value":"fr","label":"France"}]}],"props":{"multiple":true}},"methods":{"elEmitExpandChange":"function() { window.shinyElement.emit('where', 'expand_change', arguments); }","handleChange":"function(v) { window.Shiny && Shiny.setInputValue && Shiny.setInputValue('where', v); }"}},"input":"value","rate":null,"type":null,"evals":["options.methods.elEmitExpandChange","options.methods.handleChange"]}</script>
+#>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":[],"options":[{"value":"asia","label":"Asia","children":[{"value":"cn","label":"China"},{"value":"jp","label":"Japan"}]},{"value":"europe","label":"Europe","children":[{"value":"fr","label":"France"}]}],"props":{"multiple":true}},"methods":{"elEmitExpandChange":"function() { window.shinyElement.emit('where', 'expand_change', arguments); }","handleChange":"function(v) { }"}},"input":"value","rate":null,"type":null,"evals":["options.methods.elEmitExpandChange","options.methods.handleChange"]}</script>
 #> </div>
 ```

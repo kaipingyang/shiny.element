@@ -35,7 +35,13 @@ el_input(
   resize = NULL,
   tabindex = NULL,
   validate_event = NULL,
-  label_position = c("top", "left"),
+  label_position = c("top", "left", "right"),
+  label_width = NULL,
+  label_suffix = NULL,
+  required = FALSE,
+  error = NULL,
+  show_message = TRUE,
+  inline_message = FALSE,
   width = NULL,
   slots = NULL,
   session = NULL
@@ -113,7 +119,8 @@ el_input(
 
   A label shown with the component, as Shiny's inputs have: text or a
   tag. `NULL`, the default, shows none. It is the component's accessible
-  name too.
+  name too – tied to it with `for` where the component has a native
+  input that takes the id `<id>-input`, else with `aria-labelledby`.
 
 - autocomplete:
 
@@ -162,8 +169,37 @@ el_input(
 
 - label_position:
 
-  `"top"` (the default, as Shiny's labels sit) or `"left"`, beside the
-  component as in a horizontal Element form.
+  Where the label sits, as
+  [`el_form()`](https://kaipingyang.github.io/shiny.element/reference/el_form.md)'s
+  `label_position`: `"top"` (the default, as Shiny's labels sit), or
+  beside the component, its text aligned `"left"` or `"right"` – which
+  shows once `label_width` gives the labels a common width.
+
+- label_width:
+
+  Width of a label beside the component, as a CSS unit, so that several
+  line up. Element's `label-width`.
+
+- label_suffix:
+
+  Text after the label, such as `":"`. Element's `label-suffix`.
+
+- required:
+
+  Draw Element's red asterisk before the label. It marks the field; it
+  does not check it – shinyvalidate or
+  [`el_form()`](https://kaipingyang.github.io/shiny.element/reference/el_form.md)
+  does that.
+
+- error:
+
+  An error message shown under the component in Element's style, the
+  field framed in red. Element's `error`.
+
+- show_message, inline_message:
+
+  Whether `error`'s message is shown, and whether beside the component
+  rather than under it. Element's `show-message` and `inline-message`.
 
 - width:
 
@@ -201,7 +237,10 @@ Callable with
 
 ## Shiny input
 
-`input$<id>` — string value of the input, updated on `change` event
+`input$<id>` – the text, reported as it is typed, debounced by 250 ms as
+[`shiny::textInput()`](https://rdrr.io/pkg/shiny/man/textInput.html)
+does, and after an
+[`update_el_input()`](https://kaipingyang.github.io/shiny.element/reference/update_el_input.md).
 (triggered on blur or Enter key press).
 
 ## Examples
@@ -213,7 +252,7 @@ el_input("name", placeholder = "Enter your name")
 #>   <script type="text/x-template" data-shiny-vue-template><div id="name_container" style="display: contents">
 #>   <el-input v-model="value" :type="type" :disabled="disabled" :readonly="readonly" :clearable="clearable" :show-password="showPassword" :show-word-limit="showWordLimit" :autosize="autosize" :prefix-icon="prefixIcon" :suffix-icon="suffixIcon" @change="handleChange" :size="size === null ? undefined : size" :maxlength="maxlength === null ? undefined : maxlength" :rows="rows === null ? undefined : rows" :placeholder="placeholder === null ? undefined : placeholder" :label="label === null ? undefined : label" :autocomplete="autocomplete === null ? undefined : autocomplete" :autofocus="autofocus === null ? undefined : autofocus" :name="name === null ? undefined : name" :form="form === null ? undefined : form" :minlength="minlength === null ? undefined : minlength" :max="max === null ? undefined : max" :min="min === null ? undefined : min" :step="step === null ? undefined : step" :resize="resize === null ? undefined : resize" :tabindex="tabindex === null ? undefined : tabindex" :validate-event="validateEvent === null ? undefined : validateEvent" @input="elEmitInput" @blur="elEmitBlur" @focus="elEmitFocus" @clear="elEmitClear"></el-input>
 #> </div></script>
-#>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":"","type":"text","disabled":false,"readonly":false,"clearable":false,"showPassword":false,"showWordLimit":false,"autosize":false,"prefixIcon":null,"suffixIcon":null,"size":null,"maxlength":null,"rows":null,"placeholder":"Enter your name","label":null,"autocomplete":null,"autofocus":null,"name":null,"form":null,"minlength":null,"max":null,"min":null,"step":null,"resize":null,"tabindex":null,"validateEvent":null},"methods":{"elEmitInput":"function() { window.shinyElement.emit('name', 'input', arguments); }","elEmitBlur":"function() { window.shinyElement.emit('name', 'blur', arguments); }","elEmitFocus":"function() { window.shinyElement.emit('name', 'focus', arguments); }","elEmitClear":"function() { window.shinyElement.emit('name', 'clear', arguments); }","handleChange":"function(value) { window.Shiny && Shiny.setInputValue && Shiny.setInputValue('name', value); }"}},"input":"value","rate":null,"type":null,"evals":["options.methods.elEmitInput","options.methods.elEmitBlur","options.methods.elEmitFocus","options.methods.elEmitClear","options.methods.handleChange"]}</script>
+#>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":"","type":"text","disabled":false,"readonly":false,"clearable":false,"showPassword":false,"showWordLimit":false,"autosize":false,"prefixIcon":null,"suffixIcon":null,"size":null,"maxlength":null,"rows":null,"placeholder":"Enter your name","label":null,"autocomplete":null,"autofocus":null,"name":null,"form":null,"minlength":null,"max":null,"min":null,"step":null,"resize":null,"tabindex":null,"validateEvent":null},"methods":{"elEmitInput":"function() { window.shinyElement.emit('name', 'input', arguments); }","elEmitBlur":"function() { window.shinyElement.emit('name', 'blur', arguments); }","elEmitFocus":"function() { window.shinyElement.emit('name', 'focus', arguments); }","elEmitClear":"function() { window.shinyElement.emit('name', 'clear', arguments); }","handleChange":"function(value) { }"}},"input":"value","rate":{"policy":"debounce","delay":250},"type":null,"evals":["options.methods.elEmitInput","options.methods.elEmitBlur","options.methods.elEmitFocus","options.methods.elEmitClear","options.methods.handleChange"]}</script>
 #> </div>
 
 # Clearable search input with icon
@@ -223,7 +262,7 @@ el_input("search", placeholder = "Search...",
 #>   <script type="text/x-template" data-shiny-vue-template><div id="search_container" style="display: contents">
 #>   <el-input v-model="value" :type="type" :disabled="disabled" :readonly="readonly" :clearable="clearable" :show-password="showPassword" :show-word-limit="showWordLimit" :autosize="autosize" :prefix-icon="prefixIcon" :suffix-icon="suffixIcon" @change="handleChange" :size="size === null ? undefined : size" :maxlength="maxlength === null ? undefined : maxlength" :rows="rows === null ? undefined : rows" :placeholder="placeholder === null ? undefined : placeholder" :label="label === null ? undefined : label" :autocomplete="autocomplete === null ? undefined : autocomplete" :autofocus="autofocus === null ? undefined : autofocus" :name="name === null ? undefined : name" :form="form === null ? undefined : form" :minlength="minlength === null ? undefined : minlength" :max="max === null ? undefined : max" :min="min === null ? undefined : min" :step="step === null ? undefined : step" :resize="resize === null ? undefined : resize" :tabindex="tabindex === null ? undefined : tabindex" :validate-event="validateEvent === null ? undefined : validateEvent" @input="elEmitInput" @blur="elEmitBlur" @focus="elEmitFocus" @clear="elEmitClear"></el-input>
 #> </div></script>
-#>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":"","type":"text","disabled":false,"readonly":false,"clearable":true,"showPassword":false,"showWordLimit":false,"autosize":false,"prefixIcon":"el-icon-search","suffixIcon":null,"size":null,"maxlength":null,"rows":null,"placeholder":"Search...","label":null,"autocomplete":null,"autofocus":null,"name":null,"form":null,"minlength":null,"max":null,"min":null,"step":null,"resize":null,"tabindex":null,"validateEvent":null},"methods":{"elEmitInput":"function() { window.shinyElement.emit('search', 'input', arguments); }","elEmitBlur":"function() { window.shinyElement.emit('search', 'blur', arguments); }","elEmitFocus":"function() { window.shinyElement.emit('search', 'focus', arguments); }","elEmitClear":"function() { window.shinyElement.emit('search', 'clear', arguments); }","handleChange":"function(value) { window.Shiny && Shiny.setInputValue && Shiny.setInputValue('search', value); }"}},"input":"value","rate":null,"type":null,"evals":["options.methods.elEmitInput","options.methods.elEmitBlur","options.methods.elEmitFocus","options.methods.elEmitClear","options.methods.handleChange"]}</script>
+#>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":"","type":"text","disabled":false,"readonly":false,"clearable":true,"showPassword":false,"showWordLimit":false,"autosize":false,"prefixIcon":"el-icon-search","suffixIcon":null,"size":null,"maxlength":null,"rows":null,"placeholder":"Search...","label":null,"autocomplete":null,"autofocus":null,"name":null,"form":null,"minlength":null,"max":null,"min":null,"step":null,"resize":null,"tabindex":null,"validateEvent":null},"methods":{"elEmitInput":"function() { window.shinyElement.emit('search', 'input', arguments); }","elEmitBlur":"function() { window.shinyElement.emit('search', 'blur', arguments); }","elEmitFocus":"function() { window.shinyElement.emit('search', 'focus', arguments); }","elEmitClear":"function() { window.shinyElement.emit('search', 'clear', arguments); }","handleChange":"function(value) { }"}},"input":"value","rate":{"policy":"debounce","delay":250},"type":null,"evals":["options.methods.elEmitInput","options.methods.elEmitBlur","options.methods.elEmitFocus","options.methods.elEmitClear","options.methods.handleChange"]}</script>
 #> </div>
 
 # Shiny app example

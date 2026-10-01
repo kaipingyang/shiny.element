@@ -84,7 +84,13 @@ Element UI select props.</p>
 <span>  filter_method <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  remote_method <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  label <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  label_position <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"top"</span>, <span class="st">"left"</span><span class="op">)</span>,</span>
+<span>  label_position <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"top"</span>, <span class="st">"left"</span>, <span class="st">"right"</span><span class="op">)</span>,</span>
+<span>  label_width <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  label_suffix <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  required <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  error <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  show_message <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  inline_message <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  width <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  slots <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  value <span class="op">=</span> <span class="cn">NULL</span>,</span>
@@ -217,12 +223,42 @@ multiple selection. <code>selected</code> is Shiny's name, <code>value</code> El
 <dt id="arg-label">label<a class="anchor" aria-label="anchor" href="#arg-label"></a></dt>
 <dd><p>A label shown with the component, as Shiny's inputs have:
 text or a tag. <code>NULL</code>, the default, shows none. It is the component's
-accessible name too.</p></dd>
+accessible name too – tied to it with <code>for</code> where the component has a
+native input that takes the id <code>&lt;id&gt;-input</code>, else with
+<code>aria-labelledby</code>.</p></dd>
 
 
 <dt id="arg-label-position">label_position<a class="anchor" aria-label="anchor" href="#arg-label-position"></a></dt>
-<dd><p><code>"top"</code> (the default, as Shiny's labels sit) or
-<code>"left"</code>, beside the component as in a horizontal Element form.</p></dd>
+<dd><p>Where the label sits, as <code><a href="el_form.html">el_form()</a></code>'s
+<code>label_position</code>: <code>"top"</code> (the default, as Shiny's labels sit), or
+beside the component, its text aligned <code>"left"</code> or <code>"right"</code> – which
+shows once <code>label_width</code> gives the labels a common width.</p></dd>
+
+
+<dt id="arg-label-width">label_width<a class="anchor" aria-label="anchor" href="#arg-label-width"></a></dt>
+<dd><p>Width of a label beside the component, as a CSS unit,
+so that several line up. Element's <code>label-width</code>.</p></dd>
+
+
+<dt id="arg-label-suffix">label_suffix<a class="anchor" aria-label="anchor" href="#arg-label-suffix"></a></dt>
+<dd><p>Text after the label, such as <code>":"</code>. Element's
+<code>label-suffix</code>.</p></dd>
+
+
+<dt id="arg-required">required<a class="anchor" aria-label="anchor" href="#arg-required"></a></dt>
+<dd><p>Draw Element's red asterisk before the label. It marks the
+field; it does not check it – shinyvalidate or <code><a href="el_form.html">el_form()</a></code> does that.</p></dd>
+
+
+<dt id="arg-error">error<a class="anchor" aria-label="anchor" href="#arg-error"></a></dt>
+<dd><p>An error message shown under the component in Element's
+style, the field framed in red. Element's <code>error</code>.</p></dd>
+
+
+<dt id="arg-show-message-inline-message">show_message, inline_message<a class="anchor" aria-label="anchor" href="#arg-show-message-inline-message"></a></dt>
+<dd><p>Whether <code>error</code>'s message is shown, and
+whether beside the component rather than under it. Element's
+<code>show-message</code> and <code>inline-message</code>.</p></dd>
 
 
 <dt id="arg-width">width<a class="anchor" aria-label="anchor" href="#arg-width"></a></dt>
@@ -279,7 +315,7 @@ each change.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     &lt;/el-option-group&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   &lt;/el-select&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> &lt;/div&gt;&lt;/script&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   &lt;script type="application/json" data-shiny-vue-options&gt;{"options":{"data":{"value":"banana","options":[{"value":"apple","label":"Apple"},{"value":"banana","label":"Banana"},{"value":"cherry","label":"Cherry"}],"groups":[],"multiple":false,"disabled":false,"clearable":false,"filterable":false,"multipleLimit":0,"collapseTags":false,"placeholder":null,"size":null,"valueKey":null,"name":null,"autocomplete":null,"automaticDropdown":null,"allowCreate":null,"loading":null,"loadingText":null,"noMatchText":null,"noDataText":null,"popperClass":null,"popperAppendToBody":null,"reserveKeyword":null,"defaultFirstOption":null,"remote":null,"filterMethod":null,"remoteMethod":null},"methods":{"elEmitVisibleChange":"function() { window.shinyElement.emit('sel1', 'visible_change', arguments); }","elEmitRemoveTag":"function() { window.shinyElement.emit('sel1', 'remove_tag', arguments); }","elEmitClear":"function() { window.shinyElement.emit('sel1', 'clear', arguments); }","elEmitBlur":"function() { window.shinyElement.emit('sel1', 'blur', arguments); }","elEmitFocus":"function() { window.shinyElement.emit('sel1', 'focus', arguments); }","handleChange":"function(value) { window.Shiny &amp;&amp; Shiny.setInputValue &amp;&amp; Shiny.setInputValue('sel1', value); }"}},"input":"value","rate":null,"type":null,"evals":["options.methods.elEmitVisibleChange","options.methods.elEmitRemoveTag","options.methods.elEmitClear","options.methods.elEmitBlur","options.methods.elEmitFocus","options.methods.handleChange"]}&lt;/script&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   &lt;script type="application/json" data-shiny-vue-options&gt;{"options":{"data":{"value":"banana","options":[{"value":"apple","label":"Apple"},{"value":"banana","label":"Banana"},{"value":"cherry","label":"Cherry"}],"groups":[],"multiple":false,"disabled":false,"clearable":false,"filterable":false,"multipleLimit":0,"collapseTags":false,"placeholder":null,"size":null,"valueKey":null,"name":null,"autocomplete":null,"automaticDropdown":null,"allowCreate":null,"loading":null,"loadingText":null,"noMatchText":null,"noDataText":null,"popperClass":null,"popperAppendToBody":null,"reserveKeyword":null,"defaultFirstOption":null,"remote":null,"filterMethod":null,"remoteMethod":null},"methods":{"elEmitVisibleChange":"function() { window.shinyElement.emit('sel1', 'visible_change', arguments); }","elEmitRemoveTag":"function() { window.shinyElement.emit('sel1', 'remove_tag', arguments); }","elEmitClear":"function() { window.shinyElement.emit('sel1', 'clear', arguments); }","elEmitBlur":"function() { window.shinyElement.emit('sel1', 'blur', arguments); }","elEmitFocus":"function() { window.shinyElement.emit('sel1', 'focus', arguments); }","handleChange":"function(value) { }"}},"input":"value","rate":null,"type":null,"evals":["options.methods.elEmitVisibleChange","options.methods.elEmitRemoveTag","options.methods.elEmitClear","options.methods.elEmitBlur","options.methods.elEmitFocus","options.methods.handleChange"]}&lt;/script&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> &lt;/div&gt;</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Shiny app example</span></span></span>

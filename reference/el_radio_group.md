@@ -17,7 +17,13 @@ el_radio_group(
   fill = NULL,
   text_color = NULL,
   label = NULL,
-  label_position = c("top", "left"),
+  label_position = c("top", "left", "right"),
+  label_width = NULL,
+  label_suffix = NULL,
+  required = FALSE,
+  error = NULL,
+  show_message = TRUE,
+  inline_message = FALSE,
   width = NULL,
   slots = NULL,
   value = NULL,
@@ -70,12 +76,42 @@ el_radio_group(
 
   A label shown with the component, as Shiny's inputs have: text or a
   tag. `NULL`, the default, shows none. It is the component's accessible
-  name too.
+  name too – tied to it with `for` where the component has a native
+  input that takes the id `<id>-input`, else with `aria-labelledby`.
 
 - label_position:
 
-  `"top"` (the default, as Shiny's labels sit) or `"left"`, beside the
-  component as in a horizontal Element form.
+  Where the label sits, as
+  [`el_form()`](https://kaipingyang.github.io/shiny.element/reference/el_form.md)'s
+  `label_position`: `"top"` (the default, as Shiny's labels sit), or
+  beside the component, its text aligned `"left"` or `"right"` – which
+  shows once `label_width` gives the labels a common width.
+
+- label_width:
+
+  Width of a label beside the component, as a CSS unit, so that several
+  line up. Element's `label-width`.
+
+- label_suffix:
+
+  Text after the label, such as `":"`. Element's `label-suffix`.
+
+- required:
+
+  Draw Element's red asterisk before the label. It marks the field; it
+  does not check it – shinyvalidate or
+  [`el_form()`](https://kaipingyang.github.io/shiny.element/reference/el_form.md)
+  does that.
+
+- error:
+
+  An error message shown under the component in Element's style, the
+  field framed in red. Element's `error`.
+
+- show_message, inline_message:
+
+  Whether `error`'s message is shown, and whether beside the component
+  rather than under it. Element's `show-message` and `inline-message`.
 
 - width:
 
@@ -119,7 +155,7 @@ el_radio_group("size",
 #>     <el-radio :label="opt.value" v-for="opt in options" :key="opt.value" :disabled="opt.disabled" :border="opt.border" :name="opt.name" @change="handleItemChange(opt, $event)">{{opt.label}}</el-radio>
 #>   </el-radio-group>
 #> </div></script>
-#>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":"m","options":[{"value":"s","label":"Small"},{"value":"m","label":"Medium"},{"value":"l","label":"Large"}],"disabled":false,"size":null,"fill":null,"textColor":null},"methods":{"handleItemChange":"function(opt, checked) { window.shinyElement.emit('size', 'item_change', [{value: opt.value, label: opt.label, checked: checked}]); }","handleChange":"function(value) { window.Shiny && Shiny.setInputValue && Shiny.setInputValue('size', value); }"}},"input":"value","rate":null,"type":null,"evals":["options.methods.handleItemChange","options.methods.handleChange"]}</script>
+#>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":"m","options":[{"value":"s","label":"Small"},{"value":"m","label":"Medium"},{"value":"l","label":"Large"}],"disabled":false,"size":null,"fill":null,"textColor":null},"methods":{"handleItemChange":"function(opt, checked) { window.shinyElement.emit('size', 'item_change', [{value: opt.value, label: opt.label, checked: checked}]); }","handleChange":"function(value) { }"}},"input":"value","rate":null,"type":null,"evals":["options.methods.handleItemChange","options.methods.handleChange"]}</script>
 #> </div>
 
 # Button-style radio group
@@ -134,7 +170,7 @@ el_radio_group("theme",
 #>     <el-radio-button :label="opt.value" v-for="opt in options" :key="opt.value" :disabled="opt.disabled" :border="opt.border" :name="opt.name" @change="handleItemChange(opt, $event)">{{opt.label}}</el-radio-button>
 #>   </el-radio-group>
 #> </div></script>
-#>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":"","options":[{"value":"light","label":"Light"},{"value":"dark","label":"Dark"}],"disabled":false,"size":"small","fill":null,"textColor":null},"methods":{"handleItemChange":"function(opt, checked) { window.shinyElement.emit('theme', 'item_change', [{value: opt.value, label: opt.label, checked: checked}]); }","handleChange":"function(value) { window.Shiny && Shiny.setInputValue && Shiny.setInputValue('theme', value); }"}},"input":"value","rate":null,"type":null,"evals":["options.methods.handleItemChange","options.methods.handleChange"]}</script>
+#>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":"","options":[{"value":"light","label":"Light"},{"value":"dark","label":"Dark"}],"disabled":false,"size":"small","fill":null,"textColor":null},"methods":{"handleItemChange":"function(opt, checked) { window.shinyElement.emit('theme', 'item_change', [{value: opt.value, label: opt.label, checked: checked}]); }","handleChange":"function(value) { }"}},"input":"value","rate":null,"type":null,"evals":["options.methods.handleItemChange","options.methods.handleChange"]}</script>
 #> </div>
 
 # Shiny app example

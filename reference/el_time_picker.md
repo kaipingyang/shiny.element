@@ -30,7 +30,13 @@ el_time_picker(
   prefix_icon = NULL,
   clear_icon = NULL,
   label = NULL,
-  label_position = c("top", "left"),
+  label_position = c("top", "left", "right"),
+  label_width = NULL,
+  label_suffix = NULL,
+  required = FALSE,
+  error = NULL,
+  show_message = TRUE,
+  inline_message = FALSE,
   width = NULL,
   slots = NULL,
   session = NULL
@@ -53,7 +59,13 @@ el_time_select(
   prefix_icon = NULL,
   clear_icon = NULL,
   label = NULL,
-  label_position = c("top", "left"),
+  label_position = c("top", "left", "right"),
+  label_width = NULL,
+  label_suffix = NULL,
+  required = FALSE,
+  error = NULL,
+  show_message = TRUE,
+  inline_message = FALSE,
   width = NULL,
   slots = NULL,
   session = NULL
@@ -129,12 +141,42 @@ el_time_select(
 
   A label shown with the component, as Shiny's inputs have: text or a
   tag. `NULL`, the default, shows none. It is the component's accessible
-  name too.
+  name too – tied to it with `for` where the component has a native
+  input that takes the id `<id>-input`, else with `aria-labelledby`.
 
 - label_position:
 
-  `"top"` (the default, as Shiny's labels sit) or `"left"`, beside the
-  component as in a horizontal Element form.
+  Where the label sits, as
+  [`el_form()`](https://kaipingyang.github.io/shiny.element/reference/el_form.md)'s
+  `label_position`: `"top"` (the default, as Shiny's labels sit), or
+  beside the component, its text aligned `"left"` or `"right"` – which
+  shows once `label_width` gives the labels a common width.
+
+- label_width:
+
+  Width of a label beside the component, as a CSS unit, so that several
+  line up. Element's `label-width`.
+
+- label_suffix:
+
+  Text after the label, such as `":"`. Element's `label-suffix`.
+
+- required:
+
+  Draw Element's red asterisk before the label. It marks the field; it
+  does not check it – shinyvalidate or
+  [`el_form()`](https://kaipingyang.github.io/shiny.element/reference/el_form.md)
+  does that.
+
+- error:
+
+  An error message shown under the component in Element's style, the
+  field framed in red. Element's `error`.
+
+- show_message, inline_message:
+
+  Whether `error`'s message is shown, and whether beside the component
+  rather than under it. Element's `show-message` and `inline-message`.
 
 - width:
 
@@ -175,7 +217,7 @@ el_time_picker("start", value = "09:30:00")
 #>   <script type="text/x-template" data-shiny-vue-template><div id="start_container" style="display: contents">
 #>   <el-time-picker v-model="value" @change="handleChange" :is-range="isRange === null ? undefined : isRange" :value-format="valueFormat === null ? undefined : valueFormat" :arrow-control="arrowControl === null ? undefined : arrowControl" :placeholder="placeholder === null ? undefined : placeholder" :start-placeholder="startPlaceholder === null ? undefined : startPlaceholder" :end-placeholder="endPlaceholder === null ? undefined : endPlaceholder" :range-separator="rangeSeparator === null ? undefined : rangeSeparator" :picker-options="pickerOptions === null ? undefined : pickerOptions" :clearable="clearable === null ? undefined : clearable" :disabled="disabled === null ? undefined : disabled" :editable="editable === null ? undefined : editable" :readonly="readonly === null ? undefined : readonly" :size="size === null ? undefined : size" :align="align === null ? undefined : align" :popper-class="popperClass === null ? undefined : popperClass" :default-value="defaultValue === null ? undefined : defaultValue" :name="name === null ? undefined : name" :prefix-icon="prefixIcon === null ? undefined : prefixIcon" :clear-icon="clearIcon === null ? undefined : clearIcon" @blur="elEmitBlur" @focus="elEmitFocus"></el-time-picker>
 #> </div></script>
-#>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":"09:30:00","isRange":false,"valueFormat":"HH:mm:ss","arrowControl":null,"placeholder":null,"startPlaceholder":null,"endPlaceholder":null,"rangeSeparator":null,"pickerOptions":null,"clearable":null,"disabled":null,"editable":null,"readonly":null,"size":null,"align":null,"popperClass":null,"defaultValue":null,"name":null,"prefixIcon":null,"clearIcon":null},"methods":{"elEmitBlur":"function() { window.shinyElement.emit('start', 'blur', arguments); }","elEmitFocus":"function() { window.shinyElement.emit('start', 'focus', arguments); }","handleChange":"function(v) { window.Shiny && Shiny.setInputValue && Shiny.setInputValue('start', v); }"}},"input":"value","rate":null,"type":null,"evals":["options.methods.elEmitBlur","options.methods.elEmitFocus","options.methods.handleChange"]}</script>
+#>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":"09:30:00","isRange":false,"valueFormat":"HH:mm:ss","arrowControl":null,"placeholder":null,"startPlaceholder":null,"endPlaceholder":null,"rangeSeparator":null,"pickerOptions":null,"clearable":null,"disabled":null,"editable":null,"readonly":null,"size":null,"align":null,"popperClass":null,"defaultValue":null,"name":null,"prefixIcon":null,"clearIcon":null},"methods":{"elEmitBlur":"function() { window.shinyElement.emit('start', 'blur', arguments); }","elEmitFocus":"function() { window.shinyElement.emit('start', 'focus', arguments); }","handleChange":"function(v) { }"}},"input":"value","rate":null,"type":null,"evals":["options.methods.elEmitBlur","options.methods.elEmitFocus","options.methods.handleChange"]}</script>
 #> </div>
 
 # Only office hours
@@ -184,7 +226,7 @@ el_time_picker("start", picker_options = list(selectableRange = "09:00:00 - 18:0
 #>   <script type="text/x-template" data-shiny-vue-template><div id="start_container" style="display: contents">
 #>   <el-time-picker v-model="value" @change="handleChange" :is-range="isRange === null ? undefined : isRange" :value-format="valueFormat === null ? undefined : valueFormat" :arrow-control="arrowControl === null ? undefined : arrowControl" :placeholder="placeholder === null ? undefined : placeholder" :start-placeholder="startPlaceholder === null ? undefined : startPlaceholder" :end-placeholder="endPlaceholder === null ? undefined : endPlaceholder" :range-separator="rangeSeparator === null ? undefined : rangeSeparator" :picker-options="pickerOptions === null ? undefined : pickerOptions" :clearable="clearable === null ? undefined : clearable" :disabled="disabled === null ? undefined : disabled" :editable="editable === null ? undefined : editable" :readonly="readonly === null ? undefined : readonly" :size="size === null ? undefined : size" :align="align === null ? undefined : align" :popper-class="popperClass === null ? undefined : popperClass" :default-value="defaultValue === null ? undefined : defaultValue" :name="name === null ? undefined : name" :prefix-icon="prefixIcon === null ? undefined : prefixIcon" :clear-icon="clearIcon === null ? undefined : clearIcon" @blur="elEmitBlur" @focus="elEmitFocus"></el-time-picker>
 #> </div></script>
-#>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":"","isRange":false,"valueFormat":"HH:mm:ss","arrowControl":null,"placeholder":null,"startPlaceholder":null,"endPlaceholder":null,"rangeSeparator":null,"pickerOptions":{"selectableRange":"09:00:00 - 18:00:00"},"clearable":null,"disabled":null,"editable":null,"readonly":null,"size":null,"align":null,"popperClass":null,"defaultValue":null,"name":null,"prefixIcon":null,"clearIcon":null},"methods":{"elEmitBlur":"function() { window.shinyElement.emit('start', 'blur', arguments); }","elEmitFocus":"function() { window.shinyElement.emit('start', 'focus', arguments); }","handleChange":"function(v) { window.Shiny && Shiny.setInputValue && Shiny.setInputValue('start', v); }"}},"input":"value","rate":null,"type":null,"evals":["options.methods.elEmitBlur","options.methods.elEmitFocus","options.methods.handleChange"]}</script>
+#>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":"","isRange":false,"valueFormat":"HH:mm:ss","arrowControl":null,"placeholder":null,"startPlaceholder":null,"endPlaceholder":null,"rangeSeparator":null,"pickerOptions":{"selectableRange":"09:00:00 - 18:00:00"},"clearable":null,"disabled":null,"editable":null,"readonly":null,"size":null,"align":null,"popperClass":null,"defaultValue":null,"name":null,"prefixIcon":null,"clearIcon":null},"methods":{"elEmitBlur":"function() { window.shinyElement.emit('start', 'blur', arguments); }","elEmitFocus":"function() { window.shinyElement.emit('start', 'focus', arguments); }","handleChange":"function(v) { }"}},"input":"value","rate":null,"type":null,"evals":["options.methods.elEmitBlur","options.methods.elEmitFocus","options.methods.handleChange"]}</script>
 #> </div>
 
 # A range
@@ -193,7 +235,7 @@ el_time_picker("shift", is_range = TRUE, value = c("09:00:00", "17:30:00"))
 #>   <script type="text/x-template" data-shiny-vue-template><div id="shift_container" style="display: contents">
 #>   <el-time-picker v-model="value" @change="handleChange" :is-range="isRange === null ? undefined : isRange" :value-format="valueFormat === null ? undefined : valueFormat" :arrow-control="arrowControl === null ? undefined : arrowControl" :placeholder="placeholder === null ? undefined : placeholder" :start-placeholder="startPlaceholder === null ? undefined : startPlaceholder" :end-placeholder="endPlaceholder === null ? undefined : endPlaceholder" :range-separator="rangeSeparator === null ? undefined : rangeSeparator" :picker-options="pickerOptions === null ? undefined : pickerOptions" :clearable="clearable === null ? undefined : clearable" :disabled="disabled === null ? undefined : disabled" :editable="editable === null ? undefined : editable" :readonly="readonly === null ? undefined : readonly" :size="size === null ? undefined : size" :align="align === null ? undefined : align" :popper-class="popperClass === null ? undefined : popperClass" :default-value="defaultValue === null ? undefined : defaultValue" :name="name === null ? undefined : name" :prefix-icon="prefixIcon === null ? undefined : prefixIcon" :clear-icon="clearIcon === null ? undefined : clearIcon" @blur="elEmitBlur" @focus="elEmitFocus"></el-time-picker>
 #> </div></script>
-#>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":["09:00:00","17:30:00"],"isRange":true,"valueFormat":"HH:mm:ss","arrowControl":null,"placeholder":null,"startPlaceholder":null,"endPlaceholder":null,"rangeSeparator":null,"pickerOptions":null,"clearable":null,"disabled":null,"editable":null,"readonly":null,"size":null,"align":null,"popperClass":null,"defaultValue":null,"name":null,"prefixIcon":null,"clearIcon":null},"methods":{"elEmitBlur":"function() { window.shinyElement.emit('shift', 'blur', arguments); }","elEmitFocus":"function() { window.shinyElement.emit('shift', 'focus', arguments); }","handleChange":"function(v) { window.Shiny && Shiny.setInputValue && Shiny.setInputValue('shift', v); }"}},"input":"value","rate":null,"type":null,"evals":["options.methods.elEmitBlur","options.methods.elEmitFocus","options.methods.handleChange"]}</script>
+#>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":["09:00:00","17:30:00"],"isRange":true,"valueFormat":"HH:mm:ss","arrowControl":null,"placeholder":null,"startPlaceholder":null,"endPlaceholder":null,"rangeSeparator":null,"pickerOptions":null,"clearable":null,"disabled":null,"editable":null,"readonly":null,"size":null,"align":null,"popperClass":null,"defaultValue":null,"name":null,"prefixIcon":null,"clearIcon":null},"methods":{"elEmitBlur":"function() { window.shinyElement.emit('shift', 'blur', arguments); }","elEmitFocus":"function() { window.shinyElement.emit('shift', 'focus', arguments); }","handleChange":"function(v) { }"}},"input":"value","rate":null,"type":null,"evals":["options.methods.elEmitBlur","options.methods.elEmitFocus","options.methods.handleChange"]}</script>
 #> </div>
 
 # Every half hour between nine and six
@@ -203,6 +245,6 @@ el_time_select("slot", picker_options = list(start = "09:00", step = "00:30",
 #>   <script type="text/x-template" data-shiny-vue-template><div id="slot_container" style="display: contents">
 #>   <el-time-select v-model="value" @change="handleChange" :placeholder="placeholder === null ? undefined : placeholder" :picker-options="pickerOptions === null ? undefined : pickerOptions" :clearable="clearable === null ? undefined : clearable" :disabled="disabled === null ? undefined : disabled" :editable="editable === null ? undefined : editable" :readonly="readonly === null ? undefined : readonly" :size="size === null ? undefined : size" :align="align === null ? undefined : align" :popper-class="popperClass === null ? undefined : popperClass" :default-value="defaultValue === null ? undefined : defaultValue" :name="name === null ? undefined : name" :prefix-icon="prefixIcon === null ? undefined : prefixIcon" :clear-icon="clearIcon === null ? undefined : clearIcon" @blur="elEmitBlur" @focus="elEmitFocus"></el-time-select>
 #> </div></script>
-#>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":"","placeholder":null,"pickerOptions":{"start":"09:00","step":"00:30","end":"18:00"},"clearable":null,"disabled":null,"editable":null,"readonly":null,"size":null,"align":null,"popperClass":null,"defaultValue":null,"name":null,"prefixIcon":null,"clearIcon":null},"methods":{"elEmitBlur":"function() { window.shinyElement.emit('slot', 'blur', arguments); }","elEmitFocus":"function() { window.shinyElement.emit('slot', 'focus', arguments); }","handleChange":"function(v) { window.Shiny && Shiny.setInputValue && Shiny.setInputValue('slot', v); }"}},"input":"value","rate":null,"type":null,"evals":["options.methods.elEmitBlur","options.methods.elEmitFocus","options.methods.handleChange"]}</script>
+#>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":"","placeholder":null,"pickerOptions":{"start":"09:00","step":"00:30","end":"18:00"},"clearable":null,"disabled":null,"editable":null,"readonly":null,"size":null,"align":null,"popperClass":null,"defaultValue":null,"name":null,"prefixIcon":null,"clearIcon":null},"methods":{"elEmitBlur":"function() { window.shinyElement.emit('slot', 'blur', arguments); }","elEmitFocus":"function() { window.shinyElement.emit('slot', 'focus', arguments); }","handleChange":"function(v) { }"}},"input":"value","rate":null,"type":null,"evals":["options.methods.elEmitBlur","options.methods.elEmitFocus","options.methods.handleChange"]}</script>
 #> </div>
 ```

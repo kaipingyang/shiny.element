@@ -27,7 +27,13 @@ el_autocomplete(
   name = NULL,
   popper_class = NULL,
   popper_append_to_body = NULL,
-  label_position = c("top", "left"),
+  label_position = c("top", "left", "right"),
+  label_width = NULL,
+  label_suffix = NULL,
+  required = FALSE,
+  error = NULL,
+  show_message = TRUE,
+  inline_message = FALSE,
   width = NULL,
   slots = NULL,
   session = NULL
@@ -106,7 +112,8 @@ el_autocomplete(
 
   A label shown with the component, as Shiny's inputs have: text or a
   tag. `NULL`, the default, shows none. It is the component's accessible
-  name too.
+  name too – tied to it with `for` where the component has a native
+  input that takes the id `<id>-input`, else with `aria-labelledby`.
 
 - name:
 
@@ -122,8 +129,37 @@ el_autocomplete(
 
 - label_position:
 
-  `"top"` (the default, as Shiny's labels sit) or `"left"`, beside the
-  component as in a horizontal Element form.
+  Where the label sits, as
+  [`el_form()`](https://kaipingyang.github.io/shiny.element/reference/el_form.md)'s
+  `label_position`: `"top"` (the default, as Shiny's labels sit), or
+  beside the component, its text aligned `"left"` or `"right"` – which
+  shows once `label_width` gives the labels a common width.
+
+- label_width:
+
+  Width of a label beside the component, as a CSS unit, so that several
+  line up. Element's `label-width`.
+
+- label_suffix:
+
+  Text after the label, such as `":"`. Element's `label-suffix`.
+
+- required:
+
+  Draw Element's red asterisk before the label. It marks the field; it
+  does not check it – shinyvalidate or
+  [`el_form()`](https://kaipingyang.github.io/shiny.element/reference/el_form.md)
+  does that.
+
+- error:
+
+  An error message shown under the component in Element's style, the
+  field framed in red. Element's `error`.
+
+- show_message, inline_message:
+
+  Whether `error`'s message is shown, and whether beside the component
+  rather than under it. Element's `show-message` and `inline-message`.
 
 - width:
 
@@ -169,7 +205,7 @@ el_autocomplete("city", suggestions = c("Beijing", "Shanghai", "Shenzhen"))
 #>   <script type="text/x-template" data-shiny-vue-template><div id="city_container" style="display: contents">
 #>   <el-autocomplete v-model="value" :fetch-suggestions="fetchSuggestions" :placeholder="placeholder === null ? undefined : placeholder" :clearable="clearable === null ? undefined : clearable" :disabled="disabled === null ? undefined : disabled" :value-key="valueKey === null ? undefined : valueKey" :debounce="debounce === null ? undefined : debounce" :placement="placement === null ? undefined : placement" :trigger-on-focus="triggerOnFocus === null ? undefined : triggerOnFocus" :select-when-unmatched="selectWhenUnmatched === null ? undefined : selectWhenUnmatched" :highlight-first-item="highlightFirstItem === null ? undefined : highlightFirstItem" :hide-loading="hideLoading === null ? undefined : hideLoading" :icon="icon === null ? undefined : icon" :prefix-icon="prefixIcon === null ? undefined : prefixIcon" :suffix-icon="suffixIcon === null ? undefined : suffixIcon" :label="label === null ? undefined : label" :name="name === null ? undefined : name" :popper-class="popperClass === null ? undefined : popperClass" :popper-append-to-body="popperAppendToBody === null ? undefined : popperAppendToBody" @select="elEmitSelect" @change="elEmitChange"></el-autocomplete>
 #> </div></script>
-#>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":"","suggestions":[{"value":"Beijing"},{"value":"Shanghai"},{"value":"Shenzhen"}],"placeholder":null,"clearable":null,"disabled":null,"valueKey":null,"debounce":null,"placement":null,"triggerOnFocus":null,"selectWhenUnmatched":null,"highlightFirstItem":null,"hideLoading":null,"icon":null,"prefixIcon":null,"suffixIcon":null,"label":null,"name":null,"popperClass":null,"popperAppendToBody":null},"methods":{"elEmitSelect":"function() { window.shinyElement.emit('city', 'select', arguments); }","elEmitChange":"function() { window.shinyElement.emit('city', 'change', arguments); }","fetchSuggestions":"function(queryString, callback) {\n  var all = this.suggestions || [];\n  var q = (queryString || '').toLowerCase();\n  callback(q ? all.filter(function(s) {\n    return String(s.value).toLowerCase().indexOf(q) === 0;\n  }) : all);\n}","handleInput":"function(v) { window.Shiny && Shiny.setInputValue && Shiny.setInputValue('city', v); }"},"watch":{"value":"function(newVal) { window.Shiny && Shiny.setInputValue && Shiny.setInputValue('city', newVal); }"}},"input":"value","rate":null,"type":null,"evals":["options.methods.elEmitSelect","options.methods.elEmitChange","options.methods.fetchSuggestions","options.methods.handleInput","options.watch.value"]}</script>
+#>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":"","suggestions":[{"value":"Beijing"},{"value":"Shanghai"},{"value":"Shenzhen"}],"placeholder":null,"clearable":null,"disabled":null,"valueKey":null,"debounce":null,"placement":null,"triggerOnFocus":null,"selectWhenUnmatched":null,"highlightFirstItem":null,"hideLoading":null,"icon":null,"prefixIcon":null,"suffixIcon":null,"label":null,"name":null,"popperClass":null,"popperAppendToBody":null},"methods":{"elEmitSelect":"function() { window.shinyElement.emit('city', 'select', arguments); }","elEmitChange":"function() { window.shinyElement.emit('city', 'change', arguments); }","fetchSuggestions":"function(queryString, callback) {\n  var all = this.suggestions || [];\n  var q = (queryString || '').toLowerCase();\n  callback(q ? all.filter(function(s) {\n    return String(s.value).toLowerCase().indexOf(q) === 0;\n  }) : all);\n}","handleInput":"function(v) { }"},"watch":{"value":"function(newVal) { window.Shiny && Shiny.setInputValue && Shiny.setInputValue('city', newVal); }"}},"input":"value","rate":{"policy":"debounce","delay":250},"type":null,"evals":["options.methods.elEmitSelect","options.methods.elEmitChange","options.methods.fetchSuggestions","options.methods.handleInput","options.watch.value"]}</script>
 #> </div>
 
 el_autocomplete("city",
@@ -180,6 +216,6 @@ el_autocomplete("city",
 #>   <script type="text/x-template" data-shiny-vue-template><div id="city_container" style="display: contents">
 #>   <el-autocomplete v-model="value" :fetch-suggestions="fetchSuggestions" :placeholder="placeholder === null ? undefined : placeholder" :clearable="clearable === null ? undefined : clearable" :disabled="disabled === null ? undefined : disabled" :value-key="valueKey === null ? undefined : valueKey" :debounce="debounce === null ? undefined : debounce" :placement="placement === null ? undefined : placement" :trigger-on-focus="triggerOnFocus === null ? undefined : triggerOnFocus" :select-when-unmatched="selectWhenUnmatched === null ? undefined : selectWhenUnmatched" :highlight-first-item="highlightFirstItem === null ? undefined : highlightFirstItem" :hide-loading="hideLoading === null ? undefined : hideLoading" :icon="icon === null ? undefined : icon" :prefix-icon="prefixIcon === null ? undefined : prefixIcon" :suffix-icon="suffixIcon === null ? undefined : suffixIcon" :label="label === null ? undefined : label" :name="name === null ? undefined : name" :popper-class="popperClass === null ? undefined : popperClass" :popper-append-to-body="popperAppendToBody === null ? undefined : popperAppendToBody" @select="elEmitSelect" @change="elEmitChange" style="width: 260px"></el-autocomplete>
 #> </div></script>
-#>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":"","suggestions":[{"value":"Beijing"},{"value":"Shanghai"}],"placeholder":"Where to?","clearable":true,"disabled":null,"valueKey":null,"debounce":null,"placement":null,"triggerOnFocus":null,"selectWhenUnmatched":null,"highlightFirstItem":null,"hideLoading":null,"icon":null,"prefixIcon":null,"suffixIcon":null,"label":null,"name":null,"popperClass":null,"popperAppendToBody":null},"methods":{"elEmitSelect":"function() { window.shinyElement.emit('city', 'select', arguments); }","elEmitChange":"function() { window.shinyElement.emit('city', 'change', arguments); }","fetchSuggestions":"function(queryString, callback) {\n  var all = this.suggestions || [];\n  var q = (queryString || '').toLowerCase();\n  callback(q ? all.filter(function(s) {\n    return String(s.value).toLowerCase().indexOf(q) === 0;\n  }) : all);\n}","handleInput":"function(v) { window.Shiny && Shiny.setInputValue && Shiny.setInputValue('city', v); }"},"watch":{"value":"function(newVal) { window.Shiny && Shiny.setInputValue && Shiny.setInputValue('city', newVal); }"}},"input":"value","rate":null,"type":null,"evals":["options.methods.elEmitSelect","options.methods.elEmitChange","options.methods.fetchSuggestions","options.methods.handleInput","options.watch.value"]}</script>
+#>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":"","suggestions":[{"value":"Beijing"},{"value":"Shanghai"}],"placeholder":"Where to?","clearable":true,"disabled":null,"valueKey":null,"debounce":null,"placement":null,"triggerOnFocus":null,"selectWhenUnmatched":null,"highlightFirstItem":null,"hideLoading":null,"icon":null,"prefixIcon":null,"suffixIcon":null,"label":null,"name":null,"popperClass":null,"popperAppendToBody":null},"methods":{"elEmitSelect":"function() { window.shinyElement.emit('city', 'select', arguments); }","elEmitChange":"function() { window.shinyElement.emit('city', 'change', arguments); }","fetchSuggestions":"function(queryString, callback) {\n  var all = this.suggestions || [];\n  var q = (queryString || '').toLowerCase();\n  callback(q ? all.filter(function(s) {\n    return String(s.value).toLowerCase().indexOf(q) === 0;\n  }) : all);\n}","handleInput":"function(v) { }"},"watch":{"value":"function(newVal) { window.Shiny && Shiny.setInputValue && Shiny.setInputValue('city', newVal); }"}},"input":"value","rate":{"policy":"debounce","delay":250},"type":null,"evals":["options.methods.elEmitSelect","options.methods.elEmitChange","options.methods.fetchSuggestions","options.methods.handleInput","options.watch.value"]}</script>
 #> </div>
 ```

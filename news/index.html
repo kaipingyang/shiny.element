@@ -107,7 +107,7 @@
 <li>
 <strong>Validation.</strong> shinyvalidate’s messages show on a component as Element shows a failed form rule: framed in red, the message underneath.</li>
 <li>
-<strong>Labels.</strong> Every input takes <code>label</code>, shown above it or, with <code>label_position = "left"</code>, beside it – also its accessible name. <code><a href="../reference/el_upload.html">el_upload()</a></code>’s trigger text is now <code>button_label</code>, as <code><a href="https://rdrr.io/pkg/shiny/man/fileInput.html" class="external-link">fileInput()</a></code>’s <code>buttonLabel</code>.</li>
+<strong>Labels.</strong> Every input takes <code>label</code>, shown above it or, with <code>label_position = "left"</code> or <code>"right"</code>, beside it – also its accessible name. The props of Element’s <code>el-form-item</code> that suit a single input come with it: <code>label_width</code>, <code>label_suffix</code>, <code>required</code> (the red asterisk), <code>error</code>, <code>show_message</code> and <code>inline_message</code>; the component’s own <code>size</code> sizes the label. <code><a href="../reference/el_upload.html">el_upload()</a></code>’s trigger text is now <code>button_label</code>, as <code><a href="https://rdrr.io/pkg/shiny/man/fileInput.html" class="external-link">fileInput()</a></code>’s <code>buttonLabel</code>.</li>
 <li>
 <strong>Checked arguments.</strong> An enumerated argument Element does not accept – <code>type = "primry"</code> – is an error listing the values it does, rather than a component drawn in its default style.</li>
 <li>

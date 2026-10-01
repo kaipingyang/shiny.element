@@ -10,7 +10,20 @@ removing the component by its id takes the label with it.
 ## Usage
 
 ``` r
-.el_labelled(container_id, id, label, position, markup)
+.el_labelled(
+  container_id,
+  id,
+  label,
+  position,
+  markup,
+  width = NULL,
+  suffix = NULL,
+  required = FALSE,
+  error = NULL,
+  show_message = TRUE,
+  inline_message = FALSE,
+  size = NULL
+)
 ```
 
 ## Arguments

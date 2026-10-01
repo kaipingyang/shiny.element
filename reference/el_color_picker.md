@@ -15,7 +15,13 @@ el_color_picker(
   predefine = NULL,
   popper_class = NULL,
   label = NULL,
-  label_position = c("top", "left"),
+  label_position = c("top", "left", "right"),
+  label_width = NULL,
+  label_suffix = NULL,
+  required = FALSE,
+  error = NULL,
+  show_message = TRUE,
+  inline_message = FALSE,
   width = NULL,
   slots = NULL,
   session = NULL
@@ -61,12 +67,42 @@ el_color_picker(
 
   A label shown with the component, as Shiny's inputs have: text or a
   tag. `NULL`, the default, shows none. It is the component's accessible
-  name too.
+  name too – tied to it with `for` where the component has a native
+  input that takes the id `<id>-input`, else with `aria-labelledby`.
 
 - label_position:
 
-  `"top"` (the default, as Shiny's labels sit) or `"left"`, beside the
-  component as in a horizontal Element form.
+  Where the label sits, as
+  [`el_form()`](https://kaipingyang.github.io/shiny.element/reference/el_form.md)'s
+  `label_position`: `"top"` (the default, as Shiny's labels sit), or
+  beside the component, its text aligned `"left"` or `"right"` – which
+  shows once `label_width` gives the labels a common width.
+
+- label_width:
+
+  Width of a label beside the component, as a CSS unit, so that several
+  line up. Element's `label-width`.
+
+- label_suffix:
+
+  Text after the label, such as `":"`. Element's `label-suffix`.
+
+- required:
+
+  Draw Element's red asterisk before the label. It marks the field; it
+  does not check it – shinyvalidate or
+  [`el_form()`](https://kaipingyang.github.io/shiny.element/reference/el_form.md)
+  does that.
+
+- error:
+
+  An error message shown under the component in Element's style, the
+  field framed in red. Element's `error`.
+
+- show_message, inline_message:
+
+  Whether `error`'s message is shown, and whether beside the component
+  rather than under it. Element's `show-message` and `inline-message`.
 
 - width:
 
@@ -105,13 +141,13 @@ el_color_picker("cp1", value = "#409EFF")
 #>   <script type="text/x-template" data-shiny-vue-template><div id="cp1_container" style="display: contents">
 #>   <el-color-picker v-model="value" :disabled="disabled" :show-alpha="showAlpha" @change="handleChange" :size="size === null ? undefined : size" :color-format="colorFormat === null ? undefined : colorFormat" :predefine="predefine === null ? undefined : predefine" :popper-class="popperClass === null ? undefined : popperClass" @active-change="elEmitActiveChange"></el-color-picker>
 #> </div></script>
-#>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":"#409EFF","disabled":false,"showAlpha":false,"size":null,"colorFormat":null,"predefine":null,"popperClass":null},"methods":{"elEmitActiveChange":"function() { window.shinyElement.emit('cp1', 'active_change', arguments); }","handleChange":"function(val) { window.Shiny && Shiny.setInputValue && Shiny.setInputValue('cp1', val); }"}},"input":"value","rate":null,"type":null,"evals":["options.methods.elEmitActiveChange","options.methods.handleChange"]}</script>
+#>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":"#409EFF","disabled":false,"showAlpha":false,"size":null,"colorFormat":null,"predefine":null,"popperClass":null},"methods":{"elEmitActiveChange":"function() { window.shinyElement.emit('cp1', 'active_change', arguments); }","handleChange":"function(val) { }"}},"input":"value","rate":null,"type":null,"evals":["options.methods.elEmitActiveChange","options.methods.handleChange"]}</script>
 #> </div>
 el_color_picker("cp2", show_alpha = TRUE, predefine = c("#ff4500", "#ff8c00"))
 #> <div id="cp2" data-shiny-vue style="display: contents">
 #>   <script type="text/x-template" data-shiny-vue-template><div id="cp2_container" style="display: contents">
 #>   <el-color-picker v-model="value" :disabled="disabled" :show-alpha="showAlpha" @change="handleChange" :size="size === null ? undefined : size" :color-format="colorFormat === null ? undefined : colorFormat" :predefine="predefine === null ? undefined : predefine" :popper-class="popperClass === null ? undefined : popperClass" @active-change="elEmitActiveChange"></el-color-picker>
 #> </div></script>
-#>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":null,"disabled":false,"showAlpha":true,"size":null,"colorFormat":null,"predefine":["#ff4500","#ff8c00"],"popperClass":null},"methods":{"elEmitActiveChange":"function() { window.shinyElement.emit('cp2', 'active_change', arguments); }","handleChange":"function(val) { window.Shiny && Shiny.setInputValue && Shiny.setInputValue('cp2', val); }"}},"input":"value","rate":null,"type":null,"evals":["options.methods.elEmitActiveChange","options.methods.handleChange"]}</script>
+#>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":null,"disabled":false,"showAlpha":true,"size":null,"colorFormat":null,"predefine":["#ff4500","#ff8c00"],"popperClass":null},"methods":{"elEmitActiveChange":"function() { window.shinyElement.emit('cp2', 'active_change', arguments); }","handleChange":"function(val) { }"}},"input":"value","rate":null,"type":null,"evals":["options.methods.elEmitActiveChange","options.methods.handleChange"]}</script>
 #> </div>
 ```

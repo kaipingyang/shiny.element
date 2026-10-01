@@ -214,7 +214,11 @@ limitations article shows, needs no JavaScript.
   Element shows a failed form rule: framed in red, the message
   underneath.
 - **Labels.** Every input takes `label`, shown above it or, with
-  `label_position = "left"`, beside it – also its accessible name.
+  `label_position = "left"` or `"right"`, beside it – also its
+  accessible name. The props of Element’s `el-form-item` that suit a
+  single input come with it: `label_width`, `label_suffix`, `required`
+  (the red asterisk), `error`, `show_message` and `inline_message`; the
+  component’s own `size` sizes the label.
   [`el_upload()`](https://kaipingyang.github.io/shiny.element/reference/el_upload.md)’s
   trigger text is now `button_label`, as
   [`fileInput()`](https://rdrr.io/pkg/shiny/man/fileInput.html)’s

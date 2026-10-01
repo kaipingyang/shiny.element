@@ -20,7 +20,13 @@ el_input_number(
   placeholder = NULL,
   label = NULL,
   name = NULL,
-  label_position = c("top", "left"),
+  label_position = c("top", "left", "right"),
+  label_width = NULL,
+  label_suffix = NULL,
+  required = FALSE,
+  error = NULL,
+  show_message = TRUE,
+  inline_message = FALSE,
   width = NULL,
   slots = NULL,
   session = NULL
@@ -82,7 +88,8 @@ el_input_number(
 
   A label shown with the component, as Shiny's inputs have: text or a
   tag. `NULL`, the default, shows none. It is the component's accessible
-  name too.
+  name too – tied to it with `for` where the component has a native
+  input that takes the id `<id>-input`, else with `aria-labelledby`.
 
 - name:
 
@@ -90,8 +97,37 @@ el_input_number(
 
 - label_position:
 
-  `"top"` (the default, as Shiny's labels sit) or `"left"`, beside the
-  component as in a horizontal Element form.
+  Where the label sits, as
+  [`el_form()`](https://kaipingyang.github.io/shiny.element/reference/el_form.md)'s
+  `label_position`: `"top"` (the default, as Shiny's labels sit), or
+  beside the component, its text aligned `"left"` or `"right"` – which
+  shows once `label_width` gives the labels a common width.
+
+- label_width:
+
+  Width of a label beside the component, as a CSS unit, so that several
+  line up. Element's `label-width`.
+
+- label_suffix:
+
+  Text after the label, such as `":"`. Element's `label-suffix`.
+
+- required:
+
+  Draw Element's red asterisk before the label. It marks the field; it
+  does not check it – shinyvalidate or
+  [`el_form()`](https://kaipingyang.github.io/shiny.element/reference/el_form.md)
+  does that.
+
+- error:
+
+  An error message shown under the component in Element's style, the
+  field framed in red. Element's `error`.
+
+- show_message, inline_message:
+
+  Whether `error`'s message is shown, and whether beside the component
+  rather than under it. Element's `show-message` and `inline-message`.
 
 - width:
 
@@ -137,13 +173,13 @@ el_input_number("n1", value = 5, min = 0, max = 100)
 #>   <script type="text/x-template" data-shiny-vue-template><div id="n1_container" style="display: contents">
 #>   <el-input-number v-model="value" :min="min" :max="max" :step="step" :step-strictly="stepStrictly" :disabled="disabled" :controls="controls" :controls-position="controlsPosition" @change="handleChange" :size="size === null ? undefined : size" :precision="precision === null ? undefined : precision" :placeholder="placeholder === null ? undefined : placeholder" :label="label === null ? undefined : label" :name="name === null ? undefined : name" @blur="elEmitBlur" @focus="elEmitFocus"></el-input-number>
 #> </div></script>
-#>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":5,"min":0,"max":100,"step":1,"stepStrictly":false,"disabled":false,"controls":true,"controlsPosition":"","size":null,"precision":null,"placeholder":null,"label":null,"name":null},"methods":{"elEmitBlur":"function() { window.shinyElement.emit('n1', 'blur', arguments); }","elEmitFocus":"function() { window.shinyElement.emit('n1', 'focus', arguments); }","handleChange":"function(val) { window.Shiny && Shiny.setInputValue && Shiny.setInputValue('n1', val); }"}},"input":"value","rate":null,"type":null,"evals":["options.methods.elEmitBlur","options.methods.elEmitFocus","options.methods.handleChange"]}</script>
+#>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":5,"min":0,"max":100,"step":1,"stepStrictly":false,"disabled":false,"controls":true,"controlsPosition":"","size":null,"precision":null,"placeholder":null,"label":null,"name":null},"methods":{"elEmitBlur":"function() { window.shinyElement.emit('n1', 'blur', arguments); }","elEmitFocus":"function() { window.shinyElement.emit('n1', 'focus', arguments); }","handleChange":"function(val) { }"}},"input":"value","rate":{"policy":"debounce","delay":250},"type":null,"evals":["options.methods.elEmitBlur","options.methods.elEmitFocus","options.methods.handleChange"]}</script>
 #> </div>
 el_input_number("n2", value = 1.5, step = 0.5, precision = 1)
 #> <div id="n2" data-shiny-vue style="display: contents">
 #>   <script type="text/x-template" data-shiny-vue-template><div id="n2_container" style="display: contents">
 #>   <el-input-number v-model="value" :min="min" :max="max" :step="step" :step-strictly="stepStrictly" :disabled="disabled" :controls="controls" :controls-position="controlsPosition" @change="handleChange" :size="size === null ? undefined : size" :precision="precision === null ? undefined : precision" :placeholder="placeholder === null ? undefined : placeholder" :label="label === null ? undefined : label" :name="name === null ? undefined : name" @blur="elEmitBlur" @focus="elEmitFocus"></el-input-number>
 #> </div></script>
-#>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":1.5,"min":-1e+308,"max":1e+308,"step":0.5,"stepStrictly":false,"disabled":false,"controls":true,"controlsPosition":"","size":null,"precision":1,"placeholder":null,"label":null,"name":null},"methods":{"elEmitBlur":"function() { window.shinyElement.emit('n2', 'blur', arguments); }","elEmitFocus":"function() { window.shinyElement.emit('n2', 'focus', arguments); }","handleChange":"function(val) { window.Shiny && Shiny.setInputValue && Shiny.setInputValue('n2', val); }"}},"input":"value","rate":null,"type":null,"evals":["options.methods.elEmitBlur","options.methods.elEmitFocus","options.methods.handleChange"]}</script>
+#>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":1.5,"min":-1e+308,"max":1e+308,"step":0.5,"stepStrictly":false,"disabled":false,"controls":true,"controlsPosition":"","size":null,"precision":1,"placeholder":null,"label":null,"name":null},"methods":{"elEmitBlur":"function() { window.shinyElement.emit('n2', 'blur', arguments); }","elEmitFocus":"function() { window.shinyElement.emit('n2', 'focus', arguments); }","handleChange":"function(val) { }"}},"input":"value","rate":{"policy":"debounce","delay":250},"type":null,"evals":["options.methods.elEmitBlur","options.methods.elEmitFocus","options.methods.handleChange"]}</script>
 #> </div>
 ```

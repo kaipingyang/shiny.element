@@ -155,7 +155,103 @@
     return function(vm) { return f.call(vm); };
   }
 
+  // ── updates and method calls from the server ────────────────────────────
+  //
+  // One message type each, whatever the component. Not the binding's
+  // receiveMessage(): Shiny hands an input message only to a *bound* input,
+  // and a component with no value of its own -- an avatar, a progress bar, a
+  // table -- is mounted but not bound, so its updates would be dropped
+  // without a word. These find the host by id, bound or not.
+
+  function warn(text) { if (window.console) console.warn('[shiny-vue] ' + text); }
+
+  // Assign the fields a component declares. A field it does not declare is
+  // refused with a warning rather than assigned: Vue would not track it, so
+  // the update could never take effect. A component with something to do
+  // beyond assigning -- move a carousel, check tree nodes -- defines
+  // shinyVueReceive(data), which handles what it can and returns the rest.
+  sv.update = function(id, data) {
+    var host = document.getElementById(id);
+    var vm = host && host.hasAttribute('data-shiny-vue') ? mount(host) : null;
+    if (!vm) { warn('update: no component with id "' + id + '"'); return; }
+    var rest = {};
+    Object.keys(data).forEach(function(k) { if (k !== 'id') rest[k] = data[k]; });
+    if (typeof vm.shinyVueReceive === 'function') rest = vm.shinyVueReceive(rest) || {};
+    Object.keys(rest).forEach(function(k) {
+      if (!(k in vm.$data)) {
+        warn('update: "' + k + '" is not a field of "' + id + '"; the update was ignored');
+        return;
+      }
+      vm[k] = rest[k];
+    });
+    // Report the new value, as Shiny's own update*Input() does
+    if (vm._elReport) vm._elReport();
+  };
+
+  // The component the instance renders, whose methods Element documents:
+  // $refs.el if marked, else the first child of the given name, else the
+  // first child at all.
+  function componentOf(vm, name) {
+    if (vm.$refs && vm.$refs.el) return vm.$refs.el;
+    var found = null;
+    (function walk(node, depth) {
+      if (found || depth > 4 || !node.$children) return;
+      for (var i = 0; i < node.$children.length; i++) {
+        var child = node.$children[i];
+        if (!name || (child.$options || {}).name === name) { found = child; return; }
+      }
+      for (var j = 0; j < node.$children.length && !found; j++) walk(node.$children[j], depth + 1);
+    })(vm, 0);
+    return found || (vm.$children || [])[0] || null;
+  }
+
+  var SAFE_NAME = /^[A-Za-z][A-Za-z0-9_]*$/;
+
+  function reportResult(input, value) {
+    if (!input || typeof Shiny === 'undefined' || !Shiny.setInputValue) return;
+    Shiny.setInputValue(input, plain(value === undefined ? true : value), { priority: 'event' });
+  }
+
+  // Call a method of the component behind an id, and report what it returns
+  // -- a promise's value once it settles -- as input$<input>.
+  sv.call = function(msg) {
+    if (!SAFE_NAME.test(msg.method)) { warn('call: refusing method name "' + msg.method + '"'); return; }
+    var args = msg.args || [];
+    if (!Array.isArray(args)) args = [args];
+    var host = document.getElementById(msg.id);
+    // A component drawn as markup with a binding of its own (a drawer)
+    // lists its methods on the element
+    if (host && !host.hasAttribute('data-shiny-vue') && host._elMethods &&
+        Object.prototype.hasOwnProperty.call(host._elMethods, msg.method)) {
+      reportResult(msg.input, host._elMethods[msg.method].apply(host, args));
+      return;
+    }
+    var vm = host && host.hasAttribute('data-shiny-vue') ? mount(host) : null;
+    if (!vm) { warn('call: no component with id "' + msg.id + '"'); return; }
+    var target = componentOf(vm, msg.component);
+    if (!target) { warn('call: no component under "' + msg.id + '"'); return; }
+    if (typeof target[msg.method] !== 'function') {
+      warn('call: "' + msg.method + '" is not a method of the component behind "' + msg.id + '"');
+      return;
+    }
+    var result;
+    try { result = target[msg.method].apply(target, args); }
+    catch (e) { warn('call: ' + msg.method + '() raised: ' + e.message); return; }
+    if (vm._elReport) vm._elReport();   // a method can change a reported value
+    if (!msg.input) return;
+    if (result && typeof result.then === 'function') {
+      result.then(function(v) { reportResult(msg.input, v); },
+                  function() { reportResult(msg.input, false); });
+    } else {
+      reportResult(msg.input, result);
+    }
+  };
+
   var hasShiny = typeof Shiny !== 'undefined' && !!Shiny.InputBinding && !!Shiny.inputBindings;
+  if (hasShiny && Shiny.addCustomMessageHandler) {
+    Shiny.addCustomMessageHandler('shinyVueUpdate', function(msg) { sv.update(msg.id, msg); });
+    Shiny.addCustomMessageHandler('shinyVueCall', sv.call);
+  }
   if (!hasShiny) {
     // A page with no Shiny -- R Markdown, a static site: mount once it is there
     if (document.readyState === 'loading') {
@@ -234,12 +330,10 @@
       var box = el.querySelector(':scope > .shiny-vue-invalid');
       if (box) box.parentNode.removeChild(box);
     },
-    // session$sendInputMessage(id, list(field = value)) assigns fields the
-    // component declares.
+    // session$sendInputMessage(id, list(field = value)), for anyone who sends
+    // one to a component with a value: the same as shinyVueUpdate.
     receiveMessage: function(el, data) {
-      var vm = el._shinyVue;
-      if (!vm) return;
-      Object.keys(data).forEach(function(k) { if (k in vm.$data) vm[k] = data[k]; });
+      sv.update(el.id, data);
     }
   });
   Shiny.inputBindings.register(binding, 'shiny.vue');
