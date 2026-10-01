@@ -811,3 +811,16 @@ test_that("updates, row actions and inserted tabs work inside a module", {
   expect_equal(vals[["stars"]], "2")
   expect_equal(vals[["went"]], "1")
 })
+
+# ── components that first appear through renderUI() ─────────────────────────
+
+test_that("a component only ever rendered by renderUI() hears its updates", {
+  skip_if_no_browser()
+  # Its handler script loads after shiny:connected; handlers used to register
+  # only on that event, so every update_el_*() and el_call() went nowhere.
+  expect_equal(bdump("late_dump")[["late_tp"]], "09:00:00")
+  bclick("#late_set", wait = 2)
+  expect_equal(bdump("late_dump")[["late_tp"]], "10:30:00")
+  bclick("#late_call", wait = 2)
+  expect_equal(bdump("late_dump")[["late_focus"]], "TRUE")
+})

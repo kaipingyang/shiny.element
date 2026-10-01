@@ -35,22 +35,27 @@
 #'   library(shiny.element)
 #'
 #'   ui <- el_page(
-#'     el_table("tbl", data = head(iris, 5), selection = TRUE),
-#'     el_button("clear", "Clear selection"),
-#'     el_button("ask", "Which rows are checked?"),
+#'     el_tree("tree", show_checkbox = TRUE, node_key = "id", checked = "apple",
+#'             default_expand_all = TRUE,
+#'             data = list(list(id = "fruit", label = "Fruit", children = list(
+#'               list(id = "apple", label = "Apple"),
+#'               list(id = "pear", label = "Pear"))))),
+#'     el_button("clear", "Clear the ticks"),
+#'     el_button("ask", "Which are ticked?"),
 #'     verbatimTextOutput("answer")
 #'   )
 #'
 #'   server <- function(input, output, session) {
+#'     # A command: setCheckedKeys() with an empty set
 #'     observeEvent(input$clear, {
-#'       el_call(session, "tbl", "clearSelection")
+#'       el_call(session, "tree", "setCheckedKeys", list(list()))
 #'     })
 #'
 #'     # A method with a return value answers asynchronously
 #'     observeEvent(input$ask, {
-#'       el_call(session, "tbl", "getSelectionRows")
+#'       el_call(session, "tree", "getCheckedKeys")
 #'     })
-#'     output$answer <- renderPrint(input$tbl_get_selection_rows)
+#'     output$answer <- renderPrint(input$tree_get_checked_keys)
 #'   }
 #'
 #'   shinyApp(ui, server)

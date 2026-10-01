@@ -237,11 +237,26 @@ ui <- el_page(
 
   verbatimTextOutput("dump"),
 
+  # A component type that appears nowhere else on the page, only through
+  # renderUI(): its handler script arrives after shiny:connected has fired.
+  uiOutput("late"),
+  actionButton("late_set", "set late"),
+  actionButton("late_call", "call late"),
+  verbatimTextOutput("late_dump"),
+
   mod_ui("mod")
 )
 
 server <- function(input, output, session) {
   mod_server("mod")
+
+  output$late <- renderUI(el_time_picker("late_tp", value = "09:00:00"))
+  observeEvent(input$late_set, update_el_time_picker(session, "late_tp", value = "10:30:00"))
+  observeEvent(input$late_call, el_call(session, "late_tp", "focus"))
+  output$late_dump <- renderPrint({
+    cat("late_tp", "=", if (is.null(input$late_tp)) "<NULL>" else input$late_tp, "\n")
+    cat("late_focus", "=", if (is.null(input$late_tp_focus)) "<NULL>" else "TRUE", "\n")
+  })
   fmt <- function(x) {
     if (is.null(x)) return("<NULL>")
     paste(format(x), collapse = ",")
