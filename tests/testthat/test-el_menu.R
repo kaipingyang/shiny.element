@@ -162,3 +162,19 @@ test_that("update_el_menu: NULL fields are excluded", {
   out <- sent_message(function(s) update_el_menu(s, "nav", active = "a"))
   expect_null(out$msg$collapse)
 })
+
+test_that("an item's title is taken as its label, as Element names it", {
+  html <- paste(as.character(el_menu("m", items = list(
+    list(index = "a", title = "Alpha"),
+    list(index = "b", title = "Beta", children = list(list(index = "b1", title = "One")))
+  ))), collapse = "")
+  for (txt in c("<span>Alpha</span>", "<span>Beta</span>", "<span>One</span>")) {
+    expect_match(html, txt, fixed = TRUE)
+  }
+})
+
+test_that("an item with nothing to show is an error, not a blank entry", {
+  expect_error(el_menu("m", items = list(list(index = "a"))), "neither a `label`")
+  # An icon alone is enough
+  expect_no_error(el_menu("m", items = list(list(index = "a", icon = "el-icon-house"))))
+})

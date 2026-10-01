@@ -107,3 +107,39 @@ test_that("the feedback handler registers both message types", {
   expect_match(js, "elNotification", fixed = TRUE)
   expect_match(js, "elMessage", fixed = TRUE)
 })
+
+# ── closing by id, and Element's further options ──────────────────────────────
+
+test_that("el_message and el_notification carry an id to close them by", {
+  out <- sent_message(function(s) el_message(s, "hi", id = "saving", offset = 60,
+                                             custom_class = "loud"))
+  expect_equal(out$msg$id, "saving")
+  expect_equal(out$msg$offset, 60)
+  expect_equal(out$msg$customClass, "loud")
+
+  out <- sent_message(function(s) el_notification(s, "hi", id = "build",
+                                                  icon_class = "el-icon-bell"))
+  expect_equal(out$msg$id, "build")
+  expect_equal(out$msg$iconClass, "el-icon-bell")
+})
+
+test_that("el_message_close and el_notification_close close one, or all", {
+  out <- sent_message(function(s) el_message_close(s, "saving"))
+  expect_equal(out$type, "elMessageClose")
+  expect_equal(out$msg$id, "saving")
+  out <- sent_message(function(s) el_message_close(s))
+  expect_null(out$msg$id)
+
+  out <- sent_message(function(s) el_notification_close(s, "build"))
+  expect_equal(out$type, "elNotificationClose")
+  expect_equal(out$msg$id, "build")
+})
+
+test_that("the handler closes by id or closes all", {
+  js <- paste(readLines(
+    system.file("js", "el-feedback-handler.js", package = "shiny.element"), warn = FALSE
+  ), collapse = "\n")
+  expect_match(js, "elMessageClose", fixed = TRUE)
+  expect_match(js, "elNotificationClose", fixed = TRUE)
+  expect_match(js, "closeAll", fixed = TRUE)
+})

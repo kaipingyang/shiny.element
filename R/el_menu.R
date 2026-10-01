@@ -10,12 +10,20 @@
 .el_menu_nodes <- function(items) {
   lapply(items, function(item) {
     icon  <- if (!is.null(item$icon)) htmltools::tags$i(class = item$icon)
-    label <- htmltools::tags$span(item$label)
+    # `title` is Element's own word for it -- the slot is named title -- and
+    # an item given one rendered as a blank entry, with nothing logged.
+    text <- if (!is.null(item$label)) item$label else item$title
+    if (is.null(text) && is.null(icon)) {
+      stop(sprintf("menu item %s has neither a `label` nor an `icon`.",
+                   if (is.null(item$index)) "(no index)" else dQuote(item$index, FALSE)),
+           call. = FALSE)
+    }
+    label <- htmltools::tags$span(text)
 
     if (isTRUE(item$group)) {
       # A titled group of items; it takes no index and cannot be selected.
       htmltools::tag("el-menu-item-group", c(
-        list(title = if (!is.null(item$title)) item$title else item$label),
+        list(title = if (!is.null(item$title)) item$title else text),
         .el_menu_nodes(item$children)
       ))
 
@@ -64,7 +72,8 @@
 #'
 #' @param id Menu ID (auto-generated if NULL).
 #' @param items A list of items. Each is a list with `index` (the value
-#'   reported when selected), `label`, and optionally `icon` (an Element icon
+#'   reported when selected), `label` (or `title`, Element's name for it),
+#'   and optionally `icon` (an Element icon
 #'   class such as `"el-icon-house"`), `disabled`, `route` (for
 #'   `router = TRUE`), or `children` for a submenu. A submenu may also carry
 #'   `popper_class`, `show_timeout`, `hide_timeout` and

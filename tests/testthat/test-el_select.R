@@ -194,3 +194,23 @@ test_that("update_el_select: all fields sent when provided", {
   expect_true(captured$clearable)
   expect_true(captured$filterable)
 })
+
+test_that("el_select renders option groups from a named list, as Shiny does", {
+  ui <- el_select("g", choices = list(
+    Fruit = c(Apple = "a", Pear = "p"),
+    Veg   = list(label = "Vegetables", disabled = TRUE, options = c(Kale = "k"))
+  ))
+  html <- paste(as.character(ui), collapse = "")
+  expect_match(html, "<el-option-group", fixed = TRUE)
+  d <- vue_data_of(ui)
+  expect_equal(d$options, list())
+  expect_equal(d$groups[[1]]$label, "Fruit")
+  expect_equal(d$groups[[1]]$options[[2]], list(value = "p", label = "Pear"))
+  expect_equal(d$groups[[2]]$label, "Vegetables")
+  expect_true(d$groups[[2]]$disabled)
+})
+
+test_that("a single option can be disabled", {
+  html <- paste(as.character(el_select("s", choices = c(A = "a"))), collapse = "")
+  expect_match(html, ':disabled="opt.disabled"', fixed = TRUE)
+})

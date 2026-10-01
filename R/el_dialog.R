@@ -21,7 +21,25 @@
 #' @param close_on_press_escape Close on Escape.
 #' @param show_close Show the close button in the header.
 #' @param center Centre the header and footer.
+#' @param lock_scroll Whether the page stops scrolling while it is open.
+#' @param custom_class Extra class name for the panel.
+#' @param append_to_body Move the overlay to `<body>` when it opens, so a
+#'   container's `overflow` or `transform` cannot clip it. Its components keep
+#'   working; they are moved, not re-created.
+#' @param modal_append_to_body Whether the backdrop goes on `<body>` (the
+#'   default) or beside the overlay.
+#' @param destroy_on_close Re-create the content each time it opens, and remove
+#'   it when it closes: inputs inside start from their initial values again.
+#' @param before_close `htmltools::JS()` function `function(done)`, run when
+#'   the user closes it -- by the cross, the backdrop or Escape; call `done()`
+#'   to let it close.
 #' @param session Shiny session for module support.
+#'
+#' @section Shiny inputs:
+#' - `input$<id>` -- whether it is open.
+#' - `input$<id>_open`, `input$<id>_opened` -- fire as it opens, and once
+#'   it has.
+#' - `input$<id>_close`, `input$<id>_closed` -- likewise as it closes.
 #'
 #' @return An `htmltools` tag.
 #'
@@ -55,6 +73,12 @@ el_dialog <- function(
     close_on_press_escape = TRUE,
     show_close            = TRUE,
     center                = FALSE,
+    lock_scroll           = TRUE,
+    custom_class          = NULL,
+    append_to_body        = FALSE,
+    modal_append_to_body  = TRUE,
+    destroy_on_close      = FALSE,
+    before_close          = NULL,
     session               = shiny::getDefaultReactiveDomain()
 ) {
   if (is.null(id)) id <- paste0("el_dialog_", uuid::UUIDgenerate())
@@ -81,16 +105,23 @@ el_dialog <- function(
       `data-modal`       = tolower(as.character(modal)),
       `data-mask-close`  = tolower(as.character(modal && close_on_click_modal)),
       `data-esc-close`   = tolower(as.character(close_on_press_escape)),
+      `data-lock-scroll` = tolower(as.character(lock_scroll)),
+      `data-append-to-body` = tolower(as.character(append_to_body)),
+      `data-modal-append-to-body` = tolower(as.character(modal_append_to_body)),
+      `data-destroy-on-close` = tolower(as.character(destroy_on_close)),
+      `data-before-close` = if (!is.null(before_close)) as.character(before_close),
       shiny::tags$div(
-        role = "dialog", `aria-modal` = "true", `aria-label` = title,
+        role = "dialog", `aria-modal` = "true",
+        `aria-label` = if (is.character(title)) title,
         class = paste(c("el-dialog",
                         if (fullscreen) "is-fullscreen",
-                        if (center) "el-dialog--center"), collapse = " "),
+                        if (center) "el-dialog--center", custom_class), collapse = " "),
         style = if (!fullscreen) sprintf("margin-top: %s; width: %s;", top, width),
         header,
         # Hidden rather than removed when closed, so a nested component stays
         # mounted between openings.
-        shiny::tags$div(class = "el-dialog__body", content),
+        shiny::tags$div(class = "el-dialog__body",
+                        .el_overlay_content(content, destroy_on_close, visible)),
         if (!is.null(footer)) shiny::tags$div(class = "el-dialog__footer", footer)
       )
     ),
@@ -144,5 +175,26 @@ el_overlay_dependency <- function() {
     src       = system.file("js", package = "shiny.element"),
     script    = "el-overlay-binding.js",
     all_files = FALSE
+  )
+}
+
+
+#' An overlay's content, kept for re-creation when it is destroyed on close
+#'
+#' With `destroy_on_close`, the content lives in an inert `<template>` and is
+#' instantiated each time the overlay opens -- so its inputs start from their
+#' initial values -- then unbound and removed when it closes. Shown from the
+#' start, a live copy is rendered as well.
+#'
+#' @param content The overlay's content.
+#' @param destroy Whether it is destroyed on close.
+#' @param visible Whether the overlay starts open.
+#' @return Markup.
+#' @keywords internal
+.el_overlay_content <- function(content, destroy, visible) {
+  if (!isTRUE(destroy)) return(content)
+  htmltools::tagList(
+    htmltools::tag("template", list(`data-el-pristine` = "true", content)),
+    if (isTRUE(visible)) shiny::tags$div(`data-el-live` = "true", content)
   )
 }

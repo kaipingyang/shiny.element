@@ -253,7 +253,7 @@ el_select <- function(
 #' if (interactive()) {
 #'   # inside a server function
 #'   observeEvent(input$go, {
-#'     update_el_select(session, "city", selected = "sh")
+#'     update_el_select(session, "city", value = "sh")
 #'   })
 #' }
 #' @export

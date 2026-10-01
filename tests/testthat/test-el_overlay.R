@@ -223,3 +223,54 @@ test_that("update_el_drawer: NULL fields are excluded", {
   expect_null(out$msg$title)
   expect_null(out$msg$size)
 })
+
+# ── Element's further dialog and drawer attributes ────────────────────────────
+
+test_that("dialog and drawer pass Element's behaviour flags to the binding", {
+  for (html in list(
+    render_html(el_dialog("d1", append_to_body = TRUE, modal_append_to_body = FALSE,
+                          destroy_on_close = TRUE, custom_class = "wide")),
+    render_html(el_drawer("w1", append_to_body = TRUE, modal_append_to_body = FALSE,
+                          destroy_on_close = TRUE, custom_class = "wide")))) {
+    expect_match(html, 'data-append-to-body="true"', fixed = TRUE)
+    expect_match(html, 'data-modal-append-to-body="false"', fixed = TRUE)
+    expect_match(html, 'data-destroy-on-close="true"', fixed = TRUE)
+    expect_match(html, "wide", fixed = TRUE)
+  }
+  expect_match(render_html(el_dialog("d1", lock_scroll = FALSE)),
+               'data-lock-scroll="false"', fixed = TRUE)
+})
+
+test_that("before_close travels as source for the binding", {
+  fn <- htmlwidgets::JS("function(done) { done(); }")
+  expect_match(render_html(el_dialog("d1", before_close = fn)),
+               'data-before-close="function(done) { done(); }"', fixed = TRUE)
+  expect_match(render_html(el_drawer("w1", before_close = fn)),
+               'data-before-close="function(done) { done(); }"', fixed = TRUE)
+  expect_false(grepl("data-before-close", render_html(el_dialog("d1")), fixed = TRUE))
+})
+
+test_that("destroy_on_close keeps a pristine copy to rebuild from", {
+  closed <- render_html(el_dialog("d1", content = shiny::tags$p("body"),
+                                  destroy_on_close = TRUE))
+  expect_match(closed, '<template data-el-pristine="true">', fixed = TRUE)
+  expect_false(grepl("data-el-live", closed, fixed = TRUE))
+
+  open <- render_html(el_dialog("d1", content = shiny::tags$p("body"),
+                                destroy_on_close = TRUE, visible = TRUE))
+  expect_match(open, 'data-el-live="true"', fixed = TRUE)
+
+  # Without it the content is rendered once and simply hidden
+  plain <- render_html(el_dialog("d1", content = shiny::tags$p("body")))
+  expect_false(grepl("data-el-pristine", plain, fixed = TRUE))
+})
+
+test_that("the binding reports the four open/close events", {
+  js <- paste(readLines(
+    system.file("js", "el-overlay-binding.js", package = "shiny.element"), warn = FALSE
+  ), collapse = "\n")
+  for (ev in c("'_open'", "'_opened'", "'_close'", "'_closed'")) {
+    expect_match(js, ev, fixed = TRUE)
+  }
+  expect_match(js, "closeDrawer", fixed = TRUE)
+})

@@ -11,7 +11,10 @@ el_tabs(
   type = NULL,
   tab_position = "top",
   closable = FALSE,
+  addable = FALSE,
+  editable = FALSE,
   stretch = FALSE,
+  before_leave = NULL,
   session = shiny::getDefaultReactiveDomain()
 )
 }
@@ -25,6 +28,10 @@ el_tabs(
 \item{content}{Tab body. Any tag or tagList, including this package's
 own components.}
 \item{disabled}{Whether the tab can be selected. Default \code{FALSE}.}
+\item{closable}{Whether this one tab can be closed, when \code{closable}
+is off for the rest.}
+\item{lazy}{Render the content only when the tab is first selected.
+Its components do not exist, and report nothing, until then.}
 }}
 
 \item{selected}{Name of the initially selected tab. Defaults to the first.}
@@ -34,9 +41,18 @@ own components.}
 \item{tab_position}{\code{"top"} (default), \code{"right"}, \code{"bottom"} or \code{"left"}.}
 
 \item{closable}{Show a close button on each tab. Closing removes the tab
-from the page; the server is told through \verb{input$<id>_closed}.}
+from the page; the server is told through \verb{input$<id>_tab_remove}.}
+
+\item{addable}{Show a "+" button; clicking it reports
+\verb{input$<id>_tab_add}, and the server adds a tab with \code{\link[=insert_el_tab]{insert_el_tab()}}.}
+
+\item{editable}{\code{closable} and \code{addable} together.}
 
 \item{stretch}{Stretch the tabs to fill the available width.}
+
+\item{before_leave}{\code{htmlwidgets::JS()} function
+\verb{function(activeName, oldActiveName)} run before switching tabs; return
+\code{false}, or a promise that rejects, to stay put.}
 
 \item{session}{Shiny session for module support.}
 }
@@ -55,9 +71,16 @@ See \code{.claude/docs/lessons.md} §1.2.
 }
 \section{Shiny inputs}{
 
-\verb{input$<id>} — name of the selected tab, reported on load and on every
-change. \verb{input$<id>_closed} — name of the most recently closed tab, when
-\code{closable = TRUE}.
+\itemize{
+\item \verb{input$<id>} -- name of the selected tab, on load and on every change.
+\item \verb{input$<id>_tab_click} -- name of the tab clicked, even if it was already
+selected.
+\item \verb{input$<id>_tab_remove} -- name of a tab just closed.
+\item \verb{input$<id>_tab_add} -- fires when the "+" button is clicked.
+\item \verb{input$<id>_edit} -- either of the last two, as Element's \code{edit} event:
+a list of \code{target} (the tab name, or \code{NULL} for an add) and \code{action}
+(\code{"remove"} or \code{"add"}).
+}
 }
 
 \examples{

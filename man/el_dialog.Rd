@@ -18,6 +18,12 @@ el_dialog(
   close_on_press_escape = TRUE,
   show_close = TRUE,
   center = FALSE,
+  lock_scroll = TRUE,
+  custom_class = NULL,
+  append_to_body = FALSE,
+  modal_append_to_body = TRUE,
+  destroy_on_close = FALSE,
+  before_close = NULL,
   session = shiny::getDefaultReactiveDomain()
 )
 }
@@ -50,6 +56,24 @@ own components.}
 
 \item{center}{Centre the header and footer.}
 
+\item{lock_scroll}{Whether the page stops scrolling while it is open.}
+
+\item{custom_class}{Extra class name for the panel.}
+
+\item{append_to_body}{Move the overlay to \verb{<body>} when it opens, so a
+container's \code{overflow} or \code{transform} cannot clip it. Its components keep
+working; they are moved, not re-created.}
+
+\item{modal_append_to_body}{Whether the backdrop goes on \verb{<body>} (the
+default) or beside the overlay.}
+
+\item{destroy_on_close}{Re-create the content each time it opens, and remove
+it when it closes: inputs inside start from their initial values again.}
+
+\item{before_close}{\code{htmltools::JS()} function \verb{function(done)}, run when
+the user closes it -- by the cross, the backdrop or Escape; call \code{done()}
+to let it close.}
+
 \item{session}{Shiny session for module support.}
 }
 \value{
@@ -63,6 +87,16 @@ Rendered as plain markup carrying Element's own classes, driven by a Shiny
 input binding rather than a Vue instance, so the body can hold other
 components from this package. See \code{.claude/docs/lessons.md} §1.2.
 }
+\section{Shiny inputs}{
+
+\itemize{
+\item \verb{input$<id>} -- whether it is open.
+\item \verb{input$<id>_open}, \verb{input$<id>_opened} -- fire as it opens, and once
+it has.
+\item \verb{input$<id>_close}, \verb{input$<id>_closed} -- likewise as it closes.
+}
+}
+
 \section{Shiny input}{
 
 \verb{input$<id>} — \code{TRUE} while the dialog is open, reported whenever it opens

@@ -19,7 +19,24 @@
 #' @param show_close Show the close button in the header.
 #' @param wrapper_closable Close when the backdrop is clicked.
 #' @param close_on_press_escape Close on Escape.
+#' @param custom_class Extra class name for the panel.
+#' @param append_to_body Move the overlay to `<body>` when it opens, so a
+#'   container's `overflow` or `transform` cannot clip it. Its components keep
+#'   working; they are moved, not re-created.
+#' @param modal_append_to_body Whether the backdrop goes on `<body>` (the
+#'   default) or beside the overlay.
+#' @param destroy_on_close Re-create the content each time it opens, and remove
+#'   it when it closes: inputs inside start from their initial values again.
+#' @param before_close `htmltools::JS()` function `function(done)`, run when
+#'   the user closes it -- by the cross, the backdrop or Escape; call `done()`
+#'   to let it close.
 #' @param session Shiny session for module support.
+#'
+#' @section Shiny inputs:
+#' - `input$<id>` -- whether it is open.
+#' - `input$<id>_open`, `input$<id>_opened` -- fire as it opens, and once
+#'   it has.
+#' - `input$<id>_close`, `input$<id>_closed` -- likewise as it closes.
 #'
 #' @return An `htmltools` tag.
 #'
@@ -48,6 +65,11 @@ el_drawer <- function(
     show_close            = TRUE,
     wrapper_closable      = TRUE,
     close_on_press_escape = TRUE,
+    custom_class          = NULL,
+    append_to_body        = FALSE,
+    modal_append_to_body  = TRUE,
+    destroy_on_close      = FALSE,
+    before_close          = NULL,
     session               = shiny::getDefaultReactiveDomain()
 ) {
   if (is.null(id)) id <- paste0("el_drawer_", uuid::UUIDgenerate())
@@ -59,7 +81,8 @@ el_drawer <- function(
   header <- if (with_header) {
     shiny::tags$header(
       id = title_id, class = "el-drawer__header",
-      shiny::tags$span(role = "heading", tabindex = "0", title = title, title),
+      shiny::tags$span(role = "heading", tabindex = "0",
+                       title = if (is.character(title)) title, title),
       if (show_close) {
         shiny::tags$button(
           `aria-label` = paste("close", title), type = "button",
@@ -81,6 +104,10 @@ el_drawer <- function(
       `data-modal`      = tolower(as.character(modal)),
       `data-mask-close` = tolower(as.character(modal && wrapper_closable)),
       `data-esc-close`  = tolower(as.character(close_on_press_escape)),
+      `data-append-to-body` = tolower(as.character(append_to_body)),
+      `data-modal-append-to-body` = tolower(as.character(modal_append_to_body)),
+      `data-destroy-on-close` = tolower(as.character(destroy_on_close)),
+      `data-before-close` = if (!is.null(before_close)) as.character(before_close),
       shiny::tags$div(
         role = "document", tabindex = "-1",
         # el-drawer__open is what triggers the slide-in; the binding adds it.
@@ -88,11 +115,12 @@ el_drawer <- function(
                         if (visible) "el-drawer__open"), collapse = " "),
         shiny::tags$div(
           `aria-modal` = "true", `aria-labelledby` = title_id,
-          `aria-label` = title, role = "dialog", tabindex = "-1",
-          class = paste("el-drawer", direction),
+          `aria-label` = if (is.character(title)) title, role = "dialog", tabindex = "-1",
+          class = paste(c("el-drawer", direction, custom_class), collapse = " "),
           style = sprintf("%s: %s;", if (vertical) "height" else "width", size),
           header,
-          shiny::tags$section(class = "el-drawer__body", content)
+          shiny::tags$section(class = "el-drawer__body",
+                              .el_overlay_content(content, destroy_on_close, visible))
         )
       )
     ),

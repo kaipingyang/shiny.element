@@ -16,21 +16,36 @@
 #'     \item{content}{Tab body. Any tag or tagList, including this package's
 #'       own components.}
 #'     \item{disabled}{Whether the tab can be selected. Default `FALSE`.}
+#'     \item{closable}{Whether this one tab can be closed, when `closable`
+#'       is off for the rest.}
+#'     \item{lazy}{Render the content only when the tab is first selected.
+#'       Its components do not exist, and report nothing, until then.}
 #'   }
 #' @param selected Name of the initially selected tab. Defaults to the first.
 #' @param type `NULL` for plain tabs, `"card"` or `"border-card"`.
 #' @param tab_position `"top"` (default), `"right"`, `"bottom"` or `"left"`.
 #' @param closable Show a close button on each tab. Closing removes the tab
-#'   from the page; the server is told through `input$<id>_closed`.
+#'   from the page; the server is told through `input$<id>_tab_remove`.
+#' @param addable Show a "+" button; clicking it reports
+#'   `input$<id>_tab_add`, and the server adds a tab with [insert_el_tab()].
+#' @param editable `closable` and `addable` together.
+#' @param before_leave `htmlwidgets::JS()` function
+#'   `function(activeName, oldActiveName)` run before switching tabs; return
+#'   `false`, or a promise that rejects, to stay put.
 #' @param stretch Stretch the tabs to fill the available width.
 #' @param session Shiny session for module support.
 #'
 #' @return An `htmltools` tag.
 #'
 #' @section Shiny inputs:
-#' `input$<id>` — name of the selected tab, reported on load and on every
-#' change. `input$<id>_closed` — name of the most recently closed tab, when
-#' `closable = TRUE`.
+#' - `input$<id>` -- name of the selected tab, on load and on every change.
+#' - `input$<id>_tab_click` -- name of the tab clicked, even if it was already
+#'   selected.
+#' - `input$<id>_tab_remove` -- name of a tab just closed.
+#' - `input$<id>_tab_add` -- fires when the "+" button is clicked.
+#' - `input$<id>_edit` -- either of the last two, as Element's `edit` event:
+#'   a list of `target` (the tab name, or `NULL` for an add) and `action`
+#'   (`"remove"` or `"add"`).
 #'
 #' @examples
 #' el_tabs("t1", selected = "a", tabs = list(
@@ -52,11 +67,20 @@ el_tabs <- function(
     type         = NULL,
     tab_position = "top",
     closable     = FALSE,
+    addable      = FALSE,
+    editable     = FALSE,
     stretch      = FALSE,
+    before_leave = NULL,
     session      = shiny::getDefaultReactiveDomain()
 ) {
   if (is.null(id)) id <- paste0("el_tabs_", uuid::UUIDgenerate())
   ns_id <- if (!is.null(session)) session$ns(id) else id
+
+  # Element's editable is closable and addable together
+  if (isTRUE(editable)) {
+    closable <- TRUE
+    addable  <- TRUE
+  }
 
   names_vec <- vapply(tabs, function(t) as.character(t$name), character(1))
   if (is.null(selected) || !selected %in% names_vec) {
@@ -72,39 +96,22 @@ el_tabs <- function(
   }
 
   items <- lapply(tabs, function(t) {
-    active   <- identical(as.character(t$name), selected)
-    disabled <- isTRUE(t$disabled)
-    shiny::tags$div(
-      id    = paste0(ns_id, "-tab-", t$name),
-      role  = "tab",
-      `aria-selected` = if (active) "true",
-      tabindex        = if (active) "0" else "-1",
-      class = paste(c("el-tabs__item", pos_class,
-                      if (active) "is-active",
-                      if (disabled) "is-disabled",
-                      if (closable) "is-closable"), collapse = " "),
-      `data-el-name` = t$name,
-      t$label,
-      if (closable) shiny::tags$span(class = "el-icon-close")
-    )
+    .el_tab_item(ns_id, t, active = identical(as.character(t$name), selected),
+                 closable = isTRUE(t$closable) || isTRUE(closable),
+                 pos_class = pos_class)
   })
-
   panes <- lapply(tabs, function(t) {
-    active <- identical(as.character(t$name), selected)
-    # Hidden rather than removed, so a nested component stays mounted.
-    shiny::tags$div(
-      role  = "tabpanel",
-      id    = paste0(ns_id, "-pane-", t$name),
-      class = "el-tab-pane",
-      style = if (!active) "display:none",
-      `data-el-name` = t$name,
-      t$content
-    )
+    .el_tab_pane(ns_id, t, active = identical(as.character(t$name), selected))
   })
 
   root_class <- paste(c("el-tabs", paste0("el-tabs--", tab_position),
                         if (!is.null(type)) paste0("el-tabs--", type)),
                       collapse = " ")
+
+  new_tab <- if (isTRUE(addable)) {
+    shiny::tags$span(class = "el-tabs__new-tab", tabindex = "0",
+                     shiny::tags$i(class = "el-icon-plus"))
+  }
 
   htmltools::attachDependencies(
     shiny::tags$div(
@@ -113,8 +120,12 @@ el_tabs <- function(
       `data-el-tabs`  = "true",
       `data-position` = tab_position,
       `data-carded`   = tolower(as.character(!is.null(type))),
+      `data-closable` = tolower(as.character(isTRUE(closable))),
+      # A function's source, turned back into one by the binding
+      `data-before-leave` = if (!is.null(before_leave)) as.character(before_leave),
       shiny::tags$div(
         class = paste("el-tabs__header", pos_class),
+        new_tab,
         shiny::tags$div(
           class = paste("el-tabs__nav-wrap", pos_class),
           shiny::tags$div(
@@ -131,6 +142,61 @@ el_tabs <- function(
       shiny::tags$div(class = "el-tabs__content", panes)
     ),
     el_tabs_dependency()
+  )
+}
+
+
+#' One tab's header item
+#'
+#' @param ns_id The tabs' namespaced id.
+#' @param t The tab description.
+#' @param active,closable Whether it is selected, and whether it can be closed.
+#' @param pos_class `is-top`, `is-left`, ...
+#' @return A tag.
+#' @keywords internal
+.el_tab_item <- function(ns_id, t, active, closable, pos_class) {
+  disabled <- isTRUE(t$disabled)
+  shiny::tags$div(
+    id    = paste0(ns_id, "-tab-", t$name),
+    role  = "tab",
+    `aria-selected` = if (active) "true",
+    tabindex        = if (active) "0" else "-1",
+    class = paste(c("el-tabs__item", pos_class,
+                    if (active) "is-active",
+                    if (disabled) "is-disabled",
+                    if (closable) "is-closable"), collapse = " "),
+    `data-el-name` = t$name,
+    t$label,
+    if (closable) shiny::tags$span(class = "el-icon-close")
+  )
+}
+
+
+#' One tab's pane
+#'
+#' A `lazy` tab that is not showing keeps its content in a `<template>`, which
+#' the browser leaves inert: nothing in it renders, binds or runs until the
+#' binding instantiates it the first time the tab is selected.
+#'
+#' @param ns_id The tabs' namespaced id.
+#' @param t The tab description.
+#' @param active Whether it is selected.
+#' @return A tag.
+#' @keywords internal
+.el_tab_pane <- function(ns_id, t, active) {
+  content <- if (isTRUE(t$lazy) && !active) {
+    htmltools::tag("template", list(`data-el-lazy` = "true", t$content))
+  } else {
+    t$content
+  }
+  # Hidden rather than removed, so a nested component stays mounted.
+  shiny::tags$div(
+    role  = "tabpanel",
+    id    = paste0(ns_id, "-pane-", t$name),
+    class = "el-tab-pane",
+    style = if (!active) "display:none",
+    `data-el-name` = t$name,
+    content
   )
 }
 
@@ -156,6 +222,66 @@ update_el_tabs <- function(session, id, selected = NULL) {
   msg <- list()
   if (!is.null(selected)) msg$selected <- selected
   session$sendInputMessage(id, msg)
+  invisible(NULL)
+}
+
+
+#' Add or remove a tab from the server
+#'
+#' Element's addable and editable tabs leave adding to the app: clicking "+"
+#' reports `input$<id>_tab_add`, and the app decides what the new tab holds.
+#' These are how, in the manner of [shiny::insertTab()] and
+#' [shiny::removeTab()]. The content may hold any UI, this package's
+#' components included.
+#'
+#' @param session Shiny session object.
+#' @param id Tabs ID (un-namespaced).
+#' @param name,label The new tab's name and label.
+#' @param content The new tab's content.
+#' @param closable Whether it can be closed. `NULL` follows the tabs'
+#'   own setting.
+#' @param select Whether to switch to it. Default `TRUE`.
+#'
+#' @return Called for its side effect; returns `NULL` invisibly.
+#' @examples
+#' if (interactive()) {
+#'   library(shiny)
+#'   ui <- el_page(el_tabs("docs", editable = TRUE, tabs = list(
+#'     list(name = "t1", label = "Tab 1", content = tags$p("First"))
+#'   )))
+#'   server <- function(input, output, session) {
+#'     n <- 1
+#'     observeEvent(input$docs_tab_add, {
+#'       n <<- n + 1
+#'       insert_el_tab(session, "docs", name = paste0("t", n),
+#'                     label = paste("Tab", n), content = tags$p("New"))
+#'     })
+#'   }
+#'   shinyApp(ui, server)
+#' }
+#' @export
+insert_el_tab <- function(session, id, name, label, content = NULL,
+                          closable = NULL, select = TRUE) {
+  ns_id <- session$ns(id)
+  # The pane goes in through insertUI, which renders its dependencies and
+  # binds what is inside; the header item is built by the binding, which knows
+  # the tabs' position and closability.
+  shiny::insertUI(
+    selector = paste0("#", ns_id, " > .el-tabs__content"),
+    where = "beforeEnd", immediate = TRUE, session = session,
+    ui = .el_tab_pane(ns_id, list(name = name, content = content), active = FALSE)
+  )
+  session$sendInputMessage(id, list(
+    add_tab = list(name = name, label = label, closable = closable),
+    selected = if (isTRUE(select)) name
+  ))
+  invisible(NULL)
+}
+
+#' @rdname insert_el_tab
+#' @export
+remove_el_tab <- function(session, id, name) {
+  session$sendInputMessage(id, list(remove_tab = name))
   invisible(NULL)
 }
 

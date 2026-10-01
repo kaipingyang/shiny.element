@@ -5,6 +5,9 @@
 // pane still renders, but the component inside stops reporting and stops
 // responding to update_el_*(). Element's tabs are CSS classes plus show/hide
 // and one moving bar, so a binding does the job and leaves the panes alone.
+//
+// Events are reported under Element's names: input$<id>_tab_click,
+// _tab_remove, _tab_add, and _edit for the last two together.
 (function() {
   // Rendered outside Shiny the markup still shows; there is just nothing to
   // bind it to.
@@ -21,9 +24,19 @@
       el.querySelectorAll(':scope > .el-tabs__content > .el-tab-pane'));
   }
 
+  function pane(el, name) {
+    return panes(el).filter(function(p) {
+      return p.getAttribute('data-el-name') === name;
+    })[0];
+  }
+
   function selectedName(el) {
     var active = el.querySelector('.el-tabs__item.is-active');
     return active ? active.getAttribute('data-el-name') : null;
+  }
+
+  function report(el, what, value) {
+    Shiny.setInputValue(el.id + what, value, { priority: 'event' });
   }
 
   // The active bar's size and offset are inline styles in Element too --
@@ -46,7 +59,20 @@
     }
   }
 
-  function select(el, name) {
+  // A lazy tab keeps its content in an inert <template> until it is first
+  // shown. Instantiating it means binding what it holds: Shiny's inputs and
+  // outputs, and the htmlwidgets that carry this package's components.
+  function instantiate(p) {
+    if (!p) return;
+    var tpl = p.querySelector(':scope > template[data-el-lazy]');
+    if (!tpl) return;
+    p.appendChild(document.importNode(tpl.content, true));
+    tpl.parentNode.removeChild(tpl);
+    if (window.HTMLWidgets) window.HTMLWidgets.staticRender();
+    Shiny.bindAll(p);
+  }
+
+  function show(el, name) {
     items(el).forEach(function(it) {
       var on = it.getAttribute('data-el-name') === name;
       it.classList.toggle('is-active', on);
@@ -56,8 +82,74 @@
     });
     panes(el).forEach(function(p) {
       // Hidden rather than removed, so a nested component stays mounted.
-      p.style.display = (p.getAttribute('data-el-name') === name) ? '' : 'none';
+      var on = p.getAttribute('data-el-name') === name;
+      if (on) instantiate(p);
+      p.style.display = on ? '' : 'none';
     });
+    moveBar(el);
+  }
+
+  // Element's before-leave: a function that may return false, or a promise,
+  // to keep the current tab.
+  function guard(el) {
+    if (el._elBeforeLeave === undefined) {
+      var src = el.getAttribute('data-before-leave');
+      el._elBeforeLeave = src ? eval('(' + src + ')') : null;
+    }
+    return el._elBeforeLeave;
+  }
+
+  function select(el, name, done) {
+    var old = selectedName(el);
+    if (name === old) { show(el, name); if (done) done(); return; }
+    var check = guard(el);
+    var result = check ? check(name, old) : true;
+    if (result === false) return;
+    if (result && typeof result.then === 'function') {
+      result.then(function(ok) {
+        if (ok === false) return;
+        show(el, name); if (done) done();
+      }, function() {});
+      return;
+    }
+    show(el, name);
+    if (done) done();
+  }
+
+  function removeTab(el, name, callback) {
+    var item = el.querySelector('.el-tabs__item[data-el-name="' + name + '"]');
+    if (!item) return;
+    var wasActive = item.classList.contains('is-active');
+    var p = pane(el, name);
+    item.parentNode.removeChild(item);
+    if (p) { Shiny.unbindAll(p); p.parentNode.removeChild(p); }
+    var remaining = items(el);
+    if (wasActive && remaining.length) {
+      show(el, remaining[0].getAttribute('data-el-name'));
+    } else {
+      moveBar(el);
+    }
+    if (callback) callback(false);
+  }
+
+  function addItem(el, tab) {
+    var nav = el.querySelector('.el-tabs__nav');
+    var pos = 'is-' + (el.getAttribute('data-position') || 'top');
+    var closable = tab.closable === null || tab.closable === undefined
+      ? el.getAttribute('data-closable') === 'true' : !!tab.closable;
+    var item = document.createElement('div');
+    item.id = el.id + '-tab-' + tab.name;
+    item.setAttribute('role', 'tab');
+    item.setAttribute('tabindex', '-1');
+    item.setAttribute('data-el-name', tab.name);
+    item.className = 'el-tabs__item ' + pos + (closable ? ' is-closable' : '');
+    item.appendChild(document.createTextNode(tab.label));
+    if (closable) {
+      var x = document.createElement('span');
+      x.className = 'el-icon-close';
+      item.appendChild(x);
+    }
+    nav.appendChild(item);
     moveBar(el);
   }
 
@@ -84,36 +176,28 @@
       // receiveMessage has no callback of its own; it raises this instead.
       $(el).on('elTabsChange.elTabs', function() { callback(false); });
 
+      $(el).on('click.elTabs', '.el-tabs__new-tab', function() {
+        report(el, '_tab_add', true);
+        report(el, '_edit', { target: null, action: 'add' });
+      });
+
       $(el).on('click.elTabs', '.el-tabs__item', function(e) {
         var item = e.currentTarget;
-        if (item.classList.contains('is-disabled')) return;
-
         var name = item.getAttribute('data-el-name');
 
         // The close button sits inside the tab, so a click on it would
         // otherwise select the tab on its way out.
         if (e.target.classList.contains('el-icon-close')) {
           e.stopPropagation();
-          var wasActive = item.classList.contains('is-active');
-          var remaining = items(el).filter(function(i) { return i !== item; });
-
-          item.parentNode.removeChild(item);
-          panes(el).forEach(function(p) {
-            if (p.getAttribute('data-el-name') === name) p.parentNode.removeChild(p);
-          });
-
-          Shiny.setInputValue(el.id + '_closed', name, { priority: 'event' });
-          if (wasActive && remaining.length) {
-            select(el, remaining[0].getAttribute('data-el-name'));
-          } else {
-            moveBar(el);
-          }
-          callback(false);
+          removeTab(el, name, callback);
+          report(el, '_tab_remove', name);
+          report(el, '_edit', { target: name, action: 'remove' });
           return;
         }
 
-        select(el, name);
-        callback(false);
+        if (item.classList.contains('is-disabled')) return;
+        report(el, '_tab_click', name);
+        select(el, name, function() { callback(false); });
       });
 
       // The bar is positioned from a rendered width, so it has to be redone
@@ -127,10 +211,12 @@
     },
 
     receiveMessage: function(el, data) {
-      if (data.hasOwnProperty('selected')) {
-        this.setValue(el, data.selected);
-        $(el).trigger('elTabsChange');
+      if (data.add_tab) addItem(el, data.add_tab);
+      if (data.remove_tab) removeTab(el, data.remove_tab);
+      if (data.hasOwnProperty('selected') && data.selected !== null) {
+        select(el, data.selected);
       }
+      $(el).trigger('elTabsChange');
     }
   });
 

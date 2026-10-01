@@ -44,7 +44,7 @@ reactive fields on the underlying Vue instance.
 if (interactive()) {
   # inside a server function
   observeEvent(input$go, {
-    update_el_select(session, "city", selected = "sh")
+    update_el_select(session, "city", value = "sh")
   })
 }
 }

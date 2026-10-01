@@ -133,7 +133,12 @@ for (f in sort(ui_fns)) {
 
   # Fields a component reads off each item (t$label, item$disabled), for the
   # components that render their items as markup rather than through Vue
-  src <- paste(deparse(get(f, envir = asNamespace("shiny.element"))), collapse = "\n")
+  # -- including the helpers it hands items to, such as .el_tab_pane()
+  ns <- asNamespace("shiny.element")
+  src <- paste(deparse(get(f, envir = ns)), collapse = "\n")
+  helpers <- unique(regmatches(src, gregexpr("\\.el_tab_[A-Za-z_]+|\\.el_[a-z]+_item[A-Za-z_]*", src))[[1]])
+  helpers <- helpers[vapply(helpers, exists, logical(1), envir = ns, inherits = FALSE)]
+  for (h in helpers) src <- paste(src, paste(deparse(get(h, envir = ns)), collapse = "\n"))
   item_fields <- unique(sub("^.*\\$", "", regmatches(src,
     gregexpr("\\b(t|item|it|tab|x|p)\\$[A-Za-z_]+", src))[[1]]))
 

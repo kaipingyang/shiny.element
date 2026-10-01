@@ -57,3 +57,18 @@ test_that("a descriptions label may be markup", {
   ))
   expect_match(paste(as.character(ui), collapse = ""), '<template slot="label">')
 })
+
+test_that("el_statistic counts down to a date-time, in milliseconds", {
+  end <- as.POSIXct("2026-10-02 00:00:00", tz = "UTC")
+  d <- vue_data_of(el_statistic("left", value = end, time_indices = TRUE,
+                                format = "HH:mm:ss"))
+  expect_equal(d$value, as.numeric(end) * 1000)
+  expect_true(d$timeIndices)
+  expect_equal(d$format, "HH:mm:ss")
+})
+
+test_that("el_statistic forwards finish, and throttles change to once a second", {
+  p <- vue_payload_of(el_statistic("left", value = 1, time_indices = TRUE))
+  expect_true(all(c("elEmitFinish", "elEmitChange") %in% names(p$methods)))
+  expect_match(p$methods$elEmitChange, "_elLastChange", fixed = TRUE)
+})

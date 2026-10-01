@@ -35,7 +35,7 @@ reactive fields on the underlying Vue instance.
 if (interactive()) {
   # inside a server function
   observeEvent(input$go, {
-    update_el_radio_group(session, "plan", selected = "pro")
+    update_el_radio_group(session, "plan", value = "pro")
   })
 }
 }

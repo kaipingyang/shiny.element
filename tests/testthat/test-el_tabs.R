@@ -152,7 +152,90 @@ test_that("the binding reports back after an update and on close", {
     system.file("js", "el-tabs-binding.js", package = "shiny.element"), warn = FALSE
   ), collapse = "\n")
   expect_match(js, "elTabsChange", fixed = TRUE)
-  expect_match(js, "_closed", fixed = TRUE)
+  expect_match(js, "_tab_remove", fixed = TRUE)
   # The close button sits inside the tab, so its click must not also select it.
   expect_match(js, "stopPropagation", fixed = TRUE)
+})
+
+# ── adding, removing, lazy panes ──────────────────────────────────────────────
+
+test_that("el_tabs: addable draws the new-tab button, editable implies closable", {
+  html <- render_html(el_tabs("t1", tabs = demo_tabs, addable = TRUE))
+  expect_match(html, "el-tabs__new-tab", fixed = TRUE)
+  expect_false(grepl("is-closable", html, fixed = TRUE))
+
+  html <- render_html(el_tabs("t1", tabs = demo_tabs, editable = TRUE))
+  expect_match(html, "el-tabs__new-tab", fixed = TRUE)
+  expect_match(html, "is-closable", fixed = TRUE)
+})
+
+test_that("el_tabs: a closable tab can be set one at a time", {
+  tabs <- demo_tabs
+  tabs[[2]]$closable <- TRUE
+  html <- render_html(el_tabs("t1", tabs = tabs))
+  expect_match(html, 'is-closable" data-el-name="b"|data-el-name="b"[^>]*is-closable', perl = TRUE)
+  expect_equal(lengths(regmatches(html, gregexpr("el-icon-close", html))), 1L)
+})
+
+test_that("el_tabs: a lazy pane holds its content in a template until shown", {
+  tabs <- demo_tabs
+  tabs[[2]]$lazy <- TRUE
+  html <- render_html(el_tabs("t1", tabs = tabs, selected = "a"))
+  expect_match(html, '<template data-el-lazy="true">\\s*<p>Two</p>', perl = TRUE)
+
+  # Already selected, there is nothing to defer
+  html <- render_html(el_tabs("t1", tabs = tabs, selected = "b"))
+  expect_false(grepl("data-el-lazy", html, fixed = TRUE))
+})
+
+test_that("el_tabs: before_leave travels as source for the binding", {
+  html <- render_html(el_tabs("t1", tabs = demo_tabs,
+    before_leave = htmlwidgets::JS("function(to, from) { return to !== 'c'; }")))
+  expect_match(html, "data-before-leave=\"function(to, from)", fixed = TRUE)
+})
+
+test_that("insert_el_tab: inserts the pane, then adds and selects the header", {
+  inserted <- NULL
+  local_mocked_bindings(insertUI = function(selector, where, ui, ...) {
+    inserted <<- list(selector = selector, where = where, ui = ui)
+  }, .package = "shiny")
+  sent <- NULL
+  session <- list(
+    ns = function(id) id,
+    sendInputMessage = function(id, msg) sent <<- list(id = id, msg = msg)
+  )
+
+  insert_el_tab(session, "t1", "new", "New tab", content = shiny::tags$p("Fresh"))
+  expect_equal(inserted$selector, "#t1 > .el-tabs__content")
+  expect_equal(inserted$where, "beforeEnd")
+  expect_match(render_html(inserted$ui), 'data-el-name="new"', fixed = TRUE)
+  expect_match(render_html(inserted$ui), "<p>Fresh</p>", fixed = TRUE)
+
+  expect_equal(sent$id, "t1")
+  expect_equal(sent$msg$add_tab$name, "new")
+  expect_equal(sent$msg$add_tab$label, "New tab")
+  expect_equal(sent$msg$selected, "new")
+
+  insert_el_tab(session, "t1", "quiet", "Quiet", select = FALSE)
+  expect_null(sent$msg$selected)
+})
+
+test_that("remove_el_tab: asks the binding to remove the tab", {
+  sent <- NULL
+  session <- list(ns = function(id) id,
+                  sendInputMessage = function(id, msg) sent <<- list(id = id, msg = msg))
+  remove_el_tab(session, "t1", "b")
+  expect_equal(sent, list(id = "t1", msg = list(remove_tab = "b")))
+})
+
+test_that("the binding reports Element's tab events", {
+  js <- paste(readLines(
+    system.file("js", "el-tabs-binding.js", package = "shiny.element"), warn = FALSE
+  ), collapse = "\n")
+  for (ev in c("'_tab_click'", "'_tab_remove'", "'_tab_add'", "'_edit'")) {
+    expect_match(js, ev, fixed = TRUE)
+  }
+  # Inserted and lazy content is bound like any other
+  expect_match(js, "Shiny.bindAll", fixed = TRUE)
+  expect_match(js, "Shiny.unbindAll", fixed = TRUE)
 })
