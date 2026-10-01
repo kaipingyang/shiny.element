@@ -657,7 +657,7 @@ el_table <- function(id = NULL,
       # input$<id>_edit to the row's number and the row.
       rowAction = htmlwidgets::JS(sprintf(paste0(
         "function(name, scope) { var se = window.shinyElement; ",
-        "window.Shiny && Shiny.setInputValue('%s_' + name, {row_index: se.rowIndex(this, scope.row), ",
+        "window.Shiny && Shiny.setInputValue && Shiny.setInputValue('%s_' + name, {row_index: se.rowIndex(this, scope.row), ",
         "row: se.plain(scope.row)}, {priority: 'event'}); }"), ns_id)),
       handleSelectionChange = htmlwidgets::JS(sprintf(
         paste0(
@@ -665,11 +665,11 @@ el_table <- function(id = NULL,
           "self.selected = selection; ",
           "self.selectedRows = selection.map(function(r) { ",
           "return self.tableData.indexOf(r) + 1; }); ",
-          "window.Shiny && Shiny.setInputValue('%s_selected', self.selected); ",
+          "window.Shiny && Shiny.setInputValue && Shiny.setInputValue('%s_selected', self.selected); ",
           # Row numbers survive the JSON round-trip with their R types
           # intact, unlike the row objects themselves: a mixed-type row
           # is simplified to a character vector on the way back.
-          "window.Shiny && Shiny.setInputValue('%s_selected_rows', self.selectedRows); }"
+          "window.Shiny && Shiny.setInputValue && Shiny.setInputValue('%s_selected_rows', self.selectedRows); }"
         ),
         ns_id, ns_id
       ))

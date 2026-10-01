@@ -73,7 +73,7 @@ el_cascader_panel <- function(id = NULL,
     ),
     methods = c(events$methods, list(
       handleChange = htmlwidgets::JS(sprintf(
-        "function(v) { window.Shiny && Shiny.setInputValue('%s', v); }", ns_id
+        "function(v) { window.Shiny && Shiny.setInputValue && Shiny.setInputValue('%s', v); }", ns_id
       ))
     )),
     mounted    = .el_mounted_init(stats::setNames("value", ns_id)),

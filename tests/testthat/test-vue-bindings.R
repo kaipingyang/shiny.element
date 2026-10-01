@@ -333,3 +333,28 @@ test_that("update_el_table keeps a template's key for the same column", {
   expect_equal(cols[[1]]$cellKey, "cell_s")
   expect_null(cols[[1]][["cell"]])
 })
+
+# ── el_widget(report =) ───────────────────────────────────────────────────────
+
+test_that("el_widget reports the named fields on load and on every change", {
+  p <- vue_payload_of(el_widget("score", markup = el$rate("v-model" = "value"),
+                                data = list(value = 3), report = c(value = "score")))
+  expect_match(p$mounted, 'Shiny.setInputValue("score", self.value)', fixed = TRUE)
+  expect_match(p$watch$value, 'Shiny.setInputValue("score", v)', fixed = TRUE)
+  expect_match(p$watch$value, "deep: true", fixed = TRUE)
+})
+
+test_that("el_widget keeps a mounted hook of its own alongside report", {
+  p <- vue_payload_of(el_widget("s", markup = el$rate("v-model" = "value"),
+    data = list(value = 3), report = c(value = "s"),
+    mounted = htmlwidgets::JS("function() { this.ready = true; }")))
+  expect_match(p$mounted, "this.ready = true", fixed = TRUE)
+  expect_match(p$mounted, 'Shiny.setInputValue("s", self.value)', fixed = TRUE)
+})
+
+test_that("report must name fields the component declares", {
+  expect_error(el_widget("s", markup = el$rate(), data = list(value = 3),
+                         report = c(nope = "s")), "must name fields")
+  expect_error(el_widget("s", markup = el$rate(), data = list(value = 3),
+                         report = "s"), "must name fields")
+})

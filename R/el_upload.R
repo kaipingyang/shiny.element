@@ -311,11 +311,11 @@ el_upload <- function(id = NULL,
         "function(response, file, fileList) { ",
         "this.succeeded = fileList.filter(function(f) { return f.status === 'success'; })",
         ".map(function(f) { return f.name; }); ",
-        "window.Shiny && Shiny.setInputValue('%s_success', this.succeeded); }"
+        "window.Shiny && Shiny.setInputValue && Shiny.setInputValue('%s_success', this.succeeded); }"
       ), ns_id
     )),
     handleError = htmlwidgets::JS(sprintf(
-      "function(err, file) { this.failed = file.name; window.Shiny && Shiny.setInputValue('%s_error', file.name); }",
+      "function(err, file) { this.failed = file.name; window.Shiny && Shiny.setInputValue && Shiny.setInputValue('%s_error', file.name); }",
       ns_id
     ))
   )

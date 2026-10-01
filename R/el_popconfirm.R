@@ -103,11 +103,11 @@ el_popconfirm <- function(id = NULL,
     watch = list(), computed = list(), mounted = NULL, dependencies = list(),
     methods = list(
       handleConfirm = htmlwidgets::JS(sprintf(
-        "function() { window.Shiny && Shiny.setInputValue('%s_confirm', true, {priority: 'event'}); }",
+        "function() { window.Shiny && Shiny.setInputValue && Shiny.setInputValue('%s_confirm', true, {priority: 'event'}); }",
         ns_id
       )),
       handleCancel = htmlwidgets::JS(sprintf(
-        "function() { window.Shiny && Shiny.setInputValue('%s_cancel', true, {priority: 'event'}); }",
+        "function() { window.Shiny && Shiny.setInputValue && Shiny.setInputValue('%s_cancel', true, {priority: 'event'}); }",
         ns_id
       ))
     )

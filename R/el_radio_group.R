@@ -144,7 +144,7 @@ el_radio_group <- function(
         ns_id
       )),
       handleChange = htmlwidgets::JS(sprintf(
-        "function(value) { window.Shiny && Shiny.setInputValue('%s', value); }",
+        "function(value) { window.Shiny && Shiny.setInputValue && Shiny.setInputValue('%s', value); }",
         ns_id
       ))
     ),

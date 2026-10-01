@@ -15,7 +15,8 @@ el_widget(
   dependency = NULL,
   head = NULL,
   width = NULL,
-  slots = NULL
+  slots = NULL,
+  report = NULL
 )
 }
 \arguments{
@@ -43,6 +44,12 @@ width set on it would do nothing.}
 here is absorbed like any other (\code{\link[=.el_absorb]{.el_absorb()}}). For a scoped slot,
 where Element hands the template its own data, write the template with
 \code{\link[=template]{template()}} and the value is used as it stands.}
+
+\item{report}{Fields of \code{data} to report as Shiny inputs, as
+\verb{c(<field> = <input id>)}: \code{report = c(value = id)} makes \code{input[[id]]}
+the \code{value} field. Each is reported on load, on every change -- the
+user's, or an \code{\link[=update_vue_data]{update_vue_data()}} from the server -- and needs no
+JavaScript of your own. Inside a module, pass the namespaced id.}
 }
 \value{
 A Shiny UI element with its dependencies attached.
@@ -78,16 +85,13 @@ my_avatar <- function(id, src, size = 50) {
 }
 my_avatar("face", "https://example.org/face.png")
 
-# Reporting to Shiny works as it does inside the package: a method that
-# calls Shiny.setInputValue().
+# An input of your own: v-model keeps `value` in step with the control,
+# and `report` makes it input$score -- on load, on change, and after
+# update_vue_data(session, "score", list(value = 5)) from the server.
 el_widget(
-  id      = "score",
-  markup  = el$rate("v-model" = "value", "@change" = "handleChange"),
-  data    = list(value = 3),
-  methods = list(
-    handleChange = htmlwidgets::JS(
-      "function(v) { Shiny.setInputValue('score', v); }"
-    )
-  )
+  id     = "score",
+  markup = el$rate("v-model" = "value", ":max" = "max"),
+  data   = list(value = 3, max = 5),
+  report = c(value = "score")
 )
 }

@@ -122,7 +122,7 @@ el_button <- function(
     ),
     methods = list(
       handleClick = htmlwidgets::JS(sprintf(
-        "function() { if (!this.disabled && !this.loading) { this.count++; window.Shiny && Shiny.setInputValue('%s', this.count); } }",
+        "function() { if (!this.disabled && !this.loading) { this.count++; window.Shiny && Shiny.setInputValue && Shiny.setInputValue('%s', this.count); } }",
         ns_id
       ))
     ),

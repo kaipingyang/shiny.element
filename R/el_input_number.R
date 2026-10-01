@@ -117,7 +117,7 @@ el_input_number <- function(
     data    = vue_data,
     methods = c(events$methods, list(
       handleChange = htmlwidgets::JS(sprintf(
-        "function(val) { window.Shiny && Shiny.setInputValue('%s', val); }",
+        "function(val) { window.Shiny && Shiny.setInputValue && Shiny.setInputValue('%s', val); }",
         ns_id
       ))
     )),

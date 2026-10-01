@@ -152,7 +152,7 @@ el_dropdown <- function(
     data   = vue_data,
     methods = c(events$methods, list(
       handleCommand = htmlwidgets::JS(sprintf(
-        "function(cmd) { this.count++; window.Shiny && Shiny.setInputValue('%s', cmd); window.Shiny && Shiny.setInputValue('%s_count', this.count); }",
+        "function(cmd) { this.count++; window.Shiny && Shiny.setInputValue && Shiny.setInputValue('%s', cmd); window.Shiny && Shiny.setInputValue && Shiny.setInputValue('%s_count', this.count); }",
         ns_id, ns_id
       ))
     )),

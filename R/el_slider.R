@@ -160,7 +160,7 @@ el_slider <- function(
     data = vue_data,
     methods = c(events$methods, list(
       handleChange = htmlwidgets::JS(sprintf(
-        "function(value) { window.Shiny && Shiny.setInputValue('%s', value); }",
+        "function(value) { window.Shiny && Shiny.setInputValue && Shiny.setInputValue('%s', value); }",
         ns_id
       ))
     )),

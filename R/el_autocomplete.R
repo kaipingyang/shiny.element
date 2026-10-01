@@ -150,12 +150,12 @@ el_autocomplete <- function(id = NULL,
     methods = c(events$methods, list(
       fetchSuggestions = fetcher,
       handleInput = htmlwidgets::JS(sprintf(
-        "function(v) { window.Shiny && Shiny.setInputValue('%s', v); }", ns_id
+        "function(v) { window.Shiny && Shiny.setInputValue && Shiny.setInputValue('%s', v); }", ns_id
       ))
     )),
     watch = list(
       value = htmlwidgets::JS(sprintf(
-        "function(newVal) { window.Shiny && Shiny.setInputValue('%s', newVal); }", ns_id
+        "function(newVal) { window.Shiny && Shiny.setInputValue && Shiny.setInputValue('%s', newVal); }", ns_id
       ))
     ),
     mounted    = .el_mounted_init(stats::setNames("value", ns_id)),

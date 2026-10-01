@@ -168,7 +168,7 @@ el_time_select <- function(id = NULL,
     data   = c(list(value = init), lapply(fields, .el_or_na)),
     methods = c(events$methods, list(
       handleChange = htmlwidgets::JS(sprintf(
-        "function(v) { window.Shiny && Shiny.setInputValue('%s', v); }", ns_id
+        "function(v) { window.Shiny && Shiny.setInputValue && Shiny.setInputValue('%s', v); }", ns_id
       ))
     )),
     mounted    = .el_mounted_init(stats::setNames("value", ns_id)),

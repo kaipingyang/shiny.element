@@ -265,7 +265,7 @@ el_tree <- function(id = NULL,
       handleNodeClick = htmlwidgets::JS(sprintf(
         paste0(
           "function(data) { this.current = data[this.nodeKey]; ",
-          "window.Shiny && Shiny.setInputValue('%s', this.current); }"
+          "window.Shiny && Shiny.setInputValue && Shiny.setInputValue('%s', this.current); }"
         ), ns_id
       )),
       handleCheck = htmlwidgets::JS(sprintf(
@@ -273,7 +273,7 @@ el_tree <- function(id = NULL,
           # Element hands the check event the node plus a summary object;
           # checkedKeys is the part worth reporting.
           "function(node, info) { this.checked = info.checkedKeys; ",
-          "window.Shiny && Shiny.setInputValue('%s_checked', this.checked); }"
+          "window.Shiny && Shiny.setInputValue && Shiny.setInputValue('%s_checked', this.checked); }"
         ), ns_id
       ))
     )),

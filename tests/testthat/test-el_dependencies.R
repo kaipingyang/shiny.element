@@ -258,7 +258,7 @@ test_that("every generated call to Shiny is guarded, so components work without 
   )
   html <- paste(as.character(htmltools::renderTags(ui)$html), collapse = "")
   n_all     <- lengths(regmatches(html, gregexpr("Shiny[.]setInputValue[(]", html)))
-  n_guarded <- lengths(regmatches(html, gregexpr("Shiny && Shiny[.]setInputValue[(]", html)))
+  n_guarded <- lengths(regmatches(html, gregexpr("Shiny[.]setInputValue && Shiny[.]setInputValue[(]", html)))
   expect_gt(n_all, 0)
   expect_equal(n_guarded, n_all)
 })

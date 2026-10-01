@@ -34,6 +34,11 @@
 #' @param width Component width, as a CSS unit. Applied to the Element markup
 #'   itself -- the host carries `display: contents` and generates no box, so a
 #'   width set on it would do nothing.
+#' @param report Fields of `data` to report as Shiny inputs, as
+#'   `c(<field> = <input id>)`: `report = c(value = id)` makes `input[[id]]`
+#'   the `value` field. Each is reported on load, on every change -- the
+#'   user's, or an [update_vue_data()] from the server -- and needs no
+#'   JavaScript of your own. Inside a module, pass the namespaced id.
 #' @return A Shiny UI element with its dependencies attached.
 #' @examples
 #' # Wrapping el-avatar, which this package does not provide
@@ -46,23 +51,39 @@
 #' }
 #' my_avatar("face", "https://example.org/face.png")
 #'
-#' # Reporting to Shiny works as it does inside the package: a method that
-#' # calls Shiny.setInputValue().
+#' # An input of your own: v-model keeps `value` in step with the control,
+#' # and `report` makes it input$score -- on load, on change, and after
+#' # update_vue_data(session, "score", list(value = 5)) from the server.
 #' el_widget(
-#'   id      = "score",
-#'   markup  = el$rate("v-model" = "value", "@change" = "handleChange"),
-#'   data    = list(value = 3),
-#'   methods = list(
-#'     handleChange = htmlwidgets::JS(
-#'       "function(v) { Shiny.setInputValue('score', v); }"
-#'     )
-#'   )
+#'   id     = "score",
+#'   markup = el$rate("v-model" = "value", ":max" = "max"),
+#'   data   = list(value = 3, max = 5),
+#'   report = c(value = "score")
 #' )
 #' @export
 el_widget <- function(id, markup, data, methods = NULL, watch = NULL,
                       mounted = NULL, computed = NULL, dependency = NULL,
-                      head = NULL, width = NULL, slots = NULL) {
+                      head = NULL, width = NULL, slots = NULL, report = NULL) {
   container_id <- paste0(id, "_container")
+
+  if (length(report)) {
+    if (is.null(names(report)) || !all(nzchar(names(report))) ||
+        !all(names(report) %in% names(data))) {
+      stop("`report` must name fields of `data`: report = c(<field> = <input id>).",
+           call. = FALSE)
+    }
+    # Reported on load and after an update, as every component here is ...
+    init <- .el_mounted_init(stats::setNames(names(report), unname(report)))
+    mounted <- if (is.null(mounted)) init else htmlwidgets::JS(sprintf(
+      "function() { (%s).call(this); (%s).call(this); }", init, mounted))
+    # ... and on every change of the field, however it came about: a
+    # component of your own has no Element change event to wait for.
+    for (field in names(report)) {
+      watch[[field]] <- htmlwidgets::JS(sprintf(paste0(
+        "{handler: function(v) { window.Shiny && Shiny.setInputValue && Shiny.setInputValue(%s, v); }, ",
+        "deep: true}"), jsonlite::toJSON(unname(report[[field]]), auto_unbox = TRUE)))
+    }
+  }
 
   if (length(slots)) {
     filled     <- .el_slot_markup(slots)

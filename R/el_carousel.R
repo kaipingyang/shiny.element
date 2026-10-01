@@ -134,8 +134,8 @@ el_carousel <- function(id = NULL,
         paste0(
           "function(index) { var self = this; self.active = index; ",
           "self.activeName = self.itemNames[index] || ''; ",
-          "window.Shiny && Shiny.setInputValue('%1$s', index); ",
-          "window.Shiny && Shiny.setInputValue('%1$s_name', self.activeName); }"
+          "window.Shiny && Shiny.setInputValue && Shiny.setInputValue('%1$s', index); ",
+          "window.Shiny && Shiny.setInputValue && Shiny.setInputValue('%1$s_name', self.activeName); }"
         ), ns_id
       ))
   )

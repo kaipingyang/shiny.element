@@ -139,7 +139,7 @@
   }
 
   sends <- paste(
-    sprintf("window.Shiny && Shiny.setInputValue(%s, self.%s);", js_str(names(bindings)), bindings),
+    sprintf("window.Shiny && Shiny.setInputValue && Shiny.setInputValue(%s, self.%s);", js_str(names(bindings)), bindings),
     collapse = " "
   )
   htmlwidgets::JS(paste0(

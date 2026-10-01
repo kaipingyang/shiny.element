@@ -422,16 +422,16 @@ el_form <- function(...,
           "self.submitCount++; self.valid = ok; ",
           # The model and the verdict are set before the counter, so an
           # observeEvent on the counter sees this submit's values.
-          "window.Shiny && Shiny.setInputValue(%1$s, self.model); ",
-          "window.Shiny && Shiny.setInputValue(%1$s + '_valid', ok); ",
-          "window.Shiny && Shiny.setInputValue(%1$s + '_submit', self.submitCount); ",
+          "window.Shiny && Shiny.setInputValue && Shiny.setInputValue(%1$s, self.model); ",
+          "window.Shiny && Shiny.setInputValue && Shiny.setInputValue(%1$s + '_valid', ok); ",
+          "window.Shiny && Shiny.setInputValue && Shiny.setInputValue(%1$s + '_submit', self.submitCount); ",
           "}); }"
         ), js_id
       )),
       handleReset = htmlwidgets::JS(sprintf(
         paste0(
           "function() { this.$refs.form.resetFields(); ",
-          "window.Shiny && Shiny.setInputValue(%1$s, this.model); }"
+          "window.Shiny && Shiny.setInputValue && Shiny.setInputValue(%1$s, this.model); }"
         ), js_id
       ))
     )),

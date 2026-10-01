@@ -122,7 +122,7 @@ el_transfer <- function(id = NULL,
     methods = events$methods,
     watch = list(
       value = htmlwidgets::JS(sprintf(
-        "function(newVal) { window.Shiny && Shiny.setInputValue('%s', newVal); }", ns_id
+        "function(newVal) { window.Shiny && Shiny.setInputValue && Shiny.setInputValue('%s', newVal); }", ns_id
       ))
     ),
     mounted    = .el_mounted_init(stats::setNames("value", ns_id)),
