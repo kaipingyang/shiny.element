@@ -16,6 +16,8 @@ el_statistic(
   rate = NULL,
   value_style = NULL,
   formatter = NULL,
+  time_indices = FALSE,
+  format = NULL,
   width = NULL,
   slots = NULL,
   session = shiny::getDefaultReactiveDomain()
@@ -47,6 +49,13 @@ effect with a \code{group_separator}.}
 \item{formatter}{\code{htmlwidgets::JS()} function \verb{function(value)} returning
 the text to show, in place of Element's formatting.}
 
+\item{time_indices}{Count down to \code{value} rather than show it. \code{value} is
+then the moment to count down to, a \code{POSIXct} or milliseconds since the
+epoch.}
+
+\item{format}{How a countdown is shown, such as \code{"HH:mm:ss"}. Default
+\code{"HH:mm:ss:SSS"}.}
+
 \item{width}{Component width, as a CSS unit.}
 
 \item{slots}{Named list of Element slot contents: \code{prefix}, \code{suffix},
@@ -60,6 +69,17 @@ A Shiny UI element.
 \description{
 A headline number with a title, and an optional prefix and suffix.
 }
+\section{Shiny inputs}{
+
+With \code{time_indices = TRUE}:
+\itemize{
+\item \verb{input$<id>_finish} -- fires when the countdown reaches zero.
+\item \verb{input$<id>_change} -- the milliseconds left. Element raises this on every
+frame; it is sent at most once a second, which is as often as a server
+can usefully hear it.
+}
+}
+
 \section{Element methods}{
 
 Callable with \code{\link[=el_call]{el_call()}}:
@@ -73,4 +93,8 @@ el_statistic("users", value = 26048, title = "Active users",
              group_separator = ",")
 el_statistic("revenue", value = 1318.5, title = "Revenue", prefix = "$",
              precision = 2)
+
+# A countdown to an hour from now
+el_statistic("sale", title = "Sale ends in", time_indices = TRUE,
+             value = Sys.time() + 3600, format = "HH:mm:ss")
 }

@@ -1,7 +1,9 @@
 #' Element UI Steps Component  
 #'  
 #' @param id Steps ID (auto-generated if NULL)  
-#' @param steps List of step definitions, each with title, description, icon, status  
+#' @param steps List of step definitions, each with `title`, `description`,
+#'   `icon` and `status`. `title`, `description` and `icon` may be markup
+#'   rather than text, which fills the step's slot of that name.
 #' @param active Current active step index (0-based)  
 #' @param space Step spacing (number or percentage string)  
 #' @param direction Display direction ("horizontal" or "vertical")  
@@ -60,13 +62,21 @@ el_steps <- function(id = NULL,
   container_id <- paste0(ns_id, "_container")  
     
   # Generate el-step tags from list  
-  step_tags <- lapply(steps, function(step) {  
-    attrs <- list()  
-    if (!is.null(step$title)) attrs$title <- step$title  
-    if (!is.null(step$description)) attrs$description <- step$description  
-    if (!is.null(step$icon)) attrs$icon <- step$icon  
-    if (!is.null(step$status)) attrs$status <- step$status  
-      
+  step_tags <- lapply(steps, function(step) {
+    # Text goes in the attribute; markup -- an icon beside a title, a link in
+    # a description -- goes in the step's slot of the same name.
+    attrs <- list()
+    for (field in c("title", "description", "icon")) {
+      value <- step[[field]]
+      if (is.null(value)) next
+      if (is.character(value)) {
+        attrs[[field]] <- value
+      } else {
+        attrs <- c(attrs, list(htmltools::tag("template", list(slot = field, value))))
+      }
+    }
+    if (!is.null(step$status)) attrs$status <- step$status
+
     htmltools::tag("el-step", attrs)  
   })  
     

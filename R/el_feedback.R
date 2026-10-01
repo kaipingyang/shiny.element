@@ -14,6 +14,13 @@
 #'   `"bottom-right"`, or `"bottom-left"`. Default `"top-right"`.
 #' @param show_close Whether to show the close button. Default `TRUE`.
 #' @param offset Distance from the corner edge in pixels. Default `0`.
+#' @param icon_class Icon class to show instead of the one `type` implies.
+#' @param custom_class Extra class name.
+#' @param dangerously_use_html_string Whether `message` is inserted as HTML.
+#'   Only pass `TRUE` for markup you control -- it is not escaped.
+#' @param id Name for this notification, so [el_notification_close()] can
+#'   close it, `input$<id>_close` reports when it closes and
+#'   `input$<id>_click` when it is clicked.
 #'
 #' @examples
 #' if (interactive()) {
@@ -44,17 +51,26 @@ el_notification <- function(
     duration   = 4500,
     position   = "top-right",
     show_close = TRUE,
-    offset     = 0
+    offset     = 0,
+    icon_class = NULL,
+    custom_class = NULL,
+    dangerously_use_html_string = FALSE,
+    id         = NULL
 ) {
   session$sendCustomMessage("elNotification", list(
+    id        = if (!is.null(id)) session$ns(id),
     title     = title,
     message   = message,
     type      = type,
     duration  = duration,
     position  = position,
     showClose = show_close,
-    offset    = offset
+    offset    = offset,
+    iconClass = icon_class,
+    customClass = custom_class,
+    dangerouslyUseHTMLString = dangerously_use_html_string
   ))
+  invisible(NULL)
 }
 
 
@@ -71,6 +87,13 @@ el_notification <- function(
 #'   Default `3000`.
 #' @param show_close Whether to show the close button. Default `FALSE`.
 #' @param center Whether to centre the message text. Default `FALSE`.
+#' @param offset Distance from the top of the window, in pixels.
+#' @param icon_class Icon class to show instead of the one `type` implies.
+#' @param custom_class Extra class name.
+#' @param dangerously_use_html_string Whether `message` is inserted as HTML.
+#'   Only pass `TRUE` for markup you control -- it is not escaped.
+#' @param id Name for this message, so [el_message_close()] can close it and
+#'   `input$<id>_close` reports when it closes.
 #'
 #' @examples
 #' if (interactive()) {
@@ -98,15 +121,26 @@ el_message <- function(
     type       = "info",
     duration   = 3000,
     show_close = FALSE,
-    center     = FALSE
+    center     = FALSE,
+    offset     = 20,
+    icon_class = NULL,
+    custom_class = NULL,
+    dangerously_use_html_string = FALSE,
+    id         = NULL
 ) {
   session$sendCustomMessage("elMessage", list(
+    id        = if (!is.null(id)) session$ns(id),
     message   = message,
     type      = type,
     duration  = duration,
     showClose = show_close,
-    center    = center
+    center    = center,
+    offset    = offset,
+    iconClass = icon_class,
+    customClass = custom_class,
+    dangerouslyUseHTMLString = dangerously_use_html_string
   ))
+  invisible(NULL)
 }
 
 
@@ -142,6 +176,20 @@ el_message <- function(
 #'   placeholder and the initial text.
 #' @param input_pattern Regular expression the text must match, as a string.
 #' @param input_error_message Message shown when it does not match.
+#' @param input_type For a prompt, the input's type, such as `"password"`.
+#' @param input_validator For a prompt, `htmlwidgets::JS()` function checking
+#'   the text; return `true`, or an error message.
+#' @param show_input Whether to show a text input, as a prompt does.
+#' @param show_confirm_button Whether to show the confirm button.
+#' @param confirm_button_class,cancel_button_class Extra class names for the
+#'   buttons.
+#' @param distinguish_cancel_and_close Whether closing by the cross or Escape
+#'   reports `"close"` rather than `"cancel"`.
+#' @param lock_scroll Whether the page stops scrolling while the box is open.
+#' @param close_on_hash_change Whether a change of the URL hash closes it.
+#' @param before_close `htmlwidgets::JS()` function
+#'   `function(action, instance, done)`, called before the box closes; call
+#'   `done()` to let it.
 #'
 #' @section Shiny inputs:
 #' - `input$<id>` -- `"confirm"`, `"cancel"` or `"close"`. For a prompt that
@@ -187,7 +235,17 @@ el_message_box <- function(session, id, message, title = NULL,
                            input_placeholder = NULL,
                            input_value = NULL,
                            input_pattern = NULL,
-                           input_error_message = NULL) {
+                           input_error_message = NULL,
+                           input_type = NULL,
+                           input_validator = NULL,
+                           show_input = NULL,
+                           show_confirm_button = NULL,
+                           confirm_button_class = NULL,
+                           cancel_button_class = NULL,
+                           distinguish_cancel_and_close = NULL,
+                           lock_scroll = NULL,
+                           close_on_hash_change = NULL,
+                           before_close = NULL) {
   box_type <- match.arg(box_type)
 
   session$sendCustomMessage("elMessageBox", list(
@@ -210,7 +268,19 @@ el_message_box <- function(session, id, message, title = NULL,
     inputPlaceholder         = input_placeholder,
     inputValue               = input_value,
     inputPattern             = input_pattern,
-    inputErrorMessage        = input_error_message
+    inputErrorMessage        = input_error_message,
+    inputType                = input_type,
+    # Functions cannot travel in a custom message; they go as source text and
+    # are turned back into functions in the browser.
+    inputValidator           = if (!is.null(input_validator)) as.character(input_validator),
+    showInput                = show_input,
+    showConfirmButton        = show_confirm_button,
+    confirmButtonClass       = confirm_button_class,
+    cancelButtonClass        = cancel_button_class,
+    distinguishCancelAndClose = distinguish_cancel_and_close,
+    lockScroll               = lock_scroll,
+    closeOnHashChange        = close_on_hash_change,
+    beforeClose              = if (!is.null(before_close)) as.character(before_close)
   ))
   invisible(NULL)
 }
@@ -291,5 +361,44 @@ el_loading <- function(session, id = "default", text = NULL, target = NULL,
 #' @export
 el_loading_close <- function(session, id = "default") {
   session$sendCustomMessage("elLoading", list(id = session$ns(id), close = TRUE))
+  invisible(NULL)
+}
+
+
+#' Close a message or a notification
+#'
+#' Closes the one opened under `id`, or every one currently showing when `id`
+#' is `NULL` -- Element's `close()` and `closeAll()`.
+#'
+#' @param session Shiny session object.
+#' @param id The `id` it was opened with, or `NULL` for all of them.
+#'
+#' @return Called for its side effect; returns `NULL` invisibly.
+#' @examples
+#' if (interactive()) {
+#'   # inside a server function
+#'   observeEvent(input$start, {
+#'     el_notification(session, "Uploading...", duration = 0, id = "up")
+#'   })
+#'   observeEvent(input$done, {
+#'     el_notification_close(session, "up")
+#'   })
+#' }
+#' @name el_feedback_close
+NULL
+
+#' @rdname el_feedback_close
+#' @export
+el_message_close <- function(session, id = NULL) {
+  session$sendCustomMessage("elMessageClose",
+                            list(id = if (!is.null(id)) session$ns(id)))
+  invisible(NULL)
+}
+
+#' @rdname el_feedback_close
+#' @export
+el_notification_close <- function(session, id = NULL) {
+  session$sendCustomMessage("elNotificationClose",
+                            list(id = if (!is.null(id)) session$ns(id)))
   invisible(NULL)
 }

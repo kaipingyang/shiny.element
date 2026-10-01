@@ -10,7 +10,12 @@ el_message(
   type = "info",
   duration = 3000,
   show_close = FALSE,
-  center = FALSE
+  center = FALSE,
+  offset = 20,
+  icon_class = NULL,
+  custom_class = NULL,
+  dangerously_use_html_string = FALSE,
+  id = NULL
 )
 }
 \arguments{
@@ -27,6 +32,18 @@ Default \code{3000}.}
 \item{show_close}{Whether to show the close button. Default \code{FALSE}.}
 
 \item{center}{Whether to centre the message text. Default \code{FALSE}.}
+
+\item{offset}{Distance from the top of the window, in pixels.}
+
+\item{icon_class}{Icon class to show instead of the one \code{type} implies.}
+
+\item{custom_class}{Extra class name.}
+
+\item{dangerously_use_html_string}{Whether \code{message} is inserted as HTML.
+Only pass \code{TRUE} for markup you control -- it is not escaped.}
+
+\item{id}{Name for this message, so \code{\link[=el_message_close]{el_message_close()}} can close it and
+\verb{input$<id>_close} reports when it closes.}
 }
 \value{
 A Shiny UI element.

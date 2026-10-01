@@ -27,8 +27,9 @@
 #' @param events Character vector of Element event names, in kebab-case.
 #' @param shapes Named list of JavaScript functions, one per event that
 #'   carries more than one argument, turning the arguments into a single
-#'   object. `this` is the Vue instance. Without one, several arguments are
-#'   sent as `arg1`, `arg2`, ...
+#'   object. `this` is the Vue instance. Returning `undefined` skips that
+#'   emission. Without a shape, several arguments are sent as `arg1`, `arg2`,
+#'   ...
 #' @return A list with `attrs` (to merge into the tag) and `methods` (to merge
 #'   into the Vue options).
 #' @keywords internal
@@ -58,10 +59,12 @@
       }
       # The shape runs with `this` as the Vue instance, so it can look a row
       # up in the instance's own data.
+      # A shape that returns undefined skips that emission -- how a
+      # high-frequency event is throttled.
       htmlwidgets::JS(sprintf(
         paste0("function() { var shape = %s; ",
-               "window.shinyElement.emit('%s', '%s', ",
-               "[shape.apply(this, arguments)]); }"),
+               "var v = shape.apply(this, arguments); if (v === undefined) return; ",
+               "window.shinyElement.emit('%s', '%s', [v]); }"),
         shape, ns_id, input_name(event)
       ))
     }),

@@ -22,7 +22,9 @@ el_steps(
 \arguments{
 \item{id}{Steps ID (auto-generated if NULL)}
 
-\item{steps}{List of step definitions, each with title, description, icon, status}
+\item{steps}{List of step definitions, each with \code{title}, \code{description},
+\code{icon} and \code{status}. \code{title}, \code{description} and \code{icon} may be markup
+rather than text, which fills the step's slot of that name.}
 
 \item{active}{Current active step index (0-based)}
 

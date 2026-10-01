@@ -15,6 +15,7 @@ el_col(
   md = NULL,
   lg = NULL,
   xl = NULL,
+  tag = "div",
   class = NULL,
   style = NULL
 )
@@ -32,6 +33,9 @@ el_col(
 
 \item{xs, sm, md, lg, xl}{Responsive spans. Either a number (the span) or a
 list such as \code{list(span = 12, offset = 6)}.}
+
+\item{tag}{HTML element to render, as Element's \code{tag}. Default \code{"div"};
+\code{"ul"} and \code{"li"} suit a grid of list items.}
 
 \item{class}{Extra CSS classes.}
 

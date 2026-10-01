@@ -49,6 +49,8 @@
 #'   `"end"`, `"space-between"` or `"space-around"`.
 #' @param align Flex vertical alignment: `"top"` (default), `"middle"` or
 #'   `"bottom"`.
+#' @param tag HTML element to render, as Element's `tag`. Default `"div"`;
+#'   `"ul"` and `"li"` suit a grid of list items.
 #' @param class Extra CSS classes.
 #' @param style Extra inline style.
 #' @return A Shiny UI element.
@@ -67,7 +69,7 @@
 #'   el_col(span = 8, "centred")
 #' )
 el_row <- function(..., gutter = NULL, type = NULL, justify = NULL,
-                   align = NULL, class = NULL, style = NULL) {
+                   align = NULL, tag = "div", class = NULL, style = NULL) {
   children <- list(...)
   is_flex  <- identical(type, "flex")
 
@@ -94,7 +96,7 @@ el_row <- function(..., gutter = NULL, type = NULL, justify = NULL,
     children <- lapply(children, .el_col_gutter, half = half)
   }
 
-  htmltools::tag("div", c(
+  htmltools::tag(tag, c(
     list(class = paste(classes, collapse = " ")),
     list(style = .el_style(gutter_style, style)),
     children
@@ -112,6 +114,8 @@ el_row <- function(..., gutter = NULL, type = NULL, justify = NULL,
 #' @param pull Columns to pull left.
 #' @param xs,sm,md,lg,xl Responsive spans. Either a number (the span) or a
 #'   list such as `list(span = 12, offset = 6)`.
+#' @param tag HTML element to render, as Element's `tag`. Default `"div"`;
+#'   `"ul"` and `"li"` suit a grid of list items.
 #' @param class Extra CSS classes.
 #' @param style Extra inline style.
 #' @return A Shiny UI element.
@@ -123,7 +127,7 @@ el_row <- function(..., gutter = NULL, type = NULL, justify = NULL,
 #' el_col(md = list(span = 12, offset = 6), "responsive with offset")
 el_col <- function(..., span = 24, offset = NULL, push = NULL, pull = NULL,
                    xs = NULL, sm = NULL, md = NULL, lg = NULL, xl = NULL,
-                   class = NULL, style = NULL) {
+                   tag = "div", class = NULL, style = NULL) {
   classes <- c("el-col", sprintf("el-col-%s", span))
 
   for (nm in c("offset", "push", "pull")) {
@@ -147,7 +151,7 @@ el_col <- function(..., span = 24, offset = NULL, push = NULL, pull = NULL,
     }
   }
 
-  htmltools::tag("div", c(
+  htmltools::tag(tag, c(
     list(class = paste(c(classes, class), collapse = " ")),
     list(style = .el_style(style)),
     list(...)

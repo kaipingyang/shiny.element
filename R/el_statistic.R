@@ -17,10 +17,22 @@
 #' @param value_style CSS for the number, as a string or a named list.
 #' @param formatter `htmlwidgets::JS()` function `function(value)` returning
 #'   the text to show, in place of Element's formatting.
+#' @param time_indices Count down to `value` rather than show it. `value` is
+#'   then the moment to count down to, a `POSIXct` or milliseconds since the
+#'   epoch.
+#' @param format How a countdown is shown, such as `"HH:mm:ss"`. Default
+#'   `"HH:mm:ss:SSS"`.
 #' @param width Component width, as a CSS unit.
 #' @param slots Named list of Element slot contents: `prefix`, `suffix`,
 #'   `title`, `formatter`.
 #' @param session Shiny session for module support.
+#'
+#' @section Shiny inputs:
+#' With `time_indices = TRUE`:
+#' - `input$<id>_finish` -- fires when the countdown reaches zero.
+#' - `input$<id>_change` -- the milliseconds left. Element raises this on every
+#'   frame; it is sent at most once a second, which is as often as a server
+#'   can usefully hear it.
 #'
 #' @section Element methods:
 #' Callable with [el_call()]:
@@ -33,6 +45,10 @@
 #'              group_separator = ",")
 #' el_statistic("revenue", value = 1318.5, title = "Revenue", prefix = "$",
 #'              precision = 2)
+#'
+#' # A countdown to an hour from now
+#' el_statistic("sale", title = "Sale ends in", time_indices = TRUE,
+#'              value = Sys.time() + 3600, format = "HH:mm:ss")
 #' @export
 el_statistic <- function(id = NULL,
                          value = 0,
@@ -45,6 +61,8 @@ el_statistic <- function(id = NULL,
                          rate = NULL,
                          value_style = NULL,
                          formatter = NULL,
+                         time_indices = FALSE,
+                         format = NULL,
                          width = NULL,
                          slots = NULL,
                          session = shiny::getDefaultReactiveDomain()) {
@@ -61,8 +79,19 @@ el_statistic <- function(id = NULL,
     ":group-separator"   = .el_optional_bind("groupSeparator"),
     ":rate"              = .el_optional_bind("rate"),
     ":value-style"       = .el_optional_bind("valueStyle"),
-    ":formatter"         = .el_optional_bind("formatter")
+    ":formatter"         = .el_optional_bind("formatter"),
+    ":time-indices"      = "timeIndices",
+    ":format"            = .el_optional_bind("format")
   )
+  events <- .el_event_bindings(ns_id, c("finish", "change"), shapes = list(
+    finish = "function() { return true; }",
+    change = paste0("function(ms) { var now = Date.now(); ",
+                    "if (this._elLastChange && now - this._elLastChange < 1000) return undefined; ",
+                    "this._elLastChange = now; return ms; }")
+  ))
+  attrs <- c(attrs, events$attrs)
+
+  if (inherits(value, "POSIXt")) value <- as.numeric(value) * 1000
 
   el_widget(
     id     = ns_id,
@@ -77,8 +106,11 @@ el_statistic <- function(id = NULL,
       groupSeparator   = .el_or_na(group_separator),
       rate             = .el_or_na(rate),
       valueStyle       = .el_or_na(value_style),
-      formatter        = .el_or_na(formatter)
+      formatter        = .el_or_na(formatter),
+      timeIndices      = time_indices,
+      format           = .el_or_na(format)
     ),
+    methods    = events$methods,
     width      = width,
     slots      = slots,
     dependency = el_statistic_handler_dependency()

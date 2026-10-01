@@ -22,19 +22,40 @@
     } else if (length(item$children)) {
       # Element puts a submenu's own label in a named slot, not its body.
       title <- htmltools::tag("template", list(slot = "title", icon, label))
-      htmltools::tag("el-submenu", c(
-        list(index = item$index),
-        list(title),
-        .el_menu_nodes(item$children)
-      ))
+      attrs <- c(list(index = item$index), .el_menu_item_props(item, c(
+        "disabled", "popper_class", "show_timeout", "hide_timeout",
+        "popper_append_to_body")))
+      htmltools::tag("el-submenu", c(attrs, list(title),
+                                     .el_menu_nodes(item$children)))
 
     } else {
-      attrs <- list(index = item$index)
-      if (isTRUE(item$disabled)) attrs$disabled <- NA
+      attrs <- c(list(index = item$index), .el_menu_item_props(item, c("disabled", "route")),
+                 # Element's own per-item click, alongside the menu's select
+                 list("@click" = sprintf("elMenuItemClick(%s)",
+                                         jsonlite::toJSON(item$index, auto_unbox = TRUE))))
       htmltools::tag("el-menu-item", c(attrs, list(icon, label)))
     }
   })
 }
+
+#' Bind the per-item props a menu item or submenu was given
+#'
+#' @param item One item description.
+#' @param fields The snake_case fields to look for.
+#' @return A list of `:kebab-case` bindings, one per field present.
+#' @keywords internal
+.el_menu_item_props <- function(item, fields) {
+  out <- list()
+  for (f in fields) {
+    v <- item[[f]] %||% item[[.el_camel_case(f)]]
+    if (is.null(v)) next
+    out[[paste0(":", gsub("_", "-", f))]] <- jsonlite::toJSON(v, auto_unbox = TRUE)
+  }
+  out
+}
+
+`%||%` <- function(a, b) if (is.null(a)) b else a
+
 
 #' Element UI Menu
 #'
@@ -44,9 +65,14 @@
 #' @param id Menu ID (auto-generated if NULL).
 #' @param items A list of items. Each is a list with `index` (the value
 #'   reported when selected), `label`, and optionally `icon` (an Element icon
-#'   class such as `"el-icon-house"`), `disabled`, or `children` for a
-#'   submenu. An item with `group = TRUE` becomes a titled group of its
-#'   `children` rather than a submenu.
+#'   class such as `"el-icon-house"`), `disabled`, `route` (for
+#'   `router = TRUE`), or `children` for a submenu. A submenu may also carry
+#'   `popper_class`, `show_timeout`, `hide_timeout` and
+#'   `popper_append_to_body`. An item with `group = TRUE` becomes a titled
+#'   group of its `children` rather than a submenu.
+#'
+#'   Clicking an item reports `input$<id>` (the index selected) and
+#'   `input$<id>_item_click` (the index clicked).
 #' @param active Index of the initially selected item.
 #' @param mode `"vertical"` (default) or `"horizontal"`.
 #' @param collapse Collapse to icons only. Vertical menus only.
@@ -178,6 +204,12 @@ el_menu <- function(id = NULL,
     markup = htmltools::tag("el-menu", c(menu_attrs, .el_menu_nodes(items))),
     data = vue_data,
     methods = c(events$methods, list(
+      # Element's menu-item click: input$<id>_item_click, the index clicked.
+      # select covers most uses; this fires for a disabled-select menu too.
+      elMenuItemClick = htmlwidgets::JS(sprintf(
+        "function(index) { Shiny.setInputValue('%s_item_click', index, {priority: 'event'}); }",
+        ns_id
+      )),
       handleSelect = htmlwidgets::JS(sprintf(
         paste0(
           "function(index, indexPath) { var self = this; ",

@@ -27,10 +27,9 @@ el_carousel(
 
 \item{items}{A list of slides. Each is a list with \code{content} (a tag,
 tagList or string) and optionally \code{name}, used as the value reported when
-that slide is showing. Slides are static markup: putting one of this
-package's components inside will render but not stay connected to the
-server, since the carousel is itself a Vue instance. Compose those outside
-it instead.}
+that slide is showing, and \code{label}, shown on its indicator. A slide's
+content may hold this package's components: they are folded into the
+carousel's own Vue instance and keep reporting their inputs.}
 
 \item{height}{Slide height, e.g. \code{"300px"}.}
 

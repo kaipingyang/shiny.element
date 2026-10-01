@@ -28,9 +28,14 @@ el_menu(
 
 \item{items}{A list of items. Each is a list with \code{index} (the value
 reported when selected), \code{label}, and optionally \code{icon} (an Element icon
-class such as \code{"el-icon-house"}), \code{disabled}, or \code{children} for a
-submenu. An item with \code{group = TRUE} becomes a titled group of its
-\code{children} rather than a submenu.}
+class such as \code{"el-icon-house"}), \code{disabled}, \code{route} (for
+\code{router = TRUE}), or \code{children} for a submenu. A submenu may also carry
+\code{popper_class}, \code{show_timeout}, \code{hide_timeout} and
+\code{popper_append_to_body}. An item with \code{group = TRUE} becomes a titled
+group of its \code{children} rather than a submenu.
+
+Clicking an item reports \verb{input$<id>} (the index selected) and
+\verb{input$<id>_item_click} (the index clicked).}
 
 \item{active}{Index of the initially selected item.}
 

@@ -5,10 +5,9 @@
 #' @param id Carousel ID (auto-generated if NULL).
 #' @param items A list of slides. Each is a list with `content` (a tag,
 #'   tagList or string) and optionally `name`, used as the value reported when
-#'   that slide is showing. Slides are static markup: putting one of this
-#'   package's components inside will render but not stay connected to the
-#'   server, since the carousel is itself a Vue instance. Compose those outside
-#'   it instead.
+#'   that slide is showing, and `label`, shown on its indicator. A slide's
+#'   content may hold this package's components: they are folded into the
+#'   carousel's own Vue instance and keep reporting their inputs.
 #' @param height Slide height, e.g. `"300px"`.
 #' @param initial_index Index of the slide shown first, 0-based.
 #' @param autoplay Cycle through the slides on a timer.
@@ -81,9 +80,9 @@ el_carousel <- function(id = NULL,
 
   # Slides are generated in R rather than with v-for so their content can be
   # any htmltools markup rather than a string.
-  item_tags <- lapply(items, function(item) {
-    htmltools::tag("el-carousel-item", list(item$content))
-  })
+  # A component on a slide is folded into the carousel's own Vue instance
+  # rather than nested in it, so it keeps reporting -- see .el_absorb().
+  inners <- lapply(items, function(item) .el_absorb(item$content))
 
   carousel_attrs <- list(
     ref                    = "carousel",
@@ -124,11 +123,11 @@ el_carousel <- function(id = NULL,
     }
   )
 
-  el_widget(
-    id     = ns_id,
-    markup = htmltools::tag("el-carousel", c(carousel_attrs, item_tags)),
-    data = vue_data,
-    methods = list(
+  own <- list(markup = NULL, data = vue_data, methods = list(),
+              watch = list(), computed = list(), dependencies = list(),
+              mounted = .el_mounted_init(stats::setNames(
+                c("active", "activeName"), paste0(ns_id, c("", "_name")))))
+  own$methods <- list(
       handleChange = htmlwidgets::JS(sprintf(
         paste0(
           "function(index) { var self = this; self.active = index; ",
@@ -137,13 +136,30 @@ el_carousel <- function(id = NULL,
           "Shiny.setInputValue('%1$s_name', self.activeName); }"
         ), ns_id
       ))
-    ),
-    mounted = .el_mounted_init(stats::setNames(
-      c("active", "activeName"), paste0(ns_id, c("", "_name"))
-    )),
+  )
+  merged <- do.call(.el_absorb_merge, c(list(own), inners))
+
+  item_tags <- Map(function(item, content) {
+    # name lets setActiveItem() pick a slide by name; label is shown on its
+    # indicator
+    attrs <- list()
+    if (!is.null(item$name))  attrs$name  <- item$name
+    if (!is.null(item$label)) attrs$label <- item$label
+    htmltools::tag("el-carousel-item", c(attrs, list(content)))
+  }, items, merged$markups[-1])
+
+  el_widget(
+    id       = ns_id,
+    markup   = htmltools::tag("el-carousel", c(carousel_attrs, unname(item_tags))),
+    data     = merged$data,
+    methods  = merged$methods,
+    watch    = merged$watch,
+    computed = merged$computed,
+    # The carousel's own hook and those of any component on a slide
+    mounted  = merged$mounted,
     width      = width,
     slots      = slots,
-    dependency = el_carousel_handler_dependency()
+    dependency = c(el_carousel_handler_dependency(), merged$dependencies)
   )
 }
 

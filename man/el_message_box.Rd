@@ -25,7 +25,17 @@ el_message_box(
   input_placeholder = NULL,
   input_value = NULL,
   input_pattern = NULL,
-  input_error_message = NULL
+  input_error_message = NULL,
+  input_type = NULL,
+  input_validator = NULL,
+  show_input = NULL,
+  show_confirm_button = NULL,
+  confirm_button_class = NULL,
+  cancel_button_class = NULL,
+  distinguish_cancel_and_close = NULL,
+  lock_scroll = NULL,
+  close_on_hash_change = NULL,
+  before_close = NULL
 )
 }
 \arguments{
@@ -68,6 +78,29 @@ placeholder and the initial text.}
 \item{input_pattern}{Regular expression the text must match, as a string.}
 
 \item{input_error_message}{Message shown when it does not match.}
+
+\item{input_type}{For a prompt, the input's type, such as \code{"password"}.}
+
+\item{input_validator}{For a prompt, \code{htmlwidgets::JS()} function checking
+the text; return \code{true}, or an error message.}
+
+\item{show_input}{Whether to show a text input, as a prompt does.}
+
+\item{show_confirm_button}{Whether to show the confirm button.}
+
+\item{confirm_button_class, cancel_button_class}{Extra class names for the
+buttons.}
+
+\item{distinguish_cancel_and_close}{Whether closing by the cross or Escape
+reports \code{"close"} rather than \code{"cancel"}.}
+
+\item{lock_scroll}{Whether the page stops scrolling while the box is open.}
+
+\item{close_on_hash_change}{Whether a change of the URL hash closes it.}
+
+\item{before_close}{\code{htmlwidgets::JS()} function
+\verb{function(action, instance, done)}, called before the box closes; call
+\code{done()} to let it.}
 }
 \value{
 Called for its side effect; returns \code{NULL} invisibly.

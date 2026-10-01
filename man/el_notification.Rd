@@ -12,7 +12,11 @@ el_notification(
   duration = 4500,
   position = "top-right",
   show_close = TRUE,
-  offset = 0
+  offset = 0,
+  icon_class = NULL,
+  custom_class = NULL,
+  dangerously_use_html_string = FALSE,
+  id = NULL
 )
 }
 \arguments{
@@ -34,6 +38,17 @@ Default \code{4500}.}
 \item{show_close}{Whether to show the close button. Default \code{TRUE}.}
 
 \item{offset}{Distance from the corner edge in pixels. Default \code{0}.}
+
+\item{icon_class}{Icon class to show instead of the one \code{type} implies.}
+
+\item{custom_class}{Extra class name.}
+
+\item{dangerously_use_html_string}{Whether \code{message} is inserted as HTML.
+Only pass \code{TRUE} for markup you control -- it is not escaped.}
+
+\item{id}{Name for this notification, so \code{\link[=el_notification_close]{el_notification_close()}} can
+close it, \verb{input$<id>_close} reports when it closes and
+\verb{input$<id>_click} when it is clicked.}
 }
 \value{
 A Shiny UI element.

@@ -125,13 +125,26 @@ el_select <- function(
   ns_id        <- if (!is.null(session)) session$ns(id) else id
   container_id <- paste0(ns_id, "_container")
 
-  # Build el-option slot (v-for loop, rendered by Vue)
-  option_slot <- htmltools::tag("el-option", list(
-    "v-for"  = "opt in options",
-    ":key"   = "opt.value",
-    ":value" = "opt.value",
-    ":label" = "opt.label"
+  # Options are rendered with v-for so update_el_select() can replace them.
+  # Each carries its own `disabled`: the select's `disabled` argument turns off
+  # the whole control, not one choice.
+  option_tag <- function(each) htmltools::tag("el-option", list(
+    "v-for"     = each,
+    ":key"      = "opt.value",
+    ":value"    = "opt.value",
+    ":label"    = "opt.label",
+    ":disabled" = "opt.disabled"
   ))
+  option_slot <- list(
+    option_tag("opt in options"),
+    htmltools::tag("el-option-group", list(
+      "v-for"     = "g in groups",
+      ":key"      = "g.label",
+      ":label"    = "g.label",
+      ":disabled" = "g.disabled",
+      option_tag("opt in g.options")
+    ))
+  )
 
   # Build el-select attributes
   select_attrs <- list(
@@ -175,7 +188,8 @@ el_select <- function(
   # Build Vue data
   vue_data <- list(
     value        = if (is.null(selected)) (if (multiple) list() else "") else selected,
-    options      = .el_normalize_choices(choices),
+    options      = .el_select_choices(choices)$options,
+    groups       = .el_select_choices(choices)$groups,
     multiple     = multiple,
     disabled     = disabled,
     clearable    = clearable,
@@ -203,7 +217,7 @@ el_select <- function(
   vue_data$remoteMethod <- .el_or_na(remote_method)
   el_widget(
     id     = ns_id,
-    markup = htmltools::tag("el-select", c(select_attrs, list(option_slot))),
+    markup = htmltools::tag("el-select", c(select_attrs, option_slot)),
     data    = vue_data,
     methods = c(events$methods, list(
       handleChange = htmlwidgets::JS(sprintf(
@@ -256,7 +270,11 @@ update_el_select <- function(
   ns_id <- session$ns(id)
   msg   <- list(id = ns_id)
   if (!is.null(value))       msg$value       <- value
-  if (!is.null(options))     msg$options     <- .el_normalize_choices(options)
+  if (!is.null(options)) {
+    parts <- .el_select_choices(options)
+    msg$options <- parts$options
+    msg$groups  <- parts$groups
+  }
   if (!is.null(disabled))    msg$disabled    <- disabled
   if (!is.null(placeholder)) msg$placeholder <- placeholder
   if (!is.null(clearable))   msg$clearable   <- clearable
@@ -264,3 +282,41 @@ update_el_select <- function(
   session$sendCustomMessage("updateElSelect", msg)
   invisible(NULL)
 }
+
+
+#' Split a select's choices into loose options and option groups
+#'
+#' Groups are written the way `shiny::selectInput()` takes them -- a named
+#' list whose elements are vectors, `list(East = c("NY", "NJ"))` -- or as
+#' `list(label =, disabled =, options =)` when a group needs its own
+#' `disabled`. Anything else is an ungrouped choice.
+#'
+#' @param choices The choices as given.
+#' @return A list of `options` and `groups`.
+#' @keywords internal
+.el_select_choices <- function(choices) {
+  if (!is.list(choices) || !length(choices)) {
+    return(list(options = .el_normalize_choices(choices), groups = list()))
+  }
+  nms <- names(choices) %||% rep("", length(choices))
+  is_group <- function(x, nm) {
+    (is.list(x) && !is.null(x$options)) || (nzchar(nm) && is.atomic(x) && length(x) > 0 &&
+      !(identical(names(x), c("value", "label"))))
+  }
+  flags <- mapply(is_group, choices, nms)
+  if (!any(flags)) return(list(options = .el_normalize_choices(choices), groups = list()))
+
+  groups <- Map(function(x, nm) {
+    if (is.list(x) && !is.null(x$options)) {
+      list(label = x$label %||% nm, disabled = isTRUE(x$disabled),
+           options = .el_normalize_choices(x$options))
+    } else {
+      list(label = nm, disabled = FALSE, options = .el_normalize_choices(x))
+    }
+  }, choices[flags], nms[flags])
+  loose <- choices[!flags]
+  list(options = if (length(loose)) .el_normalize_choices(unname(loose)) else list(),
+       groups = unname(groups))
+}
+
+`%||%` <- function(a, b) if (is.null(a)) b else a

@@ -88,7 +88,7 @@ test_that("el_message: carries no notification-only fields", {
   out <- sent_message(function(s) el_message(s, message = "hi"))
   expect_null(out$msg$title)
   expect_null(out$msg$position)
-  expect_null(out$msg$offset)
+  # offset is Element's for both -- distance from the top of the window
 })
 
 test_that("el_message: message is required", {

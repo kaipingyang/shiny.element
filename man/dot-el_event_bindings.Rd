@@ -13,8 +13,9 @@
 
 \item{shapes}{Named list of JavaScript functions, one per event that
 carries more than one argument, turning the arguments into a single
-object. \code{this} is the Vue instance. Without one, several arguments are
-sent as \code{arg1}, \code{arg2}, ...}
+object. \code{this} is the Vue instance. Returning \code{undefined} skips that
+emission. Without a shape, several arguments are sent as \code{arg1}, \code{arg2},
+...}
 }
 \value{
 A list with \code{attrs} (to merge into the tag) and \code{methods} (to merge

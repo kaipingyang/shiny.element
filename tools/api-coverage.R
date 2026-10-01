@@ -27,7 +27,7 @@ fixtures <- list(
 )
 
 # Server-side helpers and dependency getters render nothing
-skip <- "^el_call$|^el_loading$|^el_loading_close$|^el_message_box$|^el_widget$|_dependency$|^el$|^el_page$|^el_rule$|^el_table_config$|^el_form_(validate|reset|clear)|^el_upload_clear$|^el_message$|^el_notification$"
+skip <- "^el_message_close$|^el_notification_close$|^el_call$|^el_loading$|^el_loading_close$|^el_message_box$|^el_widget$|_dependency$|^el$|^el_page$|^el_rule$|^el_table_config$|^el_form_(validate|reset|clear)|^el_upload_clear$|^el_message$|^el_notification$"
 
 ui_fns <- setdiff(grep("^el_", getNamespaceExports("shiny.element"), value = TRUE),
                   grep(skip, getNamespaceExports("shiny.element"), value = TRUE))
@@ -48,6 +48,30 @@ attrs_of <- function(html) {
   }
   per
 }
+
+# Children only render when there are items to render, and some only in one
+# mode (el-checkbox-button needs button = TRUE), so a component may be rendered
+# more than once and its tags pooled.
+variants <- list(
+  el_steps = list(list("st", steps = list(
+    list(title = "A", description = "d", icon = "el-icon-edit", status = "success"),
+    list(title = htmltools::tags$b("A"), description = htmltools::tags$i("d"),
+         icon = htmltools::tags$i(class = "el-icon-edit"))))),
+  el_carousel = list(list("ca", items = list(list(name = "a", label = "A",
+    content = "x")))),
+  el_menu = list(list("mn", items = list(
+    list(index = "a", label = "A", route = "/a", disabled = TRUE),
+    list(index = "b", title = "B", popper_class = "p", show_timeout = 1,
+         hide_timeout = 1, disabled = FALSE, popper_append_to_body = TRUE,
+         children = list(list(index = "b1", title = "B1"))),
+    list(group = TRUE, title = "G", children = list(list(index = "c", label = "C")))))),
+  el_dropdown = list(list("dd", items = list(list(command = "a", label = "A",
+    disabled = TRUE, divided = TRUE, icon = "el-icon-plus")))),
+  el_select = list(list("sg", choices = list(
+    list(label = "G1", disabled = FALSE, options = list(list(value = "a", label = "A")))))),
+  el_checkbox_group = list(list("cb", choices = c("A", "B"), button = TRUE)),
+  el_radio_group = list(list("rb", choices = c("A", "B"), button = TRUE))
+)
 
 # Slots are only in the markup when something fills them, so each component
 # is rendered again with every slot upstream documents, to record which ones
@@ -79,6 +103,14 @@ for (f in sort(ui_fns)) {
   html <- tryCatch(paste(as.character(htmltools::renderTags(ui)$html), collapse = ""),
                    error = function(e) "")
 
+  for (v in variants[[f]]) {
+    extra <- tryCatch(do.call(f, v), error = function(e) NULL)
+    if (!is.null(extra)) {
+      html <- paste(html,
+        paste(as.character(htmltools::renderTags(extra)$html), collapse = ""))
+    }
+  }
+
   if (!is.null(slot_names[[f]])) {
     probe <- stats::setNames(
       lapply(slot_names[[f]], function(n) htmltools::tags$span(n)),
@@ -99,7 +131,13 @@ for (f in sort(ui_fns)) {
   deps <- tryCatch(htmltools::renderTags(ui)$dependencies, error = function(e) list())
   dep_names <- vapply(deps, function(d) d$name, character(1))
 
-  out[[f]] <- list(ok = TRUE, tags = attrs_of(html),
+  # Fields a component reads off each item (t$label, item$disabled), for the
+  # components that render their items as markup rather than through Vue
+  src <- paste(deparse(get(f, envir = asNamespace("shiny.element"))), collapse = "\n")
+  item_fields <- unique(sub("^.*\\$", "", regmatches(src,
+    gregexpr("\\b(t|item|it|tab|x|p)\\$[A-Za-z_]+", src))[[1]]))
+
+  out[[f]] <- list(ok = TRUE, tags = attrs_of(html), item_fields = item_fields,
                    slots = c(slots_of(html),
                              # Content passed through ... is the default slot
                              if ("..." %in% names(formals(f))) "default"),
@@ -107,11 +145,20 @@ for (f in sort(ui_fns)) {
                    params = setdiff(names(formals(f)), c("session", "id", "...")))
 }
 
+# Services -- Message, Notification, MessageBox, Loading -- are called from the
+# server, so there is nothing to render; record their arguments instead.
+ns <- asNamespace("shiny.element")
+out[[".services"]] <- lapply(stats::setNames(nm = c(
+  "el_message", "el_notification", "el_message_box", "el_loading",
+  "el_message_close", "el_notification_close", "el_loading_close")),
+  function(f) if (exists(f, envir = ns)) names(formals(get(f, envir = ns))) else NULL)
+
 dir.create("/tmp/elapi", showWarnings = FALSE, recursive = TRUE)
 jsonlite::write_json(out, "/tmp/elapi/ours.json", auto_unbox = TRUE, pretty = TRUE)
 
-failed <- names(out)[!vapply(out, function(x) isTRUE(x$ok), logical(1))]
-cat(sprintf("rendered %d/%d components\n", length(out) - length(failed), length(out)))
+failed <- setdiff(names(out)[!vapply(out, function(x) isTRUE(x$ok), logical(1))], ".services")
+n <- length(setdiff(names(out), ".services"))
+cat(sprintf("rendered %d/%d components\n", n - length(failed), n))
 if (length(failed)) {
   cat("could not render (add a fixture above):", paste(failed, collapse = ", "), "\n")
 }

@@ -32,6 +32,7 @@ el_date_picker(
   width = NULL,
   slots = NULL,
   append_to_body = NULL,
+  time_arrow_control = NULL,
   session = shiny::getDefaultReactiveDomain()
 )
 }
@@ -95,7 +96,9 @@ range types. Default \code{"-"}.}
 
 \item{slots}{Named list of Element slot contents, such as}
 
-\item{append_to_body}{Whether the picker panel is appended to \code{body}. Default \code{TRUE}; \code{FALSE} keeps it inside a dialog or a scrolling container.
+\item{append_to_body}{Whether the picker panel is appended to \code{body}. Default \code{TRUE}; \code{FALSE} keeps it inside a dialog or a scrolling container.}
+
+\item{time_arrow_control}{For \code{type = "datetime"}: whether the time is picked with arrow buttons rather than by scrolling.
 \code{list(title = shiny::tags$b("Bold"))}. A shiny.element component
 given here is absorbed rather than nested. For a scoped slot, write
 the template with \code{\link[=template]{template()}}.

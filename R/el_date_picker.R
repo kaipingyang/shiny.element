@@ -38,6 +38,7 @@
 #' @param width Component width, as a CSS unit -- `"200px"`, `"50%"`, or a
 #' @param slots Named list of Element slot contents, such as
 #' @param append_to_body Whether the picker panel is appended to `body`. Default `TRUE`; `FALSE` keeps it inside a dialog or a scrolling container.
+#' @param time_arrow_control For `type = "datetime"`: whether the time is picked with arrow buttons rather than by scrolling.
 #'   `list(title = shiny::tags$b("Bold"))`. A shiny.element component
 #'   given here is absorbed rather than nested. For a scoped slot, write
 #'   the template with [template()].
@@ -110,6 +111,7 @@ el_date_picker <- function(
     width             = NULL,
     slots             = NULL,
     append_to_body    = NULL,
+    time_arrow_control = NULL,
     session           = shiny::getDefaultReactiveDomain()
 ) {
   if (is.null(id)) id <- paste0("el_date_picker_", uuid::UUIDgenerate())
@@ -161,6 +163,7 @@ el_date_picker <- function(
   picker_attrs[[":picker-options"]] <- .el_optional_bind("pickerOptions")
   picker_attrs[[":validate-event"]] <- .el_optional_bind("validateEvent")
   picker_attrs[[":append-to-body"]] <- .el_optional_bind("appendToBody")
+  picker_attrs[[":time-arrow-control"]] <- .el_optional_bind("timeArrowControl")
 
   # Forwarded to input$<id>_<event>; see .el_event_bindings().
   events <- .el_event_bindings(ns_id, c(
@@ -195,6 +198,7 @@ el_date_picker <- function(
   vue_data$pickerOptions <- .el_or_na(picker_options)
   vue_data$validateEvent <- .el_or_na(validate_event)
   vue_data$appendToBody <- .el_or_na(append_to_body)
+  vue_data$timeArrowControl <- .el_or_na(time_arrow_control)
   el_widget(
     id     = ns_id,
     markup = htmltools::tag("el-date-picker", picker_attrs),

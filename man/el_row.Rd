@@ -10,6 +10,7 @@ el_row(
   type = NULL,
   justify = NULL,
   align = NULL,
+  tag = "div",
   class = NULL,
   style = NULL
 )
@@ -27,6 +28,9 @@ el_row(
 
 \item{align}{Flex vertical alignment: \code{"top"} (default), \code{"middle"} or
 \code{"bottom"}.}
+
+\item{tag}{HTML element to render, as Element's \code{tag}. Default \code{"div"};
+\code{"ul"} and \code{"li"} suit a grid of list items.}
 
 \item{class}{Extra CSS classes.}
 

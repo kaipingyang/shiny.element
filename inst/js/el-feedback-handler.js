@@ -1,17 +1,60 @@
 // Handlers for el_notification and el_message server-side functions
 $(document).on('shiny:connected', function() {
 
+  // Instances opened under an id, so el_*_close() can close one of them
+  var notifications = {}, messages = {};
+
+  function clean(opts) {
+    Object.keys(opts).forEach(function(k) {
+      if (opts[k] === undefined || opts[k] === null) delete opts[k];
+    });
+    return opts;
+  }
+
+  // A function sent from R arrives as its source text
+  function fn(src) {
+    return typeof src === 'string' ? eval('(' + src + ')') : undefined;
+  }
+
+  function report(id, what) {
+    if (id) Shiny.setInputValue(id + what, true, { priority: 'event' });
+  }
+
   Shiny.addCustomMessageHandler('elNotification', function(message) {
-    if (window.ELEMENT && window.ELEMENT.Notification) {
-      window.ELEMENT.Notification({
-        title:     message.title    || '',
-        message:   message.message,
-        type:      message.type     || 'info',
-        duration:  message.duration !== undefined ? message.duration : 4500,
-        position:  message.position || 'top-right',
-        showClose: message.showClose !== undefined ? message.showClose : true,
-        offset:    message.offset   || 0
-      });
+    if (!window.ELEMENT || !window.ELEMENT.Notification) return;
+    var id = message.id;
+    var n = window.ELEMENT.Notification(clean({
+      title:     message.title    || '',
+      message:   message.message,
+      type:      message.type     || 'info',
+      duration:  message.duration !== undefined ? message.duration : 4500,
+      position:  message.position || 'top-right',
+      showClose: message.showClose !== undefined ? message.showClose : true,
+      offset:    message.offset   || 0,
+      iconClass: message.iconClass,
+      customClass: message.customClass,
+      dangerouslyUseHTMLString: message.dangerouslyUseHTMLString,
+      onClose:   function() { if (id) delete notifications[id]; report(id, '_close'); },
+      onClick:   function() { report(id, '_click'); }
+    }));
+    if (id) notifications[id] = n;
+  });
+
+  Shiny.addCustomMessageHandler('elNotificationClose', function(message) {
+    if (!window.ELEMENT) return;
+    if (message.id) {
+      if (notifications[message.id]) notifications[message.id].close();
+    } else {
+      window.ELEMENT.Notification.closeAll();
+    }
+  });
+
+  Shiny.addCustomMessageHandler('elMessageClose', function(message) {
+    if (!window.ELEMENT) return;
+    if (message.id) {
+      if (messages[message.id]) messages[message.id].close();
+    } else {
+      window.ELEMENT.Message.closeAll();
     }
   });
 
@@ -38,7 +81,17 @@ $(document).on('shiny:connected', function() {
       inputPlaceholder:         message.inputPlaceholder,
       inputValue:               message.inputValue,
       inputPattern:             message.inputPattern ? new RegExp(message.inputPattern) : undefined,
-      inputErrorMessage:        message.inputErrorMessage
+      inputErrorMessage:        message.inputErrorMessage,
+      inputType:                message.inputType,
+      inputValidator:           fn(message.inputValidator),
+      showInput:                message.showInput,
+      showConfirmButton:        message.showConfirmButton,
+      confirmButtonClass:       message.confirmButtonClass,
+      cancelButtonClass:        message.cancelButtonClass,
+      distinguishCancelAndClose: message.distinguishCancelAndClose,
+      lockScroll:               message.lockScroll,
+      closeOnHashChange:        message.closeOnHashChange,
+      beforeClose:              fn(message.beforeClose)
     };
     Object.keys(opts).forEach(function(k) {
       if (opts[k] === undefined || opts[k] === null) delete opts[k];
@@ -93,15 +146,21 @@ $(document).on('shiny:connected', function() {
   });
 
   Shiny.addCustomMessageHandler('elMessage', function(message) {
-    if (window.ELEMENT && window.ELEMENT.Message) {
-      window.ELEMENT.Message({
-        message:   message.message,
-        type:      message.type      || 'info',
-        duration:  message.duration  !== undefined ? message.duration : 3000,
-        showClose: message.showClose || false,
-        center:    message.center    || false
-      });
-    }
+    if (!window.ELEMENT || !window.ELEMENT.Message) return;
+    var id = message.id;
+    var m = window.ELEMENT.Message(clean({
+      message:   message.message,
+      type:      message.type      || 'info',
+      duration:  message.duration  !== undefined ? message.duration : 3000,
+      showClose: message.showClose || false,
+      center:    message.center    || false,
+      offset:    message.offset,
+      iconClass: message.iconClass,
+      customClass: message.customClass,
+      dangerouslyUseHTMLString: message.dangerouslyUseHTMLString,
+      onClose:   function() { if (id) delete messages[id]; report(id, '_close'); }
+    }));
+    if (id) messages[id] = m;
   });
 
 });

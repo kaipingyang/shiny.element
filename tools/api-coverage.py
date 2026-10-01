@@ -38,13 +38,19 @@ def parse(path):
         if h:
             title = h.group(1)
             kind = None
-            for k, norm in (("Attributes","Attributes"), ("Attribute","Attributes"),
+            # Services document their arguments as "Options" (Message,
+            # Notification, MessageBox, Loading); they are attributes here.
+            for k, norm in (("Options","Attributes"), ("Attributes","Attributes"), ("Attribute","Attributes"),
                             ("Events","Events"), ("Event","Events"),
                             ("Methods","Methods"), ("Method","Methods"),
                             ("Scoped Slot","Slot"), ("Slots","Slot"), ("Slot","Slot")):
                 if title.endswith(k) or f" {k} " in f" {title} ":
                     kind = norm
                     break
+            # "Picker Options", "Time Select Options": the fields of one
+            # argument (picker_options = list(...)), not props of a component
+            if kind and title.endswith("Options") and title.strip() != "Options":
+                kind = None
             cur = (title, kind) if kind else None
             continue
         # Some tables are written without leading/trailing pipes
@@ -87,6 +93,13 @@ ours = json.load(open("/tmp/elapi/ours.json"))
 
 OWNER = {"el-button": "el_button", "el-option": "el_select"}
 
+# Props a parent passes down to its children in Element itself
+PROPAGATED = {
+    "el-checkbox": {"disabled", "size"}, "el-checkbox-button": {"disabled", "size"},
+    "el-radio": {"disabled", "size"}, "el-radio-button": {"disabled", "size"},
+    "el-form-item": {"size", "labelWidth"},
+}
+
 # Props deliberately not exposed, with the reason. Counted as out of scope
 # rather than missing, so the coverage figure means something.
 EXCLUDED = {
@@ -99,7 +112,7 @@ SPECIAL = {"submenu": "el-submenu", "menu-group": "el-menu-item-group"}
 
 def section_tag(fileslug, title):
     """'Table-column Attributes' -> el-table-column ; 'Attributes' -> el-<file>"""
-    base = re.sub(r'\s*(Attributes?|Events?|Methods?|Scoped Slot|Slots?)\s*$', '', title).strip()
+    base = re.sub(r'\s*(Attributes?|Events?|Methods?|Scoped Slot|Slots?|Options)\s*$', '', title).strip()
     if not base:
         base = fileslug
     slug = re.sub(r'(?<!^)(?=[A-Z])', '-', base).lower()
@@ -120,6 +133,19 @@ def snake_camel(p):        # disable_transitions -> disableTransitions
     bits = p.split("_")
     return bits[0] + "".join(b.capitalize() for b in bits[1:])
 
+# Upstream documents some components under names that are not the tag, or as
+# a mode of another component; fold them into what actually renders.
+def _merge(into, frm):
+    if frm not in up: return
+    for k, v in up.pop(frm).items():
+        have = up.setdefault(into, {}).setdefault(k, [])
+        have.extend(x for x in v if x not in have)
+_merge("el-submenu", "el-sub-menu")
+_merge("el-dropdown-item", "el-dropdown-menu-item")
+_merge("el-date-picker", "el-datetime-picker")      # type = "datetime"
+_merge("el-statistic", "el-statistic.-countdown")   # time-indices
+up.pop("el-date-cell-scoped-slot-parameters", None) # a doc table, not a tag
+
 def camel(a):
     a = a.lstrip(":@").split(".")[0]
     p = a.split("-")
@@ -133,7 +159,7 @@ VUE = {"vIf","vFor","vModel","vShow","key","ref","slot","slotScope","class","sty
 # prop is not reported as unbound just because it sits on a sibling tag.
 bound_by_fn = {}
 for fn, info in ours.items():
-    if not info.get("ok"): continue
+    if fn.startswith(".") or not info.get("ok"): continue
     acc = set()
     for tag, attrs in (info.get("tags") or {}).items():
         if isinstance(attrs, str): attrs = [attrs]
@@ -143,7 +169,7 @@ for fn, info in ours.items():
 
 report, seen = [], set()
 for fn, info in sorted(ours.items()):
-    if not info.get("ok"): continue
+    if fn.startswith(".") or not info.get("ok"): continue
     for tag, attrs in (info.get("tags") or {}).items():
         # jsonlite's auto_unbox writes a one-element vector as a bare string
         if isinstance(attrs, str): attrs = [attrs]
@@ -169,11 +195,17 @@ for fn, info in sorted(ours.items()):
         raw_params = info.get("params") or []
         if isinstance(raw_params, str): raw_params = [raw_params]
         params = {snake_camel(p) for p in raw_params}
+        # A function's arguments describe its own component. A child tag only
+        # borrows one where the parent really hands it down -- a checkbox
+        # group's `disabled` reaches every checkbox, but a select's `disabled`
+        # turns off the whole select, not one option.
+        if tag != "el-" + fn[3:].replace("_", "-"):
+            params = params & PROPAGATED.get(tag, set())
         mine_e = {a[1:] for a in attrs if a.startswith("@")}
         # v-model 覆盖 value
         if any(a == "v-model" for a in attrs): mine_a |= {"value", "modelValue"}
         # Settable but not bound: the UI accepts it, update_el_*() cannot touch it
-        conditional = sorted((upa & params) - mine_a - bound_by_fn.get(fn, set()))
+        conditional = sorted((upa & params) - mine_a - (bound_by_fn.get(fn, set()) & (params | PROPAGATED.get(tag, set()))))
         report.append({
             "fn": fn, "tag": tag, "conditional": conditional,
             "attr": [len(upa & (mine_a | params)), len(upa)],
@@ -189,10 +221,137 @@ for fn, info in sorted(ours.items()):
 
 json.dump({"report": report, "upstream_tags": sorted(up)}, open("/tmp/elapi/final.json","w"), indent=1)
 
+# Components reimplemented as markup plus a Shiny input binding render
+# Element's classes rather than its tags, so rendering them tells nothing.
+# Their props are checked against the R arguments and the fields read off
+# each item; their events against the input names their binding sets.
+import os
+def _js(name):
+    path = os.path.join("inst", "js", name)
+    return open(path).read() if os.path.exists(path) else ""
+
+def _snake(c):
+    # dangerouslyUseHTMLString -> dangerously_use_html_string, not ..._h_t_m_l_...
+    c = re.sub(r'([A-Z]+)([A-Z][a-z])', r'\1_\2', c)
+    return re.sub(r'([a-z0-9])([A-Z])', r'\1_\2', c).lower()
+
+MARKUP = {
+    "el-tabs": ("el_tabs", "el-tabs-binding.js"),
+    "el-tab-pane": ("el_tabs", "el-tabs-binding.js"),
+    "el-collapse": ("el_collapse", "el-collapse-binding.js"),
+    "el-collapse-item": ("el_collapse", "el-collapse-binding.js"),
+    "el-dialog": ("el_dialog", "el-overlay-binding.js"),
+    "el-drawer": ("el_drawer", "el-overlay-binding.js"),
+    "el-row": ("el_row", None), "el-col": ("el_col", None),
+    "el-container": ("el_container", None), "el-header": ("el_header", None),
+    "el-aside": ("el_aside", None), "el-footer": ("el_footer", None),
+    "el-card": ("el_card", None), "el-badge": ("el_badge", None),
+    "el-divider": ("el_divider", None), "el-link": ("el_link", None),
+    "el-infinite-scroll": ("el_infinite_scroll", None),
+}
+# An upstream name that is deliberately different here: (tag, prop) -> arg
+RENAMED = {
+    ("el-tabs", "value"): "selected", ("el-collapse", "value"): "value",
+    ("el-infinite-scroll", "infinite-scroll-disabled"): "disabled",
+    ("el-infinite-scroll", "infinite-scroll-delay"): "delay",
+    ("el-infinite-scroll", "infinite-scroll-distance"): "distance",
+    ("el-infinite-scroll", "infinite-scroll-immediate"): "immediate",
+}
+# An event reported as the component's own input value rather than a new one
+VALUE_EVENTS = {("el-collapse", "change")}
+for tag, (fn, js) in MARKUP.items():
+    if tag not in up or fn not in ours: continue
+    info = ours[fn]
+    params = info.get("params") or []
+    if isinstance(params, str): params = [params]
+    fields = info.get("item_fields") or []
+    if isinstance(fields, str): fields = [fields]
+    have = set(params) | set(fields) | {_snake(f) for f in fields}
+    src = _js(js) if js else ""
+    upa = [a for a in up[tag].get("Attributes", []) if (tag, camel(a)) not in EXCLUDED]
+    def has_attr(a):
+        if (tag, a) in RENAMED: return RENAMED[(tag, a)] in have
+        return _snake(camel(a)) in have or camel(a) in have
+    ev = up[tag].get("Events", [])
+    def has_evt(e):
+        # Only a quoted input suffix counts: "_open" also matches the
+        # el-drawer__open class name
+        return (tag, e) in VALUE_EVENTS or re.search(
+            r"['\"]_" + e.replace("-", "_") + r"['\"]", src) is not None
+    me = up[tag].get("Methods", [])
+    sl = up[tag].get("Slot", [])
+    report.append({
+        "fn": fn, "tag": tag + " (markup)", "conditional": [],
+        "attr": [sum(map(has_attr, upa)), len(upa)], "bound": [sum(map(has_attr, upa)), len(upa)],
+        "attr_missing": [a for a in upa if not has_attr(a)],
+        "evt": [sum(map(has_evt, ev)), len(ev)], "evt_missing": [e for e in ev if not has_evt(e)],
+        "method": [sum(1 for m in me if m in src), len(me)],
+        "method_missing": [m for m in me if m not in src],
+        "slot": [sum(1 for x in sl if x in have), len(sl)],
+        "slot_missing": [x for x in sl if x not in have],
+    })
+
+# Services called from the server: their options are the function's
+# arguments, and `close` is a function of its own.
+SERVICES = {
+    "el-message":      ("el_message", "el_message_close"),
+    "el-notification": ("el_notification", "el_notification_close"),
+    "el-message-box":  ("el_message_box", None),
+    "el-loading":      ("el_loading", "el_loading_close"),
+}
+# Callbacks become Shiny inputs rather than arguments: option -> the input
+CALLBACK_INPUTS = {
+    ("el-message", "onClose"): "input$<id>_close",
+    ("el-notification", "onClose"): "input$<id>_close",
+    ("el-notification", "onClick"): "input$<id>_click",
+    ("el-message-box", "callback"): "input$<id>",
+}
+svc = ours.get(".services", {}) if isinstance(ours.get(".services"), dict) else {}
+for tag, (fn, closer) in SERVICES.items():
+    if tag not in up: continue
+    args = svc.get(fn) or []
+    if isinstance(args, str): args = [args]
+    js_all = "".join(_js(f) for f in os.listdir(os.path.join("inst", "js")))
+    def has_opt(o):
+        if (tag, o) in CALLBACK_INPUTS:
+            suffix = CALLBACK_INPUTS[(tag, o)].split("$<id>")[1]
+            return "id" in args and (suffix == "" or
+                                     re.search(r"['\"]" + suffix + r"['\"]", js_all) is not None)
+        return _snake(o) in args or o in args
+    opts = up[tag].get("Attributes", [])
+    me = up[tag].get("Methods", [])
+    has_m = lambda m: m == "close" and closer is not None and bool(svc.get(closer))
+    report.append({"fn": fn if args else "-", "tag": tag + " (service)", "conditional": [],
+        "attr": [sum(map(has_opt, opts)), len(opts)], "bound": [sum(map(has_opt, opts)), len(opts)],
+        "attr_missing": [o for o in opts if not has_opt(o)],
+        "evt": [0, 0], "evt_missing": [],
+        "method": [sum(map(has_m, me)), len(me)], "method_missing": [m for m in me if not has_m(m)],
+        "slot": [0, 0], "slot_missing": []})
+
+# Upstream components this package has no wrapper for at all
+_seen_tags = {r["tag"].split(" ")[0] for r in report}
+for tag in sorted(up):
+    if tag in _seen_tags: continue
+    d = up[tag]
+    report.append({"fn": "-", "tag": tag + " (unwrapped)", "conditional": [],
+        "attr": [0, len(d.get("Attributes", []))], "bound": [0, len(d.get("Attributes", []))],
+        "attr_missing": d.get("Attributes", []),
+        "evt": [0, len(d.get("Events", []))], "evt_missing": d.get("Events", []),
+        "method": [0, len(d.get("Methods", []))], "method_missing": d.get("Methods", []),
+        "slot": [0, len(d.get("Slot", []))], "slot_missing": d.get("Slot", [])})
+
+if "--gaps" in sys.argv:
+    for r in sorted(report, key=lambda r: r["tag"]):
+        parts = [(k, r[k + "_missing"]) for k in ("attr", "evt", "method", "slot")]
+        parts = [f"{k}: {', '.join(v)}" for k, v in parts if v]
+        if parts:
+            print(f"  {r['fn']:22s} {r['tag']:34s} {' | '.join(parts)}")
+    sys.exit(0)
+
 if "--missing" in sys.argv:
     want = sys.argv[sys.argv.index("--missing")+1]
     for r in report:
-        if want not in (r["fn"], r["tag"]): continue
+        if want not in (r["fn"], r["tag"], r["tag"].split(" ")[0]): continue
         print(f"\n== {r['fn']}  <{r['tag']}> ==")
         if r["conditional"]:
             print(f"  条件绑定/update不可达 ({len(r['conditional'])}): {', '.join(r['conditional'])}")
