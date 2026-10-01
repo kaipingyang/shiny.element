@@ -32,6 +32,7 @@ reference:
     contents:
       - el_locales
       - el_page
+      - el_theme
       - use_element
       - element_ui_dependency
       - el_locale_dependency
@@ -56,8 +57,10 @@ reference:
       - el_slider
       - el_rate
       - el_date_picker
+      - el_time_picker
       - el_color_picker
       - el_cascader
+      - el_cascader_panel
       - el_upload
       - starts_with("update_el_input")
       - update_el_select
@@ -67,8 +70,10 @@ reference:
       - update_el_slider
       - update_el_rate
       - update_el_date_picker
+      - update_el_time_picker
       - update_el_color_picker
       - update_el_cascader
+      - update_el_cascader_panel
       - update_el_upload
       - el_upload_clear
       - df_to_cascader_options
@@ -147,6 +152,7 @@ reference:
       - el_row
       - el_col
       - update_el_tabs
+      - insert_el_tab
       - update_el_collapse
       - update_el_steps
       - update_el_dialog
@@ -180,6 +186,7 @@ reference:
       - el_loading_close
       - el_notification
       - el_message
+      - el_feedback_close
 
   - title: Calendar
     contents:

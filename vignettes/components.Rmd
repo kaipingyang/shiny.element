@@ -50,6 +50,18 @@ el_select("city", choices = c(Beijing = "bj", Shanghai = "sh"))
 el_select("tags", choices = c(A = "a", B = "b", C = "c"), multiple = TRUE)
 ```
 
+A named list groups the choices under headings, as in `selectInput()`;
+`list(label =, disabled =, options =)` names a group that cannot be picked
+from:
+
+```{r select-group, eval = FALSE, shot = TRUE, shot_js = "document.querySelector('#shot .el-input__inner').click()", shot_sel = ".el-select-dropdown", shot_wait = 1}
+el_select("food", choices = list(
+  Fruit = c(Apple = "apple", Pear = "pear"),
+  Veg   = list(label = "Vegetables (sold out)", disabled = TRUE,
+               options = c(Kale = "kale", Leek = "leek"))
+))
+```
+
 ### `el_radio_group()`
 
 ```{r radio-group, eval = FALSE, shot = TRUE}
@@ -90,6 +102,19 @@ el_date_picker("when", value = "2026-03-01")
 el_date_picker("span", type = "daterange")
 ```
 
+### `el_time_picker()` and `el_time_select()`
+
+Any time of day, or a range of them; `el_time_select()` offers fixed times
+at an interval instead.
+
+```{r time-picker, eval = FALSE, shot = TRUE}
+el_time_picker("start", value = "09:30:00",
+               picker_options = list(selectableRange = "08:00:00 - 18:00:00"))
+el_time_picker("shift", is_range = TRUE, value = c("09:00:00", "17:30:00"))
+el_time_select("slot", value = "10:30",
+               picker_options = list(start = "09:00", step = "00:30", end = "18:00"))
+```
+
 ### `el_color_picker()`
 
 ```{r color-picker, eval = FALSE, shot = TRUE}
@@ -104,6 +129,18 @@ Nested options; `df_to_cascader_options()` builds them from a data frame.
 el_cascader("region", options = list(
   list(value = "zj", label = "Zhejiang", children = list(
     list(value = "hz", label = "Hangzhou")))))
+```
+
+### `el_cascader_panel()`
+
+The cascader's columns on their own, always open.
+
+```{r cascader-panel, eval = FALSE, shot = TRUE}
+el_cascader_panel("where", value = c("asia", "jp"), width = "fit-content", options = list(
+  list(value = "asia", label = "Asia", children = list(
+    list(value = "cn", label = "China"), list(value = "jp", label = "Japan"))),
+  list(value = "europe", label = "Europe", children = list(
+    list(value = "fr", label = "France")))))
 ```
 
 ### `el_autocomplete()`
@@ -267,6 +304,14 @@ el_row(gutter = 20,
 )
 ```
 
+With `time_indices = TRUE` it counts down to a date-time, and reports
+`input$<id>_finish` when it gets there:
+
+```{r countdown, eval = FALSE, shot = TRUE}
+el_statistic("sale", value = Sys.time() + 5 * 3600, time_indices = TRUE,
+             title = "Sale ends in", format = "HH:mm:ss")
+```
+
 ### `el_empty()` and `el_result()`
 
 What a view shows when there is nothing in it yet, and what it shows once
@@ -347,6 +392,31 @@ el_tabs("section", tabs = list(
   list(name = "x", label = "Inputs",
        content = tagList(el_input("q"), el_rate("stars"))),
   list(name = "y", label = "Second", content = "Panes hold components.")))
+```
+
+`editable = TRUE` adds Element's close buttons and new-tab button. The tabs
+close themselves; a new one is the server's to make, with `insert_el_tab()`,
+and it can hold components like any other:
+
+```{r tabs-editable, eval = FALSE, shot = TRUE, shot_js = "var b = document.querySelector('#shot .el-tabs__new-tab'); b.click(); setTimeout(function(){ b.click(); }, 600)", shot_wait = 2.5}
+ui <- el_page(
+  el_tabs("docs", editable = TRUE, tabs = list(
+    list(name = "readme", label = "README", content = tags$p("The first page."))
+  )),
+  verbatimTextOutput("edit")
+)
+
+server <- function(input, output, session) {
+  n <- 0
+  observeEvent(input$docs_tab_add, {
+    n <<- n + 1
+    insert_el_tab(session, "docs", paste0("doc", n), paste("Untitled", n),
+                  content = el_input(paste0("note", n), placeholder = "Notes"))
+  })
+  output$edit <- renderPrint(input$docs_edit)
+}
+
+shinyApp(ui, server)
 ```
 
 ### `el_collapse()`

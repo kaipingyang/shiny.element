@@ -47,21 +47,29 @@ once at the top instead:
 
 ``` r
 ui <- bslib::page_sidebar(
+  theme = el_theme(),
   use_element(),
   sidebar = bslib::sidebar(el_select("metric", choices = c("Mean", "Median"))),
   el_table(data = head(iris), id = "summary")
 )
 ```
 
+`el_theme()` is the page's look: a bslib theme carrying Element's own
+colours, font and sizes, so Shiny's `actionButton()` or `textInput()` sit
+beside Element components without clashing. It is `el_page()`'s default.
+`el_theme(primary = "#7c3aed")` changes the brand colour; any
+`bslib::bs_theme()` replaces it, and `theme = NULL` leaves Shiny's plain
+Bootstrap.
+
 ## Components
 
 | | |
 |---|---|
-| **Input** | `el_input()` `el_input_number()` `el_select()` `el_radio_group()` `el_checkbox_group()` `el_switch()` `el_slider()` `el_rate()` `el_date_picker()` `el_color_picker()` `el_cascader()` `el_upload()` |
-| **Display** | `el_table()` `el_tag()` `el_progress()` `el_alert()` `el_badge()` `el_card()` `el_calendar()` `el_tree()` `el_timeline()` `el_carousel()` `el_icon()` `el_link()` `el_divider()` |
-| **Navigation** | `el_menu()` `el_tabs()` `el_steps()` `el_pagination()` `el_dropdown()` |
-| **Container** | `el_collapse()` `el_dialog()` `el_drawer()` `el_form()` `el_row()` `el_col()` `el_container()` `el_header()` `el_aside()` `el_main()` `el_footer()` |
-| **Feedback** | `el_message()` `el_notification()` |
+| **Form** | `el_input()` `el_input_number()` `el_autocomplete()` `el_select()` `el_radio_group()` `el_checkbox_group()` `el_switch()` `el_slider()` `el_rate()` `el_date_picker()` `el_time_picker()` `el_time_select()` `el_color_picker()` `el_cascader()` `el_cascader_panel()` `el_transfer()` `el_upload()` `el_form()` |
+| **Data** | `el_table()` `el_pagination()` `el_tag()` `el_progress()` `el_tree()` `el_badge()` `el_avatar()` `el_image()` `el_descriptions()` `el_statistic()` `el_empty()` `el_result()` `el_skeleton()` `el_calendar()` `el_card()` `el_carousel()` `el_collapse()` `el_timeline()` |
+| **Navigation** | `el_menu()` `el_tabs()` `el_breadcrumb()` `el_page_header()` `el_dropdown()` `el_steps()` `el_backtop()` `el_infinite_scroll()` |
+| **Feedback** | `el_alert()` `el_loading()` `el_message()` `el_message_box()` `el_notification()` `el_popconfirm()` `el_popover()` `el_tooltip()` `el_dialog()` `el_drawer()` |
+| **Layout and basics** | `el_row()` `el_col()` `el_container()` `el_header()` `el_aside()` `el_main()` `el_footer()` `el_button()` `el_link()` `el_divider()` `el_icon()` |
 
 The [component gallery](https://kaipingyang.github.io/shiny.element/articles/components.html)
 shows each one rendered, with the code that produced it.

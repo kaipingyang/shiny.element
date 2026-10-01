@@ -4,14 +4,15 @@ First release.
 
 ## Components
 
-Every component Element UI 2.15.14 documents is wrapped -- 83 of them -- with
-everything each one documents reachable from R: 552 attributes, 94 events,
-54 methods and 42 slots.
+Every component Element UI 2.15.14 documents is wrapped -- 82 tags, services
+included -- with everything each one documents reachable from R: 757
+attributes, 115 events, 60 methods and 48 slots.
 
 * **Input** — `el_input()`, `el_input_number()`, `el_select()`,
   `el_radio_group()`, `el_checkbox_group()`, `el_switch()`, `el_slider()`,
-  `el_rate()`, `el_date_picker()`, `el_color_picker()`, `el_cascader()`,
-  `el_upload()`, `el_autocomplete()`, `el_transfer()`.
+  `el_rate()`, `el_date_picker()`, `el_time_picker()`, `el_time_select()`,
+  `el_color_picker()`, `el_cascader()`, `el_cascader_panel()`, `el_upload()`,
+  `el_autocomplete()`, `el_transfer()`.
 * **Display** — `el_table()`, `el_tag()`, `el_progress()`, `el_alert()`,
   `el_badge()`, `el_card()`, `el_calendar()`, `el_tree()`, `el_timeline()`,
   `el_carousel()`, `el_icon()`, `el_link()`, `el_divider()`, `el_avatar()`,
@@ -24,11 +25,23 @@ everything each one documents reachable from R: 552 attributes, 94 events,
   `el_main()`, `el_footer()`.
 * **Feedback** — `el_message()`, `el_notification()`, `el_message_box()`,
   `el_loading()`, `el_loading_close()`.
-* **Helpers** — `el_page()`, `use_element()`, `el_table_config()`,
+* **Helpers** — `el_page()`, `el_theme()`, `use_element()`, `el_table_config()`,
   `df_to_tree_data()`, `df_to_cascader_options()`, `el_form_validate()`.
 
 Most components have a matching `update_el_*()` for server-side updates, and
 report their value through `input$<id>` like any other Shiny input.
+As with Shiny's own `update*Input()`, a value set from the server is reported
+back through `input$<id>` too.
+
+`el_page()` themes the page around the components with `el_theme()`, a bslib
+theme carrying Element's colours, font and control sizes, so Shiny's own
+inputs and outputs match the Element ones beside them. `theme = NULL` leaves
+Shiny's plain Bootstrap.
+
+Tabs can be added and removed from the server (`insert_el_tab()`,
+`remove_el_tab()`) or by the user (`editable = TRUE`), and a lazy pane binds
+its content when first shown. Messages and notifications given an `id` can be
+closed by it (`el_message_close()`, `el_notification_close()`).
 
 ## Note for users of the development version
 

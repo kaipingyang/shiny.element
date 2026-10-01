@@ -26,9 +26,9 @@
 #              <body> rather than inside the component.
 #   shot_wait  Seconds to wait after shot_js. Default 1.5.
 #
-# Every example is also checked: code that fails to run, or a page that logs
-# a [Vue warn] under Vue's development build, is reported and the script
-# exits non-zero.
+# Every example is also checked: code that fails to run, a page that logs
+# a [Vue warn] under Vue's development build, or a menu entry, tab or tag
+# drawn with no label, is reported and the script exits non-zero.
 
 suppressMessages({
   library(chromote)
@@ -248,6 +248,30 @@ for (s in shots) {
     next
   }
 
+  # An item whose label went nowhere renders as a blank entry, and nothing
+  # logs it -- the navigation menu was written with `title =` where the
+  # package reads `label =`, and its screenshot showed an icon and an arrow.
+  blank <- js("(function(){
+    var sel = ['.el-menu-item', '.el-submenu__title', '.el-tabs__item',
+               '.el-breadcrumb__inner', '.el-step__title', '.el-radio__label',
+               '.el-checkbox__label', '.el-tag', '.el-dropdown-menu__item',
+               '.el-collapse-item__header', '.el-select-dropdown__item',
+               '.el-descriptions-item__label', '.el-timeline-item__content'];
+    var out = [];
+    sel.forEach(function(q){
+      document.querySelectorAll(q).forEach(function(e){
+        if (e.innerText.trim() || e.querySelector('i, img, svg, input')) return;
+        if (!e.getBoundingClientRect().width) return;
+        out.push(q);
+      });
+    });
+    return Array.from(new Set(out)).join(', ');
+  })()")
+  if (nzchar(blank %||% "")) {
+    problems <- c(problems, sprintf("%s: blank items: %s", s$key, blank))
+    message(sprintf("  x %-34s blank items: %s", s$key, blank))
+  }
+
   selectors <- c("#shot", s$sel)
   present <- Filter(function(sel) isTRUE(js(sprintf(
     "!!document.querySelector(%s)", jsonlite::toJSON(sel, auto_unbox = TRUE)))),
@@ -274,7 +298,11 @@ for (s in shots) {
   })(%s)", jsonlite::toJSON(present))))
   b$screenshot(out, cliprect = c(rect$x, rect$y, rect$w, rect$h), scale = 2)
 
-  warns <- grep("[Vue warn]", console, fixed = TRUE, value = TRUE)
+  # Vue's warnings, and the package's own -- an update sent to a widget that
+  # is not there, a method that does not exist. Both mean the example does
+  # not do what it shows.
+  warns <- console[grepl("[Vue warn]", console, fixed = TRUE) |
+                   grepl("[shiny.element]", console, fixed = TRUE)]
   if (length(warns)) {
     problems <- c(problems, sprintf("%s: %s", s$key, substr(warns[1], 1, 160)))
   }

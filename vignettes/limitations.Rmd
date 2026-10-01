@@ -217,6 +217,31 @@ header and scrolls the body, `el_slider()` sizes a vertical track,
 `el_carousel()` sets the frame. Element sizes controls through `size`
 (`"medium"`, `"small"`, `"mini"`) rather than a height.
 
+## The page around the components
+
+Element styles its components, not the page they sit on, and most of its
+components set no font of their own -- they inherit the page's. `el_page()`
+therefore themes the page too: its default, `el_theme()`, is a bslib theme
+carrying Element's blue, greys, borders, corners, type size and font stack,
+so Shiny's own inputs and outputs match the Element ones beside them.
+
+```{r theme, eval = FALSE, shot = TRUE}
+el_row(gutter = 16,
+  el_col(span = 12,
+    textInput("shiny_text", "Shiny's textInput()", "Ada"),
+    actionButton("shiny_go", "actionButton()", class = "btn-primary")),
+  el_col(span = 12,
+    tags$label("Element's el_input()"), el_input("el_text", value = "Ada"),
+    tags$div(style = "margin-top: 15px",
+      el_button("el_go", "el_button()", type = "primary"))))
+```
+
+`el_theme(primary = "#7c3aed")` changes the brand colour, and any other
+argument of `bslib::bs_theme()` or Bootstrap variable can be overridden the
+same way. Element's own components keep Element's colours whatever the
+theme says: they are compiled into its stylesheet, and changing them means
+building a custom Element theme.
+
 ## Element's own markup
 
 `el` holds a generator for every Element tag, for markup that needs no Vue
