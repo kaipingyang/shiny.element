@@ -105,6 +105,8 @@
 <li>
 <strong>The session argument.</strong> Every server function – <code>update_el_*()</code>, <code><a href="../reference/el_message.html">el_message()</a></code>, <code><a href="../reference/el_call.html">el_call()</a></code> and the rest – takes the current session by default, as <code><a href="https://rdrr.io/pkg/shiny/man/updateTextInput.html" class="external-link">updateTextInput()</a></code> does.</li>
 <li>
+<strong>Validation.</strong> shinyvalidate’s messages show on a component as Element shows a failed form rule: framed in red, the message underneath.</li>
+<li>
 <strong>Templates.</strong> Each component’s template travels as a script the browser does not parse: nothing flashes before Vue runs, and camelCase attribute names reach Vue unchanged.</li>
 </ul></div>
 <div class="section level3">

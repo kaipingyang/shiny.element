@@ -213,6 +213,27 @@
     getRatePolicy: function(el) {
       return (el._shinyVueSpec && el._shinyVueSpec.rate) || null;
     },
+    // shinyvalidate asks the binding to show a rule's message before it looks
+    // for a Bootstrap .form-group, so a component library can show it its
+    // own way: shinyVue.setInvalid / clearInvalid, or a plain message below.
+    setInvalid: function(el, data) {
+      var msg = (data && data.message) || '';
+      if (typeof sv.setInvalid === 'function') return sv.setInvalid(el, msg);
+      var box = el.querySelector(':scope > .shiny-vue-invalid');
+      if (!box) {
+        box = document.createElement('div');
+        box.className = 'shiny-vue-invalid';
+        box.style.color = '#dc3545';
+        box.style.fontSize = '0.875em';
+        el.appendChild(box);
+      }
+      box.textContent = msg;
+    },
+    clearInvalid: function(el) {
+      if (typeof sv.clearInvalid === 'function') return sv.clearInvalid(el);
+      var box = el.querySelector(':scope > .shiny-vue-invalid');
+      if (box) box.parentNode.removeChild(box);
+    },
     // session$sendInputMessage(id, list(field = value)) assigns fields the
     // component declares.
     receiveMessage: function(el, data) {

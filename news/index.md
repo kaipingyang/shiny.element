@@ -210,6 +210,9 @@ limitations article shows, needs no JavaScript.
   and the rest – takes the current session by default, as
   [`updateTextInput()`](https://rdrr.io/pkg/shiny/man/updateTextInput.html)
   does.
+- **Validation.** shinyvalidate’s messages show on a component as
+  Element shows a failed form rule: framed in red, the message
+  underneath.
 - **Templates.** Each component’s template travels as a script the
   browser does not parse: nothing flashes before Vue runs, and camelCase
   attribute names reach Vue unchanged.
