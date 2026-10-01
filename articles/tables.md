@@ -90,6 +90,50 @@ el_table("sales", data = sales, columns = list(
 Formatting in R first is usually simpler; reach for `formatter` when the
 display depends on something only the browser knows.
 
+## Cell templates and row actions
+
+A column’s `cell` is markup drawn once per row, with the row in reach as
+`scope.row` – a tag coloured by the row’s status, a progress bar, a pair
+of buttons. Element’s own tags work there, written with `el$`; the
+package’s components do not, being one Vue instance each rather than one
+per row.
+
+A button reports back with `rowAction()`: `rowAction('edit', scope)`
+sets `input$<id>_edit` to the row’s 1-based number and the row itself. A
+column with `type = "expand"` opens each row onto its own `cell`, and
+`type = "index"` numbers the rows:
+
+``` r
+
+tasks <- data.frame(task = c("Draft", "Review", "Publish"),
+                    done = c(100, 60, 0),
+                    owner = c("Ada", "Grace", "Linus"))
+
+ui <- el_page(
+  el_table("tasks", data = tasks, columns = list(
+    list(type = "expand", cell = tags$p("Owner: {{ scope.row.owner }}")),
+    list(type = "index", label = "#"),
+    list(prop = "task", label = "Task"),
+    list(prop = "done", label = "Progress",
+         cell = el$progress(":percentage" = "scope.row.done")),
+    list(label = "", width = "120", cell = el$button(
+      size = "mini", "@click" = "rowAction('nudge', scope)", "Nudge"))
+  )),
+  verbatimTextOutput("nudged")
+)
+
+server <- function(input, output, session) {
+  output$nudged <- renderPrint(req(input$tasks_nudge)$row$owner)
+}
+
+shinyApp(ui, server)
+```
+
+![](../shots/tables-cells.png)
+
+`loading = TRUE`, or `update_el_table(session, id, loading = TRUE)`,
+covers the table with Element’s loading mask while its data is fetched.
+
 ## Selection
 
 `selection = TRUE` adds a checkbox column and reports two inputs:
@@ -213,7 +257,8 @@ shinyApp(ui, server)
 
 There is no `server = TRUE` as in DT. Pair the table with
 [`el_pagination()`](https://kaipingyang.github.io/shiny.element/reference/el_pagination.md)
-and send one page at a time:
+and send one page at a time. The pager reports `input$<id>_page` and
+`input$<id>_size`:
 
 ``` r
 
@@ -227,8 +272,8 @@ ui <- el_page(
 )
 
 server <- function(input, output, session) {
-  observeEvent(input$pager, {
-    update_el_table(session, "rows", data = page_of(input$pager))
+  observeEvent(input$pager_page, {
+    update_el_table(session, "rows", data = page_of(input$pager_page))
   })
 }
 

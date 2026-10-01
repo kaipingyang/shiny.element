@@ -11,12 +11,19 @@ instance.
 update_el_select(
   session,
   id,
-  value = NULL,
-  options = NULL,
+  selected = NULL,
+  choices = NULL,
   disabled = NULL,
   placeholder = NULL,
   clearable = NULL,
-  filterable = NULL
+  filterable = NULL,
+  multiple_limit = NULL,
+  loading = NULL,
+  loading_text = NULL,
+  no_match_text = NULL,
+  no_data_text = NULL,
+  value = NULL,
+  options = NULL
 )
 ```
 
@@ -30,30 +37,25 @@ update_el_select(
 
   Select input ID (un-namespaced).
 
-- value:
+- selected, value:
 
-  New selected value (string or character vector).
+  New selected value(s). `selected` is Shiny's name, `value` Element's;
+  give either.
 
-- options:
+- choices, options:
 
-  New choices: named character vector or
-  `list(list(value=, label=), ...)`.
+  New choices, in any form
+  [`el_select()`](https://kaipingyang.github.io/shiny.element/reference/el_select.md)
+  takes. `choices` is Shiny's name, `options` Element's; give either.
 
-- disabled:
+- disabled, placeholder, clearable, filterable, multiple_limit:
 
-  New disabled state.
+  New values for these props.
 
-- placeholder:
+- loading, loading_text, no_match_text, no_data_text:
 
-  New placeholder text.
-
-- clearable:
-
-  New clearable state.
-
-- filterable:
-
-  New filterable state.
+  The remote-search state: show the spinner while options are fetched,
+  and the messages for no match and no data.
 
 ## Value
 
@@ -65,7 +67,7 @@ Called for its side effect; returns `NULL` invisibly.
 if (interactive()) {
   # inside a server function
   observeEvent(input$go, {
-    update_el_select(session, "city", value = "sh")
+    update_el_select(session, "city", selected = "sh")
   })
 }
 ```

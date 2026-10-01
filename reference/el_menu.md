@@ -35,12 +35,12 @@ el_menu(
 - items:
 
   A list of items. Each is a list with `index` (the value reported when
-  selected), `label`, and optionally `icon` (an Element icon class such
-  as `"el-icon-house"`), `disabled`, `route` (for `router = TRUE`), or
-  `children` for a submenu. A submenu may also carry `popper_class`,
-  `show_timeout`, `hide_timeout` and `popper_append_to_body`. An item
-  with `group = TRUE` becomes a titled group of its `children` rather
-  than a submenu.
+  selected), `label` (or `title`, Element's name for it), and optionally
+  `icon` (an Element icon class such as `"el-icon-house"`), `disabled`,
+  `route` (for `router = TRUE`), or `children` for a submenu. A submenu
+  may also carry `popper_class`, `show_timeout`, `hide_timeout` and
+  `popper_append_to_body`. An item with `group = TRUE` becomes a titled
+  group of its `children` rather than a submenu.
 
   Clicking an item reports `input$<id>` (the index selected) and
   `input$<id>_item_click` (the index clicked).
@@ -83,7 +83,9 @@ el_menu(
 
 - width:
 
-  Component width, as a CSS unit – `"200px"`, `"50%"`, or a
+  Component width, as a CSS unit – `"200px"`, `"50%"`, or a number taken
+  as pixels. Element's own markup carries it, so it behaves like the
+  `width` argument of a Shiny input.
 
 - slots:
 
@@ -92,8 +94,6 @@ el_menu(
   here is absorbed rather than nested. For a scoped slot, write the
   template with
   [`template()`](https://kaipingyang.github.io/shiny.element/reference/template.md).
-  number taken as pixels. Element's own markup carries it, so it behaves
-  like the `width` argument of a Shiny input.
 
 - session:
 
@@ -106,9 +106,9 @@ A Shiny UI element.
 ## Server inputs
 
 `input$<id>` holds the selected item's `index`, reported on load and on
-every selection. `input$<id>_path` holds the full path of indexes down
-to it, so a nested item can be told apart from a top-level one with the
-same index.
+every selection – `NULL` while no item is active. `input$<id>_path`
+holds the full path of indexes down to it, so a nested item can be told
+apart from a top-level one with the same index.
 
 ## Element methods
 
@@ -161,7 +161,7 @@ el_menu(
 #>   </el-menu>
 #> </div>
 #> <div id="nav" style="width:0px;height:0px;" class="vue html-widget"></div>
-#> <script type="application/json" data-for="nav">{"x":{"el":"#nav_container","data":{"active":"home","mode":"vertical","collapse":false,"uniqueOpened":false,"backgroundColor":null,"textColor":null,"activeTextColor":null,"path":[],"defaultOpeneds":null,"menuTrigger":null,"collapseTransition":null,"router":null},"methods":{"elEmitOpen":"function() { var shape = function(index, path) { return {index: index, path: path}; }; var v = shape.apply(this, arguments); if (v === undefined) return; window.shinyElement.emit('nav', 'open', [v]); }","elEmitClose":"function() { var shape = function(index, path) { return {index: index, path: path}; }; var v = shape.apply(this, arguments); if (v === undefined) return; window.shinyElement.emit('nav', 'close', [v]); }","elMenuItemClick":"function(index) { Shiny.setInputValue('nav_item_click', index, {priority: 'event'}); }","handleSelect":"function(index, indexPath) { var self = this; self.active = index; self.path = indexPath; Shiny.setInputValue('nav', index); Shiny.setInputValue('nav_path', indexPath); }"},"mounted":"function() { var self = this; var send = function() { Shiny.setInputValue(\"nav\", self.active); Shiny.setInputValue(\"nav_path\", self.path); }; if (window.Shiny && Shiny.shinyapp && typeof Shiny.shinyapp.isConnected === 'function' && Shiny.shinyapp.isConnected()) { send(); } else { $(document).one('shiny:connected', send); } var prev = self._elReport; self._elReport = function() { if (prev) prev(); self.$nextTick(send); }; }"},"evals":["methods.elEmitOpen","methods.elEmitClose","methods.elMenuItemClick","methods.handleSelect","mounted"],"jsHooks":[]}</script>
+#> <script type="application/json" data-for="nav">{"x":{"el":"#nav_container","data":{"active":"home","mode":"vertical","collapse":false,"uniqueOpened":false,"backgroundColor":null,"textColor":null,"activeTextColor":null,"path":[],"defaultOpeneds":null,"menuTrigger":null,"collapseTransition":null,"router":null},"methods":{"elEmitOpen":"function() { var shape = function(index, path) { return {index: index, path: path}; }; var v = shape.apply(this, arguments); if (v === undefined) return; window.shinyElement.emit('nav', 'open', [v]); }","elEmitClose":"function() { var shape = function(index, path) { return {index: index, path: path}; }; var v = shape.apply(this, arguments); if (v === undefined) return; window.shinyElement.emit('nav', 'close', [v]); }","elMenuItemClick":"function(index) { Shiny.setInputValue('nav_item_click', index, {priority: 'event'}); }","handleSelect":"function(index, indexPath) { var self = this; self.active = index; self.path = indexPath; Shiny.setInputValue('nav', index); Shiny.setInputValue('nav_path', indexPath); }"},"mounted":"function() { var self = this; var send = function() { Shiny.setInputValue(\"nav\", self.active || null); Shiny.setInputValue(\"nav_path\", self.path); }; if (window.Shiny && Shiny.shinyapp && typeof Shiny.shinyapp.isConnected === 'function' && Shiny.shinyapp.isConnected()) { send(); } else { $(document).one('shiny:connected', send); } var prev = self._elReport; self._elReport = function() { if (prev) prev(); self.$nextTick(send); }; }"},"evals":["methods.elEmitOpen","methods.elEmitClose","methods.elMenuItemClick","methods.handleSelect","mounted"],"jsHooks":[]}</script>
 
 # Horizontal, as a top bar
 el_menu(id = "topnav", mode = "horizontal", active = "a",
@@ -178,5 +178,5 @@ el_menu(id = "topnav", mode = "horizontal", active = "a",
 #>   </el-menu>
 #> </div>
 #> <div id="topnav" style="width:0px;height:0px;" class="vue html-widget"></div>
-#> <script type="application/json" data-for="topnav">{"x":{"el":"#topnav_container","data":{"active":"a","mode":"horizontal","collapse":false,"uniqueOpened":false,"backgroundColor":null,"textColor":null,"activeTextColor":null,"path":[],"defaultOpeneds":null,"menuTrigger":null,"collapseTransition":null,"router":null},"methods":{"elEmitOpen":"function() { var shape = function(index, path) { return {index: index, path: path}; }; var v = shape.apply(this, arguments); if (v === undefined) return; window.shinyElement.emit('topnav', 'open', [v]); }","elEmitClose":"function() { var shape = function(index, path) { return {index: index, path: path}; }; var v = shape.apply(this, arguments); if (v === undefined) return; window.shinyElement.emit('topnav', 'close', [v]); }","elMenuItemClick":"function(index) { Shiny.setInputValue('topnav_item_click', index, {priority: 'event'}); }","handleSelect":"function(index, indexPath) { var self = this; self.active = index; self.path = indexPath; Shiny.setInputValue('topnav', index); Shiny.setInputValue('topnav_path', indexPath); }"},"mounted":"function() { var self = this; var send = function() { Shiny.setInputValue(\"topnav\", self.active); Shiny.setInputValue(\"topnav_path\", self.path); }; if (window.Shiny && Shiny.shinyapp && typeof Shiny.shinyapp.isConnected === 'function' && Shiny.shinyapp.isConnected()) { send(); } else { $(document).one('shiny:connected', send); } var prev = self._elReport; self._elReport = function() { if (prev) prev(); self.$nextTick(send); }; }"},"evals":["methods.elEmitOpen","methods.elEmitClose","methods.elMenuItemClick","methods.handleSelect","mounted"],"jsHooks":[]}</script>
+#> <script type="application/json" data-for="topnav">{"x":{"el":"#topnav_container","data":{"active":"a","mode":"horizontal","collapse":false,"uniqueOpened":false,"backgroundColor":null,"textColor":null,"activeTextColor":null,"path":[],"defaultOpeneds":null,"menuTrigger":null,"collapseTransition":null,"router":null},"methods":{"elEmitOpen":"function() { var shape = function(index, path) { return {index: index, path: path}; }; var v = shape.apply(this, arguments); if (v === undefined) return; window.shinyElement.emit('topnav', 'open', [v]); }","elEmitClose":"function() { var shape = function(index, path) { return {index: index, path: path}; }; var v = shape.apply(this, arguments); if (v === undefined) return; window.shinyElement.emit('topnav', 'close', [v]); }","elMenuItemClick":"function(index) { Shiny.setInputValue('topnav_item_click', index, {priority: 'event'}); }","handleSelect":"function(index, indexPath) { var self = this; self.active = index; self.path = indexPath; Shiny.setInputValue('topnav', index); Shiny.setInputValue('topnav_path', indexPath); }"},"mounted":"function() { var self = this; var send = function() { Shiny.setInputValue(\"topnav\", self.active || null); Shiny.setInputValue(\"topnav_path\", self.path); }; if (window.Shiny && Shiny.shinyapp && typeof Shiny.shinyapp.isConnected === 'function' && Shiny.shinyapp.isConnected()) { send(); } else { $(document).one('shiny:connected', send); } var prev = self._elReport; self._elReport = function() { if (prev) prev(); self.$nextTick(send); }; }"},"evals":["methods.elEmitOpen","methods.elEmitClose","methods.elMenuItemClick","methods.handleSelect","mounted"],"jsHooks":[]}</script>
 ```

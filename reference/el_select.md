@@ -9,7 +9,7 @@ Element UI select props.
 ``` r
 el_select(
   id = NULL,
-  choices,
+  choices = NULL,
   selected = NULL,
   multiple = FALSE,
   placeholder = NULL,
@@ -37,6 +37,8 @@ el_select(
   remote_method = NULL,
   width = NULL,
   slots = NULL,
+  value = NULL,
+  options = NULL,
   session = shiny::getDefaultReactiveDomain()
 )
 ```
@@ -47,17 +49,20 @@ el_select(
 
   Input ID. Auto-generated UUID if `NULL`.
 
-- choices:
+- choices, options:
 
-  Named character vector (`c(Label = value)`) or a list of
-  `list(value = ..., label = ...)` items. Unnamed vectors are allowed;
-  the element is used as both value and label.
+  The choices: a named character vector (`c(Label = value)`), a list of
+  `list(value = ..., label = ...)`, or a named list of those for option
+  groups. Unnamed vectors are allowed; the element is used as both value
+  and label. `choices` is Shiny's name for it, `options` Element's; give
+  either. Empty by default, for a select whose options arrive later
+  (`remote = TRUE`).
 
-- selected:
+- selected, value:
 
-  Initial selected value(s). Use a character vector for multiple
-  selection. Defaults to `""` (single) or
-  [`list()`](https://rdrr.io/r/base/list.html) (multiple).
+  Initially selected value(s); a character vector for multiple
+  selection. `selected` is Shiny's name, `value` Element's (its
+  `v-model`); give either.
 
 - multiple:
 
@@ -164,7 +169,9 @@ el_select(
 
 - width:
 
-  Component width, as a CSS unit – `"200px"`, `"50%"`, or a
+  Component width, as a CSS unit – `"200px"`, `"50%"`, or a number taken
+  as pixels. Element's own markup carries it, so it behaves like the
+  `width` argument of a Shiny input.
 
 - slots:
 
@@ -173,8 +180,6 @@ el_select(
   here is absorbed rather than nested. For a scoped slot, write the
   template with
   [`template()`](https://kaipingyang.github.io/shiny.element/reference/template.md).
-  number taken as pixels. Element's own markup carries it, so it behaves
-  like the `width` argument of a Shiny input.
 
 - session:
 

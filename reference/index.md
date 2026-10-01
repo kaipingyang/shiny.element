@@ -11,10 +11,7 @@ Page wrappers that load Vue, Element UI and the package’s own assets.
 - [`el_theme()`](https://kaipingyang.github.io/shiny.element/reference/el_theme.md)
   : Element UI's look, as a Bootstrap theme
 - [`use_element()`](https://kaipingyang.github.io/shiny.element/reference/use_element.md)
-  : Load All Element-UI Dependencies Convenience function to load Vue,
-  Element-UI, and layout CSS dependencies. Use this when you want to use
-  Element-UI components in non-el_page layouts (e.g.,
-  bslib::page_sidebar, shiny::navbarPage).
+  : Load All Element-UI Dependencies
 - [`element_ui_dependency()`](https://kaipingyang.github.io/shiny.element/reference/element_ui_dependency.md)
   : Element UI Dependency
 - [`el_locale_dependency()`](https://kaipingyang.github.io/shiny.element/reference/el_locale_dependency.md)

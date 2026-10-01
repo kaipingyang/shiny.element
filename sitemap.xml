@@ -4,6 +4,7 @@
 <url><loc>https://kaipingyang.github.io/shiny.element/LICENSE-text.html</loc></url>
 <url><loc>https://kaipingyang.github.io/shiny.element/LICENSE.html</loc></url>
 <url><loc>https://kaipingyang.github.io/shiny.element/articles/components.html</loc></url>
+<url><loc>https://kaipingyang.github.io/shiny.element/articles/dashboards.html</loc></url>
 <url><loc>https://kaipingyang.github.io/shiny.element/articles/forms.html</loc></url>
 <url><loc>https://kaipingyang.github.io/shiny.element/articles/index.html</loc></url>
 <url><loc>https://kaipingyang.github.io/shiny.element/articles/limitations.html</loc></url>
@@ -16,12 +17,14 @@
 <url><loc>https://kaipingyang.github.io/shiny.element/reference/df_to_tree_data.html</loc></url>
 <url><loc>https://kaipingyang.github.io/shiny.element/reference/dot-el_absorb.html</loc></url>
 <url><loc>https://kaipingyang.github.io/shiny.element/reference/dot-el_absorb_merge.html</loc></url>
+<url><loc>https://kaipingyang.github.io/shiny.element/reference/dot-el_alias.html</loc></url>
 <url><loc>https://kaipingyang.github.io/shiny.element/reference/dot-el_append_children.html</loc></url>
 <url><loc>https://kaipingyang.github.io/shiny.element/reference/dot-el_autocomplete_suggestions.html</loc></url>
 <url><loc>https://kaipingyang.github.io/shiny.element/reference/dot-el_camel.html</loc></url>
 <url><loc>https://kaipingyang.github.io/shiny.element/reference/dot-el_camel_case.html</loc></url>
 <url><loc>https://kaipingyang.github.io/shiny.element/reference/dot-el_col_gutter.html</loc></url>
 <url><loc>https://kaipingyang.github.io/shiny.element/reference/dot-el_container_part.html</loc></url>
+<url><loc>https://kaipingyang.github.io/shiny.element/reference/dot-el_css_fixes.html</loc></url>
 <url><loc>https://kaipingyang.github.io/shiny.element/reference/dot-el_descriptions_items.html</loc></url>
 <url><loc>https://kaipingyang.github.io/shiny.element/reference/dot-el_event_bindings.html</loc></url>
 <url><loc>https://kaipingyang.github.io/shiny.element/reference/dot-el_form_empty_value.html</loc></url>
@@ -51,6 +54,7 @@
 <url><loc>https://kaipingyang.github.io/shiny.element/reference/dot-el_tab_item.html</loc></url>
 <url><loc>https://kaipingyang.github.io/shiny.element/reference/dot-el_tab_pane.html</loc></url>
 <url><loc>https://kaipingyang.github.io/shiny.element/reference/dot-el_table_args.html</loc></url>
+<url><loc>https://kaipingyang.github.io/shiny.element/reference/dot-el_table_cells.html</loc></url>
 <url><loc>https://kaipingyang.github.io/shiny.element/reference/dot-el_table_event_shapes.html</loc></url>
 <url><loc>https://kaipingyang.github.io/shiny.element/reference/dot-el_table_infer_columns.html</loc></url>
 <url><loc>https://kaipingyang.github.io/shiny.element/reference/dot-el_table_prep.html</loc></url>

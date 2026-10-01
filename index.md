@@ -98,7 +98,7 @@ server <- function(input, output, session) {
 
   # write
   observeEvent(input$reset, {
-    update_el_select(session, "city", value = "beijing")
+    update_el_select(session, "city", selected = "beijing")
   })
 }
 ```
@@ -139,6 +139,9 @@ stays clean.
 
 - [Component
   gallery](https://kaipingyang.github.io/shiny.element/articles/components.html)
+- [Dashboards](https://kaipingyang.github.io/shiny.element/articles/dashboards.html)
+  – whole apps: Element’s own admin layout, a sales overview, an orders
+  admin page
 - [Function
   reference](https://kaipingyang.github.io/shiny.element/reference/index.html)
 

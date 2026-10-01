@@ -75,6 +75,10 @@ el_progress(
 - slots:
 
   Named list of Element slot contents, such as
+  `list(title = shiny::tags$b("Bold"))`. A shiny.element component given
+  here is absorbed rather than nested. For a scoped slot, write the
+  template with
+  [`template()`](https://kaipingyang.github.io/shiny.element/reference/template.md).
 
 - define_back_color:
 
@@ -88,10 +92,6 @@ el_progress(
 
   [`htmlwidgets::JS()`](https://rdrr.io/pkg/htmlwidgets/man/JS.html)
   function `function(percentage)` returning the text shown.
-  `list(title = shiny::tags$b("Bold"))`. A shiny.element component given
-  here is absorbed rather than nested. For a scoped slot, write the
-  template with
-  [`template()`](https://kaipingyang.github.io/shiny.element/reference/template.md).
 
 - session:
 

@@ -105,6 +105,28 @@ by it
 ([`el_message_close()`](https://kaipingyang.github.io/shiny.element/reference/el_feedback_close.md),
 [`el_notification_close()`](https://kaipingyang.github.io/shiny.element/reference/el_feedback_close.md)).
 
+### Tables
+
+[`el_table()`](https://kaipingyang.github.io/shiny.element/reference/el_table.md)
+columns may carry a `cell` template, drawn once per row with `scope.row`
+in reach – a status tag, a progress bar, a column of buttons – and a
+`type` of `"index"` or `"expand"`. A button in a cell reports with
+`rowAction('edit', scope)`, setting `input$<id>_edit` to the row’s
+number and the row. `loading` shows Element’s loading mask, from the
+server too.
+
+`update_el_table(data =)` keeps the columns the table was created with.
+It used to re-infer them from the new data, discarding every label,
+formatter and template.
+
+### Dashboards
+
+A new article builds whole apps: Element’s own admin-layout example
+rebuilt in R, a sales overview, and an orders admin page with search,
+row actions, server-side sorting and paging, an editing dialog and
+confirmed deletes. Each is also in the installed package, under
+`examples/dashboards/`.
+
 ### Note for users of the development version
 
 [`el_table()`](https://kaipingyang.github.io/shiny.element/reference/el_table.md)

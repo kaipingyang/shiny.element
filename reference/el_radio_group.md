@@ -9,7 +9,7 @@ button-style radios (`<el-radio-button>`).
 ``` r
 el_radio_group(
   id = NULL,
-  choices,
+  choices = NULL,
   selected = NULL,
   disabled = FALSE,
   size = NULL,
@@ -18,6 +18,8 @@ el_radio_group(
   text_color = NULL,
   width = NULL,
   slots = NULL,
+  value = NULL,
+  options = NULL,
   session = shiny::getDefaultReactiveDomain()
 )
 ```
@@ -28,15 +30,17 @@ el_radio_group(
 
   Input ID. Auto-generated UUID if `NULL`.
 
-- choices:
+- choices, options:
 
-  Named character vector (`c(Label = value)`) or a list of
-  `list(value = ..., label = ...)` items. Unnamed vectors are allowed;
-  the element is used as both value and label.
+  The choices: a named character vector (`c(Label = value)`) or a list
+  of `list(value = ..., label = ...)`. Unnamed vectors are allowed; the
+  element is used as both value and label. `choices` is Shiny's name for
+  it, `options` Element's; give either.
 
-- selected:
+- selected, value:
 
-  Initial selected value. Defaults to `""` (nothing selected).
+  Initially selected value; nothing by default. `selected` is Shiny's
+  name, `value` Element's (its `v-model`); give either.
 
 - disabled:
 
@@ -62,7 +66,9 @@ el_radio_group(
 
 - width:
 
-  Component width, as a CSS unit – `"200px"`, `"50%"`, or a
+  Component width, as a CSS unit – `"200px"`, `"50%"`, or a number taken
+  as pixels. Element's own markup carries it, so it behaves like the
+  `width` argument of a Shiny input.
 
 - slots:
 
@@ -71,8 +77,6 @@ el_radio_group(
   here is absorbed rather than nested. For a scoped slot, write the
   template with
   [`template()`](https://kaipingyang.github.io/shiny.element/reference/template.md).
-  number taken as pixels. Element's own markup carries it, so it behaves
-  like the `width` argument of a Shiny input.
 
 - session:
 

@@ -98,7 +98,7 @@ server <- function(input, output, session) {
 
   # write
   observeEvent(input$reset, {
-    update_el_select(session, "city", value = "beijing")
+    update_el_select(session, "city", selected = "beijing")
   })
 }
 ```
@@ -139,6 +139,9 @@ stays clean.
 
 - [Component
   gallery](https://kaipingyang.github.io/shiny.element/articles/components.html)
+- [Dashboards](https://kaipingyang.github.io/shiny.element/articles/dashboards.html)
+  – whole apps: Element’s own admin layout, a sales overview, an orders
+  admin page
 - [Function
   reference](https://kaipingyang.github.io/shiny.element/reference/index.html)
 
@@ -160,10 +163,7 @@ Page wrappers that load Vue, Element UI and the package’s own assets.
 - [`el_theme()`](https://kaipingyang.github.io/shiny.element/reference/el_theme.md)
   : Element UI's look, as a Bootstrap theme
 - [`use_element()`](https://kaipingyang.github.io/shiny.element/reference/use_element.md)
-  : Load All Element-UI Dependencies Convenience function to load Vue,
-  Element-UI, and layout CSS dependencies. Use this when you want to use
-  Element-UI components in non-el_page layouts (e.g.,
-  bslib::page_sidebar, shiny::navbarPage).
+  : Load All Element-UI Dependencies
 - [`element_ui_dependency()`](https://kaipingyang.github.io/shiny.element/reference/element_ui_dependency.md)
   : Element UI Dependency
 - [`el_locale_dependency()`](https://kaipingyang.github.io/shiny.element/reference/el_locale_dependency.md)
@@ -499,6 +499,7 @@ instance directly.
 
 - [Component
   gallery](https://kaipingyang.github.io/shiny.element/articles/components.md):
+- [Dashboards](https://kaipingyang.github.io/shiny.element/articles/dashboards.md):
 - [Forms](https://kaipingyang.github.io/shiny.element/articles/forms.md):
 - [What works, and what does
   not](https://kaipingyang.github.io/shiny.element/articles/limitations.md):

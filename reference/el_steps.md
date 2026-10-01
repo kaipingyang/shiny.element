@@ -63,7 +63,9 @@ el_steps(
 
 - width:
 
-  Component width, as a CSS unit – `"200px"`, `"50%"`, or a
+  Component width, as a CSS unit – `"200px"`, `"50%"`, or a number taken
+  as pixels. Element's own markup carries it, so it behaves like the
+  `width` argument of a Shiny input.
 
 - slots:
 
@@ -72,8 +74,6 @@ el_steps(
   here is absorbed rather than nested. For a scoped slot, write the
   template with
   [`template()`](https://kaipingyang.github.io/shiny.element/reference/template.md).
-  number taken as pixels. Element's own markup carries it, so it behaves
-  like the `width` argument of a Shiny input.
 
 - session:
 
@@ -86,16 +86,15 @@ A Shiny UI element.
 ## Examples
 
 ``` r
- 
-# Basic usage  
-el_steps(  
-  id = "my_steps",  
-  steps = list(  
-    list(title = "Step 1"),  
-    list(title = "Step 2"),  
-    list(title = "Step 3")  
-  )  
-)  
+# Basic usage
+el_steps(
+  id = "my_steps",
+  steps = list(
+    list(title = "Step 1"),
+    list(title = "Step 2"),
+    list(title = "Step 3")
+  )
+)
 #> <div id="my_steps_container" style="display: contents">
 #>   <el-steps :active="active" :direction="direction" :process-status="processStatus" :finish-status="finishStatus" :align-center="alignCenter" :simple="simple" :space="space === null ? undefined : space">
 #>     <el-step title="Step 1"></el-step>
@@ -105,18 +104,18 @@ el_steps(
 #> </div>
 #> <div id="my_steps" style="width:0px;height:0px;" class="vue html-widget"></div>
 #> <script type="application/json" data-for="my_steps">{"x":{"el":"#my_steps_container","data":{"active":0,"direction":"horizontal","processStatus":"process","finishStatus":"finish","alignCenter":false,"simple":false,"space":null},"watch":{"active":"function(newVal) { Shiny.setInputValue('my_steps', newVal); }"},"mounted":"function() { var self = this; var send = function() { Shiny.setInputValue(\"my_steps\", self.active); }; if (window.Shiny && Shiny.shinyapp && typeof Shiny.shinyapp.isConnected === 'function' && Shiny.shinyapp.isConnected()) { send(); } else { $(document).one('shiny:connected', send); } var prev = self._elReport; self._elReport = function() { if (prev) prev(); self.$nextTick(send); }; }"},"evals":["watch.active","mounted"],"jsHooks":[]}</script>
- 
-# With descriptions and icons  
-el_steps(  
-  id = "my_steps",  
-  active = 1,  
-  finish_status = "success",  
-  steps = list(  
-    list(title = "Step 1", description = "Complete registration", icon = "el-icon-edit"),  
-    list(title = "Step 2", description = "Upload documents", icon = "el-icon-upload"),  
-    list(title = "Step 3", description = "Finish", icon = "el-icon-picture")  
-  )  
-)  
+
+# With descriptions and icons
+el_steps(
+  id = "my_steps",
+  active = 1,
+  finish_status = "success",
+  steps = list(
+    list(title = "Step 1", description = "Complete registration", icon = "el-icon-edit"),
+    list(title = "Step 2", description = "Upload documents", icon = "el-icon-upload"),
+    list(title = "Step 3", description = "Finish", icon = "el-icon-picture")
+  )
+)
 #> <div id="my_steps_container" style="display: contents">
 #>   <el-steps :active="active" :direction="direction" :process-status="processStatus" :finish-status="finishStatus" :align-center="alignCenter" :simple="simple" :space="space === null ? undefined : space">
 #>     <el-step title="Step 1" description="Complete registration" icon="el-icon-edit"></el-step>

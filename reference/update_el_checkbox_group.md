@@ -11,11 +11,13 @@ update message.
 update_el_checkbox_group(
   session,
   id,
-  value = NULL,
-  options = NULL,
+  selected = NULL,
+  choices = NULL,
   disabled = NULL,
   min = NULL,
-  max = NULL
+  max = NULL,
+  value = NULL,
+  options = NULL
 )
 ```
 
@@ -29,13 +31,16 @@ update_el_checkbox_group(
 
   Checkbox group ID (un-namespaced).
 
-- value:
+- selected, value:
 
-  New character vector of selected values.
+  New character vector of checked values. `selected` is Shiny's name,
+  `value` Element's; give either.
 
-- options:
+- choices, options:
 
-  New choices list (same format as the `choices` argument).
+  New choices, as for
+  [`el_checkbox_group()`](https://kaipingyang.github.io/shiny.element/reference/el_checkbox_group.md).
+  `choices` is Shiny's name, `options` Element's; give either.
 
 - disabled:
 
@@ -59,7 +64,7 @@ Called for its side effect; returns `NULL` invisibly.
 if (interactive()) {
   # inside a server function
   observeEvent(input$go, {
-    update_el_checkbox_group(session, "langs", value = c("r", "py"))
+    update_el_checkbox_group(session, "langs", selected = c("r", "py"))
   })
 }
 ```

@@ -87,7 +87,9 @@ el_input_number(
 
 - width:
 
-  Component width, as a CSS unit – `"200px"`, `"50%"`, or a
+  Component width, as a CSS unit – `"200px"`, `"50%"`, or a number taken
+  as pixels. Element's own markup carries it, so it behaves like the
+  `width` argument of a Shiny input.
 
 - slots:
 
@@ -96,8 +98,6 @@ el_input_number(
   here is absorbed rather than nested. For a scoped slot, write the
   template with
   [`template()`](https://kaipingyang.github.io/shiny.element/reference/template.md).
-  number taken as pixels. Element's own markup carries it, so it behaves
-  like the `width` argument of a Shiny input.
 
 - session:
 

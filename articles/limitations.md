@@ -34,7 +34,7 @@ things:
 
 |  | Reaches | Example |
 |----|----|----|
-| `update_el_*()` | the component’s props | `update_el_select(session, "city", value = "Beijing")` |
+| `update_el_*()` | the component’s props | `update_el_select(session, "city", selected = "Beijing")` |
 | [`el_call()`](https://kaipingyang.github.io/shiny.element/reference/el_call.md) | the component’s methods | `el_call(session, "tbl", "clearSelection")` |
 | [`update_vue_data()`](https://kaipingyang.github.io/shiny.element/reference/update_vue_data.md) | the Vue instance’s fields directly | `update_vue_data(session, "tip", list(tipContent = "..."))` |
 
@@ -348,6 +348,43 @@ exceptions. Each is deliberate; the rest translate mechanically
 | `props` | `label_field`, `children_field`, `disabled_field`, `is_leaf_field` | [`el_tree()`](https://kaipingyang.github.io/shiny.element/reference/el_tree.md)’s field map is four arguments rather than a nested list |
 | `data` (upload) | `extra_data` | [`el_upload()`](https://kaipingyang.github.io/shiny.element/reference/el_upload.md)’s `data` would read as the file, not the fields sent beside it |
 | `width` (popover) | `popover_width` | Every component takes `width` for its own size; this one sizes the card |
+
+### Two names for the choice components
+
+[`el_select()`](https://kaipingyang.github.io/shiny.element/reference/el_select.md),
+[`el_radio_group()`](https://kaipingyang.github.io/shiny.element/reference/el_radio_group.md)
+and
+[`el_checkbox_group()`](https://kaipingyang.github.io/shiny.element/reference/el_checkbox_group.md)
+sit beside
+[`selectInput()`](https://rdrr.io/pkg/shiny/man/selectInput.html),
+[`radioButtons()`](https://rdrr.io/pkg/shiny/man/radioButtons.html) and
+[`checkboxGroupInput()`](https://rdrr.io/pkg/shiny/man/checkboxGroupInput.html),
+so they take Shiny’s names – and Element’s as well:
+
+| Shiny’s name | Element’s name | Meaning            |
+|--------------|----------------|--------------------|
+| `choices`    | `options`      | what can be picked |
+| `selected`   | `value`        | what is picked     |
+
+Either works, in the components and in their `update_el_*()`, so code
+reads naturally to someone coming from either side:
+
+``` r
+
+el_select("city_shiny", choices = c(Beijing = "bj", Shanghai = "sh"), selected = "sh")
+el_select("city_element", options = c(Beijing = "bj", Shanghai = "sh"), value = "sh")
+```
+
+![](../shots/limitations-two-names.png)
+
+The same holds in the server:
+`update_el_select(session, "city", selected = "bj")` and
+`update_el_select(session, "city", value = "bj")` do one thing.
+
+Given both names in one call, the two must agree; two different values
+are an error rather than one quietly winning. The help pages document
+each pair as one argument (`selected, value`). No other component has a
+second name: everywhere else Shiny and Element already agree on `value`.
 
 A component’s `value` prop is its `v-model`, so it is the `value`
 argument where the component has one and the binding elsewhere –

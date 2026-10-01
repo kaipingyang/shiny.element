@@ -35,7 +35,7 @@ element_ui_dependency()
 #>  $ meta      : NULL
 #>  $ script    : chr "index.js"
 #>  $ stylesheet: chr "theme-chalk/index.css"
-#>  $ head      : NULL
+#>  $ head      : chr "<style>.el-table .el-table__expanded-cell[class*=cell]{padding:20px 50px}</style>"
 #>  $ attachment: NULL
 #>  $ package   : NULL
 #>  $ all_files : logi TRUE
@@ -49,7 +49,7 @@ element_ui_dependency(offline = FALSE)
 #>  $ meta      : NULL
 #>  $ script    : chr "index.js"
 #>  $ stylesheet: chr "theme-chalk/index.css"
-#>  $ head      : NULL
+#>  $ head      : chr "<style>.el-table .el-table__expanded-cell[class*=cell]{padding:20px 50px}</style>"
 #>  $ attachment: NULL
 #>  $ package   : NULL
 #>  $ all_files : logi TRUE
