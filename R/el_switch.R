@@ -5,11 +5,7 @@
 #' @param id Switch ID. Auto-generated UUID if `NULL`.
 #' @param value Initial switch state. Default `FALSE`.
 #' @param disabled Whether the switch is disabled. Default `FALSE`.
-#' @param label A label shown with the component, as Shiny's inputs have:
-#'   text or a tag. `NULL`, the default, shows none. It is the component's
-#'   accessible name too.
-#' @param label_position `"top"` (the default, as Shiny's labels sit) or
-#'   `"left"`, beside the component as in a horizontal Element form.
+#' @inheritParams el_widget
 #' @param width Switch width in pixels (integer).
 #' @param active_text Text displayed when switch is on.
 #' @param inactive_text Text displayed when switch is off.
@@ -62,7 +58,13 @@ el_switch <- function(
     value          = FALSE,
     disabled       = FALSE,
     label = NULL,
-    label_position = c("top", "left"),
+    label_position = c("top", "left", "right"),
+    label_width = NULL,
+    label_suffix = NULL,
+    required = FALSE,
+    error = NULL,
+    show_message = TRUE,
+    inline_message = FALSE,
     width          = NULL,
     active_text    = NULL,
     inactive_text  = NULL,
@@ -116,6 +118,8 @@ el_switch <- function(
   vue_data$validateEvent <- .el_or_na(validate_event)
   el_widget(
     label = label, label_position = label_position,
+    label_width = label_width, label_suffix = label_suffix, required = required,
+    error = error, show_message = show_message, inline_message = inline_message,
     id      = ns_id,
     markup  = switch_tag,
     data    = vue_data,

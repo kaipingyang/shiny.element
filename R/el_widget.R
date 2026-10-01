@@ -45,8 +45,21 @@
 #'   accessible name too -- tied to it with `for` where the component has a
 #'   native input that takes the id `<id>-input`, else with
 #'   `aria-labelledby`.
-#' @param label_position `"top"` (the default, as Shiny lays its labels out)
-#'   or `"left"`, beside the component as in a horizontal Element form.
+#' @param label_position Where the label sits, as `el_form()`'s
+#'   `label_position`: `"top"` (the default, as Shiny's labels sit), or
+#'   beside the component, its text aligned `"left"` or `"right"` -- which
+#'   shows once `label_width` gives the labels a common width.
+#' @param label_width Width of a label beside the component, as a CSS unit,
+#'   so that several line up. Element's `label-width`.
+#' @param label_suffix Text after the label, such as `":"`. Element's
+#'   `label-suffix`.
+#' @param required Draw Element's red asterisk before the label. It marks the
+#'   field; it does not check it -- shinyvalidate or [el_form()] does that.
+#' @param error An error message shown under the component in Element's
+#'   style, the field framed in red. Element's `error`.
+#' @param show_message,inline_message Whether `error`'s message is shown, and
+#'   whether beside the component rather than under it. Element's
+#'   `show-message` and `inline-message`.
 #' @param rate How often the value is sent while it changes:
 #'   `list(policy = "debounce", delay = 250)`, as Shiny's `textInput()` does,
 #'   or `"throttle"`. `NULL`, the default, sends every change.
@@ -78,7 +91,9 @@ el_widget <- function(id, markup, data, methods = NULL, watch = NULL,
                       mounted = NULL, computed = NULL, dependency = NULL,
                       head = NULL, width = NULL, slots = NULL, report = NULL,
                       rate = NULL, type = NULL, label = NULL,
-                      label_position = c("top", "left")) {
+                      label_position = c("top", "left", "right"),
+                      label_width = NULL, label_suffix = NULL, required = FALSE,
+                      error = NULL, show_message = TRUE, inline_message = FALSE) {
   container_id <- paste0(id, "_container")
   label_position <- match.arg(label_position)
   mounted_given <- mounted
@@ -180,10 +195,14 @@ el_widget <- function(id, markup, data, methods = NULL, watch = NULL,
     markup <- do.call(htmltools::tagAppendAttributes,
                       c(list(markup), .el_label_attrs(list(), id, label, native)))
   }
-  root <- if (is.null(label)) {
+  root <- if (is.null(label) && is.null(error) && !isTRUE(required)) {
     htmltools::tags$div(id = container_id, style = .el_host_style(), markup)
   } else {
-    .el_labelled(container_id, id, label, label_position, markup)
+    .el_labelled(container_id, id, label, label_position, markup,
+                 width = label_width, suffix = label_suffix, required = required,
+                 error = error, show_message = show_message,
+                 inline_message = inline_message,
+                 size = if (is.character(data$size)) data$size)
   }
   rendered <- htmltools::renderTags(root)
   template <- gsub("</script", "<\\/script", rendered$html, ignore.case = TRUE)
@@ -314,22 +333,67 @@ el_widget <- function(id, markup, data, methods = NULL, watch = NULL,
 #' @param markup The component's Element markup.
 #' @return A tag.
 #' @keywords internal
-.el_labelled <- function(container_id, id, label, position, markup) {
-  left <- identical(position, "left")
+.el_labelled <- function(container_id, id, label, position, markup,
+                         width = NULL, suffix = NULL, required = FALSE,
+                         error = NULL, show_message = TRUE, inline_message = FALSE,
+                         size = NULL) {
+  beside <- position %in% c("left", "right")
+  item_class <- paste(c(
+    "el-form-item",
+    paste0("el-form-item--label-", position),
+    # Element's line heights per size, so a label beside a small control
+    # lines up with it
+    if (!is.null(size)) paste0("el-form-item--", size),
+    if (isTRUE(required)) "is-required",
+    if (!is.null(error)) "is-error"
+  ), collapse = " ")
+  label_style <- if (beside) {
+    # Element's own line height, 40px or less by size, is left in place:
+    # it is the control's height, so the label's first line sits level
+    # with the control however tall the rest of the component grows
+    paste0("float: none; flex: none; padding: 0 12px 0 0; ",
+           "text-align: ", position, ";",
+           if (!is.null(width)) paste0(" width: ", shiny::validateCssUnit(width), ";"))
+  } else {
+    "float: none; display: block; text-align: left; padding: 0 0 6px; line-height: 1.4"
+  }
+  # No whitespace between the label and its suffix: "Name:", as Element
+  # writes it, not "Name :". htmltools puts a line break between children,
+  # so text is joined first, and a tag label gets a span that eats the space.
+  text <- if (is.null(suffix)) list(label)
+          else if (is.character(label)) list(paste0(label, suffix))
+          else list(label, htmltools::tags$span(suffix, .noWS = "outside"))
+  label_tag <- if (!is.null(label)) htmltools::tags$label(
+    id = paste0(id, "-label"), `for` = paste0(id, "-input"),
+    class = "el-form-item__label", style = label_style,
+    text, .noWS = "inside"
+  )
+  message <- if (!is.null(error) && isTRUE(show_message)) htmltools::tags$div(
+    class = paste(c("el-form-item__error",
+                    if (isTRUE(inline_message)) "el-form-item__error--inline"),
+                  collapse = " "),
+    # Element positions the message under a form item's box; this one is
+    # laid out with flexbox, so it flows instead
+    style = if (isTRUE(inline_message)) "position: static; display: inline-block; margin-left: 10px"
+            else "position: static; display: block; padding-top: 4px",
+    error
+  )
   htmltools::tags$div(
-    id = container_id,
-    class = paste("el-form-item", if (left) "el-form-item--label-left" else "el-form-item--label-top"),
-    style = if (left) "display: flex; align-items: center; margin-bottom: 15px"
+    id = container_id, class = item_class,
+    style = if (beside) "display: flex; align-items: flex-start; margin-bottom: 15px"
             else "margin-bottom: 15px",
-    htmltools::tags$label(
-      id = paste0(id, "-label"), `for` = paste0(id, "-input"),
-      class = "el-form-item__label",
-      style = if (left) "float: none; padding: 0 12px 0 0; line-height: 1.4; flex: none"
-              else "float: none; display: block; text-align: left; padding: 0 0 6px; line-height: 1.4",
-      label
-    ),
-    htmltools::tags$div(class = "el-form-item__content",
-                        style = "margin-left: 0; line-height: normal", markup)
+    label_tag,
+    htmltools::tags$div(
+      class = "el-form-item__content",
+      # Beside a label, Element's content line height centres a short
+      # control -- a radio group, a switch -- on the label's line
+      style = if (beside) "margin-left: 0; flex: 1 1 auto; min-width: 0"
+              else "margin-left: 0; line-height: normal",
+      # Under the control, or beside it: inside the content either way, so a
+      # message lines up with the control rather than with the label
+      markup,
+      message
+    )
   )
 }
 

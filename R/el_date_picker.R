@@ -39,11 +39,7 @@
 #' @param validate_event Whether a change triggers form validation. Default `TRUE`.
 #' @param append_to_body Whether the picker panel is appended to `body`. Default `TRUE`; `FALSE` keeps it inside a dialog or a scrolling container.
 #' @param time_arrow_control For `type = "datetime"`: whether the time is picked with arrow buttons rather than by scrolling.
-#' @param label A label shown with the component, as Shiny's inputs have:
-#'   text or a tag. `NULL`, the default, shows none. It is the component's
-#'   accessible name too.
-#' @param label_position `"top"` (the default, as Shiny's labels sit) or
-#'   `"left"`, beside the component as in a horizontal Element form.
+#' @inheritParams el_widget
 #' @param width Component width, as a CSS unit -- `"200px"`, `"50%"`, or a
 #'   number taken as pixels. Element's own markup carries it, so it behaves
 #'   like the `width` argument of a Shiny input.
@@ -119,7 +115,13 @@ el_date_picker <- function(
     picker_options    = NULL,
     validate_event    = NULL,
     label = NULL,
-    label_position = c("top", "left"),
+    label_position = c("top", "left", "right"),
+    label_width = NULL,
+    label_suffix = NULL,
+    required = FALSE,
+    error = NULL,
+    show_message = TRUE,
+    inline_message = FALSE,
     width             = NULL,
     slots             = NULL,
     append_to_body    = NULL,
@@ -214,6 +216,8 @@ el_date_picker <- function(
   vue_data$timeArrowControl <- .el_or_na(time_arrow_control)
   el_widget(
     label = label, label_position = label_position,
+    label_width = label_width, label_suffix = label_suffix, required = required,
+    error = error, show_message = show_message, inline_message = inline_message,
     id     = ns_id,
     markup = htmltools::tag("el-date-picker", picker_attrs),
     data = vue_data,

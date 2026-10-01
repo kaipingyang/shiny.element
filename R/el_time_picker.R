@@ -26,11 +26,7 @@
 #' @param default_value Time the panel opens on when nothing is picked.
 #' @param name Native `name` attribute.
 #' @param prefix_icon,clear_icon Icon classes.
-#' @param label A label shown with the component, as Shiny's inputs have:
-#'   text or a tag. `NULL`, the default, shows none. It is the component's
-#'   accessible name too.
-#' @param label_position `"top"` (the default, as Shiny's labels sit) or
-#'   `"left"`, beside the component as in a horizontal Element form.
+#' @inheritParams el_widget
 #' @param width Component width, as a CSS unit.
 #' @param slots Named list of Element slot contents.
 #' @param session Deprecated. Inside a module, wrap `id` in `ns()`, as for
@@ -83,7 +79,13 @@ el_time_picker <- function(id = NULL,
                            prefix_icon = NULL,
                            clear_icon = NULL,
                            label = NULL,
-                           label_position = c("top", "left"),
+                           label_position = c("top", "left", "right"),
+                           label_width = NULL,
+                           label_suffix = NULL,
+                           required = FALSE,
+                           error = NULL,
+                           show_message = TRUE,
+                           inline_message = FALSE,
                            width = NULL,
                            slots = NULL,
                            session = NULL) {
@@ -93,7 +95,10 @@ el_time_picker <- function(id = NULL,
                   range_separator, picker_options, clearable, disabled, editable,
                   readonly, size, align, popper_class, default_value, name,
                   prefix_icon, clear_icon, width, slots, session,
-                  label = label, label_position = label_position)
+                  label = label, label_position = label_position,
+                  label_width = label_width, label_suffix = label_suffix,
+                  required = required, error = error, show_message = show_message,
+                  inline_message = inline_message)
 }
 
 
@@ -115,7 +120,13 @@ el_time_select <- function(id = NULL,
                            prefix_icon = NULL,
                            clear_icon = NULL,
                            label = NULL,
-                           label_position = c("top", "left"),
+                           label_position = c("top", "left", "right"),
+                           label_width = NULL,
+                           label_suffix = NULL,
+                           required = FALSE,
+                           error = NULL,
+                           show_message = TRUE,
+                           inline_message = FALSE,
                            width = NULL,
                            slots = NULL,
                            session = NULL) {
@@ -124,7 +135,10 @@ el_time_select <- function(id = NULL,
                   NULL, NULL, NULL, picker_options, clearable, disabled, editable,
                   readonly, size, align, popper_class, default_value, name,
                   prefix_icon, clear_icon, width, slots, session,
-                  label = label, label_position = label_position)
+                  label = label, label_position = label_position,
+                  label_width = label_width, label_suffix = label_suffix,
+                  required = required, error = error, show_message = show_message,
+                  inline_message = inline_message)
 }
 
 
@@ -140,7 +154,9 @@ el_time_select <- function(id = NULL,
                             clearable, disabled, editable, readonly, size, align,
                             popper_class, default_value, name, prefix_icon,
                             clear_icon, width, slots, session, label = NULL,
-                            label_position = "top") {
+                            label_position = "top", label_width = NULL,
+                            label_suffix = NULL, required = FALSE, error = NULL,
+                            show_message = TRUE, inline_message = FALSE) {
   prefix <- gsub("-", "_", tag)
   if (is.null(id)) id <- paste0(prefix, "_", uuid::UUIDgenerate())
   ns_id <- .el_ui_id(id, session)
@@ -178,6 +194,8 @@ el_time_select <- function(id = NULL,
 
   el_widget(
     label = label, label_position = label_position,
+    label_width = label_width, label_suffix = label_suffix, required = required,
+    error = error, show_message = show_message, inline_message = inline_message,
     id     = ns_id,
     markup = htmltools::tag(tag, attrs),
     data   = c(list(value = init), lapply(fields, .el_or_na)),

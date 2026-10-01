@@ -17,15 +17,11 @@
 #' @param controls_position Button layout: `""` (default, left-right) or
 #'   `"right"` (both on the right).
 #' @param placeholder Placeholder text. `NULL` for none.
-#' @param label A label shown with the component, as Shiny's inputs have:
-#'   text or a tag. `NULL`, the default, shows none. It is the component's
-#'   accessible name too.
-#' @param label_position `"top"` (the default, as Shiny's labels sit) or
-#'   `"left"`, beside the component as in a horizontal Element form.
 #' @param session Deprecated. Inside a module, wrap `id` in `ns()`, as for
 #'   any Shiny input; a session given here namespaces `id` once more, with
 #'   a warning.
 #' @param name Native `name` attribute of the inner input.
+#' @inheritParams el_widget
 #' @param width Component width, as a CSS unit -- `"200px"`, `"50%"`, or a
 #'   number taken as pixels. Element's own markup carries it, so it behaves
 #'   like the `width` argument of a Shiny input.
@@ -65,7 +61,13 @@ el_input_number <- function(
     placeholder       = NULL,
     label             = NULL,
     name              = NULL,
-    label_position = c("top", "left"),
+    label_position = c("top", "left", "right"),
+    label_width = NULL,
+    label_suffix = NULL,
+    required = FALSE,
+    error = NULL,
+    show_message = TRUE,
+    inline_message = FALSE,
     width             = NULL,
     slots             = NULL,
     session           = NULL
@@ -121,6 +123,8 @@ el_input_number <- function(
     # Reported as the value changes, debounced, as Shiny's own inputs are
     rate = list(policy = "debounce", delay = 250),
     label = label, label_position = label_position,
+    label_width = label_width, label_suffix = label_suffix, required = required,
+    error = error, show_message = show_message, inline_message = inline_message,
     id     = ns_id,
     markup = htmltools::tag("el-input-number", num_attrs),
     data    = vue_data,

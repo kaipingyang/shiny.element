@@ -4,7 +4,20 @@
 \alias{.el_labelled}
 \title{Lay a component out under (or beside) a label}
 \usage{
-.el_labelled(container_id, id, label, position, markup)
+.el_labelled(
+  container_id,
+  id,
+  label,
+  position,
+  markup,
+  width = NULL,
+  suffix = NULL,
+  required = FALSE,
+  error = NULL,
+  show_message = TRUE,
+  inline_message = FALSE,
+  size = NULL
+)
 }
 \arguments{
 \item{container_id}{The root's id, \verb{<id>_container}.}

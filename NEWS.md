@@ -128,9 +128,12 @@ limitations article shows, needs no JavaScript.
 * **Validation.** shinyvalidate's messages show on a component as Element
   shows a failed form rule: framed in red, the message underneath.
 * **Labels.** Every input takes `label`, shown above it or, with
-  `label_position = "left"`, beside it -- also its accessible name.
-  `el_upload()`'s trigger text is now `button_label`, as `fileInput()`'s
-  `buttonLabel`.
+  `label_position = "left"` or `"right"`, beside it -- also its accessible
+  name. The props of Element's `el-form-item` that suit a single input come
+  with it: `label_width`, `label_suffix`, `required` (the red asterisk),
+  `error`, `show_message` and `inline_message`; the component's own `size`
+  sizes the label. `el_upload()`'s trigger text is now `button_label`, as
+  `fileInput()`'s `buttonLabel`.
 * **Checked arguments.** An enumerated argument Element does not accept --
   `type = "primry"` -- is an error listing the values it does, rather than
   a component drawn in its default style.

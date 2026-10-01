@@ -25,14 +25,10 @@
 #' @param highlight_first_item Whether to preselect the first suggestion.
 #' @param hide_loading Whether to hide the loading spinner.
 #' @param icon,prefix_icon,suffix_icon Icon classes.
-#' @param label A label shown with the component, as Shiny's inputs have:
-#'   text or a tag. `NULL`, the default, shows none. It is the component's
-#'   accessible name too.
-#' @param label_position `"top"` (the default, as Shiny's labels sit) or
-#'   `"left"`, beside the component as in a horizontal Element form.
 #' @param name Native `name` attribute.
 #' @param popper_class Extra class name for the suggestion list.
 #' @param popper_append_to_body Whether the list is appended to `body`.
+#' @inheritParams el_widget
 #' @param width Component width, as a CSS unit.
 #' @param session Deprecated. Inside a module, wrap `id` in `ns()`, as for
 #'   any Shiny input; a session given here namespaces `id` once more, with
@@ -82,7 +78,13 @@ el_autocomplete <- function(id = NULL,
                             name = NULL,
                             popper_class = NULL,
                             popper_append_to_body = NULL,
-                            label_position = c("top", "left"),
+                            label_position = c("top", "left", "right"),
+                            label_width = NULL,
+                            label_suffix = NULL,
+                            required = FALSE,
+                            error = NULL,
+                            show_message = TRUE,
+                            inline_message = FALSE,
                             width = NULL,
                             slots   = NULL,
                             session = NULL) {
@@ -133,6 +135,8 @@ el_autocomplete <- function(id = NULL,
     # Reported as the value changes, debounced, as Shiny's own inputs are
     rate = list(policy = "debounce", delay = 250),
     label = label, label_position = label_position,
+    label_width = label_width, label_suffix = label_suffix, required = required,
+    error = error, show_message = show_message, inline_message = inline_message,
     id     = ns_id,
     markup = htmltools::tag("el-autocomplete", attrs),
     data   = list(

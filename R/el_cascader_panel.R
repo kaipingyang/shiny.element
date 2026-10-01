@@ -14,11 +14,7 @@
 #'   `checkStrictly`, `expandTrigger` (`"click"` or `"hover"`), `lazy`,
 #'   `lazyLoad`, and the field names `value`, `label`, `children`,
 #'   `disabled`, `leaf`.
-#' @param label A label shown with the component, as Shiny's inputs have:
-#'   text or a tag. `NULL`, the default, shows none. It is the component's
-#'   accessible name too.
-#' @param label_position `"top"` (the default, as Shiny's labels sit) or
-#'   `"left"`, beside the component as in a horizontal Element form.
+#' @inheritParams el_widget
 #' @param width Component width, as a CSS unit.
 #' @param slots Named list of Element slot contents. The default slot, scoped
 #'   with `{node, data}`, renders one option; write it with [template()].
@@ -54,7 +50,13 @@ el_cascader_panel <- function(id = NULL,
                               value = NULL,
                               props = NULL,
                               label = NULL,
-                              label_position = c("top", "left"),
+                              label_position = c("top", "left", "right"),
+                              label_width = NULL,
+                              label_suffix = NULL,
+                              required = FALSE,
+                              error = NULL,
+                              show_message = TRUE,
+                              inline_message = FALSE,
                               width = NULL,
                               slots = NULL,
                               session = NULL) {
@@ -72,6 +74,8 @@ el_cascader_panel <- function(id = NULL,
 
   el_widget(
     label = label, label_position = label_position,
+    label_width = label_width, label_suffix = label_suffix, required = required,
+    error = error, show_message = show_message, inline_message = inline_message,
     id     = ns_id,
     markup = htmltools::tag("el-cascader-panel", attrs),
     data   = list(

@@ -63,3 +63,67 @@ test_that("el_upload's trigger text is button_label, as fileInput's buttonLabel"
   expect_match(template_of(el_upload("x", label = "Documents")), ">Documents</label>",
                fixed = TRUE)
 })
+
+# el-form-item's own props, for the one input it holds
+
+test_that("label_width sets the width of a label beside the component", {
+  tpl <- template_of(el_input("x", label = "L", label_position = "right",
+                              label_width = 110))
+  expect_match(tpl, "text-align: right; width: 110px;", fixed = TRUE)
+  expect_match(tpl, "el-form-item--label-right", fixed = TRUE)
+})
+
+test_that("label_suffix follows the label with no space, as Element writes it", {
+  expect_match(template_of(el_input("x", label = "Name", label_suffix = ":")),
+               ">Name:</label>", fixed = TRUE)
+  expect_match(template_of(el_input("x", label = htmltools::tags$b("Name"),
+                                    label_suffix = ":")),
+               "<b>Name</b><span>:</span></label>", fixed = TRUE)
+})
+
+test_that("required marks the label with Element's asterisk class", {
+  expect_match(template_of(el_input("x", label = "L", required = TRUE)),
+               'class="el-form-item el-form-item--label-top is-required"', fixed = TRUE)
+  expect_false(grepl("is-required", template_of(el_input("x", label = "L")), fixed = TRUE))
+})
+
+test_that("error draws Element's error state, under the control or beside it", {
+  under <- template_of(el_input("x", label = "L", label_position = "left",
+                                error = "Taken"))
+  expect_match(under, "is-error", fixed = TRUE)
+  expect_match(under, '<div class="el-form-item__error" style="position: static; display: block',
+               fixed = TRUE)
+  # In the content, under the control -- not a third item in the row
+  expect_match(under, "el-form-item__content.*el-form-item__error.*</div>\\s*</div>\\s*</div>$")
+
+  beside <- template_of(el_input("x", label = "L", error = "Short",
+                                 inline_message = TRUE))
+  expect_match(beside, 'class="el-form-item__error el-form-item__error--inline"',
+               fixed = TRUE)
+
+  quiet <- template_of(el_input("x", label = "L", error = "Taken",
+                                show_message = FALSE))
+  expect_match(quiet, "is-error", fixed = TRUE)
+  expect_false(grepl("el-form-item__error", quiet, fixed = TRUE))
+})
+
+test_that("the component's size sizes the form item, so a label lines up", {
+  expect_match(template_of(el_input("x", label = "L", size = "small")),
+               "el-form-item--small", fixed = TRUE)
+  expect_false(grepl("el-form-item--small", template_of(el_input("x", label = "L")),
+                     fixed = TRUE))
+})
+
+test_that("a label beside the component sits on the control's first line", {
+  tpl <- template_of(el_input("x", label = "L", label_position = "left"))
+  expect_match(tpl, "align-items: flex-start", fixed = TRUE)
+  # Element's own label line height is left alone
+  expect_false(grepl("float: none; flex: none; padding: 0 12px 0 0; line-height",
+                     tpl, fixed = TRUE))
+})
+
+test_that("a rate beside its label is padded to the label's line", {
+  expect_match(template_of(el_rate("x", label = "L", label_position = "left")),
+               '<el-rate[^>]*style="padding: 10px 0"')
+  expect_false(grepl("padding: 10px 0", template_of(el_rate("x", label = "L")), fixed = TRUE))
+})

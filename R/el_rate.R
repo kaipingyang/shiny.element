@@ -26,11 +26,7 @@
 #' @param disabled_void_icon_class Icon class for unselected icons when `disabled = TRUE`.
 #' @param low_threshold Scores at or below this use the first colour and icon. Default `2`.
 #' @param high_threshold Scores above this use the third colour and icon. Default `4`.
-#' @param label A label shown with the component, as Shiny's inputs have:
-#'   text or a tag. `NULL`, the default, shows none. It is the component's
-#'   accessible name too.
-#' @param label_position `"top"` (the default, as Shiny's labels sit) or
-#'   `"left"`, beside the component as in a horizontal Element form.
+#' @inheritParams el_widget
 #' @param width Component width, as a CSS unit -- `"200px"`, `"50%"`, or a
 #'   number taken as pixels. Element's own markup carries it, so it behaves
 #'   like the `width` argument of a Shiny input.
@@ -74,7 +70,13 @@ el_rate <- function(
     low_threshold  = NULL,
     high_threshold = NULL,
     label = NULL,
-    label_position = c("top", "left"),
+    label_position = c("top", "left", "right"),
+    label_width = NULL,
+    label_suffix = NULL,
+    required = FALSE,
+    error = NULL,
+    show_message = TRUE,
+    inline_message = FALSE,
     width          = NULL,
     slots          = NULL,
     session        = NULL
@@ -112,8 +114,16 @@ el_rate <- function(
 
   rate_attrs[[":high-threshold"]] <- .el_optional_bind("highThreshold")
 
+  # Element's rate is 20px tall where a form item's line is 40px, so beside
+  # a label the stars would sit above the label's text; padded to the line
+  if (!is.null(label) && label_position[1] %in% c("left", "right")) {
+    rate_attrs$style <- "padding: 10px 0"
+  }
+
   el_widget(
     label = label, label_position = label_position,
+    label_width = label_width, label_suffix = label_suffix, required = required,
+    error = error, show_message = show_message, inline_message = inline_message,
     id     = ns_id,
     markup = htmltools::tag("el-rate", rate_attrs),
     data = list(

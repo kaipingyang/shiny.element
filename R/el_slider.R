@@ -24,16 +24,12 @@
 #' @param session Deprecated. Inside a module, wrap `id` in `ns()`, as for
 #'   any Shiny input; a session given here namespaces `id` once more, with
 #'   a warning.
-#' @param label A label shown with the component, as Shiny's inputs have:
-#'   text or a tag. `NULL`, the default, shows none. It is the component's
-#'   accessible name too.
-#' @param label_position `"top"` (the default, as Shiny's labels sit) or
-#'   `"left"`, beside the component as in a horizontal Element form.
 #' @param debounce Debounce in ms while dragging, when `show_input = TRUE`. Default `300`.
 #' @param input_size Size of the companion input when `show_input = TRUE`.
 #' @param show_input_controls Whether the companion input shows its spinner buttons.
 #' @param tooltip_class Extra class name for the value tooltip.
 #' @param format_tooltip `htmlwidgets::JS()` function formatting the value shown in the tooltip.
+#' @inheritParams el_widget
 #' @param width Component width, as a CSS unit -- `"200px"`, `"50%"`, or a
 #'   number taken as pixels. Element's own markup carries it, so it behaves
 #'   like the `width` argument of a Shiny input.
@@ -94,7 +90,13 @@ el_slider <- function(
     show_input_controls = NULL,
     tooltip_class = NULL,
     format_tooltip = NULL,
-    label_position = c("top", "left"),
+    label_position = c("top", "left", "right"),
+    label_width = NULL,
+    label_suffix = NULL,
+    required = FALSE,
+    error = NULL,
+    show_message = TRUE,
+    inline_message = FALSE,
     width        = NULL,
     slots        = NULL,
     session      = NULL
@@ -164,6 +166,8 @@ el_slider <- function(
     # Reported as the value changes, debounced, as Shiny's own inputs are
     rate = list(policy = "debounce", delay = 250),
     label = label, label_position = label_position,
+    label_width = label_width, label_suffix = label_suffix, required = required,
+    error = error, show_message = show_message, inline_message = inline_message,
     id     = ns_id,
     markup = htmltools::tag("el-slider", slider_attrs),
     data = vue_data,
