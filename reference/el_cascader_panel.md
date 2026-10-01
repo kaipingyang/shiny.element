@@ -13,6 +13,8 @@ el_cascader_panel(
   options = list(),
   value = NULL,
   props = NULL,
+  label = NULL,
+  label_position = c("top", "left"),
   width = NULL,
   slots = NULL,
   session = NULL
@@ -42,6 +44,17 @@ el_cascader_panel(
   Element's `props`, as a named list: `multiple`, `checkStrictly`,
   `expandTrigger` (`"click"` or `"hover"`), `lazy`, `lazyLoad`, and the
   field names `value`, `label`, `children`, `disabled`, `leaf`.
+
+- label:
+
+  A label shown with the component, as Shiny's inputs have: text or a
+  tag. `NULL`, the default, shows none. It is the component's accessible
+  name too.
+
+- label_position:
+
+  `"top"` (the default, as Shiny's labels sit) or `"left"`, beside the
+  component as in a horizontal Element form.
 
 - width:
 

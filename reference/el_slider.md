@@ -27,6 +27,7 @@ el_slider(
   show_input_controls = NULL,
   tooltip_class = NULL,
   format_tooltip = NULL,
+  label_position = c("top", "left"),
   width = NULL,
   slots = NULL,
   session = NULL
@@ -94,7 +95,9 @@ el_slider(
 
 - label:
 
-  Accessible label for screen readers.
+  A label shown with the component, as Shiny's inputs have: text or a
+  tag. `NULL`, the default, shows none. It is the component's accessible
+  name too.
 
 - debounce:
 
@@ -117,6 +120,11 @@ el_slider(
 
   [`htmlwidgets::JS()`](https://rdrr.io/pkg/htmlwidgets/man/JS.html)
   function formatting the value shown in the tooltip.
+
+- label_position:
+
+  `"top"` (the default, as Shiny's labels sit) or `"left"`, beside the
+  component as in a horizontal Element form.
 
 - width:
 

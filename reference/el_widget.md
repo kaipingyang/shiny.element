@@ -24,7 +24,9 @@ el_widget(
   slots = NULL,
   report = NULL,
   rate = NULL,
-  type = NULL
+  type = NULL,
+  label = NULL,
+  label_position = c("top", "left")
 )
 ```
 
@@ -103,6 +105,18 @@ el_widget(
   An input type for
   [`shiny::registerInputHandler()`](https://rdrr.io/pkg/shiny/man/registerInputHandler.html),
   which converts the value on its way into R.
+
+- label:
+
+  A label shown with the component, as Shiny's inputs have: text or a
+  tag. `NULL`, the default, shows none. It is the component's accessible
+  name too – tied to it with `for` where the component has a native
+  input that takes the id `<id>-input`, else with `aria-labelledby`.
+
+- label_position:
+
+  `"top"` (the default, as Shiny lays its labels out) or `"left"`,
+  beside the component as in a horizontal Element form.
 
 ## Value
 

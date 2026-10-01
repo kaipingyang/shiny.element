@@ -77,6 +77,8 @@ interval, such as every half hour between nine and six.</p>
 <span>  name <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  prefix_icon <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  clear_icon <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  label <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  label_position <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"top"</span>, <span class="st">"left"</span><span class="op">)</span>,</span>
 <span>  width <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  slots <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  session <span class="op">=</span> <span class="cn">NULL</span></span>
@@ -98,6 +100,8 @@ interval, such as every half hour between nine and six.</p>
 <span>  name <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  prefix_icon <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  clear_icon <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  label <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  label_position <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"top"</span>, <span class="st">"left"</span><span class="op">)</span>,</span>
 <span>  width <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  slots <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  session <span class="op">=</span> <span class="cn">NULL</span></span>
@@ -173,6 +177,17 @@ latter two for a range.</p></dd>
 
 <dt id="arg-prefix-icon-clear-icon">prefix_icon, clear_icon<a class="anchor" aria-label="anchor" href="#arg-prefix-icon-clear-icon"></a></dt>
 <dd><p>Icon classes.</p></dd>
+
+
+<dt id="arg-label">label<a class="anchor" aria-label="anchor" href="#arg-label"></a></dt>
+<dd><p>A label shown with the component, as Shiny's inputs have:
+text or a tag. <code>NULL</code>, the default, shows none. It is the component's
+accessible name too.</p></dd>
+
+
+<dt id="arg-label-position">label_position<a class="anchor" aria-label="anchor" href="#arg-label-position"></a></dt>
+<dd><p><code>"top"</code> (the default, as Shiny's labels sit) or
+<code>"left"</code>, beside the component as in a horizontal Element form.</p></dd>
 
 
 <dt id="arg-width">width<a class="anchor" aria-label="anchor" href="#arg-width"></a></dt>

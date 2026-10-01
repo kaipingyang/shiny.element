@@ -14,6 +14,8 @@ el_color_picker(
   color_format = NULL,
   predefine = NULL,
   popper_class = NULL,
+  label = NULL,
+  label_position = c("top", "left"),
   width = NULL,
   slots = NULL,
   session = NULL
@@ -54,6 +56,17 @@ el_color_picker(
 - popper_class:
 
   Extra class name for the dropdown panel.
+
+- label:
+
+  A label shown with the component, as Shiny's inputs have: text or a
+  tag. `NULL`, the default, shows none. It is the component's accessible
+  name too.
+
+- label_position:
+
+  `"top"` (the default, as Shiny's labels sit) or `"left"`, beside the
+  component as in a horizontal Element form.
 
 - width:
 

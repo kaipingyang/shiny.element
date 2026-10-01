@@ -6,6 +6,23 @@ what you would write with Shiny’s own inputs. Every example runs as it
 stands; on the website, the components under one are live, or a
 screenshot of the running app where it needs a server.
 
+## Labels
+
+Every input takes a `label`, as Shiny’s do. It sits above the component
+by default, or beside it with `label_position = "left"`, and it is the
+component’s accessible name too: `<label for>` points at the native
+input where there is one, `aria-labelledby` names the component where
+there is not. Hiding or removing a component by its id takes its label
+with it.
+
+``` r
+
+el_input("name", label = "Name", placeholder = "Ada Lovelace", width = "300px")
+el_select("city", choices = c("Beijing", "Shanghai"), label = "City", width = "300px")
+el_switch("notify", label = "Email me", label_position = "left", value = TRUE)
+el_rate("stars", label = "Rating", label_position = "left", value = 4)
+```
+
 ## Choices
 
 Anything taking `choices` accepts the shapes Shiny does – an unnamed
@@ -118,7 +135,7 @@ arrive in `input$<id>` as the data.frame
 ``` r
 
 ui <- el_page(
-  el_upload("docs", label = "Choose CSV files", multiple = TRUE, accept = ".csv",
+  el_upload("docs", button_label = "Choose CSV files", multiple = TRUE, accept = ".csv",
             tip = "CSV only, up to 5 MB"),
   tableOutput("files")
 )
@@ -136,7 +153,7 @@ shinyApp(ui, server)
 
 ``` r
 
-el_upload("photos", label = "Drop images here, or click to choose",
+el_upload("photos", button_label = "Drop images here, or click to choose",
           drag = TRUE, accept = "image/*")
 ```
 
@@ -147,7 +164,7 @@ itself.
 
 ``` r
 
-el_upload("archive", label = "Upload to the archive",
+el_upload("archive", button_label = "Upload to the archive",
           action = "https://example.org/upload",
           headers = list(`X-Requested-With` = "shiny.element"),
           extra_data = list(folder = "reports"))

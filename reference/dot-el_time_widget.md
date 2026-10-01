@@ -30,7 +30,9 @@ Build either time picker
   clear_icon,
   width,
   slots,
-  session
+  session,
+  label = NULL,
+  label_position = "top"
 )
 ```
 
@@ -117,6 +119,17 @@ Build either time picker
 
   Deprecated. Inside a module, wrap `id` in `ns()`, as for any Shiny
   input; a session given here namespaces `id` once more, with a warning.
+
+- label:
+
+  A label shown with the component, as Shiny's inputs have: text or a
+  tag. `NULL`, the default, shows none. It is the component's accessible
+  name too.
+
+- label_position:
+
+  `"top"` (the default, as Shiny's labels sit) or `"left"`, beside the
+  component as in a horizontal Element form.
 
 ## Value
 

@@ -71,6 +71,7 @@
 <span>  name <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  popper_class <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  popper_append_to_body <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  label_position <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"top"</span>, <span class="st">"left"</span><span class="op">)</span>,</span>
 <span>  width <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  slots <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  session <span class="op">=</span> <span class="cn">NULL</span></span>
@@ -150,7 +151,9 @@ Default <code>TRUE</code>.</p></dd>
 
 
 <dt id="arg-label">label<a class="anchor" aria-label="anchor" href="#arg-label"></a></dt>
-<dd><p>Accessible label.</p></dd>
+<dd><p>A label shown with the component, as Shiny's inputs have:
+text or a tag. <code>NULL</code>, the default, shows none. It is the component's
+accessible name too.</p></dd>
 
 
 <dt id="arg-name">name<a class="anchor" aria-label="anchor" href="#arg-name"></a></dt>
@@ -163,6 +166,11 @@ Default <code>TRUE</code>.</p></dd>
 
 <dt id="arg-popper-append-to-body">popper_append_to_body<a class="anchor" aria-label="anchor" href="#arg-popper-append-to-body"></a></dt>
 <dd><p>Whether the list is appended to <code>body</code>.</p></dd>
+
+
+<dt id="arg-label-position">label_position<a class="anchor" aria-label="anchor" href="#arg-label-position"></a></dt>
+<dd><p><code>"top"</code> (the default, as Shiny's labels sit) or
+<code>"left"</code>, beside the component as in a horizontal Element form.</p></dd>
 
 
 <dt id="arg-width">width<a class="anchor" aria-label="anchor" href="#arg-width"></a></dt>

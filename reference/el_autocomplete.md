@@ -27,6 +27,7 @@ el_autocomplete(
   name = NULL,
   popper_class = NULL,
   popper_append_to_body = NULL,
+  label_position = c("top", "left"),
   width = NULL,
   slots = NULL,
   session = NULL
@@ -103,7 +104,9 @@ el_autocomplete(
 
 - label:
 
-  Accessible label.
+  A label shown with the component, as Shiny's inputs have: text or a
+  tag. `NULL`, the default, shows none. It is the component's accessible
+  name too.
 
 - name:
 
@@ -116,6 +119,11 @@ el_autocomplete(
 - popper_append_to_body:
 
   Whether the list is appended to `body`.
+
+- label_position:
+
+  `"top"` (the default, as Shiny's labels sit) or `"left"`, beside the
+  component as in a horizontal Element form.
 
 - width:
 

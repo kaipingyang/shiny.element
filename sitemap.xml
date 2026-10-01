@@ -22,6 +22,8 @@
 <url><loc>https://kaipingyang.github.io/shiny.element/reference/dot-el_autocomplete_suggestions.html</loc></url>
 <url><loc>https://kaipingyang.github.io/shiny.element/reference/dot-el_camel.html</loc></url>
 <url><loc>https://kaipingyang.github.io/shiny.element/reference/dot-el_camel_case.html</loc></url>
+<url><loc>https://kaipingyang.github.io/shiny.element/reference/dot-el_check_choices.html</loc></url>
+<url><loc>https://kaipingyang.github.io/shiny.element/reference/dot-el_choices.html</loc></url>
 <url><loc>https://kaipingyang.github.io/shiny.element/reference/dot-el_col_gutter.html</loc></url>
 <url><loc>https://kaipingyang.github.io/shiny.element/reference/dot-el_container_part.html</loc></url>
 <url><loc>https://kaipingyang.github.io/shiny.element/reference/dot-el_css_fixes.html</loc></url>
@@ -35,6 +37,8 @@
 <url><loc>https://kaipingyang.github.io/shiny.element/reference/dot-el_host_style.html</loc></url>
 <url><loc>https://kaipingyang.github.io/shiny.element/reference/dot-el_jquery_dependency.html</loc></url>
 <url><loc>https://kaipingyang.github.io/shiny.element/reference/dot-el_kebab_case.html</loc></url>
+<url><loc>https://kaipingyang.github.io/shiny.element/reference/dot-el_label_attrs.html</loc></url>
+<url><loc>https://kaipingyang.github.io/shiny.element/reference/dot-el_labelled.html</loc></url>
 <url><loc>https://kaipingyang.github.io/shiny.element/reference/dot-el_menu_item_props.html</loc></url>
 <url><loc>https://kaipingyang.github.io/shiny.element/reference/dot-el_menu_nodes.html</loc></url>
 <url><loc>https://kaipingyang.github.io/shiny.element/reference/dot-el_mounted_init.html</loc></url>

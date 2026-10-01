@@ -107,6 +107,10 @@
 <li>
 <strong>Validation.</strong> shinyvalidate’s messages show on a component as Element shows a failed form rule: framed in red, the message underneath.</li>
 <li>
+<strong>Labels.</strong> Every input takes <code>label</code>, shown above it or, with <code>label_position = "left"</code>, beside it – also its accessible name. <code><a href="../reference/el_upload.html">el_upload()</a></code>’s trigger text is now <code>button_label</code>, as <code><a href="https://rdrr.io/pkg/shiny/man/fileInput.html" class="external-link">fileInput()</a></code>’s <code>buttonLabel</code>.</li>
+<li>
+<strong>Checked arguments.</strong> An enumerated argument Element does not accept – <code>type = "primry"</code> – is an error listing the values it does, rather than a component drawn in its default style.</li>
+<li>
 <strong>Templates.</strong> Each component’s template travels as a script the browser does not parse: nothing flashes before Vue runs, and camelCase attribute names reach Vue unchanged.</li>
 </ul></div>
 <div class="section level3">

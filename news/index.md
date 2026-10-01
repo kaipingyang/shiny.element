@@ -213,6 +213,15 @@ limitations article shows, needs no JavaScript.
 - **Validation.** shinyvalidate’s messages show on a component as
   Element shows a failed form rule: framed in red, the message
   underneath.
+- **Labels.** Every input takes `label`, shown above it or, with
+  `label_position = "left"`, beside it – also its accessible name.
+  [`el_upload()`](https://kaipingyang.github.io/shiny.element/reference/el_upload.md)’s
+  trigger text is now `button_label`, as
+  [`fileInput()`](https://rdrr.io/pkg/shiny/man/fileInput.html)’s
+  `buttonLabel`.
+- **Checked arguments.** An enumerated argument Element does not accept
+  – `type = "primry"` – is an error listing the values it does, rather
+  than a component drawn in its default style.
 - **Templates.** Each component’s template travels as a script the
   browser does not parse: nothing flashes before Vue runs, and camelCase
   attribute names reach Vue unchanged.

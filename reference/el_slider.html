@@ -72,6 +72,7 @@ range modes, marks, vertical orientation, and optional numeric input box.</p>
 <span>  show_input_controls <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  tooltip_class <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  format_tooltip <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  label_position <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"top"</span>, <span class="st">"left"</span><span class="op">)</span>,</span>
 <span>  width <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  slots <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  session <span class="op">=</span> <span class="cn">NULL</span></span>
@@ -140,7 +141,9 @@ Defaults to <code>"200px"</code> when <code>vertical = TRUE</code> and not expli
 
 
 <dt id="arg-label">label<a class="anchor" aria-label="anchor" href="#arg-label"></a></dt>
-<dd><p>Accessible label for screen readers.</p></dd>
+<dd><p>A label shown with the component, as Shiny's inputs have:
+text or a tag. <code>NULL</code>, the default, shows none. It is the component's
+accessible name too.</p></dd>
 
 
 <dt id="arg-debounce">debounce<a class="anchor" aria-label="anchor" href="#arg-debounce"></a></dt>
@@ -161,6 +164,11 @@ Defaults to <code>"200px"</code> when <code>vertical = TRUE</code> and not expli
 
 <dt id="arg-format-tooltip">format_tooltip<a class="anchor" aria-label="anchor" href="#arg-format-tooltip"></a></dt>
 <dd><p><code><a href="https://rdrr.io/pkg/htmlwidgets/man/JS.html" class="external-link">htmlwidgets::JS()</a></code> function formatting the value shown in the tooltip.</p></dd>
+
+
+<dt id="arg-label-position">label_position<a class="anchor" aria-label="anchor" href="#arg-label-position"></a></dt>
+<dd><p><code>"top"</code> (the default, as Shiny's labels sit) or
+<code>"left"</code>, beside the component as in a horizontal Element form.</p></dd>
 
 
 <dt id="arg-width">width<a class="anchor" aria-label="anchor" href="#arg-width"></a></dt>

@@ -20,6 +20,7 @@ el_input_number(
   placeholder = NULL,
   label = NULL,
   name = NULL,
+  label_position = c("top", "left"),
   width = NULL,
   slots = NULL,
   session = NULL
@@ -79,11 +80,18 @@ el_input_number(
 
 - label:
 
-  Accessible label text. `NULL` for none.
+  A label shown with the component, as Shiny's inputs have: text or a
+  tag. `NULL`, the default, shows none. It is the component's accessible
+  name too.
 
 - name:
 
   Native `name` attribute of the inner input.
+
+- label_position:
+
+  `"top"` (the default, as Shiny's labels sit) or `"left"`, beside the
+  component as in a horizontal Element form.
 
 - width:
 
