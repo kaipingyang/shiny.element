@@ -1,6 +1,13 @@
 // Handlers for el_form(). The form owns its model, so these reach into the
 // single Vue instance rather than touching individual controls.
-if (window.jQuery) jQuery(document).on('shiny:connected', function() {
+// Registered at once when Shiny is already on the page. Waiting for
+// shiny:connected missed every script that arrives later -- through
+// renderUI() or insertUI() -- after that event has fired, so a component
+// rendered there never heard its update_el_*().
+(function(register) {
+  if (window.Shiny && Shiny.addCustomMessageHandler) register();
+  else if (window.jQuery) jQuery(document).one('shiny:connected', register);
+})(function() {
 
   function formInstance(id) {
     var widget = HTMLWidgets.find('#' + id);

@@ -478,7 +478,7 @@ instance directly.
   : Assemble a component: mount point, Vue instance, dependencies
 
 - [`el`](https://kaipingyang.github.io/shiny.element/reference/el.md) :
-  Element UI Tags (auto-generated, pure tag generators)
+  Element UI tags, for markup inside a component
 
 - [`template()`](https://kaipingyang.github.io/shiny.element/reference/template.md)
   :

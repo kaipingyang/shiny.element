@@ -83,6 +83,15 @@
 <p>Components work on a page with no Shiny behind it – R Markdown, Quarto, a saved HTML file: they render and respond to the user, with nowhere to report to. Every call into Shiny is guarded, the tabs, collapse, dialog and drawer bind themselves when Shiny is absent, and the scripts bring their own jQuery. The website’s examples are live components built this way, with a screenshot only where an example needs a server.</p>
 </div>
 <div class="section level3">
+<h3 id="components-rendered-by-renderui-0-1-0">Components rendered by <code>renderUI()</code>
+<a class="anchor" aria-label="anchor" href="#components-rendered-by-renderui-0-1-0"></a></h3>
+<p>A component whose type first appears through <code><a href="https://rdrr.io/pkg/shiny/man/renderUI.html" class="external-link">renderUI()</a></code> or <code><a href="https://rdrr.io/pkg/shiny/man/insertUI.html" class="external-link">insertUI()</a></code> now hears <code>update_el_*()</code> and <code><a href="../reference/el_call.html">el_call()</a></code>. Their handlers registered only on <code>shiny:connected</code>, which had already fired by the time such a component’s script arrived, so every update to it went nowhere without a word.</p>
+</div>
+<div class="section level3">
+<h3 id="raw-element-tags-0-1-0">Raw Element tags<a class="anchor" aria-label="anchor" href="#raw-element-tags-0-1-0"></a></h3>
+<p><code>el$</code> tags are documented for what they are: markup for inside a component – <code><a href="../reference/el_widget.html">el_widget()</a></code>, <code><a href="../reference/template.html">template()</a></code>, slots, table cells, a wrapper’s trigger. At the top level of a page nothing compiles them; the browser console now says so instead of leaving bare text.</p>
+</div>
+<div class="section level3">
 <h3 id="note-for-users-of-the-development-version-0-1-0">Note for users of the development version<a class="anchor" aria-label="anchor" href="#note-for-users-of-the-development-version-0-1-0"></a></h3>
 <p><code><a href="../reference/el_table.html">el_table()</a></code> now takes <code>id</code> first, like every other component:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">

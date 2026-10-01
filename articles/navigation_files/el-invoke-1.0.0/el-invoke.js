@@ -120,7 +120,11 @@
     });
   }
 
-  if (typeof $ !== 'undefined') {
-    $(document).on('shiny:connected', register);
+  // At once when Shiny is already here: a component that first appears
+  // through renderUI() loads this script after shiny:connected has fired.
+  if (typeof Shiny !== 'undefined' && Shiny.addCustomMessageHandler) {
+    register();
+  } else if (typeof jQuery !== 'undefined') {
+    jQuery(document).one('shiny:connected', register);
   }
 })();

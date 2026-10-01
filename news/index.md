@@ -152,6 +152,27 @@ and drawer bind themselves when Shiny is absent, and the scripts bring
 their own jQuery. The website’s examples are live components built this
 way, with a screenshot only where an example needs a server.
 
+### Components rendered by `renderUI()`
+
+A component whose type first appears through
+[`renderUI()`](https://rdrr.io/pkg/shiny/man/renderUI.html) or
+[`insertUI()`](https://rdrr.io/pkg/shiny/man/insertUI.html) now hears
+`update_el_*()` and
+[`el_call()`](https://kaipingyang.github.io/shiny.element/reference/el_call.md).
+Their handlers registered only on `shiny:connected`, which had already
+fired by the time such a component’s script arrived, so every update to
+it went nowhere without a word.
+
+### Raw Element tags
+
+`el$` tags are documented for what they are: markup for inside a
+component –
+[`el_widget()`](https://kaipingyang.github.io/shiny.element/reference/el_widget.md),
+[`template()`](https://kaipingyang.github.io/shiny.element/reference/template.md),
+slots, table cells, a wrapper’s trigger. At the top level of a page
+nothing compiles them; the browser console now says so instead of
+leaving bare text.
+
 ### Note for users of the development version
 
 [`el_table()`](https://kaipingyang.github.io/shiny.element/reference/el_table.md)

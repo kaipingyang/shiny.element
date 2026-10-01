@@ -1,6 +1,13 @@
 // el-upload needs one handler beyond field assignment: emptying the file list
 // is a method on the component, not a prop.
-if (window.jQuery) jQuery(document).on('shiny:connected', function() {
+// Registered at once when Shiny is already on the page. Waiting for
+// shiny:connected missed every script that arrives later -- through
+// renderUI() or insertUI() -- after that event has fired, so a component
+// rendered there never heard its update_el_*().
+(function(register) {
+  if (window.Shiny && Shiny.addCustomMessageHandler) register();
+  else if (window.jQuery) jQuery(document).one('shiny:connected', register);
+})(function() {
   elRegisterUpdate('updateElUpload');
 
   Shiny.addCustomMessageHandler('clearElUpload', function(message) {
