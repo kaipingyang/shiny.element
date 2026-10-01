@@ -191,21 +191,64 @@
   )
 }
 
+#' Take the cell templates out of a table's columns
+#'
+#' A column's `cell` is markup, rendered once per row with `scope` -- `row`,
+#' `column`, `$index` -- in reach. It cannot travel in the column object,
+#' which is JSON in the Vue data, so it is lifted out into the template and
+#' the column keeps a `cellKey` naming its branch there. `slot` decides
+#' whether the column gets a default slot at all: a column without one must
+#' have none, or Element's own rendering -- index numbers, formatters, the
+#' tree's expand arrow -- would be replaced by an empty slot.
+#'
+#' The key is built from the column's prop or label, so that
+#' [update_el_table()] given the same columns finds the same template.
+#'
+#' @param columns Sanitised column configs.
+#' @return A list: `columns`, without `cell`, and `cells`, a named list of
+#'   markup keyed by `cellKey`.
+#' @keywords internal
+.el_table_cells <- function(columns) {
+  cells <- list()
+  columns <- lapply(seq_along(columns), function(i) {
+    col <- columns[[i]]
+    if (is.null(col[["cell"]])) {
+      col$slot <- "none"
+      return(col)
+    }
+    base <- if (!is.null(col$prop)) col$prop else if (!is.null(col$label)) col$label else i
+    key <- paste0("cell_", gsub("[^A-Za-z0-9_]", "_", base))
+    if (key %in% names(cells)) key <- paste0(key, "_", i)
+    cells[[key]] <<- col[["cell"]]
+    col[["cell"]] <- NULL
+    col$cellKey <- key
+    col$slot <- "default"
+    col
+  })
+  list(columns = columns, cells = cells)
+}
+
 #' Normalise the data/columns pair for `el_table()`
 #'
+#' The columns a user wrote and the columns inferred from the data are kept
+#' apart -- `columns` and `autoColumns` in the Vue data, the template showing
+#' the first when there are any. A new data set then brings new inferred
+#' columns without touching written ones: [update_el_table()] given only
+#' `data` used to re-infer and send `columns`, which threw away every label,
+#' formatter and cell template the table was created with.
+#'
 #' @param data A data.frame or a row-shaped list.
-#' @param columns A list of column configs; inferred from `data` when empty.
-#' @return A list with elements `rows` and `columns`.
+#' @param columns A list of column configs, possibly empty.
+#' @return A list: `rows`, `columns` (as written, possibly empty), `auto`
+#'   (inferred from `data`) and `cells` (the templates lifted out of
+#'   `columns`).
 #' @keywords internal
 .el_table_prep <- function(data = list(), columns = list()) {
-  list(
-    rows = .el_table_rows(data),
-    columns = if (length(columns)) {
-      .el_table_sanitize_columns(columns)
-    } else {
-      .el_table_infer_columns(data)
-    }
-  )
+  cells <- .el_table_cells(.el_table_sanitize_columns(columns))
+  list(rows    = .el_table_rows(data),
+       columns = cells$columns,
+       auto    = .el_table_cells(.el_table_infer_columns(data))$columns,
+       cells   = cells$cells)
 }
 
 #' Element UI Table Component
@@ -217,9 +260,17 @@
 #'   data.frame is converted to rows automatically and its column names are
 #'   sanitised (`.` becomes `_`) so `el-table`'s dotted `prop` lookup works.
 #' @param columns List of column configs, each `list(prop=, label=, width=)`.
-#'   Inferred from `data` when omitted. A column may also carry
-#'   `header_html`, markup for its header cell -- inserted unescaped, so pass
-#'   only what you control.
+#'   Inferred from `data` when omitted. Beyond Element's column attributes, a
+#'   column may carry:
+#'   * `type` -- `"index"` for row numbers, `"expand"` for a row that opens
+#'     to show its `cell`, or `"selection"`.
+#'   * `cell` -- markup for each cell, rendered once per row. `scope.row`,
+#'     `scope.column` and `scope.$index` are in reach, and raw Element tags
+#'     (`el$tag()`, `el$button()`) work: `el$tag(":type" = "scope.row.ok ?
+#'     'success' : 'danger'", "{{ scope.row.status }}")`. A column without
+#'     a `prop` -- a column of buttons -- is fine. See "Row actions" below.
+#'   * `header_html` -- markup for the header cell, inserted unescaped, so
+#'     pass only what you control.
 #' @param rownames Whether to show a data.frame's row names as the first
 #'   column. `NULL` (the default) shows them when they carry something --
 #'   `mtcars`' car names -- and leaves out automatic ones, which only count
@@ -258,12 +309,15 @@
 #' @param span_method `htmlwidgets::JS()` function deciding row/column spans for merged cells.
 #' @param summary_method `htmlwidgets::JS()` function returning the summary row's cells.
 #' @param load `htmlwidgets::JS()` function loading child rows lazily. Needs `lazy = TRUE`.
-#' @param width Component width, as a CSS unit. Replaces the table's default
-#' @param slots Named list of Element slot contents, such as
 #' @param highlight_selection_row Whether rows ticked with `selection = TRUE` are highlighted.
-#'   `list(title = shiny::tags$b("Bold"))`. A shiny.element component
+#' @param loading Whether to cover the table with Element's loading mask, as
+#'   its `v-loading` does. [update_el_table()] turns it on and off around
+#'   slow work.
+#' @param slots Named list of Element slot contents, such as
+#'   `list(empty = shiny::tags$b("Nothing yet"))`. A shiny.element component
 #'   given here is absorbed rather than nested. For a scoped slot, write
 #'   the template with [template()].
+#' @param width Component width, as a CSS unit. Replaces the table's default
 #'   `width: 100%`. For a fixed header use `height` instead.
 #'
 #' @section Server inputs:
@@ -274,6 +328,18 @@
 #' simplified to a character vector on its way back through JSON, so numbers
 #' arrive as strings. Both are `NULL` while nothing is selected, matching how
 #' Shiny reports an empty [shiny::checkboxGroupInput()].
+#'
+#' @section Row actions:
+#' A button in a `cell` reports back with `rowAction()`:
+#'
+#' ```r
+#' list(label = "", cell = el$button(size = "mini",
+#'   "@click" = "rowAction('edit', scope)", "Edit"))
+#' ```
+#'
+#' sets `input$<id>_edit` to `list(row_index =, row =)` -- the 1-based row
+#' number, to index your own data with, and the row as the table holds it. It
+#' is an event input: clicking the same row twice reports twice.
 #'
 #' @section Element methods:
 #' Callable with [el_call()]:
@@ -364,6 +430,7 @@ el_table <- function(id = NULL,
                      width  = NULL,
                      slots   = NULL,
                      highlight_selection_row = NULL,
+                     loading = FALSE,
                      session = shiny::getDefaultReactiveDomain()) {
   args <- .el_table_args(id, data, columns)
   id <- args$id
@@ -391,8 +458,25 @@ el_table <- function(id = NULL,
   # writes list(prop = "x", sortable = TRUE, align = "center") and Element
   # sees it. An absent key reads back as undefined, which is Element's own
   # default -- the same fallback .el_optional_bind() arranges for props.
+  # Cell templates: one branch per column that has one, under a slot whose
+  # name is a field of the column -- "default" where there is a template,
+  # "none" where Element should render the cell itself. The slot name is a
+  # plain field, not an expression, because the browser parses this markup
+  # before Vue does and would mangle quotes or spaces in an attribute name.
+  cell_slot <- if (length(prep$cells)) {
+    htmltools::tag("template", c(
+      list("v-slot:[col.slot]" = "scope"),
+      unname(Map(function(key, markup, first) {
+        cond <- sprintf("col.cellKey === '%s'", key)
+        htmltools::tag("template", c(
+          stats::setNames(list(cond), if (first) "v-if" else "v-else-if"),
+          list(markup)))
+      }, names(prep$cells), prep$cells, seq_along(prep$cells) == 1L))
+    ))
+  }
+
   data_col <- htmltools::tag("el-table-column", list(
-    "v-for"  = "col in columns",
+    "v-for"  = "col in (columns.length ? columns : autoColumns)",
     ":key"   = "col.prop",
     ":prop"  = "col.prop",
     ":label" = "col.label",
@@ -422,20 +506,23 @@ el_table <- function(id = NULL,
     ":sort-method" = "col.sortMethod",
     ":render-header" = "col.renderHeader",
     ":selectable" = "col.selectable",
+    ":type" = "col.type",
     # A column may render its own header: give it header_html in the column
     # definition. It is inserted as markup, so only pass what you control.
     htmltools::tag("template", list(
-      slot = "header", "slot-scope" = "scope",
+      "v-slot:header" = "scope",
       htmltools::tag("span", list("v-if" = "col.headerHtml",
                                   "v-html" = "col.headerHtml")),
       htmltools::tag("span", list("v-else" = NA, "{{col.label}}"))
-    ))
+    )),
+    cell_slot
   ))
 
   table_attrs <- list(
     ":data"             = "tableData",
     ":border"           = "border",
     style               = "width: 100%",
+    "v-loading"         = "loading",
     # Always bound: selection can be switched on later by update_el_table().
     "@selection-change" = "handleSelectionChange"
   )
@@ -523,10 +610,12 @@ el_table <- function(id = NULL,
     data = list(
       tableData    = prep$rows,
       columns      = prep$columns,
+      autoColumns  = prep$auto,
       border       = border,
       selection    = selection,
       selected     = list(),
       selectedRows = list(),
+      loading      = isTRUE(loading),
     stripe = .el_or_na(stripe),
     size = .el_or_na(size),
     height = .el_or_na(height),
@@ -561,6 +650,12 @@ el_table <- function(id = NULL,
     highlightSelectionRow = .el_or_na(highlight_selection_row)
     ),
     methods = c(events$methods, list(
+      # Called from a cell template: rowAction('edit', scope) sets
+      # input$<id>_edit to the row's number and the row.
+      rowAction = htmlwidgets::JS(sprintf(paste0(
+        "function(name, scope) { var se = window.shinyElement; ",
+        "Shiny.setInputValue('%s_' + name, {row_index: se.rowIndex(this, scope.row), ",
+        "row: se.plain(scope.row)}, {priority: 'event'}); }"), ns_id)),
       handleSelectionChange = htmlwidgets::JS(sprintf(
         paste0(
           "function(selection) { var self = this; ",
@@ -591,9 +686,17 @@ el_table <- function(id = NULL,
 #' @param session Shiny session object.
 #' @param id Table ID (un-namespaced).
 #' @param data New data: a data.frame or a list of rows.
-#' @param columns New column configs; inferred from `data` when omitted.
+#' @param columns New column configs. Omitted, the table keeps the columns
+#'   it was created with -- labels, formatters, cell templates -- and a table
+#'   whose columns were inferred infers them again from the new `data`.
+#'   `list()` drops written columns and goes back to inferring them.
 #' @param border New border state.
 #' @param selection New row-selection state.
+#' @param loading Show or hide the loading mask.
+#' @details A column's `cell` template is part of the table's markup, made
+#'   when the table is. New columns given here keep the template of the
+#'   column with the same `prop` (or label) and may drop it, but cannot
+#'   bring a template the table was not created with.
 #' @return Called for its side effect; returns `NULL` invisibly.
 #' @examples
 #' if (interactive()) {
@@ -607,7 +710,8 @@ update_el_table <- function(session, id,
                             data = NULL,
                             columns = NULL,
                             border = NULL,
-                            selection = NULL) {
+                            selection = NULL,
+                            loading = NULL) {
   ns_id <- session$ns(id)
   msg <- list(id = ns_id)
 
@@ -616,15 +720,19 @@ update_el_table <- function(session, id,
       if (is.null(data)) list() else data,
       if (is.null(columns)) list() else columns
     )
-    # Named for the Vue data field it targets: the shared updater assigns by
-    # key, so a message field that does not match is refused.
-    if (!is.null(data)) msg$tableData <- prep$rows
-    # Send columns whenever they were inferred or cleaned, otherwise a new
-    # data set would render against the previous column set.
-    if (length(prep$columns)) msg$columns <- prep$columns
+    # Named for the Vue data fields they target: the shared updater assigns
+    # by key, so a message field that does not match is refused.
+    if (!is.null(data)) {
+      msg$tableData   <- prep$rows
+      # Shown only while the table has no written columns of its own
+      msg$autoColumns <- prep$auto
+    }
+    # list() clears the written columns, going back to inferring them
+    if (!is.null(columns)) msg$columns <- prep$columns
   }
   if (!is.null(border))    msg$border    <- border
   if (!is.null(selection)) msg$selection <- selection
+  if (!is.null(loading))   msg$loading   <- loading
 
   session$sendCustomMessage("updateElTable", msg)
   invisible(NULL)

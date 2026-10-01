@@ -45,6 +45,7 @@ el_table(
   width = NULL,
   slots = NULL,
   highlight_selection_row = NULL,
+  loading = FALSE,
   session = shiny::getDefaultReactiveDomain()
 )
 }
@@ -56,9 +57,18 @@ data.frame is converted to rows automatically and its column names are
 sanitised (\code{.} becomes \verb{_}) so \code{el-table}'s dotted \code{prop} lookup works.}
 
 \item{columns}{List of column configs, each \code{list(prop=, label=, width=)}.
-Inferred from \code{data} when omitted. A column may also carry
-\code{header_html}, markup for its header cell -- inserted unescaped, so pass
-only what you control.}
+Inferred from \code{data} when omitted. Beyond Element's column attributes, a
+column may carry:
+\itemize{
+\item \code{type} -- \code{"index"} for row numbers, \code{"expand"} for a row that opens
+to show its \code{cell}, or \code{"selection"}.
+\item \code{cell} -- markup for each cell, rendered once per row. \code{scope.row},
+\code{scope.column} and \code{scope.$index} are in reach, and raw Element tags
+(\code{el$tag()}, \code{el$button()}) work: \code{el$tag(":type" = "scope.row.ok ? 'success' : 'danger'", "{{ scope.row.status }}")}. A column without
+a \code{prop} -- a column of buttons -- is fine. See "Row actions" below.
+\item \code{header_html} -- markup for the header cell, inserted unescaped, so
+pass only what you control.
+}}
 
 \item{selection}{Enable row selection}
 
@@ -131,15 +141,19 @@ rows.}
 
 \item{load}{\code{htmlwidgets::JS()} function loading child rows lazily. Needs \code{lazy = TRUE}.}
 
-\item{width}{Component width, as a CSS unit. Replaces the table's default}
-
-\item{slots}{Named list of Element slot contents, such as}
-
-\item{highlight_selection_row}{Whether rows ticked with \code{selection = TRUE} are highlighted.
-\code{list(title = shiny::tags$b("Bold"))}. A shiny.element component
-given here is absorbed rather than nested. For a scoped slot, write
-the template with \code{\link[=template]{template()}}.
+\item{width}{Component width, as a CSS unit. Replaces the table's default
 \verb{width: 100\%}. For a fixed header use \code{height} instead.}
+
+\item{slots}{Named list of Element slot contents, such as
+\code{list(empty = shiny::tags$b("Nothing yet"))}. A shiny.element component
+given here is absorbed rather than nested. For a scoped slot, write
+the template with \code{\link[=template]{template()}}.}
+
+\item{highlight_selection_row}{Whether rows ticked with \code{selection = TRUE} are highlighted.}
+
+\item{loading}{Whether to cover the table with Element's loading mask, as
+its \code{v-loading} does. \code{\link[=update_el_table]{update_el_table()}} turns it on and off around
+slow work.}
 
 \item{session}{Shiny session for module support}
 }
@@ -158,6 +172,19 @@ index back into your original data: a row object with mixed column types is
 simplified to a character vector on its way back through JSON, so numbers
 arrive as strings. Both are \code{NULL} while nothing is selected, matching how
 Shiny reports an empty \code{\link[shiny:checkboxGroupInput]{shiny::checkboxGroupInput()}}.
+}
+
+\section{Row actions}{
+
+A button in a \code{cell} reports back with \code{rowAction()}:
+
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{list(label = "", cell = el$button(size = "mini",
+  "@click" = "rowAction('edit', scope)", "Edit"))
+}\if{html}{\out{</div>}}
+
+sets \verb{input$<id>_edit} to \code{list(row_index =, row =)} -- the 1-based row
+number, to index your own data with, and the row as the table holds it. It
+is an event input: clicking the same row twice reports twice.
 }
 
 \section{Element methods}{

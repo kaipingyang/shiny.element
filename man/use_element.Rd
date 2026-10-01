@@ -2,11 +2,7 @@
 % Please edit documentation in R/el_dependencies.R
 \name{use_element}
 \alias{use_element}
-\title{Load All Element-UI Dependencies
-
-Convenience function to load Vue, Element-UI, and layout CSS dependencies.
-Use this when you want to use Element-UI components in non-el_page layouts
-(e.g., bslib::page_sidebar, shiny::navbarPage).}
+\title{Load All Element-UI Dependencies}
 \usage{
 use_element(
   theme = el_layout_css_dependency(),
@@ -33,19 +29,16 @@ or \code{getOption("shiny.element.locale")} when set. See
 A list of htmlDependency objects
 }
 \description{
-Load All Element-UI Dependencies
-
 Convenience function to load Vue, Element-UI, and layout CSS dependencies.
 Use this when you want to use Element-UI components in non-el_page layouts
 (e.g., bslib::page_sidebar, shiny::navbarPage).
 }
 \examples{
- 
-\dontrun{  
-library(bslib)  
-ui <- page_sidebar(  
-  use_element(),  
-  el_button("btn1", "Click me")  
-)  
-}  
+\dontrun{
+library(bslib)
+ui <- page_sidebar(
+  use_element(),
+  el_button("btn1", "Click me")
+)
+}
 }

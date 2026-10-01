@@ -85,7 +85,7 @@ test_that("el_table: returns a tagList with the container id", {
 
 test_that("el_table: columns render via v-for so they stay updatable", {
   html <- render_html(el_table(id = "t1", data = head(iris, 2)))
-  expect_match(html, 'v-for="col in columns"')
+  expect_match(html, 'v-for="col in (columns.length ? columns : autoColumns)"', fixed = TRUE)
   expect_match(html, ':prop="col.prop"')
 })
 
@@ -147,8 +147,27 @@ test_that("update_el_table: sends row-shaped data under the right message type",
 test_that("update_el_table: infers columns when only data is given", {
   s <- mock_session()
   update_el_table(s, "t1", data = data.frame(Sepal.Length = 1))
-  expect_equal(s$captured()$msg$columns[[1]]$prop,  "Sepal_Length")
-  expect_equal(s$captured()$msg$columns[[1]]$label, "Sepal.Length")
+  expect_equal(s$captured()$msg$autoColumns[[1]]$prop,  "Sepal_Length")
+  expect_equal(s$captured()$msg$autoColumns[[1]]$label, "Sepal.Length")
+  # Written columns are left alone: a new data set must not discard the
+  # labels, formatters and cell templates the table was created with
+  expect_null(s$captured()$msg$columns)
+})
+
+test_that("update_el_table: list() goes back to inferring the columns", {
+  s <- mock_session()
+  update_el_table(s, "t1", columns = list())
+  expect_identical(s$captured()$msg$columns, list())
+})
+
+test_that("el_table keeps written and inferred columns apart", {
+  d <- vue_data_of(el_table("t", data = data.frame(a = 1, b = 2),
+                            columns = list(list(prop = "a", label = "A"))))
+  expect_equal(length(d$columns), 1L)
+  expect_equal(length(d$autoColumns), 2L)
+  d <- vue_data_of(el_table("t", data = data.frame(a = 1, b = 2)))
+  expect_equal(d$columns, list())
+  expect_equal(length(d$autoColumns), 2L)
 })
 
 test_that("update_el_table: explicit columns win and are sanitised", {
@@ -286,20 +305,20 @@ test_that("header_html keeps its own spelling rule", {
 test_that("row names that name something are kept as the first column", {
   # mtcars keeps its car names in the row names; dropping them dropped the
   # one column saying what each row was.
-  cols <- vapply(vue_data_of(el_table("t", data = head(mtcars[, 1:2], 2)))$columns,
+  cols <- vapply(vue_data_of(el_table("t", data = head(mtcars[, 1:2], 2)))$autoColumns,
                  `[[`, "", "prop")
   expect_equal(cols[1], "rowname")
 })
 
 test_that("row numbers are not treated as names", {
   for (d in list(head(iris[, 1:2], 2), iris[3:5, 1:2])) {
-    cols <- vapply(vue_data_of(el_table("t", data = d))$columns, `[[`, "", "prop")
+    cols <- vapply(vue_data_of(el_table("t", data = d))$autoColumns, `[[`, "", "prop")
     expect_false("rowname" %in% cols)
   }
 })
 
 test_that("rownames can be forced either way", {
-  props <- function(...) vapply(vue_data_of(el_table("t", ...))$columns, `[[`, "", "prop")
+  props <- function(...) vapply(vue_data_of(el_table("t", ...))$autoColumns, `[[`, "", "prop")
   expect_false("rowname" %in% props(data = head(mtcars[, 1:2]), rownames = FALSE))
   expect_true("rowname" %in% props(data = head(iris[, 1:2]), rownames = TRUE))
 })

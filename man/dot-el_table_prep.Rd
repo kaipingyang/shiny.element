@@ -9,12 +9,19 @@
 \arguments{
 \item{data}{A data.frame or a row-shaped list.}
 
-\item{columns}{A list of column configs; inferred from \code{data} when empty.}
+\item{columns}{A list of column configs, possibly empty.}
 }
 \value{
-A list with elements \code{rows} and \code{columns}.
+A list: \code{rows}, \code{columns} (as written, possibly empty), \code{auto}
+(inferred from \code{data}) and \code{cells} (the templates lifted out of
+\code{columns}).
 }
 \description{
-Normalise the data/columns pair for \code{el_table()}
+The columns a user wrote and the columns inferred from the data are kept
+apart -- \code{columns} and \code{autoColumns} in the Vue data, the template showing
+the first when there are any. A new data set then brings new inferred
+columns without touching written ones: \code{\link[=update_el_table]{update_el_table()}} given only
+\code{data} used to re-infer and send \code{columns}, which threw away every label,
+formatter and cell template the table was created with.
 }
 \keyword{internal}

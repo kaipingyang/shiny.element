@@ -1,9 +1,9 @@
-#' Load All Element-UI Dependencies  
-#'   
-#' Convenience function to load Vue, Element-UI, and layout CSS dependencies.  
-#' Use this when you want to use Element-UI components in non-el_page layouts  
-#' (e.g., bslib::page_sidebar, shiny::navbarPage).  
-#'   
+#' Load All Element-UI Dependencies
+#'
+#' Convenience function to load Vue, Element-UI, and layout CSS dependencies.
+#' Use this when you want to use Element-UI components in non-el_page layouts
+#' (e.g., bslib::page_sidebar, shiny::navbarPage).
+#'
 #' @param theme CSS dependency function or list (optional, default is el_layout_css_dependency())
 #' @param offline Serve Element UI from the copy bundled with this package
 #'   rather than the unpkg CDN. See [element_ui_dependency()].
@@ -12,17 +12,17 @@
 #'   `getOption("shiny.element.dev", FALSE)`.
 #' @param locale Language for Element UI's built-in text. English by default,
 #'   or `getOption("shiny.element.locale")` when set. See
-#'   [el_locale_dependency()].  
-#' @return A list of htmlDependency objects  
-#' @export  
-#' @examples  
-#' \dontrun{  
-#' library(bslib)  
-#' ui <- page_sidebar(  
-#'   use_element(),  
-#'   el_button("btn1", "Click me")  
-#' )  
-#' }  
+#'   [el_locale_dependency()].
+#' @return A list of htmlDependency objects
+#' @export
+#' @examples
+#' \dontrun{
+#' library(bslib)
+#' ui <- page_sidebar(
+#'   use_element(),
+#'   el_button("btn1", "Click me")
+#' )
+#' }
 use_element <- function(theme = el_layout_css_dependency(), offline = TRUE,
                         dev = getOption("shiny.element.dev", FALSE),
                         locale = getOption("shiny.element.locale", "en")) {
@@ -150,7 +150,29 @@ element_ui_dependency <- function(offline = TRUE) {
     stylesheet = "theme-chalk/index.css",
     # The stylesheet references fonts/element-icons.woff relatively, so the
     # whole directory has to be served, not just the two named files.
-    all_files  = TRUE
+    all_files  = TRUE,
+    head       = .el_css_fixes()
+  )
+}
+
+
+#' Corrections to Element's own stylesheet
+#'
+#' Carried in the dependency's `head`, so they apply whether Element is
+#' served from the package or from the CDN.
+#'
+#' * 2.15 gave every table cell `.el-table .el-table__cell { padding: 12px
+#'   0 }`. It outranks the expanded row's `.el-table__expanded-cell[class*=cell]
+#'   { padding: 20px 50px }` -- the same specificity, later in the file -- so
+#'   an expanded row's content sat flush against the table's edge.
+#'
+#' @return A `<style>` element, as text.
+#' @keywords internal
+.el_css_fixes <- function() {
+  paste0(
+    "<style>",
+    ".el-table .el-table__expanded-cell[class*=cell]{padding:20px 50px}",
+    "</style>"
   )
 }
 

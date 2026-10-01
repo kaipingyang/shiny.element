@@ -71,9 +71,10 @@ test_that("column labels keep the original names while props are sanitised", {
   skip_if_no_browser()
   headers <- bev("JSON.stringify(Array.from(document.querySelectorAll('#tbl_container .el-table__header th')).map(function(e){return e.innerText.trim()}).filter(function(x){return x!==''}))")
   expect_match(headers, "Sepal.Length", fixed = TRUE)
-  # prop must be underscored: el-table resolves it as a dotted path.
+  # prop must be underscored: el-table resolves it as a dotted path. The
+  # table was given no columns, so these are the inferred ones.
   expect_equal(
-    bev("(function(){var w=HTMLWidgets.find('#tbl'); return w.instance.columns[0].prop})()"),
+    bev("(function(){var w=HTMLWidgets.find('#tbl'); return w.instance.autoColumns[0].prop})()"),
     "Sepal_Length"
   )
 })

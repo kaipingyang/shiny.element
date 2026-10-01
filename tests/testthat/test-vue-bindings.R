@@ -44,7 +44,8 @@ undeclared_refs <- function(ui) {
   locals <- unique(unlist(lapply(quoted_values(html, 'v-for="[^"]*"'), function(v)
     regmatches(v, gregexpr("[A-Za-z_$][A-Za-z0-9_$]*", v))[[1]])))
   # slot-scope destructures its own names
-  scoped <- unique(unlist(lapply(quoted_values(html, 'slot-scope="[^"]*"'), function(v)
+  scoped <- unique(unlist(lapply(c(quoted_values(html, 'slot-scope="[^"]*"'),
+                                    quoted_values(html, 'v-slot[^=]*="[^"]*"')), function(v)
     regmatches(v, gregexpr("[A-Za-z_$][A-Za-z0-9_$]*", v))[[1]])))
   members <- unique(unlist(lapply(bare, function(e)
     regmatches(e, gregexpr("(?<=\\.)[A-Za-z_$][A-Za-z0-9_$]*", e, perl = TRUE))[[1]])))
@@ -273,6 +274,62 @@ test_that("a column may render its own header", {
     list(prop = "Sepal_Length", label = "SL", header_html = "<b>S.L.</b>")
   ))
   html <- paste(as.character(htmltools::renderTags(ui)$html), collapse = "")
-  expect_match(html, 'slot="header"', fixed = TRUE)
+  expect_match(html, 'v-slot:header="scope"', fixed = TRUE)
   expect_match(html, "headerHtml", fixed = TRUE)
+})
+
+# ── cell templates, column types, row actions ────────────────────────────────
+
+test_that("a column's cell template is lifted out of the column data", {
+  ui <- el_table("t", data = data.frame(s = c("a", "b")), columns = list(
+    list(type = "index", label = "#"),
+    list(prop = "s", label = "S", cell = el$tag("{{ scope.row.s }}")),
+    list(label = "Do", cell = el$button("@click" = "rowAction('go', scope)", "Go"))
+  ))
+  html <- paste(as.character(htmltools::renderTags(ui)$html), collapse = "")
+  cols <- vue_data_of(ui)$columns
+
+  # The markup holds the templates, one branch each; the JSON does not
+  expect_false(any(vapply(cols, function(c) "cell" %in% names(c), logical(1))))
+  expect_match(html, 'v-slot:[col.slot]="scope"', fixed = TRUE)
+  expect_match(html, "v-if=\"col.cellKey === &#39;cell_s&#39;\"|v-if=\"col.cellKey === 'cell_s'\"",
+               perl = TRUE)
+  expect_match(html, "v-else-if=", fixed = TRUE)
+  expect_match(html, "<el-tag>{{ scope.row.s }}</el-tag>", fixed = TRUE)
+
+  # Columns without a template get no default slot, so Element renders them
+  expect_equal(vapply(cols, `[[`, "", "slot"), c("none", "default", "default"))
+  expect_equal(cols[[3]]$cellKey, "cell_Do")
+  expect_equal(cols[[1]]$type, "index")
+  expect_true(binds_attr(ui, "type"))
+})
+
+test_that("a table without cell templates renders no cell slot at all", {
+  html <- paste(as.character(el_table("t", data = head(iris, 2))), collapse = "")
+  expect_false(grepl("col.slot", html, fixed = TRUE))
+})
+
+test_that("rowAction reports the row number and row as an event input", {
+  p <- vue_payload_of(el_table("t", data = head(iris, 2)))
+  expect_match(p$methods$rowAction, "Shiny.setInputValue('t_' + name", fixed = TRUE)
+  expect_match(p$methods$rowAction, "row_index", fixed = TRUE)
+  expect_match(p$methods$rowAction, "priority: 'event'", fixed = TRUE)
+})
+
+test_that("loading drives Element's v-loading, and the update reaches it", {
+  ui <- el_table("t", data = head(iris, 2), loading = TRUE)
+  expect_match(paste(as.character(ui), collapse = ""), 'v-loading="loading"', fixed = TRUE)
+  expect_true(vue_data_of(ui)$loading)
+  s <- mock_session()
+  update_el_table(s, "t", loading = FALSE)
+  expect_equal(s$captured()$msg, list(id = "t", loading = FALSE))
+})
+
+test_that("update_el_table keeps a template's key for the same column", {
+  s <- mock_session()
+  update_el_table(s, "t", data = data.frame(s = "x"),
+                  columns = list(list(prop = "s", label = "S", cell = el$tag("x"))))
+  cols <- s$captured()$msg$columns
+  expect_equal(cols[[1]]$cellKey, "cell_s")
+  expect_null(cols[[1]][["cell"]])
 })

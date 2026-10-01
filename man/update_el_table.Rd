@@ -10,7 +10,8 @@ update_el_table(
   data = NULL,
   columns = NULL,
   border = NULL,
-  selection = NULL
+  selection = NULL,
+  loading = NULL
 )
 }
 \arguments{
@@ -20,17 +21,28 @@ update_el_table(
 
 \item{data}{New data: a data.frame or a list of rows.}
 
-\item{columns}{New column configs; inferred from \code{data} when omitted.}
+\item{columns}{New column configs. Omitted, the table keeps the columns
+it was created with -- labels, formatters, cell templates -- and a table
+whose columns were inferred infers them again from the new \code{data}.
+\code{list()} drops written columns and goes back to inferring them.}
 
 \item{border}{New border state.}
 
 \item{selection}{New row-selection state.}
+
+\item{loading}{Show or hide the loading mask.}
 }
 \value{
 Called for its side effect; returns \code{NULL} invisibly.
 }
 \description{
 Update Element UI Table
+}
+\details{
+A column's \code{cell} template is part of the table's markup, made
+when the table is. New columns given here keep the template of the
+column with the same \code{prop} (or label) and may drop it, but cannot
+bring a template the table was not created with.
 }
 \examples{
 if (interactive()) {
