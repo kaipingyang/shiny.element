@@ -11,10 +11,10 @@ vignette: >
 source("shots.R")
 ```
 
-Every picture below was taken from the code above it, run as it stands in a
-live Shiny app in headless Chromium. Regenerate them with
-`Rscript tools/article-shots.R components` after changing how something
-looks.
+On the website, the components under each example are live, made by the
+code above them: open them, type, pick -- with no server behind the page,
+they just have nowhere to report to. An example that needs a server shows a
+screenshot of it running instead.
 
 Each component reports to the server as `input$<id>`, on load as well as on
 change, and is updated from the server with the matching `update_el_*()`.

@@ -13,8 +13,9 @@ source("shots.R")
 
 Element's form components each report to `input$<id>` and are set from the
 server with `update_el_*()`. This covers the pieces that differ from what you
-would write with Shiny's own inputs. Every example runs as it stands, and the
-picture under it was taken from that code.
+would write with Shiny's own inputs. Every example runs as it stands; on the
+website, the components under one are live, or a screenshot of the running
+app where it needs a server.
 
 ## Choices
 

@@ -101,3 +101,17 @@ code a:any-link, dt code a, a > code { color: var(--el-blue) !important; }
 nav#toc .nav-link.active, #toc .nav-link.active {
   background: none !important; color: var(--el-blue) !important; font-weight: 400;
 }
+
+/* ── live examples, framed as Element's demo blocks are ─────────────────── */
+.el-demo {
+  border: 1px solid var(--el-border);
+  border-radius: 4px;
+  padding: 24px;
+  margin: 0 0 24px;
+  background: #fff;
+  display: flow-root;
+}
+/* The article's own table and paragraph rules are not meant for components */
+.el-demo table { margin: 0; font-size: inherit; width: auto; }
+.el-demo table th, .el-demo table td { padding: 0; border: 0; white-space: normal; }
+.el-demo p { margin: 0 0 8px; }

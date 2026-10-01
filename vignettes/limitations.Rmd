@@ -288,15 +288,20 @@ building a custom Element theme.
 ## Element's own markup
 
 `el` holds a generator for every Element tag, for markup that needs no Vue
-instance of its own:
+instance of its own -- inside one that already exists. Vue compiles `<el-*>`
+tags only within the component it mounts, so a raw tag goes where a
+component draws its contents: a `template()`, a slot, a table `cell`, a
+wrapper's trigger.
 
 ```{r raw-tags, eval = FALSE, shot = TRUE}
-el$button(type = "primary", "Markup only")    # no input
+# The tooltip's instance compiles the raw button it wraps
+el_tooltip("hint", el$button(type = "primary", "Markup only"), content = "No input")
 el_button("save", "A component", type = "primary")   # reports input$save
 ```
 
-Use the raw tag where a component would be wasted -- inside a `template()`, or
-as a wrapper's trigger when you do not need to know it was clicked.
+Placed at the top level of a page, the same `el$button()` is never compiled
+and shows as its bare text. Use the raw tag where a component would be
+wasted, and a component where the server needs to hear about it.
 
 ## Building your own
 
@@ -376,6 +381,17 @@ are how files reach Shiny. The other hooks (`on-change`, `on-progress`,
 `before-upload`, ...) are yours.
 
 Where a name does differ, the component's help page documents both.
+
+## Without Shiny
+
+The components also work on a page with no Shiny session -- an R Markdown
+or Quarto document, a page saved with `htmltools::save_html()`. They render
+and respond: a select opens and picks, tabs switch, a collapse folds, a
+table's rows tick. What they cannot do there is report: there is no
+`input`, and `update_el_*()`, `el_call()` and the feedback functions have no
+server to come from. Load the scripts once with `use_element()`, as for any
+page that is not an `el_page()`. The examples on this website are built
+exactly so.
 
 ## Known gaps
 

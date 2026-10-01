@@ -256,6 +256,19 @@ for (s in shots) {
     next
   }
 
+  # A raw Element tag outside any Vue instance is never compiled: it stays an
+  # unknown <el-button> element and shows as bare text. The raw-tag example
+  # in the limitations article did exactly that, under a sentence saying it
+  # worked.
+  raw <- js("(function(){ var t = {};
+    document.querySelectorAll('*').forEach(function(e){
+      if (/^EL-/.test(e.tagName)) t[e.tagName.toLowerCase()] = 1; });
+    return Object.keys(t).join(', '); })()")
+  if (nzchar(raw %||% "")) {
+    problems <- c(problems, sprintf("%s: uncompiled Element tags: %s", s$key, raw))
+    message(sprintf("  x %-34s uncompiled tags: %s", s$key, raw))
+  }
+
   # An item whose label went nowhere renders as a blank entry, and nothing
   # logs it -- the navigation menu was written with `title =` where the
   # package reads `label =`, and its screenshot showed an icon and an arrow.
