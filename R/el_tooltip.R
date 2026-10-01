@@ -33,7 +33,9 @@
 #'   [update_el_tooltip()] rather than on hover.
 #' @param tabindex Tab index of the trigger.
 #' @param width Component width, as a CSS unit.
-#' @param session Shiny session for module support.
+#' @param session Deprecated. Inside a module, wrap `id` in `ns()`, as for
+#'   any Shiny input; a session given here namespaces `id` once more, with
+#'   a warning.
 #' @param slots Named list of Element slot contents, such as
 #'   `list(title = shiny::tags$b("Bold"))`. A shiny.element component
 #'   given here is absorbed rather than nested. For a scoped slot, write
@@ -72,13 +74,13 @@ el_tooltip <- function(id = NULL,
                        tabindex = NULL,
                        width = NULL,
                        slots   = NULL,
-                       session = shiny::getDefaultReactiveDomain()) {
+                       session = NULL) {
   # A component handed in here is folded into this one's Vue instance rather
   # than nested inside it -- see .el_absorb().
   inner <- .el_absorb(trigger)
 
   if (is.null(id)) id <- paste0("el_tooltip_", uuid::UUIDgenerate())
-  ns_id <- if (!is.null(session)) session$ns(id) else id
+  ns_id <- .el_ui_id(id, session)
 
   attrs <- list(
     "v-model"          = "tipValue",

@@ -11,7 +11,9 @@
 #' @param finish_status Status of finished steps
 #' @param align_center Center align title and description
 #' @param simple Apply simple style
-#' @param session Shiny session for module support
+#' @param session Deprecated. Inside a module, wrap `id` in `ns()`, as for
+#'   any Shiny input; a session given here namespaces `id` once more, with
+#'   a warning.
 #' @param width Component width, as a CSS unit -- `"200px"`, `"50%"`, or a
 #'   number taken as pixels. Element's own markup carries it, so it behaves
 #'   like the `width` argument of a Shiny input.
@@ -54,11 +56,11 @@ el_steps <- function(id = NULL,
                      simple = FALSE,  
                      width   = NULL,
                      slots   = NULL,
-                     session = getDefaultReactiveDomain()) {  
+                     session = NULL) {  
   if (is.null(id)) {  
     id <- paste0("el_steps_", uuid::UUIDgenerate())  
   }  
-  ns_id <- if (!is.null(session)) session$ns(id) else id  
+  ns_id <- .el_ui_id(id, session)  
   container_id <- paste0(ns_id, "_container")  
     
   # Generate el-step tags from list  

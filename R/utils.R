@@ -88,9 +88,28 @@
   if (is.null(x)) NA else x
 }
 
+#' The id a UI function gives its component
+#'
+#' A UI function does not namespace its `id`, any more than
+#' [shiny::textInput()] does: inside a module the caller writes `ns("name")`.
+#' Namespacing from the default reactive domain, as every component once did,
+#' namespaced twice whenever UI was built inside a module's server --
+#' `renderUI()` -- turning `ns("name")` into `"mod-mod-name"`, an input that
+#' never reported and said nothing about it.
+#'
+#' A session given explicitly is still honoured, with a warning, for code
+#' written against the old behaviour.
+#'
+#' @param id The id as given.
+#' @param session `NULL`, or a session passed by the caller.
+#' @return The id the component uses.
 #' @keywords internal
-el_ns <- function(id, session = shiny::getDefaultReactiveDomain()) {
-  if (!is.null(session)) session$ns(id) else id
+.el_ui_id <- function(id, session = NULL) {
+  if (is.null(session)) return(id)
+  warning("`session` is deprecated in UI functions. Inside a module, wrap ",
+          "the id in ns() instead, as for any Shiny input: ",
+          "el_input(ns(\"name\")).", call. = FALSE)
+  session$ns(id)
 }
 
 #' Build a Vue `mounted` hook that reports initial values to Shiny

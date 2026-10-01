@@ -25,7 +25,9 @@
 #' @param suffix_icon Icon class for the suffix slot (e.g. `"el-icon-date"`).
 #'   `NULL` means no icon.
 #' @param label ARIA `label` attribute for accessibility. `NULL` omits it.
-#' @param session Shiny session for module support.
+#' @param session Deprecated. Inside a module, wrap `id` in `ns()`, as for
+#'   any Shiny input; a session given here namespaces `id` once more, with
+#'   a warning.
 #' @param autocomplete Native `autocomplete` attribute. Default `"off"`.
 #' @param autofocus Whether the input takes focus on page load. Default `FALSE`.
 #' @param name Native `name` attribute.
@@ -111,10 +113,10 @@ el_input <- function(
     validate_event  = NULL,
     width           = NULL,
     slots           = NULL,
-    session         = shiny::getDefaultReactiveDomain()
+    session         = NULL
 ) {
   if (is.null(id)) id <- paste0("el_input_", uuid::UUIDgenerate())
-  ns_id        <- if (!is.null(session)) session$ns(id) else id
+  ns_id        <- .el_ui_id(id, session)
   container_id <- paste0(ns_id, "_container")
 
   # Always-present Vue binding attributes

@@ -20,7 +20,7 @@ el_descriptions(
   content_style = NULL,
   width = NULL,
   slots = NULL,
-  session = shiny::getDefaultReactiveDomain()
+  session = NULL
 )
 }
 \arguments{
@@ -59,7 +59,9 @@ named list.}
 
 \item{slots}{Named list of Element slot contents: \code{title}, \code{extra}.}
 
-\item{session}{Shiny session for module support.}
+\item{session}{Deprecated. Inside a module, wrap \code{id} in \code{ns()}, as for
+any Shiny input; a session given here namespaces \code{id} once more, with
+a warning.}
 }
 \value{
 A Shiny UI element.

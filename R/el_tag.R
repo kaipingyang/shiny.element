@@ -14,7 +14,9 @@
 #' @param color Custom background colour (CSS string). `NULL` for themed colour.
 #' @param hit Whether to show a solid border. Default `FALSE`.
 #' @param disable_transitions Disable the zoom-in-center animation. Default `FALSE`.
-#' @param session Shiny session for module support.
+#' @param session Deprecated. Inside a module, wrap `id` in `ns()`, as for
+#'   any Shiny input; a session given here namespaces `id` once more, with
+#'   a warning.
 #' @param width Component width, as a CSS unit -- `"200px"`, `"50%"`, or a
 #'   number taken as pixels. Element's own markup carries it, so it behaves
 #'   like the `width` argument of a Shiny input.
@@ -48,10 +50,10 @@ el_tag <- function(
     disable_transitions  = FALSE,
     width                = NULL,
     slots                = NULL,
-    session              = shiny::getDefaultReactiveDomain()
+    session              = NULL
 ) {
   if (is.null(id)) id <- paste0("el_tag_", uuid::UUIDgenerate())
-  ns_id        <- if (!is.null(session)) session$ns(id) else id
+  ns_id        <- .el_ui_id(id, session)
   container_id <- paste0(ns_id, "_container")
 
   tag_attrs <- list(

@@ -25,7 +25,7 @@ el_rate(
   high_threshold = NULL,
   width = NULL,
   slots = NULL,
-  session = shiny::getDefaultReactiveDomain()
+  session = NULL
 )
 }
 \arguments{
@@ -77,7 +77,9 @@ like the \code{width} argument of a Shiny input.}
 given here is absorbed rather than nested. For a scoped slot, write
 the template with \code{\link[=template]{template()}}.}
 
-\item{session}{Shiny session for module support.}
+\item{session}{Deprecated. Inside a module, wrap \code{id} in \code{ns()}, as for
+any Shiny input; a session given here namespaces \code{id} once more, with
+a warning.}
 }
 \value{
 An \code{htmltools} tagList with a Vue-managed rate component.

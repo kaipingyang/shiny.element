@@ -217,7 +217,9 @@ el_form_field <- function(prop,
 #' @param submit_label Submit button text. `NULL` renders no button, in which
 #'   case drive the form with [el_form_validate()].
 #' @param reset_label Reset button text. `NULL` renders no button.
-#' @param session Shiny session for module support.
+#' @param session Deprecated. Inside a module, wrap `id` in `ns()`, as for
+#'   any Shiny input; a session given here namespaces `id` once more, with
+#'   a warning.
 #' @param disabled Whether every control in the form is disabled.
 #' @param show_message Whether to show validation messages. Default `TRUE`.
 #' @param inline_message Whether to show validation messages inline.
@@ -305,9 +307,9 @@ el_form <- function(...,
                     validate_on_rule_change = NULL,
                     width   = NULL,
                     slots   = NULL,
-                    session = shiny::getDefaultReactiveDomain()) {
+                    session = NULL) {
   if (is.null(id)) id <- paste0("el_form_", uuid::UUIDgenerate())
-  ns_id        <- if (!is.null(session)) session$ns(id) else id
+  ns_id        <- .el_ui_id(id, session)
   container_id <- paste0(ns_id, "_container")
 
   fields <- list(...)

@@ -46,7 +46,7 @@ el_table(
   slots = NULL,
   highlight_selection_row = NULL,
   loading = FALSE,
-  session = shiny::getDefaultReactiveDomain()
+  session = NULL
 )
 }
 \arguments{
@@ -156,7 +156,9 @@ the template with \code{\link[=template]{template()}}.}
 its \code{v-loading} does. \code{\link[=update_el_table]{update_el_table()}} turns it on and off around
 slow work.}
 
-\item{session}{Shiny session for module support}
+\item{session}{Deprecated. Inside a module, wrap \code{id} in \code{ns()}, as for
+any Shiny input; a session given here namespaces \code{id} once more, with
+a warning.}
 }
 \value{
 A Shiny UI element.

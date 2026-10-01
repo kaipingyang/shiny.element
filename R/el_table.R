@@ -278,7 +278,9 @@
 #' @param selection Enable row selection
 #' @param border Draw vertical borders between columns and a frame around
 #'   the table. Default `FALSE`, as in Element.
-#' @param session Shiny session for module support
+#' @param session Deprecated. Inside a module, wrap `id` in `ns()`, as for
+#'   any Shiny input; a session given here namespaces `id` once more, with
+#'   a warning.
 #' @param stripe Whether rows alternate background colour.
 #' @param size Row density: `"medium"`, `"small"` or `"mini"`.
 #' @param height Table height. Fixes the header and scrolls the body.
@@ -432,7 +434,7 @@ el_table <- function(id = NULL,
                      slots   = NULL,
                      highlight_selection_row = NULL,
                      loading = FALSE,
-                     session = shiny::getDefaultReactiveDomain()) {
+                     session = NULL) {
   args <- .el_table_args(id, data, columns)
   id <- args$id
   data <- args$data
@@ -441,7 +443,7 @@ el_table <- function(id = NULL,
   if (is.null(id)) {
     id <- paste0("el_table_", uuid::UUIDgenerate())
   }
-  ns_id <- if (!is.null(session)) session$ns(id) else id
+  ns_id <- .el_ui_id(id, session)
   container_id <- paste0(ns_id, "_container")
 
   data <- .el_table_rownames(data, rownames)

@@ -25,7 +25,9 @@ el_radio_group_handler_dependency <- function() {
 #'   Only affects button-style radios (`button = TRUE`).
 #' @param button Whether to render as `<el-radio-button>` (pill/button style)
 #'   instead of standard `<el-radio>`. Default `FALSE`.
-#' @param session Shiny session for module namespace support.
+#' @param session Deprecated. Inside a module, wrap `id` in `ns()`, as for
+#'   any Shiny input; a session given here namespaces `id` once more, with
+#'   a warning.
 #' @param fill Border and background colour of a checked radio button.
 #' @param text_color Text colour of a checked radio button.
 #' @param width Component width, as a CSS unit -- `"200px"`, `"50%"`, or a
@@ -87,13 +89,13 @@ el_radio_group <- function(
     slots    = NULL,
     value    = NULL,
     options  = NULL,
-    session  = shiny::getDefaultReactiveDomain()
+    session  = NULL
 ) {
   selected <- .el_alias(selected, value, "selected", "value")
   choices  <- .el_alias(choices, options, "choices", "options")
   if (is.null(choices)) stop("`choices` (or `options`) is required.", call. = FALSE)
   if (is.null(id)) id <- paste0("el_radio_group_", uuid::UUIDgenerate())
-  ns_id        <- if (!is.null(session)) session$ns(id) else id
+  ns_id        <- .el_ui_id(id, session)
   container_id <- paste0(ns_id, "_container")
 
   # Choose el-radio or el-radio-button based on button param

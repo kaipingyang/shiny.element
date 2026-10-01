@@ -12,7 +12,7 @@ el_result(
   sub_title = NULL,
   width = NULL,
   slots = NULL,
-  session = shiny::getDefaultReactiveDomain()
+  session = NULL
 )
 }
 \arguments{
@@ -33,7 +33,9 @@ reporting its inputs.}
 \item{slots}{Named list of Element slot contents: \code{icon}, \code{title},
 \code{subTitle}, \code{extra}.}
 
-\item{session}{Shiny session for module support.}
+\item{session}{Deprecated. Inside a module, wrap \code{id} in \code{ns()}, as for
+any Shiny input; a session given here namespaces \code{id} once more, with
+a warning.}
 }
 \value{
 A Shiny UI element.

@@ -52,7 +52,9 @@
 #'   direct child is a header or footer, matching Element UI.
 #' @param style Extra inline style.
 #' @param class Extra CSS classes.
-#' @param session Shiny session, used to namespace `id` inside modules.
+#' @param session Deprecated. Inside a module, wrap `id` in `ns()`, as for
+#'   any Shiny input; a session given here namespaces `id` once more, with
+#'   a warning.
 #' @return A Shiny UI element.
 #' @export
 #' @examples
@@ -75,7 +77,7 @@ el_container <- function(...,
                          direction = NULL,
                          style = NULL,
                          class = NULL,
-                         session = shiny::getDefaultReactiveDomain()) {
+                         session = NULL) {
   children <- list(...)
 
   vertical <- if (!is.null(direction)) {
@@ -91,7 +93,7 @@ el_container <- function(...,
     style = .el_style(style)
   )
   if (!is.null(id)) {
-    attrs$id <- if (!is.null(session)) session$ns(id) else id
+    attrs$id <- .el_ui_id(id, session)
   }
 
   htmltools::tag("div", c(attrs, children))

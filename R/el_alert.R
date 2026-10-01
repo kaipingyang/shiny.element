@@ -14,7 +14,9 @@
 #' @param show_icon Whether to display the type icon. Default `FALSE`.
 #' @param center Whether to centre the content. Default `FALSE`.
 #' @param effect Visual effect: `"light"` (default) or `"dark"`.
-#' @param session Shiny session for module support.
+#' @param session Deprecated. Inside a module, wrap `id` in `ns()`, as for
+#'   any Shiny input; a session given here namespaces `id` once more, with
+#'   a warning.
 #' @param width Component width, as a CSS unit -- `"200px"`, `"50%"`, or a
 #'   number taken as pixels. Element's own markup carries it, so it behaves
 #'   like the `width` argument of a Shiny input.
@@ -46,10 +48,10 @@ el_alert <- function(
     effect       = "light",
     width        = NULL,
     slots        = NULL,
-    session      = shiny::getDefaultReactiveDomain()
+    session      = NULL
 ) {
   if (is.null(id)) id <- paste0("el_alert_", uuid::UUIDgenerate())
-  ns_id        <- if (!is.null(session)) session$ns(id) else id
+  ns_id        <- .el_ui_id(id, session)
   container_id <- paste0(ns_id, "_container")
 
   alert_attrs <- list(

@@ -65,6 +65,17 @@ in R, a sales overview, and an orders admin page with search, row actions,
 server-side sorting and paging, an editing dialog and confirmed deletes.
 Each is also in the installed package, under `examples/dashboards/`.
 
+## Shiny modules
+
+UI functions no longer namespace their `id` from the reactive domain they
+are built in; inside a module, wrap the id in `ns()` as for any Shiny
+input. Built by `renderUI()` in a module's server, a component used to be
+namespaced twice -- `ns("x")` became `"mod-mod-x"` -- and never reported.
+Their `session` argument is deprecated; a session passed to it still
+namespaces the id, with a warning. `update_el_*()` and the other server
+functions are unchanged: they namespace the bare id, as `update*Input()`
+does.
+
 ## Note for users of the development version
 
 `el_table()` now takes `id` first, like every other component:

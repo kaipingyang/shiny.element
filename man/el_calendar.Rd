@@ -11,7 +11,7 @@ el_calendar(
   first_day_of_week = 1,
   width = NULL,
   slots = NULL,
-  session = getDefaultReactiveDomain()
+  session = NULL
 )
 }
 \arguments{
@@ -30,7 +30,9 @@ number taken as pixels.}
 day: Element hands the template \code{date} and \code{data}, so write it with
 \code{\link[=template]{template()}}. A default is used when none is given.}
 
-\item{session}{Shiny session for module support}
+\item{session}{Deprecated. Inside a module, wrap \code{id} in \code{ns()}, as for
+any Shiny input; a session given here namespaces \code{id} once more, with
+a warning.}
 }
 \value{
 A Shiny UI element.

@@ -24,7 +24,9 @@
 #' @param range_separator Separator string displayed between start and end in
 #'   range types. Default `"-"`.
 #' @param align Input alignment: `"left"` (default), `"center"`, `"right"`.
-#' @param session Shiny session for module support.
+#' @param session Deprecated. Inside a module, wrap `id` in `ns()`, as for
+#'   any Shiny input; a session given here namespaces `id` once more, with
+#'   a warning.
 #' @param size Input size: `"medium"`, `"small"` or `"mini"`.
 #' @param name Native `name` attribute.
 #' @param prefix_icon Icon class shown at the start of the input.
@@ -112,10 +114,10 @@ el_date_picker <- function(
     slots             = NULL,
     append_to_body    = NULL,
     time_arrow_control = NULL,
-    session           = shiny::getDefaultReactiveDomain()
+    session           = NULL
 ) {
   if (is.null(id)) id <- paste0("el_date_picker_", uuid::UUIDgenerate())
-  ns_id        <- if (!is.null(session)) session$ns(id) else id
+  ns_id        <- .el_ui_id(id, session)
   container_id <- paste0(ns_id, "_container")
 
   # Determine if this is a range-type picker

@@ -6,7 +6,9 @@
 #' @param title Text of the back link. Default `"Back"`.
 #' @param content The page's own title, shown after the separator.
 #' @param width Component width, as a CSS unit.
-#' @param session Shiny session for module support.
+#' @param session Deprecated. Inside a module, wrap `id` in `ns()`, as for
+#'   any Shiny input; a session given here namespaces `id` once more, with
+#'   a warning.
 #' @param slots Named list of Element slot contents, such as
 #'   `list(title = shiny::tags$b("Bold"))`. A shiny.element component
 #'   given here is absorbed rather than nested. For a scoped slot, write
@@ -39,9 +41,9 @@ el_page_header <- function(id = NULL,
                            content = NULL,
                            width = NULL,
                            slots   = NULL,
-                           session = shiny::getDefaultReactiveDomain()) {
+                           session = NULL) {
   if (is.null(id)) id <- paste0("el_page_header_", uuid::UUIDgenerate())
-  ns_id <- if (!is.null(session)) session$ns(id) else id
+  ns_id <- .el_ui_id(id, session)
 
   attrs <- list(
     ":title"   = .el_optional_bind("title"),

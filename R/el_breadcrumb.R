@@ -9,7 +9,9 @@
 #' @param separator_class Icon class to use as the separator instead of a
 #'   character, such as `"el-icon-arrow-right"`.
 #' @param width Component width, as a CSS unit.
-#' @param session Shiny session for module support.
+#' @param session Deprecated. Inside a module, wrap `id` in `ns()`, as for
+#'   any Shiny input; a session given here namespaces `id` once more, with
+#'   a warning.
 #' @param slots Named list of Element slot contents, such as
 #'   `list(title = shiny::tags$b("Bold"))`. A shiny.element component
 #'   given here is absorbed rather than nested. For a scoped slot, write
@@ -40,9 +42,9 @@ el_breadcrumb <- function(id = NULL,
                           separator_class = NULL,
                           width = NULL,
                           slots   = NULL,
-                          session = shiny::getDefaultReactiveDomain()) {
+                          session = NULL) {
   if (is.null(id)) id <- paste0("el_breadcrumb_", uuid::UUIDgenerate())
-  ns_id <- if (!is.null(session)) session$ns(id) else id
+  ns_id <- .el_ui_id(id, session)
 
   item_tag <- htmltools::tag("el-breadcrumb-item", list(
     "v-for"  = "(item, index) in items",

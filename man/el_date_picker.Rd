@@ -33,7 +33,7 @@ el_date_picker(
   slots = NULL,
   append_to_body = NULL,
   time_arrow_control = NULL,
-  session = shiny::getDefaultReactiveDomain()
+  session = NULL
 )
 }
 \arguments{
@@ -105,7 +105,9 @@ the template with \code{\link[=template]{template()}}.}
 
 \item{time_arrow_control}{For \code{type = "datetime"}: whether the time is picked with arrow buttons rather than by scrolling.}
 
-\item{session}{Shiny session for module support.}
+\item{session}{Deprecated. Inside a module, wrap \code{id} in \code{ns()}, as for
+any Shiny input; a session given here namespaces \code{id} once more, with
+a warning.}
 }
 \value{
 An \code{htmltools} tagList with a Vue-managed date picker component.

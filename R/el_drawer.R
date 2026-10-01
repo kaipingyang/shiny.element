@@ -30,7 +30,9 @@
 #' @param before_close `htmltools::JS()` function `function(done)`, run when
 #'   the user closes it -- by the cross, the backdrop or Escape; call `done()`
 #'   to let it close.
-#' @param session Shiny session for module support.
+#' @param session Deprecated. Inside a module, wrap `id` in `ns()`, as for
+#'   any Shiny input; a session given here namespaces `id` once more, with
+#'   a warning.
 #'
 #' @section Shiny inputs:
 #' - `input$<id>` -- whether it is open.
@@ -70,10 +72,10 @@ el_drawer <- function(
     modal_append_to_body  = TRUE,
     destroy_on_close      = FALSE,
     before_close          = NULL,
-    session               = shiny::getDefaultReactiveDomain()
+    session               = NULL
 ) {
   if (is.null(id)) id <- paste0("el_drawer_", uuid::UUIDgenerate())
-  ns_id <- if (!is.null(session)) session$ns(id) else id
+  ns_id <- .el_ui_id(id, session)
 
   vertical  <- direction %in% c("ttb", "btt")
   title_id  <- paste0(ns_id, "-title")

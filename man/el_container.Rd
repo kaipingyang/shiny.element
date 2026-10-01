@@ -10,7 +10,7 @@ el_container(
   direction = NULL,
   style = NULL,
   class = NULL,
-  session = shiny::getDefaultReactiveDomain()
+  session = NULL
 )
 }
 \arguments{
@@ -26,7 +26,9 @@ direct child is a header or footer, matching Element UI.}
 
 \item{class}{Extra CSS classes.}
 
-\item{session}{Shiny session, used to namespace \code{id} inside modules.}
+\item{session}{Deprecated. Inside a module, wrap \code{id} in \code{ns()}, as for
+any Shiny input; a session given here namespaces \code{id} once more, with
+a warning.}
 }
 \value{
 A Shiny UI element.

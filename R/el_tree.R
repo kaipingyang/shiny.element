@@ -28,7 +28,9 @@
 #' @param highlight_current Highlight the clicked node.
 #' @param expanded,checked Keys to expand and to check initially.
 #' @param empty_text Text shown when `data` is empty.
-#' @param session Shiny session for module support.
+#' @param session Deprecated. Inside a module, wrap `id` in `ns()`, as for
+#'   any Shiny input; a session given here namespaces `id` once more, with
+#'   a warning.
 #' @param indent Horizontal indent between levels, in pixels. Default `16`.
 #' @param icon_class Icon class of the expand arrow.
 #' @param lazy Whether child nodes are loaded on demand. Needs `load`.
@@ -127,9 +129,9 @@ el_tree <- function(id = NULL,
                     allow_drop = NULL,
                     width   = NULL,
                     slots   = NULL,
-                    session = shiny::getDefaultReactiveDomain()) {
+                    session = NULL) {
   if (is.null(id)) id <- paste0("el_tree_", uuid::UUIDgenerate())
-  ns_id        <- if (!is.null(session)) session$ns(id) else id
+  ns_id        <- .el_ui_id(id, session)
   container_id <- paste0(ns_id, "_container")
 
   tree_attrs <- list(

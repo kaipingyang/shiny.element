@@ -17,7 +17,9 @@
 #' @param width Component width, as a CSS unit.
 #' @param slots Named list of Element slot contents. The default slot, scoped
 #'   with `{node, data}`, renders one option; write it with [template()].
-#' @param session Shiny session for module support.
+#' @param session Deprecated. Inside a module, wrap `id` in `ns()`, as for
+#'   any Shiny input; a session given here namespaces `id` once more, with
+#'   a warning.
 #'
 #' @section Shiny inputs:
 #' - `input$<id>` -- the selected path, on load and on change.
@@ -48,9 +50,9 @@ el_cascader_panel <- function(id = NULL,
                               props = NULL,
                               width = NULL,
                               slots = NULL,
-                              session = shiny::getDefaultReactiveDomain()) {
+                              session = NULL) {
   if (is.null(id)) id <- paste0("el_cascader_panel_", uuid::UUIDgenerate())
-  ns_id <- if (!is.null(session)) session$ns(id) else id
+  ns_id <- .el_ui_id(id, session)
 
   attrs <- list(
     "v-model"  = "value",

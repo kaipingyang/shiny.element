@@ -14,7 +14,9 @@
 #' @param small Whether to use compact (small) mode. Default `FALSE`.
 #' @param disabled Whether the pagination is disabled. Default `FALSE`.
 #' @param pager_count Number of pager buttons to show. Default `7`.
-#' @param session Shiny session for module support.
+#' @param session Deprecated. Inside a module, wrap `id` in `ns()`, as for
+#'   any Shiny input; a session given here namespaces `id` once more, with
+#'   a warning.
 #' @param prev_text Text of the previous-page button, in place of the arrow icon.
 #' @param next_text Text of the next-page button, in place of the arrow icon.
 #' @param hide_on_single_page Whether to hide the pager when there is only one page.
@@ -84,10 +86,10 @@ el_pagination <- function(
     popper_class = NULL,
     width        = NULL,
     slots        = NULL,
-    session      = shiny::getDefaultReactiveDomain()
+    session      = NULL
 ) {
   if (is.null(id)) id <- paste0("el_pagination_", uuid::UUIDgenerate())
-  ns_id        <- if (!is.null(session)) session$ns(id) else id
+  ns_id        <- .el_ui_id(id, session)
   container_id <- paste0(ns_id, "_container")
 
   pagination_attrs <- list(

@@ -28,7 +28,9 @@
 #' @param prefix_icon,clear_icon Icon classes.
 #' @param width Component width, as a CSS unit.
 #' @param slots Named list of Element slot contents.
-#' @param session Shiny session for module support.
+#' @param session Deprecated. Inside a module, wrap `id` in `ns()`, as for
+#'   any Shiny input; a session given here namespaces `id` once more, with
+#'   a warning.
 #'
 #' @section Shiny inputs:
 #' - `input$<id>` -- the time, or two for a range, on load and on change.
@@ -77,7 +79,7 @@ el_time_picker <- function(id = NULL,
                            clear_icon = NULL,
                            width = NULL,
                            slots = NULL,
-                           session = shiny::getDefaultReactiveDomain()) {
+                           session = NULL) {
   .el_time_widget("el-time-picker", id, value, is_range, value_format,
                   arrow_control, placeholder, start_placeholder, end_placeholder,
                   range_separator, picker_options, clearable, disabled, editable,
@@ -105,7 +107,7 @@ el_time_select <- function(id = NULL,
                            clear_icon = NULL,
                            width = NULL,
                            slots = NULL,
-                           session = shiny::getDefaultReactiveDomain()) {
+                           session = NULL) {
   .el_time_widget("el-time-select", id, value, FALSE, NULL, NULL, placeholder,
                   NULL, NULL, NULL, picker_options, clearable, disabled, editable,
                   readonly, size, align, popper_class, default_value, name,
@@ -127,7 +129,7 @@ el_time_select <- function(id = NULL,
                             clear_icon, width, slots, session) {
   prefix <- gsub("-", "_", tag)
   if (is.null(id)) id <- paste0(prefix, "_", uuid::UUIDgenerate())
-  ns_id <- if (!is.null(session)) session$ns(id) else id
+  ns_id <- .el_ui_id(id, session)
 
   init <- if (is.null(value)) {
     if (isTRUE(is_range)) list() else ""

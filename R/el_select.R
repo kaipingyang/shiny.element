@@ -30,7 +30,9 @@ el_select_handler_dependency <- function() {
 #'   `multiple = TRUE`. `0` means unlimited. Default `0`.
 #' @param collapse_tags Whether to collapse selected tags into a summary when
 #'   `multiple = TRUE`. Default `FALSE`.
-#' @param session Shiny session for module namespace support.
+#' @param session Deprecated. Inside a module, wrap `id` in `ns()`, as for
+#'   any Shiny input; a session given here namespaces `id` once more, with
+#'   a warning.
 #' @param value_key Key that identifies an option when values are objects. Default `"value"`.
 #' @param name Native `name` attribute.
 #' @param autocomplete Native `autocomplete` attribute. Default `"off"`.
@@ -125,13 +127,13 @@ el_select <- function(
     slots          = NULL,
     value          = NULL,
     options        = NULL,
-    session        = shiny::getDefaultReactiveDomain()
+    session        = NULL
 ) {
   selected <- .el_alias(selected, value, "selected", "value")
   choices  <- .el_alias(choices, options, "choices", "options")
   if (is.null(choices)) choices <- list()
   if (is.null(id)) id <- paste0("el_select_", uuid::UUIDgenerate())
-  ns_id        <- if (!is.null(session)) session$ns(id) else id
+  ns_id        <- .el_ui_id(id, session)
   container_id <- paste0(ns_id, "_container")
 
   # Options are rendered with v-for so update_el_select() can replace them.

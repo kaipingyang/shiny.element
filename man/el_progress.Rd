@@ -19,7 +19,7 @@ el_progress(
   define_back_color = NULL,
   text_color = NULL,
   format = NULL,
-  session = shiny::getDefaultReactiveDomain()
+  session = NULL
 )
 }
 \arguments{
@@ -59,7 +59,9 @@ the template with \code{\link[=template]{template()}}.}
 
 \item{format}{\code{htmlwidgets::JS()} function \verb{function(percentage)} returning the text shown.}
 
-\item{session}{Shiny session for module support.}
+\item{session}{Deprecated. Inside a module, wrap \code{id} in \code{ns()}, as for
+any Shiny input; a session given here namespaces \code{id} once more, with
+a warning.}
 }
 \value{
 An \code{htmltools} tagList with a Vue-managed progress component.

@@ -11,7 +11,9 @@
 #' @param slots Named list of Element slot contents. `dateCell` renders one
 #'   day: Element hands the template `date` and `data`, so write it with
 #'   [template()]. A default is used when none is given.
-#' @param session Shiny session for module support
+#' @param session Deprecated. Inside a module, wrap `id` in `ns()`, as for
+#'   any Shiny input; a session given here namespaces `id` once more, with
+#'   a warning.
 #' @return A Shiny UI element.
 #' @export
 #' @examples
@@ -73,12 +75,12 @@ el_calendar <- function(id = NULL,
                         first_day_of_week = 1,  
                         width   = NULL,
                         slots   = NULL,
-                        session = getDefaultReactiveDomain()) {  
+                        session = NULL) {  
   
   if (is.null(id)) {  
     id <- paste0("el_calendar_", uuid::UUIDgenerate())  
   }  
-  ns_id <- if (!is.null(session)) session$ns(id) else id  
+  ns_id <- .el_ui_id(id, session)  
   container_id <- paste0(ns_id, "_container")  
   
   calendar_attrs <- list(  

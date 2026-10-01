@@ -24,7 +24,7 @@ el_dialog(
   modal_append_to_body = TRUE,
   destroy_on_close = FALSE,
   before_close = NULL,
-  session = shiny::getDefaultReactiveDomain()
+  session = NULL
 )
 }
 \arguments{
@@ -74,7 +74,9 @@ it when it closes: inputs inside start from their initial values again.}
 the user closes it -- by the cross, the backdrop or Escape; call \code{done()}
 to let it close.}
 
-\item{session}{Shiny session for module support.}
+\item{session}{Deprecated. Inside a module, wrap \code{id} in \code{ns()}, as for
+any Shiny input; a session given here namespaces \code{id} once more, with
+a warning.}
 }
 \value{
 An \code{htmltools} tag.

@@ -24,7 +24,9 @@
 #'   named list.
 #' @param width Component width, as a CSS unit.
 #' @param slots Named list of Element slot contents: `title`, `extra`.
-#' @param session Shiny session for module support.
+#' @param session Deprecated. Inside a module, wrap `id` in `ns()`, as for
+#'   any Shiny input; a session given here namespaces `id` once more, with
+#'   a warning.
 #'
 #' @return A Shiny UI element.
 #' @examples
@@ -52,9 +54,9 @@ el_descriptions <- function(id = NULL,
                             content_style = NULL,
                             width = NULL,
                             slots = NULL,
-                            session = shiny::getDefaultReactiveDomain()) {
+                            session = NULL) {
   if (is.null(id)) id <- paste0("el_descriptions_", uuid::UUIDgenerate())
-  ns_id <- if (!is.null(session)) session$ns(id) else id
+  ns_id <- .el_ui_id(id, session)
 
   items <- .el_descriptions_items(items)
 

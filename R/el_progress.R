@@ -17,7 +17,9 @@
 #'   colour when set. Default `NULL`.
 #' @param width Width in pixels for `"circle"` and `"dashboard"` types.
 #'   Default `126`.
-#' @param session Shiny session for module support.
+#' @param session Deprecated. Inside a module, wrap `id` in `ns()`, as for
+#'   any Shiny input; a session given here namespaces `id` once more, with
+#'   a warning.
 #' @param stroke_linecap Shape of the bar's ends: `"round"` (default), `"butt"` or `"square"`.
 #' @param define_back_color Background colour of the track.
 #' @param text_color Colour of the percentage text.
@@ -71,10 +73,10 @@ el_progress <- function(
     define_back_color = NULL,
     text_color   = NULL,
     format       = NULL,
-    session      = shiny::getDefaultReactiveDomain()
+    session      = NULL
 ) {
   if (is.null(id)) id <- paste0("el_progress_", uuid::UUIDgenerate())
-  ns_id        <- if (!is.null(session)) session$ns(id) else id
+  ns_id        <- .el_ui_id(id, session)
   container_id <- paste0(ns_id, "_container")
 
   progress_attrs <- list(

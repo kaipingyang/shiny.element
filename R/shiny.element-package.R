@@ -6,7 +6,6 @@
 #' @importFrom htmltools tag
 #' @importFrom htmlwidgets JS
 #' @importFrom jsonlite toJSON
-#' @importFrom shiny getDefaultReactiveDomain
 #' @importFrom shiny tagList
 #' @importFrom shiny tags
 #' @importFrom shiny titlePanel

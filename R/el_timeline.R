@@ -17,7 +17,9 @@
 #' @param html Render each entry's `content` as HTML rather than text. Only
 #'   use it with content you control: it goes through `v-html`, which does not
 #'   escape anything.
-#' @param session Shiny session for module support.
+#' @param session Deprecated. Inside a module, wrap `id` in `ns()`, as for
+#'   any Shiny input; a session given here namespaces `id` once more, with
+#'   a warning.
 #' @param width Component width, as a CSS unit -- `"200px"`, `"50%"`, or a
 #'   number taken as pixels. Element's own markup carries it, so it behaves
 #'   like the `width` argument of a Shiny input.
@@ -53,9 +55,9 @@ el_timeline <- function(id = NULL,
                         html = FALSE,
                         width   = NULL,
                         slots   = NULL,
-                        session = shiny::getDefaultReactiveDomain()) {
+                        session = NULL) {
   if (is.null(id)) id <- paste0("el_timeline_", uuid::UUIDgenerate())
-  ns_id        <- if (!is.null(session)) session$ns(id) else id
+  ns_id        <- .el_ui_id(id, session)
   container_id <- paste0(ns_id, "_container")
 
   # One v-for over a data field, so update_el_timeline() can replace the lot.

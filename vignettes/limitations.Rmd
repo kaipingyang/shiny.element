@@ -107,6 +107,49 @@ An event whose arguments cannot cross the wire -- a native `FocusEvent`, a DOM
 node, a whole Vue instance -- reports `TRUE` instead, so an observer can still
 tell that it happened.
 
+## Shiny modules
+
+Components follow Shiny's own rule. In a module's UI, the id is wrapped in
+`ns()`, exactly as for `textInput()`; in its server, `input$<id>` and every
+`update_el_*()` take the bare id, namespaced by the module's session. That
+holds for UI built by `renderUI()` inside the module too, and for the
+inputs a component adds to its id -- `input$rows_go` from a row action,
+`input$tabs_edit`, `input$rows_selected_rows`.
+
+```{r module, eval = FALSE, shot = TRUE, shot_js = "document.querySelector('#orders-rows_container .el-table__body .el-button').click()", shot_wait = 2}
+orders_ui <- function(id) {
+  ns <- NS(id)
+  tagList(
+    el_select(ns("status"), choices = c("paid", "pending"), selected = "paid"),
+    el_table(ns("rows"), data = data.frame(order = c(101, 102)), columns = list(
+      list(prop = "order", label = "Order"),
+      list(label = "", cell = el$button(size = "mini",
+        "@click" = "rowAction('open', scope)", "Open")))),
+    uiOutput(ns("more")),
+    verbatimTextOutput(ns("seen"))
+  )
+}
+
+orders_server <- function(id) {
+  moduleServer(id, function(input, output, session) {
+    # Built in the server, still wrapped in ns() once
+    output$more <- renderUI(el_switch(session$ns("urgent"), active_text = "Urgent"))
+    output$seen <- renderPrint(list(status = input$status, urgent = input$urgent,
+                                    opened = input$rows_open$row_index))
+  })
+}
+
+ui <- el_page(orders_ui("orders"))
+server <- function(input, output, session) orders_server("orders")
+shinyApp(ui, server)
+```
+
+Before 0.1.0 the UI functions namespaced their id themselves, from the
+session they were built in -- which inside `renderUI()` in a module turned
+`ns("urgent")` into `"orders-orders-urgent"`, an input that never reported.
+They no longer do; their `session` argument is deprecated, and a session
+passed to it still namespaces, with a warning.
+
 ## Nesting components
 
 Two kinds of component wrap other content, and they behave differently.

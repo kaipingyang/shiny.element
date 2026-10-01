@@ -9,7 +9,7 @@ el_collapse(
   items = list(),
   value = character(0),
   accordion = FALSE,
-  session = shiny::getDefaultReactiveDomain()
+  session = NULL
 )
 }
 \arguments{
@@ -29,7 +29,9 @@ mode only the first is used.}
 
 \item{accordion}{Single-open accordion mode. Default \code{FALSE}.}
 
-\item{session}{Shiny session for module support.}
+\item{session}{Deprecated. Inside a module, wrap \code{id} in \code{ns()}, as for
+any Shiny input; a session given here namespaces \code{id} once more, with
+a warning.}
 }
 \value{
 An \code{htmltools} tag.

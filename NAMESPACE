@@ -149,7 +149,6 @@ importFrom(htmltools,
 importFrom(htmlwidgets,JS)
 importFrom(jsonlite,toJSON)
 importFrom(shiny,
-  getDefaultReactiveDomain,
   tagList,
   tags,
   titlePanel

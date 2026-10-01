@@ -33,7 +33,9 @@
 #'   `function(activeName, oldActiveName)` run before switching tabs; return
 #'   `false`, or a promise that rejects, to stay put.
 #' @param stretch Stretch the tabs to fill the available width.
-#' @param session Shiny session for module support.
+#' @param session Deprecated. Inside a module, wrap `id` in `ns()`, as for
+#'   any Shiny input; a session given here namespaces `id` once more, with
+#'   a warning.
 #'
 #' @return An `htmltools` tag.
 #'
@@ -71,10 +73,10 @@ el_tabs <- function(
     editable     = FALSE,
     stretch      = FALSE,
     before_leave = NULL,
-    session      = shiny::getDefaultReactiveDomain()
+    session      = NULL
 ) {
   if (is.null(id)) id <- paste0("el_tabs_", uuid::UUIDgenerate())
-  ns_id <- if (!is.null(session)) session$ns(id) else id
+  ns_id <- .el_ui_id(id, session)
 
   # Element's editable is closable and addable together
   if (isTRUE(editable)) {

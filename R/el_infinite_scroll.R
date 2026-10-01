@@ -19,7 +19,9 @@
 #' @param immediate Whether to ask once on load, in case the content does not
 #'   fill the area. Default `TRUE`.
 #' @param width Component width, as a CSS unit.
-#' @param session Shiny session for module support.
+#' @param session Deprecated. Inside a module, wrap `id` in `ns()`, as for
+#'   any Shiny input; a session given here namespaces `id` once more, with
+#'   a warning.
 #' @param slots Named list of Element slot contents, such as
 #'   `list(title = shiny::tags$b("Bold"))`. A shiny.element component
 #'   given here is absorbed rather than nested. For a scoped slot, write
@@ -61,13 +63,13 @@ el_infinite_scroll <- function(id = NULL,
                                immediate = NULL,
                                width = NULL,
                                slots   = NULL,
-                               session = shiny::getDefaultReactiveDomain()) {
+                               session = NULL) {
   # Each piece of content is absorbed on its own, so several components
   # may sit in the same scrolling area.
   inners <- lapply(list(...), .el_absorb)
 
   if (is.null(id)) id <- paste0("el_infinite_scroll_", uuid::UUIDgenerate())
-  ns_id <- if (!is.null(session)) session$ns(id) else id
+  ns_id <- .el_ui_id(id, session)
 
   attrs <- list(
     "v-infinite-scroll"           = "handleLoad",

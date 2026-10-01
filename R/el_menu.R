@@ -87,7 +87,9 @@
 #' @param collapse Collapse to icons only. Vertical menus only.
 #' @param unique_opened Keep only one submenu open at a time.
 #' @param background_color,text_color,active_text_color Menu colours.
-#' @param session Shiny session for module support.
+#' @param session Deprecated. Inside a module, wrap `id` in `ns()`, as for
+#'   any Shiny input; a session given here namespaces `id` once more, with
+#'   a warning.
 #' @param default_openeds Character vector of sub-menu indexes open at start.
 #' @param menu_trigger How a horizontal sub-menu opens: `"hover"` (default) or `"click"`.
 #' @param collapse_transition Whether to animate collapsing. Default `TRUE`.
@@ -149,9 +151,9 @@ el_menu <- function(id = NULL,
                     router  = NULL,
                     width   = NULL,
                     slots   = NULL,
-                    session = shiny::getDefaultReactiveDomain()) {
+                    session = NULL) {
   if (is.null(id)) id <- paste0("el_menu_", uuid::UUIDgenerate())
-  ns_id        <- if (!is.null(session)) session$ns(id) else id
+  ns_id        <- .el_ui_id(id, session)
   container_id <- paste0(ns_id, "_container")
 
   menu_attrs <- list(

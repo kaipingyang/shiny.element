@@ -12,7 +12,9 @@
 #'   `"hsv"`, `"hsl"`.
 #' @param predefine Character vector of preset colour swatches. `NULL` for
 #'   none.
-#' @param session Shiny session for module support.
+#' @param session Deprecated. Inside a module, wrap `id` in `ns()`, as for
+#'   any Shiny input; a session given here namespaces `id` once more, with
+#'   a warning.
 #' @param popper_class Extra class name for the dropdown panel.
 #' @param width Component width, as a CSS unit -- `"200px"`, `"50%"`, or a
 #'   number taken as pixels. Element's own markup carries it, so it behaves
@@ -44,10 +46,10 @@ el_color_picker <- function(
     popper_class = NULL,
     width        = NULL,
     slots        = NULL,
-    session      = shiny::getDefaultReactiveDomain()
+    session      = NULL
 ) {
   if (is.null(id)) id <- paste0("el_color_picker_", uuid::UUIDgenerate())
-  ns_id        <- if (!is.null(session)) session$ns(id) else id
+  ns_id        <- .el_ui_id(id, session)
   container_id <- paste0(ns_id, "_container")
 
   cp_attrs <- list(

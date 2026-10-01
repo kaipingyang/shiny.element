@@ -29,7 +29,7 @@ el_time_picker(
   clear_icon = NULL,
   width = NULL,
   slots = NULL,
-  session = shiny::getDefaultReactiveDomain()
+  session = NULL
 )
 
 el_time_select(
@@ -50,7 +50,7 @@ el_time_select(
   clear_icon = NULL,
   width = NULL,
   slots = NULL,
-  session = shiny::getDefaultReactiveDomain()
+  session = NULL
 )
 }
 \arguments{
@@ -95,7 +95,9 @@ latter two for a range.}
 
 \item{slots}{Named list of Element slot contents.}
 
-\item{session}{Shiny session for module support.}
+\item{session}{Deprecated. Inside a module, wrap \code{id} in \code{ns()}, as for
+any Shiny input; a session given here namespaces \code{id} once more, with
+a warning.}
 }
 \value{
 A Shiny UI element.

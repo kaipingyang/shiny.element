@@ -574,10 +574,21 @@ test_that("container components keep a normal line height", {
 
 test_that("the page is not stretched to several times its content height", {
   skip_if_no_browser()
-  # The fixture app renders every component once. With the demo stylesheet
-  # loaded it measured over 4000px; without it, well under.
-  h <- as.numeric(bev("String(document.documentElement.scrollHeight)"))
-  expect_lt(h, 4000)
+  # The demo stylesheet once made the fixture page three times its natural
+  # height. Measured against the same page with the package's layout
+  # stylesheet switched off, rather than against a fixed number of pixels,
+  # which every new fixture would push past.
+  h <- jsonlite::fromJSON(bev("(function(){
+    var sheet = Array.from(document.styleSheets).filter(function(s) {
+      return s.href && s.href.indexOf('el-layout.css') >= 0; })[0];
+    var withIt = document.documentElement.scrollHeight;
+    if (sheet) sheet.disabled = true;
+    var without = document.documentElement.scrollHeight;
+    if (sheet) sheet.disabled = false;
+    return JSON.stringify({with: withIt, without: without, found: !!sheet});
+  })()"))
+  expect_true(h$found)
+  expect_lt(h$with, 1.1 * h$without)
 })
 
 # ── offline assets ────────────────────────────────────────────────────────────
@@ -771,4 +782,32 @@ test_that("a value set from the server is reported back, as update*Input() does"
   expect_equal(vals[["sw"]], "FALSE")
   expect_equal(vals[["sld"]], "7")
   expect_equal(vals[["num"]], "9")
+})
+
+# ── Shiny modules ─────────────────────────────────────────────────────────────
+
+test_that("components in a module report under the module's namespace", {
+  skip_if_no_browser()
+  vals <- bdump("mod-dump")
+  expect_equal(vals[["text"]], "in module")
+  expect_equal(vals[["pick"]], "a")
+  expect_equal(vals[["tabs"]], "one")
+  # Built by renderUI() in the module server: once namespaced, not twice
+  expect_equal(vals[["flag"]], "TRUE")
+  expect_true(bev("!!document.getElementById('mod-flag')"))
+  expect_false(bev("!!document.getElementById('mod-mod-flag')"))
+})
+
+test_that("updates, row actions and inserted tabs work inside a module", {
+  skip_if_no_browser()
+  bclick("#mod-set", wait = 2)
+  bclick("#mod-add_tab", wait = 2.5)
+  bev("document.querySelector('#mod-rows_container .el-table__body .el-button').click()")
+  Sys.sleep(2)
+  vals <- bdump("mod-dump")
+  expect_equal(vals[["text"]], "set from module")
+  expect_equal(vals[["pick"]], "b")
+  expect_equal(vals[["tabs"]], "two")
+  expect_equal(vals[["stars"]], "2")
+  expect_equal(vals[["went"]], "1")
 })

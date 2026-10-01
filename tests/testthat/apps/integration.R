@@ -13,6 +13,48 @@ cascader_opts <- list(
   ))
 )
 
+# A module: the same components inside a namespace, built both in the module
+# UI function and by renderUI() in the module server, where the default
+# reactive domain is the module's own session.
+mod_ui <- function(id) {
+  ns <- NS(id)
+  tags$div(id = ns("box"),
+    el_input(ns("text"), value = "in module"),
+    el_select(ns("pick"), choices = c(A = "a", B = "b"), selected = "a"),
+    el_table(ns("rows"), data = data.frame(n = 1:2), columns = list(
+      list(prop = "n", label = "N"),
+      list(label = "", cell = el$button(size = "mini",
+        "@click" = "rowAction('go', scope)", "Go")))),
+    el_tabs(ns("tabs"), tabs = list(list(name = "one", label = "One", content = "1"))),
+    uiOutput(ns("dyn")),
+    actionButton(ns("set"), "set"),
+    actionButton(ns("add_tab"), "add tab"),
+    verbatimTextOutput(ns("dump"))
+  )
+}
+
+mod_server <- function(id) {
+  moduleServer(id, function(input, output, session) {
+    ns <- session$ns
+    output$dyn <- renderUI(el_switch(ns("flag"), value = TRUE))
+    observeEvent(input$set, {
+      update_el_input(session, "text", value = "set from module")
+      update_el_select(session, "pick", selected = "b")
+    })
+    observeEvent(input$add_tab, {
+      insert_el_tab(session, "tabs", "two", "Two", content = el_rate(ns("stars"), value = 2))
+    })
+    went <- reactiveVal("none")
+    observeEvent(input$rows_go, went(as.character(input$rows_go$row_index)))
+    output$dump <- renderPrint({
+      for (i in c("text", "pick", "flag", "tabs", "stars")) {
+        cat(i, "=", if (is.null(input[[i]])) "<NULL>" else paste(input[[i]], collapse = ","), "\n")
+      }
+      cat("went", "=", went(), "\n")
+    })
+  })
+}
+
 ui <- el_page(
   title = "integration",
   # Vue's development build, so its warnings reach the console instead of
@@ -193,10 +235,13 @@ ui <- el_page(
   # Values set from the server, which Element does not report as `change`
   actionButton("set_values", "set values"),
 
-  verbatimTextOutput("dump")
+  verbatimTextOutput("dump"),
+
+  mod_ui("mod")
 )
 
 server <- function(input, output, session) {
+  mod_server("mod")
   fmt <- function(x) {
     if (is.null(x)) return("<NULL>")
     paste(format(x), collapse = ",")

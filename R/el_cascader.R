@@ -16,7 +16,9 @@
 #' @param separator Separator for display
 #' @param debounce Debounce delay for filter
 #' @param icon Icon for the cascader (shiny.tag or NULL)
-#' @param session Shiny session for module support
+#' @param session Deprecated. Inside a module, wrap `id` in `ns()`, as for
+#'   any Shiny input; a session given here namespaces `id` once more, with
+#'   a warning.
 #' @param popper_class Extra class name for the dropdown panel.
 #' @param filter_method `htmlwidgets::JS()` function filtering the options as the user types.
 #' @param before_filter `htmlwidgets::JS()` function called before filtering; returning `false` cancels it.
@@ -106,11 +108,11 @@ el_cascader <- function(id = NULL,
                         before_filter = NULL,
                         width   = NULL,
                         slots   = NULL,
-                        session = getDefaultReactiveDomain()) {
+                        session = NULL) {
   if (is.null(id)) {
     id <- paste0("el_cascader_", uuid::UUIDgenerate())
   }
-  ns_id <- if (!is.null(session)) session$ns(id) else id
+  ns_id <- .el_ui_id(id, session)
   container_id <- paste0(ns_id, "_container")
 
   cascader_attrs <- list(

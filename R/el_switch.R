@@ -12,7 +12,9 @@
 #' @param inactive_color Background color when switch is off.
 #' @param active_value Value reported to Shiny when switch is on. Default `TRUE`.
 #' @param inactive_value Value reported to Shiny when switch is off. Default `FALSE`.
-#' @param session Shiny session for module support.
+#' @param session Deprecated. Inside a module, wrap `id` in `ns()`, as for
+#'   any Shiny input; a session given here namespaces `id` once more, with
+#'   a warning.
 #' @param active_icon_class Icon class shown on the active side; overrides `active_text`.
 #' @param inactive_icon_class Icon class shown on the inactive side; overrides `inactive_text`.
 #' @param name Native `name` attribute of the inner checkbox.
@@ -66,10 +68,10 @@ el_switch <- function(
     name           = NULL,
     validate_event = NULL,
     slots          = NULL,
-    session        = shiny::getDefaultReactiveDomain()
+    session        = NULL
 ) {
   if (is.null(id)) id <- paste0("el_switch_", uuid::UUIDgenerate())
-  ns_id        <- if (!is.null(session)) session$ns(id) else id
+  ns_id        <- .el_ui_id(id, session)
   container_id <- paste0(ns_id, "_container")
 
   switch_attrs <- list(

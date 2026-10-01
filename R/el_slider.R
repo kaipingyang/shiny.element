@@ -21,7 +21,9 @@
 #'   Defaults to `"200px"` when `vertical = TRUE` and not explicitly provided.
 #' @param marks Named list of mark labels, e.g.,
 #'   `list("0" = "0km", "50" = "50km")`. Default `NULL` (no marks).
-#' @param session Shiny session for module support.
+#' @param session Deprecated. Inside a module, wrap `id` in `ns()`, as for
+#'   any Shiny input; a session given here namespaces `id` once more, with
+#'   a warning.
 #' @param label Accessible label for screen readers.
 #' @param debounce Debounce in ms while dragging, when `show_input = TRUE`. Default `300`.
 #' @param input_size Size of the companion input when `show_input = TRUE`.
@@ -90,10 +92,10 @@ el_slider <- function(
     format_tooltip = NULL,
     width        = NULL,
     slots        = NULL,
-    session      = shiny::getDefaultReactiveDomain()
+    session      = NULL
 ) {
   if (is.null(id)) id <- paste0("el_slider_", uuid::UUIDgenerate())
-  ns_id        <- if (!is.null(session)) session$ns(id) else id
+  ns_id        <- .el_ui_id(id, session)
   container_id <- paste0(ns_id, "_container")
 
   # Normalize value for range mode

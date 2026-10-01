@@ -100,7 +100,9 @@
 #' @param tip Help text shown under the control.
 #' @param action Post to this URL using Element's own upload instead of
 #'   Shiny's channel. See details.
-#' @param session Shiny session for module support.
+#' @param session Deprecated. Inside a module, wrap `id` in `ns()`, as for
+#'   any Shiny input; a session given here namespaces `id` once more, with
+#'   a warning.
 #' @param headers Request headers, as a named list.
 #' @param extra_data Extra fields sent alongside the file, as a named list.
 #' @param file_list Files shown initially, each `list(name=, url=)`.
@@ -193,9 +195,9 @@ el_upload <- function(id = NULL,
                       on_exceed = NULL,
                       width   = NULL,
                       slots   = NULL,
-                      session = shiny::getDefaultReactiveDomain()) {
+                      session = NULL) {
   if (is.null(id)) id <- paste0("el_upload_", uuid::UUIDgenerate())
-  ns_id        <- if (!is.null(session)) session$ns(id) else id
+  ns_id        <- .el_ui_id(id, session)
   container_id <- paste0(ns_id, "_container")
 
   via_shiny <- is.null(action)

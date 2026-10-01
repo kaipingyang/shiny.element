@@ -11,7 +11,7 @@ el_cascader_panel(
   props = NULL,
   width = NULL,
   slots = NULL,
-  session = shiny::getDefaultReactiveDomain()
+  session = NULL
 )
 }
 \arguments{
@@ -34,7 +34,9 @@ level down -- or a list of paths with \code{props = list(multiple = TRUE)}.}
 \item{slots}{Named list of Element slot contents. The default slot, scoped
 with \verb{\{node, data\}}, renders one option; write it with \code{\link[=template]{template()}}.}
 
-\item{session}{Shiny session for module support.}
+\item{session}{Deprecated. Inside a module, wrap \code{id} in \code{ns()}, as for
+any Shiny input; a session given here namespaces \code{id} once more, with
+a warning.}
 }
 \value{
 A Shiny UI element.

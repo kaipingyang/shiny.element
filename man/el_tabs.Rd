@@ -15,7 +15,7 @@ el_tabs(
   editable = FALSE,
   stretch = FALSE,
   before_leave = NULL,
-  session = shiny::getDefaultReactiveDomain()
+  session = NULL
 )
 }
 \arguments{
@@ -54,7 +54,9 @@ from the page; the server is told through \verb{input$<id>_tab_remove}.}
 \verb{function(activeName, oldActiveName)} run before switching tabs; return
 \code{false}, or a promise that rejects, to stay put.}
 
-\item{session}{Shiny session for module support.}
+\item{session}{Deprecated. Inside a module, wrap \code{id} in \code{ns()}, as for
+any Shiny input; a session given here namespaces \code{id} once more, with
+a warning.}
 }
 \value{
 An \code{htmltools} tag.

@@ -14,7 +14,7 @@ el_skeleton(
   throttle = NULL,
   width = NULL,
   slots = NULL,
-  session = shiny::getDefaultReactiveDomain()
+  session = NULL
 )
 }
 \arguments{
@@ -39,7 +39,9 @@ a fast load does not flash it.}
 \item{slots}{Named list of Element slot contents. \code{template} replaces the
 placeholder's shape; build it from \code{el$skeleton_item(variant = ...)}.}
 
-\item{session}{Shiny session for module support.}
+\item{session}{Deprecated. Inside a module, wrap \code{id} in \code{ns()}, as for
+any Shiny input; a session given here namespaces \code{id} once more, with
+a warning.}
 }
 \value{
 A Shiny UI element.

@@ -18,7 +18,9 @@
 #' @param max Maximum number of checked items.
 #' @param button Whether to use button-style checkboxes (`el-checkbox-button`).
 #'   Default `FALSE`.
-#' @param session Shiny session for module support.
+#' @param session Deprecated. Inside a module, wrap `id` in `ns()`, as for
+#'   any Shiny input; a session given here namespaces `id` once more, with
+#'   a warning.
 #' @param fill Border and background colour when `button = TRUE` and checked.
 #' @param text_color Text colour when `button = TRUE` and checked.
 #' @param width Component width, as a CSS unit -- `"200px"`, `"50%"`, or a
@@ -73,13 +75,13 @@ el_checkbox_group <- function(
     slots    = NULL,
     value    = NULL,
     options  = NULL,
-    session  = shiny::getDefaultReactiveDomain()
+    session  = NULL
 ) {
   selected <- .el_alias(selected, value, "selected", "value")
   choices  <- .el_alias(choices, options, "choices", "options")
   if (is.null(choices)) stop("`choices` (or `options`) is required.", call. = FALSE)
   if (is.null(id)) id <- paste0("el_checkbox_group_", uuid::UUIDgenerate())
-  ns_id        <- if (!is.null(session)) session$ns(id) else id
+  ns_id        <- .el_ui_id(id, session)
   container_id <- paste0(ns_id, "_container")
 
   cb_tag_name <- if (button) "el-checkbox-button" else "el-checkbox"

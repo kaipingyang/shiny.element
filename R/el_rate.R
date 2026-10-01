@@ -15,7 +15,9 @@
 #' @param text_color Colour of the text/score. Default `"#1f2d3d"`.
 #' @param score_template Template for score display. `{value}` is replaced.
 #'   Default `"{value}"`.
-#' @param session Shiny session for module support.
+#' @param session Deprecated. Inside a module, wrap `id` in `ns()`, as for
+#'   any Shiny input; a session given here namespaces `id` once more, with
+#'   a warning.
 #' @param colors Colours for the three score levels, or a named list keyed by threshold.
 #' @param void_color Colour of unselected icons.
 #' @param disabled_void_color Colour of unselected icons when `disabled = TRUE`.
@@ -68,10 +70,10 @@ el_rate <- function(
     high_threshold = NULL,
     width          = NULL,
     slots          = NULL,
-    session        = shiny::getDefaultReactiveDomain()
+    session        = NULL
 ) {
   if (is.null(id)) id <- paste0("el_rate_", uuid::UUIDgenerate())
-  ns_id        <- if (!is.null(session)) session$ns(id) else id
+  ns_id        <- .el_ui_id(id, session)
   container_id <- paste0(ns_id, "_container")
 
   rate_attrs <- list(

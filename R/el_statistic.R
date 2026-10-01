@@ -25,7 +25,9 @@
 #' @param width Component width, as a CSS unit.
 #' @param slots Named list of Element slot contents: `prefix`, `suffix`,
 #'   `title`, `formatter`.
-#' @param session Shiny session for module support.
+#' @param session Deprecated. Inside a module, wrap `id` in `ns()`, as for
+#'   any Shiny input; a session given here namespaces `id` once more, with
+#'   a warning.
 #'
 #' @section Shiny inputs:
 #' With `time_indices = TRUE`:
@@ -65,9 +67,9 @@ el_statistic <- function(id = NULL,
                          format = NULL,
                          width = NULL,
                          slots = NULL,
-                         session = shiny::getDefaultReactiveDomain()) {
+                         session = NULL) {
   if (is.null(id)) id <- paste0("el_statistic_", uuid::UUIDgenerate())
-  ns_id <- if (!is.null(session)) session$ns(id) else id
+  ns_id <- .el_ui_id(id, session)
 
   attrs <- list(
     ":value"             = "value",

@@ -12,7 +12,7 @@ el_empty(
   image_size = NULL,
   width = NULL,
   slots = NULL,
-  session = shiny::getDefaultReactiveDomain()
+  session = NULL
 )
 }
 \arguments{
@@ -32,7 +32,9 @@ emptiness. A shiny.element component here is absorbed, not nested.}
 
 \item{slots}{Named list of Element slot contents: \code{image}, \code{description}.}
 
-\item{session}{Shiny session for module support.}
+\item{session}{Deprecated. Inside a module, wrap \code{id} in \code{ns()}, as for
+any Shiny input; a session given here namespaces \code{id} once more, with
+a warning.}
 }
 \value{
 A Shiny UI element.

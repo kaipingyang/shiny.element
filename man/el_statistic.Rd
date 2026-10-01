@@ -20,7 +20,7 @@ el_statistic(
   format = NULL,
   width = NULL,
   slots = NULL,
-  session = shiny::getDefaultReactiveDomain()
+  session = NULL
 )
 }
 \arguments{
@@ -61,7 +61,9 @@ epoch.}
 \item{slots}{Named list of Element slot contents: \code{prefix}, \code{suffix},
 \code{title}, \code{formatter}.}
 
-\item{session}{Shiny session for module support.}
+\item{session}{Deprecated. Inside a module, wrap \code{id} in \code{ns()}, as for
+any Shiny input; a session given here namespaces \code{id} once more, with
+a warning.}
 }
 \value{
 A Shiny UI element.

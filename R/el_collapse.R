@@ -20,7 +20,9 @@
 #' @param value Character vector of initially open panel names. In accordion
 #'   mode only the first is used.
 #' @param accordion Single-open accordion mode. Default `FALSE`.
-#' @param session Shiny session for module support.
+#' @param session Deprecated. Inside a module, wrap `id` in `ns()`, as for
+#'   any Shiny input; a session given here namespaces `id` once more, with
+#'   a warning.
 #'
 #' @return An `htmltools` tag.
 #'
@@ -51,10 +53,10 @@ el_collapse <- function(
     items     = list(),
     value     = character(0),
     accordion = FALSE,
-    session   = shiny::getDefaultReactiveDomain()
+    session   = NULL
 ) {
   if (is.null(id)) id <- paste0("el_collapse_", uuid::UUIDgenerate())
-  ns_id <- if (!is.null(session)) session$ns(id) else id
+  ns_id <- .el_ui_id(id, session)
 
   if (accordion && length(value) > 1) value <- value[1]
 
