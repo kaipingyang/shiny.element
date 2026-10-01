@@ -40,14 +40,14 @@ rather than text, which fills the step's slot of that name.}
 
 \item{simple}{Apply simple style}
 
-\item{width}{Component width, as a CSS unit -- \code{"200px"}, \code{"50\%"}, or a}
+\item{width}{Component width, as a CSS unit -- \code{"200px"}, \code{"50\%"}, or a
+number taken as pixels. Element's own markup carries it, so it behaves
+like the \code{width} argument of a Shiny input.}
 
 \item{slots}{Named list of Element slot contents, such as
 \code{list(title = shiny::tags$b("Bold"))}. A shiny.element component
 given here is absorbed rather than nested. For a scoped slot, write
-the template with \code{\link[=template]{template()}}.
-number taken as pixels. Element's own markup carries it, so it behaves
-like the \code{width} argument of a Shiny input.}
+the template with \code{\link[=template]{template()}}.}
 
 \item{session}{Shiny session for module support}
 }
@@ -58,26 +58,25 @@ A Shiny UI element.
 Element UI Steps Component
 }
 \examples{
- 
-# Basic usage  
-el_steps(  
-  id = "my_steps",  
-  steps = list(  
-    list(title = "Step 1"),  
-    list(title = "Step 2"),  
-    list(title = "Step 3")  
-  )  
-)  
- 
-# With descriptions and icons  
-el_steps(  
-  id = "my_steps",  
-  active = 1,  
-  finish_status = "success",  
-  steps = list(  
-    list(title = "Step 1", description = "Complete registration", icon = "el-icon-edit"),  
-    list(title = "Step 2", description = "Upload documents", icon = "el-icon-upload"),  
-    list(title = "Step 3", description = "Finish", icon = "el-icon-picture")  
-  )  
-)  
+# Basic usage
+el_steps(
+  id = "my_steps",
+  steps = list(
+    list(title = "Step 1"),
+    list(title = "Step 2"),
+    list(title = "Step 3")
+  )
+)
+
+# With descriptions and icons
+el_steps(
+  id = "my_steps",
+  active = 1,
+  finish_status = "success",
+  steps = list(
+    list(title = "Step 1", description = "Complete registration", icon = "el-icon-edit"),
+    list(title = "Step 2", description = "Upload documents", icon = "el-icon-upload"),
+    list(title = "Step 3", description = "Finish", icon = "el-icon-picture")
+  )
+)
 }

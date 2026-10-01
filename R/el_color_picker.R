@@ -15,12 +15,12 @@
 #' @param session Shiny session for module support.
 #' @param popper_class Extra class name for the dropdown panel.
 #' @param width Component width, as a CSS unit -- `"200px"`, `"50%"`, or a
+#'   number taken as pixels. Element's own markup carries it, so it behaves
+#'   like the `width` argument of a Shiny input.
 #' @param slots Named list of Element slot contents, such as
 #'   `list(title = shiny::tags$b("Bold"))`. A shiny.element component
 #'   given here is absorbed rather than nested. For a scoped slot, write
 #'   the template with [template()].
-#'   number taken as pixels. Element's own markup carries it, so it behaves
-#'   like the `width` argument of a Shiny input.
 #'
 #' @return An `htmltools` tagList with a Vue-managed color-picker component.
 #'

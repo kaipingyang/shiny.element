@@ -25,12 +25,12 @@
 #' @param low_threshold Scores at or below this use the first colour and icon. Default `2`.
 #' @param high_threshold Scores above this use the third colour and icon. Default `4`.
 #' @param width Component width, as a CSS unit -- `"200px"`, `"50%"`, or a
+#'   number taken as pixels. Element's own markup carries it, so it behaves
+#'   like the `width` argument of a Shiny input.
 #' @param slots Named list of Element slot contents, such as
 #'   `list(title = shiny::tags$b("Bold"))`. A shiny.element component
 #'   given here is absorbed rather than nested. For a scoped slot, write
 #'   the template with [template()].
-#'   number taken as pixels. Element's own markup carries it, so it behaves
-#'   like the `width` argument of a Shiny input.
 #'
 #' @return An `htmltools` tagList with a Vue-managed rate component.
 #'

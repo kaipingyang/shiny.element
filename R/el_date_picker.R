@@ -35,15 +35,15 @@
 #' @param unlink_panels Whether the two panels of a range picker move independently.
 #' @param picker_options Additional Element picker options, as a named list.
 #' @param validate_event Whether a change triggers form validation. Default `TRUE`.
-#' @param width Component width, as a CSS unit -- `"200px"`, `"50%"`, or a
-#' @param slots Named list of Element slot contents, such as
 #' @param append_to_body Whether the picker panel is appended to `body`. Default `TRUE`; `FALSE` keeps it inside a dialog or a scrolling container.
 #' @param time_arrow_control For `type = "datetime"`: whether the time is picked with arrow buttons rather than by scrolling.
+#' @param width Component width, as a CSS unit -- `"200px"`, `"50%"`, or a
+#'   number taken as pixels. Element's own markup carries it, so it behaves
+#'   like the `width` argument of a Shiny input.
+#' @param slots Named list of Element slot contents, such as
 #'   `list(title = shiny::tags$b("Bold"))`. A shiny.element component
 #'   given here is absorbed rather than nested. For a scoped slot, write
 #'   the template with [template()].
-#'   number taken as pixels. Element's own markup carries it, so it behaves
-#'   like the `width` argument of a Shiny input.
 #'
 #' @section Element methods:
 #' Callable with [el_call()]:

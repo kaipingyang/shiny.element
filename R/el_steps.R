@@ -1,48 +1,48 @@
-#' Element UI Steps Component  
-#'  
-#' @param id Steps ID (auto-generated if NULL)  
+#' Element UI Steps Component
+#'
+#' @param id Steps ID (auto-generated if NULL)
 #' @param steps List of step definitions, each with `title`, `description`,
 #'   `icon` and `status`. `title`, `description` and `icon` may be markup
 #'   rather than text, which fills the step's slot of that name.
-#' @param active Current active step index (0-based)  
-#' @param space Step spacing (number or percentage string)  
-#' @param direction Display direction ("horizontal" or "vertical")  
-#' @param process_status Status of current step  
-#' @param finish_status Status of finished steps  
-#' @param align_center Center align title and description  
-#' @param simple Apply simple style  
-#' @param session Shiny session for module support  
+#' @param active Current active step index (0-based)
+#' @param space Step spacing (number or percentage string)
+#' @param direction Display direction ("horizontal" or "vertical")
+#' @param process_status Status of current step
+#' @param finish_status Status of finished steps
+#' @param align_center Center align title and description
+#' @param simple Apply simple style
+#' @param session Shiny session for module support
 #' @param width Component width, as a CSS unit -- `"200px"`, `"50%"`, or a
+#'   number taken as pixels. Element's own markup carries it, so it behaves
+#'   like the `width` argument of a Shiny input.
 #' @param slots Named list of Element slot contents, such as
 #'   `list(title = shiny::tags$b("Bold"))`. A shiny.element component
 #'   given here is absorbed rather than nested. For a scoped slot, write
 #'   the template with [template()].
-#'   number taken as pixels. Element's own markup carries it, so it behaves
-#'   like the `width` argument of a Shiny input.
 #' @return A Shiny UI element.
-#' @export  
-#' @examples  
-#' # Basic usage  
-#' el_steps(  
-#'   id = "my_steps",  
-#'   steps = list(  
-#'     list(title = "Step 1"),  
-#'     list(title = "Step 2"),  
-#'     list(title = "Step 3")  
-#'   )  
-#' )  
-#'  
-#' # With descriptions and icons  
-#' el_steps(  
-#'   id = "my_steps",  
-#'   active = 1,  
-#'   finish_status = "success",  
-#'   steps = list(  
-#'     list(title = "Step 1", description = "Complete registration", icon = "el-icon-edit"),  
-#'     list(title = "Step 2", description = "Upload documents", icon = "el-icon-upload"),  
-#'     list(title = "Step 3", description = "Finish", icon = "el-icon-picture")  
-#'   )  
-#' )  
+#' @export
+#' @examples
+#' # Basic usage
+#' el_steps(
+#'   id = "my_steps",
+#'   steps = list(
+#'     list(title = "Step 1"),
+#'     list(title = "Step 2"),
+#'     list(title = "Step 3")
+#'   )
+#' )
+#'
+#' # With descriptions and icons
+#' el_steps(
+#'   id = "my_steps",
+#'   active = 1,
+#'   finish_status = "success",
+#'   steps = list(
+#'     list(title = "Step 1", description = "Complete registration", icon = "el-icon-edit"),
+#'     list(title = "Step 2", description = "Upload documents", icon = "el-icon-upload"),
+#'     list(title = "Step 3", description = "Finish", icon = "el-icon-picture")
+#'   )
+#' )
 el_steps <- function(id = NULL,  
                      steps = list(),  
                      active = 0,  
@@ -117,12 +117,12 @@ el_steps <- function(id = NULL,
   )  
 }  
   
-#' Update Element UI Steps  
-#' @param session Shiny session object  
-#' @param id Steps ID  
-#' @param active New active step index  
-#' @param process_status New process status  
-#' @param finish_status New finish status  
+#' Update Element UI Steps
+#' @param session Shiny session object
+#' @param id Steps ID
+#' @param active New active step index
+#' @param process_status New process status
+#' @param finish_status New finish status
 #' @return Called for its side effect; returns `NULL` invisibly.
 #' @examples
 #' if (interactive()) {
@@ -131,7 +131,7 @@ el_steps <- function(id = NULL,
 #'     update_el_steps(session, "wizard", active = 2)
 #'   })
 #' }
-#' @export  
+#' @export
 update_el_steps <- function(session, id,   
                             active = NULL,  
                             process_status = NULL,  

@@ -73,14 +73,14 @@ Defaults to \code{"200px"} when \code{vertical = TRUE} and not explicitly provid
 
 \item{format_tooltip}{\code{htmlwidgets::JS()} function formatting the value shown in the tooltip.}
 
-\item{width}{Component width, as a CSS unit -- \code{"200px"}, \code{"50\%"}, or a}
+\item{width}{Component width, as a CSS unit -- \code{"200px"}, \code{"50\%"}, or a
+number taken as pixels. Element's own markup carries it, so it behaves
+like the \code{width} argument of a Shiny input.}
 
 \item{slots}{Named list of Element slot contents, such as
 \code{list(title = shiny::tags$b("Bold"))}. A shiny.element component
 given here is absorbed rather than nested. For a scoped slot, write
-the template with \code{\link[=template]{template()}}.
-number taken as pixels. Element's own markup carries it, so it behaves
-like the \code{width} argument of a Shiny input.}
+the template with \code{\link[=template]{template()}}.}
 
 \item{session}{Shiny session for module support.}
 }

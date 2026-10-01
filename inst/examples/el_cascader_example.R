@@ -158,6 +158,12 @@ df3 <- data.frame(
   stringsAsFactors = FALSE
 )
 
+cascader_options1 <- df_to_cascader_options(df1, value_cols = c("value1", "value2", "value3"))
+cascader_options2 <- df_to_cascader_options(df2, value_cols = c("value1", "value2", "value3"),
+                                            label_cols = c("label1", "label2", "label3"))
+cascader_options3 <- df_to_cascader_options(df3, value_cols = c("value1", "value2", "value3"),
+                                            label_cols = c("label1", NA, "label3"))
+
 ui <- el_page(
   title = "Element UI Cascader Demo",
 

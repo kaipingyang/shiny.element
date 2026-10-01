@@ -4,7 +4,8 @@
 #' command that is reported as a Shiny input.
 #'
 #' @param id Dropdown ID. Auto-generated UUID if `NULL`.
-#' @param trigger_label Label or tag placed as the dropdown trigger. Default
+#' @param trigger_label The dropdown's trigger. Text gets a down arrow after
+#'   it; a tag -- an icon, an avatar -- is used as it is. Default
 #'   `"Dropdown"`.
 #' @param items A list of menu items. Each element is a named list with:
 #'   \describe{
@@ -30,12 +31,12 @@
 #' @param hide_timeout Delay in ms before the menu hides, for `trigger = "hover"`.
 #' @param tabindex Tab index of the dropdown trigger.
 #' @param width Component width, as a CSS unit -- `"200px"`, `"50%"`, or a
+#'   number taken as pixels. Element's own markup carries it, so it behaves
+#'   like the `width` argument of a Shiny input.
 #' @param slots Named list of Element slot contents, such as
 #'   `list(title = shiny::tags$b("Bold"))`. A shiny.element component
 #'   given here is absorbed rather than nested. For a scoped slot, write
 #'   the template with [template()].
-#'   number taken as pixels. Element's own markup carries it, so it behaves
-#'   like the `width` argument of a Shiny input.
 #'
 #' @return An `htmltools` tagList with a Vue-managed dropdown component.
 #'
@@ -98,12 +99,16 @@ el_dropdown <- function(
   trigger_content <- if (isTRUE(split_button)) {
     # split button — label is the main button text
     trigger_label
-  } else {
+  } else if (is.character(trigger_label)) {
     shiny::tags$span(
       class = "el-dropdown-link",
       trigger_label,
       shiny::tags$i(class = "el-icon-arrow-down el-icon--right")
     )
+  } else {
+    # A tag is the trigger as given -- an icon, an avatar -- with no arrow
+    # added, as Element's own examples write it.
+    shiny::tags$span(class = "el-dropdown-link", trigger_label)
   }
 
   dd_attrs <- list(

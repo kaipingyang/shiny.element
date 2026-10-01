@@ -56,14 +56,14 @@ Clicking an item reports \verb{input$<id>} (the index selected) and
 
 \item{router}{Whether to use vue-router mode, taking each index as a path.}
 
-\item{width}{Component width, as a CSS unit -- \code{"200px"}, \code{"50\%"}, or a}
+\item{width}{Component width, as a CSS unit -- \code{"200px"}, \code{"50\%"}, or a
+number taken as pixels. Element's own markup carries it, so it behaves
+like the \code{width} argument of a Shiny input.}
 
 \item{slots}{Named list of Element slot contents, such as
 \code{list(title = shiny::tags$b("Bold"))}. A shiny.element component
 given here is absorbed rather than nested. For a scoped slot, write
-the template with \code{\link[=template]{template()}}.
-number taken as pixels. Element's own markup carries it, so it behaves
-like the \code{width} argument of a Shiny input.}
+the template with \code{\link[=template]{template()}}.}
 
 \item{session}{Shiny session for module support.}
 }
@@ -77,7 +77,8 @@ depth.
 \section{Server inputs}{
 
 \verb{input$<id>} holds the selected item's \code{index}, reported on load and on
-every selection. \verb{input$<id>_path} holds the full path of indexes down to
+every selection -- \code{NULL} while no item is active. \verb{input$<id>_path} holds
+the full path of indexes down to
 it, so a nested item can be told apart from a top-level one with the same
 index.
 }

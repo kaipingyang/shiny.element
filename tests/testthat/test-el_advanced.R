@@ -171,3 +171,18 @@ test_that("update_el_dropdown: sends disabled", {
   expect_equal(captured$id, "dd1")
   expect_true(captured$disabled)
 })
+
+test_that("el_dropdown adds an arrow to a text trigger, not to a tag", {
+  items <- list(list(command = "a", label = "A"))
+  text <- paste(as.character(el_dropdown("d", trigger_label = "Menu", items = items)), collapse = "")
+  expect_match(text, "el-icon-arrow-down", fixed = TRUE)
+  icon <- paste(as.character(el_dropdown("d", items = items,
+    trigger_label = shiny::tags$i(class = "el-icon-setting"))), collapse = "")
+  expect_false(grepl("el-icon-arrow-down", icon, fixed = TRUE))
+  expect_match(icon, "el-icon-setting", fixed = TRUE)
+})
+
+test_that("Element's stylesheet carries the expanded-row padding fix", {
+  dep <- element_ui_dependency()
+  expect_match(dep$head, ".el-table .el-table__expanded-cell[class*=cell]", fixed = TRUE)
+})

@@ -93,16 +93,17 @@
 #' @param collapse_transition Whether to animate collapsing. Default `TRUE`.
 #' @param router Whether to use vue-router mode, taking each index as a path.
 #' @param width Component width, as a CSS unit -- `"200px"`, `"50%"`, or a
+#'   number taken as pixels. Element's own markup carries it, so it behaves
+#'   like the `width` argument of a Shiny input.
 #' @param slots Named list of Element slot contents, such as
 #'   `list(title = shiny::tags$b("Bold"))`. A shiny.element component
 #'   given here is absorbed rather than nested. For a scoped slot, write
 #'   the template with [template()].
-#'   number taken as pixels. Element's own markup carries it, so it behaves
-#'   like the `width` argument of a Shiny input.
 #'
 #' @section Server inputs:
 #' `input$<id>` holds the selected item's `index`, reported on load and on
-#' every selection. `input$<id>_path` holds the full path of indexes down to
+#' every selection -- `NULL` while no item is active. `input$<id>_path` holds
+#' the full path of indexes down to
 #' it, so a nested item can be told apart from a top-level one with the same
 #' index.
 #'
@@ -228,8 +229,11 @@ el_menu <- function(id = NULL,
         ), ns_id
       ))
     )),
+    # Nothing active is reported as NULL rather than Element's "", so that an
+    # observeEvent(input$<id>) does not fire on load for a menu with no
+    # current item.
     mounted = .el_mounted_init(stats::setNames(
-      c("active", "path"), paste0(ns_id, c("", "_path"))
+      c("active || null", "path"), paste0(ns_id, c("", "_path"))
     )),
     width      = width,
     slots      = slots,

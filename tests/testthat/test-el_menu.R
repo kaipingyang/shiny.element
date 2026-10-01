@@ -178,3 +178,9 @@ test_that("an item with nothing to show is an error, not a blank entry", {
   # An icon alone is enough
   expect_no_error(el_menu("m", items = list(list(index = "a", icon = "el-icon-house"))))
 })
+
+test_that("a menu with no active item reports NULL rather than an empty string", {
+  # "" would fire observeEvent(input$<id>) on load for every such menu
+  p <- vue_payload_of(el_menu("m", items = list(list(index = "a", label = "A"))))
+  expect_match(p$mounted, 'Shiny.setInputValue("m", self.active || null)', fixed = TRUE)
+})

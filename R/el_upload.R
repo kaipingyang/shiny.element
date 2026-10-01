@@ -114,12 +114,12 @@
 #' @param on_remove `htmlwidgets::JS()` function called after a file is removed.
 #' @param on_exceed `htmlwidgets::JS()` function called when more files are picked than `limit`.
 #' @param width Component width, as a CSS unit -- `"200px"`, `"50%"`, or a
+#'   number taken as pixels. Element's own markup carries it, so it behaves
+#'   like the `width` argument of a Shiny input.
 #' @param slots Named list of Element slot contents, such as
 #'   `list(title = shiny::tags$b("Bold"))`. A shiny.element component
 #'   given here is absorbed rather than nested. For a scoped slot, write
 #'   the template with [template()].
-#'   number taken as pixels. Element's own markup carries it, so it behaves
-#'   like the `width` argument of a Shiny input.
 #'
 #' @section Server inputs:
 #' Without `action`, `input$<id>` is a data frame of `name`, `size`, `type`
