@@ -281,6 +281,3 @@ update_el_date_picker <- function(
   .el_send_update(session, msg)
   invisible(NULL)
 }
-
-
-# Date picker handler dependency (internal)

@@ -246,6 +246,7 @@ ui <- el_page(
   el_input("js_gone", value = "remove me"),
   actionButton("js_go", "shinyjs"),
   el_input("val_email", placeholder = "Email"),
+  el_input("val_name", label = "Name", label_position = "left", error = "Taken"),
   el_select("lab_city", choices = c("bj", "sh"), label = "City"),
   el_switch("lab_on", label = "Notify", label_position = "left"),
   actionButton("val_go", "validate"),
@@ -266,6 +267,7 @@ server <- function(input, output, session) {
   if (requireNamespace("shinyvalidate", quietly = TRUE)) {
     iv <- shinyvalidate::InputValidator$new()
     iv$add_rule("val_email", shinyvalidate::sv_required("An email, please"))
+    iv$add_rule("val_name", shinyvalidate::sv_required("A name, please"))
     observeEvent(input$val_go, iv$enable())
   }
 

@@ -126,7 +126,9 @@ limitations article shows, needs no JavaScript.
   `el_message()`, `el_call()` and the rest -- takes the current session by
   default, as `updateTextInput()` does.
 * **Validation.** shinyvalidate's messages show on a component as Element
-  shows a failed form rule: framed in red, the message underneath.
+  shows a failed form rule: framed in red, the message underneath -- for a
+  labelled component, under the control, replacing any `error` it opened
+  with.
 * **Labels.** Every input takes `label`, shown above it or, with
   `label_position = "left"` or `"right"`, beside it -- also its accessible
   name. The props of Element's `el-form-item` that suit a single input come

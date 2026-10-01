@@ -227,6 +227,3 @@ update_el_slider <- function(
   .el_send_update(session, msg)
   invisible(NULL)
 }
-
-
-# Slider handler dependency (internal)

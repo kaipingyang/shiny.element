@@ -876,6 +876,12 @@ test_that("shinyvalidate's message is drawn as Element draws a failed rule", {
   # framed in Element's danger colour
   expect_equal(bev("getComputedStyle(document.querySelector('#val_email .el-input__inner')).borderColor"),
                "rgb(245, 108, 108)")
+  # A labelled component is a form item already: the message goes under the
+  # control, in its content, and replaces the one the page opened with
+  expect_equal(bev("Array.from(document.querySelectorAll('#val_name_container > .el-form-item__content > .el-form-item__error')).map(function(e){ return e.textContent; }).join('|')"),
+               "A name, please")
+  expect_true(bev("document.getElementById('val_name_container').classList.contains('is-error')"))
+  expect_false(bev("document.getElementById('val_name').classList.contains('el-form-item')"))
 })
 
 test_that("a label names its component for assistive technology", {
