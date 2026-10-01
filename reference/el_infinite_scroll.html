@@ -65,7 +65,7 @@ the area is a container you put content into.</p>
 <span>  immediate <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  width <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  slots <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  session <span class="op">=</span> <span class="fu">shiny</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/domains.html" class="external-link">getDefaultReactiveDomain</a></span><span class="op">(</span><span class="op">)</span></span>
+<span>  session <span class="op">=</span> <span class="cn">NULL</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
 
@@ -120,7 +120,9 @@ the template with <code><a href="template.html">template()</a></code>.</p></dd>
 
 
 <dt id="arg-session">session<a class="anchor" aria-label="anchor" href="#arg-session"></a></dt>
-<dd><p>Shiny session for module support.</p></dd>
+<dd><p>Deprecated. Inside a module, wrap <code>id</code> in <code>ns()</code>, as for
+any Shiny input; a session given here namespaces <code>id</code> once more, with
+a warning.</p></dd>
 
 </dl></div>
     <div class="section level2">
@@ -145,7 +147,7 @@ inside the area.</p></li>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   &lt;/div&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> &lt;/div&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> &lt;div id="feed" style="width:0px;height:0px;" class="vue html-widget"&gt;&lt;/div&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;script type="application/json" data-for="feed"&gt;{"x":{"el":"#feed_container","data":{"scrollDisabled":false,"scrollDelay":null,"scrollDistance":null,"scrollImmediate":null,"scrollCount":0},"methods":{"handleLoad":"function() { this.scrollCount++; Shiny.setInputValue('feed_load', this.scrollCount); }"}},"evals":["methods.handleLoad"],"jsHooks":[]}&lt;/script&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;script type="application/json" data-for="feed"&gt;{"x":{"el":"#feed_container","data":{"scrollDisabled":false,"scrollDelay":null,"scrollDistance":null,"scrollImmediate":null,"scrollCount":0},"methods":{"handleLoad":"function() { this.scrollCount++; window.Shiny &amp;&amp; Shiny.setInputValue('feed_load', this.scrollCount); }"}},"evals":["methods.handleLoad"],"jsHooks":[]}&lt;/script&gt;</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/interactive.html" class="external-link">interactive</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span></span>
 <span class="r-in"><span>  <span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://shiny.posit.co/" class="external-link">shiny</a></span><span class="op">)</span></span></span>

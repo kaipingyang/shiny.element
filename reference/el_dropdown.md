@@ -22,7 +22,7 @@ el_dropdown(
   tabindex = NULL,
   width = NULL,
   slots = NULL,
-  session = shiny::getDefaultReactiveDomain()
+  session = NULL
 )
 ```
 
@@ -119,7 +119,8 @@ el_dropdown(
 
 - session:
 
-  Shiny session for module support.
+  Deprecated. Inside a module, wrap `id` in `ns()`, as for any Shiny
+  input; a session given here namespaces `id` once more, with a warning.
 
 ## Value
 
@@ -157,5 +158,5 @@ el_dropdown("dd1", "Actions",
 #>   </el-dropdown>
 #> </div>
 #> <div id="dd1" style="width:0px;height:0px;" class="vue html-widget"></div>
-#> <script type="application/json" data-for="dd1">{"x":{"el":"#dd1_container","data":{"trigger":"hover","hideOnClick":true,"placement":"bottom-end","disabled":false,"splitButton":false,"count":0,"type":null,"size":null,"showTimeout":null,"hideTimeout":null,"tabindex":null},"methods":{"elEmitClick":"function() { window.shinyElement.emit('dd1', 'click', arguments); }","elEmitVisibleChange":"function() { window.shinyElement.emit('dd1', 'visible_change', arguments); }","handleCommand":"function(cmd) { this.count++; Shiny.setInputValue('dd1', cmd); Shiny.setInputValue('dd1_count', this.count); }"}},"evals":["methods.elEmitClick","methods.elEmitVisibleChange","methods.handleCommand"],"jsHooks":[]}</script>
+#> <script type="application/json" data-for="dd1">{"x":{"el":"#dd1_container","data":{"trigger":"hover","hideOnClick":true,"placement":"bottom-end","disabled":false,"splitButton":false,"count":0,"type":null,"size":null,"showTimeout":null,"hideTimeout":null,"tabindex":null},"methods":{"elEmitClick":"function() { window.shinyElement.emit('dd1', 'click', arguments); }","elEmitVisibleChange":"function() { window.shinyElement.emit('dd1', 'visible_change', arguments); }","handleCommand":"function(cmd) { this.count++; window.Shiny && Shiny.setInputValue('dd1', cmd); window.Shiny && Shiny.setInputValue('dd1_count', this.count); }"}},"evals":["methods.elEmitClick","methods.elEmitVisibleChange","methods.handleCommand"],"jsHooks":[]}</script>
 ```

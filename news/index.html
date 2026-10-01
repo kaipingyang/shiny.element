@@ -75,6 +75,14 @@
 <p>A new article builds whole apps: Element’s own admin-layout example rebuilt in R, a sales overview, and an orders admin page with search, row actions, server-side sorting and paging, an editing dialog and confirmed deletes. Each is also in the installed package, under <code>examples/dashboards/</code>.</p>
 </div>
 <div class="section level3">
+<h3 id="shiny-modules-0-1-0">Shiny modules<a class="anchor" aria-label="anchor" href="#shiny-modules-0-1-0"></a></h3>
+<p>UI functions no longer namespace their <code>id</code> from the reactive domain they are built in; inside a module, wrap the id in <code>ns()</code> as for any Shiny input. Built by <code><a href="https://rdrr.io/pkg/shiny/man/renderUI.html" class="external-link">renderUI()</a></code> in a module’s server, a component used to be namespaced twice – <code>ns("x")</code> became <code>"mod-mod-x"</code> – and never reported. Their <code>session</code> argument is deprecated; a session passed to it still namespaces the id, with a warning. <code>update_el_*()</code> and the other server functions are unchanged: they namespace the bare id, as <code>update*Input()</code> does.</p>
+</div>
+<div class="section level3">
+<h3 id="without-shiny-0-1-0">Without Shiny<a class="anchor" aria-label="anchor" href="#without-shiny-0-1-0"></a></h3>
+<p>Components work on a page with no Shiny behind it – R Markdown, Quarto, a saved HTML file: they render and respond to the user, with nowhere to report to. Every call into Shiny is guarded, the tabs, collapse, dialog and drawer bind themselves when Shiny is absent, and the scripts bring their own jQuery. The website’s examples are live components built this way, with a screenshot only where an example needs a server.</p>
+</div>
+<div class="section level3">
 <h3 id="note-for-users-of-the-development-version-0-1-0">Note for users of the development version<a class="anchor" aria-label="anchor" href="#note-for-users-of-the-development-version-0-1-0"></a></h3>
 <p><code><a href="../reference/el_table.html">el_table()</a></code> now takes <code>id</code> first, like every other component:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">

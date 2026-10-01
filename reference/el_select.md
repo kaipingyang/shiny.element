@@ -39,7 +39,7 @@ el_select(
   slots = NULL,
   value = NULL,
   options = NULL,
-  session = shiny::getDefaultReactiveDomain()
+  session = NULL
 )
 ```
 
@@ -183,7 +183,8 @@ el_select(
 
 - session:
 
-  Shiny session for module namespace support.
+  Deprecated. Inside a module, wrap `id` in `ns()`, as for any Shiny
+  input; a session given here namespaces `id` once more, with a warning.
 
 ## Value
 
@@ -220,7 +221,7 @@ el_select("sel1",
 #>   </el-select>
 #> </div>
 #> <div id="sel1" style="width:0px;height:0px;" class="vue html-widget"></div>
-#> <script type="application/json" data-for="sel1">{"x":{"el":"#sel1_container","data":{"value":"banana","options":[{"value":"apple","label":"Apple"},{"value":"banana","label":"Banana"},{"value":"cherry","label":"Cherry"}],"groups":[],"multiple":false,"disabled":false,"clearable":false,"filterable":false,"multipleLimit":0,"collapseTags":false,"placeholder":null,"size":null,"valueKey":null,"name":null,"autocomplete":null,"automaticDropdown":null,"allowCreate":null,"loading":null,"loadingText":null,"noMatchText":null,"noDataText":null,"popperClass":null,"popperAppendToBody":null,"reserveKeyword":null,"defaultFirstOption":null,"remote":null,"filterMethod":null,"remoteMethod":null},"methods":{"elEmitVisibleChange":"function() { window.shinyElement.emit('sel1', 'visible_change', arguments); }","elEmitRemoveTag":"function() { window.shinyElement.emit('sel1', 'remove_tag', arguments); }","elEmitClear":"function() { window.shinyElement.emit('sel1', 'clear', arguments); }","elEmitBlur":"function() { window.shinyElement.emit('sel1', 'blur', arguments); }","elEmitFocus":"function() { window.shinyElement.emit('sel1', 'focus', arguments); }","handleChange":"function(value) { Shiny.setInputValue('sel1', value); }"},"mounted":"function() { var self = this; var send = function() { Shiny.setInputValue(\"sel1\", self.value); }; if (window.Shiny && Shiny.shinyapp && typeof Shiny.shinyapp.isConnected === 'function' && Shiny.shinyapp.isConnected()) { send(); } else { $(document).one('shiny:connected', send); } var prev = self._elReport; self._elReport = function() { if (prev) prev(); self.$nextTick(send); }; }"},"evals":["methods.elEmitVisibleChange","methods.elEmitRemoveTag","methods.elEmitClear","methods.elEmitBlur","methods.elEmitFocus","methods.handleChange","mounted"],"jsHooks":[]}</script>
+#> <script type="application/json" data-for="sel1">{"x":{"el":"#sel1_container","data":{"value":"banana","options":[{"value":"apple","label":"Apple"},{"value":"banana","label":"Banana"},{"value":"cherry","label":"Cherry"}],"groups":[],"multiple":false,"disabled":false,"clearable":false,"filterable":false,"multipleLimit":0,"collapseTags":false,"placeholder":null,"size":null,"valueKey":null,"name":null,"autocomplete":null,"automaticDropdown":null,"allowCreate":null,"loading":null,"loadingText":null,"noMatchText":null,"noDataText":null,"popperClass":null,"popperAppendToBody":null,"reserveKeyword":null,"defaultFirstOption":null,"remote":null,"filterMethod":null,"remoteMethod":null},"methods":{"elEmitVisibleChange":"function() { window.shinyElement.emit('sel1', 'visible_change', arguments); }","elEmitRemoveTag":"function() { window.shinyElement.emit('sel1', 'remove_tag', arguments); }","elEmitClear":"function() { window.shinyElement.emit('sel1', 'clear', arguments); }","elEmitBlur":"function() { window.shinyElement.emit('sel1', 'blur', arguments); }","elEmitFocus":"function() { window.shinyElement.emit('sel1', 'focus', arguments); }","handleChange":"function(value) { window.Shiny && Shiny.setInputValue('sel1', value); }"},"mounted":"function() { var self = this; var send = function() { window.Shiny && Shiny.setInputValue(\"sel1\", self.value); }; if (window.Shiny && Shiny.shinyapp && typeof Shiny.shinyapp.isConnected === 'function' && Shiny.shinyapp.isConnected()) { send(); } else if (window.jQuery) { jQuery(document).one('shiny:connected', send); } var prev = self._elReport; self._elReport = function() { if (prev) prev(); self.$nextTick(send); }; }"},"evals":["methods.elEmitVisibleChange","methods.elEmitRemoveTag","methods.elEmitClear","methods.elEmitBlur","methods.elEmitFocus","methods.handleChange","mounted"],"jsHooks":[]}</script>
 
 # Shiny app example
 if (interactive()) {

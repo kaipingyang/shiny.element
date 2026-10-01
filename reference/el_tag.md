@@ -18,7 +18,7 @@ el_tag(
   disable_transitions = FALSE,
   width = NULL,
   slots = NULL,
-  session = shiny::getDefaultReactiveDomain()
+  session = NULL
 )
 ```
 
@@ -78,7 +78,8 @@ el_tag(
 
 - session:
 
-  Shiny session for module support.
+  Deprecated. Inside a module, wrap `id` in `ns()`, as for any Shiny
+  input; a session given here namespaces `id` once more, with a warning.
 
 ## Value
 
@@ -100,11 +101,11 @@ el_tag("tag1", "Success", type = "success")
 #>   <el-tag :type="type" :closable="closable" :effect="effect" :hit="hit" :disable-transitions="disableTransitions" @click="handleClick" @close="handleClose" :size="size === null ? undefined : size" :color="color === null ? undefined : color">{{label}}</el-tag>
 #> </div>
 #> <div id="tag1" style="width:0px;height:0px;" class="vue html-widget"></div>
-#> <script type="application/json" data-for="tag1">{"x":{"el":"#tag1_container","data":{"label":"Success","type":"success","closable":false,"size":null,"effect":"light","color":null,"hit":false,"disableTransitions":false,"count":0},"methods":{"handleClick":"function() { this.count++; Shiny.setInputValue('tag1', this.count); }","handleClose":"function() { Shiny.setInputValue('tag1_closed', 1, {priority: 'event'}); }"}},"evals":["methods.handleClick","methods.handleClose"],"jsHooks":[]}</script>
+#> <script type="application/json" data-for="tag1">{"x":{"el":"#tag1_container","data":{"label":"Success","type":"success","closable":false,"size":null,"effect":"light","color":null,"hit":false,"disableTransitions":false,"count":0},"methods":{"handleClick":"function() { this.count++; window.Shiny && Shiny.setInputValue('tag1', this.count); }","handleClose":"function() { window.Shiny && Shiny.setInputValue('tag1_closed', 1, {priority: 'event'}); }"}},"evals":["methods.handleClick","methods.handleClose"],"jsHooks":[]}</script>
 el_tag("tag2", "Closable", closable = TRUE)
 #> <div id="tag2_container" style="display: contents">
 #>   <el-tag :type="type" :closable="closable" :effect="effect" :hit="hit" :disable-transitions="disableTransitions" @click="handleClick" @close="handleClose" :size="size === null ? undefined : size" :color="color === null ? undefined : color">{{label}}</el-tag>
 #> </div>
 #> <div id="tag2" style="width:0px;height:0px;" class="vue html-widget"></div>
-#> <script type="application/json" data-for="tag2">{"x":{"el":"#tag2_container","data":{"label":"Closable","type":null,"closable":true,"size":null,"effect":"light","color":null,"hit":false,"disableTransitions":false,"count":0},"methods":{"handleClick":"function() { this.count++; Shiny.setInputValue('tag2', this.count); }","handleClose":"function() { Shiny.setInputValue('tag2_closed', 1, {priority: 'event'}); }"}},"evals":["methods.handleClick","methods.handleClose"],"jsHooks":[]}</script>
+#> <script type="application/json" data-for="tag2">{"x":{"el":"#tag2_container","data":{"label":"Closable","type":null,"closable":true,"size":null,"effect":"light","color":null,"hit":false,"disableTransitions":false,"count":0},"methods":{"handleClick":"function() { this.count++; window.Shiny && Shiny.setInputValue('tag2', this.count); }","handleClose":"function() { window.Shiny && Shiny.setInputValue('tag2_closed', 1, {priority: 'event'}); }"}},"evals":["methods.handleClick","methods.handleClose"],"jsHooks":[]}</script>
 ```

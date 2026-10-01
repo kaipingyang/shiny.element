@@ -59,8 +59,10 @@
 
 
 
-
-<div class="row">
+<script src="limitations_files/vue-2.7.14/vue.min.js"></script><script src="limitations_files/vue-handlers-1.0.0/vue-handlers.js"></script><link href="limitations_files/element-ui-2.15.14/theme-chalk/index.css" rel="stylesheet">
+<script src="limitations_files/element-ui-2.15.14/index.js"></script><style>.el-table .el-table__expanded-cell[class*=cell]{padding:20px 50px}</style>
+<script src="limitations_files/element-ui-locale-en-2.15.14/locale/en.js"></script><script>if (window.ELEMENT && ELEMENT.locale && ELEMENT.lang && ELEMENT.lang['en']) { ELEMENT.locale(ELEMENT.lang['en']); }</script><script src="limitations_files/el-feedback-handler-1.0.0/el-feedback-handler.js"></script><link href="limitations_files/el-layout-css-1.0.0/el-layout.css" rel="stylesheet">
+<script src="limitations_files/htmlwidgets-1.6.4/htmlwidgets.js"></script><script src="limitations_files/vue-binding-0.6.0/vue.js"></script><script src="limitations_files/el-invoke-1.0.0/el-invoke.js"></script><script src="limitations_files/el-events-1.0.0/el-events.js"></script><script src="limitations_files/el-update-1.0.0/el-update.js"></script><script src="limitations_files/el-switch-handler-1.0.0/el-switch-handler.js"></script><script src="limitations_files/el-rate-handler-1.0.0/el-rate-handler.js"></script><script src="limitations_files/el-collapse-binding-1.0.0/el-collapse-binding.js"></script><script src="limitations_files/el-alert-handler-1.0.0/el-alert-handler.js"></script><script src="limitations_files/el-calendar-handler-1.0.0/el-calendar-handler.js"></script><script src="limitations_files/el-input-handler-1.0.0/el-input-handler.js"></script><script src="limitations_files/el-button-handler-1.0.0/el-button-handler.js"></script><script src="limitations_files/el-tooltip-handler-1.0.0/el-tooltip-handler.js"></script><script src="limitations_files/el-select-handler-1.0.0/el-select-handler.js"></script><div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
 
       <h1>What works, and what does not</h1>
@@ -191,6 +193,51 @@ two:</p>
 happened.</p>
 </div>
 <div class="section level2">
+<h2 id="shiny-modules">Shiny modules<a class="anchor" aria-label="anchor" href="#shiny-modules"></a>
+</h2>
+<p>Components follow Shiny’s own rule. In a module’s UI, the id is
+wrapped in <code>ns()</code>, exactly as for <code><a href="https://rdrr.io/pkg/shiny/man/textInput.html" class="external-link">textInput()</a></code>;
+in its server, <code>input$&lt;id&gt;</code> and every
+<code>update_el_*()</code> take the bare id, namespaced by the module’s
+session. That holds for UI built by <code><a href="https://rdrr.io/pkg/shiny/man/renderUI.html" class="external-link">renderUI()</a></code> inside the
+module too, and for the inputs a component adds to its id –
+<code>input$rows_go</code> from a row action,
+<code>input$tabs_edit</code>, <code>input$rows_selected_rows</code>.</p>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">orders_ui</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">id</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="va">ns</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/NS.html" class="external-link">NS</a></span><span class="op">(</span><span class="va">id</span><span class="op">)</span></span>
+<span>  <span class="fu"><a href="https://rstudio.github.io/htmltools/reference/tagList.html" class="external-link">tagList</a></span><span class="op">(</span></span>
+<span>    <span class="fu"><a href="../reference/el_select.html">el_select</a></span><span class="op">(</span><span class="fu">ns</span><span class="op">(</span><span class="st">"status"</span><span class="op">)</span>, choices <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"paid"</span>, <span class="st">"pending"</span><span class="op">)</span>, selected <span class="op">=</span> <span class="st">"paid"</span><span class="op">)</span>,</span>
+<span>    <span class="fu"><a href="../reference/el_table.html">el_table</a></span><span class="op">(</span><span class="fu">ns</span><span class="op">(</span><span class="st">"rows"</span><span class="op">)</span>, data <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>order <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">101</span>, <span class="fl">102</span><span class="op">)</span><span class="op">)</span>, columns <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>      <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>prop <span class="op">=</span> <span class="st">"order"</span>, label <span class="op">=</span> <span class="st">"Order"</span><span class="op">)</span>,</span>
+<span>      <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>label <span class="op">=</span> <span class="st">""</span>, cell <span class="op">=</span> <span class="va">el</span><span class="op">$</span><span class="fu">button</span><span class="op">(</span>size <span class="op">=</span> <span class="st">"mini"</span>,</span>
+<span>        <span class="st">"@click"</span> <span class="op">=</span> <span class="st">"rowAction('open', scope)"</span>, <span class="st">"Open"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>    <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/htmlOutput.html" class="external-link">uiOutput</a></span><span class="op">(</span><span class="fu">ns</span><span class="op">(</span><span class="st">"more"</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>    <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/textOutput.html" class="external-link">verbatimTextOutput</a></span><span class="op">(</span><span class="fu">ns</span><span class="op">(</span><span class="st">"seen"</span><span class="op">)</span><span class="op">)</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">}</span></span>
+<span></span>
+<span><span class="va">orders_server</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">id</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/moduleServer.html" class="external-link">moduleServer</a></span><span class="op">(</span><span class="va">id</span>, <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span>, <span class="va">session</span><span class="op">)</span> <span class="op">{</span></span>
+<span>    <span class="co"># Built in the server, still wrapped in ns() once</span></span>
+<span>    <span class="va">output</span><span class="op">$</span><span class="va">more</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/renderUI.html" class="external-link">renderUI</a></span><span class="op">(</span><span class="fu"><a href="../reference/el_switch.html">el_switch</a></span><span class="op">(</span><span class="va">session</span><span class="op">$</span><span class="fu">ns</span><span class="op">(</span><span class="st">"urgent"</span><span class="op">)</span>, active_text <span class="op">=</span> <span class="st">"Urgent"</span><span class="op">)</span><span class="op">)</span></span>
+<span>    <span class="va">output</span><span class="op">$</span><span class="va">seen</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/renderPrint.html" class="external-link">renderPrint</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>status <span class="op">=</span> <span class="va">input</span><span class="op">$</span><span class="va">status</span>, urgent <span class="op">=</span> <span class="va">input</span><span class="op">$</span><span class="va">urgent</span>,</span>
+<span>                                    opened <span class="op">=</span> <span class="va">input</span><span class="op">$</span><span class="va">rows_open</span><span class="op">$</span><span class="va">row_index</span><span class="op">)</span><span class="op">)</span></span>
+<span>  <span class="op">}</span><span class="op">)</span></span>
+<span><span class="op">}</span></span>
+<span></span>
+<span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/el_page.html">el_page</a></span><span class="op">(</span><span class="fu">orders_ui</span><span class="op">(</span><span class="st">"orders"</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">server</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span>, <span class="va">session</span><span class="op">)</span> <span class="fu">orders_server</span><span class="op">(</span><span class="st">"orders"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/shinyApp.html" class="external-link">shinyApp</a></span><span class="op">(</span><span class="va">ui</span>, <span class="va">server</span><span class="op">)</span></span></code></pre></div>
+<p><img src="../shots/limitations-module.png"></p>
+<p>Before 0.1.0 the UI functions namespaced their id themselves, from
+the session they were built in – which inside <code><a href="https://rdrr.io/pkg/shiny/man/renderUI.html" class="external-link">renderUI()</a></code> in
+a module turned <code>ns("urgent")</code> into
+<code>"orders-orders-urgent"</code>, an input that never reported. They
+no longer do; their <code>session</code> argument is deprecated, and a
+session passed to it still namespaces, with a warning.</p>
+</div>
+<div class="section level2">
 <h2 id="nesting-components">Nesting components<a class="anchor" aria-label="anchor" href="#nesting-components"></a>
 </h2>
 <p>Two kinds of component wrap other content, and they behave
@@ -202,7 +249,7 @@ differently.</p>
 own CSS classes and drive their state through a Shiny input binding.
 They hold anything, and what is inside keeps working as it would on its
 own.</p>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/el_collapse.html">el_collapse</a></span><span class="op">(</span><span class="st">"panels"</span>, value <span class="op">=</span> <span class="st">"one"</span>, items <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">"one"</span>, title <span class="op">=</span> <span class="st">"Settings"</span>, content <span class="op">=</span> <span class="fu"><a href="https://rstudio.github.io/htmltools/reference/tagList.html" class="external-link">tagList</a></span><span class="op">(</span></span>
 <span>    <span class="fu"><a href="../reference/el_switch.html">el_switch</a></span><span class="op">(</span><span class="st">"dark"</span>, value <span class="op">=</span> <span class="cn">TRUE</span>, active_text <span class="op">=</span> <span class="st">"Dark mode"</span><span class="op">)</span>,</span>
@@ -210,14 +257,47 @@ own.</p>
 <span>  <span class="op">)</span><span class="op">)</span>,</span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">"two"</span>, title <span class="op">=</span> <span class="st">"About"</span>, content <span class="op">=</span> <span class="va">tags</span><span class="op">$</span><span class="fu">p</span><span class="op">(</span><span class="st">"Version 0.1.0"</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<p><img src="../shots/limitations-container.png"></p>
+<div class="el-demo">
+  <div id="container-panels" class="el-collapse" role="tablist" data-el-collapse="true" data-accordion="false">
+    <div class="el-collapse-item is-active" data-el-name="one">
+      <div role="tab" class="el-collapse-item__header is-active">
+        Settings
+        <i class="el-collapse-item__arrow el-icon-arrow-right is-active"></i>
+      </div>
+      <div class="el-collapse-item__wrap">
+        <div class="el-collapse-item__content">
+          <div id="container-dark_container" style="display: contents">
+            <el-switch v-model="value" :disabled="disabled" :active-text="activeText" :inactive-text="inactiveText" :active-color="activeColor" :inactive-color="inactiveColor" :active-value="activeValue" :inactive-value="inactiveValue" :width="width === null ? undefined : width" :active-icon-class="activeIconClass === null ? undefined : activeIconClass" :inactive-icon-class="inactiveIconClass === null ? undefined : inactiveIconClass" :name="name === null ? undefined : name" :validate-event="validateEvent === null ? undefined : validateEvent"></el-switch>
+</div>
+          <div id="container-dark" style="width:0px;height:0px;" class="vue html-widget"></div>
+          <script type="application/json" data-for="container-dark">{"x":{"el":"#container-dark_container","data":{"value":true,"disabled":false,"activeText":"Dark mode","inactiveText":"","activeColor":"","inactiveColor":"","activeValue":true,"inactiveValue":false,"width":null,"activeIconClass":null,"inactiveIconClass":null,"name":null,"validateEvent":null},"methods":{"handleChange":"function(value) { window.Shiny && Shiny.setInputValue('container-dark', value); }"},"mounted":"function() { var self = this; var send = function() { window.Shiny && Shiny.setInputValue(\"container-dark\", self.value); }; if (window.Shiny && Shiny.shinyapp && typeof Shiny.shinyapp.isConnected === 'function' && Shiny.shinyapp.isConnected()) { send(); } else if (window.jQuery) { jQuery(document).one('shiny:connected', send); } var prev = self._elReport; self._elReport = function() { if (prev) prev(); self.$nextTick(send); }; }"},"evals":["methods.handleChange","mounted"],"jsHooks":[]}</script><div id="container-stars_container" style="display: contents">
+            <el-rate v-model="value" :max="max" :disabled="disabled" :allow-half="allowHalf" :show-text="showText" :show-score="showScore" :text-color="textColor" :score-template="scoreTemplate" :texts="texts" :colors="colors === null ? undefined : colors" :void-color="voidColor === null ? undefined : voidColor" :disabled-void-color="disabledVoidColor === null ? undefined : disabledVoidColor" :icon-classes="iconClasses === null ? undefined : iconClasses" :void-icon-class="voidIconClass === null ? undefined : voidIconClass" :disabled-void-icon-class="disabledVoidIconClass === null ? undefined : disabledVoidIconClass" :low-threshold="lowThreshold === null ? undefined : lowThreshold" :high-threshold="highThreshold === null ? undefined : highThreshold"></el-rate>
+</div>
+          <div id="container-stars" style="width:0px;height:0px;" class="vue html-widget"></div>
+          <script type="application/json" data-for="container-stars">{"x":{"el":"#container-stars_container","data":{"value":4,"max":5,"disabled":false,"allowHalf":false,"showText":false,"showScore":false,"textColor":"#1f2d3d","scoreTemplate":"{value}","texts":["极差","失望","一般","满意","惊喜"],"colors":null,"voidColor":null,"disabledVoidColor":null,"iconClasses":null,"voidIconClass":null,"disabledVoidIconClass":null,"lowThreshold":null,"highThreshold":null},"methods":{"handleChange":"function(val) { window.Shiny && Shiny.setInputValue('container-stars', val); }"},"mounted":"function() { var self = this; var send = function() { window.Shiny && Shiny.setInputValue(\"container-stars\", self.value); }; if (window.Shiny && Shiny.shinyapp && typeof Shiny.shinyapp.isConnected === 'function' && Shiny.shinyapp.isConnected()) { send(); } else if (window.jQuery) { jQuery(document).one('shiny:connected', send); } var prev = self._elReport; self._elReport = function() { if (prev) prev(); self.$nextTick(send); }; }"},"evals":["methods.handleChange","mounted"],"jsHooks":[]}</script>
+</div>
+      </div>
+    </div>
+    <div class="el-collapse-item" data-el-name="two">
+      <div role="tab" class="el-collapse-item__header">
+        About
+        <i class="el-collapse-item__arrow el-icon-arrow-right"></i>
+      </div>
+      <div class="el-collapse-item__wrap" style="display:none">
+        <div class="el-collapse-item__content">
+          <p>Version 0.1.0</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 <p><strong>Wrappers absorb what they are given.</strong>
 <code><a href="../reference/el_tooltip.html">el_tooltip()</a></code>, <code><a href="../reference/el_popover.html">el_popover()</a></code>,
 <code><a href="../reference/el_popconfirm.html">el_popconfirm()</a></code> and <code><a href="../reference/el_infinite_scroll.html">el_infinite_scroll()</a></code>
 compile their content into their own Vue instance, so a component handed
 to one is folded in rather than nested: the two become a single instance
 carrying both sets of markup, data and methods.</p>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/el_page.html">el_page</a></span><span class="op">(</span></span>
 <span>  <span class="fu"><a href="../reference/el_tooltip.html">el_tooltip</a></span><span class="op">(</span><span class="st">"hint"</span>, <span class="fu"><a href="../reference/el_button.html">el_button</a></span><span class="op">(</span><span class="st">"save"</span>, <span class="st">"Save"</span>, type <span class="op">=</span> <span class="st">"primary"</span><span class="op">)</span>,</span>
 <span>             content <span class="op">=</span> <span class="st">"Writes to disk"</span>, placement <span class="op">=</span> <span class="st">"right"</span><span class="op">)</span>,</span>
@@ -234,7 +314,7 @@ carrying both sets of markup, data and methods.</p>
 so <code>HTMLWidgets.find()</code> cannot reach it and its
 <code>update_el_*()</code> stops working. Drive it through the wrapper
 instead:</p>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/el_page.html">el_page</a></span><span class="op">(</span></span>
 <span>  <span class="fu"><a href="../reference/el_tooltip.html">el_tooltip</a></span><span class="op">(</span><span class="st">"hint"</span>, <span class="fu"><a href="../reference/el_button.html">el_button</a></span><span class="op">(</span><span class="st">"save"</span>, <span class="st">"Save"</span>, type <span class="op">=</span> <span class="st">"primary"</span><span class="op">)</span>,</span>
 <span>             content <span class="op">=</span> <span class="st">"Writes to disk"</span><span class="op">)</span>,</span>
@@ -263,15 +343,25 @@ set.</p>
 <h2 id="slots">Slots<a class="anchor" aria-label="anchor" href="#slots"></a>
 </h2>
 <p>Every component takes <code>slots</code>, a named list:</p>
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/el_alert.html">el_alert</a></span><span class="op">(</span><span class="st">"problem"</span>, type <span class="op">=</span> <span class="st">"error"</span>, show_icon <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>         description <span class="op">=</span> <span class="st">"The upload was larger than 5 MB."</span>,</span>
 <span>         slots <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>title <span class="op">=</span> <span class="va">tags</span><span class="op">$</span><span class="fu">span</span><span class="op">(</span><span class="va">tags</span><span class="op">$</span><span class="fu">b</span><span class="op">(</span><span class="st">"Upload failed"</span><span class="op">)</span>, <span class="st">" -- try again"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<p><img src="../shots/limitations-slots.png"></p>
+<div class="el-demo">
+  <div id="slots-problem_container" style="display: contents">
+    <el-alert :title="title" :type="type" :closable="closable" :close-text="closeText" :show-icon="showIcon" :center="center" :effect="effect" :description="description === null ? undefined : description"><template slot="title"><span>
+          <b>Upload failed</b>
+           -- try again
+        </span>
+      </template></el-alert>
+</div>
+  <div id="slots-problem" style="width:0px;height:0px;" class="vue html-widget"></div>
+  <script type="application/json" data-for="slots-problem">{"x":{"el":"#slots-problem_container","data":{"title":"","type":"error","closable":true,"closeText":"","showIcon":true,"center":false,"effect":"light","description":"The upload was larger than 5 MB."},"methods":{"handleClose":"function() { window.Shiny && Shiny.setInputValue('slots-problem_closed', 1, {priority: 'event'}); }"}},"evals":["methods.handleClose"],"jsHooks":[]}</script>
+</div>
 <p>A scoped slot – one where Element hands the template variables that
 only exist while Vue renders – is written with <code><a href="../reference/template.html">template()</a></code>
 and passed through untouched:</p>
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/el_calendar.html">el_calendar</a></span><span class="op">(</span><span class="st">"cal"</span>, value <span class="op">=</span> <span class="st">"2026-03-15"</span>, slots <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
 <span>  dateCell <span class="op">=</span> <span class="fu"><a href="../reference/template.html">template</a></span><span class="op">(</span></span>
 <span>    <span class="fu">htmltools</span><span class="fu">::</span><span class="fu"><a href="https://rstudio.github.io/htmltools/reference/HTML.html" class="external-link">HTML</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span></span>
@@ -281,7 +371,20 @@ and passed through untouched:</p>
 <span>    slot <span class="op">=</span> <span class="st">"dateCell"</span>, scope <span class="op">=</span> <span class="st">"{date, data}"</span></span>
 <span>  <span class="op">)</span></span>
 <span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<p><img src="../shots/limitations-scoped-slot.png"></p>
+<div class="el-demo">
+  <style>
+      .is-selected {
+        color: #1989FA;
+        font-weight: bold;
+      }
+    </style>
+<div id="scoped-slot-cal_container" style="display: contents">
+    <el-calendar v-model="value" :first-day-of-week="firstDayOfWeek" :range="range === null ? undefined : range"><template slot="dateCell" slot-scope="{date, data}"><div>{{ data.day.slice(8) }}<b v-if="data.day.slice(8) === '15'" style="color:#F56C6C"> due</b>
+</div></template></el-calendar>
+</div>
+  <div id="scoped-slot-cal" style="width:0px;height:0px;" class="vue html-widget"></div>
+  <script type="application/json" data-for="scoped-slot-cal">{"x":{"el":"#scoped-slot-cal_container","data":{"value":"2026-03-15","firstDayOfWeek":1,"range":null},"watch":{"value":"function(newVal) { window.Shiny && Shiny.setInputValue('scoped-slot-cal', newVal); }"},"mounted":"function() { var self = this; var send = function() { window.Shiny && Shiny.setInputValue(\"scoped-slot-cal\", self.value); }; if (window.Shiny && Shiny.shinyapp && typeof Shiny.shinyapp.isConnected === 'function' && Shiny.shinyapp.isConnected()) { send(); } else if (window.jQuery) { jQuery(document).one('shiny:connected', send); } var prev = self._elReport; self._elReport = function() { if (prev) prev(); self.$nextTick(send); }; }"},"evals":["watch.value","mounted"],"jsHooks":[]}</script>
+</div>
 <p>Filling a slot replaces what Element put there, default and all.
 Element’s <code>el-form-item</code> error slot, for instance, wraps the
 message in <code>div.el-form-item__error</code>; a template that renders
@@ -311,7 +414,7 @@ its components set no font of their own – they inherit the page’s.
 <code><a href="../reference/el_theme.html">el_theme()</a></code>, is a bslib theme carrying Element’s blue,
 greys, borders, corners, type size and font stack, so Shiny’s own inputs
 and outputs match the Element ones beside them.</p>
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/el_row.html">el_row</a></span><span class="op">(</span>gutter <span class="op">=</span> <span class="fl">16</span>,</span>
 <span>  <span class="fu"><a href="../reference/el_col.html">el_col</a></span><span class="op">(</span>span <span class="op">=</span> <span class="fl">12</span>,</span>
 <span>    <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/textInput.html" class="external-link">textInput</a></span><span class="op">(</span><span class="st">"shiny_text"</span>, <span class="st">"Shiny's textInput()"</span>, <span class="st">"Ada"</span><span class="op">)</span>,</span>
@@ -320,7 +423,31 @@ and outputs match the Element ones beside them.</p>
 <span>    <span class="va">tags</span><span class="op">$</span><span class="fu">label</span><span class="op">(</span><span class="st">"Element's el_input()"</span><span class="op">)</span>, <span class="fu"><a href="../reference/el_input.html">el_input</a></span><span class="op">(</span><span class="st">"el_text"</span>, value <span class="op">=</span> <span class="st">"Ada"</span><span class="op">)</span>,</span>
 <span>    <span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span>style <span class="op">=</span> <span class="st">"margin-top: 15px"</span>,</span>
 <span>      <span class="fu"><a href="../reference/el_button.html">el_button</a></span><span class="op">(</span><span class="st">"el_go"</span>, <span class="st">"el_button()"</span>, type <span class="op">=</span> <span class="st">"primary"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<p><img src="../shots/limitations-theme.png"></p>
+<div class="el-demo">
+  <div class="el-row" style="margin-left:-8px; margin-right:-8px">
+    <div class="el-col el-col-12" style="padding-left:8px; padding-right:8px">
+      <div class="form-group shiny-input-container">
+        <label class="control-label" id="shiny_text-label" for="shiny_text">Shiny's textInput()</label>
+        <input id="shiny_text" type="text" class="shiny-input-text form-control" value="Ada" data-update-on="change">
+</div>
+      <button class="btn btn-default action-button btn-primary" id="shiny_go" type="button"><span class="action-label">actionButton()</span></button>
+    </div>
+    <div class="el-col el-col-12" style="padding-left:8px; padding-right:8px">
+      <label>Element's el_input()</label>
+      <div id="theme-el_text_container" style="display: contents">
+        <el-input v-model="value" :type="type" :disabled="disabled" :readonly="readonly" :clearable="clearable" :show-password="showPassword" :show-word-limit="showWordLimit" :autosize="autosize" :prefix-icon="prefixIcon" :suffix-icon="suffixIcon" :size="size === null ? undefined : size" :maxlength="maxlength === null ? undefined : maxlength" :rows="rows === null ? undefined : rows" :placeholder="placeholder === null ? undefined : placeholder" :label="label === null ? undefined : label" :autocomplete="autocomplete === null ? undefined : autocomplete" :autofocus="autofocus === null ? undefined : autofocus" :name="name === null ? undefined : name" :form="form === null ? undefined : form" :minlength="minlength === null ? undefined : minlength" :max="max === null ? undefined : max" :min="min === null ? undefined : min" :step="step === null ? undefined : step" :resize="resize === null ? undefined : resize" :tabindex="tabindex === null ? undefined : tabindex" :validate-event="validateEvent === null ? undefined : validateEvent"></el-input>
+</div>
+      <div id="theme-el_text" style="width:0px;height:0px;" class="vue html-widget"></div>
+      <script type="application/json" data-for="theme-el_text">{"x":{"el":"#theme-el_text_container","data":{"value":"Ada","type":"text","disabled":false,"readonly":false,"clearable":false,"showPassword":false,"showWordLimit":false,"autosize":false,"prefixIcon":null,"suffixIcon":null,"size":null,"maxlength":null,"rows":null,"placeholder":null,"label":null,"autocomplete":null,"autofocus":null,"name":null,"form":null,"minlength":null,"max":null,"min":null,"step":null,"resize":null,"tabindex":null,"validateEvent":null},"methods":{"elEmitInput":"function() { window.shinyElement.emit('theme-el_text', 'input', arguments); }","elEmitBlur":"function() { window.shinyElement.emit('theme-el_text', 'blur', arguments); }","elEmitFocus":"function() { window.shinyElement.emit('theme-el_text', 'focus', arguments); }","elEmitClear":"function() { window.shinyElement.emit('theme-el_text', 'clear', arguments); }","handleChange":"function(value) { window.Shiny && Shiny.setInputValue('theme-el_text', value); }"},"mounted":"function() { var self = this; var send = function() { window.Shiny && Shiny.setInputValue(\"theme-el_text\", self.value); }; if (window.Shiny && Shiny.shinyapp && typeof Shiny.shinyapp.isConnected === 'function' && Shiny.shinyapp.isConnected()) { send(); } else if (window.jQuery) { jQuery(document).one('shiny:connected', send); } var prev = self._elReport; self._elReport = function() { if (prev) prev(); self.$nextTick(send); }; }"},"evals":["methods.elEmitInput","methods.elEmitBlur","methods.elEmitFocus","methods.elEmitClear","methods.handleChange","mounted"],"jsHooks":[]}</script><div style="margin-top: 15px">
+        <div id="theme-el_go_container" style="display: contents">
+          <el-button :type="type" :plain="plain" :round="round" :circle="circle" :loading="loading" :disabled="disabled" :native-type="native_type" :size="size === null ? undefined : size" :icon="icon === null ? undefined : icon" :autofocus="autofocus === null ? undefined : autofocus">{{label}}</el-button>
+</div>
+        <div id="theme-el_go" style="width:0px;height:0px;" class="vue html-widget"></div>
+        <script type="application/json" data-for="theme-el_go">{"x":{"el":"#theme-el_go_container","data":{"label":"el_button()","type":"primary","size":null,"plain":false,"round":false,"circle":false,"loading":false,"disabled":false,"native_type":"button","icon":null,"count":0,"autofocus":false},"methods":{"handleClick":"function() { if (!this.disabled && !this.loading) { this.count++; window.Shiny && Shiny.setInputValue('theme-el_go', this.count); } }"}},"evals":["methods.handleClick"],"jsHooks":[]}</script>
+</div>
+    </div>
+  </div>
+</div>
 <p><code>el_theme(primary = "#7c3aed")</code> changes the brand colour,
 and any other argument of <code><a href="https://rstudio.github.io/bslib/reference/bs_theme.html" class="external-link">bslib::bs_theme()</a></code> or Bootstrap
 variable can be overridden the same way. Element’s own components keep
@@ -331,14 +458,30 @@ stylesheet, and changing them means building a custom Element theme.</p>
 <h2 id="elements-own-markup">Element’s own markup<a class="anchor" aria-label="anchor" href="#elements-own-markup"></a>
 </h2>
 <p><code>el</code> holds a generator for every Element tag, for markup
-that needs no Vue instance of its own:</p>
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">el</span><span class="op">$</span><span class="fu">button</span><span class="op">(</span>type <span class="op">=</span> <span class="st">"primary"</span>, <span class="st">"Markup only"</span><span class="op">)</span>    <span class="co"># no input</span></span>
+that needs no Vue instance of its own – inside one that already exists.
+Vue compiles <code>&lt;el-*&gt;</code> tags only within the component it
+mounts, so a raw tag goes where a component draws its contents: a
+<code><a href="../reference/template.html">template()</a></code>, a slot, a table <code>cell</code>, a wrapper’s
+trigger.</p>
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># The tooltip's instance compiles the raw button it wraps</span></span>
+<span><span class="fu"><a href="../reference/el_tooltip.html">el_tooltip</a></span><span class="op">(</span><span class="st">"hint"</span>, <span class="va">el</span><span class="op">$</span><span class="fu">button</span><span class="op">(</span>type <span class="op">=</span> <span class="st">"primary"</span>, <span class="st">"Markup only"</span><span class="op">)</span>, content <span class="op">=</span> <span class="st">"No input"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="../reference/el_button.html">el_button</a></span><span class="op">(</span><span class="st">"save"</span>, <span class="st">"A component"</span>, type <span class="op">=</span> <span class="st">"primary"</span><span class="op">)</span>   <span class="co"># reports input$save</span></span></code></pre></div>
-<p><img src="../shots/limitations-raw-tags.png"></p>
-<p>Use the raw tag where a component would be wasted – inside a
-<code><a href="../reference/template.html">template()</a></code>, or as a wrapper’s trigger when you do not need
-to know it was clicked.</p>
+<div class="el-demo">
+  <div id="raw-tags-hint_container" style="display: contents">
+    <el-tooltip v-model="tipValue" :content="tipContent === null ? undefined : tipContent" :placement="tipPlacement === null ? undefined : tipPlacement" :effect="tipEffect === null ? undefined : tipEffect" :disabled="tipDisabled === null ? undefined : tipDisabled" :offset="tipOffset === null ? undefined : tipOffset" :open-delay="tipOpenDelay === null ? undefined : tipOpenDelay" :hide-after="tipHideAfter === null ? undefined : tipHideAfter" :enterable="tipEnterable === null ? undefined : tipEnterable" :visible-arrow="tipVisibleArrow === null ? undefined : tipVisibleArrow" :transition="tipTransition === null ? undefined : tipTransition" :popper-class="tipPopperClass === null ? undefined : tipPopperClass" :popper-options="tipPopperOptions === null ? undefined : tipPopperOptions" :manual="tipManual === null ? undefined : tipManual" :tabindex="tipTabindex === null ? undefined : tipTabindex"><el-button type="primary">Markup only</el-button></el-tooltip>
+</div>
+  <div id="raw-tags-hint" style="width:0px;height:0px;" class="vue html-widget"></div>
+  <script type="application/json" data-for="raw-tags-hint">{"x":{"el":"#raw-tags-hint_container","data":{"tipValue":false,"tipContent":"No input","tipPlacement":null,"tipEffect":null,"tipDisabled":null,"tipOffset":null,"tipOpenDelay":null,"tipHideAfter":null,"tipEnterable":null,"tipVisibleArrow":null,"tipTransition":null,"tipPopperClass":null,"tipPopperOptions":null,"tipManual":null,"tipTabindex":null}},"evals":[],"jsHooks":[]}</script><div id="raw-tags-save_container" style="display: contents">
+    <el-button :type="type" :plain="plain" :round="round" :circle="circle" :loading="loading" :disabled="disabled" :native-type="native_type" :size="size === null ? undefined : size" :icon="icon === null ? undefined : icon" :autofocus="autofocus === null ? undefined : autofocus">{{label}}</el-button>
+</div>
+  <div id="raw-tags-save" style="width:0px;height:0px;" class="vue html-widget"></div>
+  <script type="application/json" data-for="raw-tags-save">{"x":{"el":"#raw-tags-save_container","data":{"label":"A component","type":"primary","size":null,"plain":false,"round":false,"circle":false,"loading":false,"disabled":false,"native_type":"button","icon":null,"count":0,"autofocus":false},"methods":{"handleClick":"function() { if (!this.disabled && !this.loading) { this.count++; window.Shiny && Shiny.setInputValue('raw-tags-save', this.count); } }"}},"evals":["methods.handleClick"],"jsHooks":[]}</script>
+</div>
+<p>Placed at the top level of a page, the same <code>el$button()</code>
+is never compiled and shows as its bare text. Use the raw tag where a
+component would be wasted, and a component where the server needs to
+hear about it.</p>
 </div>
 <div class="section level2">
 <h2 id="building-your-own">Building your own<a class="anchor" aria-label="anchor" href="#building-your-own"></a>
@@ -346,7 +489,7 @@ to know it was clicked.</p>
 <p><code><a href="../reference/el_widget.html">el_widget()</a></code> assembles a component the way this package
 assembles its own, and is exported for wrapping anything not covered
 here, or covered differently:</p>
-<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">initials</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">id</span>, <span class="va">name</span>, <span class="va">size</span> <span class="op">=</span> <span class="fl">48</span><span class="op">)</span> <span class="op">{</span></span>
 <span>  <span class="fu"><a href="../reference/el_widget.html">el_widget</a></span><span class="op">(</span></span>
 <span>    id     <span class="op">=</span> <span class="va">id</span>,</span>
@@ -359,7 +502,17 @@ here, or covered differently:</p>
 <span></span>
 <span><span class="fu">initials</span><span class="op">(</span><span class="st">"ada"</span>, <span class="st">"Ada Lovelace"</span><span class="op">)</span></span>
 <span><span class="fu">initials</span><span class="op">(</span><span class="st">"alan"</span>, <span class="st">"Alan Mathison Turing"</span>, size <span class="op">=</span> <span class="fl">64</span><span class="op">)</span></span></code></pre></div>
-<p><img src="../shots/limitations-own-widget.png"></p>
+<div class="el-demo">
+  <div id="ada_container" style="display: contents">
+    <el-avatar :size="size">{{ letters }}</el-avatar>
+</div>
+  <div id="ada" style="width:0px;height:0px;" class="vue html-widget"></div>
+  <script type="application/json" data-for="ada">{"x":{"el":"#ada_container","data":{"size":48,"letters":"AL"}},"evals":[],"jsHooks":[]}</script><div id="alan_container" style="display: contents">
+    <el-avatar :size="size">{{ letters }}</el-avatar>
+</div>
+  <div id="alan" style="width:0px;height:0px;" class="vue html-widget"></div>
+  <script type="application/json" data-for="alan">{"x":{"el":"#alan_container","data":{"size":64,"letters":"AMT"}},"evals":[],"jsHooks":[]}</script>
+</div>
 <p>Calling <code><a href="https://rdrr.io/pkg/vueR/man/vue.html" class="external-link">vueR::vue()</a></code> yourself works too. What
 <code><a href="../reference/el_widget.html">el_widget()</a></code> carries, and what is then yours to remember, is
 <code>display: contents</code> on the host, a zero-sized widget element,
@@ -458,10 +611,20 @@ they take Shiny’s names – and Element’s as well:</p>
 <p>Either works, in the components and in their
 <code>update_el_*()</code>, so code reads naturally to someone coming
 from either side:</p>
-<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/el_select.html">el_select</a></span><span class="op">(</span><span class="st">"city_shiny"</span>, choices <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>Beijing <span class="op">=</span> <span class="st">"bj"</span>, Shanghai <span class="op">=</span> <span class="st">"sh"</span><span class="op">)</span>, selected <span class="op">=</span> <span class="st">"sh"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="../reference/el_select.html">el_select</a></span><span class="op">(</span><span class="st">"city_element"</span>, options <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>Beijing <span class="op">=</span> <span class="st">"bj"</span>, Shanghai <span class="op">=</span> <span class="st">"sh"</span><span class="op">)</span>, value <span class="op">=</span> <span class="st">"sh"</span><span class="op">)</span></span></code></pre></div>
-<p><img src="../shots/limitations-two-names.png"></p>
+<div class="el-demo">
+  <div id="two-names-city_shiny_container" style="display: contents">
+    <el-select v-model="value" :multiple="multiple" :disabled="disabled" :clearable="clearable" :filterable="filterable" :multiple-limit="multipleLimit" :collapse-tags="collapseTags" :placeholder="placeholder === null ? undefined : placeholder" :size="size === null ? undefined : size" :value-key="valueKey === null ? undefined : valueKey" :name="name === null ? undefined : name" :autocomplete="autocomplete === null ? undefined : autocomplete" :automatic-dropdown="automaticDropdown === null ? undefined : automaticDropdown" :allow-create="allowCreate === null ? undefined : allowCreate" :loading="loading === null ? undefined : loading" :loading-text="loadingText === null ? undefined : loadingText" :no-match-text="noMatchText === null ? undefined : noMatchText" :no-data-text="noDataText === null ? undefined : noDataText" :popper-class="popperClass === null ? undefined : popperClass" :popper-append-to-body="popperAppendToBody === null ? undefined : popperAppendToBody" :reserve-keyword="reserveKeyword === null ? undefined : reserveKeyword" :default-first-option="defaultFirstOption === null ? undefined : defaultFirstOption" :remote="remote === null ? undefined : remote" :filter-method="filterMethod === null ? undefined : filterMethod" :remote-method="remoteMethod === null ? undefined : remoteMethod"><el-option v-for="opt in options" :key="opt.value" :value="opt.value" :label="opt.label" :disabled="opt.disabled"></el-option><el-option-group v-for="g in groups" :key="g.label" :label="g.label" :disabled="g.disabled"><el-option v-for="opt in g.options" :key="opt.value" :value="opt.value" :label="opt.label" :disabled="opt.disabled"></el-option></el-option-group></el-select>
+</div>
+  <div id="two-names-city_shiny" style="width:0px;height:0px;" class="vue html-widget"></div>
+  <script type="application/json" data-for="two-names-city_shiny">{"x":{"el":"#two-names-city_shiny_container","data":{"value":"sh","options":[{"value":"bj","label":"Beijing"},{"value":"sh","label":"Shanghai"}],"groups":[],"multiple":false,"disabled":false,"clearable":false,"filterable":false,"multipleLimit":0,"collapseTags":false,"placeholder":null,"size":null,"valueKey":null,"name":null,"autocomplete":null,"automaticDropdown":null,"allowCreate":null,"loading":null,"loadingText":null,"noMatchText":null,"noDataText":null,"popperClass":null,"popperAppendToBody":null,"reserveKeyword":null,"defaultFirstOption":null,"remote":null,"filterMethod":null,"remoteMethod":null},"methods":{"elEmitVisibleChange":"function() { window.shinyElement.emit('two-names-city_shiny', 'visible_change', arguments); }","elEmitRemoveTag":"function() { window.shinyElement.emit('two-names-city_shiny', 'remove_tag', arguments); }","elEmitClear":"function() { window.shinyElement.emit('two-names-city_shiny', 'clear', arguments); }","elEmitBlur":"function() { window.shinyElement.emit('two-names-city_shiny', 'blur', arguments); }","elEmitFocus":"function() { window.shinyElement.emit('two-names-city_shiny', 'focus', arguments); }","handleChange":"function(value) { window.Shiny && Shiny.setInputValue('two-names-city_shiny', value); }"},"mounted":"function() { var self = this; var send = function() { window.Shiny && Shiny.setInputValue(\"two-names-city_shiny\", self.value); }; if (window.Shiny && Shiny.shinyapp && typeof Shiny.shinyapp.isConnected === 'function' && Shiny.shinyapp.isConnected()) { send(); } else if (window.jQuery) { jQuery(document).one('shiny:connected', send); } var prev = self._elReport; self._elReport = function() { if (prev) prev(); self.$nextTick(send); }; }"},"evals":["methods.elEmitVisibleChange","methods.elEmitRemoveTag","methods.elEmitClear","methods.elEmitBlur","methods.elEmitFocus","methods.handleChange","mounted"],"jsHooks":[]}</script><div id="two-names-city_element_container" style="display: contents">
+    <el-select v-model="value" :multiple="multiple" :disabled="disabled" :clearable="clearable" :filterable="filterable" :multiple-limit="multipleLimit" :collapse-tags="collapseTags" :placeholder="placeholder === null ? undefined : placeholder" :size="size === null ? undefined : size" :value-key="valueKey === null ? undefined : valueKey" :name="name === null ? undefined : name" :autocomplete="autocomplete === null ? undefined : autocomplete" :automatic-dropdown="automaticDropdown === null ? undefined : automaticDropdown" :allow-create="allowCreate === null ? undefined : allowCreate" :loading="loading === null ? undefined : loading" :loading-text="loadingText === null ? undefined : loadingText" :no-match-text="noMatchText === null ? undefined : noMatchText" :no-data-text="noDataText === null ? undefined : noDataText" :popper-class="popperClass === null ? undefined : popperClass" :popper-append-to-body="popperAppendToBody === null ? undefined : popperAppendToBody" :reserve-keyword="reserveKeyword === null ? undefined : reserveKeyword" :default-first-option="defaultFirstOption === null ? undefined : defaultFirstOption" :remote="remote === null ? undefined : remote" :filter-method="filterMethod === null ? undefined : filterMethod" :remote-method="remoteMethod === null ? undefined : remoteMethod"><el-option v-for="opt in options" :key="opt.value" :value="opt.value" :label="opt.label" :disabled="opt.disabled"></el-option><el-option-group v-for="g in groups" :key="g.label" :label="g.label" :disabled="g.disabled"><el-option v-for="opt in g.options" :key="opt.value" :value="opt.value" :label="opt.label" :disabled="opt.disabled"></el-option></el-option-group></el-select>
+</div>
+  <div id="two-names-city_element" style="width:0px;height:0px;" class="vue html-widget"></div>
+  <script type="application/json" data-for="two-names-city_element">{"x":{"el":"#two-names-city_element_container","data":{"value":"sh","options":[{"value":"bj","label":"Beijing"},{"value":"sh","label":"Shanghai"}],"groups":[],"multiple":false,"disabled":false,"clearable":false,"filterable":false,"multipleLimit":0,"collapseTags":false,"placeholder":null,"size":null,"valueKey":null,"name":null,"autocomplete":null,"automaticDropdown":null,"allowCreate":null,"loading":null,"loadingText":null,"noMatchText":null,"noDataText":null,"popperClass":null,"popperAppendToBody":null,"reserveKeyword":null,"defaultFirstOption":null,"remote":null,"filterMethod":null,"remoteMethod":null},"methods":{"elEmitVisibleChange":"function() { window.shinyElement.emit('two-names-city_element', 'visible_change', arguments); }","elEmitRemoveTag":"function() { window.shinyElement.emit('two-names-city_element', 'remove_tag', arguments); }","elEmitClear":"function() { window.shinyElement.emit('two-names-city_element', 'clear', arguments); }","elEmitBlur":"function() { window.shinyElement.emit('two-names-city_element', 'blur', arguments); }","elEmitFocus":"function() { window.shinyElement.emit('two-names-city_element', 'focus', arguments); }","handleChange":"function(value) { window.Shiny && Shiny.setInputValue('two-names-city_element', value); }"},"mounted":"function() { var self = this; var send = function() { window.Shiny && Shiny.setInputValue(\"two-names-city_element\", self.value); }; if (window.Shiny && Shiny.shinyapp && typeof Shiny.shinyapp.isConnected === 'function' && Shiny.shinyapp.isConnected()) { send(); } else if (window.jQuery) { jQuery(document).one('shiny:connected', send); } var prev = self._elReport; self._elReport = function() { if (prev) prev(); self.$nextTick(send); }; }"},"evals":["methods.elEmitVisibleChange","methods.elEmitRemoveTag","methods.elEmitClear","methods.elEmitBlur","methods.elEmitFocus","methods.handleChange","mounted"],"jsHooks":[]}</script>
+</div>
 <p>The same holds in the server:
 <code>update_el_select(session, "city", selected = "bj")</code> and
 <code>update_el_select(session, "city", value = "bj")</code> do one
@@ -483,6 +646,20 @@ how files reach Shiny. The other hooks (<code>on-change</code>,
 <p>Where a name does differ, the component’s help page documents
 both.</p>
 </div>
+</div>
+<div class="section level2">
+<h2 id="without-shiny">Without Shiny<a class="anchor" aria-label="anchor" href="#without-shiny"></a>
+</h2>
+<p>The components also work on a page with no Shiny session – an R
+Markdown or Quarto document, a page saved with
+<code><a href="https://rstudio.github.io/htmltools/reference/save_html.html" class="external-link">htmltools::save_html()</a></code>. They render and respond: a select
+opens and picks, tabs switch, a collapse folds, a table’s rows tick.
+What they cannot do there is report: there is no <code>input</code>, and
+<code>update_el_*()</code>, <code><a href="../reference/el_call.html">el_call()</a></code> and the feedback
+functions have no server to come from. Load the scripts once with
+<code><a href="../reference/use_element.html">use_element()</a></code>, as for any page that is not an
+<code><a href="../reference/el_page.html">el_page()</a></code>. The examples on this website are built exactly
+so.</p>
 </div>
 <div class="section level2">
 <h2 id="known-gaps">Known gaps<a class="anchor" aria-label="anchor" href="#known-gaps"></a>

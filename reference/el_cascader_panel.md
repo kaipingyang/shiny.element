@@ -15,7 +15,7 @@ el_cascader_panel(
   props = NULL,
   width = NULL,
   slots = NULL,
-  session = shiny::getDefaultReactiveDomain()
+  session = NULL
 )
 ```
 
@@ -55,7 +55,8 @@ el_cascader_panel(
 
 - session:
 
-  Shiny session for module support.
+  Deprecated. Inside a module, wrap `id` in `ns()`, as for any Shiny
+  input; a session given here namespaces `id` once more, with a warning.
 
 ## Value
 
@@ -90,7 +91,7 @@ el_cascader_panel("where", options = regions, value = c("asia", "jp"))
 #>   <el-cascader-panel v-model="value" :options="options" :props="props === null ? undefined : props" @change="handleChange" @expand-change="elEmitExpandChange"></el-cascader-panel>
 #> </div>
 #> <div id="where" style="width:0px;height:0px;" class="vue html-widget"></div>
-#> <script type="application/json" data-for="where">{"x":{"el":"#where_container","data":{"value":["asia","jp"],"options":[{"value":"asia","label":"Asia","children":[{"value":"cn","label":"China"},{"value":"jp","label":"Japan"}]},{"value":"europe","label":"Europe","children":[{"value":"fr","label":"France"}]}],"props":null},"methods":{"elEmitExpandChange":"function() { window.shinyElement.emit('where', 'expand_change', arguments); }","handleChange":"function(v) { Shiny.setInputValue('where', v); }"},"mounted":"function() { var self = this; var send = function() { Shiny.setInputValue(\"where\", self.value); }; if (window.Shiny && Shiny.shinyapp && typeof Shiny.shinyapp.isConnected === 'function' && Shiny.shinyapp.isConnected()) { send(); } else { $(document).one('shiny:connected', send); } var prev = self._elReport; self._elReport = function() { if (prev) prev(); self.$nextTick(send); }; }"},"evals":["methods.elEmitExpandChange","methods.handleChange","mounted"],"jsHooks":[]}</script>
+#> <script type="application/json" data-for="where">{"x":{"el":"#where_container","data":{"value":["asia","jp"],"options":[{"value":"asia","label":"Asia","children":[{"value":"cn","label":"China"},{"value":"jp","label":"Japan"}]},{"value":"europe","label":"Europe","children":[{"value":"fr","label":"France"}]}],"props":null},"methods":{"elEmitExpandChange":"function() { window.shinyElement.emit('where', 'expand_change', arguments); }","handleChange":"function(v) { window.Shiny && Shiny.setInputValue('where', v); }"},"mounted":"function() { var self = this; var send = function() { window.Shiny && Shiny.setInputValue(\"where\", self.value); }; if (window.Shiny && Shiny.shinyapp && typeof Shiny.shinyapp.isConnected === 'function' && Shiny.shinyapp.isConnected()) { send(); } else if (window.jQuery) { jQuery(document).one('shiny:connected', send); } var prev = self._elReport; self._elReport = function() { if (prev) prev(); self.$nextTick(send); }; }"},"evals":["methods.elEmitExpandChange","methods.handleChange","mounted"],"jsHooks":[]}</script>
 
 # Several at once
 el_cascader_panel("where", options = regions, props = list(multiple = TRUE))
@@ -98,5 +99,5 @@ el_cascader_panel("where", options = regions, props = list(multiple = TRUE))
 #>   <el-cascader-panel v-model="value" :options="options" :props="props === null ? undefined : props" @change="handleChange" @expand-change="elEmitExpandChange"></el-cascader-panel>
 #> </div>
 #> <div id="where" style="width:0px;height:0px;" class="vue html-widget"></div>
-#> <script type="application/json" data-for="where">{"x":{"el":"#where_container","data":{"value":[],"options":[{"value":"asia","label":"Asia","children":[{"value":"cn","label":"China"},{"value":"jp","label":"Japan"}]},{"value":"europe","label":"Europe","children":[{"value":"fr","label":"France"}]}],"props":{"multiple":true}},"methods":{"elEmitExpandChange":"function() { window.shinyElement.emit('where', 'expand_change', arguments); }","handleChange":"function(v) { Shiny.setInputValue('where', v); }"},"mounted":"function() { var self = this; var send = function() { Shiny.setInputValue(\"where\", self.value); }; if (window.Shiny && Shiny.shinyapp && typeof Shiny.shinyapp.isConnected === 'function' && Shiny.shinyapp.isConnected()) { send(); } else { $(document).one('shiny:connected', send); } var prev = self._elReport; self._elReport = function() { if (prev) prev(); self.$nextTick(send); }; }"},"evals":["methods.elEmitExpandChange","methods.handleChange","mounted"],"jsHooks":[]}</script>
+#> <script type="application/json" data-for="where">{"x":{"el":"#where_container","data":{"value":[],"options":[{"value":"asia","label":"Asia","children":[{"value":"cn","label":"China"},{"value":"jp","label":"Japan"}]},{"value":"europe","label":"Europe","children":[{"value":"fr","label":"France"}]}],"props":{"multiple":true}},"methods":{"elEmitExpandChange":"function() { window.shinyElement.emit('where', 'expand_change', arguments); }","handleChange":"function(v) { window.Shiny && Shiny.setInputValue('where', v); }"},"mounted":"function() { var self = this; var send = function() { window.Shiny && Shiny.setInputValue(\"where\", self.value); }; if (window.Shiny && Shiny.shinyapp && typeof Shiny.shinyapp.isConnected === 'function' && Shiny.shinyapp.isConnected()) { send(); } else if (window.jQuery) { jQuery(document).one('shiny:connected', send); } var prev = self._elReport; self._elReport = function() { if (prev) prev(); self.$nextTick(send); }; }"},"evals":["methods.elEmitExpandChange","methods.handleChange","mounted"],"jsHooks":[]}</script>
 ```

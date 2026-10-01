@@ -12,7 +12,7 @@ el_calendar(
   first_day_of_week = 1,
   width = NULL,
   slots = NULL,
-  session = getDefaultReactiveDomain()
+  session = NULL
 )
 ```
 
@@ -48,7 +48,8 @@ el_calendar(
 
 - session:
 
-  Shiny session for module support
+  Deprecated. Inside a module, wrap `id` in `ns()`, as for any Shiny
+  input; a session given here namespaces `id` once more, with a warning.
 
 ## Value
 
@@ -69,7 +70,7 @@ el_calendar("cal")
 #>   <el-calendar v-model="value" :first-day-of-week="firstDayOfWeek" :range="range === null ? undefined : range"><template slot="dateCell" slot-scope="{date, data}"><p :class="data.isSelected ? 'is-selected' : ''">{{ data.day.split('-').slice(1).join('-') }}<span v-if="data.isSelected">✔</span></p></template></el-calendar>
 #> </div>
 #> <div id="cal" style="width:0px;height:0px;" class="vue html-widget"></div>
-#> <script type="application/json" data-for="cal">{"x":{"el":"#cal_container","data":{"value":"2026-10-01","firstDayOfWeek":1,"range":null},"watch":{"value":"function(newVal) { Shiny.setInputValue('cal', newVal); }"},"mounted":"function() { var self = this; var send = function() { Shiny.setInputValue(\"cal\", self.value); }; if (window.Shiny && Shiny.shinyapp && typeof Shiny.shinyapp.isConnected === 'function' && Shiny.shinyapp.isConnected()) { send(); } else { $(document).one('shiny:connected', send); } var prev = self._elReport; self._elReport = function() { if (prev) prev(); self.$nextTick(send); }; }"},"evals":["watch.value","mounted"],"jsHooks":[]}</script>
+#> <script type="application/json" data-for="cal">{"x":{"el":"#cal_container","data":{"value":"2026-10-01","firstDayOfWeek":1,"range":null},"watch":{"value":"function(newVal) { window.Shiny && Shiny.setInputValue('cal', newVal); }"},"mounted":"function() { var self = this; var send = function() { window.Shiny && Shiny.setInputValue(\"cal\", self.value); }; if (window.Shiny && Shiny.shinyapp && typeof Shiny.shinyapp.isConnected === 'function' && Shiny.shinyapp.isConnected()) { send(); } else if (window.jQuery) { jQuery(document).one('shiny:connected', send); } var prev = self._elReport; self._elReport = function() { if (prev) prev(); self.$nextTick(send); }; }"},"evals":["watch.value","mounted"],"jsHooks":[]}</script>
 
 # Your own, with whatever Element hands the template
 el_calendar("cal", slots = list(
@@ -88,7 +89,7 @@ el_calendar("cal", slots = list(
 #>   <el-calendar v-model="value" :first-day-of-week="firstDayOfWeek" :range="range === null ? undefined : range"><template slot="dateCell" slot-scope="{date, data}"><p>{{ data.day.slice(8) }}</p></template></el-calendar>
 #> </div>
 #> <div id="cal" style="width:0px;height:0px;" class="vue html-widget"></div>
-#> <script type="application/json" data-for="cal">{"x":{"el":"#cal_container","data":{"value":"2026-10-01","firstDayOfWeek":1,"range":null},"watch":{"value":"function(newVal) { Shiny.setInputValue('cal', newVal); }"},"mounted":"function() { var self = this; var send = function() { Shiny.setInputValue(\"cal\", self.value); }; if (window.Shiny && Shiny.shinyapp && typeof Shiny.shinyapp.isConnected === 'function' && Shiny.shinyapp.isConnected()) { send(); } else { $(document).one('shiny:connected', send); } var prev = self._elReport; self._elReport = function() { if (prev) prev(); self.$nextTick(send); }; }"},"evals":["watch.value","mounted"],"jsHooks":[]}</script>
+#> <script type="application/json" data-for="cal">{"x":{"el":"#cal_container","data":{"value":"2026-10-01","firstDayOfWeek":1,"range":null},"watch":{"value":"function(newVal) { window.Shiny && Shiny.setInputValue('cal', newVal); }"},"mounted":"function() { var self = this; var send = function() { window.Shiny && Shiny.setInputValue(\"cal\", self.value); }; if (window.Shiny && Shiny.shinyapp && typeof Shiny.shinyapp.isConnected === 'function' && Shiny.shinyapp.isConnected()) { send(); } else if (window.jQuery) { jQuery(document).one('shiny:connected', send); } var prev = self._elReport; self._elReport = function() { if (prev) prev(); self.$nextTick(send); }; }"},"evals":["watch.value","mounted"],"jsHooks":[]}</script>
 # Basic usage
 el_calendar(id = "calendar1", value = Sys.Date())
 #> <style>
@@ -101,7 +102,7 @@ el_calendar(id = "calendar1", value = Sys.Date())
 #>   <el-calendar v-model="value" :first-day-of-week="firstDayOfWeek" :range="range === null ? undefined : range"><template slot="dateCell" slot-scope="{date, data}"><p :class="data.isSelected ? 'is-selected' : ''">{{ data.day.split('-').slice(1).join('-') }}<span v-if="data.isSelected">✔</span></p></template></el-calendar>
 #> </div>
 #> <div id="calendar1" style="width:0px;height:0px;" class="vue html-widget"></div>
-#> <script type="application/json" data-for="calendar1">{"x":{"el":"#calendar1_container","data":{"value":"2026-10-01","firstDayOfWeek":1,"range":null},"watch":{"value":"function(newVal) { Shiny.setInputValue('calendar1', newVal); }"},"mounted":"function() { var self = this; var send = function() { Shiny.setInputValue(\"calendar1\", self.value); }; if (window.Shiny && Shiny.shinyapp && typeof Shiny.shinyapp.isConnected === 'function' && Shiny.shinyapp.isConnected()) { send(); } else { $(document).one('shiny:connected', send); } var prev = self._elReport; self._elReport = function() { if (prev) prev(); self.$nextTick(send); }; }"},"evals":["watch.value","mounted"],"jsHooks":[]}</script>
+#> <script type="application/json" data-for="calendar1">{"x":{"el":"#calendar1_container","data":{"value":"2026-10-01","firstDayOfWeek":1,"range":null},"watch":{"value":"function(newVal) { window.Shiny && Shiny.setInputValue('calendar1', newVal); }"},"mounted":"function() { var self = this; var send = function() { window.Shiny && Shiny.setInputValue(\"calendar1\", self.value); }; if (window.Shiny && Shiny.shinyapp && typeof Shiny.shinyapp.isConnected === 'function' && Shiny.shinyapp.isConnected()) { send(); } else if (window.jQuery) { jQuery(document).one('shiny:connected', send); } var prev = self._elReport; self._elReport = function() { if (prev) prev(); self.$nextTick(send); }; }"},"evals":["watch.value","mounted"],"jsHooks":[]}</script>
 
 # With date range
 el_calendar(id = "calendar2", range = c("2025-01-01", "2025-01-31"))
@@ -115,7 +116,7 @@ el_calendar(id = "calendar2", range = c("2025-01-01", "2025-01-31"))
 #>   <el-calendar v-model="value" :first-day-of-week="firstDayOfWeek" :range="range === null ? undefined : range"><template slot="dateCell" slot-scope="{date, data}"><p :class="data.isSelected ? 'is-selected' : ''">{{ data.day.split('-').slice(1).join('-') }}<span v-if="data.isSelected">✔</span></p></template></el-calendar>
 #> </div>
 #> <div id="calendar2" style="width:0px;height:0px;" class="vue html-widget"></div>
-#> <script type="application/json" data-for="calendar2">{"x":{"el":"#calendar2_container","data":{"value":"2026-10-01","firstDayOfWeek":1,"range":["2025-01-01","2025-01-31"]},"watch":{"value":"function(newVal) { Shiny.setInputValue('calendar2', newVal); }"},"mounted":"function() { var self = this; var send = function() { Shiny.setInputValue(\"calendar2\", self.value); }; if (window.Shiny && Shiny.shinyapp && typeof Shiny.shinyapp.isConnected === 'function' && Shiny.shinyapp.isConnected()) { send(); } else { $(document).one('shiny:connected', send); } var prev = self._elReport; self._elReport = function() { if (prev) prev(); self.$nextTick(send); }; }"},"evals":["watch.value","mounted"],"jsHooks":[]}</script>
+#> <script type="application/json" data-for="calendar2">{"x":{"el":"#calendar2_container","data":{"value":"2026-10-01","firstDayOfWeek":1,"range":["2025-01-01","2025-01-31"]},"watch":{"value":"function(newVal) { window.Shiny && Shiny.setInputValue('calendar2', newVal); }"},"mounted":"function() { var self = this; var send = function() { window.Shiny && Shiny.setInputValue(\"calendar2\", self.value); }; if (window.Shiny && Shiny.shinyapp && typeof Shiny.shinyapp.isConnected === 'function' && Shiny.shinyapp.isConnected()) { send(); } else if (window.jQuery) { jQuery(document).one('shiny:connected', send); } var prev = self._elReport; self._elReport = function() { if (prev) prev(); self.$nextTick(send); }; }"},"evals":["watch.value","mounted"],"jsHooks":[]}</script>
 
 # Shiny app example: interactive calendar with update
 if (interactive()) {

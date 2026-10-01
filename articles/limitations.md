@@ -110,6 +110,56 @@ An event whose arguments cannot cross the wire – a native `FocusEvent`,
 a DOM node, a whole Vue instance – reports `TRUE` instead, so an
 observer can still tell that it happened.
 
+## Shiny modules
+
+Components follow Shiny’s own rule. In a module’s UI, the id is wrapped
+in `ns()`, exactly as for
+[`textInput()`](https://rdrr.io/pkg/shiny/man/textInput.html); in its
+server, `input$<id>` and every `update_el_*()` take the bare id,
+namespaced by the module’s session. That holds for UI built by
+[`renderUI()`](https://rdrr.io/pkg/shiny/man/renderUI.html) inside the
+module too, and for the inputs a component adds to its id –
+`input$rows_go` from a row action, `input$tabs_edit`,
+`input$rows_selected_rows`.
+
+``` r
+
+orders_ui <- function(id) {
+  ns <- NS(id)
+  tagList(
+    el_select(ns("status"), choices = c("paid", "pending"), selected = "paid"),
+    el_table(ns("rows"), data = data.frame(order = c(101, 102)), columns = list(
+      list(prop = "order", label = "Order"),
+      list(label = "", cell = el$button(size = "mini",
+        "@click" = "rowAction('open', scope)", "Open")))),
+    uiOutput(ns("more")),
+    verbatimTextOutput(ns("seen"))
+  )
+}
+
+orders_server <- function(id) {
+  moduleServer(id, function(input, output, session) {
+    # Built in the server, still wrapped in ns() once
+    output$more <- renderUI(el_switch(session$ns("urgent"), active_text = "Urgent"))
+    output$seen <- renderPrint(list(status = input$status, urgent = input$urgent,
+                                    opened = input$rows_open$row_index))
+  })
+}
+
+ui <- el_page(orders_ui("orders"))
+server <- function(input, output, session) orders_server("orders")
+shinyApp(ui, server)
+```
+
+![](../shots/limitations-module.png)
+
+Before 0.1.0 the UI functions namespaced their id themselves, from the
+session they were built in – which inside
+[`renderUI()`](https://rdrr.io/pkg/shiny/man/renderUI.html) in a module
+turned `ns("urgent")` into `"orders-orders-urgent"`, an input that never
+reported. They no longer do; their `session` argument is deprecated, and
+a session passed to it still namespaces, with a warning.
+
 ## Nesting components
 
 Two kinds of component wrap other content, and they behave differently.
@@ -138,7 +188,11 @@ el_collapse("panels", value = "one", items = list(
 ))
 ```
 
-![](../shots/limitations-container.png)
+Settings
+
+About
+
+Version 0.1.0
 
 **Wrappers absorb what they are given.**
 [`el_tooltip()`](https://kaipingyang.github.io/shiny.element/reference/el_tooltip.md),
@@ -210,7 +264,7 @@ el_alert("problem", type = "error", show_icon = TRUE,
          slots = list(title = tags$span(tags$b("Upload failed"), " -- try again")))
 ```
 
-![](../shots/limitations-slots.png)
+**Upload failed** -- try again
 
 A scoped slot – one where Element hands the template variables that only
 exist while Vue renders – is written with
@@ -230,7 +284,7 @@ el_calendar("cal", value = "2026-03-15", slots = list(
 ))
 ```
 
-![](../shots/limitations-scoped-slot.png)
+{{ data.day.slice(8) }} **due**
 
 Filling a slot replaces what Element put there, default and all.
 Element’s `el-form-item` error slot, for instance, wraps the message in
@@ -276,7 +330,13 @@ el_row(gutter = 16,
       el_button("el_go", "el_button()", type = "primary"))))
 ```
 
-![](../shots/limitations-theme.png)
+Shiny's textInput()
+
+actionButton()
+
+Element's el_input()
+
+{{label}}
 
 `el_theme(primary = "#7c3aed")` changes the brand colour, and any other
 argument of
@@ -289,19 +349,27 @@ Element theme.
 ## Element’s own markup
 
 `el` holds a generator for every Element tag, for markup that needs no
-Vue instance of its own:
+Vue instance of its own – inside one that already exists. Vue compiles
+`<el-*>` tags only within the component it mounts, so a raw tag goes
+where a component draws its contents: a
+[`template()`](https://kaipingyang.github.io/shiny.element/reference/template.md),
+a slot, a table `cell`, a wrapper’s trigger.
 
 ``` r
 
-el$button(type = "primary", "Markup only")    # no input
+# The tooltip's instance compiles the raw button it wraps
+el_tooltip("hint", el$button(type = "primary", "Markup only"), content = "No input")
 el_button("save", "A component", type = "primary")   # reports input$save
 ```
 
-![](../shots/limitations-raw-tags.png)
+Markup only
 
-Use the raw tag where a component would be wasted – inside a
-[`template()`](https://kaipingyang.github.io/shiny.element/reference/template.md),
-or as a wrapper’s trigger when you do not need to know it was clicked.
+{{label}}
+
+Placed at the top level of a page, the same `el$button()` is never
+compiled and shows as its bare text. Use the raw tag where a component
+would be wasted, and a component where the server needs to hear about
+it.
 
 ## Building your own
 
@@ -325,7 +393,9 @@ initials("ada", "Ada Lovelace")
 initials("alan", "Alan Mathison Turing", size = 64)
 ```
 
-![](../shots/limitations-own-widget.png)
+{{ letters }}
+
+{{ letters }}
 
 Calling [`vueR::vue()`](https://rdrr.io/pkg/vueR/man/vue.html) yourself
 works too. What
@@ -375,8 +445,6 @@ el_select("city_shiny", choices = c(Beijing = "bj", Shanghai = "sh"), selected =
 el_select("city_element", options = c(Beijing = "bj", Shanghai = "sh"), value = "sh")
 ```
 
-![](../shots/limitations-two-names.png)
-
 The same holds in the server:
 `update_el_select(session, "city", selected = "bj")` and
 `update_el_select(session, "city", value = "bj")` do one thing.
@@ -400,6 +468,22 @@ files reach Shiny. The other hooks (`on-change`, `on-progress`,
 `before-upload`, …) are yours.
 
 Where a name does differ, the component’s help page documents both.
+
+## Without Shiny
+
+The components also work on a page with no Shiny session – an R Markdown
+or Quarto document, a page saved with
+[`htmltools::save_html()`](https://rstudio.github.io/htmltools/reference/save_html.html).
+They render and respond: a select opens and picks, tabs switch, a
+collapse folds, a table’s rows tick. What they cannot do there is
+report: there is no `input`, and `update_el_*()`,
+[`el_call()`](https://kaipingyang.github.io/shiny.element/reference/el_call.md)
+and the feedback functions have no server to come from. Load the scripts
+once with
+[`use_element()`](https://kaipingyang.github.io/shiny.element/reference/use_element.md),
+as for any page that is not an
+[`el_page()`](https://kaipingyang.github.io/shiny.element/reference/el_page.md).
+The examples on this website are built exactly so.
 
 ## Known gaps
 

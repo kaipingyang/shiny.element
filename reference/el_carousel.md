@@ -20,7 +20,7 @@ el_carousel(
   direction = "horizontal",
   width = NULL,
   slots = NULL,
-  session = shiny::getDefaultReactiveDomain()
+  session = NULL
 )
 ```
 
@@ -95,7 +95,8 @@ el_carousel(
 
 - session:
 
-  Shiny session for module support.
+  Deprecated. Inside a module, wrap `id` in `ns()`, as for any Shiny
+  input; a session given here namespaces `id` once more, with a warning.
 
 ## Value
 
@@ -144,7 +145,7 @@ el_carousel(
 #>   </el-carousel>
 #> </div>
 #> <div id="banner" style="width:0px;height:0px;" class="vue html-widget"></div>
-#> <script type="application/json" data-for="banner">{"x":{"el":"#banner_container","data":{"height":"200px","initialIndex":0,"autoplay":true,"interval":3000,"trigger":"hover","arrow":"hover","loop":true,"direction":"horizontal","indicatorPosition":null,"carouselType":null,"itemNames":["one","two","three"],"active":0,"activeName":"one"},"methods":{"handleChange":"function(index) { var self = this; self.active = index; self.activeName = self.itemNames[index] || ''; Shiny.setInputValue('banner', index); Shiny.setInputValue('banner_name', self.activeName); }"},"mounted":"function() { var self = this; [\nfunction() { var self = this; var send = function() { Shiny.setInputValue(\"banner\", self.active); Shiny.setInputValue(\"banner_name\", self.activeName); }; if (window.Shiny && Shiny.shinyapp && typeof Shiny.shinyapp.isConnected === 'function' && Shiny.shinyapp.isConnected()) { send(); } else { $(document).one('shiny:connected', send); } var prev = self._elReport; self._elReport = function() { if (prev) prev(); self.$nextTick(send); }; }\n].forEach(function(f) { f.call(self); }); }"},"evals":["methods.handleChange","mounted"],"jsHooks":[]}</script>
+#> <script type="application/json" data-for="banner">{"x":{"el":"#banner_container","data":{"height":"200px","initialIndex":0,"autoplay":true,"interval":3000,"trigger":"hover","arrow":"hover","loop":true,"direction":"horizontal","indicatorPosition":null,"carouselType":null,"itemNames":["one","two","three"],"active":0,"activeName":"one"},"methods":{"handleChange":"function(index) { var self = this; self.active = index; self.activeName = self.itemNames[index] || ''; window.Shiny && Shiny.setInputValue('banner', index); window.Shiny && Shiny.setInputValue('banner_name', self.activeName); }"},"mounted":"function() { var self = this; [\nfunction() { var self = this; var send = function() { window.Shiny && Shiny.setInputValue(\"banner\", self.active); window.Shiny && Shiny.setInputValue(\"banner_name\", self.activeName); }; if (window.Shiny && Shiny.shinyapp && typeof Shiny.shinyapp.isConnected === 'function' && Shiny.shinyapp.isConnected()) { send(); } else if (window.jQuery) { jQuery(document).one('shiny:connected', send); } var prev = self._elReport; self._elReport = function() { if (prev) prev(); self.$nextTick(send); }; }\n].forEach(function(f) { f.call(self); }); }"},"evals":["methods.handleChange","mounted"],"jsHooks":[]}</script>
 
 # Card layout, switching on click rather than hover
 el_carousel(
@@ -160,5 +161,5 @@ el_carousel(
 #>   </el-carousel>
 #> </div>
 #> <div id="cards" style="width:0px;height:0px;" class="vue html-widget"></div>
-#> <script type="application/json" data-for="cards">{"x":{"el":"#cards_container","data":{"height":"180px","initialIndex":0,"autoplay":true,"interval":3000,"trigger":"click","arrow":"hover","loop":true,"direction":"horizontal","indicatorPosition":null,"carouselType":"card","itemNames":["","","",""],"active":0,"activeName":""},"methods":{"handleChange":"function(index) { var self = this; self.active = index; self.activeName = self.itemNames[index] || ''; Shiny.setInputValue('cards', index); Shiny.setInputValue('cards_name', self.activeName); }"},"mounted":"function() { var self = this; [\nfunction() { var self = this; var send = function() { Shiny.setInputValue(\"cards\", self.active); Shiny.setInputValue(\"cards_name\", self.activeName); }; if (window.Shiny && Shiny.shinyapp && typeof Shiny.shinyapp.isConnected === 'function' && Shiny.shinyapp.isConnected()) { send(); } else { $(document).one('shiny:connected', send); } var prev = self._elReport; self._elReport = function() { if (prev) prev(); self.$nextTick(send); }; }\n].forEach(function(f) { f.call(self); }); }"},"evals":["methods.handleChange","mounted"],"jsHooks":[]}</script>
+#> <script type="application/json" data-for="cards">{"x":{"el":"#cards_container","data":{"height":"180px","initialIndex":0,"autoplay":true,"interval":3000,"trigger":"click","arrow":"hover","loop":true,"direction":"horizontal","indicatorPosition":null,"carouselType":"card","itemNames":["","","",""],"active":0,"activeName":""},"methods":{"handleChange":"function(index) { var self = this; self.active = index; self.activeName = self.itemNames[index] || ''; window.Shiny && Shiny.setInputValue('cards', index); window.Shiny && Shiny.setInputValue('cards_name', self.activeName); }"},"mounted":"function() { var self = this; [\nfunction() { var self = this; var send = function() { window.Shiny && Shiny.setInputValue(\"cards\", self.active); window.Shiny && Shiny.setInputValue(\"cards_name\", self.activeName); }; if (window.Shiny && Shiny.shinyapp && typeof Shiny.shinyapp.isConnected === 'function' && Shiny.shinyapp.isConnected()) { send(); } else if (window.jQuery) { jQuery(document).one('shiny:connected', send); } var prev = self._elReport; self._elReport = function() { if (prev) prev(); self.$nextTick(send); }; }\n].forEach(function(f) { f.call(self); }); }"},"evals":["methods.handleChange","mounted"],"jsHooks":[]}</script>
 ```

@@ -65,7 +65,7 @@ switch it off from the server once the work is done.</p>
 <span>  throttle <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  width <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  slots <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  session <span class="op">=</span> <span class="fu">shiny</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/domains.html" class="external-link">getDefaultReactiveDomain</a></span><span class="op">(</span><span class="op">)</span></span>
+<span>  session <span class="op">=</span> <span class="cn">NULL</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
 
@@ -113,7 +113,9 @@ placeholder's shape; build it from <code>el$skeleton_item(variant = ...)</code>.
 
 
 <dt id="arg-session">session<a class="anchor" aria-label="anchor" href="#arg-session"></a></dt>
-<dd><p>Shiny session for module support.</p></dd>
+<dd><p>Deprecated. Inside a module, wrap <code>id</code> in <code>ns()</code>, as for
+any Shiny input; a session given here namespaces <code>id</code> once more, with
+a warning.</p></dd>
 
 </dl></div>
     <div class="section level2">

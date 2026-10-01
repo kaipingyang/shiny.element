@@ -131,6 +131,27 @@ row actions, server-side sorting and paging, an editing dialog and
 confirmed deletes. Each is also in the installed package, under
 `examples/dashboards/`.
 
+### Shiny modules
+
+UI functions no longer namespace their `id` from the reactive domain
+they are built in; inside a module, wrap the id in `ns()` as for any
+Shiny input. Built by
+[`renderUI()`](https://rdrr.io/pkg/shiny/man/renderUI.html) in a
+module’s server, a component used to be namespaced twice – `ns("x")`
+became `"mod-mod-x"` – and never reported. Their `session` argument is
+deprecated; a session passed to it still namespaces the id, with a
+warning. `update_el_*()` and the other server functions are unchanged:
+they namespace the bare id, as `update*Input()` does.
+
+### Without Shiny
+
+Components work on a page with no Shiny behind it – R Markdown, Quarto,
+a saved HTML file: they render and respond to the user, with nowhere to
+report to. Every call into Shiny is guarded, the tabs, collapse, dialog
+and drawer bind themselves when Shiny is absent, and the scripts bring
+their own jQuery. The website’s examples are live components built this
+way, with a screenshot only where an example needs a server.
+
 ### Note for users of the development version
 
 [`el_table()`](https://kaipingyang.github.io/shiny.element/reference/el_table.md)

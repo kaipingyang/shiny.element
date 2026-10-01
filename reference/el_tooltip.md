@@ -24,7 +24,7 @@ el_tooltip(
   tabindex = NULL,
   width = NULL,
   slots = NULL,
-  session = shiny::getDefaultReactiveDomain()
+  session = NULL
 )
 ```
 
@@ -116,7 +116,8 @@ el_tooltip(
 
 - session:
 
-  Shiny session for module support.
+  Deprecated. Inside a module, wrap `id` in `ns()`, as for any Shiny
+  input; a session given here namespaces `id` once more, with a warning.
 
 ## Value
 
@@ -154,7 +155,7 @@ el_tooltip("hint", el_button("save", "Save"), content = "Writes to disk")
 #>   </el-tooltip>
 #> </div>
 #> <div id="hint" style="width:0px;height:0px;" class="vue html-widget"></div>
-#> <script type="application/json" data-for="hint">{"x":{"el":"#hint_container","data":{"tipValue":false,"tipContent":"Writes to disk","tipPlacement":null,"tipEffect":null,"tipDisabled":null,"tipOffset":null,"tipOpenDelay":null,"tipHideAfter":null,"tipEnterable":null,"tipVisibleArrow":null,"tipTransition":null,"tipPopperClass":null,"tipPopperOptions":null,"tipManual":null,"tipTabindex":null,"label":"Save","type":"default","size":null,"plain":false,"round":false,"circle":false,"loading":false,"disabled":false,"native_type":"button","icon":null,"count":0,"autofocus":false},"methods":{"handleClick":"function() { if (!this.disabled && !this.loading) { this.count++; Shiny.setInputValue('save', this.count); } }"}},"evals":["methods.handleClick"],"jsHooks":[]}</script>
+#> <script type="application/json" data-for="hint">{"x":{"el":"#hint_container","data":{"tipValue":false,"tipContent":"Writes to disk","tipPlacement":null,"tipEffect":null,"tipDisabled":null,"tipOffset":null,"tipOpenDelay":null,"tipHideAfter":null,"tipEnterable":null,"tipVisibleArrow":null,"tipTransition":null,"tipPopperClass":null,"tipPopperOptions":null,"tipManual":null,"tipTabindex":null,"label":"Save","type":"default","size":null,"plain":false,"round":false,"circle":false,"loading":false,"disabled":false,"native_type":"button","icon":null,"count":0,"autofocus":false},"methods":{"handleClick":"function() { if (!this.disabled && !this.loading) { this.count++; window.Shiny && Shiny.setInputValue('save', this.count); } }"}},"evals":["methods.handleClick"],"jsHooks":[]}</script>
 
 el_tooltip("hint",
   trigger = el$button(type = "danger", "Delete"),

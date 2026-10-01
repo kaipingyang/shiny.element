@@ -17,7 +17,7 @@ el_steps(
   simple = FALSE,
   width = NULL,
   slots = NULL,
-  session = getDefaultReactiveDomain()
+  session = NULL
 )
 ```
 
@@ -77,7 +77,8 @@ el_steps(
 
 - session:
 
-  Shiny session for module support
+  Deprecated. Inside a module, wrap `id` in `ns()`, as for any Shiny
+  input; a session given here namespaces `id` once more, with a warning.
 
 ## Value
 
@@ -103,7 +104,7 @@ el_steps(
 #>   </el-steps>
 #> </div>
 #> <div id="my_steps" style="width:0px;height:0px;" class="vue html-widget"></div>
-#> <script type="application/json" data-for="my_steps">{"x":{"el":"#my_steps_container","data":{"active":0,"direction":"horizontal","processStatus":"process","finishStatus":"finish","alignCenter":false,"simple":false,"space":null},"watch":{"active":"function(newVal) { Shiny.setInputValue('my_steps', newVal); }"},"mounted":"function() { var self = this; var send = function() { Shiny.setInputValue(\"my_steps\", self.active); }; if (window.Shiny && Shiny.shinyapp && typeof Shiny.shinyapp.isConnected === 'function' && Shiny.shinyapp.isConnected()) { send(); } else { $(document).one('shiny:connected', send); } var prev = self._elReport; self._elReport = function() { if (prev) prev(); self.$nextTick(send); }; }"},"evals":["watch.active","mounted"],"jsHooks":[]}</script>
+#> <script type="application/json" data-for="my_steps">{"x":{"el":"#my_steps_container","data":{"active":0,"direction":"horizontal","processStatus":"process","finishStatus":"finish","alignCenter":false,"simple":false,"space":null},"watch":{"active":"function(newVal) { window.Shiny && Shiny.setInputValue('my_steps', newVal); }"},"mounted":"function() { var self = this; var send = function() { window.Shiny && Shiny.setInputValue(\"my_steps\", self.active); }; if (window.Shiny && Shiny.shinyapp && typeof Shiny.shinyapp.isConnected === 'function' && Shiny.shinyapp.isConnected()) { send(); } else if (window.jQuery) { jQuery(document).one('shiny:connected', send); } var prev = self._elReport; self._elReport = function() { if (prev) prev(); self.$nextTick(send); }; }"},"evals":["watch.active","mounted"],"jsHooks":[]}</script>
 
 # With descriptions and icons
 el_steps(
@@ -124,5 +125,5 @@ el_steps(
 #>   </el-steps>
 #> </div>
 #> <div id="my_steps" style="width:0px;height:0px;" class="vue html-widget"></div>
-#> <script type="application/json" data-for="my_steps">{"x":{"el":"#my_steps_container","data":{"active":1,"direction":"horizontal","processStatus":"process","finishStatus":"success","alignCenter":false,"simple":false,"space":null},"watch":{"active":"function(newVal) { Shiny.setInputValue('my_steps', newVal); }"},"mounted":"function() { var self = this; var send = function() { Shiny.setInputValue(\"my_steps\", self.active); }; if (window.Shiny && Shiny.shinyapp && typeof Shiny.shinyapp.isConnected === 'function' && Shiny.shinyapp.isConnected()) { send(); } else { $(document).one('shiny:connected', send); } var prev = self._elReport; self._elReport = function() { if (prev) prev(); self.$nextTick(send); }; }"},"evals":["watch.active","mounted"],"jsHooks":[]}</script>
+#> <script type="application/json" data-for="my_steps">{"x":{"el":"#my_steps_container","data":{"active":1,"direction":"horizontal","processStatus":"process","finishStatus":"success","alignCenter":false,"simple":false,"space":null},"watch":{"active":"function(newVal) { window.Shiny && Shiny.setInputValue('my_steps', newVal); }"},"mounted":"function() { var self = this; var send = function() { window.Shiny && Shiny.setInputValue(\"my_steps\", self.active); }; if (window.Shiny && Shiny.shinyapp && typeof Shiny.shinyapp.isConnected === 'function' && Shiny.shinyapp.isConnected()) { send(); } else if (window.jQuery) { jQuery(document).one('shiny:connected', send); } var prev = self._elReport; self._elReport = function() { if (prev) prev(); self.$nextTick(send); }; }"},"evals":["watch.active","mounted"],"jsHooks":[]}</script>
 ```

@@ -102,7 +102,11 @@ el_tabs("views", type = "border-card", tabs = list(
 ))
 ```
 
-![](../shots/navigation-tabs.png)
+Settings
+
+About
+
+Version 0.1.0
 
 ## Messages and notifications
 
@@ -203,7 +207,7 @@ el_popconfirm("remove",
   title = "Remove this item?")
 ```
 
-![](../shots/navigation-popconfirm.png)
+{{label}}
 
 ## Loading
 

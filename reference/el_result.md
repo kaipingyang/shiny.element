@@ -14,7 +14,7 @@ el_result(
   sub_title = NULL,
   width = NULL,
   slots = NULL,
-  session = shiny::getDefaultReactiveDomain()
+  session = NULL
 )
 ```
 
@@ -53,7 +53,8 @@ el_result(
 
 - session:
 
-  Shiny session for module support.
+  Deprecated. Inside a module, wrap `id` in `ns()`, as for any Shiny
+  input; a session given here namespaces `id` once more, with a warning.
 
 ## Value
 
@@ -73,5 +74,5 @@ el_result("done", icon = "success", title = "Report submitted",
 #>   </el-result>
 #> </div>
 #> <div id="done" style="width:0px;height:0px;" class="vue html-widget"></div>
-#> <script type="application/json" data-for="done">{"x":{"el":"#done_container","data":{"resultIcon":"success","resultTitle":"Report submitted","resultSubTitle":"It will be reviewed within a day","label":"Back to the list","type":"primary","size":null,"plain":false,"round":false,"circle":false,"loading":false,"disabled":false,"native_type":"button","icon":null,"count":0,"autofocus":false},"methods":{"handleClick":"function() { if (!this.disabled && !this.loading) { this.count++; Shiny.setInputValue('back', this.count); } }"}},"evals":["methods.handleClick"],"jsHooks":[]}</script>
+#> <script type="application/json" data-for="done">{"x":{"el":"#done_container","data":{"resultIcon":"success","resultTitle":"Report submitted","resultSubTitle":"It will be reviewed within a day","label":"Back to the list","type":"primary","size":null,"plain":false,"round":false,"circle":false,"loading":false,"disabled":false,"native_type":"button","icon":null,"count":0,"autofocus":false},"methods":{"handleClick":"function() { if (!this.disabled && !this.loading) { this.count++; window.Shiny && Shiny.setInputValue('back', this.count); } }"}},"evals":["methods.handleClick"],"jsHooks":[]}</script>
 ```

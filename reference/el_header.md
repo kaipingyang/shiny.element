@@ -42,6 +42,6 @@ el_header(height = "80px", el_button("refresh", "Refresh"))
 #>     <el-button :type="type" :plain="plain" :round="round" :circle="circle" :loading="loading" :disabled="disabled" :native-type="native_type" @click="handleClick" :size="size === null ? undefined : size" :icon="icon === null ? undefined : icon" :autofocus="autofocus === null ? undefined : autofocus">{{label}}</el-button>
 #>   </div>
 #>   <div id="refresh" style="width:0px;height:0px;" class="vue html-widget"></div>
-#>   <script type="application/json" data-for="refresh">{"x":{"el":"#refresh_container","data":{"label":"Refresh","type":"default","size":null,"plain":false,"round":false,"circle":false,"loading":false,"disabled":false,"native_type":"button","icon":null,"count":0,"autofocus":false},"methods":{"handleClick":"function() { if (!this.disabled && !this.loading) { this.count++; Shiny.setInputValue('refresh', this.count); } }"}},"evals":["methods.handleClick"],"jsHooks":[]}</script>
+#>   <script type="application/json" data-for="refresh">{"x":{"el":"#refresh_container","data":{"label":"Refresh","type":"default","size":null,"plain":false,"round":false,"circle":false,"loading":false,"disabled":false,"native_type":"button","icon":null,"count":0,"autofocus":false},"methods":{"handleClick":"function() { if (!this.disabled && !this.loading) { this.count++; window.Shiny && Shiny.setInputValue('refresh', this.count); } }"}},"evals":["methods.handleClick"],"jsHooks":[]}</script>
 #> </div>
 ```

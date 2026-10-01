@@ -9,7 +9,7 @@ worth knowing. It takes a data.frame directly.
 el_table("cars", data = head(mtcars[, 1:6], 5))
 ```
 
-![](../shots/tables-basic.png)
+{{col.label}}
 
 Row names that name something – `mtcars`’ car names – are kept as a
 first column, while row numbers are left out; `rownames = TRUE` or
@@ -39,7 +39,7 @@ el_table("flowers",
   ))
 ```
 
-![](../shots/tables-columns.png)
+{{col.label}}
 
 Every column attribute Element documents is accepted: `align`,
 `header_align`, `class_name`, `min_width`, `fixed`, `resizable`,
@@ -61,7 +61,7 @@ cfg$columns <- lapply(cfg$columns, function(col) {
 el_table("cfg", data = cfg$data, columns = cfg$columns, stripe = TRUE)
 ```
 
-![](../shots/tables-config.png)
+{{col.label}}
 
 ## Formatting
 
@@ -84,7 +84,7 @@ el_table("sales", data = sales, columns = list(
 ))
 ```
 
-![](../shots/tables-formatter.png)
+{{col.label}}
 
 `header_html` is inserted as markup, so pass only what you control.
 Formatting in R first is usually simpler; reach for `formatter` when the
@@ -208,7 +208,7 @@ same once the content exceeds it:
 el_table("all", data = iris, height = "240px", stripe = TRUE)
 ```
 
-![](../shots/tables-height.png)
+{{col.label}}
 
 ## Summaries
 
@@ -221,7 +221,7 @@ el_table("sums", data = head(mtcars[, c("mpg", "hp", "wt")], 5),
          show_summary = TRUE, sum_text = "Total", border = TRUE)
 ```
 
-![](../shots/tables-summary.png)
+{{col.label}}
 
 ## Methods
 
@@ -301,7 +301,7 @@ el_table("org", data = org, row_key = "id", default_expand_all = TRUE,
                         list(prop = "size", label = "People")))
 ```
 
-![](../shots/tables-tree.png)
+{{col.label}}
 
 With `lazy = TRUE` and a `load` function, children are fetched as their
 parent is expanded.

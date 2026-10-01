@@ -3,7 +3,8 @@
 Element’s form components each report to `input$<id>` and are set from
 the server with `update_el_*()`. This covers the pieces that differ from
 what you would write with Shiny’s own inputs. Every example runs as it
-stands, and the picture under it was taken from that code.
+stands; on the website, the components under one are live, or a
+screenshot of the running app where it needs a server.
 
 ## Choices
 
@@ -24,8 +25,6 @@ el_select("objects", value = "sh", choices = list(
 ))
 ```
 
-![](../shots/forms-choices.png)
-
 For a checkbox or radio group, Element documents `border`, `name` and
 `disabled` on the individual item rather than the group, so they go on
 the choice:
@@ -39,7 +38,7 @@ el_checkbox_group("terms", selected = "a", choices = list(
 ))
 ```
 
-![](../shots/forms-item-props.png)
+{{opt.label}}
 
 ## Validation
 
@@ -143,7 +142,9 @@ el_upload("photos", label = "Drop images here, or click to choose",
           drag = TRUE, accept = "image/*")
 ```
 
-![](../shots/forms-upload-drag.png)
+{{label}}
+
+{{label}}
 
 Pointing `action` elsewhere switches to Element’s own transport, and the
 file goes straight to that URL without reaching R. `extra_data` is
@@ -158,7 +159,9 @@ el_upload("archive", label = "Upload to the archive",
           extra_data = list(folder = "reports"))
 ```
 
-![](../shots/forms-upload-direct.png)
+{{label}}
+
+{{label}}
 
 ## Autocomplete
 
@@ -170,8 +173,6 @@ types:
 el_autocomplete("city", placeholder = "Where to?", width = 260,
                 suggestions = c("Beijing", "Shanghai", "Shenzhen", "Chengdu"))
 ```
-
-![](../shots/forms-autocomplete.png)
 
 When the list lives on the server – a database, an API – update the
 suggestions from what has been typed:
@@ -240,4 +241,8 @@ el_input("wide", placeholder = "width = '100%'", width = "100%")
 el_input("narrow", placeholder = "width = 160", width = 160)
 ```
 
-![](../shots/forms-layout.png)
+{{f.label}}
+
+{{scope.error}}
+
+{{ o.text }}

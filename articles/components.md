@@ -1,9 +1,9 @@
 # Component gallery
 
-Every picture below was taken from the code above it, run as it stands
-in a live Shiny app in headless Chromium. Regenerate them with
-`Rscript tools/article-shots.R components` after changing how something
-looks.
+On the website, the components under each example are live, made by the
+code above them: open them, type, pick – with no server behind the page,
+they just have nowhere to report to. An example that needs a server
+shows a screenshot of it running instead.
 
 Each component reports to the server as `input$<id>`, on load as well as
 on change, and is updated from the server with the matching
@@ -25,16 +25,12 @@ el_input("notes", type = "textarea", rows = 2)
 el_input("pw", type = "password", show_password = TRUE)
 ```
 
-![](../shots/components-input.png)
-
 ### `el_input_number()`
 
 ``` r
 
 el_input_number("age", value = 18, min = 0, max = 150)
 ```
-
-![](../shots/components-input-number.png)
 
 ### `el_select()`
 
@@ -46,8 +42,6 @@ Single or multiple. `choices` takes a named vector or a list of
 el_select("city", choices = c(Beijing = "bj", Shanghai = "sh"))
 el_select("tags", choices = c(A = "a", B = "b", C = "c"), multiple = TRUE)
 ```
-
-![](../shots/components-select.png)
 
 A named list groups the choices under headings, as in
 [`selectInput()`](https://rdrr.io/pkg/shiny/man/selectInput.html);
@@ -63,8 +57,6 @@ el_select("food", choices = list(
 ))
 ```
 
-![](../shots/components-select-group.png)
-
 ### `el_radio_group()`
 
 ``` r
@@ -73,7 +65,9 @@ el_radio_group("plan", choices = c(Basic = "x", Pro = "y"))
 el_radio_group("range", choices = c(Day = "d", Week = "w"), button = TRUE)
 ```
 
-![](../shots/components-radio-group.png)
+{{opt.label}}
+
+{{opt.label}}
 
 ### `el_checkbox_group()`
 
@@ -83,7 +77,7 @@ el_checkbox_group("langs", choices = c(R = "r", Python = "p", SQL = "s"),
                   selected = c("r", "s"))
 ```
 
-![](../shots/components-checkbox-group.png)
+{{opt.label}}
 
 ### `el_switch()`
 
@@ -91,8 +85,6 @@ el_checkbox_group("langs", choices = c(R = "r", Python = "p", SQL = "s"),
 
 el_switch("live", value = TRUE, active_text = "on", inactive_text = "off")
 ```
-
-![](../shots/components-switch.png)
 
 ### `el_slider()`
 
@@ -102,16 +94,12 @@ el_slider("score", value = 40)
 el_slider("band", value = c(20, 70), range = TRUE)
 ```
 
-![](../shots/components-slider.png)
-
 ### `el_rate()`
 
 ``` r
 
 el_rate("stars", value = 3, show_text = TRUE)
 ```
-
-![](../shots/components-rate.png)
 
 ### `el_date_picker()`
 
@@ -120,8 +108,6 @@ el_rate("stars", value = 3, show_text = TRUE)
 el_date_picker("when", value = "2026-03-01")
 el_date_picker("span", type = "daterange")
 ```
-
-![](../shots/components-date-picker.png)
 
 ### `el_time_picker()` and `el_time_select()`
 
@@ -138,16 +124,12 @@ el_time_select("slot", value = "10:30",
                picker_options = list(start = "09:00", step = "00:30", end = "18:00"))
 ```
 
-![](../shots/components-time-picker.png)
-
 ### `el_color_picker()`
 
 ``` r
 
 el_color_picker("shade", value = "#409EFF")
 ```
-
-![](../shots/components-color-picker.png)
 
 ### `el_cascader()`
 
@@ -162,8 +144,6 @@ el_cascader("region", options = list(
     list(value = "hz", label = "Hangzhou")))))
 ```
 
-![](../shots/components-cascader.png)
-
 ### `el_cascader_panel()`
 
 The cascader’s columns on their own, always open.
@@ -177,8 +157,6 @@ el_cascader_panel("where", value = c("asia", "jp"), width = "fit-content", optio
     list(value = "fr", label = "France")))))
 ```
 
-![](../shots/components-cascader-panel.png)
-
 ### `el_autocomplete()`
 
 A text input that suggests as you type. Filtering happens in the
@@ -190,8 +168,6 @@ browser; for suggestions that come from the server pass
 el_autocomplete("city", width = 240, placeholder = "Where to?",
                 suggestions = c("Beijing", "Shanghai", "Shenzhen"))
 ```
-
-![](../shots/components-autocomplete.png)
 
 ### `el_transfer()`
 
@@ -205,8 +181,6 @@ el_transfer("cols", width = 560,
             value = c("Species"), titles = c("Available", "Chosen"))
 ```
 
-![](../shots/components-transfer.png)
-
 ### `el_upload()`
 
 Element’s upload over Shiny’s own transport, so `input$files` is the
@@ -219,7 +193,11 @@ a URL.
 el_upload("files", drag = TRUE, multiple = TRUE, tip = "CSV only", accept = ".csv")
 ```
 
-![](../shots/components-upload.png)
+{{label}}
+
+{{label}}
+
+CSV only
 
 ### `el_form()`
 
@@ -241,7 +219,11 @@ el_form(
 )
 ```
 
-![](../shots/components-form.png)
+{{f.label}}
+
+{{scope.error}}
+
+{{ o.text }}{{ submitLabel }}
 
 ## Data
 
@@ -254,7 +236,11 @@ el_button("go", "Round", type = "primary", round = TRUE)
 el_button("wait", "Loading", type = "primary", loading = TRUE)
 ```
 
-![](../shots/components-button.png)
+{{label}}
+
+{{label}}
+
+{{label}}
 
 ### `el_tag()`
 
@@ -263,7 +249,7 @@ el_button("wait", "Loading", type = "primary", loading = TRUE)
 el_tag("t", label = "closable", type = "warning", closable = TRUE)
 ```
 
-![](../shots/components-tag.png)
+{{label}}
 
 ### `el_alert()`
 
@@ -272,8 +258,6 @@ el_tag("t", label = "closable", type = "warning", closable = TRUE)
 el_alert("hint", title = "info", type = "info", show_icon = TRUE,
          description = "with a description")
 ```
-
-![](../shots/components-alert.png)
 
 ### `el_progress()`
 
@@ -285,8 +269,6 @@ el_progress("pct", percentage = 70)
 el_progress("ring", percentage = 70, type = "circle")
 ```
 
-![](../shots/components-progress.png)
-
 ### `el_badge()`
 
 ``` r
@@ -295,7 +277,13 @@ el_badge(el_button("msg", "messages"), value = 12)
 el_badge(el_button("hi", "capped"), value = 200, max = 99)
 ```
 
-![](../shots/components-badge.png)
+{{label}}
+
+¹²
+
+{{label}}
+
+⁹⁹⁺
 
 ### `el_card()`
 
@@ -304,7 +292,9 @@ el_badge(el_button("hi", "capped"), value = 200, max = 99)
 el_card(header = "Card header", "Cards nest any content.")
 ```
 
-![](../shots/components-card.png)
+Card header
+
+Cards nest any content.
 
 ### `el_table()`
 
@@ -317,7 +307,7 @@ with their R types intact.
 el_table(id = "tbl", data = head(iris, 4), selection = TRUE)
 ```
 
-![](../shots/components-table.png)
+{{col.label}}
 
 ### `el_avatar()`
 
@@ -330,7 +320,11 @@ el_avatar("initials", content = "KY", shape = "square")
 el_avatar("big", content = "40", size = 40)
 ```
 
-![](../shots/components-avatar.png)
+{{content}}
+
+{{content}}
+
+{{content}}
 
 ### `el_image()`
 
@@ -349,8 +343,6 @@ el_image("gallery", src = "rdoc/logo.jpg", width = 80, fit = "cover",
          preview_src_list = c("rdoc/logo.jpg", "rdoc/logo.jpg"))
 ```
 
-![](../shots/components-image.png)
-
 ### `el_descriptions()`
 
 A read-only grid of labelled values – the detail view of a record.
@@ -368,7 +360,7 @@ el_descriptions("account", title = "Account", border = TRUE, column = 2,
   ))
 ```
 
-![](../shots/components-descriptions.png)
+Ada Lovelace{{label}}2026-01-121212 St James's Square, London
 
 ### `el_statistic()`
 
@@ -386,8 +378,6 @@ el_row(gutter = 20,
 )
 ```
 
-![](../shots/components-statistic.png)
-
 With `time_indices = TRUE` it counts down to a date-time, and reports
 `input$<id>_finish` when it gets there:
 
@@ -396,8 +386,6 @@ With `time_indices = TRUE` it counts down to a date-time, and reports
 el_statistic("sale", value = Sys.time() + 5 * 3600, time_indices = TRUE,
              title = "Sale ends in", format = "HH:mm:ss")
 ```
-
-![](../shots/components-countdown.png)
 
 ### `el_empty()` and `el_result()`
 
@@ -410,7 +398,7 @@ el_empty("none", description = "No reports yet", image_size = 100,
          el_button("create", "Create one", type = "primary"))
 ```
 
-![](../shots/components-empty.png)
+{{label}}
 
 ``` r
 
@@ -419,7 +407,7 @@ el_result("done", icon = "success", title = "Report submitted",
           el_button("back", "Back to the list", type = "primary"))
 ```
 
-![](../shots/components-result.png)
+{{label}}
 
 ### `el_skeleton()`
 
@@ -431,16 +419,12 @@ Grey shapes in place of content that is still on its way. Switch
 el_skeleton("report", rows = 3, animated = TRUE, tableOutput("summary"))
 ```
 
-![](../shots/components-skeleton.png)
-
 ### `el_pagination()`
 
 ``` r
 
 el_pagination("pager", total = 200, page_size = 20, current_page = 3)
 ```
-
-![](../shots/components-pagination.png)
 
 ### `el_timeline()`
 
@@ -456,7 +440,7 @@ el_timeline("log", items = list(
        icon = "el-icon-check", size = "large")))
 ```
 
-![](../shots/components-timeline.png)
+{{ item.content }}
 
 ### `el_carousel()`
 
@@ -467,7 +451,9 @@ el_carousel("banner", height = "160px", items = list(
   list(name = "two", content = tags$h3("Second"))))
 ```
 
-![](../shots/components-carousel.png)
+### First
+
+### Second
 
 ### `el_divider()` and `el_link()`
 
@@ -477,7 +463,7 @@ el_divider()
 el_link("primary", type = "primary")
 ```
 
-![](../shots/components-divider.png)
+primary
 
 ### Icons
 
@@ -488,8 +474,6 @@ Element’s icon font ships with the package; any `el-icon-*` class works.
 tags$i(class = "el-icon-edit")
 el_icon("star-on")
 ```
-
-![](../shots/components-icon.png)
 
 ## Others
 
@@ -507,7 +491,11 @@ el_tabs("section", tabs = list(
   list(name = "y", label = "Second", content = "Panes hold components.")))
 ```
 
-![](../shots/components-tabs.png)
+Inputs
+
+Second
+
+Panes hold components.
 
 `editable = TRUE` adds Element’s close buttons and new-tab button. The
 tabs close themselves; a new one is the server’s to make, with
@@ -547,7 +535,7 @@ el_collapse("panels", value = "p1", items = list(
        content = tagList(el_input("q"), el_switch("live")))))
 ```
 
-![](../shots/components-collapse.png)
+Filters
 
 ### `el_steps()`
 
@@ -558,8 +546,6 @@ el_steps("wizard", active = 1, finish_status = "success", steps = list(
   list(title = "Pay",  description = "enter card"),
   list(title = "Done", description = "all set")))
 ```
-
-![](../shots/components-steps.png)
 
 ### `el_dialog()` and `el_drawer()`
 
@@ -618,7 +604,9 @@ el_tooltip("hint", el$button(type = "primary", "Hover me"),
 el_tooltip("save_hint", el_button("save", "Save"), content = "Writes to disk")
 ```
 
-![](../shots/components-tooltip.png)
+Hover me
+
+{{label}}
 
 ### `el_popover()`
 
@@ -631,7 +619,7 @@ el_popover("info",
   title = "March", content = "Revenue up 4% on February.")
 ```
 
-![](../shots/components-popover.png)
+Details
 
 ### `el_popconfirm()`
 
@@ -646,7 +634,7 @@ el_popconfirm("del",
   title = "Delete this row?")
 ```
 
-![](../shots/components-popconfirm.png)
+Delete
 
 ### `el_backtop()`
 
@@ -661,7 +649,85 @@ tags$div(id = "report", style = "height: 180px; overflow: auto",
 el_backtop("to_top", target = "#report", visibility_height = 100)
 ```
 
-![](../shots/components-backtop.png)
+Line 1
+
+Line 2
+
+Line 3
+
+Line 4
+
+Line 5
+
+Line 6
+
+Line 7
+
+Line 8
+
+Line 9
+
+Line 10
+
+Line 11
+
+Line 12
+
+Line 13
+
+Line 14
+
+Line 15
+
+Line 16
+
+Line 17
+
+Line 18
+
+Line 19
+
+Line 20
+
+Line 21
+
+Line 22
+
+Line 23
+
+Line 24
+
+Line 25
+
+Line 26
+
+Line 27
+
+Line 28
+
+Line 29
+
+Line 30
+
+Line 31
+
+Line 32
+
+Line 33
+
+Line 34
+
+Line 35
+
+Line 36
+
+Line 37
+
+Line 38
+
+Line 39
+
+Line 40
 
 ### `el_infinite_scroll()`
 
@@ -672,8 +738,6 @@ A scrolling area that asks for more as the user nears the bottom.
 
 el_infinite_scroll("feed", height = "300px", uiOutput("rows"))
 ```
-
-![](../shots/components-infinite-scroll.png)
 
 ### `el_row()` / `el_col()`
 
@@ -686,7 +750,9 @@ el_row(gutter = 20,
   el_col(span = 12, "span = 12"))
 ```
 
-![](../shots/components-layout.png)
+span = 12
+
+span = 12
 
 ### `el_container()`
 
@@ -697,7 +763,11 @@ el_container(
   el_container(el_aside(width = "160px", "Aside"), el_main("Main")))
 ```
 
-![](../shots/components-container.png)
+Header
+
+Aside
+
+Main
 
 ## Navigation
 
@@ -714,7 +784,7 @@ el_menu("nav", active = "home", items = list(
     list(index = "all", label = "All records")))))
 ```
 
-![](../shots/components-menu.png)
+Home Data All records
 
 ### `el_tree()`
 
@@ -728,8 +798,6 @@ el_tree("picker", show_checkbox = TRUE, checked = "apple", data = list(
     list(id = "apple", label = "Apple")))))
 ```
 
-![](../shots/components-tree.png)
-
 ### `el_breadcrumb()`
 
 A trail of links. `input$<id>` is the label of the step last clicked, so
@@ -741,7 +809,7 @@ el_breadcrumb("trail", items = list(
   list(label = "Home"), list(label = "Reports"), list(label = "March")))
 ```
 
-![](../shots/components-breadcrumb.png)
+{{item.label}}
 
 ### `el_page_header()`
 
@@ -753,8 +821,6 @@ clicked; what going back means is up to your app.
 el_page_header("hdr", title = "All reports", content = "Sales for March")
 ```
 
-![](../shots/components-page-header.png)
-
 ### `el_dropdown()`
 
 ``` r
@@ -764,7 +830,7 @@ el_dropdown("actions", trigger_label = "Actions", items = list(
   list(command = "del",  label = "Delete")))
 ```
 
-![](../shots/components-dropdown.png)
+Actions EditDelete
 
 ## Feedback
 

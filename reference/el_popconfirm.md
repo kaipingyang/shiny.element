@@ -19,7 +19,7 @@ el_popconfirm(
   hide_icon = NULL,
   width = NULL,
   slots = NULL,
-  session = shiny::getDefaultReactiveDomain()
+  session = NULL
 )
 ```
 
@@ -76,7 +76,8 @@ el_popconfirm(
 
 - session:
 
-  Shiny session for module support.
+  Deprecated. Inside a module, wrap `id` in `ns()`, as for any Shiny
+  input; a session given here namespaces `id` once more, with a warning.
 
 ## Value
 
@@ -106,7 +107,7 @@ el_popconfirm("del",
 #>   </el-popconfirm>
 #> </div>
 #> <div id="del" style="width:0px;height:0px;" class="vue html-widget"></div>
-#> <script type="application/json" data-for="del">{"x":{"el":"#del_container","data":{"pcTitle":"Delete this row?","pcConfirmButtonText":null,"pcCancelButtonText":null,"pcConfirmButtonType":null,"pcCancelButtonType":null,"pcIcon":null,"pcIconColor":null,"pcHideIcon":null},"methods":{"handleConfirm":"function() { Shiny.setInputValue('del_confirm', true, {priority: 'event'}); }","handleCancel":"function() { Shiny.setInputValue('del_cancel', true, {priority: 'event'}); }"}},"evals":["methods.handleConfirm","methods.handleCancel"],"jsHooks":[]}</script>
+#> <script type="application/json" data-for="del">{"x":{"el":"#del_container","data":{"pcTitle":"Delete this row?","pcConfirmButtonText":null,"pcCancelButtonText":null,"pcConfirmButtonType":null,"pcCancelButtonType":null,"pcIcon":null,"pcIconColor":null,"pcHideIcon":null},"methods":{"handleConfirm":"function() { window.Shiny && Shiny.setInputValue('del_confirm', true, {priority: 'event'}); }","handleCancel":"function() { window.Shiny && Shiny.setInputValue('del_cancel', true, {priority: 'event'}); }"}},"evals":["methods.handleConfirm","methods.handleCancel"],"jsHooks":[]}</script>
 
 if (interactive()) {
   library(shiny)

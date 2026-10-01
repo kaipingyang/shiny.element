@@ -13,7 +13,7 @@ el_empty(
   image_size = NULL,
   width = NULL,
   slots = NULL,
-  session = shiny::getDefaultReactiveDomain()
+  session = NULL
 )
 ```
 
@@ -51,7 +51,8 @@ el_empty(
 
 - session:
 
-  Shiny session for module support.
+  Deprecated. Inside a module, wrap `id` in `ns()`, as for any Shiny
+  input; a session given here namespaces `id` once more, with a warning.
 
 ## Value
 
@@ -75,5 +76,5 @@ el_empty("none", description = "No reports yet",
 #>   </el-empty>
 #> </div>
 #> <div id="none" style="width:0px;height:0px;" class="vue html-widget"></div>
-#> <script type="application/json" data-for="none">{"x":{"el":"#none_container","data":{"emptyDescription":"No reports yet","emptyImage":null,"emptyImageSize":null,"label":"Create one","type":"primary","size":null,"plain":false,"round":false,"circle":false,"loading":false,"disabled":false,"native_type":"button","icon":null,"count":0,"autofocus":false},"methods":{"handleClick":"function() { if (!this.disabled && !this.loading) { this.count++; Shiny.setInputValue('create', this.count); } }"}},"evals":["methods.handleClick"],"jsHooks":[]}</script>
+#> <script type="application/json" data-for="none">{"x":{"el":"#none_container","data":{"emptyDescription":"No reports yet","emptyImage":null,"emptyImageSize":null,"label":"Create one","type":"primary","size":null,"plain":false,"round":false,"circle":false,"loading":false,"disabled":false,"native_type":"button","icon":null,"count":0,"autofocus":false},"methods":{"handleClick":"function() { if (!this.disabled && !this.loading) { this.count++; window.Shiny && Shiny.setInputValue('create', this.count); } }"}},"evals":["methods.handleClick"],"jsHooks":[]}</script>
 ```

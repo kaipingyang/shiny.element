@@ -21,7 +21,7 @@ el_descriptions(
   content_style = NULL,
   width = NULL,
   slots = NULL,
-  session = shiny::getDefaultReactiveDomain()
+  session = NULL
 )
 ```
 
@@ -88,7 +88,8 @@ el_descriptions(
 
 - session:
 
-  Shiny session for module support.
+  Deprecated. Inside a module, wrap `id` in `ns()`, as for any Shiny
+  input; a session given here namespaces `id` once more, with a warning.
 
 ## Value
 
@@ -112,7 +113,7 @@ el_descriptions("user", title = "Account", border = TRUE, items = list(
 #>   </el-descriptions>
 #> </div>
 #> <div id="user" style="width:0px;height:0px;" class="vue html-widget"></div>
-#> <script type="application/json" data-for="user">{"x":{"el":"#user_container","data":{"dTitle":"Account","dExtra":null,"dColumn":null,"dDirection":null,"dBorder":true,"dSize":null,"dColon":null,"dLabelClassName":null,"dContentClassName":null,"dLabelStyle":null,"dContentStyle":null,"label":"Pro","type":"success","closable":false,"size":null,"effect":"light","color":null,"hit":false,"disableTransitions":false,"count":0},"methods":{"handleClick":"function() { this.count++; Shiny.setInputValue('plan', this.count); }","handleClose":"function() { Shiny.setInputValue('plan_closed', 1, {priority: 'event'}); }"}},"evals":["methods.handleClick","methods.handleClose"],"jsHooks":[]}</script>
+#> <script type="application/json" data-for="user">{"x":{"el":"#user_container","data":{"dTitle":"Account","dExtra":null,"dColumn":null,"dDirection":null,"dBorder":true,"dSize":null,"dColon":null,"dLabelClassName":null,"dContentClassName":null,"dLabelStyle":null,"dContentStyle":null,"label":"Pro","type":"success","closable":false,"size":null,"effect":"light","color":null,"hit":false,"disableTransitions":false,"count":0},"methods":{"handleClick":"function() { this.count++; window.Shiny && Shiny.setInputValue('plan', this.count); }","handleClose":"function() { window.Shiny && Shiny.setInputValue('plan_closed', 1, {priority: 'event'}); }"}},"evals":["methods.handleClick","methods.handleClose"],"jsHooks":[]}</script>
 
 # The quick form: names are labels
 el_descriptions("car", items = as.list(mtcars[1, 1:6]))

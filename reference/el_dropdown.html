@@ -68,7 +68,7 @@ command that is reported as a Shiny input.</p>
 <span>  tabindex <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  width <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  slots <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  session <span class="op">=</span> <span class="fu">shiny</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/domains.html" class="external-link">getDefaultReactiveDomain</a></span><span class="op">(</span><span class="op">)</span></span>
+<span>  session <span class="op">=</span> <span class="cn">NULL</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
 
@@ -164,7 +164,9 @@ the template with <code><a href="template.html">template()</a></code>.</p></dd>
 
 
 <dt id="arg-session">session<a class="anchor" aria-label="anchor" href="#arg-session"></a></dt>
-<dd><p>Shiny session for module support.</p></dd>
+<dd><p>Deprecated. Inside a module, wrap <code>id</code> in <code>ns()</code>, as for
+any Shiny input; a session given here namespaces <code>id</code> once more, with
+a warning.</p></dd>
 
 </dl></div>
     <div class="section level2">
@@ -204,7 +206,7 @@ the template with <code><a href="template.html">template()</a></code>.</p></dd>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   &lt;/el-dropdown&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> &lt;/div&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> &lt;div id="dd1" style="width:0px;height:0px;" class="vue html-widget"&gt;&lt;/div&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;script type="application/json" data-for="dd1"&gt;{"x":{"el":"#dd1_container","data":{"trigger":"hover","hideOnClick":true,"placement":"bottom-end","disabled":false,"splitButton":false,"count":0,"type":null,"size":null,"showTimeout":null,"hideTimeout":null,"tabindex":null},"methods":{"elEmitClick":"function() { window.shinyElement.emit('dd1', 'click', arguments); }","elEmitVisibleChange":"function() { window.shinyElement.emit('dd1', 'visible_change', arguments); }","handleCommand":"function(cmd) { this.count++; Shiny.setInputValue('dd1', cmd); Shiny.setInputValue('dd1_count', this.count); }"}},"evals":["methods.elEmitClick","methods.elEmitVisibleChange","methods.handleCommand"],"jsHooks":[]}&lt;/script&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;script type="application/json" data-for="dd1"&gt;{"x":{"el":"#dd1_container","data":{"trigger":"hover","hideOnClick":true,"placement":"bottom-end","disabled":false,"splitButton":false,"count":0,"type":null,"size":null,"showTimeout":null,"hideTimeout":null,"tabindex":null},"methods":{"elEmitClick":"function() { window.shinyElement.emit('dd1', 'click', arguments); }","elEmitVisibleChange":"function() { window.shinyElement.emit('dd1', 'visible_change', arguments); }","handleCommand":"function(cmd) { this.count++; window.Shiny &amp;&amp; Shiny.setInputValue('dd1', cmd); window.Shiny &amp;&amp; Shiny.setInputValue('dd1_count', this.count); }"}},"evals":["methods.elEmitClick","methods.elEmitVisibleChange","methods.handleCommand"],"jsHooks":[]}&lt;/script&gt;</span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
     </div>

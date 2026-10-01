@@ -16,7 +16,7 @@ el_color_picker(
   popper_class = NULL,
   width = NULL,
   slots = NULL,
-  session = shiny::getDefaultReactiveDomain()
+  session = NULL
 )
 ```
 
@@ -71,7 +71,8 @@ el_color_picker(
 
 - session:
 
-  Shiny session for module support.
+  Deprecated. Inside a module, wrap `id` in `ns()`, as for any Shiny
+  input; a session given here namespaces `id` once more, with a warning.
 
 ## Value
 
@@ -91,11 +92,11 @@ el_color_picker("cp1", value = "#409EFF")
 #>   <el-color-picker v-model="value" :disabled="disabled" :show-alpha="showAlpha" @change="handleChange" :size="size === null ? undefined : size" :color-format="colorFormat === null ? undefined : colorFormat" :predefine="predefine === null ? undefined : predefine" :popper-class="popperClass === null ? undefined : popperClass" @active-change="elEmitActiveChange"></el-color-picker>
 #> </div>
 #> <div id="cp1" style="width:0px;height:0px;" class="vue html-widget"></div>
-#> <script type="application/json" data-for="cp1">{"x":{"el":"#cp1_container","data":{"value":"#409EFF","disabled":false,"showAlpha":false,"size":null,"colorFormat":null,"predefine":null,"popperClass":null},"methods":{"elEmitActiveChange":"function() { window.shinyElement.emit('cp1', 'active_change', arguments); }","handleChange":"function(val) { Shiny.setInputValue('cp1', val); }"},"mounted":"function() { var self = this; var send = function() { Shiny.setInputValue(\"cp1\", self.value); }; if (window.Shiny && Shiny.shinyapp && typeof Shiny.shinyapp.isConnected === 'function' && Shiny.shinyapp.isConnected()) { send(); } else { $(document).one('shiny:connected', send); } var prev = self._elReport; self._elReport = function() { if (prev) prev(); self.$nextTick(send); }; }"},"evals":["methods.elEmitActiveChange","methods.handleChange","mounted"],"jsHooks":[]}</script>
+#> <script type="application/json" data-for="cp1">{"x":{"el":"#cp1_container","data":{"value":"#409EFF","disabled":false,"showAlpha":false,"size":null,"colorFormat":null,"predefine":null,"popperClass":null},"methods":{"elEmitActiveChange":"function() { window.shinyElement.emit('cp1', 'active_change', arguments); }","handleChange":"function(val) { window.Shiny && Shiny.setInputValue('cp1', val); }"},"mounted":"function() { var self = this; var send = function() { window.Shiny && Shiny.setInputValue(\"cp1\", self.value); }; if (window.Shiny && Shiny.shinyapp && typeof Shiny.shinyapp.isConnected === 'function' && Shiny.shinyapp.isConnected()) { send(); } else if (window.jQuery) { jQuery(document).one('shiny:connected', send); } var prev = self._elReport; self._elReport = function() { if (prev) prev(); self.$nextTick(send); }; }"},"evals":["methods.elEmitActiveChange","methods.handleChange","mounted"],"jsHooks":[]}</script>
 el_color_picker("cp2", show_alpha = TRUE, predefine = c("#ff4500", "#ff8c00"))
 #> <div id="cp2_container" style="display: contents">
 #>   <el-color-picker v-model="value" :disabled="disabled" :show-alpha="showAlpha" @change="handleChange" :size="size === null ? undefined : size" :color-format="colorFormat === null ? undefined : colorFormat" :predefine="predefine === null ? undefined : predefine" :popper-class="popperClass === null ? undefined : popperClass" @active-change="elEmitActiveChange"></el-color-picker>
 #> </div>
 #> <div id="cp2" style="width:0px;height:0px;" class="vue html-widget"></div>
-#> <script type="application/json" data-for="cp2">{"x":{"el":"#cp2_container","data":{"value":null,"disabled":false,"showAlpha":true,"size":null,"colorFormat":null,"predefine":["#ff4500","#ff8c00"],"popperClass":null},"methods":{"elEmitActiveChange":"function() { window.shinyElement.emit('cp2', 'active_change', arguments); }","handleChange":"function(val) { Shiny.setInputValue('cp2', val); }"},"mounted":"function() { var self = this; var send = function() { Shiny.setInputValue(\"cp2\", self.value); }; if (window.Shiny && Shiny.shinyapp && typeof Shiny.shinyapp.isConnected === 'function' && Shiny.shinyapp.isConnected()) { send(); } else { $(document).one('shiny:connected', send); } var prev = self._elReport; self._elReport = function() { if (prev) prev(); self.$nextTick(send); }; }"},"evals":["methods.elEmitActiveChange","methods.handleChange","mounted"],"jsHooks":[]}</script>
+#> <script type="application/json" data-for="cp2">{"x":{"el":"#cp2_container","data":{"value":null,"disabled":false,"showAlpha":true,"size":null,"colorFormat":null,"predefine":["#ff4500","#ff8c00"],"popperClass":null},"methods":{"elEmitActiveChange":"function() { window.shinyElement.emit('cp2', 'active_change', arguments); }","handleChange":"function(val) { window.Shiny && Shiny.setInputValue('cp2', val); }"},"mounted":"function() { var self = this; var send = function() { window.Shiny && Shiny.setInputValue(\"cp2\", self.value); }; if (window.Shiny && Shiny.shinyapp && typeof Shiny.shinyapp.isConnected === 'function' && Shiny.shinyapp.isConnected()) { send(); } else if (window.jQuery) { jQuery(document).one('shiny:connected', send); } var prev = self._elReport; self._elReport = function() { if (prev) prev(); self.$nextTick(send); }; }"},"evals":["methods.elEmitActiveChange","methods.handleChange","mounted"],"jsHooks":[]}</script>
 ```

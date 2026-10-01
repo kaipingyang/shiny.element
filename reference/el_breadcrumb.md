@@ -12,7 +12,7 @@ el_breadcrumb(
   separator_class = NULL,
   width = NULL,
   slots = NULL,
-  session = shiny::getDefaultReactiveDomain()
+  session = NULL
 )
 ```
 
@@ -50,7 +50,8 @@ el_breadcrumb(
 
 - session:
 
-  Shiny session for module support.
+  Deprecated. Inside a module, wrap `id` in `ns()`, as for any Shiny
+  input; a session given here namespaces `id` once more, with a warning.
 
 ## Value
 
@@ -76,7 +77,7 @@ el_breadcrumb("trail", items = list(
 #>   </el-breadcrumb>
 #> </div>
 #> <div id="trail" style="width:0px;height:0px;" class="vue html-widget"></div>
-#> <script type="application/json" data-for="trail">{"x":{"el":"#trail_container","data":{"items":[{"label":"Home"},{"label":"Reports"},{"label":"March"}],"separator":null,"separatorClass":null},"methods":{"handleClick":"function(item) { Shiny.setInputValue('trail', item.label, {priority: 'event'}); }"}},"evals":["methods.handleClick"],"jsHooks":[]}</script>
+#> <script type="application/json" data-for="trail">{"x":{"el":"#trail_container","data":{"items":[{"label":"Home"},{"label":"Reports"},{"label":"March"}],"separator":null,"separatorClass":null},"methods":{"handleClick":"function(item) { window.Shiny && Shiny.setInputValue('trail', item.label, {priority: 'event'}); }"}},"evals":["methods.handleClick"],"jsHooks":[]}</script>
 
 # An arrow instead of a slash
 el_breadcrumb("trail",
@@ -89,5 +90,5 @@ el_breadcrumb("trail",
 #>   </el-breadcrumb>
 #> </div>
 #> <div id="trail" style="width:0px;height:0px;" class="vue html-widget"></div>
-#> <script type="application/json" data-for="trail">{"x":{"el":"#trail_container","data":{"items":[{"label":"Home"},{"label":"Detail"}],"separator":null,"separatorClass":"el-icon-arrow-right"},"methods":{"handleClick":"function(item) { Shiny.setInputValue('trail', item.label, {priority: 'event'}); }"}},"evals":["methods.handleClick"],"jsHooks":[]}</script>
+#> <script type="application/json" data-for="trail">{"x":{"el":"#trail_container","data":{"items":[{"label":"Home"},{"label":"Detail"}],"separator":null,"separatorClass":"el-icon-arrow-right"},"methods":{"handleClick":"function(item) { window.Shiny && Shiny.setInputValue('trail', item.label, {priority: 'event'}); }"}},"evals":["methods.handleClick"],"jsHooks":[]}</script>
 ```

@@ -21,7 +21,7 @@ el_checkbox_group(
   slots = NULL,
   value = NULL,
   options = NULL,
-  session = shiny::getDefaultReactiveDomain()
+  session = NULL
 )
 ```
 
@@ -88,7 +88,8 @@ el_checkbox_group(
 
 - session:
 
-  Shiny session for module support.
+  Deprecated. Inside a module, wrap `id` in `ns()`, as for any Shiny
+  input; a session given here namespaces `id` once more, with a warning.
 
 ## Value
 
@@ -111,7 +112,7 @@ el_checkbox_group(
 #>   </el-checkbox-group>
 #> </div>
 #> <div id="cb1" style="width:0px;height:0px;" class="vue html-widget"></div>
-#> <script type="application/json" data-for="cb1">{"x":{"el":"#cb1_container","data":{"value":[],"options":[{"value":"a","label":"Option A"},{"value":"b","label":"Option B"}],"disabled":false,"size":null,"min":null,"max":null,"fill":null,"textColor":null},"methods":{"handleItemChange":"function(opt, checked) { window.shinyElement.emit('cb1', 'item_change', [{value: opt.value, label: opt.label, checked: checked}]); }","handleChange":"function(value) { Shiny.setInputValue('cb1', value); }"},"mounted":"function() { var self = this; var send = function() { Shiny.setInputValue(\"cb1\", self.value); }; if (window.Shiny && Shiny.shinyapp && typeof Shiny.shinyapp.isConnected === 'function' && Shiny.shinyapp.isConnected()) { send(); } else { $(document).one('shiny:connected', send); } var prev = self._elReport; self._elReport = function() { if (prev) prev(); self.$nextTick(send); }; }"},"evals":["methods.handleItemChange","methods.handleChange","mounted"],"jsHooks":[]}</script>
+#> <script type="application/json" data-for="cb1">{"x":{"el":"#cb1_container","data":{"value":[],"options":[{"value":"a","label":"Option A"},{"value":"b","label":"Option B"}],"disabled":false,"size":null,"min":null,"max":null,"fill":null,"textColor":null},"methods":{"handleItemChange":"function(opt, checked) { window.shinyElement.emit('cb1', 'item_change', [{value: opt.value, label: opt.label, checked: checked}]); }","handleChange":"function(value) { window.Shiny && Shiny.setInputValue('cb1', value); }"},"mounted":"function() { var self = this; var send = function() { window.Shiny && Shiny.setInputValue(\"cb1\", self.value); }; if (window.Shiny && Shiny.shinyapp && typeof Shiny.shinyapp.isConnected === 'function' && Shiny.shinyapp.isConnected()) { send(); } else if (window.jQuery) { jQuery(document).one('shiny:connected', send); } var prev = self._elReport; self._elReport = function() { if (prev) prev(); self.$nextTick(send); }; }"},"evals":["methods.handleItemChange","methods.handleChange","mounted"],"jsHooks":[]}</script>
 
 if (interactive()) {
   library(shiny)
