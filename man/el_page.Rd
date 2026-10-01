@@ -7,7 +7,7 @@
 el_page(
   ...,
   title = NULL,
-  theme = bslib::bs_theme(version = 5, bootswatch = "minty"),
+  theme = el_theme(),
   theme_css = el_layout_css_dependency(),
   offline = TRUE,
   locale = getOption("shiny.element.locale", "en"),
@@ -19,8 +19,10 @@ el_page(
 
 \item{title}{Optional page title.}
 
-\item{theme}{Optional bslib or shiny theme object (e.g., \code{bs_theme()}) for Bootstrap styling.
-If provided, Bootstrap dependencies will be included.}
+\item{theme}{Bootstrap theme for the rest of the page: a
+\code{\link[bslib:bs_theme]{bslib::bs_theme()}}. The default, \code{\link[=el_theme]{el_theme()}}, carries Element's own
+colours, font and sizes, so Shiny's inputs and outputs match the Element
+components beside them. \code{NULL} gives Shiny's plain Bootstrap 3.}
 
 \item{theme_css}{Optional Element-UI layout CSS dependency (default: \code{el_layout_css_dependency()}).}
 
