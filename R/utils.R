@@ -142,7 +142,7 @@
     sprintf("window.Shiny && Shiny.setInputValue && Shiny.setInputValue(%s, self.%s);", js_str(names(bindings)), bindings),
     collapse = " "
   )
-  htmlwidgets::JS(paste0(
+  js <- htmlwidgets::JS(paste0(
     "function() { var self = this; ",
     "var send = function() { ", sends, " }; ",
     "if (window.Shiny && Shiny.shinyapp && ",
@@ -157,6 +157,10 @@
     "var prev = self._elReport; ",
     "self._elReport = function() { if (prev) prev(); self.$nextTick(send); }; }"
   ))
+  # el_widget() reads this back: the field reported under the component's own
+  # id moves onto the Shiny input binding, the rest stay with this hook.
+  attr(js, "el_report") <- bindings
+  js
 }
 
 #' Normalise `choices` into option configs
@@ -306,4 +310,65 @@
 #' @keywords internal
 .el_jquery_dependency <- function() {
   jquerylib::jquery_core(3)
+}
+
+
+#' Vue, as bundled with the package
+#'
+#' Vue 2.7.14, the version Element UI 2 runs on, from `inst/vue`. The
+#' development build is versioned one step above the production one, so that
+#' when a page asks for it anywhere -- `el_page(dev = TRUE)` -- htmltools keeps
+#' it over the production copy every component brings, rather than loading
+#' Vue twice.
+#'
+#' @param dev Load the development build, which reports template errors.
+#' @return An htmlDependency object.
+#' @keywords internal
+.el_vue_dependency <- function(dev = getOption("shiny.element.dev", FALSE)) {
+  htmltools::htmlDependency(
+    name    = "vue",
+    version = if (isTRUE(dev)) "2.7.14.1" else "2.7.14",
+    src     = "vue",
+    package = "shiny.element",
+    script  = if (isTRUE(dev)) "vue.js" else "vue.min.js",
+    all_files = FALSE
+  )
+}
+
+#' The scripts every Vue component needs
+#'
+#' jQuery, Vue, the event helpers and the mounting bridge, in load order.
+#'
+#' @return A list of htmlDependency objects.
+#' @keywords internal
+.el_vue_dependencies <- function() {
+  js <- system.file("js", package = "shiny.element")
+  list(
+    .el_jquery_dependency(),
+    .el_vue_dependency(),
+    htmltools::htmlDependency("el-events", "1.0.0", src = js,
+                              script = "el-events.js", all_files = FALSE),
+    htmltools::htmlDependency("el-vue", "1.0.0", src = js,
+                              script = "el-vue.js", all_files = FALSE)
+  )
+}
+
+#' Serialise a component's Vue options for the page
+#'
+#' JSON as htmlwidgets writes it -- `NA` and `NULL` as `null`, single values
+#' unboxed -- with the paths of every [htmlwidgets::JS()] listed in `evals`,
+#' so the bridge can turn their source back into functions. `</` is escaped,
+#' or a `header_html` holding `</b>` would end the script element early.
+#'
+#' @param spec The list to write: `options`, and `input`, `rate`, `type`.
+#' @return The JSON, as a single string.
+#' @keywords internal
+.el_vue_json <- function(spec) {
+  spec$evals <- I(htmlwidgets::JSEvals(spec))
+  json <- jsonlite::toJSON(
+    spec, auto_unbox = TRUE, null = "null", na = "null", digits = NA,
+    force = TRUE, POSIXt = "ISO8601", UTC = TRUE, rownames = FALSE,
+    keep_vec_names = TRUE, dataframe = "columns", json_verbatim = TRUE
+  )
+  gsub("</", "<\\/", as.character(json), fixed = TRUE)
 }

@@ -28,7 +28,7 @@ use_element <- function(theme = el_layout_css_dependency(), offline = TRUE,
                         locale = getOption("shiny.element.locale", "en")) {
   deps <- c(
     list(
-      vueR::html_dependency_vue(minified = !dev),
+      .el_vue_dependency(dev = dev),
       vue_handler_dependency(),
       element_ui_dependency(offline = offline)
     ),

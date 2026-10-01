@@ -194,8 +194,9 @@ test_that("el_form: reports model, verdict and a submit counter", {
   html <- render_html(demo_form())
   expect_match(html, "_valid", fixed = TRUE)
   expect_match(html, "_submit", fixed = TRUE)
-  # The model is reported on load too, like every other component.
-  expect_match(html, '"mounted"')
+  # The model is reported on load too, like every other component: it is the
+  # value the binding reads.
+  expect_equal(vue_spec_of(demo_form())$input, "model")
 })
 
 test_that("el_form: layout options reach the data", {

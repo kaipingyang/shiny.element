@@ -104,12 +104,11 @@ test_that("el_steps: space stays reachable by update even when not supplied", {
 # ── reporting to Shiny ────────────────────────────────────────────────────────
 
 test_that("el_steps: reports active on mount as well as on change", {
-  html <- render_html(el_steps(id = "s1", steps = three_steps, active = 2))
   # watch alone never fires on mount, so input$s1 stayed NULL until the first
   # update -- which broke any handler reading it to compute the next step.
-  expect_match(html, '"mounted"')
-  expect_match(html, 'Shiny.setInputValue\\(\\\\"s1\\\\", self.active\\)')
-  expect_match(html, '"watch"')
+  # The binding reads it on load.
+  expect_equal(vue_spec_of(el_steps(id = "s1", steps = three_steps, active = 2))$input,
+               "active")
 })
 
 # ── update_el_steps ───────────────────────────────────────────────────────────

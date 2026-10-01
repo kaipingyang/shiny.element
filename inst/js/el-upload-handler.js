@@ -11,7 +11,7 @@
   elRegisterUpdate('updateElUpload');
 
   Shiny.addCustomMessageHandler('clearElUpload', function(message) {
-    var widget = HTMLWidgets.find('#' + message.id);
+    var widget = (window.shinyElement && shinyElement.find(message.id));
     if (!widget || !widget.instance) {
       console.warn('[shiny.element] clearElUpload: no mounted widget with id "' +
                    message.id + '"');

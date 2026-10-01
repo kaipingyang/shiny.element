@@ -14,7 +14,7 @@ vue_data_keys <- function(tag) {
   m <- regmatches(html, regexpr('application/json"[^>]*>.*?</script>', html, perl = TRUE))
   if (!length(m)) return(character(0))
   json <- sub("</script>$", "", sub('^application/json"[^>]*>', "", m))
-  names(jsonlite::fromJSON(json, simplifyVector = FALSE)$x$data)
+  names(jsonlite::fromJSON(json, simplifyVector = FALSE)$options$data)
 }
 
 capture_update <- function(fn, args) {
@@ -103,18 +103,18 @@ test_that("an unsupplied field serialises as JSON null, which Element treats as 
 
 # ── widget mount points take up no room before JS runs ────────────────────────
 
-test_that("the htmlwidget container is declared with zero size", {
-  # vueR::vue() defaults to 960x500 and only hides the container once
-  # renderValue runs, so until then every component holds open an empty box.
-  # Measured on the showcase app with script execution disabled: the page was
-  # 3215px tall against 1462px once mounted, from 12 placeholders of 960x500.
+test_that("the component is its host: id, no box of its own, no placeholder", {
+  # The vueR htmlwidget rendered a 960x500 box until its script ran -- the
+  # showcase page was 3215px tall against 1462px once mounted -- and the id sat
+  # on that box rather than on the component, out of reach of shinyjs and
+  # removeUI(). The host now carries the id and generates no box.
   for (tag in list(el_input("x"), el_select("x", choices = c(A = "a")),
                    el_button("x"), el_table(id = "x", data = head(iris, 2)),
                    el_form(id = "x"))) {
     html <- paste(as.character(htmltools::renderTags(tag)$html), collapse = "")
-    box  <- regmatches(html, regexpr('<div[^>]*html-widget[^>]*>', html))
-    expect_match(box, "width:0px", fixed = TRUE)
-    expect_match(box, "height:0px", fixed = TRUE)
+    expect_match(html, '<div id="x" data-el-vue-host style="display: contents">',
+                 fixed = TRUE)
+    expect_false(grepl("html-widget", html, fixed = TRUE))
   }
 })
 

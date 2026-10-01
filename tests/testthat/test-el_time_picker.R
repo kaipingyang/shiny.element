@@ -32,7 +32,7 @@ test_that("el_time_select has no range, format or arrows of its own", {
 test_that("both report on load and on change, and forward focus and blur", {
   for (ui in list(el_time_picker("t"), el_time_select("t"))) {
     p <- vue_payload_of(ui)
-    expect_match(p$mounted, 'Shiny.setInputValue("t", self.value)', fixed = TRUE)
+    expect_equal(vue_spec_of(ui)$input, "value")
     expect_match(p$methods$handleChange, "Shiny.setInputValue('t'", fixed = TRUE)
     expect_true(all(c("elEmitBlur", "elEmitFocus") %in% names(p$methods)))
   }

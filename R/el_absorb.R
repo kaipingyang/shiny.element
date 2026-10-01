@@ -33,18 +33,16 @@
   }
   if (!inherits(ui, "shiny.tag.list")) return(empty)
 
-  widget <- NULL
   host <- NULL
   for (part in ui) {
-    if (inherits(part, "htmlwidget")) widget <- part
-    else if (inherits(part, "shiny.tag") && identical(part$name, "div") &&
-             identical(part$attribs$style, .el_host_style())) host <- part
+    if (inherits(part, "shiny.tag") && !is.null(attr(part, "el_spec"))) host <- part
   }
-  if (is.null(widget) || is.null(host)) return(empty)
+  if (is.null(host)) return(empty)
 
-  options <- widget$x
+  spec    <- attr(host, "el_spec")
+  options <- spec$options
   list(
-    markup       = host$children,
+    markup       = spec$markup,
     data         = if (is.null(options$data)) list() else options$data,
     methods      = if (is.null(options$methods)) list() else options$methods,
     watch        = if (is.null(options$watch)) list() else options$watch,

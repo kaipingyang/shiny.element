@@ -99,6 +99,21 @@ script arrived, so every update to it went nowhere without a word.
 the top level of a page nothing compiles them; the browser console now says
 so instead of leaving bare text.
 
+## Every component is a Shiny input
+
+Components are no longer vueR htmlwidgets. vueR renders Vue as an htmlwidget
+*output*, so the id sat on a hidden 0x0 element beside the component and
+Shiny did not know there was an input: `shinyjs::hide()` and `disable()`
+missed it, `removeUI()` left it on the page with its Vue instance alive, and
+no test driver could set it. Each component is now a host element carrying
+its id, with a Shiny input binding on it -- the way reactR binds React
+components -- so all of those reach it. vueR is no longer a dependency;
+Vue 2.7.14, the version Element UI 2 runs on, is bundled beside Element.
+
+`el_widget()` builds the same shape for components of your own, and its new
+`report` argument names the value -- an input made of `el$` tags, as the
+limitations article shows, needs no JavaScript.
+
 ## Note for users of the development version
 
 `el_table()` now takes `id` first, like every other component:

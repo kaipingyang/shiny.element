@@ -70,10 +70,18 @@ test_that("use_element: passes offline through to the dependency", {
   expect_true(grepl("unpkg", src_of(use_element(offline = FALSE))))
 })
 
-test_that("Vue is served locally too", {
-  # vueR bundles it; this guards against a future switch to its CDN mode.
-  src <- paste(unlist(vueR::html_dependency_vue()$src), collapse = " ")
-  expect_false(grepl("unpkg|cdn", src))
+test_that("Vue is bundled, in the version Element UI 2 runs on", {
+  for (dev in c(FALSE, TRUE)) {
+    dep <- .el_vue_dependency(dev = dev)
+    expect_equal(dep$package, "shiny.element")
+    expect_true(file.exists(system.file(dep$src$file, dep$script, package = "shiny.element")))
+  }
+  head <- readLines(system.file("vue", "vue.min.js", package = "shiny.element"), n = 3)
+  expect_match(paste(head, collapse = " "), "v2.7.14", fixed = TRUE)
+  # The development build outranks the production copy every component
+  # brings, so el_page(dev = TRUE) gets it rather than Vue twice
+  expect_gt(package_version(.el_vue_dependency(TRUE)$version),
+            package_version(.el_vue_dependency(FALSE)$version))
 })
 
 test_that("every handler dependency resolves to files that exist", {

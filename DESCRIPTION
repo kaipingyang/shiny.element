@@ -1,12 +1,17 @@
 Package: shiny.element
-Title: Element UI (Vue2) Integration Helpers for Shiny via vueR
+Title: 'Element UI' Components for 'Shiny'
 Version: 0.1.0
 Authors@R: c(
     person("Kaiping Yang", role = c("aut", "cre"), email = "1260146556@qq.com"),
     person("ElemeFE", role = c("ctb", "cph"),
-           comment = "Element UI library bundled in inst/element-ui, MIT licence")
+           comment = "Element UI library bundled in inst/element-ui, MIT licence"),
+    person("Evan You", role = c("ctb", "cph"),
+           comment = "Vue library bundled in inst/vue, MIT licence")
   )
-Description: Provide htmlDependency and helper wrappers for using Element-UI (Vue2) components in Shiny apps built with vueR.
+Description: 'Element UI' ('Vue' 2) components for 'Shiny': forms, tables,
+    trees, menus, dialogs and the rest, each reporting to the server and
+    updated from it like any other 'Shiny' input. 'Element UI' and 'Vue' are
+    bundled, so applications work offline.
 License: MIT + file LICENSE
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
@@ -14,7 +19,6 @@ Depends: R (>= 4.1)
 Imports:
     htmltools,
     shiny,
-    vueR,
     jsonlite,
     uuid,
     stats,
@@ -24,6 +28,7 @@ Imports:
 Suggests:
     testthat (>= 3.0.0),
     rlang,
+    shinyjs,
     fontawesome,
     callr,
     chromote,

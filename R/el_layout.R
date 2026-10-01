@@ -214,7 +214,7 @@ el_page <- function(
 ) {
   deps <- c(
     list(
-      vueR::html_dependency_vue(minified = !dev),
+      .el_vue_dependency(dev = dev),
       vue_handler_dependency(),
       element_ui_dependency(offline = offline)
     ),

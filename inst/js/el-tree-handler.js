@@ -15,7 +15,7 @@
   else if (window.jQuery) jQuery(document).one('shiny:connected', register);
 })(function() {
   Shiny.addCustomMessageHandler('updateElTree', function(message) {
-    var widget = HTMLWidgets.find('#' + message.id);
+    var widget = (window.shinyElement && shinyElement.find(message.id));
     if (!widget || !widget.instance) {
       console.warn('[shiny.element] updateElTree: no mounted widget with id "' +
                    message.id + '"');

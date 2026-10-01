@@ -77,12 +77,9 @@ test_that("el_calendar: Date ranges are coerced to strings", {
 # ── reporting to Shiny ────────────────────────────────────────────────────────
 
 test_that("el_calendar: reports its value on mount as well as on change", {
-  html <- render_html(el_calendar(id = "c1"))
   # watch alone never fires on mount, so input$c1 would stay NULL until the
-  # user picked a date.
-  expect_match(html, '"mounted"')
-  expect_match(html, 'Shiny.setInputValue\\(\\\\"c1\\\\"')
-  expect_match(html, '"watch"')
+  # user picked a date. The value is the binding's: read on load, watched after.
+  expect_equal(vue_spec_of(el_calendar(id = "c1"))$input, "value")
 })
 
 # ── update_el_calendar ────────────────────────────────────────────────────────

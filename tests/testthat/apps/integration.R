@@ -237,6 +237,13 @@ ui <- el_page(
 
   verbatimTextOutput("dump"),
 
+  # The rest of the Shiny ecosystem addresses a component by its id
+  if (requireNamespace("shinyjs", quietly = TRUE)) shinyjs::useShinyjs(),
+  el_input("js_hide", value = "hide me"),
+  el_input("js_off", value = "disable me"),
+  el_input("js_gone", value = "remove me"),
+  actionButton("js_go", "shinyjs"),
+
   # A component type that appears nowhere else on the page, only through
   # renderUI(): its handler script arrives after shiny:connected has fired.
   uiOutput("late"),
@@ -249,6 +256,12 @@ ui <- el_page(
 
 server <- function(input, output, session) {
   mod_server("mod")
+
+  observeEvent(input$js_go, {
+    shinyjs::hide("js_hide")
+    shinyjs::disable("js_off")
+    removeUI("#js_gone")
+  })
 
   output$late <- renderUI(el_time_picker("late_tp", value = "09:00:00"))
   observeEvent(input$late_set, update_el_time_picker(session, "late_tp", value = "10:30:00"))

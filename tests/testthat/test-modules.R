@@ -9,8 +9,7 @@ module_session <- function() {
 
 widget_id <- function(ui) {
   html <- paste(as.character(htmltools::renderTags(ui)$html), collapse = "")
-  sub('^.*<div id="([^"]+)" style="width:0px;height:0px;" class="vue html-widget".*$',
-      "\\1", html)
+  sub('^.*?<div id="([^"]+)" data-el-vue-host.*$', "\\1", html)
 }
 
 test_that("a component keeps the id it is given inside a module's renderUI()", {

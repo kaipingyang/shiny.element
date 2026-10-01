@@ -84,17 +84,16 @@ test_that("every template binding references a declared field", {
 # ── the shared widget constructor ─────────────────────────────────────────────
 
 test_that("the package's own components go through el_widget()", {
-  # This is a rule for the package, not for its users: el_widget() is exported
-  # and vueR::vue() is not hidden, so an app or another package can assemble a
-  # Vue instance however it likes. What the rule protects is the three things
-  # el_widget() carries, each added to fix a bug -- display:contents on the
-  # host, a zero-sized widget element, and the `el` selector. A component here
-  # that went around it would silently lose whichever one it forgot.
+  # el_widget() builds the host, the binding and the bridge's JSON. A
+  # component here that made its own `new Vue()` -- or went back to an
+  # htmlwidget -- would be invisible to Shiny again.
   sources <- list.files("../../R", pattern = "^el_.*[.]R$", full.names = TRUE)
   sources <- setdiff(sources, grep("el_widget[.]R$", sources, value = TRUE))
 
   offenders <- vapply(sources, function(path) {
-    any(grepl("vueR::vue(", readLines(path, warn = FALSE), fixed = TRUE))
+    code <- readLines(path, warn = FALSE)
+    code <- code[!grepl("^\\s*#", code)]
+    any(grepl("vueR::|htmlwidgets::createWidget|new Vue\\(", code))
   }, logical(1))
 
   expect_equal(basename(sources[offenders]), character(0))
@@ -113,8 +112,9 @@ test_that("el_widget() lets a user wrap a component the package does not cover",
   html <- paste(as.character(htmltools::renderTags(avatar)$html), collapse = "")
 
   expect_match(html, "<el-avatar")
-  expect_match(html, "display: contents", fixed = TRUE)
-  expect_match(html, "width:0px;height:0px", fixed = TRUE)
+  # The host is the component: it carries the id and generates no box
+  expect_match(html, '<div id="face" data-el-vue-host style="display: contents">', fixed = TRUE)
+  expect_false(grepl("html-widget", html, fixed = TRUE))
   expect_equal(names(vue_data_of(avatar)), c("src", "size"))
 })
 
@@ -337,19 +337,27 @@ test_that("update_el_table keeps a template's key for the same column", {
 # ── el_widget(report =) ───────────────────────────────────────────────────────
 
 test_that("el_widget reports the named fields on load and on every change", {
+  # Its own id: the binding's value
+  ui <- el_widget("score", markup = el$rate("v-model" = "value"),
+                  data = list(value = 3), report = c(value = "score"))
+  expect_equal(vue_spec_of(ui)$input, "value")
+  # Any other id: reported on load and on every change by the instance
   p <- vue_payload_of(el_widget("score", markup = el$rate("v-model" = "value"),
-                                data = list(value = 3), report = c(value = "score")))
-  expect_match(p$mounted, 'Shiny.setInputValue("score", self.value)', fixed = TRUE)
-  expect_match(p$watch$value, 'Shiny.setInputValue("score", v)', fixed = TRUE)
-  expect_match(p$watch$value, "deep: true", fixed = TRUE)
+                                data = list(value = 3, max = 5),
+                                report = c(value = "score", max = "score_max")))
+  expect_match(p$mounted, 'Shiny.setInputValue("score_max", self.max)', fixed = TRUE)
+  expect_match(p$watch$max, 'Shiny.setInputValue("score_max", v)', fixed = TRUE)
+  expect_match(p$watch$max, "deep: true", fixed = TRUE)
 })
 
 test_that("el_widget keeps a mounted hook of its own alongside report", {
-  p <- vue_payload_of(el_widget("s", markup = el$rate("v-model" = "value"),
-    data = list(value = 3), report = c(value = "s"),
-    mounted = htmlwidgets::JS("function() { this.ready = true; }")))
+  ui <- el_widget("s", markup = el$rate("v-model" = "value"),
+    data = list(value = 3, n = 1), report = c(value = "s", n = "s_n"),
+    mounted = htmlwidgets::JS("function() { this.ready = true; }"))
+  p <- vue_payload_of(ui)
   expect_match(p$mounted, "this.ready = true", fixed = TRUE)
-  expect_match(p$mounted, 'Shiny.setInputValue("s", self.value)', fixed = TRUE)
+  expect_match(p$mounted, 'Shiny.setInputValue("s_n", self.n)', fixed = TRUE)
+  expect_equal(vue_spec_of(ui)$input, "value")
 })
 
 test_that("report must name fields the component declares", {

@@ -23,7 +23,7 @@ vue_payload_of <- function(ui) {
   }
   json <- sub('^.*?<script type="application/json"[^>]*>', "", html)
   json <- sub("</script>.*$", "", json)
-  jsonlite::fromJSON(json, simplifyVector = FALSE)$x
+  jsonlite::fromJSON(json, simplifyVector = FALSE)$options
 }
 
 # Does the markup bind this attribute at all, whatever expression it uses?
@@ -43,4 +43,14 @@ mock_session <- function() {
     },
     captured = function() env
   )
+}
+
+# Everything el_widget() writes for the bridge: the Vue `options`, and the
+# `input` -- the field reported as input$<id> through the Shiny binding --
+# with its `rate` and `type`.
+vue_spec_of <- function(ui) {
+  html <- paste(as.character(htmltools::renderTags(ui)$html), collapse = "")
+  json <- sub('^.*?<script type="application/json" data-el-vue>', "", html)
+  json <- sub("</script>.*$", "", json)
+  jsonlite::fromJSON(json, simplifyVector = FALSE)
 }

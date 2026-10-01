@@ -2,7 +2,7 @@
 % Please edit documentation in R/el_widget.R
 \name{el_widget}
 \alias{el_widget}
-\title{Assemble a component: mount point, Vue instance, dependencies}
+\title{Assemble a component: host, Vue instance, Shiny input binding}
 \usage{
 el_widget(
   id,
@@ -16,11 +16,14 @@ el_widget(
   head = NULL,
   width = NULL,
   slots = NULL,
-  report = NULL
+  report = NULL,
+  rate = NULL,
+  type = NULL
 )
 }
 \arguments{
-\item{id}{The namespaced element id.}
+\item{id}{The element id -- inside a module, wrapped in \code{ns()}. It is the
+input id of the value \code{report} names.}
 
 \item{markup}{The Element markup to mount on, usually one \code{htmltools::tag()}.}
 
@@ -46,31 +49,37 @@ where Element hands the template its own data, write the template with
 \code{\link[=template]{template()}} and the value is used as it stands.}
 
 \item{report}{Fields of \code{data} to report as Shiny inputs, as
-\verb{c(<field> = <input id>)}: \code{report = c(value = id)} makes \code{input[[id]]}
-the \code{value} field. Each is reported on load, on every change -- the
-user's, or an \code{\link[=update_vue_data]{update_vue_data()}} from the server -- and needs no
-JavaScript of your own. Inside a module, pass the namespaced id.}
+\verb{c(<field> = <input id>)}. The field reported under the component's own
+\code{id} is its value: the Shiny binding reads it on load and on every
+change, and a test driver or \code{shinyjs} sees it. Fields reported under
+other ids -- \code{c(value = id, open = paste0(id, "_open"))} -- are sent on
+load and on every change too. An \code{\link[=update_vue_data]{update_vue_data()}} from the server
+counts as a change. Inside a module, pass the namespaced ids.}
+
+\item{rate}{How often the value is sent while it changes:
+\code{list(policy = "debounce", delay = 250)}, as Shiny's \code{textInput()} does,
+or \code{"throttle"}. \code{NULL}, the default, sends every change.}
+
+\item{type}{An input type for \code{\link[shiny:registerInputHandler]{shiny::registerInputHandler()}}, which
+converts the value on its way into R.}
 }
 \value{
 A Shiny UI element with its dependencies attached.
 }
 \description{
-Every control in this package has the same shape: a host \code{div} holding the
-Element markup, a Vue instance mounted on it, and the scripts that let
-\verb{update_el_*()} and \code{\link[=el_call]{el_call()}} reach it. This builds that shape, and is
-what the package's own components are made of.
+Every control in this package has the same shape, and this builds it: a
+host element carrying the id, the Element markup inside it, and the Vue
+options beside them, which the package's bridge script compiles in place.
+The host is a Shiny input binding, so it \emph{is} the component to the rest of
+Shiny -- \code{shinyjs::hide("id")} hides it, \code{removeUI("#id")} removes it and
+destroys its Vue instance, and its value is \verb{input$<id>}.
 }
 \details{
 Reach for it to wrap an Element component this package does not cover, or
-to build one that behaves differently from the wrapper here. Calling
-\code{\link[vueR:vue]{vueR::vue()}} yourself works too -- nothing stops you -- but then three
-things are yours to remember, each of which is here because of a bug:
-\itemize{
-\item \code{display: contents} on the host, or every component starts its own line;
-\item \verb{width = 0, height = 0} on the widget, or it holds open a 960x500 empty
-box until its script runs, and the page jumps when it does;
-\item the \code{el} selector pointing at the host, which Vue compiles in place.
-}
+to build an input of your own from \link{el} tags; \code{report} names the value.
+It is what the package's own components are made of. (Earlier versions
+mounted Vue as a vueR htmlwidget, an \emph{output}: the id then sat on a hidden
+element beside the component, and Shiny did not know there was an input.)
 
 The raw Element tags come from \link{el}, and \code{\link[=template]{template()}} writes a slot.
 }

@@ -20,7 +20,7 @@ test_that("el_cascader_panel reports its path and forwards expand-change", {
   p <- vue_payload_of(el_cascader_panel("where", options = regions,
                                         props = list(multiple = TRUE)))
   expect_equal(p$data$props, list(multiple = TRUE))
-  expect_match(p$mounted, 'Shiny.setInputValue("where", self.value)', fixed = TRUE)
+  expect_equal(vue_spec_of(el_cascader_panel("where", options = regions))$input, "value")
   expect_true("elEmitExpandChange" %in% names(p$methods))
 })
 

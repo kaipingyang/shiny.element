@@ -1,8 +1,8 @@
 The R code in this package is copyright Kaiping Yang and released under the
 MIT licence, as stated in DESCRIPTION and LICENSE.
 
-inst/element-ui/ contains an unmodified copy of Element UI 2.13.2
-(index.js, theme-chalk/index.css and the element-icons fonts), bundled so the
+inst/element-ui/ contains an unmodified copy of Element UI 2.15.14
+(index.js, its locales, theme-chalk/index.css and the element-icons fonts), bundled so the
 package works without fetching anything at runtime. It is copyright ElemeFE
 and released under the MIT licence:
 
@@ -26,4 +26,6 @@ and released under the MIT licence:
   OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
   THE SOFTWARE.
 
-Vue itself is not bundled here; it is provided by the vueR package.
+inst/vue/ contains an unmodified copy of Vue 2.7.14 (vue.js and vue.min.js),
+the version Element UI 2 runs on. It is copyright Yuxi (Evan) You and released
+under the MIT licence; the licence text is in inst/vue/LICENSE.
