@@ -97,11 +97,11 @@ el_alert("al1", "Operation successful", type = "success", show_icon = TRUE)
 #>   <el-alert :title="title" :type="type" :closable="closable" :close-text="closeText" :show-icon="showIcon" :center="center" :effect="effect" @close="handleClose" :description="description === null ? undefined : description"></el-alert>
 #> </div>
 #> <div id="al1" style="width:0px;height:0px;" class="vue html-widget"></div>
-#> <script type="application/json" data-for="al1">{"x":{"el":"#al1_container","data":{"title":"Operation successful","type":"success","closable":true,"closeText":"","showIcon":true,"center":false,"effect":"light","description":null},"methods":{"handleClose":"function() { window.Shiny && Shiny.setInputValue('al1_closed', 1, {priority: 'event'}); }"}},"evals":["methods.handleClose"],"jsHooks":[]}</script>
+#> <script type="application/json" data-for="al1">{"x":{"el":"#al1_container","data":{"title":"Operation successful","type":"success","closable":true,"closeText":"","showIcon":true,"center":false,"effect":"light","description":null},"methods":{"handleClose":"function() { window.Shiny && Shiny.setInputValue && Shiny.setInputValue('al1_closed', 1, {priority: 'event'}); }"}},"evals":["methods.handleClose"],"jsHooks":[]}</script>
 el_alert("al2", "Warning!", description = "Please review.", type = "warning")
 #> <div id="al2_container" style="display: contents">
 #>   <el-alert :title="title" :type="type" :closable="closable" :close-text="closeText" :show-icon="showIcon" :center="center" :effect="effect" @close="handleClose" :description="description === null ? undefined : description"></el-alert>
 #> </div>
 #> <div id="al2" style="width:0px;height:0px;" class="vue html-widget"></div>
-#> <script type="application/json" data-for="al2">{"x":{"el":"#al2_container","data":{"title":"Warning!","type":"warning","closable":true,"closeText":"","showIcon":false,"center":false,"effect":"light","description":"Please review."},"methods":{"handleClose":"function() { window.Shiny && Shiny.setInputValue('al2_closed', 1, {priority: 'event'}); }"}},"evals":["methods.handleClose"],"jsHooks":[]}</script>
+#> <script type="application/json" data-for="al2">{"x":{"el":"#al2_container","data":{"title":"Warning!","type":"warning","closable":true,"closeText":"","showIcon":false,"center":false,"effect":"light","description":"Please review."},"methods":{"handleClose":"function() { window.Shiny && Shiny.setInputValue && Shiny.setInputValue('al2_closed', 1, {priority: 'event'}); }"}},"evals":["methods.handleClose"],"jsHooks":[]}</script>
 ```

@@ -69,7 +69,8 @@ what the package's own components are made of.</p>
 <span>  dependency <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  head <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  width <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  slots <span class="op">=</span> <span class="cn">NULL</span></span>
+<span>  slots <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  report <span class="op">=</span> <span class="cn">NULL</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
 
@@ -117,6 +118,14 @@ here is absorbed like any other (<code><a href="dot-el_absorb.html">.el_absorb()
 where Element hands the template its own data, write the template with
 <code><a href="template.html">template()</a></code> and the value is used as it stands.</p></dd>
 
+
+<dt id="arg-report">report<a class="anchor" aria-label="anchor" href="#arg-report"></a></dt>
+<dd><p>Fields of <code>data</code> to report as Shiny inputs, as
+<code>c(&lt;field&gt; = &lt;input id&gt;)</code>: <code>report = c(value = id)</code> makes <code>input[[id]]</code>
+the <code>value</code> field. Each is reported on load, on every change – the
+user's, or an <code><a href="update_vue_data.html">update_vue_data()</a></code> from the server – and needs no
+JavaScript of your own. Inside a module, pass the namespaced id.</p></dd>
+
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
@@ -151,23 +160,20 @@ box until its script runs, and the page jumps when it does;</p></li>
 <span class="r-out co"><span class="r-pr">#&gt;</span> &lt;div id="face" style="width:0px;height:0px;" class="vue html-widget"&gt;&lt;/div&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> &lt;script type="application/json" data-for="face"&gt;{"x":{"el":"#face_container","data":{"src":"https://example.org/face.png","size":50}},"evals":[],"jsHooks":[]}&lt;/script&gt;</span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="co"># Reporting to Shiny works as it does inside the package: a method that</span></span></span>
-<span class="r-in"><span><span class="co"># calls Shiny.setInputValue().</span></span></span>
+<span class="r-in"><span><span class="co"># An input of your own: v-model keeps `value` in step with the control,</span></span></span>
+<span class="r-in"><span><span class="co"># and `report` makes it input$score -- on load, on change, and after</span></span></span>
+<span class="r-in"><span><span class="co"># update_vue_data(session, "score", list(value = 5)) from the server.</span></span></span>
 <span class="r-in"><span><span class="fu">el_widget</span><span class="op">(</span></span></span>
-<span class="r-in"><span>  id      <span class="op">=</span> <span class="st">"score"</span>,</span></span>
-<span class="r-in"><span>  markup  <span class="op">=</span> <span class="va">el</span><span class="op">$</span><span class="fu">rate</span><span class="op">(</span><span class="st">"v-model"</span> <span class="op">=</span> <span class="st">"value"</span>, <span class="st">"@change"</span> <span class="op">=</span> <span class="st">"handleChange"</span><span class="op">)</span>,</span></span>
-<span class="r-in"><span>  data    <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>value <span class="op">=</span> <span class="fl">3</span><span class="op">)</span>,</span></span>
-<span class="r-in"><span>  methods <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span></span>
-<span class="r-in"><span>    handleChange <span class="op">=</span> <span class="fu">htmlwidgets</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/htmlwidgets/man/JS.html" class="external-link">JS</a></span><span class="op">(</span></span></span>
-<span class="r-in"><span>      <span class="st">"function(v) { Shiny.setInputValue('score', v); }"</span></span></span>
-<span class="r-in"><span>    <span class="op">)</span></span></span>
-<span class="r-in"><span>  <span class="op">)</span></span></span>
+<span class="r-in"><span>  id     <span class="op">=</span> <span class="st">"score"</span>,</span></span>
+<span class="r-in"><span>  markup <span class="op">=</span> <span class="va">el</span><span class="op">$</span><span class="fu">rate</span><span class="op">(</span><span class="st">"v-model"</span> <span class="op">=</span> <span class="st">"value"</span>, <span class="st">":max"</span> <span class="op">=</span> <span class="st">"max"</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>  data   <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>value <span class="op">=</span> <span class="fl">3</span>, max <span class="op">=</span> <span class="fl">5</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>  report <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>value <span class="op">=</span> <span class="st">"score"</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> &lt;div id="score_container" style="display: contents"&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   &lt;el-rate v-model="value" @change="handleChange"&gt;&lt;/el-rate&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   &lt;el-rate v-model="value" :max="max"&gt;&lt;/el-rate&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> &lt;/div&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> &lt;div id="score" style="width:0px;height:0px;" class="vue html-widget"&gt;&lt;/div&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;script type="application/json" data-for="score"&gt;{"x":{"el":"#score_container","data":{"value":3},"methods":{"handleChange":"function(v) { Shiny.setInputValue('score', v); }"}},"evals":["methods.handleChange"],"jsHooks":[]}&lt;/script&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;script type="application/json" data-for="score"&gt;{"x":{"el":"#score_container","data":{"value":3,"max":5},"watch":{"value":"{handler: function(v) { window.Shiny &amp;&amp; Shiny.setInputValue &amp;&amp; Shiny.setInputValue(\"score\", v); }, deep: true}"},"mounted":"function() { var self = this; var send = function() { window.Shiny &amp;&amp; Shiny.setInputValue &amp;&amp; Shiny.setInputValue(\"score\", self.value); }; if (window.Shiny &amp;&amp; Shiny.shinyapp &amp;&amp; typeof Shiny.shinyapp.isConnected === 'function' &amp;&amp; Shiny.shinyapp.isConnected()) { send(); } else if (window.jQuery) { jQuery(document).one('shiny:connected', send); } var prev = self._elReport; self._elReport = function() { if (prev) prev(); self.$nextTick(send); }; }"},"evals":["watch.value","mounted"],"jsHooks":[]}&lt;/script&gt;</span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>

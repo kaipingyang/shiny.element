@@ -21,7 +21,8 @@ el_widget(
   dependency = NULL,
   head = NULL,
   width = NULL,
-  slots = NULL
+  slots = NULL,
+  report = NULL
 )
 ```
 
@@ -75,6 +76,16 @@ el_widget(
   [`template()`](https://kaipingyang.github.io/shiny.element/reference/template.md)
   and the value is used as it stands.
 
+- report:
+
+  Fields of `data` to report as Shiny inputs, as
+  `c(<field> = <input id>)`: `report = c(value = id)` makes
+  `input[[id]]` the `value` field. Each is reported on load, on every
+  change – the user's, or an
+  [`update_vue_data()`](https://kaipingyang.github.io/shiny.element/reference/update_vue_data.md)
+  from the server – and needs no JavaScript of your own. Inside a
+  module, pass the namespaced id.
+
 ## Value
 
 A Shiny UI element with its dependencies attached.
@@ -118,21 +129,18 @@ my_avatar("face", "https://example.org/face.png")
 #> <div id="face" style="width:0px;height:0px;" class="vue html-widget"></div>
 #> <script type="application/json" data-for="face">{"x":{"el":"#face_container","data":{"src":"https://example.org/face.png","size":50}},"evals":[],"jsHooks":[]}</script>
 
-# Reporting to Shiny works as it does inside the package: a method that
-# calls Shiny.setInputValue().
+# An input of your own: v-model keeps `value` in step with the control,
+# and `report` makes it input$score -- on load, on change, and after
+# update_vue_data(session, "score", list(value = 5)) from the server.
 el_widget(
-  id      = "score",
-  markup  = el$rate("v-model" = "value", "@change" = "handleChange"),
-  data    = list(value = 3),
-  methods = list(
-    handleChange = htmlwidgets::JS(
-      "function(v) { Shiny.setInputValue('score', v); }"
-    )
-  )
+  id     = "score",
+  markup = el$rate("v-model" = "value", ":max" = "max"),
+  data   = list(value = 3, max = 5),
+  report = c(value = "score")
 )
 #> <div id="score_container" style="display: contents">
-#>   <el-rate v-model="value" @change="handleChange"></el-rate>
+#>   <el-rate v-model="value" :max="max"></el-rate>
 #> </div>
 #> <div id="score" style="width:0px;height:0px;" class="vue html-widget"></div>
-#> <script type="application/json" data-for="score">{"x":{"el":"#score_container","data":{"value":3},"methods":{"handleChange":"function(v) { Shiny.setInputValue('score', v); }"}},"evals":["methods.handleChange"],"jsHooks":[]}</script>
+#> <script type="application/json" data-for="score">{"x":{"el":"#score_container","data":{"value":3,"max":5},"watch":{"value":"{handler: function(v) { window.Shiny && Shiny.setInputValue && Shiny.setInputValue(\"score\", v); }, deep: true}"},"mounted":"function() { var self = this; var send = function() { window.Shiny && Shiny.setInputValue && Shiny.setInputValue(\"score\", self.value); }; if (window.Shiny && Shiny.shinyapp && typeof Shiny.shinyapp.isConnected === 'function' && Shiny.shinyapp.isConnected()) { send(); } else if (window.jQuery) { jQuery(document).one('shiny:connected', send); } var prev = self._elReport; self._elReport = function() { if (prev) prev(); self.$nextTick(send); }; }"},"evals":["watch.value","mounted"],"jsHooks":[]}</script>
 ```

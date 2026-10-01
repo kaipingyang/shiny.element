@@ -397,6 +397,64 @@ initials("alan", "Alan Mathison Turing", size = 64)
 
 {{ letters }}
 
+### An input of your own, built from `el$` tags
+
+The pattern to follow when Element has the parts but no component here
+puts them together the way you need – say, a price range made of two
+number inputs, reported as one value:
+
+- write the markup with `el$` tags, binding each control to a field of
+  `data` with `v-model`, and pass the result to
+  [`el_widget()`](https://kaipingyang.github.io/shiny.element/reference/el_widget.md);
+- name the fields to report with `report = c(<field> = id)`. The field
+  is then `input$<id>` – on load, on every change, and after an update;
+- update it from the server with
+  [`update_vue_data()`](https://kaipingyang.github.io/shiny.element/reference/update_vue_data.md),
+  wrapped in a function of your own so callers do not need to know the
+  field names;
+- take `id` as given, so the caller wraps it in `ns()` inside a module;
+- pass
+  [`element_ui_dependency()`](https://kaipingyang.github.io/shiny.element/reference/element_ui_dependency.md)
+  unless the page is an
+  [`el_page()`](https://kaipingyang.github.io/shiny.element/reference/el_page.md).
+
+``` r
+
+price_range_input <- function(id, value = c(0, 100), min = 0, max = 1000) {
+  el_widget(
+    id = id,
+    markup = tags$div(style = "display: flex; align-items: center; gap: 8px",
+      el$input_number("v-model" = "range[0]", ":min" = "min", ":max" = "range[1]",
+                      "controls-position" = "right", size = "small"),
+      tags$span("to"),
+      el$input_number("v-model" = "range[1]", ":min" = "range[0]", ":max" = "max",
+                      "controls-position" = "right", size = "small")),
+    data   = list(range = as.list(value), min = min, max = max),
+    report = c(range = id),
+    dependency = element_ui_dependency()
+  )
+}
+
+update_price_range <- function(session, id, value) {
+  update_vue_data(session, id, list(range = as.list(value)))
+}
+
+ui <- el_page(
+  price_range_input("price", value = c(20, 300)),
+  el_button("cheap", "Under 50"),
+  verbatimTextOutput("picked")
+)
+
+server <- function(input, output, session) {
+  observeEvent(input$cheap, update_price_range(session, "price", c(0, 50)))
+  output$picked <- renderPrint(input$price)
+}
+
+shinyApp(ui, server)
+```
+
+![](../shots/limitations-own-input.png)
+
 Calling [`vueR::vue()`](https://rdrr.io/pkg/vueR/man/vue.html) yourself
 works too. What
 [`el_widget()`](https://kaipingyang.github.io/shiny.element/reference/el_widget.md)

@@ -107,7 +107,7 @@ el_popconfirm("del",
 #>   </el-popconfirm>
 #> </div>
 #> <div id="del" style="width:0px;height:0px;" class="vue html-widget"></div>
-#> <script type="application/json" data-for="del">{"x":{"el":"#del_container","data":{"pcTitle":"Delete this row?","pcConfirmButtonText":null,"pcCancelButtonText":null,"pcConfirmButtonType":null,"pcCancelButtonType":null,"pcIcon":null,"pcIconColor":null,"pcHideIcon":null},"methods":{"handleConfirm":"function() { window.Shiny && Shiny.setInputValue('del_confirm', true, {priority: 'event'}); }","handleCancel":"function() { window.Shiny && Shiny.setInputValue('del_cancel', true, {priority: 'event'}); }"}},"evals":["methods.handleConfirm","methods.handleCancel"],"jsHooks":[]}</script>
+#> <script type="application/json" data-for="del">{"x":{"el":"#del_container","data":{"pcTitle":"Delete this row?","pcConfirmButtonText":null,"pcCancelButtonText":null,"pcConfirmButtonType":null,"pcCancelButtonType":null,"pcIcon":null,"pcIconColor":null,"pcHideIcon":null},"methods":{"handleConfirm":"function() { window.Shiny && Shiny.setInputValue && Shiny.setInputValue('del_confirm', true, {priority: 'event'}); }","handleCancel":"function() { window.Shiny && Shiny.setInputValue && Shiny.setInputValue('del_cancel', true, {priority: 'event'}); }"}},"evals":["methods.handleConfirm","methods.handleCancel"],"jsHooks":[]}</script>
 
 if (interactive()) {
   library(shiny)

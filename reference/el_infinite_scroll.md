@@ -95,7 +95,7 @@ el_infinite_scroll("feed", shiny::uiOutput("rows"), height = "400px")
 #>   </div>
 #> </div>
 #> <div id="feed" style="width:0px;height:0px;" class="vue html-widget"></div>
-#> <script type="application/json" data-for="feed">{"x":{"el":"#feed_container","data":{"scrollDisabled":false,"scrollDelay":null,"scrollDistance":null,"scrollImmediate":null,"scrollCount":0},"methods":{"handleLoad":"function() { this.scrollCount++; window.Shiny && Shiny.setInputValue('feed_load', this.scrollCount); }"}},"evals":["methods.handleLoad"],"jsHooks":[]}</script>
+#> <script type="application/json" data-for="feed">{"x":{"el":"#feed_container","data":{"scrollDisabled":false,"scrollDelay":null,"scrollDistance":null,"scrollImmediate":null,"scrollCount":0},"methods":{"handleLoad":"function() { this.scrollCount++; window.Shiny && Shiny.setInputValue && Shiny.setInputValue('feed_load', this.scrollCount); }"}},"evals":["methods.handleLoad"],"jsHooks":[]}</script>
 
 if (interactive()) {
   library(shiny)
