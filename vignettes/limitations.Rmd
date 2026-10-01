@@ -310,11 +310,13 @@ Shiny's names -- and Element's as well:
 Either works, in the components and in their `update_el_*()`, so code reads
 naturally to someone coming from either side:
 
-```r
-el_select("city", choices = c(Beijing = "bj", Shanghai = "sh"), selected = "sh")
-el_select("city", options = c(Beijing = "bj", Shanghai = "sh"), value = "sh")
-update_el_select(session, "city", selected = "bj")
+```{r two-names, eval = FALSE, shot = TRUE}
+el_select("city_shiny", choices = c(Beijing = "bj", Shanghai = "sh"), selected = "sh")
+el_select("city_element", options = c(Beijing = "bj", Shanghai = "sh"), value = "sh")
 ```
+
+The same holds in the server: `update_el_select(session, "city", selected =
+"bj")` and `update_el_select(session, "city", value = "bj")` do one thing.
 
 Given both names in one call, the two must agree; two different values are
 an error rather than one quietly winning. The help pages document each pair

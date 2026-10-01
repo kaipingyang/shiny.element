@@ -64,9 +64,17 @@ read_shots <- function(path) {
     chunk <- parse_header(header)
     if (!isTRUE(chunk$opts$shot)) next
     key <- paste0(article, "-", chunk$label)
+    # A chunk may show a file instead -- knitr's `file` option -- so that a
+    # whole app lives once, under inst/examples, and the article shows it.
+    code <- if (!is.null(chunk$opts$file)) {
+      paste(readLines(file.path(dirname(path), chunk$opts$file), warn = FALSE),
+            collapse = "\n")
+    } else {
+      paste(lines[(s + 1):(end - 1)], collapse = "\n")
+    }
     out[[key]] <- list(
       key  = key,
-      code = paste(lines[(s + 1):(end - 1)], collapse = "\n"),
+      code = code,
       js   = chunk$opts$shot_js,
       sel  = chunk$opts$shot_sel,
       wait = chunk$opts$shot_wait %||% 1.5
@@ -262,6 +270,9 @@ for (s in shots) {
       document.querySelectorAll(q).forEach(function(e){
         if (e.innerText.trim() || e.querySelector('i, img, svg, input')) return;
         if (!e.getBoundingClientRect().width) return;
+        // A fixed table column is drawn twice, its copy in the main table
+        // kept hidden -- empty to innerText, and not a blank entry
+        if (e.checkVisibility && !e.checkVisibility({visibilityProperty: true})) return;
         out.push(q);
       });
     });
@@ -270,6 +281,17 @@ for (s in shots) {
   if (nzchar(blank %||% "")) {
     problems <- c(problems, sprintf("%s: blank items: %s", s$key, blank))
     message(sprintf("  x %-34s blank items: %s", s$key, blank))
+  }
+
+  # A modal's mask is position: fixed, so it covers the viewport and no
+  # more; a page longer than the viewport came out with its lower part
+  # unmasked under an open dialog. Grow the viewport to the page first.
+  page_h <- js("Math.max(document.documentElement.scrollHeight, document.body.scrollHeight)")
+  tall <- !is.null(page_h) && page_h > 900
+  if (tall) {
+    b$Emulation$setDeviceMetricsOverride(width = 1000, height = page_h,
+                                         deviceScaleFactor = 1, mobile = FALSE)
+    Sys.sleep(0.5)
   }
 
   selectors <- c("#shot", s$sel)
@@ -297,6 +319,10 @@ for (s in shots) {
                            w: r - l, h: b - t});
   })(%s)", jsonlite::toJSON(present))))
   b$screenshot(out, cliprect = c(rect$x, rect$y, rect$w, rect$h), scale = 2)
+  # Back to the session's own size -- clearing the override instead drops
+  # to the bare window, shorter than the one the session was opened with
+  if (tall) b$Emulation$setDeviceMetricsOverride(width = 1000, height = 900,
+                                                  deviceScaleFactor = 1, mobile = FALSE)
 
   # Vue's warnings, and the package's own -- an update sent to a widget that
   # is not there, a method that does not exist. Both mean the example does

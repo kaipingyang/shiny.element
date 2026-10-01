@@ -1,0 +1,103 @@
+/* Element UI's documentation, as far as pkgdown's layout allows: a white
+ * header with a hairline rule, quiet grey body text, light headings, code
+ * in a pale bordered panel, and tables ruled like el-table. */
+
+:root {
+  --el-blue: #409EFF;
+  --el-text-strong: #1F2F3D;
+  --el-text: #5E6D82;
+  --el-text-weak: #909399;
+  --el-border: #EBEEF5;
+  --el-border-strong: #DCDFE6;
+  --el-panel: #FAFAFA;
+}
+
+/* ── header ─────────────────────────────────────────────────────────────── */
+.navbar {
+  background: #fff !important;
+  border-bottom: 1px solid var(--el-border-strong);
+  box-shadow: none;
+}
+.navbar-brand { font-size: 1.35rem; color: var(--el-text-strong) !important; }
+.navbar .nav-link { font-size: 15px; position: relative; background: none !important; }
+.navbar .nav-item.active > .nav-link,
+.navbar .nav-link.active { color: var(--el-blue) !important; }
+/* Element marks the current section with a bar under it */
+.navbar .nav-item.active > .nav-link::after {
+  content: ""; position: absolute; left: 0.5rem; right: 0.5rem; bottom: -1rem;
+  height: 2px; background: var(--el-blue);
+}
+.navbar .version, .navbar .label { color: var(--el-text-weak) !important; background: none; }
+.dropdown-menu { border-color: var(--el-border); box-shadow: 0 2px 12px 0 rgba(0, 0, 0, .1); }
+.dropdown-item:hover, .dropdown-item:focus { color: var(--el-blue); background: #ECF5FF; }
+
+/* ── type ───────────────────────────────────────────────────────────────── */
+body { line-height: 1.7; }
+main h1 { font-size: 28px; margin: 40px 0 20px; }
+main h2 { font-size: 22px; margin: 45px 0 15px; }
+main h3 { font-size: 18px; margin: 30px 0 12px; }
+main h1, main h2, main h3, main h4 { color: var(--el-text-strong); font-weight: 400; }
+.page-header { border-bottom: none; }
+a { text-decoration: none; }
+a:hover { color: #66B1FF; }
+
+/* ── code ───────────────────────────────────────────────────────────────── */
+pre, div.sourceCode pre {
+  background: var(--el-panel);
+  border: 1px solid #EAEEFB;
+  border-radius: 4px;
+  color: var(--el-text);
+  font-size: 12px;
+  line-height: 1.8;
+  padding: 18px 24px;
+}
+code { color: var(--el-text); }
+p code, li code, td code {
+  background: #F9FAFC;
+  border: 1px solid #EAEEFB;
+  border-radius: 3px;
+  padding: 0 4px;
+  font-size: 0.9em;
+}
+a code, a > code { color: var(--el-blue); }
+
+/* ── tables, as el-table rules them ─────────────────────────────────────── */
+main table:not(.sourceCode) {
+  border-collapse: collapse;
+  width: 100%;
+  margin: 14px 0 24px;
+  font-size: 14px;
+}
+main table:not(.sourceCode) th {
+  color: var(--el-text-weak);
+  font-weight: 400;
+  text-align: left;
+  border-bottom: 1px solid var(--el-border-strong);
+  padding: 12px 10px;
+  white-space: nowrap;
+}
+main table:not(.sourceCode) td {
+  border-bottom: 1px solid var(--el-border);
+  padding: 12px 10px;
+}
+
+/* ── the screenshots under each example: a demo block ──────────────────── */
+main p > img[src*="shots/"], main img[src*="shots/"] {
+  border: 1px solid var(--el-border);
+  border-radius: 4px;
+  padding: 0;
+  box-shadow: 0 2px 12px 0 rgba(0, 0, 0, .04);
+}
+
+/* ── sidebar and reference index ───────────────────────────────────────── */
+#toc .nav-link, nav#toc .nav-link { color: var(--el-text); }
+#toc .nav-link.active { color: var(--el-blue); border-left-color: var(--el-blue); }
+.ref-index h2, .template-reference-index h2 { font-size: 18px; }
+footer { border-top: 1px solid var(--el-border); color: var(--el-text-weak); }
+
+/* pkgdown makes linked code inherit the text colour; Element's docs show
+ * every link blue, code included */
+code a:any-link, dt code a, a > code { color: var(--el-blue) !important; }
+nav#toc .nav-link.active, #toc .nav-link.active {
+  background: none !important; color: var(--el-blue) !important; font-weight: 400;
+}

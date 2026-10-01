@@ -122,6 +122,7 @@ test suite runs in this mode and asserts that the console stays clean.
 ## Learn more
 
 * [Component gallery](https://kaipingyang.github.io/shiny.element/articles/components.html)
+* [Dashboards](https://kaipingyang.github.io/shiny.element/articles/dashboards.html) -- whole apps: Element's own admin layout, a sales overview, an orders admin page
 * [Function reference](https://kaipingyang.github.io/shiny.element/reference/index.html)
 
 ## Licence

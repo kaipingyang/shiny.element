@@ -5,14 +5,39 @@ repo:
 
 template:
   bootstrap: 5
+  # Element UI's documentation look: its blue, greys and type, a white
+  # header with a hairline under it. The rest is in pkgdown/extra.css.
+  bslib:
+    primary: "#409EFF"
+    link-color: "#409EFF"
+    body-color: "#5E6D82"
+    headings-color: "#1F2F3D"
+    headings-font-weight: 400
+    base_font: '"Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", Arial, sans-serif'
+    heading_font: '"Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", Arial, sans-serif'
+    code_font: 'Menlo, Monaco, Consolas, "Courier New", monospace'
+    font-size-base: 0.875rem
+    border-color: "#EBEEF5"
+    border-radius: 4px
+    code-color: "#5E6D82"
+    navbar-light-color: "#1F2F3D"
+    navbar-light-hover-color: "#409EFF"
+    navbar-light-active-color: "#409EFF"
+    navbar-padding-y: 1rem
+  light-switch: false
 
 navbar:
+  bg: white
+  type: light
   structure:
-    left: [intro, gallery, guides, reference, news]
+    left: [intro, gallery, dashboards, guides, reference, news]
   components:
     gallery:
       text: Components
       href: articles/components.html
+    dashboards:
+      text: Dashboards
+      href: articles/dashboards.html
     guides:
       text: Guides
       menu:
