@@ -19,6 +19,7 @@ $(document).on('shiny:connected', function() {
     }
     if (message.rules !== undefined) vm.rules = message.rules;
     if (message.labelWidth !== undefined) vm.labelWidth = message.labelWidth;
+    if (vm._elReport) vm._elReport();
   });
 
   Shiny.addCustomMessageHandler('elFormValidate', function(message) {

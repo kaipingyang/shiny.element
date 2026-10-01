@@ -190,6 +190,9 @@ ui <- el_page(
     el_avatar("av", content = "KY"),
     el_breadcrumb("crumb", items = list(list(label = "Home"), list(label = "Here")))),
 
+  # Values set from the server, which Element does not report as `change`
+  actionButton("set_values", "set values"),
+
   verbatimTextOutput("dump")
 )
 
@@ -304,6 +307,14 @@ server <- function(input, output, session) {
   observeEvent(input$form_prefill, {
     update_el_form(session, "signup",
                    model = list(fname = "Ada", fcity = "sh"))
+  })
+
+  observeEvent(input$set_values, {
+    update_el_input(session, "inp", value = "from server")
+    update_el_select(session, "sel", value = "a")
+    update_el_switch(session, "sw", value = FALSE)
+    update_el_slider(session, "sld", value = 7)
+    update_el_input_number(session, "num", value = 9)
   })
 
   observeEvent(input$casc_update, {

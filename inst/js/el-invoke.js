@@ -54,18 +54,28 @@
     registered = true;
 
     Shiny.addCustomMessageHandler('elInvoke', function (message) {
+      if (!SAFE_NAME.test(message.method)) {
+        console.warn('[shiny.element] elInvoke: refusing method name "' +
+                     message.method + '"');
+        return;
+      }
+
       var widget = HTMLWidgets.find('#' + message.id);
+      // A component rendered as markup, not a Vue instance, offers its
+      // methods on the element itself.
+      var host = document.getElementById(message.id);
+      if ((!widget || !widget.instance) && host && host._elMethods &&
+          Object.prototype.hasOwnProperty.call(host._elMethods, message.method)) {
+        var r = host._elMethods[message.method].apply(host, message.args || []);
+        if (message.input) report(message.id, message.input, r === undefined ? true : r);
+        return;
+      }
       if (!widget || !widget.instance) {
         console.warn('[shiny.element] elInvoke: no mounted widget with id "' +
                      message.id + '"');
         return;
       }
 
-      if (!SAFE_NAME.test(message.method)) {
-        console.warn('[shiny.element] elInvoke: refusing method name "' +
-                     message.method + '"');
-        return;
-      }
 
       var target = componentOf(widget.instance, message.component);
       if (!target) {
@@ -93,6 +103,9 @@
                      '() raised: ' + e.message);
         return;
       }
+      // A method can change a reported value without Element raising
+      // `change` -- clearCheckedNodes(), for one.
+      if (widget.instance._elReport) widget.instance._elReport();
 
       if (!message.input) return;
       if (result && typeof result.then === 'function') {

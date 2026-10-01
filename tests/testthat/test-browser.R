@@ -757,3 +757,17 @@ test_that("a row event arrives as a named list with a usable row_index", {
   Sys.sleep(2)
   expect_equal(unname(bdump()[["row_index"]]), "2")
 })
+
+test_that("a value set from the server is reported back, as update*Input() does", {
+  skip_if_no_browser()
+  # Element raises `change` only for the user's own edits. The new value
+  # showed on screen while input$<id> kept the old one, so the server went on
+  # acting on a value the page no longer held.
+  bclick("#set_values", wait = 2.5)
+  vals <- bdump()
+  expect_equal(vals[["inp"]], "from server")
+  expect_equal(vals[["sel"]], "a")
+  expect_equal(vals[["sw"]], "FALSE")
+  expect_equal(vals[["sld"]], "7")
+  expect_equal(vals[["num"]], "9")
+})

@@ -119,13 +119,20 @@ el_ns <- function(id, session = shiny::getDefaultReactiveDomain()) {
     sprintf("Shiny.setInputValue(%s, self.%s);", js_str(names(bindings)), bindings),
     collapse = " "
   )
-
   htmlwidgets::JS(paste0(
     "function() { var self = this; ",
     "var send = function() { ", sends, " }; ",
     "if (window.Shiny && Shiny.shinyapp && ",
     "typeof Shiny.shinyapp.isConnected === 'function' && Shiny.shinyapp.isConnected()) ",
-    "{ send(); } else { $(document).one('shiny:connected', send); } }"
+    "{ send(); } else { $(document).one('shiny:connected', send); } ",
+    # Element raises `change` only for the user's own edits, so a value set by
+    # update_el_*() showed on screen while input$<id> kept the old one --
+    # unlike Shiny's update*Input(), whose new value is reported back. The
+    # updaters call this once they have assigned. It is not a watcher, which
+    # would report every keystroke of an input documented to report on
+    # `change`. Chained, because absorbed components share one instance.
+    "var prev = self._elReport; ",
+    "self._elReport = function() { if (prev) prev(); self.$nextTick(send); }; }"
   ))
 }
 

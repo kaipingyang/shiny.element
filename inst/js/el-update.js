@@ -37,6 +37,8 @@
         }
         vm[key] = message[key];
       });
+      // Report the new value, as Shiny's own update*Input() does
+      if (vm._elReport) vm._elReport();
     });
   };
 })();

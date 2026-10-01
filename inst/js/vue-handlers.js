@@ -8,6 +8,7 @@ Shiny.addCustomMessageHandler('update_vue_component', function(message) {
         widget.instance[key] = message[key];
       }
     });
+    if (widget.instance._elReport) widget.instance._elReport();
   }
 });
 
@@ -15,5 +16,6 @@ Shiny.addCustomMessageHandler('update_vue_data', function(message) {
   var widget = HTMLWidgets.find('#' + message.id);
   if (widget && widget.instance && message.data) {
     Object.assign(widget.instance.$data, message.data);
+    if (widget.instance._elReport) widget.instance._elReport();
   }
 });
