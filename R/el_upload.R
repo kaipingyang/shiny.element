@@ -19,6 +19,12 @@
   htmlwidgets::JS(sprintf(paste0(
     "function(options) {\n",
     "  var self = this, inputId = %s;\n",
+    # Outside a Shiny app there is nowhere to send the file; fail it the
+    # way Element shows a failed upload rather than throw
+    "  if (!window.Shiny || !Shiny.shinyapp) {\n",
+    "    options.onError(new Error('no Shiny session to upload to'));\n",
+    "    return;\n",
+    "  }\n",
     "  self._queue = self._queue || [];\n",
     "  self._queue.push(options);\n",
     "  if (self._flushing) return;\n",
@@ -305,11 +311,11 @@ el_upload <- function(id = NULL,
         "function(response, file, fileList) { ",
         "this.succeeded = fileList.filter(function(f) { return f.status === 'success'; })",
         ".map(function(f) { return f.name; }); ",
-        "Shiny.setInputValue('%s_success', this.succeeded); }"
+        "window.Shiny && Shiny.setInputValue('%s_success', this.succeeded); }"
       ), ns_id
     )),
     handleError = htmlwidgets::JS(sprintf(
-      "function(err, file) { this.failed = file.name; Shiny.setInputValue('%s_error', file.name); }",
+      "function(err, file) { this.failed = file.name; window.Shiny && Shiny.setInputValue('%s_error', file.name); }",
       ns_id
     ))
   )

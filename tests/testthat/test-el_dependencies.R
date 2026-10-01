@@ -82,8 +82,11 @@ test_that("every handler dependency resolves to files that exist", {
 
   for (fn in fns) {
     for (dep in do.call(fn, list())) {
+      # jQuery comes from jquerylib, its src relative to that package
+      dir <- unname(dep$src[["file"]])
+      if (!is.null(dep$package)) dir <- system.file(dir, package = dep$package)
       expect_true(
-        file.exists(file.path(unname(dep$src[["file"]]), dep$script)),
+        file.exists(file.path(dir, dep$script)),
         info = paste(fn, "->", dep$script)
       )
     }
@@ -99,8 +102,10 @@ test_that("every handler dependency carries the shared scripts too", {
   for (fn in fns) {
     deps  <- do.call(fn, list())
     names <- vapply(deps, function(d) d$name, character(1))
-    expect_equal(names[1:3], c("el-invoke", "el-events", "el-update"), info = fn)
-    expect_length(deps, 4)
+    # jQuery first: every script after it is written against it
+    expect_equal(names[1:4], c("jquery", "el-invoke", "el-events", "el-update"),
+                 info = fn)
+    expect_length(deps, 5)
   }
 })
 
@@ -241,4 +246,19 @@ test_that("the locale is applied after element-ui itself has loaded", {
   expect_lt(which(names == "element-ui"), which(names == "element-ui-locale-en"))
   expect_lt(which(names == "element-ui-locale-en"),
             which(names == "element-ui-locale-apply-en"))
+})
+
+test_that("every generated call to Shiny is guarded, so components work without it", {
+  # A static page -- R Markdown, Quarto, the package's website -- has no
+  # Shiny; an unguarded call threw on every change a user made.
+  ui <- htmltools::tagList(
+    el_input("i"), el_select("s", choices = "a"), el_table("t", data = head(iris, 1)),
+    el_menu("m", items = list(list(index = "a", label = "A"))),
+    el_pagination("p", total = 10), el_tree("tr", data = list(list(label = "x")))
+  )
+  html <- paste(as.character(htmltools::renderTags(ui)$html), collapse = "")
+  n_all     <- lengths(regmatches(html, gregexpr("Shiny[.]setInputValue[(]", html)))
+  n_guarded <- lengths(regmatches(html, gregexpr("Shiny && Shiny[.]setInputValue[(]", html)))
+  expect_gt(n_all, 0)
+  expect_equal(n_guarded, n_all)
 })

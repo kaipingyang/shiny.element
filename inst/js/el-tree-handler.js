@@ -6,7 +6,7 @@
 // as well. Replacing it means calling the component's own setCheckedKeys().
 // That method fires no check event, so the input is updated here to keep the
 // server's view in step.
-$(document).on('shiny:connected', function() {
+if (window.jQuery) jQuery(document).on('shiny:connected', function() {
   Shiny.addCustomMessageHandler('updateElTree', function(message) {
     var widget = HTMLWidgets.find('#' + message.id);
     if (!widget || !widget.instance) {

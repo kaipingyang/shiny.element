@@ -84,7 +84,7 @@ el_color_picker <- function(
     data    = vue_data,
     methods = c(events$methods, list(
       handleChange = htmlwidgets::JS(sprintf(
-        "function(val) { Shiny.setInputValue('%s', val); }",
+        "function(val) { window.Shiny && Shiny.setInputValue('%s', val); }",
         ns_id
       ))
     )),

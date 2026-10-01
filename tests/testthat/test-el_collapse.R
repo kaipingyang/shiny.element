@@ -135,5 +135,8 @@ test_that("the binding degrades gracefully outside Shiny", {
   js <- paste(readLines(
     system.file("js", "el-collapse-binding.js", package = "shiny.element"), warn = FALSE
   ), collapse = "\n")
-  expect_match(js, "typeof Shiny === 'undefined'", fixed = TRUE)
+  # Without Shiny it binds itself, so it still works on a static page
+  expect_match(js, "function standalone(binding)", fixed = TRUE)
+  expect_match(js, "else standalone(binding)", fixed = TRUE)
+  expect_false(grepl("[^&] Shiny[.]setInputValue[(]", js))
 })

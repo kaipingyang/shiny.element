@@ -1,5 +1,5 @@
 // Handlers for el_notification and el_message server-side functions
-$(document).on('shiny:connected', function() {
+if (window.jQuery) jQuery(document).on('shiny:connected', function() {
 
   // Instances opened under an id, so el_*_close() can close one of them
   var notifications = {}, messages = {};

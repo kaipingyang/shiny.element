@@ -19,7 +19,8 @@ Imports:
     uuid,
     stats,
     htmlwidgets,
-    bslib
+    bslib,
+    jquerylib
 Suggests:
     testthat (>= 3.0.0),
     rlang,

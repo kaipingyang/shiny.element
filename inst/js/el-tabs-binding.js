@@ -11,9 +11,21 @@
 (function() {
   // Rendered outside Shiny the markup still shows; there is just nothing to
   // bind it to.
-  if (typeof Shiny === 'undefined' || !Shiny.InputBinding) return;
+  if (typeof jQuery === 'undefined') return;
+  var hasShiny = typeof Shiny !== 'undefined' && !!Shiny.InputBinding;
 
-  var binding = new Shiny.InputBinding();
+  // Without Shiny -- a static R Markdown page, the package's own website --
+  // the component still works on the page; there is just no server to tell.
+  function standalone(binding) {
+    jQuery(function() {
+      binding.find(document).each(function() {
+        if (binding.initialize) binding.initialize(this);
+        binding.subscribe(this, function() {});
+      });
+    });
+  }
+
+  var binding = (hasShiny ? new Shiny.InputBinding() : {});
 
   function items(el) {
     return Array.prototype.slice.call(el.querySelectorAll('.el-tabs__item'));
@@ -36,7 +48,7 @@
   }
 
   function report(el, what, value) {
-    Shiny.setInputValue(el.id + what, value, { priority: 'event' });
+    hasShiny && Shiny.setInputValue(el.id + what, value, { priority: 'event' });
   }
 
   // The active bar's size and offset are inline styles in Element too --
@@ -69,7 +81,7 @@
     p.appendChild(document.importNode(tpl.content, true));
     tpl.parentNode.removeChild(tpl);
     if (window.HTMLWidgets) window.HTMLWidgets.staticRender();
-    Shiny.bindAll(p);
+    hasShiny && Shiny.bindAll(p);
   }
 
   function show(el, name) {
@@ -122,7 +134,7 @@
     var wasActive = item.classList.contains('is-active');
     var p = pane(el, name);
     item.parentNode.removeChild(item);
-    if (p) { Shiny.unbindAll(p); p.parentNode.removeChild(p); }
+    if (p) { hasShiny && Shiny.unbindAll(p); p.parentNode.removeChild(p); }
     var remaining = items(el);
     if (wasActive && remaining.length) {
       show(el, remaining[0].getAttribute('data-el-name'));
@@ -220,5 +232,6 @@
     }
   });
 
-  Shiny.inputBindings.register(binding, 'shiny.element.tabs');
+  if (hasShiny) Shiny.inputBindings.register(binding, 'shiny.element.tabs');
+    else standalone(binding);
 })();

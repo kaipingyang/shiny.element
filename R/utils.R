@@ -105,6 +105,10 @@
 #' @return The id the component uses.
 #' @keywords internal
 .el_ui_id <- function(id, session = NULL) {
+  # Set by the package's own articles, which render many examples on one page:
+  # two that both use "city" would otherwise share one id.
+  prefix <- getOption("shiny.element.id_prefix")
+  if (!is.null(prefix)) id <- paste0(prefix, id)
   if (is.null(session)) return(id)
   warning("`session` is deprecated in UI functions. Inside a module, wrap ",
           "the id in ns() instead, as for any Shiny input: ",
@@ -135,7 +139,7 @@
   }
 
   sends <- paste(
-    sprintf("Shiny.setInputValue(%s, self.%s);", js_str(names(bindings)), bindings),
+    sprintf("window.Shiny && Shiny.setInputValue(%s, self.%s);", js_str(names(bindings)), bindings),
     collapse = " "
   )
   htmlwidgets::JS(paste0(
@@ -143,7 +147,7 @@
     "var send = function() { ", sends, " }; ",
     "if (window.Shiny && Shiny.shinyapp && ",
     "typeof Shiny.shinyapp.isConnected === 'function' && Shiny.shinyapp.isConnected()) ",
-    "{ send(); } else { $(document).one('shiny:connected', send); } ",
+    "{ send(); } else if (window.jQuery) { jQuery(document).one('shiny:connected', send); } ",
     # Element raises `change` only for the user's own edits, so a value set by
     # update_el_*() showed on screen while input$<id> kept the old one --
     # unlike Shiny's update*Input(), whose new value is reported back. The
@@ -200,6 +204,7 @@
   js <- system.file("js", package = "shiny.element")
 
   list(
+    .el_jquery_dependency(),
     htmltools::htmlDependency(
       name      = "el-invoke",
       version   = "1.0.0",
@@ -286,4 +291,19 @@
                  main_name, alias_name), call. = FALSE)
   }
   alias
+}
+
+
+#' jQuery, for the package's scripts
+#'
+#' Every handler and binding script is written against jQuery, which a Shiny
+#' page always has. A page without Shiny -- R Markdown, Quarto, the package's
+#' own website -- may not, and the scripts stopped at their first line. The
+#' dependency is jquerylib's, under the name Shiny's own uses, so a Shiny page
+#' still loads one copy, the newer.
+#'
+#' @return An htmlDependency object.
+#' @keywords internal
+.el_jquery_dependency <- function() {
+  jquerylib::jquery_core(3)
 }

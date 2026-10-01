@@ -11,9 +11,21 @@
 (function() {
   // Rendered outside Shiny (a vignette, say) the markup still shows; there is
   // just nothing to bind it to.
-  if (typeof Shiny === 'undefined' || !Shiny.InputBinding) return;
+  if (typeof jQuery === 'undefined') return;
+  var hasShiny = typeof Shiny !== 'undefined' && !!Shiny.InputBinding;
 
-  var binding = new Shiny.InputBinding();
+  // Without Shiny -- a static R Markdown page, the package's own website --
+  // the component still works on the page; there is just no server to tell.
+  function standalone(binding) {
+    jQuery(function() {
+      binding.find(document).each(function() {
+        if (binding.initialize) binding.initialize(this);
+        binding.subscribe(this, function() {});
+      });
+    });
+  }
+
+  var binding = (hasShiny ? new Shiny.InputBinding() : {});
 
   function panels(el) {
     return Array.prototype.slice.call(
@@ -90,5 +102,6 @@
     }
   });
 
-  Shiny.inputBindings.register(binding, 'shiny.element.collapse');
+  if (hasShiny) Shiny.inputBindings.register(binding, 'shiny.element.collapse');
+    else standalone(binding);
 })();

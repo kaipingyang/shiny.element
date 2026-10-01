@@ -15,7 +15,19 @@
 // <body>, the body gets a class that locks scrolling, and stacked overlays
 // need increasing z-indexes. Element does the same through its popup manager.
 (function() {
-  if (typeof Shiny === 'undefined' || !Shiny.InputBinding) return;
+  if (typeof jQuery === 'undefined') return;
+  var hasShiny = typeof Shiny !== 'undefined' && !!Shiny.InputBinding;
+
+  // Without Shiny -- a static R Markdown page, the package's own website --
+  // the component still works on the page; there is just no server to tell.
+  function standalone(binding) {
+    jQuery(function() {
+      binding.find(document).each(function() {
+        if (binding.initialize) binding.initialize(this);
+        binding.subscribe(this, function() {});
+      });
+    });
+  }
 
   var BASE_Z = 2000;
   var open = [];            // wrappers currently shown, oldest first
@@ -30,7 +42,7 @@
   }
 
   function report(wrapper, what) {
-    Shiny.setInputValue(wrapper.id + what, true, { priority: 'event' });
+    hasShiny && Shiny.setInputValue(wrapper.id + what, true, { priority: 'event' });
   }
 
   function syncBody() {
@@ -92,14 +104,14 @@
     live.appendChild(document.importNode(tpl.content, true));
     body.appendChild(live);
     if (window.HTMLWidgets) window.HTMLWidgets.staticRender();
-    Shiny.bindAll(live);
+    hasShiny && Shiny.bindAll(live);
   }
 
   function destroy(wrapper) {
     var body = bodyOf(wrapper);
     var live = body && body.querySelector(':scope > [data-el-live]');
     if (!live) return;
-    Shiny.unbindAll(live);
+    hasShiny && Shiny.unbindAll(live);
     live.parentNode.removeChild(live);
   }
 
@@ -160,7 +172,7 @@
   });
 
   function makeBinding(selector, name) {
-    var binding = new Shiny.InputBinding();
+    var binding = (hasShiny ? new Shiny.InputBinding() : {});
 
     $.extend(binding, {
       find: function(scope) {
@@ -226,7 +238,8 @@
       }
     });
 
-    Shiny.inputBindings.register(binding, name);
+    if (hasShiny) Shiny.inputBindings.register(binding, name);
+    else standalone(binding);
   }
 
   makeBinding('.el-dialog__wrapper[data-el-overlay]', 'shiny.element.dialog');

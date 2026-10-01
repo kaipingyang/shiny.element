@@ -1,6 +1,6 @@
 // Handlers for el_form(). The form owns its model, so these reach into the
 // single Vue instance rather than touching individual controls.
-$(document).on('shiny:connected', function() {
+if (window.jQuery) jQuery(document).on('shiny:connected', function() {
 
   function formInstance(id) {
     var widget = HTMLWidgets.find('#' + id);

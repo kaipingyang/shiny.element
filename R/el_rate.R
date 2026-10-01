@@ -129,7 +129,7 @@ el_rate <- function(
     ),
     methods = list(
       handleChange = htmlwidgets::JS(sprintf(
-        "function(val) { Shiny.setInputValue('%s', val); }",
+        "function(val) { window.Shiny && Shiny.setInputValue('%s', val); }",
         ns_id
       ))
     ),

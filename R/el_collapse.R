@@ -112,12 +112,15 @@ el_collapse <- function(
 #' @return An htmlDependency object.
 #' @keywords internal
 el_collapse_dependency <- function() {
-  htmltools::htmlDependency(
-    name      = "el-collapse-binding",
-    version   = "1.0.0",
-    src       = system.file("js", package = "shiny.element"),
-    script    = "el-collapse-binding.js",
-    all_files = FALSE
+  list(
+    .el_jquery_dependency(),
+    htmltools::htmlDependency(
+      name      = "el-collapse-binding",
+      version   = "1.0.0",
+      src       = system.file("js", package = "shiny.element"),
+      script    = "el-collapse-binding.js",
+      all_files = FALSE
+    )
   )
 }
 

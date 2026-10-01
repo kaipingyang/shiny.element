@@ -113,7 +113,7 @@ el_switch <- function(
     data    = vue_data,
     methods = list(
       handleChange = htmlwidgets::JS(sprintf(
-        "function(value) { Shiny.setInputValue('%s', value); }", ns_id
+        "function(value) { window.Shiny && Shiny.setInputValue('%s', value); }", ns_id
       ))
     ),
     mounted    = .el_mounted_init(stats::setNames("value", ns_id)),

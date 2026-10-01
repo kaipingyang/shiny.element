@@ -109,7 +109,7 @@ el_steps <- function(id = NULL,
     data   = vue_data,
     watch  = list(
       active = htmlwidgets::JS(sprintf(
-        "function(newVal) { Shiny.setInputValue('%s', newVal); }", ns_id
+        "function(newVal) { window.Shiny && Shiny.setInputValue('%s', newVal); }", ns_id
       ))
     ),
     mounted    = .el_mounted_init(stats::setNames("active", ns_id)),

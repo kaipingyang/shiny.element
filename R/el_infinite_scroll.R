@@ -91,7 +91,7 @@ el_infinite_scroll <- function(id = NULL,
     ),
     methods = list(
       handleLoad = htmlwidgets::JS(sprintf(
-        "function() { this.scrollCount++; Shiny.setInputValue('%s_load', this.scrollCount); }",
+        "function() { this.scrollCount++; window.Shiny && Shiny.setInputValue('%s_load', this.scrollCount); }",
         ns_id
       ))
     ),

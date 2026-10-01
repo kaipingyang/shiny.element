@@ -157,11 +157,11 @@ el_pagination <- function(
     data    = vue_data,
     methods = c(events$methods, list(
       handlePageChange = htmlwidgets::JS(sprintf(
-        "function(page) { Shiny.setInputValue('%s_page', page); }",
+        "function(page) { window.Shiny && Shiny.setInputValue('%s_page', page); }",
         ns_id
       )),
       handleSizeChange = htmlwidgets::JS(sprintf(
-        "function(size) { Shiny.setInputValue('%s_size', size); }",
+        "function(size) { window.Shiny && Shiny.setInputValue('%s_size', size); }",
         ns_id
       ))
     )),

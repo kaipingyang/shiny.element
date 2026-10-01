@@ -1,4 +1,6 @@
-// inst/assets/vue_handlers.js
+if (typeof Shiny !== 'undefined' && Shiny.addCustomMessageHandler) {
+
+// update_vue_component() and update_vue_data(). Nothing to do without Shiny.
 
 Shiny.addCustomMessageHandler('update_vue_component', function(message) {
   var widget = HTMLWidgets.find('#' + message.id);
@@ -19,3 +21,5 @@ Shiny.addCustomMessageHandler('update_vue_data', function(message) {
     if (widget.instance._elReport) widget.instance._elReport();
   }
 });
+
+}

@@ -1,6 +1,6 @@
 // el-upload needs one handler beyond field assignment: emptying the file list
 // is a method on the component, not a prop.
-$(document).on('shiny:connected', function() {
+if (window.jQuery) jQuery(document).on('shiny:connected', function() {
   elRegisterUpdate('updateElUpload');
 
   Shiny.addCustomMessageHandler('clearElUpload', function(message) {
