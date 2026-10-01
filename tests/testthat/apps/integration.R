@@ -245,6 +245,8 @@ ui <- el_page(
   el_input("js_off", value = "disable me"),
   el_input("js_gone", value = "remove me"),
   actionButton("js_go", "shinyjs"),
+  el_input("val_email", placeholder = "Email"),
+  actionButton("val_go", "validate"),
 
   # A component type that appears nowhere else on the page, only through
   # renderUI(): its handler script arrives after shiny:connected has fired.
@@ -258,6 +260,12 @@ ui <- el_page(
 
 server <- function(input, output, session) {
   mod_server("mod")
+
+  if (requireNamespace("shinyvalidate", quietly = TRUE)) {
+    iv <- shinyvalidate::InputValidator$new()
+    iv$add_rule("val_email", shinyvalidate::sv_required("An email, please"))
+    observeEvent(input$val_go, iv$enable())
+  }
 
   observeEvent(input$js_go, {
     shinyjs::hide("js_hide")

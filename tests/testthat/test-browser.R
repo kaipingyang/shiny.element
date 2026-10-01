@@ -861,3 +861,17 @@ test_that("a date picker reports Date, as dateInput() does", {
   # A format of the caller's own is text in that format
   expect_equal(vals[["dmonth_class"]], "character")
 })
+
+test_that("shinyvalidate's message is drawn as Element draws a failed rule", {
+  skip_if_no_browser()
+  skip_if_not_installed("shinyvalidate")
+  # shinyvalidate asks the input's binding first; without setInvalid() it
+  # looks for a Bootstrap .form-group, which a component here does not have
+  bclick("#val_go", wait = 2)
+  expect_equal(bev("(document.querySelector('#val_email > .el-form-item__error') || {}).textContent || ''"),
+               "An email, please")
+  expect_true(bev("document.getElementById('val_email').classList.contains('is-error')"))
+  # framed in Element's danger colour
+  expect_equal(bev("getComputedStyle(document.querySelector('#val_email .el-input__inner')).borderColor"),
+               "rgb(245, 108, 108)")
+})
