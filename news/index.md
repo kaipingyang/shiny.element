@@ -115,6 +115,10 @@ in reach – a status tag, a progress bar, a column of buttons – and a
 number and the row. `loading` shows Element’s loading mask, from the
 server too.
 
+[`el_table()`](https://kaipingyang.github.io/shiny.element/reference/el_table.md)
+draws no column borders by default, as Element does; pass
+`border = TRUE` for them.
+
 `update_el_table(data =)` keeps the columns the table was created with.
 It used to re-infer them from the new data, discarding every label,
 formatter and template.

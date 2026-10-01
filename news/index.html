@@ -67,6 +67,7 @@
 <div class="section level3">
 <h3 id="tables-0-1-0">Tables<a class="anchor" aria-label="anchor" href="#tables-0-1-0"></a></h3>
 <p><code><a href="../reference/el_table.html">el_table()</a></code> columns may carry a <code>cell</code> template, drawn once per row with <code>scope.row</code> in reach – a status tag, a progress bar, a column of buttons – and a <code>type</code> of <code>"index"</code> or <code>"expand"</code>. A button in a cell reports with <code>rowAction('edit', scope)</code>, setting <code>input$&lt;id&gt;_edit</code> to the row’s number and the row. <code>loading</code> shows Element’s loading mask, from the server too.</p>
+<p><code><a href="../reference/el_table.html">el_table()</a></code> draws no column borders by default, as Element does; pass <code>border = TRUE</code> for them.</p>
 <p><code>update_el_table(data =)</code> keeps the columns the table was created with. It used to re-infer them from the new data, discarding every label, formatter and template.</p>
 </div>
 <div class="section level3">

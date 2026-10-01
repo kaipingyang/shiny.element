@@ -150,7 +150,7 @@ ui <- el_page(
         el_col(span = 14, el_card(header = "Revenue by month",
           plotOutput("trend", height = "260px"))),
         el_col(span = 10, el_card(header = "Products",
-          el_table("products", border = FALSE, columns = list(
+          el_table("products", columns = list(
             list(type = "index", label = "#", width = "50"),
             list(prop = "product", label = "Product"),
             list(prop = "revenue", label = "Revenue", align = "right",
