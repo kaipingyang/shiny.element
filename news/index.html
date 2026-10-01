@@ -105,7 +105,7 @@
 <li>
 <strong>The session argument.</strong> Every server function – <code>update_el_*()</code>, <code><a href="../reference/el_message.html">el_message()</a></code>, <code><a href="../reference/el_call.html">el_call()</a></code> and the rest – takes the current session by default, as <code><a href="https://rdrr.io/pkg/shiny/man/updateTextInput.html" class="external-link">updateTextInput()</a></code> does.</li>
 <li>
-<strong>Validation.</strong> shinyvalidate’s messages show on a component as Element shows a failed form rule: framed in red, the message underneath.</li>
+<strong>Validation.</strong> shinyvalidate’s messages show on a component as Element shows a failed form rule: framed in red, the message underneath – for a labelled component, under the control, replacing any <code>error</code> it opened with.</li>
 <li>
 <strong>Labels.</strong> Every input takes <code>label</code>, shown above it or, with <code>label_position = "left"</code> or <code>"right"</code>, beside it – also its accessible name. The props of Element’s <code>el-form-item</code> that suit a single input come with it: <code>label_width</code>, <code>label_suffix</code>, <code>required</code> (the red asterisk), <code>error</code>, <code>show_message</code> and <code>inline_message</code>; the component’s own <code>size</code> sizes the label. <code><a href="../reference/el_upload.html">el_upload()</a></code>’s trigger text is now <code>button_label</code>, as <code><a href="https://rdrr.io/pkg/shiny/man/fileInput.html" class="external-link">fileInput()</a></code>’s <code>buttonLabel</code>.</li>
 <li>

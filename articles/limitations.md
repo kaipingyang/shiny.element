@@ -38,6 +38,15 @@ things:
 | [`el_call()`](https://kaipingyang.github.io/shiny.element/reference/el_call.md) | the component’s methods | `el_call(session, "tbl", "clearSelection")` |
 | [`update_vue_data()`](https://kaipingyang.github.io/shiny.element/reference/update_vue_data.md) | the Vue instance’s fields directly | `update_vue_data(session, "tip", list(tipContent = "..."))` |
 
+Like Shiny’s `update*Input()`, each takes the current session by
+default, so `update_el_select(id = "city", selected = "Beijing")` is the
+same call. An update reaches a component whether or not it has a value
+to report – an alert, a timeline, a component only ever drawn by
+[`renderUI()`](https://rdrr.io/pkg/shiny/man/renderUI.html) – and one
+sent to an id that is not on the page, or to a field the component does
+not have, logs a `[shiny-vue]` warning in the browser console rather
+than vanishing.
+
 `update_el_*()` cannot call a method, because it assigns into the Vue
 instance’s data and a method is a function. That is what
 [`el_call()`](https://kaipingyang.github.io/shiny.element/reference/el_call.md)
@@ -160,6 +169,54 @@ turned `ns("urgent")` into `"orders-orders-urgent"`, an input that never
 reported. They no longer do; their `session` argument is deprecated, and
 a session passed to it still namespaces, with a warning.
 
+## Shiny’s own tools
+
+Each component is a Shiny input binding on a host element that carries
+its id, so the tools that work on Shiny’s inputs work on these.
+
+**Bookmarking.** Under
+[`enableBookmarking()`](https://rdrr.io/pkg/shiny/man/enableBookmarking.html),
+every component’s value comes back from a bookmark – including where a
+container is: the open tab, the open panels of a collapse, an open
+dialog or drawer, the menu’s current item, the pager’s page. Nothing
+needs to be set up beyond what Shiny itself asks for.
+
+``` r
+
+ui <- function(request) {
+  el_page(
+    el_select("city", choices = c("Beijing", "Shanghai")),
+    el_tabs("views", tabs = list(
+      list(name = "table", label = "Table", content = tags$p("...")),
+      list(name = "chart", label = "Chart", content = tags$p("...")))),
+    bookmarkButton()
+  )
+}
+server <- function(input, output, session) {}
+shinyApp(ui, server, enableBookmarking = "url")
+```
+
+**shinyjs.**
+[`shinyjs::hide()`](https://rdrr.io/pkg/shinyjs/man/visibilityFuncs.html)
+and [`show()`](https://rdrr.io/r/methods/show.html) take the component
+and its label with it; `disable()` and `enable()` set the component’s
+own `disabled`, so it is drawn disabled as Element draws it rather than
+having a native attribute set somewhere underneath.
+
+**Inserting and removing.**
+[`insertUI()`](https://rdrr.io/pkg/shiny/man/insertUI.html) and
+[`renderUI()`](https://rdrr.io/pkg/shiny/man/renderUI.html) mount what
+they add; [`removeUI()`](https://rdrr.io/pkg/shiny/man/insertUI.html) on
+a component’s id removes it and destroys its Vue instance, so it stops
+reporting.
+
+**Validation.** shinyvalidate draws its message the way Element draws a
+failed rule; see the forms article.
+
+**Testing.** shinytest2’s `set_inputs()` and `get_values()` read and
+write a component as they do a
+[`textInput()`](https://rdrr.io/pkg/shiny/man/textInput.html).
+
 ## Nesting components
 
 Two kinds of component wrap other content, and they behave differently.
@@ -222,8 +279,9 @@ shinyApp(ui, server)
 ![](../shots/limitations-absorb.png)
 
 This costs one thing. An absorbed component has no host of its own, so
-nothing to send its `update_el_*()` to, and that stops working. Drive it
-through the wrapper instead:
+nothing to send its `update_el_*()` to, and that stops working – the
+browser console says so, with a `[shiny-vue]` warning naming the id.
+Drive it through the wrapper instead:
 
 ``` r
 
@@ -516,6 +574,21 @@ files reach Shiny. The other hooks (`on-change`, `on-progress`,
 `before-upload`, …) are yours.
 
 Where a name does differ, the component’s help page documents both.
+
+## Checked arguments
+
+An argument Element takes from a fixed set – a button’s `type`, an
+input’s `size`, a tooltip’s `placement` – is checked against that set,
+and a value outside it is an error naming the ones that are allowed:
+
+    el_button("go", "Go", type = "primry")
+    #> Error: `type` should be one of "default", "primary", "success", "warning",
+    #> "danger", "info", "text", not "primry".
+
+Element itself would draw the button in its default style and say
+nothing. The sets are read from Element’s documentation, its source and
+its stylesheet together, so a value any of them accepts is accepted
+here. Matching is exact: `"prim"` is not taken for `"primary"`.
 
 ## Without Shiny
 

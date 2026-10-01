@@ -23,6 +23,37 @@ el_switch("notify", label = "Email me", label_position = "left", value = TRUE)
 el_rate("stars", label = "Rating", label_position = "left", value = 4)
 ```
 
+The label is drawn as Element draws an `el-form-item`, and takes the
+props of one that make sense for a single input.
+`label_position = "right"` aligns a label beside the component to its
+right edge, and a shared `label_width` lines up a column of them;
+`label_suffix` follows each label, and `required` adds Element’s red
+asterisk. `error` frames the component in red with the message under it,
+or beside it with `inline_message = TRUE`; `show_message = FALSE` keeps
+the frame and drops the text. A component’s own `size` sizes its label
+too.
+
+``` r
+
+el_input("user", label = "Name", label_position = "right", label_width = "90px",
+         label_suffix = ":", required = TRUE, width = "260px")
+el_input("email", label = "Email", label_position = "right", label_width = "90px",
+         label_suffix = ":", required = TRUE, error = "That address is taken",
+         width = "260px")
+el_input_number("seats", label = "Seats", label_position = "right",
+                 label_width = "90px", label_suffix = ":", value = 0,
+                 error = "At least one", inline_message = TRUE)
+el_select("team", choices = c("Data", "Design"), label = "Team",
+          label_position = "right", label_width = "90px", label_suffix = ":",
+          size = "small", width = "260px")
+```
+
+`error` is the message as the page first shows it. One that comes and
+goes with what is typed belongs to a validator – shinyvalidate, below,
+or
+[`el_form()`](https://kaipingyang.github.io/shiny.element/reference/el_form.md)’s
+rules.
+
 ## Choices
 
 Anything taking `choices` accepts the shapes Shiny does – an unnamed
@@ -123,6 +154,76 @@ shinyApp(ui, server)
 ```
 
 ![](../shots/forms-validate-call.png)
+
+### shinyvalidate
+
+Standalone components work with shinyvalidate as Shiny’s own inputs do.
+Its message is drawn as Element draws a failed rule – the component
+framed in red, the message underneath – rather than as Bootstrap’s help
+text, which assumes a `.form-group` the component does not have:
+
+``` r
+
+library(shinyvalidate)
+
+ui <- el_page(
+  el_input("email", label = "Email", width = "300px"),
+  el_select("topic", choices = c("Billing", "Support"), label = "Topic",
+            width = "300px"),
+  el_button("send", "Send", type = "primary")
+)
+
+server <- function(input, output, session) {
+  iv <- InputValidator$new()
+  iv$add_rule("email", sv_required("An email, please"))
+  iv$add_rule("email", sv_email())
+  iv$add_rule("topic", sv_required("Pick a topic"))
+  observeEvent(input$send, iv$enable())
+}
+
+shinyApp(ui, server)
+```
+
+![](../shots/forms-shinyvalidate.png)
+
+## Dates
+
+A date picker reports a `Date`, as
+[`dateInput()`](https://rdrr.io/pkg/shiny/man/dateInput.html) does: two
+for a `"daterange"`, several for `"dates"`, `NULL` while empty.
+Element’s other types – `"datetime"`, `"month"`, `"week"` – and a
+`value_format` of your own report the text the picker produces, in that
+format, unconverted.
+
+``` r
+
+ui <- el_page(
+  el_date_picker("due", value = Sys.Date()),
+  el_date_picker("trip", type = "daterange",
+                 value = c(Sys.Date(), Sys.Date() + 7)),
+  verbatimTextOutput("days")
+)
+
+server <- function(input, output, session) {
+  output$days <- renderPrint(str(list(due = input$due, trip = input$trip)))
+}
+
+shinyApp(ui, server)
+```
+
+![](../shots/forms-dates.png)
+
+## Typing
+
+[`el_input()`](https://kaipingyang.github.io/shiny.element/reference/el_input.md),
+[`el_autocomplete()`](https://kaipingyang.github.io/shiny.element/reference/el_autocomplete.md),
+[`el_input_number()`](https://kaipingyang.github.io/shiny.element/reference/el_input_number.md)
+and
+[`el_slider()`](https://kaipingyang.github.io/shiny.element/reference/el_slider.md)
+report a quarter-second after the user stops, as
+[`textInput()`](https://rdrr.io/pkg/shiny/man/textInput.html) does,
+rather than on every keystroke or step. An observer on one runs once per
+pause, not once per letter.
 
 ## Uploads
 

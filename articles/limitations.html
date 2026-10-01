@@ -130,6 +130,15 @@ things:</p>
 </tr>
 </tbody>
 </table>
+<p>Like Shiny’s <code>update*Input()</code>, each takes the current
+session by default, so
+<code>update_el_select(id = "city", selected = "Beijing")</code> is the
+same call. An update reaches a component whether or not it has a value
+to report – an alert, a timeline, a component only ever drawn by
+<code><a href="https://rdrr.io/pkg/shiny/man/renderUI.html" class="external-link">renderUI()</a></code> – and one sent to an id that is not on the page,
+or to a field the component does not have, logs a
+<code>[shiny-vue]</code> warning in the browser console rather than
+vanishing.</p>
 <p><code>update_el_*()</code> cannot call a method, because it assigns
 into the Vue instance’s data and a method is a function. That is what
 <code><a href="../reference/el_call.html">el_call()</a></code> is for. A method with a return value answers
@@ -238,6 +247,44 @@ no longer do; their <code>session</code> argument is deprecated, and a
 session passed to it still namespaces, with a warning.</p>
 </div>
 <div class="section level2">
+<h2 id="shinys-own-tools">Shiny’s own tools<a class="anchor" aria-label="anchor" href="#shinys-own-tools"></a>
+</h2>
+<p>Each component is a Shiny input binding on a host element that
+carries its id, so the tools that work on Shiny’s inputs work on
+these.</p>
+<p><strong>Bookmarking.</strong> Under <code><a href="https://rdrr.io/pkg/shiny/man/enableBookmarking.html" class="external-link">enableBookmarking()</a></code>,
+every component’s value comes back from a bookmark – including where a
+container is: the open tab, the open panels of a collapse, an open
+dialog or drawer, the menu’s current item, the pager’s page. Nothing
+needs to be set up beyond what Shiny itself asks for.</p>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">request</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="fu"><a href="../reference/el_page.html">el_page</a></span><span class="op">(</span></span>
+<span>    <span class="fu"><a href="../reference/el_select.html">el_select</a></span><span class="op">(</span><span class="st">"city"</span>, choices <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Beijing"</span>, <span class="st">"Shanghai"</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>    <span class="fu"><a href="../reference/el_tabs.html">el_tabs</a></span><span class="op">(</span><span class="st">"views"</span>, tabs <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>      <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">"table"</span>, label <span class="op">=</span> <span class="st">"Table"</span>, content <span class="op">=</span> <span class="va">tags</span><span class="op">$</span><span class="fu">p</span><span class="op">(</span><span class="st">"..."</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>      <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">"chart"</span>, label <span class="op">=</span> <span class="st">"Chart"</span>, content <span class="op">=</span> <span class="va">tags</span><span class="op">$</span><span class="fu">p</span><span class="op">(</span><span class="st">"..."</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>    <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/bookmarkButton.html" class="external-link">bookmarkButton</a></span><span class="op">(</span><span class="op">)</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">}</span></span>
+<span><span class="va">server</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span>, <span class="va">session</span><span class="op">)</span> <span class="op">{</span><span class="op">}</span></span>
+<span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/shinyApp.html" class="external-link">shinyApp</a></span><span class="op">(</span><span class="va">ui</span>, <span class="va">server</span>, enableBookmarking <span class="op">=</span> <span class="st">"url"</span><span class="op">)</span></span></code></pre></div>
+<p><strong>shinyjs.</strong> <code><a href="https://rdrr.io/pkg/shinyjs/man/visibilityFuncs.html" class="external-link">shinyjs::hide()</a></code> and
+<code><a href="https://rdrr.io/r/methods/show.html" class="external-link">show()</a></code> take the component and its label with it;
+<code>disable()</code> and <code>enable()</code> set the component’s own
+<code>disabled</code>, so it is drawn disabled as Element draws it
+rather than having a native attribute set somewhere underneath.</p>
+<p><strong>Inserting and removing.</strong> <code><a href="https://rdrr.io/pkg/shiny/man/insertUI.html" class="external-link">insertUI()</a></code> and
+<code><a href="https://rdrr.io/pkg/shiny/man/renderUI.html" class="external-link">renderUI()</a></code> mount what they add; <code><a href="https://rdrr.io/pkg/shiny/man/insertUI.html" class="external-link">removeUI()</a></code> on
+a component’s id removes it and destroys its Vue instance, so it stops
+reporting.</p>
+<p><strong>Validation.</strong> shinyvalidate draws its message the way
+Element draws a failed rule; see the forms article.</p>
+<p><strong>Testing.</strong> shinytest2’s <code>set_inputs()</code> and
+<code>get_values()</code> read and write a component as they do a
+<code><a href="https://rdrr.io/pkg/shiny/man/textInput.html" class="external-link">textInput()</a></code>.</p>
+</div>
+<div class="section level2">
 <h2 id="nesting-components">Nesting components<a class="anchor" aria-label="anchor" href="#nesting-components"></a>
 </h2>
 <p>Two kinds of component wrap other content, and they behave
@@ -249,7 +296,7 @@ differently.</p>
 own CSS classes and drive their state through a Shiny input binding.
 They hold anything, and what is inside keeps working as it would on its
 own.</p>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/el_collapse.html">el_collapse</a></span><span class="op">(</span><span class="st">"panels"</span>, value <span class="op">=</span> <span class="st">"one"</span>, items <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">"one"</span>, title <span class="op">=</span> <span class="st">"Settings"</span>, content <span class="op">=</span> <span class="fu"><a href="https://rstudio.github.io/htmltools/reference/tagList.html" class="external-link">tagList</a></span><span class="op">(</span></span>
 <span>    <span class="fu"><a href="../reference/el_switch.html">el_switch</a></span><span class="op">(</span><span class="st">"dark"</span>, value <span class="op">=</span> <span class="cn">TRUE</span>, active_text <span class="op">=</span> <span class="st">"Dark mode"</span><span class="op">)</span>,</span>
@@ -298,7 +345,7 @@ own.</p>
 compile their content into their own Vue instance, so a component handed
 to one is folded in rather than nested: the two become a single instance
 carrying both sets of markup, data and methods.</p>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/el_page.html">el_page</a></span><span class="op">(</span></span>
 <span>  <span class="fu"><a href="../reference/el_tooltip.html">el_tooltip</a></span><span class="op">(</span><span class="st">"hint"</span>, <span class="fu"><a href="../reference/el_button.html">el_button</a></span><span class="op">(</span><span class="st">"save"</span>, <span class="st">"Save"</span>, type <span class="op">=</span> <span class="st">"primary"</span><span class="op">)</span>,</span>
 <span>             content <span class="op">=</span> <span class="st">"Writes to disk"</span>, placement <span class="op">=</span> <span class="st">"right"</span><span class="op">)</span>,</span>
@@ -313,8 +360,9 @@ carrying both sets of markup, data and methods.</p>
 <p><img src="../shots/limitations-absorb.png"></p>
 <p>This costs one thing. An absorbed component has no host of its own,
 so nothing to send its <code>update_el_*()</code> to, and that stops
-working. Drive it through the wrapper instead:</p>
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+working – the browser console says so, with a <code>[shiny-vue]</code>
+warning naming the id. Drive it through the wrapper instead:</p>
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/el_page.html">el_page</a></span><span class="op">(</span></span>
 <span>  <span class="fu"><a href="../reference/el_tooltip.html">el_tooltip</a></span><span class="op">(</span><span class="st">"hint"</span>, <span class="fu"><a href="../reference/el_button.html">el_button</a></span><span class="op">(</span><span class="st">"save"</span>, <span class="st">"Save"</span>, type <span class="op">=</span> <span class="st">"primary"</span><span class="op">)</span>,</span>
 <span>             content <span class="op">=</span> <span class="st">"Writes to disk"</span><span class="op">)</span>,</span>
@@ -343,7 +391,7 @@ set.</p>
 <h2 id="slots">Slots<a class="anchor" aria-label="anchor" href="#slots"></a>
 </h2>
 <p>Every component takes <code>slots</code>, a named list:</p>
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/el_alert.html">el_alert</a></span><span class="op">(</span><span class="st">"problem"</span>, type <span class="op">=</span> <span class="st">"error"</span>, show_icon <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>         description <span class="op">=</span> <span class="st">"The upload was larger than 5 MB."</span>,</span>
 <span>         slots <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>title <span class="op">=</span> <span class="va">tags</span><span class="op">$</span><span class="fu">span</span><span class="op">(</span><span class="va">tags</span><span class="op">$</span><span class="fu">b</span><span class="op">(</span><span class="st">"Upload failed"</span><span class="op">)</span>, <span class="st">" -- try again"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
@@ -364,7 +412,7 @@ set.</p>
 <p>A scoped slot – one where Element hands the template variables that
 only exist while Vue renders – is written with <code><a href="../reference/template.html">template()</a></code>
 and passed through untouched:</p>
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/el_calendar.html">el_calendar</a></span><span class="op">(</span><span class="st">"cal"</span>, value <span class="op">=</span> <span class="st">"2026-03-15"</span>, slots <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
 <span>  dateCell <span class="op">=</span> <span class="fu"><a href="../reference/template.html">template</a></span><span class="op">(</span></span>
 <span>    <span class="fu">htmltools</span><span class="fu">::</span><span class="fu"><a href="https://rstudio.github.io/htmltools/reference/HTML.html" class="external-link">HTML</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span></span>
@@ -416,7 +464,7 @@ its components set no font of their own – they inherit the page’s.
 <code><a href="../reference/el_theme.html">el_theme()</a></code>, is a bslib theme carrying Element’s blue,
 greys, borders, corners, type size and font stack, so Shiny’s own inputs
 and outputs match the Element ones beside them.</p>
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/el_row.html">el_row</a></span><span class="op">(</span>gutter <span class="op">=</span> <span class="fl">16</span>,</span>
 <span>  <span class="fu"><a href="../reference/el_col.html">el_col</a></span><span class="op">(</span>span <span class="op">=</span> <span class="fl">12</span>,</span>
 <span>    <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/textInput.html" class="external-link">textInput</a></span><span class="op">(</span><span class="st">"shiny_text"</span>, <span class="st">"Shiny's textInput()"</span>, <span class="st">"Ada"</span><span class="op">)</span>,</span>
@@ -466,7 +514,7 @@ Vue compiles <code>&lt;el-*&gt;</code> tags only within the component it
 mounts, so a raw tag goes where a component draws its contents: a
 <code><a href="../reference/template.html">template()</a></code>, a slot, a table <code>cell</code>, a wrapper’s
 trigger.</p>
-<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># The tooltip's instance compiles the raw button it wraps</span></span>
 <span><span class="fu"><a href="../reference/el_tooltip.html">el_tooltip</a></span><span class="op">(</span><span class="st">"hint"</span>, <span class="va">el</span><span class="op">$</span><span class="fu">button</span><span class="op">(</span>type <span class="op">=</span> <span class="st">"primary"</span>, <span class="st">"Markup only"</span><span class="op">)</span>, content <span class="op">=</span> <span class="st">"No input"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="../reference/el_button.html">el_button</a></span><span class="op">(</span><span class="st">"save"</span>, <span class="st">"A component"</span>, type <span class="op">=</span> <span class="st">"primary"</span><span class="op">)</span>   <span class="co"># reports input$save</span></span></code></pre></div>
@@ -495,7 +543,7 @@ hear about it.</p>
 <p><code><a href="../reference/el_widget.html">el_widget()</a></code> assembles a component the way this package
 assembles its own, and is exported for wrapping anything not covered
 here, or covered differently:</p>
-<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">initials</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">id</span>, <span class="va">name</span>, <span class="va">size</span> <span class="op">=</span> <span class="fl">48</span><span class="op">)</span> <span class="op">{</span></span>
 <span>  <span class="fu"><a href="../reference/el_widget.html">el_widget</a></span><span class="op">(</span></span>
 <span>    id     <span class="op">=</span> <span class="va">id</span>,</span>
@@ -542,7 +590,7 @@ field names;</li>
 <li>pass <code><a href="../reference/element_ui_dependency.html">element_ui_dependency()</a></code> unless the page is an
 <code><a href="../reference/el_page.html">el_page()</a></code>.</li>
 </ul>
-<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">price_range_input</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">id</span>, <span class="va">value</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">100</span><span class="op">)</span>, <span class="va">min</span> <span class="op">=</span> <span class="fl">0</span>, <span class="va">max</span> <span class="op">=</span> <span class="fl">1000</span><span class="op">)</span> <span class="op">{</span></span>
 <span>  <span class="fu"><a href="../reference/el_widget.html">el_widget</a></span><span class="op">(</span></span>
 <span>    id <span class="op">=</span> <span class="va">id</span>,</span>
@@ -677,7 +725,7 @@ they take Shiny’s names – and Element’s as well:</p>
 <p>Either works, in the components and in their
 <code>update_el_*()</code>, so code reads naturally to someone coming
 from either side:</p>
-<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/el_select.html">el_select</a></span><span class="op">(</span><span class="st">"city_shiny"</span>, choices <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>Beijing <span class="op">=</span> <span class="st">"bj"</span>, Shanghai <span class="op">=</span> <span class="st">"sh"</span><span class="op">)</span>, selected <span class="op">=</span> <span class="st">"sh"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="../reference/el_select.html">el_select</a></span><span class="op">(</span><span class="st">"city_element"</span>, options <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>Beijing <span class="op">=</span> <span class="st">"bj"</span>, Shanghai <span class="op">=</span> <span class="st">"sh"</span><span class="op">)</span>, value <span class="op">=</span> <span class="st">"sh"</span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
@@ -723,6 +771,22 @@ how files reach Shiny. The other hooks (<code>on-change</code>,
 <p>Where a name does differ, the component’s help page documents
 both.</p>
 </div>
+</div>
+<div class="section level2">
+<h2 id="checked-arguments">Checked arguments<a class="anchor" aria-label="anchor" href="#checked-arguments"></a>
+</h2>
+<p>An argument Element takes from a fixed set – a button’s
+<code>type</code>, an input’s <code>size</code>, a tooltip’s
+<code>placement</code> – is checked against that set, and a value
+outside it is an error naming the ones that are allowed:</p>
+<pre><code><span><span class="fu"><a href="../reference/el_button.html">el_button</a></span><span class="op">(</span><span class="st">"go"</span>, <span class="st">"Go"</span>, type <span class="op">=</span> <span class="st">"primry"</span><span class="op">)</span></span>
+<span><span class="co">#&gt; Error: `type` should be one of "default", "primary", "success", "warning",</span></span>
+<span><span class="co">#&gt; "danger", "info", "text", not "primry".</span></span></code></pre>
+<p>Element itself would draw the button in its default style and say
+nothing. The sets are read from Element’s documentation, its source and
+its stylesheet together, so a value any of them accepts is accepted
+here. Matching is exact: <code>"prim"</code> is not taken for
+<code>"primary"</code>.</p>
 </div>
 <div class="section level2">
 <h2 id="without-shiny">Without Shiny<a class="anchor" aria-label="anchor" href="#without-shiny"></a>

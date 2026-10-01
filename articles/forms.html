@@ -134,6 +134,72 @@ takes its label with it.</p>
 </div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":4,"max":5,"disabled":false,"allowHalf":false,"showText":false,"showScore":false,"textColor":"#1f2d3d","scoreTemplate":"{value}","texts":["极差","失望","一般","满意","惊喜"],"colors":null,"voidColor":null,"disabledVoidColor":null,"iconClasses":null,"voidIconClass":null,"disabledVoidIconClass":null,"lowThreshold":null,"highThreshold":null},"methods":{"handleChange":"function(val) { }"}},"input":"value","rate":null,"type":null,"evals":["options.methods.handleChange"]}</script>
 </div>
 </div>
+<p>The label is drawn as Element draws an <code>el-form-item</code>, and
+takes the props of one that make sense for a single input.
+<code>label_position = "right"</code> aligns a label beside the
+component to its right edge, and a shared <code>label_width</code> lines
+up a column of them; <code>label_suffix</code> follows each label, and
+<code>required</code> adds Element’s red asterisk. <code>error</code>
+frames the component in red with the message under it, or beside it with
+<code>inline_message = TRUE</code>; <code>show_message = FALSE</code>
+keeps the frame and drops the text. A component’s own <code>size</code>
+sizes its label too.</p>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/el_input.html">el_input</a></span><span class="op">(</span><span class="st">"user"</span>, label <span class="op">=</span> <span class="st">"Name"</span>, label_position <span class="op">=</span> <span class="st">"right"</span>, label_width <span class="op">=</span> <span class="st">"90px"</span>,</span>
+<span>         label_suffix <span class="op">=</span> <span class="st">":"</span>, required <span class="op">=</span> <span class="cn">TRUE</span>, width <span class="op">=</span> <span class="st">"260px"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="../reference/el_input.html">el_input</a></span><span class="op">(</span><span class="st">"email"</span>, label <span class="op">=</span> <span class="st">"Email"</span>, label_position <span class="op">=</span> <span class="st">"right"</span>, label_width <span class="op">=</span> <span class="st">"90px"</span>,</span>
+<span>         label_suffix <span class="op">=</span> <span class="st">":"</span>, required <span class="op">=</span> <span class="cn">TRUE</span>, error <span class="op">=</span> <span class="st">"That address is taken"</span>,</span>
+<span>         width <span class="op">=</span> <span class="st">"260px"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="../reference/el_input_number.html">el_input_number</a></span><span class="op">(</span><span class="st">"seats"</span>, label <span class="op">=</span> <span class="st">"Seats"</span>, label_position <span class="op">=</span> <span class="st">"right"</span>,</span>
+<span>                 label_width <span class="op">=</span> <span class="st">"90px"</span>, label_suffix <span class="op">=</span> <span class="st">":"</span>, value <span class="op">=</span> <span class="fl">0</span>,</span>
+<span>                 error <span class="op">=</span> <span class="st">"At least one"</span>, inline_message <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span><span class="fu"><a href="../reference/el_select.html">el_select</a></span><span class="op">(</span><span class="st">"team"</span>, choices <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Data"</span>, <span class="st">"Design"</span><span class="op">)</span>, label <span class="op">=</span> <span class="st">"Team"</span>,</span>
+<span>          label_position <span class="op">=</span> <span class="st">"right"</span>, label_width <span class="op">=</span> <span class="st">"90px"</span>, label_suffix <span class="op">=</span> <span class="st">":"</span>,</span>
+<span>          size <span class="op">=</span> <span class="st">"small"</span>, width <span class="op">=</span> <span class="st">"260px"</span><span class="op">)</span></span></code></pre></div>
+<div class="el-demo">
+  <div id="form-item-user" data-shiny-vue style="display: contents">
+    <script type="text/x-template" data-shiny-vue-template><div id="form-item-user_container" class="el-form-item el-form-item--label-right is-required" style="display: flex; align-items: flex-start; margin-bottom: 15px">
+  <label id="form-item-user-label" for="form-item-user-input" class="el-form-item__label" style="float: none; flex: none; padding: 0 12px 0 0; text-align: right; width: 90px;">Name:</label>
+  <div class="el-form-item__content" style="margin-left: 0; flex: 1 1 auto; min-width: 0">
+    <el-input v-model="value" :type="type" :disabled="disabled" :readonly="readonly" :clearable="clearable" :show-password="showPassword" :show-word-limit="showWordLimit" :autosize="autosize" :prefix-icon="prefixIcon" :suffix-icon="suffixIcon" @change="handleChange" :size="size === null ? undefined : size" :maxlength="maxlength === null ? undefined : maxlength" :rows="rows === null ? undefined : rows" :placeholder="placeholder === null ? undefined : placeholder" :label="label === null ? undefined : label" :autocomplete="autocomplete === null ? undefined : autocomplete" :autofocus="autofocus === null ? undefined : autofocus" :name="name === null ? undefined : name" :form="form === null ? undefined : form" :minlength="minlength === null ? undefined : minlength" :max="max === null ? undefined : max" :min="min === null ? undefined : min" :step="step === null ? undefined : step" :resize="resize === null ? undefined : resize" :tabindex="tabindex === null ? undefined : tabindex" :validate-event="validateEvent === null ? undefined : validateEvent" @input="elEmitInput" @blur="elEmitBlur" @focus="elEmitFocus" @clear="elEmitClear" style="width: 260px" id="form-item-user-input"></el-input>
+  </div>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":"","type":"text","disabled":false,"readonly":false,"clearable":false,"showPassword":false,"showWordLimit":false,"autosize":false,"prefixIcon":null,"suffixIcon":null,"size":null,"maxlength":null,"rows":null,"placeholder":null,"label":"Name","autocomplete":null,"autofocus":null,"name":null,"form":null,"minlength":null,"max":null,"min":null,"step":null,"resize":null,"tabindex":null,"validateEvent":null},"methods":{"elEmitInput":"function() { window.shinyElement.emit('form-item-user', 'input', arguments); }","elEmitBlur":"function() { window.shinyElement.emit('form-item-user', 'blur', arguments); }","elEmitFocus":"function() { window.shinyElement.emit('form-item-user', 'focus', arguments); }","elEmitClear":"function() { window.shinyElement.emit('form-item-user', 'clear', arguments); }","handleChange":"function(value) { }"}},"input":"value","rate":{"policy":"debounce","delay":250},"type":null,"evals":["options.methods.elEmitInput","options.methods.elEmitBlur","options.methods.elEmitFocus","options.methods.elEmitClear","options.methods.handleChange"]}</script>
+</div>
+  <div id="form-item-email" data-shiny-vue style="display: contents">
+    <script type="text/x-template" data-shiny-vue-template><div id="form-item-email_container" class="el-form-item el-form-item--label-right is-required is-error" style="display: flex; align-items: flex-start; margin-bottom: 15px">
+  <label id="form-item-email-label" for="form-item-email-input" class="el-form-item__label" style="float: none; flex: none; padding: 0 12px 0 0; text-align: right; width: 90px;">Email:</label>
+  <div class="el-form-item__content" style="margin-left: 0; flex: 1 1 auto; min-width: 0">
+    <el-input v-model="value" :type="type" :disabled="disabled" :readonly="readonly" :clearable="clearable" :show-password="showPassword" :show-word-limit="showWordLimit" :autosize="autosize" :prefix-icon="prefixIcon" :suffix-icon="suffixIcon" @change="handleChange" :size="size === null ? undefined : size" :maxlength="maxlength === null ? undefined : maxlength" :rows="rows === null ? undefined : rows" :placeholder="placeholder === null ? undefined : placeholder" :label="label === null ? undefined : label" :autocomplete="autocomplete === null ? undefined : autocomplete" :autofocus="autofocus === null ? undefined : autofocus" :name="name === null ? undefined : name" :form="form === null ? undefined : form" :minlength="minlength === null ? undefined : minlength" :max="max === null ? undefined : max" :min="min === null ? undefined : min" :step="step === null ? undefined : step" :resize="resize === null ? undefined : resize" :tabindex="tabindex === null ? undefined : tabindex" :validate-event="validateEvent === null ? undefined : validateEvent" @input="elEmitInput" @blur="elEmitBlur" @focus="elEmitFocus" @clear="elEmitClear" style="width: 260px" id="form-item-email-input"></el-input>
+    <div class="el-form-item__error" style="position: static; display: block; padding-top: 4px">That address is taken</div>
+  </div>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":"","type":"text","disabled":false,"readonly":false,"clearable":false,"showPassword":false,"showWordLimit":false,"autosize":false,"prefixIcon":null,"suffixIcon":null,"size":null,"maxlength":null,"rows":null,"placeholder":null,"label":"Email","autocomplete":null,"autofocus":null,"name":null,"form":null,"minlength":null,"max":null,"min":null,"step":null,"resize":null,"tabindex":null,"validateEvent":null},"methods":{"elEmitInput":"function() { window.shinyElement.emit('form-item-email', 'input', arguments); }","elEmitBlur":"function() { window.shinyElement.emit('form-item-email', 'blur', arguments); }","elEmitFocus":"function() { window.shinyElement.emit('form-item-email', 'focus', arguments); }","elEmitClear":"function() { window.shinyElement.emit('form-item-email', 'clear', arguments); }","handleChange":"function(value) { }"}},"input":"value","rate":{"policy":"debounce","delay":250},"type":null,"evals":["options.methods.elEmitInput","options.methods.elEmitBlur","options.methods.elEmitFocus","options.methods.elEmitClear","options.methods.handleChange"]}</script>
+</div>
+  <div id="form-item-seats" data-shiny-vue style="display: contents">
+    <script type="text/x-template" data-shiny-vue-template><div id="form-item-seats_container" class="el-form-item el-form-item--label-right is-error" style="display: flex; align-items: flex-start; margin-bottom: 15px">
+  <label id="form-item-seats-label" for="form-item-seats-input" class="el-form-item__label" style="float: none; flex: none; padding: 0 12px 0 0; text-align: right; width: 90px;">Seats:</label>
+  <div class="el-form-item__content" style="margin-left: 0; flex: 1 1 auto; min-width: 0">
+    <el-input-number v-model="value" :min="min" :max="max" :step="step" :step-strictly="stepStrictly" :disabled="disabled" :controls="controls" :controls-position="controlsPosition" @change="handleChange" :size="size === null ? undefined : size" :precision="precision === null ? undefined : precision" :placeholder="placeholder === null ? undefined : placeholder" :label="label === null ? undefined : label" :name="name === null ? undefined : name" @blur="elEmitBlur" @focus="elEmitFocus" aria-labelledby="form-item-seats-label"></el-input-number>
+    <div class="el-form-item__error el-form-item__error--inline" style="position: static; display: inline-block; margin-left: 10px">At least one</div>
+  </div>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":0,"min":-1e+308,"max":1e+308,"step":1,"stepStrictly":false,"disabled":false,"controls":true,"controlsPosition":"","size":null,"precision":null,"placeholder":null,"label":"Seats","name":null},"methods":{"elEmitBlur":"function() { window.shinyElement.emit('form-item-seats', 'blur', arguments); }","elEmitFocus":"function() { window.shinyElement.emit('form-item-seats', 'focus', arguments); }","handleChange":"function(val) { }"}},"input":"value","rate":{"policy":"debounce","delay":250},"type":null,"evals":["options.methods.elEmitBlur","options.methods.elEmitFocus","options.methods.handleChange"]}</script>
+</div>
+  <div id="form-item-team" data-shiny-vue style="display: contents">
+    <script type="text/x-template" data-shiny-vue-template><div id="form-item-team_container" class="el-form-item el-form-item--label-right el-form-item--small" style="display: flex; align-items: flex-start; margin-bottom: 15px">
+  <label id="form-item-team-label" for="form-item-team-input" class="el-form-item__label" style="float: none; flex: none; padding: 0 12px 0 0; text-align: right; width: 90px;">Team:</label>
+  <div class="el-form-item__content" style="margin-left: 0; flex: 1 1 auto; min-width: 0">
+    <el-select v-model="value" :multiple="multiple" :disabled="disabled" :clearable="clearable" :filterable="filterable" :multiple-limit="multipleLimit" :collapse-tags="collapseTags" @change="handleChange" :placeholder="placeholder === null ? undefined : placeholder" :size="size === null ? undefined : size" :value-key="valueKey === null ? undefined : valueKey" :name="name === null ? undefined : name" :autocomplete="autocomplete === null ? undefined : autocomplete" :automatic-dropdown="automaticDropdown === null ? undefined : automaticDropdown" :allow-create="allowCreate === null ? undefined : allowCreate" :loading="loading === null ? undefined : loading" :loading-text="loadingText === null ? undefined : loadingText" :no-match-text="noMatchText === null ? undefined : noMatchText" :no-data-text="noDataText === null ? undefined : noDataText" :popper-class="popperClass === null ? undefined : popperClass" :popper-append-to-body="popperAppendToBody === null ? undefined : popperAppendToBody" :reserve-keyword="reserveKeyword === null ? undefined : reserveKeyword" :default-first-option="defaultFirstOption === null ? undefined : defaultFirstOption" :remote="remote === null ? undefined : remote" :filter-method="filterMethod === null ? undefined : filterMethod" :remote-method="remoteMethod === null ? undefined : remoteMethod" @visible-change="elEmitVisibleChange" @remove-tag="elEmitRemoveTag" @clear="elEmitClear" @blur="elEmitBlur" @focus="elEmitFocus" style="width: 260px" id="form-item-team-input">
+      <el-option v-for="opt in options" :key="opt.value" :value="opt.value" :label="opt.label" :disabled="opt.disabled"></el-option>
+      <el-option-group v-for="g in groups" :key="g.label" :label="g.label" :disabled="g.disabled">
+        <el-option v-for="opt in g.options" :key="opt.value" :value="opt.value" :label="opt.label" :disabled="opt.disabled"></el-option>
+      </el-option-group>
+    </el-select>
+  </div>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":"","options":[{"value":"Data","label":"Data"},{"value":"Design","label":"Design"}],"groups":[],"multiple":false,"disabled":false,"clearable":false,"filterable":false,"multipleLimit":0,"collapseTags":false,"placeholder":null,"size":"small","valueKey":null,"name":null,"autocomplete":null,"automaticDropdown":null,"allowCreate":null,"loading":null,"loadingText":null,"noMatchText":null,"noDataText":null,"popperClass":null,"popperAppendToBody":null,"reserveKeyword":null,"defaultFirstOption":null,"remote":null,"filterMethod":null,"remoteMethod":null},"methods":{"elEmitVisibleChange":"function() { window.shinyElement.emit('form-item-team', 'visible_change', arguments); }","elEmitRemoveTag":"function() { window.shinyElement.emit('form-item-team', 'remove_tag', arguments); }","elEmitClear":"function() { window.shinyElement.emit('form-item-team', 'clear', arguments); }","elEmitBlur":"function() { window.shinyElement.emit('form-item-team', 'blur', arguments); }","elEmitFocus":"function() { window.shinyElement.emit('form-item-team', 'focus', arguments); }","handleChange":"function(value) { }"}},"input":"value","rate":null,"type":null,"evals":["options.methods.elEmitVisibleChange","options.methods.elEmitRemoveTag","options.methods.elEmitClear","options.methods.elEmitBlur","options.methods.elEmitFocus","options.methods.handleChange"]}</script>
+</div>
+</div>
+<p><code>error</code> is the message as the page first shows it. One
+that comes and goes with what is typed belongs to a validator –
+shinyvalidate, below, or <code><a href="../reference/el_form.html">el_form()</a></code>’s rules.</p>
 </div>
 <div class="section level2">
 <h2 id="choices">Choices<a class="anchor" aria-label="anchor" href="#choices"></a>
@@ -142,7 +208,7 @@ takes its label with it.</p>
 an unnamed vector, where value and label are the same; a named one,
 label = value; or a list of objects, which is how a single choice
 carries props of its own.</p>
-<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/el_select.html">el_select</a></span><span class="op">(</span><span class="st">"plain"</span>, choices <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Beijing"</span>, <span class="st">"Shanghai"</span><span class="op">)</span>, value <span class="op">=</span> <span class="st">"Beijing"</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu"><a href="../reference/el_select.html">el_select</a></span><span class="op">(</span><span class="st">"named"</span>, choices <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>Beijing <span class="op">=</span> <span class="st">"bj"</span>, Shanghai <span class="op">=</span> <span class="st">"sh"</span><span class="op">)</span>, value <span class="op">=</span> <span class="st">"sh"</span><span class="op">)</span></span>
@@ -186,7 +252,7 @@ carries props of its own.</p>
 <p>For a checkbox or radio group, Element documents <code>border</code>,
 <code>name</code> and <code>disabled</code> on the individual item
 rather than the group, so they go on the choice:</p>
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/el_checkbox_group.html">el_checkbox_group</a></span><span class="op">(</span><span class="st">"terms"</span>, selected <span class="op">=</span> <span class="st">"a"</span>, choices <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>value <span class="op">=</span> <span class="st">"a"</span>, label <span class="op">=</span> <span class="st">"Agree"</span>, border <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,</span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>value <span class="op">=</span> <span class="st">"b"</span>, label <span class="op">=</span> <span class="st">"Subscribe"</span>, border <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,</span>
@@ -214,7 +280,7 @@ instance dropped in is not in that chain.</p>
 model as a list, <code>input$&lt;id&gt;_valid</code> whether validation
 passed, and <code>input$&lt;id&gt;_submit</code> a counter. Here the
 form was submitted empty:</p>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/el_page.html">el_page</a></span><span class="op">(</span></span>
 <span>  <span class="fu"><a href="../reference/el_form.html">el_form</a></span><span class="op">(</span></span>
 <span>    id <span class="op">=</span> <span class="st">"signup"</span>, label_width <span class="op">=</span> <span class="st">"90px"</span>,</span>
@@ -241,7 +307,7 @@ form was submitted empty:</p>
 <code><a href="https://rdrr.io/pkg/shiny/man/validate.html" class="external-link">validate()</a></code> returns a promise, which resolves when the form
 is valid and rejects when it is not; both arrive as
 <code>input$&lt;id&gt;_validate</code>:</p>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/el_page.html">el_page</a></span><span class="op">(</span></span>
 <span>  <span class="fu"><a href="../reference/el_form.html">el_form</a></span><span class="op">(</span></span>
 <span>    id <span class="op">=</span> <span class="st">"profile"</span>, submit_label <span class="op">=</span> <span class="cn">NULL</span>,</span>
@@ -261,6 +327,68 @@ is valid and rejects when it is not; both arrive as
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/shinyApp.html" class="external-link">shinyApp</a></span><span class="op">(</span><span class="va">ui</span>, <span class="va">server</span><span class="op">)</span></span></code></pre></div>
 <p><img src="../shots/forms-validate-call.png"></p>
+<div class="section level3">
+<h3 id="shinyvalidate">shinyvalidate<a class="anchor" aria-label="anchor" href="#shinyvalidate"></a>
+</h3>
+<p>Standalone components work with shinyvalidate as Shiny’s own inputs
+do. Its message is drawn as Element draws a failed rule – the component
+framed in red, the message underneath – rather than as Bootstrap’s help
+text, which assumes a <code>.form-group</code> the component does not
+have:</p>
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://rstudio.github.io/shinyvalidate/" class="external-link">shinyvalidate</a></span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/el_page.html">el_page</a></span><span class="op">(</span></span>
+<span>  <span class="fu"><a href="../reference/el_input.html">el_input</a></span><span class="op">(</span><span class="st">"email"</span>, label <span class="op">=</span> <span class="st">"Email"</span>, width <span class="op">=</span> <span class="st">"300px"</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="../reference/el_select.html">el_select</a></span><span class="op">(</span><span class="st">"topic"</span>, choices <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Billing"</span>, <span class="st">"Support"</span><span class="op">)</span>, label <span class="op">=</span> <span class="st">"Topic"</span>,</span>
+<span>            width <span class="op">=</span> <span class="st">"300px"</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="../reference/el_button.html">el_button</a></span><span class="op">(</span><span class="st">"send"</span>, <span class="st">"Send"</span>, type <span class="op">=</span> <span class="st">"primary"</span><span class="op">)</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">server</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span>, <span class="va">session</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="va">iv</span> <span class="op">&lt;-</span> <span class="va"><a href="https://rstudio.github.io/shinyvalidate/reference/InputValidator.html" class="external-link">InputValidator</a></span><span class="op">$</span><span class="fu">new</span><span class="op">(</span><span class="op">)</span></span>
+<span>  <span class="va">iv</span><span class="op">$</span><span class="fu">add_rule</span><span class="op">(</span><span class="st">"email"</span>, <span class="fu"><a href="https://rstudio.github.io/shinyvalidate/reference/sv_required.html" class="external-link">sv_required</a></span><span class="op">(</span><span class="st">"An email, please"</span><span class="op">)</span><span class="op">)</span></span>
+<span>  <span class="va">iv</span><span class="op">$</span><span class="fu">add_rule</span><span class="op">(</span><span class="st">"email"</span>, <span class="fu"><a href="https://rstudio.github.io/shinyvalidate/reference/sv_email.html" class="external-link">sv_email</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
+<span>  <span class="va">iv</span><span class="op">$</span><span class="fu">add_rule</span><span class="op">(</span><span class="st">"topic"</span>, <span class="fu"><a href="https://rstudio.github.io/shinyvalidate/reference/sv_required.html" class="external-link">sv_required</a></span><span class="op">(</span><span class="st">"Pick a topic"</span><span class="op">)</span><span class="op">)</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/observeEvent.html" class="external-link">observeEvent</a></span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">send</span>, <span class="va">iv</span><span class="op">$</span><span class="fu">enable</span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="op">}</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/shinyApp.html" class="external-link">shinyApp</a></span><span class="op">(</span><span class="va">ui</span>, <span class="va">server</span><span class="op">)</span></span></code></pre></div>
+<p><img src="../shots/forms-shinyvalidate.png"></p>
+</div>
+</div>
+<div class="section level2">
+<h2 id="dates">Dates<a class="anchor" aria-label="anchor" href="#dates"></a>
+</h2>
+<p>A date picker reports a <code>Date</code>, as
+<code><a href="https://rdrr.io/pkg/shiny/man/dateInput.html" class="external-link">dateInput()</a></code> does: two for a <code>"daterange"</code>,
+several for <code>"dates"</code>, <code>NULL</code> while empty.
+Element’s other types – <code>"datetime"</code>, <code>"month"</code>,
+<code>"week"</code> – and a <code>value_format</code> of your own report
+the text the picker produces, in that format, unconverted.</p>
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/el_page.html">el_page</a></span><span class="op">(</span></span>
+<span>  <span class="fu"><a href="../reference/el_date_picker.html">el_date_picker</a></span><span class="op">(</span><span class="st">"due"</span>, value <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Sys.time.html" class="external-link">Sys.Date</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="../reference/el_date_picker.html">el_date_picker</a></span><span class="op">(</span><span class="st">"trip"</span>, type <span class="op">=</span> <span class="st">"daterange"</span>,</span>
+<span>                 value <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Sys.time.html" class="external-link">Sys.Date</a></span><span class="op">(</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/Sys.time.html" class="external-link">Sys.Date</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> <span class="fl">7</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/textOutput.html" class="external-link">verbatimTextOutput</a></span><span class="op">(</span><span class="st">"days"</span><span class="op">)</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">server</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span>, <span class="va">session</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="va">output</span><span class="op">$</span><span class="va">days</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/renderPrint.html" class="external-link">renderPrint</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>due <span class="op">=</span> <span class="va">input</span><span class="op">$</span><span class="va">due</span>, trip <span class="op">=</span> <span class="va">input</span><span class="op">$</span><span class="va">trip</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="op">}</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/shinyApp.html" class="external-link">shinyApp</a></span><span class="op">(</span><span class="va">ui</span>, <span class="va">server</span><span class="op">)</span></span></code></pre></div>
+<p><img src="../shots/forms-dates.png"></p>
+</div>
+<div class="section level2">
+<h2 id="typing">Typing<a class="anchor" aria-label="anchor" href="#typing"></a>
+</h2>
+<p><code><a href="../reference/el_input.html">el_input()</a></code>, <code><a href="../reference/el_autocomplete.html">el_autocomplete()</a></code>,
+<code><a href="../reference/el_input_number.html">el_input_number()</a></code> and <code><a href="../reference/el_slider.html">el_slider()</a></code> report a
+quarter-second after the user stops, as <code><a href="https://rdrr.io/pkg/shiny/man/textInput.html" class="external-link">textInput()</a></code> does,
+rather than on every keystroke or step. An observer on one runs once per
+pause, not once per letter.</p>
 </div>
 <div class="section level2">
 <h2 id="uploads">Uploads<a class="anchor" aria-label="anchor" href="#uploads"></a>
@@ -269,7 +397,7 @@ is valid and rejects when it is not; both arrive as
 transport by default, so they arrive in <code>input$&lt;id&gt;</code> as
 the data.frame <code><a href="https://rdrr.io/pkg/shiny/man/fileInput.html" class="external-link">fileInput()</a></code> gives: <code>name</code>,
 <code>size</code>, <code>type</code>, <code>datapath</code>.</p>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/el_page.html">el_page</a></span><span class="op">(</span></span>
 <span>  <span class="fu"><a href="../reference/el_upload.html">el_upload</a></span><span class="op">(</span><span class="st">"docs"</span>, button_label <span class="op">=</span> <span class="st">"Choose CSV files"</span>, multiple <span class="op">=</span> <span class="cn">TRUE</span>, accept <span class="op">=</span> <span class="st">".csv"</span>,</span>
 <span>            tip <span class="op">=</span> <span class="st">"CSV only, up to 5 MB"</span><span class="op">)</span>,</span>
@@ -283,7 +411,7 @@ the data.frame <code><a href="https://rdrr.io/pkg/shiny/man/fileInput.html" clas
 <span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/shinyApp.html" class="external-link">shinyApp</a></span><span class="op">(</span><span class="va">ui</span>, <span class="va">server</span><span class="op">)</span></span></code></pre></div>
 <p><img src="../shots/forms-upload.png"></p>
 <p><code>drag = TRUE</code> gives the drop zone instead of a button:</p>
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/el_upload.html">el_upload</a></span><span class="op">(</span><span class="st">"photos"</span>, button_label <span class="op">=</span> <span class="st">"Drop images here, or click to choose"</span>,</span>
 <span>          drag <span class="op">=</span> <span class="cn">TRUE</span>, accept <span class="op">=</span> <span class="st">"image/*"</span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
@@ -301,7 +429,7 @@ the data.frame <code><a href="https://rdrr.io/pkg/shiny/man/fileInput.html" clas
 transport, and the file goes straight to that URL without reaching R.
 <code>extra_data</code> is Element’s <code>data</code> prop, renamed so
 it is not confused with the file itself.</p>
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/el_upload.html">el_upload</a></span><span class="op">(</span><span class="st">"archive"</span>, button_label <span class="op">=</span> <span class="st">"Upload to the archive"</span>,</span>
 <span>          action <span class="op">=</span> <span class="st">"https://example.org/upload"</span>,</span>
 <span>          headers <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>`X-Requested-With` <span class="op">=</span> <span class="st">"shiny.element"</span><span class="op">)</span>,</span>
@@ -323,7 +451,7 @@ it is not confused with the file itself.</p>
 </h2>
 <p>Suggestions passed up front are filtered in the browser as the user
 types:</p>
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/el_autocomplete.html">el_autocomplete</a></span><span class="op">(</span><span class="st">"city"</span>, placeholder <span class="op">=</span> <span class="st">"Where to?"</span>, width <span class="op">=</span> <span class="fl">260</span>,</span>
 <span>                suggestions <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Beijing"</span>, <span class="st">"Shanghai"</span>, <span class="st">"Shenzhen"</span>, <span class="st">"Chengdu"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
@@ -335,7 +463,7 @@ types:</p>
 </div>
 <p>When the list lives on the server – a database, an API – update the
 suggestions from what has been typed:</p>
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">cities</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Beijing"</span>, <span class="st">"Baoding"</span>, <span class="st">"Baotou"</span>, <span class="st">"Shanghai"</span>, <span class="st">"Shenzhen"</span>, <span class="st">"Chengdu"</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/el_page.html">el_page</a></span><span class="op">(</span><span class="fu"><a href="../reference/el_autocomplete.html">el_autocomplete</a></span><span class="op">(</span><span class="st">"city"</span>, placeholder <span class="op">=</span> <span class="st">"Type a city"</span>, width <span class="op">=</span> <span class="fl">260</span><span class="op">)</span><span class="op">)</span></span>
@@ -357,7 +485,7 @@ suggestions from what has been typed:</p>
 <p><code><a href="../reference/el_transfer.html">el_transfer()</a></code> takes a data.frame of <code>key</code> and
 <code>label</code>, and reports the keys on the right – here driving
 which columns a table shows:</p>
-<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/el_page.html">el_page</a></span><span class="op">(</span></span>
 <span>  <span class="fu"><a href="../reference/el_transfer.html">el_transfer</a></span><span class="op">(</span><span class="st">"cols"</span>,</span>
 <span>              data <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>key <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">iris</span><span class="op">)</span>, label <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">iris</span><span class="op">)</span><span class="op">)</span>,</span>
@@ -382,7 +510,7 @@ which columns a table shows:</p>
 <code>"50%"</code>, or a number meaning pixels. For a form,
 <code>label_width</code> and <code>label_position</code> do what
 Element’s do:</p>
-<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/el_form.html">el_form</a></span><span class="op">(</span></span>
 <span>  id <span class="op">=</span> <span class="st">"compact"</span>, label_width <span class="op">=</span> <span class="st">"80px"</span>, label_position <span class="op">=</span> <span class="st">"left"</span>,</span>
 <span>  submit_label <span class="op">=</span> <span class="cn">NULL</span>,</span>

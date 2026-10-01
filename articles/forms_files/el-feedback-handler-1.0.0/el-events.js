@@ -16,24 +16,41 @@
 
   // A validation message from shinyvalidate, drawn as Element draws a
   // failed el-form rule: the control framed in red, the message under it.
-  // Element's rules hang off .el-form-item.is-error, so the host takes those
-  // classes -- it generates no box, but descendant selectors still match.
+  // Element's rules hang off .el-form-item.is-error. A labelled component is
+  // a form item already -- its root, inside the host -- and the message goes
+  // in its content, under the control; an unlabelled one has the host take
+  // the classes, which generates no box, but descendant selectors match.
+  function formItem(host) {
+    return host.querySelector(':scope > .el-form-item') || host;
+  }
+  function messageParent(item, host) {
+    return item === host ? host : item.querySelector(':scope > .el-form-item__content');
+  }
   sv.setInvalid = function (host, message) {
-    host.classList.add('el-form-item', 'is-error');
-    var box = host.querySelector(':scope > .el-form-item__error');
+    var item = formItem(host), where = messageParent(item, host);
+    item.classList.add('el-form-item', 'is-error');
+    // A message given with `error` is the page's first state; as in Element,
+    // validation replaces it
+    var own = where.querySelector(':scope > .el-form-item__error:not([data-shiny-vue-invalid])');
+    if (own) own.parentNode.removeChild(own);
+    var box = where.querySelector(':scope > [data-shiny-vue-invalid]');
     if (!box) {
       box = document.createElement('div');
       box.className = 'el-form-item__error';
-      // Element positions it under a form item's box; the host has none
+      box.setAttribute('data-shiny-vue-invalid', '');
+      // Element positions it under a form item's box; here it flows
       box.style.position = 'static';
+      box.style.display = 'block';
       box.style.paddingTop = '4px';
-      host.appendChild(box);
+      where.appendChild(box);
     }
     box.textContent = message;
   };
   sv.clearInvalid = function (host) {
-    host.classList.remove('el-form-item', 'is-error');
-    var box = host.querySelector(':scope > .el-form-item__error');
+    var item = formItem(host), where = messageParent(item, host);
+    item.classList.remove('is-error');
+    if (item === host) item.classList.remove('el-form-item');
+    var box = where.querySelector(':scope > [data-shiny-vue-invalid]');
     if (box) box.parentNode.removeChild(box);
   };
 
