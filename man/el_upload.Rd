@@ -167,15 +167,23 @@ and \code{datapath}, one row per file in the last batch, exactly as
 \code{shiny.maxRequestSize} limit and its temporary-file cleanup.
 
 With \code{action}, Shiny never sees the files; \verb{input$<id>_success} lists the
-names of files Element uploaded successfully, and \verb{input$<id>_error} the
-name of the last one that failed.
+names of files Element uploaded successfully.
+
+Either way, \verb{input$<id>_error} is the name of a file that failed, as an
+event. Without \code{action}, the rest of its batch is sent again without it,
+so \verb{input$<id>} holds the files that arrived; a file stopped with
+\code{abort()} is left out the same way.
+
+Files go up one at a time, as \code{\link[shiny:fileInput]{shiny::fileInput()}} sends them, and each
+is marked done once the whole batch has reached the server.
 }
 
 \section{Element methods}{
 
 Callable with \code{\link[=el_call]{el_call()}}:
 \itemize{
-\item \code{abort()} -- Cancel upload request
+\item \code{abort()} -- Cancel upload request: one file, given as its \code{uid}, or
+every file in flight
 \item \code{clearFiles()} -- Clear the uploaded file list (this method is not supported in the before-upload hook)
 \item \code{submit()} -- Upload the file list manually
 }

@@ -3,17 +3,30 @@
 #' Element calls `http-request` once per file, but Shiny's protocol is
 #' per-batch: `uploadInit` opens a job for a set of files, each is POSTed to
 #' the job's URL, and `uploadEnd` sets the input to that job's files. Running
-#' the protocol per file therefore makes each upload overwrite the last, so a
-#' three-file selection arrives as a single row.
+#' the protocol per file would make each upload overwrite the last.
 #'
-#' Element's `uploadFiles()` starts and uploads each file in one synchronous
-#' loop, so the calls are collected in a queue and flushed from a microtask,
-#' by which point the whole batch is present. Replacing only the transport
-#' this way leaves Element's file list, progress bars and its `on-success`,
-#' `on-progress` and `on-error` hooks working as they normally do.
+#' Element's `uploadFiles()` starts every file in one synchronous loop, so
+#' the calls are collected and flushed from a microtask, by which point the
+#' whole batch is present. Then, as Shiny's own `fileInput()` does:
+#'
+#' * Files are POSTed **one after another**. Shiny's job takes each POST as
+#'   the next file in its list, so two in flight at once could land under
+#'   each other's names.
+#' * A file is Element's "success" only once `uploadEnd` has accepted the
+#'   batch: until then nothing has reached `input$<id>`.
+#' * A job cannot finish with a file missing -- Shiny stops it as "stopped
+#'   prematurely". So when a file fails, or is aborted with Element's
+#'   `abort()`, that file is marked failed (or left, if aborted) and the rest
+#'   of the batch is sent again as a fresh job. If nothing is left, the job
+#'   is abandoned, as `fileInput()` abandons a failed one; Shiny clears it
+#'   with the session.
+#'
+#' Each call returns an object with `abort()`, which Element keeps per file:
+#' it stops that file's request if it is in flight and drops it from the
+#' batch otherwise.
 #'
 #' @param ns_id The namespaced input id.
-#' @return An [JS()] object for the `http-request` prop.
+#' @return A [JS()] object for the `http-request` prop.
 #' @keywords internal
 .el_upload_js <- function(ns_id) {
   JS(sprintf(paste0(
@@ -23,51 +36,76 @@
     # way Element shows a failed upload rather than throw
     "  if (!window.Shiny || !Shiny.shinyapp) {\n",
     "    options.onError(new Error('no Shiny session to upload to'));\n",
-    "    return;\n",
+    "    return { abort: function() {} };\n",
     "  }\n",
+    "  var entry = { o: options, aborted: false, failed: false, xhr: null };\n",
     "  self._queue = self._queue || [];\n",
-    "  self._queue.push(options);\n",
-    "  if (self._flushing) return;\n",
-    "  self._flushing = true;\n",
-    "  Promise.resolve().then(function() {\n",
-    "    var batch = self._queue.splice(0);\n",
-    "    self._flushing = false;\n",
-    "    var info = batch.map(function(o) {\n",
-    "      return { name: o.file.name, size: o.file.size, type: o.file.type };\n",
+    "  self._queue.push(entry);\n",
+    "  if (!self._flushing) {\n",
+    "    self._flushing = true;\n",
+    "    Promise.resolve().then(function() {\n",
+    "      self._flushing = false;\n",
+    "      runJob(self._queue.splice(0));\n",
+    "    });\n",
+    "  }\n",
+    "  function warn(m) { if (window.console) console.warn('[shiny.element] upload: ' + m); }\n",
+    "  function runJob(batch) {\n",
+    "    batch = batch.filter(function(e) { return !e.aborted && !e.failed; });\n",
+    "    if (!batch.length) return;\n",
+    "    var info = batch.map(function(e) {\n",
+    "      return { name: e.o.file.name, size: e.o.file.size, type: e.o.file.type };\n",
     "    });\n",
     "    Shiny.shinyapp.makeRequest('uploadInit', [info], function(res) {\n",
-    "      var remaining = batch.length;\n",
-    "      batch.forEach(function(o) {\n",
-    "        $.ajax(res.uploadUrl, {\n",
-    "          type: 'POST', cache: false, data: o.file,\n",
-    "          processData: false, contentType: 'application/octet-stream',\n",
-    "          xhr: function() {\n",
-    "            var x = new window.XMLHttpRequest();\n",
-    "            x.upload.addEventListener('progress', function(e) {\n",
-    "              if (e.lengthComputable) {\n",
-    "                o.onProgress({ percent: Math.round(e.loaded / e.total * 100) });\n",
-    "              }\n",
-    "            });\n",
-    "            return x;\n",
-    "          },\n",
-    "          success: function() {\n",
-    "            o.onSuccess({ ok: true });\n",
-    "            if (--remaining === 0) {\n",
-    "              Shiny.shinyapp.makeRequest('uploadEnd', [res.jobId, inputId],\n",
-    "                function() {}, function(e) { console.warn('[shiny.element] uploadEnd: ' + e); });\n",
-    "            }\n",
-    "          },\n",
-    "          error: function() {\n",
-    "            remaining--;\n",
-    "            o.onError(new Error('Upload failed for ' + o.file.name));\n",
+    "      postNext(batch, 0, res);\n",
+    "    }, function(err) {\n",
+    "      warn('uploadInit: ' + err);\n",
+    "      batch.forEach(function(e) { e.failed = true; e.o.onError(new Error(String(err))); });\n",
+    "    });\n",
+    "  }\n",
+    # One file at a time; a gap in the batch sends the rest again
+    "  function postNext(batch, i, res) {\n",
+    "    if (i === batch.length) return finish(batch, res);\n",
+    "    var e = batch[i];\n",
+    "    if (e.aborted) return runJob(batch);\n",
+    "    e.xhr = $.ajax(res.uploadUrl, {\n",
+    "      type: 'POST', cache: false, data: e.o.file,\n",
+    "      processData: false, contentType: 'application/octet-stream',\n",
+    "      xhr: function() {\n",
+    "        var x = new window.XMLHttpRequest();\n",
+    "        x.upload.addEventListener('progress', function(ev) {\n",
+    "          if (ev.lengthComputable) {\n",
+    # 99 at most: the file is done when the batch is
+    "            e.o.onProgress({ percent: Math.min(99, Math.round(ev.loaded / ev.total * 100)) });\n",
     "          }\n",
     "        });\n",
-    "      });\n",
-    "    }, function(e) {\n",
-    "      console.warn('[shiny.element] uploadInit: ' + e);\n",
-    "      batch.forEach(function(o) { o.onError(new Error(String(e))); });\n",
+    "        return x;\n",
+    "      },\n",
+    "      success: function() { e.xhr = null; postNext(batch, i + 1, res); },\n",
+    "      error: function(x, status) {\n",
+    "        e.xhr = null;\n",
+    "        if (!e.aborted) {\n",
+    "          e.failed = true;\n",
+    "          e.o.onError(new Error('Upload failed for ' + e.o.file.name + ': ' + (status || 'error')));\n",
+    "        }\n",
+    "        runJob(batch);\n",
+    "      }\n",
     "    });\n",
-    "  });\n",
+    "  }\n",
+    "  function finish(batch, res) {\n",
+    # A file aborted after it was sent is still in the job: send the rest again
+    "    if (batch.some(function(e) { return e.aborted; })) return runJob(batch);\n",
+    "    Shiny.shinyapp.makeRequest('uploadEnd', [res.jobId, inputId], function() {\n",
+    "      batch.forEach(function(e) { if (!e.aborted) e.o.onSuccess({ ok: true }); });\n",
+    "    }, function(err) {\n",
+    "      warn('uploadEnd: ' + err);\n",
+    "      batch.forEach(function(e) { e.failed = true; e.o.onError(new Error(String(err))); });\n",
+    "    });\n",
+    "  }\n",
+    # What Element keeps in its reqs[uid] and calls abort() on
+    "  return { abort: function() {\n",
+    "    entry.aborted = true;\n",
+    "    if (entry.xhr) entry.xhr.abort();\n",
+    "  } };\n",
     "}"
   ), as.character(jsonlite::toJSON(ns_id, auto_unbox = TRUE))))
 }
@@ -138,13 +176,21 @@
 #' `shiny.maxRequestSize` limit and its temporary-file cleanup.
 #'
 #' With `action`, Shiny never sees the files; `input$<id>_success` lists the
-#' names of files Element uploaded successfully, and `input$<id>_error` the
-#' name of the last one that failed.
+#' names of files Element uploaded successfully.
+#'
+#' Either way, `input$<id>_error` is the name of a file that failed, as an
+#' event. Without `action`, the rest of its batch is sent again without it,
+#' so `input$<id>` holds the files that arrived; a file stopped with
+#' `abort()` is left out the same way.
+#'
+#' Files go up one at a time, as [shiny::fileInput()] sends them, and each
+#' is marked done once the whole batch has reached the server.
 #'
 #' @section Element methods:
 #' Callable with [el_call()]:
 #'
-#' - `abort()` -- Cancel upload request
+#' - `abort()` -- Cancel upload request: one file, given as its `uid`, or
+#'   every file in flight
 #' - `clearFiles()` -- Clear the uploaded file list (this method is not supported in the before-upload hook)
 #' - `submit()` -- Upload the file list manually
 #'
@@ -326,7 +372,7 @@ el_upload <- function(id = NULL,
       ), ns_id
     )),
     handleError = JS(sprintf(
-      "function(err, file) { this.failed = file.name; window.Shiny && Shiny.setInputValue && Shiny.setInputValue('%s_error', file.name); }",
+      "function(err, file) { this.failed = file.name; window.Shiny && Shiny.setInputValue && Shiny.setInputValue('%s_error', file.name, {priority: 'event'}); }",
       ns_id
     ))
   )

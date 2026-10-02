@@ -2,9 +2,20 @@
 % Please edit documentation in R/el_time_picker.R
 \name{update_el_time_picker}
 \alias{update_el_time_picker}
+\alias{update_el_time_select}
 \title{Update Element UI Time Picker}
 \usage{
 update_el_time_picker(
+  session = shiny::getDefaultReactiveDomain(),
+  id,
+  value = NULL,
+  disabled = NULL,
+  picker_options = NULL,
+  label = NULL,
+  error = NULL
+)
+
+update_el_time_select(
   session = shiny::getDefaultReactiveDomain(),
   id,
   value = NULL,
@@ -34,7 +45,8 @@ a name is taken. \code{""} clears it.}
 Called for its side effect; returns \code{NULL} invisibly.
 }
 \description{
-Server-side update for \code{\link[=el_time_picker]{el_time_picker()}} and \code{\link[=el_time_select]{el_time_select()}}.
+Server-side update for \code{\link[=el_time_picker]{el_time_picker()}} and \code{\link[=el_time_select]{el_time_select()}};
+\code{update_el_time_select()} is the same function under the select's name.
 }
 \examples{
 if (interactive()) {

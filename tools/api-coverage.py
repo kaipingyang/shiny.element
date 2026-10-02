@@ -378,3 +378,45 @@ print("-"*74)
 if any(True for _ in EXCLUDED):
     print(f"  ({len(EXCLUDED)} 个上游 prop 按设计排除，见 tools/api-coverage.py 的 EXCLUDED)")
 print(f"  合计  可设 {ta[0]}/{ta[1]} ({100*ta[0]//ta[1]}%)  其中已绑定 {tb}, 仅条件绑定 {tc}   事件 {te[0]}/{te[1]} ({100*te[0]//max(te[1],1)}%)   方法 {tm[0]}/{tm[1]}   插槽 {ts[0]}/{ts[1]}")
+
+# ── methods: reachable, and verified ──────────────────────────────────────────
+# Every method of a component with a Vue instance can be called by name; what
+# a browser test has run end to end is a smaller set. Called directly with
+# el_call() in the tests, or by an update_el_*()/helper that runs it.
+import glob as _glob
+VIA_UPDATE = {"setActiveItem": "update_el_carousel(active =)",
+              "setCheckedKeys": "update_el_tree(checked =)",
+              "validate": "el_form_validate()", "resetFields": "el_form_reset()",
+              "clearValidate": "el_form_clear_validate()", "clearFiles": "el_upload_clear()",
+              "abort": "test-browser.R abort()"}
+tested = set()
+for f in _glob.glob("tests/testthat/*.R") + _glob.glob("tests/testthat/apps/*.R"):
+    src = open(f, encoding="utf-8").read()
+    tested |= set(re.findall(r'el_call\([^)]*?"[^"]+",\s*"([A-Za-z]+)"', src))
+upstream_methods = set()
+for r in report:
+    upstream_methods |= set(up.get(r["tag"].split(" ")[0], {}).get("Methods", []))
+verified = sorted((tested | set(VIA_UPDATE)) & upstream_methods)
+print(f"  方法：{tm[0]}/{tm[1]} 可按名调用，其中 {len(verified)} 个有浏览器端到端测试")
+
+if "--write-docs" in sys.argv:
+    # The numbers in .claude/docs/api-coverage.md come from here, not by hand
+    path = ".claude/docs/api-coverage.md"
+    doc = open(path, encoding="utf-8").read()
+    block = "\n".join([
+        "<!-- coverage:start -- written by `python tools/api-coverage.py --write-docs` -->",
+        f"{len(report)} wrapper/tag pairs measured:",
+        "",
+        "| | covered | total |",
+        "|---|---|---|",
+        f"| Settable attributes | {ta[0]} | {ta[1]} |",
+        f"| Events | {te[0]} | {te[1]} |",
+        f"| Methods callable by name | {tm[0]} | {tm[1]} |",
+        f"| Methods run end to end in a browser test | {len(verified)} | {tm[1]} |",
+        f"| Slots | {ts[0]} | {ts[1]} |",
+        "",
+        "Methods with an end-to-end test: " + ", ".join(f"`{m}`" for m in verified) + ".",
+        "<!-- coverage:end -->"])
+    doc = re.sub(r"<!-- coverage:start.*?<!-- coverage:end -->", block, doc, flags=re.S)
+    open(path, "w", encoding="utf-8").write(doc)
+    print("wrote", path)

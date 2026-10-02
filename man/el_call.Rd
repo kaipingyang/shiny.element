@@ -21,10 +21,15 @@ el_call(
 
 \item{method}{Name of the Element method to call.}
 
-\item{args}{A list of arguments, passed positionally.}
+\item{args}{A list of arguments, passed positionally. A row of a table
+or a file of an upload is given by \code{\link[=el_table_row]{el_table_row()}} or
+\code{\link[=el_upload_file]{el_upload_file()}}: the method needs the object itself.}
 
 \item{result}{Whether to report the return value as an input. Default
-\code{TRUE}.}
+\code{TRUE}.
+The input is \verb{<id>_<method>}; an input of your own with that name -- an
+\code{actionButton("car_next")} beside \code{el_call(session, "car", "next")} --
+would hear it too. Give \code{result = FALSE}, or another name, then.}
 
 \item{component}{Optional Element component name (\code{"ElTable"}) to look for
 under the component's id. Only needed when a component nests another of

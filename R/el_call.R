@@ -22,9 +22,14 @@
 #'   [shiny::updateTextInput()].
 #' @param id Component ID (un-namespaced).
 #' @param method Name of the Element method to call.
-#' @param args A list of arguments, passed positionally.
+#' @param args A list of arguments, passed positionally. A row of a table
+#'   or a file of an upload is given by [el_table_row()] or
+#'   [el_upload_file()]: the method needs the object itself.
 #' @param result Whether to report the return value as an input. Default
 #'   `TRUE`.
+#'   The input is `<id>_<method>`; an input of your own with that name -- an
+#'   `actionButton("car_next")` beside `el_call(session, "car", "next")` --
+#'   would hear it too. Give `result = FALSE`, or another name, then.
 #' @param component Optional Element component name (`"ElTable"`) to look for
 #'   under the component's id. Only needed when a component nests another of
 #'   its own.
@@ -96,3 +101,39 @@ el_call <- function(session = shiny::getDefaultReactiveDomain(), id, method, arg
 .el_snake_case <- function(x) {
   tolower(gsub("([a-z0-9])([A-Z])", "\\1_\\2", x))
 }
+
+
+#' Name a table row or an uploaded file for a method
+#'
+#' Element's table methods take the row object itself --
+#' `toggleRowSelection(row)`, `setCurrentRow(row)`,
+#' `toggleRowExpansion(row)` -- and compare it by identity, so a copy sent
+#' from R would match nothing. Likewise the upload's `abort(file)`. These
+#' stand for the object instead, and the page puts the real one in its place
+#' before the method runs.
+#'
+#' @param index A row's number, 1-based, as `input$<id>_selected_rows`
+#'   reports them.
+#' @param name A file's name, as it shows in the upload's list.
+#' @return A reference, for [el_call()]'s `args`.
+#' @examples
+#' if (interactive()) {
+#'   # inside a server function: select the third row, then make it current
+#'   el_call(session, "tbl", "toggleRowSelection", list(el_table_row(3), TRUE))
+#'   el_call(session, "tbl", "setCurrentRow", list(el_table_row(3)))
+#'   # stop one file
+#'   el_call(session, "docs", "abort", list(el_upload_file("big.csv")))
+#' }
+#' @export
+el_table_row <- function(index) {
+  stopifnot(is.numeric(index), length(index) == 1)
+  list(.ref = "row", value = index)
+}
+
+#' @rdname el_table_row
+#' @export
+el_upload_file <- function(name) {
+  stopifnot(is.character(name), length(name) == 1)
+  list(.ref = "file", value = name)
+}
+

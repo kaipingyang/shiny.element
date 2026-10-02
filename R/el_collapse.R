@@ -65,19 +65,35 @@ el_collapse <- function(
     open     <- item$name %in% value
     disabled <- isTRUE(item$disabled)
 
+    # Element's markup and ARIA: a tab wrapping a header button, and a
+    # tabpanel the two name each other through
+    key     <- gsub("[^A-Za-z0-9_-]", "_", item$name)
+    head_id <- paste0(ns_id, "-head-", key)
+    body_id <- paste0(ns_id, "-content-", key)
     header <- shiny::tags$div(
-      role  = "tab",
-      class = paste(c("el-collapse-item__header",
-                      if (open) "is-active",
-                      if (disabled) "is-disabled"), collapse = " "),
-      item$title,
-      shiny::tags$i(class = paste(c("el-collapse-item__arrow el-icon-arrow-right",
-                                    if (open) "is-active"), collapse = " "))
+      role = "tab",
+      `aria-expanded`    = tolower(as.character(open)),
+      `aria-controls`    = body_id,
+      `aria-describedby` = body_id,
+      shiny::tags$div(
+        id    = head_id,
+        role  = "button",
+        tabindex = if (!disabled) "0",
+        class = paste(c("el-collapse-item__header",
+                        if (open) "is-active"), collapse = " "),
+        item$title,
+        shiny::tags$i(class = paste(c("el-collapse-item__arrow el-icon-arrow-right",
+                                      if (open) "is-active"), collapse = " "))
+      )
     )
 
     # The wrapper stays in the document when closed: hiding it with a style
     # keeps any nested component mounted, where removing it would not.
     body <- shiny::tags$div(
+      id    = body_id,
+      role  = "tabpanel",
+      `aria-hidden`     = tolower(as.character(!open)),
+      `aria-labelledby` = head_id,
       class = "el-collapse-item__wrap",
       style = if (!open) "display:none",
       shiny::tags$div(class = "el-collapse-item__content", item$content)
@@ -97,6 +113,7 @@ el_collapse <- function(
       id    = ns_id,
       class = "el-collapse",
       role  = "tablist",
+      `aria-multiselectable` = "true",
       `data-el-collapse` = "true",
       `data-accordion`   = tolower(as.character(accordion)),
       panels

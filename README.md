@@ -81,8 +81,9 @@ shows each one rendered, with the code that produced it.
 
 ## Reading and writing values
 
-Every component reports through `input$<id>`, and every component has a matching
-`update_el_*()`:
+A component with a value reports it as `input$<id>`, as Shiny's inputs do,
+and one that can change from the server has an `update_el_*()`;
+`update_vue_data()` reaches whatever has none:
 
 ``` r
 server <- function(input, output, session) {

@@ -27,7 +27,7 @@ fixtures <- list(
 )
 
 # Server-side helpers and dependency getters render nothing
-skip <- "^el_message_close$|^el_notification_close$|^el_call$|^el_loading$|^el_loading_close$|^el_message_box$|^el_widget$|_dependency$|^el$|^el_page$|^el_rule$|^el_table_config$|^el_form_(validate|reset|clear)|^el_upload_clear$|^el_message$|^el_notification$"
+skip <- "^el_message_close$|^el_notification_close$|^el_call$|^el_loading$|^el_loading_close$|^el_message_box$|^el_widget$|_dependency$|^el$|^el_page$|^el_rule$|^el_table_config$|^el_form_(validate|reset|clear)|^el_upload_clear$|^el_message$|^el_notification$|^el_load_children$|^el_table_row$|^el_upload_file$|^JS$"
 
 ui_fns <- setdiff(grep("^el_", getNamespaceExports("shiny.element"), value = TRUE),
                   grep(skip, getNamespaceExports("shiny.element"), value = TRUE))

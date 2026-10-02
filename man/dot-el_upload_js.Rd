@@ -10,20 +10,34 @@
 \item{ns_id}{The namespaced input id.}
 }
 \value{
-An \code{\link[=JS]{JS()}} object for the \code{http-request} prop.
+A \code{\link[=JS]{JS()}} object for the \code{http-request} prop.
 }
 \description{
 Element calls \code{http-request} once per file, but Shiny's protocol is
 per-batch: \code{uploadInit} opens a job for a set of files, each is POSTed to
 the job's URL, and \code{uploadEnd} sets the input to that job's files. Running
-the protocol per file therefore makes each upload overwrite the last, so a
-three-file selection arrives as a single row.
+the protocol per file would make each upload overwrite the last.
 }
 \details{
-Element's \code{uploadFiles()} starts and uploads each file in one synchronous
-loop, so the calls are collected in a queue and flushed from a microtask,
-by which point the whole batch is present. Replacing only the transport
-this way leaves Element's file list, progress bars and its \code{on-success},
-\code{on-progress} and \code{on-error} hooks working as they normally do.
+Element's \code{uploadFiles()} starts every file in one synchronous loop, so
+the calls are collected and flushed from a microtask, by which point the
+whole batch is present. Then, as Shiny's own \code{fileInput()} does:
+\itemize{
+\item Files are POSTed \strong{one after another}. Shiny's job takes each POST as
+the next file in its list, so two in flight at once could land under
+each other's names.
+\item A file is Element's "success" only once \code{uploadEnd} has accepted the
+batch: until then nothing has reached \verb{input$<id>}.
+\item A job cannot finish with a file missing -- Shiny stops it as "stopped
+prematurely". So when a file fails, or is aborted with Element's
+\code{abort()}, that file is marked failed (or left, if aborted) and the rest
+of the batch is sent again as a fresh job. If nothing is left, the job
+is abandoned, as \code{fileInput()} abandons a failed one; Shiny clears it
+with the session.
+}
+
+Each call returns an object with \code{abort()}, which Element keeps per file:
+it stops that file's request if it is in flight and drops it from the
+batch otherwise.
 }
 \keyword{internal}

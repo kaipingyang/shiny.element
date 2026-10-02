@@ -274,6 +274,9 @@ ui <- el_page(
   # An action button, and an input absorbed into a wrapper
   el_button("act_btn", "Act"),
   actionButton("tree_filter", "filter tree"),
+  actionButton("tbl_pick", "select row 2 by method"),
+  actionButton("carousel_forward", "carousel next by method"),
+  actionButton("menu_open_btn", "open submenu by method"),
   el_tooltip("abs_tip", el_switch("abs_sw", value = FALSE), content = "Absorbed"),
   verbatimTextOutput("act_dump"),
 
@@ -337,6 +340,12 @@ server <- function(input, output, session) {
     cat("abs_sw =", format(input$abs_sw), "\n")
   })
   observeEvent(input$tree_filter, el_call(session, "tree", "filter", list("app")))
+  observeEvent(input$carousel_forward, el_call(session, "car", "next"))
+  observeEvent(input$menu_open_btn, el_call(session, "nav", "open", list("m-prod")))
+  observeEvent(input$tbl_pick, {
+    el_call(session, "tbl", "clearSelection")
+    el_call(session, "tbl", "toggleRowSelection", list(el_table_row(2), TRUE))
+  })
   observeEvent(input$upd_go, update_el_input(session, "upd_lab", label = "New",
                                              error = "Taken"))
   observeEvent(input$upd_clear, update_el_input(session, "upd_lab", error = ""))
@@ -393,6 +402,12 @@ server <- function(input, output, session) {
     for (i in ids) cat(i, "=", fmt(input[[i]]), "\n")
     for (i in c("dp", "dr", "dmonth")) cat(paste0(i, "_class"), "=", class(input[[i]])[1], "\n")
     cat("up_rows", "=", if (is.null(input$up)) "<NULL>" else nrow(input$up), "\n")
+    # each name with what its file holds: a POST landing under another
+    # file's name shows here
+    cat("up_files", "=", if (is.null(input$up)) "<NULL>" else paste(
+      input$up$name, vapply(input$up$datapath, function(p) readLines(p, warn = FALSE)[1], ""),
+      sep = ":", collapse = ","), "\n")
+    cat("up_error", "=", if (is.null(input$up_error)) "<NULL>" else input$up_error, "\n")
     # Forwarded Element events are latched by the observers below, which is
     # how an app acts on each one -- repeats included.
     cat("events_seen", "=", paste(names(seen_events), collapse = "/"), "\n")

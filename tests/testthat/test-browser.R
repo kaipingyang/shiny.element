@@ -361,6 +361,87 @@ test_that("a whole selection goes through one upload job", {
 
   expect_equal(bev("String(document.querySelectorAll('#up_container .el-upload-list__item.is-success').length)"), "3")
   expect_equal(bdump()[["up_rows"]], "3")
+  # every file under its own name
+  expect_equal(bdump()[["up_files"]], "ba.txt:aa,bb.txt:bb,bc.txt:cc")
+})
+
+# A POST that fails: the file is marked failed and reported, and the rest of
+# its batch is sent again as a job of its own -- a Shiny job cannot finish
+# with a file missing.
+upload_with_failures <- function(names, failing) {
+  tmp <- file.path(tempdir(), names)
+  for (i in seq_along(tmp)) writeLines(sub("[.]txt$", "", names[i]), tmp[i])
+  bev("document.querySelector('#up_container .el-upload').__vue__ && 0")
+  bev(sprintf("(function(){ var bad = %s; var orig = jQuery.ajax;
+    window.__restoreAjax = function(){ jQuery.ajax = orig; };
+    jQuery.ajax = function(url, opts) {
+      if (opts && opts.data && bad.indexOf(opts.data.name) !== -1) {
+        setTimeout(function(){ opts.error({}, 'error'); }, 50);
+        return { abort: function(){} };
+      }
+      return orig.apply(this, arguments);
+    }; })()", jsonlite::toJSON(failing)))
+  b <- browser_session()$b
+  doc <- b$DOM$getDocument()
+  node <- b$DOM$querySelector(nodeId = doc$root$nodeId,
+                              selector = "#up_container input[type=file]")
+  b$DOM$setFileInputFiles(files = as.list(tmp), nodeId = node$nodeId)
+  Sys.sleep(5)
+  bev("window.__restoreAjax()")
+  bdump()
+}
+
+test_that("a failed file in the middle of a batch leaves the rest delivered", {
+  skip_if_no_browser()
+  vals <- upload_with_failures(c("m1.txt", "m2.txt", "m3.txt"), "m2.txt")
+  expect_equal(vals[["up_files"]], "m1.txt:m1,m3.txt:m3")
+  expect_equal(vals[["up_error"]], "m2.txt")
+})
+
+test_that("the last file failing still delivers the others", {
+  skip_if_no_browser()
+  vals <- upload_with_failures(c("l1.txt", "l2.txt"), "l2.txt")
+  expect_equal(vals[["up_files"]], "l1.txt:l1")
+  expect_equal(vals[["up_error"]], "l2.txt")
+})
+
+test_that("a batch that fails entirely changes nothing but reports it", {
+  skip_if_no_browser()
+  before <- bdump()[["up_files"]]
+  vals <- upload_with_failures(c("f1.txt", "f2.txt"), c("f1.txt", "f2.txt"))
+  expect_equal(vals[["up_files"]], before)
+  expect_match(vals[["up_error"]], "^f[12][.]txt$")
+  # Element drops a failed file from its list, as upstream does
+  expect_false(grepl("f1.txt", bev("document.querySelector('#up_container .el-upload-list').innerText"), fixed = TRUE))
+})
+
+test_that("abort() stops a file, and the rest of its batch is delivered", {
+  skip_if_no_browser()
+  tmp <- file.path(tempdir(), c("a1.txt", "a2.txt"))
+  writeLines("a1", tmp[1]); writeLines("a2", tmp[2])
+  # Hold a2's request open, then abort it through Element's own method
+  bev("(function(){ var orig = jQuery.ajax;
+    window.__restoreAjax = function(){ jQuery.ajax = orig; };
+    jQuery.ajax = function(url, opts) {
+      if (opts && opts.data && opts.data.name === 'a2.txt') {
+        var t = setTimeout(function(){}, 60000);
+        window.__abortA2 = function(){ opts.error({}, 'abort'); };
+        return { abort: function(){ clearTimeout(t); window.__abortA2(); } };
+      }
+      return orig.apply(this, arguments);
+    }; })()")
+  b <- browser_session()$b
+  doc <- b$DOM$getDocument()
+  node <- b$DOM$querySelector(nodeId = doc$root$nodeId,
+                              selector = "#up_container input[type=file]")
+  b$DOM$setFileInputFiles(files = as.list(tmp), nodeId = node$nodeId)
+  Sys.sleep(2)
+  bev("(function(){ var up = shinyVue.find('#up').instance.$refs.upload;
+    var f = up.uploadFiles.filter(function(f){ return f.name === 'a2.txt'; })[0];
+    up.abort(f); })()")
+  Sys.sleep(3)
+  bev("window.__restoreAjax()")
+  expect_equal(bdump()[["up_files"]], "a1.txt:a1")
 })
 
 # ── dialog holds live components ──────────────────────────────────────────────
@@ -391,8 +472,8 @@ test_that("opening the dialog raises the backdrop and locks scrolling", {
     bev("String(document.body.classList.contains('el-popup-parent--hidden'))"),
     "true"
   )
-  # Above the backdrop, which Element puts at 2000.
-  expect_equal(bev("(function(){return document.getElementById('dlg').style.zIndex})()"), "2001")
+  # Above the backdrop: both from Element's popup manager
+  expect_true(bev("+document.getElementById('dlg').style.zIndex > +document.querySelector('.v-modal').style.zIndex"))
 })
 
 test_that("Escape closes the dialog and clears the backdrop", {
@@ -1013,6 +1094,24 @@ test_that("a lazy tree table loads a row's children from the server", {
   expect_match(bev("document.querySelector('#lz_tbl_container .el-table__body').innerText"), "a-child")
 })
 
+test_that("a question the server never answers settles, and so does a removed one's", {
+  skip_if_no_browser()
+  bev("window.__asked = 'waiting'; var t = shinyVue.askTimeout; shinyVue.askTimeout = 500;
+       shinyVue.ask('nobody_answers', {}).then(function(v){ window.__asked = String(v); });
+       shinyVue.askTimeout = t;")
+  Sys.sleep(1.5)
+  expect_equal(bev("window.__asked"), "null")
+  # A component removed while it waits: its question settles at once, and
+  # its Vue instance is destroyed though it never had a binding
+  bev("window.__asked2 = 'waiting'; var h = document.getElementById('lz_tbl');
+       var vm = h._shinyVue; window.__vm = vm;
+       shinyVue.ask('lz_tbl_load', {probe: true}, vm).then(function(v){ window.__asked2 = String(v); });
+       h.parentNode.removeChild(h);")
+  Sys.sleep(1)
+  expect_equal(bev("window.__asked2"), "null")
+  expect_true(bev("window.__vm._isDestroyed"))
+})
+
 test_that("a tree filters by label without a filter method of its own", {
   skip_if_no_browser()
   # Element throws "filterNodeMethod is required" without one
@@ -1020,6 +1119,23 @@ test_that("a tree filters by label without a filter method of its own", {
   shown <- bev("document.querySelector('#tree_container .el-tree').innerText")
   expect_match(shown, "Apple")
   expect_false(grepl("Grains", shown))
+})
+
+test_that("a table method taking a row gets the table's own row", {
+  skip_if_no_browser()
+  bclick("#tbl_pick", wait = 2)
+  expect_equal(bdump()[["tbl_selected_rows"]], "2")
+})
+
+test_that("more of Element's methods run through el_call()", {
+  skip_if_no_browser()
+  # A button named car_next would collide with el_call()'s own report,
+  # input$car_next, and run twice
+  before <- as.integer(bdump()[["car"]])
+  bclick("#carousel_forward", wait = 2)
+  expect_equal(as.integer(bdump()[["car"]]), (before + 1) %% 3)
+  bclick("#menu_open_btn", wait = 1.5)
+  expect_true(bev("Array.from(document.querySelectorAll('#nav_container .el-submenu')).some(function(e){ return e.classList.contains('is-opened'); })"))
 })
 
 test_that("a label names its component for assistive technology", {

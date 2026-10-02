@@ -165,17 +165,14 @@ test_that("update_el_drawer sends visible, title and size", {
 
 # ── the shared binding ────────────────────────────────────────────────────────
 
-test_that("the overlay binding manages the backdrop and the scroll lock", {
+test_that("the overlay binding hands stacking and the backdrop to Element", {
   js <- paste(readLines(
     system.file("js", "el-overlay-binding.js", package = "shiny.element"), warn = FALSE
   ), collapse = "\n")
-  expect_match(js, "v-modal", fixed = TRUE)
-  # Element's own class for locking body scroll.
-  expect_match(js, "el-popup-parent--hidden", fixed = TRUE)
-  # Stacked overlays need increasing z-indexes.
-  expect_match(js, "nextZ", fixed = TRUE)
-  # Escape closes the topmost only.
-  expect_match(js, "Escape", fixed = TRUE)
+  # Element's Popup mixin, so its popup manager owns z-index, backdrop,
+  # scroll lock and Escape for these as for every other popup
+  expect_match(js, "ELEMENT.Dialog.mixins[0]", fixed = TRUE)
+  expect_match(js, "doOpen", fixed = TRUE)
   expect_match(js, "elOverlayChange", fixed = TRUE)
 })
 

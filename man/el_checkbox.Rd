@@ -15,6 +15,7 @@ el_checkbox(
   true_label = NULL,
   false_label = NULL,
   name = NULL,
+  checked = NULL,
   width = NULL,
   slots = NULL,
   session = NULL
@@ -40,6 +41,10 @@ above a partly checked group. Only the look: \code{value} is unchanged.}
 \code{FALSE}.}
 
 \item{name}{Native \code{name} attribute.}
+
+\item{checked}{Element's \code{checked}: tick the box when it is created,
+whatever \code{value} says. The same as \code{value = TRUE}, kept for code written
+from Element's documentation.}
 
 \item{width}{Component width, as a CSS unit.}
 

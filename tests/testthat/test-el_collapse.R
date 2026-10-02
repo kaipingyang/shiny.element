@@ -61,7 +61,18 @@ test_that("el_collapse: a closed panel is hidden, not removed", {
 test_that("el_collapse: disabled panels are marked", {
   html <- render_html(el_collapse("c1", items = demo_items))
   expect_match(html, "el-collapse-item is-disabled", fixed = TRUE)
-  expect_match(html, "el-collapse-item__header is-disabled", fixed = TRUE)
+  # As Element: the item carries is-disabled, and the header takes no focus
+  expect_false(grepl("el-collapse-item__header is-disabled", html, fixed = TRUE))
+})
+
+test_that("el_collapse: Element's ARIA ties each header to its panel", {
+  html <- render_html(el_collapse("c1", value = "a", items = list(
+    list(name = "a", title = "A", content = "x"),
+    list(name = "b c", title = "B", content = "y"))))
+  expect_match(html, 'role="tab" aria-expanded="true" aria-controls="c1-content-a"', fixed = TRUE)
+  expect_match(html, 'id="c1-head-a" role="button" tabindex="0"', fixed = TRUE)
+  expect_match(html, 'id="c1-content-b_c" role="tabpanel" aria-hidden="true" aria-labelledby="c1-head-b_c"',
+               fixed = TRUE)
 })
 
 test_that("el_collapse: accordion mode is declared and caps the open set", {

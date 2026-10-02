@@ -213,7 +213,8 @@ el_time_select <- function(id = NULL,
 
 #' Update Element UI Time Picker
 #'
-#' Server-side update for [el_time_picker()] and [el_time_select()].
+#' Server-side update for [el_time_picker()] and [el_time_select()];
+#' `update_el_time_select()` is the same function under the select's name.
 #'
 #' @param session Shiny session; the current one by default, as for
 #'   [shiny::updateTextInput()].
@@ -244,6 +245,17 @@ update_el_time_picker <- function(session = shiny::getDefaultReactiveDomain(), i
   msg <- .el_form_item_update(msg, label, error)
   .el_send_update(session, msg)
   invisible(NULL)
+}
+
+
+#' @rdname update_el_time_picker
+#' @export
+update_el_time_select <- function(session = shiny::getDefaultReactiveDomain(), id, value = NULL,
+                                  disabled = NULL, picker_options = NULL,
+                                  label = NULL, error = NULL) {
+  .el_check_session(session)
+  update_el_time_picker(session, id, value = value, disabled = disabled,
+                        picker_options = picker_options, label = label, error = error)
 }
 
 

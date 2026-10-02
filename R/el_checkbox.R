@@ -14,6 +14,9 @@
 #' @param true_label,false_label Values to report instead of `TRUE` and
 #'   `FALSE`.
 #' @param name Native `name` attribute.
+#' @param checked Element's `checked`: tick the box when it is created,
+#'   whatever `value` says. The same as `value = TRUE`, kept for code written
+#'   from Element's documentation.
 #' @param width Component width, as a CSS unit.
 #' @param slots Named list of Element slot contents; the default slot
 #'   replaces `label`.
@@ -44,6 +47,7 @@ el_checkbox <- function(id = NULL,
                         true_label = NULL,
                         false_label = NULL,
                         name = NULL,
+                        checked = NULL,
                         width = NULL,
                         slots = NULL,
                         session = NULL) {
@@ -51,15 +55,17 @@ el_checkbox <- function(id = NULL,
   if (is.null(id)) id <- paste0("el_checkbox_", uuid::UUIDgenerate())
   ns_id <- .el_ui_id(id, session)
 
-  attrs <- list("v-model" = "value", "@change" = "handleChange")
+  # A box outside a group shows its `label` prop as its text, as Element's
+  # template does when the default slot is empty
+  attrs <- list("v-model" = "value", ":label" = "text", "@change" = "handleChange")
   fields <- list(indeterminate = indeterminate, disabled = disabled, border = border,
                  size = size, trueLabel = true_label, falseLabel = false_label,
-                 name = name)
+                 name = name, checked = checked)
   for (f in names(fields)) attrs[[paste0(":", .el_kebab_case(f))]] <- .el_optional_bind(f)
 
   el_widget(
     id     = ns_id,
-    markup = htmltools::tag("el-checkbox", c(attrs, list("{{ text }}"))),
+    markup = htmltools::tag("el-checkbox", attrs),
     data   = c(list(value = value, text = if (is.null(label)) "" else label),
                lapply(fields, .el_or_na)),
     methods = list(

@@ -163,6 +163,7 @@ el_tabs <- function(
   shiny::tags$div(
     id    = paste0(ns_id, "-tab-", t$name),
     role  = "tab",
+    `aria-controls` = paste0(ns_id, "-pane-", t$name),
     `aria-selected` = if (active) "true",
     tabindex        = if (active) "0" else "-1",
     class = paste(c("el-tabs__item", pos_class,
@@ -197,6 +198,8 @@ el_tabs <- function(
   shiny::tags$div(
     role  = "tabpanel",
     id    = paste0(ns_id, "-pane-", t$name),
+    `aria-labelledby` = paste0(ns_id, "-tab-", t$name),
+    `aria-hidden` = if (!active) "true",
     class = "el-tab-pane",
     style = if (!active) "display:none",
     `data-el-name` = t$name,

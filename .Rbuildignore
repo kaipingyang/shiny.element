@@ -12,3 +12,4 @@
 ^cran-comments\.md$
 ^\.upstream$
 ^tests/testthat/_problems$
+^\.kiro$

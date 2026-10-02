@@ -97,6 +97,7 @@ reference:
       - update_el_rate
       - update_el_date_picker
       - update_el_time_picker
+      - update_el_time_select
       - update_el_color_picker
       - update_el_cascader
       - update_el_cascader_panel
@@ -229,6 +230,7 @@ reference:
       update_el_*() cannot reach them.
     contents:
       - el_call
+      - el_table_row
 
   - title: Loading from the server
     desc: >
