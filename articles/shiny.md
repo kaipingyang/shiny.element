@@ -486,6 +486,8 @@ answer instead, through an input and an update:
 | [`el_infinite_scroll()`](https://kaipingyang.github.io/shiny.element/reference/el_infinite_scroll.md) | `input$<id>_load` | a [`uiOutput()`](https://rdrr.io/pkg/shiny/man/htmlOutput.html) inside it |
 | [`el_pagination()`](https://kaipingyang.github.io/shiny.element/reference/el_pagination.md) | `input$<id>`, the page | `update_el_table(data =)` |
 
-A question the server never answers settles after 30 seconds, and at
-once when its component is removed or the session ends. The Select,
-Input, Tree, Cascader and Table pages show each one running.
+A question the server never answers settles after 30 seconds – a lazy
+load with nothing, a remote search by leaving its loading state – and a
+lazy load’s question settles at once when its component is removed or
+the session ends. The Select, Input, Tree, Cascader and Table pages show
+each one running.

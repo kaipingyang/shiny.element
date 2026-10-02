@@ -60,9 +60,10 @@ el_form_field(
 
   Further props. Element's form-item props – `required`, `error`,
   `label_width`, `size`, `show_message`, `inline_message`, and
-  `label_html`/`error_html` for markup of your own – go on the field's
-  form item; anything else on the control, e.g. `placeholder`, `min`,
-  `max`, `disabled`. Names are converted to camelCase.
+  `label_html`/`error_html` for markup of your own, a string or
+  htmltools tags – go on the field's form item; anything else on the
+  control, e.g. `placeholder`, `min`, `max`, `disabled`. Names are
+  converted to camelCase.
 
 ## Value
 

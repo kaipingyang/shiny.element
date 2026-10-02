@@ -80,12 +80,13 @@ el_table(
     A column without a `prop` – a column of buttons – is fine. See "Row
     actions" below.
 
-  - `header_html` – markup for the header cell, inserted unescaped, so
-    pass only what you control.
+  - `header_html` – markup for the header cell, a string or htmltools
+    tags, inserted unescaped, so pass only what you control.
 
   - `children` – the columns under a group header, as Element nests
     `el-table-column`: `list(label = "Address", children = list(...))`.
-    Two levels deep.
+    Two levels deep; each child column takes `cell` and `header_html` as
+    a top-level one does.
 
 - selection:
 
@@ -342,7 +343,16 @@ el_table("iris_preview", data = head(iris, 3))
 #>         <span v-else>{{col.label}}</span>
 #>       </template>
 #>       <el-table-column v-for="sub in (col.children || [])" :key="sub.prop || sub.label" :prop="sub.prop" :label="sub.label" :width="sub.width" :align="sub.align" :header-align="sub.headerAlign" :class-name="sub.className" :label-class-name="sub.labelClassName" :column-key="sub.columnKey" :min-width="sub.minWidth" :fixed="sub.fixed" :resizable="sub.resizable" :sortable="sub.sortable" :sort-by="sub.sortBy" :sort-orders="sub.sortOrders" :show-overflow-tooltip="sub.showOverflowTooltip" :filters="sub.filters" :filtered-value="sub.filteredValue" :filter-multiple="sub.filterMultiple" :filter-placement="sub.filterPlacement" :reserve-selection="sub.reserveSelection" :index="sub.index" :formatter="sub.formatter" :filter-method="sub.filterMethod" :sort-method="sub.sortMethod" :render-header="sub.renderHeader" :selectable="sub.selectable" :type="sub.type">
-#>         <el-table-column v-for="subx in (sub.children || [])" :key="subx.prop || subx.label" :prop="subx.prop" :label="subx.label" :width="subx.width" :align="subx.align" :header-align="subx.headerAlign" :class-name="subx.className" :label-class-name="subx.labelClassName" :column-key="subx.columnKey" :min-width="subx.minWidth" :fixed="subx.fixed" :resizable="subx.resizable" :sortable="subx.sortable" :sort-by="subx.sortBy" :sort-orders="subx.sortOrders" :show-overflow-tooltip="subx.showOverflowTooltip" :filters="subx.filters" :filtered-value="subx.filteredValue" :filter-multiple="subx.filterMultiple" :filter-placement="subx.filterPlacement" :reserve-selection="subx.reserveSelection" :index="subx.index" :formatter="subx.formatter" :filter-method="subx.filterMethod" :sort-method="subx.sortMethod" :render-header="subx.renderHeader" :selectable="subx.selectable" :type="subx.type"></el-table-column>
+#>         <template v-slot:header="scope">
+#>           <span v-if="sub.headerHtml" v-html="sub.headerHtml"></span>
+#>           <span v-else>{{sub.label}}</span>
+#>         </template>
+#>         <el-table-column v-for="subx in (sub.children || [])" :key="subx.prop || subx.label" :prop="subx.prop" :label="subx.label" :width="subx.width" :align="subx.align" :header-align="subx.headerAlign" :class-name="subx.className" :label-class-name="subx.labelClassName" :column-key="subx.columnKey" :min-width="subx.minWidth" :fixed="subx.fixed" :resizable="subx.resizable" :sortable="subx.sortable" :sort-by="subx.sortBy" :sort-orders="subx.sortOrders" :show-overflow-tooltip="subx.showOverflowTooltip" :filters="subx.filters" :filtered-value="subx.filteredValue" :filter-multiple="subx.filterMultiple" :filter-placement="subx.filterPlacement" :reserve-selection="subx.reserveSelection" :index="subx.index" :formatter="subx.formatter" :filter-method="subx.filterMethod" :sort-method="subx.sortMethod" :render-header="subx.renderHeader" :selectable="subx.selectable" :type="subx.type">
+#>           <template v-slot:header="scope">
+#>             <span v-if="subx.headerHtml" v-html="subx.headerHtml"></span>
+#>             <span v-else>{{subx.label}}</span>
+#>           </template>
+#>         </el-table-column>
 #>       </el-table-column>
 #>     </el-table-column>
 #>   </el-table>
@@ -369,7 +379,16 @@ el_table(
 #>         <span v-else>{{col.label}}</span>
 #>       </template>
 #>       <el-table-column v-for="sub in (col.children || [])" :key="sub.prop || sub.label" :prop="sub.prop" :label="sub.label" :width="sub.width" :align="sub.align" :header-align="sub.headerAlign" :class-name="sub.className" :label-class-name="sub.labelClassName" :column-key="sub.columnKey" :min-width="sub.minWidth" :fixed="sub.fixed" :resizable="sub.resizable" :sortable="sub.sortable" :sort-by="sub.sortBy" :sort-orders="sub.sortOrders" :show-overflow-tooltip="sub.showOverflowTooltip" :filters="sub.filters" :filtered-value="sub.filteredValue" :filter-multiple="sub.filterMultiple" :filter-placement="sub.filterPlacement" :reserve-selection="sub.reserveSelection" :index="sub.index" :formatter="sub.formatter" :filter-method="sub.filterMethod" :sort-method="sub.sortMethod" :render-header="sub.renderHeader" :selectable="sub.selectable" :type="sub.type">
-#>         <el-table-column v-for="subx in (sub.children || [])" :key="subx.prop || subx.label" :prop="subx.prop" :label="subx.label" :width="subx.width" :align="subx.align" :header-align="subx.headerAlign" :class-name="subx.className" :label-class-name="subx.labelClassName" :column-key="subx.columnKey" :min-width="subx.minWidth" :fixed="subx.fixed" :resizable="subx.resizable" :sortable="subx.sortable" :sort-by="subx.sortBy" :sort-orders="subx.sortOrders" :show-overflow-tooltip="subx.showOverflowTooltip" :filters="subx.filters" :filtered-value="subx.filteredValue" :filter-multiple="subx.filterMultiple" :filter-placement="subx.filterPlacement" :reserve-selection="subx.reserveSelection" :index="subx.index" :formatter="subx.formatter" :filter-method="subx.filterMethod" :sort-method="subx.sortMethod" :render-header="subx.renderHeader" :selectable="subx.selectable" :type="subx.type"></el-table-column>
+#>         <template v-slot:header="scope">
+#>           <span v-if="sub.headerHtml" v-html="sub.headerHtml"></span>
+#>           <span v-else>{{sub.label}}</span>
+#>         </template>
+#>         <el-table-column v-for="subx in (sub.children || [])" :key="subx.prop || subx.label" :prop="subx.prop" :label="subx.label" :width="subx.width" :align="subx.align" :header-align="subx.headerAlign" :class-name="subx.className" :label-class-name="subx.labelClassName" :column-key="subx.columnKey" :min-width="subx.minWidth" :fixed="subx.fixed" :resizable="subx.resizable" :sortable="subx.sortable" :sort-by="subx.sortBy" :sort-orders="subx.sortOrders" :show-overflow-tooltip="subx.showOverflowTooltip" :filters="subx.filters" :filtered-value="subx.filteredValue" :filter-multiple="subx.filterMultiple" :filter-placement="subx.filterPlacement" :reserve-selection="subx.reserveSelection" :index="subx.index" :formatter="subx.formatter" :filter-method="subx.filterMethod" :sort-method="subx.sortMethod" :render-header="subx.renderHeader" :selectable="subx.selectable" :type="subx.type">
+#>           <template v-slot:header="scope">
+#>             <span v-if="subx.headerHtml" v-html="subx.headerHtml"></span>
+#>             <span v-else>{{subx.label}}</span>
+#>           </template>
+#>         </el-table-column>
 #>       </el-table-column>
 #>     </el-table-column>
 #>   </el-table>

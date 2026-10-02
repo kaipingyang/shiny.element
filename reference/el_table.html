@@ -197,11 +197,12 @@ to show its <code>cell</code>, or <code>"selection"</code>.</p></li>
 <code>scope.column</code> and <code>scope.$index</code> are in reach, and raw Element tags
 (<code>el$tag()</code>, <code>el$button()</code>) work: <code>el$tag(":type" = "scope.row.ok ? 'success' : 'danger'", "{{ scope.row.status }}")</code>. A column without
 a <code>prop</code> – a column of buttons – is fine. See "Row actions" below.</p></li>
-<li><p><code>header_html</code> – markup for the header cell, inserted unescaped, so
-pass only what you control.</p></li>
+<li><p><code>header_html</code> – markup for the header cell, a string or htmltools
+tags, inserted unescaped, so pass only what you control.</p></li>
 <li><p><code>children</code> – the columns under a group header, as Element nests
 <code>el-table-column</code>: <code>list(label = "Address", children = list(...))</code>.
-Two levels deep.</p></li>
+Two levels deep; each child column takes <code>cell</code> and <code>header_html</code>
+as a top-level one does.</p></li>
 </ul></dd>
 
 
@@ -436,7 +437,16 @@ is an event input: clicking the same row twice reports twice.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span>         &lt;span v-else&gt;{{col.label}}&lt;/span&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>       &lt;/template&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>       &lt;el-table-column v-for="sub in (col.children || [])" :key="sub.prop || sub.label" :prop="sub.prop" :label="sub.label" :width="sub.width" :align="sub.align" :header-align="sub.headerAlign" :class-name="sub.className" :label-class-name="sub.labelClassName" :column-key="sub.columnKey" :min-width="sub.minWidth" :fixed="sub.fixed" :resizable="sub.resizable" :sortable="sub.sortable" :sort-by="sub.sortBy" :sort-orders="sub.sortOrders" :show-overflow-tooltip="sub.showOverflowTooltip" :filters="sub.filters" :filtered-value="sub.filteredValue" :filter-multiple="sub.filterMultiple" :filter-placement="sub.filterPlacement" :reserve-selection="sub.reserveSelection" :index="sub.index" :formatter="sub.formatter" :filter-method="sub.filterMethod" :sort-method="sub.sortMethod" :render-header="sub.renderHeader" :selectable="sub.selectable" :type="sub.type"&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>         &lt;el-table-column v-for="subx in (sub.children || [])" :key="subx.prop || subx.label" :prop="subx.prop" :label="subx.label" :width="subx.width" :align="subx.align" :header-align="subx.headerAlign" :class-name="subx.className" :label-class-name="subx.labelClassName" :column-key="subx.columnKey" :min-width="subx.minWidth" :fixed="subx.fixed" :resizable="subx.resizable" :sortable="subx.sortable" :sort-by="subx.sortBy" :sort-orders="subx.sortOrders" :show-overflow-tooltip="subx.showOverflowTooltip" :filters="subx.filters" :filtered-value="subx.filteredValue" :filter-multiple="subx.filterMultiple" :filter-placement="subx.filterPlacement" :reserve-selection="subx.reserveSelection" :index="subx.index" :formatter="subx.formatter" :filter-method="subx.filterMethod" :sort-method="subx.sortMethod" :render-header="subx.renderHeader" :selectable="subx.selectable" :type="subx.type"&gt;&lt;/el-table-column&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>         &lt;template v-slot:header="scope"&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>           &lt;span v-if="sub.headerHtml" v-html="sub.headerHtml"&gt;&lt;/span&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>           &lt;span v-else&gt;{{sub.label}}&lt;/span&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>         &lt;/template&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>         &lt;el-table-column v-for="subx in (sub.children || [])" :key="subx.prop || subx.label" :prop="subx.prop" :label="subx.label" :width="subx.width" :align="subx.align" :header-align="subx.headerAlign" :class-name="subx.className" :label-class-name="subx.labelClassName" :column-key="subx.columnKey" :min-width="subx.minWidth" :fixed="subx.fixed" :resizable="subx.resizable" :sortable="subx.sortable" :sort-by="subx.sortBy" :sort-orders="subx.sortOrders" :show-overflow-tooltip="subx.showOverflowTooltip" :filters="subx.filters" :filtered-value="subx.filteredValue" :filter-multiple="subx.filterMultiple" :filter-placement="subx.filterPlacement" :reserve-selection="subx.reserveSelection" :index="subx.index" :formatter="subx.formatter" :filter-method="subx.filterMethod" :sort-method="subx.sortMethod" :render-header="subx.renderHeader" :selectable="subx.selectable" :type="subx.type"&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>           &lt;template v-slot:header="scope"&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>             &lt;span v-if="subx.headerHtml" v-html="subx.headerHtml"&gt;&lt;/span&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>             &lt;span v-else&gt;{{subx.label}}&lt;/span&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>           &lt;/template&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>         &lt;/el-table-column&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>       &lt;/el-table-column&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     &lt;/el-table-column&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   &lt;/el-table&gt;</span>
@@ -463,7 +473,16 @@ is an event input: clicking the same row twice reports twice.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span>         &lt;span v-else&gt;{{col.label}}&lt;/span&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>       &lt;/template&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>       &lt;el-table-column v-for="sub in (col.children || [])" :key="sub.prop || sub.label" :prop="sub.prop" :label="sub.label" :width="sub.width" :align="sub.align" :header-align="sub.headerAlign" :class-name="sub.className" :label-class-name="sub.labelClassName" :column-key="sub.columnKey" :min-width="sub.minWidth" :fixed="sub.fixed" :resizable="sub.resizable" :sortable="sub.sortable" :sort-by="sub.sortBy" :sort-orders="sub.sortOrders" :show-overflow-tooltip="sub.showOverflowTooltip" :filters="sub.filters" :filtered-value="sub.filteredValue" :filter-multiple="sub.filterMultiple" :filter-placement="sub.filterPlacement" :reserve-selection="sub.reserveSelection" :index="sub.index" :formatter="sub.formatter" :filter-method="sub.filterMethod" :sort-method="sub.sortMethod" :render-header="sub.renderHeader" :selectable="sub.selectable" :type="sub.type"&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>         &lt;el-table-column v-for="subx in (sub.children || [])" :key="subx.prop || subx.label" :prop="subx.prop" :label="subx.label" :width="subx.width" :align="subx.align" :header-align="subx.headerAlign" :class-name="subx.className" :label-class-name="subx.labelClassName" :column-key="subx.columnKey" :min-width="subx.minWidth" :fixed="subx.fixed" :resizable="subx.resizable" :sortable="subx.sortable" :sort-by="subx.sortBy" :sort-orders="subx.sortOrders" :show-overflow-tooltip="subx.showOverflowTooltip" :filters="subx.filters" :filtered-value="subx.filteredValue" :filter-multiple="subx.filterMultiple" :filter-placement="subx.filterPlacement" :reserve-selection="subx.reserveSelection" :index="subx.index" :formatter="subx.formatter" :filter-method="subx.filterMethod" :sort-method="subx.sortMethod" :render-header="subx.renderHeader" :selectable="subx.selectable" :type="subx.type"&gt;&lt;/el-table-column&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>         &lt;template v-slot:header="scope"&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>           &lt;span v-if="sub.headerHtml" v-html="sub.headerHtml"&gt;&lt;/span&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>           &lt;span v-else&gt;{{sub.label}}&lt;/span&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>         &lt;/template&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>         &lt;el-table-column v-for="subx in (sub.children || [])" :key="subx.prop || subx.label" :prop="subx.prop" :label="subx.label" :width="subx.width" :align="subx.align" :header-align="subx.headerAlign" :class-name="subx.className" :label-class-name="subx.labelClassName" :column-key="subx.columnKey" :min-width="subx.minWidth" :fixed="subx.fixed" :resizable="subx.resizable" :sortable="subx.sortable" :sort-by="subx.sortBy" :sort-orders="subx.sortOrders" :show-overflow-tooltip="subx.showOverflowTooltip" :filters="subx.filters" :filtered-value="subx.filteredValue" :filter-multiple="subx.filterMultiple" :filter-placement="subx.filterPlacement" :reserve-selection="subx.reserveSelection" :index="subx.index" :formatter="subx.formatter" :filter-method="subx.filterMethod" :sort-method="subx.sortMethod" :render-header="subx.renderHeader" :selectable="subx.selectable" :type="subx.type"&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>           &lt;template v-slot:header="scope"&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>             &lt;span v-if="subx.headerHtml" v-html="subx.headerHtml"&gt;&lt;/span&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>             &lt;span v-else&gt;{{subx.label}}&lt;/span&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>           &lt;/template&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>         &lt;/el-table-column&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>       &lt;/el-table-column&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     &lt;/el-table-column&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   &lt;/el-table&gt;</span>

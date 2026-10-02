@@ -18,12 +18,14 @@ tree's expand arrow – would be replaced by an empty slot.
 
 - columns:
 
-  Sanitised column configs.
+  Sanitised column configs. A group header's `children` are searched
+  too, and `depths` records how far down each template sits, so each
+  level of the column template carries only the branches it can use.
 
 ## Value
 
-A list: `columns`, without `cell`, and `cells`, a named list of markup
-keyed by `cellKey`.
+A list: `columns`, without `cell`, `cells`, a named list of markup keyed
+by `cellKey`, and `depths`, the nesting level of each.
 
 ## Details
 

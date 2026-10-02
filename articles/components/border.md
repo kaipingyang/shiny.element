@@ -2,7 +2,7 @@
 
 Element standardises the borders, radii and shadows its components use.
 
-## Border
+## Border style
 
 ``` r
 
