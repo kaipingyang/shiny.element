@@ -128,24 +128,28 @@ every change. Empty when all are closed, which Shiny reports as <code>NULL</code
 <span class="r-in"><span>  <span class="op">)</span>,</span></span>
 <span class="r-in"><span>  value <span class="op">=</span> <span class="st">"p1"</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;div id="col1" class="el-collapse" role="tablist" data-el-collapse="true" data-accordion="false"&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;div id="col1" class="el-collapse" role="tablist" aria-multiselectable="true" data-el-collapse="true" data-accordion="false"&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   &lt;div class="el-collapse-item is-active" data-el-name="p1"&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     &lt;div role="tab" class="el-collapse-item__header is-active"&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       Panel 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       &lt;i class="el-collapse-item__arrow el-icon-arrow-right is-active"&gt;&lt;/i&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     &lt;div role="tab" aria-expanded="true" aria-controls="col1-content-p1" aria-describedby="col1-content-p1"&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       &lt;div id="col1-head-p1" role="button" tabindex="0" class="el-collapse-item__header is-active"&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>         Panel 1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>         &lt;i class="el-collapse-item__arrow el-icon-arrow-right is-active"&gt;&lt;/i&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       &lt;/div&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     &lt;/div&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     &lt;div class="el-collapse-item__wrap"&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     &lt;div id="col1-content-p1" role="tabpanel" aria-hidden="false" aria-labelledby="col1-head-p1" class="el-collapse-item__wrap"&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>       &lt;div class="el-collapse-item__content"&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>         &lt;p&gt;Content 1&lt;/p&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>       &lt;/div&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     &lt;/div&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   &lt;/div&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   &lt;div class="el-collapse-item" data-el-name="p2"&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     &lt;div role="tab" class="el-collapse-item__header"&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       Panel 2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       &lt;i class="el-collapse-item__arrow el-icon-arrow-right"&gt;&lt;/i&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     &lt;div role="tab" aria-expanded="false" aria-controls="col1-content-p2" aria-describedby="col1-content-p2"&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       &lt;div id="col1-head-p2" role="button" tabindex="0" class="el-collapse-item__header"&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>         Panel 2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>         &lt;i class="el-collapse-item__arrow el-icon-arrow-right"&gt;&lt;/i&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       &lt;/div&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     &lt;/div&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     &lt;div class="el-collapse-item__wrap" style="display:none"&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     &lt;div id="col1-content-p2" role="tabpanel" aria-hidden="true" aria-labelledby="col1-head-p2" class="el-collapse-item__wrap" style="display:none"&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>       &lt;div class="el-collapse-item__content"&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>         &lt;p&gt;Content 2&lt;/p&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>       &lt;/div&gt;</span>
@@ -160,13 +164,15 @@ every change. Empty when all are closed, which Shiny reports as <code>NULL</code
 <span class="r-in"><span>         content <span class="op">=</span> <span class="fu">shiny</span><span class="fu">::</span><span class="fu"><a href="https://rstudio.github.io/htmltools/reference/tagList.html" class="external-link">tagList</a></span><span class="op">(</span><span class="fu"><a href="el_input.html">el_input</a></span><span class="op">(</span><span class="st">"q"</span><span class="op">)</span>, <span class="fu"><a href="el_switch.html">el_switch</a></span><span class="op">(</span><span class="st">"live"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-in"><span>  <span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;div id="col2" class="el-collapse" role="tablist" data-el-collapse="true" data-accordion="false"&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;div id="col2" class="el-collapse" role="tablist" aria-multiselectable="true" data-el-collapse="true" data-accordion="false"&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   &lt;div class="el-collapse-item" data-el-name="f"&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     &lt;div role="tab" class="el-collapse-item__header"&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       Filters</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       &lt;i class="el-collapse-item__arrow el-icon-arrow-right"&gt;&lt;/i&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     &lt;div role="tab" aria-expanded="false" aria-controls="col2-content-f" aria-describedby="col2-content-f"&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       &lt;div id="col2-head-f" role="button" tabindex="0" class="el-collapse-item__header"&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>         Filters</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>         &lt;i class="el-collapse-item__arrow el-icon-arrow-right"&gt;&lt;/i&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       &lt;/div&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     &lt;/div&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     &lt;div class="el-collapse-item__wrap" style="display:none"&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     &lt;div id="col2-content-f" role="tabpanel" aria-hidden="true" aria-labelledby="col2-head-f" class="el-collapse-item__wrap" style="display:none"&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>       &lt;div class="el-collapse-item__content"&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>         &lt;div id="q" data-shiny-vue style="display: contents"&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>           &lt;script type="text/x-template" data-shiny-vue-template&gt;&lt;div id="q_container" style="display: contents"&gt;</span>

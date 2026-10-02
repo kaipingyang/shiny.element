@@ -153,7 +153,7 @@
 <div class="section level2">
 <h2 id="reading-and-writing-values">Reading and writing values<a class="anchor" aria-label="anchor" href="#reading-and-writing-values"></a>
 </h2>
-<p>Every component reports through <code>input$&lt;id&gt;</code>, and every component has a matching <code>update_el_*()</code>:</p>
+<p>A component with a value reports it as <code>input$&lt;id&gt;</code>, as Shiny’s inputs do, and one that can change from the server has an <code>update_el_*()</code>; <code><a href="reference/update_vue_data.html">update_vue_data()</a></code> reaches whatever has none:</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">server</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span>, <span class="va">session</span><span class="op">)</span> <span class="op">{</span></span>
 <span>  <span class="co"># read</span></span>

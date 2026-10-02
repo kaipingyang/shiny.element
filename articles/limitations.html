@@ -75,14 +75,18 @@
 
     
     
-<p>Everything Element UI 2.15.14 documents is wrapped: 83 components,
-552 attributes, 94 events, 54 methods and 42 slots. What follows is the
-small print – the places where this package behaves differently from
-Element in a browser, and why.</p>
+<p>Every component Element UI 2.15.14 documents is wrapped, with every
+documented attribute, event and slot reachable from R and every method
+callable by name. What follows is the small print – the places where
+this package behaves differently from Element in a browser, and why.</p>
 <p>Coverage is measured rather than claimed.
 <code>tools/api-coverage.R</code> renders every component and reads the
 markup back; <code>tools/api-coverage.py</code> compares that with the
-API tables in Element’s own documentation.</p>
+API tables in Element’s own documentation. A method being callable is
+not the same as it having been run: the methods exercised end to end in
+the package’s browser tests are fewer, and a method whose argument is a
+JavaScript callback cannot be called from R at all – Element’s promise
+form, where it has one, is what <code><a href="../reference/el_call.html">el_call()</a></code> uses.</p>
 <div class="section level2">
 <h2 id="reading-and-writing-a-component">Reading and writing a component<a class="anchor" aria-label="anchor" href="#reading-and-writing-a-component"></a>
 </h2>
@@ -306,13 +310,15 @@ own.</p>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">"two"</span>, title <span class="op">=</span> <span class="st">"About"</span>, content <span class="op">=</span> <span class="va">tags</span><span class="op">$</span><span class="fu">p</span><span class="op">(</span><span class="st">"Version 0.1.0"</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
-  <div id="container-panels" class="el-collapse" role="tablist" data-el-collapse="true" data-accordion="false">
+  <div id="container-panels" class="el-collapse" role="tablist" aria-multiselectable="true" data-el-collapse="true" data-accordion="false">
     <div class="el-collapse-item is-active" data-el-name="one">
-      <div role="tab" class="el-collapse-item__header is-active">
-        Settings
-        <i class="el-collapse-item__arrow el-icon-arrow-right is-active"></i>
+      <div role="tab" aria-expanded="true" aria-controls="container-panels-content-one" aria-describedby="container-panels-content-one">
+        <div id="container-panels-head-one" role="button" tabindex="0" class="el-collapse-item__header is-active">
+          Settings
+          <i class="el-collapse-item__arrow el-icon-arrow-right is-active"></i>
+        </div>
       </div>
-      <div class="el-collapse-item__wrap">
+      <div id="container-panels-content-one" role="tabpanel" aria-hidden="false" aria-labelledby="container-panels-head-one" class="el-collapse-item__wrap">
         <div class="el-collapse-item__content">
           <div id="container-dark" data-shiny-vue style="display: contents">
             <script type="text/x-template" data-shiny-vue-template><div id="container-dark_container" style="display: contents">
@@ -328,11 +334,13 @@ own.</p>
       </div>
     </div>
     <div class="el-collapse-item" data-el-name="two">
-      <div role="tab" class="el-collapse-item__header">
-        About
-        <i class="el-collapse-item__arrow el-icon-arrow-right"></i>
+      <div role="tab" aria-expanded="false" aria-controls="container-panels-content-two" aria-describedby="container-panels-content-two">
+        <div id="container-panels-head-two" role="button" tabindex="0" class="el-collapse-item__header">
+          About
+          <i class="el-collapse-item__arrow el-icon-arrow-right"></i>
+        </div>
       </div>
-      <div class="el-collapse-item__wrap" style="display:none">
+      <div id="container-panels-content-two" role="tabpanel" aria-hidden="true" aria-labelledby="container-panels-head-two" class="el-collapse-item__wrap" style="display:none">
         <div class="el-collapse-item__content">
           <p>Version 0.1.0</p>
         </div>
@@ -844,6 +852,50 @@ functions have no server to come from. Load the scripts once with
 <code><a href="../reference/use_element.html">use_element()</a></code>, as for any page that is not an
 <code><a href="../reference/el_page.html">el_page()</a></code>. The examples on this website are built exactly
 so.</p>
+</div>
+<div class="section level2">
+<h2 id="containers-reimplemented-as-markup">Containers reimplemented as markup<a class="anchor" aria-label="anchor" href="#containers-reimplemented-as-markup"></a>
+</h2>
+<p>Tabs, collapse, dialog and drawer are not Element’s Vue components
+here but their markup and classes, driven by a Shiny input binding – a
+Vue instance over them would recompile the components placed inside and
+disconnect them. They follow Element closely:</p>
+<ul>
+<li>stacking, the backdrop, scroll lock, Escape and a click on the
+backdrop go through Element’s own popup manager, so a dialog shares one
+z-index counter with every select, popover and message box, and starts
+where <code>el_page(z_index =)</code> says;</li>
+<li>
+<code>opened</code> and <code>closed</code> follow the end of
+Element’s own transitions, and a drawer gives focus back to what had
+it;</li>
+<li>tabs take the arrow keys and Delete, scroll when they outgrow the
+bar, and carry Element’s ARIA; collapse headers take Enter and Space,
+animate open and closed, and carry Element’s ARIA.</li>
+</ul>
+<p>What remains different: a dialog’s or drawer’s props other than
+<code>visible</code>, <code>title</code>, <code>width</code> and
+<code>size</code> are set when the page is built – there is no reactive
+data behind them for an update to change – and anything that reaches
+into Element’s own component instance, <code>$refs</code> on a dialog
+say, has no instance to reach.</p>
+</div>
+<div class="section level2">
+<h2 id="browsers-csp-and-the-road-ahead">Browsers, CSP and the road ahead<a class="anchor" aria-label="anchor" href="#browsers-csp-and-the-road-ahead"></a>
+</h2>
+<p>Element UI 2 and Vue 2 are both past their active development: Vue 2
+reached end of life at the end of 2023, and Element UI’s last release is
+the 2.15.14 bundled here. They work, and this package keeps working with
+them, but upstream will not fix new bugs or security issues; Element
+Plus on Vue 3 is upstream’s successor, and a future shiny.vue may move
+to it.</p>
+<p>The bridge needs a browser that supports
+<code>display: contents</code>, <code>:scope</code> selectors and
+regular-expression lookbehind – every current Chrome, Edge, Firefox and
+Safari (16.4 and later); not Internet Explorer. A page with a strict
+Content-Security-Policy must allow <code>'unsafe-eval'</code>: Vue
+compiles templates in the browser, and functions given with
+<code><a href="../reference/JS.html">JS()</a></code> are evaluated there.</p>
 </div>
 <div class="section level2">
 <h2 id="known-gaps">Known gaps<a class="anchor" aria-label="anchor" href="#known-gaps"></a>

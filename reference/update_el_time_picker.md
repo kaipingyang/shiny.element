@@ -3,12 +3,23 @@
 Server-side update for
 [`el_time_picker()`](https://kaipingyang.github.io/shiny.element/reference/el_time_picker.md)
 and
-[`el_time_select()`](https://kaipingyang.github.io/shiny.element/reference/el_time_picker.md).
+[`el_time_select()`](https://kaipingyang.github.io/shiny.element/reference/el_time_picker.md);
+`update_el_time_select()` is the same function under the select's name.
 
 ## Usage
 
 ``` r
 update_el_time_picker(
+  session = shiny::getDefaultReactiveDomain(),
+  id,
+  value = NULL,
+  disabled = NULL,
+  picker_options = NULL,
+  label = NULL,
+  error = NULL
+)
+
+update_el_time_select(
   session = shiny::getDefaultReactiveDomain(),
   id,
   value = NULL,

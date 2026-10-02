@@ -87,6 +87,7 @@ change.
 - [`update_el_date_picker()`](https://kaipingyang.github.io/shiny.element/reference/update_el_date_picker.md)
   : Update Element UI Date Picker
 - [`update_el_time_picker()`](https://kaipingyang.github.io/shiny.element/reference/update_el_time_picker.md)
+  [`update_el_time_select()`](https://kaipingyang.github.io/shiny.element/reference/update_el_time_picker.md)
   : Update Element UI Time Picker
 - [`update_el_color_picker()`](https://kaipingyang.github.io/shiny.element/reference/update_el_color_picker.md)
   : Update Element UI Color Picker
@@ -324,6 +325,9 @@ update_el\_\*() cannot reach them.
 
 - [`el_call()`](https://kaipingyang.github.io/shiny.element/reference/el_call.md)
   : Call a method of an Element component
+- [`el_table_row()`](https://kaipingyang.github.io/shiny.element/reference/el_table_row.md)
+  [`el_upload_file()`](https://kaipingyang.github.io/shiny.element/reference/el_table_row.md)
+  : Name a table row or an uploaded file for a method
 
 ## Loading from the server
 

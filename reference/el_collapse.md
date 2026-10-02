@@ -84,24 +84,28 @@ el_collapse("col1",
   ),
   value = "p1"
 )
-#> <div id="col1" class="el-collapse" role="tablist" data-el-collapse="true" data-accordion="false">
+#> <div id="col1" class="el-collapse" role="tablist" aria-multiselectable="true" data-el-collapse="true" data-accordion="false">
 #>   <div class="el-collapse-item is-active" data-el-name="p1">
-#>     <div role="tab" class="el-collapse-item__header is-active">
-#>       Panel 1
-#>       <i class="el-collapse-item__arrow el-icon-arrow-right is-active"></i>
+#>     <div role="tab" aria-expanded="true" aria-controls="col1-content-p1" aria-describedby="col1-content-p1">
+#>       <div id="col1-head-p1" role="button" tabindex="0" class="el-collapse-item__header is-active">
+#>         Panel 1
+#>         <i class="el-collapse-item__arrow el-icon-arrow-right is-active"></i>
+#>       </div>
 #>     </div>
-#>     <div class="el-collapse-item__wrap">
+#>     <div id="col1-content-p1" role="tabpanel" aria-hidden="false" aria-labelledby="col1-head-p1" class="el-collapse-item__wrap">
 #>       <div class="el-collapse-item__content">
 #>         <p>Content 1</p>
 #>       </div>
 #>     </div>
 #>   </div>
 #>   <div class="el-collapse-item" data-el-name="p2">
-#>     <div role="tab" class="el-collapse-item__header">
-#>       Panel 2
-#>       <i class="el-collapse-item__arrow el-icon-arrow-right"></i>
+#>     <div role="tab" aria-expanded="false" aria-controls="col1-content-p2" aria-describedby="col1-content-p2">
+#>       <div id="col1-head-p2" role="button" tabindex="0" class="el-collapse-item__header">
+#>         Panel 2
+#>         <i class="el-collapse-item__arrow el-icon-arrow-right"></i>
+#>       </div>
 #>     </div>
-#>     <div class="el-collapse-item__wrap" style="display:none">
+#>     <div id="col1-content-p2" role="tabpanel" aria-hidden="true" aria-labelledby="col1-head-p2" class="el-collapse-item__wrap" style="display:none">
 #>       <div class="el-collapse-item__content">
 #>         <p>Content 2</p>
 #>       </div>
@@ -116,13 +120,15 @@ el_collapse("col2",
          content = shiny::tagList(el_input("q"), el_switch("live")))
   )
 )
-#> <div id="col2" class="el-collapse" role="tablist" data-el-collapse="true" data-accordion="false">
+#> <div id="col2" class="el-collapse" role="tablist" aria-multiselectable="true" data-el-collapse="true" data-accordion="false">
 #>   <div class="el-collapse-item" data-el-name="f">
-#>     <div role="tab" class="el-collapse-item__header">
-#>       Filters
-#>       <i class="el-collapse-item__arrow el-icon-arrow-right"></i>
+#>     <div role="tab" aria-expanded="false" aria-controls="col2-content-f" aria-describedby="col2-content-f">
+#>       <div id="col2-head-f" role="button" tabindex="0" class="el-collapse-item__header">
+#>         Filters
+#>         <i class="el-collapse-item__arrow el-icon-arrow-right"></i>
+#>       </div>
 #>     </div>
-#>     <div class="el-collapse-item__wrap" style="display:none">
+#>     <div id="col2-content-f" role="tabpanel" aria-hidden="true" aria-labelledby="col2-head-f" class="el-collapse-item__wrap" style="display:none">
 #>       <div class="el-collapse-item__content">
 #>         <div id="q" data-shiny-vue style="display: contents">
 #>           <script type="text/x-template" data-shiny-vue-template><div id="q_container" style="display: contents">

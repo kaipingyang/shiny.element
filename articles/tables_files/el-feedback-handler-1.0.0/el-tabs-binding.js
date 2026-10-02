@@ -98,8 +98,91 @@
       var on = p.getAttribute('data-el-name') === name;
       if (on) instantiate(p);
       p.style.display = on ? '' : 'none';
+      if (on) p.removeAttribute('aria-hidden'); else p.setAttribute('aria-hidden', 'true');
     });
     moveBar(el);
+    scrollToActive(el);
+  }
+
+  // ── scrolling, as Element's TabNav does when the tabs outgrow the bar ──
+  //
+  // The nav moves inside its scroll box by a transform; prev and next
+  // buttons appear on the wrap, which takes is-scrollable.
+  function vertical(el) {
+    var pos = el.getAttribute('data-position');
+    return pos === 'left' || pos === 'right';
+  }
+  function navParts(el) {
+    var wrap = el.querySelector('.el-tabs__nav-wrap');
+    return { wrap: wrap, scroll: wrap && wrap.querySelector('.el-tabs__nav-scroll'),
+             nav: wrap && wrap.querySelector('.el-tabs__nav') };
+  }
+  function sizeOf(node, el) { return vertical(el) ? node.offsetHeight : node.offsetWidth; }
+  function offsetOf(el) { return el._elNavOffset || 0; }
+  function setOffset(el, value) {
+    var n = navParts(el);
+    if (!n.nav) return;
+    el._elNavOffset = value;
+    n.nav.style.transform = 'translate' + (vertical(el) ? 'Y' : 'X') + '(-' + value + 'px)';
+  }
+  function ensureButtons(el) {
+    var n = navParts(el);
+    if (!n.wrap || n.wrap.querySelector(':scope > .el-tabs__nav-prev')) return;
+    var v = vertical(el);
+    var prev = document.createElement('span');
+    prev.className = 'el-tabs__nav-prev';
+    prev.innerHTML = '<i class="el-icon-arrow-' + (v ? 'up' : 'left') + '"></i>';
+    var next = document.createElement('span');
+    next.className = 'el-tabs__nav-next';
+    next.innerHTML = '<i class="el-icon-arrow-' + (v ? 'down' : 'right') + '"></i>';
+    n.wrap.insertBefore(next, n.wrap.firstChild);
+    n.wrap.insertBefore(prev, n.wrap.firstChild);
+    prev.addEventListener('click', function() {
+      var box = sizeOf(navParts(el).scroll, el);
+      setOffset(el, Math.max(0, offsetOf(el) - box));
+      update(el);
+    });
+    next.addEventListener('click', function() {
+      var p = navParts(el), navSize = sizeOf(p.nav, el), box = sizeOf(p.scroll, el);
+      var cur = offsetOf(el);
+      if (navSize - cur <= box) return;
+      setOffset(el, navSize - cur > box * 2 ? cur + box : navSize - box);
+      update(el);
+    });
+  }
+  function update(el) {
+    var n = navParts(el);
+    if (!n.nav || !n.scroll) return;
+    var navSize = sizeOf(n.nav, el), box = sizeOf(n.scroll, el), cur = offsetOf(el);
+    if (!navSize || !box) return;              // not laid out yet: hidden
+    var scrollable = box < navSize;
+    n.wrap.classList.toggle('is-scrollable', scrollable);
+    if (scrollable) {
+      ensureButtons(el);
+      if (navSize - cur < box) { cur = navSize - box; setOffset(el, cur); }
+      n.wrap.querySelector('.el-tabs__nav-prev').classList.toggle('is-disabled', !cur);
+      n.wrap.querySelector('.el-tabs__nav-next').classList.toggle('is-disabled', cur + box >= navSize);
+    } else if (cur > 0) {
+      setOffset(el, 0);
+    }
+  }
+  function scrollToActive(el) {
+    update(el);
+    var n = navParts(el);
+    if (!n.wrap || !n.wrap.classList.contains('is-scrollable')) return;
+    var active = el.querySelector('.el-tabs__item.is-active');
+    if (!active) return;
+    var v = vertical(el), a = active.getBoundingClientRect(), b = n.scroll.getBoundingClientRect();
+    var navSize = sizeOf(n.nav, el), box = sizeOf(n.scroll, el), cur = offsetOf(el), next = cur;
+    if (v) {
+      if (a.top < b.top) next = cur - (b.top - a.top);
+      if (a.bottom > b.bottom) next = cur + a.bottom - b.bottom;
+    } else {
+      if (a.left < b.left) next = cur - (b.left - a.left);
+      if (a.right > b.right) next = cur + a.right - b.right;
+    }
+    setOffset(el, Math.max(0, Math.min(next, navSize - box)));
+    update(el);
   }
 
   // Element's before-leave: a function that may return false, or a promise,
@@ -141,6 +224,7 @@
       show(el, remaining[0].getAttribute('data-el-name'));
     } else {
       moveBar(el);
+      update(el);
     }
     if (callback) callback(false);
   }
@@ -153,6 +237,7 @@
     var item = document.createElement('div');
     item.id = el.id + '-tab-' + tab.name;
     item.setAttribute('role', 'tab');
+    item.setAttribute('aria-controls', el.id + '-pane-' + tab.name);
     item.setAttribute('tabindex', '-1');
     item.setAttribute('data-el-name', tab.name);
     item.className = 'el-tabs__item ' + pos + (closable ? ' is-closable' : '');
@@ -164,6 +249,7 @@
     }
     nav.appendChild(item);
     moveBar(el);
+    update(el);
   }
 
   $.extend(binding, {
@@ -183,6 +269,7 @@
       // The bar cannot be positioned server-side: it depends on the label's
       // rendered width.
       moveBar(el);
+      scrollToActive(el);
     },
 
     subscribe: function(el, callback) {
@@ -213,9 +300,39 @@
         select(el, name, function() { callback(false); });
       });
 
-      // The bar is positioned from a rendered width, so it has to be redone
-      // when the layout changes.
-      $(window).on('resize.elTabs' + el.id, function() { moveBar(el); });
+      // Keyboard, as Element's TabNav: arrows move to the next tab and select
+      // it, wrapping round; Delete or Backspace closes a closable one.
+      $(el).on('keydown.elTabs', '.el-tabs__item', function(e) {
+        var k = e.keyCode, item = e.currentTarget;
+        if (k === 46 || k === 8) {
+          if (item.classList.contains('is-closable')) {
+            var x = item.querySelector('.el-icon-close');
+            if (x) { e.preventDefault(); x.click(); }
+          }
+          return;
+        }
+        if ([37, 38, 39, 40].indexOf(k) === -1) return;
+        e.preventDefault();
+        var list = items(el), i = list.indexOf(item);
+        var to = (k === 37 || k === 38) ? (i === 0 ? list.length - 1 : i - 1)
+                                        : (i < list.length - 1 ? i + 1 : 0);
+        el._elKeyboard = true;
+        list[to].focus();
+        list[to].click();
+      });
+      // is-focus marks a tab focused from the keyboard, not by a click
+      $(el).on('mousedown.elTabs', '.el-tabs__item', function() { el._elKeyboard = false; });
+      $(el).on('keydown.elTabs', function(e) { if (e.keyCode === 9) el._elKeyboard = true; });
+      $(el).on('focusin.elTabs', '.el-tabs__item', function(e) {
+        if (el._elKeyboard) e.currentTarget.classList.add('is-focus');
+      });
+      $(el).on('focusout.elTabs', '.el-tabs__item', function(e) {
+        e.currentTarget.classList.remove('is-focus');
+      });
+
+      // The bar and the scrolling are worked out from rendered sizes, so
+      // they have to be redone when the layout changes.
+      $(window).on('resize.elTabs' + el.id, function() { moveBar(el); scrollToActive(el); });
     },
 
     unsubscribe: function(el) {

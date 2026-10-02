@@ -6,9 +6,12 @@ First release.
 
 ### Components
 
-Every component Element UI 2.15.14 documents is wrapped – 82 tags,
-services included – with everything each one documents reachable from R:
-757 attributes, 115 events, 60 methods and 48 slots.
+Every component Element UI 2.15.14 documents is wrapped, services
+included, with every documented attribute, event and slot reachable from
+R and every method callable by name – measured by `tools/api-coverage`,
+not counted by hand. Tabs, collapse, dialog and drawer are reimplemented
+as markup so the components inside them stay connected; the “What works”
+article lists where they differ from Element’s own.
 
 - **Input** —
   [`el_input()`](https://kaipingyang.github.io/shiny.element/reference/el_input.md),
@@ -312,6 +315,24 @@ limitations article shows, needs no JavaScript.
   (`errors =`). An update can carry
   [`JS()`](https://kaipingyang.github.io/shiny.element/reference/JS.md)
   functions.
+- **Closer to Element’s own behaviour.** Dialogs and drawers stack, lock
+  scroll and close on Escape through Element’s popup manager, so they
+  share one z-index counter with every Element popup and honour
+  `el_page(z_index =)`; `opened` and `closed` follow the transitions,
+  and a drawer gives focus back. Tabs take the arrow keys and Delete and
+  scroll when they overflow; collapse headers take Enter and Space and
+  animate; both carry Element’s ARIA.
+- **Uploads that fail or are aborted.** Files go up one at a time, as
+  [`fileInput()`](https://rdrr.io/pkg/shiny/man/fileInput.html) sends
+  them; a file that fails, or is stopped with `abort()`, is left out and
+  the rest of its batch still arrives.
+  [`el_upload_file()`](https://kaipingyang.github.io/shiny.element/reference/el_table_row.md)
+  and
+  [`el_table_row()`](https://kaipingyang.github.io/shiny.element/reference/el_table_row.md)
+  name a file or a row for a method that needs it.
+- **Server questions are cleaned up.** A lazy load or remote search the
+  server never answers settles after 30 seconds, and at once when its
+  component is removed or the session ends.
 - **Element’s global config.**
   [`el_page()`](https://kaipingyang.github.io/shiny.element/reference/el_page.md)
   and

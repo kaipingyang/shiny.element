@@ -89,12 +89,17 @@ that way. <code>el_call()</code> invokes one.</p>
 
 
 <dt id="arg-args">args<a class="anchor" aria-label="anchor" href="#arg-args"></a></dt>
-<dd><p>A list of arguments, passed positionally.</p></dd>
+<dd><p>A list of arguments, passed positionally. A row of a table
+or a file of an upload is given by <code><a href="el_table_row.html">el_table_row()</a></code> or
+<code><a href="el_table_row.html">el_upload_file()</a></code>: the method needs the object itself.</p></dd>
 
 
 <dt id="arg-result">result<a class="anchor" aria-label="anchor" href="#arg-result"></a></dt>
 <dd><p>Whether to report the return value as an input. Default
-<code>TRUE</code>.</p></dd>
+<code>TRUE</code>.
+The input is <code>&lt;id&gt;_&lt;method&gt;</code>; an input of your own with that name – an
+<code>actionButton("car_next")</code> beside <code>el_call(session, "car", "next")</code> –
+would hear it too. Give <code>result = FALSE</code>, or another name, then.</p></dd>
 
 
 <dt id="arg-component">component<a class="anchor" aria-label="anchor" href="#arg-component"></a></dt>

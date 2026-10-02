@@ -1,13 +1,19 @@
 # What works, and what does not
 
-Everything Element UI 2.15.14 documents is wrapped: 83 components, 552
-attributes, 94 events, 54 methods and 42 slots. What follows is the
-small print – the places where this package behaves differently from
-Element in a browser, and why.
+Every component Element UI 2.15.14 documents is wrapped, with every
+documented attribute, event and slot reachable from R and every method
+callable by name. What follows is the small print – the places where
+this package behaves differently from Element in a browser, and why.
 
 Coverage is measured rather than claimed. `tools/api-coverage.R` renders
 every component and reads the markup back; `tools/api-coverage.py`
-compares that with the API tables in Element’s own documentation.
+compares that with the API tables in Element’s own documentation. A
+method being callable is not the same as it having been run: the methods
+exercised end to end in the package’s browser tests are fewer, and a
+method whose argument is a JavaScript callback cannot be called from R
+at all – Element’s promise form, where it has one, is what
+[`el_call()`](https://kaipingyang.github.io/shiny.element/reference/el_call.md)
+uses.
 
 ## Reading and writing a component
 
@@ -655,6 +661,46 @@ once with
 as for any page that is not an
 [`el_page()`](https://kaipingyang.github.io/shiny.element/reference/el_page.md).
 The examples on this website are built exactly so.
+
+## Containers reimplemented as markup
+
+Tabs, collapse, dialog and drawer are not Element’s Vue components here
+but their markup and classes, driven by a Shiny input binding – a Vue
+instance over them would recompile the components placed inside and
+disconnect them. They follow Element closely:
+
+- stacking, the backdrop, scroll lock, Escape and a click on the
+  backdrop go through Element’s own popup manager, so a dialog shares
+  one z-index counter with every select, popover and message box, and
+  starts where `el_page(z_index =)` says;
+- `opened` and `closed` follow the end of Element’s own transitions, and
+  a drawer gives focus back to what had it;
+- tabs take the arrow keys and Delete, scroll when they outgrow the bar,
+  and carry Element’s ARIA; collapse headers take Enter and Space,
+  animate open and closed, and carry Element’s ARIA.
+
+What remains different: a dialog’s or drawer’s props other than
+`visible`, `title`, `width` and `size` are set when the page is built –
+there is no reactive data behind them for an update to change – and
+anything that reaches into Element’s own component instance, `$refs` on
+a dialog say, has no instance to reach.
+
+## Browsers, CSP and the road ahead
+
+Element UI 2 and Vue 2 are both past their active development: Vue 2
+reached end of life at the end of 2023, and Element UI’s last release is
+the 2.15.14 bundled here. They work, and this package keeps working with
+them, but upstream will not fix new bugs or security issues; Element
+Plus on Vue 3 is upstream’s successor, and a future shiny.vue may move
+to it.
+
+The bridge needs a browser that supports `display: contents`, `:scope`
+selectors and regular-expression lookbehind – every current Chrome,
+Edge, Firefox and Safari (16.4 and later); not Internet Explorer. A page
+with a strict Content-Security-Policy must allow `'unsafe-eval'`: Vue
+compiles templates in the browser, and functions given with
+[`JS()`](https://kaipingyang.github.io/shiny.element/reference/JS.md)
+are evaluated there.
 
 ## Known gaps
 

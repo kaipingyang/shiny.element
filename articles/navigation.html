@@ -168,14 +168,14 @@ markup rather than as a Vue instance of its own:</p>
       <div class="el-tabs__nav-wrap is-top">
         <div class="el-tabs__nav-scroll">
           <div role="tablist" class="el-tabs__nav is-top">
-            <div id="tabs-views-tab-settings" role="tab" aria-selected="true" tabindex="0" class="el-tabs__item is-top is-active" data-el-name="settings">Settings</div>
-            <div id="tabs-views-tab-about" role="tab" tabindex="-1" class="el-tabs__item is-top" data-el-name="about">About</div>
+            <div id="tabs-views-tab-settings" role="tab" aria-controls="tabs-views-pane-settings" aria-selected="true" tabindex="0" class="el-tabs__item is-top is-active" data-el-name="settings">Settings</div>
+            <div id="tabs-views-tab-about" role="tab" aria-controls="tabs-views-pane-about" tabindex="-1" class="el-tabs__item is-top" data-el-name="about">About</div>
           </div>
         </div>
       </div>
     </div>
     <div class="el-tabs__content">
-      <div role="tabpanel" id="tabs-views-pane-settings" class="el-tab-pane" data-el-name="settings">
+      <div role="tabpanel" id="tabs-views-pane-settings" aria-labelledby="tabs-views-tab-settings" class="el-tab-pane" data-el-name="settings">
         <div id="tabs-dark" data-shiny-vue style="display: contents">
           <script type="text/x-template" data-shiny-vue-template><div id="tabs-dark_container" style="display: contents">
   <el-switch v-model="value" :disabled="disabled" :active-text="activeText" :inactive-text="inactiveText" :active-color="activeColor" :inactive-color="inactiveColor" :active-value="activeValue" :inactive-value="inactiveValue" @change="handleChange" :width="width === null ? undefined : width" :active-icon-class="activeIconClass === null ? undefined : activeIconClass" :inactive-icon-class="inactiveIconClass === null ? undefined : inactiveIconClass" :name="name === null ? undefined : name" :validate-event="validateEvent === null ? undefined : validateEvent"></el-switch>
@@ -187,7 +187,7 @@ markup rather than as a Vue instance of its own:</p>
 </div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":14,"min":10,"max":24,"step":1,"range":false,"disabled":false,"showInput":false,"showStops":false,"showTooltip":true,"vertical":false,"height":null,"marks":null,"label":null,"debounce":null,"inputSize":null,"showInputControls":null,"tooltipClass":null,"formatTooltip":null},"methods":{"elEmitInput":"function() { window.shinyVue.emit('tabs-size', 'input', arguments); }","handleChange":"function(value) { }"}},"input":"value","rate":{"policy":"debounce","delay":250},"type":null,"evals":["options.methods.elEmitInput","options.methods.handleChange"]}</script>
 </div>
       </div>
-      <div role="tabpanel" id="tabs-views-pane-about" class="el-tab-pane" style="display:none" data-el-name="about">
+      <div role="tabpanel" id="tabs-views-pane-about" aria-labelledby="tabs-views-tab-about" aria-hidden="true" class="el-tab-pane" style="display:none" data-el-name="about">
         <p>Version 0.1.0</p>
       </div>
     </div>

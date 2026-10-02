@@ -38,11 +38,19 @@ el_call(
 
 - args:
 
-  A list of arguments, passed positionally.
+  A list of arguments, passed positionally. A row of a table or a file
+  of an upload is given by
+  [`el_table_row()`](https://kaipingyang.github.io/shiny.element/reference/el_table_row.md)
+  or
+  [`el_upload_file()`](https://kaipingyang.github.io/shiny.element/reference/el_table_row.md):
+  the method needs the object itself.
 
 - result:
 
-  Whether to report the return value as an input. Default `TRUE`.
+  Whether to report the return value as an input. Default `TRUE`. The
+  input is `<id>_<method>`; an input of your own with that name – an
+  `actionButton("car_next")` beside `el_call(session, "car", "next")` –
+  would hear it too. Give `result = FALSE`, or another name, then.
 
 - component:
 

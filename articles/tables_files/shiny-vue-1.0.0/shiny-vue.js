@@ -157,6 +157,37 @@
     return function(vm) { return f.call(vm); };
   }
 
+  // A host leaving the page takes its instance and its questions with it. A
+  // bound host hears it from Shiny (unsubscribe); a host with no value of its
+  // own -- a table, an alert -- is never bound, so removals are watched for.
+  function release(host) {
+    if (host._shinyVueObserver) host._shinyVueObserver.disconnect();
+    dropQuestions(host);
+    if (host._shinyVue) host._shinyVue.$destroy();
+    host._shinyVue = null;
+  }
+  sv.release = release;
+  if (typeof MutationObserver !== 'undefined' && typeof document !== 'undefined') {
+    var gone = new MutationObserver(function(records) {
+      records.forEach(function(r) {
+        Array.prototype.forEach.call(r.removedNodes, function(n) {
+          if (n.nodeType !== 1) return;
+          var hosts = n.matches && n.matches('[data-shiny-vue]') ? [n] : [];
+          hosts = hosts.concat(Array.prototype.slice.call(n.querySelectorAll('[data-shiny-vue]')));
+          hosts.forEach(function(h) {
+            // Moved rather than removed -- a dialog appended to <body> -- is
+            // still on the page
+            if (h._shinyVue && !document.documentElement.contains(h)) release(h);
+          });
+        });
+      });
+    });
+    var startWatching = function() {
+      gone.observe(document.documentElement, { childList: true, subtree: true });
+    };
+    if (document.documentElement) startWatching();
+  }
+
   // ── updates and method calls from the server ────────────────────────────
   //
   // One message type each, whatever the component. Not the binding's
@@ -176,6 +207,8 @@
   // registers what it handles -- the Element layer draws a label and an
   // error message -- and `.resolve` answers a question a component asked.
   sv.hooks = sv.hooks || {};
+  // How a component layer finds an object a method takes, by index or name
+  sv.refs = sv.refs || {};
 
   sv.update = function(id, data) {
     var host = document.getElementById(id);
@@ -212,27 +245,52 @@
   // question goes to input$<input> with a request number, and the promise
   // settles when an update carries `.resolve: {request, value}` back. With
   // no server to ask, the answer is null at once.
+  //
+  // A question is not kept for ever: one the server never answers -- no
+  // observer, an error, a lost connection -- settles as null after
+  // sv.askTimeout (30 s), and the questions of a component that leaves the
+  // page settle at once, so nothing waits on a spinner or stays in memory.
   var pending = {}, nextRequest = 0;
-  sv.ask = function(input, question) {
+  sv.askTimeout = 30000;
+  function settle(request, value) {
+    var p = pending[request];
+    if (!p) return false;
+    delete pending[request];
+    clearTimeout(p.timer);
+    p.resolve(value);
+    return true;
+  }
+  sv.ask = function(input, question, owner) {
     if (typeof Shiny === 'undefined' || !Shiny.setInputValue) return Promise.resolve(null);
     var request = ++nextRequest;
     var payload = plain(question) || {};
     payload.request = request;
+    var host = owner && owner._shinyVueHost ? owner._shinyVueHost : null;
     return new Promise(function(resolve) {
-      pending[request] = resolve;
+      pending[request] = {
+        resolve: resolve, host: host,
+        timer: setTimeout(function() {
+          if (settle(request, null)) warn('no answer to input$' + input + ' request ' + request +
+                                          ' within ' + sv.askTimeout / 1000 + ' s');
+        }, sv.askTimeout)
+      };
       Shiny.setInputValue(input, payload, { priority: 'event' });
     });
   };
   sv.hooks['.resolve'] = function(host, answer) {
-    var resolve = answer && pending[answer.request];
-    if (!resolve) {
+    if (!answer || !settle(answer.request, answer.value)) {
       warn('update: "' + host.id + '" answered request ' + (answer && answer.request) +
            ', which nothing is waiting for');
-      return;
     }
-    delete pending[answer.request];
-    resolve(answer.value);
   };
+  function dropQuestions(host) {
+    Object.keys(pending).forEach(function(r) {
+      if (!host || pending[r].host === host) settle(r, null);
+    });
+  }
+  if (typeof jQuery !== 'undefined') {
+    jQuery(document).on('shiny:disconnected', function() { dropQuestions(null); });
+  }
 
   // The component the instance renders, whose methods Element documents:
   // $refs.el if marked, else the first child of the given name, else the
@@ -276,6 +334,17 @@
     if (!vm) { warn('call: no component with id "' + msg.id + '"'); return; }
     var target = componentOf(vm, msg.component);
     if (!target) { warn('call: no component under "' + msg.id + '"'); return; }
+    // An argument that names an object the component holds -- a table's
+    // row, an upload's file -- by an index or a name, since the object
+    // itself cannot cross the wire: {".ref": kind, value: ...}
+    args = args.map(function(a) {
+      if (!a || typeof a !== 'object' || !a['.ref']) return a;
+      var resolve = sv.refs[a['.ref']];
+      if (!resolve) { warn('call: no way to find a "' + a['.ref'] + '"'); return a; }
+      var found = resolve(a.value, vm, target);
+      if (found === undefined) warn('call: no ' + a['.ref'] + ' ' + JSON.stringify(a.value) + ' in "' + msg.id + '"');
+      return found;
+    });
     if (typeof target[msg.method] !== 'function') {
       warn('call: "' + msg.method + '" is not a method of the component behind "' + msg.id + '"');
       return;
@@ -348,9 +417,7 @@
     // too, rather than living on over detached DOM.
     unsubscribe: function(el) {
       if (el._shinyVueUnwatch) el._shinyVueUnwatch();
-      if (el._shinyVueObserver) el._shinyVueObserver.disconnect();
-      if (el._shinyVue) el._shinyVue.$destroy();
-      el._shinyVue = null;
+      release(el);
     },
     getRatePolicy: function(el) {
       return (el._shinyVueSpec && el._shinyVueSpec.rate) || null;

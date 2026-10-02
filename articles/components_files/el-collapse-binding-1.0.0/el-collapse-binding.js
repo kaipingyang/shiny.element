@@ -36,16 +36,60 @@
       .map(function(p) { return p.getAttribute('data-el-name'); });
   }
 
-  function setOpen(panel, open) {
-    var header = panel.querySelector(':scope > .el-collapse-item__header');
+  function headerOf(panel) {
+    return panel.querySelector(':scope > [role=tab] > .el-collapse-item__header');
+  }
+
+  // Element's el-collapse-transition: the height runs from 0 to the
+  // content's and back. Only for a change the user or the server makes;
+  // a page drawn open or closed starts that way.
+  function animateWrap(wrap, open) {
+    var token = (wrap._elToken || 0) + 1;
+    wrap._elToken = token;
+    wrap.classList.add('collapse-transition');
+    wrap.style.overflow = 'hidden';
+    if (open) {
+      wrap.style.display = '';
+      var h = wrap.scrollHeight;
+      wrap.style.height = '0';
+      void wrap.offsetHeight;
+      wrap.style.height = h + 'px';
+    } else {
+      wrap.style.height = wrap.scrollHeight + 'px';
+      void wrap.offsetHeight;
+      wrap.style.height = '0';
+    }
+    var done = function() {
+      if (wrap._elToken !== token) return;
+      wrap.classList.remove('collapse-transition');
+      wrap.style.height = '';
+      wrap.style.overflow = '';
+      if (!open) wrap.style.display = 'none';
+    };
+    wrap.addEventListener('transitionend', function te(e) {
+      if (e.target !== wrap) return;
+      wrap.removeEventListener('transitionend', te);
+      done();
+    });
+    setTimeout(done, 400);
+  }
+
+  function setOpen(panel, open, animate) {
+    var tab    = panel.querySelector(':scope > [role=tab]');
+    var header = headerOf(panel);
     var arrow  = panel.querySelector('.el-collapse-item__arrow');
     var wrap   = panel.querySelector(':scope > .el-collapse-item__wrap');
+    var was = panel.classList.contains('is-active');
 
     panel.classList.toggle('is-active', open);
+    if (tab)    tab.setAttribute('aria-expanded', open ? 'true' : 'false');
     if (header) header.classList.toggle('is-active', open);
     if (arrow)  arrow.classList.toggle('is-active', open);
+    if (!wrap) return;
+    wrap.setAttribute('aria-hidden', open ? 'false' : 'true');
     // Hidden rather than removed, so a nested component stays mounted.
-    if (wrap)   wrap.style.display = open ? '' : 'none';
+    if (animate && was !== open) animateWrap(wrap, open);
+    else wrap.style.display = open ? '' : 'none';
   }
 
   $.extend(binding, {
@@ -63,7 +107,7 @@
         wanted = [wanted[0]];
       }
       panels(el).forEach(function(p) {
-        setOpen(p, wanted.indexOf(p.getAttribute('data-el-name')) > -1);
+        setOpen(p, wanted.indexOf(p.getAttribute('data-el-name')) > -1, true);
       });
     },
 
@@ -73,18 +117,39 @@
       // panels move and input$<id> keeps its old value.
       $(el).on('elCollapseChange.elCollapse', function() { callback(false); });
 
-      $(el).on('click.elCollapse', '.el-collapse-item__header', function(e) {
-        var panel = e.currentTarget.parentElement;
+      function toggle(panel) {
         if (panel.classList.contains('is-disabled')) return;
-
         var opening = !panel.classList.contains('is-active');
         if (el.getAttribute('data-accordion') === 'true') {
-          panels(el).forEach(function(p) { setOpen(p, false); });
-          setOpen(panel, opening);
-        } else {
-          setOpen(panel, opening);
+          panels(el).forEach(function(p) { if (p !== panel) setOpen(p, false, true); });
         }
+        setOpen(panel, opening, true);
         callback(false);
+      }
+      function panelOf(header) { return header.parentElement.parentElement; }
+      function own(header) { return panelOf(header).parentElement === el; }
+
+      $(el).on('click.elCollapse', '.el-collapse-item__header', function(e) {
+        if (!own(e.currentTarget)) return;
+        el._elClicked = true;
+        toggle(panelOf(e.currentTarget));
+      });
+      // Enter or Space on a focused header, as Element's keyup handler
+      $(el).on('keyup.elCollapse', '.el-collapse-item__header', function(e) {
+        if (!own(e.currentTarget) || (e.keyCode !== 13 && e.keyCode !== 32)) return;
+        e.stopPropagation();
+        toggle(panelOf(e.currentTarget));
+      });
+      // focusing marks a header reached from the keyboard, not by a click
+      $(el).on('focusin.elCollapse', '.el-collapse-item__header', function(e) {
+        var h = e.currentTarget;
+        setTimeout(function() {
+          if (!el._elClicked) h.classList.add('focusing');
+          el._elClicked = false;
+        }, 50);
+      });
+      $(el).on('focusout.elCollapse', '.el-collapse-item__header', function(e) {
+        e.currentTarget.classList.remove('focusing');
       });
     },
 

@@ -71,6 +71,19 @@
     label.textContent = String(text) + (label.getAttribute('data-suffix') || '');
   };
 
+  // el_call() arguments that stand for an object: el_table_row(3) is the
+  // third row the table holds (Element compares rows by identity, so a copy
+  // from R would not do); el_upload_file("a.csv") is that file in the list.
+  sv.refs.row = function(i, vm) {
+    var rows = vm.tableData || [];
+    return rows[i - 1];
+  };
+  sv.refs.file = function(name, vm, target) {
+    var files = (target && target.uploadFiles) || [];
+    for (var i = 0; i < files.length; i++) if (files[i].name === name) return files[i];
+    return undefined;
+  };
+
   // Where a table row sits, 1-based, so R can index its own data with it.
   se.rowIndex = function (vm, row) {
     if (!row || !vm || !vm.tableData) return null;

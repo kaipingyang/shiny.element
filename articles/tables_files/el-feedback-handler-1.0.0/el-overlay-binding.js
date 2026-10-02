@@ -7,13 +7,16 @@
 //
 // One thing to know before changing the input name: Shiny routes
 // sendInputMessage() by looking up the DOM element whose id matches, not by
-// asking bindings for their getId(). Reporting as <id>_visible therefore made
-// the value arrive while every update message went nowhere. The input is the
-// element's own id, as it is for the collapse and the tabs.
+// asking bindings for their getId(). The input is the element's own id, as
+// it is for the collapse and the tabs.
 //
-// The shared part is the overlay itself: the backdrop is a direct child of
-// <body>, the body gets a class that locks scrolling, and stacked overlays
-// need increasing z-indexes. Element does the same through its popup manager.
+// The overlay itself -- stacking, backdrop, scroll lock, Escape, a click on
+// the backdrop -- is Element's own: each wrapper gets a headless instance of
+// Element's Popup mixin (the one el-dialog and el-drawer are built on),
+// registered with Element's popup manager. So a dialog's z-index comes from
+// the same counter as every select, popover and message box on the page,
+// starts where el_page(z_index =) says, and a dropdown opened inside a dialog
+// lands above it.
 (function() {
   if (typeof jQuery === 'undefined') return;
   var hasShiny = typeof Shiny !== 'undefined' && !!Shiny.InputBinding;
@@ -29,63 +32,41 @@
     });
   }
 
-  var BASE_Z = 2000;
-  var open = [];            // wrappers currently shown, oldest first
-
-  function nextZ() {
-    // Odd numbers above the backdrop, matching Element: 2001, 2003, ...
-    return BASE_Z + open.length * 2 - 1;
-  }
-
-  function backdrop() {
-    return document.querySelector('.v-modal');
-  }
-
   function report(wrapper, what) {
     hasShiny && Shiny.setInputValue && Shiny.setInputValue(wrapper.id + what, true, { priority: 'event' });
   }
 
-  function syncBody() {
-    // Element's own class; it sets overflow:hidden on <body>. An overlay
-    // with lock-scroll off leaves the page scrollable.
-    document.body.classList.toggle('el-popup-parent--hidden', open.some(function(w) {
-      return w.getAttribute('data-lock-scroll') !== 'false';
-    }));
+  function attr(wrapper, name, dflt) {
+    var v = wrapper.getAttribute(name);
+    return v === null ? dflt : v !== 'false';
+  }
 
-    var mask = backdrop();
-    var wantsMask = open.some(function(w) {
-      return w.getAttribute('data-modal') !== 'false';
-    });
-
-    if (wantsMask && !mask) {
-      mask = document.createElement('div');
-      mask.className = 'v-modal';
-      // modal-append-to-body: the backdrop goes on <body> unless the topmost
-      // overlay asks for it beside itself.
-      var top = open[open.length - 1];
-      if (top && top.getAttribute('data-modal-append-to-body') === 'false' && top.parentNode) {
-        top.parentNode.insertBefore(mask, top);
-      } else {
-        document.body.appendChild(mask);
+  // ── Element's popup manager ────────────────────────────────────────────
+  //
+  // The proxy's methods are what the manager calls: close() for a click on
+  // the backdrop, handleClose() for Escape. Both go through before-close.
+  function popupFor(wrapper) {
+    if (wrapper._elPopup) return wrapper._elPopup;
+    var Popup = window.ELEMENT && ELEMENT.Dialog && ELEMENT.Dialog.mixins &&
+                ELEMENT.Dialog.mixins[0];
+    if (!Popup || !window.Vue) return null;
+    var Proxy = Vue.extend({
+      mixins: [Popup],
+      render: function(h) { return h('div', { style: { display: 'none' } }); },
+      methods: {
+        close: function() { requestClose(wrapper); },
+        handleClose: function() { requestClose(wrapper); }
       }
-      mask.addEventListener('click', function() {
-        // Only the topmost overlay closes, and only if it allows it.
-        for (var i = open.length - 1; i >= 0; i--) {
-          if (open[i].getAttribute('data-mask-close') === 'true') {
-            requestClose(open[i]);
-            return;
-          }
-        }
-      });
-    } else if (!wantsMask && mask) {
-      mask.parentNode.removeChild(mask);
-      mask = null;
-    }
-
-    if (mask) {
-      // Just under the lowest open overlay.
-      mask.style.zIndex = BASE_Z;
-    }
+    });
+    var vm = new Proxy({ propsData: {
+      modal: attr(wrapper, 'data-modal', true),
+      modalAppendToBody: attr(wrapper, 'data-modal-append-to-body', true),
+      lockScroll: attr(wrapper, 'data-lock-scroll', true),
+      closeOnPressEscape: attr(wrapper, 'data-esc-close', true),
+      closeOnClickModal: attr(wrapper, 'data-mask-close', true)
+    } }).$mount();
+    wrapper._elPopup = vm;
+    return vm;
   }
 
   // destroy-on-close: the content is re-created from an inert <template> each
@@ -116,8 +97,33 @@
     live.parentNode.removeChild(live);
   }
 
+  // Element's transitions: dialog-fade for a dialog, el-drawer-fade (and the
+  // panel's slide) for a drawer. opened and closed follow the animation's
+  // end, as Element's after-enter and after-leave do; a fallback timer
+  // covers a page where the animation never runs.
+  function transitionName(wrapper) {
+    return wrapper.classList.contains('el-drawer__wrapper') ? 'el-drawer-fade' : 'dialog-fade';
+  }
+
+  function animate(wrapper, phase, done) {
+    var cls = transitionName(wrapper) + '-' + phase + '-active';
+    var finished = false;
+    function end(e) {
+      if (finished || (e && e.target !== wrapper && !wrapper.contains(e.target))) return;
+      finished = true;
+      wrapper.removeEventListener('animationend', end);
+      wrapper.classList.remove(cls);
+      done();
+    }
+    wrapper.classList.add(cls);
+    wrapper.addEventListener('animationend', end);
+    setTimeout(end, 450);
+  }
+
+  function isOpen(wrapper) { return !!wrapper._elOpen; }
+
   function show(wrapper, notify) {
-    if (open.indexOf(wrapper) !== -1) return;
+    if (isOpen(wrapper)) return;
     // append-to-body: out of any container that could clip it. Moving a node
     // keeps every binding and Vue instance inside it.
     if (wrapper.getAttribute('data-append-to-body') === 'true' &&
@@ -125,29 +131,48 @@
       document.body.appendChild(wrapper);
     }
     if (wrapper.getAttribute('data-destroy-on-close') === 'true') create(wrapper);
+    wrapper._elOpen = true;
     if (notify !== false) report(wrapper, '_open');
-    open.push(wrapper);
-    wrapper.style.zIndex = nextZ();
+
+    var popup = popupFor(wrapper);
+    if (popup) {
+      // modal-append-to-body = FALSE puts the backdrop beside the overlay:
+      // Element puts it in the parent of the popup's element
+      wrapper.parentNode.insertBefore(popup.$el, wrapper);
+      popup.doOpen(popup.$props);
+      wrapper.style.zIndex = popup.$el.style.zIndex;
+    }
+    // A drawer gives focus back to what had it, as Element's does
+    wrapper._elPrevFocus = document.activeElement;
     wrapper.style.display = '';
-    // The drawer slides in from a class on its container.
     var container = wrapper.querySelector('.el-drawer__container');
     if (container) container.classList.add('el-drawer__open');
-    syncBody();
-    if (notify !== false) setTimeout(function() { report(wrapper, '_opened'); }, 300);
+    var panel = wrapper.querySelector('.el-drawer, .el-dialog');
+    animate(wrapper, 'enter', function() {
+      if (panel && wrapper.classList.contains('el-drawer__wrapper')) panel.focus();
+      if (notify !== false) report(wrapper, '_opened');
+    });
   }
 
   function hide(wrapper, notify) {
-    var i = open.indexOf(wrapper);
-    if (i === -1) return;
-    open.splice(i, 1);
+    if (!isOpen(wrapper)) return;
+    wrapper._elOpen = false;
     report(wrapper, '_close');
-    wrapper.style.display = 'none';
-    var container = wrapper.querySelector('.el-drawer__container');
-    if (container) container.classList.remove('el-drawer__open');
-    syncBody();
-    if (wrapper.getAttribute('data-destroy-on-close') === 'true') destroy(wrapper);
-    setTimeout(function() { report(wrapper, '_closed'); }, 300);
+    var popup = popupFor(wrapper);
+    if (popup && popup.opened) popup.doClose();
     if (notify) $(wrapper).trigger('elOverlayChange');
+    animate(wrapper, 'leave', function() {
+      if (wrapper._elOpen) return;            // opened again meanwhile
+      wrapper.style.display = 'none';
+      var container = wrapper.querySelector('.el-drawer__container');
+      if (container) container.classList.remove('el-drawer__open');
+      if (wrapper.getAttribute('data-destroy-on-close') === 'true') destroy(wrapper);
+      var prev = wrapper._elPrevFocus;
+      wrapper._elPrevFocus = null;
+      if (wrapper.classList.contains('el-drawer__wrapper') && prev && prev.focus &&
+          document.body.contains(prev)) prev.focus();
+      report(wrapper, '_closed');
+    });
   }
 
   // A close the user asked for -- the cross, the backdrop, Escape -- goes
@@ -162,14 +187,13 @@
     else hide(wrapper, true);
   }
 
+  // Escape on a non-modal overlay: Element's popup manager only looks at
+  // modal ones, but a drawer listens on itself
   document.addEventListener('keydown', function(e) {
     if (e.key !== 'Escape' && e.keyCode !== 27) return;
-    for (var i = open.length - 1; i >= 0; i--) {
-      if (open[i].getAttribute('data-esc-close') === 'true') {
-        requestClose(open[i]);
-        return;
-      }
-    }
+    var t = e.target && e.target.closest && e.target.closest('.el-drawer__wrapper[data-el-overlay]');
+    if (t && isOpen(t) && t.getAttribute('data-modal') === 'false' &&
+        t.getAttribute('data-esc-close') !== 'false') requestClose(t);
   });
 
   function makeBinding(selector, name) {
@@ -181,7 +205,7 @@
       },
 
       getValue: function(el) {
-        return el.style.display !== 'none';
+        return isOpen(el);
       },
 
       setValue: function(el, value) {
@@ -214,6 +238,7 @@
       unsubscribe: function(el) {
         $(el).off('.elOverlay');
         hide(el, false);
+        if (el._elPopup) { el._elPopup.$destroy(); el._elPopup = null; }
       },
 
       receiveMessage: function(el, data) {
