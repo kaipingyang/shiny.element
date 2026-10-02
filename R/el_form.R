@@ -194,7 +194,8 @@ el_rule <- function(required = NULL,
 #' @param rules A single [el_rule()] or a list of them.
 #' @param ... Further props. Element's form-item props -- `required`,
 #'   `error`, `label_width`, `size`, `show_message`, `inline_message`, and
-#'   `label_html`/`error_html` for markup of your own -- go on the field's
+#'   `label_html`/`error_html` for markup of your own, a string or
+#'   htmltools tags -- go on the field's
 #'   form item; anything else on the control, e.g. `placeholder`, `min`,
 #'   `max`, `disabled`. Names are converted to camelCase.
 #' @return A field declaration, for [el_form()].
@@ -227,6 +228,10 @@ el_form_field <- function(prop,
                   "showMessage", "labelHtml", "errorHtml")
   item <- props[intersect(names(props), item_props)]
   props <- props[setdiff(names(props), item_props)]
+  # v-html takes a string: a tag would arrive as its JSON and show as text
+  for (key in intersect(names(item), c("labelHtml", "errorHtml"))) {
+    item[[key]] <- .el_html_string(item[[key]], .el_snake_case(key))
+  }
   if (!is.null(spec$props)) props <- utils::modifyList(spec$props, props)
   if (identical(type, "autocomplete") && is.null(props$fetchSuggestions)) {
     # Element's autocomplete asks a function for its suggestions; this one

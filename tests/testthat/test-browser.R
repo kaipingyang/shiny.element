@@ -176,6 +176,29 @@ test_that("selecting rows reports 1-based row numbers with their types", {
   expect_equal(bdump()[["tbl_selected_rows"]], "1,3")
 })
 
+test_that("a group header's child columns render their own cell and header", {
+  skip_if_no_browser()
+  q <- function(sel) bev(sprintf(
+    "String(document.querySelectorAll('#grp_tbl_container %s').length)", sel))
+  # one cell per row at each level, and the headers as markup, not text
+  expect_equal(q(".el-table__body-wrapper b.grp-cell"), "2")
+  expect_equal(q(".el-table__body-wrapper u.grp-cell2"), "2")
+  expect_equal(q(".el-table__header i.grp-head"), "1")
+  expect_equal(q(".el-table__header i.grp-head2"), "1")
+  expect_equal(
+    bev("document.querySelector('#grp_tbl_container .el-table__body-wrapper u.grp-cell2').innerText"),
+    "5")
+})
+
+test_that("form-item markup given as tags renders as HTML", {
+  skip_if_no_browser()
+  expect_equal(bev("document.querySelector('#hf-label') ? document.querySelector('#hf-label').innerText : 'none'"), "Bold")
+  expect_false(grepl("attribs", bev("document.querySelector('#htmlf_container').innerText")))
+  bev("document.querySelector('#htmlf_container .el-form').__vue__.validate(function(){}); 'ok'")
+  Sys.sleep(1)
+  expect_equal(bev("String(document.querySelectorAll('#htmlf_container em.hf2-error').length)"), "1")
+})
+
 test_that("update_el_table swaps the data and re-infers the columns", {
   skip_if_no_browser()
   bclick("#tbl_swap", wait = 2.5)
@@ -396,6 +419,8 @@ test_that("a failed file in the middle of a batch leaves the rest delivered", {
   vals <- upload_with_failures(c("m1.txt", "m2.txt", "m3.txt"), "m2.txt")
   expect_equal(vals[["up_files"]], "m1.txt:m1,m3.txt:m3")
   expect_equal(vals[["up_error"]], "m2.txt")
+  # the job the failure interrupted is let go of, not kept to session end
+  expect_equal(vals[["up_jobs"]], "0")
 })
 
 test_that("the last file failing still delivers the others", {
@@ -411,6 +436,7 @@ test_that("a batch that fails entirely changes nothing but reports it", {
   vals <- upload_with_failures(c("f1.txt", "f2.txt"), c("f1.txt", "f2.txt"))
   expect_equal(vals[["up_files"]], before)
   expect_match(vals[["up_error"]], "^f[12][.]txt$")
+  expect_equal(vals[["up_jobs"]], "0")
   # Element drops a failed file from its list, as upstream does
   expect_false(grepl("f1.txt", bev("document.querySelector('#up_container .el-upload-list').innerText"), fixed = TRUE))
 })
@@ -441,7 +467,9 @@ test_that("abort() stops a file, and the rest of its batch is delivered", {
     up.abort(f); })()")
   Sys.sleep(3)
   bev("window.__restoreAjax()")
-  expect_equal(bdump()[["up_files"]], "a1.txt:a1")
+  vals <- bdump()
+  expect_equal(vals[["up_files"]], "a1.txt:a1")
+  expect_equal(vals[["up_jobs"]], "0")
 })
 
 # ── dialog holds live components ──────────────────────────────────────────────
@@ -1110,6 +1138,32 @@ test_that("a question the server never answers settles, and so does a removed on
   Sys.sleep(1)
   expect_equal(bev("window.__asked2"), "null")
   expect_true(bev("window.__vm._isDestroyed"))
+})
+
+test_that("a remote search the server never answers stops waiting", {
+  skip_if_no_browser()
+  bev("var t = shinyVue.askTimeout; shinyVue.askTimeout = 500;
+       shinyVue.find('#rm_none').instance.elRemoteQuery('q');
+       window.__ac = 'waiting';
+       shinyVue.find('#ac_none').instance.fetchSuggestions('q', function(v){ window.__ac = JSON.stringify(v); });
+       shinyVue.askTimeout = t;")
+  expect_true(bev("shinyVue.find('#rm_none').instance.loading"))
+  Sys.sleep(1.5)
+  expect_false(bev("shinyVue.find('#rm_none').instance.loading"))
+  expect_equal(bev("window.__ac"), "[]")
+})
+
+test_that("an autocomplete typed into faster than the server shows the last answer", {
+  skip_if_no_browser()
+  # Two queries out, answered in order: the second callback, the one Element
+  # still listens to, ends with the second answer
+  bev("var vm = shinyVue.find('#ac_none').instance; window.__got = [];
+       vm.fetchSuggestions('a', function(v){ window.__got.push('cb1:' + v[0].value); });
+       vm.fetchSuggestions('ab', function(v){ window.__got.push('cb2:' + v[0].value); });
+       vm.suggestions = [{value: 'A'}];
+       vm.$nextTick(function(){ vm.suggestions = [{value: 'AB'}]; });")
+  Sys.sleep(0.5)
+  expect_equal(bev("window.__got.join(',')"), "cb2:A,cb2:AB")
 })
 
 test_that("a tree filters by label without a filter method of its own", {

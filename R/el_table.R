@@ -72,8 +72,9 @@
       col[[.el_camel_case(key)]] <- col[[key]]
       col[[key]] <- NULL
     }
+    if (!is.null(col$headerHtml)) col$headerHtml <- .el_html_string(col$headerHtml, "headerHtml")
     if (!is.null(col$header_html)) {
-      col$headerHtml <- col$header_html
+      col$headerHtml <- .el_html_string(col$header_html, "header_html")
       col$header_html <- NULL
     }
     col
@@ -207,27 +208,38 @@
 #' [update_el_table()] given the same columns finds the same template.
 #'
 #' @param columns Sanitised column configs.
-#' @return A list: `columns`, without `cell`, and `cells`, a named list of
-#'   markup keyed by `cellKey`.
+#' A group header's `children` are searched too, and `depths` records how
+#' far down each template sits, so each level of the column template carries
+#' only the branches it can use.
+#'
+#' @return A list: `columns`, without `cell`, `cells`, a named list of
+#'   markup keyed by `cellKey`, and `depths`, the nesting level of each.
 #' @keywords internal
 .el_table_cells <- function(columns) {
   cells <- list()
-  columns <- lapply(seq_along(columns), function(i) {
-    col <- columns[[i]]
-    if (is.null(col[["cell"]])) {
-      col$slot <- "none"
-      return(col)
-    }
-    base <- if (!is.null(col$prop)) col$prop else if (!is.null(col$label)) col$label else i
-    key <- paste0("cell_", gsub("[^A-Za-z0-9_]", "_", base))
-    if (key %in% names(cells)) key <- paste0(key, "_", i)
-    cells[[key]] <<- col[["cell"]]
-    col[["cell"]] <- NULL
-    col$cellKey <- key
-    col$slot <- "default"
-    col
-  })
-  list(columns = columns, cells = cells)
+  depths <- integer()
+  lift <- function(columns, depth) {
+    lapply(seq_along(columns), function(i) {
+      col <- columns[[i]]
+      # A group header's columns carry templates of their own, one level down
+      if (!is.null(col$children)) col$children <- lift(col$children, depth + 1L)
+      if (is.null(col[["cell"]])) {
+        col$slot <- "none"
+        return(col)
+      }
+      base <- if (!is.null(col$prop)) col$prop else if (!is.null(col$label)) col$label else i
+      key <- paste0("cell_", gsub("[^A-Za-z0-9_]", "_", base))
+      if (key %in% names(cells)) key <- paste0(key, "_", length(cells) + 1L)
+      cells[[key]] <<- col[["cell"]]
+      depths[[key]] <<- depth
+      col[["cell"]] <- NULL
+      col$cellKey <- key
+      col$slot <- "default"
+      col
+    })
+  }
+  columns <- lift(columns, 0L)
+  list(columns = columns, cells = cells, depths = depths)
 }
 
 #' Normalise the data/columns pair for `el_table()`
@@ -250,7 +262,8 @@
   list(rows    = .el_table_rows(data),
        columns = cells$columns,
        auto    = .el_table_cells(.el_table_infer_columns(data))$columns,
-       cells   = cells$cells)
+       cells   = cells$cells,
+       depths  = cells$depths)
 }
 
 #' Element UI Table Component
@@ -272,11 +285,12 @@
 #'     (`el$tag()`, `el$button()`) work: `el$tag(":type" = "scope.row.ok ?
 #'     'success' : 'danger'", "{{ scope.row.status }}")`. A column without
 #'     a `prop` -- a column of buttons -- is fine. See "Row actions" below.
-#'   * `header_html` -- markup for the header cell, inserted unescaped, so
-#'     pass only what you control.
+#'   * `header_html` -- markup for the header cell, a string or htmltools
+#'     tags, inserted unescaped, so pass only what you control.
 #'   * `children` -- the columns under a group header, as Element nests
 #'     `el-table-column`: `list(label = "Address", children = list(...))`.
-#'     Two levels deep.
+#'     Two levels deep; each child column takes `cell` and `header_html`
+#'     as a top-level one does.
 #' @param rownames Whether to show a data.frame's row names as the first
 #'   column. `NULL` (the default) shows them when they carry something --
 #'   `mtcars`' car names -- and leaves out automatic ones, which only count
@@ -481,15 +495,29 @@ el_table <- function(id = NULL,
   # "none" where Element should render the cell itself. The slot name is a
   # plain field, not an expression, because the browser parses this markup
   # before Vue does and would mangle quotes or spaces in an attribute name.
-  cell_slot <- if (length(prep$cells)) {
+  # Each level of nesting gets the branches of the templates at that level,
+  # read off its own column variable `v`.
+  cell_slot <- function(v, depth) {
+    here <- names(prep$depths)[prep$depths == depth]
+    if (!length(here)) return(NULL)
     htmltools::tag("template", c(
-      list("v-slot:[col.slot]" = "scope"),
-      unname(Map(function(key, markup, first) {
-        cond <- sprintf("col.cellKey === '%s'", key)
+      stats::setNames(list("scope"), sprintf("v-slot:[%s.slot]", v)),
+      unname(Map(function(key, first) {
+        cond <- sprintf("%s.cellKey === '%s'", v, key)
         htmltools::tag("template", c(
           stats::setNames(list(cond), if (first) "v-if" else "v-else-if"),
-          list(markup)))
-      }, names(prep$cells), prep$cells, seq_along(prep$cells) == 1L))
+          list(prep$cells[[key]])))
+      }, here, seq_along(here) == 1L))
+    ))
+  }
+  # A column may render its own header: give it header_html in the column
+  # definition. It is inserted as markup, so only pass what you control.
+  header_slot <- function(v) {
+    htmltools::tag("template", list(
+      "v-slot:header" = "scope",
+      htmltools::tag("span", list("v-if" = sprintf("%s.headerHtml", v),
+                                  "v-html" = sprintf("%s.headerHtml", v))),
+      htmltools::tag("span", list("v-else" = NA, sprintf("{{%s.label}}", v)))
     ))
   }
 
@@ -512,14 +540,17 @@ el_table <- function(id = NULL,
     stats::setNames(as.list(paste0(v, ".", props)), paste0(":", names(props)))
   }
   # A column with `children` is a group header, as Element nests
-  # el-table-column: two levels below the top, each column of them plain
+  # el-table-column: two levels below the top, each with its own header
+  # and cell templates
   nested <- function(parent, v, depth) {
-    if (depth == 0) return(NULL)
+    if (depth > 2) return(NULL)
     htmltools::tag("el-table-column", c(
       list("v-for" = sprintf("%s in (%s.children || [])", v, parent),
            ":key" = sprintf("%s.prop || %s.label", v, v)),
       col_props(v),
-      list(nested(v, paste0(v, "x"), depth - 1))
+      list(header_slot(v),
+           nested(v, paste0(v, "x"), depth + 1L),
+           cell_slot(v, depth))
     ))
   }
 
@@ -528,16 +559,9 @@ el_table <- function(id = NULL,
          ":key"   = "col.prop || col.label"),
     col_props("col"),
     list(
-      # A column may render its own header: give it header_html in the column
-      # definition. It is inserted as markup, so only pass what you control.
-      htmltools::tag("template", list(
-        "v-slot:header" = "scope",
-        htmltools::tag("span", list("v-if" = "col.headerHtml",
-                                    "v-html" = "col.headerHtml")),
-        htmltools::tag("span", list("v-else" = NA, "{{col.label}}"))
-      )),
-      nested("col", "sub", 2),
-      cell_slot
+      header_slot("col"),
+      nested("col", "sub", 1L),
+      cell_slot("col", 0L)
     )
   ))
 

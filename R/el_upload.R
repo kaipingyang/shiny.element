@@ -28,6 +28,46 @@
 #' @param ns_id The namespaced input id.
 #' @return A [JS()] object for the `http-request` prop.
 #' @keywords internal
+#' Let go of an upload job a failed or aborted file left behind
+#'
+#' Shiny keeps an upload job until `uploadEnd` finishes it, and finishing
+#' one with files still to come is an error. A batch with a failed or
+#' aborted file is sent again as a new job, so the old one would wait in the
+#' session until it ended, with whatever part of a file reached its
+#' directory. The browser names it here and it is removed: dropped from the
+#' session's upload jobs and its directory deleted. Shiny offers no public
+#' way to do this, so the session's upload context is reached into; should
+#' that change, the job is left as before, to go when the session does.
+#'
+#' @param job_id The job's id, from `uploadInit`.
+#' @param session The Shiny session the job belongs to.
+#' @return Whether the job was found and removed, invisibly.
+#' @keywords internal
+.el_upload_abandon <- function(job_id, session) {
+  if (!is.character(job_id) || length(job_id) != 1L || !nzchar(job_id)) {
+    return(invisible(FALSE))
+  }
+  done <- tryCatch({
+    ctx <- session$.__enclos_env__$private$fileUploadContext
+    op <- ctx$getUploadOperation(job_id)
+    if (is.null(op)) {
+      FALSE
+    } else {
+      # A file half written is still open
+      if (inherits(op$.currentFileData, "connection")) {
+        try(close(op$.currentFileData), silent = TRUE)
+      }
+      dir <- op$.dir
+      ctx$onJobFinished(job_id)
+      if (is.character(dir) && length(dir) == 1L && dir.exists(dir)) {
+        unlink(dir, recursive = TRUE)
+      }
+      TRUE
+    }
+  }, error = function(e) FALSE)
+  invisible(done)
+}
+
 .el_upload_js <- function(ns_id) {
   JS(sprintf(paste0(
     "function(options) {\n",
@@ -49,6 +89,11 @@
     "    });\n",
     "  }\n",
     "  function warn(m) { if (window.console) console.warn('[shiny.element] upload: ' + m); }\n",
+    # A job given up on is named to the server, which lets it go
+    "  function abandon(res) {\n",
+    "    window.Shiny && Shiny.setInputValue && Shiny.setInputValue('.shiny_element_upload_abandon:shiny.element.upload_abandon',\n",
+    "                        res.jobId, { priority: 'event' });\n",
+    "  }\n",
     "  function runJob(batch) {\n",
     "    batch = batch.filter(function(e) { return !e.aborted && !e.failed; });\n",
     "    if (!batch.length) return;\n",
@@ -66,7 +111,7 @@
     "  function postNext(batch, i, res) {\n",
     "    if (i === batch.length) return finish(batch, res);\n",
     "    var e = batch[i];\n",
-    "    if (e.aborted) return runJob(batch);\n",
+    "    if (e.aborted) { abandon(res); return runJob(batch); }\n",
     "    e.xhr = $.ajax(res.uploadUrl, {\n",
     "      type: 'POST', cache: false, data: e.o.file,\n",
     "      processData: false, contentType: 'application/octet-stream',\n",
@@ -87,17 +132,19 @@
     "          e.failed = true;\n",
     "          e.o.onError(new Error('Upload failed for ' + e.o.file.name + ': ' + (status || 'error')));\n",
     "        }\n",
+    "        abandon(res);\n",
     "        runJob(batch);\n",
     "      }\n",
     "    });\n",
     "  }\n",
     "  function finish(batch, res) {\n",
     # A file aborted after it was sent is still in the job: send the rest again
-    "    if (batch.some(function(e) { return e.aborted; })) return runJob(batch);\n",
+    "    if (batch.some(function(e) { return e.aborted; })) { abandon(res); return runJob(batch); }\n",
     "    Shiny.shinyapp.makeRequest('uploadEnd', [res.jobId, inputId], function() {\n",
     "      batch.forEach(function(e) { if (!e.aborted) e.o.onSuccess({ ok: true }); });\n",
     "    }, function(err) {\n",
     "      warn('uploadEnd: ' + err);\n",
+    "      abandon(res);\n",
     "      batch.forEach(function(e) { e.failed = true; e.o.onError(new Error(String(err))); });\n",
     "    });\n",
     "  }\n",

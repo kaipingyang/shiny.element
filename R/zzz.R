@@ -8,4 +8,9 @@
     x[x == ""] <- NA
     as.Date(x)
   }, force = TRUE)
+  # An upload job a failed or aborted file left behind, to be let go of
+  shiny::registerInputHandler("shiny.element.upload_abandon", function(x, session, name) {
+    .el_upload_abandon(x, session)
+    NULL
+  }, force = TRUE)
 }

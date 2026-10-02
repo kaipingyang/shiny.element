@@ -66,11 +66,12 @@ to show its \code{cell}, or \code{"selection"}.
 \code{scope.column} and \code{scope.$index} are in reach, and raw Element tags
 (\code{el$tag()}, \code{el$button()}) work: \code{el$tag(":type" = "scope.row.ok ? 'success' : 'danger'", "{{ scope.row.status }}")}. A column without
 a \code{prop} -- a column of buttons -- is fine. See "Row actions" below.
-\item \code{header_html} -- markup for the header cell, inserted unescaped, so
-pass only what you control.
+\item \code{header_html} -- markup for the header cell, a string or htmltools
+tags, inserted unescaped, so pass only what you control.
 \item \code{children} -- the columns under a group header, as Element nests
 \code{el-table-column}: \code{list(label = "Address", children = list(...))}.
-Two levels deep.
+Two levels deep; each child column takes \code{cell} and \code{header_html}
+as a top-level one does.
 }}
 
 \item{selection}{Enable row selection}

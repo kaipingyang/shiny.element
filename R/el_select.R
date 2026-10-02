@@ -78,7 +78,7 @@
 #' own, the server does the search, as `selectizeInput()`'s server mode
 #' does: `input$<id>_query` is the text typed, and [update_el_select()]
 #' with the matching `choices` answers it -- the select shows Element's
-#' loading text until then.
+#' loading text until then, or for 30 seconds at most.
 #'
 #' @examples
 #' # Each option drawn with a second field beside its label
@@ -266,12 +266,21 @@ el_select <- function(
     markup = htmltools::tag("el-select", c(select_attrs, option_slot)),
     data    = vue_data,
     methods = c(events$methods, list(
+      # A search the server never answers stops loading after
+      # shinyVue.askTimeout, as a lazy load's question settles
       elRemoteQuery = JS(sprintf(paste0(
         "function(query) {\n",
         "  if (!(window.Shiny && Shiny.setInputValue)) return;\n",
+        "  var self = this, n = this._elQueryN = (this._elQueryN || 0) + 1;\n",
         "  this.loading = true;\n",
+        "  clearTimeout(this._elQueryTimer);\n",
+        "  this._elQueryTimer = setTimeout(function() {\n",
+        "    if (self._elQueryN !== n || !self.loading) return;\n",
+        "    self.loading = false;\n",
+        "    console.warn('[shiny.element] no answer to input$%s_query within ' + window.shinyVue.askTimeout / 1000 + ' s');\n",
+        "  }, window.shinyVue.askTimeout);\n",
         "  window.Shiny && Shiny.setInputValue && Shiny.setInputValue('%s_query', query, {priority: 'event'});\n",
-        "}"), ns_id)),
+        "}"), ns_id, ns_id)),
       handleChange = JS(sprintf(
         "function(value) { window.Shiny && Shiny.setInputValue && Shiny.setInputValue('%s', value); }",
         ns_id

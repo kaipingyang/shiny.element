@@ -102,13 +102,26 @@ el_autocomplete <- function(id = NULL,
     fetch_suggestions
   } else if (isTRUE(remote)) {
     # The callback waits for the server's suggestions; the watcher below
-    # hands them over when they arrive
+    # hands them over when they arrive. The server answers queries in the
+    # order they were asked, so the latest callback is kept until every
+    # answer is in -- the last one is the answer to the last query. A query
+    # with no answer at all settles empty after shinyVue.askTimeout.
     JS(sprintf(paste0(
       "function(queryString, callback) {",
       "  if (!(window.Shiny && Shiny.setInputValue)) { callback([]); return; }",
+      "  var self = this;",
       "  this._elPending = callback;",
+      "  this._elAsked = (this._elAsked || 0) + 1;",
+      "  clearTimeout(this._elQueryTimer);",
+      "  this._elQueryTimer = setTimeout(function() {",
+      "    var cb = self._elPending;",
+      "    if (!cb) return;",
+      "    self._elPending = null; self._elAnswered = self._elAsked;",
+      "    console.warn('[shiny.element] no answer to input$%s_query within ' + window.shinyVue.askTimeout / 1000 + ' s');",
+      "    cb([]);",
+      "  }, window.shinyVue.askTimeout);",
       "  window.Shiny && Shiny.setInputValue && Shiny.setInputValue('%s_query', queryString || '', {priority: 'event'});",
-      "}"), ns_id))
+      "}"), ns_id, ns_id))
   } else {
     JS(
       "function(queryString, callback) {",
@@ -182,8 +195,11 @@ el_autocomplete <- function(id = NULL,
         "function(newVal) { window.Shiny && Shiny.setInputValue && Shiny.setInputValue('%s', newVal); }", ns_id
       )),
       suggestions = JS(paste0(
-        "function(v) { var cb = this._elPending; ",
-        "if (cb) { this._elPending = null; cb(v); } }"))
+        "function(v) { var cb = this._elPending; if (!cb) return; ",
+        "clearTimeout(this._elQueryTimer); ",
+        "this._elAnswered = (this._elAnswered || 0) + 1; ",
+        "if (this._elAnswered >= this._elAsked) this._elPending = null; ",
+        "cb(v); }"))
     ),
     mounted    = .el_mounted_init(stats::setNames("value", ns_id)),
     width      = width,

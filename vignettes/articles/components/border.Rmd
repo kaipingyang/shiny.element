@@ -8,7 +8,7 @@ source(file.path("..", "..", "shots.R"))
 
 Element standardises the borders, radii and shadows its components use.
 
-## Border
+## Border style
 
 ```{r border, eval = FALSE, shot = TRUE}
 tagList(

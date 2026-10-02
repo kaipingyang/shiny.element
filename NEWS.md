@@ -206,11 +206,16 @@ Shiny integration article shows, needs no JavaScript.
   both carry Element's ARIA.
 * **Uploads that fail or are aborted.** Files go up one at a time, as
   `fileInput()` sends them; a file that fails, or is stopped with `abort()`,
-  is left out and the rest of its batch still arrives. `el_upload_file()`
+  is left out and the rest of its batch still arrives. The upload job it
+  interrupted is let go of at once, with its temporary directory, rather
+  than kept until the session ends. `el_upload_file()`
   and `el_table_row()` name a file or a row for a method that needs it.
-* **Server questions are cleaned up.** A lazy load or remote search the
-  server never answers settles after 30 seconds, and at once when its
-  component is removed or the session ends.
+* **Server questions are cleaned up.** A lazy load the server never
+  answers settles after 30 seconds, and at once when its component is
+  removed or the session ends. A remote select or autocomplete search with
+  no answer stops loading after the same 30 seconds; an autocomplete typed
+  into faster than the server answers shows the answer to the last query,
+  not an earlier one.
 * **Found while writing the component pages.** `el_table()` columns nest
   under group headers (`children`); `el_form_field()` has `"textarea"` and
   `"password"`, and its form-item props (`required`, `error`, `label_width`,

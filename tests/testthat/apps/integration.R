@@ -111,6 +111,27 @@ ui <- el_page(
   el_table(id = "tbl", data = head(iris, 4), selection = TRUE),
   actionButton("tbl_swap", "swap table data"),
 
+  # Group headers: a child column's own cell and header templates used to
+  # stay in its JSON, never rendered.
+  el_table(id = "grp_tbl", data = data.frame(a = 1:2, b = 3:4, c = 5:6),
+    columns = list(
+      list(prop = "a", label = "A"),
+      list(label = "Group", children = list(
+        list(prop = "b", header_html = tags$i(class = "grp-head", "Bee"),
+             cell = tags$b(class = "grp-cell", "{{scope.row.b}}")),
+        list(label = "Inner", children = list(
+          list(prop = "c", header_html = "<i class='grp-head2'>Sea</i>",
+               cell = tags$u(class = "grp-cell2", "{{scope.row.c}}")))))))),
+
+  # Form-item markup given as tags: it used to arrive as serialised JSON.
+  el_form(id = "htmlf", submit_label = NULL,
+    el_form_field("hf", "input", label = "Plain",
+                  label_html = tags$b(id = "hf-label", "Bold"),
+                  error_html = tags$em(id = "hf-error", "Bad")),
+    el_form_field("hf2", "input", label = "Plain",
+                  rules = el_rule(required = TRUE, message = "x"),
+                  error_html = tags$em(class = "hf2-error", "Needed"))),
+
   # Cascader: its handler script was never loaded, so updates went unheard.
   el_cascader("casc", options = cascader_opts, value = list("zj", "hz"),
               placeholder = "pick one"),
@@ -287,6 +308,9 @@ ui <- el_page(
   el_tree("lz_tree", lazy = TRUE, node_key = "id", is_leaf_field = "leaf"),
   el_cascader("lz_casc", props = list(lazy = TRUE)),
   el_select("rm_sel", filterable = TRUE, remote = TRUE),
+  # Remote searches no observer answers
+  el_select("rm_none", filterable = TRUE, remote = TRUE),
+  el_autocomplete("ac_none", remote = TRUE),
   el_table(id = "lz_tbl", row_key = "id", lazy = TRUE,
            data = data.frame(id = c(1, 2), name = c("a", "b"),
                              hasChildren = c(TRUE, FALSE))),
@@ -408,6 +432,10 @@ server <- function(input, output, session) {
       input$up$name, vapply(input$up$datapath, function(p) readLines(p, warn = FALSE)[1], ""),
       sep = ":", collapse = ","), "\n")
     cat("up_error", "=", if (is.null(input$up_error)) "<NULL>" else input$up_error, "\n")
+    # Upload jobs the session still holds: one a failed file left behind
+    # used to stay until the session ended
+    ctx <- session$.__enclos_env__$private$fileUploadContext
+    cat("up_jobs", "=", ctx$.__enclos_env__$private$operations$size(), "\n")
     # Forwarded Element events are latched by the observers below, which is
     # how an app acts on each one -- repeats included.
     cat("events_seen", "=", paste(names(seen_events), collapse = "/"), "\n")

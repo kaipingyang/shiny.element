@@ -7,11 +7,14 @@
 .el_table_cells(columns)
 }
 \arguments{
-\item{columns}{Sanitised column configs.}
+\item{columns}{Sanitised column configs.
+A group header's \code{children} are searched too, and \code{depths} records how
+far down each template sits, so each level of the column template carries
+only the branches it can use.}
 }
 \value{
-A list: \code{columns}, without \code{cell}, and \code{cells}, a named list of
-markup keyed by \code{cellKey}.
+A list: \code{columns}, without \code{cell}, \code{cells}, a named list of
+markup keyed by \code{cellKey}, and \code{depths}, the nesting level of each.
 }
 \description{
 A column's \code{cell} is markup, rendered once per row with \code{scope} -- \code{row},

@@ -419,3 +419,24 @@
   }
   invisible(session)
 }
+
+#' Markup as a string, for a `v-html` field
+#'
+#' A field read by `v-html` travels as JSON, where a tag would arrive as its
+#' serialised object and show as text. Tags and tag lists are rendered to
+#' their HTML first; a character value is taken as markup already.
+#'
+#' @param x A character string, tag, tag list or `HTML()`, or `NULL`.
+#' @param arg The argument's name, for the error.
+#' @return A single string, or `NULL`.
+#' @keywords internal
+.el_html_string <- function(x, arg = "html") {
+  if (is.null(x)) return(NULL)
+  if (inherits(x, c("shiny.tag", "shiny.tag.list")) ||
+      (is.list(x) && !is.data.frame(x))) {
+    return(htmltools::renderTags(x)$html)
+  }
+  if (is.character(x)) return(paste(x, collapse = ""))
+  stop("`", arg, "` must be a string of HTML or htmltools tags, not ",
+       class(x)[1], ".", call. = FALSE)
+}

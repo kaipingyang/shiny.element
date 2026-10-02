@@ -166,3 +166,20 @@ test_that("el_upload_clear() empties the list through the component's own method
   expect_match(m$shinyVueReceive, "clearFiles", fixed = TRUE)
   expect_match(m$shinyVueReceive, "files_success", fixed = TRUE)
 })
+
+test_that("letting go of an upload job removes it and its directory", {
+  base <- tempfile("uploads")
+  dir.create(base)
+  ctx <- shiny:::FileUploadContext$new(base)
+  job <- ctx$createUploadOperation(list(list(name = "a.txt", size = 1, type = "text/plain")))
+  dir <- ctx$getUploadOperation(job)$.dir
+  expect_true(dir.exists(dir))
+  session <- list(.__enclos_env__ = list(private = list(fileUploadContext = ctx)))
+  expect_true(shiny.element:::.el_upload_abandon(job, session))
+  expect_null(ctx$getUploadOperation(job))
+  expect_false(dir.exists(dir))
+  # an unknown job, a malformed id, or a session without the context: nothing
+  expect_false(shiny.element:::.el_upload_abandon(job, session))
+  expect_false(shiny.element:::.el_upload_abandon(NULL, session))
+  expect_false(shiny.element:::.el_upload_abandon("x", list()))
+})

@@ -185,7 +185,7 @@ With \code{remote = TRUE}, \code{filterable = TRUE} and no \code{remote_method} 
 own, the server does the search, as \code{selectizeInput()}'s server mode
 does: \verb{input$<id>_query} is the text typed, and \code{\link[=update_el_select]{update_el_select()}}
 with the matching \code{choices} answers it -- the select shows Element's
-loading text until then.
+loading text until then, or for 30 seconds at most.
 }
 
 \examples{
