@@ -1,0 +1,63 @@
+---
+title: "Tooltip"
+---
+
+```{r setup, include = FALSE}
+source(file.path("..", "..", "shots.R"))
+```
+
+Display prompt information on hover. The trigger can be plain markup or a
+component -- folded into the tooltip's own Vue instance, so it keeps
+reporting its inputs.
+
+## Basic usage
+
+`placement` takes twelve positions.
+
+```{r basic, eval = FALSE, shot = TRUE, shot_js = "var b = document.querySelectorAll('#shot button')[4]; ['mouseenter','mouseover'].forEach(function(t){ b.dispatchEvent(new MouseEvent(t, {bubbles: true})); });", shot_sel = ".el-tooltip__popper", shot_wait = 1}
+places <- c("top-start", "top", "top-end", "left-start", "left", "left-end",
+            "right-start", "right", "right-end", "bottom-start", "bottom", "bottom-end")
+tags$div(style = "padding: 40px 80px", lapply(places, function(p)
+  el_tooltip(paste0("tip_", gsub("-", "_", p)), el$button(p), placement = p,
+             content = paste(p, "prompts info"), effect = "dark")))
+```
+
+## Theme
+
+```{r theme, eval = FALSE, shot = TRUE}
+el_tooltip("dark", el$button("Dark"), content = "Top center", placement = "top")
+el_tooltip("light", el$button("Light"), content = "Bottom center", placement = "bottom", effect = "light")
+```
+
+## More content
+
+The `content` slot takes markup.
+
+```{r more, eval = FALSE, shot = TRUE, shot_js = "var b = document.querySelector('#shot button'); ['mouseenter','mouseover'].forEach(function(t){ b.dispatchEvent(new MouseEvent(t, {bubbles: true})); });", shot_sel = ".el-tooltip__popper", shot_wait = 1}
+el_tooltip("multi", el$button("Top center"), placement = "top",
+           slots = list(content = tags$div("multiple lines", tags$br(), "second line")))
+```
+
+## Advanced usage
+
+`disabled` turns it off -- here from a switch, through `update_el_tooltip()`;
+`manual` hands showing and hiding to `update_el_tooltip(value =)`.
+
+```{r advanced, eval = FALSE, shot = TRUE}
+ui <- el_page(
+  el_switch("tip_on", value = TRUE, active_text = "tooltip on"),
+  el_tooltip("adv", el$button("Hover me"), content = "click the switch to turn me off",
+             placement = "bottom"))
+
+server <- function(input, output, session) {
+  observeEvent(input$tip_on, update_el_tooltip(id = "adv", disabled = !input$tip_on))
+}
+
+shinyApp(ui, server)
+```
+
+## API
+
+```{r api, echo = FALSE, results = "asis"}
+api_tables("tooltip")
+```

@@ -1,0 +1,97 @@
+---
+title: "Notification"
+---
+
+```{r setup, include = FALSE}
+source(file.path("..", "..", "shots.R"))
+```
+
+A global notification at a corner of the page. `el_notification()` shows
+one from the server; given an `id`, `input$<id>_click` and
+`input$<id>_close` report it.
+
+## Basic usage
+
+```{r basic, eval = FALSE, shot = TRUE, shot_js = "document.querySelector('#auto_container button').click()", shot_sel = ".el-notification", shot_wait = 1.5}
+ui <- el_page(el_button("auto", "Closes automatically", plain = TRUE),
+              el_button("stay", "Won't close automatically", plain = TRUE))
+
+server <- function(input, output, session) {
+  observeEvent(input$auto, el_notification(title = "Title", message = "This is a reminder"))
+  observeEvent(input$stay, el_notification(title = "Prompt", duration = 0,
+                                            message = "This is a message that does not close automatically"))
+}
+
+shinyApp(ui, server)
+```
+
+## With types
+
+```{r types, eval = FALSE, shot = TRUE, shot_js = "document.querySelector('#ok_container button').click()", shot_sel = ".el-notification", shot_wait = 1.5}
+ui <- el_page(el_button("ok", "Success", plain = TRUE), el_button("bad", "Error", plain = TRUE))
+
+server <- function(input, output, session) {
+  observeEvent(input$ok, el_notification(title = "Success", message = "This is a success message", type = "success"))
+  observeEvent(input$bad, el_notification(title = "Error", message = "This is an error message", type = "error"))
+}
+
+shinyApp(ui, server)
+```
+
+## Custom position
+
+```{r position, eval = FALSE, shot = TRUE, shot_js = "document.querySelector('#bl_container button').click()", shot_sel = ".el-notification", shot_wait = 1.5}
+ui <- el_page(el_button("bl", "Bottom left", plain = TRUE))
+
+server <- function(input, output, session) {
+  observeEvent(input$bl, el_notification(title = "Custom Position", position = "bottom-left",
+                                          message = "I'm at the bottom left corner"))
+}
+
+shinyApp(ui, server)
+```
+
+## With offset
+
+```{r offset, eval = FALSE, shot = TRUE, shot_js = "document.querySelector('#off_container button').click()", shot_sel = ".el-notification", shot_wait = 1.5}
+ui <- el_page(el_button("off", "Notification with offset", plain = TRUE))
+
+server <- function(input, output, session) {
+  observeEvent(input$off, el_notification(title = "Success", offset = 100,
+                                           message = "This is a success message"))
+}
+
+shinyApp(ui, server)
+```
+
+## Use HTML string
+
+```{r html, eval = FALSE, shot = TRUE, shot_js = "document.querySelector('#h_container button').click()", shot_sel = ".el-notification", shot_wait = 1.5}
+ui <- el_page(el_button("h", "Use HTML String", plain = TRUE))
+
+server <- function(input, output, session) {
+  observeEvent(input$h, el_notification(title = "HTML String", dangerously_use_html_string = TRUE,
+                                         message = "<strong>This is <i>HTML</i> string</strong>"))
+}
+
+shinyApp(ui, server)
+```
+
+## Hide close button
+
+```{r noclose, eval = FALSE, shot = TRUE, shot_js = "document.querySelector('#n_container button').click()", shot_sel = ".el-notification", shot_wait = 1.5}
+ui <- el_page(el_button("n", "Hide close button", plain = TRUE))
+
+server <- function(input, output, session) {
+  observeEvent(input$n, el_notification(title = "Info", show_close = FALSE,
+                                         message = "This is a message without close button"))
+}
+
+shinyApp(ui, server)
+```
+
+## API
+
+```{r api, echo = FALSE, results = "asis"}
+api_tables("notification")
+```

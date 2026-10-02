@@ -1,0 +1,114 @@
+---
+title: "Select"
+---
+
+```{r setup, include = FALSE}
+source(file.path("..", "..", "shots.R"))
+```
+
+When there are plenty of options, use a drop-down menu to display and
+select desired ones. `choices` and `selected` take what
+`selectInput()` takes; Element's names, `options` and `value`, work too.
+
+## Basic usage
+
+```{r basic, eval = FALSE, shot = TRUE, shot_js = "document.querySelector('#shot .el-input__inner').click()", shot_sel = ".el-select-dropdown"}
+el_select("food", choices = c("Golden Pot" = "1", "Fried Rice" = "2",
+                              "Noodles" = "3", "Dumplings" = "4"), width = "240px")
+```
+
+## Disabled option
+
+```{r disabled-option, eval = FALSE, shot = TRUE, shot_js = "document.querySelector('#shot .el-input__inner').click()", shot_sel = ".el-select-dropdown"}
+el_select("opt", width = "240px", choices = list(
+  list(value = "1", label = "Golden Pot"), list(value = "2", label = "Fried Rice", disabled = TRUE),
+  list(value = "3", label = "Noodles")))
+```
+
+## Disabled select
+
+```{r disabled, eval = FALSE, shot = TRUE}
+el_select("dis", choices = c("Golden Pot", "Fried Rice"), disabled = TRUE, width = "240px")
+```
+
+## Clearable single select
+
+```{r clearable, eval = FALSE, shot = TRUE}
+el_select("clr", choices = c("Golden Pot", "Fried Rice"), selected = "Fried Rice",
+          clearable = TRUE, width = "240px")
+```
+
+## Basic multiple select
+
+```{r multiple, eval = FALSE, shot = TRUE}
+dishes <- c("Golden Pot", "Fried Rice", "Noodles", "Dumplings", "Hot Pot")
+el_select("m1", choices = dishes, selected = dishes[1:3], multiple = TRUE, width = "360px")
+tags$div(style = "height: 16px")
+el_select("m2", choices = dishes, selected = dishes[1:3], multiple = TRUE,
+          collapse_tags = TRUE, width = "240px")
+```
+
+## Custom template
+
+`option_template` draws each option; it is `opt` there, with every field
+its choice carries.
+
+```{r template, eval = FALSE, shot = TRUE, shot_js = "document.querySelector('#shot .el-input__inner').click()", shot_sel = ".el-select-dropdown"}
+el_select("city", width = "240px", choices = list(
+  list(value = "beijing", label = "Beijing", code = "PEK"),
+  list(value = "shanghai", label = "Shanghai", code = "SHA"),
+  list(value = "chengdu", label = "Chengdu", code = "CTU")),
+  option_template = tagList(
+    tags$span(style = "float: left", "{{ opt.label }}"),
+    tags$span(style = "float: right; color: #8492a6; font-size: 13px", "{{ opt.code }}")))
+```
+
+## Grouping
+
+A named list of vectors groups the choices, as in `selectInput()`.
+
+```{r grouping, eval = FALSE, shot = TRUE, shot_js = "document.querySelector('#shot .el-input__inner').click()", shot_sel = ".el-select-dropdown"}
+el_select("grp", width = "240px", choices = list(
+  "Popular cities" = c(Shanghai = "sh", Beijing = "bj"),
+  "City name" = c(Chengdu = "cd", Shenzhen = "sz", Guangzhou = "gz")))
+```
+
+## Option filtering
+
+```{r filter, eval = FALSE, shot = TRUE}
+el_select("flt", choices = c("Golden Pot", "Fried Rice", "Noodles"), filterable = TRUE,
+          placeholder = "Type to filter", width = "240px")
+```
+
+## Remote search
+
+With `remote = TRUE` the server does the search: the text arrives as
+`input$<id>_query`, and `update_el_select()` with the matches answers it.
+
+```{r remote, eval = FALSE, shot = TRUE, shot_js = "var i = document.querySelector('#shot input'); i.click(); setTimeout(function(){ i.value = 'new'; i.dispatchEvent(new Event('input', {bubbles: true})); }, 300);", shot_sel = ".el-select-dropdown", shot_wait = 2.5}
+ui <- el_page(el_select("states", filterable = TRUE, remote = TRUE, multiple = TRUE,
+                        placeholder = "Please enter a keyword", width = "300px"))
+
+server <- function(input, output, session) {
+  observeEvent(input$states_query, {
+    update_el_select(id = "states",
+      choices = grep(input$states_query, state.name, ignore.case = TRUE, value = TRUE))
+  })
+}
+
+shinyApp(ui, server)
+```
+
+## Create new items
+
+```{r create, eval = FALSE, shot = TRUE}
+el_select("tags", choices = c("HTML", "CSS", "JavaScript"), multiple = TRUE,
+          filterable = TRUE, allow_create = TRUE, default_first_option = TRUE,
+          placeholder = "Choose tags for your article", width = "300px")
+```
+
+## API
+
+```{r api, echo = FALSE, results = "asis"}
+api_tables("select")
+```

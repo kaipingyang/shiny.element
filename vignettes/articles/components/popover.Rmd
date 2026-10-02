@@ -1,0 +1,54 @@
+---
+title: "Popover"
+---
+
+```{r setup, include = FALSE}
+source(file.path("..", "..", "shots.R"))
+```
+
+A floating card, on hover, click, focus or by hand. `reference` is what it
+hangs off; `content` its text, or `body` any markup, components included.
+
+## Basic usage
+
+```{r basic, eval = FALSE, shot = TRUE, shot_js = "document.querySelectorAll('#shot button')[1].click()", shot_sel = ".el-popover", shot_wait = 1}
+tagList(lapply(c("hover", "click", "focus"), function(t)
+  el_popover(paste0("p_", t), reference = el$button(paste("Activated by", t)), trigger = t,
+             title = "Title", popover_width = 200, placement = "top-start",
+             content = "this is content, this is content, this is content")))
+```
+
+## Nested information
+
+```{r nested, eval = FALSE, shot = TRUE, shot_js = "document.querySelector('#shot button').click()", shot_sel = ".el-popover", shot_wait = 1}
+el_popover("addr", reference = el$button("Click to activate"), trigger = "click",
+           popover_width = 400, placement = "right",
+           body = el_table("addresses", data = data.frame(
+             date = c("2016-05-02", "2016-05-04"), name = c("Jack", "Jack"),
+             address = c("New York City", "New York City"))))
+```
+
+## Nested operation
+
+`update_el_popover(value =)` shows and hides a manual one.
+
+```{r operation, eval = FALSE, shot = TRUE, shot_js = "document.querySelector('#shot .el-button').click()", shot_sel = ".el-popover", shot_wait = 1.5}
+ui <- el_page(el_popover("confirm", trigger = "manual", popover_width = 160, placement = "top",
+  reference = el_button("delete", "Delete"),
+  body = tagList(tags$p("Are you sure to delete this?"),
+                 el_button("no", "cancel", size = "mini", type = "text"),
+                 el_button("yes", "confirm", size = "mini", type = "primary"))))
+
+server <- function(input, output, session) {
+  observeEvent(input$delete, update_el_popover(id = "confirm", value = TRUE))
+  observeEvent(c(input$no, input$yes), update_el_popover(id = "confirm", value = FALSE), ignoreInit = TRUE)
+}
+
+shinyApp(ui, server)
+```
+
+## API
+
+```{r api, echo = FALSE, results = "asis"}
+api_tables("popover")
+```

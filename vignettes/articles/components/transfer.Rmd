@@ -1,0 +1,55 @@
+---
+title: "Transfer"
+---
+
+```{r setup, include = FALSE}
+source(file.path("..", "..", "shots.R"))
+```
+
+Move items between two lists. `data` is a data frame of `key` and
+`label` (and `disabled`), and `input$<id>` the keys on the right.
+
+## Basic usage
+
+```{r basic, eval = FALSE, shot = TRUE}
+items <- data.frame(key = 1:15, label = paste("Option", 1:15), disabled = 1:15 %% 4 == 0)
+el_transfer("basic", data = items, value = c(1, 4))
+```
+
+## Filterable
+
+```{r filterable, eval = FALSE, shot = TRUE}
+states <- c("California", "Illinois", "Maryland", "Texas", "Florida", "Colorado", "Connecticut")
+el_transfer("states", data = data.frame(key = seq_along(states), label = states),
+            filterable = TRUE, filter_placeholder = "State abbreviations")
+```
+
+## Customizable
+
+`titles`, `button_texts` and `format` relabel it; `render_content` draws
+each item, as a `JS()` render function, or the default slot, scoped with
+`option`.
+
+```{r custom, eval = FALSE, shot = TRUE}
+items <- data.frame(key = 1:8, label = paste("Option", 1:8))
+el_transfer("custom", data = items, value = 1, filterable = TRUE,
+            titles = c("Source", "Target"), button_texts = c("To left", "To right"),
+            format = list(noChecked = "${total}", hasChecked = "${checked}/${total}"),
+            slots = list(default = template(
+              tags$span("{{ option.key }} - {{ option.label }}"), scope = "{ option }")))
+```
+
+## Prop aliases
+
+Items whose fields are named otherwise: `props` says which is which.
+
+```{r aliases, eval = FALSE, shot = TRUE}
+items <- data.frame(value = 1:6, desc = paste("Option", 1:6))
+el_transfer("aliases", data = items, props = list(key = "value", label = "desc"))
+```
+
+## API
+
+```{r api, echo = FALSE, results = "asis"}
+api_tables("transfer")
+```

@@ -1,0 +1,82 @@
+---
+title: "DatePicker"
+---
+
+```{r setup, include = FALSE}
+source(file.path("..", "..", "shots.R"))
+```
+
+Use Date Picker for date input. `input$<id>` is a `Date` -- two for a
+range -- as `dateInput()` gives one; another `type` or `value_format`
+reports the text the picker produces.
+
+## Enter date
+
+`type` sets the measurement; `picker_options` carries Element's
+`shortcuts` and `disabledDate`, written with `JS()`.
+
+```{r enter, eval = FALSE, shot = TRUE, shot_js = "document.querySelectorAll('#shot .el-input__inner')[1].focus()", shot_sel = ".el-picker-panel", shot_wait = 1}
+el_date_picker("d1", placeholder = "Pick a day")
+el_date_picker("d2", placeholder = "Pick a day", picker_options = list(
+  disabledDate = JS("function(time) { return time.getTime() > Date.now(); }"),
+  shortcuts = list(
+    list(text = "Today", onClick = JS("function(picker) { picker.$emit('pick', new Date()); }")),
+    list(text = "Yesterday", onClick = JS(
+      "function(picker) { var d = new Date(); d.setTime(d.getTime() - 3600 * 1000 * 24); picker.$emit('pick', d); }")))))
+```
+
+## Other measurements
+
+```{r measurements, eval = FALSE, shot = TRUE}
+el_date_picker("week", type = "week", format = "Week WW", value_format = "yyyy-WW", placeholder = "Pick a week")
+el_date_picker("month", type = "month", value_format = "yyyy-MM", placeholder = "Pick a month")
+el_date_picker("year", type = "year", value_format = "yyyy", placeholder = "Pick a year")
+el_date_picker("dates", type = "dates", placeholder = "Pick one or more dates")
+```
+
+## Date range
+
+`unlink_panels` lets the two months move on their own.
+
+```{r range, eval = FALSE, shot = TRUE, shot_js = "document.querySelector('#shot .el-range-input').focus()", shot_sel = ".el-picker-panel", shot_wait = 1}
+el_date_picker("trip", type = "daterange", range_separator = "To", unlink_panels = TRUE,
+               start_placeholder = "Start date", end_placeholder = "End date")
+```
+
+## Month range
+
+```{r month-range, eval = FALSE, shot = TRUE}
+el_date_picker("quarter", type = "monthrange", value_format = "yyyy-MM", range_separator = "To",
+               start_placeholder = "Start month", end_placeholder = "End month")
+```
+
+## Default value
+
+`default_value` is the month the panel opens on when nothing is picked.
+
+```{r default, eval = FALSE, shot = TRUE}
+el_date_picker("dv", placeholder = "Pick a date", default_value = "2010-10-01")
+```
+
+## Date formats
+
+`format` is what the box shows; `value_format` what `input$<id>` gets.
+
+```{r formats, eval = FALSE, shot = TRUE}
+el_date_picker("f1", value = "2026-03-15", format = "yyyy/MM/dd")
+el_date_picker("f2", value = "2026-03-15", format = "dd MMM yyyy", value_format = "timestamp")
+```
+
+## Default time for start and end date
+
+```{r default-time, eval = FALSE, shot = TRUE}
+el_date_picker("dt", type = "daterange", value_format = "yyyy-MM-dd HH:mm:ss",
+               start_placeholder = "Start", end_placeholder = "End",
+               default_time = c("00:00:00", "23:59:59"))
+```
+
+## API
+
+```{r api, echo = FALSE, results = "asis"}
+api_tables("date-picker")
+```

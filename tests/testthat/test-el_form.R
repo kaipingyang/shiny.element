@@ -94,8 +94,8 @@ test_that("el_form_field: choice controls also get their option tag", {
 })
 
 test_that("el_form_field: an unknown type fails with the allowed list", {
-  expect_error(el_form_field("a", "textarea"), "Unknown field type")
-  expect_error(el_form_field("a", "textarea"), "input-number")
+  expect_error(el_form_field("a", "nope"), "Unknown field type")
+  expect_error(el_form_field("a", "nope"), "input-number")
 })
 
 test_that("el_form_field: extra arguments become camelCase props", {

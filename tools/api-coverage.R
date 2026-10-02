@@ -146,7 +146,11 @@ for (f in sort(ui_fns)) {
   item_fields <- unique(sub("^.*\\$", "", regmatches(src,
     gregexpr("\\b(t|item|it|tab|x|p)\\$[A-Za-z_]+", src))[[1]]))
 
+  # Events forwarded as input$<id>_<event>: bound to a generated elEmit* method
+  forwarded <- unique(sub('^@', '', sub('="elEmit$', '', regmatches(html,
+    gregexpr('@[a-z-]+="elEmit', html))[[1]])))
   out[[f]] <- list(ok = TRUE, tags = attrs_of(html), item_fields = item_fields,
+                   forwarded = forwarded,
                    slots = c(slots_of(html),
                              # Content passed through ... is the default slot
                              if ("..." %in% names(formals(f))) "default"),

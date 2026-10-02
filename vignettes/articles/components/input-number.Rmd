@@ -1,0 +1,63 @@
+---
+title: "InputNumber"
+---
+
+```{r setup, include = FALSE}
+source(file.path("..", "..", "shots.R"))
+```
+
+Input numerical values with a customizable range. `input$<id>` is the
+number, reported a quarter-second after the last change.
+
+## Basic usage
+
+```{r basic, eval = FALSE, shot = TRUE}
+el_input_number("num", value = 1, min = 1, max = 10)
+```
+
+## Disabled
+
+```{r disabled, eval = FALSE, shot = TRUE}
+el_input_number("num_d", value = 1, disabled = TRUE)
+```
+
+## Steps
+
+```{r steps, eval = FALSE, shot = TRUE}
+el_input_number("num_s", value = 5, step = 2)
+```
+
+## Step strictly
+
+Only multiples of the step.
+
+```{r strictly, eval = FALSE, shot = TRUE}
+el_input_number("num_ss", value = 2, step = 2, step_strictly = TRUE)
+```
+
+## Precision
+
+```{r precision, eval = FALSE, shot = TRUE}
+el_input_number("num_p", value = 1, precision = 2, step = 0.1, max = 10)
+```
+
+## Size
+
+```{r size, eval = FALSE, shot = TRUE}
+el_input_number("n1", value = 1)
+el_input_number("n2", value = 1, size = "medium")
+el_input_number("n3", value = 1, size = "small")
+el_input_number("n4", value = 1, size = "mini")
+```
+
+## Controls position
+
+```{r position, eval = FALSE, shot = TRUE}
+el_input_number("num_r", value = 1, min = 1, max = 10, controls_position = "right")
+```
+
+## API
+
+```{r api, echo = FALSE, results = "asis"}
+api_tables("input-number")
+```

@@ -1,0 +1,87 @@
+---
+title: "Components"
+---
+
+Every component Element UI documents, in the order and groups of Element's
+own documentation. Each page has Element's demos in R -- live where they
+need no server, a screenshot of the running app where they do -- and
+Element's API tables, with where each entry is in R.
+
+### Basic
+
+[Layout](components/layout.html) ·
+[Container](components/container.html) ·
+[Color](components/color.html) ·
+[Typography](components/typography.html) ·
+[Border](components/border.html) ·
+[Icon](components/icon.html) ·
+[Button](components/button.html) ·
+[Link](components/link.html)
+
+### Form
+
+[Radio](components/radio.html) ·
+[Checkbox](components/checkbox.html) ·
+[Input](components/input.html) ·
+[InputNumber](components/input-number.html) ·
+[Select](components/select.html) ·
+[Cascader](components/cascader.html) ·
+[Switch](components/switch.html) ·
+[Slider](components/slider.html) ·
+[TimePicker](components/time-picker.html) ·
+[DatePicker](components/date-picker.html) ·
+[DateTimePicker](components/datetime-picker.html) ·
+[Upload](components/upload.html) ·
+[Rate](components/rate.html) ·
+[ColorPicker](components/color-picker.html) ·
+[Transfer](components/transfer.html) ·
+[Form](components/form.html)
+
+### Data
+
+[Table](components/table.html) ·
+[Tag](components/tag.html) ·
+[Progress](components/progress.html) ·
+[Tree](components/tree.html) ·
+[Pagination](components/pagination.html) ·
+[Badge](components/badge.html) ·
+[Skeleton](components/skeleton.html) ·
+[Empty](components/empty.html) ·
+[Descriptions](components/descriptions.html) ·
+[Result](components/result.html) ·
+[Statistic](components/statistic.html)
+
+### Notice
+
+[Alert](components/alert.html) ·
+[Loading](components/loading.html) ·
+[Message](components/message.html) ·
+[MessageBox](components/message-box.html) ·
+[Notification](components/notification.html)
+
+### Navigation
+
+[NavMenu](components/menu.html) ·
+[Tabs](components/tabs.html) ·
+[Breadcrumb](components/breadcrumb.html) ·
+[PageHeader](components/page-header.html) ·
+[Dropdown](components/dropdown.html) ·
+[Steps](components/steps.html)
+
+### Others
+
+[Dialog](components/dialog.html) ·
+[Tooltip](components/tooltip.html) ·
+[Popover](components/popover.html) ·
+[Popconfirm](components/popconfirm.html) ·
+[Card](components/card.html) ·
+[Carousel](components/carousel.html) ·
+[Collapse](components/collapse.html) ·
+[Timeline](components/timeline.html) ·
+[Divider](components/divider.html) ·
+[Calendar](components/calendar.html) ·
+[Image](components/image.html) ·
+[Backtop](components/backtop.html) ·
+[InfiniteScroll](components/infiniteScroll.html) ·
+[Avatar](components/avatar.html) ·
+[Drawer](components/drawer.html)

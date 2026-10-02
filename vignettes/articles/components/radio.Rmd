@@ -1,0 +1,69 @@
+---
+title: "Radio"
+---
+
+```{r setup, include = FALSE}
+source(file.path("..", "..", "shots.R"))
+```
+
+Single selection among multiple options. Element's radios share a
+`v-model`; here they are always a group, `el_radio_group()`, which reports
+the chosen value as `input$<id>` -- as `radioButtons()` does.
+
+## Basic usage
+
+```{r basic, eval = FALSE, shot = TRUE}
+el_radio_group("pick", choices = c("Option A" = "1", "Option B" = "2"), selected = "1")
+```
+
+## Disabled
+
+A choice can be disabled on its own, or the whole group.
+
+```{r disabled, eval = FALSE, shot = TRUE}
+el_radio_group("one", selected = "a", choices = list(
+  list(value = "a", label = "Option A", disabled = TRUE),
+  list(value = "b", label = "Option B")))
+el_radio_group("all", choices = c("Option A" = "a", "Option B" = "b"), disabled = TRUE)
+```
+
+## Radio button group
+
+Mutually exclusive options, laid out together.
+
+```{r group, eval = FALSE, shot = TRUE}
+el_radio_group("opt", choices = c("Option A" = 3, "Option B" = 6, "Option C" = 9), selected = 3)
+```
+
+## Button style
+
+`button = TRUE` draws the choices as joined buttons; `size` sets their size.
+
+```{r button, eval = FALSE, shot = TRUE}
+cities <- c("New York", "Washington", "Los Angeles", "Chicago")
+tagList(
+  tags$div(style = "margin-bottom: 12px", el_radio_group("b1", choices = cities, selected = "New York", button = TRUE)),
+  tags$div(style = "margin-bottom: 12px", el_radio_group("b2", choices = cities, selected = "New York", button = TRUE, size = "medium")),
+  tags$div(style = "margin-bottom: 12px", el_radio_group("b3", selected = "New York", button = TRUE, size = "small",
+    choices = list(list(value = "New York", label = "New York"),
+                   list(value = "Washington", label = "Washington", disabled = TRUE),
+                   list(value = "Los Angeles", label = "Los Angeles"),
+                   list(value = "Chicago", label = "Chicago")))),
+  el_radio_group("b4", choices = cities, selected = "New York", button = TRUE, size = "mini", disabled = TRUE))
+```
+
+## With borders
+
+`border` is set on each choice, as Element sets it on each radio.
+
+```{r border, eval = FALSE, shot = TRUE}
+el_radio_group("bd", selected = "1", choices = list(
+  list(value = "1", label = "Option A", border = TRUE),
+  list(value = "2", label = "Option B", border = TRUE)))
+```
+
+## API
+
+```{r api, echo = FALSE, results = "asis"}
+api_tables("radio")
+```

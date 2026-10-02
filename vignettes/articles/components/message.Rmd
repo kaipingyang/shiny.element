@@ -1,0 +1,101 @@
+---
+title: "Message"
+---
+
+```{r setup, include = FALSE}
+source(file.path("..", "..", "shots.R"))
+```
+
+Feedback after an activity, at the top of the page, gone on its own.
+`el_message()` shows one from the server; given an `id`,
+`el_message_close()` closes it and `input$<id>_close` reports it closed.
+
+## Basic usage
+
+```{r basic, eval = FALSE, shot = TRUE, shot_js = "document.querySelector('#show_container button').click()", shot_sel = ".el-message", shot_wait = 1}
+ui <- el_page(el_button("show", "Show message", plain = TRUE))
+
+server <- function(input, output, session) {
+  observeEvent(input$show, el_message(message = "This is a message."))
+}
+
+shinyApp(ui, server)
+```
+
+## Types
+
+```{r types, eval = FALSE, shot = TRUE, shot_js = "document.querySelector('#ok_container button').click(); setTimeout(function(){ document.querySelector('#bad_container button').click(); }, 300);", shot_sel = ".el-message", shot_wait = 1.5}
+ui <- el_page(el_button("ok", "success", plain = TRUE), el_button("warn", "warning", plain = TRUE),
+              el_button("bad", "error", plain = TRUE))
+
+server <- function(input, output, session) {
+  observeEvent(input$ok, el_message(message = "Congrats, this is a success message.", type = "success"))
+  observeEvent(input$warn, el_message(message = "Warning, this is a warning message.", type = "warning"))
+  observeEvent(input$bad, el_message(message = "Oops, this is an error message.", type = "error"))
+}
+
+shinyApp(ui, server)
+```
+
+## Closable
+
+```{r closable, eval = FALSE, shot = TRUE, shot_js = "document.querySelector('#show_container button').click()", shot_sel = ".el-message", shot_wait = 1}
+ui <- el_page(el_button("show", "message", plain = TRUE))
+
+server <- function(input, output, session) {
+  observeEvent(input$show, el_message(message = "This is a message.", show_close = TRUE, duration = 0))
+}
+
+shinyApp(ui, server)
+```
+
+## Centered text
+
+```{r center, eval = FALSE, shot = TRUE, shot_js = "document.querySelector('#show_container button').click()", shot_sel = ".el-message", shot_wait = 1}
+ui <- el_page(el_button("show", "Centered text", plain = TRUE))
+
+server <- function(input, output, session) {
+  observeEvent(input$show, el_message(message = "Centered text", center = TRUE))
+}
+
+shinyApp(ui, server)
+```
+
+## Use HTML string
+
+The message is then inserted as markup -- pass only what you control.
+
+```{r html, eval = FALSE, shot = TRUE, shot_js = "document.querySelector('#show_container button').click()", shot_sel = ".el-message", shot_wait = 1}
+ui <- el_page(el_button("show", "Use HTML String", plain = TRUE))
+
+server <- function(input, output, session) {
+  observeEvent(input$show, el_message(message = "<strong>This is <i>HTML</i> string</strong>",
+                                       dangerously_use_html_string = TRUE))
+}
+
+shinyApp(ui, server)
+```
+
+## Closed from the server
+
+```{r close, eval = FALSE, shot = TRUE, shot_js = "document.querySelector('#upload_container button').click()", shot_sel = ".el-message", shot_wait = 1}
+ui <- el_page(el_button("upload", "Upload", type = "primary"))
+
+server <- function(input, output, session) {
+  observeEvent(input$upload, {
+    el_message(message = "Uploading...", id = "busy", duration = 0, icon_class = "el-icon-loading")
+    later::later(function() {
+      el_message_close(session, "busy")
+      el_message(session, "Uploaded", type = "success")
+    }, 5)
+  })
+}
+
+shinyApp(ui, server)
+```
+
+## API
+
+```{r api, echo = FALSE, results = "asis"}
+api_tables("message")
+```

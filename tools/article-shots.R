@@ -1,8 +1,12 @@
 # Screenshot every example in the articles, from the articles' own code.
 #
 #   Rscript tools/article-shots.R                 # every article
-#   Rscript tools/article-shots.R forms tables    # just these
+#   Rscript tools/article-shots.R forms table     # just these
 #   Rscript tools/article-shots.R forms:choices   # one example
+#
+# Articles are every .Rmd under vignettes/, the component pages in
+# vignettes/articles/components included; an example's key is the file's
+# name and the chunk's label, so they must be unique across them.
 #
 # An example is a knitr chunk marked `shot = TRUE`:
 #
@@ -83,7 +87,7 @@ read_shots <- function(path) {
   out
 }
 
-articles <- list.files(file.path(PKG, "vignettes"), pattern = "[.]Rmd$",
+articles <- list.files(file.path(PKG, "vignettes"), pattern = "[.]Rmd$", recursive = TRUE,
                        full.names = TRUE)
 shots <- do.call(c, unname(lapply(articles, read_shots)))
 
@@ -138,6 +142,9 @@ writeLines(c(
   "  key <- parseQueryString(req$QUERY_STRING)$shot",
   "  b <- built[[key]]",
   "  if (!is.null(b$error)) return(tags$pre(id = 'shot-error', b$error))",
+  # An example whose last value is a plain list -- lapply() at the top --
+  # shows nothing, here and on the website alike
+  "  if (!length(b$ui)) return(tags$pre(id = 'shot-error', 'the example shows nothing: wrap a list of UI in tagList()'))",
   "  content <- lapply(b$ui, function(u) if (is.function(u)) u(req) else u)",
   "  el_page(tags$div(id = 'shot',",
   "    style = 'padding:24px; max-width:860px; display:flow-root', content))",

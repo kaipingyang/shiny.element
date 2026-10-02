@@ -13,3 +13,4 @@
 ^\.upstream$
 ^tests/testthat/_problems$
 ^\.kiro$
+^vignettes/articles$

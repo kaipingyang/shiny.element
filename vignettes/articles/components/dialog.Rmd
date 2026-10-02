@@ -1,0 +1,93 @@
+---
+title: "Dialog"
+---
+
+```{r setup, include = FALSE}
+source(file.path("..", "..", "shots.R"))
+```
+
+Informs users while preserving the current page state. `input$<id>` is
+whether it is open, closing by the cross or the backdrop included;
+`update_el_dialog(visible =)` opens and closes it. The content holds any
+Shiny UI, components included.
+
+## Basic usage
+
+`before_close`, a `JS()` function, may hold the close back.
+
+```{r basic, eval = FALSE, shot = TRUE, shot_js = "document.querySelector('#open_container button').click()", shot_sel = ".el-dialog", shot_wait = 1.5}
+ui <- el_page(
+  el_button("open", "Click to open the Dialog", type = "text"),
+  el_dialog("tips", title = "Tips", width = "30%", content = tags$span("This is a message"),
+    footer = tagList(el_button("cancel", "Cancel"), el_button("confirm", "Confirm", type = "primary"))))
+
+server <- function(input, output, session) {
+  observeEvent(input$open, update_el_dialog(id = "tips", visible = TRUE))
+  observeEvent(c(input$cancel, input$confirm), update_el_dialog(id = "tips", visible = FALSE),
+               ignoreInit = TRUE)
+}
+
+shinyApp(ui, server)
+```
+
+## Customizations
+
+The content may be a table, a form -- anything.
+
+```{r custom, eval = FALSE, shot = TRUE, shot_js = "document.querySelector('#open_container button').click()", shot_sel = ".el-dialog", shot_wait = 1.5}
+ui <- el_page(
+  el_button("open", "open a Form nested Dialog", type = "text"),
+  el_dialog("shipping", title = "Shipping address", content = tagList(
+    el_input("name", label = "Promotion name", label_position = "left", label_width = "120px"),
+    el_select("zone", choices = c("Zone No.1" = "shanghai", "Zone No.2" = "beijing"),
+              label = "Zones", label_position = "left", label_width = "120px"))))
+
+server <- function(input, output, session) {
+  observeEvent(input$open, update_el_dialog(id = "shipping", visible = TRUE))
+}
+
+shinyApp(ui, server)
+```
+
+## Nested dialog
+
+The inner one with `append_to_body = TRUE`; both stack through Element's
+popup manager.
+
+```{r nested, eval = FALSE, shot = TRUE, shot_js = "document.querySelector('#open_container button').click(); setTimeout(function(){ document.querySelector('#inner_open_container button').click(); }, 800);", shot_sel = ".el-dialog", shot_wait = 2}
+ui <- el_page(
+  el_button("open", "open the outer Dialog", type = "text"),
+  el_dialog("outer", title = "Outer Dialog", content = tagList(
+    el_dialog("inner", title = "Inner Dialog", width = "30%", append_to_body = TRUE),
+    el_button("inner_open", "open the inner Dialog", type = "primary"))))
+
+server <- function(input, output, session) {
+  observeEvent(input$open, update_el_dialog(id = "outer", visible = TRUE))
+  observeEvent(input$inner_open, update_el_dialog(id = "inner", visible = TRUE))
+}
+
+shinyApp(ui, server)
+```
+
+## Centered content
+
+```{r center, eval = FALSE, shot = TRUE, shot_js = "document.querySelector('#open_container button').click()", shot_sel = ".el-dialog", shot_wait = 1.5}
+ui <- el_page(
+  el_button("open", "Click to open the Dialog", type = "text"),
+  el_dialog("warn", title = "Warning", width = "30%", center = TRUE,
+    content = tags$span("It should be noted that the content will not be aligned in center by default"),
+    footer = el_button("ok", "Confirm", type = "primary")))
+
+server <- function(input, output, session) {
+  observeEvent(input$open, update_el_dialog(id = "warn", visible = TRUE))
+  observeEvent(input$ok, update_el_dialog(id = "warn", visible = FALSE))
+}
+
+shinyApp(ui, server)
+```
+
+## API
+
+```{r api, echo = FALSE, results = "asis"}
+api_tables("dialog")
+```

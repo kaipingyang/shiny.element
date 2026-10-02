@@ -1,0 +1,105 @@
+---
+title: "MessageBox"
+---
+
+```{r setup, include = FALSE}
+source(file.path("..", "..", "shots.R"))
+```
+
+Modal boxes that alert, confirm or ask. `el_message_box()` opens one from
+the server; the answer arrives as `input$<id>` -- `"confirm"`,
+`"cancel"` or `"close"`, and for a prompt a list of `action` and `value`.
+
+## Alert
+
+```{r alert, eval = FALSE, shot = TRUE, shot_js = "document.querySelector('#open_container button').click()", shot_sel = ".el-message-box", shot_wait = 1.5}
+ui <- el_page(el_button("open", "Click to open the Message Box", type = "text"))
+
+server <- function(input, output, session) {
+  observeEvent(input$open, el_message_box(id = "seen", message = "This is a message",
+    title = "Title", box_type = "alert", confirm_button_text = "OK"))
+}
+
+shinyApp(ui, server)
+```
+
+## Confirm
+
+```{r confirm, eval = FALSE, shot = TRUE, shot_js = "document.querySelector('#delete_container button').click()", shot_sel = ".el-message-box", shot_wait = 1.5}
+ui <- el_page(el_button("delete", "Delete the file", type = "text"), verbatimTextOutput("answer"))
+
+server <- function(input, output, session) {
+  observeEvent(input$delete, el_message_box(id = "sure",
+    message = "This will permanently delete the file. Continue?", title = "Warning",
+    type = "warning", confirm_button_text = "OK", cancel_button_text = "Cancel"))
+  output$answer <- renderPrint(input$sure)
+}
+
+shinyApp(ui, server)
+```
+
+## Prompt
+
+`input_pattern` and `input_error_message` check what is typed.
+
+```{r prompt, eval = FALSE, shot = TRUE, shot_js = "document.querySelector('#ask_container button').click()", shot_sel = ".el-message-box", shot_wait = 1.5}
+ui <- el_page(el_button("ask", "Change your email", type = "text"), verbatimTextOutput("email"))
+
+server <- function(input, output, session) {
+  observeEvent(input$ask, el_message_box(id = "email", box_type = "prompt",
+    message = "Please input your e-mail", title = "Tip",
+    input_pattern = "[\\w!#$%&'*+/=?^_`{|}~-]+(?:\\.[\\w!#$%&'*+/=?^_`{|}~-]+)*@(?:[\\w](?:[\\w-]*[\\w])?\\.)+[\\w](?:[\\w-]*[\\w])?",
+    input_error_message = "Invalid Email"))
+  output$email <- renderPrint(input$email)
+}
+
+shinyApp(ui, server)
+```
+
+## Use HTML string
+
+```{r html, eval = FALSE, shot = TRUE, shot_js = "document.querySelector('#open_container button').click()", shot_sel = ".el-message-box", shot_wait = 1.5}
+ui <- el_page(el_button("open", "Click to open Message Box", type = "text"))
+
+server <- function(input, output, session) {
+  observeEvent(input$open, el_message_box(id = "html", title = "HTML String", box_type = "alert",
+    message = "<strong>This is <i>HTML</i> string</strong>", dangerously_use_html_string = TRUE))
+}
+
+shinyApp(ui, server)
+```
+
+## Distinguishing cancel and close
+
+```{r distinguish, eval = FALSE, shot = TRUE, shot_js = "document.querySelector('#open_container button').click()", shot_sel = ".el-message-box", shot_wait = 1.5}
+ui <- el_page(el_button("open", "Click to open Message Box", type = "text"), verbatimTextOutput("how"))
+
+server <- function(input, output, session) {
+  observeEvent(input$open, el_message_box(id = "leave",
+    message = "You have unsaved changes, save and proceed?", title = "Confirm",
+    distinguish_cancel_and_close = TRUE, confirm_button_text = "Save",
+    cancel_button_text = "Discard Changes"))
+  output$how <- renderPrint(input$leave)
+}
+
+shinyApp(ui, server)
+```
+
+## Centered content
+
+```{r center, eval = FALSE, shot = TRUE, shot_js = "document.querySelector('#open_container button').click()", shot_sel = ".el-message-box", shot_wait = 1.5}
+ui <- el_page(el_button("open", "Click to open Message Box", type = "text"))
+
+server <- function(input, output, session) {
+  observeEvent(input$open, el_message_box(id = "centered", center = TRUE, type = "warning",
+    message = "This will permanently delete the file. Continue?", title = "Warning"))
+}
+
+shinyApp(ui, server)
+```
+
+## API
+
+```{r api, echo = FALSE, results = "asis"}
+api_tables("message-box")
+```

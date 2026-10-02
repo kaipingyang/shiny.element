@@ -1,0 +1,73 @@
+---
+title: "Loading"
+---
+
+```{r setup, include = FALSE}
+source(file.path("..", "..", "shots.R"))
+```
+
+Show animation while loading data. Element offers a directive and a
+service; from the server it is the service: `el_loading()` opens a named
+mask, over an element or the whole page, and `el_loading_close()` shuts it.
+A table has `loading` of its own, the directive's.
+
+## Loading inside a container
+
+```{r container, eval = FALSE, shot = TRUE, shot_js = "document.querySelector('#refresh_container button').click()", shot_sel = ".el-loading-mask", shot_wait = 1}
+ui <- el_page(
+  el_button("refresh", "Refresh"),
+  tags$div(id = "panel", style = "height: 160px; border: 1px solid #ebeef5; margin-top: 10px",
+           tableOutput("rows")))
+
+server <- function(input, output, session) {
+  observeEvent(input$refresh, {
+    el_loading(session, "busy", target = "#panel")
+    on.exit(el_loading_close(session, "busy"), add = TRUE)
+    Sys.sleep(3)
+    output$rows <- renderTable(head(mtcars[, 1:4], 3))
+  })
+}
+
+shinyApp(ui, server)
+```
+
+## Customization
+
+`text`, `spinner` and `background` dress the mask.
+
+```{r custom, eval = FALSE, shot = TRUE, shot_js = "document.querySelector('#load_container button').click()", shot_sel = ".el-loading-mask", shot_wait = 1}
+ui <- el_page(
+  el_button("load", "Load"),
+  tags$div(id = "box", style = "height: 160px; border: 1px solid #ebeef5; margin-top: 10px"))
+
+server <- function(input, output, session) {
+  observeEvent(input$load, {
+    el_loading(session, "fetch", target = "#box", text = "Loading",
+               spinner = "el-icon-loading", background = "rgba(0, 0, 0, 0.8)")
+    later::later(function() el_loading_close(session, "fetch"), 5)
+  })
+}
+
+shinyApp(ui, server)
+```
+
+## Full screen loading
+
+```{r fullscreen, eval = FALSE, shot = TRUE, shot_js = "document.querySelector('#full_container button').click()", shot_sel = ".el-loading-mask", shot_wait = 1}
+ui <- el_page(el_button("full", "As a service", type = "primary"))
+
+server <- function(input, output, session) {
+  observeEvent(input$full, {
+    el_loading(session, "page", fullscreen = TRUE, lock = TRUE, text = "Loading")
+    later::later(function() el_loading_close(session, "page"), 2)
+  })
+}
+
+shinyApp(ui, server)
+```
+
+## API
+
+```{r api, echo = FALSE, results = "asis"}
+api_tables("loading")
+```

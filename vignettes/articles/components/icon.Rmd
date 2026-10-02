@@ -1,0 +1,36 @@
+---
+title: "Icon"
+---
+
+```{r setup, include = FALSE}
+source(file.path("..", "..", "shots.R"))
+```
+
+Element provides a set of common icons. `el_icon()` draws one by name;
+any component taking an `icon` takes its class, `"el-icon-edit"`.
+
+## Basic usage
+
+```{r basic, eval = FALSE, shot = TRUE}
+tagList(
+  el_icon("edit"), el_icon("share"), el_icon("delete"),
+  el_button("search", "Search", type = "primary", icon = "el-icon-search"))
+```
+
+`el_icon(lib = "font-awesome")` draws a Font Awesome icon instead, through
+the fontawesome package.
+
+## Icons
+
+Every icon Element ships, by the name `el_icon()` takes:
+
+```{r icons, eval = FALSE, shot = TRUE}
+css <- readLines(system.file("element-ui", "theme-chalk", "index.css",
+                             package = "shiny.element"), warn = FALSE)
+names <- unique(regmatches(css, gregexpr("(?<=\\.el-icon-)[a-z0-9-]+(?=:before)", css, perl = TRUE))[[1]])
+tags$div(style = "display: flex; flex-wrap: wrap",
+  lapply(sort(names), function(n) tags$div(
+    style = "width: 120px; height: 90px; text-align: center; color: #606266; font-size: 12px",
+    tags$i(class = paste0("el-icon-", n), style = "font-size: 24px; display: block; margin: 16px 0 8px"),
+    n)))
+```

@@ -174,3 +174,64 @@ test_that("new choices end a remote search's loading state", {
   sent <- capture_update(update_el_select, list(choices = c("a", "b")))
   expect_true("loading" %in% sent)
 })
+
+# Every update_el_*() of a component with a Vue instance, not just the list
+# above: a field it sends must be one the component declares, or the update
+# is refused in the browser. update_el_tooltip() and update_el_popover() sent
+# unprefixed names for months, unnoticed because they were not listed.
+test_that("every updater of a Vue component sends only declared fields", {
+  ns <- asNamespace("shiny.element")
+  # Markup components update through their bindings, not Vue data
+  markup <- c("update_el_tabs", "update_el_collapse", "update_el_dialog", "update_el_drawer")
+  build <- list(
+    update_el_cascader_panel = quote(el_cascader_panel("x")),
+    update_el_time_select = quote(el_time_select("x")),
+    update_el_breadcrumb = quote(el_breadcrumb("x", items = list(list(label = "a")))),
+    update_el_descriptions = quote(el_descriptions("x", items = c(a = "1"))),
+    update_el_menu = quote(el_menu("x", items = list(list(index = "a", label = "A")))),
+    update_el_carousel = quote(el_carousel("x", items = list(list(name = "a", content = "A")))),
+    update_el_timeline = quote(el_timeline("x", items = list(list(content = "a")))),
+    update_el_tooltip = quote(el_tooltip("x", htmltools::tags$span("t"), content = "c")),
+    update_el_popover = quote(el_popover("x", reference = htmltools::tags$span("r"))),
+    update_el_popconfirm = quote(el_popconfirm("x", reference = htmltools::tags$span("r"))),
+    update_el_infinite_scroll = quote(el_infinite_scroll("x", "a")),
+    update_el_badge = quote(el_badge("a", value = 1, id = "x")),
+    update_el_link = quote(el_link("a", id = "x")),
+    update_el_tree = quote(el_tree("x", data = list(list(id = 1, label = "a")))),
+    update_el_transfer = quote(el_transfer("x", data = data.frame(key = 1, label = "a"))),
+    update_el_form = quote(el_form(id = "x", el_form_field("a", "input"))),
+    update_el_pagination = quote(el_pagination("x", total = 10)),
+    update_el_radio_group = quote(el_radio_group("x", choices = "a")),
+    update_el_checkbox_group = quote(el_checkbox_group("x", choices = "a")),
+    update_el_select = quote(el_select("x", choices = "a")),
+    update_el_table = quote(el_table(id = "x", data = head(iris, 2))),
+    update_el_dropdown = quote(el_dropdown("x", items = list(list(command = "c", label = "L")))),
+    update_el_steps = quote(el_steps("x", steps = list(list(title = "S"))))
+  )
+  fns <- setdiff(grep("^update_el_", getNamespaceExports("shiny.element"), value = TRUE), markup)
+  for (fn in fns) {
+    ui <- build[[fn]]
+    if (is.null(ui)) {
+      maker <- sub("^update_", "", fn)
+      if (!exists(maker, envir = ns)) next
+      ui <- call(maker, "x")
+    }
+    built <- tryCatch(eval(ui, envir = ns), error = function(e) NULL)
+    expect_false(is.null(built), info = fn)
+    if (is.null(built)) next
+    keys <- vue_data_keys(built)
+    f <- get(fn, envir = ns)
+    args <- setdiff(names(formals(f)), c("session", "id", "..."))
+    # One argument at a time, each given a value of a plausible type
+    for (a in args) {
+      val <- switch(a, items = list(list(label = "a")), fields = list(el_form_field("a", "input")),
+                    model = list(a = 1), errors = list(a = "x"), rules = list(a = list()),
+                    data = data.frame(key = 1, label = "a"),
+                    columns = list(list(prop = "a", label = "A")),
+                    steps = list(list(title = "S")), 1)
+      sent <- capture_update(f, stats::setNames(list(val), a))
+      sent <- sent[!startsWith(sent, ".")]
+      expect_equal(setdiff(sent, keys), character(0), info = paste(fn, a))
+    }
+  }
+})

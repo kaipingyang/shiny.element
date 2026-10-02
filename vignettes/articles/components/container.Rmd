@@ -1,0 +1,44 @@
+---
+title: "Container"
+---
+
+```{r setup, include = FALSE}
+source(file.path("..", "..", "shots.R"))
+```
+
+Container components for scaffolding the basic structure of the page:
+`el_container()` holds `el_header()`, `el_aside()`, `el_main()` and
+`el_footer()`. A container holding a header or a footer lays its children
+out vertically, otherwise horizontally.
+
+## Common layouts
+
+```{r layouts, eval = FALSE, shot = TRUE}
+box <- function(f, ...) f(..., style = "background: #e9eef3; text-align: center; line-height: 60px")
+hdr <- function(...) el_header(..., style = "background: #b3c0d1; text-align: center; line-height: 60px")
+side <- function(...) el_aside(width = "200px", ..., style = "background: #d3dce6; text-align: center; line-height: 160px")
+tagList(
+  el_container(hdr("Header"), box(el_main, "Main")),
+  tags$br(),
+  el_container(hdr("Header"), box(el_main, "Main"),
+               el_footer("Footer", style = "background: #b3c0d1; text-align: center; line-height: 60px")),
+  tags$br(),
+  el_container(side("Aside"), box(el_main, "Main")),
+  tags$br(),
+  el_container(hdr("Header"), el_container(side("Aside"), box(el_main, "Main")))
+)
+```
+
+## Example
+
+A page frame with a menu down the side, a toolbar on top and a table in
+the middle -- the dashboard of the same name runs it whole.
+
+```{r example, file = "../../../inst/examples/dashboards/admin-layout/app.R", eval = FALSE, shot = TRUE}
+```
+
+## API
+
+```{r api, echo = FALSE, results = "asis"}
+api_tables("container")
+```

@@ -164,9 +164,10 @@ update_el_tooltip <- function(session = shiny::getDefaultReactiveDomain(), id, c
   .el_check_session(session)
   ns_id <- session$ns(id)
   msg <- list(id = ns_id)
-  if (!is.null(content))  msg$content  <- content
-  if (!is.null(disabled)) msg$disabled <- disabled
-  if (!is.null(value))    msg$value    <- value
+  # The tooltip's fields carry a prefix, kept apart from a trigger's own
+  if (!is.null(content))  msg$tipContent  <- content
+  if (!is.null(disabled)) msg$tipDisabled <- disabled
+  if (!is.null(value))    msg$tipValue    <- value
   .el_send_update(session, msg)
   invisible(NULL)
 }

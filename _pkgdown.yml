@@ -30,86 +30,231 @@ navbar:
   bg: white
   type: light
   structure:
-    left: [intro, gallery, dashboards, guides, reference, news]
+    left: [intro, components, guides, reference, news]
   components:
-    gallery:
+    components:
       text: Components
-      href: articles/components.html
-    dashboards:
-      text: Dashboards
-      href: articles/dashboards.html
+      menu:
+        - text: Overview
+          href: articles/components.html
+        - text: -------
+        - text: Basic
+        - text: Layout
+          href: articles/components/layout.html
+        - text: Container
+          href: articles/components/container.html
+        - text: Color
+          href: articles/components/color.html
+        - text: Typography
+          href: articles/components/typography.html
+        - text: Border
+          href: articles/components/border.html
+        - text: Icon
+          href: articles/components/icon.html
+        - text: Button
+          href: articles/components/button.html
+        - text: Link
+          href: articles/components/link.html
+        - text: -------
+        - text: Form
+        - text: Radio
+          href: articles/components/radio.html
+        - text: Checkbox
+          href: articles/components/checkbox.html
+        - text: Input
+          href: articles/components/input.html
+        - text: InputNumber
+          href: articles/components/input-number.html
+        - text: Select
+          href: articles/components/select.html
+        - text: Cascader
+          href: articles/components/cascader.html
+        - text: Switch
+          href: articles/components/switch.html
+        - text: Slider
+          href: articles/components/slider.html
+        - text: TimePicker
+          href: articles/components/time-picker.html
+        - text: DatePicker
+          href: articles/components/date-picker.html
+        - text: DateTimePicker
+          href: articles/components/datetime-picker.html
+        - text: Upload
+          href: articles/components/upload.html
+        - text: Rate
+          href: articles/components/rate.html
+        - text: ColorPicker
+          href: articles/components/color-picker.html
+        - text: Transfer
+          href: articles/components/transfer.html
+        - text: Form
+          href: articles/components/form.html
+        - text: -------
+        - text: Data
+        - text: Table
+          href: articles/components/table.html
+        - text: Tag
+          href: articles/components/tag.html
+        - text: Progress
+          href: articles/components/progress.html
+        - text: Tree
+          href: articles/components/tree.html
+        - text: Pagination
+          href: articles/components/pagination.html
+        - text: Badge
+          href: articles/components/badge.html
+        - text: Skeleton
+          href: articles/components/skeleton.html
+        - text: Empty
+          href: articles/components/empty.html
+        - text: Descriptions
+          href: articles/components/descriptions.html
+        - text: Result
+          href: articles/components/result.html
+        - text: Statistic
+          href: articles/components/statistic.html
+        - text: -------
+        - text: Notice
+        - text: Alert
+          href: articles/components/alert.html
+        - text: Loading
+          href: articles/components/loading.html
+        - text: Message
+          href: articles/components/message.html
+        - text: MessageBox
+          href: articles/components/message-box.html
+        - text: Notification
+          href: articles/components/notification.html
+        - text: -------
+        - text: Navigation
+        - text: NavMenu
+          href: articles/components/menu.html
+        - text: Tabs
+          href: articles/components/tabs.html
+        - text: Breadcrumb
+          href: articles/components/breadcrumb.html
+        - text: PageHeader
+          href: articles/components/page-header.html
+        - text: Dropdown
+          href: articles/components/dropdown.html
+        - text: Steps
+          href: articles/components/steps.html
+        - text: -------
+        - text: Others
+        - text: Dialog
+          href: articles/components/dialog.html
+        - text: Tooltip
+          href: articles/components/tooltip.html
+        - text: Popover
+          href: articles/components/popover.html
+        - text: Popconfirm
+          href: articles/components/popconfirm.html
+        - text: Card
+          href: articles/components/card.html
+        - text: Carousel
+          href: articles/components/carousel.html
+        - text: Collapse
+          href: articles/components/collapse.html
+        - text: Timeline
+          href: articles/components/timeline.html
+        - text: Divider
+          href: articles/components/divider.html
+        - text: Calendar
+          href: articles/components/calendar.html
+        - text: Image
+          href: articles/components/image.html
+        - text: Backtop
+          href: articles/components/backtop.html
+        - text: InfiniteScroll
+          href: articles/components/infiniteScroll.html
+        - text: Avatar
+          href: articles/components/avatar.html
+        - text: Drawer
+          href: articles/components/drawer.html
     guides:
       text: Guides
       menu:
-      - text: Forms
+      - text: Forms and validation
         href: articles/forms.html
-      - text: Tables
-        href: articles/tables.html
-      - text: Navigation and feedback
-        href: articles/navigation.html
+      - text: Shiny integration
+        href: articles/shiny.html
+      - text: Theming, sizes and languages
+        href: articles/theming.html
+      - text: Dashboards
+        href: articles/dashboards.html
       - text: -------
       - text: What works, and what does not
         href: articles/limitations.html
 
 reference:
   - title: Getting started
-    desc: Page wrappers that load Vue, Element UI and the package's own assets.
+    desc: The page, its theme, and the scripts and styles a page needs.
     contents:
-      - el_locales
       - el_page
       - el_theme
       - use_element
+      - el_locales
       - element_ui_dependency
       - el_locale_dependency
       - el_layout_css_dependency
       - el_feedback_dependency
 
-  - title: Inputs
-    desc: >
-      Each reports to the server as `input$<id>`, on load as well as on change.
+  - title: Basic
+    desc: As in Element's documentation.
     contents:
+      - el_row
+      - el_col
+      - el_container
+      - el_header
+      - el_aside
+      - el_main
+      - el_footer
+      - el_icon
+      - el_button
+      - update_el_button
+      - el_button_group
+      - el_link
+      - update_el_link
+
+  - title: Form
+    desc: Each reports to the server as `input$<id>`, on load as well as on change.
+    contents:
+      - el_radio_group
+      - update_el_radio_group
+      - el_checkbox
+      - update_el_checkbox
+      - el_checkbox_group
+      - update_el_checkbox_group
+      - el_input
+      - starts_with("update_el_input")
+      - el_input_number
       - el_autocomplete
       - update_el_autocomplete
-      - el_transfer
-      - update_el_transfer
-      - el_input
-      - el_input_number
       - el_select
-      - el_radio_group
-      - el_checkbox
-      - el_checkbox_group
-      - el_switch
-      - el_slider
-      - el_rate
-      - el_date_picker
-      - el_time_picker
-      - el_color_picker
-      - el_cascader
-      - el_cascader_panel
-      - el_upload
-      - starts_with("update_el_input")
       - update_el_select
-      - update_el_radio_group
-      - update_el_checkbox
-      - update_el_checkbox_group
+      - el_cascader
+      - update_el_cascader
+      - el_cascader_panel
+      - update_el_cascader_panel
+      - df_to_cascader_options
+      - el_switch
       - update_el_switch
+      - el_slider
       - update_el_slider
-      - update_el_rate
-      - update_el_date_picker
+      - el_time_picker
       - update_el_time_picker
       - update_el_time_select
-      - update_el_color_picker
-      - update_el_cascader
-      - update_el_cascader_panel
+      - el_date_picker
+      - update_el_date_picker
+      - el_upload
       - update_el_upload
       - el_upload_clear
-      - df_to_cascader_options
-
-  - title: Forms
-    desc: >
-      The form owns its model, so validation runs in the browser and the whole
-      form reports once on submit.
-    contents:
+      - el_rate
+      - update_el_rate
+      - el_color_picker
+      - update_el_color_picker
+      - el_transfer
+      - update_el_transfer
       - el_form
       - el_form_field
       - el_rule
@@ -118,126 +263,101 @@ reference:
       - el_form_reset
       - el_form_clear_validate
 
-  - title: Display
+  - title: Data
     contents:
-      - el_descriptions
-      - update_el_descriptions
-      - el_statistic
-      - update_el_statistic
+      - el_table
+      - update_el_table
+      - el_table_config
+      - el_tag
+      - update_el_tag
+      - el_progress
+      - update_el_progress
+      - el_tree
+      - update_el_tree
+      - df_to_tree_data
+      - el_pagination
+      - update_el_pagination
+      - el_badge
+      - update_el_badge
+      - el_skeleton
+      - update_el_skeleton
       - el_empty
       - update_el_empty
+      - el_descriptions
+      - update_el_descriptions
       - el_result
       - update_el_result
-      - el_avatar
-      - update_el_avatar
-      - el_image
-      - update_el_image
+      - el_statistic
+      - update_el_statistic
+
+  - title: Notice
+    desc: Called from the server; nothing to place in the UI but the alert.
+    contents:
+      - el_alert
+      - update_el_alert
+      - el_loading
+      - el_loading_close
+      - el_message
+      - el_message_close
+      - el_message_box
+      - el_notification
+      - el_notification_close
+
+  - title: Navigation
+    contents:
+      - el_menu
+      - update_el_menu
+      - el_tabs
+      - update_el_tabs
+      - insert_el_tab
+      - remove_el_tab
+      - el_breadcrumb
+      - update_el_breadcrumb
+      - el_page_header
+      - update_el_page_header
+      - el_dropdown
+      - update_el_dropdown
+      - el_steps
+      - update_el_steps
+
+  - title: Others
+    contents:
+      - el_dialog
+      - update_el_dialog
       - el_tooltip
       - update_el_tooltip
       - el_popover
       - update_el_popover
       - el_popconfirm
       - update_el_popconfirm
-      - el_button
-      - el_button_group
-      - el_tag
-      - el_alert
-      - el_progress
-      - el_badge
       - el_card
-      - el_table
-      - el_pagination
-      - el_timeline
       - el_carousel
-      - el_divider
-      - el_link
-      - el_icon
-      - update_el_button
-      - update_el_tag
-      - update_el_badge
-      - update_el_link
-      - update_el_alert
-      - update_el_progress
-      - update_el_table
-      - update_el_pagination
-      - update_el_timeline
       - update_el_carousel
-      - el_table_config
-
-  - title: Containers
-    desc: >
-      Rendered as markup rather than Vue instances, which is what lets them
-      hold other components from this package.
-    contents:
-      - el_tabs
       - el_collapse
-      - el_steps
-      - el_dialog
-      - el_drawer
-      - el_container
-      - el_header
-      - el_aside
-      - el_main
-      - el_footer
-      - el_row
-      - el_col
-      - update_el_tabs
-      - insert_el_tab
       - update_el_collapse
-      - update_el_steps
-      - update_el_dialog
-      - update_el_drawer
-
-  - title: Navigation
-    contents:
-      - el_breadcrumb
-      - update_el_breadcrumb
-      - el_page_header
-      - update_el_page_header
+      - el_timeline
+      - update_el_timeline
+      - el_divider
+      - el_calendar
+      - update_el_calendar
+      - el_image
+      - update_el_image
       - el_backtop
       - update_el_backtop
       - el_infinite_scroll
       - update_el_infinite_scroll
-      - el_menu
-      - el_tree
-      - el_dropdown
-      - update_el_menu
-      - update_el_tree
-      - update_el_dropdown
-      - df_to_tree_data
+      - el_avatar
+      - update_el_avatar
+      - el_drawer
+      - update_el_drawer
 
-  - title: Feedback
-    desc: Called from the server; nothing to place in the UI.
-    contents:
-      - el_skeleton
-      - update_el_skeleton
-      - el_message_box
-      - el_loading
-      - el_loading_close
-      - el_notification
-      - el_message
-      - el_feedback_close
-
-  - title: Calendar
-    contents:
-      - el_calendar
-      - update_el_calendar
-
-  - title: Component methods
+  - title: From the server
     desc: >
-      Element documents methods as well as props -- clearSelection(),
-      setCheckedKeys(), validate(). These are functions on the component, so
-      update_el_*() cannot reach them.
+      Element's methods, the objects they need, and the data a component asks
+      the server for.
     contents:
       - el_call
       - el_table_row
-
-  - title: Loading from the server
-    desc: >
-      Where Element takes a JavaScript function to fetch data -- a lazy tree,
-      cascader or tree table -- the component asks the server instead, and
-      this answers.
-    contents:
       - el_load_children
 
   - title: Escape hatches

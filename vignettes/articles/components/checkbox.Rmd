@@ -1,0 +1,94 @@
+---
+title: "Checkbox"
+---
+
+```{r setup, include = FALSE}
+source(file.path("..", "..", "shots.R"))
+```
+
+A group of options for multiple choices. `el_checkbox()` is one box,
+`TRUE` or `FALSE`, as `checkboxInput()`; `el_checkbox_group()` reports the
+values ticked, as `checkboxGroupInput()`.
+
+## Basic usage
+
+```{r basic, eval = FALSE, shot = TRUE}
+el_checkbox("option", "Option", value = TRUE)
+```
+
+## Disabled state
+
+```{r disabled, eval = FALSE, shot = TRUE}
+el_checkbox("d1", "Option", disabled = TRUE)
+el_checkbox("d2", "Option", value = TRUE, disabled = TRUE)
+```
+
+## Checkbox group
+
+```{r group, eval = FALSE, shot = TRUE}
+el_checkbox_group("list", selected = c("selected and disabled", "Option A"), choices = list(
+  list(value = "Option A", label = "Option A"), list(value = "Option B", label = "Option B"),
+  list(value = "Option C", label = "Option C"),
+  list(value = "disabled", label = "disabled", disabled = TRUE),
+  list(value = "selected and disabled", label = "selected and disabled", disabled = TRUE)))
+```
+
+## Indeterminate
+
+The "check all" box above a group: half-ticked while some are, kept in step
+from the server.
+
+```{r indeterminate, eval = FALSE, shot = TRUE, shot_js = "document.querySelectorAll('#cities_container .el-checkbox')[1].click()", shot_wait = 1.5}
+cities <- c("Shanghai", "Beijing", "Guangzhou", "Shenzhen")
+
+ui <- el_page(
+  el_checkbox("all", "Check all", indeterminate = TRUE),
+  tags$div(style = "margin: 15px 0"),
+  el_checkbox_group("cities", choices = cities, selected = cities[1:2])
+)
+
+server <- function(input, output, session) {
+  observeEvent(input$all, {
+    update_el_checkbox_group(id = "cities", selected = if (isTRUE(input$all)) cities else character(0))
+  }, ignoreInit = TRUE)
+  observeEvent(input$cities, {
+    n <- length(input$cities)
+    update_el_checkbox(id = "all", value = n == length(cities),
+                       indeterminate = n > 0 && n < length(cities))
+  }, ignoreNULL = FALSE)
+}
+
+shinyApp(ui, server)
+```
+
+## Minimum / maximum items checked
+
+```{r minmax, eval = FALSE, shot = TRUE}
+el_checkbox_group("limited", choices = c("Shanghai", "Beijing", "Guangzhou", "Shenzhen"),
+                  selected = c("Shanghai", "Beijing"), min = 1, max = 2)
+```
+
+## Button style
+
+```{r button, eval = FALSE, shot = TRUE}
+cities <- c("Shanghai", "Beijing", "Guangzhou", "Shenzhen")
+tagList(lapply(c("default", "medium", "small", "mini"), function(s)
+  tags$div(style = "margin-bottom: 12px", el_checkbox_group(paste0("cb_", s), choices = cities,
+    selected = "Shanghai", button = TRUE, size = if (s != "default") s))))
+```
+
+## With borders
+
+```{r border, eval = FALSE, shot = TRUE}
+el_checkbox("b1", "Option1", value = TRUE, border = TRUE)
+el_checkbox("b2", "Option2", border = TRUE)
+el_checkbox_group("b3", selected = "Option1", choices = list(
+  list(value = "Option1", label = "Option1", border = TRUE),
+  list(value = "Option2", label = "Option2", border = TRUE, disabled = TRUE)))
+```
+
+## API
+
+```{r api, echo = FALSE, results = "asis"}
+api_tables("checkbox")
+```

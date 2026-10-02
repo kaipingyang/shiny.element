@@ -1,0 +1,22 @@
+---
+title: "PageHeader"
+---
+
+```{r setup, include = FALSE}
+source(file.path("..", "..", "shots.R"))
+```
+
+If the path of the page is simple, a page header instead of a breadcrumb.
+`input$<id>_back` fires when the back arrow is clicked.
+
+## Basic
+
+```{r basic, eval = FALSE, shot = TRUE}
+el_page_header("head", content = "detail")
+```
+
+## API
+
+```{r api, echo = FALSE, results = "asis"}
+api_tables("page-header")
+```

@@ -13,7 +13,7 @@ test_that("every code example in the articles is a screenshot chunk", {
   skip_if_not(dir.exists(vignette_dir), "not a source checkout")
 
   plain <- character(0)
-  for (f in list.files(vignette_dir, pattern = "[.]Rmd$", full.names = TRUE)) {
+  for (f in list.files(vignette_dir, pattern = "[.]Rmd$", full.names = TRUE, recursive = TRUE)) {
     lines <- readLines(f, warn = FALSE)
     hits <- grep("^```r\\s*$", lines)
     if (length(hits)) plain <- c(plain, paste0(basename(f), ":", hits))
@@ -26,10 +26,12 @@ test_that("every screenshot chunk has its screenshot", {
   skip_if_not(dir.exists(shots_dir), "screenshots not generated")
 
   missing <- character(0)
-  for (f in list.files(vignette_dir, pattern = "[.]Rmd$", full.names = TRUE)) {
+  for (f in list.files(vignette_dir, pattern = "[.]Rmd$", full.names = TRUE, recursive = TRUE)) {
     article <- sub("[.]Rmd$", "", basename(f))
     headers <- grep("^```\\{r [^}]*shot = TRUE", readLines(f, warn = FALSE),
                     value = TRUE)
+    # paste0() with no labels would still give "<article>-"
+    if (!length(headers)) next
     labels <- sub("^```\\{r ([A-Za-z0-9_-]+).*$", "\\1", headers)
     png <- file.path(shots_dir, paste0(article, "-", labels, ".png"))
     missing <- c(missing, basename(png)[!file.exists(png)])

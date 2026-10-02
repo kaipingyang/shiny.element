@@ -1,0 +1,41 @@
+---
+title: "Empty"
+---
+
+```{r setup, include = FALSE}
+source(file.path("..", "..", "shots.R"))
+```
+
+Placeholder hints for empty states.
+
+## Basic usage
+
+```{r basic, eval = FALSE, shot = TRUE}
+el_empty("e1", description = "No data")
+```
+
+## Custom image
+
+```{r image, eval = FALSE, shot = TRUE}
+el_empty("e2", image = "https://shadow.elemecdn.com/app/element/hamburger.9cf7b091-55e9-11e9-a976-7f4d0b07eef6.png")
+```
+
+## Image size
+
+```{r size, eval = FALSE, shot = TRUE}
+el_empty("e3", image_size = 200)
+```
+
+## Bottom content
+
+Content given in `...` goes under the description.
+
+```{r bottom, eval = FALSE, shot = TRUE}
+el_empty("e4", el_button("go", "Button", type = "primary"))
+```
+
+## API
+
+```{r api, echo = FALSE, results = "asis"}
+api_tables("empty")
+```

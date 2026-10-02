@@ -1,0 +1,59 @@
+---
+title: "Link"
+---
+
+```{r setup, include = FALSE}
+source(file.path("..", "..", "shots.R"))
+```
+
+Text hyperlink. Given an `id`, a link counts its clicks as
+`actionLink()` does.
+
+## Basic
+
+```{r basic, eval = FALSE, shot = TRUE}
+types <- c("default", "primary", "success", "warning", "danger", "info")
+tagList(lapply(types, function(t) tags$span(style = "margin-right: 16px",
+  el_link(tools::toTitleCase(t), href = if (t == "default") "https://element.eleme.io",
+          type = t))))
+```
+
+## Disabled
+
+```{r disabled, eval = FALSE, shot = TRUE}
+types <- c("default", "primary", "success", "warning", "danger", "info")
+tagList(lapply(types, function(t) tags$span(style = "margin-right: 16px",
+  el_link(tools::toTitleCase(t), type = t, disabled = TRUE))))
+```
+
+## Underline
+
+```{r underline, eval = FALSE, shot = TRUE}
+tags$span(style = "margin-right: 16px", el_link("Without underline", underline = FALSE))
+el_link("With underline")
+```
+
+## Icon
+
+```{r icon, eval = FALSE, shot = TRUE}
+tags$span(style = "margin-right: 16px", el_link("Edit", icon = "el-icon-edit"))
+el_link(tagList("Check", el_icon("view", class = "el-icon--right")), type = "primary")
+```
+
+## A link the server hears
+
+```{r action, eval = FALSE, shot = TRUE, shot_js = "document.querySelector('#more_container .el-link').click()", shot_wait = 1.5}
+ui <- el_page(el_link("Show more", id = "more", type = "primary"), textOutput("n"))
+
+server <- function(input, output, session) {
+  output$n <- renderText(paste("Clicked", input$more, "times"))
+}
+
+shinyApp(ui, server)
+```
+
+## API
+
+```{r api, echo = FALSE, results = "asis"}
+api_tables("link")
+```

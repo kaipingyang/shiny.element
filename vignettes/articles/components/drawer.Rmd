@@ -1,0 +1,83 @@
+---
+title: "Drawer"
+---
+
+```{r setup, include = FALSE}
+source(file.path("..", "..", "shots.R"))
+```
+
+A panel sliding in from an edge. `input$<id>` is whether it is open;
+`update_el_drawer(visible =)` opens and closes it, and focus goes back to
+what had it when it closes.
+
+## Basic usage
+
+`direction` is `"rtl"`, `"ltr"`, `"ttb"` or `"btt"`.
+
+```{r basic, eval = FALSE, shot = TRUE, shot_js = "document.querySelector('#open_container button').click()", shot_sel = ".el-drawer", shot_wait = 1.5}
+ui <- el_page(
+  el_radio_group("dir", choices = c("left to right" = "ltr", "right to left" = "rtl",
+                                    "top to bottom" = "ttb", "bottom to top" = "btt"), selected = "rtl"),
+  el_button("open", "open", type = "primary"),
+  el_drawer("hi", title = "I am the title", content = tags$span("Hi, there!")))
+
+server <- function(input, output, session) {
+  observeEvent(input$open, update_el_drawer(id = "hi", visible = TRUE))
+}
+
+shinyApp(ui, server)
+```
+
+## No title
+
+```{r notitle, eval = FALSE, shot = TRUE, shot_js = "document.querySelector('#open_container button').click()", shot_sel = ".el-drawer", shot_wait = 1.5}
+ui <- el_page(el_button("open", "open", type = "primary"),
+              el_drawer("plain", with_header = FALSE, content = tags$span("Hi there!")))
+
+server <- function(input, output, session) {
+  observeEvent(input$open, update_el_drawer(id = "plain", visible = TRUE))
+}
+
+shinyApp(ui, server)
+```
+
+## Customization content
+
+```{r custom, eval = FALSE, shot = TRUE, shot_js = "document.querySelector('#open_container button').click()", shot_sel = ".el-drawer", shot_wait = 1.5}
+ui <- el_page(el_button("open", "Open Drawer with nested form", type = "text"),
+  el_drawer("form", title = "I have a nested form inside!", size = "40%", content = tags$div(
+    style = "padding: 0 20px",
+    el_input("name", label = "Name", label_position = "left", label_width = "80px"),
+    el_select("area", choices = c("Area 1" = "shanghai", "Area 2" = "beijing"),
+              label = "Area", label_position = "left", label_width = "80px"),
+    el_button("submit", "Submit", type = "primary"))))
+
+server <- function(input, output, session) {
+  observeEvent(input$open, update_el_drawer(id = "form", visible = TRUE))
+}
+
+shinyApp(ui, server)
+```
+
+## Nested drawer
+
+```{r nested, eval = FALSE, shot = TRUE, shot_js = "document.querySelector('#open_container button').click(); setTimeout(function(){ document.querySelector('#inner_open_container button').click(); }, 800);", shot_sel = ".el-drawer", shot_wait = 2}
+ui <- el_page(el_button("open", "open", type = "primary"),
+  el_drawer("outer", title = "I'm outer Drawer", size = "50%", content = tagList(
+    el_button("inner_open", "Click me!"),
+    el_drawer("inner", title = "I'm inner Drawer", append_to_body = TRUE,
+              content = tags$p("_(:зゝ∠)_")))))
+
+server <- function(input, output, session) {
+  observeEvent(input$open, update_el_drawer(id = "outer", visible = TRUE))
+  observeEvent(input$inner_open, update_el_drawer(id = "inner", visible = TRUE))
+}
+
+shinyApp(ui, server)
+```
+
+## API
+
+```{r api, echo = FALSE, results = "asis"}
+api_tables("drawer")
+```

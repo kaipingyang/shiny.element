@@ -177,10 +177,11 @@ update_el_popover <- function(session = shiny::getDefaultReactiveDomain(), id, t
   .el_check_session(session)
   ns_id <- session$ns(id)
   msg <- list(id = ns_id)
-  if (!is.null(title))    msg$title    <- title
-  if (!is.null(content))  msg$content  <- content
-  if (!is.null(disabled)) msg$disabled <- disabled
-  if (!is.null(value))    msg$value    <- value
+  # The popover's fields carry a prefix, kept apart from its reference's
+  if (!is.null(title))    msg$popTitle    <- title
+  if (!is.null(content))  msg$popContent  <- content
+  if (!is.null(disabled)) msg$popDisabled <- disabled
+  if (!is.null(value))    msg$popValue    <- value
   .el_send_update(session, msg)
   invisible(NULL)
 }

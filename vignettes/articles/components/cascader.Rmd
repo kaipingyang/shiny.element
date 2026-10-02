@@ -1,0 +1,141 @@
+---
+title: "Cascader"
+---
+
+```{r setup, include = FALSE}
+source(file.path("..", "..", "shots.R"))
+```
+
+If the options have a clear hierarchical structure, Cascader can be used to
+view and select them. `input$<id>` is the selected path.
+`df_to_cascader_options()` builds the options from a data frame.
+
+
+## Basic usage
+
+`props = list(expandTrigger = "hover")` opens a column on hover rather
+than on click.
+
+```{r basic, eval = FALSE, shot = TRUE, shot_js = "document.querySelector('#shot .el-input__inner').click()", shot_sel = ".el-cascader__dropdown"}
+guide <- list(
+  list(value = "guide", label = "Guide", children = list(
+    list(value = "disciplines", label = "Disciplines", children = list(
+      list(value = "consistency", label = "Consistency"),
+      list(value = "feedback", label = "Feedback"))),
+    list(value = "navigation", label = "Navigation", children = list(
+      list(value = "side-nav", label = "Side Navigation"),
+      list(value = "top-nav", label = "Top Navigation"))))),
+  list(value = "component", label = "Component", children = list(
+    list(value = "basic", label = "Basic", children = list(
+      list(value = "layout", label = "Layout"), list(value = "color", label = "Color"))),
+    list(value = "form", label = "Form", children = list(
+      list(value = "radio", label = "Radio"), list(value = "checkbox", label = "Checkbox"))))))
+el_cascader("click", options = guide)
+el_cascader("hover", options = guide, props = list(expandTrigger = "hover"))
+```
+
+## Disabled option
+
+An option with `disabled = TRUE`.
+
+```{r disabled, eval = FALSE, shot = TRUE, shot_js = "document.querySelector('#shot .el-input__inner').click()", shot_sel = ".el-cascader__dropdown"}
+el_cascader("dis", options = list(
+  list(value = "a", label = "Disabled", disabled = TRUE,
+       children = list(list(value = "a1", label = "A1"))),
+  list(value = "b", label = "Enabled", children = list(list(value = "b1", label = "B1")))))
+```
+
+## Clearable
+
+```{r clearable, eval = FALSE, shot = TRUE}
+el_cascader("clr", clearable = TRUE, value = c("zj", "hz"), options = list(
+  list(value = "zj", label = "Zhejiang", children = list(list(value = "hz", label = "Hangzhou")))))
+```
+
+## Display only the last level
+
+```{r last, eval = FALSE, shot = TRUE}
+el_cascader("last", show_all_levels = FALSE, value = c("zj", "hz"), options = list(
+  list(value = "zj", label = "Zhejiang", children = list(list(value = "hz", label = "Hangzhou")))))
+```
+
+## Multiple selection
+
+```{r multiple, eval = FALSE, shot = TRUE}
+opts <- list(
+  list(value = 1, label = "Asia", children = list(
+    list(value = 2, label = "China", children = list(
+      list(value = 3, label = "Beijing"), list(value = 4, label = "Shanghai"))),
+    list(value = 5, label = "Japan", children = list(list(value = 6, label = "Tokyo"))))))
+el_cascader("multi", options = opts, props = list(multiple = TRUE),
+            value = list(c(1, 2, 3), c(1, 2, 4)), clearable = TRUE)
+el_cascader("multi_c", options = opts, props = list(multiple = TRUE), collapse_tags = TRUE,
+            value = list(c(1, 2, 3), c(1, 2, 4)), clearable = TRUE)
+```
+
+## Select any level of options
+
+```{r strictly, eval = FALSE, shot = TRUE, shot_js = "document.querySelector('#shot .el-input__inner').click()", shot_sel = ".el-cascader__dropdown"}
+el_cascader("any", props = list(checkStrictly = TRUE), clearable = TRUE, options = list(
+  list(value = "zj", label = "Zhejiang", children = list(
+    list(value = "hz", label = "Hangzhou"), list(value = "nb", label = "Ningbo")))))
+```
+
+## Dynamic loading
+
+With `props = list(lazy = TRUE)` each column comes from the server, asked
+for through `input$<id>_lazy_load` and answered with
+`el_load_children()`.
+
+```{r lazy, eval = FALSE, shot = TRUE, shot_js = "document.querySelector('#shot .el-input__inner').click(); setTimeout(function(){ document.querySelector('.el-cascader-node').click(); }, 800);", shot_sel = ".el-cascader__dropdown", shot_wait = 2.5}
+ui <- el_page(el_cascader("lazy", props = list(lazy = TRUE)))
+
+server <- function(input, output, session) {
+  observeEvent(input$lazy_lazy_load, {
+    q <- input$lazy_lazy_load
+    el_load_children(id = "lazy", request = q, children = lapply(1:3, function(i)
+      list(value = paste0(q$level, "-", i), label = paste("Option", i), leaf = q$level >= 2)))
+  })
+}
+
+shinyApp(ui, server)
+```
+
+## Filterable
+
+```{r filterable, eval = FALSE, shot = TRUE}
+el_cascader("flt", filterable = TRUE, placeholder = "Try searching: Hangzhou", options = list(
+  list(value = "zj", label = "Zhejiang", children = list(
+    list(value = "hz", label = "Hangzhou"), list(value = "nb", label = "Ningbo")))))
+```
+
+## Custom option content
+
+The default slot, scoped with `node` and `data`, draws each option.
+
+```{r custom, eval = FALSE, shot = TRUE, shot_js = "document.querySelector('#shot .el-input__inner').click()", shot_sel = ".el-cascader__dropdown"}
+el_cascader("cus", options = list(
+  list(value = "zj", label = "Zhejiang", children = list(
+    list(value = "hz", label = "Hangzhou"), list(value = "nb", label = "Ningbo")))),
+  slots = list(default = template(
+    tags$span("{{ data.label }}"),
+    tags$span(`v-if` = "!node.isLeaf", " ({{ data.children.length }})"),
+    scope = "{ node, data }")))
+```
+
+## Cascader panel
+
+The columns on their own, always open: `el_cascader_panel()`.
+
+```{r panel, eval = FALSE, shot = TRUE}
+el_cascader_panel("panel", value = c("asia", "jp"), width = "fit-content", options = list(
+  list(value = "asia", label = "Asia", children = list(
+    list(value = "cn", label = "China"), list(value = "jp", label = "Japan"))),
+  list(value = "europe", label = "Europe", children = list(list(value = "fr", label = "France")))))
+```
+
+## API
+
+```{r api, echo = FALSE, results = "asis"}
+api_tables("cascader")
+```

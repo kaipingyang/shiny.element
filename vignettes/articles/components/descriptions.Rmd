@@ -1,0 +1,56 @@
+---
+title: "Descriptions"
+---
+
+```{r setup, include = FALSE}
+source(file.path("..", "..", "shots.R"))
+```
+
+Display multiple fields in list form. `items` is a named vector or list --
+names the labels -- or a list of `list(label =, content =)`.
+
+## Basic usage
+
+```{r basic, eval = FALSE, shot = TRUE}
+el_descriptions("user", title = "User Info", items = c(
+  Username = "kooriookami", Telephone = "18100000000", Place = "Suzhou",
+  Remarks = "School", Address = "No.1188, Wuzhong Avenue, Wuzhong District, Suzhou"))
+```
+
+## Sizes
+
+```{r sizes, eval = FALSE, shot = TRUE}
+info <- c(Username = "kooriookami", Telephone = "18100000000", Place = "Suzhou")
+el_descriptions("d1", title = "Default", border = TRUE, items = info)
+el_descriptions("d2", title = "Medium", border = TRUE, size = "medium", items = info)
+el_descriptions("d3", title = "Small", border = TRUE, size = "small", items = info)
+el_descriptions("d4", title = "Mini", border = TRUE, size = "mini", items = info)
+```
+
+## Vertical list
+
+```{r vertical, eval = FALSE, shot = TRUE}
+el_descriptions("v1", title = "Vertical list with border", direction = "vertical",
+                column = 4, border = TRUE, items = c(
+  Username = "kooriookami", Telephone = "18100000000", Place = "Suzhou", Remarks = "School"))
+```
+
+## Customized style
+
+Each item may carry `label_style`, `content_style`, `span` and class
+names; a `content` may be a component.
+
+```{r style, eval = FALSE, shot = TRUE}
+el_descriptions("st", title = "Customized style", border = TRUE, column = 3, items = list(
+  list(label = "Username", content = "kooriookami",
+       label_style = list(width = "120px"), content_style = list(color = "#409EFF")),
+  list(label = "Telephone", content = "18100000000"),
+  list(label = "Remarks", content = el_tag("school", "School", size = "small")),
+  list(label = "Address", content = "No.1188, Wuzhong Avenue", span = 3)))
+```
+
+## API
+
+```{r api, echo = FALSE, results = "asis"}
+api_tables("descriptions")
+```

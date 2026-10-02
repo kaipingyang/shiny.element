@@ -18,6 +18,9 @@
 #' @keywords internal
 .el_form_tags <- list(
   "input"          = list(tag = "el-input"),
+  # el-input's own `type`, which el_form_field()'s `type` cannot carry
+  "textarea"       = list(tag = "el-input", props = list(type = "textarea")),
+  "password"       = list(tag = "el-input", props = list(type = "password", showPassword = TRUE)),
   "input-number"   = list(tag = "el-input-number"),
   "select"         = list(tag = "el-select",         option = "el-option"),
   "radio-group"    = list(tag = "el-radio-group",    option = "el-radio"),
@@ -174,7 +177,8 @@ el_rule <- function(required = NULL,
 #'
 #' @param prop Field name. Keys the form's model and is what
 #'   [el_rule()]s and validation messages refer to.
-#' @param type Control type: one of `"input"`, `"input-number"`, `"select"`,
+#' @param type Control type: one of `"input"`, `"textarea"`, `"password"`,
+#'   `"input-number"`, `"select"`,
 #'   `"radio-group"`, `"checkbox-group"`, `"checkbox"` (one box, `TRUE` or
 #'   `FALSE`), `"switch"`, `"slider"`, `"date-picker"`, `"time-picker"`,
 #'   `"time-select"`, `"rate"`, `"cascader"`, `"cascader-panel"`,
@@ -188,8 +192,11 @@ el_rule <- function(required = NULL,
 #'   user types. A named vector `c(Label = value)` or a list of
 #'   `list(value=, label=)`. For `"checkbox"`, the box's text is `label`.
 #' @param rules A single [el_rule()] or a list of them.
-#' @param ... Further props passed to the control, e.g. `placeholder`,
-#'   `min`, `max`, `disabled`. Names are converted to camelCase.
+#' @param ... Further props. Element's form-item props -- `required`,
+#'   `error`, `label_width`, `size`, `show_message`, `inline_message`, and
+#'   `label_html`/`error_html` for markup of your own -- go on the field's
+#'   form item; anything else on the control, e.g. `placeholder`, `min`,
+#'   `max`, `disabled`. Names are converted to camelCase.
 #' @return A field declaration, for [el_form()].
 #' @export
 #' @examples
@@ -214,6 +221,13 @@ el_form_field <- function(prop,
 
   props <- list(...)
   if (length(props)) names(props) <- .el_camel(names(props))
+  # el-form-item's own props go on the item, not the control: the template
+  # reads f.required, f.error, ... off the field
+  item_props <- c("required", "error", "labelWidth", "size", "inlineMessage",
+                  "showMessage", "labelHtml", "errorHtml")
+  item <- props[intersect(names(props), item_props)]
+  props <- props[setdiff(names(props), item_props)]
+  if (!is.null(spec$props)) props <- utils::modifyList(spec$props, props)
   if (identical(type, "autocomplete") && is.null(props$fetchSuggestions)) {
     # Element's autocomplete asks a function for its suggestions; this one
     # filters the choices, as el_autocomplete() does
@@ -226,14 +240,14 @@ el_form_field <- function(prop,
     choices <- NULL
   }
 
-  field <- list(
+  field <- c(list(
     prop    = prop,
     label   = label,
     tag     = spec$tag,
-    props   = props,
+    props   = props), item, list(
     value   = if (is.null(value)) .el_form_empty_value(type) else value,
     rules   = .el_normalize_rules(rules)
-  )
+  ))
   if (identical(type, "checkbox")) {
     # One box: Shiny's checkboxInput() label is the box's own text
     field$text  <- label

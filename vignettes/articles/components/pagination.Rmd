@@ -1,0 +1,62 @@
+---
+title: "Pagination"
+---
+
+```{r setup, include = FALSE}
+source(file.path("..", "..", "shots.R"))
+```
+
+If you have too much data to display in one page, use pagination.
+`input$<id>` is the current page, `input$<id>_size` the page size.
+
+## Basic usage
+
+`layout` lists the parts, separated by commas: `prev`, `pager`, `next`,
+`jumper`, `->`, `total`, `sizes`.
+
+```{r basic, eval = FALSE, shot = TRUE}
+el_pagination("p1", total = 50, layout = "prev, pager, next")
+el_pagination("p2", total = 1000, layout = "prev, pager, next")
+```
+
+## Number of pagers
+
+```{r pagers, eval = FALSE, shot = TRUE}
+el_pagination("pc", total = 1000, pager_count = 11, layout = "prev, pager, next")
+```
+
+## Buttons with background color
+
+```{r background, eval = FALSE, shot = TRUE}
+el_pagination("bg", total = 1000, background = TRUE, layout = "prev, pager, next")
+```
+
+## Small pagination
+
+```{r small, eval = FALSE, shot = TRUE}
+el_pagination("sm", total = 50, small = TRUE, layout = "prev, pager, next")
+```
+
+## More elements
+
+```{r more, eval = FALSE, shot = TRUE}
+el_pagination("m1", total = 100, current_page = 5, layout = "total, prev, pager, next")
+el_pagination("m2", total = 400, current_page = 5, page_sizes = c(100, 200, 300, 400),
+              page_size = 100, layout = "sizes, prev, pager, next")
+el_pagination("m3", total = 400, current_page = 5, page_size = 100, layout = "prev, pager, next, jumper")
+el_pagination("m4", total = 400, current_page = 4, page_sizes = c(100, 200, 300, 400),
+              page_size = 100, layout = "total, sizes, prev, pager, next, jumper")
+```
+
+## Hide pagination when there is only one page
+
+```{r single, eval = FALSE, shot = TRUE}
+el_pagination("hide", total = 5, hide_on_single_page = TRUE, layout = "prev, pager, next")
+tags$p("(nothing above: one page)")
+```
+
+## API
+
+```{r api, echo = FALSE, results = "asis"}
+api_tables("pagination")
+```

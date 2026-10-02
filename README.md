@@ -65,58 +65,22 @@ Bootstrap.
 
 ## Components
 
+The components follow Element's own documentation, group by group:
+
 | | |
 |---|---|
-| **Form** | `el_input()` `el_input_number()` `el_autocomplete()` `el_select()` `el_radio_group()` `el_checkbox_group()` `el_switch()` `el_slider()` `el_rate()` `el_date_picker()` `el_time_picker()` `el_time_select()` `el_color_picker()` `el_cascader()` `el_cascader_panel()` `el_transfer()` `el_upload()` `el_form()` |
-| **Data** | `el_table()` `el_pagination()` `el_tag()` `el_progress()` `el_tree()` `el_badge()` `el_avatar()` `el_image()` `el_descriptions()` `el_statistic()` `el_empty()` `el_result()` `el_skeleton()` `el_calendar()` `el_card()` `el_carousel()` `el_collapse()` `el_timeline()` |
-| **Navigation** | `el_menu()` `el_tabs()` `el_breadcrumb()` `el_page_header()` `el_dropdown()` `el_steps()` `el_backtop()` `el_infinite_scroll()` |
-| **Feedback** | `el_alert()` `el_loading()` `el_message()` `el_message_box()` `el_notification()` `el_popconfirm()` `el_popover()` `el_tooltip()` `el_dialog()` `el_drawer()` |
-| **Layout and basics** | `el_row()` `el_col()` `el_container()` `el_header()` `el_aside()` `el_main()` `el_footer()` `el_button()` `el_link()` `el_divider()` `el_icon()` |
+| **Basic** | `el_row()` `el_col()` `el_container()` `el_icon()` `el_button()` `el_button_group()` `el_link()` |
+| **Form** | `el_radio_group()` `el_checkbox()` `el_checkbox_group()` `el_input()` `el_autocomplete()` `el_input_number()` `el_select()` `el_cascader()` `el_cascader_panel()` `el_switch()` `el_slider()` `el_time_picker()` `el_time_select()` `el_date_picker()` `el_upload()` `el_rate()` `el_color_picker()` `el_transfer()` `el_form()` |
+| **Data** | `el_table()` `el_tag()` `el_progress()` `el_tree()` `el_pagination()` `el_badge()` `el_skeleton()` `el_empty()` `el_descriptions()` `el_result()` `el_statistic()` |
+| **Notice** | `el_alert()` `el_loading()` `el_message()` `el_message_box()` `el_notification()` |
+| **Navigation** | `el_menu()` `el_tabs()` `el_breadcrumb()` `el_page_header()` `el_dropdown()` `el_steps()` |
+| **Others** | `el_dialog()` `el_tooltip()` `el_popover()` `el_popconfirm()` `el_card()` `el_carousel()` `el_collapse()` `el_timeline()` `el_divider()` `el_calendar()` `el_image()` `el_backtop()` `el_infinite_scroll()` `el_avatar()` `el_drawer()` |
 
-The [component gallery](https://kaipingyang.github.io/shiny.element/articles/components.html)
-shows each one rendered, with the code that produced it.
+[Each has a page](https://kaipingyang.github.io/shiny.element/articles/components.html)
+with Element's demos in R and Element's API tables beside the R names.
 
-<img src="https://kaipingyang.github.io/shiny.element/shots/components-button.png" width="49%" alt="Buttons"> <img src="https://kaipingyang.github.io/shiny.element/shots/components-steps.png" width="49%" alt="Steps">
-<img src="https://kaipingyang.github.io/shiny.element/shots/components-table.png" width="49%" alt="Table"> <img src="https://kaipingyang.github.io/shiny.element/shots/components-tree.png" width="49%" alt="Tree">
-
-## Reading and writing values
-
-A component with a value reports it as `input$<id>`, as Shiny's inputs do,
-and one that can change from the server has an `update_el_*()`;
-`update_vue_data()` reaches whatever has none:
-
-``` r
-server <- function(input, output, session) {
-  # read
-  output$chosen <- renderText(input$city)
-
-  # write
-  observeEvent(input$reset, {
-    update_el_select(session, "city", selected = "beijing")
-  })
-}
-```
-
-Tables take a data frame directly, and `el_table_config()` derives the column
-definitions from it:
-
-``` r
-cfg <- el_table_config(iris, max_rows = 20)
-el_table(data = cfg$data, columns = cfg$columns, id = "iris")
-```
-
-## Layout
-
-`el_row()` / `el_col()` implement Element's 24-column grid, and
-`el_container()` its header/aside/main/footer frame. Both nest freely and
-accept any Shiny UI inside, including other Element components.
-
-For whole-page structure, bslib's `page_sidebar()` and `layout_columns()`
-remain the better tool — they handle responsive breakpoints and theming that
-Element's grid does not. Mixing the two is supported: use bslib for the page,
-Element for the controls.
-
-## Debugging
+<img src="https://kaipingyang.github.io/shiny.element/shots/button-basic.png" width="49%" alt="Buttons"> <img src="https://kaipingyang.github.io/shiny.element/shots/steps-description.png" width="49%" alt="Steps">
+<img src="https://kaipingyang.github.io/shiny.element/shots/table-grouping.png" width="49%" alt="Table"> <img src="https://kaipingyang.github.io/shiny.element/shots/tree-checking.png" width="49%" alt="Tree">
 
 `el_page(dev = TRUE)` loads Vue's development build, which reports template
 errors in the browser console instead of failing silently. The package's own
@@ -124,7 +88,9 @@ test suite runs in this mode and asserts that the console stays clean.
 
 ## Learn more
 
-* [Component gallery](https://kaipingyang.github.io/shiny.element/articles/components.html)
+* [Get started](https://kaipingyang.github.io/shiny.element/articles/shiny.element.html)
+* [Components](https://kaipingyang.github.io/shiny.element/articles/components.html) -- one page per Element component
+* [Forms and validation](https://kaipingyang.github.io/shiny.element/articles/forms.html), [Shiny integration](https://kaipingyang.github.io/shiny.element/articles/shiny.html), [Theming, sizes and languages](https://kaipingyang.github.io/shiny.element/articles/theming.html)
 * [Dashboards](https://kaipingyang.github.io/shiny.element/articles/dashboards.html) -- whole apps: Element's own admin layout, a sales overview, an orders admin page
 * [Function reference](https://kaipingyang.github.io/shiny.element/reference/index.html)
 

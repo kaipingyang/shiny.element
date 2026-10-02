@@ -1,0 +1,58 @@
+---
+title: "Carousel"
+---
+
+```{r setup, include = FALSE}
+source(file.path("..", "..", "shots.R"))
+```
+
+Loop a series of images or texts in a limited space. `input$<id>` is the
+slide showing, 0-based, and `input$<id>_name` its name;
+`update_el_carousel(active =)` moves it.
+
+```{r style, echo = FALSE}
+htmltools::tags$style(".el-carousel__item h3 { color: #475669; font-size: 18px; opacity: .75; line-height: 150px; margin: 0; text-align: center; }
+.el-carousel__item:nth-child(2n) { background: #99a9bf; } .el-carousel__item:nth-child(2n+1) { background: #d3dce6; }")
+```
+
+## Basic usage
+
+```{r basic, eval = FALSE, shot = TRUE}
+slides <- lapply(1:4, function(i) list(name = paste0("s", i), content = tags$h3(i)))
+el_carousel("c1", height = "150px", items = slides)
+el_carousel("c2", height = "150px", trigger = "click", items = slides)
+```
+
+## Indicators
+
+```{r indicators, eval = FALSE, shot = TRUE}
+el_carousel("ind", height = "150px", indicator_position = "outside",
+            items = lapply(1:4, function(i) list(name = paste0("s", i), content = tags$h3(i))))
+```
+
+## Arrows
+
+```{r arrows, eval = FALSE, shot = TRUE}
+el_carousel("arr", height = "150px", interval = 5000, arrow = "always",
+            items = lapply(1:4, function(i) list(name = paste0("s", i), content = tags$h3(i))))
+```
+
+## Card mode
+
+```{r card, eval = FALSE, shot = TRUE}
+el_carousel("cards", height = "200px", type = "card", interval = 4000,
+            items = lapply(1:6, function(i) list(name = paste0("s", i), content = tags$h3(i))))
+```
+
+## Vertical
+
+```{r vertical, eval = FALSE, shot = TRUE}
+el_carousel("vert", height = "200px", direction = "vertical", autoplay = FALSE,
+            items = lapply(1:3, function(i) list(name = paste0("s", i), content = tags$h3(i))))
+```
+
+## API
+
+```{r api, echo = FALSE, results = "asis"}
+api_tables("carousel")
+```

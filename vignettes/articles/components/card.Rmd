@@ -1,0 +1,51 @@
+---
+title: "Card"
+---
+
+```{r setup, include = FALSE}
+source(file.path("..", "..", "shots.R"))
+```
+
+Integrate information in a card container. `header` is optional; the body
+holds any Shiny UI.
+
+## Basic usage
+
+```{r basic, eval = FALSE, shot = TRUE}
+el_card(header = tags$div(style = "display: flex; justify-content: space-between; align-items: center",
+                            tags$span("Card name"), el_button("op", "Operating button", type = "text")),
+        lapply(1:4, function(i) tags$div(style = "margin-bottom: 12px", paste("List item", i))))
+```
+
+## Simple card
+
+```{r simple, eval = FALSE, shot = TRUE}
+el_card(lapply(1:4, function(i) tags$div(style = "margin-bottom: 12px", paste("List item", i))))
+```
+
+## With images
+
+`body_style` styles the body.
+
+```{r images, eval = FALSE, shot = TRUE}
+el_row(gutter = 20, lapply(1:2, function(i) el_col(span = 8,
+  el_card(body_style = "padding: 0",
+    tags$img(src = "https://shadow.elemecdn.com/app/element/hamburger.9cf7b091-55e9-11e9-a976-7f4d0b07eef6.png", alt = "A hamburger",
+             style = "width: 100%; display: block"),
+    tags$div(style = "padding: 14px", tags$span("Yummy hamburger"))))))
+```
+
+## Shadow
+
+```{r shadow, eval = FALSE, shot = TRUE}
+el_row(gutter = 12,
+  el_col(span = 8, el_card(shadow = "always", "Always")),
+  el_col(span = 8, el_card(shadow = "hover", "Hover")),
+  el_col(span = 8, el_card(shadow = "never", "Never")))
+```
+
+## API
+
+```{r api, echo = FALSE, results = "asis"}
+api_tables("card")
+```

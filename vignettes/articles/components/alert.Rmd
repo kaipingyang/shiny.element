@@ -1,0 +1,74 @@
+---
+title: "Alert"
+---
+
+```{r setup, include = FALSE}
+source(file.path("..", "..", "shots.R"))
+```
+
+Displays important alert messages. `input$<id>_close` fires when the user
+closes one; `update_el_alert()` changes it.
+
+## Basic usage
+
+```{r basic, eval = FALSE, shot = TRUE}
+el_alert("a1", title = "success alert", type = "success")
+el_alert("a2", title = "info alert", type = "info")
+el_alert("a3", title = "warning alert", type = "warning")
+el_alert("a4", title = "error alert", type = "error")
+```
+
+## Theme
+
+```{r theme, eval = FALSE, shot = TRUE}
+el_alert("d1", title = "success alert", type = "success", effect = "dark")
+el_alert("d2", title = "info alert", type = "info", effect = "dark")
+el_alert("d3", title = "warning alert", type = "warning", effect = "dark")
+el_alert("d4", title = "error alert", type = "error", effect = "dark")
+```
+
+## Customizable close button
+
+```{r close, eval = FALSE, shot = TRUE}
+el_alert("c1", title = "unclosable alert", type = "success", closable = FALSE)
+el_alert("c2", title = "customized close-text", type = "info", close_text = "Gotcha")
+el_alert("c3", title = "alert with callback", type = "warning")
+```
+
+## With icon
+
+```{r icon, eval = FALSE, shot = TRUE}
+el_alert("i1", title = "success alert", type = "success", show_icon = TRUE)
+el_alert("i2", title = "info alert", type = "info", show_icon = TRUE)
+el_alert("i3", title = "warning alert", type = "warning", show_icon = TRUE)
+el_alert("i4", title = "error alert", type = "error", show_icon = TRUE)
+```
+
+## Centered text
+
+```{r center, eval = FALSE, shot = TRUE}
+el_alert("ct1", title = "success alert", type = "success", center = TRUE, show_icon = TRUE)
+el_alert("ct2", title = "error alert", type = "error", center = TRUE, show_icon = TRUE)
+```
+
+## With description
+
+```{r description, eval = FALSE, shot = TRUE}
+el_alert("de", title = "with description", type = "success",
+         description = "This is a description.")
+```
+
+## With icon and description
+
+```{r both, eval = FALSE, shot = TRUE}
+el_alert("b1", title = "success alert", type = "success", show_icon = TRUE,
+         description = "more text description")
+el_alert("b2", title = "error alert", type = "error", show_icon = TRUE,
+         description = "more text description")
+```
+
+## API
+
+```{r api, echo = FALSE, results = "asis"}
+api_tables("alert")
+```

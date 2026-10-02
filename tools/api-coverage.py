@@ -75,6 +75,7 @@ def parse(path):
                 "name": name,
                 "desc": cells[1] if len(cells) > 1 else "",
                 "type": cells[2] if len(cells) > 2 else "",
+                "accepted": cells[3] if len(cells) > 4 else "",
                 "default": cells[4] if len(cells) > 4 else "",
             })
     return out
@@ -420,3 +421,117 @@ if "--write-docs" in sys.argv:
     doc = re.sub(r"<!-- coverage:start.*?<!-- coverage:end -->", block, doc, flags=re.S)
     open(path, "w", encoding="utf-8").write(doc)
     print("wrote", path)
+
+# ── API tables for the component pages ───────────────────────────────────────
+# Each page under vignettes/articles/components ends with Element's own API
+# tables, and beside each entry where it is in R. Written to a JSON file the
+# pages read, so the site builds without the upstream sources.
+PAGE_FNS = {
+    "layout": ["el_row", "el_col"], "container": ["el_container", "el_header", "el_aside", "el_main", "el_footer"],
+    "icon": ["el_icon"], "button": ["el_button", "el_button_group"], "link": ["el_link"],
+    "radio": ["el_radio_group"], "checkbox": ["el_checkbox", "el_checkbox_group"],
+    "input": ["el_input", "el_autocomplete"], "input-number": ["el_input_number"],
+    "select": ["el_select"], "cascader": ["el_cascader", "el_cascader_panel"],
+    "switch": ["el_switch"], "slider": ["el_slider"],
+    "time-picker": ["el_time_picker", "el_time_select"], "date-picker": ["el_date_picker"],
+    "datetime-picker": ["el_date_picker"], "upload": ["el_upload"], "rate": ["el_rate"],
+    "color-picker": ["el_color_picker"], "transfer": ["el_transfer"],
+    "form": ["el_form", "el_form_field", "el_rule"], "table": ["el_table"], "tag": ["el_tag"],
+    "progress": ["el_progress"], "tree": ["el_tree"], "pagination": ["el_pagination"],
+    "badge": ["el_badge"], "skeleton": ["el_skeleton"], "empty": ["el_empty"],
+    "descriptions": ["el_descriptions"], "result": ["el_result"], "statistic": ["el_statistic"],
+    "alert": ["el_alert"], "loading": ["el_loading"], "message": ["el_message"],
+    "message-box": ["el_message_box"], "notification": ["el_notification"],
+    "menu": ["el_menu"], "tabs": ["el_tabs"], "breadcrumb": ["el_breadcrumb"],
+    "page-header": ["el_page_header"], "dropdown": ["el_dropdown"], "steps": ["el_steps"],
+    "dialog": ["el_dialog"], "tooltip": ["el_tooltip"], "popover": ["el_popover"],
+    "popconfirm": ["el_popconfirm"], "card": ["el_card"], "carousel": ["el_carousel"],
+    "collapse": ["el_collapse"], "timeline": ["el_timeline"], "divider": ["el_divider"],
+    "calendar": ["el_calendar"], "image": ["el_image"], "backtop": ["el_backtop"],
+    "infiniteScroll": ["el_infinite_scroll"], "avatar": ["el_avatar"], "drawer": ["el_drawer"],
+}
+NAMED = {("el-menu", "default-active"): "active", ("el-tree", "default-expanded-keys"): "expanded",
+         ("el-tree", "default-checked-keys"): "checked", ("el-upload", "data"): "extra_data",
+         ("el-popover", "width"): "popover_width", ("el-tabs", "value"): "selected",
+         ("el-select", "value"): "selected (or value)", ("el-radio-group", "value"): "selected (or value)",
+         ("el-checkbox-group", "value"): "selected (or value)", ("el-upload", "http-request"): "(the Shiny upload)",
+         ("el-upload", "on-success"): "input$<id>", ("el-upload", "on-error"): "input$<id>_error"}
+
+def _params(fn):
+    p = (ours.get(fn) or {}).get("params") or (ours.get(".services") or {}).get(fn) or []
+    return [p] if isinstance(p, str) else p
+
+# A child tag's props are fields of each item in an argument of the parent
+CONTAINER = {"el-sub-menu": "items", "el-table-column": "columns", "el-step": "steps", "el-timeline-item": "items",
+             "el-submenu": "items", "el-menu-item": "items", "el-menu-item-group": "items",
+             "el-breadcrumb-item": "items", "el-descriptions-item": "items",
+             "el-radio": "choices", "el-radio-button": "choices", "el-checkbox": "choices",
+             "el-checkbox-button": "choices", "el-option": "choices", "el-option-group": "choices",
+             "el-tab-pane": "tabs", "el-collapse-item": "items", "el-carousel-item": "items",
+             "el-dropdown-item": "items", "el-skeleton-item": "template()",
+             "el-form-item": "el_form_field()"}
+NAMED.update({("el-tooltip", "value"): "update_el_tooltip(value =)",
+              ("el-popover", "value"): "update_el_popover(value =)",
+              ("el-form", "model"): "each field's `value`; update_el_form(model =)",
+              ("el-tree", "props"): "label_field, children_field, disabled_field, is_leaf_field",
+              ("el-input", "auto-complete"): "(deprecated upstream; `autocomplete`)",
+              ("el-select", "auto-complete"): "(deprecated upstream; `autocomplete`)",
+              ("el-infinite-scroll", "infinite-scroll-disabled"): "disabled",
+              ("el-infinite-scroll", "infinite-scroll-delay"): "delay",
+              ("el-infinite-scroll", "infinite-scroll-distance"): "distance",
+              ("el-infinite-scroll", "infinite-scroll-immediate"): "immediate"})
+def _fields(fn):
+    f = (ours.get(fn) or {}).get("item_fields") or []
+    return [f] if isinstance(f, str) else f
+
+def r_name(slug, tag, kind, name):
+    fns = PAGE_FNS.get(slug, [])
+    snake = _snake(camel(name)) if kind == "Attributes" else _snake(name.replace("-", "_"))
+    if kind == "Attributes":
+        if (tag, name) in NAMED: return "`" + NAMED[(tag, name)] + "`"
+        for fn in fns:
+            if snake in _params(fn): return f"`{snake}`" if len(fns) == 1 else f"`{fn}({snake} =)`"
+        for fn in fns:
+            if snake in _fields(fn) or camel(name) in _fields(fn): return f"item field `{snake}`"
+        if tag in CONTAINER:
+            c = CONTAINER[tag]
+            if c.endswith(")"): return f"`{c[:-1]}{snake} =)`"
+            return f"field `{snake}` of each of `{c}`"
+        return ""
+    if kind == "Events":
+        fw = set()
+        for fn in fns:
+            x = (ours.get(fn) or {}).get("forwarded") or []
+            fw |= set([x] if isinstance(x, str) else x)
+        if name in fw: return f"`input$<id>_{snake}`"
+        # A container's binding reports its events itself
+        tags_js = {"el-tabs": "el-tabs-binding.js", "el-collapse": "el-collapse-binding.js",
+                   "el-dialog": "el-overlay-binding.js", "el-drawer": "el-overlay-binding.js"}
+        if tag in tags_js and re.search(r"['\"]_" + snake + r"['\"]", _js(tags_js[tag])):
+            return f"`input$<id>_{snake}`"
+        if name in ("change", "input"): return "`input$<id>`, the value"
+        return "one of the component's inputs -- see its reference page"
+    if kind == "Methods":
+        return f'`el_call(session, id, "{name}")`'
+    if kind == "Slot":
+        return "default content" if name == "default" else f"`slots = list({name} = )`"
+    return ""
+
+if "--write-api" in sys.argv:
+    pages = {}
+    for slug, secs in docs.items():
+        if slug not in PAGE_FNS: continue
+        out = []
+        for title, sec in secs.items():
+            tag = section_tag(slug, title)
+            rows = []
+            for it in sec["items"]:
+                rows.append({"name": it["name"], "desc": it["desc"], "type": it["type"],
+                             "accepted": it.get("accepted", ""),
+                             "default": it["default"], "r": r_name(slug, tag, sec["kind"], it["name"])})
+            out.append({"title": title, "kind": sec["kind"], "rows": rows})
+        pages[slug] = out
+    path = "vignettes/articles/components/api.json"
+    os.makedirs(os.path.dirname(path), exist_ok=True)
+    json.dump(pages, open(path, "w", encoding="utf-8"), indent=0, ensure_ascii=False)
+    print("wrote", path, len(pages), "pages")

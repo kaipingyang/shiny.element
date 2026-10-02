@@ -1,0 +1,32 @@
+---
+title: "Breadcrumb"
+---
+
+```{r setup, include = FALSE}
+source(file.path("..", "..", "shots.R"))
+```
+
+Displays the location of the current page. `input$<id>` is the label
+clicked, so it can drive navigation in a Shiny app without routing.
+
+## Basic usage
+
+```{r basic, eval = FALSE, shot = TRUE}
+el_breadcrumb("trail", separator = "/", items = list(
+  list(label = "homepage"), list(label = "promotion management"),
+  list(label = "promotion list"), list(label = "promotion detail")))
+```
+
+## Icon separator
+
+```{r icon, eval = FALSE, shot = TRUE}
+el_breadcrumb("trail2", separator_class = "el-icon-arrow-right", items = list(
+  list(label = "homepage"), list(label = "promotion management"),
+  list(label = "promotion list"), list(label = "promotion detail")))
+```
+
+## API
+
+```{r api, echo = FALSE, results = "asis"}
+api_tables("breadcrumb")
+```

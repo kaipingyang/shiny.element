@@ -1,0 +1,40 @@
+---
+title: "Statistic"
+---
+
+```{r setup, include = FALSE}
+source(file.path("..", "..", "shots.R"))
+```
+
+Highlight a number or a group of them -- an amount, a ranking -- or count
+down to a time.
+
+## Basic usage
+
+```{r basic, eval = FALSE, shot = TRUE}
+el_row(
+  el_col(span = 6, el_statistic("s1", value = 268500, title = "Growth of users", group_separator = ",")),
+  el_col(span = 6, el_statistic("s2", value = 138, title = "Male to female ratio",
+         slots = list(suffix = tags$span("/100")))),
+  el_col(span = 6, el_statistic("s3", value = 1318.25, title = "Revenue", prefix = "$",
+         precision = 2, group_separator = ",")))
+```
+
+## Count down
+
+`time_indices = TRUE` counts down to `value`, a time; `input$<id>_finish`
+fires when it gets there.
+
+```{r countdown, eval = FALSE, shot = TRUE}
+el_statistic("sale", title = "Remaining time of the sale", time_indices = TRUE,
+             value = Sys.time() + 3600 * 5, format = "HH:mm:ss")
+el_statistic("days", title = "Days until the year ends", time_indices = TRUE,
+             value = as.POSIXct(paste0(format(Sys.Date(), "%Y"), "-12-31 23:59:59")),
+             format = "DD [days] HH:mm:ss")
+```
+
+## API
+
+```{r api, echo = FALSE, results = "asis"}
+api_tables("statistic")
+```

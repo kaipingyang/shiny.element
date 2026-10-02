@@ -31,6 +31,21 @@
     ui <- ui[[1]]
     empty$markup <- ui
   }
+  # Several pieces -- text and components side by side, or two components --
+  # are taken apart one by one and folded together, each keeping its place.
+  # One component is itself a tag list, of its head and its host.
+  is_component <- function(x) inherits(x, "shiny.tag.list") && any(vapply(x, function(p)
+    inherits(p, "shiny.tag") && !is.null(attr(p, "el_spec")), logical(1)))
+  if (is.list(ui) && !inherits(ui, "shiny.tag") && !is_component(ui)) {
+    parts <- Filter(Negate(is.null), unclass(ui))
+    if (!any(vapply(parts, function(p) is_component(p) ||
+                      (is.list(p) && !inherits(p, "shiny.tag")), logical(1)))) return(empty)
+    merged <- do.call(.el_absorb_merge, lapply(parts, .el_absorb))
+    return(list(markup = htmltools::tagList(merged$markups), data = merged$data,
+                methods = merged$methods %||% list(), watch = merged$watch %||% list(),
+                computed = merged$computed %||% list(), mounted = merged$mounted,
+                dependencies = merged$dependencies))
+  }
   if (!inherits(ui, "shiny.tag.list")) return(empty)
 
   host <- NULL

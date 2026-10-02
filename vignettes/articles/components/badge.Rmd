@@ -1,0 +1,65 @@
+---
+title: "Badge"
+---
+
+```{r setup, include = FALSE}
+source(file.path("..", "..", "shots.R"))
+```
+
+A number or status mark on buttons and icons. Given an `id`, a badge is
+changed from the server with `update_el_badge()`.
+
+## Basic usage
+
+```{r basic, eval = FALSE, shot = TRUE}
+tags$div(style = "display: flex; gap: 40px; padding-top: 10px",
+  el_badge(el_button("comments", "comments", size = "small"), value = 12),
+  el_badge(el_button("replies", "replies", size = "small"), value = 3),
+  el_badge(el_button("mentions", "mentions", size = "small"), value = 1, type = "primary"),
+  el_badge(el_button("remind", "remind", size = "small"), value = 2, type = "warning"))
+```
+
+## Max value
+
+```{r max, eval = FALSE, shot = TRUE}
+tags$div(style = "display: flex; gap: 40px; padding-top: 10px",
+  el_badge(el_button("c200", "comments", size = "small"), value = 200, max = 99),
+  el_badge(el_button("r100", "replies", size = "small"), value = 100, max = 10))
+```
+
+## Customizations
+
+```{r custom, eval = FALSE, shot = TRUE}
+tags$div(style = "display: flex; gap: 40px; padding-top: 10px",
+  el_badge(el_button("new", "comments", size = "small"), value = "new"),
+  el_badge(el_button("hot", "replies", size = "small"), value = "hot"))
+```
+
+## Little red dot
+
+```{r dot, eval = FALSE, shot = TRUE}
+tags$div(style = "display: flex; gap: 40px; padding-top: 10px",
+  el_badge("query", is_dot = TRUE),
+  el_badge(el_button("share", NULL, icon = "el-icon-share", type = "primary", size = "small"), is_dot = TRUE))
+```
+
+## Updated from the server
+
+```{r server, eval = FALSE, shot = TRUE, shot_js = "document.querySelector('#bump_container button').click()", shot_wait = 1.5}
+ui <- el_page(tags$div(style = "padding-top: 10px",
+  el_badge(el_button("inbox", "Inbox"), value = 3, id = "unread")),
+  el_button("bump", "New message", type = "text"))
+
+server <- function(input, output, session) {
+  n <- reactiveVal(3)
+  observeEvent(input$bump, { n(n() + 1); update_el_badge(id = "unread", value = n()) })
+}
+
+shinyApp(ui, server)
+```
+
+## API
+
+```{r api, echo = FALSE, results = "asis"}
+api_tables("badge")
+```

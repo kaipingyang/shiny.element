@@ -1,0 +1,69 @@
+---
+title: "TimePicker"
+---
+
+```{r setup, include = FALSE}
+source(file.path("..", "..", "shots.R"))
+```
+
+Use Time Picker for time input. `input$<id>` is the time as text,
+`"HH:mm:ss"` unless `value_format` says otherwise -- two of them for a
+range.
+
+## Fixed time picker
+
+`el_time_select()` offers fixed times: `start`, `end` and `step`.
+
+```{r fixed, eval = FALSE, shot = TRUE}
+el_time_select("slot", placeholder = "Select time",
+               picker_options = list(start = "08:30", step = "00:15", end = "18:30"))
+```
+
+## Arbitrary time picker
+
+`selectableRange` limits what can be picked; `arrow_control` steps with
+arrows instead of the mouse wheel.
+
+```{r arbitrary, eval = FALSE, shot = TRUE}
+el_time_picker("t1", placeholder = "Arbitrary time",
+               picker_options = list(selectableRange = "18:30:00 - 20:30:00"))
+el_time_picker("t2", arrow_control = TRUE, placeholder = "Arbitrary time",
+               picker_options = list(selectableRange = "18:30:00 - 20:30:00"))
+```
+
+## Fixed time range
+
+The end's `minTime` follows the start, from the server.
+
+```{r fixed-range, eval = FALSE, shot = TRUE}
+ui <- el_page(
+  el_time_select("start", placeholder = "Start time",
+                 picker_options = list(start = "08:30", step = "00:15", end = "18:30")),
+  el_time_select("end", placeholder = "End time",
+                 picker_options = list(start = "08:30", step = "00:15", end = "18:30"))
+)
+
+server <- function(input, output, session) {
+  observeEvent(input$start, {
+    update_el_time_select(id = "end", picker_options = list(
+      start = "08:30", step = "00:15", end = "18:30", minTime = input$start))
+  })
+}
+
+shinyApp(ui, server)
+```
+
+## Arbitrary time range
+
+```{r range, eval = FALSE, shot = TRUE}
+el_time_picker("r1", is_range = TRUE, range_separator = "To",
+               start_placeholder = "Start time", end_placeholder = "End time")
+el_time_picker("r2", is_range = TRUE, arrow_control = TRUE, range_separator = "To",
+               start_placeholder = "Start time", end_placeholder = "End time")
+```
+
+## API
+
+```{r api, echo = FALSE, results = "asis"}
+api_tables("time-picker")
+```

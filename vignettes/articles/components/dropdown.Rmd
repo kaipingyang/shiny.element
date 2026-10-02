@@ -1,0 +1,78 @@
+---
+title: "Dropdown"
+---
+
+```{r setup, include = FALSE}
+source(file.path("..", "..", "shots.R"))
+```
+
+Toggleable menu for displaying lists of links and actions. `input$<id>`
+is the `command` of the item chosen, as an event.
+
+## Basic usage
+
+```{r basic, eval = FALSE, shot = TRUE, shot_js = "document.querySelector('#shot .el-dropdown-link, #shot .el-dropdown').dispatchEvent(new MouseEvent('mouseenter'))", shot_sel = ".el-dropdown-menu", shot_wait = 1}
+el_dropdown("basic", trigger_label = "Dropdown List", items = list(
+  list(command = "a", label = "Action 1"), list(command = "b", label = "Action 2"),
+  list(command = "c", label = "Action 3"), list(command = "d", label = "Action 4", disabled = TRUE),
+  list(command = "e", label = "Action 5", divided = TRUE)))
+```
+
+## Triggering element
+
+`split_button` splits the trigger into a button and an arrow.
+
+```{r split, eval = FALSE, shot = TRUE}
+el_dropdown("btn", trigger_label = "Dropdown List", type = "primary", items = list(
+  list(command = "a", label = "Action 1"), list(command = "b", label = "Action 2")))
+el_dropdown("splt", trigger_label = "Dropdown List", type = "primary", split_button = TRUE,
+            items = list(list(command = "a", label = "Action 1"), list(command = "b", label = "Action 2")))
+```
+
+## How to trigger
+
+```{r trigger, eval = FALSE, shot = TRUE}
+el_dropdown("hover", trigger_label = "hover to trigger", items = list(
+  list(command = "a", label = "Action 1", icon = "el-icon-plus"),
+  list(command = "b", label = "Action 2", icon = "el-icon-circle-plus")))
+el_dropdown("click", trigger_label = "click to trigger", trigger = "click", items = list(
+  list(command = "a", label = "Action 1", icon = "el-icon-plus"),
+  list(command = "b", label = "Action 2", icon = "el-icon-circle-plus")))
+```
+
+## Menu hiding behavior
+
+```{r hide, eval = FALSE, shot = TRUE}
+el_dropdown("stay", trigger_label = "Dropdown List", hide_on_click = FALSE, items = list(
+  list(command = "a", label = "Action 1"), list(command = "b", label = "Action 2")))
+```
+
+## Command event
+
+```{r command, eval = FALSE, shot = TRUE, shot_js = "document.querySelector('#shot .el-dropdown').dispatchEvent(new MouseEvent('mouseenter')); setTimeout(function(){ document.querySelectorAll('.el-dropdown-menu__item')[1].click(); }, 600);", shot_wait = 2}
+ui <- el_page(el_dropdown("cmd", trigger_label = "Dropdown List", items = list(
+  list(command = "a", label = "Action 1"), list(command = "b", label = "Action 2"))),
+  verbatimTextOutput("chosen"))
+
+server <- function(input, output, session) {
+  output$chosen <- renderPrint(input$cmd)
+}
+
+shinyApp(ui, server)
+```
+
+## Sizes
+
+```{r sizes, eval = FALSE, shot = TRUE}
+items <- list(list(command = "a", label = "Action 1"), list(command = "b", label = "Action 2"))
+el_dropdown("s1", trigger_label = "Default", split_button = TRUE, type = "primary", items = items)
+el_dropdown("s2", trigger_label = "Medium", split_button = TRUE, size = "medium", type = "primary", items = items)
+el_dropdown("s3", trigger_label = "Small", split_button = TRUE, size = "small", type = "primary", items = items)
+el_dropdown("s4", trigger_label = "Mini", split_button = TRUE, size = "mini", type = "primary", items = items)
+```
+
+## API
+
+```{r api, echo = FALSE, results = "asis"}
+api_tables("dropdown")
+```

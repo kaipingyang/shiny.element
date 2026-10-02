@@ -1,0 +1,70 @@
+---
+title: "NavMenu"
+---
+
+```{r setup, include = FALSE}
+source(file.path("..", "..", "shots.R"))
+```
+
+Menu that provides navigation for your website. `items` nests to any
+depth: an item is `list(index =, label =, icon =)`, with `children` it is a
+submenu, and with `group = TRUE` a group. `input$<id>` is the index
+chosen, `input$<id>_path` the indexes down to it; `active` is the current
+item, and `update_el_menu()` moves it.
+
+## Top bar
+
+```{r top, eval = FALSE, shot = TRUE}
+items <- list(
+  list(index = "1", label = "Processing Center"),
+  list(index = "2", label = "Workspace", children = list(
+    list(index = "2-1", label = "item one"), list(index = "2-2", label = "item two"),
+    list(index = "2-4", label = "item four", children = list(
+      list(index = "2-4-1", label = "item one"), list(index = "2-4-2", label = "item two"))))),
+  list(index = "3", label = "Info", disabled = TRUE),
+  list(index = "4", label = "Orders"))
+el_menu("top", mode = "horizontal", active = "1", items = items)
+tags$div(style = "height: 20px")
+el_menu("dark", mode = "horizontal", active = "1", items = items,
+        background_color = "#545c64", text_color = "#fff", active_text_color = "#ffd04b")
+```
+
+## Side bar
+
+```{r side, eval = FALSE, shot = TRUE}
+el_menu("side", active = "2", width = "240px", items = list(
+  list(index = "1", label = "Navigator One", icon = "el-icon-location", children = list(
+    list(label = "Group One", group = TRUE, children = list(
+      list(index = "1-1", label = "item one"), list(index = "1-2", label = "item two"))),
+    list(index = "1-4", label = "item four", children = list(list(index = "1-4-1", label = "item one"))))),
+  list(index = "2", label = "Navigator Two", icon = "el-icon-menu"),
+  list(index = "3", label = "Navigator Three", icon = "el-icon-document", disabled = TRUE),
+  list(index = "4", label = "Navigator Four", icon = "el-icon-setting")))
+```
+
+## Collapse
+
+`collapse` folds a vertical menu to its icons; `update_el_menu(collapse =)`
+toggles it.
+
+```{r collapse, eval = FALSE, shot = TRUE, shot_js = "document.querySelectorAll('#fold_container .el-radio-button')[1].click()", shot_wait = 1.5}
+ui <- el_page(
+  el_radio_group("fold", choices = c(expand = "open", collapse = "fold"), selected = "open", button = TRUE),
+  el_menu("nav", active = "2", items = list(
+    list(index = "1", label = "Navigator One", icon = "el-icon-location", children = list(
+      list(index = "1-1", label = "item one"))),
+    list(index = "2", label = "Navigator Two", icon = "el-icon-menu"),
+    list(index = "4", label = "Navigator Four", icon = "el-icon-setting"))))
+
+server <- function(input, output, session) {
+  observeEvent(input$fold, update_el_menu(id = "nav", collapse = input$fold == "fold"))
+}
+
+shinyApp(ui, server)
+```
+
+## API
+
+```{r api, echo = FALSE, results = "asis"}
+api_tables("menu")
+```

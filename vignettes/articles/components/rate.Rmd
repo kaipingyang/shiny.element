@@ -1,0 +1,45 @@
+---
+title: "Rate"
+---
+
+```{r setup, include = FALSE}
+source(file.path("..", "..", "shots.R"))
+```
+
+Used for rating; `input$<id>` is the score.
+
+## Basic usage
+
+`colors` colours the levels -- three, or a list keyed by the thresholds.
+
+```{r basic, eval = FALSE, shot = TRUE}
+el_rate("r1", value = 3)
+el_rate("r2", value = 4, colors = c("#99A9BF", "#F7BA2A", "#FF9900"))
+```
+
+## With text
+
+```{r text, eval = FALSE, shot = TRUE}
+el_rate("rt", value = 3, show_text = TRUE,
+        texts = c("oops", "disappointed", "normal", "good", "great"))
+```
+
+## More icons
+
+```{r icons, eval = FALSE, shot = TRUE}
+el_rate("ri", value = 3, icon_classes = c("el-icon-sunny", "el-icon-cloudy", "el-icon-heavy-rain"),
+        void_icon_class = "el-icon-moon-night", colors = c("#99A9BF", "#F7BA2A", "#FF9900"))
+```
+
+## Read-only
+
+```{r readonly, eval = FALSE, shot = TRUE}
+el_rate("ro", value = 3.7, disabled = TRUE, show_score = TRUE, text_color = "#ff9900",
+        score_template = "{value} points")
+```
+
+## API
+
+```{r api, echo = FALSE, results = "asis"}
+api_tables("rate")
+```

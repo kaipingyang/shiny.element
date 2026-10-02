@@ -62,6 +62,8 @@
   }
   lapply(columns, function(col) {
     if (!is.null(col$prop)) col$prop <- gsub("\\.", "_", col$prop)
+    # A group header's columns, as Element nests el-table-column
+    if (!is.null(col$children)) col$children <- .el_table_sanitize_columns(col$children)
     # The template reads each prop off the column object in camelCase, so a
     # snake_case key would be there but never looked at -- silently doing
     # nothing. Accept both, as the rest of the package does.
@@ -272,6 +274,9 @@
 #'     a `prop` -- a column of buttons -- is fine. See "Row actions" below.
 #'   * `header_html` -- markup for the header cell, inserted unescaped, so
 #'     pass only what you control.
+#'   * `children` -- the columns under a group header, as Element nests
+#'     `el-table-column`: `list(label = "Address", children = list(...))`.
+#'     Two levels deep.
 #' @param rownames Whether to show a data.frame's row names as the first
 #'   column. `NULL` (the default) shows them when they carry something --
 #'   `mtcars`' car names -- and leaves out automatic ones, which only count
@@ -488,47 +493,52 @@ el_table <- function(id = NULL,
     ))
   }
 
-  data_col <- htmltools::tag("el-table-column", list(
-    "v-for"  = "col in (columns.length ? columns : autoColumns)",
-    ":key"   = "col.prop",
-    ":prop"  = "col.prop",
-    ":label" = "col.label",
-    ":width" = "col.width",
-    ":align" = "col.align",
-    ":header-align" = "col.headerAlign",
-    ":class-name" = "col.className",
-    ":label-class-name" = "col.labelClassName",
-    ":column-key" = "col.columnKey",
-    ":min-width" = "col.minWidth",
-    ":fixed" = "col.fixed",
-    ":resizable" = "col.resizable",
-    ":sortable" = "col.sortable",
-    ":sort-by" = "col.sortBy",
-    ":sort-orders" = "col.sortOrders",
-    ":show-overflow-tooltip" = "col.showOverflowTooltip",
-    ":filters" = "col.filters",
-    ":filtered-value" = "col.filteredValue",
-    ":filter-multiple" = "col.filterMultiple",
-    ":filter-placement" = "col.filterPlacement",
-    ":reserve-selection" = "col.reserveSelection",
-    ":index" = "col.index",
-    # Props taking a function: pass JS("function(...) {...}") in
-    # the column definition and it is evaluated in the browser.
-    ":formatter" = "col.formatter",
-    ":filter-method" = "col.filterMethod",
-    ":sort-method" = "col.sortMethod",
-    ":render-header" = "col.renderHeader",
-    ":selectable" = "col.selectable",
-    ":type" = "col.type",
-    # A column may render its own header: give it header_html in the column
-    # definition. It is inserted as markup, so only pass what you control.
-    htmltools::tag("template", list(
-      "v-slot:header" = "scope",
-      htmltools::tag("span", list("v-if" = "col.headerHtml",
-                                  "v-html" = "col.headerHtml")),
-      htmltools::tag("span", list("v-else" = NA, "{{col.label}}"))
-    )),
-    cell_slot
+  # Every column prop, read off the column object `v`
+  col_props <- function(v) {
+    props <- c(prop = "prop", label = "label", width = "width", align = "align",
+               "header-align" = "headerAlign", "class-name" = "className",
+               "label-class-name" = "labelClassName", "column-key" = "columnKey",
+               "min-width" = "minWidth", fixed = "fixed", resizable = "resizable",
+               sortable = "sortable", "sort-by" = "sortBy", "sort-orders" = "sortOrders",
+               "show-overflow-tooltip" = "showOverflowTooltip", filters = "filters",
+               "filtered-value" = "filteredValue", "filter-multiple" = "filterMultiple",
+               "filter-placement" = "filterPlacement", "reserve-selection" = "reserveSelection",
+               index = "index",
+               # Props taking a function: pass JS("function(...) {...}") in
+               # the column definition and it is evaluated in the browser.
+               formatter = "formatter", "filter-method" = "filterMethod",
+               "sort-method" = "sortMethod", "render-header" = "renderHeader",
+               selectable = "selectable", type = "type")
+    stats::setNames(as.list(paste0(v, ".", props)), paste0(":", names(props)))
+  }
+  # A column with `children` is a group header, as Element nests
+  # el-table-column: two levels below the top, each column of them plain
+  nested <- function(parent, v, depth) {
+    if (depth == 0) return(NULL)
+    htmltools::tag("el-table-column", c(
+      list("v-for" = sprintf("%s in (%s.children || [])", v, parent),
+           ":key" = sprintf("%s.prop || %s.label", v, v)),
+      col_props(v),
+      list(nested(v, paste0(v, "x"), depth - 1))
+    ))
+  }
+
+  data_col <- htmltools::tag("el-table-column", c(
+    list("v-for"  = "col in (columns.length ? columns : autoColumns)",
+         ":key"   = "col.prop || col.label"),
+    col_props("col"),
+    list(
+      # A column may render its own header: give it header_html in the column
+      # definition. It is inserted as markup, so only pass what you control.
+      htmltools::tag("template", list(
+        "v-slot:header" = "scope",
+        htmltools::tag("span", list("v-if" = "col.headerHtml",
+                                    "v-html" = "col.headerHtml")),
+        htmltools::tag("span", list("v-else" = NA, "{{col.label}}"))
+      )),
+      nested("col", "sub", 2),
+      cell_slot
+    )
   ))
 
   table_attrs <- list(

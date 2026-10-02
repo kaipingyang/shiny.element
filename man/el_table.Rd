@@ -68,6 +68,9 @@ to show its \code{cell}, or \code{"selection"}.
 a \code{prop} -- a column of buttons -- is fine. See "Row actions" below.
 \item \code{header_html} -- markup for the header cell, inserted unescaped, so
 pass only what you control.
+\item \code{children} -- the columns under a group header, as Element nests
+\code{el-table-column}: \code{list(label = "Address", children = list(...))}.
+Two levels deep.
 }}
 
 \item{selection}{Enable row selection}

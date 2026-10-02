@@ -1,0 +1,31 @@
+---
+title: "Popconfirm"
+---
+
+```{r setup, include = FALSE}
+source(file.path("..", "..", "shots.R"))
+```
+
+A simple confirmation of a click. `input$<id>_confirm` and
+`input$<id>_cancel` report the answer.
+
+## Basic usage
+
+```{r basic, eval = FALSE, shot = TRUE, shot_js = "document.querySelector('#shot button').click()", shot_sel = ".el-popover", shot_wait = 1}
+el_popconfirm("del", reference = el_button("del_btn", "Delete"),
+              title = "Are you sure to delete this?")
+```
+
+## Customise
+
+```{r custom, eval = FALSE, shot = TRUE, shot_js = "document.querySelector('#shot button').click()", shot_sel = ".el-popover", shot_wait = 1}
+el_popconfirm("good", reference = el_button("go", "Delete"), title = "Are you sure to delete this?",
+              confirm_button_text = "OK", cancel_button_text = "No, Thanks",
+              icon = "el-icon-info", icon_color = "red")
+```
+
+## API
+
+```{r api, echo = FALSE, results = "asis"}
+api_tables("popconfirm")
+```

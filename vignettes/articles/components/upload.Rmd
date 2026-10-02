@@ -1,0 +1,106 @@
+---
+title: "Upload"
+---
+
+```{r setup, include = FALSE}
+source(file.path("..", "..", "shots.R"))
+```
+
+Upload files by clicking or drag-and-drop. The files go through Shiny's own
+upload channel, so `input$<id>` is the data frame `fileInput()` gives --
+`name`, `size`, `type`, `datapath` -- while Element draws the list,
+the progress and the thumbnails. Give `action` to send them straight to a
+URL of your own instead.
+
+## Click to upload files
+
+`limit` caps the number of files; `on_exceed` hears when there are more.
+
+```{r click, eval = FALSE, shot = TRUE}
+ui <- el_page(
+  el_upload("docs", button_label = "Click to upload", multiple = TRUE, limit = 3,
+            tip = "jpg/png files with a size less than 500kb",
+            on_exceed = JS("function(files, list) {",
+                           "  ELEMENT.Message.warning('3 files at most');",
+                           "}")),
+  tableOutput("files"))
+
+server <- function(input, output, session) {
+  output$files <- renderTable(input$docs[, c("name", "size", "type")])
+}
+
+shinyApp(ui, server)
+```
+
+## Photo wall
+
+`list_type = "picture-card"`: each file a card with its thumbnail, drawn in
+the browser from the file itself.
+
+```{r photo-wall, eval = FALSE, shot = TRUE}
+el_upload("photos", list_type = "picture-card", accept = "image/*", multiple = TRUE,
+          slots = list(default = el$icon("plus")))
+```
+
+## File list with thumbnails
+
+```{r thumbnails, eval = FALSE, shot = TRUE}
+el_upload("pics", list_type = "picture", button_label = "Click to upload",
+          tip = "jpg/png files with a size less than 500kb", accept = "image/*",
+          file_list = list(list(name = "food.jpeg",
+                                url = "https://fuss10.elemecdn.com/3/63/4e7f3a15429bfda99bce42a18cdd1jpeg.jpeg")))
+```
+
+## File list control
+
+`on_change` sees the list change; keeping only the last three files is a
+line of JavaScript.
+
+```{r control, eval = FALSE, shot = TRUE}
+el_upload("latest", button_label = "Click to upload",
+          on_change = JS("function(file, fileList) { if (fileList.length > 3) fileList.splice(0, fileList.length - 3); }"))
+```
+
+## Drag to upload
+
+```{r drag, eval = FALSE, shot = TRUE}
+el_upload("dropped", drag = TRUE, multiple = TRUE,
+          button_label = "Drop file here or click to upload",
+          tip = "jpg/png files with a size less than 500kb")
+```
+
+## Manual upload
+
+`auto_upload = FALSE` keeps the files until `submit()` sends them -- from
+the server, with `el_call()`.
+
+```{r manual, eval = FALSE, shot = TRUE}
+ui <- el_page(
+  el_upload("queued", auto_upload = FALSE, multiple = TRUE, button_label = "Select file",
+            tip = "Chosen files wait for the button"),
+  el_button("send", "Upload to server", type = "success", size = "small"),
+  tableOutput("arrived"))
+
+server <- function(input, output, session) {
+  observeEvent(input$send, el_call(id = "queued", method = "submit"))
+  output$arrived <- renderTable(input$queued[, c("name", "size")])
+}
+
+shinyApp(ui, server)
+```
+
+## Failures and cancelling
+
+A file that fails, or is stopped with `abort()`, is left out and the rest
+of its batch still arrives; `input$<id>_error` names it.
+`el_upload_file()` names a file for a method:
+
+```{r abort, eval = FALSE}
+el_call(session, "docs", "abort", list(el_upload_file("big.csv")))
+```
+
+## API
+
+```{r api, echo = FALSE, results = "asis"}
+api_tables("upload")
+```

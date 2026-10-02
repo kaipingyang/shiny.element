@@ -1,0 +1,110 @@
+---
+title: "Layout"
+---
+
+```{r setup, include = FALSE}
+source(file.path("..", "..", "shots.R"))
+```
+
+Quickly and easily create layouts with the basic 24-column grid:
+`el_row()` holds `el_col()`s, each `span`ning some of the 24.
+
+
+## Basic layout
+
+`span` is how many of the 24 columns a column takes.
+
+```{r basic, eval = FALSE, shot = TRUE}
+cell <- function(shade = "#d3dce6") {
+  tags$div(style = sprintf("background: %s; border-radius: 4px; min-height: 36px; margin-bottom: 20px", shade))
+}
+el_row(el_col(span = 24, cell("#99a9bf")))
+el_row(el_col(span = 12, cell()), el_col(span = 12, cell("#e5e9f2")))
+el_row(el_col(span = 8, cell()), el_col(span = 8, cell("#e5e9f2")), el_col(span = 8, cell()))
+el_row(lapply(1:6, function(i) el_col(span = 4, cell(if (i %% 2) "#d3dce6" else "#e5e9f2"))))
+```
+
+## Column spacing
+
+`gutter` puts space between the columns, in pixels.
+
+```{r gutter, eval = FALSE, shot = TRUE}
+cell <- function() tags$div(style = "background: #d3dce6; border-radius: 4px; min-height: 36px")
+el_row(gutter = 20, lapply(1:4, function(i) el_col(span = 6, cell())))
+```
+
+## Hybrid layout
+
+Any mix of spans that adds up to 24 in a row.
+
+```{r hybrid, eval = FALSE, shot = TRUE}
+cell <- function() tags$div(style = "background: #d3dce6; border-radius: 4px; min-height: 36px; margin-bottom: 20px")
+el_row(gutter = 20, el_col(span = 16, cell()), el_col(span = 8, cell()))
+el_row(gutter = 20, el_col(span = 8, cell()), el_col(span = 8, cell()),
+       el_col(span = 4, cell()), el_col(span = 4, cell()))
+el_row(gutter = 20, el_col(span = 4, cell()), el_col(span = 16, cell()), el_col(span = 4, cell()))
+```
+
+## Column offset
+
+`offset` moves a column right by that many columns.
+
+```{r offset, eval = FALSE, shot = TRUE}
+cell <- function() tags$div(style = "background: #d3dce6; border-radius: 4px; min-height: 36px; margin-bottom: 20px")
+el_row(gutter = 20, el_col(span = 6, cell()), el_col(span = 6, offset = 6, cell()))
+el_row(gutter = 20, el_col(span = 6, offset = 6, cell()), el_col(span = 6, offset = 6, cell()))
+el_row(gutter = 20, el_col(span = 12, offset = 6, cell()))
+```
+
+## Alignment
+
+`type = "flex"` lays the row out with flexbox; `justify` places the columns
+-- `"start"`, `"center"`, `"end"`, `"space-between"` or `"space-around"`.
+
+```{r align, eval = FALSE, shot = TRUE}
+cell <- function(s = "#d3dce6") tags$div(style = sprintf("background: %s; border-radius: 4px; min-height: 36px", s))
+rows <- lapply(c("start", "center", "end", "space-between", "space-around"), function(j)
+  tags$div(style = "background: #f9fafc; margin-bottom: 20px",
+    el_row(type = "flex", justify = j,
+      el_col(span = 6, cell()), el_col(span = 6, cell("#e5e9f2")), el_col(span = 6, cell()))))
+tagList(rows)
+```
+
+## Responsive layout
+
+Five breakpoints, after Bootstrap's: `xs` (<768px), `sm` (≥768px), `md`
+(≥992px), `lg` (≥1200px) and `xl` (≥1920px), each a span -- or a list of
+`span`, `offset`, `push` and `pull`.
+
+```{r responsive, eval = FALSE, shot = TRUE}
+cell <- function(s = "#d3dce6") tags$div(style = sprintf("background: %s; border-radius: 4px; min-height: 36px", s))
+el_row(gutter = 10,
+  el_col(xs = 8, sm = 6, md = 4, lg = 3, xl = 1, cell()),
+  el_col(xs = 4, sm = 6, md = 8, lg = 9, xl = 11, cell("#e5e9f2")),
+  el_col(xs = 4, sm = 6, md = 8, lg = 9, xl = 11, cell()),
+  el_col(xs = 8, sm = 6, md = 4, lg = 3, xl = 1, cell("#e5e9f2")))
+```
+
+## Utility classes for hiding elements
+
+Element's `display.css` is loaded with the package: `hidden-xs-only`,
+`hidden-sm-and-up`, `hidden-md-and-down` and the rest hide any tag at
+those widths.
+
+```{r hidden, eval = FALSE, shot = TRUE}
+tagList(
+  tags$div(class = "hidden-sm-and-down", "Shown on a medium screen and wider"),
+  tags$div(class = "hidden-md-and-up", "Shown below a medium screen"))
+```
+
+The classes, each in `-only`, `-and-up` and `-and-down` forms where they
+make sense: `hidden-xs-only`, `hidden-sm-and-up`, `hidden-sm-only`,
+`hidden-sm-and-down`, `hidden-md-and-up`, `hidden-md-only`,
+`hidden-md-and-down`, `hidden-lg-and-up`, `hidden-lg-only`,
+`hidden-lg-and-down`, `hidden-xl-only`.
+
+## API
+
+```{r api, echo = FALSE, results = "asis"}
+api_tables("layout")
+```

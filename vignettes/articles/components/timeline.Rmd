@@ -1,0 +1,46 @@
+---
+title: "Timeline"
+---
+
+```{r setup, include = FALSE}
+source(file.path("..", "..", "shots.R"))
+```
+
+Visually display a timeline. `update_el_timeline()` replaces the entries,
+which suits a log that grows.
+
+## Basic usage
+
+```{r basic, eval = FALSE, shot = TRUE}
+el_timeline("tl", items = list(
+  list(content = "Event start", timestamp = "2018-04-15"),
+  list(content = "Approved", timestamp = "2018-04-13"),
+  list(content = "Success", timestamp = "2018-04-11")))
+```
+
+## Custom node
+
+```{r node, eval = FALSE, shot = TRUE}
+el_timeline("nodes", items = list(
+  list(content = "Custom icon", timestamp = "2018-04-12 20:46", size = "large",
+       type = "primary", icon = "el-icon-more"),
+  list(content = "Custom color", timestamp = "2018-04-03 20:46", color = "#0bbd87"),
+  list(content = "Custom size", timestamp = "2018-04-03 20:46", size = "large"),
+  list(content = "Default node", timestamp = "2018-04-03 20:46")))
+```
+
+## Custom timestamp
+
+```{r timestamp, eval = FALSE, shot = TRUE}
+el_timeline("stamps", items = list(
+  list(timestamp = "2018/4/12", placement = "top",
+       content = el_card(tags$h4("Update Github template"), tags$p("Tom committed 2018/4/12 20:46"))),
+  list(timestamp = "2018/4/3", placement = "top",
+       content = el_card(tags$h4("Update Github template"), tags$p("Tom committed 2018/4/3 20:46")))))
+```
+
+## API
+
+```{r api, echo = FALSE, results = "asis"}
+api_tables("timeline")
+```

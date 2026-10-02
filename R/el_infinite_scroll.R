@@ -140,9 +140,10 @@ update_el_infinite_scroll <- function(session = shiny::getDefaultReactiveDomain(
   .el_check_session(session)
   ns_id <- session$ns(id)
   msg <- list(id = ns_id)
-  if (!is.null(disabled)) msg$disabled <- disabled
-  if (!is.null(delay))    msg$delay    <- delay
-  if (!is.null(distance)) msg$distance <- distance
+  # The area's fields carry a prefix, kept apart from its content's
+  if (!is.null(disabled)) msg$scrollDisabled <- disabled
+  if (!is.null(delay))    msg$scrollDelay    <- delay
+  if (!is.null(distance)) msg$scrollDistance <- distance
   .el_send_update(session, msg)
   invisible(NULL)
 }

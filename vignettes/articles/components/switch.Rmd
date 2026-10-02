@@ -1,0 +1,46 @@
+---
+title: "Switch"
+---
+
+```{r setup, include = FALSE}
+source(file.path("..", "..", "shots.R"))
+```
+
+Switch is used for switching between two opposing states;
+`input$<id>` is `TRUE` or `FALSE`, or the values given.
+
+## Basic usage
+
+```{r basic, eval = FALSE, shot = TRUE}
+el_switch("s1", value = TRUE)
+el_switch("s2", value = TRUE, active_color = "#13ce66", inactive_color = "#ff4949")
+```
+
+## Text description
+
+```{r text, eval = FALSE, shot = TRUE}
+el_switch("bill", value = TRUE, active_text = "Pay by month", inactive_text = "Pay by year")
+```
+
+## Extended value types
+
+`active_value` and `inactive_value` take numbers or text; `input$<id>`
+reports them.
+
+```{r values, eval = FALSE, shot = TRUE}
+el_switch("level", value = "100", active_color = "#13ce66", inactive_color = "#ff4949",
+          active_value = "100", inactive_value = "0")
+```
+
+## Disabled
+
+```{r disabled, eval = FALSE, shot = TRUE}
+el_switch("d1", value = TRUE, disabled = TRUE)
+el_switch("d2", value = FALSE, disabled = TRUE)
+```
+
+## API
+
+```{r api, echo = FALSE, results = "asis"}
+api_tables("switch")
+```

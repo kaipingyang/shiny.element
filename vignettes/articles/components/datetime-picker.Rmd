@@ -1,0 +1,39 @@
+---
+title: "DateTimePicker"
+---
+
+```{r setup, include = FALSE}
+source(file.path("..", "..", "shots.R"))
+```
+
+Select date and time in one picker: `el_date_picker(type = "datetime")`.
+`input$<id>` is the text the picker produces, `"yyyy-MM-dd HH:mm:ss"`
+unless `value_format` says otherwise.
+
+## Date and time
+
+```{r datetime, eval = FALSE, shot = TRUE, shot_js = "document.querySelector('#shot .el-input__inner').focus()", shot_sel = ".el-picker-panel", shot_wait = 1}
+el_date_picker("when", type = "datetime", value_format = "yyyy-MM-dd HH:mm:ss",
+               placeholder = "Select date and time")
+```
+
+## Date and time range
+
+```{r range, eval = FALSE, shot = TRUE}
+el_date_picker("window", type = "datetimerange", value_format = "yyyy-MM-dd HH:mm:ss",
+               range_separator = "To", start_placeholder = "Start", end_placeholder = "End")
+```
+
+## Default time for start and end
+
+```{r default-time, eval = FALSE, shot = TRUE}
+el_date_picker("shift", type = "datetimerange", value_format = "yyyy-MM-dd HH:mm:ss",
+               start_placeholder = "Start", end_placeholder = "End",
+               default_time = c("12:00:00", "08:00:00"))
+```
+
+## API
+
+```{r api, echo = FALSE, results = "asis"}
+api_tables("datetime-picker")
+```

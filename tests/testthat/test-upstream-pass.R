@@ -83,3 +83,12 @@ test_that("a watcher reporting the value is stripped, so the rate policy holds",
   spec <- vue_spec_of(el_autocomplete("city"))
   expect_false(grepl("setInputValue('city'", spec$options$watch$value, fixed = TRUE))
 })
+
+test_that("a field's form-item props go on the item, the rest on the control", {
+  f <- el_form_field("email", "input", label = "Email", required = TRUE,
+                     error = "Taken", label_width = "120px", placeholder = "you@")
+  expect_true(f$required)
+  expect_equal(f$error, "Taken")
+  expect_equal(f$labelWidth, "120px")
+  expect_equal(f$props, list(placeholder = "you@"))
+})

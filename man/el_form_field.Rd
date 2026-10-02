@@ -18,7 +18,8 @@ el_form_field(
 \item{prop}{Field name. Keys the form's model and is what
 \code{\link[=el_rule]{el_rule()}}s and validation messages refer to.}
 
-\item{type}{Control type: one of \code{"input"}, \code{"input-number"}, \code{"select"},
+\item{type}{Control type: one of \code{"input"}, \code{"textarea"}, \code{"password"},
+\code{"input-number"}, \code{"select"},
 \code{"radio-group"}, \code{"checkbox-group"}, \code{"checkbox"} (one box, \code{TRUE} or
 \code{FALSE}), \code{"switch"}, \code{"slider"}, \code{"date-picker"}, \code{"time-picker"},
 \code{"time-select"}, \code{"rate"}, \code{"cascader"}, \code{"cascader-panel"},
@@ -37,8 +38,11 @@ user types. A named vector \code{c(Label = value)} or a list of
 
 \item{rules}{A single \code{\link[=el_rule]{el_rule()}} or a list of them.}
 
-\item{...}{Further props passed to the control, e.g. \code{placeholder},
-\code{min}, \code{max}, \code{disabled}. Names are converted to camelCase.}
+\item{...}{Further props. Element's form-item props -- \code{required},
+\code{error}, \code{label_width}, \code{size}, \code{show_message}, \code{inline_message}, and
+\code{label_html}/\code{error_html} for markup of your own -- go on the field's
+form item; anything else on the control, e.g. \code{placeholder}, \code{min},
+\code{max}, \code{disabled}. Names are converted to camelCase.}
 }
 \value{
 A field declaration, for \code{\link[=el_form]{el_form()}}.
