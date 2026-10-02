@@ -173,7 +173,7 @@ a warning.</p></dd>
     <p>A component passed as <code>trigger</code> becomes part of the tooltip's Vue instance
 rather than a separate one, which is what lets it survive being compiled
 into the tooltip's markup. It reports its inputs as usual, but it no longer
-has a widget of its own, so its <code>update_el_*()</code> cannot find it – drive it
+has a host of its own, so its <code>update_el_*()</code> cannot find it – drive it
 through <code><a href="update_vue_data.html">update_vue_data()</a></code> on the tooltip's id instead.</p>
     </div>
 

@@ -109,12 +109,12 @@ el_cascader(
 
 - filter_method:
 
-  [`htmlwidgets::JS()`](https://rdrr.io/pkg/htmlwidgets/man/JS.html)
+  [`JS()`](https://kaipingyang.github.io/shiny.element/reference/JS.md)
   function filtering the options as the user types.
 
 - before_filter:
 
-  [`htmlwidgets::JS()`](https://rdrr.io/pkg/htmlwidgets/man/JS.html)
+  [`JS()`](https://kaipingyang.github.io/shiny.element/reference/JS.md)
   function called before filtering; returning `false` cancels it.
 
 - label:

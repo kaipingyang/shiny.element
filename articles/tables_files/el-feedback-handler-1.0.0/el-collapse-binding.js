@@ -1,13 +1,11 @@
 // Collapse as a Shiny input binding rather than a Vue instance.
 //
 // A Vue instance mounted over these panels would recompile and rebuild the
-// DOM inside them, which detaches any nested htmlwidget from its registration
-// -- the panel still renders, but the component inside stops reporting and
-// stops responding to update_el_*(). Element's collapse is only CSS classes
-// plus show/hide, so a binding does the job and leaves the children alone.
-//
-// Being a binding also means Shiny re-binds automatically after renderUI,
-// which is what htmlwidgets was giving us for free.
+// DOM inside them, which detaches the components placed there -- the panel
+// still renders, but the component inside stops reporting and stops
+// responding to update_el_*(). Element's collapse is only CSS classes plus
+// show/hide, so a binding does the job and leaves the children alone, and
+// Shiny binds it again after renderUI like any other input.
 (function() {
   // Rendered outside Shiny (a vignette, say) the markup still shows; there is
   // just nothing to bind it to.

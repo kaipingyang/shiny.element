@@ -3,7 +3,7 @@
 Element UI components only emit `@change` on user interaction, and Vue
 `watch` handlers do not fire on mount. Without this hook the
 corresponding `input$<id>` stays `NULL` until the user first touches the
-widget, unlike standard Shiny inputs which report their value
+component, unlike standard Shiny inputs which report their value
 immediately.
 
 ## Usage
@@ -22,12 +22,11 @@ immediately.
 
 ## Value
 
-An [`htmlwidgets::JS()`](https://rdrr.io/pkg/htmlwidgets/man/JS.html)
-object for the Vue `mounted` option.
+A [`JS()`](https://kaipingyang.github.io/shiny.element/reference/JS.md)
+function, the Vue `mounted` option.
 
 ## Details
 
 The send is deferred until `shiny:connected` when the socket is not up
-yet: htmlwidgets' `renderValue()` runs before the Shiny WebSocket is
-established, and `Shiny.setInputValue()` called then is silently
-dropped.
+yet: a component on a static page, or one mounted before Shiny connects,
+would otherwise call `Shiny.setInputValue()` into nothing.

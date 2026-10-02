@@ -130,38 +130,38 @@ el_upload(
 
 - before_upload:
 
-  [`htmlwidgets::JS()`](https://rdrr.io/pkg/htmlwidgets/man/JS.html)
+  [`JS()`](https://kaipingyang.github.io/shiny.element/reference/JS.md)
   function called before a file is sent; returning `false` cancels it.
 
 - before_remove:
 
-  [`htmlwidgets::JS()`](https://rdrr.io/pkg/htmlwidgets/man/JS.html)
+  [`JS()`](https://kaipingyang.github.io/shiny.element/reference/JS.md)
   function called before a file is removed; returning `false` cancels
   it.
 
 - on_change:
 
-  [`htmlwidgets::JS()`](https://rdrr.io/pkg/htmlwidgets/man/JS.html)
+  [`JS()`](https://kaipingyang.github.io/shiny.element/reference/JS.md)
   function called when a file is added, or finishes.
 
 - on_progress:
 
-  [`htmlwidgets::JS()`](https://rdrr.io/pkg/htmlwidgets/man/JS.html)
+  [`JS()`](https://kaipingyang.github.io/shiny.element/reference/JS.md)
   function called as a file uploads.
 
 - on_preview:
 
-  [`htmlwidgets::JS()`](https://rdrr.io/pkg/htmlwidgets/man/JS.html)
+  [`JS()`](https://kaipingyang.github.io/shiny.element/reference/JS.md)
   function called when an uploaded file is clicked.
 
 - on_remove:
 
-  [`htmlwidgets::JS()`](https://rdrr.io/pkg/htmlwidgets/man/JS.html)
+  [`JS()`](https://kaipingyang.github.io/shiny.element/reference/JS.md)
   function called after a file is removed.
 
 - on_exceed:
 
-  [`htmlwidgets::JS()`](https://rdrr.io/pkg/htmlwidgets/man/JS.html)
+  [`JS()`](https://kaipingyang.github.io/shiny.element/reference/JS.md)
   function called when more files are picked than `limit`.
 
 - label:

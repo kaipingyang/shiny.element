@@ -1,4 +1,4 @@
-# Call a method on the Element UI component behind a widget
+# Call a method of an Element component
 
 [`update_el_table()`](https://kaipingyang.github.io/shiny.element/reference/update_el_table.md)
 and the other `update_el_*()` functions assign into the Vue instance's
@@ -47,7 +47,7 @@ el_call(
 - component:
 
   Optional Element component name (`"ElTable"`) to look for under the
-  widget. Only needed when a component nests another of its own.
+  component's id. Only needed when a component nests another of its own.
 
 ## Value
 

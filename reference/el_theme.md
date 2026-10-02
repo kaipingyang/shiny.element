@@ -12,7 +12,7 @@ default.
 ## Usage
 
 ``` r
-el_theme(..., version = 5)
+el_theme(..., element = NULL, version = 5)
 ```
 
 ## Arguments
@@ -24,6 +24,14 @@ el_theme(..., version = 5)
   its own arguments (`primary = "#7c3aed"`, `base_font =`), or any
   Bootstrap Sass variable by name (`"font-size-base" = "1rem"`). An
   override replaces the Element value of the same name.
+
+- element:
+
+  Element's own theme variables, as a named list –
+  `list("border-radius-base" = "8px", "font-size-base" = "13px")` – by
+  their names in theme-chalk's `common/var.scss`, without the `$--`.
+  Element's stylesheet is built with them, as Element's theme tool
+  builds a custom theme.
 
 - version:
 
@@ -58,12 +66,14 @@ The values follow Element 2.15's `theme-chalk` variables:
 | `font-size-base` | `$--font-size-base` | `14px` |
 | input and button padding | `$--input-height`, `$--button-padding-*` | `40px` tall |
 
-`primary`, `success`, `warning` and `danger` reach Element's components
-too:
+`primary`, `success`, `warning`, `danger` and `info` reach Element's
+components too, with the tints and shades Element derives from each, and
+so does anything given to `element`:
 [`el_page()`](https://kaipingyang.github.io/shiny.element/reference/el_page.md)
-recolours Element's stylesheet with them, tints and shades included, as
-Element's own theme picker does. `info` does not – compiled, Element's
-info grey is the same value as its secondary text.
+builds Element's stylesheet for the theme. Brand colours alone are
+recoloured in place, as Element's own theme picker does; anything more
+compiles Element's Sass sources, bundled with the package, as its theme
+tool does – about a second, once per theme and R session.
 
 Element puts white text on all five of its colours, some of which fall
 short of Bootstrap's default minimum contrast; left alone, Bootstrap
@@ -216,7 +226,7 @@ el_theme(primary = "#7c3aed")
 #> $btn-padding-x: 20px !default;
 #> $border-color: #DCDFE6 !default;
 #> $input-border-color: #DCDFE6 !default;
-#> $input-focus-border-color: #409EFF !default;
+#> $input-focus-border-color: #7c3aed !default;
 #> $input-placeholder-color: #C0C4CC !default;
 #> $text-muted: #909399 !default;
 #> $border-radius: 4px !default;
@@ -226,6 +236,132 @@ el_theme(primary = "#7c3aed")
 #> $min-contrast-ratio: 2 !default;
 #> $font-family-base: 'Helvetica Neue', Helvetica, 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', Arial, sans-serif !default;
 #> $primary: #7C3AED !default;
+#> $secondary: #909399 !default;
+#> $success: #67C23A !default;
+#> $info: #909399 !default;
+#> $warning: #E6A23C !default;
+#> $danger: #F56C6C !default;
+#> $white: #FFFFFF !default;
+#> $gray-100: #EAEAEB !default;
+#> $gray-200: #D6D6D6 !default;
+#> $gray-300: #C1C1C2 !default;
+#> $gray-400: #ACADAD !default;
+#> $gray-500: #989899 !default;
+#> $gray-600: #838385 !default;
+#> $gray-700: #6E6F70 !default;
+#> $gray-800: #595A5C !default;
+#> $gray-900: #454647 !default;
+#> $black: #303133 !default;
+#> $bslib-preset-type: builtin;
+#> $bslib-preset-name: shiny;
+#> $web-font-path: "font.css" !default;
+#> @import "/home/runner/work/_temp/Library/bslib/builtin/bs5/shiny/_variables.scss";
+#> $enable-cssgrid: true !default;
+#> @import "/home/runner/work/_temp/Library/bslib/bs3compat/_defaults.scss";
+#> @import "/home/runner/work/_temp/Library/bslib/lib/bs5/scss/_variables.scss";
+#> @import "/home/runner/work/_temp/Library/bslib/lib/bs5/scss/_variables-dark.scss";
+#> $bootstrap-version: 5;
+#> $bslib-preset-name: null !default;
+#> $bslib-preset-type: null !default;
+#> @import "/home/runner/work/_temp/Library/bslib/lib/bs5/scss/_maps.scss";
+#> @import "/home/runner/work/_temp/Library/bslib/lib/bs5/scss/_mixins.scss";
+#> @import "/home/runner/work/_temp/Library/bslib/bs3compat/_declarations.scss";
+#> @import "/home/runner/work/_temp/Library/bslib/builtin/bs5/shiny/_mixins.scss";
+#> :root {
+#> --bslib-bootstrap-version: #{$bootstrap-version};
+#> --bslib-preset-name: #{$bslib-preset-name};
+#> --bslib-preset-type: #{$bslib-preset-type};
+#> }
+#> @import "/home/runner/work/_temp/Library/bslib/lib/bs5/scss/mixins/_banner.scss";
+#> @include bsBanner('')
+#> @import "/home/runner/work/_temp/Library/bslib/lib/bs5/scss/_utilities.scss";
+#> @import "/home/runner/work/_temp/Library/bslib/lib/bs5/scss/_root.scss";
+#> @import "/home/runner/work/_temp/Library/bslib/lib/bs5/scss/_reboot.scss";
+#> @import "/home/runner/work/_temp/Library/bslib/lib/bs5/scss/_type.scss";
+#> @import "/home/runner/work/_temp/Library/bslib/lib/bs5/scss/_images.scss";
+#> @import "/home/runner/work/_temp/Library/bslib/lib/bs5/scss/_containers.scss";
+#> @import "/home/runner/work/_temp/Library/bslib/lib/bs5/scss/_grid.scss";
+#> @import "/home/runner/work/_temp/Library/bslib/lib/bs5/scss/_tables.scss";
+#> @import "/home/runner/work/_temp/Library/bslib/lib/bs5/scss/_forms.scss";
+#> @import "/home/runner/work/_temp/Library/bslib/lib/bs5/scss/_buttons.scss";
+#> @import "/home/runner/work/_temp/Library/bslib/lib/bs5/scss/_transitions.scss";
+#> @import "/home/runner/work/_temp/Library/bslib/lib/bs5/scss/_dropdown.scss";
+#> @import "/home/runner/work/_temp/Library/bslib/lib/bs5/scss/_button-group.scss";
+#> @import "/home/runner/work/_temp/Library/bslib/lib/bs5/scss/_nav.scss";
+#> @import "/home/runner/work/_temp/Library/bslib/lib/bs5/scss/_navbar.scss";
+#> @import "/home/runner/work/_temp/Library/bslib/lib/bs5/scss/_card.scss";
+#> @import "/home/runner/work/_temp/Library/bslib/lib/bs5/scss/_accordion.scss";
+#> @import "/home/runner/work/_temp/Library/bslib/lib/bs5/scss/_breadcrumb.scss";
+#> @import "/home/runner/work/_temp/Library/bslib/lib/bs5/scss/_pagination.scss";
+#> @import "/home/runner/work/_temp/Library/bslib/lib/bs5/scss/_badge.scss";
+#> @import "/home/runner/work/_temp/Library/bslib/lib/bs5/scss/_alert.scss";
+#> @import "/home/runner/work/_temp/Library/bslib/lib/bs5/scss/_progress.scss";
+#> @import "/home/runner/work/_temp/Library/bslib/lib/bs5/scss/_list-group.scss";
+#> @import "/home/runner/work/_temp/Library/bslib/lib/bs5/scss/_close.scss";
+#> @import "/home/runner/work/_temp/Library/bslib/lib/bs5/scss/_toasts.scss";
+#> @import "/home/runner/work/_temp/Library/bslib/lib/bs5/scss/_modal.scss";
+#> @import "/home/runner/work/_temp/Library/bslib/lib/bs5/scss/_tooltip.scss";
+#> @import "/home/runner/work/_temp/Library/bslib/lib/bs5/scss/_popover.scss";
+#> @import "/home/runner/work/_temp/Library/bslib/lib/bs5/scss/_carousel.scss";
+#> @import "/home/runner/work/_temp/Library/bslib/lib/bs5/scss/_spinners.scss";
+#> @import "/home/runner/work/_temp/Library/bslib/lib/bs5/scss/_offcanvas.scss";
+#> @import "/home/runner/work/_temp/Library/bslib/lib/bs5/scss/_placeholders.scss";
+#> @import "/home/runner/work/_temp/Library/bslib/lib/bs5/scss/_helpers.scss";
+#> @import "/home/runner/work/_temp/Library/bslib/lib/bs5/scss/utilities/_api.scss";
+#> .table th[align=left] { text-align: left; }
+#> .table th[align=right] { text-align: right; }
+#> .table th[align=center] { text-align: center; }
+#> @import "/home/runner/work/_temp/Library/bslib/bs3compat/_rules.scss";
+#> @import "/home/runner/work/_temp/Library/bslib/bslib-scss/bslib.scss";
+#> @import "/home/runner/work/_temp/Library/bslib/builtin/bs5/shiny/_rules.scss";
+#> /* *** */
+#> 
+#> Other Sass Bundle information:
+#> List of 2
+#>  $ html_deps       :List of 1
+#>   ..$ :List of 10
+#>   .. ..$ name      : chr "bs3compat"
+#>   .. ..$ version   : chr "0.12.0"
+#>   .. ..$ src       :List of 1
+#>   .. .. ..$ file: chr "bs3compat/js"
+#>   .. ..$ meta      : NULL
+#>   .. ..$ script    : chr [1:3] "transition.js" "tabs.js" "bs3compat.js"
+#>   .. ..$ stylesheet: NULL
+#>   .. ..$ head      : NULL
+#>   .. ..$ attachment: NULL
+#>   .. ..$ package   : chr "bslib"
+#>   .. ..$ all_files : logi TRUE
+#>   .. ..- attr(*, "class")= chr "html_dependency"
+#>  $ file_attachments: Named chr [1:3] "/home/runner/work/_temp/Library/bslib/lib/bs3/assets/fonts" "/home/runner/work/_temp/Library/bslib/builtin/bs5/shiny/font.css" "/home/runner/work/_temp/Library/bslib/fonts"
+#>   ..- attr(*, "names")= chr [1:3] "fonts" "font.css" "fonts"
+
+# Rounder and smaller, all through Element
+el_theme(element = list("border-radius-base" = "10px", "font-size-base" = "13px"))
+#> /* Sass Bundle: _utilities, _root, _reboot, _type, _images, _containers, _grid, _tables, _forms, _buttons, _transitions, _dropdown, _button-group, _nav, _navbar, _card, _accordion, _breadcrumb, _pagination, _badge, _alert, _progress, _list-group, _close, _toasts, _modal, _tooltip, _popover, _carousel, _spinners, _offcanvas, _placeholders, _helpers, _api, bs3compat, builtin */
+#> @import "/home/runner/work/_temp/Library/bslib/lib/bs5/scss/_functions.scss";
+#> @import "/home/runner/work/_temp/Library/bslib/bslib-scss/functions.scss";
+#> $font-size-base: 0.875rem !default;
+#> $input-font-size: 0.875rem !default;
+#> $input-color: #606266 !default;
+#> $input-line-height: 1.5 !default;
+#> $input-padding-y: 8.5px !default;
+#> $input-padding-x: 15px !default;
+#> $btn-font-size: 0.875rem !default;
+#> $btn-line-height: 1 !default;
+#> $btn-padding-y: 12px !default;
+#> $btn-padding-x: 20px !default;
+#> $border-color: #DCDFE6 !default;
+#> $input-border-color: #DCDFE6 !default;
+#> $input-focus-border-color: #409EFF !default;
+#> $input-placeholder-color: #C0C4CC !default;
+#> $text-muted: #909399 !default;
+#> $border-radius: 4px !default;
+#> $border-radius-sm: 3px !default;
+#> $border-radius-lg: 4px !default;
+#> $headings-font-weight: 500 !default;
+#> $min-contrast-ratio: 2 !default;
+#> $font-family-base: 'Helvetica Neue', Helvetica, 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', Arial, sans-serif !default;
+#> $primary: #409EFF !default;
 #> $secondary: #909399 !default;
 #> $success: #67C23A !default;
 #> $info: #909399 !default;

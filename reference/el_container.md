@@ -54,14 +54,9 @@ A Shiny UI element.
 
 ## Details
 
-The previous implementation mounted a Vue instance and passed the
-rendered children in as a `template` string. That silently dropped every
-nested component: serialising the children flattened each htmlwidget's
-`<script type="application/json">` into the template, and Vue's compiler
-rejects `<script>` tags — with no message, because `vue.min.js` is a
-production build that strips its warnings. The container simply rendered
-nothing. Element UI's container styles are plain CSS, so no Vue instance
-is needed and nested widgets initialise normally.
+Element's container styles are plain CSS, so no Vue instance is needed –
+and none is wanted: one mounted over the container would recompile the
+components placed inside it and detach them.
 
 ## Examples
 
@@ -101,7 +96,7 @@ el_container(
 #>       <script type="text/x-template" data-shiny-vue-template><div id="amount_container" style="display: contents">
 #>   <el-slider v-model="value" :min="min" :max="max" :step="step" :range="range" :disabled="disabled" :show-input="showInput" :show-stops="showStops" :show-tooltip="showTooltip" :vertical="vertical" @change="handleChange" :height="height === null ? undefined : height" :marks="marks === null ? undefined : marks" :label="label === null ? undefined : label" :debounce="debounce === null ? undefined : debounce" :input-size="inputSize === null ? undefined : inputSize" :show-input-controls="showInputControls === null ? undefined : showInputControls" :tooltip-class="tooltipClass === null ? undefined : tooltipClass" :format-tooltip="formatTooltip === null ? undefined : formatTooltip" @input="elEmitInput"></el-slider>
 #> </div></script>
-#>       <script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":50,"min":0,"max":100,"step":1,"range":false,"disabled":false,"showInput":false,"showStops":false,"showTooltip":true,"vertical":false,"height":null,"marks":null,"label":null,"debounce":null,"inputSize":null,"showInputControls":null,"tooltipClass":null,"formatTooltip":null},"methods":{"elEmitInput":"function() { window.shinyElement.emit('amount', 'input', arguments); }","handleChange":"function(value) { }"}},"input":"value","rate":{"policy":"debounce","delay":250},"type":null,"evals":["options.methods.elEmitInput","options.methods.handleChange"]}</script>
+#>       <script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":50,"min":0,"max":100,"step":1,"range":false,"disabled":false,"showInput":false,"showStops":false,"showTooltip":true,"vertical":false,"height":null,"marks":null,"label":null,"debounce":null,"inputSize":null,"showInputControls":null,"tooltipClass":null,"formatTooltip":null},"methods":{"elEmitInput":"function() { window.shinyVue.emit('amount', 'input', arguments); }","handleChange":"function(value) { }"}},"input":"value","rate":{"policy":"debounce","delay":250},"type":null,"evals":["options.methods.elEmitInput","options.methods.handleChange"]}</script>
 #>     </div>
 #>   </div>
 #> </div>

@@ -12,7 +12,8 @@ Rewrite field names inside a JS function body
 
 - js:
 
-  An [`htmlwidgets::JS()`](https://rdrr.io/pkg/htmlwidgets/man/JS.html)
+  An
+  [`JS()`](https://kaipingyang.github.io/shiny.element/reference/JS.md)
   string.
 
 - rename:

@@ -20,7 +20,7 @@ last, so a three-file selection arrives as a single row.
 
 ## Value
 
-An [`htmlwidgets::JS()`](https://rdrr.io/pkg/htmlwidgets/man/JS.html)
+An [`JS()`](https://kaipingyang.github.io/shiny.element/reference/JS.md)
 object for the `http-request` prop.
 
 ## Details

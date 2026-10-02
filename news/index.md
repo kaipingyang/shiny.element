@@ -175,17 +175,22 @@ leaving bare text.
 
 ### Every component is a Shiny input
 
-Components are no longer vueR htmlwidgets. vueR renders Vue as an
-htmlwidget *output*, so the id sat on a hidden 0x0 element beside the
-component and Shiny did not know there was an input:
+Each component is a host element carrying its id, with Element’s markup
+inside and a Shiny input binding on it – the way reactR binds React
+components – so the rest of Shiny reaches it as it reaches
+[`textInput()`](https://rdrr.io/pkg/shiny/man/textInput.html):
 [`shinyjs::hide()`](https://rdrr.io/pkg/shinyjs/man/visibilityFuncs.html)
-and `disable()` missed it,
-[`removeUI()`](https://rdrr.io/pkg/shiny/man/insertUI.html) left it on
-the page with its Vue instance alive, and no test driver could set it.
-Each component is now a host element carrying its id, with a Shiny input
-binding on it – the way reactR binds React components – so all of those
-reach it. vueR is no longer a dependency; Vue 2.7.14, the version
-Element UI 2 runs on, is bundled beside Element.
+and `disable()`,
+[`removeUI()`](https://rdrr.io/pkg/shiny/man/insertUI.html) (which
+destroys its Vue instance too), bookmarking, shinyvalidate, a test
+driver’s `set_inputs()`. Vue 2.7.14, the version Element UI 2 runs on,
+is bundled beside Element, and
+[`JS()`](https://kaipingyang.github.io/shiny.element/reference/JS.md)
+marks JavaScript the way
+[`htmlwidgets::JS()`](https://rdrr.io/pkg/htmlwidgets/man/JS.html) does,
+without depending on htmlwidgets. (Development versions built on vueR’s
+htmlwidgets, where the id sat on a hidden element beside the component
+and Shiny did not know it was an input.)
 
 [`el_widget()`](https://kaipingyang.github.io/shiny.element/reference/el_widget.md)
 builds the same shape for components of your own, and its new `report`
@@ -228,7 +233,9 @@ limitations article shows, needs no JavaScript.
 - **One input per id.**
   [`el_cascader()`](https://kaipingyang.github.io/shiny.element/reference/el_cascader.md)
   reports to `input$<id>`, as every other input does, rather than
-  `input$<id>_value`.
+  `input$<id>_value`, and
+  [`el_pagination()`](https://kaipingyang.github.io/shiny.element/reference/el_pagination.md)
+  reports its page as `input$<id>` rather than `input$<id>_page`.
 - **The server loads.** Where Element takes a JavaScript function to
   fetch data, the server can answer instead: a lazy
   [`el_tree()`](https://kaipingyang.github.io/shiny.element/reference/el_tree.md),
@@ -262,13 +269,17 @@ limitations article shows, needs no JavaScript.
   trigger text is now `button_label`, as
   [`fileInput()`](https://rdrr.io/pkg/shiny/man/fileInput.html)’s
   `buttonLabel`.
-- **Element’s colours from the theme.** The `primary`, `success`,
-  `warning` and `danger` of
+- **Element themed from the page’s theme.** The `primary`, `success`,
+  `warning`, `danger` and `info` of
   [`el_page()`](https://kaipingyang.github.io/shiny.element/reference/el_page.md)’s
-  theme – `el_theme(primary = "#7c3aed")` – recolour Element’s
-  components too, with the tints and shades Element derives from each,
-  as Element’s own theme picker recolours its stylesheet.
-  `use_element(colors =)` does the same elsewhere.
+  theme reach Element’s components too, with the tints and shades
+  Element derives from each, and `el_theme(element =)` sets any of
+  Element’s own theme variables – `list("border-radius-base" = "8px")`.
+  Element’s stylesheet is built for the theme as upstream builds one:
+  brand colours replaced in place, as its theme picker does, or its Sass
+  sources – bundled – compiled, as its theme tool does.
+  `use_element(theme =)` does the same elsewhere; its layout CSS
+  argument is now `layout_css`.
 - **A tree filters as it stands.**
   [`el_tree()`](https://kaipingyang.github.io/shiny.element/reference/el_tree.md)
   has a default `filter_node_method` – the label contains the text,
@@ -307,7 +318,13 @@ Positional calls written against the old `el_table(data, columns, id)`
 order still work – the arguments are shifted back with a warning – but
 naming them is the way to keep it quiet.
 
-`input$<cascader id>_value` is now `input$<cascader id>`.
+`input$<cascader id>_value` is now `input$<cascader id>`, and
+`input$<pager id>_page` is `input$<pager id>`. `update_vue_component()`
+and `vue_handler_dependency()` are gone:
+[`update_vue_data()`](https://kaipingyang.github.io/shiny.element/reference/update_vue_data.md)
+does the first’s job, and the bridge loads with every component.
+[`use_element()`](https://kaipingyang.github.io/shiny.element/reference/use_element.md)’s
+first argument is now the page’s theme; its layout CSS is `layout_css`.
 
 ### Filling a slot
 
@@ -385,9 +402,9 @@ session.
 
 ### Design notes
 
-- Controls render as Vue instances wrapped in htmlwidgets; containers
-  render as plain markup driven by Shiny input bindings, so they can
-  nest freely.
+- Controls are Vue instances on a host carrying a Shiny input binding;
+  containers render as plain markup driven by bindings of their own, so
+  they can nest freely.
 - Element UI is bundled in `inst/element-ui/` rather than loaded from a
   CDN, so apps work offline.
 - `el_page(dev = TRUE)` loads Vue’s development build, which surfaces

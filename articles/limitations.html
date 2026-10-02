@@ -59,11 +59,11 @@
 
 
 
-<script src="limitations_files/vue-2.7.14/vue.min.js"></script><script src="limitations_files/vue-handlers-1.0.0/vue-handlers.js"></script><link href="limitations_files/element-ui-2.15.14/theme-chalk/index.css" rel="stylesheet">
+<script src="limitations_files/vue-2.7.14/vue.min.js"></script><link href="limitations_files/element-ui-2.15.14/theme-chalk/index.css" rel="stylesheet">
 <link href="limitations_files/element-ui-2.15.14/theme-chalk/display.css" rel="stylesheet">
 <script src="limitations_files/element-ui-2.15.14/index.js"></script><style>.el-table .el-table__expanded-cell[class*=cell]{padding:20px 50px}</style>
-<script src="limitations_files/element-ui-locale-en-2.15.14/locale/en.js"></script><script>if (window.ELEMENT && ELEMENT.locale && ELEMENT.lang && ELEMENT.lang['en']) { ELEMENT.locale(ELEMENT.lang['en']); }</script><script src="limitations_files/el-feedback-handler-1.0.0/el-feedback-handler.js"></script><link href="limitations_files/el-layout-css-1.0.0/el-layout.css" rel="stylesheet">
-<script src="limitations_files/shiny-vue-1.0.0/shiny-vue.js"></script><script src="limitations_files/el-events-1.0.0/el-events.js"></script><script src="limitations_files/el-collapse-binding-1.0.0/el-collapse-binding.js"></script><div class="row">
+<script src="limitations_files/shiny-vue-1.0.0/shiny-vue.js"></script><script src="limitations_files/el-events-1.0.0/el-events.js"></script><script src="limitations_files/element-ui-locale-en-2.15.14/locale/en.js"></script><script>if (window.ELEMENT && ELEMENT.locale && ELEMENT.lang && ELEMENT.lang['en']) { ELEMENT.locale(ELEMENT.lang['en']); }</script><script src="limitations_files/el-feedback-handler-1.0.0/el-feedback-handler.js"></script><link href="limitations_files/el-layout-css-1.0.0/el-layout.css" rel="stylesheet">
+<script src="limitations_files/el-collapse-binding-1.0.0/el-collapse-binding.js"></script><div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
 
       <h1>What works, and what does not</h1>
@@ -496,7 +496,7 @@ and outputs match the Element ones beside them.</p>
       <div id="theme-el_text" data-shiny-vue style="display: contents">
         <script type="text/x-template" data-shiny-vue-template><div id="theme-el_text_container" style="display: contents">
   <el-input v-model="value" :type="type" :disabled="disabled" :readonly="readonly" :clearable="clearable" :show-password="showPassword" :show-word-limit="showWordLimit" :autosize="autosize" :prefix-icon="prefixIcon" :suffix-icon="suffixIcon" @change="handleChange" :size="size === null ? undefined : size" :maxlength="maxlength === null ? undefined : maxlength" :rows="rows === null ? undefined : rows" :placeholder="placeholder === null ? undefined : placeholder" :label="label === null ? undefined : label" :autocomplete="autocomplete === null ? undefined : autocomplete" :autofocus="autofocus === null ? undefined : autofocus" :name="name === null ? undefined : name" :form="form === null ? undefined : form" :minlength="minlength === null ? undefined : minlength" :max="max === null ? undefined : max" :min="min === null ? undefined : min" :step="step === null ? undefined : step" :resize="resize === null ? undefined : resize" :tabindex="tabindex === null ? undefined : tabindex" :validate-event="validateEvent === null ? undefined : validateEvent" @input="elEmitInput" @blur="elEmitBlur" @focus="elEmitFocus" @clear="elEmitClear"></el-input>
-</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":"Ada","type":"text","disabled":false,"readonly":false,"clearable":false,"showPassword":false,"showWordLimit":false,"autosize":false,"prefixIcon":null,"suffixIcon":null,"size":null,"maxlength":null,"rows":null,"placeholder":null,"label":null,"autocomplete":null,"autofocus":null,"name":null,"form":null,"minlength":null,"max":null,"min":null,"step":null,"resize":null,"tabindex":null,"validateEvent":null},"methods":{"elEmitInput":"function() { window.shinyElement.emit('theme-el_text', 'input', arguments); }","elEmitBlur":"function() { window.shinyElement.emit('theme-el_text', 'blur', arguments); }","elEmitFocus":"function() { window.shinyElement.emit('theme-el_text', 'focus', arguments); }","elEmitClear":"function() { window.shinyElement.emit('theme-el_text', 'clear', arguments); }","handleChange":"function(value) { }"}},"input":"value","rate":{"policy":"debounce","delay":250},"type":null,"evals":["options.methods.elEmitInput","options.methods.elEmitBlur","options.methods.elEmitFocus","options.methods.elEmitClear","options.methods.handleChange"]}</script>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":"Ada","type":"text","disabled":false,"readonly":false,"clearable":false,"showPassword":false,"showWordLimit":false,"autosize":false,"prefixIcon":null,"suffixIcon":null,"size":null,"maxlength":null,"rows":null,"placeholder":null,"label":null,"autocomplete":null,"autofocus":null,"name":null,"form":null,"minlength":null,"max":null,"min":null,"step":null,"resize":null,"tabindex":null,"validateEvent":null},"methods":{"elEmitInput":"function() { window.shinyVue.emit('theme-el_text', 'input', arguments); }","elEmitBlur":"function() { window.shinyVue.emit('theme-el_text', 'blur', arguments); }","elEmitFocus":"function() { window.shinyVue.emit('theme-el_text', 'focus', arguments); }","elEmitClear":"function() { window.shinyVue.emit('theme-el_text', 'clear', arguments); }","handleChange":"function(value) { }"}},"input":"value","rate":{"policy":"debounce","delay":250},"type":null,"evals":["options.methods.elEmitInput","options.methods.elEmitBlur","options.methods.elEmitFocus","options.methods.elEmitClear","options.methods.handleChange"]}</script>
 </div>
       <div style="margin-top: 15px">
         <div id="theme-el_go" data-shiny-vue style="display: contents">
@@ -511,11 +511,10 @@ and outputs match the Element ones beside them.</p>
 <p><code>el_theme(primary = "#7c3aed")</code> changes the brand colour,
 and any other argument of <code><a href="https://rstudio.github.io/bslib/reference/bs_theme.html" class="external-link">bslib::bs_theme()</a></code> or Bootstrap
 variable can be overridden the same way. The theme’s
-<code>primary</code>, <code>success</code>, <code>warning</code> and
-<code>danger</code> recolour Element’s components too, with the tints
-and shades Element derives from each – a plain button’s pale fill, a
-focused input’s border – the way Element’s own theme picker recolours
-its stylesheet:</p>
+<code>primary</code>, <code>success</code>, <code>warning</code>,
+<code>danger</code> and <code>info</code> reach Element’s components
+too, with the tints and shades Element derives from each – a plain
+button’s pale fill, a focused input’s border:</p>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/el_page.html">el_page</a></span><span class="op">(</span>theme <span class="op">=</span> <span class="fu"><a href="../reference/el_theme.html">el_theme</a></span><span class="op">(</span>primary <span class="op">=</span> <span class="st">"#7c3aed"</span><span class="op">)</span>,</span>
 <span>  <span class="fu"><a href="../reference/el_button.html">el_button</a></span><span class="op">(</span><span class="st">"save"</span>, <span class="st">"Save"</span>, type <span class="op">=</span> <span class="st">"primary"</span><span class="op">)</span>,</span>
@@ -526,12 +525,28 @@ its stylesheet:</p>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/shinyApp.html" class="external-link">shinyApp</a></span><span class="op">(</span><span class="va">ui</span>, <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span>, <span class="va">session</span><span class="op">)</span> <span class="op">{</span><span class="op">}</span><span class="op">)</span></span></code></pre></div>
 <p><img src="../shots/limitations-theme-colors.png"></p>
-<p>Element’s <code>info</code> grey stays: compiled, it is the same
-value as Element’s secondary text, and recolouring one would recolour
-the other. Anything beyond the four colours – Element’s greys, borders,
-radii – still needs a custom Element theme built from its Sass.
-<code>use_element(colors =)</code> does the same for a page that is not
-an <code><a href="../reference/el_page.html">el_page()</a></code>.</p>
+<p>Element’s other theme variables – its radii, sizes, greys, some five
+hundred in theme-chalk’s <code>common/var.scss</code> – go in
+<code>el_theme(element =)</code>, by name without the
+<code>$--</code>:</p>
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">theme</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/el_theme.html">el_theme</a></span><span class="op">(</span>primary <span class="op">=</span> <span class="st">"#0f766e"</span>, element <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>  <span class="st">"border-radius-base"</span> <span class="op">=</span> <span class="st">"12px"</span>, <span class="st">"border-radius-small"</span> <span class="op">=</span> <span class="st">"8px"</span>,</span>
+<span>  <span class="st">"font-size-base"</span> <span class="op">=</span> <span class="st">"13px"</span>, <span class="st">"input-height"</span> <span class="op">=</span> <span class="st">"36px"</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/el_page.html">el_page</a></span><span class="op">(</span>theme <span class="op">=</span> <span class="va">theme</span>,</span>
+<span>  <span class="fu"><a href="../reference/el_input.html">el_input</a></span><span class="op">(</span><span class="st">"name"</span>, placeholder <span class="op">=</span> <span class="st">"Rounder, smaller"</span>, width <span class="op">=</span> <span class="st">"260px"</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="../reference/el_button.html">el_button</a></span><span class="op">(</span><span class="st">"go"</span>, <span class="st">"Go"</span>, type <span class="op">=</span> <span class="st">"primary"</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="../reference/el_tag.html">el_tag</a></span><span class="op">(</span><span class="st">"t"</span>, <span class="st">"Tag"</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/shinyApp.html" class="external-link">shinyApp</a></span><span class="op">(</span><span class="va">ui</span>, <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span>, <span class="va">session</span><span class="op">)</span> <span class="op">{</span><span class="op">}</span><span class="op">)</span></span></code></pre></div>
+<p><img src="../shots/limitations-theme-element.png"></p>
+<p>Element’s stylesheet is built for the theme the way upstream builds
+one. Brand colours alone are replaced in the shipped stylesheet, as
+Element’s own theme picker does; anything more compiles Element’s Sass
+sources, bundled with the package, as its theme tool does – about a
+second, once per theme and R session. <code>use_element(theme =)</code>
+does the same on a page that is not an <code><a href="../reference/el_page.html">el_page()</a></code>.</p>
 </div>
 <div class="section level2">
 <h2 id="elements-own-markup">Element’s own markup<a class="anchor" aria-label="anchor" href="#elements-own-markup"></a>
@@ -542,7 +557,7 @@ Vue compiles <code>&lt;el-*&gt;</code> tags only within the component it
 mounts, so a raw tag goes where a component draws its contents: a
 <code><a href="../reference/template.html">template()</a></code>, a slot, a table <code>cell</code>, a wrapper’s
 trigger.</p>
-<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># The tooltip's instance compiles the raw button it wraps</span></span>
 <span><span class="fu"><a href="../reference/el_tooltip.html">el_tooltip</a></span><span class="op">(</span><span class="st">"hint"</span>, <span class="va">el</span><span class="op">$</span><span class="fu">button</span><span class="op">(</span>type <span class="op">=</span> <span class="st">"primary"</span>, <span class="st">"Markup only"</span><span class="op">)</span>, content <span class="op">=</span> <span class="st">"No input"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="../reference/el_button.html">el_button</a></span><span class="op">(</span><span class="st">"save"</span>, <span class="st">"A component"</span>, type <span class="op">=</span> <span class="st">"primary"</span><span class="op">)</span>   <span class="co"># reports input$save</span></span></code></pre></div>
@@ -571,7 +586,7 @@ hear about it.</p>
 <p><code><a href="../reference/el_widget.html">el_widget()</a></code> assembles a component the way this package
 assembles its own, and is exported for wrapping anything not covered
 here, or covered differently:</p>
-<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">initials</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">id</span>, <span class="va">name</span>, <span class="va">size</span> <span class="op">=</span> <span class="fl">48</span><span class="op">)</span> <span class="op">{</span></span>
 <span>  <span class="fu"><a href="../reference/el_widget.html">el_widget</a></span><span class="op">(</span></span>
 <span>    id     <span class="op">=</span> <span class="va">id</span>,</span>
@@ -618,7 +633,7 @@ field names;</li>
 <li>pass <code><a href="../reference/element_ui_dependency.html">element_ui_dependency()</a></code> unless the page is an
 <code><a href="../reference/el_page.html">el_page()</a></code>.</li>
 </ul>
-<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">price_range_input</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">id</span>, <span class="va">value</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">100</span><span class="op">)</span>, <span class="va">min</span> <span class="op">=</span> <span class="fl">0</span>, <span class="va">max</span> <span class="op">=</span> <span class="fl">1000</span><span class="op">)</span> <span class="op">{</span></span>
 <span>  <span class="fu"><a href="../reference/el_widget.html">el_widget</a></span><span class="op">(</span></span>
 <span>    id <span class="op">=</span> <span class="va">id</span>,</span>
@@ -753,7 +768,7 @@ they take Shiny’s names – and Element’s as well:</p>
 <p>Either works, in the components and in their
 <code>update_el_*()</code>, so code reads naturally to someone coming
 from either side:</p>
-<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/el_select.html">el_select</a></span><span class="op">(</span><span class="st">"city_shiny"</span>, choices <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>Beijing <span class="op">=</span> <span class="st">"bj"</span>, Shanghai <span class="op">=</span> <span class="st">"sh"</span><span class="op">)</span>, selected <span class="op">=</span> <span class="st">"sh"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="../reference/el_select.html">el_select</a></span><span class="op">(</span><span class="st">"city_element"</span>, options <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>Beijing <span class="op">=</span> <span class="st">"bj"</span>, Shanghai <span class="op">=</span> <span class="st">"sh"</span><span class="op">)</span>, value <span class="op">=</span> <span class="st">"sh"</span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
@@ -765,7 +780,7 @@ from either side:</p>
       <el-option v-for="opt in g.options" :key="opt.value" :value="opt.value" :label="opt.label" :disabled="opt.disabled"></el-option>
     </el-option-group>
   </el-select>
-</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":"sh","options":[{"value":"bj","label":"Beijing"},{"value":"sh","label":"Shanghai"}],"groups":[],"multiple":false,"disabled":false,"clearable":false,"filterable":false,"multipleLimit":0,"collapseTags":false,"placeholder":null,"size":null,"valueKey":null,"name":null,"autocomplete":null,"automaticDropdown":null,"allowCreate":null,"loading":null,"loadingText":null,"noMatchText":null,"noDataText":null,"popperClass":null,"popperAppendToBody":null,"reserveKeyword":null,"defaultFirstOption":null,"remote":null,"filterMethod":null,"remoteMethod":null},"methods":{"elEmitVisibleChange":"function() { window.shinyElement.emit('two-names-city_shiny', 'visible_change', arguments); }","elEmitRemoveTag":"function() { window.shinyElement.emit('two-names-city_shiny', 'remove_tag', arguments); }","elEmitClear":"function() { window.shinyElement.emit('two-names-city_shiny', 'clear', arguments); }","elEmitBlur":"function() { window.shinyElement.emit('two-names-city_shiny', 'blur', arguments); }","elEmitFocus":"function() { window.shinyElement.emit('two-names-city_shiny', 'focus', arguments); }","elRemoteQuery":"function(query) {\n  if (!(window.Shiny && Shiny.setInputValue)) return;\n  this.loading = true;\n  window.Shiny && Shiny.setInputValue && Shiny.setInputValue('two-names-city_shiny_query', query, {priority: 'event'});\n}","handleChange":"function(value) { }"}},"input":"value","rate":null,"type":null,"evals":["options.methods.elEmitVisibleChange","options.methods.elEmitRemoveTag","options.methods.elEmitClear","options.methods.elEmitBlur","options.methods.elEmitFocus","options.methods.elRemoteQuery","options.methods.handleChange"]}</script>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":"sh","options":[{"value":"bj","label":"Beijing"},{"value":"sh","label":"Shanghai"}],"groups":[],"multiple":false,"disabled":false,"clearable":false,"filterable":false,"multipleLimit":0,"collapseTags":false,"placeholder":null,"size":null,"valueKey":null,"name":null,"autocomplete":null,"automaticDropdown":null,"allowCreate":null,"loading":null,"loadingText":null,"noMatchText":null,"noDataText":null,"popperClass":null,"popperAppendToBody":null,"reserveKeyword":null,"defaultFirstOption":null,"remote":null,"filterMethod":null,"remoteMethod":null},"methods":{"elEmitVisibleChange":"function() { window.shinyVue.emit('two-names-city_shiny', 'visible_change', arguments); }","elEmitRemoveTag":"function() { window.shinyVue.emit('two-names-city_shiny', 'remove_tag', arguments); }","elEmitClear":"function() { window.shinyVue.emit('two-names-city_shiny', 'clear', arguments); }","elEmitBlur":"function() { window.shinyVue.emit('two-names-city_shiny', 'blur', arguments); }","elEmitFocus":"function() { window.shinyVue.emit('two-names-city_shiny', 'focus', arguments); }","elRemoteQuery":"function(query) {\n  if (!(window.Shiny && Shiny.setInputValue)) return;\n  this.loading = true;\n  window.Shiny && Shiny.setInputValue && Shiny.setInputValue('two-names-city_shiny_query', query, {priority: 'event'});\n}","handleChange":"function(value) { }"}},"input":"value","rate":null,"type":null,"evals":["options.methods.elEmitVisibleChange","options.methods.elEmitRemoveTag","options.methods.elEmitClear","options.methods.elEmitBlur","options.methods.elEmitFocus","options.methods.elRemoteQuery","options.methods.handleChange"]}</script>
 </div>
   <div id="two-names-city_element" data-shiny-vue style="display: contents">
     <script type="text/x-template" data-shiny-vue-template><div id="two-names-city_element_container" style="display: contents">
@@ -775,7 +790,7 @@ from either side:</p>
       <el-option v-for="opt in g.options" :key="opt.value" :value="opt.value" :label="opt.label" :disabled="opt.disabled"></el-option>
     </el-option-group>
   </el-select>
-</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":"sh","options":[{"value":"bj","label":"Beijing"},{"value":"sh","label":"Shanghai"}],"groups":[],"multiple":false,"disabled":false,"clearable":false,"filterable":false,"multipleLimit":0,"collapseTags":false,"placeholder":null,"size":null,"valueKey":null,"name":null,"autocomplete":null,"automaticDropdown":null,"allowCreate":null,"loading":null,"loadingText":null,"noMatchText":null,"noDataText":null,"popperClass":null,"popperAppendToBody":null,"reserveKeyword":null,"defaultFirstOption":null,"remote":null,"filterMethod":null,"remoteMethod":null},"methods":{"elEmitVisibleChange":"function() { window.shinyElement.emit('two-names-city_element', 'visible_change', arguments); }","elEmitRemoveTag":"function() { window.shinyElement.emit('two-names-city_element', 'remove_tag', arguments); }","elEmitClear":"function() { window.shinyElement.emit('two-names-city_element', 'clear', arguments); }","elEmitBlur":"function() { window.shinyElement.emit('two-names-city_element', 'blur', arguments); }","elEmitFocus":"function() { window.shinyElement.emit('two-names-city_element', 'focus', arguments); }","elRemoteQuery":"function(query) {\n  if (!(window.Shiny && Shiny.setInputValue)) return;\n  this.loading = true;\n  window.Shiny && Shiny.setInputValue && Shiny.setInputValue('two-names-city_element_query', query, {priority: 'event'});\n}","handleChange":"function(value) { }"}},"input":"value","rate":null,"type":null,"evals":["options.methods.elEmitVisibleChange","options.methods.elEmitRemoveTag","options.methods.elEmitClear","options.methods.elEmitBlur","options.methods.elEmitFocus","options.methods.elRemoteQuery","options.methods.handleChange"]}</script>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":"sh","options":[{"value":"bj","label":"Beijing"},{"value":"sh","label":"Shanghai"}],"groups":[],"multiple":false,"disabled":false,"clearable":false,"filterable":false,"multipleLimit":0,"collapseTags":false,"placeholder":null,"size":null,"valueKey":null,"name":null,"autocomplete":null,"automaticDropdown":null,"allowCreate":null,"loading":null,"loadingText":null,"noMatchText":null,"noDataText":null,"popperClass":null,"popperAppendToBody":null,"reserveKeyword":null,"defaultFirstOption":null,"remote":null,"filterMethod":null,"remoteMethod":null},"methods":{"elEmitVisibleChange":"function() { window.shinyVue.emit('two-names-city_element', 'visible_change', arguments); }","elEmitRemoveTag":"function() { window.shinyVue.emit('two-names-city_element', 'remove_tag', arguments); }","elEmitClear":"function() { window.shinyVue.emit('two-names-city_element', 'clear', arguments); }","elEmitBlur":"function() { window.shinyVue.emit('two-names-city_element', 'blur', arguments); }","elEmitFocus":"function() { window.shinyVue.emit('two-names-city_element', 'focus', arguments); }","elRemoteQuery":"function(query) {\n  if (!(window.Shiny && Shiny.setInputValue)) return;\n  this.loading = true;\n  window.Shiny && Shiny.setInputValue && Shiny.setInputValue('two-names-city_element_query', query, {priority: 'event'});\n}","handleChange":"function(value) { }"}},"input":"value","rate":null,"type":null,"evals":["options.methods.elEmitVisibleChange","options.methods.elEmitRemoveTag","options.methods.elEmitClear","options.methods.elEmitBlur","options.methods.elEmitFocus","options.methods.elRemoteQuery","options.methods.handleChange"]}</script>
 </div>
 </div>
 <p>The same holds in the server:

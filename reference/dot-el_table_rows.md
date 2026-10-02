@@ -1,7 +1,7 @@
 # Coerce table data to a list of rows
 
 Element UI's `el-table` binds `:data` to an array of row objects. An R
-data.frame handed straight to htmlwidgets serialises column-wise into
+data.frame serialised as it stands comes out column-wise,
 `{col: [...]}`, which the component silently renders as an empty table.
 
 ## Usage

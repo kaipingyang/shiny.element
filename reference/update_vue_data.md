@@ -1,7 +1,11 @@
-# Update the entire data object of a Vue component instance by id (namespaced)
+# Set fields of a component's Vue instance
 
-Update the entire data object of a Vue component instance by id
-(namespaced)
+The escape hatch beside `update_el_*()`: assigns any declared field of
+the instance behind `id` – a field of a component built with
+[`el_widget()`](https://kaipingyang.github.io/shiny.element/reference/el_widget.md),
+or of one absorbed into a wrapper, which has no update function of its
+own. A field the instance does not declare is refused, with a
+`[shiny-vue]` warning in the browser console.
 
 ## Usage
 
@@ -22,7 +26,7 @@ update_vue_data(session = shiny::getDefaultReactiveDomain(), id, data)
 
 - data:
 
-  Named list representing the full Vue data object
+  Named list of fields and their new values.
 
 ## Value
 
@@ -33,10 +37,7 @@ Called for its side effect; returns `NULL` invisibly.
 ``` r
 if (FALSE) { # \dontrun{
 # In a Shiny server function:
-# Replace the data object of a calendar component
-update_vue_data(session, "my_calendar", list(
-  value = "2025-12-31",
-  first_day_of_week = 3
-))
+# Set two fields of a component of your own
+update_vue_data(session, "price", list(range = list(0, 50), max = 500))
 } # }
 ```

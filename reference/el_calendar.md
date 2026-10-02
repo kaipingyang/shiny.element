@@ -1,6 +1,6 @@
-# Element UI Calendar Component
+# Element UI Calendar
 
-Create a calendar widget for Shiny using Element UI.
+A month of days to pick one from, or a range of weeks to show.
 
 ## Usage
 

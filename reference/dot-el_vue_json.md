@@ -1,8 +1,8 @@
 # Serialise a component's Vue options for the page
 
-JSON as htmlwidgets writes it – `NA` and `NULL` as `null`, single values
-unboxed – with the paths of every
-[`htmlwidgets::JS()`](https://rdrr.io/pkg/htmlwidgets/man/JS.html)
+JSON with `NA` and `NULL` as `null` and single values unboxed – with the
+paths of every
+[`JS()`](https://kaipingyang.github.io/shiny.element/reference/JS.md)
 listed in `evals`, so the bridge can turn their source back into
 functions. `</` is escaped, or a `header_html` holding `</b>` would end
 the script element early.

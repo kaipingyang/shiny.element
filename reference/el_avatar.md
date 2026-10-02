@@ -93,20 +93,20 @@ el_avatar("me", src = "https://example.org/face.png")
 #>   <script type="text/x-template" data-shiny-vue-template><div id="me_container" style="display: contents">
 #>   <el-avatar :src="src === null ? undefined : src" :icon="icon === null ? undefined : icon" :size="size === null ? undefined : size" :shape="shape === null ? undefined : shape" :fit="fit === null ? undefined : fit" :src-set="srcSet === null ? undefined : srcSet" :alt="alt === null ? undefined : alt" @error="elEmitError">{{content}}</el-avatar>
 #> </div></script>
-#>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"content":null,"src":"https://example.org/face.png","icon":null,"size":null,"shape":null,"fit":null,"srcSet":null,"alt":null},"methods":{"elEmitError":"function() { window.shinyElement.emit('me', 'error', arguments); }"}},"input":null,"rate":null,"type":null,"evals":["options.methods.elEmitError"]}</script>
+#>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"content":null,"src":"https://example.org/face.png","icon":null,"size":null,"shape":null,"fit":null,"srcSet":null,"alt":null},"methods":{"elEmitError":"function() { window.shinyVue.emit('me', 'error', arguments); }"}},"input":null,"rate":null,"type":null,"evals":["options.methods.elEmitError"]}</script>
 #> </div>
 el_avatar("initials", content = "KY", shape = "square", size = 40)
 #> <div id="initials" data-shiny-vue style="display: contents">
 #>   <script type="text/x-template" data-shiny-vue-template><div id="initials_container" style="display: contents">
 #>   <el-avatar :src="src === null ? undefined : src" :icon="icon === null ? undefined : icon" :size="size === null ? undefined : size" :shape="shape === null ? undefined : shape" :fit="fit === null ? undefined : fit" :src-set="srcSet === null ? undefined : srcSet" :alt="alt === null ? undefined : alt" @error="elEmitError">{{content}}</el-avatar>
 #> </div></script>
-#>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"content":"KY","src":null,"icon":null,"size":40,"shape":"square","fit":null,"srcSet":null,"alt":null},"methods":{"elEmitError":"function() { window.shinyElement.emit('initials', 'error', arguments); }"}},"input":null,"rate":null,"type":null,"evals":["options.methods.elEmitError"]}</script>
+#>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"content":"KY","src":null,"icon":null,"size":40,"shape":"square","fit":null,"srcSet":null,"alt":null},"methods":{"elEmitError":"function() { window.shinyVue.emit('initials', 'error', arguments); }"}},"input":null,"rate":null,"type":null,"evals":["options.methods.elEmitError"]}</script>
 #> </div>
 el_avatar("anon", icon = "el-icon-user-solid")
 #> <div id="anon" data-shiny-vue style="display: contents">
 #>   <script type="text/x-template" data-shiny-vue-template><div id="anon_container" style="display: contents">
 #>   <el-avatar :src="src === null ? undefined : src" :icon="icon === null ? undefined : icon" :size="size === null ? undefined : size" :shape="shape === null ? undefined : shape" :fit="fit === null ? undefined : fit" :src-set="srcSet === null ? undefined : srcSet" :alt="alt === null ? undefined : alt" @error="elEmitError">{{content}}</el-avatar>
 #> </div></script>
-#>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"content":null,"src":null,"icon":"el-icon-user-solid","size":null,"shape":null,"fit":null,"srcSet":null,"alt":null},"methods":{"elEmitError":"function() { window.shinyElement.emit('anon', 'error', arguments); }"}},"input":null,"rate":null,"type":null,"evals":["options.methods.elEmitError"]}</script>
+#>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"content":null,"src":null,"icon":"el-icon-user-solid","size":null,"shape":null,"fit":null,"srcSet":null,"alt":null},"methods":{"elEmitError":"function() { window.shinyVue.emit('anon', 'error', arguments); }"}},"input":null,"rate":null,"type":null,"evals":["options.methods.elEmitError"]}</script>
 #> </div>
 ```

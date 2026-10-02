@@ -1,18 +1,12 @@
 // Element UI's side of the bridge.
 //
 // Mounting, the Shiny binding, serialising values and forwarding events are
-// shiny-vue.js's, and know nothing of Element. What is here is Element's:
-// where a table row sits, which prop a table column shows. shinyElement.*
-// keeps the names the package's generated code has always called.
+// shiny-vue.js's (window.shinyVue), and know nothing of Element. What is
+// here is Element's: how an error and a label are drawn, where a table row
+// sits, which prop a table column shows (window.shinyElement).
 (function () {
   var se = window.shinyElement = window.shinyElement || {};
   var sv = window.shinyVue = window.shinyVue || {};
-
-  se.plain = sv.plain;
-  se.serialisable = sv.serialisable;
-  se.emit = sv.emit;
-  se.find = sv.find;
-  se.mount = sv.mount;
 
   // A validation message from shinyvalidate, drawn as Element draws a
   // failed el-form rule: the control framed in red, the message under it.
@@ -89,4 +83,28 @@
   se.colProp = function (column) {
     return column ? (column.property || column.label || null) : null;
   };
+})();
+
+// A raw Element tag -- el$button() -- is compiled only inside a Vue instance.
+// Placed anywhere else it stays an unknown <el-button> element and shows its
+// bare text, with nothing said. Say it, once per tag, after the page and
+// after each piece of UI the server renders.
+(function() {
+  var warned = {};
+  function check() {
+    var all = document.getElementsByTagName('*');
+    for (var i = 0; i < all.length; i++) {
+      var tag = all[i].tagName;
+      if (tag.indexOf('EL-') !== 0 || warned[tag]) continue;
+      warned[tag] = true;
+      console.warn('[shiny.element] <' + tag.toLowerCase() + '> is outside any ' +
+        'component and was not rendered. Raw el$ tags work inside one -- ' +
+        'el_widget(markup =), template(), a slot, a table cell, a wrapper\'s ' +
+        'trigger; at the top level use the component function instead.');
+    }
+  }
+  function later() { setTimeout(check, 500); }
+  if (document.readyState === 'complete') later();
+  else window.addEventListener('load', later);
+  if (window.jQuery) jQuery(document).on('shiny:value', later);
 })();

@@ -72,7 +72,7 @@ el_table("sales", data = sales, columns = list(
   list(prop = "region", label = "Region"),
   list(prop = "amount", label = "Amount", align = "right",
        header_html = "<b>Amount</b> <small>(USD)</small>",
-       formatter = htmlwidgets::JS(
+       formatter = JS(
          "function(row, col, value) { return '$' + value.toFixed(2); }"
        ))
 ))
@@ -245,8 +245,8 @@ shinyApp(ui, server)
 
 There is no `server = TRUE` as in DT. Pair the table with
 [`el_pagination()`](https://kaipingyang.github.io/shiny.element/reference/el_pagination.md)
-and send one page at a time. The pager reports `input$<id>_page` and
-`input$<id>_size`:
+and send one page at a time. The pager reports `input$<id>`, the page,
+and `input$<id>_size`:
 
 ``` r
 
@@ -260,8 +260,8 @@ ui <- el_page(
 )
 
 server <- function(input, output, session) {
-  observeEvent(input$pager_page, {
-    update_el_table(session, "rows", data = page_of(input$pager_page))
+  observeEvent(input$pager, {
+    update_el_table(session, "rows", data = page_of(input$pager))
   })
 }
 

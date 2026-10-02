@@ -3,8 +3,8 @@
 Element's events carry different arguments each, some of them DOM nodes
 or native events that cannot be serialised. Rather than write a handler
 per event, each one is bound to a generated method that hands its
-arguments to `shinyElement.emit()` (see `inst/js/el-events.js`), which
-drops what cannot travel and sets `input$<id>_<event>`.
+arguments to `shinyVue.emit()` (see `inst/js/shiny-vue.js`), which drops
+what cannot travel and sets `input$<id>_<event>`.
 
 ## Usage
 

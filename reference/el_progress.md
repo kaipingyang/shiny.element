@@ -90,7 +90,7 @@ el_progress(
 
 - format:
 
-  [`htmlwidgets::JS()`](https://rdrr.io/pkg/htmlwidgets/man/JS.html)
+  [`JS()`](https://kaipingyang.github.io/shiny.element/reference/JS.md)
   function `function(percentage)` returning the text shown.
 
 - session:

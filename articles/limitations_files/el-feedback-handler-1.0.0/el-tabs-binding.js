@@ -1,7 +1,7 @@
 // Tabs as a Shiny input binding rather than a Vue instance.
 //
 // A Vue instance mounted over the tabs recompiles and rebuilds the DOM inside
-// the panes, which detaches any nested htmlwidget from its registration: the
+// the panes, which detaches the components placed there: the
 // pane still renders, but the component inside stops reporting and stops
 // responding to update_el_*(). Element's tabs are CSS classes plus show/hide
 // and one moving bar, so a binding does the job and leaves the panes alone.
@@ -73,7 +73,7 @@
 
   // A lazy tab keeps its content in an inert <template> until it is first
   // shown. Instantiating it means binding what it holds: Shiny's inputs and
-  // outputs, and the htmlwidgets that carry this package's components.
+  // outputs, and this package's components, each an input binding.
   function instantiate(p) {
     if (!p) return;
     var tpl = p.querySelector(':scope > template[data-el-lazy]');
@@ -81,7 +81,7 @@
     p.appendChild(document.importNode(tpl.content, true));
     tpl.parentNode.removeChild(tpl);
     // Shiny's bindAll() mounts the components inside; without Shiny, mount them here
-    if (!hasShiny && window.shinyElement) window.shinyElement.mount(p);
+    if (!hasShiny && window.shinyVue) window.shinyVue.mount(p);
     hasShiny && Shiny.bindAll(p);
   }
 

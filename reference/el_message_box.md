@@ -126,7 +126,7 @@ el_message_box(
 - input_validator:
 
   For a prompt,
-  [`htmlwidgets::JS()`](https://rdrr.io/pkg/htmlwidgets/man/JS.html)
+  [`JS()`](https://kaipingyang.github.io/shiny.element/reference/JS.md)
   function checking the text; return `true`, or an error message.
 
 - show_input:
@@ -156,7 +156,7 @@ el_message_box(
 
 - before_close:
 
-  [`htmlwidgets::JS()`](https://rdrr.io/pkg/htmlwidgets/man/JS.html)
+  [`JS()`](https://kaipingyang.github.io/shiny.element/reference/JS.md)
   function `function(action, instance, done)`, called before the box
   closes; call `done()` to let it.
 

@@ -19,8 +19,6 @@ Page wrappers that load Vue, Element UI and the package’s own assets.
   : Element UI Locale Dependency
 - [`el_layout_css_dependency()`](https://kaipingyang.github.io/shiny.element/reference/el_layout_css_dependency.md)
   : Element UI Layout CSS Dependency
-- [`vue_handler_dependency()`](https://kaipingyang.github.io/shiny.element/reference/vue_handler_dependency.md)
-  : Vue Handler Dependency
 - [`el_feedback_dependency()`](https://kaipingyang.github.io/shiny.element/reference/el_feedback_dependency.md)
   : Feedback Handler Dependency
 
@@ -304,7 +302,7 @@ Called from the server; nothing to place in the UI.
 ## Calendar
 
 - [`el_calendar()`](https://kaipingyang.github.io/shiny.element/reference/el_calendar.md)
-  : Element UI Calendar Component
+  : Element UI Calendar
 - [`update_el_calendar()`](https://kaipingyang.github.io/shiny.element/reference/update_el_calendar.md)
   : Update Element UI Calendar Component
 
@@ -315,7 +313,7 @@ setCheckedKeys(), validate(). These are functions on the component, so
 update_el\_\*() cannot reach them.
 
 - [`el_call()`](https://kaipingyang.github.io/shiny.element/reference/el_call.md)
-  : Call a method on the Element UI component behind a widget
+  : Call a method of an Element component
 
 ## Loading from the server
 
@@ -335,6 +333,9 @@ instance directly.
 - [`el_widget()`](https://kaipingyang.github.io/shiny.element/reference/el_widget.md)
   : Assemble a component: host, Vue instance, Shiny input binding
 
+- [`JS()`](https://kaipingyang.github.io/shiny.element/reference/JS.md)
+  : Mark a string as JavaScript
+
 - [`el`](https://kaipingyang.github.io/shiny.element/reference/el.md) :
   Element UI tags, for markup inside a component
 
@@ -343,10 +344,5 @@ instance directly.
 
   Generate a `<template>` tag for Vue/Element UI slot usage
 
-- [`update_vue_component()`](https://kaipingyang.github.io/shiny.element/reference/update_vue_component.md)
-  : Update one or more fields of a Vue component instance by id
-  (namespaced)
-
 - [`update_vue_data()`](https://kaipingyang.github.io/shiny.element/reference/update_vue_data.md)
-  : Update the entire data object of a Vue component instance by id
-  (namespaced)
+  : Set fields of a component's Vue instance

@@ -61,7 +61,7 @@ it. It is <code><a href="el_page.html">el_page()</a></code>'s default.</p>
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">el_theme</span><span class="op">(</span><span class="va">...</span>, version <span class="op">=</span> <span class="fl">5</span><span class="op">)</span></span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">el_theme</span><span class="op">(</span><span class="va">...</span>, element <span class="op">=</span> <span class="cn">NULL</span>, version <span class="op">=</span> <span class="fl">5</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -73,6 +73,14 @@ it. It is <code><a href="el_page.html">el_page()</a></code>'s default.</p>
 (<code>primary = "#7c3aed"</code>, <code>base_font =</code>), or any Bootstrap Sass variable by
 name (<code>"font-size-base" = "1rem"</code>). An override replaces the Element
 value of the same name.</p></dd>
+
+
+<dt id="arg-element">element<a class="anchor" aria-label="anchor" href="#arg-element"></a></dt>
+<dd><p>Element's own theme variables, as a named list –
+<code>list("border-radius-base" = "8px", "font-size-base" = "13px")</code> – by
+their names in theme-chalk's <code>common/var.scss</code>, without the <code>$--</code>.
+Element's stylesheet is built with them, as Element's theme tool builds
+a custom theme.</p></dd>
 
 
 <dt id="arg-version">version<a class="anchor" aria-label="anchor" href="#arg-version"></a></dt>
@@ -90,10 +98,13 @@ takes a bslib theme.</p>
 its components set no font of their own: they inherit one. Under a
 Bootswatch theme they inherit that theme's font instead of Element's,
 while Element's sizes and colours stay – a mix of the two looks.</p>
-<p>The values follow Element 2.15's <code>theme-chalk</code> variables:</p><table class="table table"><tr><td>Bootstrap</td><td>Element</td><td>value</td></tr><tr><td><code>primary</code></td><td><code>$--color-primary</code></td><td><code>#409EFF</code></td></tr><tr><td><code>success</code></td><td><code>$--color-success</code></td><td><code>#67C23A</code></td></tr><tr><td><code>warning</code></td><td><code>$--color-warning</code></td><td><code>#E6A23C</code></td></tr><tr><td><code>danger</code></td><td><code>$--color-danger</code></td><td><code>#F56C6C</code></td></tr><tr><td><code>info</code>, <code>secondary</code></td><td><code>$--color-info</code></td><td><code>#909399</code></td></tr><tr><td><code>fg</code></td><td><code>$--color-text-primary</code></td><td><code>#303133</code></td></tr><tr><td><code>border-color</code></td><td><code>$--border-color-base</code></td><td><code>#DCDFE6</code></td></tr><tr><td><code>border-radius</code></td><td><code>$--border-radius-base</code></td><td><code>4px</code></td></tr><tr><td><code>font-size-base</code></td><td><code>$--font-size-base</code></td><td><code>14px</code></td></tr><tr><td>input and button padding</td><td><code>$--input-height</code>, <code>$--button-padding-*</code></td><td><code>40px</code> tall</td></tr></table><p><code>primary</code>, <code>success</code>, <code>warning</code> and <code>danger</code> reach Element's components
-too: <code><a href="el_page.html">el_page()</a></code> recolours Element's stylesheet with them, tints and
-shades included, as Element's own theme picker does. <code>info</code> does not –
-compiled, Element's info grey is the same value as its secondary text.</p>
+<p>The values follow Element 2.15's <code>theme-chalk</code> variables:</p><table class="table table"><tr><td>Bootstrap</td><td>Element</td><td>value</td></tr><tr><td><code>primary</code></td><td><code>$--color-primary</code></td><td><code>#409EFF</code></td></tr><tr><td><code>success</code></td><td><code>$--color-success</code></td><td><code>#67C23A</code></td></tr><tr><td><code>warning</code></td><td><code>$--color-warning</code></td><td><code>#E6A23C</code></td></tr><tr><td><code>danger</code></td><td><code>$--color-danger</code></td><td><code>#F56C6C</code></td></tr><tr><td><code>info</code>, <code>secondary</code></td><td><code>$--color-info</code></td><td><code>#909399</code></td></tr><tr><td><code>fg</code></td><td><code>$--color-text-primary</code></td><td><code>#303133</code></td></tr><tr><td><code>border-color</code></td><td><code>$--border-color-base</code></td><td><code>#DCDFE6</code></td></tr><tr><td><code>border-radius</code></td><td><code>$--border-radius-base</code></td><td><code>4px</code></td></tr><tr><td><code>font-size-base</code></td><td><code>$--font-size-base</code></td><td><code>14px</code></td></tr><tr><td>input and button padding</td><td><code>$--input-height</code>, <code>$--button-padding-*</code></td><td><code>40px</code> tall</td></tr></table><p><code>primary</code>, <code>success</code>, <code>warning</code>, <code>danger</code> and <code>info</code> reach Element's
+components too, with the tints and shades Element derives from each, and
+so does anything given to <code>element</code>: <code><a href="el_page.html">el_page()</a></code> builds Element's
+stylesheet for the theme. Brand colours alone are recoloured in place, as
+Element's own theme picker does; anything more compiles Element's Sass
+sources, bundled with the package, as its theme tool does – about a
+second, once per theme and R session.</p>
 <p>Element puts white text on all five of its colours, some of which fall
 short of Bootstrap's default minimum contrast; left alone, Bootstrap would
 switch those buttons to black text. <code>min-contrast-ratio</code> is lowered so the
@@ -245,7 +256,7 @@ put contrast first.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $btn-padding-x: 20px !default;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $border-color: #DCDFE6 !default;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $input-border-color: #DCDFE6 !default;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $input-focus-border-color: #409EFF !default;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $input-focus-border-color: #7c3aed !default;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $input-placeholder-color: #C0C4CC !default;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $text-muted: #909399 !default;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $border-radius: 4px !default;</span>
@@ -255,6 +266,132 @@ put contrast first.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $min-contrast-ratio: 2 !default;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $font-family-base: 'Helvetica Neue', Helvetica, 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', Arial, sans-serif !default;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $primary: #7C3AED !default;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $secondary: #909399 !default;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $success: #67C23A !default;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $info: #909399 !default;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $warning: #E6A23C !default;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $danger: #F56C6C !default;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $white: #FFFFFF !default;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $gray-100: #EAEAEB !default;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $gray-200: #D6D6D6 !default;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $gray-300: #C1C1C2 !default;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $gray-400: #ACADAD !default;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $gray-500: #989899 !default;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $gray-600: #838385 !default;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $gray-700: #6E6F70 !default;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $gray-800: #595A5C !default;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $gray-900: #454647 !default;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $black: #303133 !default;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $bslib-preset-type: builtin;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $bslib-preset-name: shiny;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $web-font-path: "font.css" !default;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> @import "/home/runner/work/_temp/Library/bslib/builtin/bs5/shiny/_variables.scss";</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $enable-cssgrid: true !default;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> @import "/home/runner/work/_temp/Library/bslib/bs3compat/_defaults.scss";</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> @import "/home/runner/work/_temp/Library/bslib/lib/bs5/scss/_variables.scss";</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> @import "/home/runner/work/_temp/Library/bslib/lib/bs5/scss/_variables-dark.scss";</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $bootstrap-version: 5;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $bslib-preset-name: null !default;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $bslib-preset-type: null !default;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> @import "/home/runner/work/_temp/Library/bslib/lib/bs5/scss/_maps.scss";</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> @import "/home/runner/work/_temp/Library/bslib/lib/bs5/scss/_mixins.scss";</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> @import "/home/runner/work/_temp/Library/bslib/bs3compat/_declarations.scss";</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> @import "/home/runner/work/_temp/Library/bslib/builtin/bs5/shiny/_mixins.scss";</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> :root {</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> --bslib-bootstrap-version: #{$bootstrap-version};</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> --bslib-preset-name: #{$bslib-preset-name};</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> --bslib-preset-type: #{$bslib-preset-type};</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> }</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> @import "/home/runner/work/_temp/Library/bslib/lib/bs5/scss/mixins/_banner.scss";</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> @include bsBanner('')</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> @import "/home/runner/work/_temp/Library/bslib/lib/bs5/scss/_utilities.scss";</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> @import "/home/runner/work/_temp/Library/bslib/lib/bs5/scss/_root.scss";</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> @import "/home/runner/work/_temp/Library/bslib/lib/bs5/scss/_reboot.scss";</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> @import "/home/runner/work/_temp/Library/bslib/lib/bs5/scss/_type.scss";</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> @import "/home/runner/work/_temp/Library/bslib/lib/bs5/scss/_images.scss";</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> @import "/home/runner/work/_temp/Library/bslib/lib/bs5/scss/_containers.scss";</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> @import "/home/runner/work/_temp/Library/bslib/lib/bs5/scss/_grid.scss";</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> @import "/home/runner/work/_temp/Library/bslib/lib/bs5/scss/_tables.scss";</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> @import "/home/runner/work/_temp/Library/bslib/lib/bs5/scss/_forms.scss";</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> @import "/home/runner/work/_temp/Library/bslib/lib/bs5/scss/_buttons.scss";</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> @import "/home/runner/work/_temp/Library/bslib/lib/bs5/scss/_transitions.scss";</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> @import "/home/runner/work/_temp/Library/bslib/lib/bs5/scss/_dropdown.scss";</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> @import "/home/runner/work/_temp/Library/bslib/lib/bs5/scss/_button-group.scss";</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> @import "/home/runner/work/_temp/Library/bslib/lib/bs5/scss/_nav.scss";</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> @import "/home/runner/work/_temp/Library/bslib/lib/bs5/scss/_navbar.scss";</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> @import "/home/runner/work/_temp/Library/bslib/lib/bs5/scss/_card.scss";</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> @import "/home/runner/work/_temp/Library/bslib/lib/bs5/scss/_accordion.scss";</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> @import "/home/runner/work/_temp/Library/bslib/lib/bs5/scss/_breadcrumb.scss";</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> @import "/home/runner/work/_temp/Library/bslib/lib/bs5/scss/_pagination.scss";</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> @import "/home/runner/work/_temp/Library/bslib/lib/bs5/scss/_badge.scss";</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> @import "/home/runner/work/_temp/Library/bslib/lib/bs5/scss/_alert.scss";</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> @import "/home/runner/work/_temp/Library/bslib/lib/bs5/scss/_progress.scss";</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> @import "/home/runner/work/_temp/Library/bslib/lib/bs5/scss/_list-group.scss";</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> @import "/home/runner/work/_temp/Library/bslib/lib/bs5/scss/_close.scss";</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> @import "/home/runner/work/_temp/Library/bslib/lib/bs5/scss/_toasts.scss";</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> @import "/home/runner/work/_temp/Library/bslib/lib/bs5/scss/_modal.scss";</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> @import "/home/runner/work/_temp/Library/bslib/lib/bs5/scss/_tooltip.scss";</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> @import "/home/runner/work/_temp/Library/bslib/lib/bs5/scss/_popover.scss";</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> @import "/home/runner/work/_temp/Library/bslib/lib/bs5/scss/_carousel.scss";</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> @import "/home/runner/work/_temp/Library/bslib/lib/bs5/scss/_spinners.scss";</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> @import "/home/runner/work/_temp/Library/bslib/lib/bs5/scss/_offcanvas.scss";</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> @import "/home/runner/work/_temp/Library/bslib/lib/bs5/scss/_placeholders.scss";</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> @import "/home/runner/work/_temp/Library/bslib/lib/bs5/scss/_helpers.scss";</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> @import "/home/runner/work/_temp/Library/bslib/lib/bs5/scss/utilities/_api.scss";</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> .table th[align=left] { text-align: left; }</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> .table th[align=right] { text-align: right; }</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> .table th[align=center] { text-align: center; }</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> @import "/home/runner/work/_temp/Library/bslib/bs3compat/_rules.scss";</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> @import "/home/runner/work/_temp/Library/bslib/bslib-scss/bslib.scss";</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> @import "/home/runner/work/_temp/Library/bslib/builtin/bs5/shiny/_rules.scss";</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> /* *** */</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Other Sass Bundle information:</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> List of 2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  $ html_deps       :List of 1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ :List of 10</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   .. ..$ name      : chr "bs3compat"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   .. ..$ version   : chr "0.12.0"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   .. ..$ src       :List of 1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ file: chr "bs3compat/js"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   .. ..$ meta      : NULL</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   .. ..$ script    : chr [1:3] "transition.js" "tabs.js" "bs3compat.js"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   .. ..$ stylesheet: NULL</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   .. ..$ head      : NULL</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   .. ..$ attachment: NULL</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   .. ..$ package   : chr "bslib"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   .. ..$ all_files : logi TRUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   .. ..- attr(*, "class")= chr "html_dependency"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  $ file_attachments: Named chr [1:3] "/home/runner/work/_temp/Library/bslib/lib/bs3/assets/fonts" "/home/runner/work/_temp/Library/bslib/builtin/bs5/shiny/font.css" "/home/runner/work/_temp/Library/bslib/fonts"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ..- attr(*, "names")= chr [1:3] "fonts" "font.css" "fonts"</span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Rounder and smaller, all through Element</span></span></span>
+<span class="r-in"><span><span class="fu">el_theme</span><span class="op">(</span>element <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="st">"border-radius-base"</span> <span class="op">=</span> <span class="st">"10px"</span>, <span class="st">"font-size-base"</span> <span class="op">=</span> <span class="st">"13px"</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> /* Sass Bundle: _utilities, _root, _reboot, _type, _images, _containers, _grid, _tables, _forms, _buttons, _transitions, _dropdown, _button-group, _nav, _navbar, _card, _accordion, _breadcrumb, _pagination, _badge, _alert, _progress, _list-group, _close, _toasts, _modal, _tooltip, _popover, _carousel, _spinners, _offcanvas, _placeholders, _helpers, _api, bs3compat, builtin */</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> @import "/home/runner/work/_temp/Library/bslib/lib/bs5/scss/_functions.scss";</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> @import "/home/runner/work/_temp/Library/bslib/bslib-scss/functions.scss";</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $font-size-base: 0.875rem !default;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $input-font-size: 0.875rem !default;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $input-color: #606266 !default;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $input-line-height: 1.5 !default;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $input-padding-y: 8.5px !default;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $input-padding-x: 15px !default;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $btn-font-size: 0.875rem !default;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $btn-line-height: 1 !default;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $btn-padding-y: 12px !default;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $btn-padding-x: 20px !default;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $border-color: #DCDFE6 !default;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $input-border-color: #DCDFE6 !default;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $input-focus-border-color: #409EFF !default;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $input-placeholder-color: #C0C4CC !default;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $text-muted: #909399 !default;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $border-radius: 4px !default;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $border-radius-sm: 3px !default;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $border-radius-lg: 4px !default;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $headings-font-weight: 500 !default;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $min-contrast-ratio: 2 !default;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $font-family-base: 'Helvetica Neue', Helvetica, 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', Arial, sans-serif !default;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $primary: #409EFF !default;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $secondary: #909399 !default;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $success: #67C23A !default;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $info: #909399 !default;</span>

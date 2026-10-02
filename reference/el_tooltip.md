@@ -128,7 +128,7 @@ A Shiny UI element.
 A component passed as `trigger` becomes part of the tooltip's Vue
 instance rather than a separate one, which is what lets it survive being
 compiled into the tooltip's markup. It reports its inputs as usual, but
-it no longer has a widget of its own, so its `update_el_*()` cannot find
+it no longer has a host of its own, so its `update_el_*()` cannot find
 it – drive it through
 [`update_vue_data()`](https://kaipingyang.github.io/shiny.element/reference/update_vue_data.md)
 on the tooltip's id instead.

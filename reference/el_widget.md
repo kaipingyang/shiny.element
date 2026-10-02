@@ -163,9 +163,7 @@ Reach for it to wrap an Element component this package does not cover,
 or to build an input of your own from
 [el](https://kaipingyang.github.io/shiny.element/reference/el.md) tags;
 `report` names the value. It is what the package's own components are
-made of. (Earlier versions mounted Vue as a vueR htmlwidget, an
-*output*: the id then sat on a hidden element beside the component, and
-Shiny did not know there was an input.)
+made of.
 
 The raw Element tags come from
 [el](https://kaipingyang.github.io/shiny.element/reference/el.md), and
