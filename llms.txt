@@ -65,7 +65,8 @@ and sizes, so Shiny’s
 [`textInput()`](https://rdrr.io/pkg/shiny/man/textInput.html) sit beside
 Element components without clashing. It is
 [`el_page()`](https://kaipingyang.github.io/shiny.element/reference/el_page.md)’s
-default. `el_theme(primary = "#7c3aed")` changes the brand colour; any
+default. `el_theme(primary = "#7c3aed")` changes the brand colour – on
+Element’s components as well as Bootstrap’s; any
 [`bslib::bs_theme()`](https://rstudio.github.io/bslib/reference/bs_theme.html)
 replaces it, and `theme = NULL` leaves Shiny’s plain Bootstrap.
 

@@ -510,9 +510,28 @@ and outputs match the Element ones beside them.</p>
 </div>
 <p><code>el_theme(primary = "#7c3aed")</code> changes the brand colour,
 and any other argument of <code><a href="https://rstudio.github.io/bslib/reference/bs_theme.html" class="external-link">bslib::bs_theme()</a></code> or Bootstrap
-variable can be overridden the same way. Element’s own components keep
-Element’s colours whatever the theme says: they are compiled into its
-stylesheet, and changing them means building a custom Element theme.</p>
+variable can be overridden the same way. The theme’s
+<code>primary</code>, <code>success</code>, <code>warning</code> and
+<code>danger</code> recolour Element’s components too, with the tints
+and shades Element derives from each – a plain button’s pale fill, a
+focused input’s border – the way Element’s own theme picker recolours
+its stylesheet:</p>
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/el_page.html">el_page</a></span><span class="op">(</span>theme <span class="op">=</span> <span class="fu"><a href="../reference/el_theme.html">el_theme</a></span><span class="op">(</span>primary <span class="op">=</span> <span class="st">"#7c3aed"</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="../reference/el_button.html">el_button</a></span><span class="op">(</span><span class="st">"save"</span>, <span class="st">"Save"</span>, type <span class="op">=</span> <span class="st">"primary"</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="../reference/el_button.html">el_button</a></span><span class="op">(</span><span class="st">"draft"</span>, <span class="st">"Draft"</span>, type <span class="op">=</span> <span class="st">"primary"</span>, plain <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="../reference/el_switch.html">el_switch</a></span><span class="op">(</span><span class="st">"notify"</span>, value <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="../reference/el_slider.html">el_slider</a></span><span class="op">(</span><span class="st">"level"</span>, value <span class="op">=</span> <span class="fl">40</span>, width <span class="op">=</span> <span class="st">"240px"</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="../reference/el_pagination.html">el_pagination</a></span><span class="op">(</span><span class="st">"pages"</span>, total <span class="op">=</span> <span class="fl">50</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/shinyApp.html" class="external-link">shinyApp</a></span><span class="op">(</span><span class="va">ui</span>, <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span>, <span class="va">session</span><span class="op">)</span> <span class="op">{</span><span class="op">}</span><span class="op">)</span></span></code></pre></div>
+<p><img src="../shots/limitations-theme-colors.png"></p>
+<p>Element’s <code>info</code> grey stays: compiled, it is the same
+value as Element’s secondary text, and recolouring one would recolour
+the other. Anything beyond the four colours – Element’s greys, borders,
+radii – still needs a custom Element theme built from its Sass.
+<code>use_element(colors =)</code> does the same for a page that is not
+an <code><a href="../reference/el_page.html">el_page()</a></code>.</p>
 </div>
 <div class="section level2">
 <h2 id="elements-own-markup">Element’s own markup<a class="anchor" aria-label="anchor" href="#elements-own-markup"></a>
@@ -523,7 +542,7 @@ Vue compiles <code>&lt;el-*&gt;</code> tags only within the component it
 mounts, so a raw tag goes where a component draws its contents: a
 <code><a href="../reference/template.html">template()</a></code>, a slot, a table <code>cell</code>, a wrapper’s
 trigger.</p>
-<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># The tooltip's instance compiles the raw button it wraps</span></span>
 <span><span class="fu"><a href="../reference/el_tooltip.html">el_tooltip</a></span><span class="op">(</span><span class="st">"hint"</span>, <span class="va">el</span><span class="op">$</span><span class="fu">button</span><span class="op">(</span>type <span class="op">=</span> <span class="st">"primary"</span>, <span class="st">"Markup only"</span><span class="op">)</span>, content <span class="op">=</span> <span class="st">"No input"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="../reference/el_button.html">el_button</a></span><span class="op">(</span><span class="st">"save"</span>, <span class="st">"A component"</span>, type <span class="op">=</span> <span class="st">"primary"</span><span class="op">)</span>   <span class="co"># reports input$save</span></span></code></pre></div>
@@ -552,7 +571,7 @@ hear about it.</p>
 <p><code><a href="../reference/el_widget.html">el_widget()</a></code> assembles a component the way this package
 assembles its own, and is exported for wrapping anything not covered
 here, or covered differently:</p>
-<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">initials</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">id</span>, <span class="va">name</span>, <span class="va">size</span> <span class="op">=</span> <span class="fl">48</span><span class="op">)</span> <span class="op">{</span></span>
 <span>  <span class="fu"><a href="../reference/el_widget.html">el_widget</a></span><span class="op">(</span></span>
 <span>    id     <span class="op">=</span> <span class="va">id</span>,</span>
@@ -599,7 +618,7 @@ field names;</li>
 <li>pass <code><a href="../reference/element_ui_dependency.html">element_ui_dependency()</a></code> unless the page is an
 <code><a href="../reference/el_page.html">el_page()</a></code>.</li>
 </ul>
-<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">price_range_input</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">id</span>, <span class="va">value</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">100</span><span class="op">)</span>, <span class="va">min</span> <span class="op">=</span> <span class="fl">0</span>, <span class="va">max</span> <span class="op">=</span> <span class="fl">1000</span><span class="op">)</span> <span class="op">{</span></span>
 <span>  <span class="fu"><a href="../reference/el_widget.html">el_widget</a></span><span class="op">(</span></span>
 <span>    id <span class="op">=</span> <span class="va">id</span>,</span>
@@ -734,7 +753,7 @@ they take Shiny’s names – and Element’s as well:</p>
 <p>Either works, in the components and in their
 <code>update_el_*()</code>, so code reads naturally to someone coming
 from either side:</p>
-<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/el_select.html">el_select</a></span><span class="op">(</span><span class="st">"city_shiny"</span>, choices <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>Beijing <span class="op">=</span> <span class="st">"bj"</span>, Shanghai <span class="op">=</span> <span class="st">"sh"</span><span class="op">)</span>, selected <span class="op">=</span> <span class="st">"sh"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="../reference/el_select.html">el_select</a></span><span class="op">(</span><span class="st">"city_element"</span>, options <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>Beijing <span class="op">=</span> <span class="st">"bj"</span>, Shanghai <span class="op">=</span> <span class="st">"sh"</span><span class="op">)</span>, value <span class="op">=</span> <span class="st">"sh"</span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">

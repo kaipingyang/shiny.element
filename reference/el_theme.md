@@ -58,6 +58,13 @@ The values follow Element 2.15's `theme-chalk` variables:
 | `font-size-base` | `$--font-size-base` | `14px` |
 | input and button padding | `$--input-height`, `$--button-padding-*` | `40px` tall |
 
+`primary`, `success`, `warning` and `danger` reach Element's components
+too:
+[`el_page()`](https://kaipingyang.github.io/shiny.element/reference/el_page.md)
+recolours Element's stylesheet with them, tints and shades included, as
+Element's own theme picker does. `info` does not – compiled, Element's
+info grey is the same value as its secondary text.
+
 Element puts white text on all five of its colours, some of which fall
 short of Bootstrap's default minimum contrast; left alone, Bootstrap
 would switch those buttons to black text. `min-contrast-ratio` is

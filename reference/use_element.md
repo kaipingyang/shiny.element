@@ -13,7 +13,8 @@ use_element(
   dev = getOption("shiny.element.dev", FALSE),
   locale = getOption("shiny.element.locale", "en"),
   size = NULL,
-  z_index = NULL
+  z_index = NULL,
+  colors = NULL
 )
 ```
 
@@ -48,6 +49,17 @@ use_element(
   it: the size of every component not given one of its own (`"medium"`,
   `"small"` or `"mini"`), and the z-index its popups start from (2000 by
   default). `NULL` leaves Element's default.
+
+- colors:
+
+  Element's `primary`, `success`, `warning` and `danger`, as a named
+  list – or a
+  [`bslib::bs_theme()`](https://rstudio.github.io/bslib/reference/bs_theme.html)
+  to take them from, such as the page's own. Element's components are
+  recoloured with them, tints and shades included, as Element's theme
+  picker does.
+  [`el_page()`](https://kaipingyang.github.io/shiny.element/reference/el_page.md)
+  takes them from its `theme`.
 
 ## Value
 

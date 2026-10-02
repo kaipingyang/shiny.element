@@ -61,7 +61,8 @@ Use this when you want to use Element-UI components in non-el_page layouts
 <span>  dev <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">getOption</a></span><span class="op">(</span><span class="st">"shiny.element.dev"</span>, <span class="cn">FALSE</span><span class="op">)</span>,</span>
 <span>  locale <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">getOption</a></span><span class="op">(</span><span class="st">"shiny.element.locale"</span>, <span class="st">"en"</span><span class="op">)</span>,</span>
 <span>  size <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  z_index <span class="op">=</span> <span class="cn">NULL</span></span>
+<span>  z_index <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  colors <span class="op">=</span> <span class="cn">NULL</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
 
@@ -94,6 +95,14 @@ or <code>getOption("shiny.element.locale")</code> when set. See
 <dd><p>Element's global config, as <code>Vue.use(Element, {size, zIndex})</code> sets it: the size of every component not given one of its own
 (<code>"medium"</code>, <code>"small"</code> or <code>"mini"</code>), and the z-index its popups start
 from (2000 by default). <code>NULL</code> leaves Element's default.</p></dd>
+
+
+<dt id="arg-colors">colors<a class="anchor" aria-label="anchor" href="#arg-colors"></a></dt>
+<dd><p>Element's <code>primary</code>, <code>success</code>, <code>warning</code> and <code>danger</code>, as
+a named list – or a <code><a href="https://rstudio.github.io/bslib/reference/bs_theme.html" class="external-link">bslib::bs_theme()</a></code> to take them from, such as the
+page's own. Element's components are recoloured with them, tints and
+shades included, as Element's theme picker does. <code><a href="el_page.html">el_page()</a></code> takes them
+from its <code>theme</code>.</p></dd>
 
 </dl></div>
     <div class="section level2">

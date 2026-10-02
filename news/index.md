@@ -262,6 +262,18 @@ limitations article shows, needs no JavaScript.
   trigger text is now `button_label`, as
   [`fileInput()`](https://rdrr.io/pkg/shiny/man/fileInput.html)’s
   `buttonLabel`.
+- **Element’s colours from the theme.** The `primary`, `success`,
+  `warning` and `danger` of
+  [`el_page()`](https://kaipingyang.github.io/shiny.element/reference/el_page.md)’s
+  theme – `el_theme(primary = "#7c3aed")` – recolour Element’s
+  components too, with the tints and shades Element derives from each,
+  as Element’s own theme picker recolours its stylesheet.
+  `use_element(colors =)` does the same elsewhere.
+- **A tree filters as it stands.**
+  [`el_tree()`](https://kaipingyang.github.io/shiny.element/reference/el_tree.md)
+  has a default `filter_node_method` – the label contains the text,
+  ignoring case – so `el_call(session, "tree", "filter", list(text))`
+  needs no JavaScript; Element itself throws without one.
 - **Element’s global config.**
   [`el_page()`](https://kaipingyang.github.io/shiny.element/reference/el_page.md)
   and

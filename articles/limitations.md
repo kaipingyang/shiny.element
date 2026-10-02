@@ -401,10 +401,32 @@ Element's el_input()
 `el_theme(primary = "#7c3aed")` changes the brand colour, and any other
 argument of
 [`bslib::bs_theme()`](https://rstudio.github.io/bslib/reference/bs_theme.html)
-or Bootstrap variable can be overridden the same way. Element’s own
-components keep Element’s colours whatever the theme says: they are
-compiled into its stylesheet, and changing them means building a custom
-Element theme.
+or Bootstrap variable can be overridden the same way. The theme’s
+`primary`, `success`, `warning` and `danger` recolour Element’s
+components too, with the tints and shades Element derives from each – a
+plain button’s pale fill, a focused input’s border – the way Element’s
+own theme picker recolours its stylesheet:
+
+``` r
+
+ui <- el_page(theme = el_theme(primary = "#7c3aed"),
+  el_button("save", "Save", type = "primary"),
+  el_button("draft", "Draft", type = "primary", plain = TRUE),
+  el_switch("notify", value = TRUE),
+  el_slider("level", value = 40, width = "240px"),
+  el_pagination("pages", total = 50))
+
+shinyApp(ui, function(input, output, session) {})
+```
+
+![](../shots/limitations-theme-colors.png)
+
+Element’s `info` grey stays: compiled, it is the same value as Element’s
+secondary text, and recolouring one would recolour the other. Anything
+beyond the four colours – Element’s greys, borders, radii – still needs
+a custom Element theme built from its Sass. `use_element(colors =)` does
+the same for a page that is not an
+[`el_page()`](https://kaipingyang.github.io/shiny.element/reference/el_page.md).
 
 ## Element’s own markup
 

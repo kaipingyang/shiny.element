@@ -26,6 +26,7 @@
 <url><loc>https://kaipingyang.github.io/shiny.element/reference/dot-el_check_session.html</loc></url>
 <url><loc>https://kaipingyang.github.io/shiny.element/reference/dot-el_choices.html</loc></url>
 <url><loc>https://kaipingyang.github.io/shiny.element/reference/dot-el_col_gutter.html</loc></url>
+<url><loc>https://kaipingyang.github.io/shiny.element/reference/dot-el_color_cluster.html</loc></url>
 <url><loc>https://kaipingyang.github.io/shiny.element/reference/dot-el_config_dependency.html</loc></url>
 <url><loc>https://kaipingyang.github.io/shiny.element/reference/dot-el_container_part.html</loc></url>
 <url><loc>https://kaipingyang.github.io/shiny.element/reference/dot-el_css_fixes.html</loc></url>
@@ -53,6 +54,7 @@
 <url><loc>https://kaipingyang.github.io/shiny.element/reference/dot-el_or_na.html</loc></url>
 <url><loc>https://kaipingyang.github.io/shiny.element/reference/dot-el_overlay_content.html</loc></url>
 <url><loc>https://kaipingyang.github.io/shiny.element/reference/dot-el_prefix_absorbed.html</loc></url>
+<url><loc>https://kaipingyang.github.io/shiny.element/reference/dot-el_recoloured_dependency.html</loc></url>
 <url><loc>https://kaipingyang.github.io/shiny.element/reference/dot-el_restore.html</loc></url>
 <url><loc>https://kaipingyang.github.io/shiny.element/reference/dot-el_rewrite_expr.html</loc></url>
 <url><loc>https://kaipingyang.github.io/shiny.element/reference/dot-el_rewrite_js.html</loc></url>
@@ -73,6 +75,7 @@
 <url><loc>https://kaipingyang.github.io/shiny.element/reference/dot-el_table_rownames.html</loc></url>
 <url><loc>https://kaipingyang.github.io/shiny.element/reference/dot-el_table_rows.html</loc></url>
 <url><loc>https://kaipingyang.github.io/shiny.element/reference/dot-el_table_sanitize_columns.html</loc></url>
+<url><loc>https://kaipingyang.github.io/shiny.element/reference/dot-el_theme_colors.html</loc></url>
 <url><loc>https://kaipingyang.github.io/shiny.element/reference/dot-el_time_widget.html</loc></url>
 <url><loc>https://kaipingyang.github.io/shiny.element/reference/dot-el_timeline_items.html</loc></url>
 <url><loc>https://kaipingyang.github.io/shiny.element/reference/dot-el_transfer_data.html</loc></url>
@@ -102,6 +105,7 @@
 <url><loc>https://kaipingyang.github.io/shiny.element/reference/el_collapse.html</loc></url>
 <url><loc>https://kaipingyang.github.io/shiny.element/reference/el_collapse_dependency.html</loc></url>
 <url><loc>https://kaipingyang.github.io/shiny.element/reference/el_color_picker.html</loc></url>
+<url><loc>https://kaipingyang.github.io/shiny.element/reference/el_colors.html</loc></url>
 <url><loc>https://kaipingyang.github.io/shiny.element/reference/el_container.html</loc></url>
 <url><loc>https://kaipingyang.github.io/shiny.element/reference/el_date_picker.html</loc></url>
 <url><loc>https://kaipingyang.github.io/shiny.element/reference/el_descriptions.html</loc></url>
