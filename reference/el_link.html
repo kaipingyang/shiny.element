@@ -56,6 +56,7 @@
 <span>  underline <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  disabled <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  icon <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  id <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  <span class="va">...</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
@@ -90,13 +91,27 @@
 label. <code>NULL</code> for none.</p></dd>
 
 
+<dt id="arg-id">id<a class="anchor" aria-label="anchor" href="#arg-id"></a></dt>
+<dd><p>Give the link an id and it reports its clicks, as
+<code><a href="https://rdrr.io/pkg/shiny/man/actionButton.html" class="external-link">shiny::actionLink()</a></code> does: <code>input$&lt;id&gt;</code> counts them, 0 on load, and
+<code><a href="update_el_link.html">update_el_link()</a></code> changes it. Without one it is a plain link.</p></dd>
+
+
 <dt id="arg--">...<a class="anchor" aria-label="anchor" href="#arg--"></a></dt>
-<dd><p>Additional HTML attributes passed to the <code>&lt;a&gt;</code> tag.</p></dd>
+<dd><p>Additional HTML attributes passed to the <code>&lt;a&gt;</code> tag (a plain
+link only).</p></dd>
 
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
-    <p>An <code>htmltools</code> <code>&lt;a&gt;</code> tag.</p>
+    <p>An <code>htmltools</code> <code>&lt;a&gt;</code> tag, or with an <code>id</code> a Shiny UI element.</p>
+    </div>
+    <div class="section level2">
+    <h2 id="shiny-inputs">Shiny inputs<a class="anchor" aria-label="anchor" href="#shiny-inputs"></a></h2>
+
+
+<p>With an <code>id</code>, <code>input$&lt;id&gt;</code> – the number of clicks, as
+<code><a href="https://rdrr.io/pkg/shiny/man/actionButton.html" class="external-link">shiny::actionLink()</a></code> reports it.</p>
     </div>
 
     <div class="section level2">
@@ -114,6 +129,15 @@ label. <code>NULL</code> for none.</p></dd>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   &lt;i class="el-icon-edit"&gt;&lt;/i&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   &lt;span class="el-link--inner"&gt;With icon&lt;/span&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> &lt;/a&gt;</span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># An action link: input$more counts its clicks</span></span></span>
+<span class="r-in"><span><span class="fu">el_link</span><span class="op">(</span><span class="st">"Show more"</span>, id <span class="op">=</span> <span class="st">"more"</span>, type <span class="op">=</span> <span class="st">"primary"</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;div id="more" data-shiny-vue style="display: contents"&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   &lt;script type="text/x-template" data-shiny-vue-template&gt;&lt;div id="more_container" style="display: contents"&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   &lt;el-link :href="href === null ? undefined : href" :type="type" :underline="underline" :disabled="disabled" :icon="icon === null ? undefined : icon" @click="handleClick"&gt;{{ text }}&lt;/el-link&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;/div&gt;&lt;/script&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   &lt;script type="application/json" data-shiny-vue-options&gt;{"options":{"data":{"text":"Show more","href":null,"type":"primary","underline":true,"disabled":false,"icon":null,"count":0},"methods":{"handleClick":"function() { if (this.disabled) return; this.count++; }"}},"input":"count","rate":null,"type":"shiny.action","evals":["options.methods.handleClick"]}&lt;/script&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;/div&gt;</span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
     </div>

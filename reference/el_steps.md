@@ -104,7 +104,7 @@ el_steps(
 #>     <el-step title="Step 3"></el-step>
 #>   </el-steps>
 #> </div></script>
-#>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"active":0,"direction":"horizontal","processStatus":"process","finishStatus":"finish","alignCenter":false,"simple":false,"space":null},"watch":{"active":"function(newVal) { window.Shiny && Shiny.setInputValue && Shiny.setInputValue('my_steps', newVal); }"}},"input":"active","rate":null,"type":null,"evals":["options.watch.active"]}</script>
+#>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"active":0,"direction":"horizontal","processStatus":"process","finishStatus":"finish","alignCenter":false,"simple":false,"space":null},"watch":{"active":"function(newVal) { }"}},"input":"active","rate":null,"type":null,"evals":["options.watch.active"]}</script>
 #> </div>
 
 # With descriptions and icons
@@ -126,6 +126,6 @@ el_steps(
 #>     <el-step title="Step 3" description="Finish" icon="el-icon-picture"></el-step>
 #>   </el-steps>
 #> </div></script>
-#>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"active":1,"direction":"horizontal","processStatus":"process","finishStatus":"success","alignCenter":false,"simple":false,"space":null},"watch":{"active":"function(newVal) { window.Shiny && Shiny.setInputValue && Shiny.setInputValue('my_steps', newVal); }"}},"input":"active","rate":null,"type":null,"evals":["options.watch.active"]}</script>
+#>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"active":1,"direction":"horizontal","processStatus":"process","finishStatus":"success","alignCenter":false,"simple":false,"space":null},"watch":{"active":"function(newVal) { }"}},"input":"active","rate":null,"type":null,"evals":["options.watch.active"]}</script>
 #> </div>
 ```

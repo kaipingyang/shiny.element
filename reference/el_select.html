@@ -92,6 +92,7 @@ Element UI select props.</p>
 <span>  show_message <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  inline_message <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  width <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  option_template <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  slots <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  value <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  options <span class="op">=</span> <span class="cn">NULL</span>,</span>
@@ -269,6 +270,13 @@ number taken as pixels. Element's own markup carries it, so it behaves
 like the <code>width</code> argument of a Shiny input.</p></dd>
 
 
+<dt id="arg-option-template">option_template<a class="anchor" aria-label="anchor" href="#arg-option-template"></a></dt>
+<dd><p>Markup drawn inside each option, in place of its
+label – Element's "custom template". The option is in reach as <code>opt</code>,
+with any field its choice carries: <code>tags$span("{{ opt.label }}"), tags$span(style = "float: right", "{{ opt.code }}")</code> for choices given
+as <code>list(value =, label =, code =)</code>.</p></dd>
+
+
 <dt id="arg-slots">slots<a class="anchor" aria-label="anchor" href="#arg-slots"></a></dt>
 <dd><p>Named list of Element slot contents, such as
 <code>list(title = shiny::tags$b("Bold"))</code>. A shiny.element component
@@ -308,7 +316,32 @@ loading text until then.</p>
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># Single-select from a named vector</span></span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># Each option drawn with a second field beside its label</span></span></span>
+<span class="r-in"><span><span class="fu">el_select</span><span class="op">(</span><span class="st">"city"</span>, choices <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>value <span class="op">=</span> <span class="st">"bj"</span>, label <span class="op">=</span> <span class="st">"Beijing"</span>, code <span class="op">=</span> <span class="st">"PEK"</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>value <span class="op">=</span> <span class="st">"sh"</span>, label <span class="op">=</span> <span class="st">"Shanghai"</span>, code <span class="op">=</span> <span class="st">"SHA"</span><span class="op">)</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>  option_template <span class="op">=</span> <span class="fu">htmltools</span><span class="fu">::</span><span class="fu"><a href="https://rstudio.github.io/htmltools/reference/tagList.html" class="external-link">tagList</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>    <span class="fu">htmltools</span><span class="fu">::</span><span class="va"><a href="https://rstudio.github.io/htmltools/reference/builder.html" class="external-link">tags</a></span><span class="op">$</span><span class="fu">span</span><span class="op">(</span>style <span class="op">=</span> <span class="st">"float: left"</span>, <span class="st">"{{ opt.label }}"</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>    <span class="fu">htmltools</span><span class="fu">::</span><span class="va"><a href="https://rstudio.github.io/htmltools/reference/builder.html" class="external-link">tags</a></span><span class="op">$</span><span class="fu">span</span><span class="op">(</span>style <span class="op">=</span> <span class="st">"float: right; color: #8492a6"</span>, <span class="st">"{{ opt.code }}"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;div id="city" data-shiny-vue style="display: contents"&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   &lt;script type="text/x-template" data-shiny-vue-template&gt;&lt;div id="city_container" style="display: contents"&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   &lt;el-select v-model="value" :multiple="multiple" :disabled="disabled" :clearable="clearable" :filterable="filterable" :multiple-limit="multipleLimit" :collapse-tags="collapseTags" @change="handleChange" :placeholder="placeholder === null ? undefined : placeholder" :size="size === null ? undefined : size" :value-key="valueKey === null ? undefined : valueKey" :name="name === null ? undefined : name" :autocomplete="autocomplete === null ? undefined : autocomplete" :automatic-dropdown="automaticDropdown === null ? undefined : automaticDropdown" :allow-create="allowCreate === null ? undefined : allowCreate" :loading="loading === null ? undefined : loading" :loading-text="loadingText === null ? undefined : loadingText" :no-match-text="noMatchText === null ? undefined : noMatchText" :no-data-text="noDataText === null ? undefined : noDataText" :popper-class="popperClass === null ? undefined : popperClass" :popper-append-to-body="popperAppendToBody === null ? undefined : popperAppendToBody" :reserve-keyword="reserveKeyword === null ? undefined : reserveKeyword" :default-first-option="defaultFirstOption === null ? undefined : defaultFirstOption" :remote="remote === null ? undefined : remote" :filter-method="filterMethod === null ? undefined : filterMethod" :remote-method="remoteMethod === null ? elRemoteQuery : remoteMethod" @visible-change="elEmitVisibleChange" @remove-tag="elEmitRemoveTag" @clear="elEmitClear" @blur="elEmitBlur" @focus="elEmitFocus"&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     &lt;el-option v-for="opt in options" :key="opt.value" :value="opt.value" :label="opt.label" :disabled="opt.disabled"&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       &lt;span style="float: left"&gt;{{ opt.label }}&lt;/span&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       &lt;span style="float: right; color: #8492a6"&gt;{{ opt.code }}&lt;/span&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     &lt;/el-option&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     &lt;el-option-group v-for="g in groups" :key="g.label" :label="g.label" :disabled="g.disabled"&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       &lt;el-option v-for="opt in g.options" :key="opt.value" :value="opt.value" :label="opt.label" :disabled="opt.disabled"&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>         &lt;span style="float: left"&gt;{{ opt.label }}&lt;/span&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>         &lt;span style="float: right; color: #8492a6"&gt;{{ opt.code }}&lt;/span&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       &lt;/el-option&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     &lt;/el-option-group&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   &lt;/el-select&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;/div&gt;&lt;/script&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   &lt;script type="application/json" data-shiny-vue-options&gt;{"options":{"data":{"value":"","options":[{"value":"bj","label":"Beijing","code":"PEK"},{"value":"sh","label":"Shanghai","code":"SHA"}],"groups":[],"multiple":false,"disabled":false,"clearable":false,"filterable":false,"multipleLimit":0,"collapseTags":false,"placeholder":null,"size":null,"valueKey":null,"name":null,"autocomplete":null,"automaticDropdown":null,"allowCreate":null,"loading":null,"loadingText":null,"noMatchText":null,"noDataText":null,"popperClass":null,"popperAppendToBody":null,"reserveKeyword":null,"defaultFirstOption":null,"remote":null,"filterMethod":null,"remoteMethod":null},"methods":{"elEmitVisibleChange":"function() { window.shinyVue.emit('city', 'visible_change', arguments); }","elEmitRemoveTag":"function() { window.shinyVue.emit('city', 'remove_tag', arguments); }","elEmitClear":"function() { window.shinyVue.emit('city', 'clear', arguments); }","elEmitBlur":"function() { window.shinyVue.emit('city', 'blur', arguments); }","elEmitFocus":"function() { window.shinyVue.emit('city', 'focus', arguments); }","elRemoteQuery":"function(query) {\n  if (!(window.Shiny &amp;&amp; Shiny.setInputValue)) return;\n  this.loading = true;\n  window.Shiny &amp;&amp; Shiny.setInputValue &amp;&amp; Shiny.setInputValue('city_query', query, {priority: 'event'});\n}","handleChange":"function(value) { }"}},"input":"value","rate":null,"type":null,"evals":["options.methods.elEmitVisibleChange","options.methods.elEmitRemoveTag","options.methods.elEmitClear","options.methods.elEmitBlur","options.methods.elEmitFocus","options.methods.elRemoteQuery","options.methods.handleChange"]}&lt;/script&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;/div&gt;</span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Single-select from a named vector</span></span></span>
 <span class="r-in"><span><span class="fu">el_select</span><span class="op">(</span><span class="st">"sel1"</span>,</span></span>
 <span class="r-in"><span>  choices  <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>Apple <span class="op">=</span> <span class="st">"apple"</span>, Banana <span class="op">=</span> <span class="st">"banana"</span>, Cherry <span class="op">=</span> <span class="st">"cherry"</span><span class="op">)</span>,</span></span>
 <span class="r-in"><span>  selected <span class="op">=</span> <span class="st">"banana"</span></span></span>

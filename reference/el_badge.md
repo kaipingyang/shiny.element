@@ -12,7 +12,8 @@ el_badge(
   max = NULL,
   is_dot = FALSE,
   hidden = FALSE,
-  type = NULL
+  type = NULL,
+  id = NULL
 )
 ```
 
@@ -44,9 +45,20 @@ el_badge(
   Badge colour type: `NULL` (red, default), `"primary"`, `"success"`,
   `"warning"`, `"info"`, `"danger"`.
 
+- id:
+
+  Give the badge an id and
+  [`update_el_badge()`](https://kaipingyang.github.io/shiny.element/reference/update_el_badge.md)
+  can change it – a count of unread messages, say. A component inside is
+  then folded into the badge's Vue instance, as for
+  [`el_tooltip()`](https://kaipingyang.github.io/shiny.element/reference/el_tooltip.md):
+  it keeps reporting, but is reached through
+  [`update_vue_data()`](https://kaipingyang.github.io/shiny.element/reference/update_vue_data.md)
+  on the badge's id.
+
 ## Value
 
-An `htmltools` tag.
+An `htmltools` tag, or with an `id` a Shiny UI element.
 
 ## Examples
 
@@ -80,5 +92,16 @@ el_badge(el_button("btn3", "Updates"),  is_dot = TRUE)
 #>     <script type="application/json" data-shiny-vue-options>{"options":{"data":{"label":"Updates","type":"default","size":null,"plain":false,"round":false,"circle":false,"loading":false,"disabled":false,"native_type":"button","icon":null,"count":0,"autofocus":false},"methods":{"handleClick":"function() { if (this.disabled || this.loading) return; this.count++; }"}},"input":"count","rate":null,"type":"shiny.action","evals":["options.methods.handleClick"]}</script>
 #>   </div>
 #>   <sup class="el-badge__content is-fixed is-dot"></sup>
+#> </div>
+
+# Updated from the server: update_el_badge(session, "unread", value = 7)
+el_badge(el_button("inbox", "Inbox"), value = 3, id = "unread")
+#> <div id="unread" data-shiny-vue style="display: contents">
+#>   <script type="text/x-template" data-shiny-vue-template><div id="unread_container" style="display: contents">
+#>   <el-badge :value="badgeValue === null ? undefined : badgeValue" :max="badgeMax === null ? undefined : badgeMax" :is-dot="badgeIsDot" :hidden="badgeHidden" :type="badgeType === null ? undefined : badgeType">
+#>     <el-button :type="type" :plain="plain" :round="round" :circle="circle" :loading="loading" :disabled="disabled" :native-type="native_type" @click="handleClick" :size="size === null ? undefined : size" :icon="icon === null ? undefined : icon" :autofocus="autofocus === null ? undefined : autofocus">{{label}}</el-button>
+#>   </el-badge>
+#> </div></script>
+#>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"badgeValue":3,"badgeMax":null,"badgeIsDot":false,"badgeHidden":false,"badgeType":null,"label":"Inbox","type":"default","size":null,"plain":false,"round":false,"circle":false,"loading":false,"disabled":false,"native_type":"button","icon":null,"count":0,"autofocus":false},"methods":{"handleClick":"function() { if (this.disabled || this.loading) return; this.count++; window.Shiny && Shiny.setInputValue && Shiny.setInputValue('inbox:shiny.action', this.count); }"},"mounted":"function() { var self = this; var send = function() { window.Shiny && Shiny.setInputValue && Shiny.setInputValue(\"inbox:shiny.action\", self.count); }; if (window.Shiny && Shiny.shinyapp && typeof Shiny.shinyapp.isConnected === 'function' && Shiny.shinyapp.isConnected()) { send(); } else if (window.jQuery) { jQuery(document).one('shiny:connected', send); } var prev = self._elReport; self._elReport = function() { if (prev) prev(); self.$nextTick(send); }; }"},"input":null,"rate":null,"type":null,"evals":["options.methods.handleClick","options.mounted"]}</script>
 #> </div>
 ```

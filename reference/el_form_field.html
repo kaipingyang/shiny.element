@@ -71,9 +71,11 @@
 
 <dt id="arg-type">type<a class="anchor" aria-label="anchor" href="#arg-type"></a></dt>
 <dd><p>Control type: one of <code>"input"</code>, <code>"input-number"</code>, <code>"select"</code>,
-<code>"radio-group"</code>, <code>"checkbox-group"</code>, <code>"switch"</code>, <code>"slider"</code>,
-<code>"date-picker"</code>, <code>"time-picker"</code>, <code>"rate"</code>, <code>"cascader"</code> or
-<code>"color-picker"</code>.</p></dd>
+<code>"radio-group"</code>, <code>"checkbox-group"</code>, <code>"checkbox"</code> (one box, <code>TRUE</code> or
+<code>FALSE</code>), <code>"switch"</code>, <code>"slider"</code>, <code>"date-picker"</code>, <code>"time-picker"</code>,
+<code>"time-select"</code>, <code>"rate"</code>, <code>"cascader"</code>, <code>"cascader-panel"</code>,
+<code>"color-picker"</code>, <code>"autocomplete"</code> or <code>"transfer"</code>. Their props go in
+<code>...</code>: a cascader's <code>options</code>, a transfer's <code>data</code>.</p></dd>
 
 
 <dt id="arg-label">label<a class="anchor" aria-label="anchor" href="#arg-label"></a></dt>
@@ -87,8 +89,9 @@ what <code>resetFields()</code> restores.</p></dd>
 
 <dt id="arg-choices">choices<a class="anchor" aria-label="anchor" href="#arg-choices"></a></dt>
 <dd><p>Options for <code>"select"</code>, <code>"radio-group"</code> and
-<code>"checkbox-group"</code>. A named vector <code>c(Label = value)</code> or a list of
-<code>list(value=, label=)</code>.</p></dd>
+<code>"checkbox-group"</code>; suggestions for <code>"autocomplete"</code>, filtered as the
+user types. A named vector <code>c(Label = value)</code> or a list of
+<code>list(value=, label=)</code>. For <code>"checkbox"</code>, the box's text is <code>label</code>.</p></dd>
 
 
 <dt id="arg-rules">rules<a class="anchor" aria-label="anchor" href="#arg-rules"></a></dt>

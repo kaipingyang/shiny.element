@@ -285,6 +285,33 @@ limitations article shows, needs no JavaScript.
   has a default `filter_node_method` – the label contains the text,
   ignoring case – so `el_call(session, "tree", "filter", list(text))`
   needs no JavaScript; Element itself throws without one.
+- **More of upstream.**
+  [`el_checkbox()`](https://kaipingyang.github.io/shiny.element/reference/el_checkbox.md),
+  one box as
+  [`checkboxInput()`](https://rdrr.io/pkg/shiny/man/checkboxInput.html)
+  is, with `indeterminate` for a “check all” box;
+  [`el_button_group()`](https://kaipingyang.github.io/shiny.element/reference/el_button_group.md),
+  buttons joined into one bar, each still reporting; an `id` on
+  [`el_badge()`](https://kaipingyang.github.io/shiny.element/reference/el_badge.md)
+  or
+  [`el_link()`](https://kaipingyang.github.io/shiny.element/reference/el_link.md)
+  makes it something the server changes
+  ([`update_el_badge()`](https://kaipingyang.github.io/shiny.element/reference/update_el_badge.md),
+  [`update_el_link()`](https://kaipingyang.github.io/shiny.element/reference/update_el_link.md)),
+  the link an action link; `el_select(option_template =)`, Element’s
+  custom option template; `el_autocomplete(remote = TRUE)`, suggestions
+  from the server through `input$<id>_query`. In forms,
+  [`el_rule()`](https://kaipingyang.github.io/shiny.element/reference/el_rule.md)
+  takes Element’s custom `validator` and the rest of async-validator
+  (`enum`, `whitespace`, `transform`),
+  [`el_form_field()`](https://kaipingyang.github.io/shiny.element/reference/el_form_field.md)
+  every control Element’s form holds – `"checkbox"`, `"time-select"`,
+  `"autocomplete"`, `"transfer"`, `"cascader-panel"` added – and
+  [`update_el_form()`](https://kaipingyang.github.io/shiny.element/reference/update_el_form.md)
+  replaces the field list (`fields =`) or shows the server’s own errors
+  (`errors =`). An update can carry
+  [`JS()`](https://kaipingyang.github.io/shiny.element/reference/JS.md)
+  functions.
 - **Element’s global config.**
   [`el_page()`](https://kaipingyang.github.io/shiny.element/reference/el_page.md)
   and

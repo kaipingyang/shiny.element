@@ -54,7 +54,9 @@
 <span>  <span class="va">id</span>,</span>
 <span>  model <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  rules <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  label_width <span class="op">=</span> <span class="cn">NULL</span></span>
+<span>  label_width <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  fields <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  errors <span class="op">=</span> <span class="cn">NULL</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
 
@@ -84,6 +86,20 @@ keyed by <code>prop</code>. Replaces the rule set.</p></dd>
 <dt id="arg-label-width">label_width<a class="anchor" aria-label="anchor" href="#arg-label-width"></a></dt>
 <dd><p>New label column width.</p></dd>
 
+
+<dt id="arg-fields">fields<a class="anchor" aria-label="anchor" href="#arg-fields"></a></dt>
+<dd><p>The form's fields, as <code><a href="el_form_field.html">el_form_field()</a></code>s – the whole list,
+in order, so a field can be added, removed or moved: Element's "add or
+delete form items dynamically". A field already in the form keeps what
+was entered; a new one starts from its <code>value</code>; a removed one leaves the
+model. Each field's rules come with it.</p></dd>
+
+
+<dt id="arg-errors">errors<a class="anchor" aria-label="anchor" href="#arg-errors"></a></dt>
+<dd><p>Error messages from the server, as a named list keyed by
+<code>prop</code> – <code>list(email = "That address is taken")</code> – shown on the field
+as Element's <code>error</code> shows them. <code>""</code> clears one.</p></dd>
+
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
@@ -95,6 +111,9 @@ keyed by <code>prop</code>. Replaces the rule set.</p></dd>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/interactive.html" class="external-link">interactive</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span></span>
 <span class="r-in"><span>  <span class="co"># Prefill the form from the server</span></span></span>
 <span class="r-in"><span>  <span class="fu">update_el_form</span><span class="op">(</span><span class="va">session</span>, <span class="st">"signup"</span>, model <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">"Ada"</span>, age <span class="op">=</span> <span class="fl">36</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span>  <span class="co"># A check only the server can make</span></span></span>
+<span class="r-in"><span>  <span class="fu">update_el_form</span><span class="op">(</span><span class="va">session</span>, <span class="st">"signup"</span>, errors <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>email <span class="op">=</span> <span class="st">"That address is taken"</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">}</span></span></span>
 </code></pre></div>
     </div>

@@ -94,6 +94,21 @@ el_select("objects", value = "sh", choices = list(
 ))
 ```
 
+An option can be drawn with more than its label – Element’s “custom
+template”. `option_template` is markup inside each option, with the
+option in reach as `opt` and any field its choice carries:
+
+``` r
+
+el_select("airport", width = "240px", choices = list(
+  list(value = "pek", label = "Beijing", code = "PEK"),
+  list(value = "sha", label = "Shanghai", code = "SHA"),
+  list(value = "ctu", label = "Chengdu", code = "CTU")),
+  option_template = tagList(
+    tags$span(style = "float: left", "{{ opt.label }}"),
+    tags$span(style = "float: right; color: #8492a6; font-size: 13px", "{{ opt.code }}")))
+```
+
 For a checkbox or radio group, Element documents `border`, `name` and
 `disabled` on the individual item rather than the group, so they go on
 the choice:
@@ -274,6 +289,47 @@ report a quarter-second after the user stops, as
 rather than on every keystroke or step. An observer on one runs once per
 pause, not once per letter.
 
+### Custom rules, and fields that come and go
+
+`el_rule(validator = JS(...))` is Element’s custom rule: a function that
+calls back with an error or without one. A check only the server can
+make – is the address taken? – goes the other way, through
+`update_el_form(errors =)`. And `update_el_form(fields =)` replaces the
+field list, for the form that grows a row per item, as Element’s “add or
+delete form items dynamically” does; what was already entered stays.
+
+``` r
+
+email_field <- function(i) el_form_field(paste0("email", i), "input",
+  label = paste("Email", i), rules = el_rule(type = "email", message = "Not an email"))
+seats_field <- el_form_field("seats", "input-number", label = "Seats", value = 3,
+  rules = el_rule(trigger = "change", validator = JS(
+    "function(rule, value, callback) {",
+    "  value % 2 === 0 ? callback() : callback(new Error('Seats come in pairs'));",
+    "}")))
+
+ui <- el_page(
+  el_form(id = "invite", submit_label = NULL, label_width = "90px", width = "420px",
+          email_field(1), seats_field),
+  el_button("more", "Add an address"),
+  el_button("check", "Check", type = "primary")
+)
+
+server <- function(input, output, session) {
+  n <- reactiveVal(1)
+  observeEvent(input$more, {
+    n(n() + 1)
+    update_el_form(id = "invite",
+                   fields = c(lapply(seq_len(n()), email_field), list(seats_field)))
+  })
+  observeEvent(input$check, el_form_validate(session, "invite"))
+}
+
+shinyApp(ui, server)
+```
+
+![](../shots/forms-form-dynamic.png)
+
 ## Uploads
 
 [`el_upload()`](https://kaipingyang.github.io/shiny.element/reference/el_upload.md)
@@ -331,21 +387,25 @@ el_autocomplete("city", placeholder = "Where to?", width = 260,
                 suggestions = c("Beijing", "Shanghai", "Shenzhen", "Chengdu"))
 ```
 
-When the list lives on the server – a database, an API – update the
-suggestions from what has been typed:
+When the list lives on the server – a database, an API – `remote = TRUE`
+asks it, as Element’s `fetch-suggestions` asks a function: the text
+arrives as `input$<id>_query`, and
+[`update_el_autocomplete()`](https://kaipingyang.github.io/shiny.element/reference/update_el_autocomplete.md)
+answers with the suggestions to show.
 
 ``` r
 
 cities <- c("Beijing", "Baoding", "Baotou", "Shanghai", "Shenzhen", "Chengdu")
 
-ui <- el_page(el_autocomplete("city", placeholder = "Type a city", width = 260))
+ui <- el_page(el_autocomplete("city", remote = TRUE, placeholder = "Type a city",
+                              width = 260))
 
 server <- function(input, output, session) {
-  observeEvent(input$city, {
-    typed <- tolower(input$city)
-    update_el_autocomplete(session, "city",
+  observeEvent(input$city_query, {
+    typed <- tolower(input$city_query)
+    update_el_autocomplete(id = "city",
       suggestions = cities[startsWith(tolower(cities), typed)])
-  }, ignoreNULL = FALSE)
+  })
 }
 
 shinyApp(ui, server)

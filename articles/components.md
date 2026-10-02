@@ -65,6 +65,19 @@ el_radio_group("plan", choices = c(Basic = "x", Pro = "y"))
 el_radio_group("range", choices = c(Day = "d", Week = "w"), button = TRUE)
 ```
 
+### `el_checkbox()`
+
+One box, `TRUE` or `FALSE`, as
+[`checkboxInput()`](https://rdrr.io/pkg/shiny/man/checkboxInput.html).
+Half-ticked with `indeterminate`, for the “check all” box above a group:
+
+``` r
+
+el_checkbox("agree", "I agree to the terms")
+el_checkbox("all", "Check all", indeterminate = TRUE)
+el_checkbox("remember", "Remember me", value = TRUE, border = TRUE)
+```
+
 ### `el_checkbox_group()`
 
 ``` r
@@ -223,6 +236,21 @@ el_button("go", "Round", type = "primary", round = TRUE)
 el_button("wait", "Loading", type = "primary", loading = TRUE)
 ```
 
+`input$<id>` counts clicks as
+[`actionButton()`](https://rdrr.io/pkg/shiny/man/actionButton.html) does
+– 0 on load, which
+[`observeEvent()`](https://rdrr.io/pkg/shiny/man/observeEvent.html)
+ignores.
+[`el_button_group()`](https://kaipingyang.github.io/shiny.element/reference/el_button_group.md)
+joins buttons into one bar, each still reporting its own clicks:
+
+``` r
+
+el_button_group(
+  el_button("prev", "Previous", icon = "el-icon-arrow-left", type = "primary"),
+  el_button("next", "Next", type = "primary"))
+```
+
 ### `el_tag()`
 
 ``` r
@@ -259,6 +287,14 @@ el_badge(el_button("hi", "capped"), value = 200, max = 99)
 ¹²
 
 ⁹⁹⁺
+
+Given an `id`, a badge is changed from the server – an unread count, say
+– with `update_el_badge(session, "unread", value = 7)`:
+
+``` r
+
+el_badge(el_button("inbox", "Inbox"), value = 3, id = "unread")
+```
 
 ### `el_card()`
 
@@ -419,6 +455,10 @@ el_link("primary", type = "primary")
 ```
 
 primary
+
+A link given an `id` counts its clicks, as
+[`actionLink()`](https://rdrr.io/pkg/shiny/man/actionButton.html) does:
+`el_link("Show more", id = "more")` reports `input$more`.
 
 ### Icons
 

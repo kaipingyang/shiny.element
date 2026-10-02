@@ -268,10 +268,40 @@ carries props of its own.</p>
 </div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":"sh","options":[{"value":"bj","label":"Beijing (full)","disabled":true},{"value":"sh","label":"Shanghai"}],"groups":[],"multiple":false,"disabled":false,"clearable":false,"filterable":false,"multipleLimit":0,"collapseTags":false,"placeholder":null,"size":null,"valueKey":null,"name":null,"autocomplete":null,"automaticDropdown":null,"allowCreate":null,"loading":null,"loadingText":null,"noMatchText":null,"noDataText":null,"popperClass":null,"popperAppendToBody":null,"reserveKeyword":null,"defaultFirstOption":null,"remote":null,"filterMethod":null,"remoteMethod":null},"methods":{"elEmitVisibleChange":"function() { window.shinyVue.emit('choices-objects', 'visible_change', arguments); }","elEmitRemoveTag":"function() { window.shinyVue.emit('choices-objects', 'remove_tag', arguments); }","elEmitClear":"function() { window.shinyVue.emit('choices-objects', 'clear', arguments); }","elEmitBlur":"function() { window.shinyVue.emit('choices-objects', 'blur', arguments); }","elEmitFocus":"function() { window.shinyVue.emit('choices-objects', 'focus', arguments); }","elRemoteQuery":"function(query) {\n  if (!(window.Shiny && Shiny.setInputValue)) return;\n  this.loading = true;\n  window.Shiny && Shiny.setInputValue && Shiny.setInputValue('choices-objects_query', query, {priority: 'event'});\n}","handleChange":"function(value) { }"}},"input":"value","rate":null,"type":null,"evals":["options.methods.elEmitVisibleChange","options.methods.elEmitRemoveTag","options.methods.elEmitClear","options.methods.elEmitBlur","options.methods.elEmitFocus","options.methods.elRemoteQuery","options.methods.handleChange"]}</script>
 </div>
 </div>
+<p>An option can be drawn with more than its label – Element’s “custom
+template”. <code>option_template</code> is markup inside each option,
+with the option in reach as <code>opt</code> and any field its choice
+carries:</p>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/el_select.html">el_select</a></span><span class="op">(</span><span class="st">"airport"</span>, width <span class="op">=</span> <span class="st">"240px"</span>, choices <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>value <span class="op">=</span> <span class="st">"pek"</span>, label <span class="op">=</span> <span class="st">"Beijing"</span>, code <span class="op">=</span> <span class="st">"PEK"</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>value <span class="op">=</span> <span class="st">"sha"</span>, label <span class="op">=</span> <span class="st">"Shanghai"</span>, code <span class="op">=</span> <span class="st">"SHA"</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>value <span class="op">=</span> <span class="st">"ctu"</span>, label <span class="op">=</span> <span class="st">"Chengdu"</span>, code <span class="op">=</span> <span class="st">"CTU"</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>  option_template <span class="op">=</span> <span class="fu"><a href="https://rstudio.github.io/htmltools/reference/tagList.html" class="external-link">tagList</a></span><span class="op">(</span></span>
+<span>    <span class="va">tags</span><span class="op">$</span><span class="fu">span</span><span class="op">(</span>style <span class="op">=</span> <span class="st">"float: left"</span>, <span class="st">"{{ opt.label }}"</span><span class="op">)</span>,</span>
+<span>    <span class="va">tags</span><span class="op">$</span><span class="fu">span</span><span class="op">(</span>style <span class="op">=</span> <span class="st">"float: right; color: #8492a6; font-size: 13px"</span>, <span class="st">"{{ opt.code }}"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<div class="el-demo">
+  <div id="option-template-airport" data-shiny-vue style="display: contents">
+    <script type="text/x-template" data-shiny-vue-template><div id="option-template-airport_container" style="display: contents">
+  <el-select v-model="value" :multiple="multiple" :disabled="disabled" :clearable="clearable" :filterable="filterable" :multiple-limit="multipleLimit" :collapse-tags="collapseTags" @change="handleChange" :placeholder="placeholder === null ? undefined : placeholder" :size="size === null ? undefined : size" :value-key="valueKey === null ? undefined : valueKey" :name="name === null ? undefined : name" :autocomplete="autocomplete === null ? undefined : autocomplete" :automatic-dropdown="automaticDropdown === null ? undefined : automaticDropdown" :allow-create="allowCreate === null ? undefined : allowCreate" :loading="loading === null ? undefined : loading" :loading-text="loadingText === null ? undefined : loadingText" :no-match-text="noMatchText === null ? undefined : noMatchText" :no-data-text="noDataText === null ? undefined : noDataText" :popper-class="popperClass === null ? undefined : popperClass" :popper-append-to-body="popperAppendToBody === null ? undefined : popperAppendToBody" :reserve-keyword="reserveKeyword === null ? undefined : reserveKeyword" :default-first-option="defaultFirstOption === null ? undefined : defaultFirstOption" :remote="remote === null ? undefined : remote" :filter-method="filterMethod === null ? undefined : filterMethod" :remote-method="remoteMethod === null ? elRemoteQuery : remoteMethod" @visible-change="elEmitVisibleChange" @remove-tag="elEmitRemoveTag" @clear="elEmitClear" @blur="elEmitBlur" @focus="elEmitFocus" style="width: 240px">
+    <el-option v-for="opt in options" :key="opt.value" :value="opt.value" :label="opt.label" :disabled="opt.disabled">
+      <span style="float: left">{{ opt.label }}</span>
+      <span style="float: right; color: #8492a6; font-size: 13px">{{ opt.code }}</span>
+    </el-option>
+    <el-option-group v-for="g in groups" :key="g.label" :label="g.label" :disabled="g.disabled">
+      <el-option v-for="opt in g.options" :key="opt.value" :value="opt.value" :label="opt.label" :disabled="opt.disabled">
+        <span style="float: left">{{ opt.label }}</span>
+        <span style="float: right; color: #8492a6; font-size: 13px">{{ opt.code }}</span>
+      </el-option>
+    </el-option-group>
+  </el-select>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":"","options":[{"value":"pek","label":"Beijing","code":"PEK"},{"value":"sha","label":"Shanghai","code":"SHA"},{"value":"ctu","label":"Chengdu","code":"CTU"}],"groups":[],"multiple":false,"disabled":false,"clearable":false,"filterable":false,"multipleLimit":0,"collapseTags":false,"placeholder":null,"size":null,"valueKey":null,"name":null,"autocomplete":null,"automaticDropdown":null,"allowCreate":null,"loading":null,"loadingText":null,"noMatchText":null,"noDataText":null,"popperClass":null,"popperAppendToBody":null,"reserveKeyword":null,"defaultFirstOption":null,"remote":null,"filterMethod":null,"remoteMethod":null},"methods":{"elEmitVisibleChange":"function() { window.shinyVue.emit('option-template-airport', 'visible_change', arguments); }","elEmitRemoveTag":"function() { window.shinyVue.emit('option-template-airport', 'remove_tag', arguments); }","elEmitClear":"function() { window.shinyVue.emit('option-template-airport', 'clear', arguments); }","elEmitBlur":"function() { window.shinyVue.emit('option-template-airport', 'blur', arguments); }","elEmitFocus":"function() { window.shinyVue.emit('option-template-airport', 'focus', arguments); }","elRemoteQuery":"function(query) {\n  if (!(window.Shiny && Shiny.setInputValue)) return;\n  this.loading = true;\n  window.Shiny && Shiny.setInputValue && Shiny.setInputValue('option-template-airport_query', query, {priority: 'event'});\n}","handleChange":"function(value) { }"}},"input":"value","rate":null,"type":null,"evals":["options.methods.elEmitVisibleChange","options.methods.elEmitRemoveTag","options.methods.elEmitClear","options.methods.elEmitBlur","options.methods.elEmitFocus","options.methods.elRemoteQuery","options.methods.handleChange"]}</script>
+</div>
+</div>
 <p>For a checkbox or radio group, Element documents <code>border</code>,
 <code>name</code> and <code>disabled</code> on the individual item
 rather than the group, so they go on the choice:</p>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/el_checkbox_group.html">el_checkbox_group</a></span><span class="op">(</span><span class="st">"terms"</span>, selected <span class="op">=</span> <span class="st">"a"</span>, choices <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>value <span class="op">=</span> <span class="st">"a"</span>, label <span class="op">=</span> <span class="st">"Agree"</span>, border <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,</span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>value <span class="op">=</span> <span class="st">"b"</span>, label <span class="op">=</span> <span class="st">"Subscribe"</span>, border <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,</span>
@@ -299,7 +329,7 @@ instance dropped in is not in that chain.</p>
 model as a list, <code>input$&lt;id&gt;_valid</code> whether validation
 passed, and <code>input$&lt;id&gt;_submit</code> a counter. Here the
 form was submitted empty:</p>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/el_page.html">el_page</a></span><span class="op">(</span></span>
 <span>  <span class="fu"><a href="../reference/el_form.html">el_form</a></span><span class="op">(</span></span>
 <span>    id <span class="op">=</span> <span class="st">"signup"</span>, label_width <span class="op">=</span> <span class="st">"90px"</span>,</span>
@@ -326,7 +356,7 @@ form was submitted empty:</p>
 <code><a href="https://rdrr.io/pkg/shiny/man/validate.html" class="external-link">validate()</a></code> returns a promise, which resolves when the form
 is valid and rejects when it is not; both arrive as
 <code>input$&lt;id&gt;_validate</code>:</p>
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/el_page.html">el_page</a></span><span class="op">(</span></span>
 <span>  <span class="fu"><a href="../reference/el_form.html">el_form</a></span><span class="op">(</span></span>
 <span>    id <span class="op">=</span> <span class="st">"profile"</span>, submit_label <span class="op">=</span> <span class="cn">NULL</span>,</span>
@@ -354,7 +384,7 @@ do. Its message is drawn as Element draws a failed rule – the component
 framed in red, the message underneath – rather than as Bootstrap’s help
 text, which assumes a <code>.form-group</code> the component does not
 have:</p>
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://rstudio.github.io/shinyvalidate/" class="external-link">shinyvalidate</a></span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/el_page.html">el_page</a></span><span class="op">(</span></span>
@@ -385,7 +415,7 @@ several for <code>"dates"</code>, <code>NULL</code> while empty.
 Element’s other types – <code>"datetime"</code>, <code>"month"</code>,
 <code>"week"</code> – and a <code>value_format</code> of your own report
 the text the picker produces, in that format, unconverted.</p>
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/el_page.html">el_page</a></span><span class="op">(</span></span>
 <span>  <span class="fu"><a href="../reference/el_date_picker.html">el_date_picker</a></span><span class="op">(</span><span class="st">"due"</span>, value <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Sys.time.html" class="external-link">Sys.Date</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span>,</span>
 <span>  <span class="fu"><a href="../reference/el_date_picker.html">el_date_picker</a></span><span class="op">(</span><span class="st">"trip"</span>, type <span class="op">=</span> <span class="st">"daterange"</span>,</span>
@@ -408,7 +438,7 @@ options as the user types, as <code><a href="https://rdrr.io/pkg/shiny/man/selec
 mode does: the text arrives as <code>input$&lt;id&gt;_query</code>, and
 <code><a href="../reference/update_el_select.html">update_el_select()</a></code> with the matches answers it. Until then
 the select shows Element’s loading text.</p>
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/el_page.html">el_page</a></span><span class="op">(</span><span class="fu"><a href="../reference/el_select.html">el_select</a></span><span class="op">(</span><span class="st">"state"</span>, filterable <span class="op">=</span> <span class="cn">TRUE</span>, remote <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>                        placeholder <span class="op">=</span> <span class="st">"Type a state"</span>, width <span class="op">=</span> <span class="st">"260px"</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
@@ -431,6 +461,45 @@ the select shows Element’s loading text.</p>
 quarter-second after the user stops, as <code><a href="https://rdrr.io/pkg/shiny/man/textInput.html" class="external-link">textInput()</a></code> does,
 rather than on every keystroke or step. An observer on one runs once per
 pause, not once per letter.</p>
+<div class="section level3">
+<h3 id="custom-rules-and-fields-that-come-and-go">Custom rules, and fields that come and go<a class="anchor" aria-label="anchor" href="#custom-rules-and-fields-that-come-and-go"></a>
+</h3>
+<p><code>el_rule(validator = JS(...))</code> is Element’s custom rule: a
+function that calls back with an error or without one. A check only the
+server can make – is the address taken? – goes the other way, through
+<code>update_el_form(errors =)</code>. And
+<code>update_el_form(fields =)</code> replaces the field list, for the
+form that grows a row per item, as Element’s “add or delete form items
+dynamically” does; what was already entered stays.</p>
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">email_field</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">i</span><span class="op">)</span> <span class="fu"><a href="../reference/el_form_field.html">el_form_field</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="st">"email"</span>, <span class="va">i</span><span class="op">)</span>, <span class="st">"input"</span>,</span>
+<span>  label <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="st">"Email"</span>, <span class="va">i</span><span class="op">)</span>, rules <span class="op">=</span> <span class="fu"><a href="../reference/el_rule.html">el_rule</a></span><span class="op">(</span>type <span class="op">=</span> <span class="st">"email"</span>, message <span class="op">=</span> <span class="st">"Not an email"</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">seats_field</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/el_form_field.html">el_form_field</a></span><span class="op">(</span><span class="st">"seats"</span>, <span class="st">"input-number"</span>, label <span class="op">=</span> <span class="st">"Seats"</span>, value <span class="op">=</span> <span class="fl">3</span>,</span>
+<span>  rules <span class="op">=</span> <span class="fu"><a href="../reference/el_rule.html">el_rule</a></span><span class="op">(</span>trigger <span class="op">=</span> <span class="st">"change"</span>, validator <span class="op">=</span> <span class="fu"><a href="../reference/JS.html">JS</a></span><span class="op">(</span></span>
+<span>    <span class="st">"function(rule, value, callback) {"</span>,</span>
+<span>    <span class="st">"  value % 2 === 0 ? callback() : callback(new Error('Seats come in pairs'));"</span>,</span>
+<span>    <span class="st">"}"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/el_page.html">el_page</a></span><span class="op">(</span></span>
+<span>  <span class="fu"><a href="../reference/el_form.html">el_form</a></span><span class="op">(</span>id <span class="op">=</span> <span class="st">"invite"</span>, submit_label <span class="op">=</span> <span class="cn">NULL</span>, label_width <span class="op">=</span> <span class="st">"90px"</span>, width <span class="op">=</span> <span class="st">"420px"</span>,</span>
+<span>          <span class="fu">email_field</span><span class="op">(</span><span class="fl">1</span><span class="op">)</span>, <span class="va">seats_field</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="../reference/el_button.html">el_button</a></span><span class="op">(</span><span class="st">"more"</span>, <span class="st">"Add an address"</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="../reference/el_button.html">el_button</a></span><span class="op">(</span><span class="st">"check"</span>, <span class="st">"Check"</span>, type <span class="op">=</span> <span class="st">"primary"</span><span class="op">)</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">server</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span>, <span class="va">session</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="va">n</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/reactiveVal.html" class="external-link">reactiveVal</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/observeEvent.html" class="external-link">observeEvent</a></span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">more</span>, <span class="op">{</span></span>
+<span>    <span class="fu">n</span><span class="op">(</span><span class="fu">n</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> <span class="fl">1</span><span class="op">)</span></span>
+<span>    <span class="fu"><a href="../reference/update_el_form.html">update_el_form</a></span><span class="op">(</span>id <span class="op">=</span> <span class="st">"invite"</span>,</span>
+<span>                   fields <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq_len</a></span><span class="op">(</span><span class="fu">n</span><span class="op">(</span><span class="op">)</span><span class="op">)</span>, <span class="va">email_field</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="va">seats_field</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
+<span>  <span class="op">}</span><span class="op">)</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/observeEvent.html" class="external-link">observeEvent</a></span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">check</span>, <span class="fu"><a href="../reference/el_form_validate.html">el_form_validate</a></span><span class="op">(</span><span class="va">session</span>, <span class="st">"invite"</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="op">}</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/shinyApp.html" class="external-link">shinyApp</a></span><span class="op">(</span><span class="va">ui</span>, <span class="va">server</span><span class="op">)</span></span></code></pre></div>
+<p><img src="../shots/forms-form-dynamic.png"></p>
+</div>
 </div>
 <div class="section level2">
 <h2 id="uploads">Uploads<a class="anchor" aria-label="anchor" href="#uploads"></a>
@@ -439,7 +508,7 @@ pause, not once per letter.</p>
 transport by default, so they arrive in <code>input$&lt;id&gt;</code> as
 the data.frame <code><a href="https://rdrr.io/pkg/shiny/man/fileInput.html" class="external-link">fileInput()</a></code> gives: <code>name</code>,
 <code>size</code>, <code>type</code>, <code>datapath</code>.</p>
-<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/el_page.html">el_page</a></span><span class="op">(</span></span>
 <span>  <span class="fu"><a href="../reference/el_upload.html">el_upload</a></span><span class="op">(</span><span class="st">"docs"</span>, button_label <span class="op">=</span> <span class="st">"Choose CSV files"</span>, multiple <span class="op">=</span> <span class="cn">TRUE</span>, accept <span class="op">=</span> <span class="st">".csv"</span>,</span>
 <span>            tip <span class="op">=</span> <span class="st">"CSV only, up to 5 MB"</span><span class="op">)</span>,</span>
@@ -453,7 +522,7 @@ the data.frame <code><a href="https://rdrr.io/pkg/shiny/man/fileInput.html" clas
 <span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/shinyApp.html" class="external-link">shinyApp</a></span><span class="op">(</span><span class="va">ui</span>, <span class="va">server</span><span class="op">)</span></span></code></pre></div>
 <p><img src="../shots/forms-upload.png"></p>
 <p><code>drag = TRUE</code> gives the drop zone instead of a button:</p>
-<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/el_upload.html">el_upload</a></span><span class="op">(</span><span class="st">"photos"</span>, button_label <span class="op">=</span> <span class="st">"Drop images here, or click to choose"</span>,</span>
 <span>          drag <span class="op">=</span> <span class="cn">TRUE</span>, accept <span class="op">=</span> <span class="st">"image/*"</span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
@@ -471,7 +540,7 @@ the data.frame <code><a href="https://rdrr.io/pkg/shiny/man/fileInput.html" clas
 transport, and the file goes straight to that URL without reaching R.
 <code>extra_data</code> is Element’s <code>data</code> prop, renamed so
 it is not confused with the file itself.</p>
-<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/el_upload.html">el_upload</a></span><span class="op">(</span><span class="st">"archive"</span>, button_label <span class="op">=</span> <span class="st">"Upload to the archive"</span>,</span>
 <span>          action <span class="op">=</span> <span class="st">"https://example.org/upload"</span>,</span>
 <span>          headers <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>`X-Requested-With` <span class="op">=</span> <span class="st">"shiny.element"</span><span class="op">)</span>,</span>
@@ -493,29 +562,34 @@ it is not confused with the file itself.</p>
 </h2>
 <p>Suggestions passed up front are filtered in the browser as the user
 types:</p>
-<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/el_autocomplete.html">el_autocomplete</a></span><span class="op">(</span><span class="st">"city"</span>, placeholder <span class="op">=</span> <span class="st">"Where to?"</span>, width <span class="op">=</span> <span class="fl">260</span>,</span>
 <span>                suggestions <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Beijing"</span>, <span class="st">"Shanghai"</span>, <span class="st">"Shenzhen"</span>, <span class="st">"Chengdu"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
   <div id="autocomplete-city" data-shiny-vue style="display: contents">
     <script type="text/x-template" data-shiny-vue-template><div id="autocomplete-city_container" style="display: contents">
   <el-autocomplete v-model="value" :fetch-suggestions="fetchSuggestions" :placeholder="placeholder === null ? undefined : placeholder" :clearable="clearable === null ? undefined : clearable" :disabled="disabled === null ? undefined : disabled" :value-key="valueKey === null ? undefined : valueKey" :debounce="debounce === null ? undefined : debounce" :placement="placement === null ? undefined : placement" :trigger-on-focus="triggerOnFocus === null ? undefined : triggerOnFocus" :select-when-unmatched="selectWhenUnmatched === null ? undefined : selectWhenUnmatched" :highlight-first-item="highlightFirstItem === null ? undefined : highlightFirstItem" :hide-loading="hideLoading === null ? undefined : hideLoading" :icon="icon === null ? undefined : icon" :prefix-icon="prefixIcon === null ? undefined : prefixIcon" :suffix-icon="suffixIcon === null ? undefined : suffixIcon" :label="label === null ? undefined : label" :name="name === null ? undefined : name" :popper-class="popperClass === null ? undefined : popperClass" :popper-append-to-body="popperAppendToBody === null ? undefined : popperAppendToBody" @select="elEmitSelect" @change="elEmitChange" style="width: 260px"></el-autocomplete>
-</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":"","suggestions":[{"value":"Beijing"},{"value":"Shanghai"},{"value":"Shenzhen"},{"value":"Chengdu"}],"placeholder":"Where to?","clearable":null,"disabled":null,"valueKey":null,"debounce":null,"placement":null,"triggerOnFocus":null,"selectWhenUnmatched":null,"highlightFirstItem":null,"hideLoading":null,"icon":null,"prefixIcon":null,"suffixIcon":null,"label":null,"name":null,"popperClass":null,"popperAppendToBody":null},"methods":{"elEmitSelect":"function() { window.shinyVue.emit('autocomplete-city', 'select', arguments); }","elEmitChange":"function() { window.shinyVue.emit('autocomplete-city', 'change', arguments); }","fetchSuggestions":"function(queryString, callback) {\n  var all = this.suggestions || [];\n  var q = (queryString || '').toLowerCase();\n  callback(q ? all.filter(function(s) {\n    return String(s.value).toLowerCase().indexOf(q) === 0;\n  }) : all);\n}","handleInput":"function(v) { }"},"watch":{"value":"function(newVal) { window.Shiny && Shiny.setInputValue && Shiny.setInputValue('autocomplete-city', newVal); }"}},"input":"value","rate":{"policy":"debounce","delay":250},"type":null,"evals":["options.methods.elEmitSelect","options.methods.elEmitChange","options.methods.fetchSuggestions","options.methods.handleInput","options.watch.value"]}</script>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":"","suggestions":[{"value":"Beijing"},{"value":"Shanghai"},{"value":"Shenzhen"},{"value":"Chengdu"}],"placeholder":"Where to?","clearable":null,"disabled":null,"valueKey":null,"debounce":null,"placement":null,"triggerOnFocus":null,"selectWhenUnmatched":null,"highlightFirstItem":null,"hideLoading":null,"icon":null,"prefixIcon":null,"suffixIcon":null,"label":null,"name":null,"popperClass":null,"popperAppendToBody":null},"methods":{"elEmitSelect":"function() { window.shinyVue.emit('autocomplete-city', 'select', arguments); }","elEmitChange":"function() { window.shinyVue.emit('autocomplete-city', 'change', arguments); }","fetchSuggestions":"function(queryString, callback) {\n  var all = this.suggestions || [];\n  var q = (queryString || '').toLowerCase();\n  callback(q ? all.filter(function(s) {\n    return String(s.value).toLowerCase().indexOf(q) === 0;\n  }) : all);\n}"},"watch":{"value":"function(newVal) { }","suggestions":"function(v) { var cb = this._elPending; if (cb) { this._elPending = null; cb(v); } }"}},"input":"value","rate":{"policy":"debounce","delay":250},"type":null,"evals":["options.methods.elEmitSelect","options.methods.elEmitChange","options.methods.fetchSuggestions","options.watch.value","options.watch.suggestions"]}</script>
 </div>
 </div>
-<p>When the list lives on the server – a database, an API – update the
-suggestions from what has been typed:</p>
-<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
+<p>When the list lives on the server – a database, an API –
+<code>remote = TRUE</code> asks it, as Element’s
+<code>fetch-suggestions</code> asks a function: the text arrives as
+<code>input$&lt;id&gt;_query</code>, and
+<code><a href="../reference/update_el_autocomplete.html">update_el_autocomplete()</a></code> answers with the suggestions to
+show.</p>
+<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">cities</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Beijing"</span>, <span class="st">"Baoding"</span>, <span class="st">"Baotou"</span>, <span class="st">"Shanghai"</span>, <span class="st">"Shenzhen"</span>, <span class="st">"Chengdu"</span><span class="op">)</span></span>
 <span></span>
-<span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/el_page.html">el_page</a></span><span class="op">(</span><span class="fu"><a href="../reference/el_autocomplete.html">el_autocomplete</a></span><span class="op">(</span><span class="st">"city"</span>, placeholder <span class="op">=</span> <span class="st">"Type a city"</span>, width <span class="op">=</span> <span class="fl">260</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/el_page.html">el_page</a></span><span class="op">(</span><span class="fu"><a href="../reference/el_autocomplete.html">el_autocomplete</a></span><span class="op">(</span><span class="st">"city"</span>, remote <span class="op">=</span> <span class="cn">TRUE</span>, placeholder <span class="op">=</span> <span class="st">"Type a city"</span>,</span>
+<span>                              width <span class="op">=</span> <span class="fl">260</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">server</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span>, <span class="va">session</span><span class="op">)</span> <span class="op">{</span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/observeEvent.html" class="external-link">observeEvent</a></span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">city</span>, <span class="op">{</span></span>
-<span>    <span class="va">typed</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/chartr.html" class="external-link">tolower</a></span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">city</span><span class="op">)</span></span>
-<span>    <span class="fu"><a href="../reference/update_el_autocomplete.html">update_el_autocomplete</a></span><span class="op">(</span><span class="va">session</span>, <span class="st">"city"</span>,</span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/observeEvent.html" class="external-link">observeEvent</a></span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">city_query</span>, <span class="op">{</span></span>
+<span>    <span class="va">typed</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/chartr.html" class="external-link">tolower</a></span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">city_query</span><span class="op">)</span></span>
+<span>    <span class="fu"><a href="../reference/update_el_autocomplete.html">update_el_autocomplete</a></span><span class="op">(</span>id <span class="op">=</span> <span class="st">"city"</span>,</span>
 <span>      suggestions <span class="op">=</span> <span class="va">cities</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/startsWith.html" class="external-link">startsWith</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/chartr.html" class="external-link">tolower</a></span><span class="op">(</span><span class="va">cities</span><span class="op">)</span>, <span class="va">typed</span><span class="op">)</span><span class="op">]</span><span class="op">)</span></span>
-<span>  <span class="op">}</span>, ignoreNULL <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
+<span>  <span class="op">}</span><span class="op">)</span></span>
 <span><span class="op">}</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/shinyApp.html" class="external-link">shinyApp</a></span><span class="op">(</span><span class="va">ui</span>, <span class="va">server</span><span class="op">)</span></span></code></pre></div>
@@ -527,7 +601,7 @@ suggestions from what has been typed:</p>
 <p><code><a href="../reference/el_transfer.html">el_transfer()</a></code> takes a data.frame of <code>key</code> and
 <code>label</code>, and reports the keys on the right – here driving
 which columns a table shows:</p>
-<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/el_page.html">el_page</a></span><span class="op">(</span></span>
 <span>  <span class="fu"><a href="../reference/el_transfer.html">el_transfer</a></span><span class="op">(</span><span class="st">"cols"</span>,</span>
 <span>              data <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>key <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">iris</span><span class="op">)</span>, label <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">iris</span><span class="op">)</span><span class="op">)</span>,</span>
@@ -552,7 +626,7 @@ which columns a table shows:</p>
 <code>"50%"</code>, or a number meaning pixels. For a form,
 <code>label_width</code> and <code>label_position</code> do what
 Element’s do:</p>
-<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/el_form.html">el_form</a></span><span class="op">(</span></span>
 <span>  id <span class="op">=</span> <span class="st">"compact"</span>, label_width <span class="op">=</span> <span class="st">"80px"</span>, label_position <span class="op">=</span> <span class="st">"left"</span>,</span>
 <span>  submit_label <span class="op">=</span> <span class="cn">NULL</span>,</span>
@@ -565,8 +639,8 @@ Element’s do:</p>
 <div class="el-demo">
   <div id="layout-compact" data-shiny-vue style="display: contents">
     <script type="text/x-template" data-shiny-vue-template><div id="layout-compact_container" style="display: contents">
-  <el-form :model="model" :rules="rules" ref="form" :label-width="labelWidth" :label-position="labelPosition" :inline="inline" :size="size === null ? undefined : size" :disabled="disabled === null ? undefined : disabled" :show-message="showMessage === null ? undefined : showMessage" :inline-message="inlineMessage === null ? undefined : inlineMessage" :status-icon="statusIcon === null ? undefined : statusIcon" :hide-required-asterisk="hideRequiredAsterisk === null ? undefined : hideRequiredAsterisk" :label-suffix="labelSuffix === null ? undefined : labelSuffix" :validate-on-rule-change="validateOnRuleChange === null ? undefined : validateOnRuleChange" @validate="elEmitValidate"><el-form-item v-for="f in fields" :key="f.prop" :prop="f.prop" :label="f.label" :required="f.required" :rules="f.rules" :error="f.error" :label-width="f.labelWidth" :size="f.size" :inline-message="f.inlineMessage" :show-message="f.showMessage"><template slot="label"><span v-if="f.labelHtml" v-html="f.labelHtml"></span><span v-else>{{f.label}}</span></template><template slot="error" slot-scope="scope"><div class="el-form-item__error"><span v-if="f.errorHtml" v-html="f.errorHtml"></span><span v-else>{{scope.error}}</span></div></template><component :is="f.tag" v-model="model[f.prop]" v-bind="f.props"><component v-for="o in (f.options || [])" :is="f.optionTag" :key="o.label" :label="o.label" :value="o.value">{{ o.text }}</component></component></el-form-item></el-form>
-</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"model":{"name":"","team":""},"rules":{},"fields":[{"prop":"name","label":"Name","tag":"el-input","props":[]},{"prop":"team","label":"Team","tag":"el-select","props":{"options":["Data","Design"]},"optionTag":"el-option"}],"labelWidth":"80px","labelPosition":"left","inline":false,"submitLabel":"","resetLabel":"","submitCount":0,"valid":false,"size":null,"disabled":null,"showMessage":null,"inlineMessage":null,"statusIcon":null,"hideRequiredAsterisk":null,"labelSuffix":null,"validateOnRuleChange":null},"methods":{"elEmitValidate":"function() { window.shinyVue.emit('layout-compact', 'validate', arguments); }","handleSubmit":"function() { var self = this; this.$refs.form.validate(function(ok) { self.submitCount++; self.valid = ok; window.Shiny && Shiny.setInputValue && Shiny.setInputValue(\"layout-compact\" + '_valid', ok); window.Shiny && Shiny.setInputValue && Shiny.setInputValue(\"layout-compact\" + '_submit', self.submitCount); }); }","shinyVueReceive":"function(d) { var self = this, action = d['.action']; delete d['.action']; if (d.model) { Object.keys(d.model).forEach(function(k) { self.$set(self.model, k, d.model[k]); }); delete d.model; } if (action === 'validate') self.handleSubmit(); else if (action === 'reset') self.handleReset(); else if (action === 'clearValidate') { if (self.$refs.form) self.$refs.form.clearValidate(d.props || undefined); delete d.props; } return d; }","handleReset":"function() { this.$refs.form.resetFields(); }"}},"input":"model","rate":null,"type":null,"evals":["options.methods.elEmitValidate","options.methods.handleSubmit","options.methods.shinyVueReceive","options.methods.handleReset"]}</script>
+  <el-form :model="model" :rules="rules" ref="form" :label-width="labelWidth" :label-position="labelPosition" :inline="inline" :size="size === null ? undefined : size" :disabled="disabled === null ? undefined : disabled" :show-message="showMessage === null ? undefined : showMessage" :inline-message="inlineMessage === null ? undefined : inlineMessage" :status-icon="statusIcon === null ? undefined : statusIcon" :hide-required-asterisk="hideRequiredAsterisk === null ? undefined : hideRequiredAsterisk" :label-suffix="labelSuffix === null ? undefined : labelSuffix" :validate-on-rule-change="validateOnRuleChange === null ? undefined : validateOnRuleChange" @validate="elEmitValidate"><el-form-item v-for="f in fields" :key="f.prop" :prop="f.prop" :label="f.label" :required="f.required" :rules="f.rules" :error="f.error" :label-width="f.labelWidth" :size="f.size" :inline-message="f.inlineMessage" :show-message="f.showMessage"><template slot="label"><span v-if="f.labelHtml" v-html="f.labelHtml"></span><span v-else>{{f.label}}</span></template><template slot="error" slot-scope="scope"><div class="el-form-item__error"><span v-if="f.errorHtml" v-html="f.errorHtml"></span><span v-else>{{scope.error}}</span></div></template><component :is="f.tag" v-model="model[f.prop]" v-bind="f.props"><template v-if="f.text">{{ f.text }}</template><component v-for="o in (f.options || [])" :is="f.optionTag" :key="o.label" :label="o.label" :value="o.value">{{ o.text }}</component></component></el-form-item></el-form>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"model":{"name":"","team":""},"rules":{},"fields":[{"prop":"name","label":"Name","tag":"el-input","props":[]},{"prop":"team","label":"Team","tag":"el-select","props":{"options":["Data","Design"]},"optionTag":"el-option"}],"labelWidth":"80px","labelPosition":"left","inline":false,"submitLabel":"","resetLabel":"","submitCount":0,"valid":false,"size":null,"disabled":null,"showMessage":null,"inlineMessage":null,"statusIcon":null,"hideRequiredAsterisk":null,"labelSuffix":null,"validateOnRuleChange":null},"methods":{"elEmitValidate":"function() { window.shinyVue.emit('layout-compact', 'validate', arguments); }","handleSubmit":"function() { var self = this; this.$refs.form.validate(function(ok) { self.submitCount++; self.valid = ok; window.Shiny && Shiny.setInputValue && Shiny.setInputValue(\"layout-compact\" + '_valid', ok); window.Shiny && Shiny.setInputValue && Shiny.setInputValue(\"layout-compact\" + '_submit', self.submitCount); }); }","shinyVueReceive":"function(d) { var self = this, action = d['.action']; delete d['.action']; if (d.model) { Object.keys(d.model).forEach(function(k) { self.$set(self.model, k, d.model[k]); }); delete d.model; } if (d['.fields']) { var model = {}, rules = {}; d['.fields'].forEach(function(f) { model[f.prop] = Object.prototype.hasOwnProperty.call(self.model, f.prop) ? self.model[f.prop] : f.value; if (f.rules) rules[f.prop] = f.rules; delete f.value; delete f.rules; }); self.model = model; self.rules = rules; self.fields = d['.fields']; delete d['.fields']; } if (d['.errors']) { Object.keys(d['.errors']).forEach(function(k) { self.fields.forEach(function(f, i) { if (f.prop === k) self.$set(self.fields[i], 'error', d['.errors'][k] || ''); }); }); delete d['.errors']; } if (action === 'validate') self.handleSubmit(); else if (action === 'reset') self.handleReset(); else if (action === 'clearValidate') { if (self.$refs.form) self.$refs.form.clearValidate(d.props || undefined); delete d.props; } return d; }","handleReset":"function() { this.$refs.form.resetFields(); }"}},"input":"model","rate":null,"type":null,"evals":["options.methods.elEmitValidate","options.methods.handleSubmit","options.methods.shinyVueReceive","options.methods.handleReset"]}</script>
 </div>
   <div id="layout-wide" data-shiny-vue style="display: contents">
     <script type="text/x-template" data-shiny-vue-template><div id="layout-wide_container" style="display: contents">

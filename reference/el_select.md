@@ -44,6 +44,7 @@ el_select(
   show_message = TRUE,
   inline_message = FALSE,
   width = NULL,
+  option_template = NULL,
   slots = NULL,
   value = NULL,
   options = NULL,
@@ -224,6 +225,14 @@ el_select(
   as pixels. Element's own markup carries it, so it behaves like the
   `width` argument of a Shiny input.
 
+- option_template:
+
+  Markup drawn inside each option, in place of its label – Element's
+  "custom template". The option is in reach as `opt`, with any field its
+  choice carries:
+  `tags$span("{{ opt.label }}"), tags$span(style = "float: right", "{{ opt.code }}")`
+  for choices given as `list(value =, label =, code =)`.
+
 - slots:
 
   Named list of Element slot contents, such as
@@ -266,6 +275,31 @@ loading text until then.
 ## Examples
 
 ``` r
+# Each option drawn with a second field beside its label
+el_select("city", choices = list(
+  list(value = "bj", label = "Beijing", code = "PEK"),
+  list(value = "sh", label = "Shanghai", code = "SHA")),
+  option_template = htmltools::tagList(
+    htmltools::tags$span(style = "float: left", "{{ opt.label }}"),
+    htmltools::tags$span(style = "float: right; color: #8492a6", "{{ opt.code }}")))
+#> <div id="city" data-shiny-vue style="display: contents">
+#>   <script type="text/x-template" data-shiny-vue-template><div id="city_container" style="display: contents">
+#>   <el-select v-model="value" :multiple="multiple" :disabled="disabled" :clearable="clearable" :filterable="filterable" :multiple-limit="multipleLimit" :collapse-tags="collapseTags" @change="handleChange" :placeholder="placeholder === null ? undefined : placeholder" :size="size === null ? undefined : size" :value-key="valueKey === null ? undefined : valueKey" :name="name === null ? undefined : name" :autocomplete="autocomplete === null ? undefined : autocomplete" :automatic-dropdown="automaticDropdown === null ? undefined : automaticDropdown" :allow-create="allowCreate === null ? undefined : allowCreate" :loading="loading === null ? undefined : loading" :loading-text="loadingText === null ? undefined : loadingText" :no-match-text="noMatchText === null ? undefined : noMatchText" :no-data-text="noDataText === null ? undefined : noDataText" :popper-class="popperClass === null ? undefined : popperClass" :popper-append-to-body="popperAppendToBody === null ? undefined : popperAppendToBody" :reserve-keyword="reserveKeyword === null ? undefined : reserveKeyword" :default-first-option="defaultFirstOption === null ? undefined : defaultFirstOption" :remote="remote === null ? undefined : remote" :filter-method="filterMethod === null ? undefined : filterMethod" :remote-method="remoteMethod === null ? elRemoteQuery : remoteMethod" @visible-change="elEmitVisibleChange" @remove-tag="elEmitRemoveTag" @clear="elEmitClear" @blur="elEmitBlur" @focus="elEmitFocus">
+#>     <el-option v-for="opt in options" :key="opt.value" :value="opt.value" :label="opt.label" :disabled="opt.disabled">
+#>       <span style="float: left">{{ opt.label }}</span>
+#>       <span style="float: right; color: #8492a6">{{ opt.code }}</span>
+#>     </el-option>
+#>     <el-option-group v-for="g in groups" :key="g.label" :label="g.label" :disabled="g.disabled">
+#>       <el-option v-for="opt in g.options" :key="opt.value" :value="opt.value" :label="opt.label" :disabled="opt.disabled">
+#>         <span style="float: left">{{ opt.label }}</span>
+#>         <span style="float: right; color: #8492a6">{{ opt.code }}</span>
+#>       </el-option>
+#>     </el-option-group>
+#>   </el-select>
+#> </div></script>
+#>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":"","options":[{"value":"bj","label":"Beijing","code":"PEK"},{"value":"sh","label":"Shanghai","code":"SHA"}],"groups":[],"multiple":false,"disabled":false,"clearable":false,"filterable":false,"multipleLimit":0,"collapseTags":false,"placeholder":null,"size":null,"valueKey":null,"name":null,"autocomplete":null,"automaticDropdown":null,"allowCreate":null,"loading":null,"loadingText":null,"noMatchText":null,"noDataText":null,"popperClass":null,"popperAppendToBody":null,"reserveKeyword":null,"defaultFirstOption":null,"remote":null,"filterMethod":null,"remoteMethod":null},"methods":{"elEmitVisibleChange":"function() { window.shinyVue.emit('city', 'visible_change', arguments); }","elEmitRemoveTag":"function() { window.shinyVue.emit('city', 'remove_tag', arguments); }","elEmitClear":"function() { window.shinyVue.emit('city', 'clear', arguments); }","elEmitBlur":"function() { window.shinyVue.emit('city', 'blur', arguments); }","elEmitFocus":"function() { window.shinyVue.emit('city', 'focus', arguments); }","elRemoteQuery":"function(query) {\n  if (!(window.Shiny && Shiny.setInputValue)) return;\n  this.loading = true;\n  window.Shiny && Shiny.setInputValue && Shiny.setInputValue('city_query', query, {priority: 'event'});\n}","handleChange":"function(value) { }"}},"input":"value","rate":null,"type":null,"evals":["options.methods.elEmitVisibleChange","options.methods.elEmitRemoveTag","options.methods.elEmitClear","options.methods.elEmitBlur","options.methods.elEmitFocus","options.methods.elRemoteQuery","options.methods.handleChange"]}</script>
+#> </div>
+
 # Single-select from a named vector
 el_select("sel1",
   choices  = c(Apple = "apple", Banana = "banana", Cherry = "cherry"),

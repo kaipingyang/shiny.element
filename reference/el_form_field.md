@@ -27,9 +27,11 @@ el_form_field(
 - type:
 
   Control type: one of `"input"`, `"input-number"`, `"select"`,
-  `"radio-group"`, `"checkbox-group"`, `"switch"`, `"slider"`,
-  `"date-picker"`, `"time-picker"`, `"rate"`, `"cascader"` or
-  `"color-picker"`.
+  `"radio-group"`, `"checkbox-group"`, `"checkbox"` (one box, `TRUE` or
+  `FALSE`), `"switch"`, `"slider"`, `"date-picker"`, `"time-picker"`,
+  `"time-select"`, `"rate"`, `"cascader"`, `"cascader-panel"`,
+  `"color-picker"`, `"autocomplete"` or `"transfer"`. Their props go in
+  `...`: a cascader's `options`, a transfer's `data`.
 
 - label:
 
@@ -42,8 +44,10 @@ el_form_field(
 
 - choices:
 
-  Options for `"select"`, `"radio-group"` and `"checkbox-group"`. A
-  named vector `c(Label = value)` or a list of `list(value=, label=)`.
+  Options for `"select"`, `"radio-group"` and `"checkbox-group"`;
+  suggestions for `"autocomplete"`, filtered as the user types. A named
+  vector `c(Label = value)` or a list of `list(value=, label=)`. For
+  `"checkbox"`, the box's text is `label`.
 
 - rules:
 

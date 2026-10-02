@@ -208,10 +208,39 @@ cannot be picked from:</p>
 </div>
 </div>
 <div class="section level3">
+<h3 id="el_checkbox">
+<code>el_checkbox()</code><a class="anchor" aria-label="anchor" href="#el_checkbox"></a>
+</h3>
+<p>One box, <code>TRUE</code> or <code>FALSE</code>, as
+<code><a href="https://rdrr.io/pkg/shiny/man/checkboxInput.html" class="external-link">checkboxInput()</a></code>. Half-ticked with
+<code>indeterminate</code>, for the “check all” box above a group:</p>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/el_checkbox.html">el_checkbox</a></span><span class="op">(</span><span class="st">"agree"</span>, <span class="st">"I agree to the terms"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="../reference/el_checkbox.html">el_checkbox</a></span><span class="op">(</span><span class="st">"all"</span>, <span class="st">"Check all"</span>, indeterminate <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span><span class="fu"><a href="../reference/el_checkbox.html">el_checkbox</a></span><span class="op">(</span><span class="st">"remember"</span>, <span class="st">"Remember me"</span>, value <span class="op">=</span> <span class="cn">TRUE</span>, border <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
+<div class="el-demo">
+  <div id="checkbox-agree" data-shiny-vue style="display: contents">
+    <script type="text/x-template" data-shiny-vue-template><div id="checkbox-agree_container" style="display: contents">
+  <el-checkbox v-model="value" @change="handleChange" :indeterminate="indeterminate === null ? undefined : indeterminate" :disabled="disabled === null ? undefined : disabled" :border="border === null ? undefined : border" :size="size === null ? undefined : size" :true-label="trueLabel === null ? undefined : trueLabel" :false-label="falseLabel === null ? undefined : falseLabel" :name="name === null ? undefined : name">{{ text }}</el-checkbox>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":false,"text":"I agree to the terms","indeterminate":null,"disabled":null,"border":null,"size":null,"trueLabel":null,"falseLabel":null,"name":null},"methods":{"handleChange":"function(v) { }"}},"input":"value","rate":null,"type":null,"evals":["options.methods.handleChange"]}</script>
+</div>
+  <div id="checkbox-all" data-shiny-vue style="display: contents">
+    <script type="text/x-template" data-shiny-vue-template><div id="checkbox-all_container" style="display: contents">
+  <el-checkbox v-model="value" @change="handleChange" :indeterminate="indeterminate === null ? undefined : indeterminate" :disabled="disabled === null ? undefined : disabled" :border="border === null ? undefined : border" :size="size === null ? undefined : size" :true-label="trueLabel === null ? undefined : trueLabel" :false-label="falseLabel === null ? undefined : falseLabel" :name="name === null ? undefined : name">{{ text }}</el-checkbox>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":false,"text":"Check all","indeterminate":true,"disabled":null,"border":null,"size":null,"trueLabel":null,"falseLabel":null,"name":null},"methods":{"handleChange":"function(v) { }"}},"input":"value","rate":null,"type":null,"evals":["options.methods.handleChange"]}</script>
+</div>
+  <div id="checkbox-remember" data-shiny-vue style="display: contents">
+    <script type="text/x-template" data-shiny-vue-template><div id="checkbox-remember_container" style="display: contents">
+  <el-checkbox v-model="value" @change="handleChange" :indeterminate="indeterminate === null ? undefined : indeterminate" :disabled="disabled === null ? undefined : disabled" :border="border === null ? undefined : border" :size="size === null ? undefined : size" :true-label="trueLabel === null ? undefined : trueLabel" :false-label="falseLabel === null ? undefined : falseLabel" :name="name === null ? undefined : name">{{ text }}</el-checkbox>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":true,"text":"Remember me","indeterminate":null,"disabled":null,"border":true,"size":null,"trueLabel":null,"falseLabel":null,"name":null},"methods":{"handleChange":"function(v) { }"}},"input":"value","rate":null,"type":null,"evals":["options.methods.handleChange"]}</script>
+</div>
+</div>
+</div>
+<div class="section level3">
 <h3 id="el_checkbox_group">
 <code>el_checkbox_group()</code><a class="anchor" aria-label="anchor" href="#el_checkbox_group"></a>
 </h3>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/el_checkbox_group.html">el_checkbox_group</a></span><span class="op">(</span><span class="st">"langs"</span>, choices <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>R <span class="op">=</span> <span class="st">"r"</span>, Python <span class="op">=</span> <span class="st">"p"</span>, SQL <span class="op">=</span> <span class="st">"s"</span><span class="op">)</span>,</span>
 <span>                  selected <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"r"</span>, <span class="st">"s"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
@@ -228,7 +257,7 @@ cannot be picked from:</p>
 <h3 id="el_switch">
 <code>el_switch()</code><a class="anchor" aria-label="anchor" href="#el_switch"></a>
 </h3>
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/el_switch.html">el_switch</a></span><span class="op">(</span><span class="st">"live"</span>, value <span class="op">=</span> <span class="cn">TRUE</span>, active_text <span class="op">=</span> <span class="st">"on"</span>, inactive_text <span class="op">=</span> <span class="st">"off"</span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
   <div id="switch-live" data-shiny-vue style="display: contents">
@@ -242,7 +271,7 @@ cannot be picked from:</p>
 <h3 id="el_slider">
 <code>el_slider()</code><a class="anchor" aria-label="anchor" href="#el_slider"></a>
 </h3>
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/el_slider.html">el_slider</a></span><span class="op">(</span><span class="st">"score"</span>, value <span class="op">=</span> <span class="fl">40</span><span class="op">)</span></span>
 <span><span class="fu"><a href="../reference/el_slider.html">el_slider</a></span><span class="op">(</span><span class="st">"band"</span>, value <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">20</span>, <span class="fl">70</span><span class="op">)</span>, range <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
@@ -262,7 +291,7 @@ cannot be picked from:</p>
 <h3 id="el_rate">
 <code>el_rate()</code><a class="anchor" aria-label="anchor" href="#el_rate"></a>
 </h3>
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/el_rate.html">el_rate</a></span><span class="op">(</span><span class="st">"stars"</span>, value <span class="op">=</span> <span class="fl">3</span>, show_text <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
   <div id="rate-stars" data-shiny-vue style="display: contents">
@@ -276,7 +305,7 @@ cannot be picked from:</p>
 <h3 id="el_date_picker">
 <code>el_date_picker()</code><a class="anchor" aria-label="anchor" href="#el_date_picker"></a>
 </h3>
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/el_date_picker.html">el_date_picker</a></span><span class="op">(</span><span class="st">"when"</span>, value <span class="op">=</span> <span class="st">"2026-03-01"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="../reference/el_date_picker.html">el_date_picker</a></span><span class="op">(</span><span class="st">"span"</span>, type <span class="op">=</span> <span class="st">"daterange"</span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
@@ -298,7 +327,7 @@ cannot be picked from:</p>
 </h3>
 <p>Any time of day, or a range of them; <code><a href="../reference/el_time_picker.html">el_time_select()</a></code>
 offers fixed times at an interval instead.</p>
-<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/el_time_picker.html">el_time_picker</a></span><span class="op">(</span><span class="st">"start"</span>, value <span class="op">=</span> <span class="st">"09:30:00"</span>,</span>
 <span>               picker_options <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>selectableRange <span class="op">=</span> <span class="st">"08:00:00 - 18:00:00"</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="fu"><a href="../reference/el_time_picker.html">el_time_picker</a></span><span class="op">(</span><span class="st">"shift"</span>, is_range <span class="op">=</span> <span class="cn">TRUE</span>, value <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"09:00:00"</span>, <span class="st">"17:30:00"</span><span class="op">)</span><span class="op">)</span></span>
@@ -326,7 +355,7 @@ offers fixed times at an interval instead.</p>
 <h3 id="el_color_picker">
 <code>el_color_picker()</code><a class="anchor" aria-label="anchor" href="#el_color_picker"></a>
 </h3>
-<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/el_color_picker.html">el_color_picker</a></span><span class="op">(</span><span class="st">"shade"</span>, value <span class="op">=</span> <span class="st">"#409EFF"</span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
   <div id="color-picker-shade" data-shiny-vue style="display: contents">
@@ -342,7 +371,7 @@ offers fixed times at an interval instead.</p>
 </h3>
 <p>Nested options; <code><a href="../reference/df_to_cascader_options.html">df_to_cascader_options()</a></code> builds them
 from a data frame.</p>
-<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/el_cascader.html">el_cascader</a></span><span class="op">(</span><span class="st">"region"</span>, options <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>value <span class="op">=</span> <span class="st">"zj"</span>, label <span class="op">=</span> <span class="st">"Zhejiang"</span>, children <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
 <span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>value <span class="op">=</span> <span class="st">"hz"</span>, label <span class="op">=</span> <span class="st">"Hangzhou"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
@@ -363,7 +392,7 @@ from the server as the one before it is opened, through
 <code>el_cascader_panel()</code><a class="anchor" aria-label="anchor" href="#el_cascader_panel"></a>
 </h3>
 <p>The cascader’s columns on their own, always open.</p>
-<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/el_cascader_panel.html">el_cascader_panel</a></span><span class="op">(</span><span class="st">"where"</span>, value <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"asia"</span>, <span class="st">"jp"</span><span class="op">)</span>, width <span class="op">=</span> <span class="st">"fit-content"</span>, options <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>value <span class="op">=</span> <span class="st">"asia"</span>, label <span class="op">=</span> <span class="st">"Asia"</span>, children <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
 <span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>value <span class="op">=</span> <span class="st">"cn"</span>, label <span class="op">=</span> <span class="st">"China"</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>value <span class="op">=</span> <span class="st">"jp"</span>, label <span class="op">=</span> <span class="st">"Japan"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>,</span>
@@ -384,14 +413,14 @@ from the server as the one before it is opened, through
 <p>A text input that suggests as you type. Filtering happens in the
 browser; for suggestions that come from the server pass
 <code>fetch_suggestions</code>.</p>
-<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/el_autocomplete.html">el_autocomplete</a></span><span class="op">(</span><span class="st">"city"</span>, width <span class="op">=</span> <span class="fl">240</span>, placeholder <span class="op">=</span> <span class="st">"Where to?"</span>,</span>
 <span>                suggestions <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Beijing"</span>, <span class="st">"Shanghai"</span>, <span class="st">"Shenzhen"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
   <div id="autocomplete-city" data-shiny-vue style="display: contents">
     <script type="text/x-template" data-shiny-vue-template><div id="autocomplete-city_container" style="display: contents">
   <el-autocomplete v-model="value" :fetch-suggestions="fetchSuggestions" :placeholder="placeholder === null ? undefined : placeholder" :clearable="clearable === null ? undefined : clearable" :disabled="disabled === null ? undefined : disabled" :value-key="valueKey === null ? undefined : valueKey" :debounce="debounce === null ? undefined : debounce" :placement="placement === null ? undefined : placement" :trigger-on-focus="triggerOnFocus === null ? undefined : triggerOnFocus" :select-when-unmatched="selectWhenUnmatched === null ? undefined : selectWhenUnmatched" :highlight-first-item="highlightFirstItem === null ? undefined : highlightFirstItem" :hide-loading="hideLoading === null ? undefined : hideLoading" :icon="icon === null ? undefined : icon" :prefix-icon="prefixIcon === null ? undefined : prefixIcon" :suffix-icon="suffixIcon === null ? undefined : suffixIcon" :label="label === null ? undefined : label" :name="name === null ? undefined : name" :popper-class="popperClass === null ? undefined : popperClass" :popper-append-to-body="popperAppendToBody === null ? undefined : popperAppendToBody" @select="elEmitSelect" @change="elEmitChange" style="width: 240px"></el-autocomplete>
-</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":"","suggestions":[{"value":"Beijing"},{"value":"Shanghai"},{"value":"Shenzhen"}],"placeholder":"Where to?","clearable":null,"disabled":null,"valueKey":null,"debounce":null,"placement":null,"triggerOnFocus":null,"selectWhenUnmatched":null,"highlightFirstItem":null,"hideLoading":null,"icon":null,"prefixIcon":null,"suffixIcon":null,"label":null,"name":null,"popperClass":null,"popperAppendToBody":null},"methods":{"elEmitSelect":"function() { window.shinyVue.emit('autocomplete-city', 'select', arguments); }","elEmitChange":"function() { window.shinyVue.emit('autocomplete-city', 'change', arguments); }","fetchSuggestions":"function(queryString, callback) {\n  var all = this.suggestions || [];\n  var q = (queryString || '').toLowerCase();\n  callback(q ? all.filter(function(s) {\n    return String(s.value).toLowerCase().indexOf(q) === 0;\n  }) : all);\n}","handleInput":"function(v) { }"},"watch":{"value":"function(newVal) { window.Shiny && Shiny.setInputValue && Shiny.setInputValue('autocomplete-city', newVal); }"}},"input":"value","rate":{"policy":"debounce","delay":250},"type":null,"evals":["options.methods.elEmitSelect","options.methods.elEmitChange","options.methods.fetchSuggestions","options.methods.handleInput","options.watch.value"]}</script>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":"","suggestions":[{"value":"Beijing"},{"value":"Shanghai"},{"value":"Shenzhen"}],"placeholder":"Where to?","clearable":null,"disabled":null,"valueKey":null,"debounce":null,"placement":null,"triggerOnFocus":null,"selectWhenUnmatched":null,"highlightFirstItem":null,"hideLoading":null,"icon":null,"prefixIcon":null,"suffixIcon":null,"label":null,"name":null,"popperClass":null,"popperAppendToBody":null},"methods":{"elEmitSelect":"function() { window.shinyVue.emit('autocomplete-city', 'select', arguments); }","elEmitChange":"function() { window.shinyVue.emit('autocomplete-city', 'change', arguments); }","fetchSuggestions":"function(queryString, callback) {\n  var all = this.suggestions || [];\n  var q = (queryString || '').toLowerCase();\n  callback(q ? all.filter(function(s) {\n    return String(s.value).toLowerCase().indexOf(q) === 0;\n  }) : all);\n}"},"watch":{"value":"function(newVal) { }","suggestions":"function(v) { var cb = this._elPending; if (cb) { this._elPending = null; cb(v); } }"}},"input":"value","rate":{"policy":"debounce","delay":250},"type":null,"evals":["options.methods.elEmitSelect","options.methods.elEmitChange","options.methods.fetchSuggestions","options.watch.value","options.watch.suggestions"]}</script>
 </div>
 </div>
 </div>
@@ -401,7 +430,7 @@ browser; for suggestions that come from the server pass
 </h3>
 <p>Two lists, for moving items between them.
 <code>input$&lt;id&gt;</code> holds the keys on the right.</p>
-<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/el_transfer.html">el_transfer</a></span><span class="op">(</span><span class="st">"cols"</span>, width <span class="op">=</span> <span class="fl">560</span>,</span>
 <span>            data <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>key <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">iris</span><span class="op">)</span>, label <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">iris</span><span class="op">)</span><span class="op">)</span>,</span>
 <span>            value <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Species"</span><span class="op">)</span>, titles <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Available"</span>, <span class="st">"Chosen"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
@@ -409,7 +438,7 @@ browser; for suggestions that come from the server pass
   <div id="transfer-cols" data-shiny-vue style="display: contents">
     <script type="text/x-template" data-shiny-vue-template><div id="transfer-cols_container" style="display: contents">
   <el-transfer v-model="value" :data="data" :titles="titles === null ? undefined : titles" :button-texts="buttonTexts === null ? undefined : buttonTexts" :filterable="filterable === null ? undefined : filterable" :filter-placeholder="filterPlaceholder === null ? undefined : filterPlaceholder" :filter-method="filterMethod === null ? undefined : filterMethod" :target-order="targetOrder === null ? undefined : targetOrder" :format="format === null ? undefined : format" :props="props === null ? undefined : props" :left-default-checked="leftDefaultChecked === null ? undefined : leftDefaultChecked" :right-default-checked="rightDefaultChecked === null ? undefined : rightDefaultChecked" :render-content="renderContent === null ? undefined : renderContent" @change="elEmitChange" @left-check-change="elEmitLeftCheckChange" @right-check-change="elEmitRightCheckChange" style="width: 560px"></el-transfer>
-</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":["Species"],"data":[{"key":"Sepal.Length","label":"Sepal.Length"},{"key":"Sepal.Width","label":"Sepal.Width"},{"key":"Petal.Length","label":"Petal.Length"},{"key":"Petal.Width","label":"Petal.Width"},{"key":"Species","label":"Species"}],"titles":["Available","Chosen"],"buttonTexts":null,"filterable":null,"filterPlaceholder":null,"filterMethod":null,"targetOrder":null,"format":null,"props":null,"leftDefaultChecked":null,"rightDefaultChecked":null,"renderContent":null},"methods":{"elEmitChange":"function() { var shape = function(value, direction, moved) { return {value: value, direction: direction, moved: moved}; }; var v = shape.apply(this, arguments); if (v === undefined) return; window.shinyVue.emit('transfer-cols', 'change', [v]); }","elEmitLeftCheckChange":"function() { var shape = function(checked, changed) { return {checked: checked, changed: changed}; }; var v = shape.apply(this, arguments); if (v === undefined) return; window.shinyVue.emit('transfer-cols', 'left_check_change', [v]); }","elEmitRightCheckChange":"function() { var shape = function(checked, changed) { return {checked: checked, changed: changed}; }; var v = shape.apply(this, arguments); if (v === undefined) return; window.shinyVue.emit('transfer-cols', 'right_check_change', [v]); }"},"watch":{"value":"function(newVal) { window.Shiny && Shiny.setInputValue && Shiny.setInputValue('transfer-cols', newVal); }"}},"input":"value","rate":null,"type":null,"evals":["options.methods.elEmitChange","options.methods.elEmitLeftCheckChange","options.methods.elEmitRightCheckChange","options.watch.value"]}</script>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":["Species"],"data":[{"key":"Sepal.Length","label":"Sepal.Length"},{"key":"Sepal.Width","label":"Sepal.Width"},{"key":"Petal.Length","label":"Petal.Length"},{"key":"Petal.Width","label":"Petal.Width"},{"key":"Species","label":"Species"}],"titles":["Available","Chosen"],"buttonTexts":null,"filterable":null,"filterPlaceholder":null,"filterMethod":null,"targetOrder":null,"format":null,"props":null,"leftDefaultChecked":null,"rightDefaultChecked":null,"renderContent":null},"methods":{"elEmitChange":"function() { var shape = function(value, direction, moved) { return {value: value, direction: direction, moved: moved}; }; var v = shape.apply(this, arguments); if (v === undefined) return; window.shinyVue.emit('transfer-cols', 'change', [v]); }","elEmitLeftCheckChange":"function() { var shape = function(checked, changed) { return {checked: checked, changed: changed}; }; var v = shape.apply(this, arguments); if (v === undefined) return; window.shinyVue.emit('transfer-cols', 'left_check_change', [v]); }","elEmitRightCheckChange":"function() { var shape = function(checked, changed) { return {checked: checked, changed: changed}; }; var v = shape.apply(this, arguments); if (v === undefined) return; window.shinyVue.emit('transfer-cols', 'right_check_change', [v]); }"},"watch":{"value":"function(newVal) { }"}},"input":"value","rate":null,"type":null,"evals":["options.methods.elEmitChange","options.methods.elEmitLeftCheckChange","options.methods.elEmitRightCheckChange","options.watch.value"]}</script>
 </div>
 </div>
 </div>
@@ -421,7 +450,7 @@ browser; for suggestions that come from the server pass
 <code>input$files</code> is the data frame <code><a href="https://rdrr.io/pkg/shiny/man/fileInput.html" class="external-link">fileInput()</a></code>
 produces, <code>datapath</code> and all. Pass <code>action</code>
 instead to post straight to a URL.</p>
-<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/el_upload.html">el_upload</a></span><span class="op">(</span><span class="st">"files"</span>, drag <span class="op">=</span> <span class="cn">TRUE</span>, multiple <span class="op">=</span> <span class="cn">TRUE</span>, tip <span class="op">=</span> <span class="st">"CSV only"</span>, accept <span class="op">=</span> <span class="st">".csv"</span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
   <div id="upload-files" data-shiny-vue style="display: contents">
@@ -445,7 +474,7 @@ whole form reports once on submit rather than field by field.
 <code>input$signup</code> carries the model,
 <code>input$signup_valid</code> the verdict,
 <code>input$signup_submit</code> a counter.</p>
-<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/el_form.html">el_form</a></span><span class="op">(</span></span>
 <span>  id <span class="op">=</span> <span class="st">"signup"</span>, label_width <span class="op">=</span> <span class="st">"110px"</span>,</span>
 <span>  <span class="fu"><a href="../reference/el_form_field.html">el_form_field</a></span><span class="op">(</span><span class="st">"name"</span>, <span class="st">"input"</span>, label <span class="op">=</span> <span class="st">"Name"</span>,</span>
@@ -459,10 +488,10 @@ whole form reports once on submit rather than field by field.
   <div id="form-signup" data-shiny-vue style="display: contents">
     <script type="text/x-template" data-shiny-vue-template><div id="form-signup_container" style="display: contents">
   <el-form :model="model" :rules="rules" ref="form" :label-width="labelWidth" :label-position="labelPosition" :inline="inline" :size="size === null ? undefined : size" :disabled="disabled === null ? undefined : disabled" :show-message="showMessage === null ? undefined : showMessage" :inline-message="inlineMessage === null ? undefined : inlineMessage" :status-icon="statusIcon === null ? undefined : statusIcon" :hide-required-asterisk="hideRequiredAsterisk === null ? undefined : hideRequiredAsterisk" :label-suffix="labelSuffix === null ? undefined : labelSuffix" :validate-on-rule-change="validateOnRuleChange === null ? undefined : validateOnRuleChange" @validate="elEmitValidate">
-    <el-form-item v-for="f in fields" :key="f.prop" :prop="f.prop" :label="f.label" :required="f.required" :rules="f.rules" :error="f.error" :label-width="f.labelWidth" :size="f.size" :inline-message="f.inlineMessage" :show-message="f.showMessage"><template slot="label"><span v-if="f.labelHtml" v-html="f.labelHtml"></span><span v-else>{{f.label}}</span></template><template slot="error" slot-scope="scope"><div class="el-form-item__error"><span v-if="f.errorHtml" v-html="f.errorHtml"></span><span v-else>{{scope.error}}</span></div></template><component :is="f.tag" v-model="model[f.prop]" v-bind="f.props"><component v-for="o in (f.options || [])" :is="f.optionTag" :key="o.label" :label="o.label" :value="o.value">{{ o.text }}</component></component></el-form-item>
+    <el-form-item v-for="f in fields" :key="f.prop" :prop="f.prop" :label="f.label" :required="f.required" :rules="f.rules" :error="f.error" :label-width="f.labelWidth" :size="f.size" :inline-message="f.inlineMessage" :show-message="f.showMessage"><template slot="label"><span v-if="f.labelHtml" v-html="f.labelHtml"></span><span v-else>{{f.label}}</span></template><template slot="error" slot-scope="scope"><div class="el-form-item__error"><span v-if="f.errorHtml" v-html="f.errorHtml"></span><span v-else>{{scope.error}}</span></div></template><component :is="f.tag" v-model="model[f.prop]" v-bind="f.props"><template v-if="f.text">{{ f.text }}</template><component v-for="o in (f.options || [])" :is="f.optionTag" :key="o.label" :label="o.label" :value="o.value">{{ o.text }}</component></component></el-form-item>
     <el-form-item><el-button type="primary" @click="handleSubmit">{{ submitLabel }}</el-button></el-form-item>
   </el-form>
-</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"model":{"name":"","email":"","city":""},"rules":{"name":[{"required":true,"message":"Name is required","trigger":"blur"}],"email":[{"type":"email","message":"Not a valid email","trigger":"blur"}]},"fields":[{"prop":"name","label":"Name","tag":"el-input","props":[]},{"prop":"email","label":"Email","tag":"el-input","props":[]},{"prop":"city","label":"City","tag":"el-select","props":[],"optionTag":"el-option","options":[{"label":"Beijing","value":"bj","text":""},{"label":"Shanghai","value":"sh","text":""}]}],"labelWidth":"110px","labelPosition":"right","inline":false,"submitLabel":"Submit","resetLabel":"","submitCount":0,"valid":false,"size":null,"disabled":null,"showMessage":null,"inlineMessage":null,"statusIcon":null,"hideRequiredAsterisk":null,"labelSuffix":null,"validateOnRuleChange":null},"methods":{"elEmitValidate":"function() { window.shinyVue.emit('form-signup', 'validate', arguments); }","handleSubmit":"function() { var self = this; this.$refs.form.validate(function(ok) { self.submitCount++; self.valid = ok; window.Shiny && Shiny.setInputValue && Shiny.setInputValue(\"form-signup\" + '_valid', ok); window.Shiny && Shiny.setInputValue && Shiny.setInputValue(\"form-signup\" + '_submit', self.submitCount); }); }","shinyVueReceive":"function(d) { var self = this, action = d['.action']; delete d['.action']; if (d.model) { Object.keys(d.model).forEach(function(k) { self.$set(self.model, k, d.model[k]); }); delete d.model; } if (action === 'validate') self.handleSubmit(); else if (action === 'reset') self.handleReset(); else if (action === 'clearValidate') { if (self.$refs.form) self.$refs.form.clearValidate(d.props || undefined); delete d.props; } return d; }","handleReset":"function() { this.$refs.form.resetFields(); }"}},"input":"model","rate":null,"type":null,"evals":["options.methods.elEmitValidate","options.methods.handleSubmit","options.methods.shinyVueReceive","options.methods.handleReset"]}</script>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"model":{"name":"","email":"","city":""},"rules":{"name":[{"required":true,"message":"Name is required","trigger":"blur"}],"email":[{"type":"email","message":"Not a valid email","trigger":"blur"}]},"fields":[{"prop":"name","label":"Name","tag":"el-input","props":[]},{"prop":"email","label":"Email","tag":"el-input","props":[]},{"prop":"city","label":"City","tag":"el-select","props":[],"optionTag":"el-option","options":[{"label":"Beijing","value":"bj","text":""},{"label":"Shanghai","value":"sh","text":""}]}],"labelWidth":"110px","labelPosition":"right","inline":false,"submitLabel":"Submit","resetLabel":"","submitCount":0,"valid":false,"size":null,"disabled":null,"showMessage":null,"inlineMessage":null,"statusIcon":null,"hideRequiredAsterisk":null,"labelSuffix":null,"validateOnRuleChange":null},"methods":{"elEmitValidate":"function() { window.shinyVue.emit('form-signup', 'validate', arguments); }","handleSubmit":"function() { var self = this; this.$refs.form.validate(function(ok) { self.submitCount++; self.valid = ok; window.Shiny && Shiny.setInputValue && Shiny.setInputValue(\"form-signup\" + '_valid', ok); window.Shiny && Shiny.setInputValue && Shiny.setInputValue(\"form-signup\" + '_submit', self.submitCount); }); }","shinyVueReceive":"function(d) { var self = this, action = d['.action']; delete d['.action']; if (d.model) { Object.keys(d.model).forEach(function(k) { self.$set(self.model, k, d.model[k]); }); delete d.model; } if (d['.fields']) { var model = {}, rules = {}; d['.fields'].forEach(function(f) { model[f.prop] = Object.prototype.hasOwnProperty.call(self.model, f.prop) ? self.model[f.prop] : f.value; if (f.rules) rules[f.prop] = f.rules; delete f.value; delete f.rules; }); self.model = model; self.rules = rules; self.fields = d['.fields']; delete d['.fields']; } if (d['.errors']) { Object.keys(d['.errors']).forEach(function(k) { self.fields.forEach(function(f, i) { if (f.prop === k) self.$set(self.fields[i], 'error', d['.errors'][k] || ''); }); }); delete d['.errors']; } if (action === 'validate') self.handleSubmit(); else if (action === 'reset') self.handleReset(); else if (action === 'clearValidate') { if (self.$refs.form) self.$refs.form.clearValidate(d.props || undefined); delete d.props; } return d; }","handleReset":"function() { this.$refs.form.resetFields(); }"}},"input":"model","rate":null,"type":null,"evals":["options.methods.elEmitValidate","options.methods.handleSubmit","options.methods.shinyVueReceive","options.methods.handleReset"]}</script>
 </div>
 </div>
 </div>
@@ -474,7 +503,7 @@ whole form reports once on submit rather than field by field.
 <h3 id="el_button">
 <code>el_button()</code><a class="anchor" aria-label="anchor" href="#el_button"></a>
 </h3>
-<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/el_button.html">el_button</a></span><span class="op">(</span><span class="st">"save"</span>, <span class="st">"Primary"</span>, type <span class="op">=</span> <span class="st">"primary"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="../reference/el_button.html">el_button</a></span><span class="op">(</span><span class="st">"go"</span>, <span class="st">"Round"</span>, type <span class="op">=</span> <span class="st">"primary"</span>, round <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
 <span><span class="fu"><a href="../reference/el_button.html">el_button</a></span><span class="op">(</span><span class="st">"wait"</span>, <span class="st">"Loading"</span>, type <span class="op">=</span> <span class="st">"primary"</span>, loading <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
@@ -495,12 +524,30 @@ whole form reports once on submit rather than field by field.
 </div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"label":"Loading","type":"primary","size":null,"plain":false,"round":false,"circle":false,"loading":true,"disabled":false,"native_type":"button","icon":null,"count":0,"autofocus":false},"methods":{"handleClick":"function() { if (this.disabled || this.loading) return; this.count++; }"}},"input":"count","rate":null,"type":"shiny.action","evals":["options.methods.handleClick"]}</script>
 </div>
 </div>
+<p><code>input$&lt;id&gt;</code> counts clicks as
+<code><a href="https://rdrr.io/pkg/shiny/man/actionButton.html" class="external-link">actionButton()</a></code> does – 0 on load, which
+<code><a href="https://rdrr.io/pkg/shiny/man/observeEvent.html" class="external-link">observeEvent()</a></code> ignores. <code><a href="../reference/el_button_group.html">el_button_group()</a></code>
+joins buttons into one bar, each still reporting its own clicks:</p>
+<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/el_button_group.html">el_button_group</a></span><span class="op">(</span></span>
+<span>  <span class="fu"><a href="../reference/el_button.html">el_button</a></span><span class="op">(</span><span class="st">"prev"</span>, <span class="st">"Previous"</span>, icon <span class="op">=</span> <span class="st">"el-icon-arrow-left"</span>, type <span class="op">=</span> <span class="st">"primary"</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="../reference/el_button.html">el_button</a></span><span class="op">(</span><span class="st">"next"</span>, <span class="st">"Next"</span>, type <span class="op">=</span> <span class="st">"primary"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<div class="el-demo">
+  <div id="el_button_group_f6b6f232-347e-4bb3-a059-d17e2e01c82a" data-shiny-vue style="display: contents">
+    <script type="text/x-template" data-shiny-vue-template><div id="el_button_group_f6b6f232-347e-4bb3-a059-d17e2e01c82a_container" style="display: contents">
+  <el-button-group>
+    <el-button :type="type" :plain="plain" :round="round" :circle="circle" :loading="loading" :disabled="disabled" :native-type="native_type" @click="handleClick" :size="size === null ? undefined : size" :icon="icon === null ? undefined : icon" :autofocus="autofocus === null ? undefined : autofocus">{{label}}</el-button>
+    <el-button :type="el3_type" :plain="el3_plain" :round="el3_round" :circle="el3_circle" :loading="el3_loading" :disabled="el3_disabled" :native-type="el3_native_type" @click="el3_handleClick" :size="el3_size === null ? undefined : el3_size" :icon="el3_icon === null ? undefined : el3_icon" :autofocus="el3_autofocus === null ? undefined : el3_autofocus">{{el3_label}}</el-button>
+  </el-button-group>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"label":"Previous","type":"primary","size":null,"plain":false,"round":false,"circle":false,"loading":false,"disabled":false,"native_type":"button","icon":"el-icon-arrow-left","count":0,"autofocus":false,"el3_label":"Next","el3_type":"primary","el3_size":null,"el3_plain":false,"el3_round":false,"el3_circle":false,"el3_loading":false,"el3_disabled":false,"el3_native_type":"button","el3_icon":null,"el3_count":0,"el3_autofocus":false},"methods":{"handleClick":"function() { if (this.disabled || this.loading) return; this.count++; window.Shiny && Shiny.setInputValue && Shiny.setInputValue('button-group-prev:shiny.action', this.count); }","el3_handleClick":"function() { if (this.el3_disabled || this.el3_loading) return; this.el3_count++; window.Shiny && Shiny.setInputValue && Shiny.setInputValue('button-group-next:shiny.action', this.el3_count); }"},"mounted":"function() { var self = this; var send = function() { window.Shiny && Shiny.setInputValue && Shiny.setInputValue(\"button-group-prev:shiny.action\", self.count); window.Shiny && Shiny.setInputValue && Shiny.setInputValue(\"button-group-next:shiny.action\", self.el3_count); }; if (window.Shiny && Shiny.shinyapp && typeof Shiny.shinyapp.isConnected === 'function' && Shiny.shinyapp.isConnected()) { send(); } else if (window.jQuery) { jQuery(document).one('shiny:connected', send); } var prev = self._elReport; self._elReport = function() { if (prev) prev(); self.$nextTick(send); }; }"},"input":null,"rate":null,"type":null,"evals":["options.methods.handleClick","options.methods.el3_handleClick","options.mounted"]}</script>
+</div>
+</div>
 </div>
 <div class="section level3">
 <h3 id="el_tag">
 <code>el_tag()</code><a class="anchor" aria-label="anchor" href="#el_tag"></a>
 </h3>
-<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/el_tag.html">el_tag</a></span><span class="op">(</span><span class="st">"t"</span>, label <span class="op">=</span> <span class="st">"closable"</span>, type <span class="op">=</span> <span class="st">"warning"</span>, closable <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
   <div id="tag-t" data-shiny-vue style="display: contents">
@@ -514,7 +561,7 @@ whole form reports once on submit rather than field by field.
 <h3 id="el_alert">
 <code>el_alert()</code><a class="anchor" aria-label="anchor" href="#el_alert"></a>
 </h3>
-<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/el_alert.html">el_alert</a></span><span class="op">(</span><span class="st">"hint"</span>, title <span class="op">=</span> <span class="st">"info"</span>, type <span class="op">=</span> <span class="st">"info"</span>, show_icon <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>         description <span class="op">=</span> <span class="st">"with a description"</span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
@@ -530,7 +577,7 @@ whole form reports once on submit rather than field by field.
 <code>el_progress()</code><a class="anchor" aria-label="anchor" href="#el_progress"></a>
 </h3>
 <p>Line, circle and dashboard.</p>
-<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/el_progress.html">el_progress</a></span><span class="op">(</span><span class="st">"pct"</span>, percentage <span class="op">=</span> <span class="fl">70</span><span class="op">)</span></span>
 <span><span class="fu"><a href="../reference/el_progress.html">el_progress</a></span><span class="op">(</span><span class="st">"ring"</span>, percentage <span class="op">=</span> <span class="fl">70</span>, type <span class="op">=</span> <span class="st">"circle"</span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
@@ -550,7 +597,7 @@ whole form reports once on submit rather than field by field.
 <h3 id="el_badge">
 <code>el_badge()</code><a class="anchor" aria-label="anchor" href="#el_badge"></a>
 </h3>
-<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/el_badge.html">el_badge</a></span><span class="op">(</span><span class="fu"><a href="../reference/el_button.html">el_button</a></span><span class="op">(</span><span class="st">"msg"</span>, <span class="st">"messages"</span><span class="op">)</span>, value <span class="op">=</span> <span class="fl">12</span><span class="op">)</span></span>
 <span><span class="fu"><a href="../reference/el_badge.html">el_badge</a></span><span class="op">(</span><span class="fu"><a href="../reference/el_button.html">el_button</a></span><span class="op">(</span><span class="st">"hi"</span>, <span class="st">"capped"</span><span class="op">)</span>, value <span class="op">=</span> <span class="fl">200</span>, max <span class="op">=</span> <span class="fl">99</span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
@@ -571,12 +618,26 @@ whole form reports once on submit rather than field by field.
     <sup class="el-badge__content is-fixed">99+</sup>
 </div>
 </div>
+<p>Given an <code>id</code>, a badge is changed from the server – an
+unread count, say – with
+<code>update_el_badge(session, "unread", value = 7)</code>:</p>
+<div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/el_badge.html">el_badge</a></span><span class="op">(</span><span class="fu"><a href="../reference/el_button.html">el_button</a></span><span class="op">(</span><span class="st">"inbox"</span>, <span class="st">"Inbox"</span><span class="op">)</span>, value <span class="op">=</span> <span class="fl">3</span>, id <span class="op">=</span> <span class="st">"unread"</span><span class="op">)</span></span></code></pre></div>
+<div class="el-demo">
+  <div id="badge-id-unread" data-shiny-vue style="display: contents">
+    <script type="text/x-template" data-shiny-vue-template><div id="badge-id-unread_container" style="display: contents">
+  <el-badge :value="badgeValue === null ? undefined : badgeValue" :max="badgeMax === null ? undefined : badgeMax" :is-dot="badgeIsDot" :hidden="badgeHidden" :type="badgeType === null ? undefined : badgeType">
+    <el-button :type="type" :plain="plain" :round="round" :circle="circle" :loading="loading" :disabled="disabled" :native-type="native_type" @click="handleClick" :size="size === null ? undefined : size" :icon="icon === null ? undefined : icon" :autofocus="autofocus === null ? undefined : autofocus">{{label}}</el-button>
+  </el-badge>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"badgeValue":3,"badgeMax":null,"badgeIsDot":false,"badgeHidden":false,"badgeType":null,"label":"Inbox","type":"default","size":null,"plain":false,"round":false,"circle":false,"loading":false,"disabled":false,"native_type":"button","icon":null,"count":0,"autofocus":false},"methods":{"handleClick":"function() { if (this.disabled || this.loading) return; this.count++; window.Shiny && Shiny.setInputValue && Shiny.setInputValue('badge-id-inbox:shiny.action', this.count); }"},"mounted":"function() { var self = this; var send = function() { window.Shiny && Shiny.setInputValue && Shiny.setInputValue(\"badge-id-inbox:shiny.action\", self.count); }; if (window.Shiny && Shiny.shinyapp && typeof Shiny.shinyapp.isConnected === 'function' && Shiny.shinyapp.isConnected()) { send(); } else if (window.jQuery) { jQuery(document).one('shiny:connected', send); } var prev = self._elReport; self._elReport = function() { if (prev) prev(); self.$nextTick(send); }; }"},"input":null,"rate":null,"type":null,"evals":["options.methods.handleClick","options.mounted"]}</script>
+</div>
+</div>
 </div>
 <div class="section level3">
 <h3 id="el_card">
 <code>el_card()</code><a class="anchor" aria-label="anchor" href="#el_card"></a>
 </h3>
-<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb27"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/el_card.html">el_card</a></span><span class="op">(</span>header <span class="op">=</span> <span class="st">"Card header"</span>, <span class="st">"Cards nest any content."</span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
   <div class="el-card is-always-shadow">
@@ -592,7 +653,7 @@ whole form reports once on submit rather than field by field.
 <p>Takes a data frame directly and infers its columns. With
 <code>selection = TRUE</code>, <code>input$tbl_selected_rows</code>
 gives 1-based row numbers with their R types intact.</p>
-<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb28"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/el_table.html">el_table</a></span><span class="op">(</span>id <span class="op">=</span> <span class="st">"tbl"</span>, data <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">iris</span>, <span class="fl">4</span><span class="op">)</span>, selection <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
   <div id="table-tbl" data-shiny-vue style="display: contents">
@@ -615,7 +676,7 @@ gives 1-based row numbers with their R types intact.</p>
 <code>el_avatar()</code><a class="anchor" aria-label="anchor" href="#el_avatar"></a>
 </h3>
 <p>From an image, an icon, or text.</p>
-<div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb29"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/el_avatar.html">el_avatar</a></span><span class="op">(</span><span class="st">"anon"</span>, icon <span class="op">=</span> <span class="st">"el-icon-user-solid"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="../reference/el_avatar.html">el_avatar</a></span><span class="op">(</span><span class="st">"initials"</span>, content <span class="op">=</span> <span class="st">"KY"</span>, shape <span class="op">=</span> <span class="st">"square"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="../reference/el_avatar.html">el_avatar</a></span><span class="op">(</span><span class="st">"big"</span>, content <span class="op">=</span> <span class="st">"40"</span>, size <span class="op">=</span> <span class="fl">40</span><span class="op">)</span></span></code></pre></div>
@@ -643,7 +704,7 @@ gives 1-based row numbers with their R types intact.</p>
 </h3>
 <p>An image with a fit mode, optional lazy loading, and an optional
 full-screen preview.</p>
-<div class="sourceCode" id="cb27"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb30"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Serve a folder of images; here, R's own logo</span></span>
 <span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/resourcePaths.html" class="external-link">addResourcePath</a></span><span class="op">(</span><span class="st">"rdoc"</span>, <span class="fu"><a href="https://rdrr.io/r/base/Rhome.html" class="external-link">R.home</a></span><span class="op">(</span><span class="st">"doc/html"</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
@@ -671,7 +732,7 @@ full-screen preview.</p>
 </h3>
 <p>A read-only grid of labelled values – the detail view of a record.
 Content may be any UI, components included.</p>
-<div class="sourceCode" id="cb28"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb31"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/el_descriptions.html">el_descriptions</a></span><span class="op">(</span><span class="st">"account"</span>, title <span class="op">=</span> <span class="st">"Account"</span>, border <span class="op">=</span> <span class="cn">TRUE</span>, column <span class="op">=</span> <span class="fl">2</span>,</span>
 <span>  items <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
 <span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>label <span class="op">=</span> <span class="st">"Name"</span>, content <span class="op">=</span> <span class="st">"Ada Lovelace"</span><span class="op">)</span>,</span>
@@ -701,7 +762,7 @@ Content may be any UI, components included.</p>
 <code>el_statistic()</code><a class="anchor" aria-label="anchor" href="#el_statistic"></a>
 </h3>
 <p>A headline number with a title.</p>
-<div class="sourceCode" id="cb29"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb32"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/el_row.html">el_row</a></span><span class="op">(</span>gutter <span class="op">=</span> <span class="fl">20</span>,</span>
 <span>  <span class="fu"><a href="../reference/el_col.html">el_col</a></span><span class="op">(</span>span <span class="op">=</span> <span class="fl">8</span>, <span class="fu"><a href="../reference/el_statistic.html">el_statistic</a></span><span class="op">(</span><span class="st">"users"</span>, value <span class="op">=</span> <span class="fl">26048</span>, title <span class="op">=</span> <span class="st">"Active users"</span>,</span>
 <span>                                group_separator <span class="op">=</span> <span class="st">","</span><span class="op">)</span><span class="op">)</span>,</span>
@@ -737,14 +798,14 @@ Content may be any UI, components included.</p>
 </div>
 <p>With <code>time_indices = TRUE</code> it counts down to a date-time,
 and reports <code>input$&lt;id&gt;_finish</code> when it gets there:</p>
-<div class="sourceCode" id="cb30"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb33"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/el_statistic.html">el_statistic</a></span><span class="op">(</span><span class="st">"sale"</span>, value <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Sys.time.html" class="external-link">Sys.time</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> <span class="fl">5</span> <span class="op">*</span> <span class="fl">3600</span>, time_indices <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>             title <span class="op">=</span> <span class="st">"Sale ends in"</span>, format <span class="op">=</span> <span class="st">"HH:mm:ss"</span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
   <div id="countdown-sale" data-shiny-vue style="display: contents">
     <script type="text/x-template" data-shiny-vue-template><div id="countdown-sale_container" style="display: contents">
   <el-statistic :value="value" :title="title === null ? undefined : title" :prefix="prefix === null ? undefined : prefix" :suffix="suffix === null ? undefined : suffix" :precision="precision === null ? undefined : precision" :decimal-separator="decimalSeparator === null ? undefined : decimalSeparator" :group-separator="groupSeparator === null ? undefined : groupSeparator" :rate="rate === null ? undefined : rate" :value-style="valueStyle === null ? undefined : valueStyle" :formatter="formatter === null ? undefined : formatter" :time-indices="timeIndices" :format="format === null ? undefined : format" @finish="elEmitFinish" @change="elEmitChange"></el-statistic>
-</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":1790951242940.77,"title":"Sale ends in","prefix":null,"suffix":null,"precision":null,"decimalSeparator":null,"groupSeparator":null,"rate":null,"valueStyle":null,"formatter":null,"timeIndices":true,"format":"HH:mm:ss"},"methods":{"elEmitFinish":"function() { var shape = function() { return true; }; var v = shape.apply(this, arguments); if (v === undefined) return; window.shinyVue.emit('countdown-sale', 'finish', [v]); }","elEmitChange":"function() { var shape = function(ms) { var now = Date.now(); if (this._elLastChange && now - this._elLastChange < 1000) return undefined; this._elLastChange = now; return ms; }; var v = shape.apply(this, arguments); if (v === undefined) return; window.shinyVue.emit('countdown-sale', 'change', [v]); }"}},"input":null,"rate":null,"type":null,"evals":["options.methods.elEmitFinish","options.methods.elEmitChange"]}</script>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":1790953379790.81,"title":"Sale ends in","prefix":null,"suffix":null,"precision":null,"decimalSeparator":null,"groupSeparator":null,"rate":null,"valueStyle":null,"formatter":null,"timeIndices":true,"format":"HH:mm:ss"},"methods":{"elEmitFinish":"function() { var shape = function() { return true; }; var v = shape.apply(this, arguments); if (v === undefined) return; window.shinyVue.emit('countdown-sale', 'finish', [v]); }","elEmitChange":"function() { var shape = function(ms) { var now = Date.now(); if (this._elLastChange && now - this._elLastChange < 1000) return undefined; this._elLastChange = now; return ms; }; var v = shape.apply(this, arguments); if (v === undefined) return; window.shinyVue.emit('countdown-sale', 'change', [v]); }"}},"input":null,"rate":null,"type":null,"evals":["options.methods.elEmitFinish","options.methods.elEmitChange"]}</script>
 </div>
 </div>
 </div>
@@ -754,7 +815,7 @@ and reports <code>input$&lt;id&gt;_finish</code> when it gets there:</p>
 </h3>
 <p>What a view shows when there is nothing in it yet, and what it shows
 once something has finished.</p>
-<div class="sourceCode" id="cb31"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb34"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/el_empty.html">el_empty</a></span><span class="op">(</span><span class="st">"none"</span>, description <span class="op">=</span> <span class="st">"No reports yet"</span>, image_size <span class="op">=</span> <span class="fl">100</span>,</span>
 <span>         <span class="fu"><a href="../reference/el_button.html">el_button</a></span><span class="op">(</span><span class="st">"create"</span>, <span class="st">"Create one"</span>, type <span class="op">=</span> <span class="st">"primary"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
@@ -766,7 +827,7 @@ once something has finished.</p>
 </div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"emptyDescription":"No reports yet","emptyImage":null,"emptyImageSize":100,"label":"Create one","type":"primary","size":null,"plain":false,"round":false,"circle":false,"loading":false,"disabled":false,"native_type":"button","icon":null,"count":0,"autofocus":false},"methods":{"handleClick":"function() { if (this.disabled || this.loading) return; this.count++; window.Shiny && Shiny.setInputValue && Shiny.setInputValue('empty-create:shiny.action', this.count); }"},"mounted":"function() { var self = this; var send = function() { window.Shiny && Shiny.setInputValue && Shiny.setInputValue(\"empty-create:shiny.action\", self.count); }; if (window.Shiny && Shiny.shinyapp && typeof Shiny.shinyapp.isConnected === 'function' && Shiny.shinyapp.isConnected()) { send(); } else if (window.jQuery) { jQuery(document).one('shiny:connected', send); } var prev = self._elReport; self._elReport = function() { if (prev) prev(); self.$nextTick(send); }; }"},"input":null,"rate":null,"type":null,"evals":["options.methods.handleClick","options.mounted"]}</script>
 </div>
 </div>
-<div class="sourceCode" id="cb32"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb35"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/el_result.html">el_result</a></span><span class="op">(</span><span class="st">"done"</span>, icon <span class="op">=</span> <span class="st">"success"</span>, title <span class="op">=</span> <span class="st">"Report submitted"</span>,</span>
 <span>          sub_title <span class="op">=</span> <span class="st">"It will be reviewed within a day"</span>,</span>
 <span>          <span class="fu"><a href="../reference/el_button.html">el_button</a></span><span class="op">(</span><span class="st">"back"</span>, <span class="st">"Back to the list"</span>, type <span class="op">=</span> <span class="st">"primary"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
@@ -788,7 +849,7 @@ once something has finished.</p>
 </h3>
 <p>Grey shapes in place of content that is still on its way. Switch
 <code>loading</code> off from the server when the content is ready.</p>
-<div class="sourceCode" id="cb33"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb36"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/el_skeleton.html">el_skeleton</a></span><span class="op">(</span><span class="st">"report"</span>, rows <span class="op">=</span> <span class="fl">3</span>, animated <span class="op">=</span> <span class="cn">TRUE</span>, <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/renderTable.html" class="external-link">tableOutput</a></span><span class="op">(</span><span class="st">"summary"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
   <div id="skeleton-report" data-shiny-vue style="display: contents">
@@ -806,7 +867,7 @@ once something has finished.</p>
 <h3 id="el_pagination">
 <code>el_pagination()</code><a class="anchor" aria-label="anchor" href="#el_pagination"></a>
 </h3>
-<div class="sourceCode" id="cb34"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb37"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/el_pagination.html">el_pagination</a></span><span class="op">(</span><span class="st">"pager"</span>, total <span class="op">=</span> <span class="fl">200</span>, page_size <span class="op">=</span> <span class="fl">20</span>, current_page <span class="op">=</span> <span class="fl">3</span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
   <div id="pagination-pager" data-shiny-vue style="display: contents">
@@ -822,7 +883,7 @@ once something has finished.</p>
 </h3>
 <p>Entries can be replaced wholesale with
 <code><a href="../reference/update_el_timeline.html">update_el_timeline()</a></code>, which suits a log that grows.</p>
-<div class="sourceCode" id="cb35"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb38"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/el_timeline.html">el_timeline</a></span><span class="op">(</span><span class="st">"log"</span>, items <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>content <span class="op">=</span> <span class="st">"Order placed"</span>, timestamp <span class="op">=</span> <span class="st">"2026-03-01"</span>, type <span class="op">=</span> <span class="st">"primary"</span><span class="op">)</span>,</span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>content <span class="op">=</span> <span class="st">"Shipped"</span>, timestamp <span class="op">=</span> <span class="st">"2026-03-02"</span>, type <span class="op">=</span> <span class="st">"success"</span>,</span>
@@ -841,7 +902,7 @@ once something has finished.</p>
 <h3 id="el_carousel">
 <code>el_carousel()</code><a class="anchor" aria-label="anchor" href="#el_carousel"></a>
 </h3>
-<div class="sourceCode" id="cb36"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb39"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/el_carousel.html">el_carousel</a></span><span class="op">(</span><span class="st">"banner"</span>, height <span class="op">=</span> <span class="st">"160px"</span>, items <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">"one"</span>, content <span class="op">=</span> <span class="va">tags</span><span class="op">$</span><span class="fu">h3</span><span class="op">(</span><span class="st">"First"</span><span class="op">)</span><span class="op">)</span>,</span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">"two"</span>, content <span class="op">=</span> <span class="va">tags</span><span class="op">$</span><span class="fu">h3</span><span class="op">(</span><span class="st">"Second"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
@@ -864,7 +925,7 @@ once something has finished.</p>
 <h3 id="el_divider-and-el_link">
 <code>el_divider()</code> and <code>el_link()</code><a class="anchor" aria-label="anchor" href="#el_divider-and-el_link"></a>
 </h3>
-<div class="sourceCode" id="cb37"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb40"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/el_divider.html">el_divider</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="fu"><a href="../reference/el_link.html">el_link</a></span><span class="op">(</span><span class="st">"primary"</span>, type <span class="op">=</span> <span class="st">"primary"</span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
@@ -873,13 +934,17 @@ once something has finished.</p>
     <span class="el-link--inner">primary</span>
   </a>
 </div>
+<p>A link given an <code>id</code> counts its clicks, as
+<code><a href="https://rdrr.io/pkg/shiny/man/actionButton.html" class="external-link">actionLink()</a></code> does:
+<code>el_link("Show more", id = "more")</code> reports
+<code>input$more</code>.</p>
 </div>
 <div class="section level3">
 <h3 id="icons">Icons<a class="anchor" aria-label="anchor" href="#icons"></a>
 </h3>
 <p>Element’s icon font ships with the package; any
 <code>el-icon-*</code> class works.</p>
-<div class="sourceCode" id="cb38"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb41"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">tags</span><span class="op">$</span><span class="fu">i</span><span class="op">(</span>class <span class="op">=</span> <span class="st">"el-icon-edit"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="../reference/el_icon.html">el_icon</a></span><span class="op">(</span><span class="st">"star-on"</span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
@@ -898,7 +963,7 @@ inside one stays connected to the server.</p>
 <h3 id="el_tabs">
 <code>el_tabs()</code><a class="anchor" aria-label="anchor" href="#el_tabs"></a>
 </h3>
-<div class="sourceCode" id="cb39"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb42"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/el_tabs.html">el_tabs</a></span><span class="op">(</span><span class="st">"section"</span>, tabs <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">"x"</span>, label <span class="op">=</span> <span class="st">"Inputs"</span>,</span>
 <span>       content <span class="op">=</span> <span class="fu"><a href="https://rstudio.github.io/htmltools/reference/tagList.html" class="external-link">tagList</a></span><span class="op">(</span><span class="fu"><a href="../reference/el_input.html">el_input</a></span><span class="op">(</span><span class="st">"q"</span><span class="op">)</span>, <span class="fu"><a href="../reference/el_rate.html">el_rate</a></span><span class="op">(</span><span class="st">"stars"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>,</span>
@@ -937,7 +1002,7 @@ inside one stays connected to the server.</p>
 button. The tabs close themselves; a new one is the server’s to make,
 with <code><a href="../reference/insert_el_tab.html">insert_el_tab()</a></code>, and it can hold components like any
 other:</p>
-<div class="sourceCode" id="cb40"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb43"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/el_page.html">el_page</a></span><span class="op">(</span></span>
 <span>  <span class="fu"><a href="../reference/el_tabs.html">el_tabs</a></span><span class="op">(</span><span class="st">"docs"</span>, editable <span class="op">=</span> <span class="cn">TRUE</span>, tabs <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
 <span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">"readme"</span>, label <span class="op">=</span> <span class="st">"README"</span>, content <span class="op">=</span> <span class="va">tags</span><span class="op">$</span><span class="fu">p</span><span class="op">(</span><span class="st">"The first page."</span><span class="op">)</span><span class="op">)</span></span>
@@ -962,7 +1027,7 @@ other:</p>
 <h3 id="el_collapse">
 <code>el_collapse()</code><a class="anchor" aria-label="anchor" href="#el_collapse"></a>
 </h3>
-<div class="sourceCode" id="cb41"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb44"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/el_collapse.html">el_collapse</a></span><span class="op">(</span><span class="st">"panels"</span>, value <span class="op">=</span> <span class="st">"p1"</span>, items <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">"p1"</span>, title <span class="op">=</span> <span class="st">"Filters"</span>,</span>
 <span>       content <span class="op">=</span> <span class="fu"><a href="https://rstudio.github.io/htmltools/reference/tagList.html" class="external-link">tagList</a></span><span class="op">(</span><span class="fu"><a href="../reference/el_input.html">el_input</a></span><span class="op">(</span><span class="st">"q"</span><span class="op">)</span>, <span class="fu"><a href="../reference/el_switch.html">el_switch</a></span><span class="op">(</span><span class="st">"live"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
@@ -995,7 +1060,7 @@ other:</p>
 <h3 id="el_steps">
 <code>el_steps()</code><a class="anchor" aria-label="anchor" href="#el_steps"></a>
 </h3>
-<div class="sourceCode" id="cb42"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb45"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/el_steps.html">el_steps</a></span><span class="op">(</span><span class="st">"wizard"</span>, active <span class="op">=</span> <span class="fl">1</span>, finish_status <span class="op">=</span> <span class="st">"success"</span>, steps <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Pick"</span>, description <span class="op">=</span> <span class="st">"choose a plan"</span><span class="op">)</span>,</span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Pay"</span>,  description <span class="op">=</span> <span class="st">"enter card"</span><span class="op">)</span>,</span>
@@ -1008,7 +1073,7 @@ other:</p>
     <el-step title="Pay" description="enter card"></el-step>
     <el-step title="Done" description="all set"></el-step>
   </el-steps>
-</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"active":1,"direction":"horizontal","processStatus":"process","finishStatus":"success","alignCenter":false,"simple":false,"space":null},"watch":{"active":"function(newVal) { window.Shiny && Shiny.setInputValue && Shiny.setInputValue('steps-wizard', newVal); }"}},"input":"active","rate":null,"type":null,"evals":["options.watch.active"]}</script>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"active":1,"direction":"horizontal","processStatus":"process","finishStatus":"success","alignCenter":false,"simple":false,"space":null},"watch":{"active":"function(newVal) { }"}},"input":"active","rate":null,"type":null,"evals":["options.watch.active"]}</script>
 </div>
 </div>
 </div>
@@ -1018,7 +1083,7 @@ other:</p>
 </h3>
 <p>Open and close them from the server; <code>input$&lt;id&gt;</code> is
 <code>TRUE</code> while open. Both hold live components.</p>
-<div class="sourceCode" id="cb43"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb46"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/el_page.html">el_page</a></span><span class="op">(</span></span>
 <span>  <span class="fu"><a href="../reference/el_button.html">el_button</a></span><span class="op">(</span><span class="st">"open"</span>, <span class="st">"Open dialog"</span>, type <span class="op">=</span> <span class="st">"primary"</span><span class="op">)</span>,</span>
 <span>  <span class="fu"><a href="../reference/el_dialog.html">el_dialog</a></span><span class="op">(</span><span class="st">"confirm"</span>, title <span class="op">=</span> <span class="st">"Why?"</span>, width <span class="op">=</span> <span class="st">"420px"</span>,</span>
@@ -1033,7 +1098,7 @@ other:</p>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/shinyApp.html" class="external-link">shinyApp</a></span><span class="op">(</span><span class="va">ui</span>, <span class="va">server</span><span class="op">)</span></span></code></pre></div>
 <p><img src="../shots/components-dialog.png"></p>
-<div class="sourceCode" id="cb44"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb47"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/el_page.html">el_page</a></span><span class="op">(</span></span>
 <span>  <span class="fu"><a href="../reference/el_button.html">el_button</a></span><span class="op">(</span><span class="st">"open"</span>, <span class="st">"Open drawer"</span><span class="op">)</span>,</span>
 <span>  <span class="fu"><a href="../reference/el_drawer.html">el_drawer</a></span><span class="op">(</span><span class="st">"settings"</span>, title <span class="op">=</span> <span class="st">"Settings"</span>, direction <span class="op">=</span> <span class="st">"rtl"</span>, size <span class="op">=</span> <span class="st">"320px"</span>,</span>
@@ -1055,7 +1120,7 @@ other:</p>
 <p>A hint shown on hover. The trigger can be plain markup or a whole
 component – a component is folded into the tooltip’s own Vue instance,
 so it keeps reporting its inputs.</p>
-<div class="sourceCode" id="cb45"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb48"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/el_tooltip.html">el_tooltip</a></span><span class="op">(</span><span class="st">"hint"</span>, <span class="va">el</span><span class="op">$</span><span class="fu">button</span><span class="op">(</span>type <span class="op">=</span> <span class="st">"primary"</span>, <span class="st">"Hover me"</span><span class="op">)</span>,</span>
 <span>           content <span class="op">=</span> <span class="st">"A hint about this button"</span><span class="op">)</span></span>
 <span></span>
@@ -1083,7 +1148,7 @@ so it keeps reporting its inputs.</p>
 <code>el_popover()</code><a class="anchor" aria-label="anchor" href="#el_popover"></a>
 </h3>
 <p>A card on click or hover, with a title and body.</p>
-<div class="sourceCode" id="cb46"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb49"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/el_popover.html">el_popover</a></span><span class="op">(</span><span class="st">"info"</span>,</span>
 <span>  reference <span class="op">=</span> <span class="va">el</span><span class="op">$</span><span class="fu">button</span><span class="op">(</span>type <span class="op">=</span> <span class="st">"primary"</span>, <span class="st">"Details"</span><span class="op">)</span>,</span>
 <span>  title <span class="op">=</span> <span class="st">"March"</span>, content <span class="op">=</span> <span class="st">"Revenue up 4% on February."</span><span class="op">)</span></span></code></pre></div>
@@ -1106,7 +1171,7 @@ so it keeps reporting its inputs.</p>
 <p>A confirmation anchored to what triggers it, for actions that warrant
 a check but not a dialog. <code>input$&lt;id&gt;_confirm</code> and
 <code>input$&lt;id&gt;_cancel</code> report the answer.</p>
-<div class="sourceCode" id="cb47"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb50"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/el_popconfirm.html">el_popconfirm</a></span><span class="op">(</span><span class="st">"del"</span>,</span>
 <span>  reference <span class="op">=</span> <span class="va">el</span><span class="op">$</span><span class="fu">button</span><span class="op">(</span>type <span class="op">=</span> <span class="st">"danger"</span>, <span class="st">"Delete"</span><span class="op">)</span>,</span>
 <span>  title <span class="op">=</span> <span class="st">"Delete this row?"</span><span class="op">)</span></span></code></pre></div>
@@ -1127,7 +1192,7 @@ a check but not a dialog. <code>input$&lt;id&gt;_confirm</code> and
 <code>el_backtop()</code><a class="anchor" aria-label="anchor" href="#el_backtop"></a>
 </h3>
 <p>A button that appears once the page is scrolled.</p>
-<div class="sourceCode" id="cb48"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb51"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span>id <span class="op">=</span> <span class="st">"report"</span>, style <span class="op">=</span> <span class="st">"height: 180px; overflow: auto"</span>,</span>
 <span>         <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">40</span>, <span class="kw">function</span><span class="op">(</span><span class="va">i</span><span class="op">)</span> <span class="va">tags</span><span class="op">$</span><span class="fu">p</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="st">"Line"</span>, <span class="va">i</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
@@ -1189,7 +1254,7 @@ a check but not a dialog. <code>input$&lt;id&gt;_confirm</code> and
 </h3>
 <p>A scrolling area that asks for more as the user nears the bottom.
 <code>input$&lt;id&gt;_load</code> rises by one each time.</p>
-<div class="sourceCode" id="cb49"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb52"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/el_infinite_scroll.html">el_infinite_scroll</a></span><span class="op">(</span><span class="st">"feed"</span>, height <span class="op">=</span> <span class="st">"300px"</span>, <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/htmlOutput.html" class="external-link">uiOutput</a></span><span class="op">(</span><span class="st">"rows"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
   <div id="infinite-scroll-feed" data-shiny-vue style="display: contents">
@@ -1206,7 +1271,7 @@ a check but not a dialog. <code>input$&lt;id&gt;_confirm</code> and
 <code>el_row()</code> / <code>el_col()</code><a class="anchor" aria-label="anchor" href="#el_row-el_col"></a>
 </h3>
 <p>A 24-column grid.</p>
-<div class="sourceCode" id="cb50"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb53"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/el_row.html">el_row</a></span><span class="op">(</span>gutter <span class="op">=</span> <span class="fl">20</span>,</span>
 <span>  <span class="fu"><a href="../reference/el_col.html">el_col</a></span><span class="op">(</span>span <span class="op">=</span> <span class="fl">12</span>, <span class="st">"span = 12"</span><span class="op">)</span>,</span>
 <span>  <span class="fu"><a href="../reference/el_col.html">el_col</a></span><span class="op">(</span>span <span class="op">=</span> <span class="fl">12</span>, <span class="st">"span = 12"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
@@ -1221,7 +1286,7 @@ a check but not a dialog. <code>input$&lt;id&gt;_confirm</code> and
 <h3 id="el_container">
 <code>el_container()</code><a class="anchor" aria-label="anchor" href="#el_container"></a>
 </h3>
-<div class="sourceCode" id="cb51"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb54"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/el_container.html">el_container</a></span><span class="op">(</span></span>
 <span>  <span class="fu"><a href="../reference/el_header.html">el_header</a></span><span class="op">(</span><span class="st">"Header"</span><span class="op">)</span>,</span>
 <span>  <span class="fu"><a href="../reference/el_container.html">el_container</a></span><span class="op">(</span><span class="fu"><a href="../reference/el_aside.html">el_aside</a></span><span class="op">(</span>width <span class="op">=</span> <span class="st">"160px"</span>, <span class="st">"Aside"</span><span class="op">)</span>, <span class="fu"><a href="../reference/el_main.html">el_main</a></span><span class="op">(</span><span class="st">"Main"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
@@ -1245,7 +1310,7 @@ a check but not a dialog. <code>input$&lt;id&gt;_confirm</code> and
 </h3>
 <p>Nests to any depth. <code>input$nav</code> gives the selected index,
 <code>input$nav_path</code> the full path down to it.</p>
-<div class="sourceCode" id="cb52"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb55"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/el_menu.html">el_menu</a></span><span class="op">(</span><span class="st">"nav"</span>, active <span class="op">=</span> <span class="st">"home"</span>, items <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>index <span class="op">=</span> <span class="st">"home"</span>, label <span class="op">=</span> <span class="st">"Home"</span>, icon <span class="op">=</span> <span class="st">"el-icon-house"</span><span class="op">)</span>,</span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>index <span class="op">=</span> <span class="st">"data"</span>, label <span class="op">=</span> <span class="st">"Data"</span>, children <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
@@ -1277,7 +1342,7 @@ a check but not a dialog. <code>input$&lt;id&gt;_confirm</code> and
 </h3>
 <p><code><a href="../reference/df_to_tree_data.html">df_to_tree_data()</a></code> builds the node list from a data
 frame.</p>
-<div class="sourceCode" id="cb53"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb56"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/el_tree.html">el_tree</a></span><span class="op">(</span><span class="st">"picker"</span>, show_checkbox <span class="op">=</span> <span class="cn">TRUE</span>, checked <span class="op">=</span> <span class="st">"apple"</span>, data <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>id <span class="op">=</span> <span class="st">"fruit"</span>, label <span class="op">=</span> <span class="st">"Fruit"</span>, children <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
 <span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>id <span class="op">=</span> <span class="st">"apple"</span>, label <span class="op">=</span> <span class="st">"Apple"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
@@ -1291,7 +1356,7 @@ frame.</p>
 <p>With <code>lazy = TRUE</code>, each node’s children come from the
 server as it is opened – here, a folder’s contents.
 <code>input$&lt;id&gt;_load</code> asks; level 0 is the top:</p>
-<div class="sourceCode" id="cb54"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb57"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/el_page.html">el_page</a></span><span class="op">(</span><span class="fu"><a href="../reference/el_tree.html">el_tree</a></span><span class="op">(</span><span class="st">"files"</span>, lazy <span class="op">=</span> <span class="cn">TRUE</span>, node_key <span class="op">=</span> <span class="st">"path"</span>,</span>
 <span>                      is_leaf_field <span class="op">=</span> <span class="st">"leaf"</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
@@ -1315,7 +1380,7 @@ server as it is opened – here, a folder’s contents.
 <p>A trail of links. <code>input$&lt;id&gt;</code> is the label of the
 step last clicked, so it can drive navigation inside a Shiny app without
 any routing.</p>
-<div class="sourceCode" id="cb55"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb58"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/el_breadcrumb.html">el_breadcrumb</a></span><span class="op">(</span><span class="st">"trail"</span>, items <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>label <span class="op">=</span> <span class="st">"Home"</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>label <span class="op">=</span> <span class="st">"Reports"</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>label <span class="op">=</span> <span class="st">"March"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
@@ -1334,7 +1399,7 @@ any routing.</p>
 </h3>
 <p>A page title with a back link. <code>input$&lt;id&gt;_back</code>
 fires when it is clicked; what going back means is up to your app.</p>
-<div class="sourceCode" id="cb56"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb59"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/el_page_header.html">el_page_header</a></span><span class="op">(</span><span class="st">"hdr"</span>, title <span class="op">=</span> <span class="st">"All reports"</span>, content <span class="op">=</span> <span class="st">"Sales for March"</span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
   <div id="page-header-hdr" data-shiny-vue style="display: contents">
@@ -1348,7 +1413,7 @@ fires when it is clicked; what going back means is up to your app.</p>
 <h3 id="el_dropdown">
 <code>el_dropdown()</code><a class="anchor" aria-label="anchor" href="#el_dropdown"></a>
 </h3>
-<div class="sourceCode" id="cb57"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb60"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/el_dropdown.html">el_dropdown</a></span><span class="op">(</span><span class="st">"actions"</span>, trigger_label <span class="op">=</span> <span class="st">"Actions"</span>, items <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>command <span class="op">=</span> <span class="st">"edit"</span>, label <span class="op">=</span> <span class="st">"Edit"</span><span class="op">)</span>,</span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>command <span class="op">=</span> <span class="st">"del"</span>,  label <span class="op">=</span> <span class="st">"Delete"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
@@ -1376,7 +1441,7 @@ fires when it is clicked; what going back means is up to your app.</p>
 <p><code><a href="../reference/el_notification.html">el_notification()</a></code> and <code><a href="../reference/el_message.html">el_message()</a></code> are
 called from the server and render themselves; there is nothing to place
 in the UI.</p>
-<div class="sourceCode" id="cb58"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb61"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/el_page.html">el_page</a></span><span class="op">(</span></span>
 <span>  <span class="fu"><a href="../reference/el_button.html">el_button</a></span><span class="op">(</span><span class="st">"notify"</span>, <span class="st">"Notify"</span><span class="op">)</span>,</span>
 <span>  <span class="fu"><a href="../reference/el_button.html">el_button</a></span><span class="op">(</span><span class="st">"warn"</span>, <span class="st">"Warn"</span><span class="op">)</span></span>

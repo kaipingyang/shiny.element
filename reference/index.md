@@ -43,6 +43,8 @@ change.
   : Element UI Select Component
 - [`el_radio_group()`](https://kaipingyang.github.io/shiny.element/reference/el_radio_group.md)
   : Element UI Radio Group Component
+- [`el_checkbox()`](https://kaipingyang.github.io/shiny.element/reference/el_checkbox.md)
+  : Element UI Checkbox
 - [`el_checkbox_group()`](https://kaipingyang.github.io/shiny.element/reference/el_checkbox_group.md)
   : Element UI Checkbox Group
 - [`el_switch()`](https://kaipingyang.github.io/shiny.element/reference/el_switch.md)
@@ -72,6 +74,8 @@ change.
   : Update Element UI Select
 - [`update_el_radio_group()`](https://kaipingyang.github.io/shiny.element/reference/update_el_radio_group.md)
   : Update Element UI Radio Group
+- [`update_el_checkbox()`](https://kaipingyang.github.io/shiny.element/reference/update_el_checkbox.md)
+  : Update Element UI Checkbox
 - [`update_el_checkbox_group()`](https://kaipingyang.github.io/shiny.element/reference/update_el_checkbox_group.md)
   : Update Element UI Checkbox Group
 - [`update_el_switch()`](https://kaipingyang.github.io/shiny.element/reference/update_el_switch.md)
@@ -158,6 +162,8 @@ form reports once on submit.
   : Update Element UI Confirmation Bubble
 - [`el_button()`](https://kaipingyang.github.io/shiny.element/reference/el_button.md)
   : Element UI Button with Vue Instance
+- [`el_button_group()`](https://kaipingyang.github.io/shiny.element/reference/el_button_group.md)
+  : Element UI Button Group
 - [`el_tag()`](https://kaipingyang.github.io/shiny.element/reference/el_tag.md)
   : Element UI Tag
 - [`el_alert()`](https://kaipingyang.github.io/shiny.element/reference/el_alert.md)
@@ -186,6 +192,10 @@ form reports once on submit.
   : Update Element UI Button
 - [`update_el_tag()`](https://kaipingyang.github.io/shiny.element/reference/update_el_tag.md)
   : Update Element UI Tag
+- [`update_el_badge()`](https://kaipingyang.github.io/shiny.element/reference/update_el_badge.md)
+  : Update Element UI Badge
+- [`update_el_link()`](https://kaipingyang.github.io/shiny.element/reference/update_el_link.md)
+  : Update Element UI Link
 - [`update_el_alert()`](https://kaipingyang.github.io/shiny.element/reference/update_el_alert.md)
   : Update Element UI Alert
 - [`update_el_progress()`](https://kaipingyang.github.io/shiny.element/reference/update_el_progress.md)
