@@ -17,13 +17,89 @@ is NULL – Element's close() and closeAll()."></head><body>
     </button>
 
     <div id="navbar" class="collapse navbar-collapse ms-3">
-      <ul class="navbar-nav me-auto"><li class="nav-item"><a class="nav-link" href="../articles/components.html">Components</a></li>
-<li class="nav-item"><a class="nav-link" href="../articles/dashboards.html">Dashboards</a></li>
+      <ul class="navbar-nav me-auto"><li class="nav-item dropdown">
+  <button class="nav-link dropdown-toggle" type="button" id="dropdown-components" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Components</button>
+  <ul class="dropdown-menu" aria-labelledby="dropdown-components"><li><a class="dropdown-item" href="../articles/components.html">Overview</a></li>
+    <li><hr class="dropdown-divider"></li>
+    <li><h6 class="dropdown-header" data-toc-skip>Basic</h6></li>
+    <li><a class="dropdown-item" href="../articles/components/layout.html">Layout</a></li>
+    <li><a class="dropdown-item" href="../articles/components/container.html">Container</a></li>
+    <li><a class="dropdown-item" href="../articles/components/color.html">Color</a></li>
+    <li><a class="dropdown-item" href="../articles/components/typography.html">Typography</a></li>
+    <li><a class="dropdown-item" href="../articles/components/border.html">Border</a></li>
+    <li><a class="dropdown-item" href="../articles/components/icon.html">Icon</a></li>
+    <li><a class="dropdown-item" href="../articles/components/button.html">Button</a></li>
+    <li><a class="dropdown-item" href="../articles/components/link.html">Link</a></li>
+    <li><hr class="dropdown-divider"></li>
+    <li><h6 class="dropdown-header" data-toc-skip>Form</h6></li>
+    <li><a class="dropdown-item" href="../articles/components/radio.html">Radio</a></li>
+    <li><a class="dropdown-item" href="../articles/components/checkbox.html">Checkbox</a></li>
+    <li><a class="dropdown-item" href="../articles/components/input.html">Input</a></li>
+    <li><a class="dropdown-item" href="../articles/components/input-number.html">InputNumber</a></li>
+    <li><a class="dropdown-item" href="../articles/components/select.html">Select</a></li>
+    <li><a class="dropdown-item" href="../articles/components/cascader.html">Cascader</a></li>
+    <li><a class="dropdown-item" href="../articles/components/switch.html">Switch</a></li>
+    <li><a class="dropdown-item" href="../articles/components/slider.html">Slider</a></li>
+    <li><a class="dropdown-item" href="../articles/components/time-picker.html">TimePicker</a></li>
+    <li><a class="dropdown-item" href="../articles/components/date-picker.html">DatePicker</a></li>
+    <li><a class="dropdown-item" href="../articles/components/datetime-picker.html">DateTimePicker</a></li>
+    <li><a class="dropdown-item" href="../articles/components/upload.html">Upload</a></li>
+    <li><a class="dropdown-item" href="../articles/components/rate.html">Rate</a></li>
+    <li><a class="dropdown-item" href="../articles/components/color-picker.html">ColorPicker</a></li>
+    <li><a class="dropdown-item" href="../articles/components/transfer.html">Transfer</a></li>
+    <li><a class="dropdown-item" href="../articles/components/form.html">Form</a></li>
+    <li><hr class="dropdown-divider"></li>
+    <li><h6 class="dropdown-header" data-toc-skip>Data</h6></li>
+    <li><a class="dropdown-item" href="../articles/components/table.html">Table</a></li>
+    <li><a class="dropdown-item" href="../articles/components/tag.html">Tag</a></li>
+    <li><a class="dropdown-item" href="../articles/components/progress.html">Progress</a></li>
+    <li><a class="dropdown-item" href="../articles/components/tree.html">Tree</a></li>
+    <li><a class="dropdown-item" href="../articles/components/pagination.html">Pagination</a></li>
+    <li><a class="dropdown-item" href="../articles/components/badge.html">Badge</a></li>
+    <li><a class="dropdown-item" href="../articles/components/skeleton.html">Skeleton</a></li>
+    <li><a class="dropdown-item" href="../articles/components/empty.html">Empty</a></li>
+    <li><a class="dropdown-item" href="../articles/components/descriptions.html">Descriptions</a></li>
+    <li><a class="dropdown-item" href="../articles/components/result.html">Result</a></li>
+    <li><a class="dropdown-item" href="../articles/components/statistic.html">Statistic</a></li>
+    <li><hr class="dropdown-divider"></li>
+    <li><h6 class="dropdown-header" data-toc-skip>Notice</h6></li>
+    <li><a class="dropdown-item" href="../articles/components/alert.html">Alert</a></li>
+    <li><a class="dropdown-item" href="../articles/components/loading.html">Loading</a></li>
+    <li><a class="dropdown-item" href="../articles/components/message.html">Message</a></li>
+    <li><a class="dropdown-item" href="../articles/components/message-box.html">MessageBox</a></li>
+    <li><a class="dropdown-item" href="../articles/components/notification.html">Notification</a></li>
+    <li><hr class="dropdown-divider"></li>
+    <li><h6 class="dropdown-header" data-toc-skip>Navigation</h6></li>
+    <li><a class="dropdown-item" href="../articles/components/menu.html">NavMenu</a></li>
+    <li><a class="dropdown-item" href="../articles/components/tabs.html">Tabs</a></li>
+    <li><a class="dropdown-item" href="../articles/components/breadcrumb.html">Breadcrumb</a></li>
+    <li><a class="dropdown-item" href="../articles/components/page-header.html">PageHeader</a></li>
+    <li><a class="dropdown-item" href="../articles/components/dropdown.html">Dropdown</a></li>
+    <li><a class="dropdown-item" href="../articles/components/steps.html">Steps</a></li>
+    <li><hr class="dropdown-divider"></li>
+    <li><h6 class="dropdown-header" data-toc-skip>Others</h6></li>
+    <li><a class="dropdown-item" href="../articles/components/dialog.html">Dialog</a></li>
+    <li><a class="dropdown-item" href="../articles/components/tooltip.html">Tooltip</a></li>
+    <li><a class="dropdown-item" href="../articles/components/popover.html">Popover</a></li>
+    <li><a class="dropdown-item" href="../articles/components/popconfirm.html">Popconfirm</a></li>
+    <li><a class="dropdown-item" href="../articles/components/card.html">Card</a></li>
+    <li><a class="dropdown-item" href="../articles/components/carousel.html">Carousel</a></li>
+    <li><a class="dropdown-item" href="../articles/components/collapse.html">Collapse</a></li>
+    <li><a class="dropdown-item" href="../articles/components/timeline.html">Timeline</a></li>
+    <li><a class="dropdown-item" href="../articles/components/divider.html">Divider</a></li>
+    <li><a class="dropdown-item" href="../articles/components/calendar.html">Calendar</a></li>
+    <li><a class="dropdown-item" href="../articles/components/image.html">Image</a></li>
+    <li><a class="dropdown-item" href="../articles/components/backtop.html">Backtop</a></li>
+    <li><a class="dropdown-item" href="../articles/components/infiniteScroll.html">InfiniteScroll</a></li>
+    <li><a class="dropdown-item" href="../articles/components/avatar.html">Avatar</a></li>
+    <li><a class="dropdown-item" href="../articles/components/drawer.html">Drawer</a></li>
+  </ul></li>
 <li class="nav-item dropdown">
   <button class="nav-link dropdown-toggle" type="button" id="dropdown-guides" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Guides</button>
-  <ul class="dropdown-menu" aria-labelledby="dropdown-guides"><li><a class="dropdown-item" href="../articles/forms.html">Forms</a></li>
-    <li><a class="dropdown-item" href="../articles/tables.html">Tables</a></li>
-    <li><a class="dropdown-item" href="../articles/navigation.html">Navigation and feedback</a></li>
+  <ul class="dropdown-menu" aria-labelledby="dropdown-guides"><li><a class="dropdown-item" href="../articles/forms.html">Forms and validation</a></li>
+    <li><a class="dropdown-item" href="../articles/shiny.html">Shiny integration</a></li>
+    <li><a class="dropdown-item" href="../articles/theming.html">Theming, sizes and languages</a></li>
+    <li><a class="dropdown-item" href="../articles/dashboards.html">Dashboards</a></li>
     <li><hr class="dropdown-divider"></li>
     <li><a class="dropdown-item" href="../articles/limitations.html">What works, and what does not</a></li>
   </ul></li>

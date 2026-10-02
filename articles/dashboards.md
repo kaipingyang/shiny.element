@@ -87,7 +87,8 @@ server <- function(input, output, session) {
 shinyApp(ui, server)
 ```
 
-![](../shots/dashboards-admin-layout.png)
+![The admin-layout example,
+running](../shots/dashboards-admin-layout.png)
 
 ## A sales overview
 
@@ -204,7 +205,7 @@ server <- function(input, output, session) {
 shinyApp(ui, server)
 ```
 
-![](../shots/dashboards-sales.png)
+![The sales example, running](../shots/dashboards-sales.png)
 
 ## An orders admin page
 
@@ -426,7 +427,7 @@ server <- function(input, output, session) {
 shinyApp(ui, server)
 ```
 
-![](../shots/dashboards-orders.png)
+![The orders example, running](../shots/dashboards-orders.png)
 
 Opening the editor from a row’s **Edit** button fills the form from that
 row:
@@ -642,4 +643,4 @@ server <- function(input, output, session) {
 shinyApp(ui, server)
 ```
 
-![](../shots/dashboards-orders-edit.png)
+![The orders-edit example, running](../shots/dashboards-orders-edit.png)

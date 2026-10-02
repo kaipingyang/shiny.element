@@ -4,6 +4,18 @@
 
 First release.
 
+### Documentation, after Element’s own
+
+The website follows Element’s documentation: a page per component, in
+Element’s groups and order (Basic, Form, Data, Notice, Navigation,
+Others), each with Element’s demos written in R – live where they need
+no server, a screenshot of the running app where they do – and Element’s
+API tables with where each attribute, event, method and slot is in R.
+The guides cover what Element’s documentation does not: forms and
+validation, Shiny integration (events, methods, modules, bookmarking,
+data from the server, components of your own), theming and languages,
+and what differs from Element in a browser.
+
 ### Components
 
 Every component Element UI 2.15.14 documents is wrapped, services
@@ -197,8 +209,8 @@ and Shiny did not know it was an input.)
 
 [`el_widget()`](https://kaipingyang.github.io/shiny.element/reference/el_widget.md)
 builds the same shape for components of your own, and its new `report`
-argument names the value – an input made of `el$` tags, as the
-limitations article shows, needs no JavaScript.
+argument names the value – an input made of `el$` tags, as the Shiny
+integration article shows, needs no JavaScript.
 
 ### Shiny conventions
 
@@ -333,6 +345,21 @@ limitations article shows, needs no JavaScript.
 - **Server questions are cleaned up.** A lazy load or remote search the
   server never answers settles after 30 seconds, and at once when its
   component is removed or the session ends.
+- **Found while writing the component pages.**
+  [`el_table()`](https://kaipingyang.github.io/shiny.element/reference/el_table.md)
+  columns nest under group headers (`children`);
+  [`el_form_field()`](https://kaipingyang.github.io/shiny.element/reference/el_form_field.md)
+  has `"textarea"` and `"password"`, and its form-item props
+  (`required`, `error`, `label_width`, …) now reach the form item rather
+  than the control; a wrapper – a popover’s `body`, a badge – takes
+  several components and text side by side;
+  [`update_el_tooltip()`](https://kaipingyang.github.io/shiny.element/reference/update_el_tooltip.md),
+  [`update_el_popover()`](https://kaipingyang.github.io/shiny.element/reference/update_el_popover.md),
+  [`update_el_popconfirm()`](https://kaipingyang.github.io/shiny.element/reference/update_el_popconfirm.md)
+  and
+  [`update_el_infinite_scroll()`](https://kaipingyang.github.io/shiny.element/reference/update_el_infinite_scroll.md)
+  sent field names the component did not have and changed nothing –
+  every updater is now checked against its component.
 - **Element’s global config.**
   [`el_page()`](https://kaipingyang.github.io/shiny.element/reference/el_page.md)
   and

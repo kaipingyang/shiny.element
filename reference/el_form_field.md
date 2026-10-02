@@ -26,12 +26,13 @@ el_form_field(
 
 - type:
 
-  Control type: one of `"input"`, `"input-number"`, `"select"`,
-  `"radio-group"`, `"checkbox-group"`, `"checkbox"` (one box, `TRUE` or
-  `FALSE`), `"switch"`, `"slider"`, `"date-picker"`, `"time-picker"`,
-  `"time-select"`, `"rate"`, `"cascader"`, `"cascader-panel"`,
-  `"color-picker"`, `"autocomplete"` or `"transfer"`. Their props go in
-  `...`: a cascader's `options`, a transfer's `data`.
+  Control type: one of `"input"`, `"textarea"`, `"password"`,
+  `"input-number"`, `"select"`, `"radio-group"`, `"checkbox-group"`,
+  `"checkbox"` (one box, `TRUE` or `FALSE`), `"switch"`, `"slider"`,
+  `"date-picker"`, `"time-picker"`, `"time-select"`, `"rate"`,
+  `"cascader"`, `"cascader-panel"`, `"color-picker"`, `"autocomplete"`
+  or `"transfer"`. Their props go in `...`: a cascader's `options`, a
+  transfer's `data`.
 
 - label:
 
@@ -57,8 +58,11 @@ el_form_field(
 
 - ...:
 
-  Further props passed to the control, e.g. `placeholder`, `min`, `max`,
-  `disabled`. Names are converted to camelCase.
+  Further props. Element's form-item props – `required`, `error`,
+  `label_width`, `size`, `show_message`, `inline_message`, and
+  `label_html`/`error_html` for markup of your own – go on the field's
+  form item; anything else on the control, e.g. `placeholder`, `min`,
+  `max`, `disabled`. Names are converted to camelCase.
 
 ## Value
 

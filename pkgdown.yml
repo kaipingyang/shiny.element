@@ -2,13 +2,75 @@ pandoc: 3.8.3
 pkgdown: 2.2.1
 pkgdown_sha: ~
 articles:
-  components: components.html
+  articles/components/alert: components/alert.html
+  articles/components/avatar: components/avatar.html
+  articles/components/backtop: components/backtop.html
+  articles/components/badge: components/badge.html
+  articles/components/border: components/border.html
+  articles/components/breadcrumb: components/breadcrumb.html
+  articles/components/button: components/button.html
+  articles/components/calendar: components/calendar.html
+  articles/components/card: components/card.html
+  articles/components/carousel: components/carousel.html
+  articles/components/cascader: components/cascader.html
+  articles/components/checkbox: components/checkbox.html
+  articles/components/collapse: components/collapse.html
+  articles/components/color-picker: components/color-picker.html
+  articles/components/color: components/color.html
+  articles/components: components.html
+  articles/components/container: components/container.html
   dashboards: dashboards.html
+  articles/components/date-picker: components/date-picker.html
+  articles/components/datetime-picker: components/datetime-picker.html
+  articles/components/descriptions: components/descriptions.html
+  articles/components/dialog: components/dialog.html
+  articles/components/divider: components/divider.html
+  articles/components/drawer: components/drawer.html
+  articles/components/dropdown: components/dropdown.html
+  articles/components/empty: components/empty.html
+  articles/components/form: components/form.html
   forms: forms.html
+  articles/components/icon: components/icon.html
+  articles/components/image: components/image.html
+  articles/components/infiniteScroll: components/infiniteScroll.html
+  articles/components/input-number: components/input-number.html
+  articles/components/input: components/input.html
+  articles/components/layout: components/layout.html
   limitations: limitations.html
-  navigation: navigation.html
-  tables: tables.html
-last_built: 2026-10-02T15:35Z
+  articles/components/link: components/link.html
+  articles/components/loading: components/loading.html
+  articles/components/menu: components/menu.html
+  articles/components/message-box: components/message-box.html
+  articles/components/message: components/message.html
+  articles/components/notification: components/notification.html
+  articles/components/page-header: components/page-header.html
+  articles/components/pagination: components/pagination.html
+  articles/components/popconfirm: components/popconfirm.html
+  articles/components/popover: components/popover.html
+  articles/components/progress: components/progress.html
+  articles/components/radio: components/radio.html
+  articles/components/rate: components/rate.html
+  articles/components/result: components/result.html
+  articles/components/select: components/select.html
+  shiny.element: shiny.element.html
+  shiny: shiny.html
+  articles/components/skeleton: components/skeleton.html
+  articles/components/slider: components/slider.html
+  articles/components/statistic: components/statistic.html
+  articles/components/steps: components/steps.html
+  articles/components/switch: components/switch.html
+  articles/components/table: components/table.html
+  articles/components/tabs: components/tabs.html
+  articles/components/tag: components/tag.html
+  articles/theming: theming.html
+  articles/components/time-picker: components/time-picker.html
+  articles/components/timeline: components/timeline.html
+  articles/components/tooltip: components/tooltip.html
+  articles/components/transfer: components/transfer.html
+  articles/components/tree: components/tree.html
+  articles/components/typography: components/typography.html
+  articles/components/upload: components/upload.html
+last_built: 2026-10-02T17:40Z
 urls:
   reference: https://kaipingyang.github.io/shiny.element/reference
   article: https://kaipingyang.github.io/shiny.element/articles

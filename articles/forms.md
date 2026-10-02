@@ -1,10 +1,11 @@
 # Forms
 
 Element’s form components each report to `input$<id>` and are set from
-the server with `update_el_*()`. This covers the pieces that differ from
-what you would write with Shiny’s own inputs. Every example runs as it
-stands; on the website, the components under one are live, or a
-screenshot of the running app where it needs a server.
+the server with `update_el_*()`. This covers what forms need beyond a
+single component – labels and errors, choices, validation, typed values;
+each component’s own page, under Components, shows the rest. Every
+example runs as it stands; on the website, the components under one are
+live, or a screenshot of the running app where it needs a server.
 
 ## Labels
 
@@ -68,7 +69,7 @@ server <- function(input, output, session) {
 shinyApp(ui, server)
 ```
 
-![](../shots/forms-server-error.png)
+![The server-error example, running](../shots/forms-server-error.png)
 
 One that comes and goes with what is typed, by rules written in R, is a
 validator’s job – shinyvalidate, below, or
@@ -160,7 +161,7 @@ server <- function(input, output, session) {
 shinyApp(ui, server)
 ```
 
-![](../shots/forms-validation.png)
+![The validation example, running](../shots/forms-validation.png)
 
 Validation can be driven from the server as well.
 [`validate()`](https://rdrr.io/pkg/shiny/man/validate.html) returns a
@@ -189,105 +190,7 @@ server <- function(input, output, session) {
 shinyApp(ui, server)
 ```
 
-![](../shots/forms-validate-call.png)
-
-### shinyvalidate
-
-Standalone components work with shinyvalidate as Shiny’s own inputs do.
-Its message is drawn as Element draws a failed rule – the component
-framed in red, the message underneath – rather than as Bootstrap’s help
-text, which assumes a `.form-group` the component does not have:
-
-``` r
-
-library(shinyvalidate)
-
-ui <- el_page(
-  el_input("email", label = "Email", width = "300px"),
-  el_select("topic", choices = c("Billing", "Support"), label = "Topic",
-            width = "300px"),
-  el_button("send", "Send", type = "primary")
-)
-
-server <- function(input, output, session) {
-  iv <- InputValidator$new()
-  iv$add_rule("email", sv_required("An email, please"))
-  iv$add_rule("email", sv_email())
-  iv$add_rule("topic", sv_required("Pick a topic"))
-  observeEvent(input$send, iv$enable())
-}
-
-shinyApp(ui, server)
-```
-
-![](../shots/forms-shinyvalidate.png)
-
-## Dates
-
-A date picker reports a `Date`, as
-[`dateInput()`](https://rdrr.io/pkg/shiny/man/dateInput.html) does: two
-for a `"daterange"`, several for `"dates"`, `NULL` while empty.
-Element’s other types – `"datetime"`, `"month"`, `"week"` – and a
-`value_format` of your own report the text the picker produces, in that
-format, unconverted.
-
-``` r
-
-ui <- el_page(
-  el_date_picker("due", value = Sys.Date()),
-  el_date_picker("trip", type = "daterange",
-                 value = c(Sys.Date(), Sys.Date() + 7)),
-  verbatimTextOutput("days")
-)
-
-server <- function(input, output, session) {
-  output$days <- renderPrint(str(list(due = input$due, trip = input$trip)))
-}
-
-shinyApp(ui, server)
-```
-
-![](../shots/forms-dates.png)
-
-## Searching on the server
-
-With `remote = TRUE`, a select asks the server for its options as the
-user types, as
-[`selectizeInput()`](https://rdrr.io/pkg/shiny/man/selectInput.html)’s
-server mode does: the text arrives as `input$<id>_query`, and
-[`update_el_select()`](https://kaipingyang.github.io/shiny.element/reference/update_el_select.md)
-with the matches answers it. Until then the select shows Element’s
-loading text.
-
-``` r
-
-ui <- el_page(el_select("state", filterable = TRUE, remote = TRUE,
-                        placeholder = "Type a state", width = "260px"))
-
-server <- function(input, output, session) {
-  observeEvent(input$state_query, {
-    # a database query, in a real app
-    hits <- grep(input$state_query, state.name, ignore.case = TRUE, value = TRUE)
-    update_el_select(id = "state", choices = head(hits, 8))
-  })
-}
-
-shinyApp(ui, server)
-```
-
-![](../shots/forms-remote.png)
-
-## Typing
-
-[`el_input()`](https://kaipingyang.github.io/shiny.element/reference/el_input.md),
-[`el_autocomplete()`](https://kaipingyang.github.io/shiny.element/reference/el_autocomplete.md),
-[`el_input_number()`](https://kaipingyang.github.io/shiny.element/reference/el_input_number.md)
-and
-[`el_slider()`](https://kaipingyang.github.io/shiny.element/reference/el_slider.md)
-report a quarter-second after the user stops, as
-[`textInput()`](https://rdrr.io/pkg/shiny/man/textInput.html) does,
-rather than on every keystroke or step. An observer on one runs once per
-pause, not once per letter.
+![The validate-call example, running](../shots/forms-validate-call.png)
 
 ### Custom rules, and fields that come and go
 
@@ -328,116 +231,86 @@ server <- function(input, output, session) {
 shinyApp(ui, server)
 ```
 
-![](../shots/forms-form-dynamic.png)
+![The form-dynamic example, running](../shots/forms-form-dynamic.png)
 
-## Uploads
+### shinyvalidate
 
-[`el_upload()`](https://kaipingyang.github.io/shiny.element/reference/el_upload.md)
-sends files through Shiny’s own upload transport by default, so they
-arrive in `input$<id>` as the data.frame
-[`fileInput()`](https://rdrr.io/pkg/shiny/man/fileInput.html) gives:
-`name`, `size`, `type`, `datapath`.
+Standalone components work with shinyvalidate as Shiny’s own inputs do.
+Its message is drawn as Element draws a failed rule – the component
+framed in red, the message underneath – rather than as Bootstrap’s help
+text, which assumes a `.form-group` the component does not have:
+
+``` r
+
+library(shinyvalidate)
+
+ui <- el_page(
+  el_input("email", label = "Email", width = "300px"),
+  el_select("topic", choices = c("Billing", "Support"), label = "Topic",
+            width = "300px"),
+  el_button("send", "Send", type = "primary")
+)
+
+server <- function(input, output, session) {
+  iv <- InputValidator$new()
+  iv$add_rule("email", sv_required("An email, please"))
+  iv$add_rule("email", sv_email())
+  iv$add_rule("topic", sv_required("Pick a topic"))
+  observeEvent(input$send, iv$enable())
+}
+
+shinyApp(ui, server)
+```
+
+![The shinyvalidate example, running](../shots/forms-shinyvalidate.png)
+
+## Dates
+
+A date picker reports a `Date`, as
+[`dateInput()`](https://rdrr.io/pkg/shiny/man/dateInput.html) does: two
+for a `"daterange"`, several for `"dates"`, `NULL` while empty.
+Element’s other types – `"datetime"`, `"month"`, `"week"` – and a
+`value_format` of your own report the text the picker produces, in that
+format, unconverted.
 
 ``` r
 
 ui <- el_page(
-  el_upload("docs", button_label = "Choose CSV files", multiple = TRUE, accept = ".csv",
-            tip = "CSV only, up to 5 MB"),
-  tableOutput("files")
+  el_date_picker("due", value = Sys.Date()),
+  el_date_picker("trip", type = "daterange",
+                 value = c(Sys.Date(), Sys.Date() + 7)),
+  verbatimTextOutput("days")
 )
 
 server <- function(input, output, session) {
-  output$files <- renderTable(input$docs[, c("name", "size")])
+  output$days <- renderPrint(str(list(due = input$due, trip = input$trip)))
 }
 
 shinyApp(ui, server)
 ```
 
-![](../shots/forms-upload.png)
+![The dates example, running](../shots/forms-dates.png)
 
-`drag = TRUE` gives the drop zone instead of a button:
+## Searching on the server
 
-``` r
+A select or an autocomplete with `remote = TRUE` asks the server for its
+options as the user types – `input$<id>_query`, answered by
+[`update_el_select()`](https://kaipingyang.github.io/shiny.element/reference/update_el_select.md)
+or
+[`update_el_autocomplete()`](https://kaipingyang.github.io/shiny.element/reference/update_el_autocomplete.md).
+The Select and Input pages show both.
 
-el_upload("photos", button_label = "Drop images here, or click to choose",
-          drag = TRUE, accept = "image/*")
-```
+## Typing
 
-Pointing `action` elsewhere switches to Element’s own transport, and the
-file goes straight to that URL without reaching R. `extra_data` is
-Element’s `data` prop, renamed so it is not confused with the file
-itself.
-
-``` r
-
-el_upload("archive", button_label = "Upload to the archive",
-          action = "https://example.org/upload",
-          headers = list(`X-Requested-With` = "shiny.element"),
-          extra_data = list(folder = "reports"))
-```
-
-## Autocomplete
-
-Suggestions passed up front are filtered in the browser as the user
-types:
-
-``` r
-
-el_autocomplete("city", placeholder = "Where to?", width = 260,
-                suggestions = c("Beijing", "Shanghai", "Shenzhen", "Chengdu"))
-```
-
-When the list lives on the server – a database, an API – `remote = TRUE`
-asks it, as Element’s `fetch-suggestions` asks a function: the text
-arrives as `input$<id>_query`, and
-[`update_el_autocomplete()`](https://kaipingyang.github.io/shiny.element/reference/update_el_autocomplete.md)
-answers with the suggestions to show.
-
-``` r
-
-cities <- c("Beijing", "Baoding", "Baotou", "Shanghai", "Shenzhen", "Chengdu")
-
-ui <- el_page(el_autocomplete("city", remote = TRUE, placeholder = "Type a city",
-                              width = 260))
-
-server <- function(input, output, session) {
-  observeEvent(input$city_query, {
-    typed <- tolower(input$city_query)
-    update_el_autocomplete(id = "city",
-      suggestions = cities[startsWith(tolower(cities), typed)])
-  })
-}
-
-shinyApp(ui, server)
-```
-
-![](../shots/forms-autocomplete-server.png)
-
-## Transfer
-
-[`el_transfer()`](https://kaipingyang.github.io/shiny.element/reference/el_transfer.md)
-takes a data.frame of `key` and `label`, and reports the keys on the
-right – here driving which columns a table shows:
-
-``` r
-
-ui <- el_page(
-  el_transfer("cols",
-              data = data.frame(key = names(iris), label = names(iris)),
-              value = c("Species", "Sepal.Length"),
-              titles = c("Available", "Shown"),
-              filterable = TRUE),
-  tableOutput("preview")
-)
-
-server <- function(input, output, session) {
-  output$preview <- renderTable(head(iris[, input$cols, drop = FALSE], 3))
-}
-
-shinyApp(ui, server)
-```
-
-![](../shots/forms-transfer.png)
+[`el_input()`](https://kaipingyang.github.io/shiny.element/reference/el_input.md),
+[`el_autocomplete()`](https://kaipingyang.github.io/shiny.element/reference/el_autocomplete.md),
+[`el_input_number()`](https://kaipingyang.github.io/shiny.element/reference/el_input_number.md)
+and
+[`el_slider()`](https://kaipingyang.github.io/shiny.element/reference/el_slider.md)
+report a quarter-second after the user stops, as
+[`textInput()`](https://rdrr.io/pkg/shiny/man/textInput.html) does,
+rather than on every keystroke or step. An observer on one runs once per
+pause, not once per letter.
 
 ## Sizing and layout
 
