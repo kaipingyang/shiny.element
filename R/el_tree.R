@@ -42,7 +42,10 @@
 #' @param render_after_expand Whether child nodes are rendered only once expanded. Default `TRUE`.
 #' @param load `htmlwidgets::JS()` function loading child nodes in the
 #'   browser instead of from the server. Needs `lazy = TRUE`.
-#' @param filter_node_method `htmlwidgets::JS()` function deciding whether a node survives filtering.
+#' @param filter_node_method `htmlwidgets::JS()` function deciding whether a
+#'   node survives filtering. By default a node is kept when its label
+#'   contains the text, ignoring case, so `el_call(session, id, "filter",
+#'   list(text))` works as it stands.
 #' @param render_content `htmlwidgets::JS()` render function for a node's content.
 #' @param allow_drag `htmlwidgets::JS()` function deciding whether a node may be dragged.
 #' @param allow_drop `htmlwidgets::JS()` function deciding whether a node may be dropped somewhere.
@@ -188,7 +191,9 @@ el_tree <- function(id = NULL,
 
   tree_attrs[[":load"]] <- "load === null ? elLoad : load"   # the server, by default
 
-  tree_attrs[[":filter-node-method"]] <- .el_optional_bind("filterNodeMethod")
+  # Element requires one before filter() can be called; by default, a node
+  # is kept when its label contains the text, ignoring case
+  tree_attrs[[":filter-node-method"]] <- "filterNodeMethod === null ? elFilterNode : filterNodeMethod"
 
   tree_attrs[[":render-content"]] <- .el_optional_bind("renderContent")
 
@@ -282,6 +287,11 @@ el_tree <- function(id = NULL,
     data = vue_data,
     methods = c(events$methods, list(
       elLoad = .el_lazy_load_method(ns_id, "tree"),
+      elFilterNode = htmlwidgets::JS(paste0(
+        "function(value, data) { if (!value) return true; ",
+        "var label = data[(this.treeProps && this.treeProps.label) || 'label']; ",
+        "return String(label === undefined ? '' : label).toLowerCase()",
+        ".indexOf(String(value).toLowerCase()) !== -1; }")),
       # update_el_tree(checked =): Element's setCheckedKeys(), which also
       # updates the half-checked parents a plain assignment would leave alone
       shinyVueReceive = htmlwidgets::JS(paste0(

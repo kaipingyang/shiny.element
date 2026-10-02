@@ -46,6 +46,11 @@ The values follow Element 2.15's \code{theme-chalk} variables:\tabular{lll}{
 }
 
 
+\code{primary}, \code{success}, \code{warning} and \code{danger} reach Element's components
+too: \code{\link[=el_page]{el_page()}} recolours Element's stylesheet with them, tints and
+shades included, as Element's own theme picker does. \code{info} does not --
+compiled, Element's info grey is the same value as its secondary text.
+
 Element puts white text on all five of its colours, some of which fall
 short of Bootstrap's default minimum contrast; left alone, Bootstrap would
 switch those buttons to black text. \code{min-contrast-ratio} is lowered so the

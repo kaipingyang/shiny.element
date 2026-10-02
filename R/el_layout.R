@@ -224,6 +224,9 @@ el_page <- function(
     ),
     el_locale_dependency(locale),
     .el_config_dependency(size, z_index),
+    # The theme's primary, success, warning and danger, on Element's own
+    # components too, as Element's theme picker recolours them
+    Filter(Negate(is.null), list(.el_recoloured_dependency(.el_theme_colors(theme)))),
     list(el_feedback_dependency())
   )
   if (!is.null(theme_css)) deps <- c(deps, list(theme_css))

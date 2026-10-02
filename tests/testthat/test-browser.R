@@ -953,6 +953,15 @@ test_that("a lazy tree table loads a row's children from the server", {
   expect_match(bev("document.querySelector('#lz_tbl_container .el-table__body').innerText"), "a-child")
 })
 
+test_that("a tree filters by label without a filter method of its own", {
+  skip_if_no_browser()
+  # Element throws "filterNodeMethod is required" without one
+  bclick("#tree_filter", wait = 2)
+  shown <- bev("document.querySelector('#tree_container .el-tree').innerText")
+  expect_match(shown, "Apple")
+  expect_false(grepl("Grains", shown))
+})
+
 test_that("a label names its component for assistive technology", {
   skip_if_no_browser()
   # A select's id reaches its native input, so <label for> works

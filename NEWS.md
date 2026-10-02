@@ -153,6 +153,15 @@ limitations article shows, needs no JavaScript.
   `error`, `show_message` and `inline_message`; the component's own `size`
   sizes the label. `el_upload()`'s trigger text is now `button_label`, as
   `fileInput()`'s `buttonLabel`.
+* **Element's colours from the theme.** The `primary`, `success`, `warning`
+  and `danger` of `el_page()`'s theme -- `el_theme(primary = "#7c3aed")` --
+  recolour Element's components too, with the tints and shades Element
+  derives from each, as Element's own theme picker recolours its
+  stylesheet. `use_element(colors =)` does the same elsewhere.
+* **A tree filters as it stands.** `el_tree()` has a default
+  `filter_node_method` -- the label contains the text, ignoring case -- so
+  `el_call(session, "tree", "filter", list(text))` needs no JavaScript;
+  Element itself throws without one.
 * **Element's global config.** `el_page()` and `use_element()` take `size`
   and `z_index`, as `Vue.use(Element, {size, zIndex})` does; a labelled
   input's label follows the size too. Element's `display.css` -- the

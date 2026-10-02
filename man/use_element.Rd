@@ -10,7 +10,8 @@ use_element(
   dev = getOption("shiny.element.dev", FALSE),
   locale = getOption("shiny.element.locale", "en"),
   size = NULL,
-  z_index = NULL
+  z_index = NULL,
+  colors = NULL
 )
 }
 \arguments{
@@ -30,6 +31,12 @@ or \code{getOption("shiny.element.locale")} when set. See
 \item{size, z_index}{Element's global config, as \verb{Vue.use(Element, \{size, zIndex\})} sets it: the size of every component not given one of its own
 (\code{"medium"}, \code{"small"} or \code{"mini"}), and the z-index its popups start
 from (2000 by default). \code{NULL} leaves Element's default.}
+
+\item{colors}{Element's \code{primary}, \code{success}, \code{warning} and \code{danger}, as
+a named list -- or a \code{\link[bslib:bs_theme]{bslib::bs_theme()}} to take them from, such as the
+page's own. Element's components are recoloured with them, tints and
+shades included, as Element's theme picker does. \code{\link[=el_page]{el_page()}} takes them
+from its \code{theme}.}
 }
 \value{
 A list of htmlDependency objects

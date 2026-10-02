@@ -17,6 +17,11 @@
 #'   zIndex})` sets it: the size of every component not given one of its own
 #'   (`"medium"`, `"small"` or `"mini"`), and the z-index its popups start
 #'   from (2000 by default). `NULL` leaves Element's default.
+#' @param colors Element's `primary`, `success`, `warning` and `danger`, as
+#'   a named list -- or a [bslib::bs_theme()] to take them from, such as the
+#'   page's own. Element's components are recoloured with them, tints and
+#'   shades included, as Element's theme picker does. [el_page()] takes them
+#'   from its `theme`.
 #' @return A list of htmlDependency objects
 #' @export
 #' @examples
@@ -30,7 +35,7 @@
 use_element <- function(theme = el_layout_css_dependency(), offline = TRUE,
                         dev = getOption("shiny.element.dev", FALSE),
                         locale = getOption("shiny.element.locale", "en"),
-                        size = NULL, z_index = NULL) {
+                        size = NULL, z_index = NULL, colors = NULL) {
   deps <- c(
     list(
       .el_vue_dependency(dev = dev),
@@ -39,6 +44,7 @@ use_element <- function(theme = el_layout_css_dependency(), offline = TRUE,
     ),
     el_locale_dependency(locale),
     .el_config_dependency(size, z_index),
+    Filter(Negate(is.null), list(.el_recoloured_dependency(.el_theme_colors(colors)))),
     list(el_feedback_dependency())
   )
 

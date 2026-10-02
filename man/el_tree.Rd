@@ -105,7 +105,9 @@ unless \code{load} is given. See "Shiny inputs".}
 \item{load}{\code{htmlwidgets::JS()} function loading child nodes in the
 browser instead of from the server. Needs \code{lazy = TRUE}.}
 
-\item{filter_node_method}{\code{htmlwidgets::JS()} function deciding whether a node survives filtering.}
+\item{filter_node_method}{\code{htmlwidgets::JS()} function deciding whether a
+node survives filtering. By default a node is kept when its label
+contains the text, ignoring case, so \code{el_call(session, id, "filter", list(text))} works as it stands.}
 
 \item{render_content}{\code{htmlwidgets::JS()} render function for a node's content.}
 

@@ -57,7 +57,8 @@ ui <- bslib::page_sidebar(
 `el_theme()` is the page's look: a bslib theme carrying Element's own
 colours, font and sizes, so Shiny's `actionButton()` or `textInput()` sit
 beside Element components without clashing. It is `el_page()`'s default.
-`el_theme(primary = "#7c3aed")` changes the brand colour; any
+`el_theme(primary = "#7c3aed")` changes the brand colour -- on Element's
+components as well as Bootstrap's; any
 `bslib::bs_theme()` replaces it, and `theme = NULL` leaves Shiny's plain
 Bootstrap.
 

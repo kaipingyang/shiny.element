@@ -253,6 +253,7 @@ ui <- el_page(
 
   # An action button, and an input absorbed into a wrapper
   el_button("act_btn", "Act"),
+  actionButton("tree_filter", "filter tree"),
   el_tooltip("abs_tip", el_switch("abs_sw", value = FALSE), content = "Absorbed"),
   verbatimTextOutput("act_dump"),
 
@@ -294,6 +295,7 @@ server <- function(input, output, session) {
     cat("act_fired =", act_fired(), "\n")
     cat("abs_sw =", format(input$abs_sw), "\n")
   })
+  observeEvent(input$tree_filter, el_call(session, "tree", "filter", list("app")))
   observeEvent(input$upd_go, update_el_input(session, "upd_lab", label = "New",
                                              error = "Taken"))
   observeEvent(input$upd_clear, update_el_input(session, "upd_lab", error = ""))
