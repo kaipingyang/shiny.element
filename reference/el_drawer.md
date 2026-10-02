@@ -124,8 +124,6 @@ other components from this package. See `.claude/docs/lessons.md` §1.2.
 
 - `input$<id>_close`, `input$<id>_closed` – likewise as it closes.
 
-## Shiny input
-
 `input$<id>` — `TRUE` while the drawer is open, reported whenever it
 opens or closes, however that happens. (It was `input$<id>_visible`
 while this was a Vue component; see

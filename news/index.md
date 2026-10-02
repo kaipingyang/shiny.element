@@ -209,7 +209,45 @@ limitations article shows, needs no JavaScript.
   [`el_call()`](https://kaipingyang.github.io/shiny.element/reference/el_call.md)
   and the rest – takes the current session by default, as
   [`updateTextInput()`](https://rdrr.io/pkg/shiny/man/updateTextInput.html)
-  does.
+  does. Given an id in the session’s place,
+  `update_el_input("name", ...)`, it says so and names the call to write
+  instead, as Shiny’s own do.
+- **Action buttons.**
+  [`el_button()`](https://kaipingyang.github.io/shiny.element/reference/el_button.md)
+  and
+  [`el_tag()`](https://kaipingyang.github.io/shiny.element/reference/el_tag.md)
+  report their clicks as
+  [`actionButton()`](https://rdrr.io/pkg/shiny/man/actionButton.html)
+  does: 0 on load, classed so that
+  [`observeEvent()`](https://rdrr.io/pkg/shiny/man/observeEvent.html)
+  and [`req()`](https://rdrr.io/pkg/shiny/man/req.html) treat 0 as not
+  yet clicked.
+  [`el_dropdown()`](https://kaipingyang.github.io/shiny.element/reference/el_dropdown.md)
+  reports each command as an event, so choosing the same item twice runs
+  an observer twice.
+- **One input per id.**
+  [`el_cascader()`](https://kaipingyang.github.io/shiny.element/reference/el_cascader.md)
+  reports to `input$<id>`, as every other input does, rather than
+  `input$<id>_value`.
+- **The server loads.** Where Element takes a JavaScript function to
+  fetch data, the server can answer instead: a lazy
+  [`el_tree()`](https://kaipingyang.github.io/shiny.element/reference/el_tree.md),
+  [`el_cascader()`](https://kaipingyang.github.io/shiny.element/reference/el_cascader.md),
+  [`el_cascader_panel()`](https://kaipingyang.github.io/shiny.element/reference/el_cascader_panel.md)
+  or tree
+  [`el_table()`](https://kaipingyang.github.io/shiny.element/reference/el_table.md)
+  asks through `input$<id>_load` (`_lazy_load` for a cascader) and
+  [`el_load_children()`](https://kaipingyang.github.io/shiny.element/reference/el_load_children.md)
+  replies; a `remote`
+  [`el_select()`](https://kaipingyang.github.io/shiny.element/reference/el_select.md)
+  sends what is typed as `input$<id>_query`, and
+  [`update_el_select()`](https://kaipingyang.github.io/shiny.element/reference/update_el_select.md)
+  with the matches answers it.
+- **Labels and errors from the server.** The `update_el_*()` of every
+  input takes `label`, as
+  [`updateTextInput()`](https://rdrr.io/pkg/shiny/man/updateTextInput.html)
+  does, and `error`, Element’s message for a check only the server can
+  make; `""` clears it.
 - **Validation.** shinyvalidate’s messages show on a component as
   Element shows a failed form rule: framed in red, the message
   underneath – for a labelled component, under the control, replacing
@@ -224,6 +262,17 @@ limitations article shows, needs no JavaScript.
   trigger text is now `button_label`, as
   [`fileInput()`](https://rdrr.io/pkg/shiny/man/fileInput.html)’s
   `buttonLabel`.
+- **Element’s global config.**
+  [`el_page()`](https://kaipingyang.github.io/shiny.element/reference/el_page.md)
+  and
+  [`use_element()`](https://kaipingyang.github.io/shiny.element/reference/use_element.md)
+  take `size` and `z_index`, as `Vue.use(Element, {size, zIndex})` does;
+  a labelled input’s label follows the size too. Element’s `display.css`
+  – the `hidden-xs-only` family – is loaded with the rest, and `el`
+  gains the registered components it lacked (`button_group`,
+  `checkbox_button`, `scrollbar`, `spinner`, `collapse_transition`) and
+  loses `anchor`, `anchor_link` and `loading`, which Element 2 does not
+  have as tags.
 - **Checked arguments.** An enumerated argument Element does not accept
   – `type = "primry"` – is an error listing the values it does, rather
   than a component drawn in its default style.
@@ -245,6 +294,8 @@ el_table(data = df, id = "my_table")  # also fine, and always was
 Positional calls written against the old `el_table(data, columns, id)`
 order still work – the arguments are shifted back with a warning – but
 naming them is the way to keep it quiet.
+
+`input$<cascader id>_value` is now `input$<cascader id>`.
 
 ### Filling a slot
 

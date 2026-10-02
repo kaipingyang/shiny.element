@@ -84,7 +84,7 @@ el_alert(
 
 An `htmltools` tagList with a Vue-managed alert component.
 
-## Shiny input
+## Shiny inputs
 
 `input$<id>_closed` — set to `1` (with `priority = "event"`) when the
 user closes the alert.

@@ -14,7 +14,9 @@ el_page(
   theme_css = el_layout_css_dependency(),
   offline = TRUE,
   locale = getOption("shiny.element.locale", "en"),
-  dev = getOption("shiny.element.dev", FALSE)
+  dev = getOption("shiny.element.dev", FALSE),
+  size = NULL,
+  z_index = NULL
 )
 ```
 
@@ -40,8 +42,9 @@ el_page(
 
 - theme_css:
 
-  Optional Element-UI layout CSS dependency (default:
-  [`el_layout_css_dependency()`](https://kaipingyang.github.io/shiny.element/reference/el_layout_css_dependency.md)).
+  Element's layout CSS,
+  [`el_layout_css_dependency()`](https://kaipingyang.github.io/shiny.element/reference/el_layout_css_dependency.md);
+  `NULL` leaves it out.
 
 - offline:
 
@@ -64,8 +67,14 @@ el_page(
   production build strips every warning, which is why a template that
   fails to compile renders nothing and says nothing. Defaults to
   `getOption("shiny.element.dev", FALSE)`, so it can be turned on for a
-  whole session without touching the UI code. Set to `NULL` to disable
-  Element-UI layout CSS.
+  whole session without touching the UI code.
+
+- size, z_index:
+
+  Element's global config, as `Vue.use(Element, {size, zIndex})` sets
+  it: the size of every component not given one of its own (`"medium"`,
+  `"small"` or `"mini"`), and the z-index its popups start from (2000 by
+  default). `NULL` leaves Element's default.
 
 ## Value
 
@@ -77,11 +86,12 @@ Use this as the root UI function for your Shiny app. You can combine
 bslib layouts (such as `page_sidebar`, `layout_columns`) and Element-UI
 widgets (such as `el_button`).
 
-The `el_page` function is designed to work with both bslib layouts and
-Element-UI widgets. Do not mix Element-UI layout functions
-(`el_container`, `el_row`, `el_col`) with bslib layouts, as they are not
-compatible. The Element-UI layout functions are experimental and may be
-deprecated in the future.
+Element's layout
+([`el_container()`](https://kaipingyang.github.io/shiny.element/reference/el_container.md),
+[`el_row()`](https://kaipingyang.github.io/shiny.element/reference/el_row.md),
+[`el_col()`](https://kaipingyang.github.io/shiny.element/reference/el_col.md))
+and bslib's (`page_sidebar()`, `layout_columns()`) each work here; nest
+one inside a cell of the other rather than interleaving them.
 
 ## Examples
 
@@ -103,7 +113,7 @@ el_page(
 #>     <script type="text/x-template" data-shiny-vue-template><div id="go_container" style="display: contents">
 #>   <el-button :type="type" :plain="plain" :round="round" :circle="circle" :loading="loading" :disabled="disabled" :native-type="native_type" @click="handleClick" :size="size === null ? undefined : size" :icon="icon === null ? undefined : icon" :autofocus="autofocus === null ? undefined : autofocus">{{label}}</el-button>
 #> </div></script>
-#>     <script type="application/json" data-shiny-vue-options>{"options":{"data":{"label":"Submit","type":"primary","size":null,"plain":false,"round":false,"circle":false,"loading":false,"disabled":false,"native_type":"button","icon":null,"count":0,"autofocus":false},"methods":{"handleClick":"function() { if (!this.disabled && !this.loading) { this.count++; window.Shiny && Shiny.setInputValue && Shiny.setInputValue('go', this.count); } }"}},"input":null,"rate":null,"type":null,"evals":["options.methods.handleClick"]}</script>
+#>     <script type="application/json" data-shiny-vue-options>{"options":{"data":{"label":"Submit","type":"primary","size":null,"plain":false,"round":false,"circle":false,"loading":false,"disabled":false,"native_type":"button","icon":null,"count":0,"autofocus":false},"methods":{"handleClick":"function() { if (this.disabled || this.loading) return; this.count++; }"}},"input":"count","rate":null,"type":"shiny.action","evals":["options.methods.handleClick"]}</script>
 #>   </div>
 #> </div>
 

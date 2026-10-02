@@ -23,13 +23,17 @@
 <url><loc>https://kaipingyang.github.io/shiny.element/reference/dot-el_camel.html</loc></url>
 <url><loc>https://kaipingyang.github.io/shiny.element/reference/dot-el_camel_case.html</loc></url>
 <url><loc>https://kaipingyang.github.io/shiny.element/reference/dot-el_check_choices.html</loc></url>
+<url><loc>https://kaipingyang.github.io/shiny.element/reference/dot-el_check_session.html</loc></url>
 <url><loc>https://kaipingyang.github.io/shiny.element/reference/dot-el_choices.html</loc></url>
 <url><loc>https://kaipingyang.github.io/shiny.element/reference/dot-el_col_gutter.html</loc></url>
+<url><loc>https://kaipingyang.github.io/shiny.element/reference/dot-el_config_dependency.html</loc></url>
 <url><loc>https://kaipingyang.github.io/shiny.element/reference/dot-el_container_part.html</loc></url>
 <url><loc>https://kaipingyang.github.io/shiny.element/reference/dot-el_css_fixes.html</loc></url>
 <url><loc>https://kaipingyang.github.io/shiny.element/reference/dot-el_descriptions_items.html</loc></url>
 <url><loc>https://kaipingyang.github.io/shiny.element/reference/dot-el_event_bindings.html</loc></url>
 <url><loc>https://kaipingyang.github.io/shiny.element/reference/dot-el_form_empty_value.html</loc></url>
+<url><loc>https://kaipingyang.github.io/shiny.element/reference/dot-el_form_item_size_class.html</loc></url>
+<url><loc>https://kaipingyang.github.io/shiny.element/reference/dot-el_form_item_update.html</loc></url>
 <url><loc>https://kaipingyang.github.io/shiny.element/reference/dot-el_form_options.html</loc></url>
 <url><loc>https://kaipingyang.github.io/shiny.element/reference/dot-el_form_tags.html</loc></url>
 <url><loc>https://kaipingyang.github.io/shiny.element/reference/dot-el_has_class.html</loc></url>
@@ -38,6 +42,8 @@
 <url><loc>https://kaipingyang.github.io/shiny.element/reference/dot-el_kebab_case.html</loc></url>
 <url><loc>https://kaipingyang.github.io/shiny.element/reference/dot-el_label_attrs.html</loc></url>
 <url><loc>https://kaipingyang.github.io/shiny.element/reference/dot-el_labelled.html</loc></url>
+<url><loc>https://kaipingyang.github.io/shiny.element/reference/dot-el_lazy_load_method.html</loc></url>
+<url><loc>https://kaipingyang.github.io/shiny.element/reference/dot-el_lazy_props.html</loc></url>
 <url><loc>https://kaipingyang.github.io/shiny.element/reference/dot-el_menu_item_props.html</loc></url>
 <url><loc>https://kaipingyang.github.io/shiny.element/reference/dot-el_menu_nodes.html</loc></url>
 <url><loc>https://kaipingyang.github.io/shiny.element/reference/dot-el_mounted_init.html</loc></url>
@@ -120,6 +126,7 @@
 <url><loc>https://kaipingyang.github.io/shiny.element/reference/el_input_number.html</loc></url>
 <url><loc>https://kaipingyang.github.io/shiny.element/reference/el_layout_css_dependency.html</loc></url>
 <url><loc>https://kaipingyang.github.io/shiny.element/reference/el_link.html</loc></url>
+<url><loc>https://kaipingyang.github.io/shiny.element/reference/el_load_children.html</loc></url>
 <url><loc>https://kaipingyang.github.io/shiny.element/reference/el_loading.html</loc></url>
 <url><loc>https://kaipingyang.github.io/shiny.element/reference/el_loading_close.html</loc></url>
 <url><loc>https://kaipingyang.github.io/shiny.element/reference/el_locale_dependency.html</loc></url>

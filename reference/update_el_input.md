@@ -17,7 +17,9 @@ update_el_input(
   type = NULL,
   size = NULL,
   clearable = NULL,
-  show_password = NULL
+  show_password = NULL,
+  label = NULL,
+  error = NULL
 )
 ```
 
@@ -63,6 +65,18 @@ update_el_input(
 - show_password:
 
   New show-password toggle state.
+
+- label:
+
+  New label text, as for
+  [`shiny::updateTextInput()`](https://rdrr.io/pkg/shiny/man/updateTextInput.html).
+  Only a component built with a `label` has one to change.
+
+- error:
+
+  An error message to show on the component, as Element's `error` does –
+  for a check only the server can make, such as whether a name is taken.
+  `""` clears it.
 
 ## Value
 

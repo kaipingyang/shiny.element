@@ -49,7 +49,9 @@ el_cascader_panel(
 
   Element's `props`, as a named list: `multiple`, `checkStrictly`,
   `expandTrigger` (`"click"` or `"hover"`), `lazy`, `lazyLoad`, and the
-  field names `value`, `label`, `children`, `disabled`, `leaf`.
+  field names `value`, `label`, `children`, `disabled`, `leaf`. With
+  `lazy = TRUE` and no `lazyLoad` of your own, the server loads each
+  column.
 
 - label:
 
@@ -117,6 +119,12 @@ A Shiny UI element.
 
 - `input$<id>_expand_change` – the path of the column just opened.
 
+- `input$<id>_lazy_load` – with `props = list(lazy = TRUE)`, a column to
+  load; answer with
+  [`el_load_children()`](https://kaipingyang.github.io/shiny.element/reference/el_load_children.md).
+  See
+  [`el_cascader()`](https://kaipingyang.github.io/shiny.element/reference/el_cascader.md).
+
 ## Element methods
 
 Callable with
@@ -138,17 +146,17 @@ regions <- list(
 el_cascader_panel("where", options = regions, value = c("asia", "jp"))
 #> <div id="where" data-shiny-vue style="display: contents">
 #>   <script type="text/x-template" data-shiny-vue-template><div id="where_container" style="display: contents">
-#>   <el-cascader-panel v-model="value" :options="options" :props="props === null ? undefined : props" @change="handleChange" @expand-change="elEmitExpandChange"></el-cascader-panel>
+#>   <el-cascader-panel v-model="value" :options="options" :props="elProps" @change="handleChange" @expand-change="elEmitExpandChange"></el-cascader-panel>
 #> </div></script>
-#>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":["asia","jp"],"options":[{"value":"asia","label":"Asia","children":[{"value":"cn","label":"China"},{"value":"jp","label":"Japan"}]},{"value":"europe","label":"Europe","children":[{"value":"fr","label":"France"}]}],"props":null},"methods":{"elEmitExpandChange":"function() { window.shinyElement.emit('where', 'expand_change', arguments); }","handleChange":"function(v) { }"}},"input":"value","rate":null,"type":null,"evals":["options.methods.elEmitExpandChange","options.methods.handleChange"]}</script>
+#>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":["asia","jp"],"options":[{"value":"asia","label":"Asia","children":[{"value":"cn","label":"China"},{"value":"jp","label":"Japan"}]},{"value":"europe","label":"Europe","children":[{"value":"fr","label":"France"}]}],"props":null},"methods":{"elEmitExpandChange":"function() { window.shinyElement.emit('where', 'expand_change', arguments); }","handleChange":"function(v) { }"},"computed":{"elProps":"function() {\n  var p = this.props;\n  if (p === null) return undefined;\n  if (!p.lazy || p.lazyLoad) return p;\n  return Object.assign({}, p, {lazyLoad: function(node, resolve) {\n    window.shinyVue.ask('where_lazy_load', {level: node.level,\n      value: node.level ? node.value : null, path: node.level ? node.pathValues : []})\n      .then(function(children) { resolve(children || []); });\n  }});\n}"}},"input":"value","rate":null,"type":null,"evals":["options.methods.elEmitExpandChange","options.methods.handleChange","options.computed.elProps"]}</script>
 #> </div>
 
 # Several at once
 el_cascader_panel("where", options = regions, props = list(multiple = TRUE))
 #> <div id="where" data-shiny-vue style="display: contents">
 #>   <script type="text/x-template" data-shiny-vue-template><div id="where_container" style="display: contents">
-#>   <el-cascader-panel v-model="value" :options="options" :props="props === null ? undefined : props" @change="handleChange" @expand-change="elEmitExpandChange"></el-cascader-panel>
+#>   <el-cascader-panel v-model="value" :options="options" :props="elProps" @change="handleChange" @expand-change="elEmitExpandChange"></el-cascader-panel>
 #> </div></script>
-#>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":[],"options":[{"value":"asia","label":"Asia","children":[{"value":"cn","label":"China"},{"value":"jp","label":"Japan"}]},{"value":"europe","label":"Europe","children":[{"value":"fr","label":"France"}]}],"props":{"multiple":true}},"methods":{"elEmitExpandChange":"function() { window.shinyElement.emit('where', 'expand_change', arguments); }","handleChange":"function(v) { }"}},"input":"value","rate":null,"type":null,"evals":["options.methods.elEmitExpandChange","options.methods.handleChange"]}</script>
+#>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":[],"options":[{"value":"asia","label":"Asia","children":[{"value":"cn","label":"China"},{"value":"jp","label":"Japan"}]},{"value":"europe","label":"Europe","children":[{"value":"fr","label":"France"}]}],"props":{"multiple":true}},"methods":{"elEmitExpandChange":"function() { window.shinyElement.emit('where', 'expand_change', arguments); }","handleChange":"function(v) { }"},"computed":{"elProps":"function() {\n  var p = this.props;\n  if (p === null) return undefined;\n  if (!p.lazy || p.lazyLoad) return p;\n  return Object.assign({}, p, {lazyLoad: function(node, resolve) {\n    window.shinyVue.ask('where_lazy_load', {level: node.level,\n      value: node.level ? node.value : null, path: node.level ? node.pathValues : []})\n      .then(function(children) { resolve(children || []); });\n  }});\n}"}},"input":"value","rate":null,"type":null,"evals":["options.methods.elEmitExpandChange","options.methods.handleChange","options.computed.elProps"]}</script>
 #> </div>
 ```

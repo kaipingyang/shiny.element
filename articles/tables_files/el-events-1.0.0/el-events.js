@@ -50,8 +50,31 @@
     var item = formItem(host), where = messageParent(item, host);
     item.classList.remove('is-error');
     if (item === host) item.classList.remove('el-form-item');
-    var box = where.querySelector(':scope > [data-shiny-vue-invalid]');
-    if (box) box.parentNode.removeChild(box);
+    // The message given with `error` goes too: the field has been judged
+    // since, and passed
+    where.querySelectorAll(':scope > .el-form-item__error').forEach(function (e) {
+      e.parentNode.removeChild(e);
+    });
+  };
+
+  // update_el_*(error =): Element's error prop, set from the server -- a
+  // check only the server can make, such as whether a name is taken. ""
+  // clears it.
+  sv.hooks['.error'] = function (host, message) {
+    if (message === null || message === undefined || message === '') sv.clearInvalid(host);
+    else sv.setInvalid(host, String(message));
+  };
+
+  // update_el_*(label =), as Shiny's update*Input(label =). The suffix the
+  // label was built with stays.
+  sv.hooks['.label'] = function (host, text) {
+    var label = document.getElementById(host.id + '-label');
+    if (!label) {
+      if (window.console) console.warn('[shiny-vue] update: "' + host.id +
+        '" was built without a label, so there is none to change');
+      return;
+    }
+    label.textContent = String(text) + (label.getAttribute('data-suffix') || '');
   };
 
   // Where a table row sits, 1-based, so R can index its own data with it.

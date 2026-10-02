@@ -136,7 +136,7 @@ el_radio_group(
 
 An `htmltools` tagList containing the Vue-managed radio group.
 
-## Shiny input
+## Shiny inputs
 
 `input$<id>` — string or number reflecting the currently selected value,
 updated on each change.

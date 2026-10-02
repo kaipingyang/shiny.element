@@ -104,7 +104,7 @@ el_menu(
 
 A Shiny UI element.
 
-## Server inputs
+## Shiny inputs
 
 `input$<id>` holds the selected item's `index`, reported on load and on
 every selection – `NULL` while no item is active. `input$<id>_path`

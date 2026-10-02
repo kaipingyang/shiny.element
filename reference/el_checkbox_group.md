@@ -144,7 +144,7 @@ el_checkbox_group(
 
 An `htmltools` tagList with a Vue-managed checkbox group component.
 
-## Shiny input
+## Shiny inputs
 
 `input$<id>` — character vector of currently selected values.
 

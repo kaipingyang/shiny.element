@@ -57,7 +57,7 @@ el_badge(el_button("btn1", "Messages"), value = 5)
 #>     <script type="text/x-template" data-shiny-vue-template><div id="btn1_container" style="display: contents">
 #>   <el-button :type="type" :plain="plain" :round="round" :circle="circle" :loading="loading" :disabled="disabled" :native-type="native_type" @click="handleClick" :size="size === null ? undefined : size" :icon="icon === null ? undefined : icon" :autofocus="autofocus === null ? undefined : autofocus">{{label}}</el-button>
 #> </div></script>
-#>     <script type="application/json" data-shiny-vue-options>{"options":{"data":{"label":"Messages","type":"default","size":null,"plain":false,"round":false,"circle":false,"loading":false,"disabled":false,"native_type":"button","icon":null,"count":0,"autofocus":false},"methods":{"handleClick":"function() { if (!this.disabled && !this.loading) { this.count++; window.Shiny && Shiny.setInputValue && Shiny.setInputValue('btn1', this.count); } }"}},"input":null,"rate":null,"type":null,"evals":["options.methods.handleClick"]}</script>
+#>     <script type="application/json" data-shiny-vue-options>{"options":{"data":{"label":"Messages","type":"default","size":null,"plain":false,"round":false,"circle":false,"loading":false,"disabled":false,"native_type":"button","icon":null,"count":0,"autofocus":false},"methods":{"handleClick":"function() { if (this.disabled || this.loading) return; this.count++; }"}},"input":"count","rate":null,"type":"shiny.action","evals":["options.methods.handleClick"]}</script>
 #>   </div>
 #>   <sup class="el-badge__content is-fixed">5</sup>
 #> </div>
@@ -67,7 +67,7 @@ el_badge(el_button("btn2", "Alerts"),   value = 200, max = 99)
 #>     <script type="text/x-template" data-shiny-vue-template><div id="btn2_container" style="display: contents">
 #>   <el-button :type="type" :plain="plain" :round="round" :circle="circle" :loading="loading" :disabled="disabled" :native-type="native_type" @click="handleClick" :size="size === null ? undefined : size" :icon="icon === null ? undefined : icon" :autofocus="autofocus === null ? undefined : autofocus">{{label}}</el-button>
 #> </div></script>
-#>     <script type="application/json" data-shiny-vue-options>{"options":{"data":{"label":"Alerts","type":"default","size":null,"plain":false,"round":false,"circle":false,"loading":false,"disabled":false,"native_type":"button","icon":null,"count":0,"autofocus":false},"methods":{"handleClick":"function() { if (!this.disabled && !this.loading) { this.count++; window.Shiny && Shiny.setInputValue && Shiny.setInputValue('btn2', this.count); } }"}},"input":null,"rate":null,"type":null,"evals":["options.methods.handleClick"]}</script>
+#>     <script type="application/json" data-shiny-vue-options>{"options":{"data":{"label":"Alerts","type":"default","size":null,"plain":false,"round":false,"circle":false,"loading":false,"disabled":false,"native_type":"button","icon":null,"count":0,"autofocus":false},"methods":{"handleClick":"function() { if (this.disabled || this.loading) return; this.count++; }"}},"input":"count","rate":null,"type":"shiny.action","evals":["options.methods.handleClick"]}</script>
 #>   </div>
 #>   <sup class="el-badge__content is-fixed">99+</sup>
 #> </div>
@@ -77,7 +77,7 @@ el_badge(el_button("btn3", "Updates"),  is_dot = TRUE)
 #>     <script type="text/x-template" data-shiny-vue-template><div id="btn3_container" style="display: contents">
 #>   <el-button :type="type" :plain="plain" :round="round" :circle="circle" :loading="loading" :disabled="disabled" :native-type="native_type" @click="handleClick" :size="size === null ? undefined : size" :icon="icon === null ? undefined : icon" :autofocus="autofocus === null ? undefined : autofocus">{{label}}</el-button>
 #> </div></script>
-#>     <script type="application/json" data-shiny-vue-options>{"options":{"data":{"label":"Updates","type":"default","size":null,"plain":false,"round":false,"circle":false,"loading":false,"disabled":false,"native_type":"button","icon":null,"count":0,"autofocus":false},"methods":{"handleClick":"function() { if (!this.disabled && !this.loading) { this.count++; window.Shiny && Shiny.setInputValue && Shiny.setInputValue('btn3', this.count); } }"}},"input":null,"rate":null,"type":null,"evals":["options.methods.handleClick"]}</script>
+#>     <script type="application/json" data-shiny-vue-options>{"options":{"data":{"label":"Updates","type":"default","size":null,"plain":false,"round":false,"circle":false,"loading":false,"disabled":false,"native_type":"button","icon":null,"count":0,"autofocus":false},"methods":{"handleClick":"function() { if (this.disabled || this.loading) return; this.count++; }"}},"input":"count","rate":null,"type":"shiny.action","evals":["options.methods.handleClick"]}</script>
 #>   </div>
 #>   <sup class="el-badge__content is-fixed is-dot"></sup>
 #> </div>

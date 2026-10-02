@@ -22,7 +22,7 @@ removing the component by its id takes the label with it.
   error = NULL,
   show_message = TRUE,
   inline_message = FALSE,
-  size = NULL
+  size_field = FALSE
 )
 ```
 

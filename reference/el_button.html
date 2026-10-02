@@ -153,11 +153,13 @@ a warning.</p></dd>
     <p>An <code>htmltools</code> tagList with a Vue-managed button component.</p>
     </div>
     <div class="section level2">
-    <h2 id="shiny-input">Shiny input<a class="anchor" aria-label="anchor" href="#shiny-input"></a></h2>
+    <h2 id="shiny-inputs">Shiny inputs<a class="anchor" aria-label="anchor" href="#shiny-inputs"></a></h2>
 
 
-<p><code>input$&lt;id&gt;</code> — click count (integer), incremented on each click when neither
-<code>disabled</code> nor <code>loading</code> is <code>TRUE</code>.</p>
+<p><code>input$&lt;id&gt;</code> – the number of clicks, as <code><a href="https://rdrr.io/pkg/shiny/man/actionButton.html" class="external-link">shiny::actionButton()</a></code> reports
+it: 0 on load, and counted only while neither <code>disabled</code> nor <code>loading</code> is
+<code>TRUE</code>. It carries the same class, so <code><a href="https://rdrr.io/pkg/shiny/man/observeEvent.html" class="external-link">observeEvent()</a></code> and <code><a href="https://rdrr.io/pkg/shiny/man/req.html" class="external-link">req()</a></code> treat 0
+as not yet clicked.</p>
     </div>
 
     <div class="section level2">
@@ -168,7 +170,7 @@ a warning.</p></dd>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   &lt;script type="text/x-template" data-shiny-vue-template&gt;&lt;div id="btn_primary_container" style="display: contents"&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   &lt;el-button :type="type" :plain="plain" :round="round" :circle="circle" :loading="loading" :disabled="disabled" :native-type="native_type" @click="handleClick" :size="size === null ? undefined : size" :icon="icon === null ? undefined : icon" :autofocus="autofocus === null ? undefined : autofocus"&gt;{{label}}&lt;/el-button&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> &lt;/div&gt;&lt;/script&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   &lt;script type="application/json" data-shiny-vue-options&gt;{"options":{"data":{"label":"Primary","type":"primary","size":null,"plain":false,"round":false,"circle":false,"loading":false,"disabled":false,"native_type":"button","icon":null,"count":0,"autofocus":false},"methods":{"handleClick":"function() { if (!this.disabled &amp;&amp; !this.loading) { this.count++; window.Shiny &amp;&amp; Shiny.setInputValue &amp;&amp; Shiny.setInputValue('btn_primary', this.count); } }"}},"input":null,"rate":null,"type":null,"evals":["options.methods.handleClick"]}&lt;/script&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   &lt;script type="application/json" data-shiny-vue-options&gt;{"options":{"data":{"label":"Primary","type":"primary","size":null,"plain":false,"round":false,"circle":false,"loading":false,"disabled":false,"native_type":"button","icon":null,"count":0,"autofocus":false},"methods":{"handleClick":"function() { if (this.disabled || this.loading) return; this.count++; }"}},"input":"count","rate":null,"type":"shiny.action","evals":["options.methods.handleClick"]}&lt;/script&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> &lt;/div&gt;</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Shiny app example</span></span></span>

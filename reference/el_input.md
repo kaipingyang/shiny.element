@@ -235,7 +235,7 @@ Callable with
 
 - `select()` – Select the text in input element
 
-## Shiny input
+## Shiny inputs
 
 `input$<id>` – the text, reported as it is typed, debounced by 250 ms as
 [`shiny::textInput()`](https://rdrr.io/pkg/shiny/man/textInput.html)

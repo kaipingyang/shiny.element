@@ -185,7 +185,7 @@ el_slider(
 
 An `htmltools` tagList with a Vue-managed slider component.
 
-## Shiny input
+## Shiny inputs
 
 `input$<id>` — Number (`range = FALSE`) or two-element array
 (`range = TRUE`), updated when the user finishes dragging.

@@ -10,7 +10,9 @@ update_el_tree(
   id,
   data = NULL,
   expanded = NULL,
-  checked = NULL
+  checked = NULL,
+  label = NULL,
+  error = NULL
 )
 ```
 
@@ -39,6 +41,18 @@ update_el_tree(
 
   Keys to check, replacing the current selection entirely. Pass
   [`list()`](https://rdrr.io/r/base/list.html) to clear it.
+
+- label:
+
+  New label text, as for
+  [`shiny::updateTextInput()`](https://rdrr.io/pkg/shiny/man/updateTextInput.html).
+  Only a component built with a `label` has one to change.
+
+- error:
+
+  An error message to show on the component, as Element's `error` does –
+  for a check only the server can make, such as whether a name is taken.
+  `""` clears it.
 
 ## Value
 

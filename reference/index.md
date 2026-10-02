@@ -61,7 +61,7 @@ change.
 - [`el_color_picker()`](https://kaipingyang.github.io/shiny.element/reference/el_color_picker.md)
   : Element UI Color Picker
 - [`el_cascader()`](https://kaipingyang.github.io/shiny.element/reference/el_cascader.md)
-  : Element UI Cascader Widget
+  : Element UI Cascader
 - [`el_cascader_panel()`](https://kaipingyang.github.io/shiny.element/reference/el_cascader_panel.md)
   : Element UI Cascader Panel
 - [`el_upload()`](https://kaipingyang.github.io/shiny.element/reference/el_upload.md)
@@ -316,6 +316,15 @@ update_el\_\*() cannot reach them.
 
 - [`el_call()`](https://kaipingyang.github.io/shiny.element/reference/el_call.md)
   : Call a method on the Element UI component behind a widget
+
+## Loading from the server
+
+Where Element takes a JavaScript function to fetch data – a lazy tree,
+cascader or tree table – the component asks the server instead, and this
+answers.
+
+- [`el_load_children()`](https://kaipingyang.github.io/shiny.element/reference/el_load_children.md)
+  : Answer a component that asked the server for data
 
 ## Escape hatches
 

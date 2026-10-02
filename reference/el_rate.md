@@ -182,7 +182,7 @@ el_rate(
 
 An `htmltools` tagList with a Vue-managed rate component.
 
-## Shiny input
+## Shiny inputs
 
 `input$<id>` — numeric rating value (0 to `max`, increments of 0.5 when
 `allow_half = TRUE`).

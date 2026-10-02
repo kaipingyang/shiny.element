@@ -119,7 +119,7 @@ el_calendar("cal")
 #>   <script type="text/x-template" data-shiny-vue-template><div id="cal_container" style="display: contents">
 #>   <el-calendar v-model="value" :first-day-of-week="firstDayOfWeek" :range="range === null ? undefined : range"><template slot="dateCell" slot-scope="{date, data}"><p :class="data.isSelected ? 'is-selected' : ''">{{ data.day.split('-').slice(1).join('-') }}<span v-if="data.isSelected">✔</span></p></template></el-calendar>
 #> </div></script>
-#>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":"2026-10-01","firstDayOfWeek":1,"range":null},"watch":{"value":"function(newVal) { window.Shiny && Shiny.setInputValue && Shiny.setInputValue('cal', newVal); }"}},"input":"value","rate":null,"type":null,"evals":["options.watch.value"]}</script>
+#>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":"2026-10-02","firstDayOfWeek":1,"range":null},"watch":{"value":"function(newVal) { window.Shiny && Shiny.setInputValue && Shiny.setInputValue('cal', newVal); }"}},"input":"value","rate":null,"type":null,"evals":["options.watch.value"]}</script>
 #> </div>
 
 # Your own, with whatever Element hands the template
@@ -139,7 +139,7 @@ el_calendar("cal", slots = list(
 #>   <script type="text/x-template" data-shiny-vue-template><div id="cal_container" style="display: contents">
 #>   <el-calendar v-model="value" :first-day-of-week="firstDayOfWeek" :range="range === null ? undefined : range"><template slot="dateCell" slot-scope="{date, data}"><p>{{ data.day.slice(8) }}</p></template></el-calendar>
 #> </div></script>
-#>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":"2026-10-01","firstDayOfWeek":1,"range":null},"watch":{"value":"function(newVal) { window.Shiny && Shiny.setInputValue && Shiny.setInputValue('cal', newVal); }"}},"input":"value","rate":null,"type":null,"evals":["options.watch.value"]}</script>
+#>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":"2026-10-02","firstDayOfWeek":1,"range":null},"watch":{"value":"function(newVal) { window.Shiny && Shiny.setInputValue && Shiny.setInputValue('cal', newVal); }"}},"input":"value","rate":null,"type":null,"evals":["options.watch.value"]}</script>
 #> </div>
 # Basic usage
 el_calendar(id = "calendar1", value = Sys.Date())
@@ -153,7 +153,7 @@ el_calendar(id = "calendar1", value = Sys.Date())
 #>   <script type="text/x-template" data-shiny-vue-template><div id="calendar1_container" style="display: contents">
 #>   <el-calendar v-model="value" :first-day-of-week="firstDayOfWeek" :range="range === null ? undefined : range"><template slot="dateCell" slot-scope="{date, data}"><p :class="data.isSelected ? 'is-selected' : ''">{{ data.day.split('-').slice(1).join('-') }}<span v-if="data.isSelected">✔</span></p></template></el-calendar>
 #> </div></script>
-#>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":"2026-10-01","firstDayOfWeek":1,"range":null},"watch":{"value":"function(newVal) { window.Shiny && Shiny.setInputValue && Shiny.setInputValue('calendar1', newVal); }"}},"input":"value","rate":null,"type":null,"evals":["options.watch.value"]}</script>
+#>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":"2026-10-02","firstDayOfWeek":1,"range":null},"watch":{"value":"function(newVal) { window.Shiny && Shiny.setInputValue && Shiny.setInputValue('calendar1', newVal); }"}},"input":"value","rate":null,"type":null,"evals":["options.watch.value"]}</script>
 #> </div>
 
 # With date range
@@ -168,7 +168,7 @@ el_calendar(id = "calendar2", range = c("2025-01-01", "2025-01-31"))
 #>   <script type="text/x-template" data-shiny-vue-template><div id="calendar2_container" style="display: contents">
 #>   <el-calendar v-model="value" :first-day-of-week="firstDayOfWeek" :range="range === null ? undefined : range"><template slot="dateCell" slot-scope="{date, data}"><p :class="data.isSelected ? 'is-selected' : ''">{{ data.day.split('-').slice(1).join('-') }}<span v-if="data.isSelected">✔</span></p></template></el-calendar>
 #> </div></script>
-#>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":"2026-10-01","firstDayOfWeek":1,"range":["2025-01-01","2025-01-31"]},"watch":{"value":"function(newVal) { window.Shiny && Shiny.setInputValue && Shiny.setInputValue('calendar2', newVal); }"}},"input":"value","rate":null,"type":null,"evals":["options.watch.value"]}</script>
+#>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":"2026-10-02","firstDayOfWeek":1,"range":["2025-01-01","2025-01-31"]},"watch":{"value":"function(newVal) { window.Shiny && Shiny.setInputValue && Shiny.setInputValue('calendar2', newVal); }"}},"input":"value","rate":null,"type":null,"evals":["options.watch.value"]}</script>
 #> </div>
 
 # Shiny app example: interactive calendar with update

@@ -11,7 +11,9 @@ use_element(
   theme = el_layout_css_dependency(),
   offline = TRUE,
   dev = getOption("shiny.element.dev", FALSE),
-  locale = getOption("shiny.element.locale", "en")
+  locale = getOption("shiny.element.locale", "en"),
+  size = NULL,
+  z_index = NULL
 )
 ```
 
@@ -39,6 +41,13 @@ use_element(
   Language for Element UI's built-in text. English by default, or
   `getOption("shiny.element.locale")` when set. See
   [`el_locale_dependency()`](https://kaipingyang.github.io/shiny.element/reference/el_locale_dependency.md).
+
+- size, z_index:
+
+  Element's global config, as `Vue.use(Element, {size, zIndex})` sets
+  it: the size of every component not given one of its own (`"medium"`,
+  `"small"` or `"mini"`), and the z-index its popups start from (2000 by
+  default). `NULL` leaves Element's default.
 
 ## Value
 

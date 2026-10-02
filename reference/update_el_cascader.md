@@ -13,7 +13,9 @@ update_el_cascader(
   placeholder = NULL,
   clearable = NULL,
   filterable = NULL,
-  disabled = NULL
+  disabled = NULL,
+  label = NULL,
+  error = NULL
 )
 ```
 
@@ -51,6 +53,18 @@ update_el_cascader(
 - disabled:
 
   Whether disabled
+
+- label:
+
+  New label text, as for
+  [`shiny::updateTextInput()`](https://rdrr.io/pkg/shiny/man/updateTextInput.html).
+  Only a component built with a `label` has one to change.
+
+- error:
+
+  An error message to show on the component, as Element's `error` does –
+  for a check only the server can make, such as whether a name is taken.
+  `""` clears it.
 
 ## Value
 

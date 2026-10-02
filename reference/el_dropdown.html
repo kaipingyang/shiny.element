@@ -177,9 +177,9 @@ a warning.</p></dd>
     <h2 id="shiny-inputs">Shiny inputs<a class="anchor" aria-label="anchor" href="#shiny-inputs"></a></h2>
 
 
-<ul><li><p><code>input$&lt;id&gt;</code> — the <code>command</code> value of the last clicked item.</p></li>
-<li><p><code>input$&lt;id&gt;_count</code> — click counter, incremented for each item click
-(useful to detect re-clicks of the same command).</p></li>
+<ul><li><p><code>input$&lt;id&gt;</code> – the <code>command</code> of the item clicked. It is an event, so
+choosing the same item twice runs an <code><a href="https://rdrr.io/pkg/shiny/man/observeEvent.html" class="external-link">observeEvent()</a></code> twice.</p></li>
+<li><p><code>input$&lt;id&gt;_count</code> – the number of items clicked.</p></li>
 </ul></div>
 
     <div class="section level2">
@@ -206,7 +206,7 @@ a warning.</p></dd>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     &lt;/el-dropdown-menu&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   &lt;/el-dropdown&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> &lt;/div&gt;&lt;/script&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   &lt;script type="application/json" data-shiny-vue-options&gt;{"options":{"data":{"trigger":"hover","hideOnClick":true,"placement":"bottom-end","disabled":false,"splitButton":false,"count":0,"type":null,"size":null,"showTimeout":null,"hideTimeout":null,"tabindex":null},"methods":{"elEmitClick":"function() { window.shinyElement.emit('dd1', 'click', arguments); }","elEmitVisibleChange":"function() { window.shinyElement.emit('dd1', 'visible_change', arguments); }","handleCommand":"function(cmd) { this.count++; window.Shiny &amp;&amp; Shiny.setInputValue &amp;&amp; Shiny.setInputValue('dd1', cmd); window.Shiny &amp;&amp; Shiny.setInputValue &amp;&amp; Shiny.setInputValue('dd1_count', this.count); }"}},"input":null,"rate":null,"type":null,"evals":["options.methods.elEmitClick","options.methods.elEmitVisibleChange","options.methods.handleCommand"]}&lt;/script&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   &lt;script type="application/json" data-shiny-vue-options&gt;{"options":{"data":{"trigger":"hover","hideOnClick":true,"placement":"bottom-end","disabled":false,"splitButton":false,"count":0,"type":null,"size":null,"showTimeout":null,"hideTimeout":null,"tabindex":null},"methods":{"elEmitClick":"function() { window.shinyElement.emit('dd1', 'click', arguments); }","elEmitVisibleChange":"function() { window.shinyElement.emit('dd1', 'visible_change', arguments); }","handleCommand":"function(cmd) { this.count++; window.Shiny &amp;&amp; Shiny.setInputValue &amp;&amp; Shiny.setInputValue('dd1', cmd, {priority: 'event'}); window.Shiny &amp;&amp; Shiny.setInputValue &amp;&amp; Shiny.setInputValue('dd1_count', this.count); }"}},"input":null,"rate":null,"type":null,"evals":["options.methods.elEmitClick","options.methods.elEmitVisibleChange","options.methods.handleCommand"]}&lt;/script&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> &lt;/div&gt;</span>
 <span class="r-in"><span></span></span>
 </code></pre></div>

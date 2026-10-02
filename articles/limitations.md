@@ -270,7 +270,7 @@ ui <- el_page(
 )
 
 server <- function(input, output, session) {
-  output$clicks <- renderPrint(input$save)   # still reports
+  output$clicks <- renderText(paste("Saved", input$save, "times"))   # still reports
 }
 
 shinyApp(ui, server)
@@ -360,6 +360,14 @@ sizes a vertical track,
 [`el_carousel()`](https://kaipingyang.github.io/shiny.element/reference/el_carousel.md)
 sets the frame. Element sizes controls through `size` (`"medium"`,
 `"small"`, `"mini"`) rather than a height.
+
+`el_page(size = "small")` sets that size for every component not given
+one of its own, as `Vue.use(Element, {size: "small"})` does upstream;
+`z_index` sets where Element’s popups start stacking.
+[`use_element()`](https://kaipingyang.github.io/shiny.element/reference/use_element.md)
+takes both too. Element’s responsive helper classes – `hidden-xs-only`,
+`hidden-md-and-up` and the rest of its `display.css` – are loaded with
+it, for any tag: `tags$div(class = "hidden-sm-and-down", ...)`.
 
 ## The page around the components
 

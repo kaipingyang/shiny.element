@@ -127,7 +127,7 @@ el_color_picker(
 
 An `htmltools` tagList with a Vue-managed color-picker component.
 
-## Shiny input
+## Shiny inputs
 
 `input$<id>` — colour string (e.g. `"#409EFF"` or
 `"rgba(64,158,255,0.5)"`). `NULL` / `NA` when the user clears the

@@ -126,7 +126,7 @@ Those are each their own Vue instance, which puts them outside the
 form-item's component tree, where Element's event chain and shared model
 cannot reach them.
 
-## Server inputs
+## Shiny inputs
 
 `input$<id>` holds the whole model as a list, reported once on load and
 again on every submit. `input$<id>_valid` is `TRUE` when the last submit

@@ -1,7 +1,7 @@
-# Element UI Cascader Widget
+# Element UI Cascader
 
-Create a cascader (multi-level dropdown) input for Shiny using Element
-UI.
+Pick a path through nested options – a region, then a country, then a
+city – from a dropdown of side-by-side columns.
 
 ## Usage
 
@@ -46,11 +46,14 @@ el_cascader(
 
 - options:
 
-  Cascader options data (hierarchical list)
+  Nested options, each `list(value =, label =, children =)`.
+  [`df_to_cascader_options()`](https://kaipingyang.github.io/shiny.element/reference/df_to_cascader_options.md)
+  builds them from a data.frame.
 
 - value:
 
-  Initial selected value
+  Initially selected path, as a vector of values from the top level down
+  – or a list of paths with `props = list(multiple = TRUE)`.
 
 - placeholder:
 
@@ -58,7 +61,11 @@ el_cascader(
 
 - props:
 
-  Configuration object for cascader behavior
+  Element's `props`, as a named list: `multiple`, `checkStrictly`,
+  `expandTrigger` (`"click"` or `"hover"`), `lazy`, `lazyLoad`, and the
+  field names `value`, `label`, `children`, `disabled`, `leaf`. With
+  `lazy = TRUE` and no `lazyLoad` of your own, the server loads each
+  column: see "Shiny inputs".
 
 - clearable:
 
@@ -174,6 +181,20 @@ el_cascader(
 
 A Shiny UI element.
 
+## Shiny inputs
+
+- `input$<id>` – the selected path, on load and on change.
+
+- `input$<id>_lazy_load` – with `props = list(lazy = TRUE)`, a column to
+  load: `level` (0 for the first), `value` and `path` of the option
+  opened, and `request`. Answer with
+  [`el_load_children()`](https://kaipingyang.github.io/shiny.element/reference/el_load_children.md),
+  passing the input back; each child is
+  `list(value =, label =, leaf = TRUE)` for one with nothing below.
+
+- `input$<id>_expand_change`, `_blur`, `_focus`, `_visible_change`,
+  `_remove_tag` – Element's events.
+
 ## Element methods
 
 Callable with
@@ -217,7 +238,7 @@ if (interactive()) {
     verbatimTextOutput("selected")
   )
   server <- function(input, output, session) {
-    output$selected <- renderPrint(input$cascader1_value)
+    output$selected <- renderPrint(input$cascader1)
   }
   shinyApp(ui, server)
 }

@@ -163,7 +163,8 @@ el_select(
 
 - remote:
 
-  Whether options are fetched from the server as the user types.
+  Whether options are fetched from the server as the user types. Needs
+  `filterable = TRUE`; see "Shiny inputs".
 
 - filter_method:
 
@@ -173,7 +174,8 @@ el_select(
 - remote_method:
 
   [`htmlwidgets::JS()`](https://rdrr.io/pkg/htmlwidgets/man/JS.html)
-  function fetching options from the server. Needs `remote = TRUE`.
+  function fetching options in the browser instead of from the server.
+  Needs `remote = TRUE`.
 
 - label:
 
@@ -248,10 +250,18 @@ Callable with
 
 - `focus()` – Focus the Input component
 
-## Shiny input
+## Shiny inputs
 
-`input$<id>` — string (single) or character vector (multiple), updated
+`input$<id>` – string (single) or character vector (multiple), updated
 on each change.
+
+With `remote = TRUE`, `filterable = TRUE` and no `remote_method` of your
+own, the server does the search, as
+[`selectizeInput()`](https://rdrr.io/pkg/shiny/man/selectInput.html)'s
+server mode does: `input$<id>_query` is the text typed, and
+[`update_el_select()`](https://kaipingyang.github.io/shiny.element/reference/update_el_select.md)
+with the matching `choices` answers it – the select shows Element's
+loading text until then.
 
 ## Examples
 
@@ -263,14 +273,14 @@ el_select("sel1",
 )
 #> <div id="sel1" data-shiny-vue style="display: contents">
 #>   <script type="text/x-template" data-shiny-vue-template><div id="sel1_container" style="display: contents">
-#>   <el-select v-model="value" :multiple="multiple" :disabled="disabled" :clearable="clearable" :filterable="filterable" :multiple-limit="multipleLimit" :collapse-tags="collapseTags" @change="handleChange" :placeholder="placeholder === null ? undefined : placeholder" :size="size === null ? undefined : size" :value-key="valueKey === null ? undefined : valueKey" :name="name === null ? undefined : name" :autocomplete="autocomplete === null ? undefined : autocomplete" :automatic-dropdown="automaticDropdown === null ? undefined : automaticDropdown" :allow-create="allowCreate === null ? undefined : allowCreate" :loading="loading === null ? undefined : loading" :loading-text="loadingText === null ? undefined : loadingText" :no-match-text="noMatchText === null ? undefined : noMatchText" :no-data-text="noDataText === null ? undefined : noDataText" :popper-class="popperClass === null ? undefined : popperClass" :popper-append-to-body="popperAppendToBody === null ? undefined : popperAppendToBody" :reserve-keyword="reserveKeyword === null ? undefined : reserveKeyword" :default-first-option="defaultFirstOption === null ? undefined : defaultFirstOption" :remote="remote === null ? undefined : remote" :filter-method="filterMethod === null ? undefined : filterMethod" :remote-method="remoteMethod === null ? undefined : remoteMethod" @visible-change="elEmitVisibleChange" @remove-tag="elEmitRemoveTag" @clear="elEmitClear" @blur="elEmitBlur" @focus="elEmitFocus">
+#>   <el-select v-model="value" :multiple="multiple" :disabled="disabled" :clearable="clearable" :filterable="filterable" :multiple-limit="multipleLimit" :collapse-tags="collapseTags" @change="handleChange" :placeholder="placeholder === null ? undefined : placeholder" :size="size === null ? undefined : size" :value-key="valueKey === null ? undefined : valueKey" :name="name === null ? undefined : name" :autocomplete="autocomplete === null ? undefined : autocomplete" :automatic-dropdown="automaticDropdown === null ? undefined : automaticDropdown" :allow-create="allowCreate === null ? undefined : allowCreate" :loading="loading === null ? undefined : loading" :loading-text="loadingText === null ? undefined : loadingText" :no-match-text="noMatchText === null ? undefined : noMatchText" :no-data-text="noDataText === null ? undefined : noDataText" :popper-class="popperClass === null ? undefined : popperClass" :popper-append-to-body="popperAppendToBody === null ? undefined : popperAppendToBody" :reserve-keyword="reserveKeyword === null ? undefined : reserveKeyword" :default-first-option="defaultFirstOption === null ? undefined : defaultFirstOption" :remote="remote === null ? undefined : remote" :filter-method="filterMethod === null ? undefined : filterMethod" :remote-method="remoteMethod === null ? elRemoteQuery : remoteMethod" @visible-change="elEmitVisibleChange" @remove-tag="elEmitRemoveTag" @clear="elEmitClear" @blur="elEmitBlur" @focus="elEmitFocus">
 #>     <el-option v-for="opt in options" :key="opt.value" :value="opt.value" :label="opt.label" :disabled="opt.disabled"></el-option>
 #>     <el-option-group v-for="g in groups" :key="g.label" :label="g.label" :disabled="g.disabled">
 #>       <el-option v-for="opt in g.options" :key="opt.value" :value="opt.value" :label="opt.label" :disabled="opt.disabled"></el-option>
 #>     </el-option-group>
 #>   </el-select>
 #> </div></script>
-#>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":"banana","options":[{"value":"apple","label":"Apple"},{"value":"banana","label":"Banana"},{"value":"cherry","label":"Cherry"}],"groups":[],"multiple":false,"disabled":false,"clearable":false,"filterable":false,"multipleLimit":0,"collapseTags":false,"placeholder":null,"size":null,"valueKey":null,"name":null,"autocomplete":null,"automaticDropdown":null,"allowCreate":null,"loading":null,"loadingText":null,"noMatchText":null,"noDataText":null,"popperClass":null,"popperAppendToBody":null,"reserveKeyword":null,"defaultFirstOption":null,"remote":null,"filterMethod":null,"remoteMethod":null},"methods":{"elEmitVisibleChange":"function() { window.shinyElement.emit('sel1', 'visible_change', arguments); }","elEmitRemoveTag":"function() { window.shinyElement.emit('sel1', 'remove_tag', arguments); }","elEmitClear":"function() { window.shinyElement.emit('sel1', 'clear', arguments); }","elEmitBlur":"function() { window.shinyElement.emit('sel1', 'blur', arguments); }","elEmitFocus":"function() { window.shinyElement.emit('sel1', 'focus', arguments); }","handleChange":"function(value) { }"}},"input":"value","rate":null,"type":null,"evals":["options.methods.elEmitVisibleChange","options.methods.elEmitRemoveTag","options.methods.elEmitClear","options.methods.elEmitBlur","options.methods.elEmitFocus","options.methods.handleChange"]}</script>
+#>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":"banana","options":[{"value":"apple","label":"Apple"},{"value":"banana","label":"Banana"},{"value":"cherry","label":"Cherry"}],"groups":[],"multiple":false,"disabled":false,"clearable":false,"filterable":false,"multipleLimit":0,"collapseTags":false,"placeholder":null,"size":null,"valueKey":null,"name":null,"autocomplete":null,"automaticDropdown":null,"allowCreate":null,"loading":null,"loadingText":null,"noMatchText":null,"noDataText":null,"popperClass":null,"popperAppendToBody":null,"reserveKeyword":null,"defaultFirstOption":null,"remote":null,"filterMethod":null,"remoteMethod":null},"methods":{"elEmitVisibleChange":"function() { window.shinyElement.emit('sel1', 'visible_change', arguments); }","elEmitRemoveTag":"function() { window.shinyElement.emit('sel1', 'remove_tag', arguments); }","elEmitClear":"function() { window.shinyElement.emit('sel1', 'clear', arguments); }","elEmitBlur":"function() { window.shinyElement.emit('sel1', 'blur', arguments); }","elEmitFocus":"function() { window.shinyElement.emit('sel1', 'focus', arguments); }","elRemoteQuery":"function(query) {\n  if (!(window.Shiny && Shiny.setInputValue)) return;\n  this.loading = true;\n  window.Shiny && Shiny.setInputValue && Shiny.setInputValue('sel1_query', query, {priority: 'event'});\n}","handleChange":"function(value) { }"}},"input":"value","rate":null,"type":null,"evals":["options.methods.elEmitVisibleChange","options.methods.elEmitRemoveTag","options.methods.elEmitClear","options.methods.elEmitBlur","options.methods.elEmitFocus","options.methods.elRemoteQuery","options.methods.handleChange"]}</script>
 #> </div>
 
 # Shiny app example

@@ -55,7 +55,9 @@
 <span>  value <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  suggestions <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  placeholder <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  disabled <span class="op">=</span> <span class="cn">NULL</span></span>
+<span>  disabled <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  label <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  error <span class="op">=</span> <span class="cn">NULL</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
 
@@ -75,6 +77,17 @@
 <dt id="arg-value-suggestions-placeholder-disabled">value, suggestions, placeholder, disabled<a class="anchor" aria-label="anchor" href="#arg-value-suggestions-placeholder-disabled"></a></dt>
 <dd><p>New values; <code>NULL</code> leaves one
 unchanged.</p></dd>
+
+
+<dt id="arg-label">label<a class="anchor" aria-label="anchor" href="#arg-label"></a></dt>
+<dd><p>New label text, as for <code><a href="https://rdrr.io/pkg/shiny/man/updateTextInput.html" class="external-link">shiny::updateTextInput()</a></code>. Only a
+component built with a <code>label</code> has one to change.</p></dd>
+
+
+<dt id="arg-error">error<a class="anchor" aria-label="anchor" href="#arg-error"></a></dt>
+<dd><p>An error message to show on the component, as Element's
+<code>error</code> does – for a check only the server can make, such as whether
+a name is taken. <code>""</code> clears it.</p></dd>
 
 </dl></div>
     <div class="section level2">

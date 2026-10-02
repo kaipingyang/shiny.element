@@ -139,8 +139,6 @@ other components from this package. See `.claude/docs/lessons.md` §1.2.
 
 - `input$<id>_close`, `input$<id>_closed` – likewise as it closes.
 
-## Shiny input
-
 `input$<id>` — `TRUE` while the dialog is open, reported whenever it
 opens or closes, however that happens. (It was `input$<id>_visible`
 while this was a Vue component; Shiny routes an input binding's messages
@@ -170,7 +168,7 @@ el_dialog("d1", title = "Confirm", content = shiny::tags$p("Are you sure?"),
 #>         <script type="text/x-template" data-shiny-vue-template><div id="ok_container" style="display: contents">
 #>   <el-button :type="type" :plain="plain" :round="round" :circle="circle" :loading="loading" :disabled="disabled" :native-type="native_type" @click="handleClick" :size="size === null ? undefined : size" :icon="icon === null ? undefined : icon" :autofocus="autofocus === null ? undefined : autofocus">{{label}}</el-button>
 #> </div></script>
-#>         <script type="application/json" data-shiny-vue-options>{"options":{"data":{"label":"OK","type":"primary","size":null,"plain":false,"round":false,"circle":false,"loading":false,"disabled":false,"native_type":"button","icon":null,"count":0,"autofocus":false},"methods":{"handleClick":"function() { if (!this.disabled && !this.loading) { this.count++; window.Shiny && Shiny.setInputValue && Shiny.setInputValue('ok', this.count); } }"}},"input":null,"rate":null,"type":null,"evals":["options.methods.handleClick"]}</script>
+#>         <script type="application/json" data-shiny-vue-options>{"options":{"data":{"label":"OK","type":"primary","size":null,"plain":false,"round":false,"circle":false,"loading":false,"disabled":false,"native_type":"button","icon":null,"count":0,"autofocus":false},"methods":{"handleClick":"function() { if (this.disabled || this.loading) return; this.count++; }"}},"input":"count","rate":null,"type":"shiny.action","evals":["options.methods.handleClick"]}</script>
 #>       </div>
 #>     </div>
 #>   </div>

@@ -161,7 +161,7 @@ Callable with
 
 - `select()` – Select the text in input element
 
-## Shiny input
+## Shiny inputs
 
 `input$<id>` — numeric value, updated on each valid change.
 

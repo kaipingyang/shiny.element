@@ -138,6 +138,11 @@ el_cascader("region", options = list(
     list(value = "hz", label = "Hangzhou")))))
 ```
 
+With `props = list(lazy = TRUE)`, each column is loaded from the server
+as the one before it is opened, through `input$<id>_lazy_load` and
+[`el_load_children()`](https://kaipingyang.github.io/shiny.element/reference/el_load_children.md)
+– as for a lazy tree.
+
 ### `el_cascader_panel()`
 
 The cascader’s columns on their own, always open.
@@ -737,6 +742,30 @@ el_tree("picker", show_checkbox = TRUE, checked = "apple", data = list(
   list(id = "fruit", label = "Fruit", children = list(
     list(id = "apple", label = "Apple")))))
 ```
+
+With `lazy = TRUE`, each node’s children come from the server as it is
+opened – here, a folder’s contents. `input$<id>_load` asks; level 0 is
+the top:
+
+``` r
+
+ui <- el_page(el_tree("files", lazy = TRUE, node_key = "path",
+                      is_leaf_field = "leaf"))
+
+server <- function(input, output, session) {
+  observeEvent(input$files_load, {
+    q <- input$files_load
+    dir <- if (q$level == 0) R.home() else q$key
+    paths <- head(list.files(dir, full.names = TRUE), 6)
+    el_load_children(id = "files", request = q, children = lapply(paths, function(p)
+      list(path = p, label = basename(p), leaf = !dir.exists(p))))
+  })
+}
+
+shinyApp(ui, server)
+```
+
+![](../shots/components-tree-lazy.png)
 
 ### `el_breadcrumb()`
 

@@ -34,7 +34,7 @@ element_ui_dependency()
 #>   ..$ file: chr "/home/runner/work/_temp/Library/shiny.element/element-ui"
 #>  $ meta      : NULL
 #>  $ script    : chr "index.js"
-#>  $ stylesheet: chr "theme-chalk/index.css"
+#>  $ stylesheet: chr [1:2] "theme-chalk/index.css" "theme-chalk/display.css"
 #>  $ head      : chr "<style>.el-table .el-table__expanded-cell[class*=cell]{padding:20px 50px}</style>"
 #>  $ attachment: NULL
 #>  $ package   : NULL
@@ -48,7 +48,7 @@ element_ui_dependency(offline = FALSE)
 #>   ..$ href: chr "https://unpkg.com/element-ui@2.15.14/lib/"
 #>  $ meta      : NULL
 #>  $ script    : chr "index.js"
-#>  $ stylesheet: chr "theme-chalk/index.css"
+#>  $ stylesheet: chr [1:2] "theme-chalk/index.css" "theme-chalk/display.css"
 #>  $ head      : chr "<style>.el-table .el-table__expanded-cell[class*=cell]{padding:20px 50px}</style>"
 #>  $ attachment: NULL
 #>  $ package   : NULL

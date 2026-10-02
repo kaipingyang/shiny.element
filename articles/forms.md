@@ -48,9 +48,30 @@ el_select("team", choices = c("Data", "Design"), label = "Team",
           size = "small", width = "260px")
 ```
 
-`error` is the message as the page first shows it. One that comes and
-goes with what is typed belongs to a validator – shinyvalidate, below,
-or
+`update_el_*()` changes the label, as Shiny’s `update*Input()` do, and
+sets or clears the error – Element’s use for `error`: a check only the
+server can make, such as whether a name is taken. `""` clears it.
+
+``` r
+
+taken <- c("admin", "root")
+
+ui <- el_page(el_input("user", label = "Username", width = "300px"))
+
+server <- function(input, output, session) {
+  observeEvent(input$user, {
+    update_el_input(id = "user",
+                    error = if (input$user %in% taken) "That name is taken" else "")
+  })
+}
+
+shinyApp(ui, server)
+```
+
+![](../shots/forms-server-error.png)
+
+One that comes and goes with what is typed, by rules written in R, is a
+validator’s job – shinyvalidate, below, or
 [`el_form()`](https://kaipingyang.github.io/shiny.element/reference/el_form.md)’s
 rules.
 
@@ -212,6 +233,34 @@ shinyApp(ui, server)
 ```
 
 ![](../shots/forms-dates.png)
+
+## Searching on the server
+
+With `remote = TRUE`, a select asks the server for its options as the
+user types, as
+[`selectizeInput()`](https://rdrr.io/pkg/shiny/man/selectInput.html)’s
+server mode does: the text arrives as `input$<id>_query`, and
+[`update_el_select()`](https://kaipingyang.github.io/shiny.element/reference/update_el_select.md)
+with the matches answers it. Until then the select shows Element’s
+loading text.
+
+``` r
+
+ui <- el_page(el_select("state", filterable = TRUE, remote = TRUE,
+                        placeholder = "Type a state", width = "260px"))
+
+server <- function(input, output, session) {
+  observeEvent(input$state_query, {
+    # a database query, in a real app
+    hits <- grep(input$state_query, state.name, ignore.case = TRUE, value = TRUE)
+    update_el_select(id = "state", choices = head(hits, 8))
+  })
+}
+
+shinyApp(ui, server)
+```
+
+![](../shots/forms-remote.png)
 
 ## Typing
 

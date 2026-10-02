@@ -170,12 +170,24 @@
   // the update could never take effect. A component with something to do
   // beyond assigning -- move a carousel, check tree nodes -- defines
   // shinyVueReceive(data), which handles what it can and returns the rest.
+  // Keys starting with a dot are the bridge's, not fields. A layer above it
+  // registers what it handles -- the Element layer draws a label and an
+  // error message -- and `.resolve` answers a question a component asked.
+  sv.hooks = sv.hooks || {};
+
   sv.update = function(id, data) {
     var host = document.getElementById(id);
     var vm = host && host.hasAttribute('data-shiny-vue') ? mount(host) : null;
     if (!vm) { warn('update: no component with id "' + id + '"'); return; }
     var rest = {};
-    Object.keys(data).forEach(function(k) { if (k !== 'id') rest[k] = data[k]; });
+    Object.keys(data).forEach(function(k) {
+      if (k === 'id') return;
+      if (k.charAt(0) === '.' && typeof sv.hooks[k] === 'function') {
+        sv.hooks[k](host, data[k], vm);
+      } else {
+        rest[k] = data[k];
+      }
+    });
     if (typeof vm.shinyVueReceive === 'function') rest = vm.shinyVueReceive(rest) || {};
     Object.keys(rest).forEach(function(k) {
       if (!(k in vm.$data)) {
@@ -186,6 +198,35 @@
     });
     // Report the new value, as Shiny's own update*Input() does
     if (vm._elReport) vm._elReport();
+  };
+
+  // ── asking the server ───────────────────────────────────────────────────
+  //
+  // A component that cannot go on without the server -- a tree node's
+  // children, a cascader's next column, a select's matches -- asks: the
+  // question goes to input$<input> with a request number, and the promise
+  // settles when an update carries `.resolve: {request, value}` back. With
+  // no server to ask, the answer is null at once.
+  var pending = {}, nextRequest = 0;
+  sv.ask = function(input, question) {
+    if (typeof Shiny === 'undefined' || !Shiny.setInputValue) return Promise.resolve(null);
+    var request = ++nextRequest;
+    var payload = plain(question) || {};
+    payload.request = request;
+    return new Promise(function(resolve) {
+      pending[request] = resolve;
+      Shiny.setInputValue(input, payload, { priority: 'event' });
+    });
+  };
+  sv.hooks['.resolve'] = function(host, answer) {
+    var resolve = answer && pending[answer.request];
+    if (!resolve) {
+      warn('update: "' + host.id + '" answered request ' + (answer && answer.request) +
+           ', which nothing is waiting for');
+      return;
+    }
+    delete pending[answer.request];
+    resolve(answer.value);
   };
 
   // The component the instance renders, whose methods Element documents:

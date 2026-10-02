@@ -102,7 +102,7 @@ el_carousel(
 
 A Shiny UI element.
 
-## Server inputs
+## Shiny inputs
 
 `input$<id>` holds the index of the slide currently showing, 0-based,
 and `input$<id>_name` its `name` if one was given. Both are reported on

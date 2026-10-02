@@ -156,7 +156,7 @@ Callable with
 
 - `focus()` – Focus the Switch component
 
-## Shiny input
+## Shiny inputs
 
 `input$<id>` — the value of `active_value` (when on) or `inactive_value`
 (when off), matching the types of those arguments.
