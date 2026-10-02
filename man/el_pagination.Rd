@@ -79,9 +79,9 @@ jump-to-page input, and total count display.
 }
 \section{Shiny inputs}{
 
-\describe{
-\item{\verb{input$<id>_page}}{Current page number (integer).}
-\item{\verb{input$<id>_size}}{Current page size (integer).}
+\itemize{
+\item \verb{input$<id>} -- the current page, 1-based, on load and on change.
+\item \verb{input$<id>_size} -- the page size, on load and on change.
 }
 }
 
@@ -108,7 +108,7 @@ if (interactive()) {
   )
   server <- function(input, output, session) {
     output$page_info <- renderPrint({
-      list(page = input$pg1_page, size = input$pg1_size)
+      list(page = input$pg1, size = input$pg1_size)
     })
   }
   shinyApp(ui, server)

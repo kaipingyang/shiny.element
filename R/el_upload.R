@@ -13,10 +13,10 @@
 #' `on-progress` and `on-error` hooks working as they normally do.
 #'
 #' @param ns_id The namespaced input id.
-#' @return An [htmlwidgets::JS()] object for the `http-request` prop.
+#' @return An [JS()] object for the `http-request` prop.
 #' @keywords internal
 .el_upload_js <- function(ns_id) {
-  htmlwidgets::JS(sprintf(paste0(
+  JS(sprintf(paste0(
     "function(options) {\n",
     "  var self = this, inputId = %s;\n",
     # Outside a Shiny app there is nowhere to send the file; fail it the
@@ -115,13 +115,13 @@
 #' @param file_list Files shown initially, each `list(name=, url=)`.
 #' @param with_credentials Whether to send cookies with the request.
 #' @param thumbnail_mode Whether files are shown as thumbnails.
-#' @param before_upload `htmlwidgets::JS()` function called before a file is sent; returning `false` cancels it.
-#' @param before_remove `htmlwidgets::JS()` function called before a file is removed; returning `false` cancels it.
-#' @param on_change `htmlwidgets::JS()` function called when a file is added, or finishes.
-#' @param on_progress `htmlwidgets::JS()` function called as a file uploads.
-#' @param on_preview `htmlwidgets::JS()` function called when an uploaded file is clicked.
-#' @param on_remove `htmlwidgets::JS()` function called after a file is removed.
-#' @param on_exceed `htmlwidgets::JS()` function called when more files are picked than `limit`.
+#' @param before_upload `JS()` function called before a file is sent; returning `false` cancels it.
+#' @param before_remove `JS()` function called before a file is removed; returning `false` cancels it.
+#' @param on_change `JS()` function called when a file is added, or finishes.
+#' @param on_progress `JS()` function called as a file uploads.
+#' @param on_preview `JS()` function called when an uploaded file is clicked.
+#' @param on_remove `JS()` function called after a file is removed.
+#' @param on_exceed `JS()` function called when more files are picked than `limit`.
 #' @inheritParams el_widget
 #' @param width Component width, as a CSS unit -- `"200px"`, `"50%"`, or a
 #'   number taken as pixels. Element's own markup carries it, so it behaves
@@ -317,7 +317,7 @@ el_upload <- function(id = NULL,
   vue_data$onExceed <- .el_or_na(on_exceed)
 
   methods <- list(
-    handleSuccess = htmlwidgets::JS(sprintf(
+    handleSuccess = JS(sprintf(
       paste0(
         "function(response, file, fileList) { ",
         "this.succeeded = fileList.filter(function(f) { return f.status === 'success'; })",
@@ -325,14 +325,14 @@ el_upload <- function(id = NULL,
         "window.Shiny && Shiny.setInputValue && Shiny.setInputValue('%s_success', this.succeeded); }"
       ), ns_id
     )),
-    handleError = htmlwidgets::JS(sprintf(
+    handleError = JS(sprintf(
       "function(err, file) { this.failed = file.name; window.Shiny && Shiny.setInputValue && Shiny.setInputValue('%s_error', file.name); }",
       ns_id
     ))
   )
   if (via_shiny) methods$shinyUpload <- .el_upload_js(ns_id)
   # el_upload_clear(): empty the list and what was reported of it
-  methods$shinyVueReceive <- htmlwidgets::JS(sprintf(paste0(
+  methods$shinyVueReceive <- JS(sprintf(paste0(
     "function(d) { if (d['.action'] === 'clear') { ",
     "if (this.$refs.upload) this.$refs.upload.clearFiles(); this.succeeded = []; ",
     "window.Shiny && Shiny.setInputValue && Shiny.setInputValue('%s_success', []); } ",

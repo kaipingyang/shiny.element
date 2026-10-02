@@ -147,13 +147,13 @@ el_radio_group <- function(
     data    = vue_data,
     methods = list(
       # Which choice changed, and to what: input$<id>_item_change
-      handleItemChange = htmlwidgets::JS(sprintf(
+      handleItemChange = JS(sprintf(
         paste0("function(opt, checked) { ",
-               "window.shinyElement.emit('%s', 'item_change', ",
+               "window.shinyVue.emit('%s', 'item_change', ",
                "[{value: opt.value, label: opt.label, checked: checked}]); }"),
         ns_id
       )),
-      handleChange = htmlwidgets::JS(sprintf(
+      handleChange = JS(sprintf(
         "function(value) { window.Shiny && Shiny.setInputValue && Shiny.setInputValue('%s', value); }",
         ns_id
       ))

@@ -33,10 +33,8 @@
 #' @return An `htmltools` tagList with a Vue-managed pagination component.
 #'
 #' @section Shiny inputs:
-#' \describe{
-#'   \item{`input$<id>_page`}{Current page number (integer).}
-#'   \item{`input$<id>_size`}{Current page size (integer).}
-#' }
+#' - `input$<id>` -- the current page, 1-based, on load and on change.
+#' - `input$<id>_size` -- the page size, on load and on change.
 #'
 #' @examples
 #' # Basic usage
@@ -61,7 +59,7 @@
 #'   )
 #'   server <- function(input, output, session) {
 #'     output$page_info <- renderPrint({
-#'       list(page = input$pg1_page, size = input$pg1_size)
+#'       list(page = input$pg1, size = input$pg1_size)
 #'     })
 #'   }
 #'   shinyApp(ui, server)
@@ -91,13 +89,12 @@ el_pagination <- function(
   if (is.null(id)) id <- paste0("el_pagination_", uuid::UUIDgenerate())
   ns_id        <- .el_ui_id(id, session)
   container_id <- paste0(ns_id, "_container")
-  # The page and the size are what the pager reports, so what a bookmark keeps
-  current_page <- shiny::restoreInput(paste0(ns_id, "_page"), current_page)
-  page_size    <- shiny::restoreInput(paste0(ns_id, "_size"), page_size)
+  # The page is the value, restored by el_widget(); the size beside it
+  page_size <- shiny::restoreInput(paste0(ns_id, "_size"), page_size)
 
   pagination_attrs <- list(
     ":total"             = "total",
-    ":page-size"         = "pageSize",
+    ":page-size.sync"    = "pageSize",
     ":current-page.sync" = "currentPage",
     ":page-sizes"        = "pageSizes",
     ":layout"            = "layout",
@@ -159,17 +156,17 @@ el_pagination <- function(
     markup = htmltools::tag("el-pagination", pagination_attrs),
     data    = vue_data,
     methods = c(events$methods, list(
-      handlePageChange = htmlwidgets::JS(sprintf(
-        "function(page) { window.Shiny && Shiny.setInputValue && Shiny.setInputValue('%s_page', page); }",
+      handlePageChange = JS(sprintf(
+        "function(page) { window.Shiny && Shiny.setInputValue && Shiny.setInputValue('%s', page); }",
         ns_id
       )),
-      handleSizeChange = htmlwidgets::JS(sprintf(
+      handleSizeChange = JS(sprintf(
         "function(size) { window.Shiny && Shiny.setInputValue && Shiny.setInputValue('%s_size', size); }",
         ns_id
       ))
     )),
     mounted = .el_mounted_init(stats::setNames(c("currentPage", "pageSize"),
-                              paste0(ns_id, c("_page", "_size")))),
+                              paste0(ns_id, c("", "_size")))),
     width      = width,
     slots      = slots
   )

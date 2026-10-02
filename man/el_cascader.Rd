@@ -72,9 +72,9 @@ the server loads each column: see "Shiny inputs".}
 
 \item{popper_class}{Extra class name for the dropdown panel.}
 
-\item{filter_method}{\code{htmlwidgets::JS()} function filtering the options as the user types.}
+\item{filter_method}{\code{JS()} function filtering the options as the user types.}
 
-\item{before_filter}{\code{htmlwidgets::JS()} function called before filtering; returning \code{false} cancels it.}
+\item{before_filter}{\code{JS()} function called before filtering; returning \code{false} cancels it.}
 
 \item{label}{A label shown with the component, as Shiny's inputs have:
 text or a tag. \code{NULL}, the default, shows none. It is the component's

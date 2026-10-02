@@ -2,7 +2,7 @@
 % Please edit documentation in R/el_call.R
 \name{el_call}
 \alias{el_call}
-\title{Call a method on the Element UI component behind a widget}
+\title{Call a method of an Element component}
 \usage{
 el_call(
   session = shiny::getDefaultReactiveDomain(),
@@ -27,7 +27,8 @@ el_call(
 \code{TRUE}.}
 
 \item{component}{Optional Element component name (\code{"ElTable"}) to look for
-under the widget. Only needed when a component nests another of its own.}
+under the component's id. Only needed when a component nests another of
+its own.}
 }
 \value{
 Called for its side effect; returns \code{NULL} invisibly.

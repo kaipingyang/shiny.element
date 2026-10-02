@@ -63,7 +63,7 @@ el_load_children <- function(session = shiny::getDefaultReactiveDomain(), id,
 #' @return A JS function, the computed property.
 #' @keywords internal
 .el_lazy_props <- function(ns_id) {
-  htmlwidgets::JS(sprintf(paste0(
+  JS(sprintf(paste0(
     "function() {\n",
     "  var p = this.props;\n",
     "  if (p === null) return undefined;\n",
@@ -86,7 +86,7 @@ el_load_children <- function(session = shiny::getDefaultReactiveDomain(), id,
 #' @keywords internal
 .el_lazy_load_method <- function(ns_id, kind = c("tree", "table")) {
   kind <- match.arg(kind)
-  htmlwidgets::JS(switch(kind,
+  JS(switch(kind,
     tree = sprintf(paste0(
       "function(node, resolve) {\n",
       "  var key = node.level && this.nodeKey ? node.data[this.nodeKey] : null;\n",

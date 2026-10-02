@@ -146,7 +146,7 @@ el_rate <- function(
     highThreshold = .el_or_na(high_threshold)
     ),
     methods = list(
-      handleChange = htmlwidgets::JS(sprintf(
+      handleChange = JS(sprintf(
         "function(val) { window.Shiny && Shiny.setInputValue && Shiny.setInputValue('%s', val); }",
         ns_id
       ))

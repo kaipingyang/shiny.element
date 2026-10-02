@@ -124,7 +124,7 @@ el_switch <- function(
     markup  = switch_tag,
     data    = vue_data,
     methods = list(
-      handleChange = htmlwidgets::JS(sprintf(
+      handleChange = JS(sprintf(
         "function(value) { window.Shiny && Shiny.setInputValue && Shiny.setInputValue('%s', value); }", ns_id
       ))
     ),

@@ -225,7 +225,7 @@ el_date_picker <- function(
     # converted on the way in. A change handler sending it too would send it
     # unconverted, overwriting the Date.
     methods = c(events$methods, list(
-      handleChange = htmlwidgets::JS("function() {}")
+      handleChange = JS("function() {}")
     )),
     mounted = .el_mounted_init(stats::setNames("value", ns_id)),
     type    = if (type %in% c("date", "dates", "daterange") &&

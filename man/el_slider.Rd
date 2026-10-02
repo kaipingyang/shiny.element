@@ -82,7 +82,7 @@ native input that takes the id \verb{<id>-input}, else with
 
 \item{tooltip_class}{Extra class name for the value tooltip.}
 
-\item{format_tooltip}{\code{htmlwidgets::JS()} function formatting the value shown in the tooltip.}
+\item{format_tooltip}{\code{JS()} function formatting the value shown in the tooltip.}
 
 \item{label_position}{Where the label sits, as \code{el_form()}'s
 \code{label_position}: \code{"top"} (the default, as Shiny's labels sit), or

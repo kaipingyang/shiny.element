@@ -2,9 +2,18 @@ The R code in this package is copyright Kaiping Yang and released under the
 MIT licence, as stated in DESCRIPTION and LICENSE.
 
 inst/element-ui/ contains an unmodified copy of Element UI 2.15.14
-(index.js, its locales, theme-chalk/index.css and the element-icons fonts), bundled so the
-package works without fetching anything at runtime. It is copyright ElemeFE
-and released under the MIT licence:
+(index.js, its locales, theme-chalk/index.css and display.css, and the
+element-icons fonts), bundled so the
+package works without fetching anything at runtime.
+
+inst/element-ui/theme-chalk-src.tar.gz contains Element UI 2.15.14's theme
+Sass sources (packages/theme-chalk/src, without the fonts), from which a themed
+stylesheet is compiled. Two mixins in mixins/mixins.scss, m() and e(), are
+rewritten to build their selector lists without a trailing comma, which
+crashes the libsass the sass package uses; the selectors they produce are
+the same. Otherwise the files are unmodified.
+
+Both are copyright ElemeFE and released under the MIT licence:
 
   Copyright (c) 2016-present ElemeFE
 

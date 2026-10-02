@@ -87,7 +87,7 @@ el_cascader_panel <- function(id = NULL,
       props   = .el_or_na(props)
     ),
     methods = c(events$methods, list(
-      handleChange = htmlwidgets::JS(sprintf(
+      handleChange = JS(sprintf(
         "function(v) { window.Shiny && Shiny.setInputValue && Shiny.setInputValue('%s', v); }", ns_id
       ))
     )),

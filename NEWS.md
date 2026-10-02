@@ -101,14 +101,16 @@ so instead of leaving bare text.
 
 ## Every component is a Shiny input
 
-Components are no longer vueR htmlwidgets. vueR renders Vue as an htmlwidget
-*output*, so the id sat on a hidden 0x0 element beside the component and
-Shiny did not know there was an input: `shinyjs::hide()` and `disable()`
-missed it, `removeUI()` left it on the page with its Vue instance alive, and
-no test driver could set it. Each component is now a host element carrying
-its id, with a Shiny input binding on it -- the way reactR binds React
-components -- so all of those reach it. vueR is no longer a dependency;
-Vue 2.7.14, the version Element UI 2 runs on, is bundled beside Element.
+Each component is a host element carrying its id, with Element's markup
+inside and a Shiny input binding on it -- the way reactR binds React
+components -- so the rest of Shiny reaches it as it reaches `textInput()`:
+`shinyjs::hide()` and `disable()`, `removeUI()` (which destroys its Vue
+instance too), bookmarking, shinyvalidate, a test driver's `set_inputs()`.
+Vue 2.7.14, the version Element UI 2 runs on, is bundled beside Element, and
+`JS()` marks JavaScript the way `htmlwidgets::JS()` does, without depending
+on htmlwidgets. (Development versions built on vueR's htmlwidgets, where the
+id sat on a hidden element beside the component and Shiny did not know it
+was an input.)
 
 `el_widget()` builds the same shape for components of your own, and its new
 `report` argument names the value -- an input made of `el$` tags, as the
@@ -132,7 +134,8 @@ limitations article shows, needs no JavaScript.
   `req()` treat 0 as not yet clicked. `el_dropdown()` reports each command
   as an event, so choosing the same item twice runs an observer twice.
 * **One input per id.** `el_cascader()` reports to `input$<id>`, as every
-  other input does, rather than `input$<id>_value`.
+  other input does, rather than `input$<id>_value`, and `el_pagination()`
+  reports its page as `input$<id>` rather than `input$<id>_page`.
 * **The server loads.** Where Element takes a JavaScript function to fetch
   data, the server can answer instead: a lazy `el_tree()`, `el_cascader()`,
   `el_cascader_panel()` or tree `el_table()` asks through `input$<id>_load`
@@ -153,11 +156,15 @@ limitations article shows, needs no JavaScript.
   `error`, `show_message` and `inline_message`; the component's own `size`
   sizes the label. `el_upload()`'s trigger text is now `button_label`, as
   `fileInput()`'s `buttonLabel`.
-* **Element's colours from the theme.** The `primary`, `success`, `warning`
-  and `danger` of `el_page()`'s theme -- `el_theme(primary = "#7c3aed")` --
-  recolour Element's components too, with the tints and shades Element
-  derives from each, as Element's own theme picker recolours its
-  stylesheet. `use_element(colors =)` does the same elsewhere.
+* **Element themed from the page's theme.** The `primary`, `success`,
+  `warning`, `danger` and `info` of `el_page()`'s theme reach Element's
+  components too, with the tints and shades Element derives from each, and
+  `el_theme(element =)` sets any of Element's own theme variables --
+  `list("border-radius-base" = "8px")`. Element's stylesheet is built for
+  the theme as upstream builds one: brand colours replaced in place, as its
+  theme picker does, or its Sass sources -- bundled -- compiled, as its theme
+  tool does. `use_element(theme =)` does the same elsewhere; its layout CSS
+  argument is now `layout_css`.
 * **A tree filters as it stands.** `el_tree()` has a default
   `filter_node_method` -- the label contains the text, ignoring case -- so
   `el_call(session, "tree", "filter", list(text))` needs no JavaScript;
@@ -189,7 +196,11 @@ Positional calls written against the old `el_table(data, columns, id)` order
 still work -- the arguments are shifted back with a warning -- but naming them
 is the way to keep it quiet.
 
-`input$<cascader id>_value` is now `input$<cascader id>`.
+`input$<cascader id>_value` is now `input$<cascader id>`, and
+`input$<pager id>_page` is `input$<pager id>`. `update_vue_component()` and
+`vue_handler_dependency()` are gone: `update_vue_data()` does the first's
+job, and the bridge loads with every component. `use_element()`'s first
+argument is now the page's theme; its layout CSS is `layout_css`.
 
 ## Filling a slot
 
@@ -251,8 +262,9 @@ of Element's locales are bundled (`el_locales()`), and
 
 ## Design notes
 
-* Controls render as Vue instances wrapped in htmlwidgets; containers render as
-  plain markup driven by Shiny input bindings, so they can nest freely.
+* Controls are Vue instances on a host carrying a Shiny input binding;
+  containers render as plain markup driven by bindings of their own, so they
+  can nest freely.
 * Element UI is bundled in `inst/element-ui/` rather than loaded from a CDN, so
   apps work offline.
 * `el_page(dev = TRUE)` loads Vue's development build, which surfaces template

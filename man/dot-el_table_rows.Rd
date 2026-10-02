@@ -14,8 +14,8 @@ A list of named lists, one per row.
 }
 \description{
 Element UI's \code{el-table} binds \verb{:data} to an array of row objects. An R
-data.frame handed straight to htmlwidgets serialises column-wise into
-\verb{\{col: [...]\}}, which the component silently renders as an empty table.
+data.frame serialised as it stands comes out column-wise, \verb{\{col: [...]\}},
+which the component silently renders as an empty table.
 }
 \details{
 Column names are sanitised because \code{el-table-column}'s \code{prop} is resolved

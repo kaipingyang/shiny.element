@@ -210,7 +210,7 @@ el_input <- function(
     markup = htmltools::tag("el-input", input_attrs),
     data    = vue_data,
     methods = c(events$methods, list(
-      handleChange = htmlwidgets::JS(sprintf(
+      handleChange = JS(sprintf(
         "function(value) { window.Shiny && Shiny.setInputValue && Shiny.setInputValue('%s', value); }",
         ns_id
       ))

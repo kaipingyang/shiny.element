@@ -57,7 +57,7 @@ the template with \code{\link[=template]{template()}}.}
 
 \item{text_color}{Colour of the percentage text.}
 
-\item{format}{\code{htmlwidgets::JS()} function \verb{function(percentage)} returning the text shown.}
+\item{format}{\code{JS()} function \verb{function(percentage)} returning the text shown.}
 
 \item{session}{Deprecated. Inside a module, wrap \code{id} in \code{ns()}, as for
 any Shiny input; a session given here namespaces \code{id} once more, with

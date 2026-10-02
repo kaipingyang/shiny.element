@@ -4,7 +4,13 @@
 #' Use this when you want to use Element-UI components in non-el_page layouts
 #' (e.g., bslib::page_sidebar, shiny::navbarPage).
 #'
-#' @param theme CSS dependency function or list (optional, default is el_layout_css_dependency())
+#' @param theme The page's theme -- an [el_theme()] or any
+#'   [bslib::bs_theme()] -- for Element's components to follow: its colours,
+#'   and any Element variable given to [el_theme()]'s `element`. It styles
+#'   Element only; the page function that owns the page applies it to
+#'   Bootstrap. `NULL` leaves Element as it ships.
+#' @param layout_css Element's layout CSS, [el_layout_css_dependency()];
+#'   `NULL` leaves it out.
 #' @param offline Serve Element UI from the copy bundled with this package
 #'   rather than the unpkg CDN. See [element_ui_dependency()].
 #' @param dev Load the development build of Vue instead of `vue.min.js`, so
@@ -17,39 +23,39 @@
 #'   zIndex})` sets it: the size of every component not given one of its own
 #'   (`"medium"`, `"small"` or `"mini"`), and the z-index its popups start
 #'   from (2000 by default). `NULL` leaves Element's default.
-#' @param colors Element's `primary`, `success`, `warning` and `danger`, as
-#'   a named list -- or a [bslib::bs_theme()] to take them from, such as the
-#'   page's own. Element's components are recoloured with them, tints and
-#'   shades included, as Element's theme picker does. [el_page()] takes them
-#'   from its `theme`.
 #' @return A list of htmlDependency objects
 #' @export
 #' @examples
 #' \dontrun{
 #' library(bslib)
+#' theme <- el_theme(primary = "#7c3aed")
 #' ui <- page_sidebar(
-#'   use_element(),
+#'   theme = theme,
+#'   use_element(theme = theme),
 #'   el_button("btn1", "Click me")
 #' )
 #' }
-use_element <- function(theme = el_layout_css_dependency(), offline = TRUE,
+use_element <- function(theme = NULL, offline = TRUE,
                         dev = getOption("shiny.element.dev", FALSE),
                         locale = getOption("shiny.element.locale", "en"),
-                        size = NULL, z_index = NULL, colors = NULL) {
+                        size = NULL, z_index = NULL,
+                        layout_css = el_layout_css_dependency()) {
   deps <- c(
     list(
       .el_vue_dependency(dev = dev),
-      vue_handler_dependency(),
       element_ui_dependency(offline = offline)
     ),
+    # the bridge and Element's side of it, which checks for raw el$ tags
+    # left outside any component -- a page may hold nothing else
+    .el_vue_dependencies(),
     el_locale_dependency(locale),
     .el_config_dependency(size, z_index),
-    Filter(Negate(is.null), list(.el_recoloured_dependency(.el_theme_colors(colors)))),
+    Filter(Negate(is.null), list(.el_themed_dependency(.el_element_vars(theme)))),
     list(el_feedback_dependency())
   )
 
-  if (!is.null(theme)) {
-    deps <- c(deps, list(theme))
+  if (!is.null(layout_css)) {
+    deps <- c(deps, list(layout_css))
   }
 
   htmltools::tagList(deps)
@@ -114,26 +120,6 @@ el_locale_dependency <- function(locale = NULL) {
   )
 }
 
-#' Vue Handler Dependency
-#'
-#' Registers custom JavaScript handlers for Shiny-to-Vue communication.
-#' This dependency loads `vue_handlers.js`, which enables R to update Vue component fields or entire data objects
-#' via `update_vue_component` and `update_vue_data` custom messages.
-#' It should be included in the UI (typically via `use_element()`) to ensure all Vue update handlers are available.
-#'
-#' @return An htmlDependency object for vue_handlers.js
-#' @export
-#' @examples
-#' vue_handler_dependency()
-#' @export
-vue_handler_dependency <- function() {
-  htmltools::htmlDependency(
-    name = "vue-handlers",
-    version = "1.0.0",
-    src = system.file("js", package = "shiny.element"),
-    script = "vue-handlers.js"
-  )
-}
 #' Element UI Dependency
 #'
 #' @param offline Serve Element UI from the copy bundled with this package

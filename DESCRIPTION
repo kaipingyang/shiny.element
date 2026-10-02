@@ -22,13 +22,13 @@ Imports:
     jsonlite,
     uuid,
     stats,
-    htmlwidgets,
     bslib,
     grDevices,
-    jquerylib
+    utils,
+    jquerylib,
+    sass
 Suggests:
     testthat (>= 3.0.0),
-    rlang,
     shinyjs,
     shinyvalidate,
     fontawesome,

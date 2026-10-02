@@ -6,7 +6,7 @@
 #' A component passed as `trigger` becomes part of the tooltip's Vue instance
 #' rather than a separate one, which is what lets it survive being compiled
 #' into the tooltip's markup. It reports its inputs as usual, but it no longer
-#' has a widget of its own, so its `update_el_*()` cannot find it -- drive it
+#' has a host of its own, so its `update_el_*()` cannot find it -- drive it
 #' through [update_vue_data()] on the tooltip's id instead.
 #'
 #' @param id Tooltip ID. Auto-generated if `NULL`.

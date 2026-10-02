@@ -109,7 +109,7 @@ el_steps <- function(id = NULL,
     markup = htmltools::tag("el-steps", c(steps_attrs, step_tags)),
     data   = vue_data,
     watch  = list(
-      active = htmlwidgets::JS(sprintf(
+      active = JS(sprintf(
         "function(newVal) { window.Shiny && Shiny.setInputValue && Shiny.setInputValue('%s', newVal); }", ns_id
       ))
     ),

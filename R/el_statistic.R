@@ -15,7 +15,7 @@
 #'   default) makes groups of three, `10000` groups of four. It only has an
 #'   effect with a `group_separator`.
 #' @param value_style CSS for the number, as a string or a named list.
-#' @param formatter `htmlwidgets::JS()` function `function(value)` returning
+#' @param formatter `JS()` function `function(value)` returning
 #'   the text to show, in place of Element's formatting.
 #' @param time_indices Count down to `value` rather than show it. `value` is
 #'   then the moment to count down to, a `POSIXct` or milliseconds since the

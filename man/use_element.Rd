@@ -5,17 +5,21 @@
 \title{Load All Element-UI Dependencies}
 \usage{
 use_element(
-  theme = el_layout_css_dependency(),
+  theme = NULL,
   offline = TRUE,
   dev = getOption("shiny.element.dev", FALSE),
   locale = getOption("shiny.element.locale", "en"),
   size = NULL,
   z_index = NULL,
-  colors = NULL
+  layout_css = el_layout_css_dependency()
 )
 }
 \arguments{
-\item{theme}{CSS dependency function or list (optional, default is el_layout_css_dependency())}
+\item{theme}{The page's theme -- an \code{\link[=el_theme]{el_theme()}} or any
+\code{\link[bslib:bs_theme]{bslib::bs_theme()}} -- for Element's components to follow: its colours,
+and any Element variable given to \code{\link[=el_theme]{el_theme()}}'s \code{element}. It styles
+Element only; the page function that owns the page applies it to
+Bootstrap. \code{NULL} leaves Element as it ships.}
 
 \item{offline}{Serve Element UI from the copy bundled with this package
 rather than the unpkg CDN. See \code{\link[=element_ui_dependency]{element_ui_dependency()}}.}
@@ -32,11 +36,8 @@ or \code{getOption("shiny.element.locale")} when set. See
 (\code{"medium"}, \code{"small"} or \code{"mini"}), and the z-index its popups start
 from (2000 by default). \code{NULL} leaves Element's default.}
 
-\item{colors}{Element's \code{primary}, \code{success}, \code{warning} and \code{danger}, as
-a named list -- or a \code{\link[bslib:bs_theme]{bslib::bs_theme()}} to take them from, such as the
-page's own. Element's components are recoloured with them, tints and
-shades included, as Element's theme picker does. \code{\link[=el_page]{el_page()}} takes them
-from its \code{theme}.}
+\item{layout_css}{Element's layout CSS, \code{\link[=el_layout_css_dependency]{el_layout_css_dependency()}};
+\code{NULL} leaves it out.}
 }
 \value{
 A list of htmlDependency objects
@@ -49,8 +50,10 @@ Use this when you want to use Element-UI components in non-el_page layouts
 \examples{
 \dontrun{
 library(bslib)
+theme <- el_theme(primary = "#7c3aed")
 ui <- page_sidebar(
-  use_element(),
+  theme = theme,
+  use_element(theme = theme),
   el_button("btn1", "Click me")
 )
 }

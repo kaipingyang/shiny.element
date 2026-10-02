@@ -40,15 +40,15 @@
 #' @param check_on_click_node Whether clicking a node's label also checks it.
 #' @param current_node_key Key of the node that starts out highlighted.
 #' @param render_after_expand Whether child nodes are rendered only once expanded. Default `TRUE`.
-#' @param load `htmlwidgets::JS()` function loading child nodes in the
+#' @param load `JS()` function loading child nodes in the
 #'   browser instead of from the server. Needs `lazy = TRUE`.
-#' @param filter_node_method `htmlwidgets::JS()` function deciding whether a
+#' @param filter_node_method `JS()` function deciding whether a
 #'   node survives filtering. By default a node is kept when its label
 #'   contains the text, ignoring case, so `el_call(session, id, "filter",
 #'   list(text))` works as it stands.
-#' @param render_content `htmlwidgets::JS()` render function for a node's content.
-#' @param allow_drag `htmlwidgets::JS()` function deciding whether a node may be dragged.
-#' @param allow_drop `htmlwidgets::JS()` function deciding whether a node may be dropped somewhere.
+#' @param render_content `JS()` render function for a node's content.
+#' @param allow_drag `JS()` function deciding whether a node may be dragged.
+#' @param allow_drop `JS()` function deciding whether a node may be dropped somewhere.
 #' @inheritParams el_widget
 #' @param width Component width, as a CSS unit -- `"200px"`, `"50%"`, or a
 #'   number taken as pixels. Element's own markup carries it, so it behaves
@@ -287,24 +287,24 @@ el_tree <- function(id = NULL,
     data = vue_data,
     methods = c(events$methods, list(
       elLoad = .el_lazy_load_method(ns_id, "tree"),
-      elFilterNode = htmlwidgets::JS(paste0(
+      elFilterNode = JS(paste0(
         "function(value, data) { if (!value) return true; ",
         "var label = data[(this.treeProps && this.treeProps.label) || 'label']; ",
         "return String(label === undefined ? '' : label).toLowerCase()",
         ".indexOf(String(value).toLowerCase()) !== -1; }")),
       # update_el_tree(checked =): Element's setCheckedKeys(), which also
       # updates the half-checked parents a plain assignment would leave alone
-      shinyVueReceive = htmlwidgets::JS(paste0(
+      shinyVueReceive = JS(paste0(
         "function(d) { if ('checkedKeys' in d) { var keys = d.checkedKeys || []; ",
         "if (this.$refs.tree) this.$refs.tree.setCheckedKeys(keys); ",
         "this.checked = keys; delete d.checkedKeys; } return d; }")),
-      handleNodeClick = htmlwidgets::JS(sprintf(
+      handleNodeClick = JS(sprintf(
         paste0(
           "function(data) { this.current = data[this.nodeKey]; ",
           "window.Shiny && Shiny.setInputValue && Shiny.setInputValue('%s', this.current); }"
         ), ns_id
       )),
-      handleCheck = htmlwidgets::JS(sprintf(
+      handleCheck = JS(sprintf(
         paste0(
           # Element hands the check event the node plus a summary object;
           # checkedKeys is the part worth reporting.

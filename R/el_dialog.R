@@ -167,8 +167,8 @@ update_el_dialog <- function(session = shiny::getDefaultReactiveDomain(), id, vi
 
 #' Overlay Binding Dependency
 #'
-#' Shared by [el_dialog()] and [el_drawer()]: both are Shiny input bindings
-#' rather than htmlwidgets, and both need the same backdrop, scroll lock and
+#' Shared by [el_dialog()] and [el_drawer()]: both are markup with a Shiny
+#' input binding rather than Vue instances, and both need the same backdrop, scroll lock and
 #' z-index stacking.
 #'
 #' @return An htmlDependency object.

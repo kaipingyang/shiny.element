@@ -13,8 +13,8 @@
 The JSON, as a single string.
 }
 \description{
-JSON as htmlwidgets writes it -- \code{NA} and \code{NULL} as \code{null}, single values
-unboxed -- with the paths of every \code{\link[htmlwidgets:JS]{htmlwidgets::JS()}} listed in \code{evals},
+JSON with \code{NA} and \code{NULL} as \code{null} and single values
+unboxed -- with the paths of every \code{\link[=JS]{JS()}} listed in \code{evals},
 so the bridge can turn their source back into functions. \verb{</} is escaped,
 or a \code{header_html} holding \verb{</b>} would end the script element early.
 }

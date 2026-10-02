@@ -212,7 +212,7 @@ for fn, info in sorted(ours.items()):
             "bound": [len(upa & mine_a), len(upa)],
             "attr_missing": sorted(upa - mine_a - params),
             "evt": [len(upe & mine_e), len(upe)], "evt_missing": sorted(upe - mine_e),
-            # el_call() can invoke any of them where el-invoke is loaded
+            # el_call() can invoke any of them on a component with a Vue instance
             "method": [len(upm) if info.get("invokable") else 0, len(upm)],
             "method_missing": [] if info.get("invokable") else sorted(upm),
             "slot": [len(ups & filled), len(ups)],

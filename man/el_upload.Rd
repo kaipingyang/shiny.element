@@ -89,19 +89,19 @@ Shiny's channel. See details.}
 
 \item{thumbnail_mode}{Whether files are shown as thumbnails.}
 
-\item{before_upload}{\code{htmlwidgets::JS()} function called before a file is sent; returning \code{false} cancels it.}
+\item{before_upload}{\code{JS()} function called before a file is sent; returning \code{false} cancels it.}
 
-\item{before_remove}{\code{htmlwidgets::JS()} function called before a file is removed; returning \code{false} cancels it.}
+\item{before_remove}{\code{JS()} function called before a file is removed; returning \code{false} cancels it.}
 
-\item{on_change}{\code{htmlwidgets::JS()} function called when a file is added, or finishes.}
+\item{on_change}{\code{JS()} function called when a file is added, or finishes.}
 
-\item{on_progress}{\code{htmlwidgets::JS()} function called as a file uploads.}
+\item{on_progress}{\code{JS()} function called as a file uploads.}
 
-\item{on_preview}{\code{htmlwidgets::JS()} function called when an uploaded file is clicked.}
+\item{on_preview}{\code{JS()} function called when an uploaded file is clicked.}
 
-\item{on_remove}{\code{htmlwidgets::JS()} function called after a file is removed.}
+\item{on_remove}{\code{JS()} function called after a file is removed.}
 
-\item{on_exceed}{\code{htmlwidgets::JS()} function called when more files are picked than \code{limit}.}
+\item{on_exceed}{\code{JS()} function called when more files are picked than \code{limit}.}
 
 \item{label}{A label shown with the component, as Shiny's inputs have:
 text or a tag. \code{NULL}, the default, shows none. It is the component's

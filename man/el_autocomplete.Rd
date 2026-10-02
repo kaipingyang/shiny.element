@@ -48,7 +48,7 @@ el_autocomplete(
 For suggestions that come from the server, leave this empty and use
 \code{fetch_suggestions}.}
 
-\item{fetch_suggestions}{\code{htmlwidgets::JS()} function
+\item{fetch_suggestions}{\code{JS()} function
 \verb{function(queryString, callback)} that calls \code{callback(results)}. Use it
 when the list cannot be sent up front.}
 

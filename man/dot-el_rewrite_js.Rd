@@ -7,7 +7,7 @@
 .el_rewrite_js(js, rename)
 }
 \arguments{
-\item{js}{An \code{htmlwidgets::JS()} string.}
+\item{js}{An \code{JS()} string.}
 
 \item{rename}{Named character vector, old name to new.}
 }

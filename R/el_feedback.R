@@ -184,7 +184,7 @@ el_message <- function(
 #' @param input_pattern Regular expression the text must match, as a string.
 #' @param input_error_message Message shown when it does not match.
 #' @param input_type For a prompt, the input's type, such as `"password"`.
-#' @param input_validator For a prompt, `htmlwidgets::JS()` function checking
+#' @param input_validator For a prompt, `JS()` function checking
 #'   the text; return `true`, or an error message.
 #' @param show_input Whether to show a text input, as a prompt does.
 #' @param show_confirm_button Whether to show the confirm button.
@@ -194,7 +194,7 @@ el_message <- function(
 #'   reports `"close"` rather than `"cancel"`.
 #' @param lock_scroll Whether the page stops scrolling while the box is open.
 #' @param close_on_hash_change Whether a change of the URL hash closes it.
-#' @param before_close `htmlwidgets::JS()` function
+#' @param before_close `JS()` function
 #'   `function(action, instance, done)`, called before the box closes; call
 #'   `done()` to let it.
 #'

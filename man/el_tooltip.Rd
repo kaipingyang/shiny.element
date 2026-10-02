@@ -87,7 +87,7 @@ A hint shown when the pointer rests on something.
 A component passed as \code{trigger} becomes part of the tooltip's Vue instance
 rather than a separate one, which is what lets it survive being compiled
 into the tooltip's markup. It reports its inputs as usual, but it no longer
-has a widget of its own, so its \verb{update_el_*()} cannot find it -- drive it
+has a host of its own, so its \verb{update_el_*()} cannot find it -- drive it
 through \code{\link[=update_vue_data]{update_vue_data()}} on the tooltip's id instead.
 }
 \examples{

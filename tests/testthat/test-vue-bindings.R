@@ -123,7 +123,7 @@ test_that("a user's component can report to Shiny the same way", {
     id      = "score",
     markup  = el$rate("v-model" = "value", "@change" = "onChange"),
     data    = list(value = 3),
-    methods = list(onChange = htmlwidgets::JS(
+    methods = list(onChange = JS(
       "function(v) { Shiny.setInputValue('score', v); }"
     )),
     dependency = element_ui_dependency()
@@ -353,7 +353,7 @@ test_that("el_widget reports the named fields on load and on every change", {
 test_that("el_widget keeps a mounted hook of its own alongside report", {
   ui <- el_widget("s", markup = el$rate("v-model" = "value"),
     data = list(value = 3, n = 1), report = c(value = "s", n = "s_n"),
-    mounted = htmlwidgets::JS("function() { this.ready = true; }"))
+    mounted = JS("function() { this.ready = true; }"))
   p <- vue_payload_of(ui)
   expect_match(p$mounted, "this.ready = true", fixed = TRUE)
   expect_match(p$mounted, 'Shiny.setInputValue("s_n", self.n)', fixed = TRUE)

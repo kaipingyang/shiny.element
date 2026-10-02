@@ -98,7 +98,7 @@
   }
 
   mounts <- Filter(Negate(is.null), lapply(parts, `[[`, "mounted"))
-  mounted <- if (!length(mounts)) NULL else htmlwidgets::JS(
+  mounted <- if (!length(mounts)) NULL else JS(
     "function() { var self = this; [",
     paste(vapply(mounts, as.character, character(1)), collapse = ", "),
     "].forEach(function(f) { f.call(self); }); }"
@@ -248,7 +248,7 @@
 
 #' Rewrite field names inside a JS function body
 #'
-#' @param js An `htmlwidgets::JS()` string.
+#' @param js An `JS()` string.
 #' @param rename Named character vector, old name to new.
 #' @return The function, rewritten.
 #' @keywords internal
@@ -260,5 +260,5 @@
     body <- gsub(paste0("((?:this|self)\\.)", old, "(?![A-Za-z0-9_$])"),
                  paste0("\\1", rename[[old]]), body, perl = TRUE)
   }
-  htmlwidgets::JS(body)
+  JS(body)
 }

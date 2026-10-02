@@ -23,7 +23,7 @@
 #' @param stroke_linecap Shape of the bar's ends: `"round"` (default), `"butt"` or `"square"`.
 #' @param define_back_color Background colour of the track.
 #' @param text_color Colour of the percentage text.
-#' @param format `htmlwidgets::JS()` function `function(percentage)` returning the text shown.
+#' @param format `JS()` function `function(percentage)` returning the text shown.
 #' @param slots Named list of Element slot contents, such as
 #'   `list(title = shiny::tags$b("Bold"))`. A shiny.element component
 #'   given here is absorbed rather than nested. For a scoped slot, write

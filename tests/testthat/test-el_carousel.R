@@ -38,8 +38,8 @@ test_that("el_carousel: one el-carousel-item per slide, with its markup", {
   expect_match(html, "Second", fixed = TRUE)
 })
 
-test_that("el_carousel: the carousel is named so the handler can reach it", {
-  # setActiveItem() is the only way to change slides; see the handler.
+test_that("el_carousel: the carousel is named so shinyVueReceive can reach it", {
+  # setActiveItem() is the only way to change slides.
   expect_match(render_html(el_carousel(id = "banner")), 'ref="carousel"', fixed = TRUE)
 })
 

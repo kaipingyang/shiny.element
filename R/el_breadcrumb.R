@@ -69,7 +69,7 @@ el_breadcrumb <- function(id = NULL,
       separatorClass  = .el_or_na(separator_class)
     ),
     methods = list(
-      handleClick = htmlwidgets::JS(sprintf(
+      handleClick = JS(sprintf(
         "function(item) { window.Shiny && Shiny.setInputValue && Shiny.setInputValue('%s', item.label, {priority: 'event'}); }",
         ns_id
       ))

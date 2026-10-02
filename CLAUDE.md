@@ -26,91 +26,93 @@ devtools::check()
 
 ## Architecture
 
-`shiny.element` is an R package that wraps Element-UI (Vue 2) components as Shiny widgets, using `vueR` as the bridge between Vue and htmlwidgets.
+`shiny.element` wraps Element UI 2.15.14 (Vue 2) for Shiny. Vue 2.7.14 and
+Element are bundled in `inst/vue` and `inst/element-ui`; there is no vueR and
+no htmlwidgets dependency (`JS()` in `R/js.R` marks JavaScript the same way).
 
 ### Two kinds of component
 
-**Controls** (input, select, table, form, …) are Vue instances wrapped as
-htmlwidgets — the pattern below.
+**Controls** (input, select, table, form, ...) are Vue instances on a host
+element, built by `el_widget()` (`R/el_widget.R`):
 
-**Containers** (`el_container`, `el_row`, `el_col`, `el_card`, `el_collapse`)
-are plain markup carrying Element's classes, with interaction supplied by a
-Shiny input binding where they need any. Mounting a Vue instance over a
-container rebuilds the DOM inside it and detaches any component placed there,
-so anything whose job is to hold other components must not be a Vue instance.
-See lessons.md §1.2 and §1.3.
+```html
+<div id=ID data-shiny-vue style="display: contents">
+  <script type="text/x-template" data-shiny-vue-template>
+    <div id=ID_container ...>markup</div>      <!-- or the labelled form item -->
+  </script>
+  <script type="application/json" data-shiny-vue-options>{options,input,rate,type,evals}</script>
+</div>
+```
 
-### Component Pattern
+`inst/js/shiny-vue.js` (generic, Element-free -- meant to become shiny.vue)
+compiles the template off-page and appends it to the host, and registers one
+Shiny InputBinding, `shiny.vue`, on every host with a value (`input` names
+the reported field; `type` an input handler such as `shiny.element.date` or
+`shiny.action`; `rate` a debounce). `inst/js/el-events.js` is Element's side:
+error drawing for shinyvalidate and `update_el_*(error =)`, label updates, row
+indexes, the raw-`<el-*>`-tag warning.
 
-Every Vue-backed component follows the same structure:
+**Containers** (`el_tabs`, `el_collapse`, `el_dialog`, `el_drawer`, `el_row`,
+`el_col`, `el_container`) are plain markup with Element's classes and a Shiny
+input binding of their own (`inst/js/el-*-binding.js`). A Vue instance
+mounted over a container would recompile and detach the components inside.
 
-1. **R function** (`R/el_*.R`) — builds HTML tags, creates a Vue instance via `vueR::vue()`, and attaches the JS handler dependency.
-2. **JS handler** (`inst/js/el-*-handler.js`) — registers `Shiny.addCustomMessageHandler` to receive server-side update messages.
-3. **Update function** (`update_el_*`) — in the same R file, sends `session$sendCustomMessage(...)` to the corresponding JS handler.
+### Server to browser
 
-The Vue instance mounts on `<div id="{ns_id}_container">`, while `vueR::vue(elementId = ns_id, ...)` holds Vue data and methods. Component IDs are always namespaced via `session$ns(id)` to support Shiny modules.
+- `update_el_*()` and `update_vue_data()` send one custom message,
+  `shinyVueUpdate`, a flat `{id, fields..., .action}` (`.el_send_update()`).
+  The bridge finds the host by id, bound or not -- Shiny's input messages
+  reach only bound inputs -- runs `sv.hooks` for dot-keys (`.label`,
+  `.error`, `.resolve`), then the component's `shinyVueReceive(data)` if it
+  has one (for method calls: form, carousel, tree, upload), then assigns
+  declared `$data` fields; an unknown id or field logs `[shiny-vue]`.
+- `el_call()` sends `shinyVueCall` to run an Element method; a return value
+  comes back as `input$<id>_<method>`.
+- `shinyVue.ask(input, question)` lets a component ask the server (lazy
+  loaders, remote search); `el_load_children()` answers through `.resolve`.
+- Feedback services (message, notification, message box, loading) use
+  `inst/js/el-feedback-handler.js`.
+- Every server function takes `session = shiny::getDefaultReactiveDomain()`
+  first and calls `.el_check_session(session)` first.
 
-### Dependency Loading
+### Dependency loading
 
-- `el_page()` — top-level page wrapper; loads Vue, Element-UI (bundled in `inst/element-ui`, not a CDN), `vue-handlers.js`, and layout CSS. Wraps `shiny::fluidPage()` with bslib Bootstrap 5. Takes `offline`, `locale` and `dev`.
-- `use_element()` — alternative for non-`el_page` contexts (bslib, navbarPage). Place at top of UI.
-- Each component calls `attachDependencies()` with `.el_handler_dependency("<name>")`, which pairs its handler JS with the shared `el-update.js`, so components work even without `use_element()` / `el_page()`.
+- `el_page()` -- `shiny::fluidPage()` with `el_theme()` (bslib), Vue,
+  Element, the bridge, the locale, the global config (`size`, `z_index`) and,
+  when the theme changes Element's colours, Element's stylesheet recoloured
+  (`R/el_colors.R`, served as `element-ui` 2.15.14.1).
+- `use_element()` -- the same for other page functions.
+- Every component also attaches what it needs, so it works on any page and
+  without Shiny (static R Markdown, the pkgdown site).
 
-### Generic Vue Update API
+### Pure tag API
 
-`inst/js/vue-handlers.js` (loaded by `use_element()`) registers two universal handlers in `R/vue_update.R`:
+`el` (`R/el_tags.R`) holds a tag generator for every component Element
+registers. Raw tags compile only inside a component -- a `template()`, a
+slot, a table cell, a wrapper's trigger, `el_widget(markup =)`.
 
-- `update_vue_component(session, id, ...)` — updates named fields on any Vue instance's `$data`.
-- `update_vue_data(session, id, data)` — replaces the entire `$data` of a Vue instance.
+### Shiny input conventions
 
-Prefer these for components not yet covered by a dedicated `update_el_*` function.
+Every input reports `input$<id>` on load and on change; an empty selection is
+`NULL`. Exceptions and extras are documented in each function's "Shiny
+inputs" section (`el_table`'s `_selected_rows`, `el_form`'s `_valid` and
+`_submit`, events as `input$<id>_<event>`).
 
-### Pure Tag API
+### Adding a new component
 
-`R/el_tags.R` exports `el` — a named list of tag-generator functions covering all Element-UI components (e.g. `el$table(...)`, `el$steps(...)`). These produce plain HTML tags with no Vue instance or Shiny binding. Use them for static markup or when composing components manually.
+**Read `.claude/docs/lessons.md` first.**
 
-### Template Helper
-
-`template(..., slot, scope)` in `R/template.R` generates a Vue `<template>` tag for slot usage (e.g. `slot="dateCell"` with `slot-scope`). Returns `htmltools::HTML`.
-
-### Shiny Input Conventions
-
-| Component | Shiny input key | Value |
-|-----------|----------------|-------|
-| `el_button` | `input$<id>` | Click count (integer) |
-| `el_cascader` | `input$<id>_value` | Selected path (list) |
-| `el_table` (selection) | `input$<id>_selected` | Selected rows (list of row data) |
-| `el_calendar` | `input$<id>` | Selected date (string "YYYY-MM-DD") |
-| `el_steps` | `input$<id>` | Active step index (0-based integer) |
-| `el_table` | `input$<id>_selected_rows` | 1-based row numbers, types intact |
-| `el_form` | `input$<id>` / `_valid` / `_submit` | Model, verdict, submit counter |
-| `el_menu` | `input$<id>` / `_path` | Selected index, and its full path |
-| `el_tree` | `input$<id>` / `_checked` | Last clicked key, checked keys |
-| `el_upload` | `input$<id>` | Same data frame as `fileInput()` |
-
-`input$<id>` is reported on load as well as on change. An empty selection
-arrives as `NULL`, which is what Shiny does with an empty array.
-
-### Adding a New Component
-
-**Read `.claude/docs/lessons.md` first** — it has the checklist and the
-constraints that are not obvious from the code.
-
-1. `R/el_<name>.R`: the widget function, `update_el_<name>()`, and
-   `el_<name>_handler_dependency()` (one line: `.el_handler_dependency("<name>")`).
-2. Mount point gets `style = .el_host_style()`; the widget gets
-   `width = 0, height = 0`. Both matter for layout — see lessons.md §1.3, §1.4.
-3. Optional props use `.el_optional_bind()` with an `NA` placeholder, so they
-   fall back to Element's own defaults (§2.1, §2.2).
-4. Stateful components call `.el_mounted_init()` to report their initial value,
-   or `input$<id>` stays NULL until the user touches them (§3.1).
-5. `inst/js/el-<name>-handler.js`: normally one line,
-   `elRegisterUpdate('updateEl<Name>')`. Write a bespoke handler only when the
-   update needs a component method (form, tree, upload, feedback do).
-6. Parent/child structures are declarative — generate them in R or pass them
-   through a `data` prop. Components cannot nest (§1.1).
-7. `roxygen2::roxygenise(".")`, then tests: unit, browser fixture, **and look
-   at a screenshot** (§5.1).
+1. `R/el_<name>.R`: the component function built with `el_widget()`, and
+   `update_el_<name>()` sending `.el_send_update()`.
+2. Optional props bind through `.el_optional_bind()` with an `NA` placeholder
+   so they fall back to Element's defaults and stay updatable.
+3. A stateful component names its value with
+   `mounted = .el_mounted_init(c(<field> = ns_id))`; that field becomes the
+   binding's value.
+4. Enumerated arguments go in `.el_choices` (`R/el_choices.R`) with
+   `.el_check_choices()` first in the function.
+5. `roxygen2::roxygenise(".")`, then tests: unit, the browser fixture, and
+   **look at a screenshot** (`tools/article-shots.R`).
 
 ### Testing
 
@@ -120,7 +122,7 @@ Three layers, each blind to what the next one catches — see lessons.md §5.
 |---|---|---|
 | Unit | `test-el_*.R` | HTML generation, message fields, helper logic |
 | Browser | `test-browser.R` + `apps/integration.R` | mounting, interaction, geometry, Vue warnings |
-| Screenshot | by hand | layout and appearance — invisible to the other two |
+| Screenshot | `tools/article-shots.R` | layout and appearance — invisible to the other two |
 
 Browser tests run Vue's development build and assert zero warnings. They skip
 on CRAN and where no Chrome is available:

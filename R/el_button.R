@@ -126,7 +126,7 @@ el_button <- function(
     methods = list(
       # The binding reports the count; this send is for when the button is
       # absorbed into a wrapper and has no binding of its own
-      handleClick = htmlwidgets::JS(sprintf(paste0(
+      handleClick = JS(sprintf(paste0(
         "function() { if (this.disabled || this.loading) return; this.count++; ",
         "window.Shiny && Shiny.setInputValue && Shiny.setInputValue('%s:shiny.action', this.count); }"),
         ns_id))

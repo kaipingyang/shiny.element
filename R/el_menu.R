@@ -220,11 +220,11 @@ el_menu <- function(id = NULL,
     methods = c(events$methods, list(
       # Element's menu-item click: input$<id>_item_click, the index clicked.
       # select covers most uses; this fires for a disabled-select menu too.
-      elMenuItemClick = htmlwidgets::JS(sprintf(
+      elMenuItemClick = JS(sprintf(
         "function(index) { window.Shiny && Shiny.setInputValue && Shiny.setInputValue('%s_item_click', index, {priority: 'event'}); }",
         ns_id
       )),
-      handleSelect = htmlwidgets::JS(sprintf(
+      handleSelect = JS(sprintf(
         paste0(
           "function(index, indexPath) { var self = this; ",
           "self.active = index; self.path = indexPath; ",

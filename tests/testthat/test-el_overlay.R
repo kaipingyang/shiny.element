@@ -245,7 +245,7 @@ test_that("dialog and drawer pass Element's behaviour flags to the binding", {
 })
 
 test_that("before_close travels as source for the binding", {
-  fn <- htmlwidgets::JS("function(done) { done(); }")
+  fn <- JS("function(done) { done(); }")
   expect_match(render_html(el_dialog("d1", before_close = fn)),
                'data-before-close="function(done) { done(); }"', fixed = TRUE)
   expect_match(render_html(el_drawer("w1", before_close = fn)),

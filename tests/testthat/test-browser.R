@@ -18,7 +18,7 @@ test_that("every stateful component reports its value on load", {
   expected <- c(
     inp = "hello", sel = "b", sw = "TRUE", sld = "42", rate = "3",
     rg = "y", cg = "p", num = "7", dp = "2026-01-15", cp = "#409EFF",
-    tabs = "t2", pg_page = "3", pg_size = "20", col = "i2",
+    tabs = "t2", pg = "3", pg_size = "20", col = "i2",
     rg_num = "1", stp = "0", sw_nested = "TRUE", sld_nested = "88"
   )
 
@@ -47,11 +47,11 @@ test_that("a named numeric vector keeps its labels and stays an array", {
   # Leftover names used to serialise options as an object, which v-for cannot
   # iterate the way the component expects.
   expect_equal(
-    bev("(function(){var w=shinyElement.find('#rg_num'); return Array.isArray(w.instance.options)?'array':'object'})()"),
+    bev("(function(){var w=shinyVue.find('#rg_num'); return Array.isArray(w.instance.options)?'array':'object'})()"),
     "array"
   )
   expect_equal(
-    bev("(function(){var w=shinyElement.find('#rg_num'); return typeof w.instance.options[0].value})()"),
+    bev("(function(){var w=shinyVue.find('#rg_num'); return typeof w.instance.options[0].value})()"),
     "number"
   )
 })
@@ -62,7 +62,7 @@ test_that("a data.frame renders as rows, not columns", {
   skip_if_no_browser()
   expect_equal(bev("String(document.querySelectorAll('#tbl_container .el-table__body-wrapper tbody tr').length)"), "4")
   expect_equal(
-    bev("(function(){var w=shinyElement.find('#tbl'); return Array.isArray(w.instance.tableData)?'array':'object'})()"),
+    bev("(function(){var w=shinyVue.find('#tbl'); return Array.isArray(w.instance.tableData)?'array':'object'})()"),
     "array"
   )
 })
@@ -74,7 +74,7 @@ test_that("column labels keep the original names while props are sanitised", {
   # prop must be underscored: el-table resolves it as a dotted path. The
   # table was given no columns, so these are the inferred ones.
   expect_equal(
-    bev("(function(){var w=shinyElement.find('#tbl'); return w.instance.autoColumns[0].prop})()"),
+    bev("(function(){var w=shinyVue.find('#tbl'); return w.instance.autoColumns[0].prop})()"),
     "Sepal_Length"
   )
 })
@@ -82,7 +82,7 @@ test_that("column labels keep the original names while props are sanitised", {
 test_that("columns are reactive, not baked into the markup", {
   skip_if_no_browser()
   expect_equal(
-    bev("(function(){var w=shinyElement.find('#tbl'); return ['columns','border','selection'].filter(function(k){return k in w.instance.$data}).join(',')})()"),
+    bev("(function(){var w=shinyVue.find('#tbl'); return ['columns','border','selection'].filter(function(k){return k in w.instance.$data}).join(',')})()"),
     "columns,border,selection"
   )
 })
@@ -136,12 +136,12 @@ test_that("header height and aside width are applied", {
   expect_equal(bev("String(Math.round(document.querySelector('#layout .el-aside').getBoundingClientRect().width))"), "200")
 })
 
-test_that("widgets nested in a container mount and report values", {
+test_that("components nested in a container mount and report values", {
   skip_if_no_browser()
   # The old Vue-template container swallowed these entirely: no container, no
-  # widget, no error.
+  # component, no error.
   expect_equal(
-    bev("JSON.stringify(['sw_nested','sld_nested'].map(function(id){var w=shinyElement.find('#'+id); return w&&w.instance?'ok':'missing'}))"),
+    bev("JSON.stringify(['sw_nested','sld_nested'].map(function(id){var w=shinyVue.find('#'+id); return w&&w.instance?'ok':'missing'}))"),
     '["ok","ok"]'
   )
   vals <- bdump()
@@ -193,8 +193,8 @@ test_that("the cascader's updates land", {
 
   bclick("#casc_update", wait = 2.5)
   expect_equal(bev("document.querySelector('#casc_container input').placeholder"), "updated")
-  expect_equal(bev("(function(){var w=shinyElement.find('#casc'); return JSON.stringify(w.instance.value)})()"), '["js","nj"]')
-  expect_equal(bev("(function(){var w=shinyElement.find('#casc'); return String(w.instance.disabled)})()"), "true")
+  expect_equal(bev("(function(){var w=shinyVue.find('#casc'); return JSON.stringify(w.instance.value)})()"), '["js","nj"]')
+  expect_equal(bev("(function(){var w=shinyVue.find('#casc'); return String(w.instance.disabled)})()"), "true")
 })
 
 # ── form ──────────────────────────────────────────────────────────────────────
@@ -211,7 +211,7 @@ test_that("the form renders one control per declared field", {
 
 test_that("the form reports its whole model on load", {
   skip_if_no_browser()
-  model <- bev("(function(){var w=shinyElement.find('#signup'); return JSON.stringify(w.instance.model)})()")
+  model <- bev("(function(){var w=shinyVue.find('#signup'); return JSON.stringify(w.instance.model)})()")
   # Types survive the round-trip: a number stays a number.
   expect_equal(model, '{"fname":"","fage":18,"fcity":""}')
 })
@@ -238,7 +238,7 @@ test_that("a filled form passes and reports the model", {
   expect_equal(bev("String(document.querySelectorAll('#signup_container .el-form-item.is-error').length)"), "0")
   expect_equal(bdump()[["signup_valid"]], "TRUE")
   expect_equal(
-    bev("(function(){var w=shinyElement.find('#signup'); return JSON.stringify(w.instance.model)})()"),
+    bev("(function(){var w=shinyVue.find('#signup'); return JSON.stringify(w.instance.model)})()"),
     '{"fname":"Ada","fage":18,"fcity":"sh"}'
   )
 })
@@ -249,7 +249,7 @@ test_that("resetFields restores the declared values, not empty ones", {
   Sys.sleep(2.5)
   # fage was declared as 18, so it resets to 18 rather than 0.
   expect_equal(
-    bev("(function(){var w=shinyElement.find('#signup'); return JSON.stringify(w.instance.model)})()"),
+    bev("(function(){var w=shinyVue.find('#signup'); return JSON.stringify(w.instance.model)})()"),
     '{"fname":"","fage":18,"fcity":""}'
   )
   expect_equal(bev("String(document.querySelectorAll('#signup_container .el-form-item.is-error').length)"), "0")
@@ -376,7 +376,7 @@ test_that("a component inside a dialog stays connected", {
   # The body stays in the document while closed, so it is mounted before the
   # dialog is ever opened.
   expect_equal(
-    bev("(function(){var w=shinyElement.find('#dlg_nested'); return w && w.instance ? 'mounted' : 'MISSING'})()"),
+    bev("(function(){var w=shinyVue.find('#dlg_nested'); return w && w.instance ? 'mounted' : 'MISSING'})()"),
     "mounted"
   )
   expect_equal(bdump()[["dlg_nested"]], "TRUE")
@@ -412,7 +412,7 @@ test_that("Escape closes the dialog and clears the backdrop", {
 test_that("a component inside a tab pane stays connected", {
   skip_if_no_browser()
   expect_equal(
-    bev("(function(){var w=shinyElement.find('#tab_nested'); return w && w.instance ? 'mounted' : 'MISSING'})()"),
+    bev("(function(){var w=shinyVue.find('#tab_nested'); return w && w.instance ? 'mounted' : 'MISSING'})()"),
     "mounted"
   )
   expect_equal(bdump()[["tab_nested"]], "TRUE")
@@ -445,7 +445,7 @@ test_that("a component inside a collapse panel stays connected", {
   # mounting a Vue instance over it: a Vue instance rebuilds the DOM inside
   # the panels and detaches whatever is in them.
   expect_equal(
-    bev("(function(){var w=shinyElement.find('#col_nested'); return w && w.instance ? 'mounted' : 'MISSING'})()"),
+    bev("(function(){var w=shinyVue.find('#col_nested'); return w && w.instance ? 'mounted' : 'MISSING'})()"),
     "mounted"
   )
   expect_equal(bdump()[["col_nested"]], "TRUE")
@@ -699,7 +699,7 @@ test_that("el_call on a method that does not exist warns rather than failing", {
 test_that("a component used as a tooltip trigger keeps working", {
   skip_if_no_browser()
   # Nesting one Vue instance inside another loses the inner one: Element's
-  # tooltip keeps only its first child node, and the widget's mount point goes
+  # tooltip keeps only its first child node, and the inner host goes
   # with the rest. .el_absorb() folds the two into a single instance instead.
   expect_true(bev("!!document.querySelector('#wrap_container button')"))
   expect_equal(bev("document.querySelector('#wrap_container button').innerText"),
@@ -943,7 +943,7 @@ test_that("a remote select searches on the server", {
   Sys.sleep(2.5)
   expect_match(bev("Array.from(document.querySelectorAll('.el-select-dropdown__item')).map(function(e){return e.textContent.trim()}).join('|')"),
                "be-1|be-2")
-  expect_false(bev("shinyElement.find('#rm_sel').instance.loading"))
+  expect_false(bev("shinyVue.find('#rm_sel').instance.loading"))
   bev("document.body.click()")
 })
 

@@ -200,7 +200,7 @@ el_time_select <- function(id = NULL,
     markup = htmltools::tag(tag, attrs),
     data   = c(list(value = init), lapply(fields, .el_or_na)),
     methods = c(events$methods, list(
-      handleChange = htmlwidgets::JS(sprintf(
+      handleChange = JS(sprintf(
         "function(v) { window.Shiny && Shiny.setInputValue && Shiny.setInputValue('%s', v); }", ns_id
       ))
     )),

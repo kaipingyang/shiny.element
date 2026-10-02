@@ -102,18 +102,18 @@ unless \code{load} is given. See "Shiny inputs".}
 
 \item{render_after_expand}{Whether child nodes are rendered only once expanded. Default \code{TRUE}.}
 
-\item{load}{\code{htmlwidgets::JS()} function loading child nodes in the
+\item{load}{\code{JS()} function loading child nodes in the
 browser instead of from the server. Needs \code{lazy = TRUE}.}
 
-\item{filter_node_method}{\code{htmlwidgets::JS()} function deciding whether a
+\item{filter_node_method}{\code{JS()} function deciding whether a
 node survives filtering. By default a node is kept when its label
 contains the text, ignoring case, so \code{el_call(session, id, "filter", list(text))} works as it stands.}
 
-\item{render_content}{\code{htmlwidgets::JS()} render function for a node's content.}
+\item{render_content}{\code{JS()} render function for a node's content.}
 
-\item{allow_drag}{\code{htmlwidgets::JS()} function deciding whether a node may be dragged.}
+\item{allow_drag}{\code{JS()} function deciding whether a node may be dragged.}
 
-\item{allow_drop}{\code{htmlwidgets::JS()} function deciding whether a node may be dropped somewhere.}
+\item{allow_drop}{\code{JS()} function deciding whether a node may be dropped somewhere.}
 
 \item{label}{A label shown with the component, as Shiny's inputs have:
 text or a tag. \code{NULL}, the default, shows none. It is the component's

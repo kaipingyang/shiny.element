@@ -4,7 +4,6 @@
 ## usethis namespace: start
 #' @importFrom htmltools HTML
 #' @importFrom htmltools tag
-#' @importFrom htmlwidgets JS
 #' @importFrom jsonlite toJSON
 #' @importFrom shiny tagList
 #' @importFrom shiny tags

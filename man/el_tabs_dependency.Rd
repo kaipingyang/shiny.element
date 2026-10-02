@@ -10,7 +10,7 @@ el_tabs_dependency()
 An htmlDependency object.
 }
 \description{
-Tabs are a Shiny input binding rather than an htmlwidget, so this loads the
-binding instead of a message handler.
+Tabs are markup with a Shiny input binding rather than a Vue instance, so
+that the components inside the panes stay mounted.
 }
 \keyword{internal}

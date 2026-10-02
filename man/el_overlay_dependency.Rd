@@ -10,8 +10,8 @@ el_overlay_dependency()
 An htmlDependency object.
 }
 \description{
-Shared by \code{\link[=el_dialog]{el_dialog()}} and \code{\link[=el_drawer]{el_drawer()}}: both are Shiny input bindings
-rather than htmlwidgets, and both need the same backdrop, scroll lock and
+Shared by \code{\link[=el_dialog]{el_dialog()}} and \code{\link[=el_drawer]{el_drawer()}}: both are markup with a Shiny
+input binding rather than Vue instances, and both need the same backdrop, scroll lock and
 z-index stacking.
 }
 \keyword{internal}

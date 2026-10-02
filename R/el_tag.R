@@ -84,11 +84,11 @@ el_tag <- function(
       count              = 0L
     ),
     methods = list(
-      handleClick = htmlwidgets::JS(sprintf(paste0(
+      handleClick = JS(sprintf(paste0(
         "function() { this.count++; ",
         "window.Shiny && Shiny.setInputValue && Shiny.setInputValue('%s:shiny.action', this.count); }"),
         ns_id)),
-      handleClose = htmlwidgets::JS(sprintf(
+      handleClose = JS(sprintf(
         "function() { window.Shiny && Shiny.setInputValue && Shiny.setInputValue('%s_closed', 1, {priority: 'event'}); }",
         ns_id
       ))

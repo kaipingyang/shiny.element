@@ -62,7 +62,6 @@ reference:
       - element_ui_dependency
       - el_locale_dependency
       - el_layout_css_dependency
-      - vue_handler_dependency
       - el_feedback_dependency
 
   - title: Inputs
@@ -241,7 +240,7 @@ reference:
       instance directly.
     contents:
       - el_widget
+      - JS
       - el
       - template
-      - update_vue_component
       - update_vue_data

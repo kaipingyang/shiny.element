@@ -50,7 +50,7 @@ from the page; the server is told through \verb{input$<id>_tab_remove}.}
 
 \item{stretch}{Stretch the tabs to fill the available width.}
 
-\item{before_leave}{\code{htmlwidgets::JS()} function
+\item{before_leave}{\code{JS()} function
 \verb{function(activeName, oldActiveName)} run before switching tabs; return
 \code{false}, or a promise that rejects, to stay put.}
 

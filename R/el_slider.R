@@ -28,7 +28,7 @@
 #' @param input_size Size of the companion input when `show_input = TRUE`.
 #' @param show_input_controls Whether the companion input shows its spinner buttons.
 #' @param tooltip_class Extra class name for the value tooltip.
-#' @param format_tooltip `htmlwidgets::JS()` function formatting the value shown in the tooltip.
+#' @param format_tooltip `JS()` function formatting the value shown in the tooltip.
 #' @inheritParams el_widget
 #' @param width Component width, as a CSS unit -- `"200px"`, `"50%"`, or a
 #'   number taken as pixels. Element's own markup carries it, so it behaves
@@ -172,7 +172,7 @@ el_slider <- function(
     markup = htmltools::tag("el-slider", slider_attrs),
     data = vue_data,
     methods = c(events$methods, list(
-      handleChange = htmlwidgets::JS(sprintf(
+      handleChange = JS(sprintf(
         "function(value) { window.Shiny && Shiny.setInputValue && Shiny.setInputValue('%s', value); }",
         ns_id
       ))

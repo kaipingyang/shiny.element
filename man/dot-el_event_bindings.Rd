@@ -25,7 +25,7 @@ into the Vue options).
 Element's events carry different arguments each, some of them DOM nodes or
 native events that cannot be serialised. Rather than write a handler per
 event, each one is bound to a generated method that hands its arguments to
-\code{shinyElement.emit()} (see \code{inst/js/el-events.js}), which drops what cannot
+\code{shinyVue.emit()} (see \code{inst/js/shiny-vue.js}), which drops what cannot
 travel and sets \verb{input$<id>_<event>}.
 }
 \keyword{internal}

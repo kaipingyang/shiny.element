@@ -344,7 +344,7 @@ server <- function(input, output, session) {
   output$dump <- renderPrint({
     invalidateLater(1000, session)
     ids <- c("inp", "sel", "sw", "sld", "rate", "rg", "cg", "num", "dp", "cp",
-             "tabs", "pg_page", "pg_size", "col", "rg_num", "stp",
+             "tabs", "pg", "pg_size", "col", "rg_num", "stp",
              "tbl_selected_rows", "casc", "sw_nested", "sld_nested",
              "signup_submit", "signup_valid", "nav", "nav_path",
              "tree", "tree_checked", "car", "car_name", "col_nested",

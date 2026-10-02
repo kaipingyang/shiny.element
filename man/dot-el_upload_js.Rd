@@ -10,7 +10,7 @@
 \item{ns_id}{The namespaced input id.}
 }
 \value{
-An \code{\link[htmlwidgets:JS]{htmlwidgets::JS()}} object for the \code{http-request} prop.
+An \code{\link[=JS]{JS()}} object for the \code{http-request} prop.
 }
 \description{
 Element calls \code{http-request} once per file, but Shiny's protocol is

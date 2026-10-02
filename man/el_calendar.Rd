@@ -2,7 +2,7 @@
 % Please edit documentation in R/el_calendar.R
 \name{el_calendar}
 \alias{el_calendar}
-\title{Element UI Calendar Component}
+\title{Element UI Calendar}
 \usage{
 el_calendar(
   id = NULL,
@@ -73,7 +73,7 @@ a warning.}
 A Shiny UI element.
 }
 \description{
-Create a calendar widget for Shiny using Element UI.
+A month of days to pick one from, or a range of weeks to show.
 }
 \examples{
 # The default day cell

@@ -81,7 +81,7 @@ el_alert <- function(
     markup = htmltools::tag("el-alert", alert_attrs),
     data    = vue_data,
     methods = list(
-      handleClose = htmlwidgets::JS(sprintf(
+      handleClose = JS(sprintf(
         "function() { window.Shiny && Shiny.setInputValue && Shiny.setInputValue('%s_closed', 1, {priority: 'event'}); }",
         ns_id
       ))

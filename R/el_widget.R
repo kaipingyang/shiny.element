@@ -9,9 +9,7 @@
 #'
 #' Reach for it to wrap an Element component this package does not cover, or
 #' to build an input of your own from [el] tags; `report` names the value.
-#' It is what the package's own components are made of. (Earlier versions
-#' mounted Vue as a vueR htmlwidget, an *output*: the id then sat on a hidden
-#' element beside the component, and Shiny did not know there was an input.)
+#' It is what the package's own components are made of.
 #'
 #' The raw Element tags come from [el], and [template()] writes a slot.
 #'
@@ -138,12 +136,12 @@ el_widget <- function(id, markup, data, methods = NULL, watch = NULL,
     others <- report[report != id]
     if (length(others)) {
       extra <- .el_mounted_init(stats::setNames(names(others), unname(others)))
-      mounted <- if (is.null(mounted)) extra else htmlwidgets::JS(sprintf(
+      mounted <- if (is.null(mounted)) extra else JS(sprintf(
         "function() { (%s).call(this); (%s).call(this); }", extra, mounted))
       # On every change of the field, however it came about: a component of
       # your own has no Element change event to wait for.
       for (field in names(others)) {
-        watch[[field]] <- htmlwidgets::JS(sprintf(paste0(
+        watch[[field]] <- JS(sprintf(paste0(
           "{handler: function(v) { window.Shiny && Shiny.setInputValue && ",
           "Shiny.setInputValue(%s, v); }, deep: true}"),
           jsonlite::toJSON(unname(others[[field]]), auto_unbox = TRUE)))
@@ -170,7 +168,7 @@ el_widget <- function(id, markup, data, methods = NULL, watch = NULL,
       gsub("([.\\-])", "\\\\\\1", id))
     methods <- lapply(methods, function(m) {
       if (!inherits(m, "JS_EVAL")) return(m)
-      htmlwidgets::JS(gsub(pattern, "", as.character(m), perl = TRUE))
+      JS(gsub(pattern, "", as.character(m), perl = TRUE))
     })
   }
 
@@ -229,7 +227,7 @@ el_widget <- function(id, markup, data, methods = NULL, watch = NULL,
   }
   if (length(report)) {
     every <- .el_mounted_init(stats::setNames(names(report), unname(report)))
-    full$mounted <- if (is.null(mounted_given)) every else htmlwidgets::JS(sprintf(
+    full$mounted <- if (is.null(mounted_given)) every else JS(sprintf(
       "function() { (%s).call(this); (%s).call(this); }", every, mounted_given))
   }
   attr(host, "el_spec") <- list(options = full, markup = markup)

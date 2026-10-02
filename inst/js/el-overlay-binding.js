@@ -104,7 +104,7 @@
     live.appendChild(document.importNode(tpl.content, true));
     body.appendChild(live);
     // Shiny's bindAll() mounts the components inside; without Shiny, mount them here
-    if (!hasShiny && window.shinyElement) window.shinyElement.mount(live);
+    if (!hasShiny && window.shinyVue) window.shinyVue.mount(live);
     hasShiny && Shiny.bindAll(live);
   }
 

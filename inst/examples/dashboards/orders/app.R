@@ -39,7 +39,7 @@ columns <- list(
   list(prop = "customer", label = "Customer", min_width = "140"),
   list(prop = "amount", label = "Amount", width = "110", align = "right",
        sortable = "custom",
-       formatter = htmlwidgets::JS("function(r, c, v) { return '$' + v.toFixed(2); }")),
+       formatter = JS("function(r, c, v) { return '$' + v.toFixed(2); }")),
   list(prop = "status", label = "Status", width = "100", cell = status_tag),
   # Pinned to the right edge, so the buttons stay in view when the table
   # is narrower than its columns and scrolls sideways
@@ -129,7 +129,7 @@ server <- function(input, output, session) {
   page <- reactive({
     d <- matching()
     size <- input$pager_size %||% 10
-    first <- ((input$pager_page %||% 1) - 1) * size
+    first <- ((input$pager %||% 1) - 1) * size
     d[seq_len(nrow(d)) > first & seq_len(nrow(d)) <= first + size, ]
   })
 

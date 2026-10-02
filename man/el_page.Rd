@@ -56,7 +56,7 @@ and supports both bslib/shiny themes and Element-UI layout CSS.
 }
 \details{
 Use this as the root UI function for your Shiny app. You can combine bslib layouts
-(such as \code{page_sidebar}, \code{layout_columns}) and Element-UI widgets (such as \code{el_button}).
+(such as \code{page_sidebar}, \code{layout_columns}) and Element components (such as \code{el_button}).
 
 Element's layout (\code{el_container()}, \code{el_row()}, \code{el_col()}) and bslib's
 (\code{page_sidebar()}, \code{layout_columns()}) each work here; nest one inside a

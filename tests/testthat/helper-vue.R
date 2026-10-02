@@ -8,7 +8,7 @@
 vue_data_of <- function(ui) {
   html <- paste(as.character(htmltools::renderTags(ui)$html), collapse = "")
   if (!grepl('application/json', html, fixed = TRUE)) {
-    stop("no widget payload found -- is this a markup-only component?", call. = FALSE)
+    stop("no component options found -- is this a markup-only component?", call. = FALSE)
   }
   json <- sub('^.*?<script type="application/json"[^>]*>', "", html)
   json <- sub("</script>.*$", "", json)
@@ -19,7 +19,7 @@ vue_data_of <- function(ui) {
 vue_payload_of <- function(ui) {
   html <- paste(as.character(htmltools::renderTags(ui)$html), collapse = "")
   if (!grepl("application/json", html, fixed = TRUE)) {
-    stop("no widget payload found -- is this a markup-only component?", call. = FALSE)
+    stop("no component options found -- is this a markup-only component?", call. = FALSE)
   }
   json <- sub('^.*?<script type="application/json"[^>]*>', "", html)
   json <- sub("</script>.*$", "", json)

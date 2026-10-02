@@ -27,8 +27,8 @@
 #'   any Shiny input; a session given here namespaces `id` once more, with
 #'   a warning.
 #' @param popper_class Extra class name for the dropdown panel.
-#' @param filter_method `htmlwidgets::JS()` function filtering the options as the user types.
-#' @param before_filter `htmlwidgets::JS()` function called before filtering; returning `false` cancels it.
+#' @param filter_method `JS()` function filtering the options as the user types.
+#' @param before_filter `JS()` function called before filtering; returning `false` cancels it.
 #' @inheritParams el_widget
 #' @param width Component width, as a CSS unit -- `"200px"`, `"50%"`, or a
 #'   number taken as pixels. Element's own markup carries it, so it behaves
@@ -197,7 +197,7 @@ el_cascader <- function(id = NULL,
     markup = tag("el-cascader", cascader_attrs),
     data = vue_data,
     methods = c(events$methods, list(
-      handleChange = htmlwidgets::JS(sprintf(
+      handleChange = JS(sprintf(
         "function(value) {\n  window.Shiny && Shiny.setInputValue && Shiny.setInputValue('%s', value);\n}", ns_id))
     )),
     mounted = .el_mounted_init(stats::setNames("value", ns_id)),

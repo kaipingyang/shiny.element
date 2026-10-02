@@ -112,9 +112,7 @@ destroys its Vue instance, and its value is \verb{input$<id>}.
 \details{
 Reach for it to wrap an Element component this package does not cover, or
 to build an input of your own from \link{el} tags; \code{report} names the value.
-It is what the package's own components are made of. (Earlier versions
-mounted Vue as a vueR htmlwidget, an \emph{output}: the id then sat on a hidden
-element beside the component, and Shiny did not know there was an input.)
+It is what the package's own components are made of.
 
 The raw Element tags come from \link{el}, and \code{\link[=template]{template()}} writes a slot.
 }

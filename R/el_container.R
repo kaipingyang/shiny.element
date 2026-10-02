@@ -36,14 +36,9 @@
 #'
 #' Emits `<div class="el-container">` directly.
 #'
-#' The previous implementation mounted a Vue instance and passed the rendered
-#' children in as a `template` string. That silently dropped every nested
-#' component: serialising the children flattened each htmlwidget's
-#' `<script type="application/json">` into the template, and Vue's compiler
-#' rejects `<script>` tags — with no message, because `vue.min.js` is a
-#' production build that strips its warnings. The container simply rendered
-#' nothing. Element UI's container styles are plain CSS, so no Vue instance is
-#' needed and nested widgets initialise normally.
+#' Element's container styles are plain CSS, so no Vue instance is needed --
+#' and none is wanted: one mounted over the container would recompile the
+#' components placed inside it and detach them.
 #'
 #' @param ... Child components, typically [el_header()], [el_aside()],
 #'   [el_main()] and [el_footer()].

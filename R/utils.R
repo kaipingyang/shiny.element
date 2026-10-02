@@ -20,7 +20,7 @@
 #' Element's events carry different arguments each, some of them DOM nodes or
 #' native events that cannot be serialised. Rather than write a handler per
 #' event, each one is bound to a generated method that hands its arguments to
-#' `shinyElement.emit()` (see `inst/js/el-events.js`), which drops what cannot
+#' `shinyVue.emit()` (see `inst/js/shiny-vue.js`), which drops what cannot
 #' travel and sets `input$<id>_<event>`.
 #'
 #' @param ns_id The namespaced element id.
@@ -52,8 +52,8 @@
     lapply(events, function(event) {
       shape <- shapes[[event]]
       if (is.null(shape)) {
-        return(htmlwidgets::JS(sprintf(
-          "function() { window.shinyElement.emit('%s', '%s', arguments); }",
+        return(JS(sprintf(
+          "function() { window.shinyVue.emit('%s', '%s', arguments); }",
           ns_id, input_name(event)
         )))
       }
@@ -61,10 +61,10 @@
       # up in the instance's own data.
       # A shape that returns undefined skips that emission -- how a
       # high-frequency event is throttled.
-      htmlwidgets::JS(sprintf(
+      JS(sprintf(
         paste0("function() { var shape = %s; ",
                "var v = shape.apply(this, arguments); if (v === undefined) return; ",
-               "window.shinyElement.emit('%s', '%s', [v]); }"),
+               "window.shinyVue.emit('%s', '%s', [v]); }"),
         shape, ns_id, input_name(event)
       ))
     }),
@@ -120,17 +120,17 @@
 #'
 #' Element UI components only emit `@change` on user interaction, and Vue
 #' `watch` handlers do not fire on mount. Without this hook the corresponding
-#' `input$<id>` stays `NULL` until the user first touches the widget, unlike
+#' `input$<id>` stays `NULL` until the user first touches the component, unlike
 #' standard Shiny inputs which report their value immediately.
 #'
 #' The send is deferred until `shiny:connected` when the socket is not up yet:
-#' htmlwidgets' `renderValue()` runs before the Shiny WebSocket is established,
-#' and `Shiny.setInputValue()` called then is silently dropped.
+#' a component on a static page, or one mounted before Shiny connects, would
+#' otherwise call `Shiny.setInputValue()` into nothing.
 #'
 #' @param bindings Named character vector. Names are fully namespaced Shiny
 #'   input ids, values are Vue data field names read off the instance, e.g.
 #'   `c(my_slider = "value")`.
-#' @return An [htmlwidgets::JS()] object for the Vue `mounted` option.
+#' @return A [JS()] function, the Vue `mounted` option.
 #' @keywords internal
 .el_mounted_init <- function(bindings) {
   js_str <- function(x) {
@@ -142,7 +142,7 @@
     sprintf("window.Shiny && Shiny.setInputValue && Shiny.setInputValue(%s, self.%s);", js_str(names(bindings)), bindings),
     collapse = " "
   )
-  js <- htmlwidgets::JS(paste0(
+  js <- JS(paste0(
     "function() { var self = this; ",
     "var send = function() { ", sends, " }; ",
     "if (window.Shiny && Shiny.shinyapp && ",
@@ -311,8 +311,8 @@
 
 #' Serialise a component's Vue options for the page
 #'
-#' JSON as htmlwidgets writes it -- `NA` and `NULL` as `null`, single values
-#' unboxed -- with the paths of every [htmlwidgets::JS()] listed in `evals`,
+#' JSON with `NA` and `NULL` as `null` and single values
+#' unboxed -- with the paths of every [JS()] listed in `evals`,
 #' so the bridge can turn their source back into functions. `</` is escaped,
 #' or a `header_html` holding `</b>` would end the script element early.
 #'
@@ -320,7 +320,7 @@
 #' @return The JSON, as a single string.
 #' @keywords internal
 .el_vue_json <- function(spec) {
-  spec$evals <- I(htmlwidgets::JSEvals(spec))
+  spec$evals <- I(.el_js_paths(spec))
   json <- jsonlite::toJSON(
     spec, auto_unbox = TRUE, null = "null", na = "null", digits = NA,
     force = TRUE, POSIXt = "ISO8601", UTC = TRUE, rownames = FALSE,

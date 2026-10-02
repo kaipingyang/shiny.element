@@ -46,7 +46,7 @@ test_that("tabs, collapse, dialog, menu and pager restore too", {
                                               list(index = "two", label = "2"))))
     expect_equal(d$active, "two")
   })
-  restoring(paste0("p_page=", enc(4), "&p_size=", enc(20)), {
+  restoring(paste0("p=", enc(4), "&p_size=", enc(20)), {
     d <- vue_data_of(el_pagination("p", total = 200))
     expect_equal(d$currentPage, 4)
     expect_equal(d$pageSize, 20)

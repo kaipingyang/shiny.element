@@ -131,7 +131,7 @@ el_carousel <- function(id = NULL,
               mounted = .el_mounted_init(stats::setNames(
                 c("active", "activeName"), paste0(ns_id, c("", "_name")))))
   own$methods <- list(
-      handleChange = htmlwidgets::JS(sprintf(
+      handleChange = JS(sprintf(
         paste0(
           "function(index) { var self = this; self.active = index; ",
           "self.activeName = self.itemNames[index] || ''; ",
@@ -156,7 +156,7 @@ el_carousel <- function(id = NULL,
     markup   = htmltools::tag("el-carousel", c(carousel_attrs, unname(item_tags))),
     data     = merged$data,
     # update_el_carousel(active =) moves the carousel rather than set a field
-    methods  = c(merged$methods, list(shinyVueReceive = htmlwidgets::JS(paste0(
+    methods  = c(merged$methods, list(shinyVueReceive = JS(paste0(
       "function(d) { if ('active' in d) { ",
       "if (this.$refs.carousel) this.$refs.carousel.setActiveItem(d.active); ",
       "delete d.active; } return d; }")))),

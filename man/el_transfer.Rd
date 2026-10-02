@@ -51,7 +51,7 @@ vector. Default is arrows only.}
 
 \item{filter_placeholder}{Placeholder of the search boxes.}
 
-\item{filter_method}{\code{htmlwidgets::JS()} function \verb{function(query, item)}
+\item{filter_method}{\code{JS()} function \verb{function(query, item)}
 returning whether an item survives the search.}
 
 \item{target_order}{Order of the right-hand panel: \code{"original"} (default),
@@ -66,7 +66,7 @@ returning whether an item survives the search.}
 
 \item{left_default_checked, right_default_checked}{Keys ticked at the start.}
 
-\item{render_content}{\code{htmlwidgets::JS()} render function for an item.}
+\item{render_content}{\code{JS()} render function for an item.}
 
 \item{label}{A label shown with the component, as Shiny's inputs have:
 text or a tag. \code{NULL}, the default, shows none. It is the component's

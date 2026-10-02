@@ -15,6 +15,11 @@
 #'   (`primary = "#7c3aed"`, `base_font =`), or any Bootstrap Sass variable by
 #'   name (`"font-size-base" = "1rem"`). An override replaces the Element
 #'   value of the same name.
+#' @param element Element's own theme variables, as a named list --
+#'   `list("border-radius-base" = "8px", "font-size-base" = "13px")` -- by
+#'   their names in theme-chalk's `common/var.scss`, without the `$--`.
+#'   Element's stylesheet is built with them, as Element's theme tool builds
+#'   a custom theme.
 #' @param version Bootstrap major version. Default `5`.
 #'
 #' @return A `bs_theme` object, for [el_page()]'s `theme` or any page that
@@ -36,10 +41,13 @@
 #' | `font-size-base` | `$--font-size-base` | `14px` |
 #' | input and button padding | `$--input-height`, `$--button-padding-*` | `40px` tall |
 #'
-#' `primary`, `success`, `warning` and `danger` reach Element's components
-#' too: [el_page()] recolours Element's stylesheet with them, tints and
-#' shades included, as Element's own theme picker does. `info` does not --
-#' compiled, Element's info grey is the same value as its secondary text.
+#' `primary`, `success`, `warning`, `danger` and `info` reach Element's
+#' components too, with the tints and shades Element derives from each, and
+#' so does anything given to `element`: [el_page()] builds Element's
+#' stylesheet for the theme. Brand colours alone are recoloured in place, as
+#' Element's own theme picker does; anything more compiles Element's Sass
+#' sources, bundled with the package, as its theme tool does -- about a
+#' second, once per theme and R session.
 #'
 #' Element puts white text on all five of its colours, some of which fall
 #' short of Bootstrap's default minimum contrast; left alone, Bootstrap would
@@ -53,12 +61,15 @@
 #' # Element's look with another brand colour
 #' el_theme(primary = "#7c3aed")
 #'
+#' # Rounder and smaller, all through Element
+#' el_theme(element = list("border-radius-base" = "10px", "font-size-base" = "13px"))
+#'
 #' if (interactive()) {
 #'   el_page(theme = el_theme(), shiny::actionButton("go", "Shiny's own button"))
 #' }
 #' @export
-el_theme <- function(..., version = 5) {
-  element <- list(
+el_theme <- function(..., element = NULL, version = 5) {
+  bs <- list(
     version   = version,
     primary   = "#409EFF",
     secondary = "#909399",
@@ -99,7 +110,18 @@ el_theme <- function(..., version = 5) {
   )
   if (version < 5) {
     # Bootstrap 3 and 4 have no min-contrast-ratio
-    element[["min-contrast-ratio"]] <- NULL
+    bs[["min-contrast-ratio"]] <- NULL
   }
-  do.call(bslib::bs_theme, utils::modifyList(element, list(...)))
+  overrides <- list(...)
+  # A focused input is ringed in the brand colour, as Element's are
+  if (!is.null(overrides$primary) && is.null(overrides[["input-focus-border-color"]])) {
+    overrides[["input-focus-border-color"]] <- overrides$primary
+  }
+  theme <- do.call(bslib::bs_theme, utils::modifyList(bs, overrides))
+  if (length(element)) {
+    # Checked now, so a misspelt variable fails where it was written
+    .el_element_vars(element)
+    attr(theme, "el_element") <- element
+  }
+  theme
 }

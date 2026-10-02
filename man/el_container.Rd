@@ -37,14 +37,9 @@ A Shiny UI element.
 Emits \verb{<div class="el-container">} directly.
 }
 \details{
-The previous implementation mounted a Vue instance and passed the rendered
-children in as a \code{template} string. That silently dropped every nested
-component: serialising the children flattened each htmlwidget's
-\verb{<script type="application/json">} into the template, and Vue's compiler
-rejects \verb{<script>} tags — with no message, because \code{vue.min.js} is a
-production build that strips its warnings. The container simply rendered
-nothing. Element UI's container styles are plain CSS, so no Vue instance is
-needed and nested widgets initialise normally.
+Element's container styles are plain CSS, so no Vue instance is needed --
+and none is wanted: one mounted over the container would recompile the
+components placed inside it and detach them.
 }
 \examples{
 # Header above a sidebar and main area

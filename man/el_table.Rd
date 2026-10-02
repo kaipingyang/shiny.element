@@ -137,11 +137,11 @@ from the server, unless \code{load} is given.}
 
 \item{header_cell_style}{Inline style for header cells, or a JS function returning one.}
 
-\item{span_method}{\code{htmlwidgets::JS()} function deciding row/column spans for merged cells.}
+\item{span_method}{\code{JS()} function deciding row/column spans for merged cells.}
 
-\item{summary_method}{\code{htmlwidgets::JS()} function returning the summary row's cells.}
+\item{summary_method}{\code{JS()} function returning the summary row's cells.}
 
-\item{load}{\code{htmlwidgets::JS()} function loading child rows in the
+\item{load}{\code{JS()} function loading child rows in the
 browser instead of from the server. Needs \code{lazy = TRUE}.}
 
 \item{width}{Component width, as a CSS unit. Replaces the table's default
@@ -166,7 +166,8 @@ a warning.}
 A Shiny UI element.
 }
 \description{
-Create a table widget for Shiny using Element UI.
+Rows of data, with sorting, selection, fixed columns, cell templates and
+row actions that report to the server.
 }
 \section{Shiny inputs}{
 

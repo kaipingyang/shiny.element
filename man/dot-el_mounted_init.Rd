@@ -12,17 +12,17 @@ input ids, values are Vue data field names read off the instance, e.g.
 \code{c(my_slider = "value")}.}
 }
 \value{
-An \code{\link[htmlwidgets:JS]{htmlwidgets::JS()}} object for the Vue \code{mounted} option.
+A \code{\link[=JS]{JS()}} function, the Vue \code{mounted} option.
 }
 \description{
 Element UI components only emit \verb{@change} on user interaction, and Vue
 \code{watch} handlers do not fire on mount. Without this hook the corresponding
-\verb{input$<id>} stays \code{NULL} until the user first touches the widget, unlike
+\verb{input$<id>} stays \code{NULL} until the user first touches the component, unlike
 standard Shiny inputs which report their value immediately.
 }
 \details{
 The send is deferred until \code{shiny:connected} when the socket is not up yet:
-htmlwidgets' \code{renderValue()} runs before the Shiny WebSocket is established,
-and \code{Shiny.setInputValue()} called then is silently dropped.
+a component on a static page, or one mounted before Shiny connects, would
+otherwise call \code{Shiny.setInputValue()} into nothing.
 }
 \keyword{internal}

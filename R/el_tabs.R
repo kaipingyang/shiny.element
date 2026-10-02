@@ -29,7 +29,7 @@
 #' @param addable Show a "+" button; clicking it reports
 #'   `input$<id>_tab_add`, and the server adds a tab with [insert_el_tab()].
 #' @param editable `closable` and `addable` together.
-#' @param before_leave `htmlwidgets::JS()` function
+#' @param before_leave `JS()` function
 #'   `function(activeName, oldActiveName)` run before switching tabs; return
 #'   `false`, or a promise that rejects, to stay put.
 #' @param stretch Stretch the tabs to fill the available width.
@@ -297,8 +297,8 @@ remove_el_tab <- function(session = shiny::getDefaultReactiveDomain(), id, name)
 
 #' Tabs Binding Dependency
 #'
-#' Tabs are a Shiny input binding rather than an htmlwidget, so this loads the
-#' binding instead of a message handler.
+#' Tabs are markup with a Shiny input binding rather than a Vue instance, so
+#' that the components inside the panes stay mounted.
 #'
 #' @return An htmlDependency object.
 #' @keywords internal

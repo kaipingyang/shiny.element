@@ -59,8 +59,8 @@ test_that("el_tree: custom field names reach the props map", {
   expect_match(html, '"nodeKey":"key"', fixed = TRUE)
 })
 
-test_that("el_tree: the tree is named so the handler can reach its methods", {
-  # setCheckedKeys() is the only way to replace a selection; see the handler.
+test_that("el_tree: the tree is named so shinyVueReceive can reach its methods", {
+  # setCheckedKeys() is the only way to replace a selection.
   expect_match(render_html(el_tree(id = "picker")), 'ref="tree"', fixed = TRUE)
 })
 

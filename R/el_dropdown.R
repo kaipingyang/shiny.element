@@ -152,7 +152,7 @@ el_dropdown <- function(
     markup = htmltools::tag("el-dropdown", c(dd_attrs, list(trigger_content, menu_tag))),
     data   = vue_data,
     methods = c(events$methods, list(
-      handleCommand = htmlwidgets::JS(sprintf(
+      handleCommand = JS(sprintf(
         "function(cmd) { this.count++; window.Shiny && Shiny.setInputValue && Shiny.setInputValue('%s', cmd, {priority: 'event'}); window.Shiny && Shiny.setInputValue && Shiny.setInputValue('%s_count', this.count); }",
         ns_id, ns_id
       ))

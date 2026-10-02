@@ -10,7 +10,7 @@ el_collapse_dependency()
 An htmlDependency object.
 }
 \description{
-The collapse is a Shiny input binding rather than an htmlwidget, so this
-loads the binding instead of a message handler.
+The collapse is markup with a Shiny input binding rather than a Vue
+instance, so that the components inside it stay mounted.
 }
 \keyword{internal}

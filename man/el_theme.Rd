@@ -4,13 +4,19 @@
 \alias{el_theme}
 \title{Element UI's look, as a Bootstrap theme}
 \usage{
-el_theme(..., version = 5)
+el_theme(..., element = NULL, version = 5)
 }
 \arguments{
 \item{...}{Overrides, passed on to \code{\link[bslib:bs_theme]{bslib::bs_theme()}}: its own arguments
 (\code{primary = "#7c3aed"}, \verb{base_font =}), or any Bootstrap Sass variable by
 name (\code{"font-size-base" = "1rem"}). An override replaces the Element
 value of the same name.}
+
+\item{element}{Element's own theme variables, as a named list --
+\code{list("border-radius-base" = "8px", "font-size-base" = "13px")} -- by
+their names in theme-chalk's \code{common/var.scss}, without the \verb{$--}.
+Element's stylesheet is built with them, as Element's theme tool builds
+a custom theme.}
 
 \item{version}{Bootstrap major version. Default \code{5}.}
 }
@@ -46,10 +52,13 @@ The values follow Element 2.15's \code{theme-chalk} variables:\tabular{lll}{
 }
 
 
-\code{primary}, \code{success}, \code{warning} and \code{danger} reach Element's components
-too: \code{\link[=el_page]{el_page()}} recolours Element's stylesheet with them, tints and
-shades included, as Element's own theme picker does. \code{info} does not --
-compiled, Element's info grey is the same value as its secondary text.
+\code{primary}, \code{success}, \code{warning}, \code{danger} and \code{info} reach Element's
+components too, with the tints and shades Element derives from each, and
+so does anything given to \code{element}: \code{\link[=el_page]{el_page()}} builds Element's
+stylesheet for the theme. Brand colours alone are recoloured in place, as
+Element's own theme picker does; anything more compiles Element's Sass
+sources, bundled with the package, as its theme tool does -- about a
+second, once per theme and R session.
 
 Element puts white text on all five of its colours, some of which fall
 short of Bootstrap's default minimum contrast; left alone, Bootstrap would
@@ -62,6 +71,9 @@ el_theme()
 
 # Element's look with another brand colour
 el_theme(primary = "#7c3aed")
+
+# Rounder and smaller, all through Element
+el_theme(element = list("border-radius-base" = "10px", "font-size-base" = "13px"))
 
 if (interactive()) {
   el_page(theme = el_theme(), shiny::actionButton("go", "Shiny's own button"))

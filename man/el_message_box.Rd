@@ -82,7 +82,7 @@ placeholder and the initial text.}
 
 \item{input_type}{For a prompt, the input's type, such as \code{"password"}.}
 
-\item{input_validator}{For a prompt, \code{htmlwidgets::JS()} function checking
+\item{input_validator}{For a prompt, \code{JS()} function checking
 the text; return \code{true}, or an error message.}
 
 \item{show_input}{Whether to show a text input, as a prompt does.}
@@ -99,7 +99,7 @@ reports \code{"close"} rather than \code{"cancel"}.}
 
 \item{close_on_hash_change}{Whether a change of the URL hash closes it.}
 
-\item{before_close}{\code{htmlwidgets::JS()} function
+\item{before_close}{\code{JS()} function
 \verb{function(action, instance, done)}, called before the box closes; call
 \code{done()} to let it.}
 }

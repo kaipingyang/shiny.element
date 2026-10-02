@@ -1,6 +1,6 @@
-#' Element UI Calendar Component
+#' Element UI Calendar
 #'
-#' Create a calendar widget for Shiny using Element UI.
+#' A month of days to pick one from, or a range of weeks to show.
 #'
 #' @param id Calendar ID (auto-generated if NULL)
 #' @param value Bound value (Date/string/number)
@@ -137,7 +137,7 @@ el_calendar <- function(id = NULL,
     ")),
     data  = vue_data,
     watch = list(
-      value = htmlwidgets::JS(sprintf(
+      value = JS(sprintf(
         "function(newVal) { window.Shiny && Shiny.setInputValue && Shiny.setInputValue('%s', newVal); }", ns_id
       ))
     ),

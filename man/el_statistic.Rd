@@ -46,7 +46,7 @@ effect with a \code{group_separator}.}
 
 \item{value_style}{CSS for the number, as a string or a named list.}
 
-\item{formatter}{\code{htmlwidgets::JS()} function \verb{function(value)} returning
+\item{formatter}{\code{JS()} function \verb{function(value)} returning
 the text to show, in place of Element's formatting.}
 
 \item{time_indices}{Count down to \code{value} rather than show it. \code{value} is

@@ -416,7 +416,7 @@ el_form <- function(...,
     markup = htmltools::tag("el-form", c(form_attrs, list(field_items, buttons))),
     data = vue_data,
     methods = c(events$methods, list(
-      handleSubmit = htmlwidgets::JS(sprintf(
+      handleSubmit = JS(sprintf(
         paste0(
           "function() { var self = this; ",
           "this.$refs.form.validate(function(ok) { ",
@@ -430,7 +430,7 @@ el_form <- function(...,
         ), js_id
       )),
       # update_el_form() and el_form_validate()/_reset()/_clear_validate()
-      shinyVueReceive = htmlwidgets::JS(paste0(
+      shinyVueReceive = JS(paste0(
         "function(d) { var self = this, action = d['.action']; delete d['.action']; ",
         # merged key by key, so fields not mentioned keep their values
         "if (d.model) { Object.keys(d.model).forEach(function(k) { ",
@@ -441,7 +441,7 @@ el_form <- function(...,
         "if (self.$refs.form) self.$refs.form.clearValidate(d.props || undefined); ",
         "delete d.props; } ",
         "return d; }")),
-      handleReset = htmlwidgets::JS(sprintf(
+      handleReset = JS(sprintf(
         paste0(
           "function() { this.$refs.form.resetFields(); ",
           "window.Shiny && Shiny.setInputValue && Shiny.setInputValue(%1$s, this.model); }"

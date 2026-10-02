@@ -190,7 +190,7 @@ test_that("el_tabs: a lazy pane holds its content in a template until shown", {
 
 test_that("el_tabs: before_leave travels as source for the binding", {
   html <- render_html(el_tabs("t1", tabs = demo_tabs,
-    before_leave = htmlwidgets::JS("function(to, from) { return to !== 'c'; }")))
+    before_leave = JS("function(to, from) { return to !== 'c'; }")))
   expect_match(html, "data-before-leave=\"function(to, from)", fixed = TRUE)
 })
 

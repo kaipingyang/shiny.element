@@ -1,8 +1,8 @@
 #' Coerce table data to a list of rows
 #'
 #' Element UI's `el-table` binds `:data` to an array of row objects. An R
-#' data.frame handed straight to htmlwidgets serialises column-wise into
-#' `{col: [...]}`, which the component silently renders as an empty table.
+#' data.frame serialised as it stands comes out column-wise, `{col: [...]}`,
+#' which the component silently renders as an empty table.
 #'
 #' Column names are sanitised because `el-table-column`'s `prop` is resolved
 #' as a dotted path (`getPropByPath`), so a column literally named
@@ -253,7 +253,8 @@
 
 #' Element UI Table Component
 #'
-#' Create a table widget for Shiny using Element UI.
+#' Rows of data, with sorting, selection, fixed columns, cell templates and
+#' row actions that report to the server.
 #'
 #' @param id Table ID (auto-generated if NULL)
 #' @param data A data.frame, or a list of rows (each a named list). A
@@ -310,9 +311,9 @@
 #' @param header_row_style Inline style for the header row, or a JS function returning one.
 #' @param header_cell_class_name Class name for header cells, or a JS function returning one.
 #' @param header_cell_style Inline style for header cells, or a JS function returning one.
-#' @param span_method `htmlwidgets::JS()` function deciding row/column spans for merged cells.
-#' @param summary_method `htmlwidgets::JS()` function returning the summary row's cells.
-#' @param load `htmlwidgets::JS()` function loading child rows in the
+#' @param span_method `JS()` function deciding row/column spans for merged cells.
+#' @param summary_method `JS()` function returning the summary row's cells.
+#' @param load `JS()` function loading child rows in the
 #'   browser instead of from the server. Needs `lazy = TRUE`.
 #' @param highlight_selection_row Whether rows ticked with `selection = TRUE` are highlighted.
 #' @param loading Whether to cover the table with Element's loading mask, as
@@ -511,7 +512,7 @@ el_table <- function(id = NULL,
     ":filter-placement" = "col.filterPlacement",
     ":reserve-selection" = "col.reserveSelection",
     ":index" = "col.index",
-    # Props taking a function: pass htmlwidgets::JS("function(...) {...}") in
+    # Props taking a function: pass JS("function(...) {...}") in
     # the column definition and it is evaluated in the browser.
     ":formatter" = "col.formatter",
     ":filter-method" = "col.filterMethod",
@@ -665,11 +666,11 @@ el_table <- function(id = NULL,
       elLoad = .el_lazy_load_method(ns_id, "table"),
       # Called from a cell template: rowAction('edit', scope) sets
       # input$<id>_edit to the row's number and the row.
-      rowAction = htmlwidgets::JS(sprintf(paste0(
+      rowAction = JS(sprintf(paste0(
         "function(name, scope) { var se = window.shinyElement; ",
         "window.Shiny && Shiny.setInputValue && Shiny.setInputValue('%s_' + name, {row_index: se.rowIndex(this, scope.row), ",
-        "row: se.plain(scope.row)}, {priority: 'event'}); }"), ns_id)),
-      handleSelectionChange = htmlwidgets::JS(sprintf(
+        "row: window.shinyVue.plain(scope.row)}, {priority: 'event'}); }"), ns_id)),
+      handleSelectionChange = JS(sprintf(
         paste0(
           "function(selection) { var self = this; ",
           "self.selected = selection; ",

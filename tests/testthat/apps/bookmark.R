@@ -15,7 +15,7 @@ ui <- function(req) el_page(
 
 server <- function(input, output, session) {
   output$vals <- renderPrint({
-    for (i in c("name", "cities", "on", "tabs", "pg_page")) {
+    for (i in c("name", "cities", "on", "tabs", "pg")) {
       cat(i, "=", paste(input[[i]], collapse = ","), "\n")
     }
   })

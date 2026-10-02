@@ -8,7 +8,7 @@
 #'   `list(value =, ...)`. Filtered in the browser on what has been typed.
 #'   For suggestions that come from the server, leave this empty and use
 #'   `fetch_suggestions`.
-#' @param fetch_suggestions `htmlwidgets::JS()` function
+#' @param fetch_suggestions `JS()` function
 #'   `function(queryString, callback)` that calls `callback(results)`. Use it
 #'   when the list cannot be sent up front.
 #' @param placeholder Placeholder text.
@@ -96,7 +96,7 @@ el_autocomplete <- function(id = NULL,
   fetcher <- if (!is.null(fetch_suggestions)) {
     fetch_suggestions
   } else {
-    htmlwidgets::JS(
+    JS(
       "function(queryString, callback) {",
       "  var all = this.suggestions || [];",
       "  var q = (queryString || '').toLowerCase();",
@@ -162,12 +162,12 @@ el_autocomplete <- function(id = NULL,
     ),
     methods = c(events$methods, list(
       fetchSuggestions = fetcher,
-      handleInput = htmlwidgets::JS(sprintf(
+      handleInput = JS(sprintf(
         "function(v) { window.Shiny && Shiny.setInputValue && Shiny.setInputValue('%s', v); }", ns_id
       ))
     )),
     watch = list(
-      value = htmlwidgets::JS(sprintf(
+      value = JS(sprintf(
         "function(newVal) { window.Shiny && Shiny.setInputValue && Shiny.setInputValue('%s', newVal); }", ns_id
       ))
     ),

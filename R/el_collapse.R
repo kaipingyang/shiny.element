@@ -107,8 +107,8 @@ el_collapse <- function(
 
 #' Collapse Binding Dependency
 #'
-#' The collapse is a Shiny input binding rather than an htmlwidget, so this
-#' loads the binding instead of a message handler.
+#' The collapse is markup with a Shiny input binding rather than a Vue
+#' instance, so that the components inside it stay mounted.
 #'
 #' @return An htmlDependency object.
 #' @keywords internal

@@ -108,9 +108,9 @@ multiple selection. \code{selected} is Shiny's name, \code{value} Element's
 \item{remote}{Whether options are fetched from the server as the user
 types. Needs \code{filterable = TRUE}; see "Shiny inputs".}
 
-\item{filter_method}{\code{htmlwidgets::JS()} function filtering the options as the user types.}
+\item{filter_method}{\code{JS()} function filtering the options as the user types.}
 
-\item{remote_method}{\code{htmlwidgets::JS()} function fetching options in the
+\item{remote_method}{\code{JS()} function fetching options in the
 browser instead of from the server. Needs \code{remote = TRUE}.}
 
 \item{label}{A label shown with the component, as Shiny's inputs have:

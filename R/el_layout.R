@@ -165,7 +165,7 @@ el_col <- function(..., span = 24, offset = NULL, push = NULL, pull = NULL,
 #' and supports both bslib/shiny themes and Element-UI layout CSS.
 #'
 #' Use this as the root UI function for your Shiny app. You can combine bslib layouts
-#' (such as \code{page_sidebar}, \code{layout_columns}) and Element-UI widgets (such as \code{el_button}).
+#' (such as \code{page_sidebar}, \code{layout_columns}) and Element components (such as \code{el_button}).
 #'
 #' @param ... UI elements to include in the page body.
 #' @param title Optional page title.
@@ -219,14 +219,16 @@ el_page <- function(
   deps <- c(
     list(
       .el_vue_dependency(dev = dev),
-      vue_handler_dependency(),
       element_ui_dependency(offline = offline)
     ),
+    # the bridge and Element's side of it, which checks for raw el$ tags
+    # left outside any component -- a page may hold nothing else
+    .el_vue_dependencies(),
     el_locale_dependency(locale),
     .el_config_dependency(size, z_index),
-    # The theme's primary, success, warning and danger, on Element's own
-    # components too, as Element's theme picker recolours them
-    Filter(Negate(is.null), list(.el_recoloured_dependency(.el_theme_colors(theme)))),
+    # The theme's colours, and any Element variable it sets, on Element's own
+    # components too: Element's stylesheet built for the theme
+    Filter(Negate(is.null), list(.el_themed_dependency(.el_element_vars(theme)))),
     list(el_feedback_dependency())
   )
   if (!is.null(theme_css)) deps <- c(deps, list(theme_css))

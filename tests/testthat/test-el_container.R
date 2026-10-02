@@ -26,9 +26,9 @@ test_that("el_container: renders a div with the el-container class", {
   expect_false(grepl("<el-container", html, fixed = TRUE))
 })
 
-test_that("el_container: no Vue widget is created", {
-  # The old implementation mounted a Vue instance whose template silently
-  # failed to compile whenever a child was an htmlwidget.
+test_that("el_container: no Vue instance is created", {
+  # A Vue instance mounted over a container rebuilds the DOM inside it and
+  # detaches the components placed there.
   html <- render_html(el_container(el_main("x")))
   expect_false(grepl("application/json", html, fixed = TRUE))
 })

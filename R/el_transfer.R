@@ -13,7 +13,7 @@
 #'   vector. Default is arrows only.
 #' @param filterable Whether each panel gets a search box.
 #' @param filter_placeholder Placeholder of the search boxes.
-#' @param filter_method `htmlwidgets::JS()` function `function(query, item)`
+#' @param filter_method `JS()` function `function(query, item)`
 #'   returning whether an item survives the search.
 #' @param target_order Order of the right-hand panel: `"original"` (default),
 #'   `"push"` or `"unshift"`.
@@ -23,7 +23,7 @@
 #' @param props Field names when `data` uses other ones, as
 #'   `list(key =, label =, disabled =)`.
 #' @param left_default_checked,right_default_checked Keys ticked at the start.
-#' @param render_content `htmlwidgets::JS()` render function for an item.
+#' @param render_content `JS()` render function for an item.
 #' @inheritParams el_widget
 #' @param width Component width, as a CSS unit.
 #' @param session Deprecated. Inside a module, wrap `id` in `ns()`, as for
@@ -134,7 +134,7 @@ el_transfer <- function(id = NULL,
     ),
     methods = events$methods,
     watch = list(
-      value = htmlwidgets::JS(sprintf(
+      value = JS(sprintf(
         "function(newVal) { window.Shiny && Shiny.setInputValue && Shiny.setInputValue('%s', newVal); }", ns_id
       ))
     ),

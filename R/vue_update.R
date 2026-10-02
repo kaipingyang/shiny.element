@@ -1,42 +1,22 @@
-#' Update one or more fields of a Vue component instance by id (namespaced)
-#' @param session Shiny session; the current one by default, as for
-#'   [shiny::updateTextInput()].
-#' @param id Vue component id (string)
-#' @param ... Named fields and values to update
-#' @return Called for its side effect; returns `NULL` invisibly.
-#' @export
-#' @examples
-#' \dontrun{
-#' # In a Shiny server function:
-#' # Update the 'value' field of a calendar component
-#' update_vue_component(session, "my_calendar", value = format(Sys.Date(), "%Y-%m-%d"))
+#' Set fields of a component's Vue instance
 #'
-#' # Update multiple fields at once
-#' update_vue_component(session, "my_calendar", value = "2025-12-31", first_day_of_week = 3)
-#' }
-update_vue_component <- function(session = shiny::getDefaultReactiveDomain(), id, ...) {
-  .el_check_session(session)
-  ns_id <- session$ns(id)
-  message <- list(id = ns_id, ...)
-  .el_send_update(session, message)
-  invisible(NULL)
-}
-
-#' Update the entire data object of a Vue component instance by id (namespaced)
+#' The escape hatch beside `update_el_*()`: assigns any declared field of
+#' the instance behind `id` -- a field of a component built with
+#' [el_widget()], or of one absorbed into a wrapper, which has no update
+#' function of its own. A field the instance does not declare is refused,
+#' with a `[shiny-vue]` warning in the browser console.
+#'
 #' @param session Shiny session; the current one by default, as for
 #'   [shiny::updateTextInput()].
 #' @param id Vue component id (string)
-#' @param data Named list representing the full Vue data object
+#' @param data Named list of fields and their new values.
 #' @return Called for its side effect; returns `NULL` invisibly.
 #' @export
 #' @examples
 #' \dontrun{
 #' # In a Shiny server function:
-#' # Replace the data object of a calendar component
-#' update_vue_data(session, "my_calendar", list(
-#'   value = "2025-12-31",
-#'   first_day_of_week = 3
-#' ))
+#' # Set two fields of a component of your own
+#' update_vue_data(session, "price", list(range = list(0, 50), max = 500))
 #' }
 update_vue_data <- function(session = shiny::getDefaultReactiveDomain(), id, data) {
   .el_check_session(session)

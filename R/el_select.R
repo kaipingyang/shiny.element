@@ -45,8 +45,8 @@
 #' @param default_first_option Whether Enter picks the first matching option.
 #' @param remote Whether options are fetched from the server as the user
 #'   types. Needs `filterable = TRUE`; see "Shiny inputs".
-#' @param filter_method `htmlwidgets::JS()` function filtering the options as the user types.
-#' @param remote_method `htmlwidgets::JS()` function fetching options in the
+#' @param filter_method `JS()` function filtering the options as the user types.
+#' @param remote_method `JS()` function fetching options in the
 #'   browser instead of from the server. Needs `remote = TRUE`.
 #' @inheritParams el_widget
 #' @param width Component width, as a CSS unit -- `"200px"`, `"50%"`, or a
@@ -250,13 +250,13 @@ el_select <- function(
     markup = htmltools::tag("el-select", c(select_attrs, option_slot)),
     data    = vue_data,
     methods = c(events$methods, list(
-      elRemoteQuery = htmlwidgets::JS(sprintf(paste0(
+      elRemoteQuery = JS(sprintf(paste0(
         "function(query) {\n",
         "  if (!(window.Shiny && Shiny.setInputValue)) return;\n",
         "  this.loading = true;\n",
         "  window.Shiny && Shiny.setInputValue && Shiny.setInputValue('%s_query', query, {priority: 'event'});\n",
         "}"), ns_id)),
-      handleChange = htmlwidgets::JS(sprintf(
+      handleChange = JS(sprintf(
         "function(value) { window.Shiny && Shiny.setInputValue && Shiny.setInputValue('%s', value); }",
         ns_id
       ))
