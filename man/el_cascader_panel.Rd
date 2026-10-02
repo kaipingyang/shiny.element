@@ -35,7 +35,8 @@ level down -- or a list of paths with \code{props = list(multiple = TRUE)}.}
 \item{props}{Element's \code{props}, as a named list: \code{multiple},
 \code{checkStrictly}, \code{expandTrigger} (\code{"click"} or \code{"hover"}), \code{lazy},
 \code{lazyLoad}, and the field names \code{value}, \code{label}, \code{children},
-\code{disabled}, \code{leaf}.}
+\code{disabled}, \code{leaf}. With \code{lazy = TRUE} and no \code{lazyLoad} of your own,
+the server loads each column.}
 
 \item{label}{A label shown with the component, as Shiny's inputs have:
 text or a tag. \code{NULL}, the default, shows none. It is the component's
@@ -86,6 +87,8 @@ them into a dropdown.
 \itemize{
 \item \verb{input$<id>} -- the selected path, on load and on change.
 \item \verb{input$<id>_expand_change} -- the path of the column just opened.
+\item \verb{input$<id>_lazy_load} -- with \code{props = list(lazy = TRUE)}, a column to
+load; answer with \code{\link[=el_load_children]{el_load_children()}}. See \code{\link[=el_cascader]{el_cascader()}}.
 }
 }
 

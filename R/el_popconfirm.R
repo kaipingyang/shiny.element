@@ -156,6 +156,7 @@ el_popconfirm <- function(id = NULL,
 update_el_popconfirm <- function(session = shiny::getDefaultReactiveDomain(), id, title = NULL,
                                  confirm_button_text = NULL,
                                  cancel_button_text = NULL) {
+  .el_check_session(session)
   ns_id <- session$ns(id)
   msg <- list(id = ns_id)
   if (!is.null(title))               msg$title             <- title

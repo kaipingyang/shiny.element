@@ -92,7 +92,7 @@ An \code{htmltools} tagList with a Vue-managed color-picker component.
 \description{
 A colour picker input that returns a CSS colour string.
 }
-\section{Shiny input}{
+\section{Shiny inputs}{
 
 \verb{input$<id>} — colour string (e.g. \code{"#409EFF"} or \code{"rgba(64,158,255,0.5)"}).
 \code{NULL} / \code{NA} when the user clears the picker.

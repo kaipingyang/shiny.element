@@ -116,7 +116,7 @@ Callable with \code{\link[=el_call]{el_call()}}:
 }
 }
 
-\section{Shiny input}{
+\section{Shiny inputs}{
 
 \verb{input$<id>} — numeric value, updated on each valid change.
 }

@@ -155,6 +155,7 @@ update_el_progress <- function(
     show_text    = NULL,
     text_inside  = NULL
 ) {
+  .el_check_session(session)
   ns_id <- session$ns(id)
   msg   <- list(id = ns_id)
   if (!is.null(percentage))   msg$percentage  <- percentage

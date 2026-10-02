@@ -96,6 +96,7 @@ el_result <- function(id = NULL,
 #' @export
 update_el_result <- function(session = shiny::getDefaultReactiveDomain(), id, icon = NULL, title = NULL,
                              sub_title = NULL) {
+  .el_check_session(session)
   msg <- list(id = session$ns(id))
   if (!is.null(icon))      msg$resultIcon     <- icon
   if (!is.null(title))     msg$resultTitle    <- title

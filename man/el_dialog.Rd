@@ -97,9 +97,7 @@ components from this package. See \code{.claude/docs/lessons.md} §1.2.
 it has.
 \item \verb{input$<id>_close}, \verb{input$<id>_closed} -- likewise as it closes.
 }
-}
 
-\section{Shiny input}{
 
 \verb{input$<id>} — \code{TRUE} while the dialog is open, reported whenever it opens
 or closes, however that happens. (It was \verb{input$<id>_visible} while this was

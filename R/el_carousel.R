@@ -31,7 +31,7 @@
 #'   given here is absorbed rather than nested. For a scoped slot, write
 #'   the template with [template()].
 #'
-#' @section Server inputs:
+#' @section Shiny inputs:
 #' `input$<id>` holds the index of the slide currently showing, 0-based, and
 #' `input$<id>_name` its `name` if one was given. Both are reported on load and
 #' whenever the slide changes.
@@ -191,6 +191,7 @@ update_el_carousel <- function(session = shiny::getDefaultReactiveDomain(), id,
                                active = NULL,
                                autoplay = NULL,
                                interval = NULL) {
+  .el_check_session(session)
   msg <- list(id = session$ns(id))
   # `initial-index` is read once at mount and has no watcher, so moving to a
   # slide is a method call; the handler does that part.

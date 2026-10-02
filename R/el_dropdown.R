@@ -43,9 +43,9 @@
 #' @return An `htmltools` tagList with a Vue-managed dropdown component.
 #'
 #' @section Shiny inputs:
-#' - `input$<id>` — the `command` value of the last clicked item.
-#' - `input$<id>_count` — click counter, incremented for each item click
-#'   (useful to detect re-clicks of the same command).
+#' - `input$<id>` -- the `command` of the item clicked. It is an event, so
+#'   choosing the same item twice runs an `observeEvent()` twice.
+#' - `input$<id>_count` -- the number of items clicked.
 #'
 #' @examples
 #' el_dropdown("dd1", "Actions",
@@ -153,7 +153,7 @@ el_dropdown <- function(
     data   = vue_data,
     methods = c(events$methods, list(
       handleCommand = htmlwidgets::JS(sprintf(
-        "function(cmd) { this.count++; window.Shiny && Shiny.setInputValue && Shiny.setInputValue('%s', cmd); window.Shiny && Shiny.setInputValue && Shiny.setInputValue('%s_count', this.count); }",
+        "function(cmd) { this.count++; window.Shiny && Shiny.setInputValue && Shiny.setInputValue('%s', cmd, {priority: 'event'}); window.Shiny && Shiny.setInputValue && Shiny.setInputValue('%s_count', this.count); }",
         ns_id, ns_id
       ))
     )),
@@ -182,6 +182,7 @@ el_dropdown <- function(
 #' }
 #' @export
 update_el_dropdown <- function(session = shiny::getDefaultReactiveDomain(), id, disabled = NULL) {
+  .el_check_session(session)
   ns_id <- session$ns(id)
   msg   <- list(id = ns_id)
   if (!is.null(disabled)) msg$disabled <- disabled

@@ -34,9 +34,11 @@
 #'
 #' @return An `htmltools` tagList with a Vue-managed button component.
 #'
-#' @section Shiny input:
-#' `input$<id>` — click count (integer), incremented on each click when neither
-#' `disabled` nor `loading` is `TRUE`.
+#' @section Shiny inputs:
+#' `input$<id>` -- the number of clicks, as [shiny::actionButton()] reports
+#' it: 0 on load, and counted only while neither `disabled` nor `loading` is
+#' `TRUE`. It carries the same class, so `observeEvent()` and `req()` treat 0
+#' as not yet clicked.
 #'
 #' @examples
 #' # Basic usage
@@ -122,11 +124,17 @@ el_button <- function(
       autofocus   = .el_or_na(autofocus)
     ),
     methods = list(
-      handleClick = htmlwidgets::JS(sprintf(
-        "function() { if (!this.disabled && !this.loading) { this.count++; window.Shiny && Shiny.setInputValue && Shiny.setInputValue('%s', this.count); } }",
-        ns_id
-      ))
+      # The binding reports the count; this send is for when the button is
+      # absorbed into a wrapper and has no binding of its own
+      handleClick = htmlwidgets::JS(sprintf(paste0(
+        "function() { if (this.disabled || this.loading) return; this.count++; ",
+        "window.Shiny && Shiny.setInputValue && Shiny.setInputValue('%s:shiny.action', this.count); }"),
+        ns_id))
     ),
+    # An action button, as actionButton() is: 0 on load, classed so that
+    # observeEvent() and req() treat 0 as not yet clicked
+    mounted    = .el_mounted_init(stats::setNames("count", ns_id)),
+    type       = "shiny.action",
     width      = width,
     slots      = slots
   )
@@ -169,6 +177,7 @@ update_el_button <- function(
     loading  = NULL,
     disabled = NULL
 ) {
+  .el_check_session(session)
   ns_id <- session$ns(id)
   msg   <- list(id = ns_id)
   if (!is.null(label))    msg$label    <- label

@@ -9,7 +9,9 @@ update_el_calendar(
   id,
   value = NULL,
   range = NULL,
-  first_day_of_week = NULL
+  first_day_of_week = NULL,
+  label = NULL,
+  error = NULL
 )
 }
 \arguments{
@@ -23,6 +25,13 @@ update_el_calendar(
 \item{range}{New range (c("YYYY-MM-DD", "YYYY-MM-DD"))}
 
 \item{first_day_of_week}{New first day of week (1~7)}
+
+\item{label}{New label text, as for \code{\link[shiny:updateTextInput]{shiny::updateTextInput()}}. Only a
+component built with a \code{label} has one to change.}
+
+\item{error}{An error message to show on the component, as Element's
+\code{error} does -- for a check only the server can make, such as whether
+a name is taken. \code{""} clears it.}
 }
 \value{
 Called for its side effect; returns \code{NULL} invisibly.

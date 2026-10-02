@@ -13,7 +13,8 @@
 #' @param props Element's `props`, as a named list: `multiple`,
 #'   `checkStrictly`, `expandTrigger` (`"click"` or `"hover"`), `lazy`,
 #'   `lazyLoad`, and the field names `value`, `label`, `children`,
-#'   `disabled`, `leaf`.
+#'   `disabled`, `leaf`. With `lazy = TRUE` and no `lazyLoad` of your own,
+#'   the server loads each column.
 #' @inheritParams el_widget
 #' @param width Component width, as a CSS unit.
 #' @param slots Named list of Element slot contents. The default slot, scoped
@@ -25,6 +26,8 @@
 #' @section Shiny inputs:
 #' - `input$<id>` -- the selected path, on load and on change.
 #' - `input$<id>_expand_change` -- the path of the column just opened.
+#' - `input$<id>_lazy_load` -- with `props = list(lazy = TRUE)`, a column to
+#'   load; answer with [el_load_children()]. See [el_cascader()].
 #'
 #' @section Element methods:
 #' Callable with [el_call()]:
@@ -66,7 +69,7 @@ el_cascader_panel <- function(id = NULL,
   attrs <- list(
     "v-model"  = "value",
     ":options" = "options",
-    ":props"   = .el_optional_bind("props"),
+    ":props"   = "elProps",
     "@change"  = "handleChange"
   )
   events <- .el_event_bindings(ns_id, "expand-change")
@@ -89,6 +92,7 @@ el_cascader_panel <- function(id = NULL,
       ))
     )),
     mounted    = .el_mounted_init(stats::setNames("value", ns_id)),
+    computed   = list(elProps = .el_lazy_props(ns_id)),
     width      = width,
     slots      = slots
   )
@@ -104,6 +108,11 @@ el_cascader_panel <- function(id = NULL,
 #' @param id Panel ID (un-namespaced).
 #' @param value,options New values; `NULL` leaves one unchanged.
 #'
+#' @param label New label text, as for [shiny::updateTextInput()]. Only a
+#'   component built with a `label` has one to change.
+#' @param error An error message to show on the component, as Element's
+#'   `error` does -- for a check only the server can make, such as whether
+#'   a name is taken. `""` clears it.
 #' @return Called for its side effect; returns `NULL` invisibly.
 #' @examples
 #' if (interactive()) {
@@ -111,10 +120,13 @@ el_cascader_panel <- function(id = NULL,
 #'   observeEvent(input$reset, update_el_cascader_panel(session, "where", value = list()))
 #' }
 #' @export
-update_el_cascader_panel <- function(session = shiny::getDefaultReactiveDomain(), id, value = NULL, options = NULL) {
+update_el_cascader_panel <- function(session = shiny::getDefaultReactiveDomain(), id, value = NULL, options = NULL,
+                                     label = NULL, error = NULL) {
+  .el_check_session(session)
   msg <- list(id = session$ns(id))
   if (!is.null(value))   msg$value   <- as.list(value)
   if (!is.null(options)) msg$options <- unname(options)
+  msg <- .el_form_item_update(msg, label, error)
   .el_send_update(session, msg)
   invisible(NULL)
 }

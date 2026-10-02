@@ -82,6 +82,7 @@ el_page_header <- function(id = NULL,
 #' }
 #' @export
 update_el_page_header <- function(session = shiny::getDefaultReactiveDomain(), id, title = NULL, content = NULL) {
+  .el_check_session(session)
   ns_id <- session$ns(id)
   msg <- list(id = ns_id)
   if (!is.null(title))   msg$title   <- title

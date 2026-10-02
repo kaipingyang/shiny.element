@@ -42,7 +42,7 @@
 #'
 #' @return An `htmltools` tag.
 #'
-#' @section Shiny input:
+#' @section Shiny inputs:
 #' `input$<id>` — `TRUE` while the drawer is open, reported whenever it opens
 #' or closes, however that happens. (It was `input$<id>_visible` while this was
 #' a Vue component; see [el_dialog()].)
@@ -154,6 +154,7 @@ el_drawer <- function(
 #' @export
 update_el_drawer <- function(session = shiny::getDefaultReactiveDomain(), id, visible = NULL, title = NULL,
                              size = NULL) {
+  .el_check_session(session)
   msg <- list()
   if (!is.null(visible)) msg$visible <- visible
   if (!is.null(title))   msg$title   <- title

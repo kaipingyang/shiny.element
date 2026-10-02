@@ -58,6 +58,7 @@ el_notification <- function(
     dangerously_use_html_string = FALSE,
     id         = NULL
 ) {
+  .el_check_session(session)
   .el_check_choices("el_notification", environment())
   session$sendCustomMessage("elNotification", list(
     id        = if (!is.null(id)) session$ns(id),
@@ -131,6 +132,7 @@ el_message <- function(
     dangerously_use_html_string = FALSE,
     id         = NULL
 ) {
+  .el_check_session(session)
   .el_check_choices("el_message", environment())
   session$sendCustomMessage("elMessage", list(
     id        = if (!is.null(id)) session$ns(id),
@@ -251,6 +253,7 @@ el_message_box <- function(session = shiny::getDefaultReactiveDomain(), id, mess
                            lock_scroll = NULL,
                            close_on_hash_change = NULL,
                            before_close = NULL) {
+  .el_check_session(session)
   .el_check_choices("el_message_box", environment())
   box_type <- match.arg(box_type)
 
@@ -334,6 +337,7 @@ el_loading <- function(session = shiny::getDefaultReactiveDomain(), id = "defaul
                        fullscreen = NULL, lock = NULL, body = NULL,
                        spinner = NULL, background = NULL,
                        custom_class = NULL) {
+  .el_check_session(session)
   session$sendCustomMessage("elLoading", list(
     id          = session$ns(id),
     text        = text,
@@ -368,6 +372,7 @@ el_loading <- function(session = shiny::getDefaultReactiveDomain(), id = "defaul
 #' }
 #' @export
 el_loading_close <- function(session = shiny::getDefaultReactiveDomain(), id = "default") {
+  .el_check_session(session)
   session$sendCustomMessage("elLoading", list(id = session$ns(id), close = TRUE))
   invisible(NULL)
 }
@@ -399,6 +404,7 @@ NULL
 #' @rdname el_feedback_close
 #' @export
 el_message_close <- function(session = shiny::getDefaultReactiveDomain(), id = NULL) {
+  .el_check_session(session)
   session$sendCustomMessage("elMessageClose",
                             list(id = if (!is.null(id)) session$ns(id)))
   invisible(NULL)
@@ -407,6 +413,7 @@ el_message_close <- function(session = shiny::getDefaultReactiveDomain(), id = N
 #' @rdname el_feedback_close
 #' @export
 el_notification_close <- function(session = shiny::getDefaultReactiveDomain(), id = NULL) {
+  .el_check_session(session)
   session$sendCustomMessage("elNotificationClose",
                             list(id = if (!is.null(id)) session$ns(id)))
   invisible(NULL)

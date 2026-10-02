@@ -34,7 +34,7 @@
 #'
 #' @return An `htmltools` tagList with a Vue-managed checkbox group component.
 #'
-#' @section Shiny input:
+#' @section Shiny inputs:
 #' `input$<id>` — character vector of currently selected values.
 #'
 #' @examples
@@ -178,6 +178,11 @@ el_checkbox_group <- function(
 #' @param min New minimum checked count.
 #' @param max New maximum checked count.
 #'
+#' @param label New label text, as for [shiny::updateTextInput()]. Only a
+#'   component built with a `label` has one to change.
+#' @param error An error message to show on the component, as Element's
+#'   `error` does -- for a check only the server can make, such as whether
+#'   a name is taken. `""` clears it.
 #' @return Called for its side effect; returns `NULL` invisibly.
 #' @examples
 #' if (interactive()) {
@@ -196,8 +201,9 @@ update_el_checkbox_group <- function(
     min      = NULL,
     max      = NULL,
     value    = NULL,
-    options  = NULL
-) {
+    options  = NULL,
+    label = NULL, error = NULL) {
+  .el_check_session(session)
   selected <- .el_alias(selected, value, "selected", "value")
   choices  <- .el_alias(choices, options, "choices", "options")
   ns_id <- session$ns(id)
@@ -207,6 +213,7 @@ update_el_checkbox_group <- function(
   if (!is.null(disabled)) msg$disabled <- disabled
   if (!is.null(min))      msg$min      <- min
   if (!is.null(max))      msg$max      <- max
+  msg <- .el_form_item_update(msg, label, error)
   .el_send_update(session, msg)
   invisible(NULL)
 }

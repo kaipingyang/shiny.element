@@ -157,6 +157,11 @@ el_calendar <- function(id = NULL,
 #' @param first_day_of_week New first day of week (1~7)
 #' @param session Shiny session; the current one by default, as for
 #'   [shiny::updateTextInput()].
+#' @param label New label text, as for [shiny::updateTextInput()]. Only a
+#'   component built with a `label` has one to change.
+#' @param error An error message to show on the component, as Element's
+#'   `error` does -- for a check only the server can make, such as whether
+#'   a name is taken. `""` clears it.
 #' @return Called for its side effect; returns `NULL` invisibly.
 #' @examples
 #' if (interactive()) {
@@ -166,13 +171,16 @@ el_calendar <- function(id = NULL,
 #'   })
 #' }
 #' @export
-update_el_calendar <- function(session = shiny::getDefaultReactiveDomain(), id, value = NULL, range = NULL, first_day_of_week = NULL) {  
+update_el_calendar <- function(session = shiny::getDefaultReactiveDomain(), id, value = NULL, range = NULL, first_day_of_week = NULL,
+                               label = NULL, error = NULL) {
+  .el_check_session(session)
   ns_id <- session$ns(id)  
   message <- list(id = ns_id)  
   if (!is.null(value)) message$value <- if (inherits(value, "Date")) format(value, "%Y-%m-%d") else value  
   if (!is.null(range)) message$range <- as.character(range)  
   if (!is.null(first_day_of_week)) message$firstDayOfWeek <- first_day_of_week  
   
+  message <- .el_form_item_update(message, label, error)
   .el_send_update(session, message)
   invisible(NULL)
 }

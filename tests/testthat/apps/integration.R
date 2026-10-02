@@ -251,6 +251,22 @@ ui <- el_page(
   el_switch("lab_on", label = "Notify", label_position = "left"),
   actionButton("val_go", "validate"),
 
+  # An action button, and an input absorbed into a wrapper
+  el_button("act_btn", "Act"),
+  el_tooltip("abs_tip", el_switch("abs_sw", value = FALSE), content = "Absorbed"),
+  verbatimTextOutput("act_dump"),
+
+  # The server answering what Element would fetch with a JS function
+  el_input("upd_lab", label = "Old", label_suffix = ":"),
+  actionButton("upd_go", "update label"),
+  actionButton("upd_clear", "clear error"),
+  el_tree("lz_tree", lazy = TRUE, node_key = "id", is_leaf_field = "leaf"),
+  el_cascader("lz_casc", props = list(lazy = TRUE)),
+  el_select("rm_sel", filterable = TRUE, remote = TRUE),
+  el_table(id = "lz_tbl", row_key = "id", lazy = TRUE,
+           data = data.frame(id = c(1, 2), name = c("a", "b"),
+                             hasChildren = c(TRUE, FALSE))),
+
   # A component type that appears nowhere else on the page, only through
   # renderUI(): its handler script arrives after shiny:connected has fired.
   uiOutput("late"),
@@ -270,6 +286,40 @@ server <- function(input, output, session) {
     iv$add_rule("val_name", shinyvalidate::sv_required("A name, please"))
     observeEvent(input$val_go, iv$enable())
   }
+
+  act_fired <- reactiveVal(0)
+  observeEvent(input$act_btn, act_fired(act_fired() + 1))
+  output$act_dump <- renderPrint({
+    cat("act_class =", paste(class(input$act_btn), collapse = "/"), "\n")
+    cat("act_fired =", act_fired(), "\n")
+    cat("abs_sw =", format(input$abs_sw), "\n")
+  })
+  observeEvent(input$upd_go, update_el_input(session, "upd_lab", label = "New",
+                                             error = "Taken"))
+  observeEvent(input$upd_clear, update_el_input(session, "upd_lab", error = ""))
+  observeEvent(input$lz_tree_load, {
+    q <- input$lz_tree_load
+    el_load_children(session, "lz_tree", q, if (q$level == 0) {
+      list(list(id = "root", label = "Root"))
+    } else {
+      list(list(id = paste0(q$key, "-child"), label = "Child", leaf = TRUE))
+    })
+  })
+  observeEvent(input$lz_casc_lazy_load, {
+    q <- input$lz_casc_lazy_load
+    el_load_children(session, "lz_casc", q, if (q$level == 0) {
+      list(list(value = "asia", label = "Asia"))
+    } else {
+      list(list(value = "cn", label = "China", leaf = TRUE))
+    })
+  })
+  observeEvent(input$rm_sel_query, {
+    update_el_select(session, "rm_sel", choices = paste0(input$rm_sel_query, c("-1", "-2")))
+  })
+  observeEvent(input$lz_tbl_load, {
+    el_load_children(session, "lz_tbl", input$lz_tbl_load,
+                     data.frame(id = 11, name = "a-child", hasChildren = FALSE))
+  })
 
   observeEvent(input$js_go, {
     shinyjs::hide("js_hide")
@@ -293,7 +343,7 @@ server <- function(input, output, session) {
     invalidateLater(1000, session)
     ids <- c("inp", "sel", "sw", "sld", "rate", "rg", "cg", "num", "dp", "cp",
              "tabs", "pg_page", "pg_size", "col", "rg_num", "stp",
-             "tbl_selected_rows", "casc_value", "sw_nested", "sld_nested",
+             "tbl_selected_rows", "casc", "sw_nested", "sld_nested",
              "signup_submit", "signup_valid", "nav", "nav_path",
              "tree", "tree_checked", "car", "car_name", "col_nested",
              "tab_nested", "dlg", "drw", "dlg_nested")

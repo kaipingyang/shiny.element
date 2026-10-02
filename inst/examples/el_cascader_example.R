@@ -74,24 +74,24 @@ ui <- el_page(
   
 server <- function(input, output, session) {  
   # 监听选择变化  
-  observeEvent(input$cascader1_value, {  
-    print(paste("Cascader 1:", input$cascader1_value))  
+  observeEvent(input$cascader1, {  
+    print(paste("Cascader 1:", input$cascader1))  
   })  
     
-  observeEvent(input$cascader2_value, {  
-    print(paste("Cascader 2:", input$cascader2_value))  
+  observeEvent(input$cascader2, {  
+    print(paste("Cascader 2:", input$cascader2))  
   })  
     
-  observeEvent(input$cascader3_value, {  
-    print(paste("Cascader 3:", input$cascader3_value))  
+  observeEvent(input$cascader3, {  
+    print(paste("Cascader 3:", input$cascader3))  
   })  
     
   # 显示选中值  
   output$selected <- renderPrint({  
     list(  
-      cascader1 = input$cascader1_value,  
-      cascader2 = input$cascader2_value,  
-      cascader3 = input$cascader3_value  
+      cascader1 = input$cascader1,  
+      cascader2 = input$cascader2,  
+      cascader3 = input$cascader3  
     )  
   })  
     

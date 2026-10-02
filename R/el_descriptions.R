@@ -193,6 +193,7 @@ el_descriptions <- function(id = NULL,
 update_el_descriptions <- function(session = shiny::getDefaultReactiveDomain(), id, title = NULL, extra = NULL,
                                    column = NULL, direction = NULL,
                                    border = NULL) {
+  .el_check_session(session)
   msg <- list(id = session$ns(id))
   if (!is.null(title))     msg$dTitle     <- title
   if (!is.null(extra))     msg$dExtra     <- extra

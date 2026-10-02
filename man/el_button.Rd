@@ -73,10 +73,12 @@ An \code{htmltools} tagList with a Vue-managed button component.
 Creates an Element UI button with Vue instance, supporting all Element UI
 button variants including \code{plain}, \code{round}, \code{circle}, and \code{loading} states.
 }
-\section{Shiny input}{
+\section{Shiny inputs}{
 
-\verb{input$<id>} — click count (integer), incremented on each click when neither
-\code{disabled} nor \code{loading} is \code{TRUE}.
+\verb{input$<id>} -- the number of clicks, as \code{\link[shiny:actionButton]{shiny::actionButton()}} reports
+it: 0 on load, and counted only while neither \code{disabled} nor \code{loading} is
+\code{TRUE}. It carries the same class, so \code{observeEvent()} and \code{req()} treat 0
+as not yet clicked.
 }
 
 \examples{

@@ -13,6 +13,10 @@
 #' @param locale Language for Element UI's built-in text. English by default,
 #'   or `getOption("shiny.element.locale")` when set. See
 #'   [el_locale_dependency()].
+#' @param size,z_index Element's global config, as `Vue.use(Element, {size,
+#'   zIndex})` sets it: the size of every component not given one of its own
+#'   (`"medium"`, `"small"` or `"mini"`), and the z-index its popups start
+#'   from (2000 by default). `NULL` leaves Element's default.
 #' @return A list of htmlDependency objects
 #' @export
 #' @examples
@@ -25,7 +29,8 @@
 #' }
 use_element <- function(theme = el_layout_css_dependency(), offline = TRUE,
                         dev = getOption("shiny.element.dev", FALSE),
-                        locale = getOption("shiny.element.locale", "en")) {
+                        locale = getOption("shiny.element.locale", "en"),
+                        size = NULL, z_index = NULL) {
   deps <- c(
     list(
       .el_vue_dependency(dev = dev),
@@ -33,6 +38,7 @@ use_element <- function(theme = el_layout_css_dependency(), offline = TRUE,
       element_ui_dependency(offline = offline)
     ),
     el_locale_dependency(locale),
+    .el_config_dependency(size, z_index),
     list(el_feedback_dependency())
   )
 
@@ -147,7 +153,10 @@ element_ui_dependency <- function(offline = TRUE) {
     version    = "2.15.14",
     src        = src,
     script     = "index.js",
-    stylesheet = "theme-chalk/index.css",
+    # display.css is Element's hidden-xs-only, hidden-md-and-up, ... --
+    # separate upstream, so a page that wants them imports it; small enough
+    # here to always carry
+    stylesheet = c("theme-chalk/index.css", "theme-chalk/display.css"),
     # The stylesheet references fonts/element-icons.woff relatively, so the
     # whole directory has to be served, not just the two named files.
     all_files  = TRUE,
@@ -246,4 +255,34 @@ el_feedback_dependency <- function() {
 el_locales <- function() {
   root <- system.file("element-ui", "locale", package = "shiny.element")
   sort(sub("[.]js$", "", list.files(root, pattern = "[.]js$")))
+}
+
+
+#' Element's global config
+#'
+#' Element reads `Vue.prototype.$ELEMENT` for the size a component takes when
+#' it is given none, and for the z-index its popups start from. Element sets
+#' it when it installs itself; this runs after and overrides it.
+#'
+#' @param size `"medium"`, `"small"`, `"mini"`, or `NULL`.
+#' @param z_index A number, or `NULL`.
+#' @return A list holding one htmlDependency, or `NULL` when there is nothing
+#'   to set.
+#' @keywords internal
+.el_config_dependency <- function(size = NULL, z_index = NULL) {
+  if (is.null(size) && is.null(z_index)) return(NULL)
+  if (!is.null(size)) size <- match.arg(size, c("medium", "small", "mini"))
+  if (!is.null(z_index) && (!is.numeric(z_index) || length(z_index) != 1)) {
+    stop("`z_index` must be a single number.", call. = FALSE)
+  }
+  config <- jsonlite::toJSON(list(size = if (is.null(size)) "" else size,
+                                  zIndex = if (is.null(z_index)) 2000 else z_index),
+                             auto_unbox = TRUE)
+  list(htmltools::htmlDependency(
+    name    = "element-ui-config",
+    version = "2.15.14",
+    src     = system.file("element-ui", package = "shiny.element"),
+    head    = sprintf("<script>if (window.Vue) Vue.prototype.$ELEMENT = %s;</script>", config),
+    all_files = FALSE
+  ))
 }

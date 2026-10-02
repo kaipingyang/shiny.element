@@ -160,7 +160,7 @@ Callable with \code{\link[=el_call]{el_call()}}:
 }
 }
 
-\section{Shiny input}{
+\section{Shiny inputs}{
 
 \verb{input$<id>} -- the text, reported as it is typed, debounced by 250 ms
 as \code{\link[shiny:textInput]{shiny::textInput()}} does, and after an \code{\link[=update_el_input]{update_el_input()}}.

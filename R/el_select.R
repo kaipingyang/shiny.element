@@ -43,9 +43,11 @@
 #' @param popper_append_to_body Whether the dropdown is appended to `body`. Default `TRUE`.
 #' @param reserve_keyword Whether a multiple filterable select keeps the search term after selecting.
 #' @param default_first_option Whether Enter picks the first matching option.
-#' @param remote Whether options are fetched from the server as the user types.
+#' @param remote Whether options are fetched from the server as the user
+#'   types. Needs `filterable = TRUE`; see "Shiny inputs".
 #' @param filter_method `htmlwidgets::JS()` function filtering the options as the user types.
-#' @param remote_method `htmlwidgets::JS()` function fetching options from the server. Needs `remote = TRUE`.
+#' @param remote_method `htmlwidgets::JS()` function fetching options in the
+#'   browser instead of from the server. Needs `remote = TRUE`.
 #' @inheritParams el_widget
 #' @param width Component width, as a CSS unit -- `"200px"`, `"50%"`, or a
 #'   number taken as pixels. Element's own markup carries it, so it behaves
@@ -63,9 +65,15 @@
 #'
 #' @return An `htmltools` tagList containing the Vue-managed select component.
 #'
-#' @section Shiny input:
-#' `input$<id>` — string (single) or character vector (multiple), updated on
+#' @section Shiny inputs:
+#' `input$<id>` -- string (single) or character vector (multiple), updated on
 #' each change.
+#'
+#' With `remote = TRUE`, `filterable = TRUE` and no `remote_method` of your
+#' own, the server does the search, as `selectizeInput()`'s server mode
+#' does: `input$<id>_query` is the text typed, and [update_el_select()]
+#' with the matching `choices` answers it -- the select shows Element's
+#' loading text until then.
 #'
 #' @examples
 #' # Single-select from a named vector
@@ -192,7 +200,8 @@ el_select <- function(
   select_attrs[[":default-first-option"]] <- .el_optional_bind("defaultFirstOption")
   select_attrs[[":remote"]] <- .el_optional_bind("remote")
   select_attrs[[":filter-method"]] <- .el_optional_bind("filterMethod")
-  select_attrs[[":remote-method"]] <- .el_optional_bind("remoteMethod")
+  # The server answers by default: input$<id>_query, then update_el_select()
+  select_attrs[[":remote-method"]] <- "remoteMethod === null ? elRemoteQuery : remoteMethod"
 
   # Forwarded to input$<id>_<event>; see .el_event_bindings().
   events <- .el_event_bindings(ns_id, c(
@@ -241,6 +250,12 @@ el_select <- function(
     markup = htmltools::tag("el-select", c(select_attrs, option_slot)),
     data    = vue_data,
     methods = c(events$methods, list(
+      elRemoteQuery = htmlwidgets::JS(sprintf(paste0(
+        "function(query) {\n",
+        "  if (!(window.Shiny && Shiny.setInputValue)) return;\n",
+        "  this.loading = true;\n",
+        "  window.Shiny && Shiny.setInputValue && Shiny.setInputValue('%s_query', query, {priority: 'event'});\n",
+        "}"), ns_id)),
       handleChange = htmlwidgets::JS(sprintf(
         "function(value) { window.Shiny && Shiny.setInputValue && Shiny.setInputValue('%s', value); }",
         ns_id
@@ -271,6 +286,11 @@ el_select <- function(
 #'   state: show the spinner while options are fetched, and the messages for
 #'   no match and no data.
 #'
+#' @param label New label text, as for [shiny::updateTextInput()]. Only a
+#'   component built with a `label` has one to change.
+#' @param error An error message to show on the component, as Element's
+#'   `error` does -- for a check only the server can make, such as whether
+#'   a name is taken. `""` clears it.
 #' @return Called for its side effect; returns `NULL` invisibly.
 #' @examples
 #' if (interactive()) {
@@ -295,8 +315,9 @@ update_el_select <- function(
     no_match_text  = NULL,
     no_data_text   = NULL,
     value          = NULL,
-    options        = NULL
-) {
+    options        = NULL,
+    label = NULL, error = NULL) {
+  .el_check_session(session)
   selected <- .el_alias(selected, value, "selected", "value")
   choices  <- .el_alias(choices, options, "choices", "options")
   ns_id <- session$ns(id)
@@ -306,6 +327,8 @@ update_el_select <- function(
     parts <- .el_select_choices(choices)
     msg$options <- parts$options
     msg$groups  <- parts$groups
+    # New choices answer a remote search, so it is no longer loading
+    if (is.null(loading)) msg$loading <- FALSE
   }
   if (!is.null(disabled))    msg$disabled    <- disabled
   if (!is.null(placeholder)) msg$placeholder <- placeholder
@@ -316,6 +339,7 @@ update_el_select <- function(
   if (!is.null(loading_text))  msg$loadingText   <- loading_text
   if (!is.null(no_match_text)) msg$noMatchText   <- no_match_text
   if (!is.null(no_data_text))  msg$noDataText    <- no_data_text
+  msg <- .el_form_item_update(msg, label, error)
   .el_send_update(session, msg)
   invisible(NULL)
 }

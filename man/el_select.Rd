@@ -105,11 +105,13 @@ multiple selection. \code{selected} is Shiny's name, \code{value} Element's
 
 \item{default_first_option}{Whether Enter picks the first matching option.}
 
-\item{remote}{Whether options are fetched from the server as the user types.}
+\item{remote}{Whether options are fetched from the server as the user
+types. Needs \code{filterable = TRUE}; see "Shiny inputs".}
 
 \item{filter_method}{\code{htmlwidgets::JS()} function filtering the options as the user types.}
 
-\item{remote_method}{\code{htmlwidgets::JS()} function fetching options from the server. Needs \code{remote = TRUE}.}
+\item{remote_method}{\code{htmlwidgets::JS()} function fetching options in the
+browser instead of from the server. Needs \code{remote = TRUE}.}
 
 \item{label}{A label shown with the component, as Shiny's inputs have:
 text or a tag. \code{NULL}, the default, shows none. It is the component's
@@ -168,10 +170,16 @@ Callable with \code{\link[=el_call]{el_call()}}:
 }
 }
 
-\section{Shiny input}{
+\section{Shiny inputs}{
 
-\verb{input$<id>} — string (single) or character vector (multiple), updated on
+\verb{input$<id>} -- string (single) or character vector (multiple), updated on
 each change.
+
+With \code{remote = TRUE}, \code{filterable = TRUE} and no \code{remote_method} of your
+own, the server does the search, as \code{selectizeInput()}'s server mode
+does: \verb{input$<id>_query} is the text typed, and \code{\link[=update_el_select]{update_el_select()}}
+with the matching \code{choices} answers it -- the select shows Element's
+loading text until then.
 }
 
 \examples{

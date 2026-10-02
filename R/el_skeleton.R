@@ -111,6 +111,7 @@ el_skeleton <- function(id = NULL,
 #' }
 #' @export
 update_el_skeleton <- function(session = shiny::getDefaultReactiveDomain(), id, loading = NULL, rows = NULL) {
+  .el_check_session(session)
   msg <- list(id = session$ns(id))
   if (!is.null(loading)) msg$skLoading <- loading
   if (!is.null(rows))    msg$skRows    <- rows

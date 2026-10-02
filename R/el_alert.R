@@ -27,7 +27,7 @@
 #'
 #' @return An `htmltools` tagList with a Vue-managed alert component.
 #'
-#' @section Shiny input:
+#' @section Shiny inputs:
 #' `input$<id>_closed` — set to `1` (with `priority = "event"`) when the
 #' user closes the alert.
 #'
@@ -114,6 +114,7 @@ el_alert <- function(
 #' @export
 update_el_alert <- function(session = shiny::getDefaultReactiveDomain(), id, title = NULL, type = NULL,
                             description = NULL) {
+  .el_check_session(session)
   ns_id <- session$ns(id)
   msg   <- list(id = ns_id)
   if (!is.null(title))       msg$title       <- title

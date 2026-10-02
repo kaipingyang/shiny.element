@@ -57,10 +57,10 @@ test_that("el_cascader: a path value is kept in order", {
   expect_match(html, '"value":\\["zj","hz"\\]')
 })
 
-test_that("el_cascader: reports to <id>_value, on mount and on change", {
-  html <- render_html(el_cascader(id = "c1"))
-  expect_match(html, "c1_value", fixed = TRUE)
-  expect_match(html, '"mounted"')
+test_that("el_cascader: reports to input$<id>, as every other input does", {
+  spec <- vue_spec_of(el_cascader(id = "c1"))
+  expect_equal(spec$input, "value")
+  expect_false(grepl("c1_value", render_html(el_cascader(id = "c1")), fixed = TRUE))
 })
 
 # ── optional attributes ───────────────────────────────────────────────────────

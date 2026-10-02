@@ -8,7 +8,9 @@ update_el_upload(
   session = shiny::getDefaultReactiveDomain(),
   id,
   disabled = NULL,
-  limit = NULL
+  limit = NULL,
+  label = NULL,
+  error = NULL
 )
 }
 \arguments{
@@ -20,6 +22,13 @@ update_el_upload(
 \item{disabled}{New disabled state.}
 
 \item{limit}{New maximum number of files.}
+
+\item{label}{New label text, as for \code{\link[shiny:updateTextInput]{shiny::updateTextInput()}}. Only a
+component built with a \code{label} has one to change.}
+
+\item{error}{An error message to show on the component, as Element's
+\code{error} does -- for a check only the server can make, such as whether
+a name is taken. \code{""} clears it.}
 }
 \value{
 Called for its side effect; returns \code{NULL} invisibly.

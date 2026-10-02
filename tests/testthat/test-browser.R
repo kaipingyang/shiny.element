@@ -715,8 +715,9 @@ test_that("a component used as a tooltip trigger keeps working", {
 
 test_that("an absorbed component still reports its inputs", {
   skip_if_no_browser()
+  # an action button's count, sent typed as actionButton()'s is
   bclick("#wrap_container button", wait = 2)
-  expect_gt(bev("Shiny.shinyapp.$inputValues['nested_btn'] || 0"), 0)
+  expect_gt(bev("Shiny.shinyapp.$inputValues['nested_btn:shiny.action'] || 0"), 0)
 })
 
 test_that("absorbing a component raises no Vue warning", {
@@ -740,7 +741,7 @@ test_that("two components in one wrapper both work", {
                "Open")
 
   bclick("#twoup_container button", wait = 2)
-  expect_gt(bev("Shiny.shinyapp.$inputValues['pop_btn'] || 0"), 0)
+  expect_gt(bev("Shiny.shinyapp.$inputValues['pop_btn:shiny.action'] || 0"), 0)
 
   # the popover opened, and the tag inside it rendered its own label
   expect_true(bev("!!document.querySelector('.el-popover')"))
@@ -882,6 +883,74 @@ test_that("shinyvalidate's message is drawn as Element draws a failed rule", {
                "A name, please")
   expect_true(bev("document.getElementById('val_name_container').classList.contains('is-error')"))
   expect_false(bev("document.getElementById('val_name').classList.contains('el-form-item')"))
+})
+
+test_that("el_button is an action button, as actionButton() is", {
+  skip_if_no_browser()
+  vals <- bdump("act_dump")
+  # 0 on load, classed, so observeEvent() does not run for it
+  expect_equal(vals[["act_class"]], "shinyActionButtonValue/integer")
+  expect_equal(vals[["act_fired"]], "0")
+  bclick("#act_btn_container button", wait = 2)
+  expect_equal(bdump("act_dump")[["act_fired"]], "1")
+})
+
+test_that("an input absorbed into a wrapper still reports its changes", {
+  skip_if_no_browser()
+  expect_equal(bdump("act_dump")[["abs_sw"]], "FALSE")
+  bclick("#abs_tip_container .el-switch", wait = 2)
+  expect_equal(bdump("act_dump")[["abs_sw"]], "TRUE")
+})
+
+# ── the server answering ──────────────────────────────────────────────────────
+
+test_that("update_el_*(label, error) redraw the form item, as update*Input() does", {
+  skip_if_no_browser()
+  bclick("#upd_go", wait = 2)
+  expect_equal(bev("document.getElementById('upd_lab-label').textContent"), "New:")
+  expect_equal(bev("(document.querySelector('#upd_lab_container .el-form-item__error') || {}).textContent || ''"),
+               "Taken")
+  bclick("#upd_clear", wait = 2)
+  expect_false(bev("!!document.querySelector('#upd_lab_container .el-form-item__error')"))
+  expect_false(bev("document.getElementById('upd_lab_container').classList.contains('is-error')"))
+})
+
+test_that("a lazy tree loads its nodes from the server", {
+  skip_if_no_browser()
+  # the top level, asked for on mount
+  expect_match(bev("document.querySelector('#lz_tree_container .el-tree').innerText"), "Root")
+  bclick("#lz_tree_container .el-tree-node__content", wait = 2)
+  expect_match(bev("document.querySelector('#lz_tree_container .el-tree').innerText"), "Child")
+})
+
+test_that("a lazy cascader loads each column from the server", {
+  skip_if_no_browser()
+  bclick("#lz_casc_container .el-input__inner", wait = 2)
+  expect_match(bev("Array.from(document.querySelectorAll('.el-cascader-node__label')).map(function(e){return e.textContent}).join('|')"),
+               "Asia")
+  bev("Array.from(document.querySelectorAll('.el-cascader-node')).filter(function(e){return /Asia/.test(e.textContent)})[0].click()")
+  Sys.sleep(2)
+  expect_match(bev("Array.from(document.querySelectorAll('.el-cascader-node__label')).map(function(e){return e.textContent}).join('|')"),
+               "China")
+  bev("document.body.click()")
+})
+
+test_that("a remote select searches on the server", {
+  skip_if_no_browser()
+  # Opened first, as a user would: a closed select does not search
+  bclick("#rm_sel_container input", wait = 1)
+  bev("(function(){var i=document.querySelector('#rm_sel_container input'); i.value='be'; i.dispatchEvent(new Event('input', {bubbles: true}));})()")
+  Sys.sleep(2.5)
+  expect_match(bev("Array.from(document.querySelectorAll('.el-select-dropdown__item')).map(function(e){return e.textContent.trim()}).join('|')"),
+               "be-1|be-2")
+  expect_false(bev("shinyElement.find('#rm_sel').instance.loading"))
+  bev("document.body.click()")
+})
+
+test_that("a lazy tree table loads a row's children from the server", {
+  skip_if_no_browser()
+  bclick("#lz_tbl_container .el-table__expand-icon", wait = 2)
+  expect_match(bev("document.querySelector('#lz_tbl_container .el-table__body').innerText"), "a-child")
 })
 
 test_that("a label names its component for assistive technology", {

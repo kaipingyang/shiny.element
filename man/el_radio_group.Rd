@@ -101,7 +101,7 @@ Creates an Element UI \verb{<el-radio-group>} component backed by a Vue instance
 Supports both standard radio buttons (\verb{<el-radio>}) and button-style radios
 (\verb{<el-radio-button>}).
 }
-\section{Shiny input}{
+\section{Shiny inputs}{
 
 \verb{input$<id>} — string or number reflecting the currently selected value,
 updated on each change.

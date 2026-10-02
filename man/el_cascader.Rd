@@ -2,7 +2,7 @@
 % Please edit documentation in R/el_cascader.R
 \name{el_cascader}
 \alias{el_cascader}
-\title{Element UI Cascader Widget}
+\title{Element UI Cascader}
 \usage{
 el_cascader(
   id = NULL,
@@ -38,13 +38,19 @@ el_cascader(
 \arguments{
 \item{id}{Cascader ID (auto-generated if NULL)}
 
-\item{options}{Cascader options data (hierarchical list)}
+\item{options}{Nested options, each \code{list(value =, label =, children =)}.
+\code{\link[=df_to_cascader_options]{df_to_cascader_options()}} builds them from a data.frame.}
 
-\item{value}{Initial selected value}
+\item{value}{Initially selected path, as a vector of values from the top
+level down -- or a list of paths with \code{props = list(multiple = TRUE)}.}
 
 \item{placeholder}{Placeholder text}
 
-\item{props}{Configuration object for cascader behavior}
+\item{props}{Element's \code{props}, as a named list: \code{multiple},
+\code{checkStrictly}, \code{expandTrigger} (\code{"click"} or \code{"hover"}), \code{lazy},
+\code{lazyLoad}, and the field names \code{value}, \code{label}, \code{children},
+\code{disabled}, \code{leaf}. With \code{lazy = TRUE} and no \code{lazyLoad} of your own,
+the server loads each column: see "Shiny inputs".}
 
 \item{clearable}{Whether clearable}
 
@@ -114,8 +120,23 @@ a warning.}
 A Shiny UI element.
 }
 \description{
-Create a cascader (multi-level dropdown) input for Shiny using Element UI.
+Pick a path through nested options -- a region, then a country, then a
+city -- from a dropdown of side-by-side columns.
 }
+\section{Shiny inputs}{
+
+\itemize{
+\item \verb{input$<id>} -- the selected path, on load and on change.
+\item \verb{input$<id>_lazy_load} -- with \code{props = list(lazy = TRUE)}, a column to
+load: \code{level} (0 for the first), \code{value} and \code{path} of the option
+opened, and \code{request}. Answer with \code{\link[=el_load_children]{el_load_children()}}, passing the
+input back; each child is \code{list(value =, label =, leaf = TRUE)} for one
+with nothing below.
+\item \verb{input$<id>_expand_change}, \verb{_blur}, \verb{_focus}, \verb{_visible_change},
+\verb{_remove_tag} -- Element's events.
+}
+}
+
 \section{Element methods}{
 
 Callable with \code{\link[=el_call]{el_call()}}:
@@ -158,7 +179,7 @@ if (interactive()) {
     verbatimTextOutput("selected")
   )
   server <- function(input, output, session) {
-    output$selected <- renderPrint(input$cascader1_value)
+    output$selected <- renderPrint(input$cascader1)
   }
   shinyApp(ui, server)
 }

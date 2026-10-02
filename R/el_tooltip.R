@@ -161,6 +161,7 @@ el_tooltip <- function(id = NULL,
 #' @export
 update_el_tooltip <- function(session = shiny::getDefaultReactiveDomain(), id, content = NULL, disabled = NULL,
                               value = NULL) {
+  .el_check_session(session)
   ns_id <- session$ns(id)
   msg <- list(id = ns_id)
   if (!is.null(content))  msg$content  <- content

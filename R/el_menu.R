@@ -102,7 +102,7 @@
 #'   given here is absorbed rather than nested. For a scoped slot, write
 #'   the template with [template()].
 #'
-#' @section Server inputs:
+#' @section Shiny inputs:
 #' `input$<id>` holds the selected item's `index`, reported on load and on
 #' every selection -- `NULL` while no item is active. `input$<id>_path` holds
 #' the full path of indexes down to
@@ -261,6 +261,7 @@ el_menu <- function(id = NULL,
 #' }
 #' @export
 update_el_menu <- function(session = shiny::getDefaultReactiveDomain(), id, active = NULL, collapse = NULL) {
+  .el_check_session(session)
   msg <- list(id = session$ns(id))
   if (!is.null(active))   msg$active   <- active
   if (!is.null(collapse)) msg$collapse <- collapse

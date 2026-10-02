@@ -55,7 +55,7 @@
 #'
 #' @return An `htmltools` tagList with a Vue-managed date picker component.
 #'
-#' @section Shiny input:
+#' @section Shiny inputs:
 #' `input$<id>` -- for `type` `"date"`, `"dates"` and `"daterange"` with the
 #' default `value_format`, a `Date` (two for a range, several for `"dates"`),
 #' as [shiny::dateInput()] gives one; `NULL` while empty. Any other type or
@@ -251,6 +251,11 @@ el_date_picker <- function(
 #' @param readonly New readonly state.
 #' @param placeholder New placeholder text (non-range types).
 #'
+#' @param label New label text, as for [shiny::updateTextInput()]. Only a
+#'   component built with a `label` has one to change.
+#' @param error An error message to show on the component, as Element's
+#'   `error` does -- for a check only the server can make, such as whether
+#'   a name is taken. `""` clears it.
 #' @return Called for its side effect; returns `NULL` invisibly.
 #' @examples
 #' if (interactive()) {
@@ -268,8 +273,9 @@ update_el_date_picker <- function(
     type        = NULL,
     clearable   = NULL,
     readonly    = NULL,
-    placeholder = NULL
-) {
+    placeholder = NULL,
+    label = NULL, error = NULL) {
+  .el_check_session(session)
   ns_id <- session$ns(id)
   msg   <- list(id = ns_id)
   if (!is.null(value))       msg$value       <- value
@@ -278,6 +284,7 @@ update_el_date_picker <- function(
   if (!is.null(clearable))   msg$clearable   <- clearable
   if (!is.null(readonly))    msg$readonly    <- readonly
   if (!is.null(placeholder)) msg$placeholder <- placeholder
+  msg <- .el_form_item_update(msg, label, error)
   .el_send_update(session, msg)
   invisible(NULL)
 }

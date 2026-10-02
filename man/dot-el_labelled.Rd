@@ -16,7 +16,7 @@
   error = NULL,
   show_message = TRUE,
   inline_message = FALSE,
-  size = NULL
+  size_field = FALSE
 )
 }
 \arguments{

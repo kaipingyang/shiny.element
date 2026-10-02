@@ -269,5 +269,28 @@ el_table("org", data = org, row_key = "id", default_expand_all = TRUE,
                         list(prop = "size", label = "People")))
 ```
 
-With `lazy = TRUE` and a `load` function, children are fetched as their
-parent is expanded.
+With `lazy = TRUE`, a row's children are loaded from the server when it is
+opened. The table asks through `input$<id>_load` -- the row, its `key` and a
+`request` number -- and `el_load_children()` answers. A row with children to
+load says so with `hasChildren = TRUE`:
+
+```{r tree-lazy, eval = FALSE, shot = TRUE, shot_js = "document.querySelector('#shot .el-table__expand-icon').click()", shot_wait = 2}
+teams <- data.frame(id = c(1, 2), name = c("Engineering", "Design"),
+                    size = c(42, 9), hasChildren = c(TRUE, FALSE))
+
+ui <- el_page(el_table("org", data = teams, row_key = "id", lazy = TRUE,
+                       columns = list(list(prop = "name", label = "Team"),
+                                      list(prop = "size", label = "People"))))
+
+server <- function(input, output, session) {
+  observeEvent(input$org_load, {
+    # a database query, in a real app
+    el_load_children(id = "org", request = input$org_load, children = data.frame(
+      id = c(11, 12), name = c("Platform", "Product"), size = c(18, 24)))
+  })
+}
+
+shinyApp(ui, server)
+```
+
+A `load` function of your own, in JavaScript, loads in the browser instead.

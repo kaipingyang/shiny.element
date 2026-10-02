@@ -140,6 +140,7 @@ el_statistic <- function(id = NULL,
 #' @export
 update_el_statistic <- function(session = shiny::getDefaultReactiveDomain(), id, value = NULL, title = NULL,
                                 prefix = NULL, suffix = NULL) {
+  .el_check_session(session)
   msg <- list(id = session$ns(id))
   if (!is.null(value))  msg$value  <- value
   if (!is.null(title))  msg$title  <- title

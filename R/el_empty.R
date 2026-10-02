@@ -87,6 +87,7 @@ el_empty <- function(id = NULL,
 #' }
 #' @export
 update_el_empty <- function(session = shiny::getDefaultReactiveDomain(), id, description = NULL, image = NULL) {
+  .el_check_session(session)
   msg <- list(id = session$ns(id))
   if (!is.null(description)) msg$emptyDescription <- description
   if (!is.null(image))       msg$emptyImage       <- image

@@ -76,7 +76,7 @@ A Shiny UI element.
 A navigation menu, vertical or horizontal, with submenus nested to any
 depth.
 }
-\section{Server inputs}{
+\section{Shiny inputs}{
 
 \verb{input$<id>} holds the selected item's \code{index}, reported on load and on
 every selection -- \code{NULL} while no item is active. \verb{input$<id>_path} holds

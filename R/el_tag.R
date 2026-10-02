@@ -28,8 +28,9 @@
 #' @return An `htmltools` tagList with a Vue-managed tag component.
 #'
 #' @section Shiny inputs:
-#' - `input$<id>` — click count (integer), incremented each time the tag body
-#'   is clicked.
+#' - `input$<id>` -- the number of clicks on the tag's body, as
+#'   [shiny::actionButton()] reports it: 0 on load, treated by
+#'   `observeEvent()` and `req()` as not yet clicked.
 #' - `input$<id>_closed` — set to `1` when the user clicks the close button
 #'   (only meaningful when `closable = TRUE`).
 #'
@@ -83,15 +84,18 @@ el_tag <- function(
       count              = 0L
     ),
     methods = list(
-      handleClick = htmlwidgets::JS(sprintf(
-        "function() { this.count++; window.Shiny && Shiny.setInputValue && Shiny.setInputValue('%s', this.count); }",
-        ns_id
-      )),
+      handleClick = htmlwidgets::JS(sprintf(paste0(
+        "function() { this.count++; ",
+        "window.Shiny && Shiny.setInputValue && Shiny.setInputValue('%s:shiny.action', this.count); }"),
+        ns_id)),
       handleClose = htmlwidgets::JS(sprintf(
         "function() { window.Shiny && Shiny.setInputValue && Shiny.setInputValue('%s_closed', 1, {priority: 'event'}); }",
         ns_id
       ))
     ),
+    # Clicks counted as an action button's are
+    mounted    = .el_mounted_init(stats::setNames("count", ns_id)),
+    type       = "shiny.action",
     width      = width,
     slots      = slots
   )
@@ -120,6 +124,7 @@ el_tag <- function(
 #' @export
 update_el_tag <- function(session = shiny::getDefaultReactiveDomain(), id, label = NULL, type = NULL,
                           closable = NULL) {
+  .el_check_session(session)
   ns_id <- session$ns(id)
   msg   <- list(id = ns_id)
   if (!is.null(label))    msg$label    <- label

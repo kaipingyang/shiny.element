@@ -110,7 +110,7 @@ Callable with \code{\link[=el_call]{el_call()}}:
 }
 }
 
-\section{Shiny input}{
+\section{Shiny inputs}{
 
 \verb{input$<id>} — the value of \code{active_value} (when on) or \code{inactive_value}
 (when off), matching the types of those arguments.

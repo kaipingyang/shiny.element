@@ -159,7 +159,7 @@ Callable with \code{\link[=el_call]{el_call()}}:
 }
 }
 
-\section{Shiny input}{
+\section{Shiny inputs}{
 
 \verb{input$<id>} -- for \code{type} \code{"date"}, \code{"dates"} and \code{"daterange"} with the
 default \code{value_format}, a \code{Date} (two for a range, several for \code{"dates"}),

@@ -86,9 +86,9 @@ command that is reported as a Shiny input.
 \section{Shiny inputs}{
 
 \itemize{
-\item \verb{input$<id>} — the \code{command} value of the last clicked item.
-\item \verb{input$<id>_count} — click counter, incremented for each item click
-(useful to detect re-clicks of the same command).
+\item \verb{input$<id>} -- the \code{command} of the item clicked. It is an event, so
+choosing the same item twice runs an \code{observeEvent()} twice.
+\item \verb{input$<id>_count} -- the number of items clicked.
 }
 }
 

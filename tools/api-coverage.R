@@ -33,9 +33,13 @@ ui_fns <- setdiff(grep("^el_", getNamespaceExports("shiny.element"), value = TRU
                   grep(skip, getNamespaceExports("shiny.element"), value = TRUE))
 
 # Which named slots the markup fills, via slot="x" or <template slot="x">
+# Both spellings: slot="x" (what template() writes) and v-slot:x / #x on a
+# <template> (what a column header uses)
 slots_of <- function(html) {
-  m <- regmatches(html, gregexpr('slot="[^"]+"', html))[[1]]
-  unique(sub('^slot="', "", sub('"$', "", m)))
+  m <- regmatches(html, gregexpr('(?<![-:])slot="[^"]+"', html, perl = TRUE))[[1]]
+  v <- regmatches(html, gregexpr('(v-slot:|<template #)[A-Za-z][A-Za-z0-9_-]*', html))[[1]]
+  unique(c(sub('^slot="', "", sub('"$', "", m)),
+           sub("^(v-slot:|<template #)", "", v)))
 }
 
 attrs_of <- function(html) {
@@ -126,10 +130,10 @@ for (f in sort(ui_fns)) {
   # Formals say what a user may set; rendered attributes say what is actually
   # bound. A prop bound conditionally (if (!is.null(x))) shows up in the first
   # but not the second -- and cannot be changed later by update_el_*().
-  # el_call() reaches a component's methods, but only where the component
-  # carries the el-invoke script -- record that so methods can be counted.
-  deps <- tryCatch(htmltools::renderTags(ui)$dependencies, error = function(e) list())
-  dep_names <- vapply(deps, function(d) d$name, character(1))
+  # el_call() reaches the methods of any component with a Vue instance of
+  # its own -- a host marked data-shiny-vue -- and of the drawer, which is
+  # markup but lists its one method on the element (el-overlay-binding.js)
+  invokable <- grepl("data-shiny-vue", html, fixed = TRUE) || f == "el_drawer"
 
   # Fields a component reads off each item (t$label, item$disabled), for the
   # components that render their items as markup rather than through Vue
@@ -146,7 +150,7 @@ for (f in sort(ui_fns)) {
                    slots = c(slots_of(html),
                              # Content passed through ... is the default slot
                              if ("..." %in% names(formals(f))) "default"),
-                   invokable = "el-invoke" %in% dep_names,
+                   invokable = invokable,
                    params = setdiff(names(formals(f)), c("session", "id", "...")))
 }
 

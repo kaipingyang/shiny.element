@@ -224,6 +224,7 @@ el_tabs <- function(
 #' }
 #' @export
 update_el_tabs <- function(session = shiny::getDefaultReactiveDomain(), id, selected = NULL) {
+  .el_check_session(session)
   msg <- list()
   if (!is.null(selected)) msg$selected <- selected
   session$sendInputMessage(id, msg)
@@ -268,6 +269,7 @@ update_el_tabs <- function(session = shiny::getDefaultReactiveDomain(), id, sele
 #' @export
 insert_el_tab <- function(session = shiny::getDefaultReactiveDomain(), id, name, label, content = NULL,
                           closable = NULL, select = TRUE) {
+  .el_check_session(session)
   ns_id <- session$ns(id)
   # The pane goes in through insertUI, which renders its dependencies and
   # binds what is inside; the header item is built by the binding, which knows
@@ -287,6 +289,7 @@ insert_el_tab <- function(session = shiny::getDefaultReactiveDomain(), id, name,
 #' @rdname insert_el_tab
 #' @export
 remove_el_tab <- function(session = shiny::getDefaultReactiveDomain(), id, name) {
+  .el_check_session(session)
   session$sendInputMessage(id, list(remove_tab = name))
   invisible(NULL)
 }

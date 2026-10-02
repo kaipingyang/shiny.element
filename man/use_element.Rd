@@ -8,7 +8,9 @@ use_element(
   theme = el_layout_css_dependency(),
   offline = TRUE,
   dev = getOption("shiny.element.dev", FALSE),
-  locale = getOption("shiny.element.locale", "en")
+  locale = getOption("shiny.element.locale", "en"),
+  size = NULL,
+  z_index = NULL
 )
 }
 \arguments{
@@ -24,6 +26,10 @@ Vue's warnings are not stripped. Defaults to
 \item{locale}{Language for Element UI's built-in text. English by default,
 or \code{getOption("shiny.element.locale")} when set. See
 \code{\link[=el_locale_dependency]{el_locale_dependency()}}.}
+
+\item{size, z_index}{Element's global config, as \verb{Vue.use(Element, \{size, zIndex\})} sets it: the size of every component not given one of its own
+(\code{"medium"}, \code{"small"} or \code{"mini"}), and the z-index its popups start
+from (2000 by default). \code{NULL} leaves Element's default.}
 }
 \value{
 A list of htmlDependency objects

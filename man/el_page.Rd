@@ -11,7 +11,9 @@ el_page(
   theme_css = el_layout_css_dependency(),
   offline = TRUE,
   locale = getOption("shiny.element.locale", "en"),
-  dev = getOption("shiny.element.dev", FALSE)
+  dev = getOption("shiny.element.dev", FALSE),
+  size = NULL,
+  z_index = NULL
 )
 }
 \arguments{
@@ -24,7 +26,8 @@ el_page(
 colours, font and sizes, so Shiny's inputs and outputs match the Element
 components beside them. \code{NULL} gives Shiny's plain Bootstrap 3.}
 
-\item{theme_css}{Optional Element-UI layout CSS dependency (default: \code{el_layout_css_dependency()}).}
+\item{theme_css}{Element's layout CSS, \code{\link[=el_layout_css_dependency]{el_layout_css_dependency()}};
+\code{NULL} leaves it out.}
 
 \item{offline}{Serve Element UI from the copy bundled with this package
 rather than the unpkg CDN. See \code{\link[=element_ui_dependency]{element_ui_dependency()}}.}
@@ -38,8 +41,11 @@ own Simplified Chinese. See \code{\link[=el_locales]{el_locales()}} for the rest
 The production build strips every warning, which is why a template that
 fails to compile renders nothing and says nothing. Defaults to
 \code{getOption("shiny.element.dev", FALSE)}, so it can be turned on for a
-whole session without touching the UI code.
-Set to \code{NULL} to disable Element-UI layout CSS.}
+whole session without touching the UI code.}
+
+\item{size, z_index}{Element's global config, as \verb{Vue.use(Element, \{size, zIndex\})} sets it: the size of every component not given one of its own
+(\code{"medium"}, \code{"small"} or \code{"mini"}), and the z-index its popups start
+from (2000 by default). \code{NULL} leaves Element's default.}
 }
 \value{
 A Shiny UI element.
@@ -52,9 +58,9 @@ and supports both bslib/shiny themes and Element-UI layout CSS.
 Use this as the root UI function for your Shiny app. You can combine bslib layouts
 (such as \code{page_sidebar}, \code{layout_columns}) and Element-UI widgets (such as \code{el_button}).
 
-The \code{el_page} function is designed to work with both bslib layouts and Element-UI widgets.
-Do not mix Element-UI layout functions (\code{el_container}, \code{el_row}, \code{el_col}) with bslib layouts,
-as they are not compatible. The Element-UI layout functions are experimental and may be deprecated in the future.
+Element's layout (\code{el_container()}, \code{el_row()}, \code{el_col()}) and bslib's
+(\code{page_sidebar()}, \code{layout_columns()}) each work here; nest one inside a
+cell of the other rather than interleaving them.
 }
 \examples{
 el_page(

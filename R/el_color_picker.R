@@ -27,7 +27,7 @@
 #'
 #' @return An `htmltools` tagList with a Vue-managed color-picker component.
 #'
-#' @section Shiny input:
+#' @section Shiny inputs:
 #' `input$<id>` — colour string (e.g. `"#409EFF"` or `"rgba(64,158,255,0.5)"`).
 #' `NULL` / `NA` when the user clears the picker.
 #'
@@ -118,6 +118,11 @@ el_color_picker <- function(
 #' @param value New colour string.
 #' @param disabled New disabled state.
 #'
+#' @param label New label text, as for [shiny::updateTextInput()]. Only a
+#'   component built with a `label` has one to change.
+#' @param error An error message to show on the component, as Element's
+#'   `error` does -- for a check only the server can make, such as whether
+#'   a name is taken. `""` clears it.
 #' @return Called for its side effect; returns `NULL` invisibly.
 #' @examples
 #' if (interactive()) {
@@ -127,11 +132,14 @@ el_color_picker <- function(
 #'   })
 #' }
 #' @export
-update_el_color_picker <- function(session = shiny::getDefaultReactiveDomain(), id, value = NULL, disabled = NULL) {
+update_el_color_picker <- function(session = shiny::getDefaultReactiveDomain(), id, value = NULL, disabled = NULL,
+                                   label = NULL, error = NULL) {
+  .el_check_session(session)
   ns_id <- session$ns(id)
   msg   <- list(id = ns_id)
   if (!is.null(value))    msg$value    <- value
   if (!is.null(disabled)) msg$disabled <- disabled
+  msg <- .el_form_item_update(msg, label, error)
   .el_send_update(session, msg)
   invisible(NULL)
 }

@@ -38,7 +38,7 @@
 #'
 #' @return An `htmltools` tagList with a Vue-managed input-number component.
 #'
-#' @section Shiny input:
+#' @section Shiny inputs:
 #' `input$<id>` — numeric value, updated on each valid change.
 #'
 #' @examples
@@ -153,6 +153,11 @@ el_input_number <- function(
 #' @param max New maximum.
 #' @param disabled New disabled state.
 #'
+#' @param label New label text, as for [shiny::updateTextInput()]. Only a
+#'   component built with a `label` has one to change.
+#' @param error An error message to show on the component, as Element's
+#'   `error` does -- for a check only the server can make, such as whether
+#'   a name is taken. `""` clears it.
 #' @return Called for its side effect; returns `NULL` invisibly.
 #' @examples
 #' if (interactive()) {
@@ -163,13 +168,16 @@ el_input_number <- function(
 #' }
 #' @export
 update_el_input_number <- function(session = shiny::getDefaultReactiveDomain(), id, value = NULL, min = NULL,
-                                   max = NULL, disabled = NULL) {
+                                   max = NULL, disabled = NULL,
+                                   label = NULL, error = NULL) {
+  .el_check_session(session)
   ns_id <- session$ns(id)
   msg   <- list(id = ns_id)
   if (!is.null(value))    msg$value    <- value
   if (!is.null(min))      msg$min      <- min
   if (!is.null(max))      msg$max      <- max
   if (!is.null(disabled)) msg$disabled <- disabled
+  msg <- .el_form_item_update(msg, label, error)
   .el_send_update(session, msg)
   invisible(NULL)
 }

@@ -226,6 +226,14 @@ reference:
     contents:
       - el_call
 
+  - title: Loading from the server
+    desc: >
+      Where Element takes a JavaScript function to fetch data -- a lazy tree,
+      cascader or tree table -- the component asks the server instead, and
+      this answers.
+    contents:
+      - el_load_children
+
   - title: Escape hatches
     desc: >
       For anything the wrappers do not cover: build your own component the way

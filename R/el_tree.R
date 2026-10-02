@@ -33,13 +33,15 @@
 #'   a warning.
 #' @param indent Horizontal indent between levels, in pixels. Default `16`.
 #' @param icon_class Icon class of the expand arrow.
-#' @param lazy Whether child nodes are loaded on demand. Needs `load`.
+#' @param lazy Whether child nodes are loaded on demand -- from the server,
+#'   unless `load` is given. See "Shiny inputs".
 #' @param draggable Whether nodes can be dragged.
 #' @param auto_expand_parent Whether expanding a node expands its parents. Default `TRUE`.
 #' @param check_on_click_node Whether clicking a node's label also checks it.
 #' @param current_node_key Key of the node that starts out highlighted.
 #' @param render_after_expand Whether child nodes are rendered only once expanded. Default `TRUE`.
-#' @param load `htmlwidgets::JS()` function loading child nodes lazily. Needs `lazy = TRUE`.
+#' @param load `htmlwidgets::JS()` function loading child nodes in the
+#'   browser instead of from the server. Needs `lazy = TRUE`.
 #' @param filter_node_method `htmlwidgets::JS()` function deciding whether a node survives filtering.
 #' @param render_content `htmlwidgets::JS()` render function for a node's content.
 #' @param allow_drag `htmlwidgets::JS()` function deciding whether a node may be dragged.
@@ -53,11 +55,16 @@
 #'   given here is absorbed rather than nested. For a scoped slot, write
 #'   the template with [template()].
 #'
-#' @section Server inputs:
+#' @section Shiny inputs:
 #' `input$<id>` holds the key of the most recently clicked node, and
 #' `input$<id>_checked` the keys of all checked nodes, as a character vector.
 #' Both are reported on load, where they start empty and therefore arrive as
 #' `NULL`, as Shiny reports any empty selection.
+#'
+#' With `lazy = TRUE` and no `load` of your own, the server loads each node's
+#' children: `input$<id>_load` asks, with `level` (0 for the top), `key` (the
+#' node's `node_key` field), `data` (the node) and `request`; answer with
+#' [el_load_children()].
 #'
 #' @section Element methods:
 #' Callable with [el_call()]:
@@ -179,7 +186,7 @@ el_tree <- function(id = NULL,
 
   tree_attrs[[":render-after-expand"]] <- .el_optional_bind("renderAfterExpand")
 
-  tree_attrs[[":load"]] <- .el_optional_bind("load")
+  tree_attrs[[":load"]] <- "load === null ? elLoad : load"   # the server, by default
 
   tree_attrs[[":filter-node-method"]] <- .el_optional_bind("filterNodeMethod")
 
@@ -274,6 +281,7 @@ el_tree <- function(id = NULL,
     markup = htmltools::tag("el-tree", tree_attrs),
     data = vue_data,
     methods = c(events$methods, list(
+      elLoad = .el_lazy_load_method(ns_id, "tree"),
       # update_el_tree(checked =): Element's setCheckedKeys(), which also
       # updates the half-checked parents a plain assignment would leave alone
       shinyVueReceive = htmlwidgets::JS(paste0(
@@ -314,6 +322,11 @@ el_tree <- function(id = NULL,
 #'   only ever opens nodes.
 #' @param checked Keys to check, replacing the current selection entirely.
 #'   Pass `list()` to clear it.
+#' @param label New label text, as for [shiny::updateTextInput()]. Only a
+#'   component built with a `label` has one to change.
+#' @param error An error message to show on the component, as Element's
+#'   `error` does -- for a check only the server can make, such as whether
+#'   a name is taken. `""` clears it.
 #' @return Called for its side effect; returns `NULL` invisibly.
 #' @examples
 #' if (interactive()) {
@@ -326,13 +339,16 @@ el_tree <- function(id = NULL,
 update_el_tree <- function(session = shiny::getDefaultReactiveDomain(), id,
                            data = NULL,
                            expanded = NULL,
-                           checked = NULL) {
+                           checked = NULL,
+                           label = NULL, error = NULL) {
+  .el_check_session(session)
   msg <- list(id = session$ns(id))
   # data and expandedKeys are watched props; checkedKeys is not replaceable
   # that way and the handler calls setCheckedKeys() instead.
   if (!is.null(data))     msg$treeData     <- data
   if (!is.null(expanded)) msg$expandedKeys <- as.list(expanded)
   if (!is.null(checked))  msg$checkedKeys  <- as.list(checked)
+  msg <- .el_form_item_update(msg, label, error)
   .el_send_update(session, msg)
   invisible(NULL)
 }

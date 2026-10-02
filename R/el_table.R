@@ -299,7 +299,8 @@
 #' @param sum_text Label of the summary row's first cell. Default `"Sum"`.
 #' @param select_on_indeterminate What the header checkbox does when only some rows are selected. Default `TRUE`.
 #' @param indent Horizontal indent between tree levels, in pixels. Default `16`.
-#' @param lazy Whether child rows of tree data are loaded on demand.
+#' @param lazy Whether child rows of tree data are loaded on demand --
+#'   from the server, unless `load` is given.
 #' @param tree_props Field names for tree data, as `list(children =, hasChildren =)`.
 #' @param row_class_name Class name for every row, or a JS function returning one.
 #' @param row_style Inline style for every row, or a JS function returning one.
@@ -311,7 +312,8 @@
 #' @param header_cell_style Inline style for header cells, or a JS function returning one.
 #' @param span_method `htmlwidgets::JS()` function deciding row/column spans for merged cells.
 #' @param summary_method `htmlwidgets::JS()` function returning the summary row's cells.
-#' @param load `htmlwidgets::JS()` function loading child rows lazily. Needs `lazy = TRUE`.
+#' @param load `htmlwidgets::JS()` function loading child rows in the
+#'   browser instead of from the server. Needs `lazy = TRUE`.
 #' @param highlight_selection_row Whether rows ticked with `selection = TRUE` are highlighted.
 #' @param loading Whether to cover the table with Element's loading mask, as
 #'   its `v-loading` does. [update_el_table()] turns it on and off around
@@ -323,7 +325,7 @@
 #' @param width Component width, as a CSS unit. Replaces the table's default
 #'   `width: 100%`. For a fixed header use `height` instead.
 #'
-#' @section Server inputs:
+#' @section Shiny inputs:
 #' With `selection = TRUE` the component reports two inputs:
 #' `input$<id>_selected` (the selected row objects) and
 #' `input$<id>_selected_rows` (their 1-based row numbers). Prefer the latter to
@@ -331,6 +333,12 @@
 #' simplified to a character vector on its way back through JSON, so numbers
 #' arrive as strings. Both are `NULL` while nothing is selected, matching how
 #' Shiny reports an empty [shiny::checkboxGroupInput()].
+#'
+#' With tree data, `lazy = TRUE` and no `load` of your own, the server loads
+#' a row's children when it is opened: `input$<id>_load` asks, with `key`
+#' (the row's `row_key` field), `row` and `request`; answer with
+#' [el_load_children()]. A row with children to load carries
+#' `hasChildren = TRUE`.
 #'
 #' @section Row actions:
 #' A button in a `cell` reports back with `rowAction()`:
@@ -601,7 +609,7 @@ el_table <- function(id = NULL,
 
   table_attrs[[":summary-method"]] <- .el_optional_bind("summaryMethod")
 
-  table_attrs[[":load"]] <- .el_optional_bind("load")
+  table_attrs[[":load"]] <- "load === null ? elLoad : load"   # the server, by default
 
   table_attrs[[":highlight-selection-row"]] <- .el_optional_bind("highlightSelectionRow")
 
@@ -654,6 +662,7 @@ el_table <- function(id = NULL,
     highlightSelectionRow = .el_or_na(highlight_selection_row)
     ),
     methods = c(events$methods, list(
+      elLoad = .el_lazy_load_method(ns_id, "table"),
       # Called from a cell template: rowAction('edit', scope) sets
       # input$<id>_edit to the row's number and the row.
       rowAction = htmlwidgets::JS(sprintf(paste0(
@@ -716,6 +725,7 @@ update_el_table <- function(session = shiny::getDefaultReactiveDomain(), id,
                             border = NULL,
                             selection = NULL,
                             loading = NULL) {
+  .el_check_session(session)
   ns_id <- session$ns(id)
   msg <- list(id = ns_id)
 

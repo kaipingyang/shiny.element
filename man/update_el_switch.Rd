@@ -12,7 +12,9 @@ update_el_switch(
   active_text = NULL,
   inactive_text = NULL,
   active_color = NULL,
-  inactive_color = NULL
+  inactive_color = NULL,
+  label = NULL,
+  error = NULL
 )
 }
 \arguments{
@@ -32,6 +34,13 @@ update_el_switch(
 \item{active_color}{New active background color.}
 
 \item{inactive_color}{New inactive background color.}
+
+\item{label}{New label text, as for \code{\link[shiny:updateTextInput]{shiny::updateTextInput()}}. Only a
+component built with a \code{label} has one to change.}
+
+\item{error}{An error message to show on the component, as Element's
+\code{error} does -- for a check only the server can make, such as whether
+a name is taken. \code{""} clears it.}
 }
 \value{
 Called for its side effect; returns \code{NULL} invisibly.

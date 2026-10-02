@@ -173,7 +173,8 @@ el_col <- function(..., span = 24, offset = NULL, push = NULL, pull = NULL,
 #'   [bslib::bs_theme()]. The default, [el_theme()], carries Element's own
 #'   colours, font and sizes, so Shiny's inputs and outputs match the Element
 #'   components beside them. `NULL` gives Shiny's plain Bootstrap 3.
-#' @param theme_css Optional Element-UI layout CSS dependency (default: \code{el_layout_css_dependency()}).
+#' @param theme_css Element's layout CSS, [el_layout_css_dependency()];
+#'   `NULL` leaves it out.
 #' @param offline Serve Element UI from the copy bundled with this package
 #'   rather than the unpkg CDN. See [element_ui_dependency()].
 #' @param locale Language for Element UI's built-in text -- pagination
@@ -185,12 +186,12 @@ el_col <- function(..., span = 24, offset = NULL, push = NULL, pull = NULL,
 #'   fails to compile renders nothing and says nothing. Defaults to
 #'   `getOption("shiny.element.dev", FALSE)`, so it can be turned on for a
 #'   whole session without touching the UI code.
-#'   Set to \code{NULL} to disable Element-UI layout CSS.
+#' @inheritParams use_element
 #'
 #' @details
-#' The \code{el_page} function is designed to work with both bslib layouts and Element-UI widgets.
-#' Do not mix Element-UI layout functions (\code{el_container}, \code{el_row}, \code{el_col}) with bslib layouts,
-#' as they are not compatible. The Element-UI layout functions are experimental and may be deprecated in the future.
+#' Element's layout (`el_container()`, `el_row()`, `el_col()`) and bslib's
+#' (`page_sidebar()`, `layout_columns()`) each work here; nest one inside a
+#' cell of the other rather than interleaving them.
 #'
 #' @return A Shiny UI element.
 #'
@@ -211,7 +212,9 @@ el_page <- function(
   theme_css = el_layout_css_dependency(),
   offline = TRUE,
   locale = getOption("shiny.element.locale", "en"),
-  dev = getOption("shiny.element.dev", FALSE)
+  dev = getOption("shiny.element.dev", FALSE),
+  size = NULL,
+  z_index = NULL
 ) {
   deps <- c(
     list(
@@ -220,6 +223,7 @@ el_page <- function(
       element_ui_dependency(offline = offline)
     ),
     el_locale_dependency(locale),
+    .el_config_dependency(size, z_index),
     list(el_feedback_dependency())
   )
   if (!is.null(theme_css)) deps <- c(deps, list(theme_css))

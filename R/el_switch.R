@@ -32,7 +32,7 @@
 #'
 #' @return An `htmltools` tagList with a Vue-managed switch component.
 #'
-#' @section Shiny input:
+#' @section Shiny inputs:
 #' `input$<id>` — the value of `active_value` (when on) or `inactive_value`
 #' (when off), matching the types of those arguments.
 #'
@@ -149,6 +149,11 @@ el_switch <- function(
 #' @param active_color New active background color.
 #' @param inactive_color New inactive background color.
 #'
+#' @param label New label text, as for [shiny::updateTextInput()]. Only a
+#'   component built with a `label` has one to change.
+#' @param error An error message to show on the component, as Element's
+#'   `error` does -- for a check only the server can make, such as whether
+#'   a name is taken. `""` clears it.
 #' @return Called for its side effect; returns `NULL` invisibly.
 #' @examples
 #' if (interactive()) {
@@ -166,8 +171,9 @@ update_el_switch <- function(
     active_text    = NULL,
     inactive_text  = NULL,
     active_color   = NULL,
-    inactive_color = NULL
-) {
+    inactive_color = NULL,
+    label = NULL, error = NULL) {
+  .el_check_session(session)
   ns_id <- session$ns(id)
   msg   <- list(id = ns_id)
   if (!is.null(value))         msg$value         <- value
@@ -176,6 +182,7 @@ update_el_switch <- function(
   if (!is.null(inactive_text)) msg$inactiveText  <- inactive_text
   if (!is.null(active_color))  msg$activeColor   <- active_color
   if (!is.null(inactive_color)) msg$inactiveColor <- inactive_color
+  msg <- .el_form_item_update(msg, label, error)
   .el_send_update(session, msg)
   invisible(NULL)
 }

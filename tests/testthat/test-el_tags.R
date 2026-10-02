@@ -78,3 +78,25 @@ test_that("el: generators produce plain tags with no dependencies", {
   expect_null(htmltools::htmlDependencies(el$button("x")))
   expect_true(inherits(el$button("x"), "shiny.tag"))
 })
+
+test_that("el holds every component Element registers, and nothing it does not", {
+  # Element 2.15.14's src/index.js, the components install() registers
+  registered <- c(
+    "pagination", "dialog", "autocomplete", "dropdown", "dropdown_menu",
+    "dropdown_item", "menu", "submenu", "menu_item", "menu_item_group", "input",
+    "input_number", "radio", "radio_group", "radio_button", "checkbox",
+    "checkbox_button", "checkbox_group", "switch", "select", "option",
+    "option_group", "button", "button_group", "table", "table_column",
+    "date_picker", "time_select", "time_picker", "popover", "tooltip",
+    "breadcrumb", "breadcrumb_item", "form", "form_item", "tabs", "tab_pane",
+    "tag", "tree", "alert", "slider", "icon", "row", "col", "upload", "progress",
+    "spinner", "badge", "card", "rate", "steps", "step", "carousel", "scrollbar",
+    "carousel_item", "collapse", "collapse_item", "cascader", "color_picker",
+    "transfer", "container", "header", "aside", "main", "footer", "timeline",
+    "timeline_item", "link", "divider", "image", "calendar", "backtop",
+    "page_header", "cascader_panel", "avatar", "drawer", "statistic",
+    "popconfirm", "skeleton", "skeleton_item", "empty", "descriptions",
+    "descriptions_item", "result", "collapse_transition"
+  )
+  expect_setequal(names(el), registered)
+})

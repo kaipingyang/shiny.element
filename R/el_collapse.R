@@ -26,7 +26,7 @@
 #'
 #' @return An `htmltools` tag.
 #'
-#' @section Shiny input:
+#' @section Shiny inputs:
 #' `input$<id>` — character vector of open panel names, reported on load and on
 #' every change. Empty when all are closed, which Shiny reports as `NULL`.
 #'
@@ -146,6 +146,7 @@ el_collapse_dependency <- function() {
 #' }
 #' @export
 update_el_collapse <- function(session = shiny::getDefaultReactiveDomain(), id, value = NULL) {
+  .el_check_session(session)
   msg <- list()
   # An input message rather than a custom message: the binding owns this
   # element, and Shiny routes the message to it by id.

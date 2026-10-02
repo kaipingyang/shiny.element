@@ -72,7 +72,7 @@ A Shiny UI element.
 \description{
 A slideshow of items, horizontal or vertical.
 }
-\section{Server inputs}{
+\section{Shiny inputs}{
 
 \verb{input$<id>} holds the index of the slide currently showing, 0-based, and
 \verb{input$<id>_name} its \code{name} if one was given. Both are reported on load and

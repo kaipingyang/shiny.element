@@ -235,7 +235,7 @@ el_form_field <- function(prop,
 #'   given here is absorbed rather than nested. For a scoped slot, write
 #'   the template with [template()].
 #'
-#' @section Server inputs:
+#' @section Shiny inputs:
 #' `input$<id>` holds the whole model as a list, reported once on load and
 #' again on every submit. `input$<id>_valid` is `TRUE` when the last submit
 #' passed validation, and `input$<id>_submit` is a submit counter to trigger on.
@@ -475,6 +475,7 @@ update_el_form <- function(session = shiny::getDefaultReactiveDomain(), id,
                            model = NULL,
                            rules = NULL,
                            label_width = NULL) {
+  .el_check_session(session)
   ns_id <- session$ns(id)
   msg   <- list(id = ns_id)
 
@@ -507,6 +508,7 @@ update_el_form <- function(session = shiny::getDefaultReactiveDomain(), id,
 #' }
 #' @export
 el_form_validate <- function(session = shiny::getDefaultReactiveDomain(), id) {
+  .el_check_session(session)
   .el_send_update(session, list(id = session$ns(id), .action = "validate"))
   invisible(NULL)
 }
@@ -531,6 +533,7 @@ el_form_validate <- function(session = shiny::getDefaultReactiveDomain(), id) {
 #' }
 #' @export
 el_form_reset <- function(session = shiny::getDefaultReactiveDomain(), id) {
+  .el_check_session(session)
   .el_send_update(session, list(id = session$ns(id), .action = "reset"))
   invisible(NULL)
 }
@@ -553,6 +556,7 @@ el_form_reset <- function(session = shiny::getDefaultReactiveDomain(), id) {
 #' }
 #' @export
 el_form_clear_validate <- function(session = shiny::getDefaultReactiveDomain(), id, props = NULL) {
+  .el_check_session(session)
   msg <- list(id = session$ns(id))
   if (!is.null(props)) msg$props <- as.list(props)
   msg$.action <- "clearValidate"

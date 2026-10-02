@@ -38,7 +38,7 @@
 #'
 #' @return An `htmltools` tagList containing the Vue-managed radio group.
 #'
-#' @section Shiny input:
+#' @section Shiny inputs:
 #' `input$<id>` — string or number reflecting the currently selected value,
 #' updated on each change.
 #'
@@ -179,6 +179,11 @@ el_radio_group <- function(
 #'   is Shiny's name, `options` Element's; give either.
 #' @param disabled New disabled state.
 #'
+#' @param label New label text, as for [shiny::updateTextInput()]. Only a
+#'   component built with a `label` has one to change.
+#' @param error An error message to show on the component, as Element's
+#'   `error` does -- for a check only the server can make, such as whether
+#'   a name is taken. `""` clears it.
 #' @return Called for its side effect; returns `NULL` invisibly.
 #' @examples
 #' if (interactive()) {
@@ -195,8 +200,9 @@ update_el_radio_group <- function(
     choices  = NULL,
     disabled = NULL,
     value    = NULL,
-    options  = NULL
-) {
+    options  = NULL,
+    label = NULL, error = NULL) {
+  .el_check_session(session)
   selected <- .el_alias(selected, value, "selected", "value")
   choices  <- .el_alias(choices, options, "choices", "options")
   ns_id <- session$ns(id)
@@ -204,6 +210,7 @@ update_el_radio_group <- function(
   if (!is.null(selected)) msg$value    <- selected
   if (!is.null(choices))  msg$options  <- .el_normalize_choices(choices)
   if (!is.null(disabled)) msg$disabled <- disabled
+  msg <- .el_form_item_update(msg, label, error)
   .el_send_update(session, msg)
   invisible(NULL)
 }

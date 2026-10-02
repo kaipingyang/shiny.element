@@ -101,6 +101,7 @@ el_breadcrumb <- function(id = NULL,
 #' }
 #' @export
 update_el_breadcrumb <- function(session = shiny::getDefaultReactiveDomain(), id, items = NULL, separator = NULL) {
+  .el_check_session(session)
   ns_id <- session$ns(id)
   msg <- list(id = ns_id)
   if (!is.null(items))     msg$items     <- unname(items)

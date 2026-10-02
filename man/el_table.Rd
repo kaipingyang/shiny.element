@@ -116,7 +116,8 @@ the table. Default \code{FALSE}, as in Element.}
 
 \item{indent}{Horizontal indent between tree levels, in pixels. Default \code{16}.}
 
-\item{lazy}{Whether child rows of tree data are loaded on demand.}
+\item{lazy}{Whether child rows of tree data are loaded on demand --
+from the server, unless \code{load} is given.}
 
 \item{tree_props}{Field names for tree data, as \code{list(children =, hasChildren =)}.}
 
@@ -140,7 +141,8 @@ the table. Default \code{FALSE}, as in Element.}
 
 \item{summary_method}{\code{htmlwidgets::JS()} function returning the summary row's cells.}
 
-\item{load}{\code{htmlwidgets::JS()} function loading child rows lazily. Needs \code{lazy = TRUE}.}
+\item{load}{\code{htmlwidgets::JS()} function loading child rows in the
+browser instead of from the server. Needs \code{lazy = TRUE}.}
 
 \item{width}{Component width, as a CSS unit. Replaces the table's default
 \verb{width: 100\%}. For a fixed header use \code{height} instead.}
@@ -166,7 +168,7 @@ A Shiny UI element.
 \description{
 Create a table widget for Shiny using Element UI.
 }
-\section{Server inputs}{
+\section{Shiny inputs}{
 
 With \code{selection = TRUE} the component reports two inputs:
 \verb{input$<id>_selected} (the selected row objects) and
@@ -175,6 +177,12 @@ index back into your original data: a row object with mixed column types is
 simplified to a character vector on its way back through JSON, so numbers
 arrive as strings. Both are \code{NULL} while nothing is selected, matching how
 Shiny reports an empty \code{\link[shiny:checkboxGroupInput]{shiny::checkboxGroupInput()}}.
+
+With tree data, \code{lazy = TRUE} and no \code{load} of your own, the server loads
+a row's children when it is opened: \verb{input$<id>_load} asks, with \code{key}
+(the row's \code{row_key} field), \code{row} and \code{request}; answer with
+\code{\link[=el_load_children]{el_load_children()}}. A row with children to load carries
+\code{hasChildren = TRUE}.
 }
 
 \section{Row actions}{

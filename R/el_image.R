@@ -113,6 +113,7 @@ el_image <- function(id = NULL,
 #' @export
 update_el_image <- function(session = shiny::getDefaultReactiveDomain(), id, src = NULL, fit = NULL,
                             preview_src_list = NULL) {
+  .el_check_session(session)
   ns_id <- session$ns(id)
   msg <- list(id = ns_id)
   if (!is.null(src)) msg$src <- src

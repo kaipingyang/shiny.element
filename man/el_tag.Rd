@@ -63,8 +63,9 @@ Shiny inputs.
 \section{Shiny inputs}{
 
 \itemize{
-\item \verb{input$<id>} — click count (integer), incremented each time the tag body
-is clicked.
+\item \verb{input$<id>} -- the number of clicks on the tag's body, as
+\code{\link[shiny:actionButton]{shiny::actionButton()}} reports it: 0 on load, treated by
+\code{observeEvent()} and \code{req()} as not yet clicked.
 \item \verb{input$<id>_closed} — set to \code{1} when the user clicks the close button
 (only meaningful when \code{closable = TRUE}).
 }

@@ -10,7 +10,9 @@ update_el_input_number(
   value = NULL,
   min = NULL,
   max = NULL,
-  disabled = NULL
+  disabled = NULL,
+  label = NULL,
+  error = NULL
 )
 }
 \arguments{
@@ -26,6 +28,13 @@ update_el_input_number(
 \item{max}{New maximum.}
 
 \item{disabled}{New disabled state.}
+
+\item{label}{New label text, as for \code{\link[shiny:updateTextInput]{shiny::updateTextInput()}}. Only a
+component built with a \code{label} has one to change.}
+
+\item{error}{An error message to show on the component, as Element's
+\code{error} does -- for a check only the server can make, such as whether
+a name is taken. \code{""} clears it.}
 }
 \value{
 Called for its side effect; returns \code{NULL} invisibly.

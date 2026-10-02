@@ -367,3 +367,52 @@
   session$sendCustomMessage("shinyVueUpdate", msg)
   invisible(NULL)
 }
+
+
+#' Add a label or error to an update
+#'
+#' The form item a labelled input is drawn in has no Vue field of its own:
+#' its label and message are markup around the component. They travel as the
+#' bridge's own keys, `.label` and `.error`, which el-events.js draws.
+#'
+#' @param msg The update message.
+#' @param label New label text, or `NULL`.
+#' @param error New error message, `""` to clear it, or `NULL`.
+#' @return The message.
+#' @keywords internal
+.el_form_item_update <- function(msg, label = NULL, error = NULL) {
+  if (!is.null(label)) msg[[".label"]] <- as.character(label)
+  if (!is.null(error)) msg[[".error"]] <- as.character(error)
+  msg
+}
+
+
+#' Check a server function was given a session
+#'
+#' Every server function takes the session first, defaulting to the current
+#' one, as Shiny's `update*Input()` do -- so `update_el_input("name", ...)`
+#' passes the id as the session. Shiny stops that with a message naming the
+#' function; so does this, rather than failing on `$` inside.
+#'
+#' @param session What was passed as `session`.
+#' @param fn The calling function's name.
+#' @return `session`, invisibly.
+#' @keywords internal
+.el_check_session <- function(session, fn = NULL) {
+  if (is.null(fn)) fn <- tryCatch(deparse(sys.call(-1)[[1]]), error = function(e) "the function")
+  if (is.null(session)) {
+    stop(sprintf("`%s()` was called outside a Shiny session: there is no server to send to.", fn),
+         call. = FALSE)
+  }
+  if (is.atomic(session)) {
+    # The argument the caller most likely meant to give first
+    second <- tryCatch(names(formals(sys.function(-1)))[2], error = function(e) NULL)
+    if (is.null(second) || is.na(second)) second <- "id"
+    stop(sprintf(paste0("`session` must be a Shiny session, not %s. It is the first argument; ",
+                        "to use the current session, name the rest: `%s(%s = ...)`."),
+                 if (is.character(session)) sprintf('"%s"', session[1]) else class(session)[1],
+                 fn, second),
+         call. = FALSE)
+  }
+  invisible(session)
+}

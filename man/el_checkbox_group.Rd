@@ -103,7 +103,7 @@ An \code{htmltools} tagList with a Vue-managed checkbox group component.
 Creates an Element UI checkbox group with Vue instance, supporting individual
 checkboxes or button-style variants.
 }
-\section{Shiny input}{
+\section{Shiny inputs}{
 
 \verb{input$<id>} — character vector of currently selected values.
 }

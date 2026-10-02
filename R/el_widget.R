@@ -97,6 +97,7 @@ el_widget <- function(id, markup, data, methods = NULL, watch = NULL,
   container_id <- paste0(id, "_container")
   label_position <- match.arg(label_position)
   mounted_given <- mounted
+  methods_given <- methods
 
   if (length(slots)) {
     filled     <- .el_slot_markup(slots)
@@ -163,8 +164,9 @@ el_widget <- function(id, markup, data, methods = NULL, watch = NULL,
   # sends it under the component's own id would send it twice -- and, for a
   # typed value, unconverted, overwriting the Date the binding delivers.
   if (length(input) && length(methods)) {
+    # '<id>' or '<id>:<type>', the second for a typed value sent directly
     pattern <- sprintf(
-      "window\\.Shiny && Shiny\\.setInputValue && Shiny\\.setInputValue\\((['\"])%s\\1, [^;]*\\);\\s*",
+      "window\\.Shiny && Shiny\\.setInputValue && Shiny\\.setInputValue\\((['\"])%s(:[A-Za-z0-9_.]+)?\\1, [^;]*\\);\\s*",
       gsub("([.\\-])", "\\\\\\1", id))
     methods <- lapply(methods, function(m) {
       if (!inherits(m, "JS_EVAL")) return(m)
@@ -202,7 +204,7 @@ el_widget <- function(id, markup, data, methods = NULL, watch = NULL,
                  width = label_width, suffix = label_suffix, required = required,
                  error = error, show_message = show_message,
                  inline_message = inline_message,
-                 size = if (is.character(data$size)) data$size)
+                 size_field = "size" %in% names(data))
   }
   rendered <- htmltools::renderTags(root)
   template <- gsub("</script", "<\\/script", rendered$html, ignore.case = TRUE)
@@ -216,8 +218,15 @@ el_widget <- function(id, markup, data, methods = NULL, watch = NULL,
   )
   # What .el_absorb() needs to fold this component into another: its options
   # as written, with the hook that reports every one of its fields.
+  # Absorbed, it has no binding: its change handlers report it again, and a
+  # typed value goes out under '<id>:<type>' so Shiny still converts it
   full <- options
+  if (!is.null(methods_given)) full$methods <- methods_given
   full$mounted <- mounted_given
+  if (!is.null(init) && !is.null(type) && length(input)) {
+    names(init)[names(init) == id] <- paste0(id, ":", type)
+    full$mounted <- .el_mounted_init(init)
+  }
   if (length(report)) {
     every <- .el_mounted_init(stats::setNames(names(report), unname(report)))
     full$mounted <- if (is.null(mounted_given)) every else htmlwidgets::JS(sprintf(
@@ -336,14 +345,11 @@ el_widget <- function(id, markup, data, methods = NULL, watch = NULL,
 .el_labelled <- function(container_id, id, label, position, markup,
                          width = NULL, suffix = NULL, required = FALSE,
                          error = NULL, show_message = TRUE, inline_message = FALSE,
-                         size = NULL) {
+                         size_field = FALSE) {
   beside <- position %in% c("left", "right")
   item_class <- paste(c(
     "el-form-item",
     paste0("el-form-item--label-", position),
-    # Element's line heights per size, so a label beside a small control
-    # lines up with it
-    if (!is.null(size)) paste0("el-form-item--", size),
     if (isTRUE(required)) "is-required",
     if (!is.null(error)) "is-error"
   ), collapse = " ")
@@ -366,6 +372,8 @@ el_widget <- function(id, markup, data, methods = NULL, watch = NULL,
   label_tag <- if (!is.null(label)) htmltools::tags$label(
     id = paste0(id, "-label"), `for` = paste0(id, "-input"),
     class = "el-form-item__label", style = label_style,
+    # kept for update_el_*(label =), which replaces the text before it
+    `data-suffix` = suffix,
     text, .noWS = "inside"
   )
   message <- if (!is.null(error) && isTRUE(show_message)) htmltools::tags$div(
@@ -380,6 +388,11 @@ el_widget <- function(id, markup, data, methods = NULL, watch = NULL,
   )
   htmltools::tags$div(
     id = container_id, class = item_class,
+    # Element's line heights per size, so a label beside a small control
+    # lines up with it: the component's own size -- bound, so an update
+    # moves the label too -- or else Element's global one, el_page(size =),
+    # which Element's own form item falls back to as well
+    `:class` = .el_form_item_size_class(size_field),
     style = if (beside) "display: flex; align-items: flex-start; margin-bottom: 15px"
             else "margin-bottom: 15px",
     label_tag,
@@ -395,6 +408,17 @@ el_widget <- function(id, markup, data, methods = NULL, watch = NULL,
       message
     )
   )
+}
+
+#' The class sizing a form item
+#'
+#' @param size_field Whether the component has a `size` field.
+#' @return A Vue class binding.
+#' @keywords internal
+.el_form_item_size_class <- function(size_field) {
+  global <- "($ELEMENT && $ELEMENT.size)"
+  current <- if (size_field) sprintf("(size || %s)", global) else global
+  sprintf("%1$s ? 'el-form-item--' + %1$s : ''", current)
 }
 
 #' Tie a component's Element tag to its label

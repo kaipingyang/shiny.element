@@ -108,10 +108,13 @@ test_that("error draws Element's error state, under the control or beside it", {
 })
 
 test_that("the component's size sizes the form item, so a label lines up", {
-  expect_match(template_of(el_input("x", label = "L", size = "small")),
-               "el-form-item--small", fixed = TRUE)
-  expect_false(grepl("el-form-item--small", template_of(el_input("x", label = "L")),
-                     fixed = TRUE))
+  # bound to the size field, falling back to Element's global size
+  tpl <- template_of(el_input("x", label = "L", size = "small"))
+  expect_match(tpl, ":class=\"(size || ($ELEMENT &amp;&amp; $ELEMENT.size)) ? &#39;el-form-item--&#39; +",
+               fixed = TRUE)
+  # a component with no size of its own takes only the global one
+  expect_match(template_of(el_switch("x", label = "L")),
+               ":class=\"($ELEMENT &amp;&amp; $ELEMENT.size) ? &#39;el-form-item--&#39; +", fixed = TRUE)
 })
 
 test_that("a label beside the component sits on the control's first line", {

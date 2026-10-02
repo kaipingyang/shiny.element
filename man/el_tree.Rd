@@ -89,7 +89,8 @@ expand.}
 
 \item{icon_class}{Icon class of the expand arrow.}
 
-\item{lazy}{Whether child nodes are loaded on demand. Needs \code{load}.}
+\item{lazy}{Whether child nodes are loaded on demand -- from the server,
+unless \code{load} is given. See "Shiny inputs".}
 
 \item{draggable}{Whether nodes can be dragged.}
 
@@ -101,7 +102,8 @@ expand.}
 
 \item{render_after_expand}{Whether child nodes are rendered only once expanded. Default \code{TRUE}.}
 
-\item{load}{\code{htmlwidgets::JS()} function loading child nodes lazily. Needs \code{lazy = TRUE}.}
+\item{load}{\code{htmlwidgets::JS()} function loading child nodes in the
+browser instead of from the server. Needs \code{lazy = TRUE}.}
 
 \item{filter_node_method}{\code{htmlwidgets::JS()} function deciding whether a node survives filtering.}
 
@@ -161,12 +163,17 @@ A tree view, optionally with checkboxes.
 Unlike the menu, a tree takes its whole structure through a \code{data} prop
 rather than nested tags, so the nesting is plain R data all the way down.
 }
-\section{Server inputs}{
+\section{Shiny inputs}{
 
 \verb{input$<id>} holds the key of the most recently clicked node, and
 \verb{input$<id>_checked} the keys of all checked nodes, as a character vector.
 Both are reported on load, where they start empty and therefore arrive as
 \code{NULL}, as Shiny reports any empty selection.
+
+With \code{lazy = TRUE} and no \code{load} of your own, the server loads each node's
+children: \verb{input$<id>_load} asks, with \code{level} (0 for the top), \code{key} (the
+node's \code{node_key} field), \code{data} (the node) and \code{request}; answer with
+\code{\link[=el_load_children]{el_load_children()}}.
 }
 
 \section{Element methods}{

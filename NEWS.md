@@ -124,7 +124,24 @@ limitations article shows, needs no JavaScript.
   `value_format` of your own still reports text in that format.
 * **The session argument.** Every server function -- `update_el_*()`,
   `el_message()`, `el_call()` and the rest -- takes the current session by
-  default, as `updateTextInput()` does.
+  default, as `updateTextInput()` does. Given an id in the session's place,
+  `update_el_input("name", ...)`, it says so and names the call to write
+  instead, as Shiny's own do.
+* **Action buttons.** `el_button()` and `el_tag()` report their clicks as
+  `actionButton()` does: 0 on load, classed so that `observeEvent()` and
+  `req()` treat 0 as not yet clicked. `el_dropdown()` reports each command
+  as an event, so choosing the same item twice runs an observer twice.
+* **One input per id.** `el_cascader()` reports to `input$<id>`, as every
+  other input does, rather than `input$<id>_value`.
+* **The server loads.** Where Element takes a JavaScript function to fetch
+  data, the server can answer instead: a lazy `el_tree()`, `el_cascader()`,
+  `el_cascader_panel()` or tree `el_table()` asks through `input$<id>_load`
+  (`_lazy_load` for a cascader) and `el_load_children()` replies; a
+  `remote` `el_select()` sends what is typed as `input$<id>_query`, and
+  `update_el_select()` with the matches answers it.
+* **Labels and errors from the server.** The `update_el_*()` of every input
+  takes `label`, as `updateTextInput()` does, and `error`, Element's
+  message for a check only the server can make; `""` clears it.
 * **Validation.** shinyvalidate's messages show on a component as Element
   shows a failed form rule: framed in red, the message underneath -- for a
   labelled component, under the control, replacing any `error` it opened
@@ -136,6 +153,13 @@ limitations article shows, needs no JavaScript.
   `error`, `show_message` and `inline_message`; the component's own `size`
   sizes the label. `el_upload()`'s trigger text is now `button_label`, as
   `fileInput()`'s `buttonLabel`.
+* **Element's global config.** `el_page()` and `use_element()` take `size`
+  and `z_index`, as `Vue.use(Element, {size, zIndex})` does; a labelled
+  input's label follows the size too. Element's `display.css` -- the
+  `hidden-xs-only` family -- is loaded with the rest, and `el` gains the
+  registered components it lacked (`button_group`, `checkbox_button`,
+  `scrollbar`, `spinner`, `collapse_transition`) and loses `anchor`,
+  `anchor_link` and `loading`, which Element 2 does not have as tags.
 * **Checked arguments.** An enumerated argument Element does not accept --
   `type = "primry"` -- is an error listing the values it does, rather than
   a component drawn in its default style.
@@ -155,6 +179,8 @@ el_table(data = df, id = "my_table")  # also fine, and always was
 Positional calls written against the old `el_table(data, columns, id)` order
 still work -- the arguments are shifted back with a warning -- but naming them
 is the way to keep it quiet.
+
+`input$<cascader id>_value` is now `input$<cascader id>`.
 
 ## Filling a slot
 

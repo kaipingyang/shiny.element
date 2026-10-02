@@ -131,7 +131,7 @@
 #'   given here is absorbed rather than nested. For a scoped slot, write
 #'   the template with [template()].
 #'
-#' @section Server inputs:
+#' @section Shiny inputs:
 #' Without `action`, `input$<id>` is a data frame of `name`, `size`, `type`
 #' and `datapath`, one row per file in the last batch, exactly as
 #' [shiny::fileInput()] reports it. Uploads inherit Shiny's
@@ -358,6 +358,11 @@ el_upload <- function(id = NULL,
 #' @param id Upload ID (un-namespaced).
 #' @param disabled New disabled state.
 #' @param limit New maximum number of files.
+#' @param label New label text, as for [shiny::updateTextInput()]. Only a
+#'   component built with a `label` has one to change.
+#' @param error An error message to show on the component, as Element's
+#'   `error` does -- for a check only the server can make, such as whether
+#'   a name is taken. `""` clears it.
 #' @return Called for its side effect; returns `NULL` invisibly.
 #' @examples
 #' if (interactive()) {
@@ -367,10 +372,13 @@ el_upload <- function(id = NULL,
 #'   })
 #' }
 #' @export
-update_el_upload <- function(session = shiny::getDefaultReactiveDomain(), id, disabled = NULL, limit = NULL) {
+update_el_upload <- function(session = shiny::getDefaultReactiveDomain(), id, disabled = NULL, limit = NULL,
+                             label = NULL, error = NULL) {
+  .el_check_session(session)
   msg <- list(id = session$ns(id))
   if (!is.null(disabled)) msg$disabled <- disabled
   if (!is.null(limit))    msg$limit    <- limit
+  msg <- .el_form_item_update(msg, label, error)
   .el_send_update(session, msg)
   invisible(NULL)
 }
@@ -395,6 +403,7 @@ update_el_upload <- function(session = shiny::getDefaultReactiveDomain(), id, di
 #' }
 #' @export
 el_upload_clear <- function(session = shiny::getDefaultReactiveDomain(), id) {
+  .el_check_session(session)
   .el_send_update(session, list(id = session$ns(id), .action = "clear"))
   invisible(NULL)
 }

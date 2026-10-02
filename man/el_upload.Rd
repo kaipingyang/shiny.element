@@ -159,7 +159,7 @@ Give \code{action} instead to use Element's own upload, posting straight to that
 URL. Shiny then plays no part -- useful for a pre-signed S3 URL or an
 existing file service, but the server sees no \code{datapath}.
 }
-\section{Server inputs}{
+\section{Shiny inputs}{
 
 Without \code{action}, \verb{input$<id>} is a data frame of \code{name}, \code{size}, \code{type}
 and \code{datapath}, one row per file in the last batch, exactly as

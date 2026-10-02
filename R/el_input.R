@@ -56,7 +56,7 @@
 #'
 #' @return An `htmltools` tagList with a Vue-managed input component.
 #'
-#' @section Shiny input:
+#' @section Shiny inputs:
 #' `input$<id>` -- the text, reported as it is typed, debounced by 250 ms
 #' as [shiny::textInput()] does, and after an [update_el_input()].
 #' (triggered on blur or Enter key press).
@@ -239,6 +239,11 @@ el_input <- function(
 #' @param clearable New clearable state.
 #' @param show_password New show-password toggle state.
 #'
+#' @param label New label text, as for [shiny::updateTextInput()]. Only a
+#'   component built with a `label` has one to change.
+#' @param error An error message to show on the component, as Element's
+#'   `error` does -- for a check only the server can make, such as whether
+#'   a name is taken. `""` clears it.
 #' @return Called for its side effect; returns `NULL` invisibly.
 #' @examples
 #' if (interactive()) {
@@ -258,8 +263,9 @@ update_el_input <- function(
     type         = NULL,
     size         = NULL,
     clearable    = NULL,
-    show_password = NULL
-) {
+    show_password = NULL,
+    label = NULL, error = NULL) {
+  .el_check_session(session)
   ns_id <- session$ns(id)
   msg   <- list(id = ns_id)
   if (!is.null(value))        msg$value        <- value
@@ -270,6 +276,7 @@ update_el_input <- function(
   if (!is.null(size))         msg$size         <- size
   if (!is.null(clearable))    msg$clearable    <- clearable
   if (!is.null(show_password)) msg$showPassword <- show_password
+  msg <- .el_form_item_update(msg, label, error)
   .el_send_update(session, msg)
   invisible(NULL)
 }

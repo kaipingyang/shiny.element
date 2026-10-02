@@ -60,7 +60,7 @@ An \code{htmltools} tagList with a Vue-managed alert component.
 An inline alert banner with optional close button. Fires a Shiny input when
 the user closes it.
 }
-\section{Shiny input}{
+\section{Shiny inputs}{
 
 \verb{input$<id>_closed} — set to \code{1} (with \code{priority = "event"}) when the
 user closes the alert.

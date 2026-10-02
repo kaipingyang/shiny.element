@@ -84,7 +84,7 @@ package's standalone input components. Those are each their own Vue
 instance, which puts them outside the form-item's component tree, where
 Element's event chain and shared model cannot reach them.
 }
-\section{Server inputs}{
+\section{Shiny inputs}{
 
 \verb{input$<id>} holds the whole model as a list, reported once on load and
 again on every submit. \verb{input$<id>_valid} is \code{TRUE} when the last submit

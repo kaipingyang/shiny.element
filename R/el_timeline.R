@@ -132,6 +132,7 @@ el_timeline <- function(id = NULL,
 #'   })
 #' }
 update_el_timeline <- function(session = shiny::getDefaultReactiveDomain(), id, items = NULL, reverse = NULL) {
+  .el_check_session(session)
   msg <- list(id = session$ns(id))
   if (!is.null(items))   msg$items   <- .el_timeline_items(items)
   if (!is.null(reverse)) msg$reverse <- reverse

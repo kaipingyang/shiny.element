@@ -64,6 +64,7 @@
 #' @export
 el_call <- function(session = shiny::getDefaultReactiveDomain(), id, method, args = list(), result = TRUE,
                     component = NULL) {
+  .el_check_session(session)
   if (!is.character(method) || length(method) != 1L || !nzchar(method)) {
     stop("`method` must be a single method name.", call. = FALSE)
   }

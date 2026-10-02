@@ -9,7 +9,9 @@ update_el_tree(
   id,
   data = NULL,
   expanded = NULL,
-  checked = NULL
+  checked = NULL,
+  label = NULL,
+  error = NULL
 )
 }
 \arguments{
@@ -26,6 +28,13 @@ only ever opens nodes.}
 
 \item{checked}{Keys to check, replacing the current selection entirely.
 Pass \code{list()} to clear it.}
+
+\item{label}{New label text, as for \code{\link[shiny:updateTextInput]{shiny::updateTextInput()}}. Only a
+component built with a \code{label} has one to change.}
+
+\item{error}{An error message to show on the component, as Element's
+\code{error} does -- for a check only the server can make, such as whether
+a name is taken. \code{""} clears it.}
 }
 \value{
 Called for its side effect; returns \code{NULL} invisibly.

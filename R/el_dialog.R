@@ -45,7 +45,7 @@
 #'
 #' @return An `htmltools` tag.
 #'
-#' @section Shiny input:
+#' @section Shiny inputs:
 #' `input$<id>` — `TRUE` while the dialog is open, reported whenever it opens
 #' or closes, however that happens. (It was `input$<id>_visible` while this was
 #' a Vue component; Shiny routes an input binding's messages by element id, so
@@ -155,6 +155,7 @@ el_dialog <- function(
 #' @export
 update_el_dialog <- function(session = shiny::getDefaultReactiveDomain(), id, visible = NULL, title = NULL,
                              width = NULL) {
+  .el_check_session(session)
   msg <- list()
   if (!is.null(visible)) msg$visible <- visible
   if (!is.null(title))   msg$title   <- title

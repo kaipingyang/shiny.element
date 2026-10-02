@@ -203,6 +203,11 @@ el_autocomplete <- function(id = NULL,
 #' @param value,suggestions,placeholder,disabled New values; `NULL` leaves one
 #'   unchanged.
 #'
+#' @param label New label text, as for [shiny::updateTextInput()]. Only a
+#'   component built with a `label` has one to change.
+#' @param error An error message to show on the component, as Element's
+#'   `error` does -- for a check only the server can make, such as whether
+#'   a name is taken. `""` clears it.
 #' @return Called for its side effect; returns `NULL` invisibly.
 #' @examples
 #' if (interactive()) {
@@ -214,13 +219,16 @@ el_autocomplete <- function(id = NULL,
 #' @export
 update_el_autocomplete <- function(session = shiny::getDefaultReactiveDomain(), id, value = NULL,
                                    suggestions = NULL, placeholder = NULL,
-                                   disabled = NULL) {
+                                   disabled = NULL,
+                                   label = NULL, error = NULL) {
+  .el_check_session(session)
   ns_id <- session$ns(id)
   msg <- list(id = ns_id)
   if (!is.null(value))       msg$value       <- value
   if (!is.null(suggestions)) msg$suggestions <- .el_autocomplete_suggestions(suggestions)
   if (!is.null(placeholder)) msg$placeholder <- placeholder
   if (!is.null(disabled))    msg$disabled    <- disabled
+  msg <- .el_form_item_update(msg, label, error)
   .el_send_update(session, msg)
   invisible(NULL)
 }

@@ -1,12 +1,19 @@
-#' Element UI Cascader Widget
+#' Element UI Cascader
 #'
-#' Create a cascader (multi-level dropdown) input for Shiny using Element UI.
+#' Pick a path through nested options -- a region, then a country, then a
+#' city -- from a dropdown of side-by-side columns.
 #'
 #' @param id Cascader ID (auto-generated if NULL)
-#' @param options Cascader options data (hierarchical list)
-#' @param value Initial selected value
+#' @param options Nested options, each `list(value =, label =, children =)`.
+#'   [df_to_cascader_options()] builds them from a data.frame.
+#' @param value Initially selected path, as a vector of values from the top
+#'   level down -- or a list of paths with `props = list(multiple = TRUE)`.
 #' @param placeholder Placeholder text
-#' @param props Configuration object for cascader behavior
+#' @param props Element's `props`, as a named list: `multiple`,
+#'   `checkStrictly`, `expandTrigger` (`"click"` or `"hover"`), `lazy`,
+#'   `lazyLoad`, and the field names `value`, `label`, `children`,
+#'   `disabled`, `leaf`. With `lazy = TRUE` and no `lazyLoad` of your own,
+#'   the server loads each column: see "Shiny inputs".
 #' @param clearable Whether clearable
 #' @param filterable Whether filterable (searchable)
 #' @param disabled Whether disabled
@@ -30,6 +37,16 @@
 #'   `list(title = shiny::tags$b("Bold"))`. A shiny.element component
 #'   given here is absorbed rather than nested. For a scoped slot, write
 #'   the template with [template()].
+#' @section Shiny inputs:
+#' - `input$<id>` -- the selected path, on load and on change.
+#' - `input$<id>_lazy_load` -- with `props = list(lazy = TRUE)`, a column to
+#'   load: `level` (0 for the first), `value` and `path` of the option
+#'   opened, and `request`. Answer with [el_load_children()], passing the
+#'   input back; each child is `list(value =, label =, leaf = TRUE)` for one
+#'   with nothing below.
+#' - `input$<id>_expand_change`, `_blur`, `_focus`, `_visible_change`,
+#'   `_remove_tag` -- Element's events.
+#'
 #' @section Element methods:
 #' Callable with [el_call()]:
 #'
@@ -71,7 +88,7 @@
 #'     verbatimTextOutput("selected")
 #'   )
 #'   server <- function(input, output, session) {
-#'     output$selected <- renderPrint(input$cascader1_value)
+#'     output$selected <- renderPrint(input$cascader1)
 #'   }
 #'   shinyApp(ui, server)
 #' }
@@ -138,7 +155,8 @@ el_cascader <- function(id = NULL,
     ":debounce" = "debounce",
     "@change" = "handleChange"
   )
-  cascader_attrs[[":props"]] <- .el_optional_bind("props")
+  # props carries lazyLoad; without one of the user's, the server loads
+  cascader_attrs[[":props"]] <- "elProps"
   cascader_attrs[[":size"]] <- .el_optional_bind("size")
   cascader_attrs[[":popper-class"]] <- .el_optional_bind("popperClass")
   cascader_attrs[[":filter-method"]] <- .el_optional_bind("filterMethod")
@@ -180,9 +198,10 @@ el_cascader <- function(id = NULL,
     data = vue_data,
     methods = c(events$methods, list(
       handleChange = htmlwidgets::JS(sprintf(
-        "function(value) {\n  window.Shiny && Shiny.setInputValue && Shiny.setInputValue('%s_value', value);\n}", ns_id))
+        "function(value) {\n  window.Shiny && Shiny.setInputValue && Shiny.setInputValue('%s', value);\n}", ns_id))
     )),
-    mounted = .el_mounted_init(stats::setNames("value", paste0(ns_id, "_value"))),
+    mounted = .el_mounted_init(stats::setNames("value", ns_id)),
+    computed = list(elProps = .el_lazy_props(ns_id)),
     width      = width,
     slots      = slots
   )
@@ -199,6 +218,11 @@ el_cascader <- function(id = NULL,
 #' @param clearable Whether clearable
 #' @param filterable Whether filterable
 #' @param disabled Whether disabled
+#' @param label New label text, as for [shiny::updateTextInput()]. Only a
+#'   component built with a `label` has one to change.
+#' @param error An error message to show on the component, as Element's
+#'   `error` does -- for a check only the server can make, such as whether
+#'   a name is taken. `""` clears it.
 #' @return Called for its side effect; returns `NULL` invisibly.
 #' @examples
 #' if (interactive()) {
@@ -214,7 +238,9 @@ update_el_cascader <- function(session = shiny::getDefaultReactiveDomain(), id,
                                placeholder = NULL,
                                clearable = NULL,
                                filterable = NULL,
-                               disabled = NULL) {
+                               disabled = NULL,
+                               label = NULL, error = NULL) {
+  .el_check_session(session)
   ns_id <- session$ns(id)
   message <- list(id = ns_id)
   if (!is.null(options)) message$options <- options
@@ -224,6 +250,7 @@ update_el_cascader <- function(session = shiny::getDefaultReactiveDomain(), id,
   if (!is.null(filterable)) message$filterable <- filterable
   if (!is.null(disabled)) message$disabled <- disabled
 
+  message <- .el_form_item_update(message, label, error)
   .el_send_update(session, message)
   invisible(NULL)
 }

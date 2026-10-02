@@ -15,6 +15,7 @@
 #' update_vue_component(session, "my_calendar", value = "2025-12-31", first_day_of_week = 3)
 #' }
 update_vue_component <- function(session = shiny::getDefaultReactiveDomain(), id, ...) {
+  .el_check_session(session)
   ns_id <- session$ns(id)
   message <- list(id = ns_id, ...)
   .el_send_update(session, message)
@@ -38,6 +39,7 @@ update_vue_component <- function(session = shiny::getDefaultReactiveDomain(), id
 #' ))
 #' }
 update_vue_data <- function(session = shiny::getDefaultReactiveDomain(), id, data) {
+  .el_check_session(session)
   ns_id <- session$ns(id)
   .el_send_update(session, c(list(id = ns_id), data))
   invisible(NULL)

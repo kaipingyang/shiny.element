@@ -45,17 +45,18 @@
 el <- local({
   el <- list()
 
-  # List of Element UI tag names (from official docs, not exhaustive)
+  # Every component Element 2.15.14 registers globally when it installs
+  # itself (src/index.js), so each tag here compiles inside a component
   el_tag_names <- c(
     # Basic
-    "button", "link", "icon",
+    "button", "button-group", "link", "icon",
     # Layout
     "container", "header", "aside", "main", "footer", "row", "col",
     # Form
     "form", "form-item", "input", "input-number", "radio", "radio-group", "radio-button",
-    "checkbox", "checkbox-group", "switch", "select", "option", "option-group",
-    "cascader", "cascader-panel", "slider", "time-picker", "time-select", "date-picker",
-    "upload", "rate", "color-picker", "transfer", "autocomplete",
+    "checkbox", "checkbox-button", "checkbox-group", "switch", "select", "option",
+    "option-group", "cascader", "cascader-panel", "slider", "time-picker", "time-select",
+    "date-picker", "upload", "rate", "color-picker", "transfer", "autocomplete",
     # Data
     "table", "table-column", "tag", "progress", "tree", "pagination", "badge", "avatar",
     "calendar", "card", "carousel", "carousel-item", "collapse", "collapse-item",
@@ -64,9 +65,12 @@ el <- local({
     # Navigation
     "menu", "submenu", "menu-item", "menu-item-group", "tabs", "tab-pane", "breadcrumb",
     "breadcrumb-item", "dropdown", "dropdown-menu", "dropdown-item", "steps", "step",
-    "page-header", "backtop", "anchor", "anchor-link",
+    "page-header", "backtop",
     # Feedback
-    "dialog", "alert", "drawer", "popover", "tooltip", "popconfirm", "loading"
+    "dialog", "alert", "drawer", "popover", "tooltip", "popconfirm",
+    # Others: the spinner and scrollbar Element uses inside its components,
+    # and the collapse animation, all registered for use on their own
+    "spinner", "scrollbar", "collapse-transition"
   )
 
   # Auto-generate each tag function

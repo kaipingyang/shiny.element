@@ -77,7 +77,9 @@ for (case in cases) {
       }
       sent <- capture_update(fn, args)
       expect_gt(length(sent), 0)
-      expect_equal(setdiff(sent, keys), character(0),
+      # .label and .error are the bridge's own keys, drawn around the
+      # component rather than assigned to it
+      expect_equal(setdiff(sent[!startsWith(sent, ".")], keys), character(0),
                    info = paste(fn_name, "sends fields absent from the Vue data"))
     })
   })
@@ -156,4 +158,16 @@ test_that("el_progress colour keeps its empty-string default, not the expression
   html <- paste(as.character(el_progress("x")), collapse = "")
   expect_match(html, '"color":""', fixed = TRUE)
   expect_false(grepl("color === null", html, fixed = TRUE))
+})
+
+test_that("label and error travel as the bridge's own keys", {
+  msg <- .el_form_item_update(list(id = "x"), label = "Name", error = "Taken")
+  expect_equal(msg[[".label"]], "Name")
+  expect_equal(msg[[".error"]], "Taken")
+  expect_named(.el_form_item_update(list(id = "x")), "id")
+})
+
+test_that("new choices end a remote search's loading state", {
+  sent <- capture_update(update_el_select, list(choices = c("a", "b")))
+  expect_true("loading" %in% sent)
 })

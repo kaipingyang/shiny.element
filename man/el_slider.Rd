@@ -125,7 +125,7 @@ An \code{htmltools} tagList with a Vue-managed slider component.
 Creates an Element UI slider with Vue instance, supporting single value and
 range modes, marks, vertical orientation, and optional numeric input box.
 }
-\section{Shiny input}{
+\section{Shiny inputs}{
 
 \verb{input$<id>} — Number (\code{range = FALSE}) or two-element array
 (\code{range = TRUE}), updated when the user finishes dragging.

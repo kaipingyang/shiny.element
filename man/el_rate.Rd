@@ -122,7 +122,7 @@ An \code{htmltools} tagList with a Vue-managed rate component.
 \description{
 A star-rating input. Supports half-stars, custom icons, and read-only display.
 }
-\section{Shiny input}{
+\section{Shiny inputs}{
 
 \verb{input$<id>} — numeric rating value (0 to \code{max}, increments of 0.5 when
 \code{allow_half = TRUE}).
