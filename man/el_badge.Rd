@@ -10,7 +10,8 @@ el_badge(
   max = NULL,
   is_dot = FALSE,
   hidden = FALSE,
-  type = NULL
+  type = NULL,
+  id = NULL
 )
 }
 \arguments{
@@ -27,9 +28,14 @@ shows \code{"<max>+"}. Only applies when \code{value} is numeric.}
 
 \item{type}{Badge colour type: \code{NULL} (red, default), \code{"primary"},
 \code{"success"}, \code{"warning"}, \code{"info"}, \code{"danger"}.}
+
+\item{id}{Give the badge an id and \code{\link[=update_el_badge]{update_el_badge()}} can change it -- a
+count of unread messages, say. A component inside is then folded into
+the badge's Vue instance, as for \code{\link[=el_tooltip]{el_tooltip()}}: it keeps reporting, but
+is reached through \code{\link[=update_vue_data]{update_vue_data()}} on the badge's id.}
 }
 \value{
-An \code{htmltools} tag.
+An \code{htmltools} tag, or with an \code{id} a Shiny UI element.
 }
 \description{
 Wraps any content with a numeric badge or red dot in the top-right corner.
@@ -39,5 +45,8 @@ When used without content, renders a standalone badge element.
 el_badge(el_button("btn1", "Messages"), value = 5)
 el_badge(el_button("btn2", "Alerts"),   value = 200, max = 99)
 el_badge(el_button("btn3", "Updates"),  is_dot = TRUE)
+
+# Updated from the server: update_el_badge(session, "unread", value = 7)
+el_badge(el_button("inbox", "Inbox"), value = 3, id = "unread")
 
 }

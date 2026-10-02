@@ -88,7 +88,9 @@
   // sends them: "options.methods.handleChange".
   function revive(obj, paths) {
     (paths || []).forEach(function(path) {
-      var parts = path.split('.'), o = obj;
+      // a dot inside a name arrives escaped, "a\\.b"
+      var parts = path.split(/(?<!\\)\./).map(function(p) { return p.replace(/\\\./g, '.'); });
+      var o = obj;
       for (var i = 0; i < parts.length - 1; i++) {
         if (o == null) return;
         o = o[parts[i]];
@@ -179,6 +181,9 @@
     var host = document.getElementById(id);
     var vm = host && host.hasAttribute('data-shiny-vue') ? mount(host) : null;
     if (!vm) { warn('update: no component with id "' + id + '"'); return; }
+    // A function in an update -- a new formatter, a form rule's validator --
+    // travels as source too
+    if (data['.evals']) { revive(data, data['.evals']); delete data['.evals']; }
     var rest = {};
     Object.keys(data).forEach(function(k) {
       if (k === 'id') return;

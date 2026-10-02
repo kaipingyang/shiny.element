@@ -19,9 +19,11 @@ el_form_field(
 \code{\link[=el_rule]{el_rule()}}s and validation messages refer to.}
 
 \item{type}{Control type: one of \code{"input"}, \code{"input-number"}, \code{"select"},
-\code{"radio-group"}, \code{"checkbox-group"}, \code{"switch"}, \code{"slider"},
-\code{"date-picker"}, \code{"time-picker"}, \code{"rate"}, \code{"cascader"} or
-\code{"color-picker"}.}
+\code{"radio-group"}, \code{"checkbox-group"}, \code{"checkbox"} (one box, \code{TRUE} or
+\code{FALSE}), \code{"switch"}, \code{"slider"}, \code{"date-picker"}, \code{"time-picker"},
+\code{"time-select"}, \code{"rate"}, \code{"cascader"}, \code{"cascader-panel"},
+\code{"color-picker"}, \code{"autocomplete"} or \code{"transfer"}. Their props go in
+\code{...}: a cascader's \code{options}, a transfer's \code{data}.}
 
 \item{label}{Label text.}
 
@@ -29,8 +31,9 @@ el_form_field(
 what \code{resetFields()} restores.}
 
 \item{choices}{Options for \code{"select"}, \code{"radio-group"} and
-\code{"checkbox-group"}. A named vector \code{c(Label = value)} or a list of
-\code{list(value=, label=)}.}
+\code{"checkbox-group"}; suggestions for \code{"autocomplete"}, filtered as the
+user types. A named vector \code{c(Label = value)} or a list of
+\code{list(value=, label=)}. For \code{"checkbox"}, the box's text is \code{label}.}
 
 \item{rules}{A single \code{\link[=el_rule]{el_rule()}} or a list of them.}
 

@@ -52,6 +52,11 @@
 #' @param width Component width, as a CSS unit -- `"200px"`, `"50%"`, or a
 #'   number taken as pixels. Element's own markup carries it, so it behaves
 #'   like the `width` argument of a Shiny input.
+#' @param option_template Markup drawn inside each option, in place of its
+#'   label -- Element's "custom template". The option is in reach as `opt`,
+#'   with any field its choice carries: `tags$span("{{ opt.label }}"),
+#'   tags$span(style = "float: right", "{{ opt.code }}")` for choices given
+#'   as `list(value =, label =, code =)`.
 #' @param slots Named list of Element slot contents, such as
 #'   `list(title = shiny::tags$b("Bold"))`. A shiny.element component
 #'   given here is absorbed rather than nested. For a scoped slot, write
@@ -76,6 +81,14 @@
 #' loading text until then.
 #'
 #' @examples
+#' # Each option drawn with a second field beside its label
+#' el_select("city", choices = list(
+#'   list(value = "bj", label = "Beijing", code = "PEK"),
+#'   list(value = "sh", label = "Shanghai", code = "SHA")),
+#'   option_template = htmltools::tagList(
+#'     htmltools::tags$span(style = "float: left", "{{ opt.label }}"),
+#'     htmltools::tags$span(style = "float: right; color: #8492a6", "{{ opt.code }}")))
+#'
 #' # Single-select from a named vector
 #' el_select("sel1",
 #'   choices  = c(Apple = "apple", Banana = "banana", Cherry = "cherry"),
@@ -138,6 +151,7 @@ el_select <- function(
     show_message = TRUE,
     inline_message = FALSE,
     width          = NULL,
+    option_template = NULL,
     slots          = NULL,
     value          = NULL,
     options        = NULL,
@@ -154,13 +168,15 @@ el_select <- function(
   # Options are rendered with v-for so update_el_select() can replace them.
   # Each carries its own `disabled`: the select's `disabled` argument turns off
   # the whole control, not one choice.
-  option_tag <- function(each) htmltools::tag("el-option", list(
+  # option_template is Element's "custom template": markup inside each
+  # el-option, with the option in reach as `opt`
+  option_tag <- function(each) htmltools::tag("el-option", c(list(
     "v-for"     = each,
     ":key"      = "opt.value",
     ":value"    = "opt.value",
     ":label"    = "opt.label",
     ":disabled" = "opt.disabled"
-  ))
+  ), if (!is.null(option_template)) list(option_template)))
   option_slot <- list(
     option_tag("opt in options"),
     htmltools::tag("el-option-group", list(

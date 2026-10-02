@@ -364,6 +364,9 @@
 #' @return `NULL`, invisibly.
 #' @keywords internal
 .el_send_update <- function(session, msg) {
+  # Functions travel as source, listed by path, as a component's options do
+  evals <- .el_js_paths(msg)
+  if (length(evals)) msg[[".evals"]] <- I(evals)
   session$sendCustomMessage("shinyVueUpdate", msg)
   invisible(NULL)
 }

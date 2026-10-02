@@ -11,6 +11,7 @@ el_link(
   underline = TRUE,
   disabled = FALSE,
   icon = NULL,
+  id = NULL,
   ...
 )
 }
@@ -29,17 +30,31 @@ el_link(
 \item{icon}{Icon class string (e.g. \code{"el-icon-edit"}). Placed before the
 label. \code{NULL} for none.}
 
-\item{...}{Additional HTML attributes passed to the \verb{<a>} tag.}
+\item{id}{Give the link an id and it reports its clicks, as
+\code{\link[shiny:actionLink]{shiny::actionLink()}} does: \verb{input$<id>} counts them, 0 on load, and
+\code{\link[=update_el_link]{update_el_link()}} changes it. Without one it is a plain link.}
+
+\item{...}{Additional HTML attributes passed to the \verb{<a>} tag (a plain
+link only).}
 }
 \value{
-An \code{htmltools} \verb{<a>} tag.
+An \code{htmltools} \verb{<a>} tag, or with an \code{id} a Shiny UI element.
 }
 \description{
 A styled hyperlink that follows Element UI's design language.
 }
+\section{Shiny inputs}{
+
+With an \code{id}, \verb{input$<id>} -- the number of clicks, as
+\code{\link[shiny:actionLink]{shiny::actionLink()}} reports it.
+}
+
 \examples{
 el_link("Visit GitHub", href = "https://github.com", type = "primary")
 el_link("Disabled", disabled = TRUE)
 el_link("With icon", icon = "el-icon-edit", type = "success")
+
+# An action link: input$more counts its clicks
+el_link("Show more", id = "more", type = "primary")
 
 }

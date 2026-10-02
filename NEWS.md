@@ -169,6 +169,19 @@ limitations article shows, needs no JavaScript.
   `filter_node_method` -- the label contains the text, ignoring case -- so
   `el_call(session, "tree", "filter", list(text))` needs no JavaScript;
   Element itself throws without one.
+* **More of upstream.** `el_checkbox()`, one box as `checkboxInput()` is,
+  with `indeterminate` for a "check all" box; `el_button_group()`, buttons
+  joined into one bar, each still reporting; an `id` on `el_badge()` or
+  `el_link()` makes it something the server changes (`update_el_badge()`,
+  `update_el_link()`), the link an action link; `el_select(option_template
+  =)`, Element's custom option template; `el_autocomplete(remote = TRUE)`,
+  suggestions from the server through `input$<id>_query`. In forms,
+  `el_rule()` takes Element's custom `validator` and the rest of
+  async-validator (`enum`, `whitespace`, `transform`), `el_form_field()`
+  every control Element's form holds -- `"checkbox"`, `"time-select"`,
+  `"autocomplete"`, `"transfer"`, `"cascader-panel"` added -- and
+  `update_el_form()` replaces the field list (`fields =`) or shows the
+  server's own errors (`errors =`). An update can carry `JS()` functions.
 * **Element's global config.** `el_page()` and `use_element()` take `size`
   and `z_index`, as `Vue.use(Element, {size, zIndex})` does; a labelled
   input's label follows the size too. Element's `display.css` -- the

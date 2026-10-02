@@ -96,6 +96,7 @@ el_widget <- function(id, markup, data, methods = NULL, watch = NULL,
   label_position <- match.arg(label_position)
   mounted_given <- mounted
   methods_given <- methods
+  watch_given   <- watch
 
   if (length(slots)) {
     filled     <- .el_slot_markup(slots)
@@ -161,15 +162,19 @@ el_widget <- function(id, markup, data, methods = NULL, watch = NULL,
   # The value goes through the binding alone. A change handler that also
   # sends it under the component's own id would send it twice -- and, for a
   # typed value, unconverted, overwriting the Date the binding delivers.
-  if (length(input) && length(methods)) {
+  if (length(input) && (length(methods) || length(watch))) {
     # '<id>' or '<id>:<type>', the second for a typed value sent directly
     pattern <- sprintf(
       "window\\.Shiny && Shiny\\.setInputValue && Shiny\\.setInputValue\\((['\"])%s(:[A-Za-z0-9_.]+)?\\1, [^;]*\\);\\s*",
       gsub("([.\\-])", "\\\\\\1", id))
-    methods <- lapply(methods, function(m) {
+    strip <- function(m) {
       if (!inherits(m, "JS_EVAL")) return(m)
       JS(gsub(pattern, "", as.character(m), perl = TRUE))
-    })
+    }
+    if (length(methods)) methods <- lapply(methods, strip)
+    # A watcher sending it too would bypass the binding's rate policy -- a
+    # debounced input reported on every keystroke
+    if (length(watch)) watch <- lapply(watch, strip)
   }
 
   options <- list(data = data)
@@ -220,6 +225,7 @@ el_widget <- function(id, markup, data, methods = NULL, watch = NULL,
   # typed value goes out under '<id>:<type>' so Shiny still converts it
   full <- options
   if (!is.null(methods_given)) full$methods <- methods_given
+  if (!is.null(watch_given)) full$watch <- watch_given
   full$mounted <- mounted_given
   if (!is.null(init) && !is.null(type) && length(input)) {
     names(init)[names(init) == id] <- paste0(id, ":", type)

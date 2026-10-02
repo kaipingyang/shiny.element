@@ -39,6 +39,7 @@
                              arrow = c("always", "hover", "never"),
                              direction = c("horizontal", "vertical"), type = "card"),
     el_cascader       = list(size = sizes),
+    el_checkbox       = list(size = sizes),
     el_checkbox_group = list(size = sizes),
     el_color_picker   = list(color_format = c("hsl", "hsv", "hex", "rgb")),
     el_container      = list(direction = c("horizontal", "vertical")),

@@ -902,6 +902,66 @@ test_that("an input absorbed into a wrapper still reports its changes", {
   expect_equal(bdump("act_dump")[["abs_sw"]], "TRUE")
 })
 
+# ── components added in the upstream pass ────────────────────────────────────
+
+test_that("el_checkbox is one box, reporting TRUE or FALSE", {
+  skip_if_no_browser()
+  expect_equal(bdump("new_dump")[["cb1"]], "FALSE")
+  bclick("#cb1_container .el-checkbox", wait = 2)
+  expect_equal(bdump("new_dump")[["cb1"]], "TRUE")
+  bclick("#cb1_container .el-checkbox", wait = 2)
+  bclick("#cb_set", wait = 2)
+  expect_equal(bdump("new_dump")[["cb1"]], "TRUE")
+  expect_equal(bev("document.querySelector('#cb1_container .el-checkbox__label').textContent.trim()"),
+               "Agreed")
+})
+
+test_that("a button group joins its buttons, each still reporting", {
+  skip_if_no_browser()
+  # Element's group styles direct children: the buttons are inside it, not
+  # behind hosts of their own
+  expect_equal(bev("document.querySelectorAll('#grp_container .el-button-group > .el-button').length"), 2)
+  bclick("#grp_container .el-button-group > .el-button", wait = 2)
+  expect_equal(bdump("new_dump")[["grp_a"]], "1")
+})
+
+test_that("a badge with an id is updated from the server", {
+  skip_if_no_browser()
+  expect_equal(bev("document.querySelector('#bdg_container .el-badge__content').textContent.trim()"), "3")
+  bclick("#bdg_set", wait = 2)
+  expect_equal(bev("document.querySelector('#bdg_container .el-badge__content').textContent.trim()"), "42")
+})
+
+test_that("a link with an id is an action link", {
+  skip_if_no_browser()
+  expect_equal(bdump("new_dump")[["lnk"]], "0")
+  bclick("#lnk_container .el-link", wait = 2)
+  expect_equal(bdump("new_dump")[["lnk"]], "1")
+})
+
+test_that("a remote autocomplete shows what the server suggests", {
+  skip_if_no_browser()
+  bev("(function(){var i=document.querySelector('#ac_remote_container input'); i.focus(); i.value='zz'; i.dispatchEvent(new Event('input'));})()")
+  Sys.sleep(2.5)
+  expect_match(bev("Array.from(document.querySelectorAll('.el-autocomplete-suggestion li')).map(function(e){return e.textContent.trim()}).join('|')"),
+               "zz-x|zz-y", fixed = TRUE)
+  bev("document.body.click()")
+})
+
+test_that("a form's fields change from the server, and its errors and validators work", {
+  skip_if_no_browser()
+  # Element's custom validator, a JS() function: 1 is not even
+  bclick("#dyn_check", wait = 2)
+  expect_equal(bdump("new_dump")[["dyn_valid"]], "FALSE")
+  expect_match(bev("document.querySelector('#dyn_container').innerText"), "An even number")
+  bclick("#dyn_add", wait = 2)
+  vals <- bdump("new_dump")
+  expect_equal(vals[["dyn_fields"]], "email,phone,even")
+  expect_equal(vals[["dyn_phone"]], "555")
+  bclick("#dyn_err", wait = 2)
+  expect_match(bev("document.querySelector('#dyn_container').innerText"), "Taken")
+})
+
 # ── the server answering ──────────────────────────────────────────────────────
 
 test_that("update_el_*(label, error) redraw the form item, as update*Input() does", {

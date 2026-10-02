@@ -6,11 +6,14 @@
 #' @param value Initial text.
 #' @param suggestions Suggestions to offer, as a character vector or a list of
 #'   `list(value =, ...)`. Filtered in the browser on what has been typed.
-#'   For suggestions that come from the server, leave this empty and use
-#'   `fetch_suggestions`.
-#' @param fetch_suggestions `JS()` function
-#'   `function(queryString, callback)` that calls `callback(results)`. Use it
-#'   when the list cannot be sent up front.
+#'   For suggestions that come from the server, use `remote = TRUE`.
+#' @param remote Ask the server for suggestions as the user types, as
+#'   Element's `fetch-suggestions` asks a function: the text arrives as
+#'   `input$<id>_query`, and [update_el_autocomplete()] with `suggestions`
+#'   answers it -- the list shows what the server sent.
+#' @param fetch_suggestions [JS()] function
+#'   `function(queryString, callback)` that calls `callback(results)`, to
+#'   fetch in the browser instead.
 #' @param placeholder Placeholder text.
 #' @param clearable Whether to show a clear button.
 #' @param disabled Whether the input is disabled.
@@ -42,6 +45,7 @@
 #' - `input$<id>` -- the current text.
 #' - `input$<id>_select` -- the suggestion just picked.
 #' - `input$<id>_change` -- fires when the text changes.
+#' - `input$<id>_query` -- with `remote = TRUE`, the text to suggest for.
 #'
 #' @section Element methods:
 #' Callable with [el_call()]:
@@ -60,6 +64,7 @@
 el_autocomplete <- function(id = NULL,
                             value = "",
                             suggestions = NULL,
+                            remote = FALSE,
                             fetch_suggestions = NULL,
                             placeholder = NULL,
                             clearable = NULL,
@@ -95,6 +100,15 @@ el_autocomplete <- function(id = NULL,
   # Local filtering over `suggestions` unless the caller supplies their own
   fetcher <- if (!is.null(fetch_suggestions)) {
     fetch_suggestions
+  } else if (isTRUE(remote)) {
+    # The callback waits for the server's suggestions; the watcher below
+    # hands them over when they arrive
+    JS(sprintf(paste0(
+      "function(queryString, callback) {",
+      "  if (!(window.Shiny && Shiny.setInputValue)) { callback([]); return; }",
+      "  this._elPending = callback;",
+      "  window.Shiny && Shiny.setInputValue && Shiny.setInputValue('%s_query', queryString || '', {priority: 'event'});",
+      "}"), ns_id))
   } else {
     JS(
       "function(queryString, callback) {",
@@ -160,16 +174,16 @@ el_autocomplete <- function(id = NULL,
       popperClass         = .el_or_na(popper_class),
       popperAppendToBody  = .el_or_na(popper_append_to_body)
     ),
-    methods = c(events$methods, list(
-      fetchSuggestions = fetcher,
-      handleInput = JS(sprintf(
-        "function(v) { window.Shiny && Shiny.setInputValue && Shiny.setInputValue('%s', v); }", ns_id
-      ))
-    )),
+    methods = c(events$methods, list(fetchSuggestions = fetcher)),
     watch = list(
+      # Kept for when the autocomplete is absorbed into a wrapper and has no
+      # binding; el_widget() strips it otherwise
       value = JS(sprintf(
         "function(newVal) { window.Shiny && Shiny.setInputValue && Shiny.setInputValue('%s', newVal); }", ns_id
-      ))
+      )),
+      suggestions = JS(paste0(
+        "function(v) { var cb = this._elPending; ",
+        "if (cb) { this._elPending = null; cb(v); } }"))
     ),
     mounted    = .el_mounted_init(stats::setNames("value", ns_id)),
     width      = width,

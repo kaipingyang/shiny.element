@@ -251,6 +251,26 @@ ui <- el_page(
   el_switch("lab_on", label = "Notify", label_position = "left"),
   actionButton("val_go", "validate"),
 
+  # Components added in the upstream pass
+  el_checkbox("cb1", "I agree"),
+  actionButton("cb_set", "set checkbox"),
+  el_button_group(el_button("grp_a", "A"), el_button("grp_b", "B"), id = "grp"),
+  el_badge(el_button("bdg_btn", "Inbox"), value = 3, id = "bdg"),
+  actionButton("bdg_set", "set badge"),
+  el_link("More", id = "lnk", type = "primary"),
+  el_autocomplete("ac_remote", remote = TRUE),
+  el_form(id = "dyn", submit_label = NULL,
+    el_form_field("email", "input", label = "Email"),
+    el_form_field("even", "input-number", label = "Even", value = 1,
+                  rules = el_rule(validator = JS(
+                    "function(rule, value, callback) {",
+                    "  value % 2 === 0 ? callback() : callback(new Error('An even number'));",
+                    "}"), trigger = "change"))),
+  actionButton("dyn_add", "add field"),
+  actionButton("dyn_err", "server error"),
+  actionButton("dyn_check", "validate"),
+  verbatimTextOutput("new_dump"),
+
   # An action button, and an input absorbed into a wrapper
   el_button("act_btn", "Act"),
   actionButton("tree_filter", "filter tree"),
@@ -288,6 +308,27 @@ server <- function(input, output, session) {
     observeEvent(input$val_go, iv$enable())
   }
 
+  observeEvent(input$cb_set, update_el_checkbox(session, "cb1", value = TRUE, label = "Agreed"))
+  observeEvent(input$bdg_set, update_el_badge(session, "bdg", value = 42))
+  observeEvent(input$ac_remote_query, {
+    update_el_autocomplete(session, "ac_remote",
+                           suggestions = paste0(input$ac_remote_query, c("-x", "-y")))
+  })
+  observeEvent(input$dyn_add, update_el_form(session, "dyn", fields = list(
+    el_form_field("email", "input", label = "Email"),
+    el_form_field("phone", "input", label = "Phone", value = "555"),
+    el_form_field("even", "input-number", label = "Even", value = 1)
+  )))
+  observeEvent(input$dyn_err, update_el_form(session, "dyn", errors = list(email = "Taken")))
+  observeEvent(input$dyn_check, el_form_validate(session, "dyn"))
+  output$new_dump <- renderPrint({
+    cat("cb1 =", format(input$cb1), "\n")
+    cat("grp_a =", format(input$grp_a), "\n")
+    cat("lnk =", format(input$lnk), "\n")
+    cat("dyn_fields =", paste(names(input$dyn), collapse = ","), "\n")
+    cat("dyn_phone =", format(input$dyn$phone), "\n")
+    cat("dyn_valid =", format(input$dyn_valid), "\n")
+  })
   act_fired <- reactiveVal(0)
   observeEvent(input$act_btn, act_fired(act_fired() + 1))
   output$act_dump <- renderPrint({

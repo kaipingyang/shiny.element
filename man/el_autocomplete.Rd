@@ -8,6 +8,7 @@ el_autocomplete(
   id = NULL,
   value = "",
   suggestions = NULL,
+  remote = FALSE,
   fetch_suggestions = NULL,
   placeholder = NULL,
   clearable = NULL,
@@ -45,12 +46,16 @@ el_autocomplete(
 
 \item{suggestions}{Suggestions to offer, as a character vector or a list of
 \code{list(value =, ...)}. Filtered in the browser on what has been typed.
-For suggestions that come from the server, leave this empty and use
-\code{fetch_suggestions}.}
+For suggestions that come from the server, use \code{remote = TRUE}.}
 
-\item{fetch_suggestions}{\code{JS()} function
-\verb{function(queryString, callback)} that calls \code{callback(results)}. Use it
-when the list cannot be sent up front.}
+\item{remote}{Ask the server for suggestions as the user types, as
+Element's \code{fetch-suggestions} asks a function: the text arrives as
+\verb{input$<id>_query}, and \code{\link[=update_el_autocomplete]{update_el_autocomplete()}} with \code{suggestions}
+answers it -- the list shows what the server sent.}
+
+\item{fetch_suggestions}{\code{\link[=JS]{JS()}} function
+\verb{function(queryString, callback)} that calls \code{callback(results)}, to
+fetch in the browser instead.}
 
 \item{placeholder}{Placeholder text.}
 
@@ -133,6 +138,7 @@ A text input that suggests as you type.
 \item \verb{input$<id>} -- the current text.
 \item \verb{input$<id>_select} -- the suggestion just picked.
 \item \verb{input$<id>_change} -- fires when the text changes.
+\item \verb{input$<id>_query} -- with \code{remote = TRUE}, the text to suggest for.
 }
 }
 

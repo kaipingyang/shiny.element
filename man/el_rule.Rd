@@ -12,7 +12,11 @@ el_rule(
   pattern = NULL,
   type = NULL,
   message = NULL,
-  trigger = "blur"
+  trigger = "blur",
+  enum = NULL,
+  whitespace = NULL,
+  validator = NULL,
+  transform = NULL
 )
 }
 \arguments{
@@ -24,29 +28,40 @@ el_rule(
 
 \item{pattern}{A regular expression the value must match.}
 
-\item{type}{Value type to check: \code{"string"}, \code{"number"}, \code{"email"},
-\code{"url"}, \code{"date"}, \code{"array"} or \code{"object"}.}
+\item{type}{Value type to check: \code{"string"}, \code{"number"}, \code{"boolean"},
+\code{"integer"}, \code{"float"}, \code{"array"}, \code{"object"}, \code{"enum"}, \code{"date"},
+\code{"url"}, \code{"hex"}, \code{"email"} or \code{"any"}.}
 
 \item{message}{Text shown when the rule fails.}
 
-\item{trigger}{When to run the rule: \code{"blur"} or \code{"change"}.}
+\item{trigger}{When to run the rule: \code{"blur"}, \code{"change"}, or both as
+\code{c("blur", "change")}.}
+
+\item{enum}{Allowed values, with \code{type = "enum"}.}
+
+\item{whitespace}{Whether a value of only whitespace counts as empty, with
+\code{required = TRUE}.}
+
+\item{validator}{A \code{\link[=JS]{JS()}} function \verb{function(rule, value, callback)} that
+calls \code{callback()} when the value is valid and \verb{callback(new Error("message"))} when it is not -- Element's custom rule. A check only
+the server can make goes through \code{\link[=update_el_form]{update_el_form()}}'s \code{errors} instead.}
+
+\item{transform}{A \code{\link[=JS]{JS()}} function turning the value into what the rule
+checks, such as \verb{function(v) \{ return v.trim(); \}}.}
 }
 \value{
 A rule, for \code{\link[=el_form_field]{el_form_field()}}'s \code{rules} argument.
 }
 \description{
 Builds one async-validator rule, the format Element UI's form expects.
-Custom \code{validator} functions are not supported: they are JavaScript
-functions and cannot be expressed from R.
 }
 \examples{
-el_rule(required = TRUE, message = "Name is required")
-el_rule(min = 2, max = 20, message = "Between 2 and 20 characters")
+el_rule(required = TRUE, message = "Please enter your name")
 el_rule(type = "email", message = "Not a valid email", trigger = "blur")
-
-# Several rules on one field
-list(
-  el_rule(required = TRUE, message = "Required"),
-  el_rule(min = 6, message = "At least 6 characters")
-)
+el_rule(type = "enum", enum = c("a", "b"), message = "a or b")
+# Element's custom validator
+el_rule(validator = JS(
+  "function(rule, value, callback) {",
+  "  value \% 2 === 0 ? callback() : callback(new Error('An even number'));",
+  "}"), trigger = "change")
 }

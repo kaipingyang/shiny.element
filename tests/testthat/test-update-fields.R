@@ -53,6 +53,9 @@ cases <- list(
   list("update_el_button",         quote(el_button("x"))),
   list("update_el_tag",            quote(el_tag("x"))),
   list("update_el_progress",       quote(el_progress("x"))),
+  list("update_el_checkbox",       quote(el_checkbox("x", "Agree"))),
+  list("update_el_link",           quote(el_link("More", id = "x"))),
+  list("update_el_badge",          quote(el_badge(value = 1, id = "x"))),
   list("update_el_dropdown",       quote(el_dropdown("x", items = list(list(command = "c", label = "L"))))),
   list("update_el_table",          quote(el_table(id = "x", data = head(iris, 2))),
        list(data = head(iris, 3), border = FALSE, selection = TRUE))

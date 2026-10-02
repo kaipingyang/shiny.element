@@ -129,9 +129,13 @@ NULL
     css <- if (all(names(vars) %in% brand)) .el_recolour(vars) else .el_compile(vars)
     writeLines(css, css_file)
   }
+  # Later than Element's own, so it wins; and different for every theme, so
+  # its URL is too -- a browser holding one theme's stylesheet under
+  # element-ui-2.15.14.1/ showed it again for the next
+  stamp <- sum(utf8ToInt(key) * seq_len(nchar(key))) %% 999983
   htmltools::htmlDependency(
     name       = "element-ui",
-    version    = "2.15.14.1",
+    version    = paste0("2.15.14.1.", stamp),
     src        = dir,
     script     = "index.js",
     stylesheet = c("theme-chalk/index.css", "theme-chalk/display.css"),

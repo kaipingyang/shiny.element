@@ -9,7 +9,9 @@ update_el_form(
   id,
   model = NULL,
   rules = NULL,
-  label_width = NULL
+  label_width = NULL,
+  fields = NULL,
+  errors = NULL
 )
 }
 \arguments{
@@ -25,6 +27,16 @@ list only changes the fields it names.}
 keyed by \code{prop}. Replaces the rule set.}
 
 \item{label_width}{New label column width.}
+
+\item{fields}{The form's fields, as \code{\link[=el_form_field]{el_form_field()}}s -- the whole list,
+in order, so a field can be added, removed or moved: Element's "add or
+delete form items dynamically". A field already in the form keeps what
+was entered; a new one starts from its \code{value}; a removed one leaves the
+model. Each field's rules come with it.}
+
+\item{errors}{Error messages from the server, as a named list keyed by
+\code{prop} -- \code{list(email = "That address is taken")} -- shown on the field
+as Element's \code{error} shows them. \code{""} clears one.}
 }
 \value{
 Called for its side effect; returns \code{NULL} invisibly.
@@ -36,5 +48,8 @@ Update an Element UI Form
 if (interactive()) {
   # Prefill the form from the server
   update_el_form(session, "signup", model = list(name = "Ada", age = 36))
+
+  # A check only the server can make
+  update_el_form(session, "signup", errors = list(email = "That address is taken"))
 }
 }

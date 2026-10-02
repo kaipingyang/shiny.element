@@ -28,7 +28,13 @@
   "time-picker"    = list(tag = "el-time-picker"),
   "rate"           = list(tag = "el-rate"),
   "cascader"       = list(tag = "el-cascader"),
-  "color-picker"   = list(tag = "el-color-picker")
+  "cascader-panel" = list(tag = "el-cascader-panel"),
+  "color-picker"   = list(tag = "el-color-picker"),
+  "time-select"    = list(tag = "el-time-select"),
+  "autocomplete"   = list(tag = "el-autocomplete"),
+  "transfer"       = list(tag = "el-transfer"),
+  # One box, true or false -- "I agree to the terms"
+  "checkbox"       = list(tag = "el-checkbox")
 )
 
 #' Empty value for a field type
@@ -44,8 +50,11 @@
     "slider"         = 0,
     "rate"           = 0,
     "switch"         = FALSE,
+    "checkbox"       = FALSE,
     "checkbox-group" = list(),
     "cascader"       = list(),
+    "cascader-panel" = list(),
+    "transfer"       = list(),
     ""
   )
 }
@@ -96,29 +105,37 @@
 #' Declare a validation rule
 #'
 #' Builds one async-validator rule, the format Element UI's form expects.
-#' Custom `validator` functions are not supported: they are JavaScript
-#' functions and cannot be expressed from R.
 #'
 #' @param required Whether the field must be filled.
 #' @param min,max Minimum and maximum: length for strings, value for numbers.
 #' @param len Exact length.
 #' @param pattern A regular expression the value must match.
-#' @param type Value type to check: `"string"`, `"number"`, `"email"`,
-#'   `"url"`, `"date"`, `"array"` or `"object"`.
+#' @param type Value type to check: `"string"`, `"number"`, `"boolean"`,
+#'   `"integer"`, `"float"`, `"array"`, `"object"`, `"enum"`, `"date"`,
+#'   `"url"`, `"hex"`, `"email"` or `"any"`.
+#' @param enum Allowed values, with `type = "enum"`.
+#' @param whitespace Whether a value of only whitespace counts as empty, with
+#'   `required = TRUE`.
+#' @param validator A [JS()] function `function(rule, value, callback)` that
+#'   calls `callback()` when the value is valid and `callback(new
+#'   Error("message"))` when it is not -- Element's custom rule. A check only
+#'   the server can make goes through [update_el_form()]'s `errors` instead.
+#' @param transform A [JS()] function turning the value into what the rule
+#'   checks, such as `function(v) { return v.trim(); }`.
 #' @param message Text shown when the rule fails.
-#' @param trigger When to run the rule: `"blur"` or `"change"`.
+#' @param trigger When to run the rule: `"blur"`, `"change"`, or both as
+#'   `c("blur", "change")`.
 #' @return A rule, for [el_form_field()]'s `rules` argument.
 #' @export
 #' @examples
-#' el_rule(required = TRUE, message = "Name is required")
-#' el_rule(min = 2, max = 20, message = "Between 2 and 20 characters")
+#' el_rule(required = TRUE, message = "Please enter your name")
 #' el_rule(type = "email", message = "Not a valid email", trigger = "blur")
-#'
-#' # Several rules on one field
-#' list(
-#'   el_rule(required = TRUE, message = "Required"),
-#'   el_rule(min = 6, message = "At least 6 characters")
-#' )
+#' el_rule(type = "enum", enum = c("a", "b"), message = "a or b")
+#' # Element's custom validator
+#' el_rule(validator = JS(
+#'   "function(rule, value, callback) {",
+#'   "  value % 2 === 0 ? callback() : callback(new Error('An even number'));",
+#'   "}"), trigger = "change")
 el_rule <- function(required = NULL,
                     min = NULL,
                     max = NULL,
@@ -126,16 +143,29 @@ el_rule <- function(required = NULL,
                     pattern = NULL,
                     type = NULL,
                     message = NULL,
-                    trigger = "blur") {
+                    trigger = "blur",
+                    enum = NULL,
+                    whitespace = NULL,
+                    validator = NULL,
+                    transform = NULL) {
+  if (!is.null(type)) {
+    type <- match.arg(type, c("string", "number", "boolean", "method", "regexp",
+                              "integer", "float", "array", "object", "enum",
+                              "date", "url", "hex", "email", "any"))
+  }
   rule <- list(
-    required = required,
-    min      = min,
-    max      = max,
-    len      = len,
-    pattern  = pattern,
-    type     = type,
-    message  = message,
-    trigger  = trigger
+    required   = required,
+    min        = min,
+    max        = max,
+    len        = len,
+    pattern    = pattern,
+    type       = type,
+    enum       = if (!is.null(enum)) as.list(enum),
+    whitespace = whitespace,
+    validator  = validator,
+    transform  = transform,
+    message    = message,
+    trigger    = if (length(trigger) > 1) as.list(trigger) else trigger
   )
   rule[!vapply(rule, is.null, logical(1))]
 }
@@ -145,15 +175,18 @@ el_rule <- function(required = NULL,
 #' @param prop Field name. Keys the form's model and is what
 #'   [el_rule()]s and validation messages refer to.
 #' @param type Control type: one of `"input"`, `"input-number"`, `"select"`,
-#'   `"radio-group"`, `"checkbox-group"`, `"switch"`, `"slider"`,
-#'   `"date-picker"`, `"time-picker"`, `"rate"`, `"cascader"` or
-#'   `"color-picker"`.
+#'   `"radio-group"`, `"checkbox-group"`, `"checkbox"` (one box, `TRUE` or
+#'   `FALSE`), `"switch"`, `"slider"`, `"date-picker"`, `"time-picker"`,
+#'   `"time-select"`, `"rate"`, `"cascader"`, `"cascader-panel"`,
+#'   `"color-picker"`, `"autocomplete"` or `"transfer"`. Their props go in
+#'   `...`: a cascader's `options`, a transfer's `data`.
 #' @param label Label text.
 #' @param value Initial value. Defaults to the type's empty value, which is also
 #'   what `resetFields()` restores.
 #' @param choices Options for `"select"`, `"radio-group"` and
-#'   `"checkbox-group"`. A named vector `c(Label = value)` or a list of
-#'   `list(value=, label=)`.
+#'   `"checkbox-group"`; suggestions for `"autocomplete"`, filtered as the
+#'   user types. A named vector `c(Label = value)` or a list of
+#'   `list(value=, label=)`. For `"checkbox"`, the box's text is `label`.
 #' @param rules A single [el_rule()] or a list of them.
 #' @param ... Further props passed to the control, e.g. `placeholder`,
 #'   `min`, `max`, `disabled`. Names are converted to camelCase.
@@ -181,6 +214,17 @@ el_form_field <- function(prop,
 
   props <- list(...)
   if (length(props)) names(props) <- .el_camel(names(props))
+  if (identical(type, "autocomplete") && is.null(props$fetchSuggestions)) {
+    # Element's autocomplete asks a function for its suggestions; this one
+    # filters the choices, as el_autocomplete() does
+    words <- vapply(.el_normalize_choices(choices), function(o) as.character(o$value), "")
+    props$fetchSuggestions <- JS(sprintf(paste0(
+      "function(q, cb) { var all = %s; q = (q || '').toLowerCase(); ",
+      "cb(all.filter(function(w) { return !q || w.toLowerCase().indexOf(q) === 0; })",
+      ".map(function(w) { return {value: w}; })); }"),
+      jsonlite::toJSON(unname(words))))
+    choices <- NULL
+  }
 
   field <- list(
     prop    = prop,
@@ -190,6 +234,11 @@ el_form_field <- function(prop,
     value   = if (is.null(value)) .el_form_empty_value(type) else value,
     rules   = .el_normalize_rules(rules)
   )
+  if (identical(type, "checkbox")) {
+    # One box: Shiny's checkboxInput() label is the box's own text
+    field$text  <- label
+    field$label <- NULL
+  }
   if (!is.null(spec$option)) {
     field$optionTag <- spec$option
     field$options   <- .el_form_options(choices, spec$option)
@@ -370,6 +419,7 @@ el_form <- function(...,
            '<span v-else>{{scope.error}}</span>',
            '</div></template>'),
     '<component :is="f.tag" v-model="model[f.prop]" v-bind="f.props">',
+    '<template v-if="f.text">{{ f.text }}</template>',
     '<component v-for="o in (f.options || [])" :is="f.optionTag" :key="o.label" ',
     ':label="o.label" :value="o.value">{{ o.text }}</component>',
     '</component>',
@@ -435,6 +485,20 @@ el_form <- function(...,
         # merged key by key, so fields not mentioned keep their values
         "if (d.model) { Object.keys(d.model).forEach(function(k) { ",
         "self.$set(self.model, k, d.model[k]); }); delete d.model; } ",
+        # The whole field list: kept values stay, new fields start from
+        # their own, removed ones leave the model, rules travel with fields
+        "if (d['.fields']) { var model = {}, rules = {}; ",
+        "d['.fields'].forEach(function(f) { ",
+        "model[f.prop] = Object.prototype.hasOwnProperty.call(self.model, f.prop) ? ",
+        "self.model[f.prop] : f.value; if (f.rules) rules[f.prop] = f.rules; ",
+        "delete f.value; delete f.rules; }); ",
+        "self.model = model; self.rules = rules; self.fields = d['.fields']; ",
+        "delete d['.fields']; } ",
+        # Element's error prop on each field: the form item shows it at once
+        "if (d['.errors']) { Object.keys(d['.errors']).forEach(function(k) { ",
+        "self.fields.forEach(function(f, i) { if (f.prop === k) ",
+        "self.$set(self.fields[i], 'error', d['.errors'][k] || ''); }); }); ",
+        "delete d['.errors']; } ",
         "if (action === 'validate') self.handleSubmit(); ",
         "else if (action === 'reset') self.handleReset(); ",
         "else if (action === 'clearValidate') { ",
@@ -464,17 +528,30 @@ el_form <- function(...,
 #' @param rules New validation rules, as a named list of [el_rule()] lists
 #'   keyed by `prop`. Replaces the rule set.
 #' @param label_width New label column width.
+#' @param fields The form's fields, as [el_form_field()]s -- the whole list,
+#'   in order, so a field can be added, removed or moved: Element's "add or
+#'   delete form items dynamically". A field already in the form keeps what
+#'   was entered; a new one starts from its `value`; a removed one leaves the
+#'   model. Each field's rules come with it.
+#' @param errors Error messages from the server, as a named list keyed by
+#'   `prop` -- `list(email = "That address is taken")` -- shown on the field
+#'   as Element's `error` shows them. `""` clears one.
 #' @return Called for its side effect; returns `NULL` invisibly.
 #' @export
 #' @examples
 #' if (interactive()) {
 #'   # Prefill the form from the server
 #'   update_el_form(session, "signup", model = list(name = "Ada", age = 36))
+#'
+#'   # A check only the server can make
+#'   update_el_form(session, "signup", errors = list(email = "That address is taken"))
 #' }
 update_el_form <- function(session = shiny::getDefaultReactiveDomain(), id,
                            model = NULL,
                            rules = NULL,
-                           label_width = NULL) {
+                           label_width = NULL,
+                           fields = NULL,
+                           errors = NULL) {
   .el_check_session(session)
   ns_id <- session$ns(id)
   msg   <- list(id = ns_id)
@@ -484,6 +561,8 @@ update_el_form <- function(session = shiny::getDefaultReactiveDomain(), id,
     msg$rules <- lapply(rules, .el_normalize_rules)
   }
   if (!is.null(label_width)) msg$labelWidth <- label_width
+  if (!is.null(fields)) msg$.fields <- unname(fields)
+  if (!is.null(errors)) msg$.errors <- as.list(errors)
 
   .el_send_update(session, msg)
   invisible(NULL)

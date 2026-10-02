@@ -41,6 +41,7 @@ el_select(
   show_message = TRUE,
   inline_message = FALSE,
   width = NULL,
+  option_template = NULL,
   slots = NULL,
   value = NULL,
   options = NULL,
@@ -144,6 +145,11 @@ whether beside the component rather than under it. Element's
 number taken as pixels. Element's own markup carries it, so it behaves
 like the \code{width} argument of a Shiny input.}
 
+\item{option_template}{Markup drawn inside each option, in place of its
+label -- Element's "custom template". The option is in reach as \code{opt},
+with any field its choice carries: \verb{tags$span("\{\{ opt.label \}\}"), tags$span(style = "float: right", "\{\{ opt.code \}\}")} for choices given
+as \code{list(value =, label =, code =)}.}
+
 \item{slots}{Named list of Element slot contents, such as
 \code{list(title = shiny::tags$b("Bold"))}. A shiny.element component
 given here is absorbed rather than nested. For a scoped slot, write
@@ -183,6 +189,14 @@ loading text until then.
 }
 
 \examples{
+# Each option drawn with a second field beside its label
+el_select("city", choices = list(
+  list(value = "bj", label = "Beijing", code = "PEK"),
+  list(value = "sh", label = "Shanghai", code = "SHA")),
+  option_template = htmltools::tagList(
+    htmltools::tags$span(style = "float: left", "{{ opt.label }}"),
+    htmltools::tags$span(style = "float: right; color: #8492a6", "{{ opt.code }}")))
+
 # Single-select from a named vector
 el_select("sel1",
   choices  = c(Apple = "apple", Banana = "banana", Cherry = "cherry"),

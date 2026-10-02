@@ -76,6 +76,7 @@ reference:
       - el_input_number
       - el_select
       - el_radio_group
+      - el_checkbox
       - el_checkbox_group
       - el_switch
       - el_slider
@@ -89,6 +90,7 @@ reference:
       - starts_with("update_el_input")
       - update_el_select
       - update_el_radio_group
+      - update_el_checkbox
       - update_el_checkbox_group
       - update_el_switch
       - update_el_slider
@@ -136,6 +138,7 @@ reference:
       - el_popconfirm
       - update_el_popconfirm
       - el_button
+      - el_button_group
       - el_tag
       - el_alert
       - el_progress
@@ -150,6 +153,8 @@ reference:
       - el_icon
       - update_el_button
       - update_el_tag
+      - update_el_badge
+      - update_el_link
       - update_el_alert
       - update_el_progress
       - update_el_table

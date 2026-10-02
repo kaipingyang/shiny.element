@@ -29,7 +29,7 @@ test_that("Element's own theme changes nothing", {
 
 test_that("a brand colour recolours the shipped stylesheet", {
   dep <- element_dep(el_page(theme = el_theme(primary = "#7c3aed")))
-  expect_equal(dep$version, "2.15.14.1")
+  expect_match(dep$version, "^2\\.15\\.14\\.1\\.")
   css <- css_of(dep)
   expect_match(css, "#7c3aed", fixed = TRUE)
   expect_false(grepl("#409eff", css, ignore.case = TRUE))
@@ -60,4 +60,11 @@ test_that("Element variables are checked by name, and use_element() takes the th
   expect_equal(unname(.el_element_vars(list("$--font-size-base" = "13px"))), "13px")
   dep <- element_dep(htmltools::tagList(use_element(theme = el_theme(danger = "#d63384"))))
   expect_match(css_of(dep), "#d63384", fixed = TRUE)
+})
+
+test_that("each theme's stylesheet has its own URL", {
+  a <- element_dep(el_page(theme = el_theme(primary = "#7c3aed")))
+  b <- element_dep(el_page(theme = el_theme(primary = "#0f766e")))
+  expect_false(identical(a$version, b$version))
+  expect_true(numeric_version(a$version) > numeric_version("2.15.14"))
 })
