@@ -5,12 +5,12 @@
 \title{Update Element UI Popover}
 \usage{
 update_el_popover(
-  visible = NULL,
   session = shiny::getDefaultReactiveDomain(),
   id,
   title = NULL,
   content = NULL,
-  disabled = NULL
+  disabled = NULL,
+  visible = NULL
 )
 }
 \arguments{

@@ -128,5 +128,26 @@ test_that("the Vue 3 / Element Plus bridge keeps the Shiny contract", {
   js("document.documentElement.classList.add('dark')")
   expect_false(identical(js("getComputedStyle(document.documentElement).getPropertyValue('--el-bg-color')"), light_bg))
 
+  # ── components Element Plus added: mounted, reporting, interactive
+  v <- vals()
+  expect_equal(v[["seg"]], "w")
+  expect_equal(v[["itag"]], "a,b")
+  expect_equal(v[["sv2"]], "Option 5")
+  expect_equal(v[["tsel"]], "web")
+  expect_equal(v[["ctag"]], "TRUE")
+  js("[].filter.call(document.querySelectorAll('#seg .el-segmented__item'), function(e){ return /Day/.test(e.innerText); })[0].click()")
+  js("document.querySelector('#ctag .el-check-tag').click()")
+  Sys.sleep(1.5)
+  v <- vals()
+  expect_equal(v[["seg"]], "d")
+  expect_equal(v[["ctag"]], "FALSE")
+  # a virtualized table draws a few of its 5000 rows, not all
+  rows <- count("#tv2 .el-table-v2__row")
+  expect_gt(rows, 0)
+  expect_lt(rows, 100)
+  # a container folds its buttons in, and they still report
+  js("document.querySelector('#sp2 .el-button, [id^=el_space] .el-button:nth-of-type(2)') && 0")
+  expect_equal(count(".el-space .el-button"), 2)
+
   expect_length(errors, 0)
 })

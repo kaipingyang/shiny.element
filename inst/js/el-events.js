@@ -94,6 +94,11 @@
   sv.setInvalid = function (host, message) {
     var item = formItem(host), where = messageParent(item, host);
     item.classList.add('el-form-item', 'is-error');
+    // Element Plus frames a failed control from within the item's content
+    // (.el-form-item.is-error .el-form-item__content .el-input__wrapper); an
+    // unlabelled component's root box stands in for it
+    var root = host.querySelector(':scope > [data-shiny-vue-root]');
+    if (item === host && root) root.classList.add('el-form-item__content');
     // A message given with `error` is the page's first state; as in Element,
     // validation replaces it
     var own = where.querySelector(':scope > .el-form-item__error:not([data-shiny-vue-invalid])');
@@ -115,6 +120,8 @@
     var item = formItem(host), where = messageParent(item, host);
     item.classList.remove('is-error');
     if (item === host) item.classList.remove('el-form-item');
+    var root = host.querySelector(':scope > [data-shiny-vue-root]');
+    if (item === host && root) root.classList.remove('el-form-item__content');
     // The message given with `error` goes too: the field has been judged
     // since, and passed
     where.querySelectorAll(':scope > .el-form-item__error').forEach(function (e) {
@@ -156,7 +163,7 @@
     return rows[i - 1];
   };
   sv.refs.file = function(name, vm, target) {
-    var files = (target && target.uploadFiles) || [];
+    var files = vm.fileList || (target && target.uploadFiles) || [];
     for (var i = 0; i < files.length; i++) if (files[i].name === name) return files[i];
     return undefined;
   };

@@ -130,6 +130,7 @@ EXCLUDED = {
     ("el-input", "modelModifiers"): "v-model's modifiers are a template's, not a prop to set",
     ("el-autocomplete", "popperAppendToBody"): "upstream marks popper-append-to-body deprecated; teleported is bound",
     ("el-space", "class"): "class, style and prefix-cls are any element's",
+    ("el-table-v2", "class"): "any element's class; a reserved word in a template expression",
     ("el-space", "style"): "class, style and prefix-cls are any element's",
     ("el-space", "prefixCls"): "class, style and prefix-cls are any element's",
     ("el-checkbox", "modelValue"): "the group owns the value",

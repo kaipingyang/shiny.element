@@ -31,6 +31,17 @@ ui <- el_page(
   el_button("open_drw", "Open drawer"),
   el_drawer("drw", title = "Drawer", el_switch("drw_sw", value = TRUE)),
   uiOutput("dyn"),
+  # Components Element Plus added
+  el_segmented("seg", options = c(Day = "d", Week = "w"), value = "w"),
+  el_input_tag("itag", value = c("a", "b")),
+  el_select_v2("sv2", options = paste("Option", 1:2000), value = "Option 5"),
+  el_tree_select("tsel", value = "web", data = list(
+    list(value = "eng", label = "Engineering", children = list(
+      list(value = "web", label = "Web"))))),
+  el_check_tag("ctag", "Pinned", value = TRUE),
+  el_input_otp("otp", length = 4),
+  el_table_v2("tv2", data = data.frame(n = 1:5000, sq = (1:5000)^2), height = 200),
+  el_space(el_button("sp1", "One"), el_button("sp2", "Two"), size = 30),
   tags$div(id = "slot"),
   verbatimTextOutput("dump")
 )
@@ -50,7 +61,8 @@ server <- function(input, output, session) {
   observeEvent(input$rm, removeUI("#ins_sw"))
   output$dump <- renderPrint({
     invalidateLater(500)
-    ids <- c("btn", "inp", "sel", "tbl_selected_rows", "fname", "frm_submit",
+    ids <- c("seg", "itag", "sv2", "tsel", "ctag", "otp", "sp2",
+             "btn", "inp", "sel", "tbl_selected_rows", "fname", "frm_submit",
              "dlg", "drw", "dlg_inp", "drw_sw", "dyn_inp", "ins_sw", "open_dlg")
     for (i in ids) cat(i, "=", if (is.null(input[[i]])) "<NULL>" else paste(format(input[[i]]), collapse = ","), "\n")
   })

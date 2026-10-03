@@ -43,7 +43,7 @@ template(
     "{{ data.day.split('-').slice(1).join('-') }}",
     shiny::tags$span("\u2714\ufe0f", `v-if` = "data.isSelected")
   ),
-  slot = "dateCell",
+  slot = "date-cell",
   scope = "{date, data}"
 )
 }

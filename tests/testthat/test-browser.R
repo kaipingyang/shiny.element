@@ -154,7 +154,7 @@ test_that("components nested in a container mount and report values", {
 test_that("stepping through every step reaches all-finished", {
   skip_if_no_browser()
   finished <- function() {
-    bev("String(document.querySelectorAll('#stp_container .el-step__icon-inner.is-status.el-icon-check').length)")
+    bev("String(document.querySelectorAll('#stp_container .el-step__head.is-success').length)")
   }
   expect_equal(finished(), "0")
 
@@ -194,7 +194,7 @@ test_that("form-item markup given as tags renders as HTML", {
   skip_if_no_browser()
   expect_equal(bev("document.querySelector('#hf-label') ? document.querySelector('#hf-label').innerText : 'none'"), "Bold")
   expect_false(grepl("attribs", bev("document.querySelector('#htmlf_container').innerText")))
-  bev("document.querySelector('#htmlf_container .el-form').__vue__.validate(function(){}); 'ok'")
+  bev("shinyVue.find('#htmlf').instance.$refs.form.validate().catch(function(){}); 'ok'")
   Sys.sleep(1)
   expect_equal(bev("String(document.querySelectorAll('#htmlf_container em.hf2-error').length)"), "1")
 })
@@ -215,7 +215,9 @@ test_that("the cascader's updates land", {
   expect_false(grepl("el-cascader-handler", scripts, fixed = TRUE))
 
   bclick("#casc_update", wait = 2.5)
-  expect_equal(bev("document.querySelector('#casc_container input').placeholder"), "updated")
+  # With a value Element Plus shows its labels, not the placeholder; the
+  # placeholder is the component's all the same
+  expect_equal(bev("shinyVue.find('#casc').instance.placeholder"), "updated")
   expect_equal(bev("(function(){var w=shinyVue.find('#casc'); return JSON.stringify(w.instance.value)})()"), '["js","nj"]')
   expect_equal(bev("(function(){var w=shinyVue.find('#casc'); return String(w.instance.disabled)})()"), "true")
 })
@@ -282,7 +284,7 @@ test_that("resetFields restores the declared values, not empty ones", {
 
 test_that("the menu renders its whole tree, nested and grouped", {
   skip_if_no_browser()
-  expect_equal(bev("String(document.querySelectorAll('#nav_container .el-submenu').length)"), "1")
+  expect_equal(bev("String(document.querySelectorAll('#nav_container .el-sub-menu').length)"), "1")
   expect_equal(bev("String(document.querySelectorAll('#nav_container .el-menu-item-group').length)"), "1")
   # home, All, Discontinued, In group -- the submenu title is not an item.
   expect_equal(bev("String(document.querySelectorAll('#nav_container .el-menu-item').length)"), "4")
@@ -463,7 +465,7 @@ test_that("abort() stops a file, and the rest of its batch is delivered", {
   b$DOM$setFileInputFiles(files = as.list(tmp), nodeId = node$nodeId)
   Sys.sleep(2)
   bev("(function(){ var up = shinyVue.find('#up').instance.$refs.upload;
-    var f = up.uploadFiles.filter(function(f){ return f.name === 'a2.txt'; })[0];
+    var f = shinyVue.find('#up').instance.fileList.filter(function(f){ return f.name === 'a2.txt'; })[0];
     up.abort(f); })()")
   Sys.sleep(3)
   bev("window.__restoreAjax()")
@@ -477,7 +479,7 @@ test_that("abort() stops a file, and the rest of its batch is delivered", {
 test_that("the dialog starts closed and reports it", {
   skip_if_no_browser()
   expect_equal(bdump()[["dlg"]], "FALSE")
-  expect_equal(bev("String(!!document.querySelector('.v-modal'))"), "false")
+  expect_equal(bev("getComputedStyle(document.getElementById('dlg')).display"), "none")
 })
 
 test_that("a component inside a dialog stays connected", {
@@ -495,13 +497,14 @@ test_that("opening the dialog raises the backdrop and locks scrolling", {
   skip_if_no_browser()
   bclick("#dlg_open", wait = 2.5)
   expect_equal(bdump()[["dlg"]], "TRUE")
-  expect_equal(bev("String(!!document.querySelector('.v-modal'))"), "true")
+  expect_equal(bev("getComputedStyle(document.getElementById('dlg')).display"), "block")
+  expect_match(bev("getComputedStyle(document.getElementById('dlg')).backgroundColor"), "rgba")
   expect_equal(
     bev("String(document.body.classList.contains('el-popup-parent--hidden'))"),
     "true"
   )
   # Above the backdrop: both from Element's popup manager
-  expect_true(bev("+document.getElementById('dlg').style.zIndex > +document.querySelector('.v-modal').style.zIndex"))
+  expect_true(bev("+document.getElementById('dlg').style.zIndex >= 2000"))
 })
 
 test_that("Escape closes the dialog and clears the backdrop", {
@@ -509,7 +512,7 @@ test_that("Escape closes the dialog and clears the backdrop", {
   bev("document.dispatchEvent(new KeyboardEvent('keydown', {key:'Escape', keyCode:27, bubbles:true}))")
   Sys.sleep(2)
   expect_equal(bdump()[["dlg"]], "FALSE")
-  expect_equal(bev("String(!!document.querySelector('.v-modal'))"), "false")
+  expect_equal(bev("getComputedStyle(document.getElementById('dlg')).display"), "none")
   expect_equal(
     bev("String(document.body.classList.contains('el-popup-parent--hidden'))"),
     "false"
@@ -627,16 +630,16 @@ test_that("a select with no placeholder shows Element's own", {
   # Bound to a bare null it rendered an empty placeholder instead. The text
   # comes from Element's locale, so this also proves the prop reached its
   # default rather than being overwritten.
-  ph <- bev("(function(){var e=document.querySelector('#sel_container input'); return e ? e.placeholder : 'NONE'})()")
+  ph <- bev("(function(){var e=document.querySelector('#sel_container .el-select__placeholder'); return e ? e.innerText : 'NONE'})()")
   expect_true(nzchar(ph))
   expect_false(identical(ph, "NONE"))
 })
 
 test_that("an input with no size keeps the default height", {
   skip_if_no_browser()
-  h <- as.numeric(bev("(function(){var e=document.querySelector('#inp_container .el-input__inner'); return e ? String(Math.round(e.getBoundingClientRect().height)) : '0'})()"))
-  # Element's default control height is 40px; the small sizes are 36/32/28.
-  expect_equal(h, 40)
+  h <- as.numeric(bev("(function(){var e=document.querySelector('#inp_container .el-input__wrapper'); return e ? String(Math.round(e.getBoundingClientRect().height)) : '0'})()"))
+  # Element Plus's default control height is 32px; large is 40, small 24
+  expect_equal(h, 32)
 })
 
 # ── components do not each claim their own line ───────────────────────────────
@@ -712,12 +715,13 @@ test_that("the page loads no third-party assets at runtime", {
   expect_false(grepl("cdn", hosts, fixed = TRUE))
 })
 
-test_that("the bundled icon font is served and loaded", {
+test_that("Element Plus's icons are drawn as SVG, inside components and out", {
   skip_if_no_browser()
-  expect_equal(
-    bev("(function(){return String(Array.from(document.fonts).some(function(f){return f.family.indexOf('element-icons')>-1 && f.status==='loaded'}))})()"),
-    "true"
-  )
+  # el_icon() outside any component, filled in by the page
+  expect_true(bev("[].every.call(document.querySelectorAll('i[data-el-icon]'), function(e){ return !!e.querySelector('svg'); })"))
+  expect_gt(bev("document.querySelectorAll('i[data-el-icon] svg').length"), 0)
+  # an icon prop inside a component -- Element UI's class name included
+  expect_gt(bev("document.querySelectorAll('#nav_container .el-icon svg').length"), 0)
 })
 
 # ── no silent failures ────────────────────────────────────────────────────────
@@ -819,7 +823,7 @@ test_that("a component used as a tooltip trigger keeps working", {
        ['mouseenter','mouseover'].forEach(function(t){
          e.dispatchEvent(new MouseEvent(t,{bubbles:true}));});})()")
   Sys.sleep(1)
-  expect_true(bev("!!document.querySelector('.el-tooltip__popper')"))
+  expect_true(bev("[].some.call(document.querySelectorAll('.el-popper'), function(e){ return getComputedStyle(e).display !== 'none' && /works/.test(e.innerText); })"))
 })
 
 test_that("an absorbed component still reports its inputs", {
@@ -984,8 +988,8 @@ test_that("shinyvalidate's message is drawn as Element draws a failed rule", {
                "An email, please")
   expect_true(bev("document.getElementById('val_email').classList.contains('is-error')"))
   # framed in Element's danger colour
-  expect_equal(bev("getComputedStyle(document.querySelector('#val_email .el-input__inner')).borderColor"),
-               "rgb(245, 108, 108)")
+  expect_match(bev("getComputedStyle(document.querySelector('#val_email .el-input__wrapper')).boxShadow"),
+               "rgb(245, 108, 108)", fixed = TRUE)
   # A labelled component is a form item already: the message goes under the
   # control, in its content, and replaces the one the page opened with
   expect_equal(bev("Array.from(document.querySelectorAll('#val_name_container > .el-form-item__content > .el-form-item__error')).map(function(e){ return e.textContent; }).join('|')"),
@@ -1140,7 +1144,7 @@ test_that("a question the server never answers settles, and so does a removed on
        h.parentNode.removeChild(h);")
   Sys.sleep(1)
   expect_equal(bev("window.__asked2"), "null")
-  expect_true(bev("window.__vm._isDestroyed"))
+  expect_true(bev("window.__vm.$.isUnmounted"))
 })
 
 test_that("a remote search the server never answers stops waiting", {
@@ -1192,7 +1196,7 @@ test_that("more of Element's methods run through el_call()", {
   bclick("#carousel_forward", wait = 2)
   expect_equal(as.integer(bdump()[["car"]]), (before + 1) %% 3)
   bclick("#menu_open_btn", wait = 1.5)
-  expect_true(bev("Array.from(document.querySelectorAll('#nav_container .el-submenu')).some(function(e){ return e.classList.contains('is-opened'); })"))
+  expect_true(bev("Array.from(document.querySelectorAll('#nav_container .el-sub-menu')).some(function(e){ return e.classList.contains('is-opened'); })"))
 })
 
 test_that("a label names its component for assistive technology", {

@@ -26,7 +26,6 @@ el_table_v2(
   expand_column_key = NULL,
   expanded_row_keys = NULL,
   default_expanded_row_keys = NULL,
-  class = NULL,
   fixed = NULL,
   table_v2_width = NULL,
   height = NULL,
@@ -105,9 +104,6 @@ with \code{v-model}. Element Plus's \code{expanded-row-keys}.}
 
 \item{default_expanded_row_keys}{An array of keys for default expanded
 rows, \strong{NON REACTIVE}. Element Plus's \code{default-expanded-row-keys}.}
-
-\item{class}{Class name for the virtual table, will be applied to all three
-tables (left, right, main). Element Plus's \code{class}.}
 
 \item{fixed}{Flag indicates the table column's width to be fixed or
 flexible. Element Plus's \code{fixed}.}

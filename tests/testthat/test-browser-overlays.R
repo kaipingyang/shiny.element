@@ -44,20 +44,21 @@ test_that("overlays stack with Element's popups, focus returns, keys work", {
   # opened follows the transition, once
   expect_equal(vals()[["outer_opened"]], "1")
   # a select inside the inner dialog opens above it
-  js("document.querySelector('#pick2_container .el-input__inner').click()")
+  js("document.querySelector('#pick2_container .el-select__wrapper').click()")
   Sys.sleep(1)
+  # Element Plus's dropdown is a popper, z-indexed from the same counter
   expect_true(js("(function(){
-    var dd = Array.from(document.querySelectorAll('.el-select-dropdown'))
-      .filter(function(e){ return e.style.display !== 'none'; })[0];
+    var dd = Array.from(document.querySelectorAll('.el-select__popper'))
+      .filter(function(e){ return getComputedStyle(e).display !== 'none'; })[0];
     var r = dd.getBoundingClientRect();
     var top = document.elementFromPoint(r.left + 10, r.top + 12);
-    return !!(top && top.closest('.el-select-dropdown')) &&
-      +dd.style.zIndex > +document.getElementById('inner').style.zIndex; })()"))
+    return !!(top && top.closest('.el-select__popper')) &&
+      +getComputedStyle(dd).zIndex > +document.getElementById('inner').style.zIndex; })()"))
   # Escape closes the topmost only: the dropdown -- whose input stops the
   # key going further, as in Element -- then, from elsewhere, the inner dialog
   key("keyDown", 27, "Escape"); key("keyUp", 27, "Escape")
   Sys.sleep(0.5)
-  expect_true(js("Array.from(document.querySelectorAll('.el-select-dropdown')).every(function(e){ return e.style.display === 'none'; })"))
+  expect_true(js("Array.from(document.querySelectorAll('.el-select__popper')).every(function(e){ return getComputedStyle(e).display === 'none'; })"))
   js("document.activeElement.blur()")
   key("keyDown", 27, "Escape"); key("keyUp", 27, "Escape")
   Sys.sleep(1)
@@ -103,7 +104,7 @@ test_that("overlays stack with Element's popups, focus returns, keys work", {
   key("keyUp", 13, "Enter")
   Sys.sleep(1)
   expect_equal(vals()[["col"]], "b")
-  expect_equal(js("document.querySelector('#col-head-b').parentElement.getAttribute('aria-expanded')"), "true")
+  expect_equal(js("document.querySelector('#col-head-b').getAttribute('aria-expanded')"), "true")
   expect_equal(js("document.getElementById('col-content-b').getAttribute('aria-hidden')"), "false")
   key("keyUp", 32, " ")
   Sys.sleep(1)

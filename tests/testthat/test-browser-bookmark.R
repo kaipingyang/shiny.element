@@ -58,5 +58,5 @@ test_that("a bookmark brings every component back", {
   # and on screen, not only in input$
   expect_equal(js("document.querySelector('#name_container input').value"), "Grace")
   expect_equal(js("document.querySelector('#tabs .el-tabs__item.is-active').innerText"), "B")
-  expect_equal(js("document.querySelector('#pg_container .el-pager li.active').innerText"), "3")
+  expect_equal(js("document.querySelector('#pg_container .el-pager li.is-active').innerText"), "3")
 })

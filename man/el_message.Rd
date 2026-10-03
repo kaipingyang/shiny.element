@@ -5,12 +5,6 @@
 \title{Show Element Plus Message}
 \usage{
 el_message(
-  icon = NULL,
-  plain = NULL,
-  placement = NULL,
-  append_to = NULL,
-  grouping = NULL,
-  repeat_num = NULL,
   session = shiny::getDefaultReactiveDomain(),
   message,
   type = "info",
@@ -19,25 +13,16 @@ el_message(
   offset = 16,
   custom_class = NULL,
   dangerously_use_html_string = FALSE,
-  id = NULL
+  id = NULL,
+  icon = NULL,
+  plain = NULL,
+  placement = NULL,
+  append_to = NULL,
+  grouping = NULL,
+  repeat_num = NULL
 )
 }
 \arguments{
-\item{icon}{Icon to show instead of the one \code{type} implies, by name.}
-
-\item{plain}{Whether it is drawn plain, without a background colour.}
-
-\item{placement}{Where it appears: \code{"top"} (the default), \code{"top-left"},
-\code{"top-right"}, \code{"bottom"}, \code{"bottom-left"} or \code{"bottom-right"}.}
-
-\item{append_to}{CSS selector of the element it is appended to. Default
-\verb{<body>}.}
-
-\item{grouping}{Whether identical messages shown together are merged into
-one, with a count.}
-
-\item{repeat_num}{The count a grouped message starts from.}
-
 \item{session}{Shiny session; the current one by default, as for
 \code{\link[shiny:updateTextInput]{shiny::updateTextInput()}}.}
 
@@ -60,6 +45,21 @@ Only pass \code{TRUE} for markup you control -- it is not escaped.}
 
 \item{id}{Name for this message, so \code{\link[=el_message_close]{el_message_close()}} can close it and
 \verb{input$<id>_close} reports when it closes.}
+
+\item{icon}{Icon to show instead of the one \code{type} implies, by name.}
+
+\item{plain}{Whether it is drawn plain, without a background colour.}
+
+\item{placement}{Where it appears: \code{"top"} (the default), \code{"top-left"},
+\code{"top-right"}, \code{"bottom"}, \code{"bottom-left"} or \code{"bottom-right"}.}
+
+\item{append_to}{CSS selector of the element it is appended to. Default
+\verb{<body>}.}
+
+\item{grouping}{Whether identical messages shown together are merged into
+one, with a count.}
+
+\item{repeat_num}{The count a grouped message starts from.}
 }
 \value{
 A Shiny UI element.

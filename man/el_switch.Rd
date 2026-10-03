@@ -16,6 +16,15 @@ el_switch(
   error = NULL,
   show_message = TRUE,
   inline_message = FALSE,
+  width = NULL,
+  active_text = NULL,
+  inactive_text = NULL,
+  active_color = NULL,
+  inactive_color = NULL,
+  active_value = TRUE,
+  inactive_value = FALSE,
+  name = NULL,
+  validate_event = NULL,
   active_action_icon = NULL,
   active_icon = NULL,
   aria_label = NULL,
@@ -27,15 +36,6 @@ el_switch(
   loading = NULL,
   size = NULL,
   tabindex = NULL,
-  width = NULL,
-  active_text = NULL,
-  inactive_text = NULL,
-  active_color = NULL,
-  inactive_color = NULL,
-  active_value = TRUE,
-  inactive_value = FALSE,
-  name = NULL,
-  validate_event = NULL,
   slots = NULL,
   session = NULL
 )
@@ -73,6 +73,24 @@ style, the field framed in red. Element's \code{error}.}
 \item{show_message, inline_message}{Whether \code{error}'s message is shown, and
 whether beside the component rather than under it. Element's
 \code{show-message} and \code{inline-message}.}
+
+\item{width}{Switch width in pixels (integer).}
+
+\item{active_text}{Text displayed when switch is on.}
+
+\item{inactive_text}{Text displayed when switch is off.}
+
+\item{active_color}{Background color when switch is on (e.g. \code{"#409EFF"}).}
+
+\item{inactive_color}{Background color when switch is off.}
+
+\item{active_value}{Value reported to Shiny when switch is on. Default \code{TRUE}.}
+
+\item{inactive_value}{Value reported to Shiny when switch is off. Default \code{FALSE}.}
+
+\item{name}{Native \code{name} attribute of the inner checkbox.}
+
+\item{validate_event}{Whether a change triggers form validation. Default \code{TRUE}.}
 
 \item{active_action_icon}{Component of the icon displayed in action when in
 \code{on} state. Element Plus's \code{active-action-icon} (string / Component). An
@@ -114,24 +132,6 @@ first character will be rendered for text. Element Plus's \code{inline-prompt}
 
 \item{tabindex}{Tabindex for input. Element Plus's \code{tabindex} (string /
 number).}
-
-\item{width}{Switch width in pixels (integer).}
-
-\item{active_text}{Text displayed when switch is on.}
-
-\item{inactive_text}{Text displayed when switch is off.}
-
-\item{active_color}{Background color when switch is on (e.g. \code{"#409EFF"}).}
-
-\item{inactive_color}{Background color when switch is off.}
-
-\item{active_value}{Value reported to Shiny when switch is on. Default \code{TRUE}.}
-
-\item{inactive_value}{Value reported to Shiny when switch is off. Default \code{FALSE}.}
-
-\item{name}{Native \code{name} attribute of the inner checkbox.}
-
-\item{validate_event}{Whether a change triggers form validation. Default \code{TRUE}.}
 
 \item{slots}{Named list of Element slot contents, such as
 \code{list(title = shiny::tags$b("Bold"))}. A shiny.element component

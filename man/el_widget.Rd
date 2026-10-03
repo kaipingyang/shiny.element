@@ -14,7 +14,6 @@ el_widget(
   computed = NULL,
   dependency = NULL,
   head = NULL,
-  props = NULL,
   width = NULL,
   slots = NULL,
   report = NULL,
@@ -27,7 +26,8 @@ el_widget(
   required = FALSE,
   error = NULL,
   show_message = TRUE,
-  inline_message = FALSE
+  inline_message = FALSE,
+  props = NULL
 )
 }
 \arguments{
@@ -46,9 +46,6 @@ pass \code{\link[=element_plus_dependency]{element_plus_dependency()}}, unless t
 \code{\link[=el_page]{el_page()}} or \code{\link[=use_element]{use_element()}}.}
 
 \item{head}{Tags to place before the host, such as a \verb{<style>} block.}
-
-\item{props}{Optional props from \code{.el_props()}: bound on the root tag of
-\code{markup}, with their fields added to \code{data}.}
 
 \item{width}{Component width, as a CSS unit. Applied to the Element markup
 itself -- the host carries \code{display: contents} and generates no box, so a
@@ -101,6 +98,9 @@ style, the field framed in red. Element's \code{error}.}
 \item{show_message, inline_message}{Whether \code{error}'s message is shown, and
 whether beside the component rather than under it. Element's
 \code{show-message} and \code{inline-message}.}
+
+\item{props}{Optional props from \code{.el_props()}: bound on the root tag of
+\code{markup}, with their fields added to \code{data}.}
 }
 \value{
 A Shiny UI element with its dependencies attached.

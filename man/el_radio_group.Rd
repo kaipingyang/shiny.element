@@ -21,14 +21,14 @@ el_radio_group(
   error = NULL,
   show_message = TRUE,
   inline_message = FALSE,
-  aria_label = NULL,
-  props = NULL,
-  type = NULL,
-  validate_event = NULL,
   width = NULL,
   slots = NULL,
   value = NULL,
   options = NULL,
+  aria_label = NULL,
+  props = NULL,
+  type = NULL,
+  validate_event = NULL,
   session = NULL
 )
 }
@@ -84,6 +84,15 @@ style, the field framed in red. Element's \code{error}.}
 whether beside the component rather than under it. Element's
 \code{show-message} and \code{inline-message}.}
 
+\item{width}{Component width, as a CSS unit -- \code{"200px"}, \code{"50\%"}, or a
+number taken as pixels. Element's own markup carries it, so it behaves
+like the \code{width} argument of a Shiny input.}
+
+\item{slots}{Named list of Element slot contents, such as
+\code{list(title = shiny::tags$b("Bold"))}. A shiny.element component
+given here is absorbed rather than nested. For a scoped slot, write
+the template with \code{\link[=template]{template()}}.}
+
 \item{aria_label}{Same as \code{aria-label} in RadioGroup. Element Plus's
 \code{aria-label} (string).}
 
@@ -95,15 +104,6 @@ Plus's \code{type} ('radio' | 'button').}
 
 \item{validate_event}{Whether to trigger form validation. Element Plus's
 \code{validate-event} (boolean).}
-
-\item{width}{Component width, as a CSS unit -- \code{"200px"}, \code{"50\%"}, or a
-number taken as pixels. Element's own markup carries it, so it behaves
-like the \code{width} argument of a Shiny input.}
-
-\item{slots}{Named list of Element slot contents, such as
-\code{list(title = shiny::tags$b("Bold"))}. A shiny.element component
-given here is absorbed rather than nested. For a scoped slot, write
-the template with \code{\link[=template]{template()}}.}
 
 \item{session}{Deprecated. Inside a module, wrap \code{id} in \code{ns()}, as for
 any Shiny input; a session given here namespaces \code{id} once more, with

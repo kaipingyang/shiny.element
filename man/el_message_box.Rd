@@ -5,20 +5,6 @@
 \title{Element Plus Message Box}
 \usage{
 el_message_box(
-  custom_style = NULL,
-  icon = NULL,
-  close_icon = NULL,
-  confirm_button_type = NULL,
-  cancel_button_type = NULL,
-  confirm_button_loading_icon = NULL,
-  cancel_button_loading_icon = NULL,
-  autofocus = NULL,
-  modal = NULL,
-  modal_class = NULL,
-  draggable = NULL,
-  overflow = NULL,
-  button_size = NULL,
-  append_to = NULL,
   session = shiny::getDefaultReactiveDomain(),
   id,
   message,
@@ -48,37 +34,24 @@ el_message_box(
   distinguish_cancel_and_close = NULL,
   lock_scroll = NULL,
   close_on_hash_change = NULL,
-  before_close = NULL
+  before_close = NULL,
+  custom_style = NULL,
+  icon = NULL,
+  close_icon = NULL,
+  confirm_button_type = NULL,
+  cancel_button_type = NULL,
+  confirm_button_loading_icon = NULL,
+  cancel_button_loading_icon = NULL,
+  autofocus = NULL,
+  modal = NULL,
+  modal_class = NULL,
+  draggable = NULL,
+  overflow = NULL,
+  button_size = NULL,
+  append_to = NULL
 )
 }
 \arguments{
-\item{custom_style}{CSS for the box, a string or a named list.}
-
-\item{icon, close_icon}{The icon shown instead of the one \code{type} implies,
-and the close button's, by name.}
-
-\item{confirm_button_type, cancel_button_type}{The buttons' types, as
-\code{\link[=el_button]{el_button()}}'s \code{type}.}
-
-\item{confirm_button_loading_icon, cancel_button_loading_icon}{The buttons'
-loading icons, by name.}
-
-\item{autofocus}{Whether the box takes focus when it opens. Default \code{TRUE}.}
-
-\item{modal}{Whether it has a backdrop. Default \code{TRUE}.}
-
-\item{modal_class}{Extra class name for the backdrop.}
-
-\item{draggable}{Whether it can be dragged by its header.}
-
-\item{overflow}{With \code{draggable}, whether it can be dragged past the
-viewport.}
-
-\item{button_size}{The buttons' size: \code{"small"}, \code{"default"} or \code{"large"}.}
-
-\item{append_to}{CSS selector of the element it is appended to. Default
-\verb{<body>}.}
-
 \item{session}{Shiny session; the current one by default, as for
 \code{\link[shiny:updateTextInput]{shiny::updateTextInput()}}.}
 
@@ -142,6 +115,33 @@ reports \code{"close"} rather than \code{"cancel"}.}
 \item{before_close}{\code{JS()} function
 \verb{function(action, instance, done)}, called before the box closes; call
 \code{done()} to let it.}
+
+\item{custom_style}{CSS for the box, a string or a named list.}
+
+\item{icon, close_icon}{The icon shown instead of the one \code{type} implies,
+and the close button's, by name.}
+
+\item{confirm_button_type, cancel_button_type}{The buttons' types, as
+\code{\link[=el_button]{el_button()}}'s \code{type}.}
+
+\item{confirm_button_loading_icon, cancel_button_loading_icon}{The buttons'
+loading icons, by name.}
+
+\item{autofocus}{Whether the box takes focus when it opens. Default \code{TRUE}.}
+
+\item{modal}{Whether it has a backdrop. Default \code{TRUE}.}
+
+\item{modal_class}{Extra class name for the backdrop.}
+
+\item{draggable}{Whether it can be dragged by its header.}
+
+\item{overflow}{With \code{draggable}, whether it can be dragged past the
+viewport.}
+
+\item{button_size}{The buttons' size: \code{"small"}, \code{"default"} or \code{"large"}.}
+
+\item{append_to}{CSS selector of the element it is appended to. Default
+\verb{<body>}.}
 }
 \value{
 Called for its side effect; returns \code{NULL} invisibly.

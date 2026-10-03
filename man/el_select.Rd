@@ -39,6 +39,11 @@ el_select(
   error = NULL,
   show_message = TRUE,
   inline_message = FALSE,
+  width = NULL,
+  option_template = NULL,
+  slots = NULL,
+  value = NULL,
+  options = NULL,
   append_to = NULL,
   aria_label = NULL,
   clear_icon = NULL,
@@ -64,11 +69,6 @@ el_select(
   teleported = NULL,
   validate_event = NULL,
   value_on_clear = NULL,
-  width = NULL,
-  option_template = NULL,
-  slots = NULL,
-  value = NULL,
-  options = NULL,
   session = NULL
 )
 }
@@ -163,6 +163,20 @@ style, the field framed in red. Element's \code{error}.}
 whether beside the component rather than under it. Element's
 \code{show-message} and \code{inline-message}.}
 
+\item{width}{Component width, as a CSS unit -- \code{"200px"}, \code{"50\%"}, or a
+number taken as pixels. Element's own markup carries it, so it behaves
+like the \code{width} argument of a Shiny input.}
+
+\item{option_template}{Markup drawn inside each option, in place of its
+label -- Element's "custom template". The option is in reach as \code{opt},
+with any field its choice carries: \verb{tags$span("\{\{ opt.label \}\}"), tags$span(style = "float: right", "\{\{ opt.code \}\}")} for choices given
+as \code{list(value =, label =, code =)}.}
+
+\item{slots}{Named list of Element slot contents, such as
+\code{list(title = shiny::tags$b("Bold"))}. A shiny.element component
+given here is absorbed rather than nested. For a scoped slot, write
+the template with \code{\link[=template]{template()}}.}
+
 \item{append_to}{Which element the select dropdown appends to. Element
 Plus's \code{append-to} (CSSSelector / HTMLElement).}
 
@@ -240,20 +254,6 @@ be teleported to where \code{append-to} sets. Element Plus's \code{teleported}
 \item{value_on_clear}{Clear return value, see config-provider. Element
 Plus's \code{value-on-clear} (string / number / boolean / Function). Give it
 as \code{\link[=JS]{JS()}}.}
-
-\item{width}{Component width, as a CSS unit -- \code{"200px"}, \code{"50\%"}, or a
-number taken as pixels. Element's own markup carries it, so it behaves
-like the \code{width} argument of a Shiny input.}
-
-\item{option_template}{Markup drawn inside each option, in place of its
-label -- Element's "custom template". The option is in reach as \code{opt},
-with any field its choice carries: \verb{tags$span("\{\{ opt.label \}\}"), tags$span(style = "float: right", "\{\{ opt.code \}\}")} for choices given
-as \code{list(value =, label =, code =)}.}
-
-\item{slots}{Named list of Element slot contents, such as
-\code{list(title = shiny::tags$b("Bold"))}. A shiny.element component
-given here is absorbed rather than nested. For a scoped slot, write
-the template with \code{\link[=template]{template()}}.}
 
 \item{session}{Deprecated. Inside a module, wrap \code{id} in \code{ns()}, as for
 any Shiny input; a session given here namespaces \code{id} once more, with

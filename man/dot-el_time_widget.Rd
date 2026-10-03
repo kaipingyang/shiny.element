@@ -4,7 +4,7 @@
 \alias{.el_time_widget}
 \title{Build either time picker}
 \usage{
-.el_time_widget(tag, ns_id, init, fields, events, form_item, width, slots)
+.el_time_widget(tag, ns_id, init, fields, events, width, slots, form_item)
 }
 \arguments{
 \item{tag}{\code{"el-time-picker"} or \code{"el-time-select"}.}
@@ -17,9 +17,9 @@
 
 \item{events}{Events forwarded as \verb{input$<id>_<event>}.}
 
-\item{form_item}{The label and message arguments, for \code{\link[=el_widget]{el_widget()}}.}
-
 \item{width, slots}{As for \code{\link[=el_widget]{el_widget()}}.}
+
+\item{form_item}{The label and message arguments, for \code{\link[=el_widget]{el_widget()}}.}
 }
 \value{
 A Shiny UI element.

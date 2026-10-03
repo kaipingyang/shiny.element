@@ -224,9 +224,8 @@ ui <- el_page(
     ))),
   actionButton("tl_add", "append entry"),
 
-  # Forces the icon font to load, so the offline-assets test has something
-  # to observe.
-  tags$i(class = "el-icon-edit"),
+  # An icon outside any component, drawn by the page
+  el_icon("Edit"),
   # No color argument: guards the null-placeholder regression, since Element's
   # ElProgress calls .length on color and throws on JSON null.
   el_progress("probe_progress", percentage = 40),

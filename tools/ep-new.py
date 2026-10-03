@@ -39,7 +39,9 @@ def sec(kind):
         if s["kind"] == kind and base == prefix:
             return s["items"]
     return []
-attrs = [a for a in sec("Attributes") if a["name"] not in skip and a["name"] not in ("id",)]
+# id is the host's; class and style are any element's, and reserved words in
+# a template expression
+attrs = [a for a in sec("Attributes") if a["name"] not in skip and a["name"] not in ("id", "class", "style")]
 events = [e["name"] for e in sec("Events") if e["name"] not in skip]
 slots = [s["name"] for s in sec("Slot") if s["name"] != "default"]
 methods = [m["name"] for m in sec("Methods")]

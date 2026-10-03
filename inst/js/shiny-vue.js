@@ -122,7 +122,17 @@
     box.setAttribute('data-shiny-vue-root', '');
     box.style.display = 'contents';
     host.appendChild(box);
-    var vm = app.mount(box);
+    // One component that fails to compile or mount is reported, and the
+    // rest of the page carries on
+    var vm;
+    try {
+      vm = app.mount(box);
+    } catch (e) {
+      if (window.console) console.error('[shiny-vue] "' + host.id + '" could not be mounted: ' + e.message);
+      try { app.unmount(); } catch (e2) {}
+      if (box.parentNode) box.parentNode.removeChild(box);
+      return null;
+    }
     host._shinyVueApp = app;
     vm._shinyVueHost = host;
     host._shinyVue = vm;

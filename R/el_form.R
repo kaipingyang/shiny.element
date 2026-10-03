@@ -522,7 +522,7 @@ el_form <- function(...,
         "function(d) { var self = this, action = d['.action']; delete d['.action']; ",
         # merged key by key, so fields not mentioned keep their values
         "if (d.model) { Object.keys(d.model).forEach(function(k) { ",
-        "self.$set(self.model, k, d.model[k]); }); delete d.model; } ",
+        "self.model[k] = d.model[k]; }); delete d.model; } ",
         # The whole field list: kept values stay, new fields start from
         # their own, removed ones leave the model, rules travel with fields
         "if (d['.fields']) { var model = {}, rules = {}; ",
@@ -535,7 +535,7 @@ el_form <- function(...,
         # Element's error prop on each field: the form item shows it at once
         "if (d['.errors']) { Object.keys(d['.errors']).forEach(function(k) { ",
         "self.fields.forEach(function(f, i) { if (f.prop === k) ",
-        "self.$set(self.fields[i], 'error', d['.errors'][k] || ''); }); }); ",
+        "self.fields[i].error = d['.errors'][k] || ''; }); }); ",
         "delete d['.errors']; } ",
         "if (action === 'validate') self.handleSubmit(); ",
         "else if (action === 'reset') self.handleReset(); ",

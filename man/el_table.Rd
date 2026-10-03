@@ -42,6 +42,9 @@ el_table(
   span_method = NULL,
   summary_method = NULL,
   load = NULL,
+  width = NULL,
+  slots = NULL,
+  loading = FALSE,
   allow_drag_last_column = NULL,
   append_filter_panel_to = NULL,
   flexible = NULL,
@@ -54,9 +57,6 @@ el_table(
   table_layout = NULL,
   tooltip_formatter = NULL,
   tooltip_options = NULL,
-  width = NULL,
-  slots = NULL,
-  loading = FALSE,
   session = NULL
 )
 }
@@ -160,6 +160,18 @@ from the server, unless \code{load} is given.}
 \item{load}{\code{JS()} function loading child rows in the
 browser instead of from the server. Needs \code{lazy = TRUE}.}
 
+\item{width}{Component width, as a CSS unit. Replaces the table's default
+\verb{width: 100\%}. For a fixed header use \code{height} instead.}
+
+\item{slots}{Named list of Element slot contents, such as
+\code{list(empty = shiny::tags$b("Nothing yet"))}. A shiny.element component
+given here is absorbed rather than nested. For a scoped slot, write
+the template with \code{\link[=template]{template()}}.}
+
+\item{loading}{Whether to cover the table with Element's loading mask, as
+its \code{v-loading} does. \code{\link[=update_el_table]{update_el_table()}} turns it on and off around
+slow work.}
+
 \item{allow_drag_last_column}{Whether to allow drag the last column.
 Element Plus's \code{allow-drag-last-column} (boolean).}
 
@@ -200,18 +212,6 @@ Give it as \code{\link[=JS]{JS()}}.}
 
 \item{tooltip_options}{The options for the overflow tooltip, see the
 following tooltip component. Element Plus's \code{tooltip-options} (object).}
-
-\item{width}{Component width, as a CSS unit. Replaces the table's default
-\verb{width: 100\%}. For a fixed header use \code{height} instead.}
-
-\item{slots}{Named list of Element slot contents, such as
-\code{list(empty = shiny::tags$b("Nothing yet"))}. A shiny.element component
-given here is absorbed rather than nested. For a scoped slot, write
-the template with \code{\link[=template]{template()}}.}
-
-\item{loading}{Whether to cover the table with Element's loading mask, as
-its \code{v-loading} does. \code{\link[=update_el_table]{update_el_table()}} turns it on and off around
-slow work.}
 
 \item{session}{Deprecated. Inside a module, wrap \code{id} in \code{ns()}, as for
 any Shiny input; a session given here namespaces \code{id} once more, with

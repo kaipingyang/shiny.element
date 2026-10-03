@@ -75,7 +75,7 @@
     # way Element shows a failed upload rather than throw
     "  if (!window.Shiny || !Shiny.shinyapp) {\n",
     "    options.onError(new Error('no Shiny session to upload to'));\n",
-    "    return { abort: function() {} };\n",
+    "    return Object.defineProperty(Object.create(XMLHttpRequest.prototype), 'abort', { value: function() {} });\n",
     "  }\n",
     "  var entry = { o: options, aborted: false, failed: false, xhr: null };\n",
     "  self._queue = self._queue || [];\n",
@@ -147,11 +147,14 @@
     "      batch.forEach(function(e) { e.failed = true; e.o.onError(new Error(String(err))); });\n",
     "    });\n",
     "  }\n",
-    # What Element keeps in its reqs[uid] and calls abort() on
-    "  return { abort: function() {\n",
+    # What Element keeps in its requests[uid]. Element Plus calls abort() only
+    # on an XMLHttpRequest, so the handle is one as far as instanceof goes
+    "  var handle = Object.create(XMLHttpRequest.prototype);\n",
+    "  Object.defineProperty(handle, 'abort', { value: function() {\n",
     "    entry.aborted = true;\n",
     "    if (entry.xhr) entry.xhr.abort();\n",
-    "  } };\n",
+    "  } });\n",
+    "  return handle;\n",
     "}"
   ), as.character(jsonlite::toJSON(ns_id, auto_unbox = TRUE))))
 }
@@ -349,7 +352,9 @@ el_upload <- function(id = NULL,
   upload_attrs[[":drag"]] <- "drag"
   upload_attrs[[":headers"]] <- .el_optional_bind("headers")
   upload_attrs[[":data"]] <- .el_optional_bind("extraData")
-  upload_attrs[[":file-list"]] <- .el_optional_bind("fileList")
+  # Two-way, so the files Element Plus holds -- each with its uid, status,
+  # progress -- are the component's field, for el_upload_file() to find
+  upload_attrs[["v-model:file-list"]] <- "fileList"
   upload_attrs[[":with-credentials"]] <- .el_optional_bind("withCredentials")
   upload_attrs[[":before-upload"]] <- .el_optional_bind("beforeUpload")
   upload_attrs[[":before-remove"]] <- .el_optional_bind("beforeRemove")
@@ -394,7 +399,7 @@ el_upload <- function(id = NULL,
   vue_data$headers <- .el_or_na(headers)
   vue_data$extraData <- .el_or_na(extra_data)
 
-  vue_data$fileList <- .el_or_na(file_list)
+  vue_data$fileList <- if (is.null(file_list)) list() else file_list
 
   vue_data$withCredentials <- .el_or_na(with_credentials)
 

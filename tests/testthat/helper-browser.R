@@ -160,9 +160,12 @@ bjs_errors <- function() {
 #' `[Vue warn]` messages. The production build strips them, which is how a
 #' template that fails to compile renders nothing and reports nothing.
 bconsole <- function() {
-  unique(bev("JSON.stringify(window.__elLogs || [])") |>
-           jsonlite::fromJSON(simplifyVector = TRUE) |>
-           as.character())
+  logs <- unique(bev("JSON.stringify(window.__elLogs || [])") |>
+                   jsonlite::fromJSON(simplifyVector = TRUE) |>
+                   as.character())
+  # Element Plus's upload logs each failed file itself (use-handlers.ts,
+  # console.error(err)); the upload tests fail some on purpose
+  logs[!grepl("^Error: Upload failed for ", logs)]
 }
 
 #' Tear the fixture down

@@ -46,8 +46,6 @@
 #'   with `v-model`. Element Plus's `expanded-row-keys`.
 #' @param default_expanded_row_keys An array of keys for default expanded
 #'   rows, **NON REACTIVE**. Element Plus's `default-expanded-row-keys`.
-#' @param class Class name for the virtual table, will be applied to all three
-#'   tables (left, right, main). Element Plus's `class`.
 #' @param fixed Flag indicates the table column's width to be fixed or
 #'   flexible. Element Plus's `fixed`.
 #' @param table_v2_width Width of the table, in pixels: Element Plus's
@@ -108,7 +106,6 @@ el_table_v2 <- function(id = NULL,
                         expand_column_key = NULL,
                         expanded_row_keys = NULL,
                         default_expanded_row_keys = NULL,
-                        class = NULL,
                         fixed = NULL,
                         table_v2_width = NULL,
                         height = NULL,
@@ -167,7 +164,6 @@ el_table_v2 <- function(id = NULL,
       expand_column_key = expand_column_key,
       expanded_row_keys = expanded_row_keys,
       default_expanded_row_keys = default_expanded_row_keys,
-      class = class,
       fixed = fixed,
       table_v2_width = table_v2_width,
       height = height,

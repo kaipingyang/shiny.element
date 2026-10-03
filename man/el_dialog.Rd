@@ -10,6 +10,19 @@ el_dialog(
   content = NULL,
   footer = NULL,
   visible = FALSE,
+  width = "50\%",
+  top = "15vh",
+  fullscreen = FALSE,
+  modal = TRUE,
+  close_on_click_modal = TRUE,
+  close_on_press_escape = TRUE,
+  show_close = TRUE,
+  center = FALSE,
+  lock_scroll = TRUE,
+  custom_class = NULL,
+  append_to_body = FALSE,
+  destroy_on_close = FALSE,
+  before_close = NULL,
   modal_penetrable = FALSE,
   close_icon = NULL,
   align_center = FALSE,
@@ -25,19 +38,6 @@ el_dialog(
   z_index = NULL,
   header_aria_level = "2",
   transition = NULL,
-  width = "50\%",
-  top = "15vh",
-  fullscreen = FALSE,
-  modal = TRUE,
-  close_on_click_modal = TRUE,
-  close_on_press_escape = TRUE,
-  show_close = TRUE,
-  center = FALSE,
-  lock_scroll = TRUE,
-  custom_class = NULL,
-  append_to_body = FALSE,
-  destroy_on_close = FALSE,
-  before_close = NULL,
   session = NULL
 )
 }
@@ -52,35 +52,6 @@ own components.}
 \item{footer}{Footer content, usually buttons. \code{NULL} for none.}
 
 \item{visible}{Whether it starts open: Element Plus's \code{model-value}.}
-
-\item{modal_penetrable}{Let clicks through the backdrop to the page
-beneath, when \code{modal = FALSE}.}
-
-\item{close_icon}{The close button's icon, by name. Default \code{"Close"}.}
-
-\item{align_center}{Centre the dialog in the viewport, vertically too.}
-
-\item{draggable}{Let the dialog be dragged by its header.}
-
-\item{overflow}{With \code{draggable}, let it be dragged past the viewport.}
-
-\item{modal_class, header_class, body_class, footer_class}{Extra class names
-for the backdrop, the header, the body and the footer.}
-
-\item{append_to}{A CSS selector for where the overlay goes when it opens,
-so a container's \code{overflow} or \code{transform} cannot clip it. Its
-components keep working; they are moved, not re-created.}
-
-\item{open_delay, close_delay}{Milliseconds to wait before opening and
-closing.}
-
-\item{z_index}{The overlay's z-index, instead of the next one Element Plus
-hands out.}
-
-\item{header_aria_level}{The title's \code{aria-level}. Default \code{"2"}.}
-
-\item{transition}{The name of the transition it plays, instead of
-Element's \code{"dialog-fade"}.}
 
 \item{width}{Dialog width, e.g. \code{"50\%"} or \code{"600px"}.}
 
@@ -111,6 +82,35 @@ it when it closes: inputs inside start from their initial values again.}
 \item{before_close}{\code{htmltools::JS()} function \verb{function(done)}, run when
 the user closes it -- by the cross, the backdrop or Escape; call \code{done()}
 to let it close.}
+
+\item{modal_penetrable}{Let clicks through the backdrop to the page
+beneath, when \code{modal = FALSE}.}
+
+\item{close_icon}{The close button's icon, by name. Default \code{"Close"}.}
+
+\item{align_center}{Centre the dialog in the viewport, vertically too.}
+
+\item{draggable}{Let the dialog be dragged by its header.}
+
+\item{overflow}{With \code{draggable}, let it be dragged past the viewport.}
+
+\item{modal_class, header_class, body_class, footer_class}{Extra class names
+for the backdrop, the header, the body and the footer.}
+
+\item{append_to}{A CSS selector for where the overlay goes when it opens,
+so a container's \code{overflow} or \code{transform} cannot clip it. Its
+components keep working; they are moved, not re-created.}
+
+\item{open_delay, close_delay}{Milliseconds to wait before opening and
+closing.}
+
+\item{z_index}{The overlay's z-index, instead of the next one Element Plus
+hands out.}
+
+\item{header_aria_level}{The title's \code{aria-level}. Default \code{"2"}.}
+
+\item{transition}{The name of the transition it plays, instead of
+Element's \code{"dialog-fade"}.}
 
 \item{session}{Deprecated. Inside a module, wrap \code{id} in \code{ns()}, as for
 any Shiny input; a session given here namespaces \code{id} once more, with

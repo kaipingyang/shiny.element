@@ -5,9 +5,6 @@
 \title{Element Plus Loading Mask}
 \usage{
 el_loading(
-  svg = NULL,
-  svg_view_box = NULL,
-  before_close = NULL,
   session = shiny::getDefaultReactiveDomain(),
   id = "default",
   text = NULL,
@@ -17,15 +14,13 @@ el_loading(
   body = NULL,
   spinner = NULL,
   background = NULL,
-  custom_class = NULL
+  custom_class = NULL,
+  svg = NULL,
+  svg_view_box = NULL,
+  before_close = NULL
 )
 }
 \arguments{
-\item{svg, svg_view_box}{A spinner of your own, as SVG path markup and its
-\code{viewBox}.}
-
-\item{before_close}{\code{\link[=JS]{JS()}} function returning whether the mask may close.}
-
 \item{session}{Shiny session; the current one by default, as for
 \code{\link[shiny:updateTextInput]{shiny::updateTextInput()}}.}
 
@@ -48,6 +43,11 @@ target.}
 \item{background}{Background colour of the mask.}
 
 \item{custom_class}{Extra class name.}
+
+\item{svg, svg_view_box}{A spinner of your own, as SVG path markup and its
+\code{viewBox}.}
+
+\item{before_close}{\code{\link[=JS]{JS()}} function returning whether the mask may close.}
 }
 \value{
 Called for its side effect; returns \code{NULL} invisibly.
