@@ -291,7 +291,7 @@ el_menu <- function(id = NULL,
   )
 }
 
-#' Update an Element UI Menu
+#' Update an Element Plus Menu
 #'
 #' @param session Shiny session; the current one by default, as for
 #'   [shiny::updateTextInput()].

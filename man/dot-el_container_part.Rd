@@ -2,7 +2,7 @@
 % Please edit documentation in R/el_container.R
 \name{.el_container_part}
 \alias{.el_container_part}
-\title{Build one of the Element UI container parts}
+\title{Build one of the Element Plus container parts}
 \usage{
 .el_container_part(
   class,
@@ -14,7 +14,7 @@
 )
 }
 \arguments{
-\item{class}{The Element UI class name, e.g. \code{"el-header"}.}
+\item{class}{The Element Plus class name, e.g. \code{"el-header"}.}
 
 \item{children}{Child elements.}
 
@@ -30,6 +30,6 @@
 A Shiny UI element.
 }
 \description{
-Build one of the Element UI container parts
+Build one of the Element Plus container parts
 }
 \keyword{internal}

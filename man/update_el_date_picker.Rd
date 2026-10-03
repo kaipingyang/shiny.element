@@ -2,7 +2,7 @@
 % Please edit documentation in R/el_date_picker.R
 \name{update_el_date_picker}
 \alias{update_el_date_picker}
-\title{Update Element UI Date Picker}
+\title{Update Element Plus Date Picker}
 \usage{
 update_el_date_picker(
   session = shiny::getDefaultReactiveDomain(),

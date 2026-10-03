@@ -1,4 +1,4 @@
-#' Element UI Tree
+#' Element Plus Tree
 #'
 #' A tree view, optionally with checkboxes.
 #'
@@ -327,7 +327,7 @@ el_tree <- function(id = NULL,
   )
 }
 
-#' Update an Element UI Tree
+#' Update an Element Plus Tree
 #'
 #' @param session Shiny session; the current one by default, as for
 #'   [shiny::updateTextInput()].

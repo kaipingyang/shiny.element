@@ -6,33 +6,91 @@ title: "DateTimePicker"
 source(file.path("..", "..", "shots.R"))
 ```
 
-Select date and time in one picker: `el_date_picker(type = "datetime")`.
-`input$<id>` is the text the picker produces, `"yyyy-MM-dd HH:mm:ss"`
-unless `value_format` says otherwise.
+Select date and time in one picker.
+
+> **Tip**
+>
+> DateTimePicker is derived from DatePicker and TimePicker. For a more detailed explanation on attributes, you can refer to DatePicker and TimePicker.
 
 ## Date and time
 
-```{r datetime, eval = FALSE, shot = TRUE, shot_js = "document.querySelector('#shot .el-input__inner').focus()", shot_sel = ".el-picker-panel", shot_wait = 1}
-el_date_picker("when", type = "datetime", value_format = "yyyy-MM-dd HH:mm:ss",
-               placeholder = "Select date and time")
+You can select date and time in one picker at the same time by setting `type` to `datetime`. The way to use shortcuts is the same as Date Picker.
+
+```{r date-and-time, eval = FALSE, shot = TRUE}
+tagList(
+  tags$div("Default"), el_date_picker("dtp1", type = "datetime", placeholder = "Select date and time"),
+  tags$div("With shortcuts"), el_date_picker("dtp2", type = "datetime", placeholder = "Select date and time",
+    shortcuts = list(list(text = "Today", value = JS("new Date()")))),
+  tags$div("With default time"), el_date_picker("dtp3", type = "datetime",
+    placeholder = "Select date and time", default_time = JS("new Date(2000, 1, 1, 12, 0, 0)")))
+```
+
+## DateTime Formats
+
+Use `format` to control displayed text's format in the input box. Use `value-format` to control binding value's format.
+
+By default, the component accepts and emits a `Date` object.
+
+Check the list [here](https://day.js.org/docs/en/display/format#list-of-all-available-formats) of all available formats of Day.js.
+
+> **Warning**
+>
+> Pay attention to capitalization
+
+```{r date-and-time-formats, eval = FALSE, shot = TRUE}
+el_date_picker("dtp_fmt", type = "datetime", placeholder = "Pick a Date",
+               format = "YYYY/MM/DD hh:mm:ss", date_format = "YYYY/MM/DD ddd", time_format = "A hh:mm:ss")
+```
+
+## Date and time formats in dropdown panel
+
+Use `date-format` and `time-format` to control displayed text's format in the dropdown panel's input box.
+
+```{r date-and-time-formats-panel, eval = FALSE, shot = TRUE}
+el_date_picker("dtp_fmt_panel", type = "datetime", placeholder = "Pick a Date",
+               date_format = "YYYY/MM/DD", time_format = "hh:mm:ss")
 ```
 
 ## Date and time range
 
-```{r range, eval = FALSE, shot = TRUE}
-el_date_picker("window", type = "datetimerange", value_format = "yyyy-MM-dd HH:mm:ss",
-               range_separator = "To", start_placeholder = "Start", end_placeholder = "End")
+You can select date and time range by setting `type` to `datetimerange`.
+
+```{r date-and-time-range, eval = FALSE, shot = TRUE}
+el_date_picker("dtp_range", type = "datetimerange", range_separator = "To",
+               start_placeholder = "Start date", end_placeholder = "End date")
 ```
 
-## Default time for start and end
+## Single Panel
+
+By default date picker ranges have two panels. If you want one panel set the `single-panel` attribute.
+
+```{r single-panel, eval = FALSE, shot = TRUE}
+el_date_picker("dtp_single", type = "datetimerange", single_panel = TRUE,
+               start_placeholder = "Start date", end_placeholder = "End date")
+```
+
+## Default time value for start date and end date
+
+When picking date range on the date panel with type `datetimerange`, `00:00:00` will be used as the default time value for start and end date. We can control it with the `default-time` attribute. `default-time` accepts an array of up to two Date objects. The first item controls time value of the start date and the second item controls time value of the end date.
 
 ```{r default-time, eval = FALSE, shot = TRUE}
-el_date_picker("shift", type = "datetimerange", value_format = "yyyy-MM-dd HH:mm:ss",
-               start_placeholder = "Start", end_placeholder = "End",
-               default_time = c("12:00:00", "08:00:00"))
+el_date_picker("dtp_dt", type = "datetimerange", start_placeholder = "Start Date",
+               end_placeholder = "End Date",
+               default_time = list(JS("new Date(2000, 1, 1, 0, 0, 0)"), JS("new Date(2000, 2, 1, 23, 59, 59)")))
+```
+
+## Custom icon
+
+Custom icons available with slots.
+
+```{r custom-icon, eval = FALSE, shot = TRUE}
+el_date_picker("dtp_icons", type = "datetime", placeholder = "Pick a Date", slots = list(
+  `prev-month` = el_icon("CaretLeft"), `next-month` = el_icon("CaretRight")))
 ```
 
 ## API
+
+Element Plus's tables, and beside each entry where it is in R.
 
 ```{r api, echo = FALSE, results = "asis"}
 api_tables("datetime-picker")

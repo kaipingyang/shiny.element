@@ -2,7 +2,7 @@
 % Please edit documentation in R/el_dropdown.R
 \name{update_el_dropdown}
 \alias{update_el_dropdown}
-\title{Update Element UI Dropdown}
+\title{Update Element Plus Dropdown}
 \usage{
 update_el_dropdown(
   session = shiny::getDefaultReactiveDomain(),

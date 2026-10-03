@@ -2,7 +2,7 @@
 % Please edit documentation in R/el_autocomplete.R
 \name{el_autocomplete}
 \alias{el_autocomplete}
-\title{Element UI Autocomplete}
+\title{Element Plus Autocomplete}
 \usage{
 el_autocomplete(
   id = NULL,

@@ -2,7 +2,7 @@
 % Please edit documentation in R/el_collapse.R
 \name{update_el_collapse}
 \alias{update_el_collapse}
-\title{Update Element UI Collapse}
+\title{Update Element Plus Collapse}
 \usage{
 update_el_collapse(
   session = shiny::getDefaultReactiveDomain(),

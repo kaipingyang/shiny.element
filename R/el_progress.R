@@ -1,6 +1,6 @@
-#' Element UI Progress Component
+#' Element Plus Progress Component
 #'
-#' Creates an Element UI progress bar. This is a display-only component;
+#' Creates an Element Plus progress bar. This is a display-only component;
 #' update it from the server with [update_el_progress()].
 #'
 #' @param id Progress ID. Auto-generated UUID if `NULL`.
@@ -129,7 +129,7 @@ el_progress <- function(
 }
 
 
-#' Update Element UI Progress
+#' Update Element Plus Progress
 #'
 #' Server-side update for [el_progress()].
 #'

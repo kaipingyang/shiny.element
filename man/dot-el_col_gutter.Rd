@@ -15,7 +15,7 @@
 The child with padding merged into its \code{style}.
 }
 \description{
-Element UI's Col reads \code{gutter} off its parent Row and emits the padding
+Element Plus's Col reads \code{gutter} off its parent Row and emits the padding
 inline, so the same has to happen here rather than through a CSS class.
 }
 \keyword{internal}

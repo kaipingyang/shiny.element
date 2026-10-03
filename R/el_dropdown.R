@@ -1,4 +1,4 @@
-#' Element UI Dropdown Menu
+#' Element Plus Dropdown Menu
 #'
 #' A dropdown menu triggered by hover or click. Each menu item fires a
 #' command that is reported as a Shiny input.
@@ -222,7 +222,7 @@ el_dropdown <- function(
 }
 
 
-#' Update Element UI Dropdown
+#' Update Element Plus Dropdown
 #'
 #' Server-side update for [el_dropdown()].
 #'

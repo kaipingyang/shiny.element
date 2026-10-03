@@ -1,0 +1,46 @@
+## basic-usage
+el_descriptions("desc", title = "User Info", items = list(
+  list(label = "Username", content = "kooriookami"),
+  list(label = "Telephone", content = "18100000000"),
+  list(label = "Place", content = "Suzhou"),
+  list(label = "Remarks", content = el_tag("desc_tag", "School", size = "small")),
+  list(label = "Address", content = "No.1188, Wuzhong Avenue, Wuzhong District, Suzhou, Jiangsu Province")))
+
+## sizes
+items <- list(
+  list(label = tagList(el_icon("User"), " Username"), content = "kooriookami"),
+  list(label = tagList(el_icon("Iphone"), " Telephone"), content = "18100000000"),
+  list(label = tagList(el_icon("Location"), " Place"), content = "Suzhou"),
+  list(label = tagList(el_icon("OfficeBuilding"), " Address"),
+       content = "No.1188, Wuzhong Avenue, Wuzhong District, Suzhou, Jiangsu Province"))
+tagList(lapply(c("large", "default", "small"), function(s)
+  el_descriptions(paste0("desc_", s), title = paste("With border,", s), column = 3,
+                  size = s, border = TRUE, items = items)))
+
+## vertical-list
+el_descriptions("desc_v", title = "Vertical list with border", direction = "vertical",
+  column = 4, border = TRUE, items = list(
+  list(label = "Username", content = "kooriookami"),
+  list(label = "Telephone", content = "18100000000"),
+  list(label = "Place", content = "Suzhou", span = 2),
+  list(label = "Remarks", content = el_tag("desc_tag_v", "School", size = "small")),
+  list(label = "Address", content = "No.1188, Wuzhong Avenue, Wuzhong District, Suzhou, Jiangsu Province")))
+
+## rowspan
+el_descriptions("desc_rs", title = "Width horizontal list", border = TRUE, items = list(
+  list(label = "Photo", rowspan = 2, width = 140, align = "center", content = el_image(
+    src = "https://shadow.elemecdn.com/app/element/hamburger.9cf7b091-55e9-11e9-a976-7f4d0b07eef6.png",
+    alt = "A hamburger", fit = "cover", width = "100px")),
+  list(label = "Username", content = "kooriookami"),
+  list(label = "Place", content = "Suzhou"),
+  list(label = "Address", content = "No.1188, Wuzhong Avenue, Wuzhong District, Suzhou, Jiangsu Province")))
+
+## customized-style
+tagList(
+  tags$style(".my-label { background: var(--el-color-success-light-9) !important; }
+              .my-content { background: var(--el-color-danger-light-9); }"),
+  el_descriptions("desc_style", title = "Customized style list", column = 3, border = TRUE, items = list(
+    list(label = "Username", label_align = "right", align = "center", label_class_name = "my-label",
+         class_name = "my-content", width = "150px", content = "kooriookami"),
+    list(label = "Telephone", label_align = "right", align = "center", content = "18100000000"),
+    list(label = "Place", label_align = "right", align = "center", content = "Suzhou"))))

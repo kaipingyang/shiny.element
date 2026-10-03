@@ -2,7 +2,7 @@
 % Please edit documentation in R/el_checkbox.R
 \name{el_checkbox}
 \alias{el_checkbox}
-\title{Element UI Checkbox}
+\title{Element Plus Checkbox}
 \usage{
 el_checkbox(
   id = NULL,

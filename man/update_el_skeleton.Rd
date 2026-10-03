@@ -2,7 +2,7 @@
 % Please edit documentation in R/el_skeleton.R
 \name{update_el_skeleton}
 \alias{update_el_skeleton}
-\title{Update Element UI Skeleton}
+\title{Update Element Plus Skeleton}
 \usage{
 update_el_skeleton(
   session = shiny::getDefaultReactiveDomain(),

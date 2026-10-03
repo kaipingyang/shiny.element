@@ -1,15 +1,18 @@
-/* Element UI's documentation, as far as pkgdown's layout allows: a white
- * header with a hairline rule, quiet grey body text, light headings, code
- * in a pale bordered panel, and tables ruled like el-table. */
+@import url("el-vars.css");
+
+/* element-plus.org, as far as pkgdown's layout allows: a white header with a
+ * hairline rule, Element Plus's greys for text, its blue for links, code in
+ * a pale bordered panel, and tables ruled like el-table. The colours are
+ * Element Plus's own CSS variables, from el-vars.css. */
 
 :root {
-  --el-blue: #409EFF;
-  --el-text-strong: #1F2F3D;
-  --el-text: #5E6D82;
-  --el-text-weak: #909399;
-  --el-border: #EBEEF5;
-  --el-border-strong: #DCDFE6;
-  --el-panel: #FAFAFA;
+  --el-blue: var(--el-color-primary);
+  --el-text-strong: var(--el-text-color-primary);
+  --el-text: var(--el-text-color-regular);
+  --el-text-weak: var(--el-text-color-secondary);
+  --el-border: var(--el-border-color-lighter);
+  --el-border-strong: var(--el-border-color);
+  --el-panel: var(--el-fill-color-light);
 }
 
 /* ── header ─────────────────────────────────────────────────────────────── */
@@ -29,22 +32,22 @@
 }
 .navbar .version, .navbar .label { color: var(--el-text-weak) !important; background: none; }
 .dropdown-menu { border-color: var(--el-border); box-shadow: 0 2px 12px 0 rgba(0, 0, 0, .1); }
-.dropdown-item:hover, .dropdown-item:focus { color: var(--el-blue); background: #ECF5FF; }
+.dropdown-item:hover, .dropdown-item:focus { color: var(--el-blue); background: var(--el-color-primary-light-9); }
 
 /* ── type ───────────────────────────────────────────────────────────────── */
 body { line-height: 1.7; }
 main h1 { font-size: 28px; margin: 40px 0 20px; }
 main h2 { font-size: 22px; margin: 45px 0 15px; }
 main h3 { font-size: 18px; margin: 30px 0 12px; }
-main h1, main h2, main h3, main h4 { color: var(--el-text-strong); font-weight: 400; }
+main h1, main h2, main h3, main h4 { color: var(--el-text-strong); font-weight: 600; }
 .page-header { border-bottom: none; }
 a { text-decoration: none; }
-a:hover { color: #66B1FF; }
+a:hover { color: var(--el-color-primary-light-3); }
 
 /* ── code ───────────────────────────────────────────────────────────────── */
 pre, div.sourceCode pre {
   background: var(--el-panel);
-  border: 1px solid #EAEEFB;
+  border: 1px solid var(--el-border-color-lighter);
   border-radius: 4px;
   color: var(--el-text);
   font-size: 12px;
@@ -53,8 +56,8 @@ pre, div.sourceCode pre {
 }
 code { color: var(--el-text); }
 p code, li code, td code {
-  background: #F9FAFC;
-  border: 1px solid #EAEEFB;
+  background: var(--el-fill-color-lighter);
+  border: 1px solid var(--el-border-color-lighter);
   border-radius: 3px;
   padding: 0 4px;
   font-size: 0.9em;
@@ -115,3 +118,35 @@ nav#toc .nav-link.active, #toc .nav-link.active {
 .el-demo table { margin: 0; font-size: inherit; width: auto; }
 .el-demo table th, .el-demo table td { padding: 0; border: 0; white-space: normal; }
 .el-demo p { margin: 0 0 8px; }
+
+/* ── the components overview, as element-plus.org's ─────────────────────── */
+.ov-search { position: sticky; top: 70px; z-index: 10; margin: 8px 0 0; }
+.ov-search input {
+  width: 100%; height: 40px; padding: 0 15px; font-size: 14px;
+  border: 1px solid var(--el-border-color); border-radius: 4px;
+  background: var(--el-bg-color, #fff); color: var(--el-text-color-regular); outline: none;
+}
+.ov-search input:focus { border-color: var(--el-color-primary); }
+.ov-group { margin-top: 32px; }
+.ov-title {
+  display: flex; align-items: center; gap: 8px;
+  font-size: 20px; font-weight: 600; color: var(--el-text-color-primary);
+}
+.ov-count {
+  display: inline-block; min-width: 20px; padding: 0 7px; border-radius: 10px;
+  font-size: 12px; line-height: 20px; text-align: center; font-weight: 400;
+  color: #fff; background: var(--el-color-primary);
+}
+.ov-cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 16px; }
+.ov-card {
+  display: block; border: 1px solid var(--el-border-color-light); border-radius: 4px;
+  overflow: hidden; background: var(--el-bg-color, #fff); color: inherit;
+}
+.ov-card:hover { box-shadow: var(--el-box-shadow-light); }
+.ov-card-head {
+  padding: 8px 12px; border-bottom: 1px solid var(--el-border-color-light);
+  font-size: 14px; font-weight: 500; color: var(--el-text-color-regular); line-height: 24px;
+}
+.ov-card-body { display: flex; justify-content: center; align-items: center; aspect-ratio: 280 / 180; }
+.ov-card-body svg { width: 100%; height: 100%; }
+.ov-credit { margin-top: 32px; color: var(--el-text-color-secondary); font-size: 13px; }

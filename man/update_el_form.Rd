@@ -2,7 +2,7 @@
 % Please edit documentation in R/el_form.R
 \name{update_el_form}
 \alias{update_el_form}
-\title{Update an Element UI Form}
+\title{Update an Element Plus Form}
 \usage{
 update_el_form(
   session = shiny::getDefaultReactiveDomain(),
@@ -42,7 +42,7 @@ as Element's \code{error} shows them. \code{""} clears one.}
 Called for its side effect; returns \code{NULL} invisibly.
 }
 \description{
-Update an Element UI Form
+Update an Element Plus Form
 }
 \examples{
 if (interactive()) {

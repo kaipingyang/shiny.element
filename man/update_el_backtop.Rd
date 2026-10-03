@@ -2,7 +2,7 @@
 % Please edit documentation in R/el_backtop.R
 \name{update_el_backtop}
 \alias{update_el_backtop}
-\title{Update Element UI Back to Top}
+\title{Update Element Plus Back to Top}
 \usage{
 update_el_backtop(
   session = shiny::getDefaultReactiveDomain(),

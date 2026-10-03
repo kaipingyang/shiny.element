@@ -2,7 +2,7 @@
 % Please edit documentation in R/el_progress.R
 \name{update_el_progress}
 \alias{update_el_progress}
-\title{Update Element UI Progress}
+\title{Update Element Plus Progress}
 \usage{
 update_el_progress(
   session = shiny::getDefaultReactiveDomain(),

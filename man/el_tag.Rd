@@ -2,7 +2,7 @@
 % Please edit documentation in R/el_tag.R
 \name{el_tag}
 \alias{el_tag}
-\title{Element UI Tag}
+\title{Element Plus Tag}
 \usage{
 el_tag(
   id = NULL,

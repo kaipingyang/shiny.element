@@ -2,7 +2,7 @@
 % Please edit documentation in R/el_popconfirm.R
 \name{el_popconfirm}
 \alias{el_popconfirm}
-\title{Element UI Confirmation Bubble}
+\title{Element Plus Confirmation Bubble}
 \usage{
 el_popconfirm(
   id = NULL,
@@ -21,7 +21,8 @@ el_popconfirm(
   teleported = NULL,
   width = NULL,
   slots = NULL,
-  session = NULL
+  session = NULL,
+  placement = NULL
 )
 }
 \arguments{
@@ -67,6 +68,10 @@ the template with \code{\link[=template]{template()}}.}
 \item{session}{Deprecated. Inside a module, wrap \code{id} in \code{ns()}, as for
 any Shiny input; a session given here namespaces \code{id} once more, with
 a warning.}
+
+\item{placement}{Where the popup goes: \code{"top"}, \code{"bottom-start"} and
+the rest of the tooltip's placements. Passed through to its tooltip, as
+upstream passes it. Default \code{"bottom"}.}
 }
 \value{
 A Shiny UI element.

@@ -1,4 +1,4 @@
-#' Generate a `<template>` tag for Vue/Element UI slot usage
+#' Generate a `<template>` tag for Vue/Element Plus slot usage
 #'
 #' @param ... Content inside the template
 #' @param slot Slot name (optional)

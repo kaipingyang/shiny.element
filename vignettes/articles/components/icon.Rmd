@@ -6,31 +6,81 @@ title: "Icon"
 source(file.path("..", "..", "shots.R"))
 ```
 
-Element provides a set of common icons. `el_icon()` draws one by name;
-any component taking an `icon` takes its class, `"el-icon-edit"`.
+Element Plus provides a set of common icons: the SVG components of
+`@element-plus/icons-vue`, which this package bundles and registers. Each
+has a PascalCase name -- `Edit`, `Search`, `CircleCloseFilled` -- and
+`el_icon()` draws one by that name. Any component argument that takes an
+icon (`icon`, `prefix_icon`, `suffix_icon`, ...) takes the same names.
 
-## Basic usage
+Element UI's class names still work: `"el-icon-edit"` and `"edit"` are
+read as `Edit`, and the few renamed upstream -- `"el-icon-user-solid"` --
+as their new names (`UserFilled`).
 
-```{r basic, eval = FALSE, shot = TRUE}
+## Simple Usage
+
+`size` and `color` are `el-icon`'s own props.
+
+```{r simple, eval = FALSE, shot = TRUE}
 tagList(
-  el_icon("edit"), el_icon("share"), el_icon("delete"),
-  el_button("search", "Search", type = "primary", icon = "el-icon-search"))
+  el_icon("Edit", size = 30),
+  el_icon("Edit", size = 30, color = "#409efc"))
 ```
+
+## Combined with el-icon
+
+An icon inherits the colour and size of the text around it, unless it is
+given its own; `class = "is-loading"` spins it.
+
+```{r combined, eval = FALSE, shot = TRUE}
+tags$p(style = "font-size: 20px",
+  el_icon("Edit", size = 20),
+  el_icon("Share", color = "#409efc"),
+  el_icon("Delete"),
+  el_icon("Loading", class = "is-loading"),
+  el_button("search", "Search", type = "primary", icon = "Search"))
+```
+
+## In a Vue template
+
+Inside a component's slot or `template()`, write the icon as Element Plus
+does: `<el-icon><Edit /></el-icon>`. Each icon is also registered as
+`el-icon-<kebab-name>`, so `<el-icon-edit />` draws the bare SVG.
+
+```{r template, eval = FALSE, shot = TRUE}
+el_button("tpl", type = "primary", slots = list(
+  default = template(HTML("<el-icon><Upload /></el-icon><span>Upload</span>"))))
+```
+
+## Other libraries
 
 `el_icon(lib = "font-awesome")` draws a Font Awesome icon instead, through
 the fontawesome package.
 
-## Icons
+```{r fa, eval = FALSE, shot = TRUE}
+tagList(el_icon("r-project", lib = "font-awesome", size = 24),
+        el_icon("github", lib = "font-awesome", size = 24))
+```
 
-Every icon Element ships, by the name `el_icon()` takes:
+## Icon Collection
+
+Every icon of `@element-plus/icons-vue`, by the name `el_icon()` takes:
 
 ```{r icons, eval = FALSE, shot = TRUE}
-css <- readLines(system.file("element-ui", "theme-chalk", "index.css",
-                             package = "shiny.element"), warn = FALSE)
-names <- unique(regmatches(css, gregexpr("(?<=\\.el-icon-)[a-z0-9-]+(?=:before)", css, perl = TRUE))[[1]])
-tags$div(style = "display: flex; flex-wrap: wrap",
-  lapply(sort(names), function(n) tags$div(
-    style = "width: 120px; height: 90px; text-align: center; color: #606266; font-size: 12px",
-    tags$i(class = paste0("el-icon-", n), style = "font-size: 24px; display: block; margin: 16px 0 8px"),
-    n)))
+js <- readLines(system.file("element-plus", "icons-vue.iife.min.js",
+                            package = "shiny.element"), warn = FALSE)
+names <- sort(unique(regmatches(js, gregexpr('(?<=name:")[A-Z][A-Za-z0-9]*(?=")', js, perl = TRUE))[[1]]))
+tags$div(style = "display: flex; flex-wrap: wrap; border-top: 1px solid var(--el-border-color)",
+  lapply(names, function(n) tags$div(
+    style = "width: 16.66%; min-width: 110px; height: 90px; text-align: center; font-size: 12px;
+             color: var(--el-text-color-regular); border-right: 1px solid var(--el-border-color);
+             border-bottom: 1px solid var(--el-border-color); padding-top: 18px",
+    el_icon(n, size = 22), tags$div(style = "margin-top: 8px", n))))
+```
+
+## API
+
+Element Plus's tables, and beside each entry where it is in R.
+
+```{r api, echo = FALSE, results = "asis"}
+api_tables("icon")
 ```

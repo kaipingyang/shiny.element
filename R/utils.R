@@ -15,7 +15,7 @@
                           substring(parts[-1], 2), collapse = ""))
 }
 
-#' Forward Element UI events to Shiny inputs
+#' Forward Element Plus events to Shiny inputs
 #'
 #' Element's events carry different arguments each, some of them DOM nodes or
 #' native events that cannot be serialised. Rather than write a handler per
@@ -118,7 +118,7 @@
 
 #' Build a Vue `mounted` hook that reports initial values to Shiny
 #'
-#' Element UI components only emit `@change` on user interaction, and Vue
+#' Element Plus components only emit `@change` on user interaction, and Vue
 #' `watch` handlers do not fire on mount. Without this hook the corresponding
 #' `input$<id>` stays `NULL` until the user first touches the component, unlike
 #' standard Shiny inputs which report their value immediately.
@@ -214,7 +214,7 @@
 
 #' Vue binding for a prop that may be unset
 #'
-#' Element UI's props fall back to their own defaults when passed `undefined`,
+#' Element Plus's props fall back to their own defaults when passed `undefined`,
 #' but treat `null` as a value: an `el-select` bound to a null placeholder
 #' renders an empty one instead of "请选择". R has no way to send `undefined`
 #' through JSON, so an unsupplied field arrives as `null` and the expression

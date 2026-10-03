@@ -2,7 +2,7 @@
 % Please edit documentation in R/el_alert.R
 \name{el_alert}
 \alias{el_alert}
-\title{Element UI Alert}
+\title{Element Plus Alert}
 \usage{
 el_alert(
   id = NULL,

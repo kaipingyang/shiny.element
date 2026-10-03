@@ -2,7 +2,7 @@
 % Please edit documentation in R/el_button.R
 \name{update_el_button}
 \alias{update_el_button}
-\title{Update Element UI Button}
+\title{Update Element Plus Button}
 \usage{
 update_el_button(
   session = shiny::getDefaultReactiveDomain(),

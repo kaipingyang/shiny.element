@@ -1,4 +1,4 @@
-#' Element UI Carousel
+#' Element Plus Carousel
 #'
 #' A slideshow of items, horizontal or vertical.
 #'
@@ -184,7 +184,7 @@ el_carousel <- function(id = NULL,
   )
 }
 
-#' Update an Element UI Carousel
+#' Update an Element Plus Carousel
 #'
 #' @param session Shiny session; the current one by default, as for
 #'   [shiny::updateTextInput()].

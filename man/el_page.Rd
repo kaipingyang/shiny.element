@@ -2,7 +2,7 @@
 % Please edit documentation in R/el_layout.R
 \name{el_page}
 \alias{el_page}
-\title{Element UI Page Wrapper with Theme Support}
+\title{Element Plus Page Wrapper with Theme Support}
 \usage{
 el_page(
   ...,
@@ -32,7 +32,7 @@ components beside them. \code{NULL} gives Shiny's plain Bootstrap 3.}
 \item{offline}{Serve Element Plus from the copy bundled with this package
 rather than the unpkg CDN. See \code{\link[=element_plus_dependency]{element_plus_dependency()}}.}
 
-\item{locale}{Language for Element UI's built-in text -- pagination
+\item{locale}{Language for Element Plus's built-in text -- pagination
 summaries, date-picker buttons, select placeholders. English by default,
 or \code{getOption("shiny.element.locale")} when set; \code{"zh-CN"} gives Element's
 own Simplified Chinese. See \code{\link[=el_locales]{el_locales()}} for the rest.}

@@ -2,14 +2,14 @@
 % Please edit documentation in R/el_container.R
 \name{el_footer}
 \alias{el_footer}
-\title{Element UI Footer}
+\title{Element Plus Footer}
 \usage{
 el_footer(..., height = "60px", style = NULL, class = NULL)
 }
 \arguments{
 \item{...}{Content.}
 
-\item{height}{Footer height. Defaults to \code{"60px"}, as in Element UI, which
+\item{height}{Footer height. Defaults to \code{"60px"}, as in Element Plus, which
 sets it inline rather than through the stylesheet.}
 
 \item{style}{Extra inline style.}
@@ -20,7 +20,7 @@ sets it inline rather than through the stylesheet.}
 A Shiny UI element.
 }
 \description{
-Element UI Footer
+Element Plus Footer
 }
 \examples{
 el_footer("(c) 2026")

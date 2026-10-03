@@ -1,4 +1,4 @@
-#' Element UI Breadcrumb
+#' Element Plus Breadcrumb
 #'
 #' A trail of links showing where a page sits.
 #'
@@ -81,7 +81,7 @@ el_breadcrumb <- function(id = NULL,
 }
 
 
-#' Update Element UI Breadcrumb
+#' Update Element Plus Breadcrumb
 #'
 #' Server-side update for [el_breadcrumb()].
 #'

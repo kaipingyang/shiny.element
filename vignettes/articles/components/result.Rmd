@@ -6,33 +6,36 @@ title: "Result"
 source(file.path("..", "..", "shots.R"))
 ```
 
-Feedback on the result of an operation, or an access exception.
+Used to give feedback on the result of user's operation or access exception.
 
 ## Basic usage
 
-```{r basic, eval = FALSE, shot = TRUE}
-el_row(gutter = 20,
-  el_col(span = 6, el_result("r1", icon = "success", title = "Success Tip",
-         sub_title = "Please follow the instructions", el_button("back1", "Back", type = "primary", size = "medium"))),
-  el_col(span = 6, el_result("r2", icon = "warning", title = "Warning Tip",
-         sub_title = "Please follow the instructions", el_button("back2", "Back", type = "primary", size = "medium"))),
-  el_col(span = 6, el_result("r3", icon = "error", title = "Error Tip",
-         sub_title = "Please follow the instructions", el_button("back3", "Back", type = "primary", size = "medium"))),
-  el_col(span = 6, el_result("r4", icon = "info", title = "Info Tip",
-         sub_title = "Please follow the instructions", el_button("back4", "Back", type = "primary", size = "medium"))))
+`primary` has been added in 2.9.11.
+
+```{r basic-usage, eval = FALSE, shot = TRUE}
+el_row(
+  el_col(span = 6, el_result(icon = "success", title = "Success Tip",
+    sub_title = "Please follow the instructions", el_button("res1", "Back", type = "primary"))),
+  el_col(span = 6, el_result(icon = "warning", title = "Warning Tip",
+    sub_title = "Please follow the instructions", el_button("res2", "Back", type = "primary"))),
+  el_col(span = 6, el_result(icon = "error", title = "Error Tip",
+    sub_title = "Please follow the instructions", el_button("res3", "Back", type = "primary"))),
+  el_col(span = 6, el_result(icon = "info", title = "Info Tip",
+    sub_title = "Please follow the instructions", el_button("res4", "Back", type = "primary"))))
 ```
 
 ## Customized content
 
-The `icon`, `title` and `subTitle` slots take markup.
-
-```{r custom, eval = FALSE, shot = TRUE}
-el_result("cus", title = "404", sub_title = "Sorry, request error",
-  el_button("back", "Back", type = "primary", size = "medium"),
-  slots = list(icon = tags$img(src = "https://shadow.elemecdn.com/app/element/hamburger.9cf7b091-55e9-11e9-a976-7f4d0b07eef6.png", alt = "A hamburger", width = 120)))
+```{r customized-content, eval = FALSE, shot = TRUE}
+el_result(title = "404", sub_title = "Sorry, request error",
+  slots = list(icon = tags$img(src = "https://shadow.elemecdn.com/app/element/hamburger.9cf7b091-55e9-11e9-a976-7f4d0b07eef6.png",
+                               alt = "A hamburger")),
+  el_button("res_back", "Back", type = "primary"))
 ```
 
 ## API
+
+Element Plus's tables, and beside each entry where it is in R.
 
 ```{r api, echo = FALSE, results = "asis"}
 api_tables("result")

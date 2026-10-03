@@ -6,134 +6,159 @@ title: "Input"
 source(file.path("..", "..", "shots.R"))
 ```
 
-Input data using mouse or keyboard. `input$<id>` is the text, reported a
-quarter-second after the user stops typing, as `textInput()` does.
+Input data using mouse or keyboard.
 
 ## Basic usage
 
 ```{r basic, eval = FALSE, shot = TRUE}
-el_input("text", placeholder = "Please input", width = "240px")
+el_input("in_basic", placeholder = "Please input", width = "240px")
 ```
 
 ## Disabled
 
+Disable the Input with the `disabled` attribute.
+
 ```{r disabled, eval = FALSE, shot = TRUE}
-el_input("dis", placeholder = "Please input", disabled = TRUE, width = "240px")
+el_input("in_dis", placeholder = "Please input", disabled = TRUE, width = "240px")
 ```
 
 ## Clearable
 
+Make the Input clearable with the `clearable` attribute. After version 2.13.4, the clearable feature is also available for textarea type of Input.
+
 ```{r clearable, eval = FALSE, shot = TRUE}
-el_input("clr", value = "Clear me", clearable = TRUE, width = "240px")
+el_input("in_clear", placeholder = "Please input", clearable = TRUE, width = "240px")
+```
+
+## Custom Clear Icon
+
+You can customize the clear icon by setting the `clear-icon` attribute.
+
+```{r clear-icon, eval = FALSE, shot = TRUE}
+el_input("in_clear_icon", placeholder = "Please input", clearable = TRUE, clear_icon = "CloseBold",
+         width = "240px")
+```
+
+## Formatter
+
+Display value within it's situation with `formatter`, and we usually use `parser` at the same time.
+
+`formatter` shows the value its way; `parser` reads it back.
+
+```{r formatter, eval = FALSE, shot = TRUE}
+el_input("in_fmt", placeholder = "Please input", width = "240px",
+  formatter = JS("function(value) { return `$ ${value}`.replace(/\\B(?=(\\d{3})+(?!\\d))/g, ','); }"),
+  parser = JS("function(value) { return value.replace(/\\$\\s?|(,*)/g, ''); }"))
 ```
 
 ## Password box
 
+Make a toggle-able password Input with the `show-password` attribute. Since 2.13.6, the `password-icon` slot is supported to override the default icon.
+
 ```{r password, eval = FALSE, shot = TRUE}
-el_input("pwd", value = "secret", show_password = TRUE, width = "240px")
+el_input("in_pass", type = "password", placeholder = "Please input password",
+         show_password = TRUE, width = "240px")
 ```
 
 ## Input with icon
 
-`prefix_icon` and `suffix_icon` take icon classes; the `prefix` and
-`suffix` slots take markup.
+Add an icon to indicate input type.
 
-```{r icon, eval = FALSE, shot = TRUE}
-el_input("ic1", placeholder = "Pick a date", suffix_icon = "el-icon-date", width = "240px")
-el_input("ic2", placeholder = "Type something", prefix_icon = "el-icon-search", width = "240px")
-el_input("ic3", placeholder = "Slot", width = "240px", slots = list(
-  suffix = el$icon("date", class = "el-input__icon")))
+To add icons in Input, you can simply use `prefix-icon` and `suffix-icon` attributes. Also, the `prefix` and `suffix` named slots works as well.
+
+```{r with-icon, eval = FALSE, shot = TRUE}
+tags$div(style = "display: flex; gap: 16px",
+  el_input("in_suffix", placeholder = "Pick a date", suffix_icon = "Calendar", width = "240px"),
+  el_input("in_prefix", placeholder = "Type something", prefix_icon = "Search", width = "240px"))
 ```
 
 ## Textarea
 
+Resizable for entering multiple lines of text information. Add attribute `type="textarea"` to change `input` into native `textarea`.
+
+Control the height by setting the `rows` prop.
+
 ```{r textarea, eval = FALSE, shot = TRUE}
-el_input("ta", type = "textarea", rows = 2, placeholder = "Please input", width = "400px")
+el_input("in_area", type = "textarea", rows = 2, placeholder = "Please input", width = "240px")
 ```
 
-## Autosize textarea
+## Autosize Textarea
 
-`autosize` grows the box with its text, between optional row limits.
+Setting the `autosize` prop for a textarea type of Input makes the height to automatically adjust based on the content. An options object can be provided to `autosize` to specify the minimum and maximum number of lines the textarea can automatically adjust.
 
-```{r autosize, eval = FALSE, shot = TRUE}
-el_input("as1", type = "textarea", autosize = TRUE, placeholder = "Please input", width = "400px")
-tags$div(style = "height: 16px")
-el_input("as2", type = "textarea", autosize = list(minRows = 2, maxRows = 4),
-         placeholder = "Please input", width = "400px")
+```{r auto-sizing-textarea, eval = FALSE, shot = TRUE}
+tagList(
+  el_input("in_auto1", type = "textarea", autosize = TRUE, placeholder = "Please input", width = "240px"),
+  tags$div(style = "margin: 20px 0"),
+  el_input("in_auto2", type = "textarea", autosize = list(minRows = 2, maxRows = 4),
+           placeholder = "Please input", width = "240px"))
 ```
 
 ## Mixed input
 
-The `prepend` and `append` slots put an element before or after the input.
+Prepend or append an element, generally a label or a button.
 
-```{r mixed, eval = FALSE, shot = TRUE}
-el_input("m1", placeholder = "Please input", width = "420px",
-         slots = list(prepend = "Http://"))
-tags$div(style = "height: 16px")
-el_input("m2", placeholder = "Please input", width = "420px", slots = list(append = ".com"))
-tags$div(style = "height: 16px")
-el_input("m3", placeholder = "Please input", width = "420px", slots = list(
-  append = el$button(slot = "append", icon = "el-icon-search")))
+Use `slot` to distribute elements that prepend or append to Input.
+
+```{r mixed-input, eval = FALSE, shot = TRUE}
+tags$div(style = "display: grid; gap: 16px; max-width: 600px",
+  el_input("in_pre", placeholder = "Please input", slots = list(prepend = "Http://")),
+  el_input("in_app", placeholder = "Please input", slots = list(append = ".com")),
+  el_input("in_both", placeholder = "Please input",
+           slots = list(prepend = "Http://", append = el_button("in_search", NULL, icon = "Search"))))
 ```
 
 ## Sizes
 
-```{r sizes, eval = FALSE, shot = TRUE}
-tagList(lapply(c("default", "medium", "small", "mini"), function(s)
-  el_input(paste0("sz_", s), placeholder = s, size = if (s != "default") s,
-           suffix_icon = "el-icon-date", width = "200px")))
-```
+Add `size` attribute to change the size of Input. In addition to the default size, there are two other options: `large`, `small`.
 
-## Autocomplete
-
-`el_autocomplete()` suggests as the user types, from a list sent with the
-page, or -- with `remote = TRUE` -- from the server.
-
-```{r autocomplete, eval = FALSE, shot = TRUE, shot_js = "document.querySelector('#shot input').focus()", shot_sel = ".el-autocomplete-suggestion"}
-el_autocomplete("rest", placeholder = "Please input", width = "260px",
-                suggestions = c("vue", "element", "cooking", "mint-ui", "vuex", "vue-router", "babel"))
-```
-
-## Custom template
-
-The `default` slot, scoped with `item`, draws each suggestion.
-
-```{r template, eval = FALSE, shot = TRUE, shot_js = "document.querySelector('#shot input').focus()", shot_sel = ".el-autocomplete-suggestion"}
-el_autocomplete("tpl", width = "300px", placeholder = "Please input", suggestions = list(
-  list(value = "vue", link = "https://github.com/vuejs/vue"),
-  list(value = "element", link = "https://github.com/ElemeFE/element"),
-  list(value = "vuex", link = "https://github.com/vuejs/vuex")),
-  slots = list(default = template(
-    tags$div(style = "line-height: 1.2; padding: 6px 0",
-      tags$div("{{ item.value }}"),
-      tags$span(style = "font-size: 12px; color: #b4b4b4", "{{ item.link }}")),
-    scope = "{ item }")))
-```
-
-## Remote search
-
-```{r remote, eval = FALSE, shot = TRUE, shot_js = "var i = document.querySelector('#shot input'); i.focus(); i.value = 'sh'; i.dispatchEvent(new Event('input'));", shot_sel = ".el-autocomplete-suggestion", shot_wait = 2}
-ui <- el_page(el_autocomplete("state", remote = TRUE, placeholder = "A state", width = "260px"))
-
-server <- function(input, output, session) {
-  observeEvent(input$state_query, {
-    hits <- grep(input$state_query, state.name, ignore.case = TRUE, value = TRUE)
-    update_el_autocomplete(id = "state", suggestions = head(hits, 8))
-  })
-}
-
-shinyApp(ui, server)
+```{r various-size, eval = FALSE, shot = TRUE}
+tags$div(style = "display: flex; gap: 16px",
+  el_input("in_l", size = "large", placeholder = "Please Input", width = "240px"),
+  el_input("in_d", placeholder = "Please Input", width = "240px"),
+  el_input("in_s", size = "small", placeholder = "Please Input", width = "240px"))
 ```
 
 ## Limit length
 
-```{r limit, eval = FALSE, shot = TRUE}
-el_input("lim1", value = "Hello", maxlength = 10, show_word_limit = TRUE, width = "300px")
-tags$div(style = "height: 16px")
-el_input("lim2", type = "textarea", maxlength = 30, show_word_limit = TRUE, width = "300px")
+`maxlength` and `minlength` attributes of input, they declare a limit on the number of characters a user can input. The "number of characters" is measured using JavaScript string length.Setting the `maxlength` prop for a text or textarea type of Input can limit the length of input value, allows you to show word count by setting `show-word-limit` to `true` at the same time. In 2.11.5, You can set `word-limit-position` to `outside` to display the word count outside the input.
+
+```{r length-limiting, eval = FALSE, shot = TRUE}
+tagList(
+  el_input("in_lim", maxlength = 10, show_word_limit = TRUE, placeholder = "Please input",
+           width = "240px"),
+  tags$div(style = "margin: 20px 0"),
+  el_input("in_lim_area", type = "textarea", maxlength = 30, show_word_limit = TRUE,
+           placeholder = "Please input"))
 ```
 
+## Count graphemes
+
+Set `count-graphemes` to calculate text length. If it's set, native `maxlength` and `minlength` won't be used.
+
+`count_graphemes` counts as a reader would: an emoji is one character.
+
+```{r count-graphemes, eval = FALSE, shot = TRUE}
+el_input("in_graph", maxlength = 10, show_word_limit = TRUE, width = "240px",
+  value = "\U0001F468‍\U0001F469‍\U0001F467",
+  count_graphemes = JS("function(value) { return [...new Intl.Segmenter().segment(value)].length; }"))
+```
+
+> **Tip**
+>
+> **Browser Support & Fallback Strategy**
+> 
+> When using the `count-graphemes` prop, the component employs the following approach:
+> 
+> - **Primary**: Uses `Intl.Segmenter` API (Chrome 87+, Firefox 125+, Safari 14.1+) for proper grapheme cluster handling. This correctly handles complex emoji, combining marks, and Zero Width Joiner sequences.
+> 
+> - **Fallback**: Older browsers fall back to `Array.from()` for code-point based iteration. Note that this may split multi-codepoint grapheme sequences (e.g., emoji with skin tone modifiers).
+> 
+> When implementing your own `count-graphemes` function, consider using `Intl.Segmenter` if you need robust support for complex unicode characters.
+
 ## API
+
+Element Plus's tables, and beside each entry where it is in R.
 
 ```{r api, echo = FALSE, results = "asis"}
 api_tables("input")

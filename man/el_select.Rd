@@ -2,7 +2,7 @@
 % Please edit documentation in R/el_select.R
 \name{el_select}
 \alias{el_select}
-\title{Element UI Select Component}
+\title{Element Plus Select Component}
 \usage{
 el_select(
   id = NULL,
@@ -263,9 +263,9 @@ a warning.}
 An \code{htmltools} tagList containing the Vue-managed select component.
 }
 \description{
-Creates an Element UI \verb{<el-select>} component backed by a Vue instance.
+Creates an Element Plus \verb{<el-select>} component backed by a Vue instance.
 Supports single and multiple selection, filtering, and all standard
-Element UI select props.
+Element Plus select props.
 }
 \section{Element methods}{
 

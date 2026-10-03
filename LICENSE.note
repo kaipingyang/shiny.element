@@ -2,23 +2,25 @@ The shiny.element package as a whole is distributed under the MIT licence
 (see LICENSE), with the following exceptions.
 
 -------------------------------------------------------------------------
-Files: inst/element-ui/**
-Copyright: 2016-present ElemeFE
+Files: inst/element-plus/**
+Copyright: 2020-present Element Plus team
 Licence: MIT
-Upstream: https://github.com/ElemeFE/element
+Upstream: https://github.com/element-plus/element-plus
+          https://github.com/element-plus/element-plus-icons
 -------------------------------------------------------------------------
 
-These files are the unmodified distribution build of Element UI, bundled so
-that applications work without a network connection. Their licence text is
-reproduced in inst/element-ui/LICENSE.
+These files are the unmodified distribution builds of Element Plus 2.14.7
+and @element-plus/icons-vue 2.3.2, bundled so that applications work
+without a network connection. Their licence texts are reproduced in
+inst/element-plus/LICENSE and inst/element-plus/icons-vue.LICENSE.
 
 -------------------------------------------------------------------------
-Files: inst/vue/**
-Copyright: 2013-present Yuxi (Evan) You
+Files: inst/vue3/**
+Copyright: 2018-present Yuxi (Evan) You and Vue contributors
 Licence: MIT
-Upstream: https://github.com/vuejs/vue
+Upstream: https://github.com/vuejs/core
 -------------------------------------------------------------------------
 
-These files are the unmodified distribution build of Vue 2.7.14, the version
-Element UI 2 runs on, bundled for the same reason. Their licence text is in
-inst/vue/LICENSE.
+This file is the unmodified distribution build of Vue 3.5.43, the version
+Element Plus runs on, bundled for the same reason. Its licence text is in
+inst/vue3/LICENSE.

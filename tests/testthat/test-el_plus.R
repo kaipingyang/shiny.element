@@ -110,3 +110,17 @@ test_that("the remaining services' options travel as Element Plus names them", {
   el_loading(s, "l", svg = "<path/>", svg_view_box = "0 0 1 1")
   expect_equal(sent$svgViewBox, "0 0 1 1")
 })
+
+test_that("a component inside a plain tag is absorbed by its container", {
+  x <- el_space(htmltools::tags$span(id = "a", el_button("b1", "One")),
+                htmltools::tags$span(id = "b", el_button("b2", "Two")))
+  h <- as.character(x)
+  # one template: the buttons are folded into the space's, spans kept
+  expect_equal(lengths(regmatches(h, gregexpr("x-template", h))), 1L)
+  expect_match(h, '<span id="a">', fixed = TRUE)
+  expect_match(h, '"One"', fixed = TRUE)
+  expect_match(h, '"Two"', fixed = TRUE)
+  # plain markup alone is left as it is
+  y <- el_space(htmltools::tags$span("text"))
+  expect_match(as.character(y), "<span>text</span>", fixed = TRUE)
+})

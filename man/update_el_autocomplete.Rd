@@ -2,7 +2,7 @@
 % Please edit documentation in R/el_autocomplete.R
 \name{update_el_autocomplete}
 \alias{update_el_autocomplete}
-\title{Update Element UI Autocomplete}
+\title{Update Element Plus Autocomplete}
 \usage{
 update_el_autocomplete(
   session = shiny::getDefaultReactiveDomain(),

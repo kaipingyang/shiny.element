@@ -6,58 +6,84 @@ title: "Color"
 source(file.path("..", "..", "shots.R"))
 ```
 
-Element uses a specific set of palettes to specify colors, to provide a
-consistent look and feel. They are its Sass variables -- `$--color-primary`
-and the rest -- and `el_theme()` changes them: the brand colours by name
-(`primary`, `success`, `warning`, `danger`, `info`), any other through
-`element =`.
+Element Plus uses a specific set of palettes to specify colors, to provide a
+consistent look and feel for the products you build. They are its CSS
+variables -- `--el-color-primary` and the rest -- and `el_theme()` changes
+them: the brand colours by name (`primary`, `success`, `warning`, `danger`,
+`info`), any other through `element =`. The swatches below are drawn from
+the variables themselves, so they show the theme the page has.
 
-## Main color
+## Main Color
 
-The main color of Element is a bright and friendly blue.
+The main color of Element Plus is bright and friendly blue. Its tints,
+`--el-color-primary-light-3` to `-light-9`, mix it with white.
 
 ```{r main, eval = FALSE, shot = TRUE}
-swatch <- function(name, hex, fg = "white") tags$div(
-  style = sprintf("display: inline-block; width: 180px; height: 90px; margin: 0 10px 10px 0;
-                   padding: 12px; border-radius: 4px; background: %s; color: %s", hex, fg),
-  tags$b(name), tags$br(), hex)
-swatch("Brand color", "#409EFF")
+swatch <- function(var, label = var, fg = "white", w = 100) tags$div(
+  style = sprintf("display: inline-block; width: %dpx; height: 80px; padding: 10px;
+                   vertical-align: top; background: var(%s); color: %s; font-size: 12px",
+                  w, var, fg), tags$b(label), tags$br(), var)
+tags$div(
+  swatch("--el-color-primary", "Brand Color", w = 220),
+  lapply(c(3, 5, 7, 8, 9), function(i)
+    swatch(paste0("--el-color-primary-light-", i), paste0("Light ", i),
+           fg = if (i > 5) "#303133" else "white")),
+  swatch("--el-color-primary-dark-2", "Dark 2"))
 ```
 
-## Secondary colors
+## Secondary Color
 
-Besides the main color, scenes call for others: success, warning, danger
-and info.
+Besides the main color, you need to use different scene colors in different
+scenarios -- for example, danger color indicates a dangerous operation.
 
 ```{r secondary, eval = FALSE, shot = TRUE}
-swatch <- function(name, hex, fg = "white") tags$div(
-  style = sprintf("display: inline-block; width: 140px; height: 80px; margin: 0 10px 10px 0;
-                   padding: 12px; border-radius: 4px; background: %s; color: %s", hex, fg),
-  tags$b(name), tags$br(), hex)
-tagList(swatch("Success", "#67C23A"), swatch("Warning", "#E6A23C"),
-        swatch("Danger", "#F56C6C"), swatch("Info", "#909399"))
+swatch <- function(var, label = var, fg = "white", w = 160) tags$div(
+  style = sprintf("display: inline-block; width: %dpx; height: 80px; padding: 10px; margin: 0 10px 10px 0;
+                   border-radius: 4px; background: var(%s); color: %s; font-size: 12px",
+                  w, var, fg), tags$b(label), tags$br(), var)
+tagList(lapply(c("success", "warning", "danger", "info"), function(t)
+  swatch(paste0("--el-color-", t), tools::toTitleCase(t))))
 ```
 
-## Neutral colors
+## Neutral Color
 
-For text, borders and backgrounds.
+Neutral colors are for text, background and border colors. Different
+neutral colors represent the hierarchical structure.
 
 ```{r neutral, eval = FALSE, shot = TRUE}
-swatch <- function(name, hex, fg) tags$div(
-  style = sprintf("display: inline-block; width: 140px; height: 70px; margin: 0 10px 10px 0;
-                   padding: 10px; border-radius: 4px; background: %s; color: %s", hex, fg),
-  tags$b(name), tags$br(), hex)
+swatch <- function(var, label, fg) tags$div(
+  style = sprintf("display: inline-block; width: 160px; height: 60px; padding: 10px; margin: 0 10px 10px 0;
+                   border-radius: 4px; background: var(%s); color: %s; font-size: 12px;
+                   border: 1px solid var(--el-border-color-lighter)", var, fg),
+  tags$b(label), tags$br(), var)
 tagList(
-  swatch("Primary text", "#303133", "white"), swatch("Regular text", "#606266", "white"),
-  swatch("Secondary text", "#909399", "white"), swatch("Placeholder", "#C0C4CC", "white"),
-  tags$br(),
-  swatch("Base border", "#DCDFE6", "#303133"), swatch("Light border", "#E4E7ED", "#303133"),
-  swatch("Lighter border", "#EBEEF5", "#303133"), swatch("Extra light", "#F2F6FC", "#303133"))
+  tags$div(
+    swatch("--el-text-color-primary", "Primary Text", "white"),
+    swatch("--el-text-color-regular", "Regular Text", "white"),
+    swatch("--el-text-color-secondary", "Secondary Text", "white"),
+    swatch("--el-text-color-placeholder", "Placeholder Text", "white"),
+    swatch("--el-text-color-disabled", "Disabled Text", "#303133")),
+  tags$div(
+    swatch("--el-border-color-darker", "Darker Border", "#303133"),
+    swatch("--el-border-color-dark", "Dark Border", "#303133"),
+    swatch("--el-border-color", "Base Border", "#303133"),
+    swatch("--el-border-color-light", "Light Border", "#303133"),
+    swatch("--el-border-color-lighter", "Lighter Border", "#303133"),
+    swatch("--el-border-color-extra-light", "Extra Light Border", "#303133")),
+  tags$div(
+    swatch("--el-fill-color-darker", "Darker Fill", "#303133"),
+    swatch("--el-fill-color", "Base Fill", "#303133"),
+    swatch("--el-fill-color-light", "Light Fill", "#303133"),
+    swatch("--el-fill-color-extra-light", "Extra Light Fill", "#303133"),
+    swatch("--el-bg-color-page", "Page Background", "#303133")))
 ```
 
 ## Changing them
 
+A brand colour brings its tints along; anything else is a variable by name.
+See the theming guide.
+
 ```{r change, eval = FALSE}
 el_page(theme = el_theme(primary = "#7c3aed",
-                         element = list("color-text-regular" = "#4b5563")))
+                         element = list("text-color-regular" = "#4b5563")))
 ```

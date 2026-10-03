@@ -6,77 +6,92 @@ title: "Steps"
 source(file.path("..", "..", "shots.R"))
 ```
 
-Guide the user through a process. `steps` is a list of
-`list(title =, description =, icon =, status =)`; `active` the step
-reached, 0-based, which `update_el_steps()` moves.
+Guide the user to complete tasks in accordance with the process. Its steps can be set according to the actual application scenario and the number of the steps can't be less than 2.
 
 ## Basic usage
 
-```{r basic, eval = FALSE, shot = TRUE, shot_js = "document.querySelector('#nxt_container button').click()", shot_wait = 1.5}
-ui <- el_page(
-  el_steps("wizard", active = 0, finish_status = "success", steps = list(
-    list(title = "Step 1"), list(title = "Step 2"), list(title = "Step 3"))),
-  tags$div(style = "margin-top: 12px", el_button("nxt", "Next step")))
+Simple step bar.
 
-server <- function(input, output, session) {
-  observeEvent(input$nxt, update_el_steps(id = "wizard", active = (input$wizard + 1) %% 4))
-}
+Set `active` attribute with `Number` type, which indicates the index of steps and starts from 0. You can set `space` attribute when the width of the step needs to be fixed which accepts `Number` type. The unit of the `space` attribute is `px`. If not set, it is responsive. Setting the `finish-status` attribute can change the state of the steps that have been completed.
 
-shinyApp(ui, server)
+`update_el_steps(active =)` moves it, as the demo's button does.
+
+```{r basic, eval = FALSE, shot = TRUE}
+el_steps("st_basic", active = 0, finish_status = "success", steps = list(
+  list(title = "Step 1"), list(title = "Step 2"), list(title = "Step 3")))
 ```
 
 ## Step bar that contains status
 
-```{r status, eval = FALSE, shot = TRUE}
-el_steps("st", space = 200, active = 1, finish_status = "success", steps = list(
+Shows the status of the step for each step.
+
+Use `title` attribute to set the name of the step, or override the attribute by using a named `slot`. We have listed all the slot names for you at the end of this page.
+
+```{r with-status, eval = FALSE, shot = TRUE}
+el_steps("st_status", active = 1, space = 200, finish_status = "success", steps = list(
   list(title = "Done"), list(title = "Processing"), list(title = "Step 3")))
 ```
 
 ## Center
 
-```{r center, eval = FALSE, shot = TRUE}
-el_steps("ce", active = 2, align_center = TRUE, steps = list(
-  list(title = "Step 1", description = "Some description"),
-  list(title = "Step 2", description = "Some description"),
-  list(title = "Step 3", description = "Some description"),
-  list(title = "Step 4", description = "Some description")))
+Title and description can be centered.
+
+```{r centered, eval = FALSE, shot = TRUE}
+el_steps("st_center", active = 2, align_center = TRUE, steps = list(
+  list(title = "Step 1", description = "Some description"), list(title = "Step 2", description = "Some description"),
+  list(title = "Step 3", description = "Some description"), list(title = "Step 4", description = "Some description")))
 ```
 
 ## Step bar with description
 
-```{r description, eval = FALSE, shot = TRUE}
-el_steps("de", active = 1, steps = list(
-  list(title = "Step 1", description = "Some description"),
-  list(title = "Step 2", description = "Some description"),
+There is description for each step.
+
+```{r with-description, eval = FALSE, shot = TRUE}
+el_steps("st_desc", active = 1, steps = list(
+  list(title = "Step 1", description = "Some description"), list(title = "Step 2", description = "Some description"),
   list(title = "Step 3", description = "Some description")))
 ```
 
 ## Step bar with icon
 
-```{r icon, eval = FALSE, shot = TRUE}
-el_steps("ic", active = 1, steps = list(
-  list(title = "Step 1", icon = "el-icon-edit"),
-  list(title = "Step 2", icon = "el-icon-upload"),
-  list(title = "Step 3", icon = "el-icon-picture")))
+A variety of custom icons can be used in the step bar.
+
+The icon is set by the `icon` property. The types of icons can be found in the document for the Icon component. In addition, you can customize the icon through a named `slot`.
+
+```{r with-icon, eval = FALSE, shot = TRUE}
+el_steps("st_icon", active = 1, steps = list(
+  list(title = "Step 1", icon = "Edit"), list(title = "Step 2", icon = "Upload"), list(title = "Step 3", icon = "Picture")))
 ```
 
 ## Vertical step bar
 
+Vertical step bars.
+
+You only need to set the `direction` attribute to `vertical` in the `el-steps` element.
+
 ```{r vertical, eval = FALSE, shot = TRUE}
-tags$div(style = "height: 300px", el_steps("ve", direction = "vertical", active = 1, steps = list(
-  list(title = "Step 1"), list(title = "Step 2"), list(title = "Step 3"))))
+tags$div(style = "height: 300px",
+  el_steps("st_vert", direction = "vertical", active = 1, steps = list(
+    list(title = "Step 1"), list(title = "Step 2"), list(title = "Step 3"))))
 ```
 
 ## Simple step bar
 
+Simple step bars, where `align-center`, `description`, `direction` and `space` will be ignored.
+
 ```{r simple, eval = FALSE, shot = TRUE}
-el_steps("si", active = 1, simple = TRUE, steps = list(
-  list(title = "Step 1", icon = "el-icon-edit"),
-  list(title = "Step 2", icon = "el-icon-upload"),
-  list(title = "Step 3", icon = "el-icon-picture")))
+tagList(
+  el_steps("st_simple", active = 0, simple = TRUE, steps = list(
+    list(title = "Step 1", icon = "Edit"), list(title = "Step 2", icon = "UploadFilled"),
+    list(title = "Step 3", icon = "Picture"))),
+  tags$div(style = "margin-top: 20px"),
+  el_steps("st_simple2", active = 0, finish_status = "success", simple = TRUE, steps = list(
+    list(title = "Step 1"), list(title = "Step 2"), list(title = "Step 3"))))
 ```
 
 ## API
+
+Element Plus's tables, and beside each entry where it is in R.
 
 ```{r api, echo = FALSE, results = "asis"}
 api_tables("steps")

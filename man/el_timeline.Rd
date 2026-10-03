@@ -2,7 +2,7 @@
 % Please edit documentation in R/el_timeline.R
 \name{el_timeline}
 \alias{el_timeline}
-\title{Element UI Timeline}
+\title{Element Plus Timeline}
 \usage{
 el_timeline(
   id = NULL,

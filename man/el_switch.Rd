@@ -2,7 +2,7 @@
 % Please edit documentation in R/el_switch.R
 \name{el_switch}
 \alias{el_switch}
-\title{Element UI Switch}
+\title{Element Plus Switch}
 \usage{
 el_switch(
   id = NULL,
@@ -146,7 +146,7 @@ a warning.}
 An \code{htmltools} tagList with a Vue-managed switch component.
 }
 \description{
-Creates an Element UI switch with Vue instance.
+Creates an Element Plus switch with Vue instance.
 }
 \section{Element methods}{
 

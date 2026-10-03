@@ -1,4 +1,4 @@
-#' Element UI Steps Component
+#' Element Plus Steps Component
 #'
 #' @param id Steps ID (auto-generated if NULL)
 #' @param steps List of step definitions, each with `title`, `description`,
@@ -124,7 +124,7 @@ el_steps <- function(id = NULL,
   )
 }
 
-#' Update Element UI Steps
+#' Update Element Plus Steps
 #' @param session Shiny session; the current one by default, as for
 #'   [shiny::updateTextInput()].
 #' @param id Steps ID

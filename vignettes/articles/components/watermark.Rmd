@@ -1,0 +1,79 @@
+---
+title: "Watermark"
+---
+
+```{r setup, include = FALSE}
+source(file.path("..", "..", "shots.R"))
+```
+
+Add specific text or patterns to the page.
+
+## Basic usage
+
+The most basic usage.
+
+```{r basic, eval = FALSE, shot = TRUE}
+el_watermark(content = "Element Plus", font = list(color = "rgba(0, 0, 0, .15)"),
+             tags$div(style = "height: 500px"))
+```
+
+## Multi-line watermark
+
+Use `content` to set an array of strings to specify multi-line text watermark content.
+
+Several lines: `content` is a vector.
+
+```{r multi-line, eval = FALSE, shot = TRUE}
+el_watermark(content = c("Element+", "Element Plus"), font = list(color = "rgba(0, 0, 0, .15)"),
+             tags$div(style = "height: 500px"))
+```
+
+## Image watermark
+
+Specify the image address via `image`. To ensure that the image is high definition and not stretched, set the width and height, and upload at least twice the width and height of the logo image address.
+
+`image` draws a picture instead of text; `watermark_width` and `height`
+size it (`width` is the box's).
+
+```{r image, eval = FALSE, shot = TRUE}
+el_watermark(watermark_width = 130, height = 30,
+             image = "https://element-plus.org/images/element-plus-logo.svg",
+             tags$div(style = "height: 500px"))
+```
+
+## Custom configuration
+
+Preview the watermark effect by configuring custom parameters.
+
+Its settings from inputs: the server redraws it as they change.
+
+```{r custom, eval = FALSE, shot = TRUE}
+ui <- el_page(
+  el_row(
+    el_col(span = 14, uiOutput("marked")),
+    el_col(span = 10,
+      el_input("content", label = "Content", value = "Element Plus"),
+      el_color_picker("color", label = "Color", value = "rgba(0, 0, 0, 0.15)", show_alpha = TRUE),
+      el_slider("size", label = "FontSize", value = 16, min = 8, max = 40),
+      el_slider("rotate", label = "Rotate", value = -22, min = -180, max = 180),
+      el_input_number("gap", label = "Gap", value = 100))))
+
+server <- function(input, output, session) {
+  output$marked <- renderUI(el_watermark(
+    content = input$content, rotate = input$rotate, gap = rep(input$gap %||% 100, 2),
+    font = list(fontSize = input$size, color = input$color),
+    tags$div(style = "padding: 40px 20px; height: 360px",
+             tags$h1("Element Plus"),
+             tags$h2("A Vue 3 based component library for designers and developers"))))
+}
+
+shinyApp(ui, server)
+```
+
+## API
+
+Element Plus's tables, and beside each entry where it is in R.
+
+```{r api, echo = FALSE, results = "asis"}
+api_tables("watermark")
+```

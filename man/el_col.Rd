@@ -2,7 +2,7 @@
 % Please edit documentation in R/el_layout.R
 \name{el_col}
 \alias{el_col}
-\title{Element UI Layout Column}
+\title{Element Plus Layout Column}
 \usage{
 el_col(
   ...,
@@ -23,7 +23,7 @@ el_col(
 \arguments{
 \item{...}{Column content.}
 
-\item{span}{Column span out of 24. Defaults to 24, as in Element UI.}
+\item{span}{Column span out of 24. Defaults to 24, as in Element Plus.}
 
 \item{offset}{Columns to offset by.}
 

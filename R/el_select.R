@@ -1,11 +1,11 @@
 
 # Private dependency loader (not exported)
 
-#' Element UI Select Component
+#' Element Plus Select Component
 #'
-#' Creates an Element UI `<el-select>` component backed by a Vue instance.
+#' Creates an Element Plus `<el-select>` component backed by a Vue instance.
 #' Supports single and multiple selection, filtering, and all standard
-#' Element UI select props.
+#' Element Plus select props.
 #'
 #' @param id Input ID. Auto-generated UUID if `NULL`.
 #' @param choices,options The choices: a named character vector
@@ -397,7 +397,7 @@ el_select <- function(
 }
 
 
-#' Update Element UI Select
+#' Update Element Plus Select
 #'
 #' Server-side update for [el_select()]. Sends a custom message to update
 #' reactive fields on the underlying Vue instance.

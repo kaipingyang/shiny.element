@@ -212,7 +212,7 @@ el_tabs <- function(
 }
 
 
-#' Update Element UI Tabs
+#' Update Element Plus Tabs
 #'
 #' Server-side update for [el_tabs()].
 #'

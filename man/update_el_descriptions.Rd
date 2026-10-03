@@ -2,7 +2,7 @@
 % Please edit documentation in R/el_descriptions.R
 \name{update_el_descriptions}
 \alias{update_el_descriptions}
-\title{Update Element UI Descriptions}
+\title{Update Element Plus Descriptions}
 \usage{
 update_el_descriptions(
   session = shiny::getDefaultReactiveDomain(),

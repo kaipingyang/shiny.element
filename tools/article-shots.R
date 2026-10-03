@@ -31,7 +31,7 @@
 #   shot_wait  Seconds to wait after shot_js. Default 1.5.
 #
 # Every example is also checked: code that fails to run, a page that logs
-# a [Vue warn] under Vue's development build, or a menu entry, tab or tag
+# a [Vue warn], a [shiny-vue] error or an exception, or a menu entry, tab or tag
 # drawn with no label, is reported and the script exits non-zero.
 
 suppressMessages({
@@ -146,7 +146,10 @@ writeLines(c(
   # shows nothing, here and on the website alike
   "  if (!length(b$ui)) return(tags$pre(id = 'shot-error', 'the example shows nothing: wrap a list of UI in tagList()'))",
   "  content <- lapply(b$ui, function(u) if (is.function(u)) u(req) else u)",
-  "  el_page(tags$div(id = 'shot',",
+  # chromote's capture at scale 2 resizes the page under a floating card,
+  # and a tour's card, sized by its content, collapses to one letter wide
+  "  el_page(tags$style('.el-tour__content { width: var(--el-tour-width) !important; max-width: none !important; }'),",
+  "    tags$div(id = 'shot',",
   "    style = 'padding:24px; max-width:860px; display:flow-root', content))",
   "}",
   "",
@@ -187,6 +190,12 @@ b$Runtime$consoleAPICalled(callback = function(msg) {
   text <- paste(vapply(msg$args, function(a) as.character(a$value %||% ""),
                        character(1)), collapse = " ")
   console <<- c(console, text)
+})
+# An exception in the page -- a template Vue 3 cannot compile -- is a
+# failure too
+b$Runtime$exceptionThrown(callback = function(e) {
+  console <<- c(console, paste("[shiny-vue] exception:",
+                               e$exceptionDetails$exception$description %||% "?"))
 })
 
 js <- function(expr) b$Runtime$evaluate(expr)$result$value

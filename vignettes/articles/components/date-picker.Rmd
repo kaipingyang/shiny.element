@@ -6,76 +6,190 @@ title: "DatePicker"
 source(file.path("..", "..", "shots.R"))
 ```
 
-Use Date Picker for date input. `input$<id>` is a `Date` -- two for a
-range -- as `dateInput()` gives one; another `type` or `value_format`
-reports the text the picker produces.
+Use Date Picker for date input.
 
-## Enter date
+## Enter Date
 
-`type` sets the measurement; `picker_options` carries Element's
-`shortcuts` and `disabledDate`, written with `JS()`.
+Basic date picker measured by 'day'.
 
-```{r enter, eval = FALSE, shot = TRUE, shot_js = "document.querySelectorAll('#shot .el-input__inner')[1].focus()", shot_sel = ".el-picker-panel", shot_wait = 1}
-el_date_picker("d1", placeholder = "Pick a day")
-el_date_picker("d2", placeholder = "Pick a day", picker_options = list(
-  disabledDate = JS("function(time) { return time.getTime() > Date.now(); }"),
-  shortcuts = list(
-    list(text = "Today", onClick = JS("function(picker) { picker.$emit('pick', new Date()); }")),
-    list(text = "Yesterday", onClick = JS(
-      "function(picker) { var d = new Date(); d.setTime(d.getTime() - 3600 * 1000 * 24); picker.$emit('pick', d); }")))))
+The measurement is determined by the `type` attribute. You can enable quick options via `shortcuts` property. The disabled date is set by `disabledDate`, which is a function.
+
+```{r enter-date, eval = FALSE, shot = TRUE}
+el_row(
+  el_col(span = 12, tags$div("Default"),
+    el_date_picker("dp_default", placeholder = "Pick a day")),
+  el_col(span = 12, tags$div("Picker with quick options"),
+    el_date_picker("dp_quick", placeholder = "Pick a day", shortcuts = list(
+      list(text = "Today", value = JS("new Date()")),
+      list(text = "Yesterday", value = JS("(function() { var d = new Date(); d.setDate(d.getDate() - 1); return d; })()")),
+      list(text = "A week ago", value = JS("(function() { var d = new Date(); d.setDate(d.getDate() - 7); return d; })()"))),
+      disabled_date = JS("function(time) { return time.getTime() > Date.now(); }"))))
 ```
 
 ## Other measurements
 
-```{r measurements, eval = FALSE, shot = TRUE}
-el_date_picker("week", type = "week", format = "Week WW", value_format = "yyyy-WW", placeholder = "Pick a week")
-el_date_picker("month", type = "month", value_format = "yyyy-MM", placeholder = "Pick a month")
-el_date_picker("year", type = "year", value_format = "yyyy", placeholder = "Pick a year")
-el_date_picker("dates", type = "dates", placeholder = "Pick one or more dates")
+You can choose week, month, year, quarter or multiple dates by extending the standard date picker component.
+
+```{r other-measurements, eval = FALSE, shot = TRUE}
+pick <- function(id, type, placeholder, format = NULL) tags$div(style = "margin-bottom: 12px",
+  tags$div(type), el_date_picker(id, type = type, placeholder = placeholder, format = format))
+tagList(
+  pick("dp_week", "week", "Pick a week", format = "[Week] ww"),
+  pick("dp_month", "month", "Pick a month"),
+  pick("dp_year", "year", "Pick a year"),
+  pick("dp_years", "years", "Pick years"),
+  pick("dp_months", "months", "Pick months"),
+  pick("dp_dates", "dates", "Pick one or more dates"))
 ```
 
-## Date range
+## Date Range
 
-`unlink_panels` lets the two months move on their own.
+Picking a date range is supported.
 
-```{r range, eval = FALSE, shot = TRUE, shot_js = "document.querySelector('#shot .el-range-input').focus()", shot_sel = ".el-picker-panel", shot_wait = 1}
-el_date_picker("trip", type = "daterange", range_separator = "To", unlink_panels = TRUE,
-               start_placeholder = "Start date", end_placeholder = "End date")
+When in range mode, the left and right panels are linked by default. If you want the two panels to switch current months independently, you can use the `unlink-panels` attribute.
+
+```{r date-range, eval = FALSE, shot = TRUE}
+tagList(
+  el_date_picker("dp_range", type = "daterange", range_separator = "To",
+                 start_placeholder = "Start date", end_placeholder = "End date"),
+  el_date_picker("dp_range_quick", type = "daterange", unlink_panels = TRUE,
+                 range_separator = "To", start_placeholder = "Start date",
+                 end_placeholder = "End date", shortcuts = list(
+    list(text = "Last week", value = JS("(function() { var e = new Date(), s = new Date(); s.setTime(s.getTime() - 3600 * 1000 * 24 * 7); return [s, e]; })()")),
+    list(text = "Last month", value = JS("(function() { var e = new Date(), s = new Date(); s.setMonth(s.getMonth() - 1); return [s, e]; })()")))))
 ```
 
-## Month range
+## Month Range
+
+Picking a month range is supported.
+
+When in range mode, the left and right panels are linked by default. If you want the two panels to switch current years independently, you can use the `unlink-panels` attribute.
 
 ```{r month-range, eval = FALSE, shot = TRUE}
-el_date_picker("quarter", type = "monthrange", value_format = "yyyy-MM", range_separator = "To",
+el_date_picker("dp_mrange", type = "monthrange", range_separator = "To",
                start_placeholder = "Start month", end_placeholder = "End month")
 ```
 
-## Default value
+## Year Range
 
-`default_value` is the month the panel opens on when nothing is picked.
+Picking a year range is supported.
 
-```{r default, eval = FALSE, shot = TRUE}
-el_date_picker("dv", placeholder = "Pick a date", default_value = "2010-10-01")
+When in range mode, the left and right panels are linked by default. If you want the two panels to switch years independently, you can use the `unlink-panels` attribute.
+
+```{r year-range, eval = FALSE, shot = TRUE}
+el_date_picker("dp_yrange", type = "yearrange", range_separator = "To",
+               start_placeholder = "Start Year", end_placeholder = "End Year")
 ```
 
-## Date formats
+## Quarter Range
 
-`format` is what the box shows; `value_format` what `input$<id>` gets.
+Picking a quarter range is supported.
 
-```{r formats, eval = FALSE, shot = TRUE}
-el_date_picker("f1", value = "2026-03-15", format = "yyyy/MM/dd")
-el_date_picker("f2", value = "2026-03-15", format = "dd MMM yyyy", value_format = "timestamp")
+When in range mode, the left and right panels are linked by default. If you want the two panels to switch years independently, you can use the `unlink-panels` attribute.
+
+```{r quarter-range, eval = FALSE, shot = TRUE}
+el_date_picker("dp_qrange", type = "quarterrange", range_separator = "To",
+               start_placeholder = "Start quarter", end_placeholder = "End quarter")
 ```
 
-## Default time for start and end date
+## Single Panel
+
+By default date picker ranges have two panels. If you want one panel set the `single-panel` attribute.
+
+```{r single-panel, eval = FALSE, shot = TRUE}
+el_date_picker("dp_single", type = "daterange", single_panel = TRUE,
+               start_placeholder = "Start date", end_placeholder = "End date")
+```
+
+## Default Value
+
+If user hasn't picked a date, shows today's calendar by default. You can use `default-value` to set another date. Its value should be parsable by `new Date()`.
+
+If type is `daterange`, `default-value` sets the left side calendar.
+
+```{r default-value, eval = FALSE, shot = TRUE}
+tagList(
+  el_date_picker("dp_dv1", type = "date", placeholder = "Pick a date", default_value = "2010-10-01"),
+  el_date_picker("dp_dv2", type = "daterange", start_placeholder = "Start Date",
+                 end_placeholder = "End Date", default_value = c("2010-09-01", "2010-10-01")))
+```
+
+## Date Formats
+
+Use `format` to control displayed text's format in the input box. Use `value-format` to control binding value's format.
+
+By default, the component accepts and emits a `Date` object.
+
+Check the list [here](https://day.js.org/docs/en/display/format#list-of-all-available-formats) of all available formats of Day.js.
+
+> **Warning**
+>
+> Pay attention to capitalization
+
+`value_format` is the value reported to Shiny; `format` what the input
+shows. Both in day.js's tokens.
+
+```{r date-formats, eval = FALSE, shot = TRUE}
+tagList(
+  tags$div("Emits Date object"),
+  el_date_picker("dp_fmt1", value = "2021-10-29", format = "YYYY/MM/DD"),
+  tags$div("Use value-format"),
+  el_date_picker("dp_fmt2", value = "2021-10-29", format = "YYYY/MM/DD", value_format = "x"))
+```
+
+## Default time for start date and end date
+
+When picking a date range, you can assign the time part for start date and end date.
+
+By default, the time part of start date and end date are both `00:00:00`. Setting `default-time` can change their time respectively. It accepts an array of up to two Date objects. The first string sets the time for the start date, and the second for the end date.
 
 ```{r default-time, eval = FALSE, shot = TRUE}
-el_date_picker("dt", type = "daterange", value_format = "yyyy-MM-dd HH:mm:ss",
-               start_placeholder = "Start", end_placeholder = "End",
-               default_time = c("00:00:00", "23:59:59"))
+el_date_picker("dp_dt", type = "daterange", start_placeholder = "Start date",
+               end_placeholder = "End date",
+               default_time = list(JS("new Date(2000, 1, 1, 12, 0, 0)"), JS("new Date(2000, 2, 1, 8, 0, 0)")))
 ```
 
+## Set custom content of prefix
+
+The content of prefix can be customized.
+
+Setting `prefix-icon` to component which you import form other .vue or generated by the render function.
+
+```{r custom-prefix-icon, eval = FALSE, shot = TRUE}
+el_date_picker("dp_prefix", placeholder = "Pick a day", prefix_icon = "Calendar")
+```
+
+## Custom content
+
+The content of cell can be customized, in scoped-slot you can get the cell data. Note that the custom content structure should be consistent with the default structure, otherwise style misalignment may occur.
+
+```{r custom-content, eval = FALSE, shot = TRUE}
+el_date_picker("dp_cell", placeholder = "Pick a day", slots = list(default = template(htmltools::HTML(
+  "<div class=\"cell\" :class=\"{ current: cell.isCurrent }\"><span class=\"cell__text\">{{ cell.text }}</span></div>"),
+  scope = "cell")))
+```
+
+## Custom icon
+
+Custom icons available with slots.
+
+```{r custom-icon, eval = FALSE, shot = TRUE}
+el_date_picker("dp_icons", placeholder = "Pick a day", slots = list(
+  `prev-month` = el_icon("CaretLeft"), `next-month` = el_icon("CaretRight"),
+  `prev-year` = el_icon("DArrowLeft"), `next-year` = el_icon("DArrowRight")))
+```
+
+For data details, please refer:
+
+## Localization
+
+The default locale of is English, if you need to use other languages, please check [Internationalization](https://element-plus.org/en-US/guide/i18n)
+
+Note, date time locale (month name, first day of the week ...) are also configured in localization.
+
 ## API
+
+Element Plus's tables, and beside each entry where it is in R.
 
 ```{r api, echo = FALSE, results = "asis"}
 api_tables("date-picker")

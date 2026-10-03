@@ -2,7 +2,7 @@
 % Please edit documentation in R/el_radio_group.R
 \name{update_el_radio_group}
 \alias{update_el_radio_group}
-\title{Update Element UI Radio Group}
+\title{Update Element Plus Radio Group}
 \usage{
 update_el_radio_group(
   session = shiny::getDefaultReactiveDomain(),

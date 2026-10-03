@@ -1,4 +1,4 @@
-#' Element UI Empty
+#' Element Plus Empty
 #'
 #' A placeholder for a view with nothing in it yet.
 #'
@@ -67,7 +67,7 @@ el_empty <- function(id = NULL,
 }
 
 
-#' Update Element UI Empty
+#' Update Element Plus Empty
 #'
 #' Server-side update for [el_empty()].
 #'

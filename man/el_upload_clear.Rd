@@ -2,7 +2,7 @@
 % Please edit documentation in R/el_upload.R
 \name{el_upload_clear}
 \alias{el_upload_clear}
-\title{Clear an Element UI Upload's file list}
+\title{Clear an Element Plus Upload's file list}
 \usage{
 el_upload_clear(session = shiny::getDefaultReactiveDomain(), id)
 }

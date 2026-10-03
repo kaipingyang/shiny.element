@@ -2,7 +2,7 @@
 % Please edit documentation in R/el_result.R
 \name{update_el_result}
 \alias{update_el_result}
-\title{Update Element UI Result}
+\title{Update Element Plus Result}
 \usage{
 update_el_result(
   session = shiny::getDefaultReactiveDomain(),

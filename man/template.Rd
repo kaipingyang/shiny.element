@@ -2,7 +2,7 @@
 % Please edit documentation in R/template.R
 \name{template}
 \alias{template}
-\title{Generate a \verb{<template>} tag for Vue/Element UI slot usage}
+\title{Generate a \verb{<template>} tag for Vue/Element Plus slot usage}
 \usage{
 template(..., slot = NULL, scope = NULL)
 }
@@ -17,7 +17,7 @@ template(..., slot = NULL, scope = NULL)
 A Shiny UI element.
 }
 \description{
-Generate a \verb{<template>} tag for Vue/Element UI slot usage
+Generate a \verb{<template>} tag for Vue/Element Plus slot usage
 }
 \examples{
 # Basic usage with text

@@ -1,4 +1,4 @@
-#' Element UI Avatar
+#' Element Plus Avatar
 #'
 #' A user avatar, from an image, an icon, or text.
 #'
@@ -78,7 +78,7 @@ el_avatar <- function(id = NULL,
 }
 
 
-#' Update Element UI Avatar
+#' Update Element Plus Avatar
 #'
 #' Server-side update for [el_avatar()].
 #'

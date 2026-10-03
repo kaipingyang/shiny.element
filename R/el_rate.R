@@ -1,4 +1,4 @@
-#' Element UI Rate (Star Rating)
+#' Element Plus Rate (Star Rating)
 #'
 #' A star-rating input. Supports half-stars, custom icons, and read-only display.
 #'
@@ -68,7 +68,7 @@ el_rate <- function(
     show_text      = FALSE,
     show_score     = FALSE,
     # Escaped rather than literal: CRAN requires R code to be ASCII-only, so
-    # that the package reads the same under any locale. These are Element UI's
+    # that the package reads the same under any locale. These are Element Plus's
     # own default labels: 极差 失望 一般 满意 惊喜.
     texts          = c("\u6781\u5dee", "\u5931\u671b", "\u4e00\u822c",
                        "\u6ee1\u610f", "\u60ca\u559c"),
@@ -176,7 +176,7 @@ el_rate <- function(
 }
 
 
-#' Update Element UI Rate
+#' Update Element Plus Rate
 #'
 #' Server-side update for [el_rate()].
 #'

@@ -36,9 +36,26 @@
   # One component is itself a tag list, of its head and its host.
   is_component <- function(x) inherits(x, "shiny.tag.list") && any(vapply(x, function(p)
     inherits(p, "shiny.tag") && !is.null(attr(p, "el_spec")), logical(1)))
+  # A plain tag holding a component -- tags$span(el_button(...)) -- is opened
+  # up: its children are absorbed and the tag keeps its place around them.
+  # Left whole, the component's own template would sit inside this one's,
+  # where Vue's compiler drops the <script> holding it.
+  holds_component <- function(x) {
+    if (is_component(x)) return(TRUE)
+    kids <- if (inherits(x, "shiny.tag")) x$children
+            else if (is.list(x)) unclass(x) else NULL
+    length(kids) > 0 && any(vapply(kids, holds_component, logical(1)))
+  }
+  if (inherits(ui, "shiny.tag") && is.null(attr(ui, "el_spec"))) {
+    if (!holds_component(ui)) return(empty)
+    inner <- .el_absorb(ui$children)
+    ui$children <- list(inner$markup)
+    inner$markup <- ui
+    return(inner)
+  }
   if (is.list(ui) && !inherits(ui, "shiny.tag") && !is_component(ui)) {
     parts <- Filter(Negate(is.null), unclass(ui))
-    if (!any(vapply(parts, function(p) is_component(p) ||
+    if (!any(vapply(parts, function(p) is_component(p) || holds_component(p) ||
                       (is.list(p) && !inherits(p, "shiny.tag")), logical(1)))) return(empty)
     merged <- do.call(.el_absorb_merge, lapply(parts, .el_absorb))
     return(list(markup = htmltools::tagList(merged$markups), data = merged$data,

@@ -6,29 +6,32 @@ title: "Backtop"
 source(file.path("..", "..", "shots.R"))
 ```
 
-A button to go back to the top. `target` names the scrolling element; the
-page's by default.
+A button to back to top.
 
-## Basic usage
+## Basic Usage
 
-```{r basic, eval = FALSE, shot = TRUE, shot_js = "document.getElementById('report').scrollTop = 600", shot_sel = ".el-backtop", shot_wait = 1}
-tags$div(id = "report", style = "height: 200px; overflow: auto",
-         lapply(1:40, function(i) tags$p(paste("Line", i))))
-el_backtop("top", target = "#report", visibility_height = 100, right = 40, bottom = 40)
+Scroll down to see the bottom-right button.
+
+```{r basic, eval = FALSE, shot = TRUE}
+tagList("Scroll down to see the bottom-right button.",
+        el_backtop(right = 100, bottom = 100))
 ```
 
 ## Customizations
 
-`content` replaces the arrow.
+Display area is 40px \* 40px.
 
-```{r custom, eval = FALSE, shot = TRUE, shot_js = "document.getElementById('long').scrollTop = 600", shot_sel = ".el-backtop", shot_wait = 1}
-tags$div(id = "long", style = "height: 200px; overflow: auto",
-         lapply(1:40, function(i) tags$p(paste("Line", i))))
-el_backtop("up", target = "#long", visibility_height = 100, bottom = 100,
-           content = tags$div(style = "height: 100%; width: 100%; background: #f2f5f6; box-shadow: 0 0 6px rgba(0,0,0,.12); text-align: center; line-height: 40px; color: #1989fa", "UP"))
+```{r custom, eval = FALSE, shot = TRUE}
+tagList("Scroll down to see the bottom-right button.",
+  el_backtop(bottom = 100, content = tags$div(style = paste(
+    "height: 100%; width: 100%; background-color: var(--el-bg-color-overlay);",
+    "box-shadow: var(--el-box-shadow-lighter); text-align: center; line-height: 40px;",
+    "color: #1989fa"), "UP")))
 ```
 
 ## API
+
+Element Plus's tables, and beside each entry where it is in R.
 
 ```{r api, echo = FALSE, results = "asis"}
 api_tables("backtop")

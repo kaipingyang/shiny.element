@@ -1,6 +1,6 @@
 #' Element Plus Link
 #'
-#' A styled hyperlink that follows Element UI's design language.
+#' A styled hyperlink that follows Element Plus's design language.
 #'
 #' @param label Link text. Accepts a string or HTML tag.
 #' @param href URL target. `NULL` for a non-navigating link.
@@ -94,7 +94,7 @@ el_link <- function(label = "Link",
 }
 
 
-#' Update Element UI Link
+#' Update Element Plus Link
 #'
 #' Server-side update for an [el_link()] given an `id`.
 #'

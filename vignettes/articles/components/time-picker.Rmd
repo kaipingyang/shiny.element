@@ -6,63 +6,52 @@ title: "TimePicker"
 source(file.path("..", "..", "shots.R"))
 ```
 
-Use Time Picker for time input. `input$<id>` is the time as text,
-`"HH:mm:ss"` unless `value_format` says otherwise -- two of them for a
-range.
-
-## Fixed time picker
-
-`el_time_select()` offers fixed times: `start`, `end` and `step`.
-
-```{r fixed, eval = FALSE, shot = TRUE}
-el_time_select("slot", placeholder = "Select time",
-               picker_options = list(start = "08:30", step = "00:15", end = "18:30"))
-```
+Use Time Picker for time input.
 
 ## Arbitrary time picker
 
-`selectableRange` limits what can be picked; `arrow_control` steps with
-arrows instead of the mouse wheel.
+Can pick an arbitrary time.
 
-```{r arbitrary, eval = FALSE, shot = TRUE}
-el_time_picker("t1", placeholder = "Arbitrary time",
-               picker_options = list(selectableRange = "18:30:00 - 20:30:00"))
-el_time_picker("t2", arrow_control = TRUE, placeholder = "Arbitrary time",
-               picker_options = list(selectableRange = "18:30:00 - 20:30:00"))
+By default, you can scroll the mouse wheel to pick time, alternatively you can use the control arrows when the `arrow-control` attribute is set.
+
+```{r basic, eval = FALSE, shot = TRUE}
+tagList(
+  el_time_picker("t1", placeholder = "Arbitrary time"),
+  el_time_picker("t2", arrow_control = TRUE, placeholder = "Arbitrary time"))
 ```
 
-## Fixed time range
+## Limit the time range
 
-The end's `minTime` follows the start, from the server.
+You can also limit the time range.
 
-```{r fixed-range, eval = FALSE, shot = TRUE}
-ui <- el_page(
-  el_time_select("start", placeholder = "Start time",
-                 picker_options = list(start = "08:30", step = "00:15", end = "18:30")),
-  el_time_select("end", placeholder = "End time",
-                 picker_options = list(start = "08:30", step = "00:15", end = "18:30"))
-)
+Limit the time range by specifying `disabledHours` `disabledMinutes` and `disabledSeconds`.
 
-server <- function(input, output, session) {
-  observeEvent(input$start, {
-    update_el_time_select(id = "end", picker_options = list(
-      start = "08:30", step = "00:15", end = "18:30", minTime = input$start))
-  })
-}
+`disabled_hours`, `disabled_minutes` and `disabled_seconds` limit what can
+be picked -- here, 17:30 to 18:30.
 
-shinyApp(ui, server)
+```{r basic-range, eval = FALSE, shot = TRUE}
+el_time_picker("lim", value = "18:30:00", placeholder = "Arbitrary time",
+  disabled_hours = JS("function() { var r = []; for (var h = 0; h < 24; h++) if (h < 17 || h > 18) r.push(h); return r; }"),
+  disabled_minutes = JS("function(h) { var r = []; for (var m = 0; m < 60; m++) if ((h === 17 && m < 30) || (h === 18 && m > 30)) r.push(m); return r; }"))
 ```
 
 ## Arbitrary time range
 
+Can pick an arbitrary time range.
+
+We can pick a time range by adding an `is-range` attribute. Also, `arrow-control` is supported in range mode.
+
 ```{r range, eval = FALSE, shot = TRUE}
-el_time_picker("r1", is_range = TRUE, range_separator = "To",
-               start_placeholder = "Start time", end_placeholder = "End time")
-el_time_picker("r2", is_range = TRUE, arrow_control = TRUE, range_separator = "To",
-               start_placeholder = "Start time", end_placeholder = "End time")
+tagList(
+  el_time_picker("r1", is_range = TRUE, value = c("08:40:00", "09:40:00"), range_separator = "To",
+                 start_placeholder = "Start time", end_placeholder = "End time"),
+  el_time_picker("r2", is_range = TRUE, arrow_control = TRUE, value = c("08:40:00", "09:40:00"),
+                 range_separator = "To", start_placeholder = "Start time", end_placeholder = "End time"))
 ```
 
 ## API
+
+Element Plus's tables, and beside each entry where it is in R.
 
 ```{r api, echo = FALSE, results = "asis"}
 api_tables("time-picker")

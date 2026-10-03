@@ -16,7 +16,7 @@
 
 #' Add gutter padding to a column
 #'
-#' Element UI's Col reads `gutter` off its parent Row and emits the padding
+#' Element Plus's Col reads `gutter` off its parent Row and emits the padding
 #' inline, so the same has to happen here rather than through a CSS class.
 #'
 #' @param child A column tag, or any other child (returned untouched).
@@ -33,12 +33,12 @@
   child
 }
 
-#' Element UI Layout Row
+#' Element Plus Layout Row
 #'
 #' Emits `<div class="el-row">` directly rather than an `<el-row>` custom tag.
 #' Nothing mounts a Vue instance over page-level markup, so a custom tag would
 #' never be compiled and would render as an unstyled inline element; the
-#' Element UI stylesheet is already loaded, so the class name is all that is
+#' Element Plus stylesheet is already loaded, so the class name is all that is
 #' needed.
 #'
 #' @param ... Child columns ([el_col()]) or other content.
@@ -107,12 +107,12 @@ el_row <- function(..., gutter = NULL, type = NULL, justify = NULL,
   ))
 }
 
-#' Element UI Layout Column
+#' Element Plus Layout Column
 #'
 #' Emits `<div class="el-col el-col-N">` directly; see [el_row()] for why.
 #'
 #' @param ... Column content.
-#' @param span Column span out of 24. Defaults to 24, as in Element UI.
+#' @param span Column span out of 24. Defaults to 24, as in Element Plus.
 #' @param offset Columns to offset by.
 #' @param push Columns to push right.
 #' @param pull Columns to pull left.
@@ -162,7 +162,7 @@ el_col <- function(..., span = 24, offset = NULL, push = NULL, pull = NULL,
   ))
 }
 
-#' Element UI Page Wrapper with Theme Support
+#' Element Plus Page Wrapper with Theme Support
 #'
 #' Top-level page constructor that loads Element-UI, Vue, and layout CSS dependencies,
 #' and supports both bslib/shiny themes and Element-UI layout CSS.
@@ -180,7 +180,7 @@ el_col <- function(..., span = 24, offset = NULL, push = NULL, pull = NULL,
 #'   `NULL` leaves it out.
 #' @param offline Serve Element Plus from the copy bundled with this package
 #'   rather than the unpkg CDN. See [element_plus_dependency()].
-#' @param locale Language for Element UI's built-in text -- pagination
+#' @param locale Language for Element Plus's built-in text -- pagination
 #'   summaries, date-picker buttons, select placeholders. English by default,
 #'   or `getOption("shiny.element.locale")` when set; `"zh-CN"` gives Element's
 #'   own Simplified Chinese. See [el_locales()] for the rest.

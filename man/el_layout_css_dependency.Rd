@@ -2,7 +2,7 @@
 % Please edit documentation in R/el_dependencies.R
 \name{el_layout_css_dependency}
 \alias{el_layout_css_dependency}
-\title{Element UI Layout CSS Dependency}
+\title{Element Plus Layout CSS Dependency}
 \usage{
 el_layout_css_dependency()
 }

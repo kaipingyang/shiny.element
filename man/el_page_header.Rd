@@ -2,7 +2,7 @@
 % Please edit documentation in R/el_page_header.R
 \name{el_page_header}
 \alias{el_page_header}
-\title{Element UI Page Header}
+\title{Element Plus Page Header}
 \usage{
 el_page_header(
   id = NULL,

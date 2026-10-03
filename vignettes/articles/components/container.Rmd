@@ -6,38 +6,77 @@ title: "Container"
 source(file.path("..", "..", "shots.R"))
 ```
 
-Container components for scaffolding the basic structure of the page:
-`el_container()` holds `el_header()`, `el_aside()`, `el_main()` and
-`el_footer()`. A container holding a header or a footer lays its children
-out vertically, otherwise horizontally.
+Container components for scaffolding basic structure of the page:
+
+`<el-container>`: wrapper container. When nested with a `<el-header>` or `<el-footer>`, all its child elements will be vertically arranged. Otherwise horizontally.
+
+`<el-header>`: container for headers.
+
+`<el-aside>`: container for side sections (usually a side nav).
+
+`<el-main>`: container for main sections.
+
+`<el-footer>`: container for footers.
+
+> **Tip**
+>
+> These components use flex for layout, so please make sure your browser supports it. Besides, `<el-container>`'s direct child elements have to be one or more of the latter four components. And father element of the latter four components must be a `<el-container>`.
 
 ## Common layouts
 
-```{r layouts, eval = FALSE, shot = TRUE}
-box <- function(f, ...) f(..., style = "background: #e9eef3; text-align: center; line-height: 60px")
-hdr <- function(...) el_header(..., style = "background: #b3c0d1; text-align: center; line-height: 60px")
-side <- function(...) el_aside(width = "200px", ..., style = "background: #d3dce6; text-align: center; line-height: 160px")
-tagList(
-  el_container(hdr("Header"), box(el_main, "Main")),
-  tags$br(),
-  el_container(hdr("Header"), box(el_main, "Main"),
-               el_footer("Footer", style = "background: #b3c0d1; text-align: center; line-height: 60px")),
-  tags$br(),
-  el_container(side("Aside"), box(el_main, "Main")),
-  tags$br(),
-  el_container(hdr("Header"), el_container(side("Aside"), box(el_main, "Main")))
-)
+```{r layout-hm, eval = FALSE, shot = TRUE}
+el_container(el_header("Header"), el_main("Main"))
+```
+
+```{r layout-hmf, eval = FALSE, shot = TRUE}
+el_container(el_header("Header"), el_main("Main"), el_footer("Footer"))
+```
+
+```{r layout-am, eval = FALSE, shot = TRUE}
+el_container(el_aside(width = "200px", "Aside"), el_main("Main"), el_aside(width = "200px", "Aside"))
+```
+
+```{r layout-ham, eval = FALSE, shot = TRUE}
+el_container(el_header("Header"),
+             el_container(el_aside(width = "200px", "Aside"), el_main("Main")))
+```
+
+```{r layout-hamf, eval = FALSE, shot = TRUE}
+el_container(el_header("Header"),
+  el_container(el_aside(width = "200px", "Aside"),
+               el_container(el_main("Main"), el_footer("Footer"))))
+```
+
+```{r layout-ahm, eval = FALSE, shot = TRUE}
+el_container(el_aside(width = "200px", "Aside"),
+             el_container(el_header("Header"), el_main("Main")))
+```
+
+```{r layout-ahmf, eval = FALSE, shot = TRUE}
+el_container(el_aside(width = "200px", "Aside"),
+             el_container(el_header("Header"), el_main("Main"), el_footer("Footer")))
 ```
 
 ## Example
 
-A page frame with a menu down the side, a toolbar on top and a table in
-the middle -- the dashboard of the same name runs it whole.
-
-```{r example, file = "../../../inst/examples/dashboards/admin-layout/app.R", eval = FALSE, shot = TRUE}
+```{r example, eval = FALSE, shot = TRUE}
+el_container(style = "height: 400px; border: 1px solid var(--el-border-color)",
+  el_aside(width = "200px",
+    el_menu("ctr_menu", active = "1-1", items = list(
+      list(index = "1", title = "Navigator One", icon = "Message", children = list(
+        list(index = "1-1", label = "Option 1"), list(index = "1-2", label = "Option 2"))),
+      list(index = "2", title = "Navigator Two", icon = "Menu", children = list(
+        list(index = "2-1", label = "Option 1")))))),
+  el_container(
+    el_header(style = "text-align: right; font-size: 12px", tags$span("Tom")),
+    el_main(el_table("ctr_tbl", data = data.frame(
+      Date = rep("2016-05-02", 4), Name = rep("Tom", 4),
+      Address = rep("No. 189, Grove St, Los Angeles", 4))))))
 ```
 
 ## API
+
+Element Plus's tables, and beside each entry where it is in R.
 
 ```{r api, echo = FALSE, results = "asis"}
 api_tables("container")

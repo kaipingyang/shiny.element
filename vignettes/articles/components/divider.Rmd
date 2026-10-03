@@ -10,30 +10,57 @@ The dividing line that separates the content.
 
 ## Basic usage
 
-```{r basic, eval = FALSE, shot = TRUE}
-tags$span("I sit at a desk and set up a box.")
-el_divider()
-tags$span("Sheet music, the sound of the night.")
+Divide the text of different paragraphs.
+
+```{r basic-usage, eval = FALSE, shot = TRUE}
+tags$div(
+  tags$span("I sit at a desk, wondering how to approach the vast ocean."),
+  el_divider(),
+  tags$span("I wonder how far the eyes can see, and how far the heart can feel."))
 ```
 
 ## Custom content
 
-```{r content, eval = FALSE, shot = TRUE}
-tags$span("What you are you do not see, what you see is your shadow.")
-el_divider(content = "Rabindranath Tagore", content_position = "left")
-tags$span("I cannot choose the best. The best chooses me.")
-el_divider(content = el_icon("mobile-phone"))
-tags$span("My wishes are fools, they shout across thy song, my Master.")
-el_divider(content = "Rabindranath Tagore", content_position = "right")
+You can customize the content on the divider line.
+
+```{r custom-content, eval = FALSE, shot = TRUE}
+tags$div(
+  tags$span("What you are you do not see, what you see is your shadow."),
+  el_divider(content_position = "left", "Rabindranath Tagore"),
+  tags$span("I cannot choose the best. The best chooses me."),
+  el_divider(el_icon("StarFilled")),
+  tags$span("My wishes are fools, they shout across thy song, my Master."),
+  el_divider(content_position = "right", "Rabindranath Tagore"),
+  tags$span("I cannot choose the best. The best chooses me."))
+```
+
+## dashed line
+
+You can set the style of divider.
+
+```{r line-dashed, eval = FALSE, shot = TRUE}
+tags$div(
+  tags$span("What language is thine, O sea?"),
+  el_divider(border_style = "dashed"),
+  tags$span("The language of eternal question."),
+  el_divider(border_style = "dotted"),
+  tags$span("What language is thy answer, O sky?"),
+  el_divider(direction = "vertical", border_style = "dashed"),
+  tags$span("The language of eternal silence."))
 ```
 
 ## Vertical divider
 
-```{r vertical, eval = FALSE, shot = TRUE}
-tags$span("Rain", el_divider(direction = "vertical"), "Home", el_divider(direction = "vertical"), "Grass")
+```{r vertical-divider, eval = FALSE, shot = TRUE}
+tags$div(
+  tags$span("Rain"), el_divider(direction = "vertical"),
+  tags$span("Home"), el_divider(direction = "vertical", border_style = "dashed"),
+  tags$span("Grass"))
 ```
 
 ## API
+
+Element Plus's tables, and beside each entry where it is in R.
 
 ```{r api, echo = FALSE, results = "asis"}
 api_tables("divider")

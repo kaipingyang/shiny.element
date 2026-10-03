@@ -2,7 +2,7 @@
 % Please edit documentation in R/el_rate.R
 \name{update_el_rate}
 \alias{update_el_rate}
-\title{Update Element UI Rate}
+\title{Update Element Plus Rate}
 \usage{
 update_el_rate(
   session = shiny::getDefaultReactiveDomain(),

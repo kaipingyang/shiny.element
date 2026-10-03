@@ -2,7 +2,7 @@
 % Please edit documentation in R/el_link.R
 \name{update_el_link}
 \alias{update_el_link}
-\title{Update Element UI Link}
+\title{Update Element Plus Link}
 \usage{
 update_el_link(
   session = shiny::getDefaultReactiveDomain(),

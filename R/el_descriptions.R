@@ -156,7 +156,7 @@ el_descriptions <- function(id = NULL,
 }
 
 
-#' Update Element UI Descriptions
+#' Update Element Plus Descriptions
 #'
 #' Server-side update for [el_descriptions()]. The items themselves are
 #' markup, so replace them by re-rendering; this changes the settings around

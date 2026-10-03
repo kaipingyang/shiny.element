@@ -1,4 +1,4 @@
-#' Element UI Alert
+#' Element Plus Alert
 #'
 #' An inline alert banner with optional close button. Fires a Shiny input when
 #' the user closes it.
@@ -92,7 +92,7 @@ el_alert <- function(
 }
 
 
-#' Update Element UI Alert
+#' Update Element Plus Alert
 #'
 #' Server-side update for [el_alert()].
 #'

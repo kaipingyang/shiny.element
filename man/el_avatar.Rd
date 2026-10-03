@@ -2,7 +2,7 @@
 % Please edit documentation in R/el_avatar.R
 \name{el_avatar}
 \alias{el_avatar}
-\title{Element UI Avatar}
+\title{Element Plus Avatar}
 \usage{
 el_avatar(
   id = NULL,

@@ -1,4 +1,4 @@
-#' Element UI Page Header
+#' Element Plus Page Header
 #'
 #' A page title with a back link.
 #'
@@ -68,7 +68,7 @@ el_page_header <- function(id = NULL,
 }
 
 
-#' Update Element UI Page Header
+#' Update Element Plus Page Header
 #'
 #' Server-side update for [el_page_header()].
 #'

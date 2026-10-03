@@ -6,72 +6,133 @@ title: "Dropdown"
 source(file.path("..", "..", "shots.R"))
 ```
 
-Toggleable menu for displaying lists of links and actions. `input$<id>`
-is the `command` of the item chosen, as an event.
+Toggleable menu for displaying lists of links and actions.
 
 ## Basic usage
 
-```{r basic, eval = FALSE, shot = TRUE, shot_js = "document.querySelector('#shot .el-dropdown-link, #shot .el-dropdown').dispatchEvent(new MouseEvent('mouseenter'))", shot_sel = ".el-dropdown-menu", shot_wait = 1}
-el_dropdown("basic", trigger_label = "Dropdown List", items = list(
-  list(command = "a", label = "Action 1"), list(command = "b", label = "Action 2"),
-  list(command = "c", label = "Action 3"), list(command = "d", label = "Action 4", disabled = TRUE),
-  list(command = "e", label = "Action 5", divided = TRUE)))
+Hover on the dropdown menu to unfold it for more actions.
+
+The triggering element is rendered by the default `slot`, and the dropdown part is rendered by the `slot` named `dropdown`. By default, dropdown list shows when you hover on the triggering element without having to click it.
+
+```{r basic-usage, eval = FALSE, shot = TRUE}
+items <- list(list(command = "a", label = "Action 1"), list(command = "b", label = "Action 2"),
+              list(command = "c", label = "Action 3"),
+              list(command = "d", label = "Action 4", disabled = TRUE),
+              list(command = "e", label = "Action 5", divided = TRUE))
+el_dropdown("dd", trigger_label = "Dropdown List", items = items)
+```
+
+## Placement
+
+Support 6 placements.
+
+Set `placement` property to make dropdown appear in different locations.
+
+```{r placements, eval = FALSE, shot = TRUE}
+items <- list(list(command = "1", label = "The Action 1st"), list(command = "2", label = "The Action 2nd"),
+              list(command = "3", label = "The Action 3rd"))
+tags$div(style = "display: flex; flex-wrap: wrap; gap: 16px",
+  lapply(c("top-start", "top", "top-end", "bottom-start", "bottom", "bottom-end"), function(p)
+    el_dropdown(paste0("dd_", p), placement = p, items = items,
+                trigger_label = el_button(paste0("ddb_", p), p))))
 ```
 
 ## Triggering element
 
-`split_button` splits the trigger into a button and an arrow.
+Use the button to trigger the dropdown list.
 
-```{r split, eval = FALSE, shot = TRUE}
-el_dropdown("btn", trigger_label = "Dropdown List", type = "primary", items = list(
-  list(command = "a", label = "Action 1"), list(command = "b", label = "Action 2")))
-el_dropdown("splt", trigger_label = "Dropdown List", type = "primary", split_button = TRUE,
-            items = list(list(command = "a", label = "Action 1"), list(command = "b", label = "Action 2")))
+Use `split-button` to split the triggering element into a button group with the left button being a normal button and right one the actual triggering target. If you wanna insert a separator line between item three and item four, just add the `divided` attribute to item four.
+
+```{r triggering-element, eval = FALSE, shot = TRUE}
+items <- list(list(command = "a", label = "Action 1"), list(command = "b", label = "Action 2"),
+              list(command = "c", label = "Action 3"))
+tags$div(style = "display: flex; gap: 16px",
+  el_dropdown("dd_btn", items = items, trigger_label = el_button("dd_btn_t", "Dropdown List",
+              type = "primary", icon = "ArrowDown")),
+  el_dropdown("dd_split", items = items, split_button = TRUE, type = "primary",
+              trigger_label = "Dropdown List"))
 ```
 
 ## How to trigger
 
-```{r trigger, eval = FALSE, shot = TRUE}
-el_dropdown("hover", trigger_label = "hover to trigger", items = list(
-  list(command = "a", label = "Action 1", icon = "el-icon-plus"),
-  list(command = "b", label = "Action 2", icon = "el-icon-circle-plus")))
-el_dropdown("click", trigger_label = "click to trigger", trigger = "click", items = list(
-  list(command = "a", label = "Action 1", icon = "el-icon-plus"),
-  list(command = "b", label = "Action 2", icon = "el-icon-circle-plus")))
+Click the triggering element or hover on it.
+
+Use the attribute `trigger`. By default, it is `hover`.
+
+```{r how-to-trigger, eval = FALSE, shot = TRUE}
+items <- list(list(command = "a", label = "Action 1", icon = "Plus"),
+              list(command = "b", label = "Action 2", icon = "CirclePlusFilled"),
+              list(command = "c", label = "Action 3", icon = "CirclePlus"))
+tags$div(style = "display: flex; gap: 40px",
+  tagList(tags$div("hover to trigger"), el_dropdown("dd_hover", items = items, trigger_label = "Dropdown List")),
+  tagList(tags$div("click to trigger"), el_dropdown("dd_click", items = items, trigger = "click",
+                                                    trigger_label = "Dropdown List")),
+  tagList(tags$div("right click to trigger"), el_dropdown("dd_ctx", items = items, trigger = "contextmenu",
+                                                          trigger_label = "Dropdown List")))
 ```
 
 ## Menu hiding behavior
 
-```{r hide, eval = FALSE, shot = TRUE}
-el_dropdown("stay", trigger_label = "Dropdown List", hide_on_click = FALSE, items = list(
-  list(command = "a", label = "Action 1"), list(command = "b", label = "Action 2")))
+Use `hide-on-click` to define if menu closes on clicking.
+
+By default menu will close when you click on menu items, and it can be turned off by setting hide-on-click to false.
+
+```{r menu-hiding-behavior, eval = FALSE, shot = TRUE}
+el_dropdown("dd_keep", hide_on_click = FALSE, trigger_label = "Dropdown List", items = list(
+  list(command = "a", label = "Action 1"), list(command = "b", label = "Action 2"),
+  list(command = "c", label = "Action 3")))
 ```
 
 ## Command event
 
-```{r command, eval = FALSE, shot = TRUE, shot_js = "document.querySelector('#shot .el-dropdown').dispatchEvent(new MouseEvent('mouseenter')); setTimeout(function(){ document.querySelectorAll('.el-dropdown-menu__item')[1].click(); }, 600);", shot_wait = 2}
-ui <- el_page(el_dropdown("cmd", trigger_label = "Dropdown List", items = list(
-  list(command = "a", label = "Action 1"), list(command = "b", label = "Action 2"))),
-  verbatimTextOutput("chosen"))
+Clicking each dropdown item fires an event whose parameter is assigned by each item.
 
-server <- function(input, output, session) {
-  output$chosen <- renderPrint(input$cmd)
-}
+The item clicked is `input$<id>`, its `command`.
 
-shinyApp(ui, server)
+```{r command-event, eval = FALSE, shot = TRUE}
+el_dropdown("dd_cmd", trigger_label = "Dropdown List", items = list(
+  list(command = "a", label = "Action 1"), list(command = "b", label = "Action 2"),
+  list(command = "c", label = "Action 3")))
+```
+
+## Dropdown methods
+
+You can open or close the dropdown menu by manually use `handleOpen` or `handleClose`
+
+`el_call(session, "dd_m", "handleOpen")` opens it from the server;
+`"handleClose"` closes it.
+
+```{r dropdown-methods, eval = FALSE, shot = TRUE}
+el_dropdown("dd_m", trigger = "contextmenu", trigger_label = "Dropdown List", items = list(
+  list(command = "a", label = "Action 1"), list(command = "b", label = "Action 2")))
 ```
 
 ## Sizes
 
+Besides default size, Dropdown component provides three additional sizes for you to choose among different scenarios.
+
+Use attribute `size` to set additional sizes with `large`, `default` or `small`.
+
 ```{r sizes, eval = FALSE, shot = TRUE}
 items <- list(list(command = "a", label = "Action 1"), list(command = "b", label = "Action 2"))
-el_dropdown("s1", trigger_label = "Default", split_button = TRUE, type = "primary", items = items)
-el_dropdown("s2", trigger_label = "Medium", split_button = TRUE, size = "medium", type = "primary", items = items)
-el_dropdown("s3", trigger_label = "Small", split_button = TRUE, size = "small", type = "primary", items = items)
-el_dropdown("s4", trigger_label = "Mini", split_button = TRUE, size = "mini", type = "primary", items = items)
+tags$div(style = "display: flex; gap: 16px",
+  lapply(c("large", "default", "small"), function(s)
+    el_dropdown(paste0("dd_s_", s), size = s, split_button = TRUE, type = "primary",
+                trigger_label = s, items = items)))
 ```
 
+## Virtual triggering
+
+Sometimes we want to render the dropdown on some other trigger element, we can separate the trigger and the content.
+
+> **In R**
+>
+> Element Plus's virtual trigger takes a DOM element from the page's own
+> script; in R, put the trigger in `trigger_label` instead.
+
 ## API
+
+Element Plus's tables, and beside each entry where it is in R.
 
 ```{r api, echo = FALSE, results = "asis"}
 api_tables("dropdown")

@@ -2,7 +2,7 @@
 % Please edit documentation in R/el_slider.R
 \name{el_slider}
 \alias{el_slider}
-\title{Element UI Slider Component}
+\title{Element Plus Slider Component}
 \usage{
 el_slider(
   id = NULL,
@@ -152,7 +152,7 @@ a warning.}
 An \code{htmltools} tagList with a Vue-managed slider component.
 }
 \description{
-Creates an Element UI slider with Vue instance, supporting single value and
+Creates an Element Plus slider with Vue instance, supporting single value and
 range modes, marks, vertical orientation, and optional numeric input box.
 }
 \section{Shiny inputs}{

@@ -2,7 +2,7 @@
 % Please edit documentation in R/el_calendar.R
 \name{update_el_calendar}
 \alias{update_el_calendar}
-\title{Update Element UI Calendar Component}
+\title{Update Element Plus Calendar Component}
 \usage{
 update_el_calendar(
   session = shiny::getDefaultReactiveDomain(),

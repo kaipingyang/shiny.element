@@ -2,7 +2,7 @@
 % Please edit documentation in R/el_radio_group.R
 \name{el_radio_group}
 \alias{el_radio_group}
-\title{Element UI Radio Group Component}
+\title{Element Plus Radio Group Component}
 \usage{
 el_radio_group(
   id = NULL,
@@ -112,7 +112,7 @@ a warning.}
 An \code{htmltools} tagList containing the Vue-managed radio group.
 }
 \description{
-Creates an Element UI \verb{<el-radio-group>} component backed by a Vue instance.
+Creates an Element Plus \verb{<el-radio-group>} component backed by a Vue instance.
 Supports both standard radio buttons (\verb{<el-radio>}) and button-style radios
 (\verb{<el-radio-button>}).
 }

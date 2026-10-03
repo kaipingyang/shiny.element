@@ -2,7 +2,7 @@
 % Please edit documentation in R/el_form.R
 \name{.el_form_tags}
 \alias{.el_form_tags}
-\title{Element UI control tags by field type}
+\title{Element Plus control tags by field type}
 \usage{
 .el_form_tags
 }

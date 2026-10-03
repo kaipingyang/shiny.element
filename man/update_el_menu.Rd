@@ -2,7 +2,7 @@
 % Please edit documentation in R/el_menu.R
 \name{update_el_menu}
 \alias{update_el_menu}
-\title{Update an Element UI Menu}
+\title{Update an Element Plus Menu}
 \usage{
 update_el_menu(
   session = shiny::getDefaultReactiveDomain(),
@@ -25,7 +25,7 @@ update_el_menu(
 Called for its side effect; returns \code{NULL} invisibly.
 }
 \description{
-Update an Element UI Menu
+Update an Element Plus Menu
 }
 \examples{
 if (interactive()) {

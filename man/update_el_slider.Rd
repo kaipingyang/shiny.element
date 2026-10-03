@@ -2,7 +2,7 @@
 % Please edit documentation in R/el_slider.R
 \name{update_el_slider}
 \alias{update_el_slider}
-\title{Update Element UI Slider}
+\title{Update Element Plus Slider}
 \usage{
 update_el_slider(
   session = shiny::getDefaultReactiveDomain(),

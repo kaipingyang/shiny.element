@@ -2,7 +2,7 @@
 % Please edit documentation in R/el_input.R
 \name{update_el_input}
 \alias{update_el_input}
-\title{Update Element UI Input}
+\title{Update Element Plus Input}
 \usage{
 update_el_input(
   session = shiny::getDefaultReactiveDomain(),

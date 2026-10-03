@@ -2,7 +2,7 @@
 % Please edit documentation in R/el_steps.R
 \name{update_el_steps}
 \alias{update_el_steps}
-\title{Update Element UI Steps}
+\title{Update Element Plus Steps}
 \usage{
 update_el_steps(
   session = shiny::getDefaultReactiveDomain(),
@@ -28,7 +28,7 @@ update_el_steps(
 Called for its side effect; returns \code{NULL} invisibly.
 }
 \description{
-Update Element UI Steps
+Update Element Plus Steps
 }
 \examples{
 if (interactive()) {

@@ -15,7 +15,7 @@ input ids, values are Vue data field names read off the instance, e.g.
 A \code{\link[=JS]{JS()}} function, the Vue \code{mounted} option.
 }
 \description{
-Element UI components only emit \verb{@change} on user interaction, and Vue
+Element Plus components only emit \verb{@change} on user interaction, and Vue
 \code{watch} handlers do not fire on mount. Without this hook the corresponding
 \verb{input$<id>} stays \code{NULL} until the user first touches the component, unlike
 standard Shiny inputs which report their value immediately.

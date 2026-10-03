@@ -1,4 +1,4 @@
-#' Element UI Autocomplete
+#' Element Plus Autocomplete
 #'
 #' A text input that suggests as you type.
 #'
@@ -252,7 +252,7 @@ el_autocomplete <- function(id = NULL,
 }
 
 
-#' Update Element UI Autocomplete
+#' Update Element Plus Autocomplete
 #'
 #' Server-side update for [el_autocomplete()].
 #'

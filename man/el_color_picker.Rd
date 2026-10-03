@@ -2,7 +2,7 @@
 % Please edit documentation in R/el_color_picker.R
 \name{el_color_picker}
 \alias{el_color_picker}
-\title{Element UI Color Picker}
+\title{Element Plus Color Picker}
 \usage{
 el_color_picker(
   id = NULL,

@@ -6,91 +6,158 @@ title: "Notification"
 source(file.path("..", "..", "shots.R"))
 ```
 
-A global notification at a corner of the page. `el_notification()` shows
-one from the server; given an `id`, `input$<id>_click` and
-`input$<id>_close` report it.
+Displays a global notification message at a corner of the page.
 
 ## Basic usage
 
-```{r basic, eval = FALSE, shot = TRUE, shot_js = "document.querySelector('#auto_container button').click()", shot_sel = ".el-notification", shot_wait = 1.5}
-ui <- el_page(el_button("auto", "Closes automatically", plain = TRUE),
-              el_button("stay", "Won't close automatically", plain = TRUE))
+Element Plus has registered the `$notify` method and it receives an object as its parameter. In the simplest case, you can set the `title` field and the` message` field for the title and body of the notification. By default, the notification automatically closes after 4500ms, but by setting `duration` you can control its duration. Specifically, if set to `0`, it will not close automatically. Note that `duration` receives a `Number` in milliseconds.
 
+Notifications are sent from the server, `el_notification(session, ...)`.
+
+```{r basic, eval = FALSE, shot = TRUE, shot_js = "document.querySelector('#show_container button').click()", shot_sel = ".el-notification", shot_wait = 1}
+ui <- el_page(el_button("show", "Closes automatically", plain = TRUE))
 server <- function(input, output, session) {
-  observeEvent(input$auto, el_notification(title = "Title", message = "This is a reminder"))
-  observeEvent(input$stay, el_notification(title = "Prompt", duration = 0,
-                                            message = "This is a message that does not close automatically"))
+  observeEvent(input$show, el_notification(session, title = "Title", message = "This is a reminder"))
 }
-
 shinyApp(ui, server)
 ```
 
 ## With types
 
-```{r types, eval = FALSE, shot = TRUE, shot_js = "document.querySelector('#ok_container button').click()", shot_sel = ".el-notification", shot_wait = 1.5}
-ui <- el_page(el_button("ok", "Success", plain = TRUE), el_button("bad", "Error", plain = TRUE))
+We provide five types: primary, success, warning, info and error.
 
+Element Plus provides five notification types: `primary`, `success`, `warning`, `info` and `error`. They are set by the `type` field, and other values will be ignored. We also registered methods for these types that can be invoked directly like `open3` and `open4` without passing a `type` field. `primary` has been added in 2.9.11.
+
+```{r different-types, eval = FALSE, shot = TRUE, shot_js = "document.querySelectorAll('#shot button').forEach(function(b){ b.click(); })", shot_sel = ".el-notification", shot_wait = 1}
+types <- c("primary", "success", "warning", "info", "error")
+ui <- el_page(lapply(types, function(t) el_button(paste0("n_", t), tools::toTitleCase(t), plain = TRUE)))
 server <- function(input, output, session) {
-  observeEvent(input$ok, el_notification(title = "Success", message = "This is a success message", type = "success"))
-  observeEvent(input$bad, el_notification(title = "Error", message = "This is an error message", type = "error"))
+  for (t in types) local({
+    t <- t
+    observeEvent(input[[paste0("n_", t)]],
+                 el_notification(session, title = tools::toTitleCase(t), type = t,
+                                 message = paste("This is a", t, "message")))
+  })
 }
-
 shinyApp(ui, server)
 ```
 
 ## Custom position
 
-```{r position, eval = FALSE, shot = TRUE, shot_js = "document.querySelector('#bl_container button').click()", shot_sel = ".el-notification", shot_wait = 1.5}
-ui <- el_page(el_button("bl", "Bottom left", plain = TRUE))
+Notification can emerge from any corner you like.
 
+The `position` attribute defines which corner Notification slides in. It can be `top-right`, `top-left`, `bottom-right` or `bottom-left`. Defaults to `top-right`.
+
+```{r positioning, eval = FALSE, shot = TRUE, shot_js = "document.querySelectorAll('#shot button').forEach(function(b){ b.click(); })", shot_sel = ".el-notification", shot_wait = 1}
+pos <- c("top-right", "bottom-right", "bottom-left", "top-left")
+ui <- el_page(lapply(pos, function(p) el_button(paste0("n_", gsub("-", "_", p)), p, plain = TRUE)))
 server <- function(input, output, session) {
-  observeEvent(input$bl, el_notification(title = "Custom Position", position = "bottom-left",
-                                          message = "I'm at the bottom left corner"))
+  for (p in pos) local({
+    p <- p
+    observeEvent(input[[paste0("n_", gsub("-", "_", p))]],
+                 el_notification(session, title = "Custom Position", position = p,
+                                 message = paste("I'm at the", p, "corner")))
+  })
 }
-
 shinyApp(ui, server)
 ```
 
 ## With offset
 
-```{r offset, eval = FALSE, shot = TRUE, shot_js = "document.querySelector('#off_container button').click()", shot_sel = ".el-notification", shot_wait = 1.5}
-ui <- el_page(el_button("off", "Notification with offset", plain = TRUE))
+Customize Notification's offset from the edge of the screen.
 
+Set the `offset` attribute to customize Notification's offset from the edge of the screen. Note that every Notification instance of the same moment should have the same offset.
+
+```{r offsetting, eval = FALSE, shot = TRUE, shot_js = "document.querySelector('#show_container button').click()", shot_sel = ".el-notification", shot_wait = 1}
+ui <- el_page(el_button("show", "Notification with offset", plain = TRUE))
 server <- function(input, output, session) {
-  observeEvent(input$off, el_notification(title = "Success", offset = 100,
-                                           message = "This is a success message"))
+  observeEvent(input$show, el_notification(session, title = "Success", offset = 100,
+    message = "This is a success message"))
 }
-
 shinyApp(ui, server)
 ```
 
 ## Use HTML string
 
-```{r html, eval = FALSE, shot = TRUE, shot_js = "document.querySelector('#h_container button').click()", shot_sel = ".el-notification", shot_wait = 1.5}
-ui <- el_page(el_button("h", "Use HTML String", plain = TRUE))
+`message` supports HTML string.
 
+Set `dangerouslyUseHTMLString` to true and `message` will be treated as an HTML string.
+
+```{r raw-html, eval = FALSE, shot = TRUE, shot_js = "document.querySelector('#show_container button').click()", shot_sel = ".el-notification", shot_wait = 1}
+ui <- el_page(el_button("show", "Use HTML String", plain = TRUE))
 server <- function(input, output, session) {
-  observeEvent(input$h, el_notification(title = "HTML String", dangerously_use_html_string = TRUE,
-                                         message = "<strong>This is <i>HTML</i> string</strong>"))
+  observeEvent(input$show, el_notification(session, title = "HTML String",
+    dangerously_use_html_string = TRUE, message = "<strong>This is <i>HTML</i> string</strong>"))
 }
+shinyApp(ui, server)
+```
 
+> **Warning**
+>
+> Although `message` property supports HTML strings, dynamically rendering arbitrary HTML on your website can be very dangerous because it can easily lead to [XSS attacks](https://en.wikipedia.org/wiki/Cross-site_scripting). So when `dangerouslyUseHTMLString` is on, please make sure the content of `message` is trusted, and **never** assign `message` to user-provided content.
+
+## Message using functions
+
+`message` can be VNode.
+
+After 2.9.0, `message` supports a function whose return value is a VNode.
+
+> **In R**
+>
+> A VNode is a Vue render function's; from R, send the message as HTML with
+> `dangerously_use_html_string = TRUE`.
+
+## With progress bar
+
+Display a progress bar indicating the remaining time before the notification auto-closes.
+
+Set `progress` to `true` to enable the progress bar. The progress bar will show a countdown matching the `duration`. Pass an object to `progress` to customize it with the options of [Progress](./progress.html#attributes), e.g. `color`, which overrides the `type`-based status color. When `pauseOnHover` is `true` (default), hovering over the notification will pause both the timer and the progress bar.
+
+```{r progress-bar, eval = FALSE, shot = TRUE, shot_js = "document.querySelector('#show_container button').click()", shot_sel = ".el-notification", shot_wait = 1}
+ui <- el_page(el_button("show", "With progress bar", plain = TRUE))
+server <- function(input, output, session) {
+  observeEvent(input$show, el_notification(session, title = "Progress", progress = TRUE,
+    duration = 5000, message = "Closes when the bar runs out"))
+}
 shinyApp(ui, server)
 ```
 
 ## Hide close button
 
-```{r noclose, eval = FALSE, shot = TRUE, shot_js = "document.querySelector('#n_container button').click()", shot_sel = ".el-notification", shot_wait = 1.5}
-ui <- el_page(el_button("n", "Hide close button", plain = TRUE))
+It is possible to hide the close button
 
+Set the `showClose` attribute to `false` so the notification cannot be closed by the user.
+
+```{r no-close, eval = FALSE, shot = TRUE, shot_js = "document.querySelector('#show_container button').click()", shot_sel = ".el-notification", shot_wait = 1}
+ui <- el_page(el_button("show", "Hide close button", plain = TRUE))
 server <- function(input, output, session) {
-  observeEvent(input$n, el_notification(title = "Info", show_close = FALSE,
-                                         message = "This is a message without close button"))
+  observeEvent(input$show, el_notification(session, title = "Info", type = "info", show_close = FALSE,
+    message = "This is a message without close button"))
 }
-
 shinyApp(ui, server)
 ```
 
+## Global method
+
+Element Plus has added a global method `$notify` for `app.config.globalProperties`. So in a vue instance you can call `Notification` like what we did in this page.
+
+## Local import
+
+In this case you should call `ElNotification(options)`. We have also registered methods for different types, e.g. `ElNotification.success(options)`. You can call `ElNotification.closeAll()` to manually close all the instances. In 2.10.5 you can manually update the offsets of all instances in a specific direction by calling `ElNotification.updateOffsets(position)`.
+
+## App context inheritance > 2.0.4
+
+Now notification accepts a `context` as second parameter of the message constructor which allows you to inject current app's context to notification which allows you to inherit all the properties of the app.
+
+You can use it like this:
+
+> **Tip**
+>
+> If you globally registered ElNotification component, it will automatically inherit your app context.
+
 ## API
+
+Element Plus's tables, and beside each entry where it is in R.
 
 ```{r api, echo = FALSE, results = "asis"}
 api_tables("notification")

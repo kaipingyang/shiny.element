@@ -172,7 +172,7 @@ element_plus_dependency <- function(offline = TRUE) {
   NULL
 }
 
-#' Element UI Layout CSS Dependency
+#' Element Plus Layout CSS Dependency
 #'
 #' Provides default CSS styles for Element-UI layout and grid components,
 #' including el-container, el-header, el-main, el-footer, el-aside, el-row, el-col, etc.
@@ -232,7 +232,7 @@ el_feedback_dependency <- function() {
 
 
 
-#' Languages Element UI can use for its built-in text
+#' Languages Element Plus can use for its built-in text
 #'
 #' @return A character vector of locale codes, such as `"en"` and `"zh-TW"`,
 #'   any of which can be passed as `locale` to [el_page()].

@@ -1,4 +1,4 @@
-#' Element UI Color Picker
+#' Element Plus Color Picker
 #'
 #' A colour picker input that returns a CSS colour string.
 #'
@@ -150,7 +150,7 @@ el_color_picker <- function(
 }
 
 
-#' Update Element UI Color Picker
+#' Update Element Plus Color Picker
 #'
 #' Server-side update for [el_color_picker()].
 #'

@@ -2,7 +2,7 @@
 % Please edit documentation in R/el_infinite_scroll.R
 \name{el_infinite_scroll}
 \alias{el_infinite_scroll}
-\title{Element UI Infinite Scroll}
+\title{Element Plus Infinite Scroll}
 \usage{
 el_infinite_scroll(
   id = NULL,

@@ -2,7 +2,7 @@
 % Please edit documentation in R/el_popconfirm.R
 \name{update_el_popconfirm}
 \alias{update_el_popconfirm}
-\title{Update Element UI Confirmation Bubble}
+\title{Update Element Plus Confirmation Bubble}
 \usage{
 update_el_popconfirm(
   session = shiny::getDefaultReactiveDomain(),

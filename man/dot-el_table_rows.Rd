@@ -13,7 +13,7 @@
 A list of named lists, one per row.
 }
 \description{
-Element UI's \code{el-table} binds \verb{:data} to an array of row objects. An R
+Element Plus's \code{el-table} binds \verb{:data} to an array of row objects. An R
 data.frame serialised as it stands comes out column-wise, \verb{\{col: [...]\}},
 which the component silently renders as an empty table.
 }

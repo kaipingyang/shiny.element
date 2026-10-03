@@ -1,4 +1,4 @@
-#' Element UI Popover
+#' Element Plus Popover
 #'
 #' A card shown on click or hover, with a title and body.
 #'
@@ -194,7 +194,7 @@ el_popover <- function(id = NULL,
 }
 
 
-#' Update Element UI Popover
+#' Update Element Plus Popover
 #'
 #' Server-side update for [el_popover()]. Setting `visible` opens or closes
 #' the card, which then stays as set: Element Plus's popover is controlled by

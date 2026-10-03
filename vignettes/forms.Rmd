@@ -99,7 +99,7 @@ An option can be drawn with more than its label -- Element's "custom
 template". `option_template` is markup inside each option, with the option
 in reach as `opt` and any field its choice carries:
 
-```{r option-template, eval = FALSE, shot = TRUE, shot_js = "document.querySelector('#shot .el-input__inner').click()", shot_sel = ".el-select-dropdown"}
+```{r option-template, eval = FALSE, shot = TRUE, shot_js = "document.querySelector('#shot .el-select__wrapper').click()", shot_sel = ".el-select-dropdown"}
 el_select("airport", width = "240px", choices = list(
   list(value = "pek", label = "Beijing", code = "PEK"),
   list(value = "sha", label = "Shanghai", code = "SHA"),

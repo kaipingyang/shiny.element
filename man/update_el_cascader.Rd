@@ -2,7 +2,7 @@
 % Please edit documentation in R/el_cascader.R
 \name{update_el_cascader}
 \alias{update_el_cascader}
-\title{Update Element UI Cascader}
+\title{Update Element Plus Cascader}
 \usage{
 update_el_cascader(
   session = shiny::getDefaultReactiveDomain(),
@@ -47,7 +47,7 @@ a name is taken. \code{""} clears it.}
 Called for its side effect; returns \code{NULL} invisibly.
 }
 \description{
-Update Element UI Cascader
+Update Element Plus Cascader
 }
 \examples{
 if (interactive()) {

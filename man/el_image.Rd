@@ -2,7 +2,7 @@
 % Please edit documentation in R/el_image.R
 \name{el_image}
 \alias{el_image}
-\title{Element UI Image}
+\title{Element Plus Image}
 \usage{
 el_image(
   id = NULL,
@@ -13,7 +13,6 @@ el_image(
   scroll_container = NULL,
   preview_src_list = NULL,
   z_index = NULL,
-  referrer_policy = NULL,
   initial_index = NULL,
   close_on_press_escape = NULL,
   crossorigin = NULL,
@@ -51,8 +50,6 @@ el_image(
 full-screen preview when the image is clicked.}
 
 \item{z_index}{Stacking order of the preview. Default \code{2000}.}
-
-\item{referrer_policy}{Value of the image's \code{referrerPolicy} attribute.}
 
 \item{initial_index}{Which image of \code{preview_src_list} the preview opens
 on, 0-based.}

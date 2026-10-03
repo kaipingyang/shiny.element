@@ -47,7 +47,7 @@ link only).}
 An \code{htmltools} \verb{<a>} tag, or with an \code{id} a Shiny UI element.
 }
 \description{
-A styled hyperlink that follows Element UI's design language.
+A styled hyperlink that follows Element Plus's design language.
 }
 \section{Shiny inputs}{
 

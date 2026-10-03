@@ -1,4 +1,4 @@
-#' Element UI Skeleton
+#' Element Plus Skeleton
 #'
 #' Grey placeholder shapes shown while content is on its way, then the content
 #' itself. In Shiny the usual pattern is to start with `loading = TRUE` and
@@ -91,7 +91,7 @@ el_skeleton <- function(id = NULL,
 }
 
 
-#' Update Element UI Skeleton
+#' Update Element Plus Skeleton
 #'
 #' Server-side update for [el_skeleton()]. `loading = FALSE` swaps the
 #' placeholder for the real content.

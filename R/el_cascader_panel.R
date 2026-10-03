@@ -1,4 +1,4 @@
-#' Element UI Cascader Panel
+#' Element Plus Cascader Panel
 #'
 #' The panel of an [el_cascader()] on its own, always open: nested options in
 #' side-by-side columns, for when there is room to show them rather than tuck
@@ -112,7 +112,7 @@ el_cascader_panel <- function(id = NULL,
 }
 
 
-#' Update Element UI Cascader Panel
+#' Update Element Plus Cascader Panel
 #'
 #' Server-side update for [el_cascader_panel()].
 #'

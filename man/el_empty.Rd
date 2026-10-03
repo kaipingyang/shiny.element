@@ -2,7 +2,7 @@
 % Please edit documentation in R/el_empty.R
 \name{el_empty}
 \alias{el_empty}
-\title{Element UI Empty}
+\title{Element Plus Empty}
 \usage{
 el_empty(
   id = NULL,

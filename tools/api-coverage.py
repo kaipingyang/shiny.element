@@ -524,8 +524,22 @@ PAGE_FNS = {
     "popconfirm": ["el_popconfirm"], "card": ["el_card"], "carousel": ["el_carousel"],
     "collapse": ["el_collapse"], "timeline": ["el_timeline"], "divider": ["el_divider"],
     "calendar": ["el_calendar"], "image": ["el_image"], "backtop": ["el_backtop"],
-    "infiniteScroll": ["el_infinite_scroll"], "avatar": ["el_avatar"], "drawer": ["el_drawer"],
+    "infinite-scroll": ["el_infinite_scroll"], "avatar": ["el_avatar", "el_avatar_group"],
+    "drawer": ["el_drawer"], "affix": ["el_affix"], "anchor": ["el_anchor"],
+    "autocomplete": ["el_autocomplete"], "color-picker-panel": ["el_color_picker_panel"],
+    "config-provider": ["el_config_provider"], "date-picker-panel": ["el_date_picker_panel"],
+    "input-otp": ["el_input_otp"], "input-tag": ["el_input_tag"], "mention": ["el_mention"],
+    "scrollbar": ["el_scrollbar"], "segmented": ["el_segmented"], "select-v2": ["el_select_v2"],
+    "space": ["el_space"], "splitter": ["el_splitter", "el_splitter_panel"],
+    "table-v2": ["el_table_v2"], "text": ["el_text"], "time-select": ["el_time_select"],
+    "tour": ["el_tour"], "tree-select": ["el_tree_select"], "tree-v2": ["el_tree_v2"],
+    "watermark": ["el_watermark"],
 }
+PAGE_FNS["tag"] = ["el_tag", "el_check_tag"]
+PAGE_FNS["image"] = ["el_image", "el_image_viewer"]
+PAGE_FNS["statistic"] = ["el_statistic", "el_countdown"]
+PAGE_FNS["time-picker"] = ["el_time_picker"]
+PAGE_FNS["radio"] = ["el_radio_group"]
 NAMED = {("el-menu", "default-active"): "active", ("el-tree", "default-expanded-keys"): "expanded",
          ("el-tree", "default-checked-keys"): "checked", ("el-upload", "data"): "extra_data",
          ("el-popover", "width"): "popover_width", ("el-tabs", "value"): "selected",
@@ -557,6 +571,19 @@ NAMED.update({("el-tooltip", "value"): "update_el_tooltip(value =)",
               ("el-infinite-scroll", "infinite-scroll-delay"): "delay",
               ("el-infinite-scroll", "infinite-scroll-distance"): "distance",
               ("el-infinite-scroll", "infinite-scroll-immediate"): "immediate"})
+NAMED.update({("el-tabs", "default-value"): "selected",
+              ("el-config-provider", "locale"): "el_page(locale =)",
+              ("el-config-provider", "zIndex"): "el_page(z_index =)",
+              ("el-config-provider", "namespace"): "(fixed: `el`)",
+              ("el-input", "model-modifiers"): "(Vue only: `v-model.trim`; trim in R)",
+              ("el-autocomplete", "popper-append-to-body"): "(deprecated upstream; `teleported`)",
+              ("el-space", "prefix-cls"): "(internal upstream)",
+              ("el-tabs", "tabindex"): "(set by the tabs)",
+              ("el-loading", "closed"): "`el_loading_close()`",
+              ("el-message-box", "callback"): "`input$<id>`, the answer",
+              ("el-message", "onClose"): "(JS only; Shiny hears through the id)",
+              ("el-notification", "onClose"): "`input$<id>_close`",
+              ("el-notification", "onClick"): "`input$<id>_click`"})
 def _fields(fn):
     f = (ours.get(fn) or {}).get("item_fields") or []
     return [f] if isinstance(f, str) else f
@@ -566,6 +593,13 @@ def r_name(slug, tag, kind, name):
     snake = _snake(camel(name)) if kind == "Attributes" else _snake(name.replace("-", "_"))
     if kind == "Attributes":
         if (tag, name) in NAMED: return "`" + NAMED[(tag, name)] + "`"
+        # v-model's prop: the R argument that starts it, the input that reports it
+        if name in ("model-value", "checked"):
+            arg = {"el-dialog": "visible", "el-drawer": "visible", "el-tabs": "selected",
+                   "el-tour": "open"}.get(tag, "value")
+            return f"`{arg}`; `input$<id>`"
+        if name == "id": return "`id`, the Shiny input's"
+        if name in ("class", "style"): return "an HTML attribute of the tag; `tagAppendAttributes()`"
         for fn in fns:
             if snake in _params(fn): return f"`{snake}`" if len(fns) == 1 else f"`{fn}({snake} =)`"
         for fn in fns:
@@ -603,6 +637,12 @@ if "--write-api" in sys.argv:
             tag = section_tag(slug, title)
             rows = []
             for it in sec["items"]:
+                # tree-select's table only points to tree's and select's
+                if it["name"] == "Attributes":
+                    rows.append({"name": "tree, select", "desc": "The props of el-tree and el-select.",
+                                 "type": "", "accepted": "", "default": "",
+                                 "r": "any argument of `el_tree()` or `el_select()`, through `...`"})
+                    continue
                 rows.append({"name": it["name"], "desc": it["desc"], "type": it["type"],
                              "accepted": it.get("accepted", ""),
                              "default": it["default"], "r": r_name(slug, tag, sec["kind"], it["name"])})

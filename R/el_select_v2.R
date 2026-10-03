@@ -211,7 +211,9 @@ el_select_v2 <- function(id = NULL,
   .el_check_choices("el_select_v2", environment())
   # A named vector c(Label = value), as the choice components take, or
   # Element Plus's list(value =, label =)
-  if (!is.null(options)) options <- .el_normalize_choices(options)
+  # Groups -- list(label =, options =) -- are passed as Element Plus takes them
+  grouped <- is.list(options) && any(vapply(options, function(o) is.list(o) && !is.null(o$options), TRUE))
+  if (!is.null(options) && !grouped) options <- .el_normalize_choices(options)
   if (is.null(id)) id <- paste0("el_select_v2_", uuid::UUIDgenerate())
   ns_id <- .el_ui_id(id, NULL)
   events <- .el_event_bindings(ns_id, c("visible-change", "remove-tag", "clear", "blur", "focus", "end-reached"))

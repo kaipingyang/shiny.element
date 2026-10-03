@@ -1,4 +1,4 @@
-#' Element UI Checkbox
+#' Element Plus Checkbox
 #'
 #' One box, ticked or not -- Shiny's [shiny::checkboxInput()], drawn by
 #' Element. For several choices, [el_checkbox_group()].
@@ -109,7 +109,7 @@ el_checkbox <- function(id = NULL,
 }
 
 
-#' Update Element UI Checkbox
+#' Update Element Plus Checkbox
 #'
 #' Server-side update for [el_checkbox()].
 #'

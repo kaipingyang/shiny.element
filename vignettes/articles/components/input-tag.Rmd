@@ -1,0 +1,126 @@
+---
+title: "InputTag"
+---
+
+```{r setup, include = FALSE}
+source(file.path("..", "..", "shots.R"))
+```
+
+The InputTag component allows users to add content as tags.
+
+## Basic Usage
+
+Press the Enter key to add the input as a tag.
+
+```{r basic, eval = FALSE, shot = TRUE}
+el_input_tag("tags", placeholder = "Please input", aria_label = "Please click the Enter key after input")
+```
+
+## Custom Trigger
+
+You can customize the key used to trigger the input tag. The default key is Enter.
+
+```{r trigger, eval = FALSE, shot = TRUE}
+el_input_tag("tags_space", trigger = "Space", placeholder = "Please input",
+             aria_label = "Please click the Space key after input")
+```
+
+## Maximum Tags
+
+You can set a limit on the number of tags that can be added.
+
+```{r max, eval = FALSE, shot = TRUE}
+el_input_tag("tags_max", max = 3, placeholder = "Please input")
+```
+
+## Collapse Tags
+
+Use the collapse tags attribute to merge them into one piece of text. You can use the collapse tags tooltip property to enable the behavior of hovering over collapsed text to display specific selected values. Using the collapse tags tooltip attribute will render the max attribute invalid.
+
+```{r collapse, eval = FALSE, shot = TRUE}
+tags$div(style = "display: grid; gap: 16px",
+  el_input_tag("tags_col1", value = c("tag1", "tag2", "tag3"), collapse_tags = TRUE),
+  el_input_tag("tags_col2", value = c("tag1", "tag2", "tag3"), collapse_tags = TRUE,
+               collapse_tags_tooltip = TRUE),
+  el_input_tag("tags_col3", value = c("tag1", "tag2", "tag3", "tag4"), collapse_tags = TRUE,
+               max_collapse_tags = 2))
+```
+
+## Disabled
+
+You can set the InputTag to be disabled.
+
+```{r disabled, eval = FALSE, shot = TRUE}
+el_input_tag("tags_dis", value = c("tag1", "tag2"), disabled = TRUE)
+```
+
+## Clearable
+
+You can set whether to show the clear button.
+
+```{r clearable, eval = FALSE, shot = TRUE}
+el_input_tag("tags_clear", value = c("tag1", "tag2"), clearable = TRUE)
+```
+
+## Custom Clear Icon
+
+You can customize the clear icon by setting the `clear-icon` attribute.
+
+```{r clear-icon, eval = FALSE, shot = TRUE}
+el_input_tag("tags_clear_icon", value = c("tag1", "tag2"), clearable = TRUE, clear_icon = "CloseBold")
+```
+
+## Draggable
+
+You can set whether tags can be dragged.
+
+```{r draggable, eval = FALSE, shot = TRUE}
+el_input_tag("tags_drag", value = c("tag1", "tag2", "tag3"), draggable = TRUE)
+```
+
+## Delimiter
+
+You can add a tag when a delimiter is matched.
+
+```{r delimiter, eval = FALSE, shot = TRUE}
+el_input_tag("tags_delim", delimiter = ",", placeholder = "Please input",
+             aria_label = "Please input a comma after input")
+```
+
+## Sizes
+
+Add `size` attribute to change the size of InputTag. In addition to the default size, there are two other options: `large`, `small`.
+
+```{r size, eval = FALSE, shot = TRUE}
+tags$div(style = "display: grid; gap: 16px",
+  el_input_tag("tags_l", size = "large", placeholder = "Please input"),
+  el_input_tag("tags_d", placeholder = "Please input"),
+  el_input_tag("tags_s", size = "small", placeholder = "Please input"))
+```
+
+## Custom Tag
+
+You can customize the tag content by `tag` slot.
+
+```{r tag, eval = FALSE, shot = TRUE}
+el_input_tag("tags_tpl", value = c("tag1", "tag2"), tag_type = "primary", tag_effect = "plain",
+  slots = list(tag = template(htmltools::HTML("<div class=\"flex items-center\"><el-icon><ElementPlus /></el-icon><span>{{ value }}</span></div>"),
+                              slot = "tag", scope = "{ value }")))
+```
+
+## Custom Prefix and Suffix
+
+You can customize the prefix and suffix of the InputTag by `prefix` and `suffix` slot.
+
+```{r prefix-suffix, eval = FALSE, shot = TRUE}
+el_input_tag("tags_ps", placeholder = "Please input",
+             slots = list(prefix = el_icon("CollectionTag"), suffix = el_icon("Search")))
+```
+
+## API
+
+Element Plus's tables, and beside each entry where it is in R.
+
+```{r api, echo = FALSE, results = "asis"}
+api_tables("input-tag")
+```

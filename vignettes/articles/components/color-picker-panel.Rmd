@@ -1,0 +1,58 @@
+---
+title: "ColorPickerPanel"
+---
+
+```{r setup, include = FALSE}
+source(file.path("..", "..", "shots.R"))
+```
+
+`ColorPickerPanel` is the core component of `ColorPicker`.
+
+## Basic usage
+
+ColorPickerPanel requires a string typed variable to be bound to v-model.
+
+```{r basic, eval = FALSE, shot = TRUE}
+el_color_picker_panel("cpp", value = "#409EFF")
+```
+
+## Alpha
+
+ColorPickerPanel supports alpha channel selecting. To activate alpha selecting, just add the `show-alpha` attribute.
+
+```{r alpha, eval = FALSE, shot = TRUE}
+el_color_picker_panel("cpp_alpha", value = "rgba(19, 206, 102, 0.8)", show_alpha = TRUE)
+```
+
+## Predefined colors
+
+ColorPickerPanel supports predefined color options
+
+```{r predefined-color, eval = FALSE, shot = TRUE}
+el_color_picker_panel("cpp_pre", value = "#ff4500", predefine = c(
+  "#ff4500", "#ff8c00", "#ffd700", "#90ee90", "#00ced1", "#1e90ff", "#c71585"))
+```
+
+## Border
+
+By default the color-picker-panel is bordered but in some case you don't want it.
+
+```{r border, eval = FALSE, shot = TRUE}
+el_color_picker_panel("cpp_border", value = "#409EFF", border = FALSE)
+```
+
+## Disabled
+
+The `disabled` attribute determines if the color picker is fully disabled.
+
+```{r disabled, eval = FALSE, shot = TRUE}
+el_color_picker_panel("cpp_dis", value = "#409EFF", disabled = TRUE)
+```
+
+## API
+
+Element Plus's tables, and beside each entry where it is in R.
+
+```{r api, echo = FALSE, results = "asis"}
+api_tables("color-picker-panel")
+```

@@ -2,7 +2,7 @@
 % Please edit documentation in R/el_container.R
 \name{el_main}
 \alias{el_main}
-\title{Element UI Main}
+\title{Element Plus Main}
 \usage{
 el_main(..., style = NULL, class = NULL)
 }
@@ -17,7 +17,7 @@ el_main(..., style = NULL, class = NULL)
 A Shiny UI element.
 }
 \description{
-Element UI Main
+Element Plus Main
 }
 \examples{
 el_main("Body content")

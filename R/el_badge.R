@@ -110,7 +110,7 @@ el_badge <- function(...,
 }
 
 
-#' Update Element UI Badge
+#' Update Element Plus Badge
 #'
 #' Server-side update for an [el_badge()] given an `id`.
 #'

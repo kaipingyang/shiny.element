@@ -2,7 +2,7 @@
 % Please edit documentation in R/el_form.R
 \name{el_form_reset}
 \alias{el_form_reset}
-\title{Reset an Element UI Form}
+\title{Reset an Element Plus Form}
 \usage{
 el_form_reset(session = shiny::getDefaultReactiveDomain(), id)
 }
@@ -17,7 +17,7 @@ Called for its side effect; returns \code{NULL} invisibly.
 }
 \description{
 Restores every field to the \code{value} it was declared with and clears the
-validation state. Note this is Element UI's \code{resetFields()}: it restores the
+validation state. Note this is Element Plus's \code{resetFields()}: it restores the
 \emph{initial} values, not empty ones, so a field declared with \code{value = 18}
 resets to 18.
 }

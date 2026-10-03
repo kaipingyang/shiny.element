@@ -1,6 +1,6 @@
-#' Element UI Date Picker Component
+#' Element Plus Date Picker Component
 #'
-#' Creates an Element UI date picker with Vue instance, supporting single date,
+#' Creates an Element Plus date picker with Vue instance, supporting single date,
 #' datetime, month, year, week, and date range selection modes.
 #'
 #' @param id Date picker ID. Auto-generated UUID if `NULL`.
@@ -319,7 +319,7 @@ el_date_picker <- function(
 }
 
 
-#' Update Element UI Date Picker
+#' Update Element Plus Date Picker
 #'
 #' Server-side update for [el_date_picker()]. Supports updating value, disabled
 #' state, type, clearable, readonly, and placeholder text.

@@ -2,7 +2,7 @@
 % Please edit documentation in R/el_tabs.R
 \name{update_el_tabs}
 \alias{update_el_tabs}
-\title{Update Element UI Tabs}
+\title{Update Element Plus Tabs}
 \usage{
 update_el_tabs(
   session = shiny::getDefaultReactiveDomain(),

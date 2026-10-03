@@ -2,7 +2,7 @@
 % Please edit documentation in R/el_form.R
 \name{el_form}
 \alias{el_form}
-\title{Element UI Form}
+\title{Element Plus Form}
 \usage{
 el_form(
   ...,
@@ -88,7 +88,7 @@ a warning.}
 A Shiny UI element.
 }
 \description{
-A form that owns its state, the way Element UI intends: one Vue instance
+A form that owns its state, the way Element Plus intends: one Vue instance
 holding a \code{model} of all field values plus the validation rules, with
 async-validator running them on blur or change.
 }

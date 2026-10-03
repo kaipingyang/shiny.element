@@ -1,6 +1,6 @@
 #' Coerce table data to a list of rows
 #'
-#' Element UI's `el-table` binds `:data` to an array of row objects. An R
+#' Element Plus's `el-table` binds `:data` to an array of row objects. An R
 #' data.frame serialised as it stands comes out column-wise, `{col: [...]}`,
 #' which the component silently renders as an empty table.
 #'
@@ -272,7 +272,7 @@
        depths  = cells$depths)
 }
 
-#' Element UI Table Component
+#' Element Plus Table Component
 #'
 #' Rows of data, with sorting, selection, fixed columns, cell templates and
 #' row actions that report to the server.
@@ -797,7 +797,7 @@ el_table <- function(id = NULL,
   )
 }
 
-#' Update Element UI Table
+#' Update Element Plus Table
 #'
 #' @param session Shiny session; the current one by default, as for
 #'   [shiny::updateTextInput()].

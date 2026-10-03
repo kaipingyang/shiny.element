@@ -2,7 +2,7 @@
 % Please edit documentation in R/el_steps.R
 \name{el_steps}
 \alias{el_steps}
-\title{Element UI Steps Component}
+\title{Element Plus Steps Component}
 \usage{
 el_steps(
   id = NULL,
@@ -57,7 +57,7 @@ a warning.}
 A Shiny UI element.
 }
 \description{
-Element UI Steps Component
+Element Plus Steps Component
 }
 \examples{
 # Basic usage

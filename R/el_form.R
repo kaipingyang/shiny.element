@@ -1,4 +1,4 @@
-# Element UI's form owns its state: el-form holds a `model` object, each
+# Element Plus's form owns its state: el-form holds a `model` object, each
 # el-form-item's `prop` points into it, and validation rules are declared on the
 # form and run by async-validator on blur/change. That machinery only works
 # inside one component tree -- el-form-item finds its control through Vue's
@@ -12,7 +12,7 @@
 # reports $children of 1 against 2 for a native one, and validate() fails a
 # field the user has visibly filled in.
 
-#' Element UI control tags by field type
+#' Element Plus control tags by field type
 #'
 #' `option` is the child tag for the choice-based controls.
 #' @keywords internal
@@ -107,7 +107,7 @@
 
 #' Declare a validation rule
 #'
-#' Builds one async-validator rule, the format Element UI's form expects.
+#' Builds one async-validator rule, the format Element Plus's form expects.
 #'
 #' @param required Whether the field must be filled.
 #' @param min,max Minimum and maximum: length for strings, value for numbers.
@@ -267,9 +267,9 @@ el_form_field <- function(prop,
   field
 }
 
-#' Element UI Form
+#' Element Plus Form
 #'
-#' A form that owns its state, the way Element UI intends: one Vue instance
+#' A form that owns its state, the way Element Plus intends: one Vue instance
 #' holding a `model` of all field values plus the validation rules, with
 #' async-validator running them on blur or change.
 #'
@@ -556,7 +556,7 @@ el_form <- function(...,
   )
 }
 
-#' Update an Element UI Form
+#' Update an Element Plus Form
 #'
 #' @param session Shiny session; the current one by default, as for
 #'   [shiny::updateTextInput()].
@@ -606,7 +606,7 @@ update_el_form <- function(session = shiny::getDefaultReactiveDomain(), id,
   invisible(NULL)
 }
 
-#' Validate an Element UI Form from the server
+#' Validate an Element Plus Form from the server
 #'
 #' Runs the form's rules and reports the outcome the same way a submit does,
 #' so the same `observeEvent` handles both. Use it when the form has no submit
@@ -630,10 +630,10 @@ el_form_validate <- function(session = shiny::getDefaultReactiveDomain(), id) {
   invisible(NULL)
 }
 
-#' Reset an Element UI Form
+#' Reset an Element Plus Form
 #'
 #' Restores every field to the `value` it was declared with and clears the
-#' validation state. Note this is Element UI's `resetFields()`: it restores the
+#' validation state. Note this is Element Plus's `resetFields()`: it restores the
 #' *initial* values, not empty ones, so a field declared with `value = 18`
 #' resets to 18.
 #'
@@ -655,7 +655,7 @@ el_form_reset <- function(session = shiny::getDefaultReactiveDomain(), id) {
   invisible(NULL)
 }
 
-#' Clear an Element UI Form's validation messages
+#' Clear an Element Plus Form's validation messages
 #'
 #' Leaves the values alone and only removes the error state.
 #'

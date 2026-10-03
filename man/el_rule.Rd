@@ -53,7 +53,7 @@ checks, such as \verb{function(v) \{ return v.trim(); \}}.}
 A rule, for \code{\link[=el_form_field]{el_form_field()}}'s \code{rules} argument.
 }
 \description{
-Builds one async-validator rule, the format Element UI's form expects.
+Builds one async-validator rule, the format Element Plus's form expects.
 }
 \examples{
 el_rule(required = TRUE, message = "Please enter your name")

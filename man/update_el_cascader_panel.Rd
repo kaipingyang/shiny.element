@@ -2,7 +2,7 @@
 % Please edit documentation in R/el_cascader_panel.R
 \name{update_el_cascader_panel}
 \alias{update_el_cascader_panel}
-\title{Update Element UI Cascader Panel}
+\title{Update Element Plus Cascader Panel}
 \usage{
 update_el_cascader_panel(
   session = shiny::getDefaultReactiveDomain(),

@@ -2,14 +2,14 @@
 % Please edit documentation in R/el_container.R
 \name{el_aside}
 \alias{el_aside}
-\title{Element UI Aside}
+\title{Element Plus Aside}
 \usage{
 el_aside(..., width = "300px", style = NULL, class = NULL)
 }
 \arguments{
 \item{...}{Content.}
 
-\item{width}{Aside width. Defaults to \code{"300px"}, as in Element UI, which
+\item{width}{Aside width. Defaults to \code{"300px"}, as in Element Plus, which
 sets it inline rather than through the stylesheet.}
 
 \item{style}{Extra inline style.}
@@ -20,7 +20,7 @@ sets it inline rather than through the stylesheet.}
 A Shiny UI element.
 }
 \description{
-Element UI Aside
+Element Plus Aside
 }
 \examples{
 el_aside("Navigation")

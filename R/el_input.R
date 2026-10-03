@@ -1,6 +1,6 @@
-#' Element UI Input with Vue Instance
+#' Element Plus Input with Vue Instance
 #'
-#' Creates an Element UI input component (`<el-input>`) with a Vue instance,
+#' Creates an Element Plus input component (`<el-input>`) with a Vue instance,
 #' supporting text, textarea, and password modes, plus clearable, prefix/suffix
 #' icons, word-limit display, and autosize textarea.
 #'
@@ -263,7 +263,7 @@ el_input <- function(
 }
 
 
-#' Update Element UI Input
+#' Update Element Plus Input
 #'
 #' Server-side update for [el_input()]. Sends a custom message to update
 #' named fields on the Vue instance.

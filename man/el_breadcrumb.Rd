@@ -2,7 +2,7 @@
 % Please edit documentation in R/el_breadcrumb.R
 \name{el_breadcrumb}
 \alias{el_breadcrumb}
-\title{Element UI Breadcrumb}
+\title{Element Plus Breadcrumb}
 \usage{
 el_breadcrumb(
   id = NULL,

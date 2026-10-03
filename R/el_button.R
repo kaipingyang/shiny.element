@@ -1,6 +1,6 @@
-#' Element UI Button with Vue Instance
+#' Element Plus Button with Vue Instance
 #'
-#' Creates an Element UI button with Vue instance, supporting all Element UI
+#' Creates an Element Plus button with Vue instance, supporting all Element Plus
 #' button variants including `plain`, `round`, `circle`, and `loading` states.
 #'
 #' @param id Button ID. Auto-generated UUID if `NULL`.
@@ -181,7 +181,7 @@ el_button <- function(
 }
 
 
-#' Update Element UI Button
+#' Update Element Plus Button
 #'
 #' Server-side update for [el_button()]. Supports all visual states including
 #' `size`, `plain`, `round`, and `loading`.

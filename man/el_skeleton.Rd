@@ -2,7 +2,7 @@
 % Please edit documentation in R/el_skeleton.R
 \name{el_skeleton}
 \alias{el_skeleton}
-\title{Element UI Skeleton}
+\title{Element Plus Skeleton}
 \usage{
 el_skeleton(
   id = NULL,

@@ -6,35 +6,53 @@ title: "Border"
 source(file.path("..", "..", "shots.R"))
 ```
 
-Element standardises the borders, radii and shadows its components use.
+We standardize the borders that can be used in buttons, cards, pop-ups and other components.
 
 ## Border style
 
+There are few border styles to choose.
+
 ```{r border, eval = FALSE, shot = TRUE}
-tagList(
-  tags$div(style = "display: inline-block; width: 200px; height: 60px; margin-right: 20px; border: 1px solid #DCDFE6; padding: 8px", "Solid, 1px"),
-  tags$div(style = "display: inline-block; width: 200px; height: 60px; border: 2px dashed #DCDFE6; padding: 8px", "Dashed, 2px"))
+row <- function(name, width, style) tags$tr(tags$td(name), tags$td(width),
+  tags$td(tags$div(style = sprintf("width: 200px; height: 0; border-top: %s %s var(--el-border-color)",
+                                   width, style))))
+tags$table(class = "demo-border", style = "border-spacing: 30px 10px",
+  tags$tr(tags$td("Name"), tags$td("Thickness"), tags$td("Demo")),
+  row("Solid", "1px", "solid"), row("Dashed", "2px", "dashed"))
 ```
 
 ## Radius
 
+There are few radius styles to choose.
+
 ```{r radius, eval = FALSE, shot = TRUE}
-box <- function(r, label) tags$div(style = sprintf(
-  "display: inline-block; width: 160px; height: 60px; margin-right: 20px; border: 1px solid #DCDFE6; border-radius: %s; padding: 8px", r), label)
-tagList(box("0", "No radius"), box("2px", "Small, 2px"), box("4px", "Large, 4px"), box("20px", "Round, 20px"))
+box <- function(name, radius) el_col(span = 6,
+  tags$div(name), tags$code(sprintf("border-radius: %s", radius)),
+  tags$div(style = sprintf(paste("height: 40px; margin-top: 10px; border: 1px solid",
+                                 "var(--el-border-color); border-radius: %s"), radius)))
+el_row(gutter = 12,
+  box("No Radius", "0px"), box("Small Radius", "var(--el-border-radius-small)"),
+  box("Large Radius", "var(--el-border-radius-base)"),
+  box("Round Radius", "var(--el-border-radius-round)"))
 ```
 
 ## Shadow
 
+There are few shadow styles to choose.
+
 ```{r shadow, eval = FALSE, shot = TRUE}
-tagList(
-  tags$div(style = "display: inline-block; width: 200px; height: 60px; margin-right: 20px; padding: 8px; box-shadow: 0 2px 4px rgba(0, 0, 0, .12), 0 0 6px rgba(0, 0, 0, .04)", "Basic shadow"),
-  tags$div(style = "display: inline-block; width: 200px; height: 60px; padding: 8px; box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1)", "Light shadow"))
+shadow <- function(name, var) tags$div(style = "text-align: center; margin: 0 20px",
+  tags$div(style = sprintf("width: 120px; height: 120px; box-shadow: var(%s)", var)),
+  tags$p(name), tags$code(var))
+tags$div(style = "display: flex; flex-wrap: wrap",
+  shadow("Basic Shadow", "--el-box-shadow"), shadow("Light Shadow", "--el-box-shadow-light"),
+  shadow("Lighter Shadow", "--el-box-shadow-lighter"), shadow("Dark Shadow", "--el-box-shadow-dark"))
 ```
 
-## Changing them
+## API
 
-```{r change, eval = FALSE}
-el_page(theme = el_theme(element = list("border-radius-base" = "8px",
-                                        "border-color-base" = "#cbd5e1")))
+Element Plus's tables, and beside each entry where it is in R.
+
+```{r api, echo = FALSE, results = "asis"}
+api_tables("border")
 ```

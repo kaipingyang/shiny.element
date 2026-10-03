@@ -6,19 +6,23 @@ title: "Table"
 source(file.path("..", "..", "shots.R"))
 ```
 
-Display multiple data with similar format. You can sort, filter, compare
-your data in a table. `el_table()` takes a data frame; its column names, a
-dot turned into `_` (Element reads a dotted `prop` as a path), are the
-columns unless `columns` says otherwise. Row names that name something --
-`mtcars`' car names -- become a first column.
+Display multiple data with similar format. You can sort, filter, compare your data in a table.
 
 ## Basic table
+
+Basic table is just for data display.
+
+After setting attribute `data` of `el-table` with an object array, you can use `prop` (corresponding to a key of the object in `data` array) in `el-table-column` to insert data to table columns, and set the attribute `label` to define the column name. You can also use the attribute `width` to define the width of columns.
 
 ```{r basic, eval = FALSE, shot = TRUE}
 el_table("cars", data = head(mtcars[, 1:5], 4))
 ```
 
-## Striped table
+## Striped Table
+
+Striped table makes it easier to distinguish different rows.
+
+Attribute `stripe` accepts a `Boolean`. If `true`, table will be striped.
 
 ```{r striped, eval = FALSE, shot = TRUE}
 el_table("striped", data = head(mtcars[, 1:5], 4), stripe = TRUE)
@@ -26,16 +30,19 @@ el_table("striped", data = head(mtcars[, 1:5], 4), stripe = TRUE)
 
 ## Table with border
 
-```{r border, eval = FALSE, shot = TRUE}
+By default, Table has no vertical border. If you need it, you can set attribute `border` to `true`.
+
+```{r with-border, eval = FALSE, shot = TRUE}
 el_table("bordered", data = head(mtcars[, 1:5], 4), border = TRUE)
 ```
 
 ## Table with status
 
-`row_class_name` names a class per row, through a `JS()` function; style the
-class as you like.
+You can highlight your table content to distinguish between "success, information, warning, danger" and other states.
 
-```{r status, eval = FALSE, shot = TRUE}
+Use `row-class-name` in `el-table` to add custom classes to a certain row. Then you can style it with custom classes.
+
+```{r with-status, eval = FALSE, shot = TRUE}
 tagList(
   tags$style(".el-table .warning-row { background: oldlace; }
               .el-table .success-row { background: #f0f9eb; }"),
@@ -45,9 +52,24 @@ tagList(
     "}")))
 ```
 
+## Table with show overflow tooltip
+
+When the content is too long, it will break into multiple lines, you can use `show-overflow-tooltip` to keep it in one line.
+
+Attribute `show-overflow-tooltip`, which accepts a `Boolean` value. When set `true`, the extra content will show in tooltip when hover on the cell.
+
+```{r show-overflow-tooltip, eval = FALSE, shot = TRUE}
+el_table("tt", show_overflow_tooltip = TRUE, data = data.frame(date = c("2016-05-03", "2016-05-02", "2016-05-04", "2016-05-01"),
+                     name = "Tom", address = "No. 189, Grove St, Los Angeles, a long address that runs on"),
+  columns = list(list(prop = "date", label = "Date", width = 120), list(prop = "name", label = "Name", width = 120),
+                 list(prop = "address", label = "Address", width = 200)))
+```
+
 ## Table with fixed header
 
-`height` fixes the header and scrolls the body.
+When there are too many rows, you can use a fixed header.
+
+By setting the attribute `height` of `el-table`, you can fix the table header without any other codes.
 
 ```{r fixed-header, eval = FALSE, shot = TRUE}
 el_table("fixedhead", data = iris, height = "250px")
@@ -55,38 +77,47 @@ el_table("fixedhead", data = iris, height = "250px")
 
 ## Table with fixed column
 
-A column's `fixed` is `TRUE` (left), `"left"` or `"right"`.
+When there are too many columns, you can fix some of them.
+
+Attribute `fixed` is used in `el-table-column`, it accepts a `Boolean`. If `true`, the column will be fixed at left. It also accepts two string literals: 'left' and 'right', both indicating that the column will be fixed at corresponding direction.
 
 ```{r fixed-column, eval = FALSE, shot = TRUE}
 el_table("fixedcol", data = head(mtcars, 4), border = TRUE, columns = c(
   list(list(prop = "mpg", label = "MPG", width = "120", fixed = TRUE)),
   lapply(names(mtcars)[-1], function(n) list(prop = n, label = n, width = "120")),
   list(list(label = "Operations", width = "120", fixed = "right",
-            cell = el$button(type = "text", size = "small", "Detail")))))
+            cell = el$button(link = TRUE, size = "small", "Detail")))))
 ```
 
-## Fixed columns and header
+## Table with fixed columns and header
 
-```{r fixed-both, eval = FALSE, shot = TRUE}
+When you have huge chunks of data to put in a table, you can fix the header and columns at the same time.
+
+Fix columns and header at the same time by combining the above two examples.
+
+```{r fixed-column-and-header, eval = FALSE, shot = TRUE}
 el_table("fixedboth", data = head(mtcars, 12), height = "250px", columns = c(
   list(list(prop = "mpg", label = "MPG", width = "120", fixed = TRUE)),
   lapply(names(mtcars)[-1], function(n) list(prop = n, label = n, width = "120"))))
 ```
 
-## Fluid-height table with fixed header
+## Fluid-height Table with fixed header (and columns)
 
-`max_height`: the table grows with its rows until it reaches it, then
-scrolls.
+When the the data is dynamically changed, you might want the table to have a maximum height rather than a fixed height and to show the scroll bar if needed.
 
-```{r fluid, eval = FALSE, shot = TRUE}
+By setting the attribute `max-height` of `el-table`, you can fix the table header. The table body scrolls only if the height of the rows exceeds the max height value.
+
+```{r fixed-header-with-fluid-header, eval = FALSE, shot = TRUE}
 el_table("fluid", data = head(mtcars[, 1:5], 10), max_height = "250px")
 ```
 
 ## Grouping table head
 
-A column with `children` is a group header over them.
+When the data structure is complex, you can use group header to show the data hierarchy.
 
-```{r grouping, eval = FALSE, shot = TRUE}
+Only need to place el-table-column inside a el-table-column, you can achieve group header.
+
+```{r grouping-header, eval = FALSE, shot = TRUE}
 people <- data.frame(date = "2016-05-03", name = "Tom", state = "California",
                      city = "Los Angeles", address = "No. 189, Grove St", zip = "CA 90036")
 el_table("grouped", data = people[rep(1, 3), ], border = TRUE, columns = list(
@@ -100,13 +131,28 @@ el_table("grouped", data = people[rep(1, 3), ], border = TRUE, columns = list(
       list(prop = "zip", label = "Zip", width = "120")))))))
 ```
 
+## Table with fixed group header
+
+fixed group head is supported
+
+The attribute `fixed` of the group header is determined by the outermost `el-table-column`
+
+```{r fixed-column-and-group-header, eval = FALSE, shot = TRUE}
+el_table("fg", height = "250px", data = data.frame(date = c("2016-05-03", "2016-05-02", "2016-05-04", "2016-05-01"),
+                     name = "Tom", address = "No. 189, Grove St, Los Angeles, a long address that runs on"), columns = list(
+  list(prop = "date", label = "Date", width = 150, fixed = "left"),
+  list(label = "Delivery Info", children = list(
+    list(prop = "name", label = "Name", width = 120),
+    list(label = "Address Info", children = list(list(prop = "address", label = "Address", width = 300)))))))
+```
+
 ## Single select
 
-`highlight_current_row` marks the clicked row; `input$<id>_current_change`
-reports it. `setCurrentRow()` moves it from the server -- the row named by
-`el_table_row()`, since Element needs the row itself.
+Single row selection is supported.
 
-```{r single, eval = FALSE, shot = TRUE, shot_js = "document.querySelector('#second_container button').click()", shot_wait = 2}
+Table supports single row selection. You can activate it by adding the `highlight-current-row` attribute. An event called `current-change` will be triggered when row selection changes, and its parameters are the rows after and before this change: `currentRow` and `oldCurrentRow`. If you need to display row index, you can add a new `el-table-column` with its `type` attribute assigned to `index`, and you will see the index starting from 1.
+
+```{r single-select, eval = FALSE, shot = TRUE, shot_js = "document.querySelector('#second_container button').click()", shot_wait = 2}
 ui <- el_page(
   el_table("single", data = head(iris, 4), highlight_current_row = TRUE),
   el_button("second", "Select second row"), el_button("clear", "Clear selection"),
@@ -123,12 +169,13 @@ shinyApp(ui, server)
 
 ## Multiple select
 
-`selection = TRUE` adds the checkbox column and reports
-`input$<id>_selected_rows`, the 1-based row numbers, and
-`input$<id>_selected`, the rows. Prefer the numbers: a row of mixed types
-comes back from JSON as text.
+You can also select multiple rows.
 
-```{r multiple, eval = FALSE, shot = TRUE, shot_js = "document.querySelector('#toggle_container button').click()", shot_wait = 2}
+After 2.8.3, `toggleRowSelection` supports the third parameter `ignoreSelectable` to determine whether to ignore the selectable attribute.
+
+Activating multiple selection is easy: simply add an `el-table-column` with its `type` set to `selection`.
+
+```{r multi-select, eval = FALSE, shot = TRUE, shot_js = "document.querySelector('#toggle_container button').click()", shot_wait = 2}
 cars <- head(mtcars[, 1:4], 5)
 
 ui <- el_page(
@@ -148,10 +195,11 @@ shinyApp(ui, server)
 
 ## Sorting
 
-A column's `sortable`; `default_sort` the starting order. `sortable =
-"custom"` leaves the sorting to the server, through `input$<id>_sort_change`.
+Sort the data to find or compare data quickly.
 
-```{r sorting, eval = FALSE, shot = TRUE}
+Set attribute `sortable` in a certain column to sort the data based on this column. It accepts `Boolean` with a default value `false`. Set table attribute `default-sort` to determine default sort column and order. To apply your own sorting rules, use `sort-method` or `sort-by`. If you need remote sorting from backend, set `sortable` to `custom`, and listen to the `sort-change` event on Table. In the event handler, you have access to the sorting column and sorting order so that you can fetch sorted table data from API. In this example we use another attribute named `formatter` to format the value of certain columns. It accepts a function which has two parameters: `row` and `column`. You can handle it according to your own needs.
+
+```{r sort, eval = FALSE, shot = TRUE}
 el_table("sorted", data = head(mtcars[, 1:4], 6),
          default_sort = list(prop = "mpg", order = "descending"), columns = list(
   list(prop = "mpg", label = "MPG", sortable = TRUE),
@@ -161,7 +209,9 @@ el_table("sorted", data = head(mtcars[, 1:4], 6),
 
 ## Filter
 
-`filters` lists the choices; `filter_method`, a `JS()` function, decides.
+Filter the table to find desired data.
+
+Set attribute `filters` and `filter-method` in `el-table-column` makes this column filterable. `filters` is an array, and `filter-method` is a function deciding which rows are displayed. It has three parameters: `value`, `row` and `column`.
 
 ```{r filter, eval = FALSE, shot = TRUE}
 staff <- data.frame(name = c("Tom", "Ada", "Linus", "Grace"),
@@ -177,12 +227,11 @@ el_table("filtered", data = staff, columns = list(
 
 ## Custom column template
 
-A column's `cell` is markup drawn once per row, with the row as
-`scope.row`. Element's own tags work there, written with `el$`. A button
-reports with `rowAction()`: `rowAction('edit', scope)` sets
-`input$<id>_edit` to the row's number and the row.
+Customize table column so it can be integrated with other components.
 
-```{r cells, eval = FALSE, shot = TRUE, shot_js = "document.querySelectorAll('#shot .el-table__body .el-button')[1].click()", shot_wait = 2}
+You have access to the following data: row, column, $index and store (state management of Table) by [slot](https://v3.vuejs.org/guide/component-slots.html).
+
+```{r custom-column, eval = FALSE, shot = TRUE, shot_js = "document.querySelectorAll('#shot .el-table__body .el-button')[1].click()", shot_wait = 2}
 tasks <- data.frame(task = c("Draft", "Review", "Publish"), done = c(100, 60, 0))
 
 ui <- el_page(
@@ -191,8 +240,8 @@ ui <- el_page(
     list(prop = "done", label = "Progress",
          cell = el$progress(":percentage" = "scope.row.done")),
     list(label = "Operations", cell = tagList(
-      el$button(size = "mini", "@click" = "rowAction('edit', scope)", "Edit"),
-      el$button(size = "mini", type = "danger", "@click" = "rowAction('delete', scope)", "Delete")))
+      el$button(size = "small", "@click" = "rowAction('edit', scope)", "Edit"),
+      el$button(size = "small", type = "danger", "@click" = "rowAction('delete', scope)", "Delete")))
   )),
   verbatimTextOutput("which"))
 
@@ -206,9 +255,11 @@ shinyApp(ui, server)
 
 ## Table with custom header
 
-`header_html` is a column's header, as markup -- pass only what you control.
+Customize table header so it can be even more customized.
 
-```{r header, eval = FALSE, shot = TRUE}
+You can customize how the header looks by header [slots](https://v3.vuejs.org/guide/component-slots.html).
+
+```{r custom-header, eval = FALSE, shot = TRUE}
 el_table("hdr", data = head(mtcars[, 1:3], 3), columns = list(
   list(prop = "mpg", label = "MPG", header_html = "<b>MPG</b> <small>(miles/gallon)</small>"),
   list(prop = "cyl", label = "Cylinders"), list(prop = "disp", label = "Displacement")))
@@ -216,9 +267,13 @@ el_table("hdr", data = head(mtcars[, 1:3], 3), columns = list(
 
 ## Expandable row
 
-A column of `type = "expand"` opens each row onto its `cell`.
+When the row content is too long and you do not want to display the horizontal scroll bar, you can use the expandable row feature.
 
-```{r expand, eval = FALSE, shot = TRUE}
+After 2.9.7, `preserve-expanded-content` is added to control whether to preserve expanded row content in DOM when collapsed.
+
+Activate expandable row by adding type="expand" and slot. The template for el-table-column will be rendered as the contents of the expanded row, and you can access the same attributes as when you are using `slot` in custom column templates.
+
+```{r expandable-row, eval = FALSE, shot = TRUE}
 el_table("exp", data = data.frame(name = c("Tom", "Ada"), city = c("Los Angeles", "London"),
                                   shop = c("No. 189, Grove St", "1 Baker St")),
   default_expand_all = TRUE, columns = list(
@@ -228,21 +283,9 @@ el_table("exp", data = data.frame(name = c("Tom", "Ada"), city = c("Los Angeles"
 
 ## Tree data and lazy mode
 
-Rows nest through a `children` list, keyed by `row_key`. With `lazy = TRUE`
-a row's children come from the server when it opens, asked for through
-`input$<id>_load` and answered with `el_load_children()`; a row with
-children to load carries `hasChildren = TRUE`.
+You can display tree structure data. When row contains the `children` field, it is treated as nested data. For rendering nested data, the prop `row-key` is required. Also, child row data can be loaded asynchronously. Set `lazy` property of Table to true and the function `load`. Specify `hasChildren` attribute in row to determine which row contains children. Both `children` and `hasChildren` can be configured via `tree-props`.
 
-```{r tree, eval = FALSE, shot = TRUE}
-org <- list(
-  list(id = 1, name = "Engineering", size = 42, children = list(
-    list(id = 11, name = "Platform", size = 18), list(id = 12, name = "Product", size = 24))),
-  list(id = 2, name = "Design", size = 9))
-el_table("org", data = org, row_key = "id", default_expand_all = TRUE,
-         columns = list(list(prop = "name", label = "Team"), list(prop = "size", label = "People")))
-```
-
-```{r tree-lazy, eval = FALSE, shot = TRUE, shot_js = "document.querySelector('#shot .el-table__expand-icon').click()", shot_wait = 2}
+```{r tree-and-lazy, eval = FALSE, shot = TRUE, shot_js = "document.querySelector('#shot .el-table__expand-icon').click()", shot_wait = 2}
 teams <- data.frame(id = c(1, 2), name = c("Engineering", "Design"),
                     size = c(42, 9), hasChildren = c(TRUE, FALSE))
 
@@ -260,7 +303,25 @@ server <- function(input, output, session) {
 shinyApp(ui, server)
 ```
 
+## Selectable tree
+
+When `treeProps.checkStrictly` is true, the selection state of parent and child nodes is no longer associated, that is, when the parent node is selected, its child nodes will not be selected; when `treeProps.checkStrictly` is false, the selection state of parent and child nodes will be associated with the selection state of child nodes, that is, when the parent node is selected, all its child nodes will be selected.
+
+A tree table's rows tick on their own, not with their children.
+
+```{r check-strictly, eval = FALSE, shot = TRUE}
+el_table("strict", row_key = "id", selection = TRUE, default_expand_all = TRUE, data = list(
+  list(id = 1, date = "2016-05-02", name = "Tom"),
+  list(id = 3, date = "2016-05-01", name = "Tom", children = list(
+    list(id = 31, date = "2016-05-01", name = "Tom"), list(id = 32, date = "2016-05-01", name = "Tom")))),
+  columns = list(list(prop = "date", label = "Date"), list(prop = "name", label = "Name")))
+```
+
 ## Summary row
+
+For table of numbers, you can add an extra row at the table footer displaying each column's sum.
+
+You can add the summary row by setting `show-summary` to `true`. By default, for the summary row, the first column does not sum anything up but always displays 'Sum' (you can configure the displayed text using `sum-text`), while other columns sum every number in that column up and display them. You can of course define your own sum behaviour. To do so, pass a method to `summary-method`, which returns an array, and each element of the returned array will be displayed in the columns of the summary row, It can be a VNode or string. The second table of this example is a detailed demo.
 
 ```{r summary, eval = FALSE, shot = TRUE}
 el_table("sums", data = head(mtcars[, c("mpg", "hp", "wt")], 5),
@@ -269,9 +330,11 @@ el_table("sums", data = head(mtcars[, c("mpg", "hp", "wt")], 5),
 
 ## Rowspan and colspan
 
-`span_method`, a `JS()` function, returns each cell's `[rowspan, colspan]`.
+Configuring rowspan and colspan allows you to merge cells
 
-```{r span, eval = FALSE, shot = TRUE}
+Use the `span-method` attribute to configure rowspan and colspan. It accepts a method, and passes an object to that method including current row `row`, current column `column`, current row index `rowIndex` and current column index `columnIndex`. The method should return an array of two numbers, the first number being `rowspan` and second `colspan`. It can also return an object with `rowspan` and `colspan` props.
+
+```{r rowspan-and-colspan, eval = FALSE, shot = TRUE}
 el_table("spans", data = head(mtcars[, 1:4], 6), border = TRUE, span_method = JS(
   "function({row, column, rowIndex, columnIndex}) {",
   "  if (columnIndex === 0) return rowIndex % 2 === 0 ? [2, 1] : [0, 0];",
@@ -280,74 +343,39 @@ el_table("spans", data = head(mtcars[, 1:4], 6), border = TRUE, span_method = JS
 
 ## Custom index
 
-A column of `type = "index"` numbers the rows; its `index`, a number or a
-`JS()` function, sets how.
+You can customize row index in `type=index` columns.
 
-```{r index, eval = FALSE, shot = TRUE}
+To customize row indices, use `index` attribute on `el-table-column` with `type=index`. If it is assigned to a number, all indices will have an offset of that number. It also accepts a method with each index (starting from `0`) as parameter, and the returned value will be displayed as index.
+
+```{r custom-index, eval = FALSE, shot = TRUE}
 el_table("idx", data = head(iris[, c(1, 5)], 4), columns = list(
   list(type = "index", index = JS("function(i) { return i * 2; }")),
   list(prop = "Sepal_Length", label = "Sepal length"), list(prop = "Species", label = "Species")))
 ```
 
-## For Shiny
+## Table Layout
 
-### Formatting
+The [table-layout](https://developer.mozilla.org/en-US/docs/Web/CSS/table-layout) property sets the algorithm used to lay out table cells, rows, and columns.
 
-A column's `formatter` is a `JS()` function given the row, the column, the
-value and its index; formatting in R first is usually simpler.
-
-```{r formatter, eval = FALSE, shot = TRUE}
-el_table("sales", data = data.frame(region = c("North", "South"), amount = c(1234.5, 987.25)),
-  columns = list(list(prop = "region", label = "Region"),
-                 list(prop = "amount", label = "Amount", align = "right", formatter = JS(
-                   "function(row, col, value) { return '$' + value.toFixed(2); }"))))
+```{r table-layout, eval = FALSE, shot = TRUE}
+el_table("layout_auto", table_layout = "auto", data = data.frame(date = c("2016-05-03", "2016-05-02", "2016-05-04", "2016-05-01"),
+                     name = "Tom", address = "No. 189, Grove St, Los Angeles, a long address that runs on"))
 ```
 
-### Row events
+## Tooltip formatter
 
-Every Element table event is forwarded as `input$<id>_<event>`, an event
-input: a row event carries `row_index`, the `row` and the `column` prop; a
-cell event adds its `value`.
+You can use `tooltip-formatter` to customize the tooltip content.
 
-```{r events, eval = FALSE, shot = TRUE, shot_js = "document.querySelectorAll('#shot .el-table__body tr')[1].querySelector('td').click()", shot_wait = 2}
-ui <- el_page(el_table("flowers", data = head(iris, 4)), verbatimTextOutput("clicked"))
-
-server <- function(input, output, session) {
-  output$clicked <- renderPrint(input$flowers_row_click[c("row_index", "column")])
-}
-
-shinyApp(ui, server)
+```{r tooltip-formatter, eval = FALSE, shot = TRUE}
+el_table("tt_fmt", show_overflow_tooltip = TRUE, data = data.frame(date = c("2016-05-03", "2016-05-02", "2016-05-04", "2016-05-01"),
+                     name = "Tom", address = "No. 189, Grove St, Los Angeles, a long address that runs on"),
+  tooltip_formatter = JS("function(d) { return 'Address: ' + d.row.address; }"),
+  columns = list(list(prop = "date", label = "Date", width = 120), list(prop = "address", label = "Address", width = 200)))
 ```
-
-### Server-side paging
-
-Pair the table with `el_pagination()` and send one page at a time; the
-pager reports its page as `input$<id>`.
-
-```{r paging, eval = FALSE, shot = TRUE, shot_js = "document.querySelector('#shot .btn-next').click()", shot_wait = 2}
-page_size <- 5
-page_of <- function(n) iris[(n - 1) * page_size + seq_len(page_size), ]
-
-ui <- el_page(
-  el_table("rows", data = page_of(1)),
-  el_pagination("pager", total = nrow(iris), page_size = page_size,
-                layout = "total, prev, pager, next"))
-
-server <- function(input, output, session) {
-  observeEvent(input$pager, update_el_table(session, "rows", data = page_of(input$pager)))
-}
-
-shinyApp(ui, server)
-```
-
-### A table that starts hidden
-
-A table drawn inside a tab or collapse that starts closed measures its
-columns as zero; `el_call(session, id, "doLayout")` measures again.
-`loading = TRUE`, or `update_el_table(loading =)`, covers it with Element's
-loading mask while data is fetched.
 
 ## API
+
+Element Plus's tables, and beside each entry where it is in R.
 
 ```{r api, echo = FALSE, results = "asis"}
 api_tables("table")

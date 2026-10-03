@@ -1,17 +1,5 @@
----
-title: "InfiniteScroll"
----
-
-```{r setup, include = FALSE}
-source(file.path("..", "..", "shots.R"))
-```
-
-Load more while reaching the bottom. `input$<id>_load` rises by one each
-time more is wanted; the server renders it into a `uiOutput()` inside.
-
-## Basic usage
-
-```{r basic, eval = FALSE, shot = TRUE, shot_js = "var a = document.querySelector('#shot .el-infinite-scroll, #shot [style*=overflow]'); if (a) a.scrollTop = 1000;", shot_wait = 2}
+## basic
+#' Reaching the bottom asks the server for more: `input$<id>_load`.
 ui <- el_page(el_infinite_scroll("feed", height = "300px", uiOutput("rows")))
 
 server <- function(input, output, session) {
@@ -22,14 +10,10 @@ server <- function(input, output, session) {
 }
 
 shinyApp(ui, server)
-```
 
-## Disable loading
-
-`update_el_infinite_scroll(disabled = TRUE)` stops asking -- while a load is
-under way, and when there is nothing more.
-
-```{r disable, eval = FALSE, shot = TRUE}
+## disable-loading
+#' `update_el_infinite_scroll(disabled = TRUE)` stops asking -- while a load is
+#' under way, and when there is nothing more.
 ui <- el_page(el_infinite_scroll("list", height = "300px", uiOutput("items")), textOutput("note"))
 
 server <- function(input, output, session) {
@@ -43,10 +27,3 @@ server <- function(input, output, session) {
 }
 
 shinyApp(ui, server)
-```
-
-## API
-
-```{r api, echo = FALSE, results = "asis"}
-api_tables("infiniteScroll")
-```

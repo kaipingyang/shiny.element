@@ -5,256 +5,332 @@ repo:
 
 template:
   bootstrap: 5
-  # Element UI's documentation look: its blue, greys and type, a white
-  # header with a hairline under it. The rest is in pkgdown/extra.css.
+  # element-plus.org's look: its blue, greys and type, a white header with
+  # a hairline under it. The rest is in pkgdown/extra.css.
   bslib:
     primary: "#409EFF"
     link-color: "#409EFF"
-    body-color: "#5E6D82"
-    headings-color: "#1F2F3D"
-    headings-font-weight: 400
+    body-color: "#606266"
+    headings-color: "#303133"
+    headings-font-weight: 600
     base_font: '"Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", Arial, sans-serif'
     heading_font: '"Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", Arial, sans-serif'
     code_font: 'Menlo, Monaco, Consolas, "Courier New", monospace'
     font-size-base: 0.875rem
-    border-color: "#EBEEF5"
+    border-color: "#DCDFE6"
     border-radius: 4px
-    code-color: "#5E6D82"
-    navbar-light-color: "#1F2F3D"
+    code-color: "#606266"
+    navbar-light-color: "#303133"
     navbar-light-hover-color: "#409EFF"
     navbar-light-active-color: "#409EFF"
     navbar-padding-y: 1rem
   light-switch: false
-
 navbar:
   bg: white
   type: light
   structure:
-    left: [intro, components, guides, reference, news]
+    left: [guide, components, reference, news]
+    right: [search, github]
   components:
+    guide:
+      text: Guide
+      menu:
+        - text: Basics
+        - text: Design
+          href: articles/design.html
+        - text: Installation & Quick Start
+          href: articles/shiny.element.html
+        - text: -------
+        - text: Advanced
+        - text: i18n
+          href: articles/i18n.html
+        - text: Migration from Element UI
+          href: articles/migration.html
+        - text: Theming
+          href: articles/theming.html
+        - text: Dark Mode
+          href: articles/dark-mode.html
+        - text: Custom Defaults
+          href: articles/custom-defaults.html
+        - text: Built-in Transitions
+          href: articles/transitions.html
+        - text: -------
+        - text: Shiny
+        - text: Shiny Integration
+          href: articles/shiny.html
+        - text: Forms and Validation
+          href: articles/forms.html
+        - text: Dashboards
+          href: articles/dashboards.html
+        - text: What Works, and What Does Not
+          href: articles/limitations.html
     components:
-      text: Components
+      text: Component
       menu:
         - text: Overview
           href: articles/components.html
         - text: -------
         - text: Basic
-        - text: Layout
-          href: articles/components/layout.html
-        - text: Container
-          href: articles/components/container.html
-        - text: Color
-          href: articles/components/color.html
-        - text: Typography
-          href: articles/components/typography.html
-        - text: Border
-          href: articles/components/border.html
-        - text: Icon
-          href: articles/components/icon.html
         - text: Button
           href: articles/components/button.html
+        - text: Border
+          href: articles/components/border.html
+        - text: Color
+          href: articles/components/color.html
+        - text: Layout Container
+          href: articles/components/container.html
+        - text: Icon
+          href: articles/components/icon.html
+        - text: Layout
+          href: articles/components/layout.html
         - text: Link
           href: articles/components/link.html
+        - text: Text
+          href: articles/components/text.html
+        - text: Scrollbar
+          href: articles/components/scrollbar.html
+        - text: Space
+          href: articles/components/space.html
+        - text: Splitter
+          href: articles/components/splitter.html
+        - text: Typography
+          href: articles/components/typography.html
+        - text: -------
+        - text: Configuration
+        - text: Config Provider
+          href: articles/components/config-provider.html
         - text: -------
         - text: Form
-        - text: Radio
-          href: articles/components/radio.html
-        - text: Checkbox
-          href: articles/components/checkbox.html
-        - text: Input
-          href: articles/components/input.html
-        - text: InputNumber
-          href: articles/components/input-number.html
-        - text: Select
-          href: articles/components/select.html
+        - text: Autocomplete
+          href: articles/components/autocomplete.html
         - text: Cascader
           href: articles/components/cascader.html
-        - text: Switch
-          href: articles/components/switch.html
-        - text: Slider
-          href: articles/components/slider.html
-        - text: TimePicker
-          href: articles/components/time-picker.html
-        - text: DatePicker
-          href: articles/components/date-picker.html
-        - text: DateTimePicker
-          href: articles/components/datetime-picker.html
-        - text: Upload
-          href: articles/components/upload.html
-        - text: Rate
-          href: articles/components/rate.html
-        - text: ColorPicker
+        - text: Checkbox
+          href: articles/components/checkbox.html
+        - text: Color Picker Panel
+          href: articles/components/color-picker-panel.html
+        - text: Color Picker
           href: articles/components/color-picker.html
-        - text: Transfer
-          href: articles/components/transfer.html
+        - text: Date Picker Panel
+          href: articles/components/date-picker-panel.html
+        - text: Date Picker
+          href: articles/components/date-picker.html
+        - text: DateTime Picker
+          href: articles/components/datetime-picker.html
         - text: Form
           href: articles/components/form.html
+        - text: Input
+          href: articles/components/input.html
+        - text: Input Number
+          href: articles/components/input-number.html
+        - text: Input Tag
+          href: articles/components/input-tag.html
+        - text: Input OTP
+          href: articles/components/input-otp.html
+        - text: Mention
+          href: articles/components/mention.html
+        - text: Radio
+          href: articles/components/radio.html
+        - text: Rate
+          href: articles/components/rate.html
+        - text: Select
+          href: articles/components/select.html
+        - text: Virtualized Select
+          href: articles/components/select-v2.html
+        - text: Slider
+          href: articles/components/slider.html
+        - text: Switch
+          href: articles/components/switch.html
+        - text: Time Picker
+          href: articles/components/time-picker.html
+        - text: Time Select
+          href: articles/components/time-select.html
+        - text: Transfer
+          href: articles/components/transfer.html
+        - text: TreeSelect
+          href: articles/components/tree-select.html
+        - text: Upload
+          href: articles/components/upload.html
         - text: -------
         - text: Data
-        - text: Table
-          href: articles/components/table.html
-        - text: Tag
-          href: articles/components/tag.html
-        - text: Progress
-          href: articles/components/progress.html
-        - text: Tree
-          href: articles/components/tree.html
-        - text: Pagination
-          href: articles/components/pagination.html
+        - text: Avatar
+          href: articles/components/avatar.html
         - text: Badge
           href: articles/components/badge.html
-        - text: Skeleton
-          href: articles/components/skeleton.html
-        - text: Empty
-          href: articles/components/empty.html
-        - text: Descriptions
-          href: articles/components/descriptions.html
-        - text: Result
-          href: articles/components/result.html
-        - text: Statistic
-          href: articles/components/statistic.html
-        - text: -------
-        - text: Notice
-        - text: Alert
-          href: articles/components/alert.html
-        - text: Loading
-          href: articles/components/loading.html
-        - text: Message
-          href: articles/components/message.html
-        - text: MessageBox
-          href: articles/components/message-box.html
-        - text: Notification
-          href: articles/components/notification.html
-        - text: -------
-        - text: Navigation
-        - text: NavMenu
-          href: articles/components/menu.html
-        - text: Tabs
-          href: articles/components/tabs.html
-        - text: Breadcrumb
-          href: articles/components/breadcrumb.html
-        - text: PageHeader
-          href: articles/components/page-header.html
-        - text: Dropdown
-          href: articles/components/dropdown.html
-        - text: Steps
-          href: articles/components/steps.html
-        - text: -------
-        - text: Others
-        - text: Dialog
-          href: articles/components/dialog.html
-        - text: Tooltip
-          href: articles/components/tooltip.html
-        - text: Popover
-          href: articles/components/popover.html
-        - text: Popconfirm
-          href: articles/components/popconfirm.html
+        - text: Calendar
+          href: articles/components/calendar.html
         - text: Card
           href: articles/components/card.html
         - text: Carousel
           href: articles/components/carousel.html
         - text: Collapse
           href: articles/components/collapse.html
-        - text: Timeline
-          href: articles/components/timeline.html
-        - text: Divider
-          href: articles/components/divider.html
-        - text: Calendar
-          href: articles/components/calendar.html
+        - text: Descriptions
+          href: articles/components/descriptions.html
+        - text: Empty
+          href: articles/components/empty.html
         - text: Image
           href: articles/components/image.html
+        - text: Infinite Scroll
+          href: articles/components/infinite-scroll.html
+        - text: Pagination
+          href: articles/components/pagination.html
+        - text: Progress
+          href: articles/components/progress.html
+        - text: Result
+          href: articles/components/result.html
+        - text: Skeleton
+          href: articles/components/skeleton.html
+        - text: Table
+          href: articles/components/table.html
+        - text: Virtualized Table
+          href: articles/components/table-v2.html
+        - text: Tag
+          href: articles/components/tag.html
+        - text: Timeline
+          href: articles/components/timeline.html
+        - text: Tour
+          href: articles/components/tour.html
+        - text: Tree
+          href: articles/components/tree.html
+        - text: Virtualized Tree
+          href: articles/components/tree-v2.html
+        - text: Statistic
+          href: articles/components/statistic.html
+        - text: Segmented
+          href: articles/components/segmented.html
+        - text: -------
+        - text: Navigation
+        - text: Affix
+          href: articles/components/affix.html
+        - text: Anchor
+          href: articles/components/anchor.html
         - text: Backtop
           href: articles/components/backtop.html
-        - text: InfiniteScroll
-          href: articles/components/infiniteScroll.html
-        - text: Avatar
-          href: articles/components/avatar.html
+        - text: Breadcrumb
+          href: articles/components/breadcrumb.html
+        - text: Dropdown
+          href: articles/components/dropdown.html
+        - text: Menu
+          href: articles/components/menu.html
+        - text: Page Header
+          href: articles/components/page-header.html
+        - text: Steps
+          href: articles/components/steps.html
+        - text: Tabs
+          href: articles/components/tabs.html
+        - text: -------
+        - text: Feedback
+        - text: Alert
+          href: articles/components/alert.html
+        - text: Dialog
+          href: articles/components/dialog.html
         - text: Drawer
           href: articles/components/drawer.html
-    guides:
-      text: Guides
-      menu:
-      - text: Forms and validation
-        href: articles/forms.html
-      - text: Shiny integration
-        href: articles/shiny.html
-      - text: Theming, sizes and languages
-        href: articles/theming.html
-      - text: Dashboards
-        href: articles/dashboards.html
-      - text: -------
-      - text: What works, and what does not
-        href: articles/limitations.html
+        - text: Loading
+          href: articles/components/loading.html
+        - text: Message
+          href: articles/components/message.html
+        - text: Message Box
+          href: articles/components/message-box.html
+        - text: Notification
+          href: articles/components/notification.html
+        - text: Popconfirm
+          href: articles/components/popconfirm.html
+        - text: Popover
+          href: articles/components/popover.html
+        - text: Tooltip
+          href: articles/components/tooltip.html
+        - text: -------
+        - text: Others
+        - text: Divider
+          href: articles/components/divider.html
+        - text: Watermark
+          href: articles/components/watermark.html
+
+articles:
+  - title: Guide
+    navbar: ~
+    contents:
+      - shiny.element
+      - articles/design
+      - articles/i18n
+      - articles/migration
+      - articles/theming
+      - articles/dark-mode
+      - articles/custom-defaults
+      - articles/transitions
+      - shiny
+      - forms
+      - dashboards
+      - limitations
+  - title: Components
+    navbar: ~
+    contents:
+      - articles/components
+      - starts_with("articles/components/")
 
 reference:
   - title: Getting started
-    desc: The page, its theme, and the scripts and styles a page needs.
+    desc: >
+      The page, its theme, and the scripts and styles a page needs.
     contents:
       - el_page
       - el_theme
       - use_element
       - el_locales
-      - element_ui_dependency
+      - element_plus_dependency
       - el_locale_dependency
       - el_layout_css_dependency
       - el_feedback_dependency
+      - el_config_provider
 
   - title: Basic
-    desc: As in Element's documentation.
+    desc: >
+      As in Element Plus's documentation.
     contents:
-      - el_row
-      - el_col
+      - el_button
+      - update_el_button
+      - el_button_group
       - el_container
       - el_header
       - el_aside
       - el_main
       - el_footer
       - el_icon
-      - el_button
-      - update_el_button
-      - el_button_group
+      - el_row
+      - el_col
       - el_link
       - update_el_link
+      - el_text
+      - el_scrollbar
+      - el_space
+      - el_splitter
+      - el_splitter_panel
 
   - title: Form
-    desc: Each reports to the server as `input$<id>`, on load as well as on change.
+    desc: >
+      Each reports to the server as `input$<id>`, on load as well as on change.
     contents:
-      - el_radio_group
-      - update_el_radio_group
-      - el_checkbox
-      - update_el_checkbox
-      - el_checkbox_group
-      - update_el_checkbox_group
-      - el_input
-      - starts_with("update_el_input")
-      - el_input_number
       - el_autocomplete
       - update_el_autocomplete
-      - el_select
-      - update_el_select
       - el_cascader
       - update_el_cascader
       - el_cascader_panel
       - update_el_cascader_panel
       - df_to_cascader_options
-      - el_switch
-      - update_el_switch
-      - el_slider
-      - update_el_slider
-      - el_time_picker
-      - update_el_time_picker
-      - update_el_time_select
-      - el_date_picker
-      - update_el_date_picker
-      - el_upload
-      - update_el_upload
-      - el_upload_clear
-      - el_rate
-      - update_el_rate
+      - el_checkbox
+      - update_el_checkbox
+      - el_checkbox_group
+      - update_el_checkbox_group
       - el_color_picker
       - update_el_color_picker
-      - el_transfer
-      - update_el_transfer
+      - el_color_picker_panel
+      - update_el_color_picker_panel
+      - el_date_picker
+      - update_el_date_picker
+      - el_date_picker_panel
+      - update_el_date_picker_panel
       - el_form
       - el_form_field
       - el_rule
@@ -262,39 +338,122 @@ reference:
       - el_form_validate
       - el_form_reset
       - el_form_clear_validate
+      - el_input
+      - starts_with("update_el_input")
+      - el_input_number
+      - el_input_tag
+      - el_input_otp
+      - el_mention
+      - update_el_mention
+      - el_radio_group
+      - update_el_radio_group
+      - el_rate
+      - update_el_rate
+      - el_select
+      - update_el_select
+      - el_select_v2
+      - update_el_select_v2
+      - el_slider
+      - update_el_slider
+      - el_switch
+      - update_el_switch
+      - el_time_picker
+      - update_el_time_picker
+      - el_time_select
+      - update_el_time_select
+      - el_transfer
+      - update_el_transfer
+      - el_tree_select
+      - update_el_tree_select
+      - el_upload
+      - update_el_upload
+      - el_upload_clear
 
   - title: Data
     contents:
+      - el_avatar
+      - update_el_avatar
+      - el_avatar_group
+      - el_badge
+      - update_el_badge
+      - el_calendar
+      - update_el_calendar
+      - el_card
+      - el_carousel
+      - update_el_carousel
+      - el_collapse
+      - update_el_collapse
+      - el_descriptions
+      - update_el_descriptions
+      - el_empty
+      - update_el_empty
+      - el_image
+      - update_el_image
+      - el_image_viewer
+      - update_el_image_viewer
+      - el_infinite_scroll
+      - update_el_infinite_scroll
+      - el_pagination
+      - update_el_pagination
+      - el_progress
+      - update_el_progress
+      - el_result
+      - update_el_result
+      - el_skeleton
+      - update_el_skeleton
       - el_table
       - update_el_table
       - el_table_config
+      - el_table_v2
       - el_tag
       - update_el_tag
-      - el_progress
-      - update_el_progress
+      - el_check_tag
+      - update_el_check_tag
+      - el_timeline
+      - update_el_timeline
+      - el_tour
+      - update_el_tour
       - el_tree
       - update_el_tree
       - df_to_tree_data
-      - el_pagination
-      - update_el_pagination
-      - el_badge
-      - update_el_badge
-      - el_skeleton
-      - update_el_skeleton
-      - el_empty
-      - update_el_empty
-      - el_descriptions
-      - update_el_descriptions
-      - el_result
-      - update_el_result
+      - el_tree_v2
       - el_statistic
       - update_el_statistic
+      - el_countdown
+      - el_segmented
+      - update_el_segmented
 
-  - title: Notice
-    desc: Called from the server; nothing to place in the UI but the alert.
+  - title: Navigation
+    contents:
+      - el_affix
+      - el_anchor
+      - el_backtop
+      - update_el_backtop
+      - el_breadcrumb
+      - update_el_breadcrumb
+      - el_dropdown
+      - update_el_dropdown
+      - el_menu
+      - update_el_menu
+      - el_page_header
+      - update_el_page_header
+      - el_steps
+      - update_el_steps
+      - el_tabs
+      - update_el_tabs
+      - insert_el_tab
+      - remove_el_tab
+
+  - title: Feedback
+    desc: >
+      Messages, notifications, message boxes and loading masks are called from the server.
     contents:
       - el_alert
       - update_el_alert
+      - el_dialog
+      - update_el_dialog
+      - el_drawer
+      - update_el_drawer
       - el_loading
       - el_loading_close
       - el_message
@@ -302,59 +461,21 @@ reference:
       - el_message_box
       - el_notification
       - el_notification_close
-
-  - title: Navigation
-    contents:
-      - el_menu
-      - update_el_menu
-      - el_tabs
-      - update_el_tabs
-      - insert_el_tab
-      - remove_el_tab
-      - el_breadcrumb
-      - update_el_breadcrumb
-      - el_page_header
-      - update_el_page_header
-      - el_dropdown
-      - update_el_dropdown
-      - el_steps
-      - update_el_steps
+      - el_popconfirm
+      - update_el_popconfirm
+      - el_popover
+      - update_el_popover
+      - el_tooltip
+      - update_el_tooltip
 
   - title: Others
     contents:
-      - el_dialog
-      - update_el_dialog
-      - el_tooltip
-      - update_el_tooltip
-      - el_popover
-      - update_el_popover
-      - el_popconfirm
-      - update_el_popconfirm
-      - el_card
-      - el_carousel
-      - update_el_carousel
-      - el_collapse
-      - update_el_collapse
-      - el_timeline
-      - update_el_timeline
       - el_divider
-      - el_calendar
-      - update_el_calendar
-      - el_image
-      - update_el_image
-      - el_backtop
-      - update_el_backtop
-      - el_infinite_scroll
-      - update_el_infinite_scroll
-      - el_avatar
-      - update_el_avatar
-      - el_drawer
-      - update_el_drawer
+      - el_watermark
 
   - title: From the server
     desc: >
-      Element's methods, the objects they need, and the data a component asks
-      the server for.
+      Element Plus's methods, the objects they need, and the data a component asks the server for.
     contents:
       - el_call
       - el_table_row
@@ -362,9 +483,7 @@ reference:
 
   - title: Escape hatches
     desc: >
-      For anything the wrappers do not cover: build your own component the way
-      this package builds its own, write raw Element tags, or update a Vue
-      instance directly.
+      For anything the wrappers do not cover: build your own component the way this package builds its own, write raw Element Plus tags, or update a Vue instance directly.
     contents:
       - el_widget
       - JS

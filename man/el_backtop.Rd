@@ -2,7 +2,7 @@
 % Please edit documentation in R/el_backtop.R
 \name{el_backtop}
 \alias{el_backtop}
-\title{Element UI Back to Top}
+\title{Element Plus Back to Top}
 \usage{
 el_backtop(
   id = NULL,

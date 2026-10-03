@@ -2,7 +2,7 @@
 % Please edit documentation in R/utils.R
 \name{.el_event_bindings}
 \alias{.el_event_bindings}
-\title{Forward Element UI events to Shiny inputs}
+\title{Forward Element Plus events to Shiny inputs}
 \usage{
 .el_event_bindings(ns_id, events, shapes = list())
 }

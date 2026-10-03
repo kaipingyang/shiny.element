@@ -2,7 +2,7 @@
 % Please edit documentation in R/el_switch.R
 \name{update_el_switch}
 \alias{update_el_switch}
-\title{Update Element UI Switch}
+\title{Update Element Plus Switch}
 \usage{
 update_el_switch(
   session = shiny::getDefaultReactiveDomain(),

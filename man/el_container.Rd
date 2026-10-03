@@ -2,7 +2,7 @@
 % Please edit documentation in R/el_container.R
 \name{el_container}
 \alias{el_container}
-\title{Element UI Container}
+\title{Element Plus Container}
 \usage{
 el_container(
   ...,
@@ -20,7 +20,7 @@ el_container(
 \item{id}{Optional container id.}
 
 \item{direction}{\code{"horizontal"} or \code{"vertical"}. Defaults to vertical when a
-direct child is a header or footer, matching Element UI.}
+direct child is a header or footer, matching Element Plus.}
 
 \item{style}{Extra inline style.}
 

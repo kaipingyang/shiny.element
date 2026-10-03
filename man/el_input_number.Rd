@@ -2,7 +2,7 @@
 % Please edit documentation in R/el_input_number.R
 \name{el_input_number}
 \alias{el_input_number}
-\title{Element UI Input Number}
+\title{Element Plus Input Number}
 \usage{
 el_input_number(
   id = NULL,

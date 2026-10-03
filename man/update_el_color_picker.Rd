@@ -2,7 +2,7 @@
 % Please edit documentation in R/el_color_picker.R
 \name{update_el_color_picker}
 \alias{update_el_color_picker}
-\title{Update Element UI Color Picker}
+\title{Update Element Plus Color Picker}
 \usage{
 update_el_color_picker(
   session = shiny::getDefaultReactiveDomain(),

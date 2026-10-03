@@ -2,7 +2,7 @@
 % Please edit documentation in R/el_select.R
 \name{update_el_select}
 \alias{update_el_select}
-\title{Update Element UI Select}
+\title{Update Element Plus Select}
 \usage{
 update_el_select(
   session = shiny::getDefaultReactiveDomain(),

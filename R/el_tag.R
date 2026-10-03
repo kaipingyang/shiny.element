@@ -1,4 +1,4 @@
-#' Element UI Tag
+#' Element Plus Tag
 #'
 #' Creates a styled tag/chip component. Tracks click and close events as
 #' Shiny inputs.
@@ -106,7 +106,7 @@ el_tag <- function(
 }
 
 
-#' Update Element UI Tag
+#' Update Element Plus Tag
 #'
 #' Server-side update for [el_tag()].
 #'

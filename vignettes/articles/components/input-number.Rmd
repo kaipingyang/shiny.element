@@ -1,62 +1,122 @@
 ---
-title: "InputNumber"
+title: "Input"
 ---
 
 ```{r setup, include = FALSE}
 source(file.path("..", "..", "shots.R"))
 ```
 
-Input numerical values with a customizable range. `input$<id>` is the
-number, reported a quarter-second after the last change.
+Input numerical values with a customizable range.
 
 ## Basic usage
+
+Bind a variable to `v-model` in `<el-input-number>` element and you are set.
 
 ```{r basic, eval = FALSE, shot = TRUE}
 el_input_number("num", value = 1, min = 1, max = 10)
 ```
 
+> **Tip**
+>
+> When inputting invalid string to the input box, input value will emit `NaN` to the upper layer as result of error
+
 ## Disabled
 
+The `disabled` attribute accepts a `boolean`, and if the value is `true`, the component is disabled. If you just need to control the value within a range, you can add `min` attribute to set the minimum value and `max` to set the maximum value. By default, the minimum value is `Number.MIN_SAFE_INTEGER`.
+
 ```{r disabled, eval = FALSE, shot = TRUE}
-el_input_number("num_d", value = 1, disabled = TRUE)
+el_input_number("num_dis", value = 1, disabled = TRUE)
 ```
 
 ## Steps
 
+Allows you to define incremental steps.
+
+Add `step` attribute to set the step.
+
 ```{r steps, eval = FALSE, shot = TRUE}
-el_input_number("num_s", value = 5, step = 2)
+el_input_number("num_step", value = 5, step = 2)
 ```
 
 ## Step strictly
 
-Only multiples of the step.
+The `step-strictly` attribute accepts a `boolean`. if this attribute is `true`, input value can only be multiple of step.
 
-```{r strictly, eval = FALSE, shot = TRUE}
-el_input_number("num_ss", value = 2, step = 2, step_strictly = TRUE)
+```{r step-strictly, eval = FALSE, shot = TRUE}
+el_input_number("num_strict", value = 2, step = 2, step_strictly = TRUE)
 ```
 
 ## Precision
 
+Add `precision` attribute to set the precision of input value.
+
 ```{r precision, eval = FALSE, shot = TRUE}
-el_input_number("num_p", value = 1, precision = 2, step = 0.1, max = 10)
+el_input_number("num_prec", value = 1, precision = 2, step = 0.1, max = 10)
 ```
+
+> **Tip**
+>
+> The value of `precision` must be a non negative integer and should not be less than the decimal places of `step`.
 
 ## Size
 
+Use attribute `size` to set additional sizes with `large` or `small`.
+
 ```{r size, eval = FALSE, shot = TRUE}
-el_input_number("n1", value = 1)
-el_input_number("n2", value = 1, size = "medium")
-el_input_number("n3", value = 1, size = "small")
-el_input_number("n4", value = 1, size = "mini")
+tags$div(style = "display: flex; gap: 16px",
+  el_input_number("num_l", value = 1, size = "large"),
+  el_input_number("num_d", value = 2),
+  el_input_number("num_s", value = 3, size = "small"))
 ```
 
-## Controls position
+## Controls Position
 
-```{r position, eval = FALSE, shot = TRUE}
-el_input_number("num_r", value = 1, min = 1, max = 10, controls_position = "right")
+Set `controls-position` to decide the position of control buttons.
+
+```{r controlled, eval = FALSE, shot = TRUE}
+tags$div(style = "display: flex; gap: 16px",
+  el_input_number("num_ctl", value = 1, min = 1, max = 10, controls_position = "right", size = "large"),
+  el_input_number("num_ctl2", value = 1, min = 1, max = 10, controls_position = "right"))
+```
+
+## Custom Icon
+
+Use `decrease-icon` and `increase-icon` to set custom icons.
+
+```{r custom, eval = FALSE, shot = TRUE}
+el_input_number("num_custom", value = 1, min = 1, max = 10, slots = list(
+  `decrease-icon` = el_icon("ArrowDown"), `increase-icon` = el_icon("ArrowUp")))
+```
+
+## With prefix and suffix
+
+Use the prefix and suffix named slots.
+
+```{r with-prefix-suffix, eval = FALSE, shot = TRUE}
+tags$div(style = "display: grid; gap: 16px",
+  el_input_number("num_pre", value = 18, min = 1, max = 100, slots = list(prefix = "￥")),
+  el_input_number("num_suf", value = 100, min = 1, max = 100, slots = list(suffix = "RMB")))
+```
+
+> **Tip**
+>
+> For precision purposes, the input number is limited from [Number.MIN_SAFE_INTEGER](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number/MIN_SAFE_INTEGER) to [Number.MAX_SAFE_INTEGER](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number/MAX_SAFE_INTEGER).
+
+## Formatter
+
+Display the value with `formatter`, and typically use `parser` alongside it.
+
+When `formatter` is set, the inner input `type` changes to `text`, which allows non-numeric characters to be entered. Internally, the component processes input with `Number.parseFloat`: when parsing succeeds, the parsed number is written to `model-value`; when parsing returns `NaN`, `model-value` is set to `null`.
+
+```{r formatter, eval = FALSE, shot = TRUE}
+el_input_number("num_fmt", value = 1234.5,
+  formatter = JS("function(value) { return `$ ${value}`.replace(/\\B(?=(\\d{3})+(?!\\d))/g, ','); }"),
+  parser = JS("function(value) { return value.replace(/\\$\\s?|(,*)/g, ''); }"))
 ```
 
 ## API
+
+Element Plus's tables, and beside each entry where it is in R.
 
 ```{r api, echo = FALSE, results = "asis"}
 api_tables("input-number")

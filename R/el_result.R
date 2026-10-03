@@ -1,4 +1,4 @@
-#' Element UI Result
+#' Element Plus Result
 #'
 #' The outcome of an operation: an icon, a title, a line of detail, and
 #' what to do next.
@@ -73,7 +73,7 @@ el_result <- function(id = NULL,
 }
 
 
-#' Update Element UI Result
+#' Update Element Plus Result
 #'
 #' Server-side update for [el_result()].
 #'

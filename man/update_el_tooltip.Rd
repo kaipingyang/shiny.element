@@ -2,7 +2,7 @@
 % Please edit documentation in R/el_tooltip.R
 \name{update_el_tooltip}
 \alias{update_el_tooltip}
-\title{Update Element UI Tooltip}
+\title{Update Element Plus Tooltip}
 \usage{
 update_el_tooltip(
   session = shiny::getDefaultReactiveDomain(),

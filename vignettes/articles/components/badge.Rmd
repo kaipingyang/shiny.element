@@ -6,59 +6,71 @@ title: "Badge"
 source(file.path("..", "..", "shots.R"))
 ```
 
-A number or status mark on buttons and icons. Given an `id`, a badge is
-changed from the server with `update_el_badge()`.
+A number or status mark on buttons and icons.
 
-## Basic usage
+## Basic Usage
+
+Displays the amount of new messages.
+
+The amount is defined with value which accepts Number or String.
 
 ```{r basic, eval = FALSE, shot = TRUE}
-tags$div(style = "display: flex; gap: 40px; padding-top: 10px",
-  el_badge(el_button("comments", "comments", size = "small"), value = 12),
-  el_badge(el_button("replies", "replies", size = "small"), value = 3),
-  el_badge(el_button("mentions", "mentions", size = "small"), value = 1, type = "primary"),
-  el_badge(el_button("remind", "remind", size = "small"), value = 2, type = "warning"))
+item <- function(...) tags$span(style = "margin-right: 40px", ...)
+tagList(
+  item(el_badge(value = 12, el_button("bd1", "comments"))),
+  item(el_badge(value = 3, el_button("bd2", "replies"))),
+  item(el_badge(value = 1, type = "primary", el_button("bd3", "comments"))),
+  item(el_badge(value = 2, type = "warning", el_button("bd4", "replies"))),
+  item(el_badge(value = 1, color = "green", el_button("bd5", "custom background"))))
 ```
 
-## Max value
+## Max Value
+
+You can customize the max value.
+
+The max value is defined by property max which is a Number. Note that it only works when value is also a Number.
 
 ```{r max, eval = FALSE, shot = TRUE}
-tags$div(style = "display: flex; gap: 40px; padding-top: 10px",
-  el_badge(el_button("c200", "comments", size = "small"), value = 200, max = 99),
-  el_badge(el_button("r100", "replies", size = "small"), value = 100, max = 10))
+tagList(
+  tags$span(style = "margin-right: 40px", el_badge(value = 200, max = 99, el_button("bm1", "comments"))),
+  el_badge(value = 100, max = 10, el_button("bm2", "replies")))
 ```
 
 ## Customizations
 
-```{r custom, eval = FALSE, shot = TRUE}
-tags$div(style = "display: flex; gap: 40px; padding-top: 10px",
-  el_badge(el_button("new", "comments", size = "small"), value = "new"),
-  el_badge(el_button("hot", "replies", size = "small"), value = "hot"))
+Displays text content other than numbers. Or you can use the `content` slot to customize content.
+
+When value is a String, it can display customized text. Or use the `content` slot.
+
+```{r customize, eval = FALSE, shot = TRUE}
+tagList(
+  tags$span(style = "margin-right: 40px", el_badge(value = "new", el_button("bc1", "comments"))),
+  el_badge(value = "hot", el_button("bc2", "replies")))
 ```
 
-## Little red dot
+## Red Dot
+
+Use a red dot to mark content that needs to be noticed.
+
+Use the attribute `is-dot`. It is a Boolean.
 
 ```{r dot, eval = FALSE, shot = TRUE}
-tags$div(style = "display: flex; gap: 40px; padding-top: 10px",
-  el_badge("query", is_dot = TRUE),
-  el_badge(el_button("share", NULL, icon = "el-icon-share", type = "primary", size = "small"), is_dot = TRUE))
+tagList(
+  tags$span(style = "margin-right: 40px", el_badge(is_dot = TRUE, "query")),
+  el_badge(is_dot = TRUE, el_button("bdot", NULL, icon = "Share", type = "primary")))
 ```
 
-## Updated from the server
+## Offset
 
-```{r server, eval = FALSE, shot = TRUE, shot_js = "document.querySelector('#bump_container button').click()", shot_wait = 1.5}
-ui <- el_page(tags$div(style = "padding-top: 10px",
-  el_badge(el_button("inbox", "Inbox"), value = 3, id = "unread")),
-  el_button("bump", "New message", type = "text"))
+Set offset of the badge dot, the format is [left, top], which represents the offset of the status dot from the left and top of the default position.
 
-server <- function(input, output, session) {
-  n <- reactiveVal(3)
-  observeEvent(input$bump, { n(n() + 1); update_el_badge(id = "unread", value = n()) })
-}
-
-shinyApp(ui, server)
+```{r offset, eval = FALSE, shot = TRUE}
+el_badge(value = 1, offset = c(10, 5), el_button("boff", "offset"))
 ```
 
 ## API
+
+Element Plus's tables, and beside each entry where it is in R.
 
 ```{r api, echo = FALSE, results = "asis"}
 api_tables("badge")

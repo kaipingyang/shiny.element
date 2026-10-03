@@ -2,7 +2,7 @@
 % Please edit documentation in R/el_transfer.R
 \name{update_el_transfer}
 \alias{update_el_transfer}
-\title{Update Element UI Transfer}
+\title{Update Element Plus Transfer}
 \usage{
 update_el_transfer(
   session = shiny::getDefaultReactiveDomain(),

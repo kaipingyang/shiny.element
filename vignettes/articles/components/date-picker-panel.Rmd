@@ -1,0 +1,60 @@
+---
+title: "DatePickerPanel"
+---
+
+```{r setup, include = FALSE}
+source(file.path("..", "..", "shots.R"))
+```
+
+`DatePickerPanel` is the core component of `DatePicker`.
+
+## Enter Date
+
+Basic date picker measured by 'day'.
+
+```{r basic, eval = FALSE, shot = TRUE}
+el_date_picker_panel("dpp", value = Sys.Date())
+```
+
+## Border
+
+By default the date-picker-panel is bordered but in some case you don't want it.
+For example `DatePicker` don't inherit `border`.
+
+```{r border, eval = FALSE, shot = TRUE}
+el_date_picker_panel("dpp_border", value = Sys.Date(), border = FALSE)
+```
+
+## Disabled
+
+The `disabled` attribute determines if the date picker is fully disabled.
+
+```{r disabled, eval = FALSE, shot = TRUE}
+el_date_picker_panel("dpp_dis", value = Sys.Date(), disabled = TRUE)
+```
+
+## Types
+
+The measurement is determined by the `type` attribute.
+
+Every type the picker has, its panel open.
+
+```{r all-types, eval = FALSE, shot = TRUE}
+tags$div(style = "display: grid; gap: 16px",
+  lapply(c("date", "week", "month", "year", "daterange", "monthrange"), function(t)
+    tagList(tags$div(t), el_date_picker_panel(paste0("dpp_", t), type = t))))
+```
+
+## Localization
+
+The default locale of is English, if you need to use other languages, please check [Internationalization](https://element-plus.org/en-US/guide/i18n)
+
+Note, date time locale (month name, first day of the week ...) are also configured in localization.
+
+## API
+
+Element Plus's tables, and beside each entry where it is in R.
+
+```{r api, echo = FALSE, results = "asis"}
+api_tables("date-picker-panel")
+```

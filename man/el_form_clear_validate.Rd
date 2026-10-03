@@ -2,7 +2,7 @@
 % Please edit documentation in R/el_form.R
 \name{el_form_clear_validate}
 \alias{el_form_clear_validate}
-\title{Clear an Element UI Form's validation messages}
+\title{Clear an Element Plus Form's validation messages}
 \usage{
 el_form_clear_validate(
   session = shiny::getDefaultReactiveDomain(),

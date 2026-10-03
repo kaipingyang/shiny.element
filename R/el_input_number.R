@@ -1,4 +1,4 @@
-#' Element UI Input Number
+#' Element Plus Input Number
 #'
 #' A numeric input with increment/decrement buttons.
 #'
@@ -182,7 +182,7 @@ el_input_number <- function(
 }
 
 
-#' Update Element UI Input Number
+#' Update Element Plus Input Number
 #'
 #' Server-side update for [el_input_number()].
 #'

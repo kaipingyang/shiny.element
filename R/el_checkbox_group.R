@@ -1,8 +1,8 @@
 
 
-#' Element UI Checkbox Group
+#' Element Plus Checkbox Group
 #'
-#' Creates an Element UI checkbox group with Vue instance, supporting individual
+#' Creates an Element Plus checkbox group with Vue instance, supporting individual
 #' checkboxes or button-style variants.
 #'
 #' @param id Checkbox group ID. Auto-generated UUID if `NULL`.
@@ -182,7 +182,7 @@ el_checkbox_group <- function(
 }
 
 
-#' Update Element UI Checkbox Group
+#' Update Element Plus Checkbox Group
 #'
 #' Server-side update for [el_checkbox_group()]. Pass only the fields to change;
 #' `NULL` fields are excluded from the update message.

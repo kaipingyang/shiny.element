@@ -6,33 +6,35 @@ title: "Tag"
 source(file.path("..", "..", "shots.R"))
 ```
 
-Used for marking and selection. `input$<id>` counts clicks on the tag, and
-`input$<id>_closed` fires when its close button is pressed.
+Used for marking and selection.
 
 ## Basic usage
 
+Use the `type` attribute to define Tag's type. In addition, the `color` attribute can be used to set the background color of the Tag.
+
 ```{r basic, eval = FALSE, shot = TRUE}
-el_tag("t1", "Tag 1")
-el_tag("t2", "Tag 2", type = "success")
-el_tag("t3", "Tag 3", type = "info")
-el_tag("t4", "Tag 4", type = "warning")
-el_tag("t5", "Tag 5", type = "danger")
+types <- c("primary", "success", "info", "warning", "danger")
+tagList(lapply(types, function(t) el_tag(paste0("t_", t), paste("Tag", match(t, types)), type = t)))
 ```
 
-## Removable tag
+## Removable Tag
+
+`closable` attribute can be used to define a removable tag. It accepts a `Boolean`. By default the removal of Tag has a fading animation. If you don't want to use it, you can set the `disable-transitions` attribute, which accepts a `Boolean`, to `true`. `close` event triggers when Tag is removed.
 
 ```{r removable, eval = FALSE, shot = TRUE}
-el_tag("r1", "Closable", closable = TRUE)
-el_tag("r2", "Closable", closable = TRUE, type = "success")
-el_tag("r3", "Closable", closable = TRUE, type = "warning", disable_transitions = TRUE)
+types <- c("primary", "success", "info", "warning", "danger")
+tagList(lapply(types, function(t) el_tag(paste0("r_", t), paste("Tag", match(t, types)), type = t,
+                                         closable = TRUE)))
 ```
 
-## Edit dynamically
+## Edit Dynamically
+
+You can use the `close` event to add and remove tag dynamically.
 
 Tags the user adds and removes: the list lives on the server and is drawn
 with `renderUI()`.
 
-```{r dynamic, eval = FALSE, shot = TRUE, shot_js = "var i = document.querySelector('#newtag_container input'); i.value = 'Tag 4'; i.dispatchEvent(new Event('input')); setTimeout(function(){ document.querySelector('#add_container button').click(); }, 400);", shot_wait = 2}
+```{r editable, eval = FALSE, shot = TRUE, shot_js = "var i = document.querySelector('#newtag_container input'); i.value = 'Tag 4'; i.dispatchEvent(new Event('input')); setTimeout(function(){ document.querySelector('#add_container button').click(); }, 400);", shot_wait = 2}
 ui <- el_page(uiOutput("tags"), el_input("newtag", placeholder = "New tag", width = "140px"),
               el_button("add", "+ New Tag", size = "small"))
 
@@ -62,14 +64,26 @@ shinyApp(ui, server)
 
 ## Sizes
 
+Besides default size, Tag component provides three additional sizes for you to choose among different scenarios.
+
+Use attribute `size` to set additional sizes with `large`, `default` or `small`.
+
 ```{r sizes, eval = FALSE, shot = TRUE}
-el_tag("s1", "Default", closable = TRUE)
-el_tag("s2", "Medium", size = "medium", closable = TRUE)
-el_tag("s3", "Small", size = "small", closable = TRUE)
-el_tag("s4", "Mini", size = "mini", closable = TRUE)
+tagList(
+  el_tag("s1", "Large", size = "large"),
+  el_tag("s2", "Default"),
+  el_tag("s3", "Small", size = "small"),
+  tags$br(), tags$br(),
+  el_tag("s4", "Large", size = "large", closable = TRUE),
+  el_tag("s5", "Default", closable = TRUE),
+  el_tag("s6", "Small", size = "small", closable = TRUE))
 ```
 
 ## Theme
+
+Tag provide three different themes: `dark`、`light` and `plain`
+
+Using `effect` to change, default is `light`
 
 `effect` is `"dark"`, `"light"` (the default) or `"plain"`.
 
@@ -77,10 +91,41 @@ el_tag("s4", "Mini", size = "mini", closable = TRUE)
 types <- c("primary", "success", "info", "warning", "danger")
 tagList(lapply(c("dark", "light", "plain"), function(e) tags$div(style = "margin-bottom: 10px",
   tags$span(style = "display: inline-block; width: 50px", e),
-  lapply(types, function(t) el_tag(paste0(e, t), t, type = if (t != "primary") t, effect = e)))))
+  lapply(types, function(t) el_tag(paste0(e, t), t, type = t, effect = e)))))
+```
+
+## Rounded
+
+Tag can also be rounded like button.
+
+```{r rounded, eval = FALSE, shot = TRUE}
+types <- c("primary", "success", "info", "warning", "danger")
+tagList(lapply(c("dark", "light", "plain"), function(e) tags$div(style = "margin-bottom: 10px",
+  lapply(types, function(t) el_tag(paste0("rd", e, t), t, type = t, effect = e, round = TRUE)))))
+```
+
+## Checkable Tag
+
+Sometimes because of the business needs, we might need checkbox like tag, but **button like checkbox** cannot meet our needs, here comes `check-tag`. You can use `type` prop in 2.5.4.
+
+basic check-tag usage, the API is rather simple.
+
+A tag that toggles, like a checkbox, is `el_check_tag()`; it reports
+`input$<id>` as `TRUE` or `FALSE`.
+
+```{r checkable, eval = FALSE, shot = TRUE}
+tagList(
+  el_check_tag("ct1", "Checked", value = TRUE),
+  el_check_tag("ct2", "Toggle me"),
+  el_check_tag("ct3", "Disabled", disabled = TRUE),
+  tags$br(), tags$br(),
+  lapply(c("primary", "success", "info", "warning", "danger"), function(t)
+    el_check_tag(paste0("ctt", t), t, type = t, value = TRUE)))
 ```
 
 ## API
+
+Element Plus's tables, and beside each entry where it is in R.
 
 ```{r api, echo = FALSE, results = "asis"}
 api_tables("tag")

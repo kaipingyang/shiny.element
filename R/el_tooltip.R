@@ -1,4 +1,4 @@
-#' Element UI Tooltip
+#' Element Plus Tooltip
 #'
 #' A hint shown when the pointer rests on something.
 #'
@@ -192,7 +192,7 @@ el_tooltip <- function(id = NULL,
 }
 
 
-#' Update Element UI Tooltip
+#' Update Element Plus Tooltip
 #'
 #' Server-side update for [el_tooltip()]. Setting `visible` shows or hides
 #' the hint, which then stays as set: Element Plus's tooltip is controlled by

@@ -2,7 +2,7 @@
 % Please edit documentation in R/el_progress.R
 \name{el_progress}
 \alias{el_progress}
-\title{Element UI Progress Component}
+\title{Element Plus Progress Component}
 \usage{
 el_progress(
   id = NULL,
@@ -77,7 +77,7 @@ a warning.}
 An \code{htmltools} tagList with a Vue-managed progress component.
 }
 \description{
-Creates an Element UI progress bar. This is a display-only component;
+Creates an Element Plus progress bar. This is a display-only component;
 update it from the server with \code{\link[=update_el_progress]{update_el_progress()}}.
 }
 \examples{

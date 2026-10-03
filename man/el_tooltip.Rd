@@ -2,7 +2,7 @@
 % Please edit documentation in R/el_tooltip.R
 \name{el_tooltip}
 \alias{el_tooltip}
-\title{Element UI Tooltip}
+\title{Element Plus Tooltip}
 \usage{
 el_tooltip(
   id = NULL,

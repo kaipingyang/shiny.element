@@ -2,7 +2,7 @@
 % Please edit documentation in R/el_tree.R
 \name{el_tree}
 \alias{el_tree}
-\title{Element UI Tree}
+\title{Element Plus Tree}
 \usage{
 el_tree(
   id = NULL,

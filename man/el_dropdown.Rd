@@ -2,7 +2,7 @@
 % Please edit documentation in R/el_dropdown.R
 \name{el_dropdown}
 \alias{el_dropdown}
-\title{Element UI Dropdown Menu}
+\title{Element Plus Dropdown Menu}
 \usage{
 el_dropdown(
   id = NULL,

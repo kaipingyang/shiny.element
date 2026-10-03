@@ -1,0 +1,59 @@
+---
+title: "Internationalization"
+---
+
+```{r setup, include = FALSE}
+source(file.path("..", "shots.R"))
+```
+
+Element Plus components use English by default. Their own text -- a
+pagination control's total, a date picker's month names, a table's
+"No Data" -- comes from a locale, and Element Plus ships
+`r length(shiny.element::el_locales())` of them, all bundled with this
+package.
+
+## Global configuration
+
+`el_page(locale =)` sets the language for every component on the page, as
+`app.use(ElementPlus, { locale })` does upstream:
+
+```{r global, eval = FALSE, shot = TRUE}
+ui <- el_page(locale = "zh-cn",
+  el_pagination("p", total = 100, layout = "total, prev, pager, next, jumper"),
+  el_date_picker("d"),
+  el_table("t", data = data.frame(a = character(0))))
+
+shinyApp(ui, function(input, output, session) {})
+```
+
+`options(shiny.element.locale =)` sets it for a session, `use_element(locale =)`
+on a page that is not an `el_page()`. `el_locales()` lists the codes:
+
+```{r list}
+shiny.element::el_locales()
+```
+
+Codes are matched without regard to case: `"zh-CN"` and `"zh-cn"` are the
+same.
+
+## ConfigProvider
+
+Upstream, `el-config-provider` can set the locale for part of a page. Here
+the locale is the page's: one per page. `el_config_provider()` sets the
+other defaults -- size, button and message settings -- for what it holds;
+see Custom Defaults.
+
+## Date and time localization
+
+The date pickers' calendars follow the locale: month and day names, and
+the first day of the week. The format of a date shown in the input is
+`format`, in day.js's tokens (`"YYYY-MM-DD"`); the value Shiny gets is
+`value_format`, unchanged by the language.
+
+```{r dates, eval = FALSE, shot = TRUE, shot_js = "document.querySelector('#shot .el-input__inner').focus()", shot_wait = 1}
+ui <- el_page(locale = "fr", el_date_picker("d", format = "DD MMMM YYYY"))
+
+shinyApp(ui, function(input, output, session) {})
+```
+
+Text you pass in -- labels, placeholders, messages -- is yours to translate.

@@ -2,7 +2,7 @@
 % Please edit documentation in R/el_upload.R
 \name{el_upload}
 \alias{el_upload}
-\title{Element UI Upload}
+\title{Element Plus Upload}
 \usage{
 el_upload(
   id = NULL,
@@ -141,10 +141,11 @@ within the folder will be flattened. Element Plus's \code{directory}
 number taken as pixels. Element's own markup carries it, so it behaves
 like the \code{width} argument of a Shiny input.}
 
-\item{slots}{Named list of Element slot contents, such as
-\code{list(title = shiny::tags$b("Bold"))}. A shiny.element component
-given here is absorbed rather than nested. For a scoped slot, write
-the template with \code{\link[=template]{template()}}.}
+\item{slots}{Named list of Element slot contents: \code{default} (the
+trigger, in place of the button), \code{tip}, \code{file} (each file of the list,
+scoped with \code{file}), \code{trigger}. A shiny.element component given here is
+absorbed rather than nested. For a scoped slot, write the template with
+\code{\link[=template]{template()}}.}
 
 \item{session}{Deprecated. Inside a module, wrap \code{id} in \code{ns()}, as for
 any Shiny input; a session given here namespaces \code{id} once more, with

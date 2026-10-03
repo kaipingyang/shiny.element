@@ -1,6 +1,6 @@
-#' Element UI Slider Component
+#' Element Plus Slider Component
 #'
-#' Creates an Element UI slider with Vue instance, supporting single value and
+#' Creates an Element Plus slider with Vue instance, supporting single value and
 #' range modes, marks, vertical orientation, and optional numeric input box.
 #'
 #' @param id Slider ID. Auto-generated UUID if `NULL`.
@@ -214,7 +214,7 @@ el_slider <- function(
 }
 
 
-#' Update Element UI Slider
+#' Update Element Plus Slider
 #'
 #' Server-side update for [el_slider()]. Supports updating value, range bounds,
 #' step size, and disabled state.

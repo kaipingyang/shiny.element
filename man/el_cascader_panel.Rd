@@ -2,7 +2,7 @@
 % Please edit documentation in R/el_cascader_panel.R
 \name{el_cascader_panel}
 \alias{el_cascader_panel}
-\title{Element UI Cascader Panel}
+\title{Element Plus Cascader Panel}
 \usage{
 el_cascader_panel(
   id = NULL,

@@ -2,7 +2,7 @@
 % Please edit documentation in R/el_result.R
 \name{el_result}
 \alias{el_result}
-\title{Element UI Result}
+\title{Element Plus Result}
 \usage{
 el_result(
   id = NULL,

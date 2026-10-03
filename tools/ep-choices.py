@@ -46,6 +46,17 @@ EXTRA = {"el_checkbox_group": ["el-checkbox-group"], "el_radio_group": ["el-radi
          "el_message": ["el-message"], "el_notification": ["el-notification"],
          "el_message_box": ["el-message-box"], "el_time_select": ["el-time-select"],
          "el_countdown": ["el-countdown"]}
+# Upstream's table lists fewer values than the component takes: a tooltip's
+# `effect` names any theme of your own (`is-<effect>`), and a tag's type is
+# el-tag's, which has `primary`.
+LOOSE = {("el-tooltip", "effect"), ("el-popover", "effect"), ("el-popconfirm", "effect")}
+MORE = {("el-input-tag", "tag_type"): ["primary"], ("el-select", "tag_type"): ["primary"],
+        ("el-select-v2", "tag_type"): ["primary"], ("el-cascader", "tag_type"): ["primary"],
+        ("el-tree-select", "tag_type"): ["primary"]}
+for (tag, arg) in LOOSE: enums.get(tag, {}).pop(arg, None)
+for (tag, arg), extra in MORE.items():
+    if arg in enums.get(tag, {}):
+        enums[tag][arg] = enums[tag][arg] + [v for v in extra if v not in enums[tag][arg]]
 out = {}
 for fn, args in sorted(formals.items()):
     tags = EXTRA.get(fn, ["el-" + fn[3:].replace("_", "-")])

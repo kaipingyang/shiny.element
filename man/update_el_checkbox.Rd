@@ -2,7 +2,7 @@
 % Please edit documentation in R/el_checkbox.R
 \name{update_el_checkbox}
 \alias{update_el_checkbox}
-\title{Update Element UI Checkbox}
+\title{Update Element Plus Checkbox}
 \usage{
 update_el_checkbox(
   session = shiny::getDefaultReactiveDomain(),

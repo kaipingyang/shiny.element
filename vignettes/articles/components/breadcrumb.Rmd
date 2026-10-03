@@ -6,26 +6,33 @@ title: "Breadcrumb"
 source(file.path("..", "..", "shots.R"))
 ```
 
-Displays the location of the current page. `input$<id>` is the label
-clicked, so it can drive navigation in a Shiny app without routing.
+Displays the location of the current page, making it easier to browser back.
 
 ## Basic usage
 
+In `el-breadcrumb`, each `el-breadcrumb-item` is a tag that stands for every level starting from homepage. This component has a `String` attribute `separator`, and it determines the separator. Its default value is '/'.
+
 ```{r basic, eval = FALSE, shot = TRUE}
-el_breadcrumb("trail", separator = "/", items = list(
-  list(label = "homepage"), list(label = "promotion management"),
-  list(label = "promotion list"), list(label = "promotion detail")))
+el_breadcrumb("crumbs", separator = "/", items = list(
+  list(label = "homepage", to = "/"),
+  list(label = "promotion management"),
+  list(label = "promotion list"),
+  list(label = "promotion detail")))
 ```
 
 ## Icon separator
 
+Set `separator-icon` to use `svg icon` as the separator，it will cover `separator`
+
 ```{r icon, eval = FALSE, shot = TRUE}
-el_breadcrumb("trail2", separator_class = "el-icon-arrow-right", items = list(
-  list(label = "homepage"), list(label = "promotion management"),
+el_breadcrumb("crumbs_icon", separator_icon = "ArrowRight", items = list(
+  list(label = "homepage", to = "/"), list(label = "promotion management"),
   list(label = "promotion list"), list(label = "promotion detail")))
 ```
 
 ## API
+
+Element Plus's tables, and beside each entry where it is in R.
 
 ```{r api, echo = FALSE, results = "asis"}
 api_tables("breadcrumb")

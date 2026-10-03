@@ -2,7 +2,7 @@
 % Please edit documentation in R/el_cascader.R
 \name{el_cascader}
 \alias{el_cascader}
-\title{Element UI Cascader}
+\title{Element Plus Cascader}
 \usage{
 el_cascader(
   id = NULL,

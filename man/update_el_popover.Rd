@@ -2,7 +2,7 @@
 % Please edit documentation in R/el_popover.R
 \name{update_el_popover}
 \alias{update_el_popover}
-\title{Update Element UI Popover}
+\title{Update Element Plus Popover}
 \usage{
 update_el_popover(
   session = shiny::getDefaultReactiveDomain(),

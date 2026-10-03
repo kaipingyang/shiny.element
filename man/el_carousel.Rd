@@ -2,7 +2,7 @@
 % Please edit documentation in R/el_carousel.R
 \name{el_carousel}
 \alias{el_carousel}
-\title{Element UI Carousel}
+\title{Element Plus Carousel}
 \usage{
 el_carousel(
   id = NULL,

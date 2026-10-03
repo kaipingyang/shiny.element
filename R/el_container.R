@@ -10,9 +10,9 @@
   any(classes %in% own)
 }
 
-#' Build one of the Element UI container parts
+#' Build one of the Element Plus container parts
 #'
-#' @param class The Element UI class name, e.g. `"el-header"`.
+#' @param class The Element Plus class name, e.g. `"el-header"`.
 #' @param children Child elements.
 #' @param size Inline `height` or `width` value, or `NULL`.
 #' @param size_prop Which CSS property `size` sets.
@@ -32,7 +32,7 @@
   ))
 }
 
-#' Element UI Container
+#' Element Plus Container
 #'
 #' Emits `<div class="el-container">` directly.
 #'
@@ -44,7 +44,7 @@
 #'   [el_main()] and [el_footer()].
 #' @param id Optional container id.
 #' @param direction `"horizontal"` or `"vertical"`. Defaults to vertical when a
-#'   direct child is a header or footer, matching Element UI.
+#'   direct child is a header or footer, matching Element Plus.
 #' @param style Extra inline style.
 #' @param class Extra CSS classes.
 #' @param session Deprecated. Inside a module, wrap `id` in `ns()`, as for
@@ -95,10 +95,10 @@ el_container <- function(...,
   htmltools::tag("div", c(attrs, children))
 }
 
-#' Element UI Header
+#' Element Plus Header
 #'
 #' @param ... Content.
-#' @param height Header height. Defaults to `"60px"`, as in Element UI, which
+#' @param height Header height. Defaults to `"60px"`, as in Element Plus, which
 #'   sets it inline rather than through the stylesheet.
 #' @param style Extra inline style.
 #' @param class Extra CSS classes.
@@ -111,10 +111,10 @@ el_header <- function(..., height = "60px", style = NULL, class = NULL) {
   .el_container_part("el-header", list(...), height, "height", style, class)
 }
 
-#' Element UI Aside
+#' Element Plus Aside
 #'
 #' @param ... Content.
-#' @param width Aside width. Defaults to `"300px"`, as in Element UI, which
+#' @param width Aside width. Defaults to `"300px"`, as in Element Plus, which
 #'   sets it inline rather than through the stylesheet.
 #' @param style Extra inline style.
 #' @param class Extra CSS classes.
@@ -127,7 +127,7 @@ el_aside <- function(..., width = "300px", style = NULL, class = NULL) {
   .el_container_part("el-aside", list(...), width, "width", style, class)
 }
 
-#' Element UI Main
+#' Element Plus Main
 #'
 #' @param ... Content.
 #' @param style Extra inline style.
@@ -141,10 +141,10 @@ el_main <- function(..., style = NULL, class = NULL) {
   .el_container_part("el-main", list(...), style = style, extra_class = class)
 }
 
-#' Element UI Footer
+#' Element Plus Footer
 #'
 #' @param ... Content.
-#' @param height Footer height. Defaults to `"60px"`, as in Element UI, which
+#' @param height Footer height. Defaults to `"60px"`, as in Element Plus, which
 #'   sets it inline rather than through the stylesheet.
 #' @param style Extra inline style.
 #' @param class Extra CSS classes.

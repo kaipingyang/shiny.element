@@ -2,7 +2,7 @@
 % Please edit documentation in R/el_tag.R
 \name{update_el_tag}
 \alias{update_el_tag}
-\title{Update Element UI Tag}
+\title{Update Element Plus Tag}
 \usage{
 update_el_tag(
   session = shiny::getDefaultReactiveDomain(),

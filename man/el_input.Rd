@@ -2,7 +2,7 @@
 % Please edit documentation in R/el_input.R
 \name{el_input}
 \alias{el_input}
-\title{Element UI Input with Vue Instance}
+\title{Element Plus Input with Vue Instance}
 \usage{
 el_input(
   id = NULL,
@@ -185,7 +185,7 @@ a warning.}
 An \code{htmltools} tagList with a Vue-managed input component.
 }
 \description{
-Creates an Element UI input component (\verb{<el-input>}) with a Vue instance,
+Creates an Element Plus input component (\verb{<el-input>}) with a Vue instance,
 supporting text, textarea, and password modes, plus clearable, prefix/suffix
 icons, word-limit display, and autosize textarea.
 }

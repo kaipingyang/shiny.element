@@ -2,7 +2,7 @@
 % Please edit documentation in R/el_table.R
 \name{el_table}
 \alias{el_table}
-\title{Element UI Table Component}
+\title{Element Plus Table Component}
 \usage{
 el_table(
   id = NULL,

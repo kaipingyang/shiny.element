@@ -2,7 +2,7 @@
 % Please edit documentation in R/el_upload.R
 \name{update_el_upload}
 \alias{update_el_upload}
-\title{Update an Element UI Upload}
+\title{Update an Element Plus Upload}
 \usage{
 update_el_upload(
   session = shiny::getDefaultReactiveDomain(),
@@ -35,7 +35,7 @@ a name is taken. \code{""} clears it.}
 Called for its side effect; returns \code{NULL} invisibly.
 }
 \description{
-Update an Element UI Upload
+Update an Element Plus Upload
 }
 \examples{
 if (interactive()) {

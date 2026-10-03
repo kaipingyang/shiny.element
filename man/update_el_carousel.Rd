@@ -2,7 +2,7 @@
 % Please edit documentation in R/el_carousel.R
 \name{update_el_carousel}
 \alias{update_el_carousel}
-\title{Update an Element UI Carousel}
+\title{Update an Element Plus Carousel}
 \usage{
 update_el_carousel(
   session = shiny::getDefaultReactiveDomain(),
@@ -28,7 +28,7 @@ update_el_carousel(
 Called for its side effect; returns \code{NULL} invisibly.
 }
 \description{
-Update an Element UI Carousel
+Update an Element Plus Carousel
 }
 \examples{
 if (interactive()) {

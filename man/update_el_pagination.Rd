@@ -2,7 +2,7 @@
 % Please edit documentation in R/el_pagination.R
 \name{update_el_pagination}
 \alias{update_el_pagination}
-\title{Update Element UI Pagination}
+\title{Update Element Plus Pagination}
 \usage{
 update_el_pagination(
   session = shiny::getDefaultReactiveDomain(),

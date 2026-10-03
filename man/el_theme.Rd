@@ -2,7 +2,7 @@
 % Please edit documentation in R/el_theme.R
 \name{el_theme}
 \alias{el_theme}
-\title{Element UI's look, as a Bootstrap theme}
+\title{Element Plus's look, as a Bootstrap theme}
 \usage{
 el_theme(..., element = NULL, version = 5)
 }

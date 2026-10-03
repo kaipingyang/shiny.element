@@ -2,7 +2,7 @@
 % Please edit documentation in R/el_transfer.R
 \name{el_transfer}
 \alias{el_transfer}
-\title{Element UI Transfer}
+\title{Element Plus Transfer}
 \usage{
 el_transfer(
   id = NULL,

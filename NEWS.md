@@ -2,10 +2,41 @@
 
 First release.
 
+## Element Plus
+
+Built on Element Plus 2.14.7 and Vue 3.5, bundled; the development versions
+built on Element UI 2.15.14 and Vue 2.7 are tagged `v0.1.0-vue2`. The
+"Migration from Element UI" article lists what changed for code written for
+them. In short:
+
+* Each component is its own Vue application, made with `Vue.createApp()`:
+  one that fails to mount leaves the rest of the page working, and a
+  component Shiny removes is unmounted.
+* Every component Element Plus documents is wrapped -- 1430 of its
+  attributes, 222 events, 116 methods and 233 slots, all of them -- with the
+  components new in Element Plus: `el_input_otp()`, `el_input_tag()`,
+  `el_segmented()`, `el_select_v2()`, `el_mention()`, `el_tree_select()`,
+  `el_tree_v2()`, `el_table_v2()`, `el_color_picker_panel()`,
+  `el_date_picker_panel()`, `el_check_tag()`, `el_anchor()`, `el_tour()`,
+  `el_image_viewer()`, `el_countdown()`, `el_affix()`, `el_space()`,
+  `el_scrollbar()`, `el_watermark()`, `el_text()`, `el_avatar_group()`,
+  `el_splitter()`, `el_config_provider()`.
+* Icons are Element Plus's SVG components, by name (`"Search"`); Element UI's
+  class names (`"el-icon-search"`) are read as the same icon.
+* Sizes are `"large"`, `"default"` and `"small"`; date formats are day.js's
+  (`"YYYY-MM-DD"`), with Element UI's tokens converted.
+* Themes are CSS variables set on the page: nothing compiled, no sass.
+* The default language is English, with Element Plus's 67 locales bundled.
+* The website follows element-plus.org: its overview, its component groups
+  and pages, each demo in R, its API tables beside the R names, and its
+  guides -- design, installation, i18n, theming, dark mode, custom defaults,
+  transitions -- from R.
+
 ## Documentation, after Element's own
 
 The website follows Element's documentation: a page per component, in
-Element's groups and order (Basic, Form, Data, Notice, Navigation, Others),
+Element Plus's groups and order (Basic, Configuration, Form, Data,
+Navigation, Feedback, Others),
 each with Element's demos written in R -- live where they need no server,
 a screenshot of the running app where they do -- and Element's API tables
 with where each attribute, event, method and slot is in R. The guides cover
@@ -16,7 +47,7 @@ Element in a browser.
 
 ## Components
 
-Every component Element UI 2.15.14 documents is wrapped, services included,
+Every component Element Plus 2.14.7 documents is wrapped, services included,
 with every documented attribute, event and slot reachable from R and every
 method callable by name -- measured by `tools/api-coverage`, not counted by
 hand. Tabs, collapse, dialog and drawer are reimplemented as markup so the
@@ -121,7 +152,7 @@ inside and a Shiny input binding on it -- the way reactR binds React
 components -- so the rest of Shiny reaches it as it reaches `textInput()`:
 `shinyjs::hide()` and `disable()`, `removeUI()` (which destroys its Vue
 instance too), bookmarking, shinyvalidate, a test driver's `set_inputs()`.
-Vue 2.7.14, the version Element UI 2 runs on, is bundled beside Element, and
+Vue 3, the version Element Plus runs on, is bundled beside Element Plus, and
 `JS()` marks JavaScript the way `htmlwidgets::JS()` does, without depending
 on htmlwidgets. (Development versions built on vueR's htmlwidgets, where the
 id sat on a hidden element beside the component and Shiny did not know it
@@ -175,10 +206,8 @@ Shiny integration article shows, needs no JavaScript.
   `warning`, `danger` and `info` of `el_page()`'s theme reach Element's
   components too, with the tints and shades Element derives from each, and
   `el_theme(element =)` sets any of Element's own theme variables --
-  `list("border-radius-base" = "8px")`. Element's stylesheet is built for
-  the theme as upstream builds one: brand colours replaced in place, as its
-  theme picker does, or its Sass sources -- bundled -- compiled, as its theme
-  tool does. `use_element(theme =)` does the same elsewhere; its layout CSS
+  `list("border-radius-base" = "8px")`. They are set as Element Plus's CSS
+  variables, as its theming guide sets them. `use_element(theme =)` does the same elsewhere; its layout CSS
   argument is now `layout_css`.
 * **A tree filters as it stands.** `el_tree()` has a default
   `filter_node_method` -- the label contains the text, ignoring case -- so
@@ -312,25 +341,19 @@ The answer arrives as `input$<id>_<method>` with the method name in
 snake_case. Each component's help page lists what it accepts under
 "Element methods".
 
-## Element UI 2.15.14, and English by default
+## English by default
 
-The bundled Element UI is 2.15.14, the last 2.x release; 2.13.2 was two
-minor versions behind. That brings `el_descriptions()`, `el_statistic()`,
-`el_empty()`, `el_result()` and `el_skeleton()`, and a handful of new props
-on existing components.
-
-`el_page()` and `use_element()` now load English for Element's built-in text
--- placeholders, empty-table messages, date-picker buttons. Element's own
-default is Simplified Chinese, which is what every page showed before. All 59
-of Element's locales are bundled (`el_locales()`), and
-`options(shiny.element.locale = "zh-CN")` sets one for a whole session.
+`el_page()` and `use_element()` load English for Element Plus's built-in
+text -- placeholders, empty-table messages, date-picker buttons. All 67 of
+its locales are bundled (`el_locales()`), and
+`options(shiny.element.locale = "zh-cn")` sets one for a whole session.
 
 ## Design notes
 
-* Controls are Vue instances on a host carrying a Shiny input binding;
+* Controls are Vue applications on a host carrying a Shiny input binding;
   containers render as plain markup driven by bindings of their own, so they
   can nest freely.
-* Element UI is bundled in `inst/element-ui/` rather than loaded from a CDN, so
-  apps work offline.
+* Element Plus is bundled in `inst/element-plus/` and Vue in `inst/vue3/`
+  rather than loaded from a CDN, so apps work offline.
 * `el_page(dev = TRUE)` loads Vue's development build, which surfaces template
   warnings in the browser console.

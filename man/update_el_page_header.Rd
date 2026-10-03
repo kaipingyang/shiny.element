@@ -2,7 +2,7 @@
 % Please edit documentation in R/el_page_header.R
 \name{update_el_page_header}
 \alias{update_el_page_header}
-\title{Update Element UI Page Header}
+\title{Update Element Plus Page Header}
 \usage{
 update_el_page_header(
   session = shiny::getDefaultReactiveDomain(),

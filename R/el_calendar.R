@@ -1,4 +1,4 @@
-#' Element UI Calendar
+#' Element Plus Calendar
 #'
 #' A month of days to pick one from, or a range of weeks to show.
 #'
@@ -43,7 +43,7 @@
 #'   library(shiny)
 #'   library(shiny.element)
 #'   ui <- el_page(
-#'     titlePanel("Element UI Calendar Example"),
+#'     titlePanel("Element Plus Calendar Example"),
 #'     sidebarLayout(
 #'       sidebarPanel(
 #'         actionButton("set_today", "Set to Today"),
@@ -153,7 +153,7 @@ el_calendar <- function(id = NULL,
   )  
 }  
 
-#' Update Element UI Calendar Component
+#' Update Element Plus Calendar Component
 #'
 #' Send a message to update the calendar value, range, first day of week, or slot.
 #'

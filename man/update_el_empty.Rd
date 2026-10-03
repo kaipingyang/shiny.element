@@ -2,7 +2,7 @@
 % Please edit documentation in R/el_empty.R
 \name{update_el_empty}
 \alias{update_el_empty}
-\title{Update Element UI Empty}
+\title{Update Element Plus Empty}
 \usage{
 update_el_empty(
   session = shiny::getDefaultReactiveDomain(),

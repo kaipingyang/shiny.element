@@ -2,7 +2,7 @@
 % Please edit documentation in R/el_badge.R
 \name{update_el_badge}
 \alias{update_el_badge}
-\title{Update Element UI Badge}
+\title{Update Element Plus Badge}
 \usage{
 update_el_badge(
   session = shiny::getDefaultReactiveDomain(),

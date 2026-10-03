@@ -1,4 +1,4 @@
-#' Element UI Timeline
+#' Element Plus Timeline
 #'
 #' A vertical sequence of events.
 #'
@@ -123,7 +123,7 @@ el_timeline <- function(id = NULL,
   })
 }
 
-#' Update an Element UI Timeline
+#' Update an Element Plus Timeline
 #'
 #' @param session Shiny session; the current one by default, as for
 #'   [shiny::updateTextInput()].

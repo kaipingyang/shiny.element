@@ -6,16 +6,19 @@ title: "Form"
 source(file.path("..", "..", "shots.R"))
 ```
 
-Form consists of inputs, radios, selects, checkboxes and so on; with it you
-can collect, verify and submit data. `el_form()` holds its fields, declared
-with `el_form_field()`, in one model, and reports it as `input$<id>`,
-with `input$<id>_valid` and `input$<id>_submit` when submitted. Its
-standalone counterparts -- any input with a `label` -- are in the forms
-article.
+Form consists of `input`, `radio`, `select`, `checkbox` and so on. With form, you can collect, verify and submit data.
 
-## Basic form
+> **Tip**
+>
+> The component has been upgraded with a flex layout to replace the old float layout.
 
-```{r basic, eval = FALSE, shot = TRUE}
+## Basic Form
+
+It includes all kinds of input items, such as `input`, `select`, `radio` and `checkbox`.
+
+In each `form` component, you need a `form-item` field to be the container of your input item.
+
+```{r basic-form, eval = FALSE, shot = TRUE}
 el_form(id = "activity", label_width = "120px", submit_label = "Create", reset_label = "Cancel",
   el_form_field("name", "input", label = "Activity name"),
   el_form_field("region", "select", label = "Activity zone",
@@ -30,9 +33,21 @@ el_form(id = "activity", label_width = "120px", submit_label = "Create", reset_l
   el_form_field("desc", "textarea", label = "Activity form"))
 ```
 
-## Inline form
+> **Tip**
+>
+> [W3C](https://www.w3.org/MarkUp/html-spec/html-spec_8.html#SEC8.2) regulates that
+> 
+> > <i>When there is only one single-line text input field in a form, the user agent should accept Enter in that field as a request to submit the form.</i>
+> 
+> To prevent this behavior, you can add `@submit.prevent` on `<el-form>`.
 
-```{r inline, eval = FALSE, shot = TRUE}
+## Inline Form
+
+When the vertical space is limited and the form is relatively simple, you can put it in one line.
+
+Set the `inline` attribute to `true` and the form will be inline.
+
+```{r inline-form, eval = FALSE, shot = TRUE}
 el_form(id = "search", inline = TRUE, submit_label = "Query",
   el_form_field("user", "input", label = "Approved by", placeholder = "Approved by"),
   el_form_field("region", "select", label = "Activity zone",
@@ -41,20 +56,27 @@ el_form(id = "search", inline = TRUE, submit_label = "Query",
 
 ## Alignment
 
+Depending on your design, there are several different ways to align your label element.
+
+You can set `label-position` of `el-form-item` separately 2.7.7. If the value is empty, the `label-position` of `el-form` is used.
+
+The `label-position` attribute decides how labels align, it can be `top` or `left`. When set to `top`, labels will be placed at the top of the form field.
+
 `label_position` puts the labels `"right"` (the default), `"left"` or on
-`"top"`.
+`"top"`; a field's own `label_position` overrides it.
 
 ```{r alignment, eval = FALSE, shot = TRUE}
 el_form(id = "aligned", label_position = "top", submit_label = NULL, width = "360px",
   el_form_field("name", "input", label = "Name"),
-  el_form_field("region", "input", label = "Activity zone"),
+  el_form_field("region", "input", label = "Activity zone", label_position = "right"),
   el_form_field("type", "input", label = "Activity form"))
 ```
 
 ## Validation
 
-Each field's `rules`, from `el_rule()`, run on blur or change and on
-submit.
+Form component allows you to verify your data, helping you find and correct errors.
+
+Just add the `rules` attribute for `Form` component, pass validation rules, and set `prop` attribute for `FormItem` as a specific key that needs to be validated. See more information at [async-validator](https://github.com/yiminghe/async-validator).
 
 ```{r validation, eval = FALSE, shot = TRUE, shot_js = "document.querySelector('#shot .el-button--primary').click()"}
 ui <- el_page(
@@ -79,12 +101,13 @@ server <- function(input, output, session) {
 shinyApp(ui, server)
 ```
 
-## Custom validation rules
+## Custom Validation Rules
 
-`el_rule(validator = JS(...))` is Element's custom rule; `status_icon`
-marks each field's verdict.
+This example shows how to customize your own validation rules to finish a two-factor password verification.
 
-```{r custom, eval = FALSE, shot = TRUE, shot_js = "var i = document.querySelectorAll('#shot input')[2]; i.value = '17'; i.dispatchEvent(new Event('input')); document.querySelector('#shot .el-button--primary').click();", shot_wait = 2}
+Here we use `status-icon` to reflect validation result as an icon.
+
+```{r custom-validation, eval = FALSE, shot = TRUE, shot_js = "var i = document.querySelectorAll('#shot input')[2]; i.value = '17'; i.dispatchEvent(new Event('input')); document.querySelector('#shot .el-button--primary').click();", shot_wait = 2}
 ui <- el_page(el_form(id = "account", status_icon = TRUE, label_width = "120px",
   submit_label = "Submit", width = "480px",
   el_form_field("pass", "password", label = "Password",
@@ -105,11 +128,15 @@ ui <- el_page(el_form(id = "account", status_icon = TRUE, label_width = "120px",
 shinyApp(ui, function(input, output, session) {})
 ```
 
-## Delete or add form items dynamically
+> **Tip**
+>
+> Custom validate callback function must be called. See more advanced usage at [async-validator](https://github.com/yiminghe/async-validator).
 
-`update_el_form(fields =)` replaces the field list; what was entered stays.
+## Add/Delete Form Item
 
-```{r dynamic, eval = FALSE, shot = TRUE, shot_js = "document.querySelector('#more_container button').click()", shot_wait = 1.5}
+In addition to passing all validation rules at once on the form component, you can also pass the validation rules or delete rules on a single form field dynamically.
+
+```{r form-items, eval = FALSE, shot = TRUE, shot_js = "document.querySelector('#more_container button').click()", shot_wait = 1.5}
 domain <- function(i) el_form_field(paste0("domain", i), "input", label = paste("Domain", i),
   rules = el_rule(required = TRUE, message = "Domain can not be null"))
 
@@ -131,9 +158,11 @@ server <- function(input, output, session) {
 shinyApp(ui, server)
 ```
 
-## Number validate
+## Number Validate
 
-```{r number, eval = FALSE, shot = TRUE, shot_js = "var i = document.querySelector('#shot input'); i.value = 'abc'; i.dispatchEvent(new Event('input')); document.querySelector('#shot .el-button--primary').click();", shot_wait = 2}
+Number Validate need a `.number` modifier added on the input `v-model` binding，it's used to transform the string value to the number which is provided by Vue.
+
+```{r number-validate, eval = FALSE, shot = TRUE, shot_js = "var i = document.querySelector('#shot input'); i.value = 'abc'; i.dispatchEvent(new Event('input')); document.querySelector('#shot .el-button--primary').click();", shot_wait = 2}
 ui <- el_page(el_form(id = "aged", submit_label = "Submit", label_width = "100px", width = "420px",
   el_form_field("age", "input", label = "Age", rules = list(
     el_rule(required = TRUE, message = "Age is required"),
@@ -143,19 +172,40 @@ ui <- el_page(el_form(id = "aged", submit_label = "Submit", label_width = "100px
 shinyApp(ui, function(input, output, session) {})
 ```
 
-## Size control
+> **Tip**
+>
+> When an `el-form-item` is nested in another `el-form-item`, its label width will be `0`. You can set `label-width` on that `el-form-item` if needed.
 
-`size` sizes every control in the form; a field's own `size` overrides it.
+## Size Control
 
-```{r size, eval = FALSE, shot = TRUE}
-el_form(id = "small", size = "mini", label_width = "120px", submit_label = "Create", width = "480px",
+All components in a Form inherit their `size` attribute from that Form. Similarly, FormItem also has a `size` attribute.
+
+Still you can fine tune each component's `size` if you don't want that component to inherit its size from From or FormItem.
+
+```{r size-control, eval = FALSE, shot = TRUE}
+el_form(id = "small", size = "small", label_width = "120px", submit_label = "Create", width = "480px",
   el_form_field("name", "input", label = "Activity name"),
   el_form_field("region", "select", label = "Activity zone",
                 choices = c("Zone one" = "shanghai", "Zone two" = "beijing")),
   el_form_field("resource", "radio-group", label = "Resources", choices = c("Sponsor", "Venue")))
 ```
 
+## Accessibility
+
+When only a single input (or related control such as select or checkbox) is inside of a `el-form-item`, the form item's label will automatically be attached to that input. However, if multiple inputs are inside of the `el-form-item`, the form item will be assigned the [WAI-ARIA](https://www.w3.org/WAI/standards-guidelines/aria/) role of [group](https://www.w3.org/TR/wai-aria/#group) instead. In this case, it is your responsibility to assign assistive labels to the individual inputs.
+
+Each field's label is tied to its control, so a screen reader announces
+it; a field with no label of its own takes `aria_label`.
+
+```{r accessibility, eval = FALSE, shot = TRUE}
+el_form(id = "a11y", label_width = "auto", submit_label = NULL, width = "480px",
+  el_form_field("fullname", "input", label = "Full name", placeholder = "First and last name"),
+  el_form_field("email", "input", label = "Email", aria_label = "Email address"))
+```
+
 ## API
+
+Element Plus's tables, and beside each entry where it is in R.
 
 ```{r api, echo = FALSE, results = "asis"}
 api_tables("form")

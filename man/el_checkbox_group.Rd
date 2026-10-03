@@ -2,7 +2,7 @@
 % Please edit documentation in R/el_checkbox_group.R
 \name{el_checkbox_group}
 \alias{el_checkbox_group}
-\title{Element UI Checkbox Group}
+\title{Element Plus Checkbox Group}
 \usage{
 el_checkbox_group(
   id = NULL,
@@ -119,7 +119,7 @@ a warning.}
 An \code{htmltools} tagList with a Vue-managed checkbox group component.
 }
 \description{
-Creates an Element UI checkbox group with Vue instance, supporting individual
+Creates an Element Plus checkbox group with Vue instance, supporting individual
 checkboxes or button-style variants.
 }
 \section{Shiny inputs}{

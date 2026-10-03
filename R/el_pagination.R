@@ -1,6 +1,6 @@
-#' Element UI Pagination Component
+#' Element Plus Pagination Component
 #'
-#' Creates an Element UI pagination bar with page navigation, size selector,
+#' Creates an Element Plus pagination bar with page navigation, size selector,
 #' jump-to-page input, and total count display.
 #'
 #' @param id Pagination ID. Auto-generated UUID if `NULL`.
@@ -209,7 +209,7 @@ el_pagination <- function(
 }
 
 
-#' Update Element UI Pagination
+#' Update Element Plus Pagination
 #'
 #' Server-side update for [el_pagination()].
 #'

@@ -2,7 +2,7 @@
 % Please edit documentation in R/el_image.R
 \name{update_el_image}
 \alias{update_el_image}
-\title{Update Element UI Image}
+\title{Update Element Plus Image}
 \usage{
 update_el_image(
   session = shiny::getDefaultReactiveDomain(),

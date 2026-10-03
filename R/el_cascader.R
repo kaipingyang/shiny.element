@@ -1,4 +1,4 @@
-#' Element UI Cascader
+#' Element Plus Cascader
 #'
 #' Pick a path through nested options -- a region, then a country, then a
 #' city -- from a dropdown of side-by-side columns.
@@ -297,7 +297,7 @@ el_cascader <- function(id = NULL,
   )
 }
 
-#' Update Element UI Cascader
+#' Update Element Plus Cascader
 #'
 #' @param session Shiny session; the current one by default, as for
 #'   [shiny::updateTextInput()].

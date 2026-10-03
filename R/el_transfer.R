@@ -1,4 +1,4 @@
-#' Element UI Transfer
+#' Element Plus Transfer
 #'
 #' Two lists side by side, for moving items from one to the other.
 #'
@@ -175,7 +175,7 @@ el_transfer <- function(id = NULL,
 }
 
 
-#' Update Element UI Transfer
+#' Update Element Plus Transfer
 #'
 #' Server-side update for [el_transfer()].
 #'

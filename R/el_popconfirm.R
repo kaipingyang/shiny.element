@@ -1,4 +1,4 @@
-#' Element UI Confirmation Bubble
+#' Element Plus Confirmation Bubble
 #'
 #' A small confirmation prompt anchored to the element that triggers it,
 #' for actions that warrant a check but not a dialog.
@@ -18,6 +18,9 @@
 #' @param width Component width, as a CSS unit.
 #' @param effect Tooltip theme, built-in theme: `dark` / `light`. Element
 #'   Plus's `effect` ('dark' | 'light' / string).
+#' @param placement Where the popup goes: `"top"`, `"bottom-start"` and
+#'   the rest of the tooltip's placements. Passed through to its tooltip, as
+#'   upstream passes it. Default `"bottom"`.
 #' @param hide_after Delay of disappear, in millisecond. Element Plus's
 #'   `hide-after` (number).
 #' @param persistent When popconfirm inactive and `persistent` is `false` ,
@@ -76,7 +79,8 @@ el_popconfirm <- function(id = NULL,
                           teleported = NULL,
                           width = NULL,
                           slots   = NULL,
-                          session = NULL) {
+                          session = NULL,
+                          placement = NULL) {
   .el_check_choices("el_popconfirm", environment())
   inner <- .el_absorb(reference)
 
@@ -136,7 +140,8 @@ el_popconfirm <- function(id = NULL,
       effect = effect,
       hide_after = hide_after,
       persistent = persistent,
-      teleported = teleported)),
+      teleported = teleported,
+      placement = placement)),
     id       = ns_id,
     markup   = htmltools::tag("el-popconfirm", c(attrs, children)),
     data     = merged$data,
@@ -151,7 +156,7 @@ el_popconfirm <- function(id = NULL,
 }
 
 
-#' Update Element UI Confirmation Bubble
+#' Update Element Plus Confirmation Bubble
 #'
 #' Server-side update for [el_popconfirm()].
 #'

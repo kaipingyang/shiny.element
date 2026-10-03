@@ -2,14 +2,14 @@
 % Please edit documentation in R/el_container.R
 \name{el_header}
 \alias{el_header}
-\title{Element UI Header}
+\title{Element Plus Header}
 \usage{
 el_header(..., height = "60px", style = NULL, class = NULL)
 }
 \arguments{
 \item{...}{Content.}
 
-\item{height}{Header height. Defaults to \code{"60px"}, as in Element UI, which
+\item{height}{Header height. Defaults to \code{"60px"}, as in Element Plus, which
 sets it inline rather than through the stylesheet.}
 
 \item{style}{Extra inline style.}
@@ -20,7 +20,7 @@ sets it inline rather than through the stylesheet.}
 A Shiny UI element.
 }
 \description{
-Element UI Header
+Element Plus Header
 }
 \examples{
 el_header("Dashboard")

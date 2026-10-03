@@ -2,7 +2,7 @@
 % Please edit documentation in R/el_date_picker.R
 \name{el_date_picker}
 \alias{el_date_picker}
-\title{Element UI Date Picker Component}
+\title{Element Plus Date Picker Component}
 \usage{
 el_date_picker(
   id = NULL,
@@ -232,7 +232,7 @@ a warning.}
 An \code{htmltools} tagList with a Vue-managed date picker component.
 }
 \description{
-Creates an Element UI date picker with Vue instance, supporting single date,
+Creates an Element Plus date picker with Vue instance, supporting single date,
 datetime, month, year, week, and date range selection modes.
 }
 \section{Element methods}{

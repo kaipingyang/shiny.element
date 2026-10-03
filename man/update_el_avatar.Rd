@@ -2,7 +2,7 @@
 % Please edit documentation in R/el_avatar.R
 \name{update_el_avatar}
 \alias{update_el_avatar}
-\title{Update Element UI Avatar}
+\title{Update Element Plus Avatar}
 \usage{
 update_el_avatar(
   session = shiny::getDefaultReactiveDomain(),

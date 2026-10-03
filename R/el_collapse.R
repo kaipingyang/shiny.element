@@ -154,7 +154,7 @@ el_collapse_dependency <- function() {
 }
 
 
-#' Update Element UI Collapse
+#' Update Element Plus Collapse
 #'
 #' Server-side update for [el_collapse()].
 #'

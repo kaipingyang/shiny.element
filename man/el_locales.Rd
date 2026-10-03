@@ -3,7 +3,7 @@
 \name{el_locales}
 \alias{el_locales}
 \title{Collapse Handler Dependency
-Languages Element UI can use for its built-in text}
+Languages Element Plus can use for its built-in text}
 \usage{
 el_locales()
 }
@@ -13,7 +13,7 @@ any of which can be passed as \code{locale} to \code{\link[=el_page]{el_page()}}
 }
 \description{
 Collapse Handler Dependency
-Languages Element UI can use for its built-in text
+Languages Element Plus can use for its built-in text
 }
 \examples{
 el_locales()

@@ -2,7 +2,7 @@
 % Please edit documentation in R/el_tree.R
 \name{update_el_tree}
 \alias{update_el_tree}
-\title{Update an Element UI Tree}
+\title{Update an Element Plus Tree}
 \usage{
 update_el_tree(
   session = shiny::getDefaultReactiveDomain(),
@@ -41,7 +41,7 @@ a name is taken. \code{""} clears it.}
 Called for its side effect; returns \code{NULL} invisibly.
 }
 \description{
-Update an Element UI Tree
+Update an Element Plus Tree
 }
 \examples{
 if (interactive()) {

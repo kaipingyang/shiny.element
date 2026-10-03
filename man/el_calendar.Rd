@@ -2,7 +2,7 @@
 % Please edit documentation in R/el_calendar.R
 \name{el_calendar}
 \alias{el_calendar}
-\title{Element UI Calendar}
+\title{Element Plus Calendar}
 \usage{
 el_calendar(
   id = NULL,
@@ -103,7 +103,7 @@ if (interactive()) {
   library(shiny)
   library(shiny.element)
   ui <- el_page(
-    titlePanel("Element UI Calendar Example"),
+    titlePanel("Element Plus Calendar Example"),
     sidebarLayout(
       sidebarPanel(
         actionButton("set_today", "Set to Today"),

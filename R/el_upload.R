@@ -159,7 +159,7 @@
   ), as.character(jsonlite::toJSON(ns_id, auto_unbox = TRUE))))
 }
 
-#' Element UI Upload
+#' Element Plus Upload
 #'
 #' A file upload area, as a button or a drop zone.
 #'
@@ -218,10 +218,11 @@
 #' @param width Component width, as a CSS unit -- `"200px"`, `"50%"`, or a
 #'   number taken as pixels. Element's own markup carries it, so it behaves
 #'   like the `width` argument of a Shiny input.
-#' @param slots Named list of Element slot contents, such as
-#'   `list(title = shiny::tags$b("Bold"))`. A shiny.element component
-#'   given here is absorbed rather than nested. For a scoped slot, write
-#'   the template with [template()].
+#' @param slots Named list of Element slot contents: `default` (the
+#'   trigger, in place of the button), `tip`, `file` (each file of the list,
+#'   scoped with `file`), `trigger`. A shiny.element component given here is
+#'   absorbed rather than nested. For a scoped slot, write the template with
+#'   [template()].
 #'
 #' @section Shiny inputs:
 #' Without `action`, `input$<id>` is a data frame of `name`, `size`, `type`
@@ -368,12 +369,17 @@ el_upload <- function(id = NULL,
   # Both triggers are rendered and switched by v-if, so update_el_upload(drag =)
   # changes the drop zone and its contents together. Picking one in R would
   # leave the markup stuck in whichever shape it had at render time.
-  trigger <- list(
+  # A picture card's trigger is the card itself, a "+" as upstream draws it.
+  # A `default` slot of the caller's replaces the trigger: Vue refuses a
+  # default slot given both as loose children and as a template.
+  trigger <- if (is.null(slots$default)) list(
     htmltools::tag("el-icon", list(class = "el-icon--upload", "v-if" = "drag",
                                    htmltools::tag("upload-filled", list()))),
     htmltools::tags$div(class = "el-upload__text", "v-if" = "drag", "{{buttonLabel}}"),
+    htmltools::tag("el-icon", list("v-else-if" = "listType === 'picture-card'",
+                                   htmltools::tag("plus", list()))),
     htmltools::tag("el-button", list(
-      "v-if" = "!drag", size = "small", type = "primary", "{{buttonLabel}}"
+      "v-else" = NA, size = "small", type = "primary", "{{buttonLabel}}"
     ))
   )
   if (!is.null(tip)) {
@@ -456,7 +462,7 @@ el_upload <- function(id = NULL,
   )
 }
 
-#' Update an Element UI Upload
+#' Update an Element Plus Upload
 #'
 #' @param session Shiny session; the current one by default, as for
 #'   [shiny::updateTextInput()].
@@ -489,7 +495,7 @@ update_el_upload <- function(session = shiny::getDefaultReactiveDomain(), id, di
   invisible(NULL)
 }
 
-#' Clear an Element UI Upload's file list
+#' Clear an Element Plus Upload's file list
 #'
 #' Empties the list of chosen files, as you would after a form is submitted.
 #' It does not undo an upload that has already happened.

@@ -1,6 +1,6 @@
-#' Element UI Switch
+#' Element Plus Switch
 #'
-#' Creates an Element UI switch with Vue instance.
+#' Creates an Element Plus switch with Vue instance.
 #'
 #' @param id Switch ID. Auto-generated UUID if `NULL`.
 #' @param value Initial switch state. Default `FALSE`.
@@ -180,7 +180,7 @@ el_switch <- function(
 }
 
 
-#' Update Element UI Switch
+#' Update Element Plus Switch
 #'
 #' Server-side update for [el_switch()]. Pass only the fields to change;
 #' `NULL` fields are excluded from the update message.

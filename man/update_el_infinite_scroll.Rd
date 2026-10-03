@@ -2,7 +2,7 @@
 % Please edit documentation in R/el_infinite_scroll.R
 \name{update_el_infinite_scroll}
 \alias{update_el_infinite_scroll}
-\title{Update Element UI Infinite Scroll}
+\title{Update Element Plus Infinite Scroll}
 \usage{
 update_el_infinite_scroll(
   session = shiny::getDefaultReactiveDomain(),

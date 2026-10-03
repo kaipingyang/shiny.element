@@ -6,34 +6,61 @@ title: "Statistic"
 source(file.path("..", "..", "shots.R"))
 ```
 
-Highlight a number or a group of them -- an amount, a ranking -- or count
-down to a time.
+Display statistics.
 
 ## Basic usage
 
+To highlight a number or a group of numbers, such as statistical value, amount, and ranking, you can add elements such as icon and unit before and after the number and title. And use [vueuse](https://vueuse.org/core/useTransition/) to add animated transitions to value.
+
 ```{r basic, eval = FALSE, shot = TRUE}
 el_row(
-  el_col(span = 6, el_statistic("s1", value = 268500, title = "Growth of users", group_separator = ",")),
-  el_col(span = 6, el_statistic("s2", value = 138, title = "Male to female ratio",
-         slots = list(suffix = tags$span("/100")))),
-  el_col(span = 6, el_statistic("s3", value = 1318.25, title = "Revenue", prefix = "$",
-         precision = 2, group_separator = ",")))
+  el_col(span = 6, el_statistic(title = "Daily active users", value = 268500)),
+  el_col(span = 6, el_statistic(value = 138, slots = list(
+    title = tags$div(style = "display: inline-flex; align-items: center", "Ratio of men to women ",
+                     el_icon("Warning", size = "12px")),
+    suffix = "/100"))),
+  el_col(span = 6, el_statistic(title = "Total Transactions", value = 172000)),
+  el_col(span = 6, el_statistic(title = "Feedback number", value = 562,
+                                slots = list(suffix = el_icon("ChatLineRound")))))
 ```
 
-## Count down
+## Countdown
 
-`time_indices = TRUE` counts down to `value`, a time; `input$<id>_finish`
-fires when it gets there.
+Countdown component, support to add other components control countdown.
+
+`input$<id>_finish` fires at zero.
 
 ```{r countdown, eval = FALSE, shot = TRUE}
-el_statistic("sale", title = "Remaining time of the sale", time_indices = TRUE,
-             value = Sys.time() + 3600 * 5, format = "HH:mm:ss")
-el_statistic("days", title = "Days until the year ends", time_indices = TRUE,
-             value = as.POSIXct(paste0(format(Sys.Date(), "%Y"), "-12-31 23:59:59")),
-             format = "DD [days] HH:mm:ss")
+el_row(
+  el_col(span = 8, el_countdown(title = "Start to grab", value = Sys.time() + 1000)),
+  el_col(span = 8, el_countdown(title = "Remaining VIP time", format = "HH:mm:ss",
+                                value = Sys.time() + 60 * 60 * 24 * 2)),
+  el_col(span = 8, el_countdown(format = "DD [days] HH:mm:ss", value = Sys.time() + 60 * 60 * 24 * 7,
+                                slots = list(title = "Next month"))))
+```
+
+> **Tip**
+>
+> In formatting it is suggested to be in the range of days
+
+## Card usage
+
+Card usage display, can be freely combined
+
+```{r card, eval = FALSE, shot = TRUE}
+card <- function(title, value, delta, up) el_col(span = 8, tags$div(style = paste(
+  "height: 100%; padding: 16px; border-radius: 4px; background: var(--el-bg-color-overlay)"),
+  el_statistic(title = title, value = value),
+  tags$div(style = "font-size: 12px; color: var(--el-text-color-regular); margin-top: 16px",
+    "than yesterday ", tags$span(style = sprintf("color: var(--el-color-%s)", if (up) "success" else "error"),
+                                 delta, el_icon(if (up) "CaretTop" else "CaretBottom")))))
+el_row(gutter = 16, card("Daily active users", 98500, "24%", TRUE),
+       card("Monthly Active Users", 693700, "12%", FALSE), card("New transactions today", 72000, "16%", TRUE))
 ```
 
 ## API
+
+Element Plus's tables, and beside each entry where it is in R.
 
 ```{r api, echo = FALSE, results = "asis"}
 api_tables("statistic")

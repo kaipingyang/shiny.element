@@ -2,9 +2,9 @@
 
 # Private dependency loader (not exported)
 
-#' Element UI Radio Group Component
+#' Element Plus Radio Group Component
 #'
-#' Creates an Element UI `<el-radio-group>` component backed by a Vue instance.
+#' Creates an Element Plus `<el-radio-group>` component backed by a Vue instance.
 #' Supports both standard radio buttons (`<el-radio>`) and button-style radios
 #' (`<el-radio-button>`).
 #'
@@ -181,7 +181,7 @@ el_radio_group <- function(
 }
 
 
-#' Update Element UI Radio Group
+#' Update Element Plus Radio Group
 #'
 #' Server-side update for [el_radio_group()]. Sends a custom message to update
 #' reactive fields on the underlying Vue instance.

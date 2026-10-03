@@ -2,7 +2,7 @@
 % Please edit documentation in R/el_form.R
 \name{el_form_validate}
 \alias{el_form_validate}
-\title{Validate an Element UI Form from the server}
+\title{Validate an Element Plus Form from the server}
 \usage{
 el_form_validate(session = shiny::getDefaultReactiveDomain(), id)
 }

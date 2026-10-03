@@ -2,7 +2,7 @@
 % Please edit documentation in R/el_popover.R
 \name{el_popover}
 \alias{el_popover}
-\title{Element UI Popover}
+\title{Element Plus Popover}
 \usage{
 el_popover(
   id = NULL,

@@ -2,7 +2,7 @@
 % Please edit documentation in R/el_pagination.R
 \name{el_pagination}
 \alias{el_pagination}
-\title{Element UI Pagination Component}
+\title{Element Plus Pagination Component}
 \usage{
 el_pagination(
   id = NULL,
@@ -109,7 +109,7 @@ a warning.}
 An \code{htmltools} tagList with a Vue-managed pagination component.
 }
 \description{
-Creates an Element UI pagination bar with page navigation, size selector,
+Creates an Element Plus pagination bar with page navigation, size selector,
 jump-to-page input, and total count display.
 }
 \section{Shiny inputs}{

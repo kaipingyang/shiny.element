@@ -2,7 +2,7 @@
 % Please edit documentation in R/el_layout.R
 \name{el_row}
 \alias{el_row}
-\title{Element UI Layout Row}
+\title{Element Plus Layout Row}
 \usage{
 el_row(
   ...,
@@ -43,7 +43,7 @@ A Shiny UI element.
 Emits \verb{<div class="el-row">} directly rather than an \verb{<el-row>} custom tag.
 Nothing mounts a Vue instance over page-level markup, so a custom tag would
 never be compiled and would render as an unstyled inline element; the
-Element UI stylesheet is already loaded, so the class name is all that is
+Element Plus stylesheet is already loaded, so the class name is all that is
 needed.
 }
 \examples{

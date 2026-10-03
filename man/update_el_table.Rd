@@ -2,7 +2,7 @@
 % Please edit documentation in R/el_table.R
 \name{update_el_table}
 \alias{update_el_table}
-\title{Update Element UI Table}
+\title{Update Element Plus Table}
 \usage{
 update_el_table(
   session = shiny::getDefaultReactiveDomain(),
@@ -37,7 +37,7 @@ whose columns were inferred infers them again from the new \code{data}.
 Called for its side effect; returns \code{NULL} invisibly.
 }
 \description{
-Update Element UI Table
+Update Element Plus Table
 }
 \details{
 A column's \code{cell} template is part of the table's markup, made

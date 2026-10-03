@@ -2,7 +2,7 @@
 % Please edit documentation in R/el_timeline.R
 \name{update_el_timeline}
 \alias{update_el_timeline}
-\title{Update an Element UI Timeline}
+\title{Update an Element Plus Timeline}
 \usage{
 update_el_timeline(
   session = shiny::getDefaultReactiveDomain(),
@@ -25,7 +25,7 @@ update_el_timeline(
 Called for its side effect; returns \code{NULL} invisibly.
 }
 \description{
-Update an Element UI Timeline
+Update an Element Plus Timeline
 }
 \examples{
 if (interactive()) {

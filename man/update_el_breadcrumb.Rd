@@ -2,7 +2,7 @@
 % Please edit documentation in R/el_breadcrumb.R
 \name{update_el_breadcrumb}
 \alias{update_el_breadcrumb}
-\title{Update Element UI Breadcrumb}
+\title{Update Element Plus Breadcrumb}
 \usage{
 update_el_breadcrumb(
   session = shiny::getDefaultReactiveDomain(),

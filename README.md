@@ -4,11 +4,13 @@
 [![Ask DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/kaipingyang/shiny.element)
 <!-- badges: end -->
 
-Use [Element UI](https://element.eleme.io/) components in Shiny — inputs,
-tables, trees, dialogs, menus — each reporting through `input$<id>` and
-updatable from the server, like any other Shiny input.
+Use [Element Plus](https://element-plus.org/), the Vue 3 component library,
+in Shiny — inputs, tables, trees, dialogs, menus, every component it
+documents — each reporting through `input$<id>` and updatable from the
+server, like any other Shiny input.
 
-Element UI ships inside the package, so apps work without a network connection.
+Element Plus 2.14.7, its icons and Vue 3.5 ship inside the package, so apps
+work without a network connection.
 
 ## Installation
 
@@ -54,33 +56,34 @@ ui <- bslib::page_sidebar(
 )
 ```
 
-`el_theme()` is the page's look: a bslib theme carrying Element's own
+`el_theme()` is the page's look: a bslib theme carrying Element Plus's own
 colours, font and sizes, so Shiny's `actionButton()` or `textInput()` sit
-beside Element components without clashing. It is `el_page()`'s default.
-`el_theme(primary = "#7c3aed")` changes the brand colour -- on Element's
+beside Element Plus components without clashing. It is `el_page()`'s default.
+`el_theme(primary = "#7c3aed")` changes the brand colour -- on Element Plus's
 components as well as Bootstrap's -- and `el_theme(element =)` any of
-Element's own theme variables; any
+its CSS variables; any
 `bslib::bs_theme()` replaces it, and `theme = NULL` leaves Shiny's plain
 Bootstrap.
 
 ## Components
 
-The components follow Element's own documentation, group by group:
+The components follow Element Plus's own documentation, group by group:
 
 | | |
 |---|---|
-| **Basic** | `el_row()` `el_col()` `el_container()` `el_icon()` `el_button()` `el_button_group()` `el_link()` |
-| **Form** | `el_radio_group()` `el_checkbox()` `el_checkbox_group()` `el_input()` `el_autocomplete()` `el_input_number()` `el_select()` `el_cascader()` `el_cascader_panel()` `el_switch()` `el_slider()` `el_time_picker()` `el_time_select()` `el_date_picker()` `el_upload()` `el_rate()` `el_color_picker()` `el_transfer()` `el_form()` |
-| **Data** | `el_table()` `el_tag()` `el_progress()` `el_tree()` `el_pagination()` `el_badge()` `el_skeleton()` `el_empty()` `el_descriptions()` `el_result()` `el_statistic()` |
-| **Notice** | `el_alert()` `el_loading()` `el_message()` `el_message_box()` `el_notification()` |
-| **Navigation** | `el_menu()` `el_tabs()` `el_breadcrumb()` `el_page_header()` `el_dropdown()` `el_steps()` |
-| **Others** | `el_dialog()` `el_tooltip()` `el_popover()` `el_popconfirm()` `el_card()` `el_carousel()` `el_collapse()` `el_timeline()` `el_divider()` `el_calendar()` `el_image()` `el_backtop()` `el_infinite_scroll()` `el_avatar()` `el_drawer()` |
+| **Basic** | `el_button()` `el_button_group()` `el_container()` `el_icon()` `el_row()` `el_col()` `el_link()` `el_text()` `el_scrollbar()` `el_space()` `el_splitter()` |
+| **Configuration** | `el_config_provider()` |
+| **Form** | `el_autocomplete()` `el_cascader()` `el_checkbox()` `el_checkbox_group()` `el_color_picker()` `el_color_picker_panel()` `el_date_picker()` `el_date_picker_panel()` `el_form()` `el_input()` `el_input_number()` `el_input_tag()` `el_input_otp()` `el_mention()` `el_radio_group()` `el_rate()` `el_select()` `el_select_v2()` `el_slider()` `el_switch()` `el_time_picker()` `el_time_select()` `el_transfer()` `el_tree_select()` `el_upload()` |
+| **Data** | `el_avatar()` `el_badge()` `el_calendar()` `el_card()` `el_carousel()` `el_collapse()` `el_descriptions()` `el_empty()` `el_image()` `el_infinite_scroll()` `el_pagination()` `el_progress()` `el_result()` `el_skeleton()` `el_table()` `el_table_v2()` `el_tag()` `el_timeline()` `el_tour()` `el_tree()` `el_tree_v2()` `el_statistic()` `el_segmented()` |
+| **Navigation** | `el_affix()` `el_anchor()` `el_backtop()` `el_breadcrumb()` `el_dropdown()` `el_menu()` `el_page_header()` `el_steps()` `el_tabs()` |
+| **Feedback** | `el_alert()` `el_dialog()` `el_drawer()` `el_loading()` `el_message()` `el_message_box()` `el_notification()` `el_popconfirm()` `el_popover()` `el_tooltip()` |
+| **Others** | `el_divider()` `el_watermark()` |
 
-[Each has a page](https://kaipingyang.github.io/shiny.element/articles/components.html)
-with Element's demos in R and Element's API tables beside the R names.
+[Each has a page](https://kaipingyang.github.io/shiny.element/articles/components.html),
+as on element-plus.org: its demos in R and its API tables beside the R names.
 
-<img src="https://kaipingyang.github.io/shiny.element/shots/button-basic.png" width="49%" alt="Buttons"> <img src="https://kaipingyang.github.io/shiny.element/shots/steps-description.png" width="49%" alt="Steps">
-<img src="https://kaipingyang.github.io/shiny.element/shots/table-grouping.png" width="49%" alt="Table"> <img src="https://kaipingyang.github.io/shiny.element/shots/tree-checking.png" width="49%" alt="Tree">
+<img src="https://kaipingyang.github.io/shiny.element/shots/button-basic.png" width="49%" alt="Buttons"> <img src="https://kaipingyang.github.io/shiny.element/shots/form-basic-form.png" width="49%" alt="Form">
+<img src="https://kaipingyang.github.io/shiny.element/shots/table-fixed-column-and-group-header.png" width="49%" alt="Table"> <img src="https://kaipingyang.github.io/shiny.element/shots/tree-checking-tree.png" width="49%" alt="Tree">
 
 `el_page(dev = TRUE)` loads Vue's development build, which reports template
 errors in the browser console instead of failing silently. The package's own
@@ -88,13 +91,14 @@ test suite runs in this mode and asserts that the console stays clean.
 
 ## Learn more
 
-* [Get started](https://kaipingyang.github.io/shiny.element/articles/shiny.element.html)
-* [Components](https://kaipingyang.github.io/shiny.element/articles/components.html) -- one page per Element component
-* [Forms and validation](https://kaipingyang.github.io/shiny.element/articles/forms.html), [Shiny integration](https://kaipingyang.github.io/shiny.element/articles/shiny.html), [Theming, sizes and languages](https://kaipingyang.github.io/shiny.element/articles/theming.html)
-* [Dashboards](https://kaipingyang.github.io/shiny.element/articles/dashboards.html) -- whole apps: Element's own admin layout, a sales overview, an orders admin page
+* [Installation & Quick Start](https://kaipingyang.github.io/shiny.element/articles/shiny.element.html)
+* [Components](https://kaipingyang.github.io/shiny.element/articles/components.html) -- one page per Element Plus component
+* Element Plus's guides from R: [i18n](https://kaipingyang.github.io/shiny.element/articles/i18n.html), [Theming](https://kaipingyang.github.io/shiny.element/articles/theming.html), [Dark Mode](https://kaipingyang.github.io/shiny.element/articles/dark-mode.html), [Custom Defaults](https://kaipingyang.github.io/shiny.element/articles/custom-defaults.html), [Built-in Transitions](https://kaipingyang.github.io/shiny.element/articles/transitions.html), [Migration from Element UI](https://kaipingyang.github.io/shiny.element/articles/migration.html)
+* [Forms and validation](https://kaipingyang.github.io/shiny.element/articles/forms.html), [Shiny integration](https://kaipingyang.github.io/shiny.element/articles/shiny.html)
+* [Dashboards](https://kaipingyang.github.io/shiny.element/articles/dashboards.html) -- whole apps: an admin layout, a sales overview, an orders admin page
 * [Function reference](https://kaipingyang.github.io/shiny.element/reference/index.html)
 
 ## Licence
 
-MIT. The bundled Element UI distribution is MIT-licensed by ElemeFE; see
-`LICENSE.note`.
+MIT. The bundled Element Plus, its icons and Vue are MIT-licensed by their
+authors; see `LICENSE.note`.

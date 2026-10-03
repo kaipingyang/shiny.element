@@ -2,7 +2,7 @@
 % Please edit documentation in R/el_alert.R
 \name{update_el_alert}
 \alias{update_el_alert}
-\title{Update Element UI Alert}
+\title{Update Element Plus Alert}
 \usage{
 update_el_alert(
   session = shiny::getDefaultReactiveDomain(),

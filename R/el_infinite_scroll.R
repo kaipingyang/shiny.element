@@ -1,4 +1,4 @@
-#' Element UI Infinite Scroll
+#' Element Plus Infinite Scroll
 #'
 #' A scrolling area that asks the server for more as the user nears the
 #' bottom. Element implements this as a directive rather than a component, so
@@ -114,7 +114,7 @@ el_infinite_scroll <- function(id = NULL,
 }
 
 
-#' Update Element UI Infinite Scroll
+#' Update Element Plus Infinite Scroll
 #'
 #' Server-side update for [el_infinite_scroll()]. Setting `disabled` is how a
 #' feed stops asking once everything has been sent.

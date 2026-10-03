@@ -1,4 +1,4 @@
-#' Element UI's look, as a Bootstrap theme
+#' Element Plus's look, as a Bootstrap theme
 #'
 #' A [bslib::bs_theme()] carrying Element's own design tokens -- its blue,
 #' its success, warning and danger colours, its greys, borders, 4px corners,

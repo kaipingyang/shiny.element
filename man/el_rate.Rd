@@ -2,7 +2,7 @@
 % Please edit documentation in R/el_rate.R
 \name{el_rate}
 \alias{el_rate}
-\title{Element UI Rate (Star Rating)}
+\title{Element Plus Rate (Star Rating)}
 \usage{
 el_rate(
   id = NULL,

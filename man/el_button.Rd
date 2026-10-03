@@ -2,7 +2,7 @@
 % Please edit documentation in R/el_button.R
 \name{el_button}
 \alias{el_button}
-\title{Element UI Button with Vue Instance}
+\title{Element Plus Button with Vue Instance}
 \usage{
 el_button(
   id = NULL,
@@ -109,7 +109,7 @@ a warning.}
 An \code{htmltools} tagList with a Vue-managed button component.
 }
 \description{
-Creates an Element UI button with Vue instance, supporting all Element UI
+Creates an Element Plus button with Vue instance, supporting all Element Plus
 button variants including \code{plain}, \code{round}, \code{circle}, and \code{loading} states.
 }
 \section{Shiny inputs}{
