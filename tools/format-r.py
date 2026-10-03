@@ -13,13 +13,21 @@ import glob, os, re, subprocess, tempfile
 AIR = os.path.expanduser("~/.local/bin/air")
 if not os.path.exists(AIR): AIR = "air"
 
-def air(code):
+left = []
+
+def air(code, where=""):
+    # \dontrun{} and the like are Rd, not R: format their body as an
+    # if (.dontrun) block, then put the macro back.
+    code = re.sub(r"\\(dontrun|donttest|dontshow)\{", r"if (.\1) {", code)
     with tempfile.NamedTemporaryFile("w", suffix=".R", delete=False) as f:
         f.write(code.rstrip("\n") + "\n")
     try:
         r = subprocess.run([AIR, "format", f.name], capture_output=True, text=True)
-        if r.returncode != 0: return None
-        return open(f.name).read().rstrip("\n")
+        if r.returncode != 0:
+            left.append(where); return None
+        out = open(f.name).read().rstrip("\n")
+        out = re.sub(r"if \(\.(dontrun|donttest|dontshow)\) \{", r"\\\1{", out)
+        return out
     finally:
         os.unlink(f.name)
 
@@ -38,7 +46,7 @@ for path in sorted(glob.glob("tools/demos/*.R")):
         lead = []
         while lines and (lines[0].startswith("#'") or lines[0].startswith("#|")):
             lead.append(lines.pop(0))
-        new = air("\n".join(lines)) if lines else None
+        new = air("\n".join(lines), path + ": " + head.strip()) if lines else None
         out.append("\n".join(lead + ([new] if new is not None else lines)) + "\n\n")
     new_text = re.sub(r"\n{3,}", "\n\n", "".join(out)).rstrip("\n") + "\n"
     if new_text != text:
@@ -54,7 +62,7 @@ for path in sorted(rmds):
     text = open(path).read()
     def fix(m):
         if "include = FALSE" in m.group(1) or not m.group(2).strip(): return m.group(0)
-        new = air(m.group(2))
+        new = air(m.group(2), path + ": " + m.group(1).strip())
         return m.group(0) if new is None else m.group(1) + new + "\n" + m.group(3)
     new_text = chunk.sub(fix, text)
     if new_text != text:
@@ -71,7 +79,7 @@ for path in sorted(glob.glob("R/*.R")):
             while j < len(lines) and lines[j].startswith("#'") and not re.match(r"^#' @", lines[j]):
                 j += 1
             block = [l[3:] if l.startswith("#' ") else l[2:] for l in lines[i + 1:j]]
-            new = air("\n".join(block)) if any(b.strip() for b in block) else None
+            new = air("\n".join(block), path + ": @examples line %d" % (i + 1)) if any(b.strip() for b in block) else None
             if new is not None:
                 out.extend(("#' " + l).rstrip() for l in new.split("\n"))
             else:
@@ -84,3 +92,4 @@ for path in sorted(glob.glob("R/*.R")):
         open(path, "w").write(new_text); changed += 1
 
 print(changed, "files formatted")
+for w in left: print("  not R, left as is:", w)

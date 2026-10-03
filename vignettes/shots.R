@@ -23,7 +23,11 @@ in_pkgdown <- function() identical(Sys.getenv("IN_PKGDOWN"), "true")
 # component page, articles/components/<x>.html
 shot_dir <- function() {
   input <- knitr::current_input(dir = TRUE)
-  if (!is.null(input) && basename(dirname(input)) == "components") "../../shots" else "../shots"
+  if (!is.null(input) && basename(dirname(input)) == "components") {
+    "../../shots"
+  } else {
+    "../shots"
+  }
 }
 
 # A component page's API section: Element's own tables, read from api.json
@@ -34,19 +38,43 @@ shot_dir <- function() {
 api_tables <- function(slug) {
   path <- file.path(dirname(knitr::current_input(dir = TRUE)), "api.json")
   api <- jsonlite::fromJSON(path, simplifyVector = FALSE)[[slug]]
-  if (is.null(api)) return(invisible())
+  if (is.null(api)) {
+    return(invisible())
+  }
   cell <- function(x) gsub("\\|", "\\\\|", gsub("\n", " ", x))
   for (sec in api) {
     cat("\n### ", sec$title, "\n\n", sep = "")
     if (sec$kind %in% c("Attributes")) {
-      cat("| Element | In R | Description | Type | Accepted | Default |\n",
-          "|------|------|----------------|----|------|----|\n", sep = "")
-      for (r in sec$rows) cat("| `", r$name, "` | ", r$r, " | ", cell(r$desc), " | ",
-                              cell(r$type), " | ", cell(r$accepted %||% ""), " | ",
-                              cell(r$default), " |\n", sep = "")
+      cat(
+        "| Element | In R | Description | Type | Accepted | Default |\n",
+        "|------|------|----------------|----|------|----|\n",
+        sep = ""
+      )
+      for (r in sec$rows) {
+        cat(
+          "| `",
+          r$name,
+          "` | ",
+          r$r,
+          " | ",
+          cell(r$desc),
+          " | ",
+          cell(r$type),
+          " | ",
+          cell(r$accepted %||% ""),
+          " | ",
+          cell(r$default),
+          " |\n",
+          sep = ""
+        )
+      }
     } else {
-      cat("| Element | In R | Description |\n|------|--------|----------------|\n")
-      for (r in sec$rows) cat("| `", r$name, "` | ", r$r, " | ", cell(r$desc), " |\n", sep = "")
+      cat(
+        "| Element | In R | Description |\n|------|--------|----------------|\n"
+      )
+      for (r in sec$rows) {
+        cat("| `", r$name, "` | ", r$r, " | ", cell(r$desc), " |\n", sep = "")
+      }
     }
   }
   cat("\n")
@@ -54,7 +82,8 @@ api_tables <- function(slug) {
 }
 
 is_live <- function(options) {
-  in_pkgdown() && is.null(options$file) &&
+  in_pkgdown() &&
+    is.null(options$file) &&
     !any(grepl("shinyApp(", options$code, fixed = TRUE))
 }
 
@@ -74,7 +103,9 @@ live_demo <- function(options) {
   ui <- list()
   for (e in parse(text = options$code)) {
     v <- withVisible(eval(e, env))
-    if (v$visible && inherits(v$value, c("shiny.tag", "shiny.tag.list", "html"))) {
+    if (
+      v$visible && inherits(v$value, c("shiny.tag", "shiny.tag.list", "html"))
+    ) {
       ui <- c(ui, list(v$value))
     }
   }
@@ -84,25 +115,38 @@ live_demo <- function(options) {
     list(use_element())
   }
   rendered <- htmltools::renderTags(
-    htmltools::tagList(base, htmltools::tags$div(class = "el-demo", ui)))
+    htmltools::tagList(base, htmltools::tags$div(class = "el-demo", ui))
+  )
   # pkgdown's own page already loads jQuery and Bootstrap
-  deps <- Filter(function(d) !d$name %in% c("jquery", "bootstrap"),
-                 rendered$dependencies)
+  deps <- Filter(
+    function(d) !d$name %in% c("jquery", "bootstrap"),
+    rendered$dependencies
+  )
   knitr::knit_meta_add(deps)
   paste0("\n\n```{=html}\n", rendered$html, "\n```\n\n")
 }
 
 knitr::knit_hooks$set(shot = function(before, options) {
-  if (before || !isTRUE(options$shot)) return(NULL)
-  if (is_live(options)) return(live_demo(options))
+  if (before || !isTRUE(options$shot)) {
+    return(NULL)
+  }
+  if (is_live(options)) {
+    return(live_demo(options))
+  }
   file <- sprintf("%s-%s.png", shot_article(), options$label)
   if (in_pkgdown()) {
     # Raw HTML: pandoc turns a lone markdown image into a figure whose <img>
     # has an empty alt, which pkgdown reports
-    sprintf("\n\n```{=html}\n<img src=\"%s/%s\" alt=\"The %s example, running\" style=\"max-width: 100%%\">\n```\n\n",
-            shot_dir(), file, options$label)
+    sprintf(
+      "\n\n```{=html}\n<img src=\"%s/%s\" alt=\"The %s example, running\" style=\"max-width: 100%%\">\n```\n\n",
+      shot_dir(),
+      file,
+      options$label
+    )
   } else {
-    sprintf("\n\n[Screenshot](https://kaipingyang.github.io/shiny.element/shots/%s)\n\n",
-            file)
+    sprintf(
+      "\n\n[Screenshot](https://kaipingyang.github.io/shiny.element/shots/%s)\n\n",
+      file
+    )
   }
 })

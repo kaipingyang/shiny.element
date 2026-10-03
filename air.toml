@@ -1,3 +1,6 @@
 [format]
 line-width = 80
 indent-width = 2
+# Demo files are blocks of R and prose, formatted one block at a time by
+# tools/format-r.py.
+exclude = ["tools/demos/"]

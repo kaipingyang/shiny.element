@@ -167,10 +167,11 @@ demos (color, icon and the overview are hand-written / `tools/ep-overview.py`).
 example; `python tools/api-coverage.py --write-api` writes the API tables'
 JSON with the R name of each entry.
 
-R code is formatted with air (`air.toml`, line width 80): `air format R tests
-tools/*.R` for the files, then `python tools/format-r.py` for the demo blocks,
-the hand-written articles' chunks and roxygen `@examples`, followed by
-`tools/ep-pages.py` and `devtools::document()`.
+R code is formatted with air (`air.toml`, line width 80): `air format .` for
+every .R file but the demos, then `python tools/format-r.py` for the demo
+blocks, the hand-written articles' chunks and roxygen `@examples` (it lists
+any block air cannot parse), followed by `tools/ep-pages.py` and
+`devtools::document()`. `air format --check .` should print nothing.
 
 ## Lessons and gotchas
 
