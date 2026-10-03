@@ -11,7 +11,9 @@ sent_message <- function(expr) {
   captured <- NULL
   session <- list(
     ns = function(id) id,
-    sendCustomMessage = function(type, msg) captured <<- list(type = type, msg = msg)
+    sendCustomMessage = function(type, msg) {
+      captured <<- list(type = type, msg = msg)
+    }
   )
   expr(session)
   captured
@@ -19,13 +21,22 @@ sent_message <- function(expr) {
 
 demo_items <- list(
   list(index = "home", label = "Home", icon = "House"),
-  list(index = "products", label = "Products", children = list(
-    list(index = "p-all", label = "All"),
-    list(index = "p-old", label = "Old", disabled = TRUE)
-  )),
-  list(index = "grp", label = "Group", group = TRUE, children = list(
-    list(index = "g1", label = "In group")
-  ))
+  list(
+    index = "products",
+    label = "Products",
+    children = list(
+      list(index = "p-all", label = "All"),
+      list(index = "p-old", label = "Old", disabled = TRUE)
+    )
+  ),
+  list(
+    index = "grp",
+    label = "Group",
+    group = TRUE,
+    children = list(
+      list(index = "g1", label = "In group")
+    )
+  )
 )
 
 # ── .el_menu_nodes ────────────────────────────────────────────────────────────
@@ -72,21 +83,40 @@ test_that(".el_menu_nodes: icons and disabled are emitted only when asked", {
   expect_false(grepl("<i class=", plain, fixed = TRUE))
   expect_false(grepl("disabled", plain, fixed = TRUE))
 
-  expect_match(render_html(.el_menu_nodes(list(demo_items[[2]]$children[[2]]))),
-               "disabled")
+  expect_match(
+    render_html(.el_menu_nodes(list(demo_items[[2]]$children[[2]]))),
+    "disabled"
+  )
 })
 
 test_that(".el_menu_nodes: nests to arbitrary depth", {
   # Generated in R rather than with v-for, which can only repeat one level.
-  deep <- list(list(index = "1", label = "L1", children = list(
-    list(index = "2", label = "L2", children = list(
-      list(index = "3", label = "L3", children = list(
-        list(index = "4", label = "L4")
-      ))
-    ))
-  )))
+  deep <- list(list(
+    index = "1",
+    label = "L1",
+    children = list(
+      list(
+        index = "2",
+        label = "L2",
+        children = list(
+          list(
+            index = "3",
+            label = "L3",
+            children = list(
+              list(index = "4", label = "L4")
+            )
+          )
+        )
+      )
+    )
+  ))
   html <- render_html(.el_menu_nodes(deep))
-  expect_equal(lengths(regmatches(html, gregexpr("<el-sub-menu", html, fixed = TRUE)))[[1]], 3L)
+  expect_equal(
+    lengths(regmatches(html, gregexpr("<el-sub-menu", html, fixed = TRUE)))[[
+      1
+    ]],
+    3L
+  )
   expect_match(html, '<el-menu-item index="4"')
 })
 
@@ -108,9 +138,14 @@ test_that("el_menu: attaches the shared bridge", {
 })
 
 test_that("el_menu: active and layout options reach the Vue data", {
-  html <- render_html(el_menu(id = "nav", items = demo_items, active = "home",
-                              mode = "horizontal", collapse = TRUE,
-                              unique_opened = TRUE))
+  html <- render_html(el_menu(
+    id = "nav",
+    items = demo_items,
+    active = "home",
+    mode = "horizontal",
+    collapse = TRUE,
+    unique_opened = TRUE
+  ))
   expect_match(html, ':default-active="active"')
   expect_match(html, '"active":"home"')
   expect_match(html, '"mode":"horizontal"')
@@ -125,8 +160,11 @@ test_that("el_menu: colours fall back to Element's defaults when unset", {
     expect_match(html, .el_optional_bind(f), fixed = TRUE)
   }
 
-  themed <- render_html(el_menu(id = "nav", items = demo_items,
-                                background_color = "#545c64"))
+  themed <- render_html(el_menu(
+    id = "nav",
+    items = demo_items,
+    background_color = "#545c64"
+  ))
   expect_match(themed, '"backgroundColor":"#545c64"')
 })
 
@@ -164,23 +202,46 @@ test_that("update_el_menu: NULL fields are excluded", {
 })
 
 test_that("an item's title is taken as its label, as Element names it", {
-  html <- paste(as.character(el_menu("m", items = list(
-    list(index = "a", title = "Alpha"),
-    list(index = "b", title = "Beta", children = list(list(index = "b1", title = "One")))
-  ))), collapse = "")
-  for (txt in c("<span>Alpha</span>", "<span>Beta</span>", "<span>One</span>")) {
+  html <- paste(
+    as.character(el_menu(
+      "m",
+      items = list(
+        list(index = "a", title = "Alpha"),
+        list(
+          index = "b",
+          title = "Beta",
+          children = list(list(index = "b1", title = "One"))
+        )
+      )
+    )),
+    collapse = ""
+  )
+  for (txt in c(
+    "<span>Alpha</span>",
+    "<span>Beta</span>",
+    "<span>One</span>"
+  )) {
     expect_match(html, txt, fixed = TRUE)
   }
 })
 
 test_that("an item with nothing to show is an error, not a blank entry", {
-  expect_error(el_menu("m", items = list(list(index = "a"))), "neither a `label`")
+  expect_error(
+    el_menu("m", items = list(list(index = "a"))),
+    "neither a `label`"
+  )
   # An icon alone is enough
-  expect_no_error(el_menu("m", items = list(list(index = "a", icon = "el-icon-house"))))
+  expect_no_error(el_menu(
+    "m",
+    items = list(list(index = "a", icon = "el-icon-house"))
+  ))
 })
 
 test_that("a menu with no active item reports NULL rather than an empty string", {
   # "" would fire observeEvent(input$<id>) on load for every such menu
-  spec <- vue_spec_of(el_menu("m", items = list(list(index = "a", label = "A"))))
+  spec <- vue_spec_of(el_menu(
+    "m",
+    items = list(list(index = "a", label = "A"))
+  ))
   expect_equal(spec$input, "active || null")
 })

@@ -167,6 +167,11 @@ demos (color, icon and the overview are hand-written / `tools/ep-overview.py`).
 example; `python tools/api-coverage.py --write-api` writes the API tables'
 JSON with the R name of each entry.
 
+R code is formatted with air (`air.toml`, line width 80): `air format R tests
+tools/*.R` for the files, then `python tools/format-r.py` for the demo blocks,
+the hand-written articles' chunks and roxygen `@examples`, followed by
+`tools/ep-pages.py` and `devtools::document()`.
+
 ## Lessons and gotchas
 
 `.claude/docs/lessons.md` records what was learned the hard way: architectural

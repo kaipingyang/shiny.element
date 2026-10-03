@@ -57,56 +57,61 @@
 #'   )
 #'   server <- function(input, output, session) {
 #'     observeEvent(input$go, {
-#'       update_el_progress(session, "prog1", percentage = min(100, (input$go * 10)))
+#'       update_el_progress(
+#'         session,
+#'         "prog1",
+#'         percentage = min(100, (input$go * 10))
+#'       )
 #'     })
 #'   }
 #'   shinyApp(ui, server)
 #' }
-#'
 #' @export
 el_progress <- function(
-    id           = NULL,
-    percentage   = 0,
-    type         = "line",
-    status       = NULL,
-    stroke_width = 6,
-    text_inside  = FALSE,
-    show_text    = TRUE,
-    color        = NULL,
-    width        = 126,
-    stroke_linecap = NULL,
-    slots        = NULL,
-    format       = NULL,
-    duration = NULL,
-    indeterminate = NULL,
-    striped = NULL,
-    striped_flow = NULL,
-    session      = NULL
+  id = NULL,
+  percentage = 0,
+  type = "line",
+  status = NULL,
+  stroke_width = 6,
+  text_inside = FALSE,
+  show_text = TRUE,
+  color = NULL,
+  width = 126,
+  stroke_linecap = NULL,
+  slots = NULL,
+  format = NULL,
+  duration = NULL,
+  indeterminate = NULL,
+  striped = NULL,
+  striped_flow = NULL,
+  session = NULL
 ) {
   .el_check_choices("el_progress", environment())
-  if (is.null(id)) id <- paste0("el_progress_", uuid::UUIDgenerate())
-  ns_id        <- .el_ui_id(id, session)
+  if (is.null(id)) {
+    id <- paste0("el_progress_", uuid::UUIDgenerate())
+  }
+  ns_id <- .el_ui_id(id, session)
   container_id <- paste0(ns_id, "_container")
 
   progress_attrs <- list(
-    ":percentage"  = "percentage",
-    ":type"        = "type",
+    ":percentage" = "percentage",
+    ":type" = "type",
     ":stroke-width" = "strokeWidth",
     ":text-inside" = "textInside",
-    ":show-text"   = "showText",
-    ":width"       = "width"
+    ":show-text" = "showText",
+    ":width" = "width"
   )
   progress_attrs[[":status"]] <- .el_optional_bind("status")
   progress_attrs[[":color"]] <- "color"
   progress_attrs[[":stroke-linecap"]] <- .el_optional_bind("strokeLinecap")
   progress_attrs[[":format"]] <- .el_optional_bind("format")
   vue_data <- list(
-    percentage  = percentage,
-    type        = type,
+    percentage = percentage,
+    type = type,
     strokeWidth = stroke_width,
-    textInside  = text_inside,
-    showText    = show_text,
-    width       = width
+    textInside = text_inside,
+    showText = show_text,
+    width = width
   )
   vue_data$status <- if (is.null(status)) NA else status
   # Element's ElProgress declares color as [String, Array, Function] with a
@@ -120,11 +125,12 @@ el_progress <- function(
       duration = duration,
       indeterminate = indeterminate,
       striped = striped,
-      striped_flow = striped_flow)),
-    id     = ns_id,
+      striped_flow = striped_flow
+    )),
+    id = ns_id,
     markup = htmltools::tag("el-progress", progress_attrs),
     data = vue_data,
-    slots      = slots
+    slots = slots
   )
 }
 
@@ -154,28 +160,40 @@ el_progress <- function(
 #' }
 #' @export
 update_el_progress <- function(
-    session = shiny::getDefaultReactiveDomain(),
-    id,
-    percentage   = NULL,
-    type         = NULL,
-    status       = NULL,
-    color        = NULL,
-    stroke_width = NULL,
-    show_text    = NULL,
-    text_inside  = NULL
+  session = shiny::getDefaultReactiveDomain(),
+  id,
+  percentage = NULL,
+  type = NULL,
+  status = NULL,
+  color = NULL,
+  stroke_width = NULL,
+  show_text = NULL,
+  text_inside = NULL
 ) {
   .el_check_session(session)
   ns_id <- session$ns(id)
-  msg   <- list(id = ns_id)
-  if (!is.null(percentage))   msg$percentage  <- percentage
-  if (!is.null(type))         msg$type        <- type
-  if (!is.null(status))       msg$status      <- status
-  if (!is.null(color))        msg$color       <- color
-  if (!is.null(stroke_width)) msg$strokeWidth <- stroke_width
-  if (!is.null(show_text))    msg$showText    <- show_text
-  if (!is.null(text_inside))  msg$textInside  <- text_inside
+  msg <- list(id = ns_id)
+  if (!is.null(percentage)) {
+    msg$percentage <- percentage
+  }
+  if (!is.null(type)) {
+    msg$type <- type
+  }
+  if (!is.null(status)) {
+    msg$status <- status
+  }
+  if (!is.null(color)) {
+    msg$color <- color
+  }
+  if (!is.null(stroke_width)) {
+    msg$strokeWidth <- stroke_width
+  }
+  if (!is.null(show_text)) {
+    msg$showText <- show_text
+  }
+  if (!is.null(text_inside)) {
+    msg$textInside <- text_inside
+  }
   .el_send_update(session, msg)
   invisible(NULL)
 }
-
-

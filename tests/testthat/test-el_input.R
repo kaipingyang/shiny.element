@@ -10,13 +10,13 @@ test_that("el_input: returns a tagList", {
 })
 
 test_that("el_input: container div has correct id", {
-  inp  <- el_input("inp1", session = NULL)
+  inp <- el_input("inp1", session = NULL)
   html <- render_html(inp)
   expect_match(html, 'id="inp1_container"')
 })
 
 test_that("el_input: auto-generated id when NULL", {
-  inp  <- el_input(NULL, session = NULL)
+  inp <- el_input(NULL, session = NULL)
   html <- render_html(inp)
   expect_match(html, 'id="el_input_.*_container"')
 })
@@ -24,67 +24,67 @@ test_that("el_input: auto-generated id when NULL", {
 # ── Vue data 核心字段 ──────────────────────────────────────────────────────────
 
 test_that("el_input: value appears in Vue data", {
-  inp  <- el_input("inp1", value = "hello", session = NULL)
+  inp <- el_input("inp1", value = "hello", session = NULL)
   html <- render_html(inp)
   expect_match(html, '"value"\\s*:\\s*"hello"')
 })
 
 test_that("el_input: type appears in Vue data", {
-  inp  <- el_input("inp1", type = "textarea", session = NULL)
+  inp <- el_input("inp1", type = "textarea", session = NULL)
   html <- render_html(inp)
   expect_match(html, '"type"\\s*:\\s*"textarea"')
 })
 
 test_that("el_input: disabled=TRUE appears in Vue data", {
-  inp  <- el_input("inp1", disabled = TRUE, session = NULL)
+  inp <- el_input("inp1", disabled = TRUE, session = NULL)
   html <- render_html(inp)
   expect_match(html, '"disabled"\\s*:\\s*true')
 })
 
 test_that("el_input: disabled=FALSE appears in Vue data", {
-  inp  <- el_input("inp1", disabled = FALSE, session = NULL)
+  inp <- el_input("inp1", disabled = FALSE, session = NULL)
   html <- render_html(inp)
   expect_match(html, '"disabled"\\s*:\\s*false')
 })
 
 test_that("el_input: readonly=TRUE appears in Vue data", {
-  inp  <- el_input("inp1", readonly = TRUE, session = NULL)
+  inp <- el_input("inp1", readonly = TRUE, session = NULL)
   html <- render_html(inp)
   expect_match(html, '"readonly"\\s*:\\s*true')
 })
 
 test_that("el_input: clearable=TRUE appears in Vue data", {
-  inp  <- el_input("inp1", clearable = TRUE, session = NULL)
+  inp <- el_input("inp1", clearable = TRUE, session = NULL)
   html <- render_html(inp)
   expect_match(html, '"clearable"\\s*:\\s*true')
 })
 
 test_that("el_input: showPassword appears in Vue data", {
-  inp  <- el_input("inp1", show_password = TRUE, session = NULL)
+  inp <- el_input("inp1", show_password = TRUE, session = NULL)
   html <- render_html(inp)
   expect_match(html, '"showPassword"\\s*:\\s*true')
 })
 
 test_that("el_input: showWordLimit appears in Vue data", {
-  inp  <- el_input("inp1", show_word_limit = TRUE, session = NULL)
+  inp <- el_input("inp1", show_word_limit = TRUE, session = NULL)
   html <- render_html(inp)
   expect_match(html, '"showWordLimit"\\s*:\\s*true')
 })
 
 test_that("el_input: autosize=TRUE appears in Vue data", {
-  inp  <- el_input("inp1", autosize = TRUE, session = NULL)
+  inp <- el_input("inp1", autosize = TRUE, session = NULL)
   html <- render_html(inp)
   expect_match(html, '"autosize"\\s*:\\s*true')
 })
 
 test_that("el_input: prefixIcon appears in Vue data", {
-  inp  <- el_input("inp1", prefix_icon = "el-icon-search", session = NULL)
+  inp <- el_input("inp1", prefix_icon = "el-icon-search", session = NULL)
   html <- render_html(inp)
   expect_match(html, '"prefixIcon"\\s*:\\s*"el-icon-search"')
 })
 
 test_that("el_input: suffixIcon appears in Vue data", {
-  inp  <- el_input("inp1", suffix_icon = "el-icon-date", session = NULL)
+  inp <- el_input("inp1", suffix_icon = "el-icon-date", session = NULL)
   html <- render_html(inp)
   expect_match(html, '"suffixIcon"\\s*:\\s*"el-icon-date"')
 })
@@ -92,7 +92,7 @@ test_that("el_input: suffixIcon appears in Vue data", {
 # ── 条件字段：非 NULL 时出现，NULL 时不出现 ───────────────────────────────────
 
 test_that("el_input: size appears in Vue data when set", {
-  inp  <- el_input("inp1", size = "small", session = NULL)
+  inp <- el_input("inp1", size = "small", session = NULL)
   html <- render_html(inp)
   expect_match(html, '"size"\\s*:\\s*"small"')
 })
@@ -101,12 +101,15 @@ test_that("el_input: size is declared as null when not supplied", {
   # Declared and bound even when not supplied: a field missing from the Vue
   # data is not reactive, so the matching update_*() argument would be a
   # silent no-op. NA serialises to JSON null, which Element treats as unset.
-  expect_match(render_html(el_input("inp1", size = NULL, session = NULL)),
-               '"size":null', fixed = TRUE)
+  expect_match(
+    render_html(el_input("inp1", size = NULL, session = NULL)),
+    '"size":null',
+    fixed = TRUE
+  )
 })
 
 test_that("el_input: maxlength appears in Vue data when set", {
-  inp  <- el_input("inp1", maxlength = 100, session = NULL)
+  inp <- el_input("inp1", maxlength = 100, session = NULL)
   html <- render_html(inp)
   expect_match(html, '"maxlength"\\s*:\\s*100')
 })
@@ -120,7 +123,7 @@ test_that("el_input: maxlength is declared as null when not supplied", {
 })
 
 test_that("el_input: rows appears in Vue data when set", {
-  inp  <- el_input("inp1", rows = 4, session = NULL)
+  inp <- el_input("inp1", rows = 4, session = NULL)
   html <- render_html(inp)
   expect_match(html, '"rows"\\s*:\\s*4')
 })
@@ -134,18 +137,21 @@ test_that("el_input: rows is declared as null when not supplied", {
 })
 
 test_that("el_input: placeholder appears in Vue data when set", {
-  inp  <- el_input("inp1", placeholder = "Enter text", session = NULL)
+  inp <- el_input("inp1", placeholder = "Enter text", session = NULL)
   html <- render_html(inp)
   expect_match(html, '"placeholder"\\s*:\\s*"Enter text"')
 })
 
 test_that("el_input: placeholder is declared as null when not supplied", {
-  expect_match(render_html(el_input("inp1", placeholder = NULL, session = NULL)),
-               '"placeholder":null', fixed = TRUE)
+  expect_match(
+    render_html(el_input("inp1", placeholder = NULL, session = NULL)),
+    '"placeholder":null',
+    fixed = TRUE
+  )
 })
 
 test_that("el_input: label appears in Vue data when set", {
-  inp  <- el_input("inp1", label = "Name", session = NULL)
+  inp <- el_input("inp1", label = "Name", session = NULL)
   html <- render_html(inp)
   expect_match(html, '"label"\\s*:\\s*"Name"')
 })
@@ -161,20 +167,32 @@ test_that("el_input: label is declared as null when not supplied", {
 # ── 可选属性：始终绑定，未提供时回退 Element 默认 ─────────────────────────────
 
 test_that("el_input: :size attr present when size set", {
-  inp  <- el_input("inp1", size = "small", session = NULL)
+  inp <- el_input("inp1", size = "small", session = NULL)
   html <- render_html(inp)
   expect_match(html, ":size")
 })
 
 test_that("el_input: :size and :placeholder are bound even when NULL", {
-  html <- render_html(el_input("inp1", size = NULL, placeholder = NULL, session = NULL))
-  expect_match(html, sprintf(':size="%s"', .el_optional_bind("size")), fixed = TRUE)
-  expect_match(html, sprintf(':placeholder="%s"', .el_optional_bind("placeholder")),
-               fixed = TRUE)
+  html <- render_html(el_input(
+    "inp1",
+    size = NULL,
+    placeholder = NULL,
+    session = NULL
+  ))
+  expect_match(
+    html,
+    sprintf(':size="%s"', .el_optional_bind("size")),
+    fixed = TRUE
+  )
+  expect_match(
+    html,
+    sprintf(':placeholder="%s"', .el_optional_bind("placeholder")),
+    fixed = TRUE
+  )
 })
 
 test_that("el_input: :placeholder attr present when set", {
-  inp  <- el_input("inp1", placeholder = "Search", session = NULL)
+  inp <- el_input("inp1", placeholder = "Search", session = NULL)
   html <- render_html(inp)
   expect_match(html, ":placeholder")
 })
@@ -198,61 +216,61 @@ test_that("el_input: :rows is bound even when not supplied", {
 # ── 常驻 Vue 属性绑定 ──────────────────────────────────────────────────────────
 
 test_that("el_input: v-model binding present", {
-  inp  <- el_input("inp1", session = NULL)
+  inp <- el_input("inp1", session = NULL)
   html <- render_html(inp)
   expect_match(html, "v-model")
 })
 
 test_that("el_input: :type binding present", {
-  inp  <- el_input("inp1", session = NULL)
+  inp <- el_input("inp1", session = NULL)
   html <- render_html(inp)
   expect_match(html, ":type")
 })
 
 test_that("el_input: :disabled binding present", {
-  inp  <- el_input("inp1", session = NULL)
+  inp <- el_input("inp1", session = NULL)
   html <- render_html(inp)
   expect_match(html, ":disabled")
 })
 
 test_that("el_input: :clearable binding present", {
-  inp  <- el_input("inp1", session = NULL)
+  inp <- el_input("inp1", session = NULL)
   html <- render_html(inp)
   expect_match(html, ":clearable")
 })
 
 test_that("el_input: :show-password binding present", {
-  inp  <- el_input("inp1", session = NULL)
+  inp <- el_input("inp1", session = NULL)
   html <- render_html(inp)
   expect_match(html, ":show-password")
 })
 
 test_that("el_input: :show-word-limit binding present", {
-  inp  <- el_input("inp1", session = NULL)
+  inp <- el_input("inp1", session = NULL)
   html <- render_html(inp)
   expect_match(html, ":show-word-limit")
 })
 
 test_that("el_input: :autosize binding present", {
-  inp  <- el_input("inp1", session = NULL)
+  inp <- el_input("inp1", session = NULL)
   html <- render_html(inp)
   expect_match(html, ":autosize")
 })
 
 test_that("el_input: @change binding present", {
-  inp  <- el_input("inp1", session = NULL)
+  inp <- el_input("inp1", session = NULL)
   html <- render_html(inp)
   expect_match(html, "@change")
 })
 
 test_that("el_input: :prefix-icon binding present", {
-  inp  <- el_input("inp1", session = NULL)
+  inp <- el_input("inp1", session = NULL)
   html <- render_html(inp)
   expect_match(html, ":prefix-icon")
 })
 
 test_that("el_input: :suffix-icon binding present", {
-  inp  <- el_input("inp1", session = NULL)
+  inp <- el_input("inp1", session = NULL)
   html <- render_html(inp)
   expect_match(html, ":suffix-icon")
 })
@@ -270,45 +288,53 @@ test_that("el_input: its value is the binding's, sent once", {
 # ── update_el_input ───────────────────────────────────────────────────────────
 
 test_that("update_el_input: sends correct message with value", {
-  captured     <- NULL
+  captured <- NULL
   mock_session <- list(
-    ns                = function(id) id,
-    sendCustomMessage = function(type, msg) { captured <<- msg }
+    ns = function(id) id,
+    sendCustomMessage = function(type, msg) {
+      captured <<- msg
+    }
   )
   update_el_input(mock_session, "inp1", value = "new text")
-  expect_equal(captured$id,    "inp1")
+  expect_equal(captured$id, "inp1")
   expect_equal(captured$value, "new text")
 })
 
 test_that("update_el_input: sends multiple fields", {
-  captured     <- NULL
+  captured <- NULL
   mock_session <- list(
-    ns                = function(id) id,
-    sendCustomMessage = function(type, msg) { captured <<- msg }
+    ns = function(id) id,
+    sendCustomMessage = function(type, msg) {
+      captured <<- msg
+    }
   )
-  update_el_input(mock_session, "inp1",
-    value       = "x",
+  update_el_input(
+    mock_session,
+    "inp1",
+    value = "x",
     placeholder = "hint",
-    disabled    = TRUE,
-    readonly    = FALSE,
-    type        = "textarea",
-    size        = "small",
-    clearable   = TRUE
+    disabled = TRUE,
+    readonly = FALSE,
+    type = "textarea",
+    size = "small",
+    clearable = TRUE
   )
-  expect_equal(captured$value,       "x")
+  expect_equal(captured$value, "x")
   expect_equal(captured$placeholder, "hint")
   expect_true(captured$disabled)
   expect_false(captured$readonly)
-  expect_equal(captured$type,      "textarea")
-  expect_equal(captured$size,      "small")
+  expect_equal(captured$type, "textarea")
+  expect_equal(captured$size, "small")
   expect_true(captured$clearable)
 })
 
 test_that("update_el_input: NULL fields excluded from message", {
-  captured     <- NULL
+  captured <- NULL
   mock_session <- list(
-    ns                = function(id) id,
-    sendCustomMessage = function(type, msg) { captured <<- msg }
+    ns = function(id) id,
+    sendCustomMessage = function(type, msg) {
+      captured <<- msg
+    }
   )
   update_el_input(mock_session, "inp1", value = "only value")
   expect_equal(captured$value, "only value")
@@ -319,27 +345,36 @@ test_that("update_el_input: NULL fields excluded from message", {
 })
 
 test_that("update_el_input: show_password maps to showPassword in message", {
-  captured     <- NULL
+  captured <- NULL
   mock_session <- list(
-    ns                = function(id) id,
-    sendCustomMessage = function(type, msg) { captured <<- msg }
+    ns = function(id) id,
+    sendCustomMessage = function(type, msg) {
+      captured <<- msg
+    }
   )
   update_el_input(mock_session, "inp1", show_password = TRUE)
   expect_true(captured$showPassword)
 })
 
 test_that("update_el_input: uses session$ns for id namespacing", {
-  captured     <- NULL
+  captured <- NULL
   mock_session <- list(
-    ns                = function(id) paste0("module-", id),
-    sendCustomMessage = function(type, msg) { captured <<- msg }
+    ns = function(id) paste0("module-", id),
+    sendCustomMessage = function(type, msg) {
+      captured <<- msg
+    }
   )
   update_el_input(mock_session, "inp1", value = "v")
   expect_equal(captured$id, "module-inp1")
 })
 
 test_that("text-like inputs report as they change, debounced as Shiny's are", {
-  for (ui in list(el_input("x"), el_autocomplete("x"), el_input_number("x"), el_slider("x"))) {
+  for (ui in list(
+    el_input("x"),
+    el_autocomplete("x"),
+    el_input_number("x"),
+    el_slider("x")
+  )) {
     expect_equal(vue_spec_of(ui)$rate, list(policy = "debounce", delay = 250))
   }
   expect_null(vue_spec_of(el_select("x", choices = "a"))$rate)

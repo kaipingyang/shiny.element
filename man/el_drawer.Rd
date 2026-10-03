@@ -137,7 +137,11 @@ would, through \code{before_close} (\code{closeDrawer()}, Element UI's name, too
 el_drawer("w1", title = "Settings", content = shiny::tags$p("Body"))
 
 # Sliding up from the bottom, holding other components
-el_drawer("w2", title = "Filters", direction = "btt", size = "40\%",
-          content = shiny::tagList(el_input("q"), el_switch("live")))
-
+el_drawer(
+  "w2",
+  title = "Filters",
+  direction = "btt",
+  size = "40\%",
+  content = shiny::tagList(el_input("q"), el_switch("live"))
+)
 }

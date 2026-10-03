@@ -54,51 +54,62 @@
 #' @examples
 #' el_mention("msg", options = c("Ada", "Grace", "Linus"), placeholder = "Type @")
 #' @export
-el_mention <- function(id = NULL,
-                       value = NULL,
-                       options = NULL,
-                       props = NULL,
-                       prefix = NULL,
-                       split = NULL,
-                       filter_option = NULL,
-                       placement = NULL,
-                       show_arrow = NULL,
-                       offset = NULL,
-                       whole = NULL,
-                       check_is_whole = NULL,
-                       loading = NULL,
-                       popper_class = NULL,
-                       popper_style = NULL,
-                       popper_options = NULL,
-                       placeholder = NULL,
-                       disabled = NULL,
-                       type = NULL,
-                       rows = NULL,
-                       label = NULL,
-                       label_position = c("top", "left", "right"),
-                       label_width = NULL,
-                       label_suffix = NULL,
-                       required = FALSE,
-                       error = NULL,
-                       show_message = TRUE,
-                       inline_message = FALSE,
-                       width = NULL,
-                       slots = NULL) {
+el_mention <- function(
+  id = NULL,
+  value = NULL,
+  options = NULL,
+  props = NULL,
+  prefix = NULL,
+  split = NULL,
+  filter_option = NULL,
+  placement = NULL,
+  show_arrow = NULL,
+  offset = NULL,
+  whole = NULL,
+  check_is_whole = NULL,
+  loading = NULL,
+  popper_class = NULL,
+  popper_style = NULL,
+  popper_options = NULL,
+  placeholder = NULL,
+  disabled = NULL,
+  type = NULL,
+  rows = NULL,
+  label = NULL,
+  label_position = c("top", "left", "right"),
+  label_width = NULL,
+  label_suffix = NULL,
+  required = FALSE,
+  error = NULL,
+  show_message = TRUE,
+  inline_message = FALSE,
+  width = NULL,
+  slots = NULL
+) {
   .el_check_choices("el_mention", environment())
   # A named vector c(Label = value), as the choice components take, or
   # Element Plus's list(value =, label =)
-  if (!is.null(options)) options <- .el_normalize_choices(options)
-  if (is.null(id)) id <- paste0("el_mention_", uuid::UUIDgenerate())
+  if (!is.null(options)) {
+    options <- .el_normalize_choices(options)
+  }
+  if (is.null(id)) {
+    id <- paste0("el_mention_", uuid::UUIDgenerate())
+  }
   ns_id <- .el_ui_id(id, NULL)
   events <- .el_event_bindings(ns_id, c("search", "select", "whole-remove"))
   attrs <- c(list("v-model" = "value"), events$attrs)
   el_widget(
-    label = label, label_position = label_position,
-    label_width = label_width, label_suffix = label_suffix, required = required,
-    error = error, show_message = show_message, inline_message = inline_message,
-    id      = ns_id,
-    markup  = htmltools::tag("el-mention", attrs),
-    props   = .el_props(list(
+    label = label,
+    label_position = label_position,
+    label_width = label_width,
+    label_suffix = label_suffix,
+    required = required,
+    error = error,
+    show_message = show_message,
+    inline_message = inline_message,
+    id = ns_id,
+    markup = htmltools::tag("el-mention", attrs),
+    props = .el_props(list(
       options = options,
       props = props,
       prefix = prefix,
@@ -116,14 +127,19 @@ el_mention <- function(id = NULL,
       placeholder = placeholder,
       disabled = disabled,
       type = type,
-      rows = rows)),
-    data    = list(value = .el_restore(ns_id, if (is.null(value)) NA else value)),
+      rows = rows
+    )),
+    data = list(value = .el_restore(ns_id, if (is.null(value)) NA else value)),
     methods = events$methods,
-    watch   = list(value = JS(sprintf(
-      "function(v) { window.Shiny && Shiny.setInputValue && Shiny.setInputValue('%s', v); }", ns_id))),
+    watch = list(
+      value = JS(sprintf(
+        "function(v) { window.Shiny && Shiny.setInputValue && Shiny.setInputValue('%s', v); }",
+        ns_id
+      ))
+    ),
     mounted = .el_mounted_init(stats::setNames("value", ns_id)),
-    width   = width,
-    slots   = slots
+    width = width,
+    slots = slots
   )
 }
 
@@ -147,12 +163,22 @@ el_mention <- function(id = NULL,
 #'   observeEvent(input$reset, update_el_mention(session, "x", value = NULL))
 #' }
 #' @export
-update_el_mention <- function(session = shiny::getDefaultReactiveDomain(), id, value = NULL,
-                            disabled = NULL, label = NULL, error = NULL) {
+update_el_mention <- function(
+  session = shiny::getDefaultReactiveDomain(),
+  id,
+  value = NULL,
+  disabled = NULL,
+  label = NULL,
+  error = NULL
+) {
   .el_check_session(session)
   msg <- list(id = session$ns(id))
-  if (!is.null(value))    msg$value    <- value
-  if (!is.null(disabled)) msg$disabled <- disabled
+  if (!is.null(value)) {
+    msg$value <- value
+  }
+  if (!is.null(disabled)) {
+    msg$disabled <- disabled
+  }
   msg <- .el_form_item_update(msg, label, error)
   .el_send_update(session, msg)
   invisible(NULL)

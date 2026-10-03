@@ -6,17 +6,23 @@ sent_message <- function(expr) {
   captured <- NULL
   session <- list(
     ns = function(id) id,
-    sendCustomMessage = function(type, msg) captured <<- list(type = type, msg = msg)
+    sendCustomMessage = function(type, msg) {
+      captured <<- list(type = type, msg = msg)
+    }
   )
   expr(session)
   captured
 }
 
 demo_nodes <- list(
-  list(id = "fruit", label = "Fruit", children = list(
-    list(id = "apple", label = "Apple"),
-    list(id = "plum",  label = "Plum", disabled = TRUE)
-  )),
+  list(
+    id = "fruit",
+    label = "Fruit",
+    children = list(
+      list(id = "apple", label = "Apple"),
+      list(id = "plum", label = "Plum", disabled = TRUE)
+    )
+  ),
   list(id = "grain", label = "Grains")
 )
 
@@ -52,8 +58,12 @@ test_that("el_tree: the props map names disabled as well as label and children",
 })
 
 test_that("el_tree: custom field names reach the props map", {
-  html <- render_html(el_tree(id = "picker", label_field = "name",
-                              children_field = "kids", node_key = "key"))
+  html <- render_html(el_tree(
+    id = "picker",
+    label_field = "name",
+    children_field = "kids",
+    node_key = "key"
+  ))
   expect_match(html, '"label":"name"', fixed = TRUE)
   expect_match(html, '"children":"kids"', fixed = TRUE)
   expect_match(html, '"nodeKey":"key"', fixed = TRUE)
@@ -66,9 +76,14 @@ test_that("el_tree: the tree is named so shinyVueReceive can reach its methods",
 
 test_that("el_tree: flags reach the Vue data", {
   html <- render_html(el_tree(
-    id = "picker", data = demo_nodes, show_checkbox = TRUE,
-    check_strictly = TRUE, default_expand_all = TRUE,
-    expand_on_click_node = FALSE, accordion = TRUE, highlight_current = TRUE
+    id = "picker",
+    data = demo_nodes,
+    show_checkbox = TRUE,
+    check_strictly = TRUE,
+    default_expand_all = TRUE,
+    expand_on_click_node = FALSE,
+    accordion = TRUE,
+    highlight_current = TRUE
   ))
   expect_match(html, '"showCheckbox":true')
   expect_match(html, '"checkStrictly":true')
@@ -79,8 +94,12 @@ test_that("el_tree: flags reach the Vue data", {
 })
 
 test_that("el_tree: initial expanded and checked keys are arrays", {
-  html <- render_html(el_tree(id = "picker", data = demo_nodes,
-                              expanded = "fruit", checked = c("apple", "plum")))
+  html <- render_html(el_tree(
+    id = "picker",
+    data = demo_nodes,
+    expanded = "fruit",
+    checked = c("apple", "plum")
+  ))
   expect_match(html, '"expandedKeys":\\["fruit"\\]')
   expect_match(html, '"checkedKeys":\\["apple","plum"\\]')
 
@@ -91,11 +110,21 @@ test_that("el_tree: initial expanded and checked keys are arrays", {
 })
 
 test_that("el_tree: empty_text falls back to Element's own", {
-  expect_match(render_html(el_tree(id = "picker")), '"emptyText":null', fixed = TRUE)
-  expect_match(render_html(el_tree(id = "picker")),
-               .el_optional_bind("emptyText"), fixed = TRUE)
-  expect_match(render_html(el_tree(id = "picker", empty_text = "Nothing here")),
-               '"emptyText":"Nothing here"', fixed = TRUE)
+  expect_match(
+    render_html(el_tree(id = "picker")),
+    '"emptyText":null',
+    fixed = TRUE
+  )
+  expect_match(
+    render_html(el_tree(id = "picker")),
+    .el_optional_bind("emptyText"),
+    fixed = TRUE
+  )
+  expect_match(
+    render_html(el_tree(id = "picker", empty_text = "Nothing here")),
+    '"emptyText":"Nothing here"',
+    fixed = TRUE
+  )
 })
 
 test_that("el_tree: reports the clicked node and the checked set", {
@@ -108,7 +137,9 @@ test_that("el_tree: reports the clicked node and the checked set", {
 # ── update_el_tree ────────────────────────────────────────────────────────────
 
 test_that("update_el_tree: sends under the right message type", {
-  out <- sent_message(function(s) update_el_tree(s, "picker", data = demo_nodes))
+  out <- sent_message(function(s) {
+    update_el_tree(s, "picker", data = demo_nodes)
+  })
   expect_equal(out$type, "shinyVueUpdate")
   expect_equal(out$msg$id, "picker")
   expect_equal(out$msg$treeData, demo_nodes)
@@ -136,7 +167,10 @@ test_that("update_el_tree: NULL fields are excluded", {
 test_that("an update replaces the tree's selection through setCheckedKeys", {
   # Assigning default-checked-keys only ever adds: Element runs it through
   # _initDefaultCheckedNodes(), which never unchecks anything.
-  m <- vue_payload_of(el_tree("t", data = list(list(id = 1, label = "a"))))$methods
+  m <- vue_payload_of(el_tree(
+    "t",
+    data = list(list(id = 1, label = "a"))
+  ))$methods
   expect_match(m$shinyVueReceive, "setCheckedKeys", fixed = TRUE)
   # setCheckedKeys fires no check event; the field it sets is reported after
   expect_match(m$shinyVueReceive, "this.checked = keys", fixed = TRUE)
@@ -146,7 +180,7 @@ test_that("an update replaces the tree's selection through setCheckedKeys", {
 
 demo_df <- data.frame(
   region = c("North", "North", "South"),
-  city   = c("Leeds", "York", "Bath"),
+  city = c("Leeds", "York", "Bath"),
   stringsAsFactors = FALSE
 )
 
@@ -160,10 +194,13 @@ test_that("df_to_tree_data: one level per column", {
 
 test_that("df_to_tree_data: keys are built from the path, so labels may repeat", {
   # A city name appearing under two regions must still get distinct keys.
-  df <- data.frame(region = c("North", "South"), city = c("Newport", "Newport"),
-                   stringsAsFactors = FALSE)
+  df <- data.frame(
+    region = c("North", "South"),
+    city = c("Newport", "Newport"),
+    stringsAsFactors = FALSE
+  )
   nodes <- df_to_tree_data(df, c("region", "city"))
-  keys  <- c(nodes[[1]]$children[[1]]$id, nodes[[2]]$children[[1]]$id)
+  keys <- c(nodes[[1]]$children[[1]]$id, nodes[[2]]$children[[1]]$id)
   expect_equal(keys, c("North/Newport", "South/Newport"))
   expect_equal(length(unique(keys)), 2)
 })
@@ -187,8 +224,10 @@ test_that("df_to_tree_data: a single column gives a flat list", {
 test_that("df_to_tree_data: values keep the order they appear in", {
   # Unlike df_to_cascader_options(), which sorts through split().
   df <- data.frame(g = c("b", "a", "c"), stringsAsFactors = FALSE)
-  expect_equal(vapply(df_to_tree_data(df, "g"), function(n) n$label, character(1)),
-               c("b", "a", "c"))
+  expect_equal(
+    vapply(df_to_tree_data(df, "g"), function(n) n$label, character(1)),
+    c("b", "a", "c")
+  )
 })
 
 test_that("df_to_tree_data: factors are handled as their labels", {
@@ -209,9 +248,14 @@ test_that("every field of Element's props map is settable", {
 })
 
 test_that("the field map follows the data's own names", {
-  ui <- el_tree("t", data = list(list(name = "A")),
-                label_field = "name", children_field = "kids",
-                disabled_field = "locked", is_leaf_field = "leaf")
+  ui <- el_tree(
+    "t",
+    data = list(list(name = "A")),
+    label_field = "name",
+    children_field = "kids",
+    disabled_field = "locked",
+    is_leaf_field = "leaf"
+  )
   props <- vue_data_of(ui)$treeProps
   expect_equal(props$label, "name")
   expect_equal(props$children, "kids")
@@ -231,9 +275,14 @@ test_that("every field of Element's props map is settable", {
 })
 
 test_that("the field map follows the data's own names", {
-  ui <- el_tree("t", data = list(list(name = "A")),
-                label_field = "name", children_field = "kids",
-                disabled_field = "locked", is_leaf_field = "leaf")
+  ui <- el_tree(
+    "t",
+    data = list(list(name = "A")),
+    label_field = "name",
+    children_field = "kids",
+    disabled_field = "locked",
+    is_leaf_field = "leaf"
+  )
   props <- vue_data_of(ui)$treeProps
   expect_equal(props$label, "name")
   expect_equal(props$children, "kids")

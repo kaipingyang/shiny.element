@@ -13,9 +13,13 @@ If you have too much data to display in one page, use pagination.
 Set `layout` with different pagination elements you wish to display separated with a comma. Pagination elements are: `prev` (a button navigating to the previous page), `next` (a button navigating to the next page), `pager` (page list), `jumper` (a jump-to input), `total` (total item count), `sizes` (a select to determine page size) and `->`(every element after this symbol will be pulled to the right).
 
 ```{r basic-usage, eval = FALSE, shot = TRUE}
-tags$div(style = "display: grid; gap: 16px",
-  tags$div("When you have few pages"), el_pagination("pg1", layout = "prev, pager, next", total = 50),
-  tags$div("When you have more than 7 pages"), el_pagination("pg2", layout = "prev, pager, next", total = 1000))
+tags$div(
+  style = "display: grid; gap: 16px",
+  tags$div("When you have few pages"),
+  el_pagination("pg1", layout = "prev, pager, next", total = 50),
+  tags$div("When you have more than 7 pages"),
+  el_pagination("pg2", layout = "prev, pager, next", total = 1000)
+)
 ```
 
 ## Number of pagers
@@ -23,7 +27,13 @@ tags$div(style = "display: grid; gap: 16px",
 By default, Pagination collapses extra pager buttons when it has more than 7 pages. This can be configured with the `pager-count` attribute.
 
 ```{r number-of-pagers, eval = FALSE, shot = TRUE}
-el_pagination("pg_pagers", page_size = 20, pager_count = 11, layout = "prev, pager, next", total = 1000)
+el_pagination(
+  "pg_pagers",
+  page_size = 20,
+  pager_count = 11,
+  layout = "prev, pager, next",
+  total = 1000
+)
 ```
 
 ## Buttons with background color
@@ -31,7 +41,12 @@ el_pagination("pg_pagers", page_size = 20, pager_count = 11, layout = "prev, pag
 Set the `background` attribute and the buttons will have a background color.
 
 ```{r background-color, eval = FALSE, shot = TRUE}
-el_pagination("pg_bg", background = TRUE, layout = "prev, pager, next", total = 1000)
+el_pagination(
+  "pg_bg",
+  background = TRUE,
+  layout = "prev, pager, next",
+  total = 1000
+)
 ```
 
 ## Small Pagination
@@ -41,9 +56,22 @@ Use small pagination in the case of limited space.
 set size to change the `size`. Here is a demonstration of `small`
 
 ```{r small-pagination, eval = FALSE, shot = TRUE}
-tags$div(style = "display: grid; gap: 16px",
-  el_pagination("pg_s1", size = "small", layout = "prev, pager, next", total = 50),
-  el_pagination("pg_s2", size = "small", background = TRUE, layout = "prev, pager, next", total = 50))
+tags$div(
+  style = "display: grid; gap: 16px",
+  el_pagination(
+    "pg_s1",
+    size = "small",
+    layout = "prev, pager, next",
+    total = 50
+  ),
+  el_pagination(
+    "pg_s2",
+    size = "small",
+    background = TRUE,
+    layout = "prev, pager, next",
+    total = 50
+  )
+)
 ```
 
 ## Hide pagination when there is only one page
@@ -51,7 +79,12 @@ tags$div(style = "display: grid; gap: 16px",
 When there is only one page, hide the pagination by setting the `hide-on-single-page` attribute.
 
 ```{r auto-hide-pagination, eval = FALSE, shot = TRUE}
-el_pagination("pg_hide", hide_on_single_page = FALSE, total = 5, layout = "prev, pager, next")
+el_pagination(
+  "pg_hide",
+  hide_on_single_page = FALSE,
+  total = 5,
+  layout = "prev, pager, next"
+)
 ```
 
 ## More elements
@@ -61,15 +94,43 @@ Add more modules based on your scenario.
 This example is a complete use case. It uses `size-change` and `current-change` event to handle page size changes and current page changes. `page-sizes` accepts an array of integers, each of which represents a different page size in the `sizes` select options, e.g. `[100, 200, 300, 400]` indicates that the select will have four options: 100, 200, 300 or 400 items per page.
 
 ```{r more-elements, eval = FALSE, shot = TRUE}
-tags$div(style = "display: grid; gap: 16px",
-  tags$div("Total item count"), el_pagination("pg_m1", current_page = 5, page_size = 100,
-    layout = "total, prev, pager, next", total = 1000),
-  tags$div("Change page size"), el_pagination("pg_m2", current_page = 5, page_size = 100,
-    page_sizes = c(100, 200, 300, 400), layout = "sizes, prev, pager, next", total = 1000),
-  tags$div("Jump to"), el_pagination("pg_m3", current_page = 5, page_size = 100,
-    layout = "prev, pager, next, jumper", total = 1000),
-  tags$div("All combined"), el_pagination("pg_m4", current_page = 4, page_size = 100,
-    page_sizes = c(100, 200, 300, 400), layout = "total, sizes, prev, pager, next, jumper", total = 400))
+tags$div(
+  style = "display: grid; gap: 16px",
+  tags$div("Total item count"),
+  el_pagination(
+    "pg_m1",
+    current_page = 5,
+    page_size = 100,
+    layout = "total, prev, pager, next",
+    total = 1000
+  ),
+  tags$div("Change page size"),
+  el_pagination(
+    "pg_m2",
+    current_page = 5,
+    page_size = 100,
+    page_sizes = c(100, 200, 300, 400),
+    layout = "sizes, prev, pager, next",
+    total = 1000
+  ),
+  tags$div("Jump to"),
+  el_pagination(
+    "pg_m3",
+    current_page = 5,
+    page_size = 100,
+    layout = "prev, pager, next, jumper",
+    total = 1000
+  ),
+  tags$div("All combined"),
+  el_pagination(
+    "pg_m4",
+    current_page = 4,
+    page_size = 100,
+    page_sizes = c(100, 200, 300, 400),
+    layout = "total, sizes, prev, pager, next, jumper",
+    total = 400
+  )
+)
 ```
 
 ## API

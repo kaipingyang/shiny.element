@@ -15,16 +15,41 @@ Bind `v-model` to a `Boolean` typed variable. The `--el-switch-on-color` and `--
 ```{r basic, eval = FALSE, shot = TRUE}
 tagList(
   el_switch("sw1", value = TRUE),
-  el_switch("sw2", value = TRUE, active_color = "#13ce66", inactive_color = "#ff4949"))
+  el_switch(
+    "sw2",
+    value = TRUE,
+    active_color = "#13ce66",
+    inactive_color = "#ff4949"
+  )
+)
 ```
 
 ## Sizes
 
 ```{r sizes, eval = FALSE, shot = TRUE}
-tags$div(style = "display: flex; gap: 16px; align-items: center",
-  el_switch("sw_l", value = TRUE, size = "large", active_text = "Open", inactive_text = "Close"),
-  el_switch("sw_d", value = TRUE, active_text = "Open", inactive_text = "Close"),
-  el_switch("sw_s", value = TRUE, size = "small", active_text = "Open", inactive_text = "Close"))
+tags$div(
+  style = "display: flex; gap: 16px; align-items: center",
+  el_switch(
+    "sw_l",
+    value = TRUE,
+    size = "large",
+    active_text = "Open",
+    inactive_text = "Close"
+  ),
+  el_switch(
+    "sw_d",
+    value = TRUE,
+    active_text = "Open",
+    inactive_text = "Close"
+  ),
+  el_switch(
+    "sw_s",
+    value = TRUE,
+    size = "small",
+    active_text = "Open",
+    inactive_text = "Close"
+  )
+)
 ```
 
 ## Text description
@@ -34,10 +59,29 @@ You can add `active-text` and `inactive-text` attribute to show texts. use `inli
 You can add `active-text` and `inactive-text` attribute to show texts.
 
 ```{r text-description, eval = FALSE, shot = TRUE}
-tags$div(style = "display: grid; gap: 12px",
-  el_switch("sw_t1", value = TRUE, active_text = "Pay by month", inactive_text = "Pay by year"),
-  el_switch("sw_t2", value = TRUE, inline_prompt = TRUE, active_text = "Y", inactive_text = "N"),
-  el_switch("sw_t3", value = TRUE, inline_prompt = TRUE, active_text = "是", inactive_text = "否"))
+tags$div(
+  style = "display: grid; gap: 12px",
+  el_switch(
+    "sw_t1",
+    value = TRUE,
+    active_text = "Pay by month",
+    inactive_text = "Pay by year"
+  ),
+  el_switch(
+    "sw_t2",
+    value = TRUE,
+    inline_prompt = TRUE,
+    active_text = "Y",
+    inactive_text = "N"
+  ),
+  el_switch(
+    "sw_t3",
+    value = TRUE,
+    inline_prompt = TRUE,
+    active_text = "是",
+    inactive_text = "否"
+  )
+)
 ```
 
 ## Display custom icons
@@ -49,9 +93,22 @@ tags$div(style = "display: grid; gap: 12px",
 You can add `active-icon` and `inactive-icon` attribute to show icons. use `inline-prompt` attribute to control icon is displayed inside dot.
 
 ```{r custom-icons, eval = FALSE, shot = TRUE}
-tags$div(style = "display: flex; gap: 16px",
-  el_switch("sw_i1", value = TRUE, active_icon = "Check", inactive_icon = "Close"),
-  el_switch("sw_i2", value = TRUE, inline_prompt = TRUE, active_icon = "Check", inactive_icon = "Close"))
+tags$div(
+  style = "display: flex; gap: 16px",
+  el_switch(
+    "sw_i1",
+    value = TRUE,
+    active_icon = "Check",
+    inactive_icon = "Close"
+  ),
+  el_switch(
+    "sw_i2",
+    value = TRUE,
+    inline_prompt = TRUE,
+    active_icon = "Check",
+    inactive_icon = "Close"
+  )
+)
 ```
 
 ## Extended value types
@@ -59,8 +116,14 @@ tags$div(style = "display: flex; gap: 16px",
 You can set `active-value` and `inactive-value` attributes. They both receive a `Boolean`, `String` or `Number` typed value.
 
 ```{r extended-value-types, eval = FALSE, shot = TRUE}
-el_switch("sw_ext", value = "100", active_value = "100", inactive_value = "0",
-          active_color = "#13ce66", inactive_color = "#ff4949")
+el_switch(
+  "sw_ext",
+  value = "100",
+  active_value = "100",
+  inactive_value = "0",
+  active_color = "#13ce66",
+  inactive_color = "#ff4949"
+)
 ```
 
 ## Disabled
@@ -68,7 +131,10 @@ el_switch("sw_ext", value = "100", active_value = "100", inactive_value = "0",
 Adding the `disabled` attribute disables Switch.
 
 ```{r disabled, eval = FALSE, shot = TRUE}
-tagList(el_switch("sw_dis1", value = TRUE, disabled = TRUE), el_switch("sw_dis2", disabled = TRUE))
+tagList(
+  el_switch("sw_dis1", value = TRUE, disabled = TRUE),
+  el_switch("sw_dis2", disabled = TRUE)
+)
 ```
 
 ## Loading
@@ -76,7 +142,10 @@ tagList(el_switch("sw_dis1", value = TRUE, disabled = TRUE), el_switch("sw_dis2"
 Setting the `loading` attribute to `true` indicates a loading state on the Switch.
 
 ```{r loading, eval = FALSE, shot = TRUE}
-tagList(el_switch("sw_ld1", value = TRUE, loading = TRUE), el_switch("sw_ld2", loading = TRUE))
+tagList(
+  el_switch("sw_ld1", value = TRUE, loading = TRUE),
+  el_switch("sw_ld2", loading = TRUE)
+)
 ```
 
 ## Prevent switching
@@ -87,7 +156,12 @@ set the `before-change` property, If `false` is returned or a `Promise` is retur
 or a promise.
 
 ```{r prevent-switching, eval = FALSE, shot = TRUE}
-el_switch("sw_guard", before_change = JS("function() { return new Promise(function(r) { setTimeout(function() { r(true); }, 1000); }); }"))
+el_switch(
+  "sw_guard",
+  before_change = JS(
+    "function() { return new Promise(function(r) { setTimeout(function() { r(true); }, 1000); }); }"
+  )
+)
 ```
 
 ## Custom action icon
@@ -95,8 +169,15 @@ el_switch("sw_guard", before_change = JS("function() { return new Promise(functi
 You can add `active-action-icon` and `inactive-action-icon` attribute to show icons.
 
 ```{r custom-action-icon, eval = FALSE, shot = TRUE}
-tags$div(style = "display: flex; gap: 16px",
-  el_switch("sw_ai1", value = TRUE, active_action_icon = "View", inactive_action_icon = "Hide"))
+tags$div(
+  style = "display: flex; gap: 16px",
+  el_switch(
+    "sw_ai1",
+    value = TRUE,
+    active_action_icon = "View",
+    inactive_action_icon = "Hide"
+  )
+)
 ```
 
 ## Custom action slot
@@ -104,9 +185,14 @@ tags$div(style = "display: flex; gap: 16px",
 You can use `active-action` and `inactive-action` slot to customize action.
 
 ```{r custom-action-slot, eval = FALSE, shot = TRUE}
-el_switch("sw_slot", value = TRUE, slots = list(
-  `active-action` = tags$span(class = "custom-active-action", "T"),
-  `inactive-action` = tags$span(class = "custom-inactive-action", "F")))
+el_switch(
+  "sw_slot",
+  value = TRUE,
+  slots = list(
+    `active-action` = tags$span(class = "custom-active-action", "T"),
+    `inactive-action` = tags$span(class = "custom-inactive-action", "F")
+  )
+)
 ```
 
 ## API

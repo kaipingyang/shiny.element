@@ -60,8 +60,12 @@ el_rule(required = TRUE, message = "Please enter your name")
 el_rule(type = "email", message = "Not a valid email", trigger = "blur")
 el_rule(type = "enum", enum = c("a", "b"), message = "a or b")
 # Element's custom validator
-el_rule(validator = JS(
-  "function(rule, value, callback) {",
-  "  value \% 2 === 0 ? callback() : callback(new Error('An even number'));",
-  "}"), trigger = "change")
+el_rule(
+  validator = JS(
+    "function(rule, value, callback) {",
+    "  value \% 2 === 0 ? callback() : callback(new Error('An even number'));",
+    "}"
+  ),
+  trigger = "change"
+)
 }

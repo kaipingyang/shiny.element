@@ -57,10 +57,9 @@ When used without content, renders a standalone badge element.
 }
 \examples{
 el_badge(el_button("btn1", "Messages"), value = 5)
-el_badge(el_button("btn2", "Alerts"),   value = 200, max = 99)
-el_badge(el_button("btn3", "Updates"),  is_dot = TRUE)
+el_badge(el_button("btn2", "Alerts"), value = 200, max = 99)
+el_badge(el_button("btn3", "Updates"), is_dot = TRUE)
 
 # Updated from the server: update_el_badge(session, "unread", value = 7)
 el_badge(el_button("inbox", "Inbox"), value = 3, id = "unread")
-
 }

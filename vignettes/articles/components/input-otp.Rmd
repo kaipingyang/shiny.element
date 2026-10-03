@@ -27,9 +27,12 @@ el_input_otp("otp_len", length = 4)
 There are three types available: `outlined` (default), `filled`, and `underlined`.
 
 ```{r types, eval = FALSE, shot = TRUE}
-tags$div(style = "display: grid; gap: 16px",
-  el_input_otp("otp_o", type = "outlined"), el_input_otp("otp_f", type = "filled"),
-  el_input_otp("otp_u", type = "underlined"))
+tags$div(
+  style = "display: grid; gap: 16px",
+  el_input_otp("otp_o", type = "outlined"),
+  el_input_otp("otp_f", type = "filled"),
+  el_input_otp("otp_u", type = "underlined")
+)
 ```
 
 ## Sizes
@@ -37,8 +40,12 @@ tags$div(style = "display: grid; gap: 16px",
 There are three sizes available: `large`, `default`, and `small`.
 
 ```{r sizes, eval = FALSE, shot = TRUE}
-tags$div(style = "display: grid; gap: 16px",
-  el_input_otp("otp_l", size = "large"), el_input_otp("otp_d"), el_input_otp("otp_s", size = "small"))
+tags$div(
+  style = "display: grid; gap: 16px",
+  el_input_otp("otp_l", size = "large"),
+  el_input_otp("otp_d"),
+  el_input_otp("otp_s", size = "small")
+)
 ```
 
 ## Disabled & Readonly
@@ -72,7 +79,10 @@ Set the `validator` prop to validate the input character, and use `inputmode` to
 `validator`, a `JS()` function, decides which characters each field takes.
 
 ```{r validator, eval = FALSE, shot = TRUE}
-el_input_otp("otp_val", validator = JS("function(char) { return /^[0-9]$/.test(char); }"))
+el_input_otp(
+  "otp_val",
+  validator = JS("function(char) { return /^[0-9]$/.test(char); }")
+)
 ```
 
 ## API

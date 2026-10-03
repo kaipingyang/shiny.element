@@ -79,58 +79,59 @@
 #'   }
 #'   shinyApp(ui, server)
 #' }
-#'
 #' @export
 el_switch <- function(
-    id             = NULL,
-    value          = FALSE,
-    disabled       = FALSE,
-    label = NULL,
-    label_position = c("top", "left", "right"),
-    label_width = NULL,
-    label_suffix = NULL,
-    required = FALSE,
-    error = NULL,
-    show_message = TRUE,
-    inline_message = FALSE,
-    width          = NULL,
-    active_text    = NULL,
-    inactive_text  = NULL,
-    active_color   = NULL,
-    inactive_color = NULL,
-    active_value   = TRUE,
-    inactive_value = FALSE,
-    name           = NULL,
-    validate_event = NULL,
-    active_action_icon = NULL,
-    active_icon = NULL,
-    aria_label = NULL,
-    before_change = NULL,
-    border_color = NULL,
-    inactive_action_icon = NULL,
-    inactive_icon = NULL,
-    inline_prompt = NULL,
-    loading = NULL,
-    size = NULL,
-    tabindex = NULL,
-    slots          = NULL,
-    session        = NULL
+  id = NULL,
+  value = FALSE,
+  disabled = FALSE,
+  label = NULL,
+  label_position = c("top", "left", "right"),
+  label_width = NULL,
+  label_suffix = NULL,
+  required = FALSE,
+  error = NULL,
+  show_message = TRUE,
+  inline_message = FALSE,
+  width = NULL,
+  active_text = NULL,
+  inactive_text = NULL,
+  active_color = NULL,
+  inactive_color = NULL,
+  active_value = TRUE,
+  inactive_value = FALSE,
+  name = NULL,
+  validate_event = NULL,
+  active_action_icon = NULL,
+  active_icon = NULL,
+  aria_label = NULL,
+  before_change = NULL,
+  border_color = NULL,
+  inactive_action_icon = NULL,
+  inactive_icon = NULL,
+  inline_prompt = NULL,
+  loading = NULL,
+  size = NULL,
+  tabindex = NULL,
+  slots = NULL,
+  session = NULL
 ) {
   .el_check_choices("el_switch", environment())
-  if (is.null(id)) id <- paste0("el_switch_", uuid::UUIDgenerate())
-  ns_id        <- .el_ui_id(id, session)
+  if (is.null(id)) {
+    id <- paste0("el_switch_", uuid::UUIDgenerate())
+  }
+  ns_id <- .el_ui_id(id, session)
   container_id <- paste0(ns_id, "_container")
 
   switch_attrs <- list(
-    "v-model"         = "value",
-    ":disabled"       = "disabled",
-    ":active-text"    = "activeText",
-    ":inactive-text"  = "inactiveText",
-    ":active-color"   = "activeColor",
+    "v-model" = "value",
+    ":disabled" = "disabled",
+    ":active-text" = "activeText",
+    ":inactive-text" = "inactiveText",
+    ":active-color" = "activeColor",
     ":inactive-color" = "inactiveColor",
-    ":active-value"   = "activeValue",
+    ":active-value" = "activeValue",
     ":inactive-value" = "inactiveValue",
-    "@change"         = "handleChange"
+    "@change" = "handleChange"
   )
   switch_attrs[[":width"]] <- .el_optional_bind("width")
   switch_attrs[[":name"]] <- .el_optional_bind("name")
@@ -138,13 +139,13 @@ el_switch <- function(
   switch_tag <- htmltools::tag("el-switch", switch_attrs)
 
   vue_data <- list(
-    value         = value,
-    disabled      = disabled,
-    activeText    = if (is.null(active_text))    "" else active_text,
-    inactiveText  = if (is.null(inactive_text))  "" else inactive_text,
-    activeColor   = if (is.null(active_color))   "" else active_color,
+    value = value,
+    disabled = disabled,
+    activeText = if (is.null(active_text)) "" else active_text,
+    inactiveText = if (is.null(inactive_text)) "" else inactive_text,
+    activeColor = if (is.null(active_color)) "" else active_color,
     inactiveColor = if (is.null(inactive_color)) "" else inactive_color,
-    activeValue   = active_value,
+    activeValue = active_value,
     inactiveValue = inactive_value
   )
   vue_data$width <- .el_or_na(width)
@@ -162,20 +163,27 @@ el_switch <- function(
       inline_prompt = inline_prompt,
       loading = loading,
       size = size,
-      tabindex = tabindex)),
-    label = label, label_position = label_position,
-    label_width = label_width, label_suffix = label_suffix, required = required,
-    error = error, show_message = show_message, inline_message = inline_message,
-    id      = ns_id,
-    markup  = switch_tag,
-    data    = vue_data,
+      tabindex = tabindex
+    )),
+    label = label,
+    label_position = label_position,
+    label_width = label_width,
+    label_suffix = label_suffix,
+    required = required,
+    error = error,
+    show_message = show_message,
+    inline_message = inline_message,
+    id = ns_id,
+    markup = switch_tag,
+    data = vue_data,
     methods = list(
       handleChange = JS(sprintf(
-        "function(value) { window.Shiny && Shiny.setInputValue && Shiny.setInputValue('%s', value); }", ns_id
+        "function(value) { window.Shiny && Shiny.setInputValue && Shiny.setInputValue('%s', value); }",
+        ns_id
       ))
     ),
-    mounted    = .el_mounted_init(stats::setNames("value", ns_id)),
-    slots      = slots
+    mounted = .el_mounted_init(stats::setNames("value", ns_id)),
+    slots = slots
   )
 }
 
@@ -211,27 +219,39 @@ el_switch <- function(
 #' }
 #' @export
 update_el_switch <- function(
-    session = shiny::getDefaultReactiveDomain(),
-    id,
-    value          = NULL,
-    disabled       = NULL,
-    active_text    = NULL,
-    inactive_text  = NULL,
-    active_color   = NULL,
-    inactive_color = NULL,
-    label = NULL, error = NULL) {
+  session = shiny::getDefaultReactiveDomain(),
+  id,
+  value = NULL,
+  disabled = NULL,
+  active_text = NULL,
+  inactive_text = NULL,
+  active_color = NULL,
+  inactive_color = NULL,
+  label = NULL,
+  error = NULL
+) {
   .el_check_session(session)
   ns_id <- session$ns(id)
-  msg   <- list(id = ns_id)
-  if (!is.null(value))         msg$value         <- value
-  if (!is.null(disabled))      msg$disabled      <- disabled
-  if (!is.null(active_text))   msg$activeText    <- active_text
-  if (!is.null(inactive_text)) msg$inactiveText  <- inactive_text
-  if (!is.null(active_color))  msg$activeColor   <- active_color
-  if (!is.null(inactive_color)) msg$inactiveColor <- inactive_color
+  msg <- list(id = ns_id)
+  if (!is.null(value)) {
+    msg$value <- value
+  }
+  if (!is.null(disabled)) {
+    msg$disabled <- disabled
+  }
+  if (!is.null(active_text)) {
+    msg$activeText <- active_text
+  }
+  if (!is.null(inactive_text)) {
+    msg$inactiveText <- inactive_text
+  }
+  if (!is.null(active_color)) {
+    msg$activeColor <- active_color
+  }
+  if (!is.null(inactive_color)) {
+    msg$inactiveColor <- inactive_color
+  }
   msg <- .el_form_item_update(msg, label, error)
   .el_send_update(session, msg)
   invisible(NULL)
 }
-
-

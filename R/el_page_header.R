@@ -38,18 +38,22 @@
 #'   shinyApp(ui, server)
 #' }
 #' @export
-el_page_header <- function(id = NULL,
-                           title = NULL,
-                           content = NULL,
-                           icon = NULL,
-                           width = NULL,
-                           slots   = NULL,
-                           session = NULL) {
-  if (is.null(id)) id <- paste0("el_page_header_", uuid::UUIDgenerate())
+el_page_header <- function(
+  id = NULL,
+  title = NULL,
+  content = NULL,
+  icon = NULL,
+  width = NULL,
+  slots = NULL,
+  session = NULL
+) {
+  if (is.null(id)) {
+    id <- paste0("el_page_header_", uuid::UUIDgenerate())
+  }
   ns_id <- .el_ui_id(id, session)
 
   attrs <- list(
-    ":title"   = .el_optional_bind("title"),
+    ":title" = .el_optional_bind("title"),
     ":content" = .el_optional_bind("content")
   )
   events <- .el_event_bindings(ns_id, "back")
@@ -57,13 +61,14 @@ el_page_header <- function(id = NULL,
 
   el_widget(
     props = .el_props(list(
-      icon = .el_icon_name(icon))),
-    id     = ns_id,
+      icon = .el_icon_name(icon)
+    )),
+    id = ns_id,
     markup = htmltools::tag("el-page-header", attrs),
-    data   = list(title = .el_or_na(title), content = .el_or_na(content)),
-    methods    = events$methods,
-    width      = width,
-    slots      = slots
+    data = list(title = .el_or_na(title), content = .el_or_na(content)),
+    methods = events$methods,
+    width = width,
+    slots = slots
   )
 }
 
@@ -86,14 +91,21 @@ el_page_header <- function(id = NULL,
 #'   })
 #' }
 #' @export
-update_el_page_header <- function(session = shiny::getDefaultReactiveDomain(), id, title = NULL, content = NULL) {
+update_el_page_header <- function(
+  session = shiny::getDefaultReactiveDomain(),
+  id,
+  title = NULL,
+  content = NULL
+) {
   .el_check_session(session)
   ns_id <- session$ns(id)
   msg <- list(id = ns_id)
-  if (!is.null(title))   msg$title   <- title
-  if (!is.null(content)) msg$content <- content
+  if (!is.null(title)) {
+    msg$title <- title
+  }
+  if (!is.null(content)) {
+    msg$content <- content
+  }
   .el_send_update(session, msg)
   invisible(NULL)
 }
-
-

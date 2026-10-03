@@ -68,8 +68,13 @@
 #' el_slider("slider2", value = c(20, 80), range = TRUE)
 #'
 #' # Vertical slider with marks
-#' el_slider("slider3", value = 50, vertical = TRUE, height = "200px",
-#'           marks = list("0" = "0km", "50" = "50km", "100" = "100km"))
+#' el_slider(
+#'   "slider3",
+#'   value = 50,
+#'   vertical = TRUE,
+#'   height = "200px",
+#'   marks = list("0" = "0km", "50" = "50km", "100" = "100km")
+#' )
 #'
 #' # Shiny app example
 #' if (interactive()) {
@@ -84,67 +89,70 @@
 #'   }
 #'   shinyApp(ui, server)
 #' }
-#'
 #' @export
 el_slider <- function(
-    id           = NULL,
-    value        = 0,
-    min          = 0,
-    max          = 100,
-    step         = 1,
-    range        = FALSE,
-    disabled     = FALSE,
-    show_input   = FALSE,
-    show_stops   = FALSE,
-    show_tooltip = TRUE,
-    vertical     = FALSE,
-    height       = NULL,
-    marks        = NULL,
-    label        = NULL,
-    input_size   = NULL,
-    show_input_controls = NULL,
-    tooltip_class = NULL,
-    format_tooltip = NULL,
-    label_position = c("top", "left", "right"),
-    label_width = NULL,
-    label_suffix = NULL,
-    required = FALSE,
-    error = NULL,
-    show_message = TRUE,
-    inline_message = FALSE,
-    aria_label = NULL,
-    format_value_text = NULL,
-    persistent = NULL,
-    placement = NULL,
-    range_end_label = NULL,
-    range_start_label = NULL,
-    size = NULL,
-    validate_event = NULL,
-    width        = NULL,
-    slots        = NULL,
-    session      = NULL
+  id = NULL,
+  value = 0,
+  min = 0,
+  max = 100,
+  step = 1,
+  range = FALSE,
+  disabled = FALSE,
+  show_input = FALSE,
+  show_stops = FALSE,
+  show_tooltip = TRUE,
+  vertical = FALSE,
+  height = NULL,
+  marks = NULL,
+  label = NULL,
+  input_size = NULL,
+  show_input_controls = NULL,
+  tooltip_class = NULL,
+  format_tooltip = NULL,
+  label_position = c("top", "left", "right"),
+  label_width = NULL,
+  label_suffix = NULL,
+  required = FALSE,
+  error = NULL,
+  show_message = TRUE,
+  inline_message = FALSE,
+  aria_label = NULL,
+  format_value_text = NULL,
+  persistent = NULL,
+  placement = NULL,
+  range_end_label = NULL,
+  range_start_label = NULL,
+  size = NULL,
+  validate_event = NULL,
+  width = NULL,
+  slots = NULL,
+  session = NULL
 ) {
   .el_check_choices("el_slider", environment())
-  if (is.null(id)) id <- paste0("el_slider_", uuid::UUIDgenerate())
-  ns_id        <- .el_ui_id(id, session)
+  if (is.null(id)) {
+    id <- paste0("el_slider_", uuid::UUIDgenerate())
+  }
+  ns_id <- .el_ui_id(id, session)
   container_id <- paste0(ns_id, "_container")
 
   # Normalize value for range mode
-  if (range && length(value) == 1) value <- c(value, max)
+  if (range && length(value) == 1) {
+    value <- c(value, max)
+  }
 
   # Vue binding attributes
   slider_attrs <- list(
-    "v-model"       = "value",
-    ":min"          = "min",
-    ":max"          = "max",
-    ":step"         = "step",
-    ":range"        = "range",
-    ":disabled"     = "disabled",
-    ":show-input"   = "showInput",
-    ":show-stops"   = "showStops",
+    "v-model" = "value",
+    ":min" = "min",
+    ":max" = "max",
+    ":step" = "step",
+    ":range" = "range",
+    ":disabled" = "disabled",
+    ":show-input" = "showInput",
+    ":show-stops" = "showStops",
     ":show-tooltip" = "showTooltip",
-    ":vertical"     = "vertical",
-    "@change"       = "handleChange"
+    ":vertical" = "vertical",
+    "@change" = "handleChange"
   )
   # Element only reads height in vertical mode, but the field has to exist
   # either way for update_el_slider() to be able to set it.
@@ -152,30 +160,41 @@ el_slider <- function(
   slider_attrs[[":marks"]] <- .el_optional_bind("marks")
   slider_attrs[[":label"]] <- .el_optional_bind("label")
   slider_attrs[[":input-size"]] <- .el_optional_bind("inputSize")
-  slider_attrs[[":show-input-controls"]] <- .el_optional_bind("showInputControls")
+  slider_attrs[[":show-input-controls"]] <- .el_optional_bind(
+    "showInputControls"
+  )
   slider_attrs[[":tooltip-class"]] <- .el_optional_bind("tooltipClass")
   slider_attrs[[":format-tooltip"]] <- .el_optional_bind("formatTooltip")
 
   # Forwarded to input$<id>_<event>; see .el_event_bindings().
-  events <- .el_event_bindings(ns_id, c(
-    "input"
-  ))
+  events <- .el_event_bindings(
+    ns_id,
+    c(
+      "input"
+    )
+  )
   slider_attrs <- c(slider_attrs, events$attrs)
 
   # Vue data
   vue_data <- list(
-    value       = if (range) as.list(value) else value[1],
-    min         = min,
-    max         = max,
-    step        = step,
-    range       = range,
-    disabled    = disabled,
-    showInput   = show_input,
-    showStops   = show_stops,
+    value = if (range) as.list(value) else value[1],
+    min = min,
+    max = max,
+    step = step,
+    range = range,
+    disabled = disabled,
+    showInput = show_input,
+    showStops = show_stops,
     showTooltip = show_tooltip,
-    vertical    = vertical
+    vertical = vertical
   )
-  vue_data$height <- if (!is.null(height)) height else if (vertical) "200px" else NA
+  vue_data$height <- if (!is.null(height)) {
+    height
+  } else if (vertical) {
+    "200px"
+  } else {
+    NA
+  }
   vue_data$marks <- .el_or_na(marks)
   vue_data$label <- .el_or_na(label)
   vue_data$inputSize <- .el_or_na(input_size)
@@ -192,24 +211,33 @@ el_slider <- function(
       range_end_label = range_end_label,
       range_start_label = range_start_label,
       size = size,
-      validate_event = validate_event)),
+      validate_event = validate_event
+    )),
     # Reported as the value changes, debounced, as Shiny's own inputs are
     rate = list(policy = "debounce", delay = 250),
-    label = label, label_position = label_position,
-    label_width = label_width, label_suffix = label_suffix, required = required,
-    error = error, show_message = show_message, inline_message = inline_message,
-    id     = ns_id,
+    label = label,
+    label_position = label_position,
+    label_width = label_width,
+    label_suffix = label_suffix,
+    required = required,
+    error = error,
+    show_message = show_message,
+    inline_message = inline_message,
+    id = ns_id,
     markup = htmltools::tag("el-slider", slider_attrs),
     data = vue_data,
-    methods = c(events$methods, list(
-      handleChange = JS(sprintf(
-        "function(value) { window.Shiny && Shiny.setInputValue && Shiny.setInputValue('%s', value); }",
-        ns_id
-      ))
-    )),
+    methods = c(
+      events$methods,
+      list(
+        handleChange = JS(sprintf(
+          "function(value) { window.Shiny && Shiny.setInputValue && Shiny.setInputValue('%s', value); }",
+          ns_id
+        ))
+      )
+    ),
     mounted = .el_mounted_init(stats::setNames("value", ns_id)),
-    width      = width,
-    slots      = slots
+    width = width,
+    slots = slots
   )
 }
 
@@ -245,22 +273,34 @@ el_slider <- function(
 #' }
 #' @export
 update_el_slider <- function(
-    session = shiny::getDefaultReactiveDomain(),
-    id,
-    value    = NULL,
-    min      = NULL,
-    max      = NULL,
-    step     = NULL,
-    disabled = NULL,
-    label = NULL, error = NULL) {
+  session = shiny::getDefaultReactiveDomain(),
+  id,
+  value = NULL,
+  min = NULL,
+  max = NULL,
+  step = NULL,
+  disabled = NULL,
+  label = NULL,
+  error = NULL
+) {
   .el_check_session(session)
   ns_id <- session$ns(id)
-  msg   <- list(id = ns_id)
-  if (!is.null(value))    msg$value    <- value
-  if (!is.null(min))      msg$min      <- min
-  if (!is.null(max))      msg$max      <- max
-  if (!is.null(step))     msg$step     <- step
-  if (!is.null(disabled)) msg$disabled <- disabled
+  msg <- list(id = ns_id)
+  if (!is.null(value)) {
+    msg$value <- value
+  }
+  if (!is.null(min)) {
+    msg$min <- min
+  }
+  if (!is.null(max)) {
+    msg$max <- max
+  }
+  if (!is.null(step)) {
+    msg$step <- step
+  }
+  if (!is.null(disabled)) {
+    msg$disabled <- disabled
+  }
   msg <- .el_form_item_update(msg, label, error)
   .el_send_update(session, msg)
   invisible(NULL)

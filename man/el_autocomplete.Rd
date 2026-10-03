@@ -182,8 +182,11 @@ Callable with \code{\link[=el_call]{el_call()}}:
 \examples{
 el_autocomplete("city", suggestions = c("Beijing", "Shanghai", "Shenzhen"))
 
-el_autocomplete("city",
+el_autocomplete(
+  "city",
   suggestions = c("Beijing", "Shanghai"),
-  placeholder = "Where to?", clearable = TRUE, width = 260
+  placeholder = "Where to?",
+  clearable = TRUE,
+  width = 260
 )
 }

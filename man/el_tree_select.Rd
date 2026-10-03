@@ -133,8 +133,19 @@ Callable with \code{\link[=el_call]{el_call()}}: \code{focus()}, \code{blur()}.
 }
 
 \examples{
-el_tree_select("dept", placeholder = "Department", data = list(
-  list(value = "eng", label = "Engineering", children = list(
-    list(value = "web", label = "Web"), list(value = "data", label = "Data"))),
-  list(value = "ops", label = "Operations")))
+el_tree_select(
+  "dept",
+  placeholder = "Department",
+  data = list(
+    list(
+      value = "eng",
+      label = "Engineering",
+      children = list(
+        list(value = "web", label = "Web"),
+        list(value = "data", label = "Data")
+      )
+    ),
+    list(value = "ops", label = "Operations")
+  )
+)
 }

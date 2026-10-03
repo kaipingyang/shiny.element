@@ -16,19 +16,53 @@ Assigning the `options` attribute to an array of options renders a Cascader. The
 
 ```{r basic, eval = FALSE, shot = TRUE}
 tree <- list(
-  list(value = "guide", label = "Guide", children = list(
-    list(value = "disciplines", label = "Disciplines", children = list(
-      list(value = "consistency", label = "Consistency"), list(value = "feedback", label = "Feedback"))),
-    list(value = "navigation", label = "Navigation", children = list(
-      list(value = "side", label = "Side Navigation"), list(value = "top", label = "Top Navigation"))))),
-  list(value = "component", label = "Component", children = list(
-    list(value = "basic", label = "Basic", children = list(
-      list(value = "layout", label = "Layout"), list(value = "color", label = "Color"))))))
+  list(
+    value = "guide",
+    label = "Guide",
+    children = list(
+      list(
+        value = "disciplines",
+        label = "Disciplines",
+        children = list(
+          list(value = "consistency", label = "Consistency"),
+          list(value = "feedback", label = "Feedback")
+        )
+      ),
+      list(
+        value = "navigation",
+        label = "Navigation",
+        children = list(
+          list(value = "side", label = "Side Navigation"),
+          list(value = "top", label = "Top Navigation")
+        )
+      )
+    )
+  ),
+  list(
+    value = "component",
+    label = "Component",
+    children = list(
+      list(
+        value = "basic",
+        label = "Basic",
+        children = list(
+          list(value = "layout", label = "Layout"),
+          list(value = "color", label = "Color")
+        )
+      )
+    )
+  )
+)
 tagList(
   tags$p("Child options expand when clicked (default)"),
   el_cascader("cas_click", options = tree),
   tags$p("Child options expand when hovered"),
-  el_cascader("cas_hover", options = tree, props = list(expandTrigger = "hover")))
+  el_cascader(
+    "cas_hover",
+    options = tree,
+    props = list(expandTrigger = "hover")
+  )
+)
 ```
 
 ## Disabled option
@@ -38,11 +72,26 @@ Disable an option by setting a `disabled` field in the option object.
 In this example, the first item in `options` array has a `disabled: true` field, so it is disabled. By default, Cascader checks the `disabled` field in each option object; if you are using another field name to indicate whether an option is disabled, you can assign it in the `props.disabled` attribute (see the API table below for details). And of course, field name `value`, `label` and `children` can also be customized in the same way.
 
 ```{r option-disabling, eval = FALSE, shot = TRUE}
-el_cascader("cas_dis", options = list(
-  list(value = "guide", label = "Guide", disabled = TRUE, children = list(
-    list(value = "disciplines", label = "Disciplines"))),
-  list(value = "component", label = "Component", children = list(
-    list(value = "basic", label = "Basic")))))
+el_cascader(
+  "cas_dis",
+  options = list(
+    list(
+      value = "guide",
+      label = "Guide",
+      disabled = TRUE,
+      children = list(
+        list(value = "disciplines", label = "Disciplines")
+      )
+    ),
+    list(
+      value = "component",
+      label = "Component",
+      children = list(
+        list(value = "basic", label = "Basic")
+      )
+    )
+  )
+)
 ```
 
 ## Clearable
@@ -50,9 +99,19 @@ el_cascader("cas_dis", options = list(
 Set `clearable` attribute for `el-cascader` and a clear icon will appear when selected and hovered
 
 ```{r clearable, eval = FALSE, shot = TRUE}
-el_cascader("cas_clear", clearable = TRUE, options = list(
-  list(value = "guide", label = "Guide", children = list(
-    list(value = "disciplines", label = "Disciplines")))))
+el_cascader(
+  "cas_clear",
+  clearable = TRUE,
+  options = list(
+    list(
+      value = "guide",
+      label = "Guide",
+      children = list(
+        list(value = "disciplines", label = "Disciplines")
+      )
+    )
+  )
+)
 ```
 
 ## Custom Clear Icon
@@ -60,10 +119,21 @@ el_cascader("cas_clear", clearable = TRUE, options = list(
 You can customize the clear icon by setting the `clear-icon` attribute
 
 ```{r clear-icon, eval = FALSE, shot = TRUE}
-el_cascader("cas_clear_icon", clearable = TRUE, clear_icon = "CloseBold",
-  placeholder = "Custom clear icon", options = list(
-  list(value = "guide", label = "Guide", children = list(
-    list(value = "disciplines", label = "Disciplines")))))
+el_cascader(
+  "cas_clear_icon",
+  clearable = TRUE,
+  clear_icon = "CloseBold",
+  placeholder = "Custom clear icon",
+  options = list(
+    list(
+      value = "guide",
+      label = "Guide",
+      children = list(
+        list(value = "disciplines", label = "Disciplines")
+      )
+    )
+  )
+)
 ```
 
 ## Display only the last level
@@ -73,10 +143,25 @@ The input can display only the last level instead of all levels.
 The `show-all-levels` attribute defines if all levels are displayed. If it is `false`, only the last level is displayed.
 
 ```{r last-level, eval = FALSE, shot = TRUE}
-el_cascader("cas_last", show_all_levels = FALSE, options = list(
-  list(value = "guide", label = "Guide", children = list(
-    list(value = "disciplines", label = "Disciplines", children = list(
-      list(value = "consistency", label = "Consistency")))))))
+el_cascader(
+  "cas_last",
+  show_all_levels = FALSE,
+  options = list(
+    list(
+      value = "guide",
+      label = "Guide",
+      children = list(
+        list(
+          value = "disciplines",
+          label = "Disciplines",
+          children = list(
+            list(value = "consistency", label = "Consistency")
+          )
+        )
+      )
+    )
+  )
+)
 ```
 
 ## Multiple Selection
@@ -90,24 +175,65 @@ Don't do:
 When using multiple selection, all selected tags will display by default. You can set `collapse-tags = true` to fold selected tags. You can set `max-collapse-tags` to show max tags number, default 1. You can check them when mouse hover collapse text by using `collapse-tags-tooltip` attribute.
 
 ```{r multiple-selection, eval = FALSE, shot = TRUE}
-world <- list(list(value = 1, label = "Asia", children = list(
-  list(value = 2, label = "China", children = list(
-    list(value = 3, label = "Beijing"), list(value = 4, label = "Shanghai"),
-    list(value = 5, label = "Hangzhou"))),
-  list(value = 6, label = "Japan", children = list(
-    list(value = 7, label = "Tokyo"), list(value = 8, label = "Osaka"))))))
+world <- list(list(
+  value = 1,
+  label = "Asia",
+  children = list(
+    list(
+      value = 2,
+      label = "China",
+      children = list(
+        list(value = 3, label = "Beijing"),
+        list(value = 4, label = "Shanghai"),
+        list(value = 5, label = "Hangzhou")
+      )
+    ),
+    list(
+      value = 6,
+      label = "Japan",
+      children = list(
+        list(value = 7, label = "Tokyo"),
+        list(value = 8, label = "Osaka")
+      )
+    )
+  )
+))
 tagList(
   tags$p("Display all tags (default)"),
-  el_cascader("cas_m1", options = world, props = list(multiple = TRUE), clearable = TRUE),
+  el_cascader(
+    "cas_m1",
+    options = world,
+    props = list(multiple = TRUE),
+    clearable = TRUE
+  ),
   tags$p("Collapse tags"),
-  el_cascader("cas_m2", options = world, props = list(multiple = TRUE), collapse_tags = TRUE,
-              clearable = TRUE),
+  el_cascader(
+    "cas_m2",
+    options = world,
+    props = list(multiple = TRUE),
+    collapse_tags = TRUE,
+    clearable = TRUE
+  ),
   tags$p("Collapse tags tooltip"),
-  el_cascader("cas_m3", options = world, props = list(multiple = TRUE), collapse_tags = TRUE,
-              collapse_tags_tooltip = TRUE, clearable = TRUE),
+  el_cascader(
+    "cas_m3",
+    options = world,
+    props = list(multiple = TRUE),
+    collapse_tags = TRUE,
+    collapse_tags_tooltip = TRUE,
+    clearable = TRUE
+  ),
   tags$p("Max Collapse Tags"),
-  el_cascader("cas_m4", options = world, props = list(multiple = TRUE), collapse_tags = TRUE,
-              collapse_tags_tooltip = TRUE, max_collapse_tags = 3, clearable = TRUE))
+  el_cascader(
+    "cas_m4",
+    options = world,
+    props = list(multiple = TRUE),
+    collapse_tags = TRUE,
+    collapse_tags_tooltip = TRUE,
+    max_collapse_tags = 3,
+    clearable = TRUE
+  )
+)
 ```
 
 ## Select any level of options
@@ -117,15 +243,35 @@ In single selection, only the leaf nodes can be checked, and in multiple selecti
 Set `props.checkStrictly = true` to make checked state of a node not affects its parent nodes and child nodes, and then you can select any level of options.
 
 ```{r any-level, eval = FALSE, shot = TRUE}
-tree <- list(list(value = "guide", label = "Guide", children = list(
-  list(value = "disciplines", label = "Disciplines", children = list(
-    list(value = "consistency", label = "Consistency"))))))
+tree <- list(list(
+  value = "guide",
+  label = "Guide",
+  children = list(
+    list(
+      value = "disciplines",
+      label = "Disciplines",
+      children = list(
+        list(value = "consistency", label = "Consistency")
+      )
+    )
+  )
+))
 tagList(
   tags$p("Select any level of options (Single selection)"),
-  el_cascader("cas_any1", options = tree, props = list(checkStrictly = TRUE), clearable = TRUE),
+  el_cascader(
+    "cas_any1",
+    options = tree,
+    props = list(checkStrictly = TRUE),
+    clearable = TRUE
+  ),
   tags$p("Select any level of options (Multiple selection)"),
-  el_cascader("cas_any2", options = tree, props = list(multiple = TRUE, checkStrictly = TRUE),
-              clearable = TRUE))
+  el_cascader(
+    "cas_any2",
+    options = tree,
+    props = list(multiple = TRUE, checkStrictly = TRUE),
+    clearable = TRUE
+  )
+)
 ```
 
 ## Dynamic loading
@@ -148,14 +294,31 @@ Search and select options with a keyword.
 Adding `filterable` to `el-cascader` enables filtering. Cascader will match nodes whose label or parent's label (according to `show-all-levels`) includes input keyword. Of course, you can customize search logic by `filter-method` which accepts a function, the first parameter is `node`, the second is `keyword`, and need return a boolean value indicating whether it hits.
 
 ```{r filterable, eval = FALSE, shot = TRUE}
-tree <- list(list(value = "guide", label = "Guide", children = list(
-  list(value = "disciplines", label = "Disciplines"), list(value = "navigation", label = "Navigation"))))
+tree <- list(list(
+  value = "guide",
+  label = "Guide",
+  children = list(
+    list(value = "disciplines", label = "Disciplines"),
+    list(value = "navigation", label = "Navigation")
+  )
+))
 tagList(
   tags$p("Filterable (Single selection)"),
-  el_cascader("cas_f1", options = tree, filterable = TRUE, placeholder = "Try searching: Guide"),
+  el_cascader(
+    "cas_f1",
+    options = tree,
+    filterable = TRUE,
+    placeholder = "Try searching: Guide"
+  ),
   tags$p("Filterable (Multiple selection)"),
-  el_cascader("cas_f2", options = tree, filterable = TRUE, props = list(multiple = TRUE),
-              placeholder = "Try searching: Guide"))
+  el_cascader(
+    "cas_f2",
+    options = tree,
+    filterable = TRUE,
+    props = list(multiple = TRUE),
+    placeholder = "Try searching: Guide"
+  )
+)
 ```
 
 ## Custom option content
@@ -165,13 +328,28 @@ You can customize the content of cascader node.
 You can customize the content of cascader node by `scoped slot`. You'll have access to `node` and `data` in the scope, standing for the Node object and node data of the current node respectively.
 
 ```{r custom-content, eval = FALSE, shot = TRUE}
-el_cascader("cas_content", options = list(
-  list(value = "guide", label = "Guide", children = list(
-    list(value = "disciplines", label = "Disciplines"), list(value = "navigation", label = "Navigation")))),
-  slots = list(default = template(htmltools::HTML(paste0(
-    "<span>{{ data.label }}</span>",
-    "<span v-if=\"!node.isLeaf\"> ({{ data.children.length }}) </span>")),
-    scope = "{ node, data }")))
+el_cascader(
+  "cas_content",
+  options = list(
+    list(
+      value = "guide",
+      label = "Guide",
+      children = list(
+        list(value = "disciplines", label = "Disciplines"),
+        list(value = "navigation", label = "Navigation")
+      )
+    )
+  ),
+  slots = list(
+    default = template(
+      htmltools::HTML(paste0(
+        "<span>{{ data.label }}</span>",
+        "<span v-if=\"!node.isLeaf\"> ({{ data.children.length }}) </span>"
+      )),
+      scope = "{ node, data }"
+    )
+  )
+)
 ```
 
 ## Custom suggestion item
@@ -179,12 +357,29 @@ el_cascader("cas_content", options = list(
 You can customize the filter suggestion item by `suggestion-item` slot. You'll have access to `item` in the scope, standing for the suggestion item.
 
 ```{r custom-suggestion-item, eval = FALSE, shot = TRUE}
-el_cascader("cas_sugg", filterable = TRUE, placeholder = "Try searching: Guide", options = list(
-  list(value = "guide", label = "Guide", children = list(
-    list(value = "disciplines", label = "Disciplines")))),
-  slots = list(`suggestion-item` = template(htmltools::HTML(
-    "<span>\U0001F50D {{ item.pathLabels.join(' > ') }}</span>"),
-    slot = "suggestion-item", scope = "{ item }")))
+el_cascader(
+  "cas_sugg",
+  filterable = TRUE,
+  placeholder = "Try searching: Guide",
+  options = list(
+    list(
+      value = "guide",
+      label = "Guide",
+      children = list(
+        list(value = "disciplines", label = "Disciplines")
+      )
+    )
+  ),
+  slots = list(
+    `suggestion-item` = template(
+      htmltools::HTML(
+        "<span>\U0001F50D {{ item.pathLabels.join(' > ') }}</span>"
+      ),
+      slot = "suggestion-item",
+      scope = "{ item }"
+    )
+  )
+)
 ```
 
 ## Cascader panel
@@ -194,11 +389,26 @@ el_cascader("cas_sugg", filterable = TRUE, placeholder = "Try searching: Guide",
 Just like `el-cascader`, you can set alternative options by `options`, and enable other features by `props`, see the API form below for details.
 
 ```{r panel, eval = FALSE, shot = TRUE}
-el_cascader_panel("cas_panel", options = list(
-  list(value = "guide", label = "Guide", children = list(
-    list(value = "disciplines", label = "Disciplines"), list(value = "navigation", label = "Navigation"))),
-  list(value = "component", label = "Component", children = list(
-    list(value = "basic", label = "Basic")))))
+el_cascader_panel(
+  "cas_panel",
+  options = list(
+    list(
+      value = "guide",
+      label = "Guide",
+      children = list(
+        list(value = "disciplines", label = "Disciplines"),
+        list(value = "navigation", label = "Navigation")
+      )
+    ),
+    list(
+      value = "component",
+      label = "Component",
+      children = list(
+        list(value = "basic", label = "Basic")
+      )
+    )
+  )
+)
 ```
 
 ## Custom Tag
@@ -208,12 +418,29 @@ You can customize tags.
 Insert customized tags into the slot of `el-cascader`. `collapse-tags`, `collapse-tags-tooltip`, `max-collapse-tags` will not work.
 
 ```{r custom-tag, eval = FALSE, shot = TRUE}
-world <- list(list(value = 1, label = "Asia", children = list(
-  list(value = 2, label = "China"), list(value = 3, label = "Japan"))))
-el_cascader("cas_tag", options = world, props = list(multiple = TRUE), clearable = TRUE,
-  slots = list(tag = template(htmltools::HTML(
-    "<el-tag v-for=\"(item, index) in data\" :key=\"item.key\" :color=\"index % 2 === 0 ? '#FFDE0A' : ''\">{{ item.text }}</el-tag>"),
-    slot = "tag", scope = "{ data }")))
+world <- list(list(
+  value = 1,
+  label = "Asia",
+  children = list(
+    list(value = 2, label = "China"),
+    list(value = 3, label = "Japan")
+  )
+))
+el_cascader(
+  "cas_tag",
+  options = world,
+  props = list(multiple = TRUE),
+  clearable = TRUE,
+  slots = list(
+    tag = template(
+      htmltools::HTML(
+        "<el-tag v-for=\"(item, index) in data\" :key=\"item.key\" :color=\"index % 2 === 0 ? '#FFDE0A' : ''\">{{ item.text }}</el-tag>"
+      ),
+      slot = "tag",
+      scope = "{ data }"
+    )
+  )
+)
 ```
 
 ## Show Checked Strategy
@@ -223,16 +450,40 @@ Control how selected values are displayed in multiple selection mode.
 In multiple selection mode, you can use `show-checked-strategy` to control how selected values are displayed. The default strategy is `child`, which shows all selected child nodes. The `parent` strategy only shows parent nodes when all their children are selected.
 
 ```{r show-checked-strategy, eval = FALSE, shot = TRUE}
-world <- list(list(value = 1, label = "Asia", children = list(
-  list(value = 2, label = "China", children = list(
-    list(value = 3, label = "Beijing"), list(value = 4, label = "Shanghai"))))))
+world <- list(list(
+  value = 1,
+  label = "Asia",
+  children = list(
+    list(
+      value = 2,
+      label = "China",
+      children = list(
+        list(value = 3, label = "Beijing"),
+        list(value = 4, label = "Shanghai")
+      )
+    )
+  )
+))
 tagList(
   tags$p("Strategy: child (default, show all selected child nodes)"),
-  el_cascader("cas_s1", options = world, props = list(multiple = TRUE),
-              show_checked_strategy = "child", clearable = TRUE),
-  tags$p("Strategy: parent (show only parent nodes when all children are selected)"),
-  el_cascader("cas_s2", options = world, props = list(multiple = TRUE),
-              show_checked_strategy = "parent", clearable = TRUE))
+  el_cascader(
+    "cas_s1",
+    options = world,
+    props = list(multiple = TRUE),
+    show_checked_strategy = "child",
+    clearable = TRUE
+  ),
+  tags$p(
+    "Strategy: parent (show only parent nodes when all children are selected)"
+  ),
+  el_cascader(
+    "cas_s2",
+    options = world,
+    props = list(multiple = TRUE),
+    show_checked_strategy = "parent",
+    clearable = TRUE
+  )
+)
 ```
 
 ## Click to Check Node
@@ -245,15 +496,30 @@ Toggle the visibility of the prefix with `showPrefix`.
 :::
 
 ```{r check-on-click-node, eval = FALSE, shot = TRUE}
-tree <- list(list(value = "guide", label = "Guide", children = list(
-  list(value = "disciplines", label = "Disciplines"), list(value = "navigation", label = "Navigation"))))
+tree <- list(list(
+  value = "guide",
+  label = "Guide",
+  children = list(
+    list(value = "disciplines", label = "Disciplines"),
+    list(value = "navigation", label = "Navigation")
+  )
+))
 tagList(
   tags$p("checkStrictly | Single mode"),
-  el_cascader("cas_c1", options = tree, clearable = TRUE,
-              props = list(checkStrictly = TRUE, checkOnClickNode = TRUE)),
+  el_cascader(
+    "cas_c1",
+    options = tree,
+    clearable = TRUE,
+    props = list(checkStrictly = TRUE, checkOnClickNode = TRUE)
+  ),
   tags$p("checkStrictly | Multiple mode"),
-  el_cascader("cas_c2", options = tree, clearable = TRUE,
-              props = list(multiple = TRUE, checkStrictly = TRUE, checkOnClickNode = TRUE)))
+  el_cascader(
+    "cas_c2",
+    options = tree,
+    clearable = TRUE,
+    props = list(multiple = TRUE, checkStrictly = TRUE, checkOnClickNode = TRUE)
+  )
+)
 ```
 
 ## Custom Header & Footer
@@ -263,15 +529,30 @@ You can customize both the header and footer of the dropdown using slots.
 Use slot to customize the content.
 
 ```{r custom-header-footer, eval = FALSE, shot = TRUE}
-tree <- list(list(value = "guide", label = "Guide", children = list(
-  list(value = "disciplines", label = "Disciplines"))))
+tree <- list(list(
+  value = "guide",
+  label = "Guide",
+  children = list(
+    list(value = "disciplines", label = "Disciplines")
+  )
+))
 tagList(
   tags$p("Custom header content"),
-  el_cascader("cas_h", options = tree, props = list(multiple = TRUE), clearable = TRUE,
-              slots = list(header = "All")),
+  el_cascader(
+    "cas_h",
+    options = tree,
+    props = list(multiple = TRUE),
+    clearable = TRUE,
+    slots = list(header = "All")
+  ),
   tags$p("Custom footer content"),
-  el_cascader("cas_ft", options = tree, clearable = TRUE,
-              slots = list(footer = "Footer content")))
+  el_cascader(
+    "cas_ft",
+    options = tree,
+    clearable = TRUE,
+    slots = list(footer = "Footer content")
+  )
+)
 ```
 
 ## Virtual Scroll
@@ -281,10 +562,23 @@ When dealing with large amounts of data, you can enable virtual scrolling to imp
 Set `virtual-scroll` to `true` to enable virtual scrolling. You can also customize the menu height with `height` and node height with `item-size`. Default height is 204px and default item size is 34px.
 
 ```{r virtual-scroll, eval = FALSE, shot = TRUE}
-big <- lapply(1:100, function(i) list(value = paste0("v", i), label = paste("Option", i),
-  children = lapply(1:100, function(j) list(value = paste0("v", i, "-", j), label = paste("Option", i, j)))))
-el_cascader("cas_virtual", options = big, filterable = TRUE, virtual_scroll = TRUE,
-            clearable = TRUE, placeholder = "Select with large data")
+big <- lapply(1:100, function(i) {
+  list(
+    value = paste0("v", i),
+    label = paste("Option", i),
+    children = lapply(1:100, function(j) {
+      list(value = paste0("v", i, "-", j), label = paste("Option", i, j))
+    })
+  )
+})
+el_cascader(
+  "cas_virtual",
+  options = big,
+  filterable = TRUE,
+  virtual_scroll = TRUE,
+  clearable = TRUE,
+  placeholder = "Select with large data"
+)
 ```
 
 ## Custom Suggestion Width
@@ -296,9 +590,19 @@ The width of the suggestion panel (when filtering) is calculated by default base
 > The `fit-input-width` attribute only controls the width of the suggestion panel during searching, it does not affect the default cascader panel.
 
 ```{r fit-input-width, eval = FALSE, shot = TRUE}
-el_cascader("cas_fit", fit_input_width = TRUE, options = list(
-  list(value = "guide", label = "Guide", children = list(
-    list(value = "disciplines", label = "Disciplines")))))
+el_cascader(
+  "cas_fit",
+  fit_input_width = TRUE,
+  options = list(
+    list(
+      value = "guide",
+      label = "Guide",
+      children = list(
+        list(value = "disciplines", label = "Disciplines")
+      )
+    )
+  )
+)
 ```
 
 ## API

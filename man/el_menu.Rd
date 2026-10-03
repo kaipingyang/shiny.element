@@ -144,17 +144,27 @@ el_menu(
   active = "home",
   items = list(
     list(index = "home", label = "Home", icon = "House"),
-    list(index = "products", label = "Products", icon = "Goods",
-         children = list(
-           list(index = "products-all", label = "All"),
-           list(index = "products-new", label = "New")
-         )),
+    list(
+      index = "products",
+      label = "Products",
+      icon = "Goods",
+      children = list(
+        list(index = "products-all", label = "All"),
+        list(index = "products-new", label = "New")
+      )
+    ),
     list(index = "help", label = "Help", disabled = TRUE)
   )
 )
 
 # Horizontal, as a top bar
-el_menu(id = "topnav", mode = "horizontal", active = "a",
-        items = list(list(index = "a", label = "One"),
-                     list(index = "b", label = "Two")))
+el_menu(
+  id = "topnav",
+  mode = "horizontal",
+  active = "a",
+  items = list(
+    list(index = "a", label = "One"),
+    list(index = "b", label = "Two")
+  )
+)
 }

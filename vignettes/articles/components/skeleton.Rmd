@@ -39,13 +39,26 @@ Element Plus only provides the most common template, sometimes that could be a p
 Also we have provided different types skeleton unit that you can choose, for more detailed info, please scroll down to the bottom of this page to see the API description. Also, when building your own customized skeleton structure, you should be structuring them as closer to the real DOM as possible, which avoiding the DOM bouncing caused by the height difference.
 
 ```{r customized-template, eval = FALSE, shot = TRUE}
-el_skeleton(width = "240px", slots = list(template = tagList(
-  el$skeleton_item(variant = "image", style = "width: 240px; height: 240px"),
-  tags$div(style = "padding: 14px",
-    el$skeleton_item(variant = "p", style = "width: 50%"),
-    tags$div(style = "display: flex; align-items: center; justify-items: space-between; margin-top: 16px; height: 16px",
-      el$skeleton_item(variant = "text", style = "margin-right: 16px"),
-      el$skeleton_item(variant = "text", style = "width: 30%"))))))
+el_skeleton(
+  width = "240px",
+  slots = list(
+    template = tagList(
+      el$skeleton_item(
+        variant = "image",
+        style = "width: 240px; height: 240px"
+      ),
+      tags$div(
+        style = "padding: 14px",
+        el$skeleton_item(variant = "p", style = "width: 50%"),
+        tags$div(
+          style = "display: flex; align-items: center; justify-items: space-between; margin-top: 16px; height: 16px",
+          el$skeleton_item(variant = "text", style = "margin-right: 16px"),
+          el$skeleton_item(variant = "text", style = "width: 30%")
+        )
+      )
+    )
+  )
+)
 ```
 
 ## Loading state
@@ -55,9 +68,16 @@ When `Loading` ends, we always need to show the real UI with data to our end use
 `update_el_skeleton(loading = FALSE)` swaps it for its content.
 
 ```{r loading-state, eval = FALSE, shot = TRUE}
-el_skeleton("sk_load", loading = TRUE, animated = TRUE,
-  el_card(tags$img(src = "https://shadow.elemecdn.com/app/element/hamburger.9cf7b091-55e9-11e9-a976-7f4d0b07eef6.png",
-                   alt = "A hamburger", style = "width: 100%")))
+el_skeleton(
+  "sk_load",
+  loading = TRUE,
+  animated = TRUE,
+  el_card(tags$img(
+    src = "https://shadow.elemecdn.com/app/element/hamburger.9cf7b091-55e9-11e9-a976-7f4d0b07eef6.png",
+    alt = "A hamburger",
+    style = "width: 100%"
+  ))
+)
 ```
 
 ## Rendering a list of data
@@ -81,7 +101,13 @@ Sometimes API responds very quickly, when that happens, the skeleton just gets r
 > Since 2.8.8, the `throttle` attribute supports two values: `number` and `object`. When passing a `number`, it is equivalent to `{leading: xxx}`, controlling the throttling of the skeleton screen display. Of course, you can also control the throttling of the skeleton screen disappearance by passing `{trailing: xxx}`
 
 ```{r avoiding-rendering-bouncing, eval = FALSE, shot = TRUE}
-el_skeleton("sk_throttle", loading = TRUE, throttle = 500, animated = TRUE, "Content")
+el_skeleton(
+  "sk_throttle",
+  loading = TRUE,
+  throttle = 500,
+  animated = TRUE,
+  "Content"
+)
 ```
 
 ## Initial rendering loading
@@ -89,7 +115,12 @@ el_skeleton("sk_throttle", loading = TRUE, throttle = 500, animated = TRUE, "Con
 When the initial value of loading is true, you can set `throttle: {initVal: true, leading: xxx}` to control the immediate display of the initial skeleton screen without throttling.
 
 ```{r initial-rendering-loading, eval = FALSE, shot = TRUE}
-el_skeleton("sk_initial", loading = TRUE, throttle = list(leading = 500, initVal = TRUE), "Content")
+el_skeleton(
+  "sk_initial",
+  loading = TRUE,
+  throttle = list(leading = 500, initVal = TRUE),
+  "Content"
+)
 ```
 
 ## Toggle show/hide without rending bouncing
@@ -101,7 +132,12 @@ el_skeleton("sk_initial", loading = TRUE, throttle = list(leading = 500, initVal
 Sometimes you want to render the business components more smoothly when loading toggle show or hide. You can use set the `throttle: {leading: xxx, trailing:xxx}` to control the rendering bouncing.
 
 ```{r leading-trailing-without-bouncing, eval = FALSE, shot = TRUE}
-el_skeleton("sk_lt", loading = TRUE, throttle = list(leading = 500, trailing = 500), "Content")
+el_skeleton(
+  "sk_lt",
+  loading = TRUE,
+  throttle = list(leading = 500, trailing = 500),
+  "Content"
+)
 ```
 
 ##

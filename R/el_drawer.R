@@ -67,58 +67,72 @@
 #' el_drawer("w1", title = "Settings", content = shiny::tags$p("Body"))
 #'
 #' # Sliding up from the bottom, holding other components
-#' el_drawer("w2", title = "Filters", direction = "btt", size = "40%",
-#'           content = shiny::tagList(el_input("q"), el_switch("live")))
-#'
+#' el_drawer(
+#'   "w2",
+#'   title = "Filters",
+#'   direction = "btt",
+#'   size = "40%",
+#'   content = shiny::tagList(el_input("q"), el_switch("live"))
+#' )
 #' @export
 el_drawer <- function(
-    id                    = NULL,
-    title                 = "",
-    content               = NULL,
-    visible               = FALSE,
-    direction             = "rtl",
-    size                  = "30%",
-    modal                 = TRUE,
-    with_header           = TRUE,
-    show_close            = TRUE,
-    close_on_press_escape = TRUE,
-    custom_class          = NULL,
-    append_to_body        = FALSE,
-    destroy_on_close      = FALSE,
-    before_close          = NULL,
-    footer                = NULL,
-    resizable             = FALSE,
-    modal_penetrable      = FALSE,
-    close_on_click_modal  = TRUE,
-    lock_scroll           = TRUE,
-    modal_class           = NULL,
-    header_class          = NULL,
-    body_class            = NULL,
-    footer_class          = NULL,
-    append_to             = NULL,
-    open_delay            = NULL,
-    close_delay           = NULL,
-    z_index               = NULL,
-    header_aria_level     = "2",
-    session               = NULL
+  id = NULL,
+  title = "",
+  content = NULL,
+  visible = FALSE,
+  direction = "rtl",
+  size = "30%",
+  modal = TRUE,
+  with_header = TRUE,
+  show_close = TRUE,
+  close_on_press_escape = TRUE,
+  custom_class = NULL,
+  append_to_body = FALSE,
+  destroy_on_close = FALSE,
+  before_close = NULL,
+  footer = NULL,
+  resizable = FALSE,
+  modal_penetrable = FALSE,
+  close_on_click_modal = TRUE,
+  lock_scroll = TRUE,
+  modal_class = NULL,
+  header_class = NULL,
+  body_class = NULL,
+  footer_class = NULL,
+  append_to = NULL,
+  open_delay = NULL,
+  close_delay = NULL,
+  z_index = NULL,
+  header_aria_level = "2",
+  session = NULL
 ) {
   .el_check_choices("el_drawer", environment())
-  if (is.null(id)) id <- paste0("el_drawer_", uuid::UUIDgenerate())
+  if (is.null(id)) {
+    id <- paste0("el_drawer_", uuid::UUIDgenerate())
+  }
   ns_id <- .el_ui_id(id, session)
   visible <- isTRUE(shiny::restoreInput(ns_id, visible))
-  if (is.null(append_to) && isTRUE(append_to_body)) append_to <- "body"
+  if (is.null(append_to) && isTRUE(append_to_body)) {
+    append_to <- "body"
+  }
 
-  vertical  <- direction %in% c("ttb", "btt")
-  title_id  <- paste0(ns_id, "-title")
+  vertical <- direction %in% c("ttb", "btt")
+  title_id <- paste0(ns_id, "-title")
 
   header <- if (with_header) {
     shiny::tags$header(
       class = paste(c("el-drawer__header", header_class), collapse = " "),
-      shiny::tags$span(id = title_id, role = "heading", `aria-level` = header_aria_level,
-                       class = "el-drawer__title", title),
+      shiny::tags$span(
+        id = title_id,
+        role = "heading",
+        `aria-level` = header_aria_level,
+        class = "el-drawer__title",
+        title
+      ),
       if (show_close) {
         shiny::tags$button(
-          `aria-label` = paste("close", title), type = "button",
+          `aria-label` = paste("close", title),
+          type = "button",
           class = "el-drawer__close-btn",
           .el_close_icon("el-drawer__close")
         )
@@ -128,39 +142,54 @@ el_drawer <- function(
 
   htmltools::attachDependencies(
     shiny::tags$div(
-      id    = ns_id,
+      id = ns_id,
       class = paste(c("el-overlay", modal_class), collapse = " "),
-      style = paste0(if (!visible) "display:none;",
-                     if (!modal) "background-color:transparent;",
-                     if (!modal && isTRUE(modal_penetrable)) "pointer-events:none;",
-                     if (!is.null(z_index)) sprintf("z-index:%s;", z_index)),
+      style = paste0(
+        if (!visible) "display:none;",
+        if (!modal) "background-color:transparent;",
+        if (!modal && isTRUE(modal_penetrable)) "pointer-events:none;",
+        if (!is.null(z_index)) sprintf("z-index:%s;", z_index)
+      ),
       `data-el-overlay` = "drawer",
-      `data-visible`    = tolower(as.character(visible)),
-      `data-modal`      = tolower(as.character(modal)),
+      `data-visible` = tolower(as.character(visible)),
+      `data-modal` = tolower(as.character(modal)),
       `data-mask-close` = tolower(as.character(modal && close_on_click_modal)),
-      `data-esc-close`  = tolower(as.character(close_on_press_escape)),
+      `data-esc-close` = tolower(as.character(close_on_press_escape)),
       `data-lock-scroll` = tolower(as.character(lock_scroll)),
-      `data-append-to`  = append_to,
+      `data-append-to` = append_to,
       `data-open-delay` = open_delay,
       `data-close-delay` = close_delay,
-      `data-z-index`    = z_index,
-      `data-resizable`  = if (isTRUE(resizable)) "true",
+      `data-z-index` = z_index,
+      `data-resizable` = if (isTRUE(resizable)) "true",
       `data-destroy-on-close` = tolower(as.character(destroy_on_close)),
-      `data-before-close` = if (!is.null(before_close)) as.character(before_close),
+      `data-before-close` = if (!is.null(before_close)) {
+        as.character(before_close)
+      },
       shiny::tags$div(
-        `aria-modal` = "true", `aria-labelledby` = if (with_header) title_id,
-        `aria-label` = if (is.character(title)) title, role = "dialog", tabindex = "-1",
-        class = paste(c("el-drawer", direction, if (visible) "open", custom_class),
-                      collapse = " "),
-        style = paste0(sprintf("%s: %s;", if (vertical) "height" else "width", size),
-                       if (!modal && isTRUE(modal_penetrable)) " pointer-events:auto;"),
+        `aria-modal` = "true",
+        `aria-labelledby` = if (with_header) title_id,
+        `aria-label` = if (is.character(title)) title,
+        role = "dialog",
+        tabindex = "-1",
+        class = paste(
+          c("el-drawer", direction, if (visible) "open", custom_class),
+          collapse = " "
+        ),
+        style = paste0(
+          sprintf("%s: %s;", if (vertical) "height" else "width", size),
+          if (!modal && isTRUE(modal_penetrable)) " pointer-events:auto;"
+        ),
         if (isTRUE(resizable)) shiny::tags$div(class = "el-drawer__dragger"),
         header,
-        shiny::tags$div(class = paste(c("el-drawer__body", body_class), collapse = " "),
-                        .el_overlay_content(content, destroy_on_close, visible)),
+        shiny::tags$div(
+          class = paste(c("el-drawer__body", body_class), collapse = " "),
+          .el_overlay_content(content, destroy_on_close, visible)
+        ),
         if (!is.null(footer)) {
-          shiny::tags$div(class = paste(c("el-drawer__footer", footer_class), collapse = " "),
-                          footer)
+          shiny::tags$div(
+            class = paste(c("el-drawer__footer", footer_class), collapse = " "),
+            footer
+          )
         }
       )
     ),
@@ -189,13 +218,24 @@ el_drawer <- function(
 #'   })
 #' }
 #' @export
-update_el_drawer <- function(session = shiny::getDefaultReactiveDomain(), id, visible = NULL, title = NULL,
-                             size = NULL) {
+update_el_drawer <- function(
+  session = shiny::getDefaultReactiveDomain(),
+  id,
+  visible = NULL,
+  title = NULL,
+  size = NULL
+) {
   .el_check_session(session)
   msg <- list()
-  if (!is.null(visible)) msg$visible <- visible
-  if (!is.null(title))   msg$title   <- title
-  if (!is.null(size))    msg$size    <- size
+  if (!is.null(visible)) {
+    msg$visible <- visible
+  }
+  if (!is.null(title)) {
+    msg$title <- title
+  }
+  if (!is.null(size)) {
+    msg$size <- size
+  }
   session$sendInputMessage(id, msg)
   invisible(NULL)
 }

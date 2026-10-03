@@ -36,26 +36,38 @@
 #'
 #' @return A Shiny UI element.
 #' @examples
-#' el_config_provider(size = "small", button = list(autoInsertSpace = TRUE), el_button("a", "OK"), el_input("b"))
+#' el_config_provider(
+#'   size = "small",
+#'   button = list(autoInsertSpace = TRUE),
+#'   el_button("a", "OK"),
+#'   el_input("b")
+#' )
 #' @export
-el_config_provider <- function(...,
-                               id = NULL,
-                               size = NULL,
-                               button = NULL,
-                               link = NULL,
-                               dialog = NULL,
-                               message = NULL,
-                               experimental_features = NULL,
-                               empty_values = NULL,
-                               value_on_clear = NULL,
-                               table = NULL,
-                               width = NULL,
-                               slots = NULL) {
+el_config_provider <- function(
+  ...,
+  id = NULL,
+  size = NULL,
+  button = NULL,
+  link = NULL,
+  dialog = NULL,
+  message = NULL,
+  experimental_features = NULL,
+  empty_values = NULL,
+  value_on_clear = NULL,
+  table = NULL,
+  width = NULL,
+  slots = NULL
+) {
   .el_check_choices("el_config_provider", environment())
-  if (is.null(id)) id <- paste0("el_config_provider_", uuid::UUIDgenerate())
+  if (is.null(id)) {
+    id <- paste0("el_config_provider_", uuid::UUIDgenerate())
+  }
   ns_id <- .el_ui_id(id, NULL)
   events <- .el_event_bindings(ns_id, character())
-  .el_wrap_widget("el-config-provider", ns_id, list(...),
+  .el_wrap_widget(
+    "el-config-provider",
+    ns_id,
+    list(...),
     props = .el_props(list(
       size = size,
       button = button,
@@ -65,6 +77,10 @@ el_config_provider <- function(...,
       experimental_features = experimental_features,
       empty_values = empty_values,
       value_on_clear = value_on_clear,
-      table = table)),
-    events = events, width = width, slots = slots)
+      table = table
+    )),
+    events = events,
+    width = width,
+    slots = slots
+  )
 }

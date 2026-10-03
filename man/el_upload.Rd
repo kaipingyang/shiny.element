@@ -199,8 +199,13 @@ every file in flight
 
 \examples{
 # A drop zone taking several CSVs, read on the server like fileInput()
-el_upload("files", drag = TRUE, multiple = TRUE, accept = ".csv",
-          tip = "CSV files only")
+el_upload(
+  "files",
+  drag = TRUE,
+  multiple = TRUE,
+  accept = ".csv",
+  tip = "CSV files only"
+)
 
 # A plain button
 el_upload("avatar", button_label = "Choose a picture", accept = "image/*")

@@ -22,8 +22,7 @@
 #'
 #' @return A Shiny UI element.
 #' @examples
-#' el_skeleton("report", rows = 4, animated = TRUE,
-#'             shiny::tableOutput("summary"))
+#' el_skeleton("report", rows = 4, animated = TRUE, shiny::tableOutput("summary"))
 #'
 #' if (interactive()) {
 #'   library(shiny)
@@ -38,54 +37,65 @@
 #'   shinyApp(ui, server)
 #' }
 #' @export
-el_skeleton <- function(id = NULL,
-                        ...,
-                        loading = TRUE,
-                        rows = NULL,
-                        animated = NULL,
-                        count = NULL,
-                        throttle = NULL,
-                        width = NULL,
-                        slots = NULL,
-                        session = NULL) {
-  if (is.null(id)) id <- paste0("el_skeleton_", uuid::UUIDgenerate())
+el_skeleton <- function(
+  id = NULL,
+  ...,
+  loading = TRUE,
+  rows = NULL,
+  animated = NULL,
+  count = NULL,
+  throttle = NULL,
+  width = NULL,
+  slots = NULL,
+  session = NULL
+) {
+  if (is.null(id)) {
+    id <- paste0("el_skeleton_", uuid::UUIDgenerate())
+  }
   ns_id <- .el_ui_id(id, session)
 
   own <- list(
     markup = NULL,
     data = list(
-      skLoading  = loading,
-      skRows     = .el_or_na(rows),
+      skLoading = loading,
+      skRows = .el_or_na(rows),
       skAnimated = .el_or_na(animated),
-      skCount    = .el_or_na(count),
+      skCount = .el_or_na(count),
       skThrottle = .el_or_na(throttle)
     ),
-    methods = list(), watch = list(), computed = list(), mounted = NULL,
+    methods = list(),
+    watch = list(),
+    computed = list(),
+    mounted = NULL,
     dependencies = list()
   )
   inners <- lapply(list(...), .el_absorb)
   merged <- do.call(.el_absorb_merge, c(list(own), inners))
 
   attrs <- list(
-    ":loading"  = "skLoading",
-    ":rows"     = .el_optional_bind("skRows"),
+    ":loading" = "skLoading",
+    ":rows" = .el_optional_bind("skRows"),
     ":animated" = .el_optional_bind("skAnimated"),
-    ":count"    = .el_optional_bind("skCount"),
+    ":count" = .el_optional_bind("skCount"),
     ":throttle" = .el_optional_bind("skThrottle")
   )
   content <- merged$markups[-1]
-  children <- if (length(content)) list(htmltools::tag("div", content)) else list()
+  children <- if (length(content)) {
+    list(htmltools::tag("div", content))
+  } else {
+    list()
+  }
 
   el_widget(
-    id       = ns_id,
-    markup   = htmltools::tag("el-skeleton", c(attrs, children)),
-    data     = merged$data,
-    methods  = merged$methods,
-    watch    = merged$watch,
+    id = ns_id,
+    markup = htmltools::tag("el-skeleton", c(attrs, children)),
+    data = merged$data,
+    methods = merged$methods,
+    watch = merged$watch,
     computed = merged$computed,
-    mounted  = merged$mounted,
-    width    = width,
-    slots    = slots,
+    mounted = merged$mounted,
+    width = width,
+    slots = slots,
     dependency = merged$dependencies
   )
 }
@@ -110,13 +120,20 @@ el_skeleton <- function(id = NULL,
 #'   })
 #' }
 #' @export
-update_el_skeleton <- function(session = shiny::getDefaultReactiveDomain(), id, loading = NULL, rows = NULL) {
+update_el_skeleton <- function(
+  session = shiny::getDefaultReactiveDomain(),
+  id,
+  loading = NULL,
+  rows = NULL
+) {
   .el_check_session(session)
   msg <- list(id = session$ns(id))
-  if (!is.null(loading)) msg$skLoading <- loading
-  if (!is.null(rows))    msg$skRows    <- rows
+  if (!is.null(loading)) {
+    msg$skLoading <- loading
+  }
+  if (!is.null(rows)) {
+    msg$skRows <- rows
+  }
   .el_send_update(session, msg)
   invisible(NULL)
 }
-
-

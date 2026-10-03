@@ -33,5 +33,4 @@ Renders a horizontal or vertical dividing line, optionally with inline text.
 el_divider()
 el_divider("Title Text", content_position = "left")
 el_divider(direction = "vertical")
-
 }

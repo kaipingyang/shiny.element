@@ -45,15 +45,24 @@ components included.
 \examples{
 if (interactive()) {
   library(shiny)
-  ui <- el_page(el_tabs("docs", editable = TRUE, tabs = list(
-    list(name = "t1", label = "Tab 1", content = tags$p("First"))
-  )))
+  ui <- el_page(el_tabs(
+    "docs",
+    editable = TRUE,
+    tabs = list(
+      list(name = "t1", label = "Tab 1", content = tags$p("First"))
+    )
+  ))
   server <- function(input, output, session) {
     n <- 1
     observeEvent(input$docs_tab_add, {
       n <<- n + 1
-      insert_el_tab(session, "docs", name = paste0("t", n),
-                    label = paste("Tab", n), content = tags$p("New"))
+      insert_el_tab(
+        session,
+        "docs",
+        name = paste0("t", n),
+        label = paste("Tab", n),
+        content = tags$p("New")
+      )
     })
   }
   shinyApp(ui, server)

@@ -16,8 +16,10 @@ sent_input <- function(expr) {
 # ── markup ────────────────────────────────────────────────────────────────────
 
 test_that("el_dialog and el_drawer render markup with no Vue instance", {
-  for (html in list(render_html(el_dialog("d1", title = "T", content = "body")),
-                    render_html(el_drawer("w1", title = "T", content = "body")))) {
+  for (html in list(
+    render_html(el_dialog("d1", title = "T", content = "body")),
+    render_html(el_drawer("w1", title = "T", content = "body"))
+  )) {
     expect_false(grepl("application/json", html, fixed = TRUE))
     expect_false(grepl("html-widget", html, fixed = TRUE))
   }
@@ -26,10 +28,21 @@ test_that("el_dialog and el_drawer render markup with no Vue instance", {
 })
 
 test_that("el_dialog reproduces Element Plus's structure", {
-  html <- render_html(el_dialog("d1", title = "T", content = "body",
-                                footer = "f"))
-  for (cls in c("el-overlay", "el-overlay-dialog", "el-dialog__header", "el-dialog__title",
-                "el-dialog__headerbtn", "el-dialog__body", "el-dialog__footer")) {
+  html <- render_html(el_dialog(
+    "d1",
+    title = "T",
+    content = "body",
+    footer = "f"
+  ))
+  for (cls in c(
+    "el-overlay",
+    "el-overlay-dialog",
+    "el-dialog__header",
+    "el-dialog__title",
+    "el-dialog__headerbtn",
+    "el-dialog__body",
+    "el-dialog__footer"
+  )) {
     expect_match(html, cls, fixed = TRUE)
   }
   expect_match(html, 'role="dialog"', fixed = TRUE)
@@ -37,9 +50,21 @@ test_that("el_dialog reproduces Element Plus's structure", {
 })
 
 test_that("el_drawer reproduces Element Plus's structure", {
-  html <- render_html(el_drawer("w1", title = "T", content = "body", footer = "f"))
-  for (cls in c("el-overlay", "el-drawer rtl", "el-drawer__header", "el-drawer__title",
-                "el-drawer__close-btn", "el-drawer__body", "el-drawer__footer")) {
+  html <- render_html(el_drawer(
+    "w1",
+    title = "T",
+    content = "body",
+    footer = "f"
+  ))
+  for (cls in c(
+    "el-overlay",
+    "el-drawer rtl",
+    "el-drawer__header",
+    "el-drawer__title",
+    "el-drawer__close-btn",
+    "el-drawer__body",
+    "el-drawer__footer"
+  )) {
     expect_match(html, cls, fixed = TRUE)
   }
   expect_match(html, 'role="dialog"', fixed = TRUE)
@@ -48,13 +73,24 @@ test_that("el_drawer reproduces Element Plus's structure", {
 })
 
 test_that("both start hidden unless told otherwise", {
-  expect_match(render_html(el_dialog("d1")), 'style="display:none;"', fixed = TRUE)
-  expect_false(grepl("display:none", render_html(el_dialog("d1", visible = TRUE)),
-                     fixed = TRUE))
+  expect_match(
+    render_html(el_dialog("d1")),
+    'style="display:none;"',
+    fixed = TRUE
+  )
+  expect_false(grepl(
+    "display:none",
+    render_html(el_dialog("d1", visible = TRUE)),
+    fixed = TRUE
+  ))
 })
 
 test_that("a visible drawer starts open", {
-  expect_match(render_html(el_drawer("w1", visible = TRUE)), "el-drawer rtl open", fixed = TRUE)
+  expect_match(
+    render_html(el_drawer("w1", visible = TRUE)),
+    "el-drawer rtl open",
+    fixed = TRUE
+  )
   expect_false(grepl("rtl open", render_html(el_drawer("w1")), fixed = TRUE))
 })
 
@@ -66,7 +102,11 @@ test_that("the content stays in the document while closed", {
 
 test_that("both load the shared overlay binding", {
   for (tag in list(el_dialog("d1"), el_drawer("w1"))) {
-    names <- vapply(htmltools::findDependencies(tag), function(d) d$name, character(1))
+    names <- vapply(
+      htmltools::findDependencies(tag),
+      function(d) d$name,
+      character(1)
+    )
     expect_true("el-overlay-binding" %in% names)
   }
 })
@@ -74,7 +114,8 @@ test_that("both load the shared overlay binding", {
 test_that("nested components keep their own dependencies", {
   names <- vapply(
     htmltools::findDependencies(el_dialog("d1", content = el_switch("sw"))),
-    function(d) d$name, character(1)
+    function(d) d$name,
+    character(1)
   )
   expect_true("shiny-vue" %in% names)
   expect_true("el-overlay-binding" %in% names)
@@ -83,8 +124,12 @@ test_that("nested components keep their own dependencies", {
 # ── behaviour flags reach the binding ─────────────────────────────────────────
 
 test_that("dialog flags are exposed to the binding as data attributes", {
-  html <- render_html(el_dialog("d1", modal = FALSE, close_on_click_modal = FALSE,
-                                close_on_press_escape = FALSE))
+  html <- render_html(el_dialog(
+    "d1",
+    modal = FALSE,
+    close_on_click_modal = FALSE,
+    close_on_press_escape = FALSE
+  ))
   expect_match(html, 'data-modal="false"', fixed = TRUE)
   expect_match(html, 'data-mask-close="false"', fixed = TRUE)
   expect_match(html, 'data-esc-close="false"', fixed = TRUE)
@@ -92,13 +137,21 @@ test_that("dialog flags are exposed to the binding as data attributes", {
 
 test_that("clicking the backdrop needs a backdrop to click", {
   # modal = FALSE draws none, so close_on_click_modal cannot apply.
-  html <- render_html(el_dialog("d1", modal = FALSE, close_on_click_modal = TRUE))
+  html <- render_html(el_dialog(
+    "d1",
+    modal = FALSE,
+    close_on_click_modal = TRUE
+  ))
   expect_match(html, 'data-mask-close="false"', fixed = TRUE)
 })
 
 test_that("dialog sizing options are applied inline", {
   html <- render_html(el_dialog("d1", width = "600px", top = "5vh"))
-  expect_match(html, "--el-dialog-width: 600px; --el-dialog-margin-top: 5vh;", fixed = TRUE)
+  expect_match(
+    html,
+    "--el-dialog-width: 600px; --el-dialog-margin-top: 5vh;",
+    fixed = TRUE
+  )
 
   # Fullscreen: the class does the work
   full <- render_html(el_dialog("d1", fullscreen = TRUE))
@@ -110,10 +163,16 @@ test_that("dialog sizing options are applied inline", {
 })
 
 test_that("centre and close-button options are respected", {
-  expect_match(render_html(el_dialog("d1", center = TRUE)),
-               "el-dialog--center", fixed = TRUE)
-  expect_false(grepl("el-dialog__headerbtn",
-                     render_html(el_dialog("d1", show_close = FALSE)), fixed = TRUE))
+  expect_match(
+    render_html(el_dialog("d1", center = TRUE)),
+    "el-dialog--center",
+    fixed = TRUE
+  )
+  expect_false(grepl(
+    "el-dialog__headerbtn",
+    render_html(el_dialog("d1", show_close = FALSE)),
+    fixed = TRUE
+  ))
 })
 
 test_that("drawer direction drives both the class and which axis is sized", {
@@ -130,8 +189,11 @@ test_that("drawer direction drives both the class and which axis is sized", {
 })
 
 test_that("drawer header can be dropped entirely", {
-  expect_false(grepl("el-drawer__header",
-                     render_html(el_drawer("w1", with_header = FALSE)), fixed = TRUE))
+  expect_false(grepl(
+    "el-drawer__header",
+    render_html(el_drawer("w1", with_header = FALSE)),
+    fixed = TRUE
+  ))
 })
 
 # ── update functions ──────────────────────────────────────────────────────────
@@ -150,7 +212,9 @@ test_that("update_el_dialog: closing is sent, not treated as absent", {
 })
 
 test_that("update_el_dialog: title and width pass through", {
-  out <- sent_input(function(s) update_el_dialog(s, "d1", title = "New", width = "70%"))
+  out <- sent_input(function(s) {
+    update_el_dialog(s, "d1", title = "New", width = "70%")
+  })
   expect_equal(out$msg$title, "New")
   expect_equal(out$msg$width, "70%")
   expect_null(out$msg$visible)
@@ -168,9 +232,13 @@ test_that("update_el_drawer sends visible, title and size", {
 # ── the shared binding ────────────────────────────────────────────────────────
 
 test_that("the overlay binding stacks with Element Plus's own popups", {
-  js <- paste(readLines(
-    system.file("js", "el-overlay-binding.js", package = "shiny.element"), warn = FALSE
-  ), collapse = "\n")
+  js <- paste(
+    readLines(
+      system.file("js", "el-overlay-binding.js", package = "shiny.element"),
+      warn = FALSE
+    ),
+    collapse = "\n"
+  )
   # Element Plus's z-index counter, the one every select, popover and
   # message box draws from
   expect_match(js, "ElementPlus.useZIndex", fixed = TRUE)
@@ -179,9 +247,13 @@ test_that("the overlay binding stacks with Element Plus's own popups", {
 })
 
 test_that("the binding degrades gracefully outside Shiny", {
-  js <- paste(readLines(
-    system.file("js", "el-overlay-binding.js", package = "shiny.element"), warn = FALSE
-  ), collapse = "\n")
+  js <- paste(
+    readLines(
+      system.file("js", "el-overlay-binding.js", package = "shiny.element"),
+      warn = FALSE
+    ),
+    collapse = "\n"
+  )
   # Without Shiny it binds itself, so it still works on a static page
   expect_match(js, "function standalone(binding)", fixed = TRUE)
   expect_match(js, "else standalone(binding)", fixed = TRUE)
@@ -198,9 +270,16 @@ test_that("el_dialog: an id is generated when none is given", {
 })
 
 test_that("el_dialog: the footer only appears when there is one", {
-  expect_match(render_html(el_dialog("d1", footer = shiny::tags$p("f"))),
-               "el-dialog__footer", fixed = TRUE)
-  expect_false(grepl("el-dialog__footer", render_html(el_dialog("d1")), fixed = TRUE))
+  expect_match(
+    render_html(el_dialog("d1", footer = shiny::tags$p("f"))),
+    "el-dialog__footer",
+    fixed = TRUE
+  )
+  expect_false(grepl(
+    "el-dialog__footer",
+    render_html(el_dialog("d1")),
+    fixed = TRUE
+  ))
 })
 
 test_that("el_dialog: the title appears in the header and the aria label", {
@@ -230,37 +309,70 @@ test_that("update_el_drawer: NULL fields are excluded", {
 
 test_that("dialog and drawer pass Element's behaviour flags to the binding", {
   for (html in list(
-    render_html(el_dialog("d1", append_to_body = TRUE, destroy_on_close = TRUE,
-                          custom_class = "wide", open_delay = 100, z_index = 3000)),
-    render_html(el_drawer("w1", append_to_body = TRUE, destroy_on_close = TRUE,
-                          custom_class = "wide", open_delay = 100, z_index = 3000)))) {
+    render_html(el_dialog(
+      "d1",
+      append_to_body = TRUE,
+      destroy_on_close = TRUE,
+      custom_class = "wide",
+      open_delay = 100,
+      z_index = 3000
+    )),
+    render_html(el_drawer(
+      "w1",
+      append_to_body = TRUE,
+      destroy_on_close = TRUE,
+      custom_class = "wide",
+      open_delay = 100,
+      z_index = 3000
+    ))
+  )) {
     expect_match(html, 'data-append-to="body"', fixed = TRUE)
     expect_match(html, 'data-open-delay="100"', fixed = TRUE)
     expect_match(html, 'data-z-index="3000"', fixed = TRUE)
     expect_match(html, 'data-destroy-on-close="true"', fixed = TRUE)
     expect_match(html, "wide", fixed = TRUE)
   }
-  expect_match(render_html(el_dialog("d1", lock_scroll = FALSE)),
-               'data-lock-scroll="false"', fixed = TRUE)
+  expect_match(
+    render_html(el_dialog("d1", lock_scroll = FALSE)),
+    'data-lock-scroll="false"',
+    fixed = TRUE
+  )
 })
 
 test_that("before_close travels as source for the binding", {
   fn <- JS("function(done) { done(); }")
-  expect_match(render_html(el_dialog("d1", before_close = fn)),
-               'data-before-close="function(done) { done(); }"', fixed = TRUE)
-  expect_match(render_html(el_drawer("w1", before_close = fn)),
-               'data-before-close="function(done) { done(); }"', fixed = TRUE)
-  expect_false(grepl("data-before-close", render_html(el_dialog("d1")), fixed = TRUE))
+  expect_match(
+    render_html(el_dialog("d1", before_close = fn)),
+    'data-before-close="function(done) { done(); }"',
+    fixed = TRUE
+  )
+  expect_match(
+    render_html(el_drawer("w1", before_close = fn)),
+    'data-before-close="function(done) { done(); }"',
+    fixed = TRUE
+  )
+  expect_false(grepl(
+    "data-before-close",
+    render_html(el_dialog("d1")),
+    fixed = TRUE
+  ))
 })
 
 test_that("destroy_on_close keeps a pristine copy to rebuild from", {
-  closed <- render_html(el_dialog("d1", content = shiny::tags$p("body"),
-                                  destroy_on_close = TRUE))
+  closed <- render_html(el_dialog(
+    "d1",
+    content = shiny::tags$p("body"),
+    destroy_on_close = TRUE
+  ))
   expect_match(closed, '<template data-el-pristine="true">', fixed = TRUE)
   expect_false(grepl("data-el-live", closed, fixed = TRUE))
 
-  open <- render_html(el_dialog("d1", content = shiny::tags$p("body"),
-                                destroy_on_close = TRUE, visible = TRUE))
+  open <- render_html(el_dialog(
+    "d1",
+    content = shiny::tags$p("body"),
+    destroy_on_close = TRUE,
+    visible = TRUE
+  ))
   expect_match(open, 'data-el-live="true"', fixed = TRUE)
 
   # Without it the content is rendered once and simply hidden
@@ -269,9 +381,13 @@ test_that("destroy_on_close keeps a pristine copy to rebuild from", {
 })
 
 test_that("the binding reports the four open/close events", {
-  js <- paste(readLines(
-    system.file("js", "el-overlay-binding.js", package = "shiny.element"), warn = FALSE
-  ), collapse = "\n")
+  js <- paste(
+    readLines(
+      system.file("js", "el-overlay-binding.js", package = "shiny.element"),
+      warn = FALSE
+    ),
+    collapse = "\n"
+  )
   for (ev in c("'_open'", "'_opened'", "'_close'", "'_closed'")) {
     expect_match(js, ev, fixed = TRUE)
   }
@@ -279,12 +395,25 @@ test_that("the binding reports the four open/close events", {
 })
 
 test_that("Element Plus's dialog and drawer options reach the markup", {
-  html <- render_html(el_dialog("d1", draggable = TRUE, overflow = TRUE,
-                                header_class = "h", body_class = "b", footer = "f",
-                                footer_class = "ft", modal_class = "m"))
-  for (x in c("is-draggable", 'data-draggable="true"', 'data-overflow="true"',
-              "el-dialog__header h", "el-dialog__body b", "el-dialog__footer ft",
-              "el-overlay m")) {
+  html <- render_html(el_dialog(
+    "d1",
+    draggable = TRUE,
+    overflow = TRUE,
+    header_class = "h",
+    body_class = "b",
+    footer = "f",
+    footer_class = "ft",
+    modal_class = "m"
+  ))
+  for (x in c(
+    "is-draggable",
+    'data-draggable="true"',
+    'data-overflow="true"',
+    "el-dialog__header h",
+    "el-dialog__body b",
+    "el-dialog__footer ft",
+    "el-overlay m"
+  )) {
     expect_match(html, x, fixed = TRUE)
   }
   drawer <- render_html(el_drawer("w1", resizable = TRUE))

@@ -36,6 +36,9 @@ Server-side update for \code{\link[=el_color_picker_panel]{el_color_picker_panel
 \examples{
 if (interactive()) {
   # inside a server function
-  observeEvent(input$reset, update_el_color_picker_panel(session, "x", value = NULL))
+  observeEvent(
+    input$reset,
+    update_el_color_picker_panel(session, "x", value = NULL)
+  )
 }
 }

@@ -15,11 +15,16 @@ Basic and concise tabs.
 Tabs provide a selective card functionality. By default the first tab is selected as active, and you can activate any tab by setting the `value` attribute.
 
 ```{r basic, eval = FALSE, shot = TRUE}
-el_tabs("basic", selected = "first", tabs = list(
-  list(name = "first", label = "User", content = "User"),
-  list(name = "second", label = "Config", content = "Config"),
-  list(name = "third", label = "Role", content = "Role"),
-  list(name = "fourth", label = "Task", content = "Task")))
+el_tabs(
+  "basic",
+  selected = "first",
+  tabs = list(
+    list(name = "first", label = "User", content = "User"),
+    list(name = "second", label = "Config", content = "Config"),
+    list(name = "third", label = "Role", content = "Role"),
+    list(name = "fourth", label = "Task", content = "Task")
+  )
+)
 ```
 
 ## Card Style
@@ -29,11 +34,16 @@ Tabs styled as cards.
 Set `type` to `card` can get a card-styled tab.
 
 ```{r card-style, eval = FALSE, shot = TRUE}
-el_tabs("card", type = "card", tabs = list(
-  list(name = "first", label = "User", content = "User"),
-  list(name = "second", label = "Config", content = "Config"),
-  list(name = "third", label = "Role", content = "Role"),
-  list(name = "fourth", label = "Task", content = "Task")))
+el_tabs(
+  "card",
+  type = "card",
+  tabs = list(
+    list(name = "first", label = "User", content = "User"),
+    list(name = "second", label = "Config", content = "Config"),
+    list(name = "third", label = "Role", content = "Role"),
+    list(name = "fourth", label = "Task", content = "Task")
+  )
+)
 ```
 
 ## Border card
@@ -43,11 +53,16 @@ Border card tabs.
 Set `type` to `border-card`.
 
 ```{r border-card, eval = FALSE, shot = TRUE}
-el_tabs("bc", type = "border-card", tabs = list(
-  list(name = "first", label = "User", content = "User"),
-  list(name = "second", label = "Config", content = "Config"),
-  list(name = "third", label = "Role", content = "Role"),
-  list(name = "fourth", label = "Task", content = "Task")))
+el_tabs(
+  "bc",
+  type = "border-card",
+  tabs = list(
+    list(name = "first", label = "User", content = "User"),
+    list(name = "second", label = "Config", content = "Config"),
+    list(name = "third", label = "Role", content = "Role"),
+    list(name = "fourth", label = "Task", content = "Task")
+  )
+)
 ```
 
 ## Tab position
@@ -57,11 +72,16 @@ You can use `tab-position` attribute to set the tab's position.
 You can choose from four directions: `tabPosition="left|right|top|bottom"`
 
 ```{r tab-position, eval = FALSE, shot = TRUE}
-el_tabs("pos", tab_position = "left", tabs = list(
-  list(name = "first", label = "User", content = "User"),
-  list(name = "second", label = "Config", content = "Config"),
-  list(name = "third", label = "Role", content = "Role"),
-  list(name = "fourth", label = "Task", content = "Task")))
+el_tabs(
+  "pos",
+  tab_position = "left",
+  tabs = list(
+    list(name = "first", label = "User", content = "User"),
+    list(name = "second", label = "Config", content = "Config"),
+    list(name = "third", label = "Role", content = "Role"),
+    list(name = "fourth", label = "Task", content = "Task")
+  )
+)
 ```
 
 ## Custom Tab
@@ -71,11 +91,20 @@ You can use named slot to customize the tab label content.
 A `label` may be markup.
 
 ```{r custom-tab, eval = FALSE, shot = TRUE}
-el_tabs("cus", type = "border-card", tabs = list(
-  list(name = "route", label = tagList(el_icon("Calendar"), " Route"), content = "Route"),
-  list(name = "config", label = "Config", content = "Config"),
-  list(name = "role", label = "Role", content = "Role"),
-  list(name = "task", label = "Task", content = "Task")))
+el_tabs(
+  "cus",
+  type = "border-card",
+  tabs = list(
+    list(
+      name = "route",
+      label = tagList(el_icon("Calendar"), " Route"),
+      content = "Route"
+    ),
+    list(name = "config", label = "Config", content = "Config"),
+    list(name = "role", label = "Role", content = "Role"),
+    list(name = "task", label = "Task", content = "Task")
+  )
+)
 ```
 
 ## Add & close tab
@@ -87,16 +116,26 @@ tabs close themselves, and a new one is the server's to make, with
 `insert_el_tab()`.
 
 ```{r dynamic-tabs, eval = FALSE, shot = TRUE, shot_js = "var b = document.querySelector('#shot .el-tabs__new-tab'); b.click(); setTimeout(function(){ b.click(); }, 600)", shot_wait = 2.5}
-ui <- el_page(el_tabs("docs", type = "card", editable = TRUE, tabs = list(
-  list(name = "1", label = "Tab 1", content = "Tab 1 content"),
-  list(name = "2", label = "Tab 2", content = "Tab 2 content"))))
+ui <- el_page(el_tabs(
+  "docs",
+  type = "card",
+  editable = TRUE,
+  tabs = list(
+    list(name = "1", label = "Tab 1", content = "Tab 1 content"),
+    list(name = "2", label = "Tab 2", content = "Tab 2 content")
+  )
+))
 
 server <- function(input, output, session) {
   n <- 2
   observeEvent(input$docs_tab_add, {
     n <<- n + 1
-    insert_el_tab(id = "docs", name = as.character(n), label = "New Tab",
-                  content = "New Tab content")
+    insert_el_tab(
+      id = "docs",
+      name = as.character(n),
+      label = "New Tab",
+      content = "New Tab content"
+    )
   })
 }
 
@@ -106,9 +145,16 @@ shinyApp(ui, server)
 ## Customized add button icon
 
 ```{r customized-add-button-icon, eval = FALSE, shot = TRUE}
-el_tabs("icon", type = "card", editable = TRUE, add_icon = "CirclePlus", tabs = list(
-  list(name = "1", label = "Tab 1", content = "Tab 1 content"),
-  list(name = "2", label = "Tab 2", content = "Tab 2 content")))
+el_tabs(
+  "icon",
+  type = "card",
+  editable = TRUE,
+  add_icon = "CirclePlus",
+  tabs = list(
+    list(name = "1", label = "Tab 1", content = "Tab 1 content"),
+    list(name = "2", label = "Tab 2", content = "Tab 2 content")
+  )
+)
 ```
 
 ## Customized trigger button of new tab
@@ -116,15 +162,27 @@ el_tabs("icon", type = "card", editable = TRUE, add_icon = "CirclePlus", tabs = 
 ```{r customized-trigger, eval = FALSE, shot = TRUE, shot_js = "document.querySelector('#add_container button').click()", shot_wait = 1.5}
 ui <- el_page(
   el_button("add", "add tab", size = "small"),
-  el_tabs("docs", type = "card", closable = TRUE, tabs = list(
-    list(name = "1", label = "Tab 1", content = "Tab 1 content"),
-    list(name = "2", label = "Tab 2", content = "Tab 2 content"))))
+  el_tabs(
+    "docs",
+    type = "card",
+    closable = TRUE,
+    tabs = list(
+      list(name = "1", label = "Tab 1", content = "Tab 1 content"),
+      list(name = "2", label = "Tab 2", content = "Tab 2 content")
+    )
+  )
+)
 
 server <- function(input, output, session) {
   n <- 2
   observeEvent(input$add, {
     n <<- n + 1
-    insert_el_tab(id = "docs", name = as.character(n), label = "New Tab", content = "New Tab content")
+    insert_el_tab(
+      id = "docs",
+      name = as.character(n),
+      label = "New Tab",
+      content = "New Tab content"
+    )
   })
 }
 
@@ -136,11 +194,17 @@ shinyApp(ui, server)
 `selected` opens a tab other than the first.
 
 ```{r default-value, eval = FALSE, shot = TRUE}
-el_tabs("dv", selected = "third", type = "card", tabs = list(
-  list(name = "first", label = "User", content = "User"),
-  list(name = "second", label = "Config", content = "Config"),
-  list(name = "third", label = "Role", content = "Role"),
-  list(name = "fourth", label = "Task", content = "Task")))
+el_tabs(
+  "dv",
+  selected = "third",
+  type = "card",
+  tabs = list(
+    list(name = "first", label = "User", content = "User"),
+    list(name = "second", label = "Config", content = "Config"),
+    list(name = "third", label = "Role", content = "Role"),
+    list(name = "fourth", label = "Task", content = "Task")
+  )
+)
 ```
 
 ## API

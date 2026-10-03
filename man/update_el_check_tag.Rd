@@ -29,6 +29,9 @@ Update Element Plus Check Tag
 \examples{
 if (interactive()) {
   # inside a server function
-  observeEvent(input$clear, update_el_check_tag(session, "pinned", value = FALSE))
+  observeEvent(
+    input$clear,
+    update_el_check_tag(session, "pinned", value = FALSE)
+  )
 }
 }

@@ -6,7 +6,9 @@ sent_message <- function(expr) {
   captured <- NULL
   session <- list(
     ns = function(id) id,
-    sendCustomMessage = function(type, msg) captured <<- list(type = type, msg = msg)
+    sendCustomMessage = function(type, msg) {
+      captured <<- list(type = type, msg = msg)
+    }
   )
   expr(session)
   captured
@@ -33,20 +35,36 @@ test_that("el_carousel: one el-carousel-item per slide, with its markup", {
   # Generated in R rather than with v-for, so a slide can hold any htmltools
   # markup rather than only a string.
   html <- render_html(el_carousel(id = "banner", items = demo_items))
-  expect_equal(lengths(regmatches(html, gregexpr("<el-carousel-item", html, fixed = TRUE)))[[1]], 3L)
+  expect_equal(
+    lengths(regmatches(
+      html,
+      gregexpr("<el-carousel-item", html, fixed = TRUE)
+    ))[[1]],
+    3L
+  )
   expect_match(html, "<h3>First</h3>", fixed = TRUE)
   expect_match(html, "Second", fixed = TRUE)
 })
 
 test_that("el_carousel: the carousel is named so shinyVueReceive can reach it", {
   # setActiveItem() is the only way to change slides.
-  expect_match(render_html(el_carousel(id = "banner")), 'ref="carousel"', fixed = TRUE)
+  expect_match(
+    render_html(el_carousel(id = "banner")),
+    'ref="carousel"',
+    fixed = TRUE
+  )
 })
 
 test_that("el_carousel: options reach the Vue data", {
   html <- render_html(el_carousel(
-    id = "banner", items = demo_items, height = "180px", initial_index = 1,
-    autoplay = FALSE, interval = 5000, trigger = "click", loop = FALSE,
+    id = "banner",
+    items = demo_items,
+    height = "180px",
+    initial_index = 1,
+    autoplay = FALSE,
+    interval = 5000,
+    trigger = "click",
+    loop = FALSE,
     direction = "vertical"
   ))
   expect_match(html, '"height":"180px"')
@@ -64,8 +82,11 @@ test_that("el_carousel: type and indicator position fall back to Element's", {
   expect_match(plain, '"indicatorPosition":null', fixed = TRUE)
   expect_match(plain, .el_optional_bind("carouselType"), fixed = TRUE)
 
-  set <- render_html(el_carousel(id = "banner", type = "card",
-                                 indicator_position = "outside"))
+  set <- render_html(el_carousel(
+    id = "banner",
+    type = "card",
+    indicator_position = "outside"
+  ))
   expect_match(set, '"carouselType":"card"', fixed = TRUE)
   expect_match(set, '"indicatorPosition":"outside"', fixed = TRUE)
 })
@@ -78,13 +99,21 @@ test_that("el_carousel: slide names are carried so the index can be named", {
 })
 
 test_that("el_carousel: activeName tracks initial_index", {
-  html <- render_html(el_carousel(id = "banner", items = demo_items, initial_index = 1))
+  html <- render_html(el_carousel(
+    id = "banner",
+    items = demo_items,
+    initial_index = 1
+  ))
   expect_match(html, '"active":1')
   expect_match(html, '"activeName":"two"')
 })
 
 test_that("el_carousel: an out-of-range initial index leaves the name empty", {
-  html <- render_html(el_carousel(id = "banner", items = demo_items, initial_index = 9))
+  html <- render_html(el_carousel(
+    id = "banner",
+    items = demo_items,
+    initial_index = 9
+  ))
   expect_match(html, '"activeName":""')
 })
 
@@ -131,6 +160,9 @@ test_that("update_el_carousel: NULL fields are excluded", {
 test_that("an update moves the carousel through setActiveItem", {
   # initial-index is read once at mount and has no watcher, so assigning it
   # moves nothing; the carousel's receiver calls Element's method instead.
-  m <- vue_payload_of(el_carousel("c", items = list(list(content = "a"))))$methods
+  m <- vue_payload_of(el_carousel(
+    "c",
+    items = list(list(content = "a"))
+  ))$methods
   expect_match(m$shinyVueReceive, "setActiveItem", fixed = TRUE)
 })

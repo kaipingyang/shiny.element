@@ -28,6 +28,9 @@ Open or close an \code{\link[=el_tour]{el_tour()}}, or move it to a step.
 \examples{
 if (interactive()) {
   # inside a server function
-  observeEvent(input$help, update_el_tour(session, "intro", open = TRUE, current = 0))
+  observeEvent(
+    input$help,
+    update_el_tour(session, "intro", open = TRUE, current = 0)
+  )
 }
 }

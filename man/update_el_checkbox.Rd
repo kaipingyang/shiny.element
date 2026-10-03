@@ -34,10 +34,18 @@ Server-side update for \code{\link[=el_checkbox]{el_checkbox()}}.
 \examples{
 if (interactive()) {
   # inside a server function: the "check all" box follows the group
-  observeEvent(input$cities, {
-    n <- length(input$cities)
-    update_el_checkbox(session, "all", value = n == 4,
-                       indeterminate = n > 0 && n < 4)
-  }, ignoreNULL = FALSE)
+  observeEvent(
+    input$cities,
+    {
+      n <- length(input$cities)
+      update_el_checkbox(
+        session,
+        "all",
+        value = n == 4,
+        indeterminate = n > 0 && n < 4
+      )
+    },
+    ignoreNULL = FALSE
+  )
 }
 }

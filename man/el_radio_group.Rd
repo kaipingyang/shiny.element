@@ -124,16 +124,18 @@ updated on each change.
 
 \examples{
 # Standard radio buttons from a named vector
-el_radio_group("size",
-  choices  = c(Small = "s", Medium = "m", Large = "l"),
+el_radio_group(
+  "size",
+  choices = c(Small = "s", Medium = "m", Large = "l"),
   selected = "m"
 )
 
 # Button-style radio group
-el_radio_group("theme",
+el_radio_group(
+  "theme",
   choices = c(Light = "light", Dark = "dark"),
-  button  = TRUE,
-  size    = "small"
+  button = TRUE,
+  size = "small"
 )
 
 # Shiny app example
@@ -141,8 +143,9 @@ if (interactive()) {
   library(shiny)
   library(shiny.element)
   ui <- el_page(
-    el_radio_group("fruit",
-      choices  = c(Apple = "apple", Banana = "banana", Cherry = "cherry"),
+    el_radio_group(
+      "fruit",
+      choices = c(Apple = "apple", Banana = "banana", Cherry = "cherry"),
       selected = "apple"
     ),
     verbatimTextOutput("selected")
@@ -152,5 +155,4 @@ if (interactive()) {
   }
   shinyApp(ui, server)
 }
-
 }

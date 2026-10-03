@@ -40,42 +40,45 @@
 #'   )
 #'   server <- function(input, output, session) {
 #'     observeEvent(input$btn, {
-#'       el_notification(session,
+#'       el_notification(
+#'         session,
 #'         message = "Operation successful!",
-#'         title   = "Success",
-#'         type    = "success"
+#'         title = "Success",
+#'         type = "success"
 #'       )
 #'     })
 #'   }
 #'   shinyApp(ui, server)
 #' }
-#'
 #' @return A Shiny UI element.
 #' @export
 el_notification <- function(
-    session = shiny::getDefaultReactiveDomain(),
-    message,
-    title      = "",
-    type       = "info",
-    duration   = 4500,
-    position   = "top-right",
-    show_close = TRUE,
-    offset     = 0,
-    custom_class = NULL,
-    dangerously_use_html_string = FALSE,
-    id         = NULL,
-    icon       = NULL,
-    append_to  = NULL,
-    z_index    = NULL,
-    close_icon = NULL,
-    progress   = NULL,
-    pause_on_hover = NULL
+  session = shiny::getDefaultReactiveDomain(),
+  message,
+  title = "",
+  type = "info",
+  duration = 4500,
+  position = "top-right",
+  show_close = TRUE,
+  offset = 0,
+  custom_class = NULL,
+  dangerously_use_html_string = FALSE,
+  id = NULL,
+  icon = NULL,
+  append_to = NULL,
+  z_index = NULL,
+  close_icon = NULL,
+  progress = NULL,
+  pause_on_hover = NULL
 ) {
   .el_check_session(session)
   .el_check_choices("el_notification", environment())
   force(message)
   opts <- .el_service_options(as.list(environment()), c("session", "id"))
-  session$sendCustomMessage("elNotification", c(list(id = if (!is.null(id)) session$ns(id)), opts))
+  session$sendCustomMessage(
+    "elNotification",
+    c(list(id = if (!is.null(id)) session$ns(id)), opts)
+  )
   invisible(NULL)
 }
 
@@ -118,39 +121,42 @@ el_notification <- function(
 #'   )
 #'   server <- function(input, output, session) {
 #'     observeEvent(input$btn, {
-#'       el_message(session,
+#'       el_message(
+#'         session,
 #'         message = "This is a message toast.",
-#'         type    = "warning"
+#'         type = "warning"
 #'       )
 #'     })
 #'   }
 #'   shinyApp(ui, server)
 #' }
-#'
 #' @return A Shiny UI element.
 #' @export
 el_message <- function(
-    session = shiny::getDefaultReactiveDomain(),
-    message,
-    type       = "info",
-    duration   = 3000,
-    show_close = FALSE,
-    offset     = 16,
-    custom_class = NULL,
-    dangerously_use_html_string = FALSE,
-    id         = NULL,
-    icon       = NULL,
-    plain      = NULL,
-    placement  = NULL,
-    append_to  = NULL,
-    grouping   = NULL,
-    repeat_num = NULL
+  session = shiny::getDefaultReactiveDomain(),
+  message,
+  type = "info",
+  duration = 3000,
+  show_close = FALSE,
+  offset = 16,
+  custom_class = NULL,
+  dangerously_use_html_string = FALSE,
+  id = NULL,
+  icon = NULL,
+  plain = NULL,
+  placement = NULL,
+  append_to = NULL,
+  grouping = NULL,
+  repeat_num = NULL
 ) {
   .el_check_session(session)
   .el_check_choices("el_message", environment())
   force(message)
   opts <- .el_service_options(as.list(environment()), c("session", "id"))
-  session$sendCustomMessage("elMessage", c(list(id = if (!is.null(id)) session$ns(id)), opts))
+  session$sendCustomMessage(
+    "elMessage",
+    c(list(id = if (!is.null(id)) session$ns(id)), opts)
+  )
   invisible(NULL)
 }
 
@@ -230,14 +236,20 @@ el_message <- function(
 #'   library(shiny)
 #'   library(shiny.element)
 #'
-#'   ui <- el_page(el_button("del", "Delete", type = "danger"),
-#'                 verbatimTextOutput("answer"))
+#'   ui <- el_page(
+#'     el_button("del", "Delete", type = "danger"),
+#'     verbatimTextOutput("answer")
+#'   )
 #'
 #'   server <- function(input, output, session) {
 #'     observeEvent(input$del, {
-#'       el_message_box(session, "confirm_delete",
-#'                      "This cannot be undone.",
-#'                      title = "Delete the row?", type = "warning")
+#'       el_message_box(
+#'         session,
+#'         "confirm_delete",
+#'         "This cannot be undone.",
+#'         title = "Delete the row?",
+#'         type = "warning"
+#'       )
 #'     })
 #'     observeEvent(input$confirm_delete, {
 #'       output$answer <- renderPrint(input$confirm_delete)
@@ -246,62 +258,72 @@ el_message <- function(
 #'   shinyApp(ui, server)
 #' }
 #' @export
-el_message_box <- function(session = shiny::getDefaultReactiveDomain(),
-                           id,
-                           message,
-                           title = NULL,
-                           type = NULL,
-                           box_type = c("confirm", "alert", "prompt"),
-                           confirm_button_text = NULL,
-                           cancel_button_text = NULL,
-                           show_cancel_button = NULL,
-                           show_close = NULL,
-                           center = FALSE,
-                           round_button = FALSE,
-                           dangerously_use_html_string = FALSE,
-                           custom_class = NULL,
-                           close_on_click_modal = NULL,
-                           close_on_press_escape = NULL,
-                           input_placeholder = NULL,
-                           input_value = NULL,
-                           input_pattern = NULL,
-                           input_error_message = NULL,
-                           input_type = NULL,
-                           input_validator = NULL,
-                           show_input = NULL,
-                           show_confirm_button = NULL,
-                           confirm_button_class = NULL,
-                           cancel_button_class = NULL,
-                           distinguish_cancel_and_close = NULL,
-                           lock_scroll = NULL,
-                           close_on_hash_change = NULL,
-                           before_close = NULL,
-                           custom_style = NULL,
-                           icon = NULL,
-                           close_icon = NULL,
-                           confirm_button_type = NULL,
-                           cancel_button_type = NULL,
-                           confirm_button_loading_icon = NULL,
-                           cancel_button_loading_icon = NULL,
-                           autofocus = NULL,
-                           modal = NULL,
-                           modal_class = NULL,
-                           draggable = NULL,
-                           overflow = NULL,
-                           button_size = NULL,
-                           append_to = NULL) {
+el_message_box <- function(
+  session = shiny::getDefaultReactiveDomain(),
+  id,
+  message,
+  title = NULL,
+  type = NULL,
+  box_type = c("confirm", "alert", "prompt"),
+  confirm_button_text = NULL,
+  cancel_button_text = NULL,
+  show_cancel_button = NULL,
+  show_close = NULL,
+  center = FALSE,
+  round_button = FALSE,
+  dangerously_use_html_string = FALSE,
+  custom_class = NULL,
+  close_on_click_modal = NULL,
+  close_on_press_escape = NULL,
+  input_placeholder = NULL,
+  input_value = NULL,
+  input_pattern = NULL,
+  input_error_message = NULL,
+  input_type = NULL,
+  input_validator = NULL,
+  show_input = NULL,
+  show_confirm_button = NULL,
+  confirm_button_class = NULL,
+  cancel_button_class = NULL,
+  distinguish_cancel_and_close = NULL,
+  lock_scroll = NULL,
+  close_on_hash_change = NULL,
+  before_close = NULL,
+  custom_style = NULL,
+  icon = NULL,
+  close_icon = NULL,
+  confirm_button_type = NULL,
+  cancel_button_type = NULL,
+  confirm_button_loading_icon = NULL,
+  cancel_button_loading_icon = NULL,
+  autofocus = NULL,
+  modal = NULL,
+  modal_class = NULL,
+  draggable = NULL,
+  overflow = NULL,
+  button_size = NULL,
+  append_to = NULL
+) {
   .el_check_session(session)
   .el_check_choices("el_message_box", environment())
   force(message)
   box_type <- match.arg(box_type)
-  opts <- .el_service_options(as.list(environment()),
-                              c("session", "id", "message", "title", "box_type"))
-  session$sendCustomMessage("elMessageBox", c(list(
-    id      = session$ns(id),
-    boxType = box_type,
-    message = message,
-    title   = title
-  ), opts))
+  opts <- .el_service_options(
+    as.list(environment()),
+    c("session", "id", "message", "title", "box_type")
+  )
+  session$sendCustomMessage(
+    "elMessageBox",
+    c(
+      list(
+        id = session$ns(id),
+        boxType = box_type,
+        message = message,
+        title = title
+      ),
+      opts
+    )
+  )
   invisible(NULL)
 }
 
@@ -350,19 +372,21 @@ el_message_box <- function(session = shiny::getDefaultReactiveDomain(),
 #'   shinyApp(ui, server)
 #' }
 #' @export
-el_loading <- function(session = shiny::getDefaultReactiveDomain(),
-                       id = "default",
-                       text = NULL,
-                       target = NULL,
-                       fullscreen = NULL,
-                       lock = NULL,
-                       body = NULL,
-                       spinner = NULL,
-                       background = NULL,
-                       custom_class = NULL,
-                       svg = NULL,
-                       svg_view_box = NULL,
-                       before_close = NULL) {
+el_loading <- function(
+  session = shiny::getDefaultReactiveDomain(),
+  id = "default",
+  text = NULL,
+  target = NULL,
+  fullscreen = NULL,
+  lock = NULL,
+  body = NULL,
+  spinner = NULL,
+  background = NULL,
+  custom_class = NULL,
+  svg = NULL,
+  svg_view_box = NULL,
+  before_close = NULL
+) {
   .el_check_session(session)
   opts <- .el_service_options(as.list(environment()), c("session", "id"))
   session$sendCustomMessage("elLoading", c(list(id = session$ns(id)), opts))
@@ -388,9 +412,15 @@ el_loading <- function(session = shiny::getDefaultReactiveDomain(),
 #'   })
 #' }
 #' @export
-el_loading_close <- function(session = shiny::getDefaultReactiveDomain(), id = "default") {
+el_loading_close <- function(
+  session = shiny::getDefaultReactiveDomain(),
+  id = "default"
+) {
   .el_check_session(session)
-  session$sendCustomMessage("elLoading", list(id = session$ns(id), close = TRUE))
+  session$sendCustomMessage(
+    "elLoading",
+    list(id = session$ns(id), close = TRUE)
+  )
   invisible(NULL)
 }
 
@@ -420,19 +450,29 @@ NULL
 
 #' @rdname el_feedback_close
 #' @export
-el_message_close <- function(session = shiny::getDefaultReactiveDomain(), id = NULL) {
+el_message_close <- function(
+  session = shiny::getDefaultReactiveDomain(),
+  id = NULL
+) {
   .el_check_session(session)
-  session$sendCustomMessage("elMessageClose",
-                            list(id = if (!is.null(id)) session$ns(id)))
+  session$sendCustomMessage(
+    "elMessageClose",
+    list(id = if (!is.null(id)) session$ns(id))
+  )
   invisible(NULL)
 }
 
 #' @rdname el_feedback_close
 #' @export
-el_notification_close <- function(session = shiny::getDefaultReactiveDomain(), id = NULL) {
+el_notification_close <- function(
+  session = shiny::getDefaultReactiveDomain(),
+  id = NULL
+) {
   .el_check_session(session)
-  session$sendCustomMessage("elNotificationClose",
-                            list(id = if (!is.null(id)) session$ns(id)))
+  session$sendCustomMessage(
+    "elNotificationClose",
+    list(id = if (!is.null(id)) session$ns(id))
+  )
   invisible(NULL)
 }
 
@@ -452,16 +492,35 @@ el_notification_close <- function(session = shiny::getDefaultReactiveDomain(), i
   args <- args[setdiff(names(args), skip)]
   args <- Filter(Negate(is.null), args)
   names(args) <- vapply(names(args), .el_camel_case, "")
-  names(args)[names(args) == "dangerouslyUseHtmlString"] <- "dangerouslyUseHTMLString"
+  names(args)[
+    names(args) == "dangerouslyUseHtmlString"
+  ] <- "dangerouslyUseHTMLString"
   names(args)[names(args) == "svgViewBox"] <- "svgViewBox"
-  for (k in intersect(names(args), c("icon", "closeIcon", "confirmButtonLoadingIcon",
-                                     "cancelButtonLoadingIcon"))) {
+  for (k in intersect(
+    names(args),
+    c(
+      "icon",
+      "closeIcon",
+      "confirmButtonLoadingIcon",
+      "cancelButtonLoadingIcon"
+    )
+  )) {
     args[[k]] <- .el_icon_name(args[[k]])
   }
   # Functions: given with JS(), or as source for the options that only take one
-  fns <- names(args)[vapply(names(args), function(k) inherits(args[[k]], "JS_EVAL") ||
-    (k %in% c("beforeClose", "inputValidator") && is.character(args[[k]])), logical(1))]
-  for (k in fns) args[[k]] <- as.character(args[[k]])
-  if (length(fns)) args$.functions <- I(fns)
+  fns <- names(args)[vapply(
+    names(args),
+    function(k) {
+      inherits(args[[k]], "JS_EVAL") ||
+        (k %in% c("beforeClose", "inputValidator") && is.character(args[[k]]))
+    },
+    logical(1)
+  )]
+  for (k in fns) {
+    args[[k]] <- as.character(args[[k]])
+  }
+  if (length(fns)) {
+    args$.functions <- I(fns)
+  }
   args
 }

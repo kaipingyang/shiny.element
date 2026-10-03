@@ -37,28 +37,39 @@
 #'
 #' @return A Shiny UI element.
 #' @examples
-#' el_avatar_group(el_avatar(src = "https://example.com/a.png"), el_avatar("B"), collapse_avatars = TRUE)
+#' el_avatar_group(
+#'   el_avatar(src = "https://example.com/a.png"),
+#'   el_avatar("B"),
+#'   collapse_avatars = TRUE
+#' )
 #' @export
-el_avatar_group <- function(...,
-                            id = NULL,
-                            size = NULL,
-                            shape = NULL,
-                            collapse_avatars = NULL,
-                            collapse_avatars_tooltip = NULL,
-                            max_collapse_avatars = NULL,
-                            effect = NULL,
-                            placement = NULL,
-                            popper_class = NULL,
-                            popper_style = NULL,
-                            collapse_class = NULL,
-                            collapse_style = NULL,
-                            width = NULL,
-                            slots = NULL) {
+el_avatar_group <- function(
+  ...,
+  id = NULL,
+  size = NULL,
+  shape = NULL,
+  collapse_avatars = NULL,
+  collapse_avatars_tooltip = NULL,
+  max_collapse_avatars = NULL,
+  effect = NULL,
+  placement = NULL,
+  popper_class = NULL,
+  popper_style = NULL,
+  collapse_class = NULL,
+  collapse_style = NULL,
+  width = NULL,
+  slots = NULL
+) {
   .el_check_choices("el_avatar_group", environment())
-  if (is.null(id)) id <- paste0("el_avatar_group_", uuid::UUIDgenerate())
+  if (is.null(id)) {
+    id <- paste0("el_avatar_group_", uuid::UUIDgenerate())
+  }
   ns_id <- .el_ui_id(id, NULL)
   events <- .el_event_bindings(ns_id, character())
-  .el_wrap_widget("el-avatar-group", ns_id, list(...),
+  .el_wrap_widget(
+    "el-avatar-group",
+    ns_id,
+    list(...),
     props = .el_props(list(
       size = size,
       shape = shape,
@@ -70,6 +81,10 @@ el_avatar_group <- function(...,
       popper_class = popper_class,
       popper_style = popper_style,
       collapse_class = collapse_class,
-      collapse_style = collapse_style)),
-    events = events, width = width, slots = slots)
+      collapse_style = collapse_style
+    )),
+    events = events,
+    width = width,
+    slots = slots
+  )
 }

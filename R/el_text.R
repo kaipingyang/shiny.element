@@ -26,25 +26,36 @@
 #' el_text("Primary text", type = "primary")
 #' el_text(strrep("A long sentence. ", 20), truncated = TRUE)
 #' @export
-el_text <- function(...,
-                    id = NULL,
-                    type = NULL,
-                    size = NULL,
-                    truncated = NULL,
-                    line_clamp = NULL,
-                    tag = NULL,
-                    width = NULL,
-                    slots = NULL) {
+el_text <- function(
+  ...,
+  id = NULL,
+  type = NULL,
+  size = NULL,
+  truncated = NULL,
+  line_clamp = NULL,
+  tag = NULL,
+  width = NULL,
+  slots = NULL
+) {
   .el_check_choices("el_text", environment())
-  if (is.null(id)) id <- paste0("el_text_", uuid::UUIDgenerate())
+  if (is.null(id)) {
+    id <- paste0("el_text_", uuid::UUIDgenerate())
+  }
   ns_id <- .el_ui_id(id, NULL)
   events <- .el_event_bindings(ns_id, character())
-  .el_wrap_widget("el-text", ns_id, list(...),
+  .el_wrap_widget(
+    "el-text",
+    ns_id,
+    list(...),
     props = .el_props(list(
       type = type,
       size = size,
       truncated = truncated,
       line_clamp = line_clamp,
-      tag = tag)),
-    events = events, width = width, slots = slots)
+      tag = tag
+    )),
+    events = events,
+    width = width,
+    slots = slots
+  )
 }

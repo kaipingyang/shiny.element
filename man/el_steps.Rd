@@ -76,8 +76,16 @@ el_steps(
   active = 1,
   finish_status = "success",
   steps = list(
-    list(title = "Step 1", description = "Complete registration", icon = "el-icon-edit"),
-    list(title = "Step 2", description = "Upload documents", icon = "el-icon-upload"),
+    list(
+      title = "Step 1",
+      description = "Complete registration",
+      icon = "el-icon-edit"
+    ),
+    list(
+      title = "Step 2",
+      description = "Upload documents",
+      icon = "el-icon-upload"
+    ),
     list(title = "Step 3", description = "Finish", icon = "el-icon-picture")
   )
 )

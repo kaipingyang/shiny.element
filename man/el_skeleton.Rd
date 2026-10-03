@@ -52,8 +52,7 @@ itself. In Shiny the usual pattern is to start with \code{loading = TRUE} and
 switch it off from the server once the work is done.
 }
 \examples{
-el_skeleton("report", rows = 4, animated = TRUE,
-            shiny::tableOutput("summary"))
+el_skeleton("report", rows = 4, animated = TRUE, shiny::tableOutput("summary"))
 
 if (interactive()) {
   library(shiny)

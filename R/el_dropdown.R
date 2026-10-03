@@ -77,70 +77,87 @@
 #' - `input$<id>_count` -- the number of items clicked.
 #'
 #' @examples
-#' el_dropdown("dd1", "Actions",
+#' el_dropdown(
+#'   "dd1",
+#'   "Actions",
 #'   items = list(
-#'     list(command = "edit",   label = "Edit",   icon = "el-icon-edit"),
-#'     list(command = "copy",   label = "Copy",   icon = "el-icon-document"),
-#'     list(command = "delete", label = "Delete", icon = "el-icon-delete",
-#'          divided = TRUE)
+#'     list(command = "edit", label = "Edit", icon = "el-icon-edit"),
+#'     list(command = "copy", label = "Copy", icon = "el-icon-document"),
+#'     list(
+#'       command = "delete",
+#'       label = "Delete",
+#'       icon = "el-icon-delete",
+#'       divided = TRUE
+#'     )
 #'   )
 #' )
-#'
 #' @export
 el_dropdown <- function(
-    id           = NULL,
-    trigger_label = "Dropdown",
-    items        = list(),
-    trigger      = "hover",
-    type         = NULL,
-    size         = NULL,
-    split_button = FALSE,
-    hide_on_click = TRUE,
-    placement    = "bottom-end",
-    disabled     = FALSE,
-    show_timeout = NULL,
-    hide_timeout = NULL,
-    tabindex     = NULL,
-    append_to = NULL,
-    button_props = NULL,
-    effect = NULL,
-    max_height = NULL,
-    persistent = NULL,
-    popper_class = NULL,
-    popper_options = NULL,
-    popper_style = NULL,
-    role = NULL,
-    show_arrow = NULL,
-    teleported = NULL,
-    trigger_keys = NULL,
-    virtual_ref = NULL,
-    virtual_triggering = NULL,
-    width        = NULL,
-    slots        = NULL,
-    session      = NULL
+  id = NULL,
+  trigger_label = "Dropdown",
+  items = list(),
+  trigger = "hover",
+  type = NULL,
+  size = NULL,
+  split_button = FALSE,
+  hide_on_click = TRUE,
+  placement = "bottom-end",
+  disabled = FALSE,
+  show_timeout = NULL,
+  hide_timeout = NULL,
+  tabindex = NULL,
+  append_to = NULL,
+  button_props = NULL,
+  effect = NULL,
+  max_height = NULL,
+  persistent = NULL,
+  popper_class = NULL,
+  popper_options = NULL,
+  popper_style = NULL,
+  role = NULL,
+  show_arrow = NULL,
+  teleported = NULL,
+  trigger_keys = NULL,
+  virtual_ref = NULL,
+  virtual_triggering = NULL,
+  width = NULL,
+  slots = NULL,
+  session = NULL
 ) {
   .el_check_items(items, "items", c("command", "label"))
   .el_check_choices("el_dropdown", environment())
-  if (is.null(id)) id <- paste0("el_dropdown_", uuid::UUIDgenerate())
-  ns_id        <- .el_ui_id(id, session)
+  if (is.null(id)) {
+    id <- paste0("el_dropdown_", uuid::UUIDgenerate())
+  }
+  ns_id <- .el_ui_id(id, session)
   container_id <- paste0(ns_id, "_container")
 
   # Build el-dropdown-item tags
   item_tags <- lapply(items, function(item) {
-    cmd     <- item$command
-    lbl     <- if (!is.null(item$label)) item$label else as.character(cmd)
+    cmd <- item$command
+    lbl <- if (!is.null(item$label)) item$label else as.character(cmd)
     i_attrs <- list(":command" = jsonlite::toJSON(cmd, auto_unbox = TRUE))
-    if (isTRUE(item$disabled)) i_attrs[[":disabled"]] <- "true"
-    if (isTRUE(item$divided))  i_attrs[[":divided"]]  <- "true"
+    if (isTRUE(item$disabled)) {
+      i_attrs[[":disabled"]] <- "true"
+    }
+    if (isTRUE(item$divided)) {
+      i_attrs[[":divided"]] <- "true"
+    }
     # An icon by name is the item's prop; a tag fills its icon slot
     icon_slot <- NULL
-    if (is.character(item$icon)) i_attrs[["icon"]] <- .el_icon_name(item$icon)
-    else if (!is.null(item$icon)) icon_slot <- .el_slot("icon", item$icon)
+    if (is.character(item$icon)) {
+      i_attrs[["icon"]] <- .el_icon_name(item$icon)
+    } else if (!is.null(item$icon)) {
+      icon_slot <- .el_slot("icon", item$icon)
+    }
 
     htmltools::tag("el-dropdown-item", c(i_attrs, list(lbl, icon_slot)))
   })
 
-  menu_tag <- .el_slot("dropdown", htmltools::tag("el-dropdown-menu", item_tags))
+  menu_tag <- .el_slot(
+    "dropdown",
+    htmltools::tag("el-dropdown-menu", item_tags)
+  )
 
   # Trigger slot content
   trigger_content <- if (isTRUE(split_button)) {
@@ -150,7 +167,9 @@ el_dropdown <- function(
     shiny::tags$span(
       class = "el-dropdown-link",
       trigger_label,
-      htmltools::HTML('<el-icon class="el-icon--right"><arrow-down /></el-icon>')
+      htmltools::HTML(
+        '<el-icon class="el-icon--right"><arrow-down /></el-icon>'
+      )
     )
   } else {
     # A tag is the trigger as given -- an icon, an avatar -- with no arrow
@@ -159,12 +178,12 @@ el_dropdown <- function(
   }
 
   dd_attrs <- list(
-    ":trigger"       = "trigger",
+    ":trigger" = "trigger",
     ":hide-on-click" = "hideOnClick",
-    ":placement"     = "placement",
-    ":disabled"      = "disabled",
-    ":split-button"  = "splitButton",
-    "@command"       = "handleCommand"
+    ":placement" = "placement",
+    ":disabled" = "disabled",
+    ":split-button" = "splitButton",
+    "@command" = "handleCommand"
   )
   dd_attrs[[":type"]] <- .el_optional_bind("type")
   dd_attrs[[":size"]] <- .el_optional_bind("size")
@@ -173,18 +192,21 @@ el_dropdown <- function(
   dd_attrs[[":tabindex"]] <- .el_optional_bind("tabindex")
 
   # Forwarded to input$<id>_<event>; see .el_event_bindings().
-  events <- .el_event_bindings(ns_id, c(
-    "click",
-    "visible-change"
-  ))
+  events <- .el_event_bindings(
+    ns_id,
+    c(
+      "click",
+      "visible-change"
+    )
+  )
   dd_attrs <- c(dd_attrs, events$attrs)
   vue_data <- list(
-    trigger      = trigger,
-    hideOnClick  = hide_on_click,
-    placement    = placement,
-    disabled     = disabled,
-    splitButton  = split_button,
-    count        = 0L
+    trigger = trigger,
+    hideOnClick = hide_on_click,
+    placement = placement,
+    disabled = disabled,
+    splitButton = split_button,
+    count = 0L
   )
   vue_data$type <- .el_or_na(type)
   vue_data$size <- .el_or_na(size)
@@ -206,18 +228,26 @@ el_dropdown <- function(
       teleported = teleported,
       trigger_keys = trigger_keys,
       virtual_ref = virtual_ref,
-      virtual_triggering = virtual_triggering)),
-    id     = ns_id,
-    markup = htmltools::tag("el-dropdown", c(dd_attrs, list(trigger_content, menu_tag))),
-    data   = vue_data,
-    methods = c(events$methods, list(
-      handleCommand = JS(sprintf(
-        "function(cmd) { this.count++; window.Shiny && Shiny.setInputValue && Shiny.setInputValue('%s', cmd, {priority: 'event'}); window.Shiny && Shiny.setInputValue && Shiny.setInputValue('%s_count', this.count); }",
-        ns_id, ns_id
-      ))
+      virtual_triggering = virtual_triggering
     )),
-    width      = width,
-    slots      = slots
+    id = ns_id,
+    markup = htmltools::tag(
+      "el-dropdown",
+      c(dd_attrs, list(trigger_content, menu_tag))
+    ),
+    data = vue_data,
+    methods = c(
+      events$methods,
+      list(
+        handleCommand = JS(sprintf(
+          "function(cmd) { this.count++; window.Shiny && Shiny.setInputValue && Shiny.setInputValue('%s', cmd, {priority: 'event'}); window.Shiny && Shiny.setInputValue && Shiny.setInputValue('%s_count', this.count); }",
+          ns_id,
+          ns_id
+        ))
+      )
+    ),
+    width = width,
+    slots = slots
   )
 }
 
@@ -240,13 +270,17 @@ el_dropdown <- function(
 #'   })
 #' }
 #' @export
-update_el_dropdown <- function(session = shiny::getDefaultReactiveDomain(), id, disabled = NULL) {
+update_el_dropdown <- function(
+  session = shiny::getDefaultReactiveDomain(),
+  id,
+  disabled = NULL
+) {
   .el_check_session(session)
   ns_id <- session$ns(id)
-  msg   <- list(id = ns_id)
-  if (!is.null(disabled)) msg$disabled <- disabled
+  msg <- list(id = ns_id)
+  if (!is.null(disabled)) {
+    msg$disabled <- disabled
+  }
   .el_send_update(session, msg)
   invisible(NULL)
 }
-
-

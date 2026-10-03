@@ -13,10 +13,29 @@ Popover has 9 placements.
 Use attribute `content` to set the display content when hover. The attribute `placement` determines the position of the Popover. Its value is `[orientation]-[alignment]` with four orientations `top`, `left`, `right`, `bottom` and three alignments `start`, `end`, `null`, and the default alignment is null. Take `placement="left-end"` for example, Popover will display on the left of the element which you are hovering and the bottom of the Popover aligns with the bottom of the element.
 
 ```{r placement, eval = FALSE, shot = TRUE, shot_js = "var b = document.querySelector('#shot button'); ['mouseenter','mouseover'].forEach(function(t){ b.dispatchEvent(new MouseEvent(t, {bubbles: true})); });", shot_sel = ".el-popper", shot_wait = 1}
-places <- c("top-start", "top", "top-end", "left", "right", "bottom-start", "bottom", "bottom-end")
-tags$div(style = "padding: 60px 100px; display: flex; flex-wrap: wrap; gap: 12px", lapply(places, function(p)
-  el_popover(paste0("po_", gsub("-", "_", p)), reference = el$button(p), placement = p,
-             title = "Title", popover_width = 200, content = "this is content, this is content, this is content")))
+places <- c(
+  "top-start",
+  "top",
+  "top-end",
+  "left",
+  "right",
+  "bottom-start",
+  "bottom",
+  "bottom-end"
+)
+tags$div(
+  style = "padding: 60px 100px; display: flex; flex-wrap: wrap; gap: 12px",
+  lapply(places, function(p) {
+    el_popover(
+      paste0("po_", gsub("-", "_", p)),
+      reference = el$button(p),
+      placement = p,
+      title = "Title",
+      popover_width = 200,
+      content = "this is content, this is content, this is content"
+    )
+  })
+)
 ```
 
 ## Basic usage
@@ -26,10 +45,17 @@ Popover is built with `ElTooltip`. So for some duplicated attributes, please ref
 The `trigger` attribute is used to define how popover is triggered: `hover`, `click`, `focus` or `contextmenu` . If you want to manually control it, you can set `:visible`.
 
 ```{r basic-usage, eval = FALSE, shot = TRUE, shot_js = "document.querySelectorAll('#shot button')[1].click()", shot_sel = ".el-popper", shot_wait = 1}
-tagList(lapply(c("hover", "click", "focus", "contextmenu"), function(t)
-  el_popover(paste0("p_", t), reference = el$button(t), trigger = t,
-             title = "Title", popover_width = 200, placement = "bottom",
-             content = "this is content, this is content, this is content")))
+tagList(lapply(c("hover", "click", "focus", "contextmenu"), function(t) {
+  el_popover(
+    paste0("p_", t),
+    reference = el$button(t),
+    trigger = t,
+    title = "Title",
+    popover_width = 200,
+    placement = "bottom",
+    content = "this is content, this is content, this is content"
+  )
+}))
 ```
 
 ## Virtual triggering
@@ -52,11 +78,21 @@ Other components/elements can be nested in popover. Following is an example of n
 replace the `content` attribute with a default `slot`.
 
 ```{r nested-information, eval = FALSE, shot = TRUE, shot_js = "document.querySelector('#shot button').click()", shot_sel = ".el-popper", shot_wait = 1}
-el_popover("addr", reference = el$button("Click to activate"), trigger = "click",
-           popover_width = 400, placement = "right",
-           body = el_table("addresses", data = data.frame(
-             date = c("2016-05-02", "2016-05-04"), name = c("Jack", "Jack"),
-             address = c("New York City", "New York City"))))
+el_popover(
+  "addr",
+  reference = el$button("Click to activate"),
+  trigger = "click",
+  popover_width = 400,
+  placement = "right",
+  body = el_table(
+    "addresses",
+    data = data.frame(
+      date = c("2016-05-02", "2016-05-04"),
+      name = c("Jack", "Jack"),
+      address = c("New York City", "New York City")
+    )
+  )
+)
 ```
 
 ## Nested operation
@@ -66,14 +102,24 @@ Of course, you can nest other operations. It's more light-weight than using a di
 Opened and closed from the server with `update_el_popover(visible =)`.
 
 ```{r nested-operation, eval = FALSE, shot = TRUE, shot_js = "document.querySelector('#shot .el-button').click()", shot_sel = ".el-popper", shot_wait = 1.5}
-ui <- el_page(el_popover("confirm", popover_width = 160, placement = "top",
+ui <- el_page(el_popover(
+  "confirm",
+  popover_width = 160,
+  placement = "top",
   reference = el_button("delete", "Delete"),
-  body = tagList(tags$p("Are you sure to delete this?"),
-                 el_button("no", "cancel", size = "small", text = TRUE),
-                 el_button("yes", "confirm", size = "small", type = "primary"))))
+  body = tagList(
+    tags$p("Are you sure to delete this?"),
+    el_button("no", "cancel", size = "small", text = TRUE),
+    el_button("yes", "confirm", size = "small", type = "primary")
+  )
+))
 server <- function(input, output, session) {
   observeEvent(input$delete, update_el_popover(id = "confirm", visible = TRUE))
-  observeEvent(c(input$no, input$yes), update_el_popover(id = "confirm", visible = FALSE), ignoreInit = TRUE)
+  observeEvent(
+    c(input$no, input$yes),
+    update_el_popover(id = "confirm", visible = FALSE),
+    ignoreInit = TRUE
+  )
 }
 shinyApp(ui, server)
 ```

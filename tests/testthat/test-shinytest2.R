@@ -5,11 +5,15 @@ test_that("AppDriver reads and sets components, and sees server updates", {
   skip_on_cran()
   skip_if_not_installed("shinytest2")
   skip_if_no_browser()
-  withr::local_envvar(SHINY_ELEMENT_PKG = normalizePath(testthat::test_path("..", "..")),
-                      NOT_CRAN = "true")
+  withr::local_envvar(
+    SHINY_ELEMENT_PKG = normalizePath(testthat::test_path("..", "..")),
+    NOT_CRAN = "true"
+  )
   use_browser_args()
-  app <- shinytest2::AppDriver$new(testthat::test_path("apps", "shinytest2"),
-                                   load_timeout = 60000)
+  app <- shinytest2::AppDriver$new(
+    testthat::test_path("apps", "shinytest2"),
+    load_timeout = 60000
+  )
   on.exit(app$stop(), add = TRUE)
 
   vals <- app$get_values(input = c("city", "name", "on"))$input
@@ -21,7 +25,10 @@ test_that("AppDriver reads and sets components, and sees server updates", {
   app$wait_for_idle(500)
   expect_equal(app$get_value(output = "echo"), "Shanghai Ada TRUE ")
   # the component shows what was set, not only the server
-  expect_equal(app$get_js("document.querySelector('#name_container input').value"), "Ada")
+  expect_equal(
+    app$get_js("document.querySelector('#name_container input').value"),
+    "Ada"
+  )
 
   app$click(selector = "#go_container button")
   app$wait_for_value(input = "late")

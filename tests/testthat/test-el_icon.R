@@ -8,7 +8,7 @@ test_that("el_icon: an Element Plus icon, drawn by name", {
 test_that("el_icon: backward compat — same output as old el_icon", {
   old <- el_icon("search")
   new <- el_icon("search", a11y = "none")
-  expect_equal(old$name,          new$name)
+  expect_equal(old$name, new$name)
   expect_equal(old$attribs$class, new$attribs$class)
 })
 
@@ -26,7 +26,10 @@ test_that("el_icon: spaces in name → dashes", {
 
 test_that("el_icon: Element UI's class names are translated", {
   expect_equal(el_icon("el-icon-search")$attribs[["data-el-icon"]], "Search")
-  expect_equal(el_icon("el-icon-user-solid")$attribs[["data-el-icon"]], "UserFilled")
+  expect_equal(
+    el_icon("el-icon-user-solid")$attribs[["data-el-icon"]],
+    "UserFilled"
+  )
 })
 
 test_that("el_icon: colour, as Element Plus's el-icon takes it", {
@@ -126,8 +129,10 @@ test_that("el_icon: lib=none with extra class", {
 
 test_that("el_icon: lib=font-awesome errors without fontawesome pkg", {
   # Skip if fontawesome IS installed
-  skip_if(requireNamespace("fontawesome", quietly = TRUE),
-          "fontawesome is installed; skipping missing-package test")
+  skip_if(
+    requireNamespace("fontawesome", quietly = TRUE),
+    "fontawesome is installed; skipping missing-package test"
+  )
 
   expect_error(
     el_icon("search", lib = "font-awesome"),

@@ -142,16 +142,19 @@ animation has finished.
 }
 
 \examples{
-el_popover("info",
+el_popover(
+  "info",
   reference = el$button("Details"),
   title = "March",
   content = "Revenue up 4\% on February."
 )
 
 # Hover, with markup in the body
-el_popover("info",
+el_popover(
+  "info",
   reference = el$button("Details"),
   body = shiny::tags$ul(shiny::tags$li("One"), shiny::tags$li("Two")),
-  trigger = "hover", placement = "right"
+  trigger = "hover",
+  placement = "right"
 )
 }

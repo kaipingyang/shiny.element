@@ -3,16 +3,30 @@
 
 test_that("overlays stack with Element's popups, focus returns, keys work", {
   skip_if_no_browser()
-  app  <- testthat::test_path("apps", "overlays.R")
-  pkg  <- normalizePath(testthat::test_path("..", ".."))
+  app <- testthat::test_path("apps", "overlays.R")
+  pkg <- normalizePath(testthat::test_path("..", ".."))
   port <- httpuv::randomPort()
-  log  <- tempfile(fileext = ".log")
-  proc <- callr::r_bg(function(app, pkg, port, libs) {
-    .libPaths(libs)
-    pkgload::load_all(pkg, quiet = TRUE, helpers = FALSE, attach_testthat = FALSE)
-    shiny::runApp(app, host = "127.0.0.1", port = port, launch.browser = FALSE)
-  }, args = list(app = app, pkg = pkg, port = port, libs = .libPaths()),
-  stdout = log, stderr = "2>&1")
+  log <- tempfile(fileext = ".log")
+  proc <- callr::r_bg(
+    function(app, pkg, port, libs) {
+      .libPaths(libs)
+      pkgload::load_all(
+        pkg,
+        quiet = TRUE,
+        helpers = FALSE,
+        attach_testthat = FALSE
+      )
+      shiny::runApp(
+        app,
+        host = "127.0.0.1",
+        port = port,
+        launch.browser = FALSE
+      )
+    },
+    args = list(app = app, pkg = pkg, port = port, libs = .libPaths()),
+    stdout = log,
+    stderr = "2>&1"
+  )
   on.exit(proc$kill(), add = TRUE)
   for (i in seq_len(120)) {
     Sys.sleep(0.5)
@@ -29,10 +43,19 @@ test_that("overlays stack with Element's popups, focus returns, keys work", {
   Sys.sleep(3)
   vals <- function() {
     txt <- strsplit(js("document.getElementById('vals').innerText"), "\n")[[1]]
-    stats::setNames(trimws(sub("^[^=]*=", "", txt)), trimws(sub("=.*", "", txt)))
+    stats::setNames(
+      trimws(sub("^[^=]*=", "", txt)),
+      trimws(sub("=.*", "", txt))
+    )
   }
-  key <- function(type, code, k) b$Input$dispatchKeyEvent(type = type,
-    windowsVirtualKeyCode = code, key = k, code = k)
+  key <- function(type, code, k) {
+    b$Input$dispatchKeyEvent(
+      type = type,
+      windowsVirtualKeyCode = code,
+      key = k,
+      code = k
+    )
+  }
 
   # ── z-index: from el_page(z_index =), shared with every Element popup
   js("document.getElementById('open_outer').click()")
@@ -47,30 +70,41 @@ test_that("overlays stack with Element's popups, focus returns, keys work", {
   js("document.querySelector('#pick2_container .el-select__wrapper').click()")
   Sys.sleep(1)
   # Element Plus's dropdown is a popper, z-indexed from the same counter
-  expect_true(js("(function(){
+  expect_true(js(
+    "(function(){
     var dd = Array.from(document.querySelectorAll('.el-select__popper'))
       .filter(function(e){ return getComputedStyle(e).display !== 'none'; })[0];
     var r = dd.getBoundingClientRect();
     var top = document.elementFromPoint(r.left + 10, r.top + 12);
     return !!(top && top.closest('.el-select__popper')) &&
-      +getComputedStyle(dd).zIndex > +document.getElementById('inner').style.zIndex; })()"))
+      +getComputedStyle(dd).zIndex > +document.getElementById('inner').style.zIndex; })()"
+  ))
   # Escape closes the topmost only: the dropdown -- whose input stops the
   # key going further, as in Element -- then, from elsewhere, the inner dialog
-  key("keyDown", 27, "Escape"); key("keyUp", 27, "Escape")
+  key("keyDown", 27, "Escape")
+  key("keyUp", 27, "Escape")
   Sys.sleep(0.5)
-  expect_true(js("Array.from(document.querySelectorAll('.el-select__popper')).every(function(e){ return getComputedStyle(e).display === 'none'; })"))
+  expect_true(js(
+    "Array.from(document.querySelectorAll('.el-select__popper')).every(function(e){ return getComputedStyle(e).display === 'none'; })"
+  ))
   js("document.activeElement.blur()")
-  key("keyDown", 27, "Escape"); key("keyUp", 27, "Escape")
+  key("keyDown", 27, "Escape")
+  key("keyUp", 27, "Escape")
   Sys.sleep(1)
   expect_equal(js("document.getElementById('inner').style.display"), "none")
   expect_equal(js("document.getElementById('outer').style.display"), "")
-  key("keyDown", 27, "Escape"); key("keyUp", 27, "Escape")
+  key("keyDown", 27, "Escape")
+  key("keyUp", 27, "Escape")
   Sys.sleep(1)
   expect_equal(js("document.getElementById('outer').style.display"), "none")
-  expect_false(js("document.body.classList.contains('el-popup-parent--hidden')"))
+  expect_false(js(
+    "document.body.classList.contains('el-popup-parent--hidden')"
+  ))
 
   # ── a drawer gives focus back to what had it
-  js("document.getElementById('open_drawer').focus(); document.getElementById('open_drawer').click()")
+  js(
+    "document.getElementById('open_drawer').focus(); document.getElementById('open_drawer').click()"
+  )
   Sys.sleep(2)
   expect_equal(vals()[["drw"]], "TRUE")
   expect_true(js("document.activeElement.classList.contains('el-drawer')"))
@@ -79,14 +113,21 @@ test_that("overlays stack with Element's popups, focus returns, keys work", {
   expect_equal(js("document.activeElement.id"), "open_drawer")
 
   # ── tabs: arrows move and select, Delete closes, overflow scrolls
-  expect_true(js("document.querySelector('#tabs .el-tabs__nav-wrap').classList.contains('is-scrollable')"))
+  expect_true(js(
+    "document.querySelector('#tabs .el-tabs__nav-wrap').classList.contains('is-scrollable')"
+  ))
   expect_true(js("!!document.querySelector('#tabs .el-tabs__nav-next')"))
-  expect_equal(js("document.getElementById('tabs-tab-t1').getAttribute('aria-controls')"), "tabs-pane-t1")
+  expect_equal(
+    js("document.getElementById('tabs-tab-t1').getAttribute('aria-controls')"),
+    "tabs-pane-t1"
+  )
   js("document.getElementById('tabs-tab-t1').focus()")
   key("keyDown", 39, "ArrowRight")
   Sys.sleep(1)
   expect_equal(vals()[["tabs"]], "t2")
-  expect_true(js("document.getElementById('tabs-tab-t2').classList.contains('is-focus')"))
+  expect_true(js(
+    "document.getElementById('tabs-tab-t2').classList.contains('is-focus')"
+  ))
   key("keyDown", 46, "Delete")
   Sys.sleep(1)
   expect_false(js("!!document.getElementById('tabs-tab-t2')"))
@@ -95,18 +136,29 @@ test_that("overlays stack with Element's popups, focus returns, keys work", {
   key("keyDown", 37, "ArrowLeft")
   Sys.sleep(1)
   expect_equal(vals()[["tabs"]], "t14")
-  expect_true(js("(function(){ var a = document.getElementById('tabs-tab-t14').getBoundingClientRect();
+  expect_true(js(
+    "(function(){ var a = document.getElementById('tabs-tab-t14').getBoundingClientRect();
     var s = document.querySelector('#tabs .el-tabs__nav-scroll').getBoundingClientRect();
-    return a.right <= s.right + 1 && a.left >= s.left - 1; })()"))
+    return a.right <= s.right + 1 && a.left >= s.left - 1; })()"
+  ))
 
   # ── collapse: Enter on a focused header opens it, with ARIA to match
   js("document.getElementById('col-head-b').focus()")
   key("keyUp", 13, "Enter")
   Sys.sleep(1)
   expect_equal(vals()[["col"]], "b")
-  expect_equal(js("document.querySelector('#col-head-b').getAttribute('aria-expanded')"), "true")
-  expect_equal(js("document.getElementById('col-content-b').getAttribute('aria-hidden')"), "false")
+  expect_equal(
+    js("document.querySelector('#col-head-b').getAttribute('aria-expanded')"),
+    "true"
+  )
+  expect_equal(
+    js("document.getElementById('col-content-b').getAttribute('aria-hidden')"),
+    "false"
+  )
   key("keyUp", 32, " ")
   Sys.sleep(1)
-  expect_equal(js("document.getElementById('col-content-b').style.display"), "none")
+  expect_equal(
+    js("document.getElementById('col-content-b').style.display"),
+    "none"
+  )
 })

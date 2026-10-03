@@ -43,43 +43,53 @@
 #' el_icon("edit", size = "1.5em")
 #' el_icon("Delete", title = "Delete item", color = "#f56c6c")
 #' el_icon("close", a11y = "deco")
-#'
 #' @export
 el_icon <- function(
-    name,
-    size  = NULL,
-    class = NULL,
-    title = NULL,
-    a11y  = c("auto", "deco", "sem", "none"),
-    lib   = c("element-plus", "font-awesome", "none"),
-    ...,
-    color = NULL
+  name,
+  size = NULL,
+  class = NULL,
+  title = NULL,
+  a11y = c("auto", "deco", "sem", "none"),
+  lib = c("element-plus", "font-awesome", "none"),
+  ...,
+  color = NULL
 ) {
-  if (identical(lib, "element-ui")) lib <- "element-plus"
-  lib  <- match.arg(lib)
+  if (identical(lib, "element-ui")) {
+    lib <- "element-plus"
+  }
+  lib <- match.arg(lib)
   a11y <- match.arg(a11y)
 
-  switch(lib,
+  switch(
+    lib,
 
     "element-plus" = {
       icon <- .el_icon_pascal(name)
       if (a11y == "auto") {
         a11y <- if (is.null(title)) "deco" else "sem"
       }
-      a11y_attrs <- switch(a11y,
+      a11y_attrs <- switch(
+        a11y,
         deco = list(`aria-hidden` = "true", role = "img"),
-        sem  = list(`aria-label`  = if (is.null(title)) icon else title,
-                    role          = "img"),
+        sem = list(
+          `aria-label` = if (is.null(title)) icon else title,
+          role = "img"
+        ),
         list()
       )
       style_val <- paste0(
-        if (!is.null(size)) paste0("font-size:", htmltools::validateCssUnit(size), ";"),
-        if (!is.null(color)) paste0("--color:", color, ";"))
+        if (!is.null(size)) {
+          paste0("font-size:", htmltools::validateCssUnit(size), ";")
+        },
+        if (!is.null(color)) paste0("--color:", color, ";")
+      )
       do.call(
         shiny::tags$i,
         c(
-          list(class = paste(c("el-icon", class), collapse = " "),
-               `data-el-icon` = icon),
+          list(
+            class = paste(c("el-icon", class), collapse = " "),
+            `data-el-icon` = icon
+          ),
           if (length(style_val) && nzchar(style_val)) list(style = style_val),
           if (!is.null(title)) list(title = title),
           a11y_attrs,
@@ -112,6 +122,11 @@ el_icon <- function(
 #' @return `"Search"`, `"ArrowRight"`.
 #' @keywords internal
 .el_icon_pascal <- function(name) {
-  if (grepl("^[A-Z]", name)) return(name)
-  .el_icon_name(paste0("el-icon-", gsub("[[:space:]_]+", "-", sub("^el-icon-", "", tolower(name)))))
+  if (grepl("^[A-Z]", name)) {
+    return(name)
+  }
+  .el_icon_name(paste0(
+    "el-icon-",
+    gsub("[[:space:]_]+", "-", sub("^el-icon-", "", tolower(name)))
+  ))
 }

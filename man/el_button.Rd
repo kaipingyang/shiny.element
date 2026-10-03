@@ -137,5 +137,4 @@ if (interactive()) {
   }
   shinyApp(ui, server)
 }
-
 }

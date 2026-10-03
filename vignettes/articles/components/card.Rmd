@@ -15,9 +15,12 @@ Card includes title, content and operations.
 Card is made up of `header`, `body` and `footer`. `header` and `footer` are optional, and its content distribution depends on a named slot.
 
 ```{r basic, eval = FALSE, shot = TRUE}
-el_card(header = tags$div(class = "card-header", tags$span("Card name")),
-        footer = "Footer content", width = "480px",
-        lapply(1:4, function(o) tags$p(class = "text item", paste("List item", o))))
+el_card(
+  header = tags$div(class = "card-header", tags$span("Card name")),
+  footer = "Footer content",
+  width = "480px",
+  lapply(1:4, function(o) tags$p(class = "text item", paste("List item", o)))
+)
 ```
 
 ## Simple card
@@ -25,7 +28,10 @@ el_card(header = tags$div(class = "card-header", tags$span("Card name")),
 The header part can be omitted.
 
 ```{r simple, eval = FALSE, shot = TRUE}
-el_card(width = "480px", lapply(1:4, function(o) tags$p(class = "text item", paste("List item", o))))
+el_card(
+  width = "480px",
+  lapply(1:4, function(o) tags$p(class = "text item", paste("List item", o)))
+)
 ```
 
 ## With images
@@ -35,9 +41,15 @@ Display richer content by adding some configs.
 The `body-style` attribute defines CSS style of custom `body`.
 
 ```{r with-images, eval = FALSE, shot = TRUE}
-el_card(header = "Yummy hamburger", width = "480px",
-        tags$img(src = "https://shadow.elemecdn.com/app/element/hamburger.9cf7b091-55e9-11e9-a976-7f4d0b07eef6.png",
-                 alt = "A hamburger", style = "width: 100%"))
+el_card(
+  header = "Yummy hamburger",
+  width = "480px",
+  tags$img(
+    src = "https://shadow.elemecdn.com/app/element/hamburger.9cf7b091-55e9-11e9-a976-7f4d0b07eef6.png",
+    alt = "A hamburger",
+    style = "width: 100%"
+  )
+)
 ```
 
 ## Shadow
@@ -47,10 +59,12 @@ You can define when to show the card shadows
 The `shadow` attribute determines when the card shadows are displayed. It can be `always`, `hover` or `never`.
 
 ```{r shadow, eval = FALSE, shot = TRUE}
-tags$div(style = "display: flex; flex-wrap: wrap; gap: 16px",
+tags$div(
+  style = "display: flex; flex-wrap: wrap; gap: 16px",
   el_card("Always", shadow = "always", width = "480px"),
   el_card("Hover", shadow = "hover", width = "480px"),
-  el_card("Never", shadow = "never", width = "480px"))
+  el_card("Never", shadow = "never", width = "480px")
+)
 ```
 
 ## API

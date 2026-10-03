@@ -78,52 +78,55 @@
 #'   }
 #'   shinyApp(ui, server)
 #' }
-#'
 #' @export
 el_button <- function(
-    id          = NULL,
-    label       = "Button",
-    type        = "default",
-    size        = NULL,
-    plain       = FALSE,
-    round       = FALSE,
-    circle      = FALSE,
-    loading     = FALSE,
-    disabled    = FALSE,
-    icon        = NULL,
-    native_type = "button",
-    autofocus   = FALSE,
-    auto_insert_space = NULL,
-    bg = NULL,
-    color = NULL,
-    dark = NULL,
-    dashed = NULL,
-    link = NULL,
-    loading_icon = NULL,
-    tag = NULL,
-    text = NULL,
-    width       = NULL,
-    slots       = NULL,
-    session     = NULL
+  id = NULL,
+  label = "Button",
+  type = "default",
+  size = NULL,
+  plain = FALSE,
+  round = FALSE,
+  circle = FALSE,
+  loading = FALSE,
+  disabled = FALSE,
+  icon = NULL,
+  native_type = "button",
+  autofocus = FALSE,
+  auto_insert_space = NULL,
+  bg = NULL,
+  color = NULL,
+  dark = NULL,
+  dashed = NULL,
+  link = NULL,
+  loading_icon = NULL,
+  tag = NULL,
+  text = NULL,
+  width = NULL,
+  slots = NULL,
+  session = NULL
 ) {
   .el_check_choices("el_button", environment())
-  if (is.null(id)) id <- paste0("el_button_", uuid::UUIDgenerate())
-  ns_id        <- .el_ui_id(id, session)
+  if (is.null(id)) {
+    id <- paste0("el_button_", uuid::UUIDgenerate())
+  }
+  ns_id <- .el_ui_id(id, session)
   container_id <- paste0(ns_id, "_container")
 
   # circle buttons show no label
-  if (circle) label <- ""
+  if (circle) {
+    label <- ""
+  }
 
   # Vue binding attributes
   btn_attrs <- list(
-    ":type"        = "type",
-    ":plain"       = "plain",
-    ":round"       = "round",
-    ":circle"      = "circle",
-    ":loading"     = "loading",
-    ":disabled"    = "disabled",
+    ":type" = "type",
+    ":plain" = "plain",
+    ":round" = "round",
+    ":circle" = "circle",
+    ":loading" = "loading",
+    ":disabled" = "disabled",
     ":native-type" = "native_type",
-    "@click"       = "handleClick"
+    "@click" = "handleClick"
   )
   btn_attrs[[":size"]] <- .el_optional_bind("size")
   # Upstream's `icon` is an Element icon class name. A tag is accepted too, and
@@ -146,37 +149,41 @@ el_button <- function(
       link = link,
       loading_icon = .el_icon_name(loading_icon),
       tag = .el_icon_name(tag),
-      text = text)),
-    id     = ns_id,
+      text = text
+    )),
+    id = ns_id,
     markup = htmltools::tag("el-button", append(btn_attrs, btn_content)),
     data = list(
-      label       = label,
-      type        = type,
-      size        = size,
-      plain       = plain,
-      round       = round,
-      circle      = circle,
-      loading     = loading,
-      disabled    = disabled,
+      label = label,
+      type = type,
+      size = size,
+      plain = plain,
+      round = round,
+      circle = circle,
+      loading = loading,
+      disabled = disabled,
       native_type = native_type,
-      icon        = if (is.character(icon)) icon else NA,
-      count       = 0L,
-      autofocus   = .el_or_na(autofocus)
+      icon = if (is.character(icon)) icon else NA,
+      count = 0L,
+      autofocus = .el_or_na(autofocus)
     ),
     methods = list(
       # The binding reports the count; this send is for when the button is
       # absorbed into a wrapper and has no binding of its own
-      handleClick = JS(sprintf(paste0(
-        "function() { if (this.disabled || this.loading) return; this.count++; ",
-        "window.Shiny && Shiny.setInputValue && Shiny.setInputValue('%s:shiny.action', this.count); }"),
-        ns_id))
+      handleClick = JS(sprintf(
+        paste0(
+          "function() { if (this.disabled || this.loading) return; this.count++; ",
+          "window.Shiny && Shiny.setInputValue && Shiny.setInputValue('%s:shiny.action', this.count); }"
+        ),
+        ns_id
+      ))
     ),
     # An action button, as actionButton() is: 0 on load, classed so that
     # observeEvent() and req() treat 0 as not yet clicked
-    mounted    = .el_mounted_init(stats::setNames("count", ns_id)),
-    type       = "shiny.action",
-    width      = width,
-    slots      = slots
+    mounted = .el_mounted_init(stats::setNames("count", ns_id)),
+    type = "shiny.action",
+    width = width,
+    slots = slots
   )
 }
 
@@ -207,26 +214,40 @@ el_button <- function(
 #' }
 #' @export
 update_el_button <- function(
-    session = shiny::getDefaultReactiveDomain(),
-    id,
-    label    = NULL,
-    type     = NULL,
-    size     = NULL,
-    plain    = NULL,
-    round    = NULL,
-    loading  = NULL,
-    disabled = NULL
+  session = shiny::getDefaultReactiveDomain(),
+  id,
+  label = NULL,
+  type = NULL,
+  size = NULL,
+  plain = NULL,
+  round = NULL,
+  loading = NULL,
+  disabled = NULL
 ) {
   .el_check_session(session)
   ns_id <- session$ns(id)
-  msg   <- list(id = ns_id)
-  if (!is.null(label))    msg$label    <- label
-  if (!is.null(type))     msg$type     <- type
-  if (!is.null(size))     msg$size     <- size
-  if (!is.null(plain))    msg$plain    <- plain
-  if (!is.null(round))    msg$round    <- round
-  if (!is.null(loading))  msg$loading  <- loading
-  if (!is.null(disabled)) msg$disabled <- disabled
+  msg <- list(id = ns_id)
+  if (!is.null(label)) {
+    msg$label <- label
+  }
+  if (!is.null(type)) {
+    msg$type <- type
+  }
+  if (!is.null(size)) {
+    msg$size <- size
+  }
+  if (!is.null(plain)) {
+    msg$plain <- plain
+  }
+  if (!is.null(round)) {
+    msg$round <- round
+  }
+  if (!is.null(loading)) {
+    msg$loading <- loading
+  }
+  if (!is.null(disabled)) {
+    msg$disabled <- disabled
+  }
   .el_send_update(session, msg)
   invisible(NULL)
 }

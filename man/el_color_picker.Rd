@@ -142,5 +142,4 @@ A colour picker input that returns a CSS colour string.
 \examples{
 el_color_picker("cp1", value = "#409EFF")
 el_color_picker("cp2", show_alpha = TRUE, predefine = c("#ff4500", "#ff8c00"))
-
 }

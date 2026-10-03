@@ -34,12 +34,21 @@ test_that("el_container: no Vue instance is created", {
 })
 
 test_that("el_container: a header or footer child makes it vertical", {
-  expect_match(render_html(el_container(el_header("h"), el_main("m"))), "is-vertical")
-  expect_match(render_html(el_container(el_main("m"), el_footer("f"))), "is-vertical")
+  expect_match(
+    render_html(el_container(el_header("h"), el_main("m"))),
+    "is-vertical"
+  )
+  expect_match(
+    render_html(el_container(el_main("m"), el_footer("f"))),
+    "is-vertical"
+  )
 })
 
 test_that("el_container: aside plus main stays horizontal", {
-  expect_false(grepl("is-vertical", render_html(el_container(el_aside("a"), el_main("m")))))
+  expect_false(grepl(
+    "is-vertical",
+    render_html(el_container(el_aside("a"), el_main("m")))
+  ))
 })
 
 test_that("el_container: explicit direction overrides detection", {
@@ -71,17 +80,26 @@ test_that("el_container: nested widgets keep their html dependencies", {
 
 test_that("el_header: defaults to Element UI's 60px, set inline", {
   # The stylesheet carries no height for .el-header; Element UI emits it inline.
-  expect_match(render_html(el_header("x")), 'class="el-header" style="height:60px"')
+  expect_match(
+    render_html(el_header("x")),
+    'class="el-header" style="height:60px"'
+  )
   expect_match(render_html(el_header("x", height = "80px")), "height:80px")
 })
 
 test_that("el_aside: defaults to Element UI's 300px, set inline", {
-  expect_match(render_html(el_aside("x")), 'class="el-aside" style="width:300px"')
+  expect_match(
+    render_html(el_aside("x")),
+    'class="el-aside" style="width:300px"'
+  )
   expect_match(render_html(el_aside("x", width = "200px")), "width:200px")
 })
 
 test_that("el_footer: defaults to Element UI's 60px, set inline", {
-  expect_match(render_html(el_footer("x")), 'class="el-footer" style="height:60px"')
+  expect_match(
+    render_html(el_footer("x")),
+    'class="el-footer" style="height:60px"'
+  )
 })
 
 test_that("el_main: carries no inline size", {

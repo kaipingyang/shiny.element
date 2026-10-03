@@ -77,5 +77,4 @@ Shiny inputs.
 \examples{
 el_tag("tag1", "Success", type = "success")
 el_tag("tag2", "Closable", closable = TRUE)
-
 }

@@ -57,8 +57,16 @@ Either works, in the components and in their `update_el_*()`, so code reads
 naturally to someone coming from either side:
 
 ```{r two-names, eval = FALSE, shot = TRUE}
-el_select("city_shiny", choices = c(Beijing = "bj", Shanghai = "sh"), selected = "sh")
-el_select("city_element", options = c(Beijing = "bj", Shanghai = "sh"), value = "sh")
+el_select(
+  "city_shiny",
+  choices = c(Beijing = "bj", Shanghai = "sh"),
+  selected = "sh"
+)
+el_select(
+  "city_element",
+  options = c(Beijing = "bj", Shanghai = "sh"),
+  value = "sh"
+)
 ```
 
 The same holds in the server: `update_el_select(session, "city", selected =

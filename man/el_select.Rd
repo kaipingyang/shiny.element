@@ -290,16 +290,25 @@ loading text until then, or for 30 seconds at most.
 
 \examples{
 # Each option drawn with a second field beside its label
-el_select("city", choices = list(
-  list(value = "bj", label = "Beijing", code = "PEK"),
-  list(value = "sh", label = "Shanghai", code = "SHA")),
+el_select(
+  "city",
+  choices = list(
+    list(value = "bj", label = "Beijing", code = "PEK"),
+    list(value = "sh", label = "Shanghai", code = "SHA")
+  ),
   option_template = htmltools::tagList(
     htmltools::tags$span(style = "float: left", "{{ opt.label }}"),
-    htmltools::tags$span(style = "float: right; color: #8492a6", "{{ opt.code }}")))
+    htmltools::tags$span(
+      style = "float: right; color: #8492a6",
+      "{{ opt.code }}"
+    )
+  )
+)
 
 # Single-select from a named vector
-el_select("sel1",
-  choices  = c(Apple = "apple", Banana = "banana", Cherry = "cherry"),
+el_select(
+  "sel1",
+  choices = c(Apple = "apple", Banana = "banana", Cherry = "cherry"),
   selected = "banana"
 )
 
@@ -308,8 +317,9 @@ if (interactive()) {
   library(shiny)
   library(shiny.element)
   ui <- el_page(
-    el_select("fruit",
-      choices  = c(Apple = "apple", Banana = "banana", Cherry = "cherry"),
+    el_select(
+      "fruit",
+      choices = c(Apple = "apple", Banana = "banana", Cherry = "cherry"),
       selected = "apple",
       clearable = TRUE
     ),
@@ -320,5 +330,4 @@ if (interactive()) {
   }
   shinyApp(ui, server)
 }
-
 }

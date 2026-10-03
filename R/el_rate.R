@@ -57,62 +57,68 @@
 #' @examples
 #' el_rate("rate1", value = 3)
 #' el_rate("rate2", allow_half = TRUE, show_score = TRUE)
-#'
 #' @export
 el_rate <- function(
-    id             = NULL,
-    value          = 0,
-    max            = 5L,
-    disabled       = FALSE,
-    allow_half     = FALSE,
-    show_text      = FALSE,
-    show_score     = FALSE,
-    # Escaped rather than literal: CRAN requires R code to be ASCII-only, so
-    # that the package reads the same under any locale. These are Element Plus's
-    # own default labels: 极差 失望 一般 满意 惊喜.
-    texts          = c("\u6781\u5dee", "\u5931\u671b", "\u4e00\u822c",
-                       "\u6ee1\u610f", "\u60ca\u559c"),
-    text_color     = "#1f2d3d",
-    score_template = "{value}",
-    colors         = NULL,
-    void_color     = NULL,
-    disabled_void_color = NULL,
-    low_threshold  = NULL,
-    high_threshold = NULL,
-    label = NULL,
-    label_position = c("top", "left", "right"),
-    label_width = NULL,
-    label_suffix = NULL,
-    required = FALSE,
-    error = NULL,
-    show_message = TRUE,
-    inline_message = FALSE,
-    aria_label = NULL,
-    clearable = NULL,
-    disabled_void_icon = NULL,
-    icons = NULL,
-    size = NULL,
-    void_icon = NULL,
-    width          = NULL,
-    slots          = NULL,
-    session        = NULL
+  id = NULL,
+  value = 0,
+  max = 5L,
+  disabled = FALSE,
+  allow_half = FALSE,
+  show_text = FALSE,
+  show_score = FALSE,
+  # Escaped rather than literal: CRAN requires R code to be ASCII-only, so
+  # that the package reads the same under any locale. These are Element Plus's
+  # own default labels: 极差 失望 一般 满意 惊喜.
+  texts = c(
+    "\u6781\u5dee",
+    "\u5931\u671b",
+    "\u4e00\u822c",
+    "\u6ee1\u610f",
+    "\u60ca\u559c"
+  ),
+  text_color = "#1f2d3d",
+  score_template = "{value}",
+  colors = NULL,
+  void_color = NULL,
+  disabled_void_color = NULL,
+  low_threshold = NULL,
+  high_threshold = NULL,
+  label = NULL,
+  label_position = c("top", "left", "right"),
+  label_width = NULL,
+  label_suffix = NULL,
+  required = FALSE,
+  error = NULL,
+  show_message = TRUE,
+  inline_message = FALSE,
+  aria_label = NULL,
+  clearable = NULL,
+  disabled_void_icon = NULL,
+  icons = NULL,
+  size = NULL,
+  void_icon = NULL,
+  width = NULL,
+  slots = NULL,
+  session = NULL
 ) {
   .el_check_choices("el_rate", environment())
-  if (is.null(id)) id <- paste0("el_rate_", uuid::UUIDgenerate())
-  ns_id        <- .el_ui_id(id, session)
+  if (is.null(id)) {
+    id <- paste0("el_rate_", uuid::UUIDgenerate())
+  }
+  ns_id <- .el_ui_id(id, session)
   container_id <- paste0(ns_id, "_container")
 
   rate_attrs <- list(
-    "v-model"        = "value",
-    ":max"           = "max",
-    ":disabled"      = "disabled",
-    ":allow-half"    = "allowHalf",
-    ":show-text"     = "showText",
-    ":show-score"    = "showScore",
-    ":text-color"    = "textColor",
-    ":score-template"= "scoreTemplate",
-    ":texts"         = "texts",
-    "@change"        = "handleChange"
+    "v-model" = "value",
+    ":max" = "max",
+    ":disabled" = "disabled",
+    ":allow-half" = "allowHalf",
+    ":show-text" = "showText",
+    ":show-score" = "showScore",
+    ":text-color" = "textColor",
+    ":score-template" = "scoreTemplate",
+    ":texts" = "texts",
+    "@change" = "handleChange"
   )
 
   rate_attrs[[":colors"]] <- .el_optional_bind("colors")
@@ -120,9 +126,6 @@ el_rate <- function(
   rate_attrs[[":void-color"]] <- .el_optional_bind("voidColor")
 
   rate_attrs[[":disabled-void-color"]] <- .el_optional_bind("disabledVoidColor")
-
-
-
 
   rate_attrs[[":low-threshold"]] <- .el_optional_bind("lowThreshold")
 
@@ -141,27 +144,33 @@ el_rate <- function(
       disabled_void_icon = .el_icon_name(disabled_void_icon),
       icons = .el_icon_name(icons),
       size = size,
-      void_icon = .el_icon_name(void_icon))),
-    label = label, label_position = label_position,
-    label_width = label_width, label_suffix = label_suffix, required = required,
-    error = error, show_message = show_message, inline_message = inline_message,
-    id     = ns_id,
+      void_icon = .el_icon_name(void_icon)
+    )),
+    label = label,
+    label_position = label_position,
+    label_width = label_width,
+    label_suffix = label_suffix,
+    required = required,
+    error = error,
+    show_message = show_message,
+    inline_message = inline_message,
+    id = ns_id,
     markup = htmltools::tag("el-rate", rate_attrs),
     data = list(
-      value         = value,
-      max           = max,
-      disabled      = disabled,
-      allowHalf     = allow_half,
-      showText      = show_text,
-      showScore     = show_score,
-      textColor     = text_color,
+      value = value,
+      max = max,
+      disabled = disabled,
+      allowHalf = allow_half,
+      showText = show_text,
+      showScore = show_score,
+      textColor = text_color,
       scoreTemplate = score_template,
-      texts         = as.list(texts),
-    colors = .el_or_na(colors),
-    voidColor = .el_or_na(void_color),
-    disabledVoidColor = .el_or_na(disabled_void_color),
-    lowThreshold = .el_or_na(low_threshold),
-    highThreshold = .el_or_na(high_threshold)
+      texts = as.list(texts),
+      colors = .el_or_na(colors),
+      voidColor = .el_or_na(void_color),
+      disabledVoidColor = .el_or_na(disabled_void_color),
+      lowThreshold = .el_or_na(low_threshold),
+      highThreshold = .el_or_na(high_threshold)
     ),
     methods = list(
       handleChange = JS(sprintf(
@@ -170,8 +179,8 @@ el_rate <- function(
       ))
     ),
     mounted = .el_mounted_init(stats::setNames("value", ns_id)),
-    width      = width,
-    slots      = slots
+    width = width,
+    slots = slots
   )
 }
 
@@ -201,16 +210,24 @@ el_rate <- function(
 #'   })
 #' }
 #' @export
-update_el_rate <- function(session = shiny::getDefaultReactiveDomain(), id, value = NULL, disabled = NULL,
-                           label = NULL, error = NULL) {
+update_el_rate <- function(
+  session = shiny::getDefaultReactiveDomain(),
+  id,
+  value = NULL,
+  disabled = NULL,
+  label = NULL,
+  error = NULL
+) {
   .el_check_session(session)
   ns_id <- session$ns(id)
-  msg   <- list(id = ns_id)
-  if (!is.null(value))    msg$value    <- value
-  if (!is.null(disabled)) msg$disabled <- disabled
+  msg <- list(id = ns_id)
+  if (!is.null(value)) {
+    msg$value <- value
+  }
+  if (!is.null(disabled)) {
+    msg$disabled <- disabled
+  }
   msg <- .el_form_item_update(msg, label, error)
   .el_send_update(session, msg)
   invisible(NULL)
 }
-
-

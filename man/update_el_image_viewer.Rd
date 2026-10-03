@@ -30,6 +30,9 @@ Open or close an \code{\link[=el_image_viewer]{el_image_viewer()}}, or give it o
 \examples{
 if (interactive()) {
   # inside a server function
-  observeEvent(input$show, update_el_image_viewer(session, "photos", visible = TRUE))
+  observeEvent(
+    input$show,
+    update_el_image_viewer(session, "photos", visible = TRUE)
+  )
 }
 }

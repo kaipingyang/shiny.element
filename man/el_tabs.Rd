@@ -89,15 +89,25 @@ a list of \code{target} (the tab name, or \code{NULL} for an add) and \code{acti
 }
 
 \examples{
-el_tabs("t1", selected = "a", tabs = list(
-  list(name = "a", label = "First",  content = shiny::tags$p("One")),
-  list(name = "b", label = "Second", content = shiny::tags$p("Two"))
-))
+el_tabs(
+  "t1",
+  selected = "a",
+  tabs = list(
+    list(name = "a", label = "First", content = shiny::tags$p("One")),
+    list(name = "b", label = "Second", content = shiny::tags$p("Two"))
+  )
+)
 
 # A tab can hold other components
-el_tabs("t2", tabs = list(
-  list(name = "data", label = "Data", content = el_table(data = head(iris, 3))),
-  list(name = "opts", label = "Options", content = el_switch("live"))
-))
-
+el_tabs(
+  "t2",
+  tabs = list(
+    list(
+      name = "data",
+      label = "Data",
+      content = el_table(data = head(iris, 3))
+    ),
+    list(name = "opts", label = "Options", content = el_switch("live"))
+  )
+)
 }

@@ -164,5 +164,4 @@ Callable with \code{\link[=el_call]{el_call()}}:
 \examples{
 el_input_number("n1", value = 5, min = 0, max = 100)
 el_input_number("n2", value = 1.5, step = 0.5, precision = 1)
-
 }

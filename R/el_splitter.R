@@ -23,19 +23,33 @@
 #' @examples
 #' el_splitter(el_splitter_panel("Left", size = "30%"), el_splitter_panel("Right"))
 #' @export
-el_splitter <- function(...,
-                        id = NULL,
-                        layout = NULL,
-                        lazy = NULL,
-                        width = NULL,
-                        slots = NULL) {
+el_splitter <- function(
+  ...,
+  id = NULL,
+  layout = NULL,
+  lazy = NULL,
+  width = NULL,
+  slots = NULL
+) {
   .el_check_choices("el_splitter", environment())
-  if (is.null(id)) id <- paste0("el_splitter_", uuid::UUIDgenerate())
+  if (is.null(id)) {
+    id <- paste0("el_splitter_", uuid::UUIDgenerate())
+  }
   ns_id <- .el_ui_id(id, NULL)
-  events <- .el_event_bindings(ns_id, c("resize-start", "resize", "resize-end", "collapse"))
-  .el_wrap_widget("el-splitter", ns_id, list(...),
+  events <- .el_event_bindings(
+    ns_id,
+    c("resize-start", "resize", "resize-end", "collapse")
+  )
+  .el_wrap_widget(
+    "el-splitter",
+    ns_id,
+    list(...),
     props = .el_props(list(
       layout = layout,
-      lazy = lazy)),
-    events = events, width = width, slots = slots)
+      lazy = lazy
+    )),
+    events = events,
+    width = width,
+    slots = slots
+  )
 }

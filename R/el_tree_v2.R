@@ -58,37 +58,57 @@
 #'
 #' @return A Shiny UI element.
 #' @examples
-#' el_tree_v2("big", data = lapply(1:1000, function(i) list(id = i, label = paste("Node", i))), height = 300)
+#' el_tree_v2(
+#'   "big",
+#'   data = lapply(1:1000, function(i) list(id = i, label = paste("Node", i))),
+#'   height = 300
+#' )
 #' @export
-el_tree_v2 <- function(id = NULL,
-                       data = NULL,
-                       empty_text = NULL,
-                       highlight_current = NULL,
-                       expand_on_click_node = NULL,
-                       check_on_click_node = NULL,
-                       check_on_click_leaf = NULL,
-                       default_expanded_keys = NULL,
-                       show_checkbox = NULL,
-                       check_strictly = NULL,
-                       default_checked_keys = NULL,
-                       current_node_key = NULL,
-                       filter_method = NULL,
-                       indent = NULL,
-                       icon = NULL,
-                       item_size = NULL,
-                       scrollbar_always_on = NULL,
-                       height = NULL,
-                       width = NULL,
-                       slots = NULL) {
+el_tree_v2 <- function(
+  id = NULL,
+  data = NULL,
+  empty_text = NULL,
+  highlight_current = NULL,
+  expand_on_click_node = NULL,
+  check_on_click_node = NULL,
+  check_on_click_leaf = NULL,
+  default_expanded_keys = NULL,
+  show_checkbox = NULL,
+  check_strictly = NULL,
+  default_checked_keys = NULL,
+  current_node_key = NULL,
+  filter_method = NULL,
+  indent = NULL,
+  icon = NULL,
+  item_size = NULL,
+  scrollbar_always_on = NULL,
+  height = NULL,
+  width = NULL,
+  slots = NULL
+) {
   .el_check_choices("el_tree_v2", environment())
-  if (is.null(id)) id <- paste0("el_tree_v2_", uuid::UUIDgenerate())
+  if (is.null(id)) {
+    id <- paste0("el_tree_v2_", uuid::UUIDgenerate())
+  }
   ns_id <- .el_ui_id(id, NULL)
-  events <- .el_event_bindings(ns_id, c("node-click", "node-drop", "node-contextmenu", "check-change", "check", "current-change", "node-expand", "node-collapse"))
+  events <- .el_event_bindings(
+    ns_id,
+    c(
+      "node-click",
+      "node-drop",
+      "node-contextmenu",
+      "check-change",
+      "check",
+      "current-change",
+      "node-expand",
+      "node-collapse"
+    )
+  )
   attrs <- c(list(), events$attrs)
   el_widget(
-    id      = ns_id,
-    markup  = htmltools::tag("el-tree-v2", attrs),
-    props   = .el_props(list(
+    id = ns_id,
+    markup = htmltools::tag("el-tree-v2", attrs),
+    props = .el_props(list(
       data = data,
       empty_text = empty_text,
       highlight_current = highlight_current,
@@ -105,10 +125,11 @@ el_tree_v2 <- function(id = NULL,
       icon = .el_icon_name(icon),
       item_size = item_size,
       scrollbar_always_on = scrollbar_always_on,
-      height = height)),
-    data    = list(),
+      height = height
+    )),
+    data = list(),
     methods = events$methods,
-    width   = width,
-    slots   = slots
+    width = width,
+    slots = slots
   )
 }

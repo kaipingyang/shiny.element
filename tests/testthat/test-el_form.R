@@ -6,7 +6,9 @@ sent_message <- function(expr) {
   captured <- NULL
   session <- list(
     ns = function(id) id,
-    sendCustomMessage = function(type, msg) captured <<- list(type = type, msg = msg)
+    sendCustomMessage = function(type, msg) {
+      captured <<- list(type = type, msg = msg)
+    }
   )
   expr(session)
   captured
@@ -16,7 +18,10 @@ sent_message <- function(expr) {
 
 test_that(".el_camel: snake_case becomes camelCase", {
   expect_equal(.el_camel("show_password"), "showPassword")
-  expect_equal(.el_camel(c("min", "controls_position")), c("min", "controlsPosition"))
+  expect_equal(
+    .el_camel(c("min", "controls_position")),
+    c("min", "controlsPosition")
+  )
 })
 
 test_that(".el_form_empty_value: each type gets a value of the right JSON shape", {
@@ -67,8 +72,15 @@ test_that("el_rule: keeps only the fields that were given", {
 })
 
 test_that("el_rule: every async-validator field is passed through", {
-  r <- el_rule(min = 2, max = 20, len = 5, pattern = "^a", type = "email",
-               message = "m", trigger = "change")
+  r <- el_rule(
+    min = 2,
+    max = 20,
+    len = 5,
+    pattern = "^a",
+    type = "email",
+    message = "m",
+    trigger = "change"
+  )
   expect_equal(r$min, 2)
   expect_equal(r$max, 20)
   expect_equal(r$len, 5)
@@ -86,9 +98,18 @@ test_that("el_form_field: maps the type to its Element tag", {
 })
 
 test_that("el_form_field: choice controls also get their option tag", {
-  expect_equal(el_form_field("a", "select", choices = c(A = "a"))$optionTag, "el-option")
-  expect_equal(el_form_field("a", "radio-group", choices = c(A = "a"))$optionTag, "el-radio")
-  expect_equal(el_form_field("a", "checkbox-group", choices = c(A = "a"))$optionTag, "el-checkbox")
+  expect_equal(
+    el_form_field("a", "select", choices = c(A = "a"))$optionTag,
+    "el-option"
+  )
+  expect_equal(
+    el_form_field("a", "radio-group", choices = c(A = "a"))$optionTag,
+    "el-radio"
+  )
+  expect_equal(
+    el_form_field("a", "checkbox-group", choices = c(A = "a"))$optionTag,
+    "el-checkbox"
+  )
   # Single-value controls have no option tag at all.
   expect_null(el_form_field("a", "input")$optionTag)
 })
@@ -122,8 +143,12 @@ test_that("el_form_field: rules are normalised to a list", {
 demo_form <- function(...) {
   el_form(
     id = "f1",
-    el_form_field("name", "input", label = "Name",
-                  rules = el_rule(required = TRUE, message = "req")),
+    el_form_field(
+      "name",
+      "input",
+      label = "Name",
+      rules = el_rule(required = TRUE, message = "req")
+    ),
     el_form_field("age", "input-number", label = "Age", value = 18),
     ...
   )
@@ -155,7 +180,10 @@ test_that("el_form: value and rules are stripped from the field specs", {
   # They belong to the form's model and rules; leaving them on the field would
   # send each value twice and pass `rules` down as a control prop.
   html <- render_html(demo_form())
-  fields <- regmatches(html, regexpr('"fields":\\[.*?\\](?=,")', html, perl = TRUE))
+  fields <- regmatches(
+    html,
+    regexpr('"fields":\\[.*?\\](?=,")', html, perl = TRUE)
+  )
   expect_no_match(fields, '"value"')
   expect_no_match(fields, '"rules"')
 })
@@ -200,8 +228,13 @@ test_that("el_form: reports model, verdict and a submit counter", {
 })
 
 test_that("el_form: layout options reach the data", {
-  html <- render_html(el_form(id = "f1", label_width = "150px",
-                              label_position = "top", inline = TRUE, size = "small"))
+  html <- render_html(el_form(
+    id = "f1",
+    label_width = "150px",
+    label_position = "top",
+    inline = TRUE,
+    size = "small"
+  ))
   expect_match(html, '"labelWidth":"150px"')
   expect_match(html, '"labelPosition":"top"')
   expect_match(html, '"inline":true')
@@ -224,7 +257,9 @@ test_that("el_form: an empty form still renders", {
 # ── server-side functions ─────────────────────────────────────────────────────
 
 test_that("update_el_form: sends a partial model for merging", {
-  out <- sent_message(function(s) update_el_form(s, "f1", model = list(name = "Ada")))
+  out <- sent_message(function(s) {
+    update_el_form(s, "f1", model = list(name = "Ada"))
+  })
   expect_equal(out$type, "shinyVueUpdate")
   expect_equal(out$msg$id, "f1")
   expect_equal(out$msg$model, list(name = "Ada"))
@@ -232,14 +267,20 @@ test_that("update_el_form: sends a partial model for merging", {
 
 test_that("update_el_form: rules are normalised per prop", {
   out <- sent_message(function(s) {
-    update_el_form(s, "f1", rules = list(name = el_rule(required = TRUE, message = "r")))
+    update_el_form(
+      s,
+      "f1",
+      rules = list(name = el_rule(required = TRUE, message = "r"))
+    )
   })
   expect_length(out$msg$rules$name, 1)
   expect_true(out$msg$rules$name[[1]]$required)
 })
 
 test_that("update_el_form: NULL fields are excluded", {
-  out <- sent_message(function(s) update_el_form(s, "f1", label_width = "200px"))
+  out <- sent_message(function(s) {
+    update_el_form(s, "f1", label_width = "200px")
+  })
   expect_equal(out$msg$labelWidth, "200px")
   expect_null(out$msg$model)
   expect_null(out$msg$rules)
@@ -263,13 +304,20 @@ test_that("el_form_clear_validate: props are optional", {
   expect_equal(out$msg$.action, "clearValidate")
   expect_null(out$msg$props)
 
-  scoped <- sent_message(function(s) el_form_clear_validate(s, "f1", c("name", "age")))
+  scoped <- sent_message(function(s) {
+    el_form_clear_validate(s, "f1", c("name", "age"))
+  })
   expect_equal(scoped$msg$props, list("name", "age"))
 })
 
 test_that("the form's receiver handles every operation it is sent", {
   m <- vue_payload_of(demo_form())$methods
-  for (op in c("validate", "reset", "clearValidate", "self.model[k] = d.model[k]")) {
+  for (op in c(
+    "validate",
+    "reset",
+    "clearValidate",
+    "self.model[k] = d.model[k]"
+  )) {
     expect_match(m$shinyVueReceive, op, fixed = TRUE)
   }
 })

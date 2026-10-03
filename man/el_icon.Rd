@@ -69,5 +69,4 @@ el_icon("Search")
 el_icon("edit", size = "1.5em")
 el_icon("Delete", title = "Delete item", color = "#f56c6c")
 el_icon("close", a11y = "deco")
-
 }

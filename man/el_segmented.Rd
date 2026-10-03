@@ -99,5 +99,9 @@ A row of options, one of them selected: a compact radio group.
 }
 
 \examples{
-el_segmented("period", options = c(Day = "d", Week = "w", Month = "m"), value = "w")
+el_segmented(
+  "period",
+  options = c(Day = "d", Week = "w", Month = "m"),
+  value = "w"
+)
 }

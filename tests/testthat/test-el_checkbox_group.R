@@ -10,13 +10,13 @@ test_that("el_checkbox_group: returns a tagList", {
 })
 
 test_that("el_checkbox_group: container div has correct id", {
-  cb   <- el_checkbox_group("cb1", choices = c("A" = "a"), session = NULL)
+  cb <- el_checkbox_group("cb1", choices = c("A" = "a"), session = NULL)
   html <- render_html(cb)
   expect_match(html, 'id="cb1_container"')
 })
 
 test_that("el_checkbox_group: auto-generated id when NULL", {
-  cb   <- el_checkbox_group(NULL, choices = c("A" = "a"), session = NULL)
+  cb <- el_checkbox_group(NULL, choices = c("A" = "a"), session = NULL)
   html <- render_html(cb)
   expect_match(html, 'id="el_checkbox_group_.*_container"')
 })
@@ -24,14 +24,23 @@ test_that("el_checkbox_group: auto-generated id when NULL", {
 # ── Vue data ──────────────────────────────────────────────────────────────────
 
 test_that("el_checkbox_group: value is empty array when selected is NULL", {
-  cb   <- el_checkbox_group("cb1", choices = c("A" = "a"), selected = NULL, session = NULL)
+  cb <- el_checkbox_group(
+    "cb1",
+    choices = c("A" = "a"),
+    selected = NULL,
+    session = NULL
+  )
   html <- render_html(cb)
   expect_match(html, '"value"\\s*:\\s*\\[\\]')
 })
 
 test_that("el_checkbox_group: selected values appear in Vue data value array", {
-  cb   <- el_checkbox_group("cb1", choices = c("A" = "a", "B" = "b"),
-                            selected = c("a", "b"), session = NULL)
+  cb <- el_checkbox_group(
+    "cb1",
+    choices = c("A" = "a", "B" = "b"),
+    selected = c("a", "b"),
+    session = NULL
+  )
   html <- render_html(cb)
   expect_match(html, '"value"\\s*:\\s*\\[')
   expect_match(html, '"a"')
@@ -39,7 +48,11 @@ test_that("el_checkbox_group: selected values appear in Vue data value array", {
 })
 
 test_that("el_checkbox_group: options contain choice labels and values", {
-  cb   <- el_checkbox_group("cb1", choices = c("Label A" = "val_a"), session = NULL)
+  cb <- el_checkbox_group(
+    "cb1",
+    choices = c("Label A" = "val_a"),
+    session = NULL
+  )
   html <- render_html(cb)
   expect_match(html, '"options"')
   expect_match(html, '"val_a"')
@@ -47,20 +60,35 @@ test_that("el_checkbox_group: options contain choice labels and values", {
 })
 
 test_that("el_checkbox_group: disabled appears in Vue data", {
-  cb   <- el_checkbox_group("cb1", choices = c("A" = "a"), disabled = TRUE, session = NULL)
+  cb <- el_checkbox_group(
+    "cb1",
+    choices = c("A" = "a"),
+    disabled = TRUE,
+    session = NULL
+  )
   html <- render_html(cb)
   expect_match(html, '"disabled"\\s*:\\s*true')
 })
 
 test_that("el_checkbox_group: size appears in Vue data when set", {
-  cb   <- el_checkbox_group("cb1", choices = c("A" = "a"), size = "small", session = NULL)
+  cb <- el_checkbox_group(
+    "cb1",
+    choices = c("A" = "a"),
+    size = "small",
+    session = NULL
+  )
   html <- render_html(cb)
   expect_match(html, '"size"\\s*:\\s*"small"')
 })
 
 test_that("el_checkbox_group: min/max appear in Vue data when set", {
-  cb   <- el_checkbox_group("cb1", choices = c("A" = "a", "B" = "b"),
-                            min = 1, max = 2, session = NULL)
+  cb <- el_checkbox_group(
+    "cb1",
+    choices = c("A" = "a", "B" = "b"),
+    min = 1,
+    max = 2,
+    session = NULL
+  )
   html <- render_html(cb)
   expect_match(html, '"min"\\s*:\\s*1')
   expect_match(html, '"max"\\s*:\\s*2')
@@ -69,14 +97,24 @@ test_that("el_checkbox_group: min/max appear in Vue data when set", {
 # ── button 样式 ───────────────────────────────────────────────────────────────
 
 test_that("el_checkbox_group: button=FALSE uses el-checkbox tag", {
-  cb   <- el_checkbox_group("cb1", choices = c("A" = "a"), button = FALSE, session = NULL)
+  cb <- el_checkbox_group(
+    "cb1",
+    choices = c("A" = "a"),
+    button = FALSE,
+    session = NULL
+  )
   html <- render_html(cb)
   expect_match(html, "<el-checkbox")
   expect_false(grepl("<el-checkbox-button", html))
 })
 
 test_that("el_checkbox_group: button=TRUE uses el-checkbox-button tag", {
-  cb   <- el_checkbox_group("cb1", choices = c("A" = "a"), button = TRUE, session = NULL)
+  cb <- el_checkbox_group(
+    "cb1",
+    choices = c("A" = "a"),
+    button = TRUE,
+    session = NULL
+  )
   html <- render_html(cb)
   expect_match(html, "<el-checkbox-button")
 })
@@ -84,19 +122,19 @@ test_that("el_checkbox_group: button=TRUE uses el-checkbox-button tag", {
 # ── Vue 属性绑定 ──────────────────────────────────────────────────────────────
 
 test_that("el_checkbox_group: v-model binding present on group tag", {
-  cb   <- el_checkbox_group("cb1", choices = c("A" = "a"), session = NULL)
+  cb <- el_checkbox_group("cb1", choices = c("A" = "a"), session = NULL)
   html <- render_html(cb)
   expect_match(html, 'v-model')
 })
 
 test_that("el_checkbox_group: @change binding present on group tag", {
-  cb   <- el_checkbox_group("cb1", choices = c("A" = "a"), session = NULL)
+  cb <- el_checkbox_group("cb1", choices = c("A" = "a"), session = NULL)
   html <- render_html(cb)
   expect_match(html, '@change')
 })
 
 test_that("el_checkbox_group: v-for binding present on checkbox tag", {
-  cb   <- el_checkbox_group("cb1", choices = c("A" = "a"), session = NULL)
+  cb <- el_checkbox_group("cb1", choices = c("A" = "a"), session = NULL)
   html <- render_html(cb)
   expect_match(html, 'v-for')
 })
@@ -104,9 +142,11 @@ test_that("el_checkbox_group: v-for binding present on checkbox tag", {
 # ── list 类型 choices ─────────────────────────────────────────────────────────
 
 test_that("el_checkbox_group: list choices passed through", {
-  cb   <- el_checkbox_group("cb1",
-                            choices = list(list(value = "x", label = "X")),
-                            session = NULL)
+  cb <- el_checkbox_group(
+    "cb1",
+    choices = list(list(value = "x", label = "X")),
+    session = NULL
+  )
   html <- render_html(cb)
   expect_match(html, '"x"')
   expect_match(html, '"X"')
@@ -115,28 +155,34 @@ test_that("el_checkbox_group: list choices passed through", {
 # ── update_el_checkbox_group ──────────────────────────────────────────────────
 
 test_that("update_el_checkbox_group: sends correct fields", {
-  captured     <- NULL
+  captured <- NULL
   mock_session <- list(
     ns = function(id) id,
-    sendCustomMessage = function(type, msg) { captured <<- msg }
+    sendCustomMessage = function(type, msg) {
+      captured <<- msg
+    }
   )
-  update_el_checkbox_group(mock_session, "cb1",
-    value    = c("a"),
+  update_el_checkbox_group(
+    mock_session,
+    "cb1",
+    value = c("a"),
     disabled = TRUE,
-    min      = 1,
-    max      = 3
+    min = 1,
+    max = 3
   )
-  expect_equal(captured$value,    c("a"))
+  expect_equal(captured$value, c("a"))
   expect_true(captured$disabled)
-  expect_equal(captured$min,      1)
-  expect_equal(captured$max,      3)
+  expect_equal(captured$min, 1)
+  expect_equal(captured$max, 3)
 })
 
 test_that("update_el_checkbox_group: NULL fields are excluded from message", {
-  captured     <- NULL
+  captured <- NULL
   mock_session <- list(
     ns = function(id) id,
-    sendCustomMessage = function(type, msg) { captured <<- msg }
+    sendCustomMessage = function(type, msg) {
+      captured <<- msg
+    }
   )
   update_el_checkbox_group(mock_session, "cb1", value = c("b"))
   expect_equal(captured$value, c("b"))
@@ -148,10 +194,25 @@ test_that("update_el_checkbox_group: NULL fields are excluded from message", {
 
 test_that("el_checkbox_group and its update take Shiny's names and Element's", {
   expect_identical(
-    vue_data_of(el_checkbox_group("c", choices = c(P = "p", Q = "q"), selected = "p")),
-    vue_data_of(el_checkbox_group("c", options = c(P = "p", Q = "q"), value = "p")))
-  expect_error(el_checkbox_group("c", c(P = "p"), selected = "p", value = "q"), "same argument")
-  expect_error(el_checkbox_group("c"), "`choices` \\(or `options`\\) is required")
+    vue_data_of(el_checkbox_group(
+      "c",
+      choices = c(P = "p", Q = "q"),
+      selected = "p"
+    )),
+    vue_data_of(el_checkbox_group(
+      "c",
+      options = c(P = "p", Q = "q"),
+      value = "p"
+    ))
+  )
+  expect_error(
+    el_checkbox_group("c", c(P = "p"), selected = "p", value = "q"),
+    "same argument"
+  )
+  expect_error(
+    el_checkbox_group("c"),
+    "`choices` \\(or `options`\\) is required"
+  )
 
   s <- mock_session()
   update_el_checkbox_group(s, "c", selected = "p", choices = c(P = "p"))

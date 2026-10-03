@@ -32,7 +32,11 @@ Server-side update for an \code{\link[=el_badge]{el_badge()}} given an \code{id}
 \examples{
 if (interactive()) {
   # inside a server function
-  observe(update_el_badge(session, "unread", value = unread_count(),
-                          hidden = unread_count() == 0))
+  observe(update_el_badge(
+    session,
+    "unread",
+    value = unread_count(),
+    hidden = unread_count() == 0
+  ))
 }
 }

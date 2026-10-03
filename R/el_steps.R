@@ -40,23 +40,33 @@
 #'   active = 1,
 #'   finish_status = "success",
 #'   steps = list(
-#'     list(title = "Step 1", description = "Complete registration", icon = "el-icon-edit"),
-#'     list(title = "Step 2", description = "Upload documents", icon = "el-icon-upload"),
+#'     list(
+#'       title = "Step 1",
+#'       description = "Complete registration",
+#'       icon = "el-icon-edit"
+#'     ),
+#'     list(
+#'       title = "Step 2",
+#'       description = "Upload documents",
+#'       icon = "el-icon-upload"
+#'     ),
 #'     list(title = "Step 3", description = "Finish", icon = "el-icon-picture")
 #'   )
 #' )
-el_steps <- function(id = NULL,
-                     steps = list(),
-                     active = 0,
-                     space = NULL,
-                     direction = "horizontal",
-                     process_status = "process",
-                     finish_status = "finish",
-                     align_center = FALSE,
-                     simple = FALSE,
-                     width   = NULL,
-                     slots   = NULL,
-                     session = NULL) {
+el_steps <- function(
+  id = NULL,
+  steps = list(),
+  active = 0,
+  space = NULL,
+  direction = "horizontal",
+  process_status = "process",
+  finish_status = "finish",
+  align_center = FALSE,
+  simple = FALSE,
+  width = NULL,
+  slots = NULL,
+  session = NULL
+) {
   .el_check_items(steps, "steps", c("title", "description"))
   if (is.null(id)) {
     id <- paste0("el_steps_", uuid::UUIDgenerate())
@@ -66,20 +76,24 @@ el_steps <- function(id = NULL,
 
   # Generate el-step tags from list
   step_tags <- lapply(steps, function(step) {
-  .el_check_choices("el_steps", environment())
+    .el_check_choices("el_steps", environment())
     # Text goes in the attribute; markup -- an icon beside a title, a link in
     # a description -- goes in the step's slot of the same name.
     attrs <- list()
     for (field in c("title", "description", "icon")) {
       value <- step[[field]]
-      if (is.null(value)) next
+      if (is.null(value)) {
+        next
+      }
       if (is.character(value)) {
         attrs[[field]] <- value
       } else {
         attrs <- c(attrs, list(.el_slot(field, value)))
       }
     }
-    if (!is.null(step$status)) attrs$status <- step$status
+    if (!is.null(step$status)) {
+      attrs$status <- step$status
+    }
 
     htmltools::tag("el-step", attrs)
   })
@@ -109,18 +123,19 @@ el_steps <- function(id = NULL,
   events <- .el_event_bindings(ns_id, "change")
   steps_attrs <- c(steps_attrs, events$attrs)
   el_widget(
-    id     = ns_id,
+    id = ns_id,
     markup = htmltools::tag("el-steps", c(steps_attrs, step_tags)),
-    data   = vue_data,
+    data = vue_data,
     methods = events$methods,
-    watch  = list(
+    watch = list(
       active = JS(sprintf(
-        "function(newVal) { window.Shiny && Shiny.setInputValue && Shiny.setInputValue('%s', newVal); }", ns_id
+        "function(newVal) { window.Shiny && Shiny.setInputValue && Shiny.setInputValue('%s', newVal); }",
+        ns_id
       ))
     ),
-    mounted    = .el_mounted_init(stats::setNames("active", ns_id)),
-    width      = width,
-    slots      = slots
+    mounted = .el_mounted_init(stats::setNames("active", ns_id)),
+    width = width,
+    slots = slots
   )
 }
 
@@ -140,16 +155,25 @@ el_steps <- function(id = NULL,
 #'   })
 #' }
 #' @export
-update_el_steps <- function(session = shiny::getDefaultReactiveDomain(), id,
-                            active = NULL,
-                            process_status = NULL,
-                            finish_status = NULL) {
+update_el_steps <- function(
+  session = shiny::getDefaultReactiveDomain(),
+  id,
+  active = NULL,
+  process_status = NULL,
+  finish_status = NULL
+) {
   .el_check_session(session)
   ns_id <- session$ns(id)
   message <- list(id = ns_id)
-  if (!is.null(active)) message$active <- active
-  if (!is.null(process_status)) message$processStatus <- process_status
-  if (!is.null(finish_status)) message$finishStatus <- finish_status
+  if (!is.null(active)) {
+    message$active <- active
+  }
+  if (!is.null(process_status)) {
+    message$processStatus <- process_status
+  }
+  if (!is.null(finish_status)) {
+    message$finishStatus <- finish_status
+  }
 
   .el_send_update(session, message)
   invisible(NULL)

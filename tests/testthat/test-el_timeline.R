@@ -6,16 +6,23 @@ sent_message <- function(expr) {
   captured <- NULL
   session <- list(
     ns = function(id) id,
-    sendCustomMessage = function(type, msg) captured <<- list(type = type, msg = msg)
+    sendCustomMessage = function(type, msg) {
+      captured <<- list(type = type, msg = msg)
+    }
   )
   expr(session)
   captured
 }
 
 demo_items <- list(
-  list(content = "Placed",  timestamp = "2026-03-01", type = "primary"),
-  list(content = "Shipped", timestamp = "2026-03-02", icon = "el-icon-check",
-       size = "large", color = "#0bbd87"),
+  list(content = "Placed", timestamp = "2026-03-01", type = "primary"),
+  list(
+    content = "Shipped",
+    timestamp = "2026-03-02",
+    icon = "el-icon-check",
+    size = "large",
+    color = "#0bbd87"
+  ),
   list(content = "No timestamp")
 )
 
@@ -70,8 +77,11 @@ test_that("el_timeline: entries render through one v-for so they stay replaceabl
 })
 
 test_that("el_timeline: the timestamp is hidden only when there is none", {
-  expect_match(render_html(el_timeline(id = "log")),
-               ':hide-timestamp="!item.timestamp"', fixed = TRUE)
+  expect_match(
+    render_html(el_timeline(id = "log")),
+    ':hide-timestamp="!item.timestamp"',
+    fixed = TRUE
+  )
 })
 
 test_that("el_timeline: entries reach the Vue data", {
@@ -92,8 +102,15 @@ test_that("el_timeline: content is text by default and HTML on request", {
 })
 
 test_that("el_timeline: reverse is bound", {
-  expect_match(render_html(el_timeline(id = "log")), ':reverse="reverse"', fixed = TRUE)
-  expect_match(render_html(el_timeline(id = "log", reverse = TRUE)), '"reverse":true')
+  expect_match(
+    render_html(el_timeline(id = "log")),
+    ':reverse="reverse"',
+    fixed = TRUE
+  )
+  expect_match(
+    render_html(el_timeline(id = "log", reverse = TRUE)),
+    '"reverse":true'
+  )
 })
 
 test_that("el_timeline: an empty timeline still renders", {
@@ -111,7 +128,9 @@ test_that("el_timeline: is display-only, with no Shiny input", {
 # ── update_el_timeline ────────────────────────────────────────────────────────
 
 test_that("update_el_timeline: sends under the right message type", {
-  out <- sent_message(function(s) update_el_timeline(s, "log", items = demo_items))
+  out <- sent_message(function(s) {
+    update_el_timeline(s, "log", items = demo_items)
+  })
   expect_equal(out$type, "shinyVueUpdate")
   expect_equal(out$msg$id, "log")
   expect_length(out$msg$items, 3)
@@ -120,7 +139,11 @@ test_that("update_el_timeline: sends under the right message type", {
 
 test_that("update_el_timeline: entries are normalised on the way out too", {
   out <- sent_message(function(s) {
-    update_el_timeline(s, "log", items = list(list(content = "x", nonsense = 1)))
+    update_el_timeline(
+      s,
+      "log",
+      items = list(list(content = "x", nonsense = 1))
+    )
   })
   expect_named(out$msg$items[[1]], "content")
 })

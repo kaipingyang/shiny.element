@@ -53,10 +53,24 @@ A field declaration, for \code{\link[=el_form]{el_form()}}.
 Declare a form field
 }
 \examples{
-el_form_field("name", "input", label = "Name",
-              rules = el_rule(required = TRUE, message = "Required"))
-el_form_field("age", "input-number", label = "Age", value = 18,
-              min = 0, max = 150)
-el_form_field("city", "select", label = "City",
-              choices = c(Beijing = "bj", Shanghai = "sh"))
+el_form_field(
+  "name",
+  "input",
+  label = "Name",
+  rules = el_rule(required = TRUE, message = "Required")
+)
+el_form_field(
+  "age",
+  "input-number",
+  label = "Age",
+  value = 18,
+  min = 0,
+  max = 150
+)
+el_form_field(
+  "city",
+  "select",
+  label = "City",
+  choices = c(Beijing = "bj", Shanghai = "sh")
+)
 }

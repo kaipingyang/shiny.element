@@ -17,9 +17,12 @@ zIndex })` for every component on the page. `size` is `"large"`,
 `"default"` or `"small"`; a component's own `size` overrides it.
 
 ```{r global, eval = FALSE, shot = TRUE}
-ui <- el_page(size = "small",
-  el_button("a", "Small by default"), el_button("b", "Large", size = "large"),
-  el_input("c", placeholder = "Small too", width = "200px"))
+ui <- el_page(
+  size = "small",
+  el_button("a", "Small by default"),
+  el_button("b", "Large", size = "large"),
+  el_input("c", placeholder = "Small too", width = "200px")
+)
 
 shinyApp(ui, function(input, output, session) {})
 ```
@@ -35,20 +38,33 @@ messages.
 
 ```{r provider, eval = FALSE, shot = TRUE}
 tagList(
-  el_config_provider(size = "large", button = list(autoInsertSpace = TRUE),
-    el_button("d", "确定", type = "primary"), el_button("e", "Large")),
-  tags$div(style = "margin-top: 12px",
-    el_button("f", "确定", type = "primary"), el_button("g", "Default")))
+  el_config_provider(
+    size = "large",
+    button = list(autoInsertSpace = TRUE),
+    el_button("d", "确定", type = "primary"),
+    el_button("e", "Large")
+  ),
+  tags$div(
+    style = "margin-top: 12px",
+    el_button("f", "确定", type = "primary"),
+    el_button("g", "Default")
+  )
+)
 ```
 
 `message = list(max = 3)` caps how many messages show at once:
 
 ```{r messages, eval = FALSE}
-ui <- el_page(el_config_provider(message = list(max = 3),
-  el_button("toast", "Message")))
+ui <- el_page(el_config_provider(
+  message = list(max = 3),
+  el_button("toast", "Message")
+))
 
 server <- function(input, output, session) {
-  observeEvent(input$toast, el_message(message = paste("At", format(Sys.time(), "%X"))))
+  observeEvent(
+    input$toast,
+    el_message(message = paste("At", format(Sys.time(), "%X")))
+  )
 }
 ```
 

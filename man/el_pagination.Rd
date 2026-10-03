@@ -127,10 +127,10 @@ el_pagination("pg1", total = 100)
 # With custom page sizes and layout
 el_pagination(
   "pg2",
-  total      = 500,
-  page_size  = 20,
+  total = 500,
+  page_size = 20,
   page_sizes = c(10, 20, 50, 100),
-  layout     = "total, sizes, prev, pager, next"
+  layout = "total, sizes, prev, pager, next"
 )
 
 # Shiny app example
@@ -148,5 +148,4 @@ if (interactive()) {
   }
   shinyApp(ui, server)
 }
-
 }

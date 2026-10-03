@@ -30,39 +30,46 @@
 #' # Scrolling a panel rather than the page
 #' el_backtop("panel_top", target = "#report")
 #' @export
-el_backtop <- function(id = NULL,
-                       content = NULL,
-                       target = NULL,
-                       visibility_height = NULL,
-                       right = NULL,
-                       bottom = NULL,
-                       width = NULL,
-                       slots   = NULL,
-                       session = NULL) {
-  if (is.null(id)) id <- paste0("el_backtop_", uuid::UUIDgenerate())
+el_backtop <- function(
+  id = NULL,
+  content = NULL,
+  target = NULL,
+  visibility_height = NULL,
+  right = NULL,
+  bottom = NULL,
+  width = NULL,
+  slots = NULL,
+  session = NULL
+) {
+  if (is.null(id)) {
+    id <- paste0("el_backtop_", uuid::UUIDgenerate())
+  }
   ns_id <- .el_ui_id(id, session)
 
   attrs <- list(
-    ":target"            = .el_optional_bind("target"),
+    ":target" = .el_optional_bind("target"),
     ":visibility-height" = .el_optional_bind("visibilityHeight"),
-    ":right"             = .el_optional_bind("right"),
-    ":bottom"            = .el_optional_bind("bottom")
+    ":right" = .el_optional_bind("right"),
+    ":bottom" = .el_optional_bind("bottom")
   )
   events <- .el_event_bindings(ns_id, "click")
   attrs <- c(attrs, events$attrs)
 
   el_widget(
-    id     = ns_id,
-    markup = htmltools::tag("el-backtop", c(attrs, if (!is.null(content)) list(content))),
-    data   = list(
-      target           = .el_or_na(target),
-      visibilityHeight = .el_or_na(visibility_height),
-      right            = .el_or_na(right),
-      bottom           = .el_or_na(bottom)
+    id = ns_id,
+    markup = htmltools::tag(
+      "el-backtop",
+      c(attrs, if (!is.null(content)) list(content))
     ),
-    methods    = events$methods,
-    width      = width,
-    slots      = slots
+    data = list(
+      target = .el_or_na(target),
+      visibilityHeight = .el_or_na(visibility_height),
+      right = .el_or_na(right),
+      bottom = .el_or_na(bottom)
+    ),
+    methods = events$methods,
+    width = width,
+    slots = slots
   )
 }
 
@@ -85,16 +92,25 @@ el_backtop <- function(id = NULL,
 #'   })
 #' }
 #' @export
-update_el_backtop <- function(session = shiny::getDefaultReactiveDomain(), id, visibility_height = NULL,
-                              right = NULL, bottom = NULL) {
+update_el_backtop <- function(
+  session = shiny::getDefaultReactiveDomain(),
+  id,
+  visibility_height = NULL,
+  right = NULL,
+  bottom = NULL
+) {
   .el_check_session(session)
   ns_id <- session$ns(id)
   msg <- list(id = ns_id)
-  if (!is.null(visibility_height)) msg$visibilityHeight <- visibility_height
-  if (!is.null(right))             msg$right            <- right
-  if (!is.null(bottom))            msg$bottom           <- bottom
+  if (!is.null(visibility_height)) {
+    msg$visibilityHeight <- visibility_height
+  }
+  if (!is.null(right)) {
+    msg$right <- right
+  }
+  if (!is.null(bottom)) {
+    msg$bottom <- bottom
+  }
   .el_send_update(session, msg)
   invisible(NULL)
 }
-
-

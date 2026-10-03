@@ -23,8 +23,8 @@ level, so a label repeated under different parents still gets a unique key.
 }
 \examples{
 df <- data.frame(
-  region  = c("North", "North", "South"),
-  city    = c("Leeds", "York", "Bath"),
+  region = c("North", "North", "South"),
+  city = c("Leeds", "York", "Bath"),
   stringsAsFactors = FALSE
 )
 df_to_tree_data(df, c("region", "city"))

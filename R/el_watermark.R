@@ -34,34 +34,47 @@
 #' @examples
 #' el_watermark(content = "Confidential", shiny::tags$div(style = "height: 300px"))
 #' @export
-el_watermark <- function(...,
-                         id = NULL,
-                         watermark_width = NULL,
-                         height = NULL,
-                         rotate = NULL,
-                         z_index = NULL,
-                         image = NULL,
-                         content = NULL,
-                         font = NULL,
-                         gap = NULL,
-                         offset = NULL,
-                         width = NULL,
-                         slots = NULL) {
+el_watermark <- function(
+  ...,
+  id = NULL,
+  watermark_width = NULL,
+  height = NULL,
+  rotate = NULL,
+  z_index = NULL,
+  image = NULL,
+  content = NULL,
+  font = NULL,
+  gap = NULL,
+  offset = NULL,
+  width = NULL,
+  slots = NULL
+) {
   .el_check_choices("el_watermark", environment())
-  if (is.null(id)) id <- paste0("el_watermark_", uuid::UUIDgenerate())
+  if (is.null(id)) {
+    id <- paste0("el_watermark_", uuid::UUIDgenerate())
+  }
   ns_id <- .el_ui_id(id, NULL)
   events <- .el_event_bindings(ns_id, character())
-  .el_wrap_widget("el-watermark", ns_id, list(...),
-    props = .el_props(list(
-      watermark_width = watermark_width,
-      height = height,
-      rotate = rotate,
-      z_index = z_index,
-      image = image,
-      content = content,
-      font = font,
-      gap = gap,
-      offset = offset),
-      rename = c(watermark_width = "width")),
-    events = events, width = width, slots = slots)
+  .el_wrap_widget(
+    "el-watermark",
+    ns_id,
+    list(...),
+    props = .el_props(
+      list(
+        watermark_width = watermark_width,
+        height = height,
+        rotate = rotate,
+        z_index = z_index,
+        image = image,
+        content = content,
+        font = font,
+        gap = gap,
+        offset = offset
+      ),
+      rename = c(watermark_width = "width")
+    ),
+    events = events,
+    width = width,
+    slots = slots
+  )
 }

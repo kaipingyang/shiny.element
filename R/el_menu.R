@@ -9,39 +9,68 @@
 #' @keywords internal
 .el_menu_nodes <- function(items) {
   lapply(items, function(item) {
-    icon  <- if (!is.null(item$icon)) .el_vue_icon(item$icon)
+    icon <- if (!is.null(item$icon)) .el_vue_icon(item$icon)
     # `title` is Element's own word for it -- the slot is named title -- and
     # an item given one rendered as a blank entry, with nothing logged.
     text <- if (!is.null(item$label)) item$label else item$title
     if (is.null(text) && is.null(icon)) {
-      stop(sprintf("menu item %s has neither a `label` nor an `icon`.",
-                   if (is.null(item$index)) "(no index)" else dQuote(item$index, FALSE)),
-           call. = FALSE)
+      stop(
+        sprintf(
+          "menu item %s has neither a `label` nor an `icon`.",
+          if (is.null(item$index)) "(no index)" else dQuote(item$index, FALSE)
+        ),
+        call. = FALSE
+      )
     }
     label <- htmltools::tags$span(text)
 
     if (isTRUE(item$group)) {
       # A titled group of items; it takes no index and cannot be selected.
-      htmltools::tag("el-menu-item-group", c(
-        list(title = if (!is.null(item$title)) item$title else text),
-        .el_menu_nodes(item$children)
-      ))
-
+      htmltools::tag(
+        "el-menu-item-group",
+        c(
+          list(title = if (!is.null(item$title)) item$title else text),
+          .el_menu_nodes(item$children)
+        )
+      )
     } else if (length(item$children)) {
       # Element puts a submenu's own label in a named slot, not its body.
       title <- .el_slot("title", icon, label)
-      attrs <- c(list(index = item$index), .el_menu_item_props(item, c(
-        "disabled", "popper_class", "popper_style", "show_timeout", "hide_timeout",
-        "teleported", "popper_offset", "expand_close_icon", "expand_open_icon",
-        "collapse_close_icon", "collapse_open_icon")))
-      htmltools::tag("el-sub-menu", c(attrs, list(title),
-                                     .el_menu_nodes(item$children)))
-
+      attrs <- c(
+        list(index = item$index),
+        .el_menu_item_props(
+          item,
+          c(
+            "disabled",
+            "popper_class",
+            "popper_style",
+            "show_timeout",
+            "hide_timeout",
+            "teleported",
+            "popper_offset",
+            "expand_close_icon",
+            "expand_open_icon",
+            "collapse_close_icon",
+            "collapse_open_icon"
+          )
+        )
+      )
+      htmltools::tag(
+        "el-sub-menu",
+        c(attrs, list(title), .el_menu_nodes(item$children))
+      )
     } else {
-      attrs <- c(list(index = item$index), .el_menu_item_props(item, c("disabled", "route")),
-                 # Element's own per-item click, alongside the menu's select
-                 list("@click" = sprintf("elMenuItemClick(%s)",
-                                         jsonlite::toJSON(item$index, auto_unbox = TRUE))))
+      attrs <- c(
+        list(index = item$index),
+        .el_menu_item_props(item, c("disabled", "route")),
+        # Element's own per-item click, alongside the menu's select
+        list(
+          "@click" = sprintf(
+            "elMenuItemClick(%s)",
+            jsonlite::toJSON(item$index, auto_unbox = TRUE)
+          )
+        )
+      )
       htmltools::tag("el-menu-item", c(attrs, list(icon, label)))
     }
   })
@@ -57,8 +86,13 @@
   out <- list()
   for (f in fields) {
     v <- item[[f]] %||% item[[.el_camel_case(f)]]
-    if (is.null(v)) next
-    out[[paste0(":", gsub("_", "-", f))]] <- jsonlite::toJSON(v, auto_unbox = TRUE)
+    if (is.null(v)) {
+      next
+    }
+    out[[paste0(":", gsub("_", "-", f))]] <- jsonlite::toJSON(
+      v,
+      auto_unbox = TRUE
+    )
   }
   out
 }
@@ -148,97 +182,113 @@
 #'   active = "home",
 #'   items = list(
 #'     list(index = "home", label = "Home", icon = "House"),
-#'     list(index = "products", label = "Products", icon = "Goods",
-#'          children = list(
-#'            list(index = "products-all", label = "All"),
-#'            list(index = "products-new", label = "New")
-#'          )),
+#'     list(
+#'       index = "products",
+#'       label = "Products",
+#'       icon = "Goods",
+#'       children = list(
+#'         list(index = "products-all", label = "All"),
+#'         list(index = "products-new", label = "New")
+#'       )
+#'     ),
 #'     list(index = "help", label = "Help", disabled = TRUE)
 #'   )
 #' )
 #'
 #' # Horizontal, as a top bar
-#' el_menu(id = "topnav", mode = "horizontal", active = "a",
-#'         items = list(list(index = "a", label = "One"),
-#'                      list(index = "b", label = "Two")))
-el_menu <- function(id = NULL,
-                    items = list(),
-                    active = NULL,
-                    mode = "vertical",
-                    collapse = FALSE,
-                    unique_opened = FALSE,
-                    background_color = NULL,
-                    text_color = NULL,
-                    active_text_color = NULL,
-                    default_openeds = NULL,
-                    menu_trigger = NULL,
-                    collapse_transition = NULL,
-                    router  = NULL,
-                    close_on_click_outside = NULL,
-                    ellipsis = NULL,
-                    ellipsis_icon = NULL,
-                    hide_timeout = NULL,
-                    persistent = NULL,
-                    popper_class = NULL,
-                    popper_effect = NULL,
-                    popper_offset = NULL,
-                    popper_style = NULL,
-                    show_timeout = NULL,
-                    width   = NULL,
-                    slots   = NULL,
-                    session = NULL) {
+#' el_menu(
+#'   id = "topnav",
+#'   mode = "horizontal",
+#'   active = "a",
+#'   items = list(
+#'     list(index = "a", label = "One"),
+#'     list(index = "b", label = "Two")
+#'   )
+#' )
+el_menu <- function(
+  id = NULL,
+  items = list(),
+  active = NULL,
+  mode = "vertical",
+  collapse = FALSE,
+  unique_opened = FALSE,
+  background_color = NULL,
+  text_color = NULL,
+  active_text_color = NULL,
+  default_openeds = NULL,
+  menu_trigger = NULL,
+  collapse_transition = NULL,
+  router = NULL,
+  close_on_click_outside = NULL,
+  ellipsis = NULL,
+  ellipsis_icon = NULL,
+  hide_timeout = NULL,
+  persistent = NULL,
+  popper_class = NULL,
+  popper_effect = NULL,
+  popper_offset = NULL,
+  popper_style = NULL,
+  show_timeout = NULL,
+  width = NULL,
+  slots = NULL,
+  session = NULL
+) {
   .el_check_items(items, "items", c("index", "label"))
   .el_check_choices("el_menu", environment())
-  if (is.null(id)) id <- paste0("el_menu_", uuid::UUIDgenerate())
-  ns_id        <- .el_ui_id(id, session)
+  if (is.null(id)) {
+    id <- paste0("el_menu_", uuid::UUIDgenerate())
+  }
+  ns_id <- .el_ui_id(id, session)
   container_id <- paste0(ns_id, "_container")
-  active       <- shiny::restoreInput(ns_id, active)
+  active <- shiny::restoreInput(ns_id, active)
 
   menu_attrs <- list(
-    ":default-active"    = "active",
-    ":mode"              = "mode",
-    ":collapse"          = "collapse",
-    ":unique-opened"     = "uniqueOpened",
-    ":background-color"  = .el_optional_bind("backgroundColor"),
-    ":text-color"        = .el_optional_bind("textColor"),
+    ":default-active" = "active",
+    ":mode" = "mode",
+    ":collapse" = "collapse",
+    ":unique-opened" = "uniqueOpened",
+    ":background-color" = .el_optional_bind("backgroundColor"),
+    ":text-color" = .el_optional_bind("textColor"),
     ":active-text-color" = .el_optional_bind("activeTextColor"),
-    "@select"            = "handleSelect"
+    "@select" = "handleSelect"
   )
 
   menu_attrs[[":default-openeds"]] <- .el_optional_bind("defaultOpeneds")
 
   menu_attrs[[":menu-trigger"]] <- .el_optional_bind("menuTrigger")
 
-  menu_attrs[[":collapse-transition"]] <- .el_optional_bind("collapseTransition")
+  menu_attrs[[":collapse-transition"]] <- .el_optional_bind(
+    "collapseTransition"
+  )
 
   menu_attrs[[":router"]] <- .el_optional_bind("router")
 
-
   # Forwarded to input$<id>_<event>; see .el_event_bindings().
 
-  events <- .el_event_bindings(ns_id, c(
+  events <- .el_event_bindings(
+    ns_id,
+    c(
+      "open",
 
-    "open",
-
-    "close"
-
-  ),
+      "close"
+    ),
     shapes = list(
-    "open"  = "function(index, path) { return {index: index, path: path}; }",
-    "close" = "function(index, path) { return {index: index, path: path}; }"
-  ))
+      "open" = "function(index, path) { return {index: index, path: path}; }",
+      "close" = "function(index, path) { return {index: index, path: path}; }"
+    )
+  )
 
   menu_attrs <- c(menu_attrs, events$attrs)
 
   vue_data <- list(
-    active          = if (is.null(active)) "" else active,
-    mode            = mode,
-    collapse        = collapse,
-    uniqueOpened    = unique_opened,
+    active = if (is.null(active)) "" else active,
+    mode = mode,
+    collapse = collapse,
+    uniqueOpened = unique_opened,
     backgroundColor = if (is.null(background_color)) NA else background_color,
-    textColor       = if (is.null(text_color)) NA else text_color,
+    textColor = if (is.null(text_color)) NA else text_color,
     activeTextColor = if (is.null(active_text_color)) NA else active_text_color,
-    path            = list()
+    path = list()
   )
 
   vue_data$defaultOpeneds <- .el_or_na(default_openeds)
@@ -260,34 +310,40 @@ el_menu <- function(id = NULL,
       popper_effect = popper_effect,
       popper_offset = popper_offset,
       popper_style = popper_style,
-      show_timeout = show_timeout)),
-    id     = ns_id,
+      show_timeout = show_timeout
+    )),
+    id = ns_id,
     markup = htmltools::tag("el-menu", c(menu_attrs, .el_menu_nodes(items))),
     data = vue_data,
-    methods = c(events$methods, list(
-      # Element's menu-item click: input$<id>_item_click, the index clicked.
-      # select covers most uses; this fires for a disabled-select menu too.
-      elMenuItemClick = JS(sprintf(
-        "function(index) { window.Shiny && Shiny.setInputValue && Shiny.setInputValue('%s_item_click', index, {priority: 'event'}); }",
-        ns_id
-      )),
-      handleSelect = JS(sprintf(
-        paste0(
-          "function(index, indexPath) { var self = this; ",
-          "self.active = index; self.path = indexPath; ",
-          "window.Shiny && Shiny.setInputValue && Shiny.setInputValue('%1$s', index); ",
-          "window.Shiny && Shiny.setInputValue && Shiny.setInputValue('%1$s_path', indexPath); }"
-        ), ns_id
-      ))
-    )),
+    methods = c(
+      events$methods,
+      list(
+        # Element's menu-item click: input$<id>_item_click, the index clicked.
+        # select covers most uses; this fires for a disabled-select menu too.
+        elMenuItemClick = JS(sprintf(
+          "function(index) { window.Shiny && Shiny.setInputValue && Shiny.setInputValue('%s_item_click', index, {priority: 'event'}); }",
+          ns_id
+        )),
+        handleSelect = JS(sprintf(
+          paste0(
+            "function(index, indexPath) { var self = this; ",
+            "self.active = index; self.path = indexPath; ",
+            "window.Shiny && Shiny.setInputValue && Shiny.setInputValue('%1$s', index); ",
+            "window.Shiny && Shiny.setInputValue && Shiny.setInputValue('%1$s_path', indexPath); }"
+          ),
+          ns_id
+        ))
+      )
+    ),
     # Nothing active is reported as NULL rather than Element's "", so that an
     # observeEvent(input$<id>) does not fire on load for a menu with no
     # current item.
     mounted = .el_mounted_init(stats::setNames(
-      c("active || null", "path"), paste0(ns_id, c("", "_path"))
+      c("active || null", "path"),
+      paste0(ns_id, c("", "_path"))
     )),
-    width      = width,
-    slots      = slots
+    width = width,
+    slots = slots
   )
 }
 
@@ -307,11 +363,20 @@ el_menu <- function(id = NULL,
 #'   })
 #' }
 #' @export
-update_el_menu <- function(session = shiny::getDefaultReactiveDomain(), id, active = NULL, collapse = NULL) {
+update_el_menu <- function(
+  session = shiny::getDefaultReactiveDomain(),
+  id,
+  active = NULL,
+  collapse = NULL
+) {
   .el_check_session(session)
   msg <- list(id = session$ns(id))
-  if (!is.null(active))   msg$active   <- active
-  if (!is.null(collapse)) msg$collapse <- collapse
+  if (!is.null(active)) {
+    msg$active <- active
+  }
+  if (!is.null(collapse)) {
+    msg$collapse <- collapse
+  }
   .el_send_update(session, msg)
   invisible(NULL)
 }

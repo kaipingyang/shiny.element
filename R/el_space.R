@@ -24,24 +24,36 @@
 #'
 #' @return A Shiny UI element.
 #' @examples
-#' el_space(el_button("a", "One"), el_button("b", "Two"), el_button("c", "Three"), size = 20)
+#' el_space(
+#'   el_button("a", "One"),
+#'   el_button("b", "Two"),
+#'   el_button("c", "Three"),
+#'   size = 20
+#' )
 #' @export
-el_space <- function(...,
-                     id = NULL,
-                     alignment = NULL,
-                     direction = NULL,
-                     spacer = NULL,
-                     size = NULL,
-                     wrap = NULL,
-                     fill = NULL,
-                     fill_ratio = NULL,
-                     width = NULL,
-                     slots = NULL) {
+el_space <- function(
+  ...,
+  id = NULL,
+  alignment = NULL,
+  direction = NULL,
+  spacer = NULL,
+  size = NULL,
+  wrap = NULL,
+  fill = NULL,
+  fill_ratio = NULL,
+  width = NULL,
+  slots = NULL
+) {
   .el_check_choices("el_space", environment())
-  if (is.null(id)) id <- paste0("el_space_", uuid::UUIDgenerate())
+  if (is.null(id)) {
+    id <- paste0("el_space_", uuid::UUIDgenerate())
+  }
   ns_id <- .el_ui_id(id, NULL)
   events <- .el_event_bindings(ns_id, character())
-  .el_wrap_widget("el-space", ns_id, list(...),
+  .el_wrap_widget(
+    "el-space",
+    ns_id,
+    list(...),
     props = .el_props(list(
       alignment = alignment,
       direction = direction,
@@ -49,6 +61,10 @@ el_space <- function(...,
       size = size,
       wrap = wrap,
       fill = fill,
-      fill_ratio = fill_ratio)),
-    events = events, width = width, slots = slots)
+      fill_ratio = fill_ratio
+    )),
+    events = events,
+    width = width,
+    slots = slots
+  )
 }

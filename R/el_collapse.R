@@ -37,7 +37,8 @@
 #' every change. Empty when all are closed, which Shiny reports as `NULL`.
 #'
 #' @examples
-#' el_collapse("col1",
+#' el_collapse(
+#'   "col1",
 #'   items = list(
 #'     list(name = "p1", title = "Panel 1", content = shiny::tags$p("Content 1")),
 #'     list(name = "p2", title = "Panel 2", content = shiny::tags$p("Content 2"))
@@ -46,55 +47,72 @@
 #' )
 #'
 #' # A panel can hold other components
-#' el_collapse("col2",
+#' el_collapse(
+#'   "col2",
 #'   items = list(
-#'     list(name = "f", title = "Filters",
-#'          content = shiny::tagList(el_input("q"), el_switch("live")))
+#'     list(
+#'       name = "f",
+#'       title = "Filters",
+#'       content = shiny::tagList(el_input("q"), el_switch("live"))
+#'     )
 #'   )
 #' )
-#'
 #' @export
 el_collapse <- function(
-    id        = NULL,
-    items     = list(),
-    value     = character(0),
-    accordion = FALSE,
-    expand_icon_position = "right",
-    before_collapse = NULL,
-    session   = NULL
+  id = NULL,
+  items = list(),
+  value = character(0),
+  accordion = FALSE,
+  expand_icon_position = "right",
+  before_collapse = NULL,
+  session = NULL
 ) {
   .el_check_items(items, "items", c("name", "title"))
   .el_check_choices("el_collapse", environment())
   expand_icon_position <- match.arg(expand_icon_position, c("right", "left"))
-  if (is.null(id)) id <- paste0("el_collapse_", uuid::UUIDgenerate())
+  if (is.null(id)) {
+    id <- paste0("el_collapse_", uuid::UUIDgenerate())
+  }
   ns_id <- .el_ui_id(id, session)
   value <- shiny::restoreInput(ns_id, value)
 
-  if (accordion && length(value) > 1) value <- value[1]
+  if (accordion && length(value) > 1) {
+    value <- value[1]
+  }
 
   panels <- lapply(items, function(item) {
-    open     <- item$name %in% value
+    open <- item$name %in% value
     disabled <- isTRUE(item$disabled)
 
     # Element Plus's markup and ARIA: a header button naming the region it
     # controls, and the region naming it back
-    key     <- gsub("[^A-Za-z0-9_-]", "_", item$name)
+    key <- gsub("[^A-Za-z0-9_-]", "_", item$name)
     head_id <- paste0(ns_id, "-head-", key)
     body_id <- paste0(ns_id, "-content-", key)
-    icon <- if (inherits(item$icon, c("shiny.tag", "shiny.tag.list"))) item$icon else
-      el_icon(.el_icon_name(if (is.null(item$icon)) "ArrowRight" else item$icon),
-              class = paste(c("el-collapse-item__arrow", if (open) "is-active"), collapse = " "),
-              a11y = "none")
+    icon <- if (inherits(item$icon, c("shiny.tag", "shiny.tag.list"))) {
+      item$icon
+    } else {
+      el_icon(
+        .el_icon_name(if (is.null(item$icon)) "ArrowRight" else item$icon),
+        class = paste(
+          c("el-collapse-item__arrow", if (open) "is-active"),
+          collapse = " "
+        ),
+        a11y = "none"
+      )
+    }
     header <- shiny::tags$div(
-      id    = head_id,
-      role  = "button",
+      id = head_id,
+      role = "button",
       tabindex = if (!disabled) "0",
-      `aria-expanded`    = tolower(as.character(open)),
-      `aria-controls`    = body_id,
+      `aria-expanded` = tolower(as.character(open)),
+      `aria-controls` = body_id,
       `aria-describedby` = body_id,
-      `aria-disabled`    = if (disabled) "true",
-      class = paste(c("el-collapse-item__header",
-                      if (open) "is-active"), collapse = " "),
+      `aria-disabled` = if (disabled) "true",
+      class = paste(
+        c("el-collapse-item__header", if (open) "is-active"),
+        collapse = " "
+      ),
       shiny::tags$span(class = "el-collapse-item__title", item$title),
       icon
     )
@@ -102,9 +120,9 @@ el_collapse <- function(
     # The wrapper stays in the document when closed: hiding it with a style
     # keeps any nested component mounted, where removing it would not.
     body <- shiny::tags$div(
-      id    = body_id,
-      role  = "region",
-      `aria-hidden`     = tolower(as.character(!open)),
+      id = body_id,
+      role = "region",
+      `aria-hidden` = tolower(as.character(!open)),
       `aria-labelledby` = head_id,
       class = "el-collapse-item__wrap",
       style = if (!open) "display:none",
@@ -112,21 +130,32 @@ el_collapse <- function(
     )
 
     shiny::tags$div(
-      class = paste(c("el-collapse-item",
-                      if (open) "is-active",
-                      if (disabled) "is-disabled"), collapse = " "),
+      class = paste(
+        c(
+          "el-collapse-item",
+          if (open) "is-active",
+          if (disabled) "is-disabled"
+        ),
+        collapse = " "
+      ),
       `data-el-name` = item$name,
-      header, body
+      header,
+      body
     )
   })
 
   htmltools::attachDependencies(
     shiny::tags$div(
-      id    = ns_id,
-      class = paste0("el-collapse el-collapse-icon-position-", expand_icon_position),
+      id = ns_id,
+      class = paste0(
+        "el-collapse el-collapse-icon-position-",
+        expand_icon_position
+      ),
       `data-el-collapse` = "true",
-      `data-accordion`   = tolower(as.character(accordion)),
-      `data-before-collapse` = if (!is.null(before_collapse)) as.character(before_collapse),
+      `data-accordion` = tolower(as.character(accordion)),
+      `data-before-collapse` = if (!is.null(before_collapse)) {
+        as.character(before_collapse)
+      },
       panels
     ),
     el_collapse_dependency()
@@ -144,10 +173,10 @@ el_collapse_dependency <- function() {
   list(
     .el_jquery_dependency(),
     htmltools::htmlDependency(
-      name      = "el-collapse-binding",
-      version   = "1.0.0",
-      src       = system.file("js", package = "shiny.element"),
-      script    = "el-collapse-binding.js",
+      name = "el-collapse-binding",
+      version = "1.0.0",
+      src = system.file("js", package = "shiny.element"),
+      script = "el-collapse-binding.js",
       all_files = FALSE
     )
   )
@@ -173,12 +202,18 @@ el_collapse_dependency <- function() {
 #'   })
 #' }
 #' @export
-update_el_collapse <- function(session = shiny::getDefaultReactiveDomain(), id, value = NULL) {
+update_el_collapse <- function(
+  session = shiny::getDefaultReactiveDomain(),
+  id,
+  value = NULL
+) {
   .el_check_session(session)
   msg <- list()
   # An input message rather than a custom message: the binding owns this
   # element, and Shiny routes the message to it by id.
-  if (!is.null(value)) msg$value <- as.list(value)
+  if (!is.null(value)) {
+    msg$value <- as.list(value)
+  }
   session$sendInputMessage(id, msg)
   invisible(NULL)
 }

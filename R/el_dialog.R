@@ -68,64 +68,84 @@
 #' @return An `htmltools` tag.
 #'
 #' @examples
-#' el_dialog("d1", title = "Confirm", content = shiny::tags$p("Are you sure?"),
-#'           footer = el_button("ok", "OK", type = "primary"))
+#' el_dialog(
+#'   "d1",
+#'   title = "Confirm",
+#'   content = shiny::tags$p("Are you sure?"),
+#'   footer = el_button("ok", "OK", type = "primary")
+#' )
 #'
 #' # The body can hold other components
-#' el_dialog("d2", title = "Filters", draggable = TRUE,
-#'           content = shiny::tagList(el_input("q"), el_switch("live")))
-#'
+#' el_dialog(
+#'   "d2",
+#'   title = "Filters",
+#'   draggable = TRUE,
+#'   content = shiny::tagList(el_input("q"), el_switch("live"))
+#' )
 #' @export
 el_dialog <- function(
-    id                    = NULL,
-    title                 = "",
-    content               = NULL,
-    footer                = NULL,
-    visible               = FALSE,
-    width                 = "50%",
-    top                   = "15vh",
-    fullscreen            = FALSE,
-    modal                 = TRUE,
-    close_on_click_modal  = TRUE,
-    close_on_press_escape = TRUE,
-    show_close            = TRUE,
-    center                = FALSE,
-    lock_scroll           = TRUE,
-    custom_class          = NULL,
-    append_to_body        = FALSE,
-    destroy_on_close      = FALSE,
-    before_close          = NULL,
-    modal_penetrable      = FALSE,
-    close_icon            = NULL,
-    align_center          = FALSE,
-    draggable             = FALSE,
-    overflow              = FALSE,
-    modal_class           = NULL,
-    header_class          = NULL,
-    body_class            = NULL,
-    footer_class          = NULL,
-    append_to             = NULL,
-    open_delay            = NULL,
-    close_delay           = NULL,
-    z_index               = NULL,
-    header_aria_level     = "2",
-    transition            = NULL,
-    session               = NULL
+  id = NULL,
+  title = "",
+  content = NULL,
+  footer = NULL,
+  visible = FALSE,
+  width = "50%",
+  top = "15vh",
+  fullscreen = FALSE,
+  modal = TRUE,
+  close_on_click_modal = TRUE,
+  close_on_press_escape = TRUE,
+  show_close = TRUE,
+  center = FALSE,
+  lock_scroll = TRUE,
+  custom_class = NULL,
+  append_to_body = FALSE,
+  destroy_on_close = FALSE,
+  before_close = NULL,
+  modal_penetrable = FALSE,
+  close_icon = NULL,
+  align_center = FALSE,
+  draggable = FALSE,
+  overflow = FALSE,
+  modal_class = NULL,
+  header_class = NULL,
+  body_class = NULL,
+  footer_class = NULL,
+  append_to = NULL,
+  open_delay = NULL,
+  close_delay = NULL,
+  z_index = NULL,
+  header_aria_level = "2",
+  transition = NULL,
+  session = NULL
 ) {
-  if (is.null(id)) id <- paste0("el_dialog_", uuid::UUIDgenerate())
+  if (is.null(id)) {
+    id <- paste0("el_dialog_", uuid::UUIDgenerate())
+  }
   ns_id <- .el_ui_id(id, session)
   visible <- isTRUE(shiny::restoreInput(ns_id, visible))
-  if (is.null(append_to) && isTRUE(append_to_body)) append_to <- "body"
+  if (is.null(append_to) && isTRUE(append_to_body)) {
+    append_to <- "body"
+  }
 
   header <- shiny::tags$header(
     class = paste(c("el-dialog__header", header_class), collapse = " "),
-    shiny::tags$span(role = "heading", `aria-level` = header_aria_level,
-                     class = "el-dialog__title", title),
+    shiny::tags$span(
+      role = "heading",
+      `aria-level` = header_aria_level,
+      class = "el-dialog__title",
+      title
+    ),
     if (show_close) {
       shiny::tags$button(
-        type = "button", `aria-label` = "Close", class = "el-dialog__headerbtn",
-        if (is.null(close_icon)) .el_close_icon("el-dialog__close")
-        else el_icon(.el_icon_name(close_icon), class = "el-dialog__close")
+        type = "button",
+        `aria-label` = "Close",
+        class = "el-dialog__headerbtn",
+        if (is.null(close_icon)) {
+          .el_close_icon("el-dialog__close")
+        } else {
+          el_icon(.el_icon_name(close_icon), class = "el-dialog__close")
+        }
       )
     }
   )
@@ -134,53 +154,80 @@ el_dialog <- function(
   # the panel; a click on that box, outside the panel, is a click on the mask
   htmltools::attachDependencies(
     shiny::tags$div(
-      id    = ns_id,
+      id = ns_id,
       class = paste(c("el-overlay", modal_class), collapse = " "),
-      style = paste0(if (!visible) "display:none;",
-                     if (!modal) "background-color:transparent;",
-                     if (!modal && isTRUE(modal_penetrable)) "pointer-events:none;",
-                     if (!is.null(z_index)) sprintf("z-index:%s;", z_index)),
-      `data-el-overlay`  = "dialog",
-      `data-visible`     = tolower(as.character(visible)),
-      `data-modal`       = tolower(as.character(modal)),
-      `data-mask-close`  = tolower(as.character(modal && close_on_click_modal)),
-      `data-esc-close`   = tolower(as.character(close_on_press_escape)),
+      style = paste0(
+        if (!visible) "display:none;",
+        if (!modal) "background-color:transparent;",
+        if (!modal && isTRUE(modal_penetrable)) "pointer-events:none;",
+        if (!is.null(z_index)) sprintf("z-index:%s;", z_index)
+      ),
+      `data-el-overlay` = "dialog",
+      `data-visible` = tolower(as.character(visible)),
+      `data-modal` = tolower(as.character(modal)),
+      `data-mask-close` = tolower(as.character(modal && close_on_click_modal)),
+      `data-esc-close` = tolower(as.character(close_on_press_escape)),
       `data-lock-scroll` = tolower(as.character(lock_scroll)),
-      `data-append-to`   = append_to,
-      `data-open-delay`  = open_delay,
+      `data-append-to` = append_to,
+      `data-open-delay` = open_delay,
       `data-close-delay` = close_delay,
-      `data-z-index`     = z_index,
-      `data-transition`  = transition,
-      `data-draggable`   = if (isTRUE(draggable)) "true",
-      `data-overflow`    = if (isTRUE(overflow)) "true",
+      `data-z-index` = z_index,
+      `data-transition` = transition,
+      `data-draggable` = if (isTRUE(draggable)) "true",
+      `data-overflow` = if (isTRUE(overflow)) "true",
       `data-destroy-on-close` = tolower(as.character(destroy_on_close)),
-      `data-before-close` = if (!is.null(before_close)) as.character(before_close),
+      `data-before-close` = if (!is.null(before_close)) {
+        as.character(before_close)
+      },
       shiny::tags$div(
-        class = paste(c("el-overlay-dialog",
-                        if (!modal && isTRUE(modal_penetrable)) "el-modal-dialog is-penetrable"),
-                      collapse = " "),
-        role = "dialog", `aria-modal` = "true",
+        class = paste(
+          c(
+            "el-overlay-dialog",
+            if (!modal && isTRUE(modal_penetrable)) {
+              "el-modal-dialog is-penetrable"
+            }
+          ),
+          collapse = " "
+        ),
+        role = "dialog",
+        `aria-modal` = "true",
         `aria-label` = if (is.character(title)) title,
         style = if (isTRUE(align_center)) "display:flex;",
         shiny::tags$div(
-          class = paste(c("el-dialog",
-                          if (fullscreen) "is-fullscreen",
-                          if (center) "el-dialog--center",
-                          if (isTRUE(align_center)) "is-align-center",
-                          if (isTRUE(draggable)) "is-draggable",
-                          custom_class), collapse = " "),
+          class = paste(
+            c(
+              "el-dialog",
+              if (fullscreen) "is-fullscreen",
+              if (center) "el-dialog--center",
+              if (isTRUE(align_center)) "is-align-center",
+              if (isTRUE(draggable)) "is-draggable",
+              custom_class
+            ),
+            collapse = " "
+          ),
           tabindex = "-1",
-          style = paste0(sprintf("--el-dialog-width: %s;", width),
-                         if (!isTRUE(align_center)) sprintf(" --el-dialog-margin-top: %s;", top),
-                         if (!modal && isTRUE(modal_penetrable)) " pointer-events:auto;"),
+          style = paste0(
+            sprintf("--el-dialog-width: %s;", width),
+            if (!isTRUE(align_center)) {
+              sprintf(" --el-dialog-margin-top: %s;", top)
+            },
+            if (!modal && isTRUE(modal_penetrable)) " pointer-events:auto;"
+          ),
           header,
           # Hidden rather than removed when closed, so a nested component stays
           # mounted between openings.
-          shiny::tags$div(class = paste(c("el-dialog__body", body_class), collapse = " "),
-                          .el_overlay_content(content, destroy_on_close, visible)),
+          shiny::tags$div(
+            class = paste(c("el-dialog__body", body_class), collapse = " "),
+            .el_overlay_content(content, destroy_on_close, visible)
+          ),
           if (!is.null(footer)) {
-            shiny::tags$footer(class = paste(c("el-dialog__footer", footer_class), collapse = " "),
-                               footer)
+            shiny::tags$footer(
+              class = paste(
+                c("el-dialog__footer", footer_class),
+                collapse = " "
+              ),
+              footer
+            )
           }
         )
       )
@@ -210,13 +257,24 @@ el_dialog <- function(
 #'   })
 #' }
 #' @export
-update_el_dialog <- function(session = shiny::getDefaultReactiveDomain(), id, visible = NULL, title = NULL,
-                             width = NULL) {
+update_el_dialog <- function(
+  session = shiny::getDefaultReactiveDomain(),
+  id,
+  visible = NULL,
+  title = NULL,
+  width = NULL
+) {
   .el_check_session(session)
   msg <- list()
-  if (!is.null(visible)) msg$visible <- visible
-  if (!is.null(title))   msg$title   <- title
-  if (!is.null(width))   msg$width   <- width
+  if (!is.null(visible)) {
+    msg$visible <- visible
+  }
+  if (!is.null(title)) {
+    msg$title <- title
+  }
+  if (!is.null(width)) {
+    msg$width <- width
+  }
   session$sendInputMessage(id, msg)
   invisible(NULL)
 }
@@ -234,10 +292,10 @@ el_overlay_dependency <- function() {
   list(
     .el_jquery_dependency(),
     htmltools::htmlDependency(
-      name      = "el-overlay-binding",
-      version   = "1.0.0",
-      src       = system.file("js", package = "shiny.element"),
-      script    = "el-overlay-binding.js",
+      name = "el-overlay-binding",
+      version = "1.0.0",
+      src = system.file("js", package = "shiny.element"),
+      script = "el-overlay-binding.js",
       all_files = FALSE
     )
   )
@@ -257,7 +315,9 @@ el_overlay_dependency <- function() {
 #' @return Markup.
 #' @keywords internal
 .el_overlay_content <- function(content, destroy, visible) {
-  if (!isTRUE(destroy)) return(content)
+  if (!isTRUE(destroy)) {
+    return(content)
+  }
   htmltools::tagList(
     htmltools::tag("template", list(`data-el-pristine` = "true", content)),
     if (isTRUE(visible)) shiny::tags$div(`data-el-live` = "true", content)

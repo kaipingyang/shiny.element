@@ -148,11 +148,18 @@ Callable with \code{\link[=el_call]{el_call()}}: \code{resetPosition()} puts a d
 }
 
 \examples{
-el_dialog("d1", title = "Confirm", content = shiny::tags$p("Are you sure?"),
-          footer = el_button("ok", "OK", type = "primary"))
+el_dialog(
+  "d1",
+  title = "Confirm",
+  content = shiny::tags$p("Are you sure?"),
+  footer = el_button("ok", "OK", type = "primary")
+)
 
 # The body can hold other components
-el_dialog("d2", title = "Filters", draggable = TRUE,
-          content = shiny::tagList(el_input("q"), el_switch("live")))
-
+el_dialog(
+  "d2",
+  title = "Filters",
+  draggable = TRUE,
+  content = shiny::tagList(el_input("q"), el_switch("live"))
+)
 }

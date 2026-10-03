@@ -48,8 +48,12 @@ test_that("el_tag: size is bound whether or not it is supplied", {
 
 test_that("update_el_tag: sends correct message", {
   captured <- NULL
-  mock_session <- list(ns = function(id) id,
-                       sendCustomMessage = function(type, msg) { captured <<- msg })
+  mock_session <- list(
+    ns = function(id) id,
+    sendCustomMessage = function(type, msg) {
+      captured <<- msg
+    }
+  )
   update_el_tag(mock_session, "t1", label = "New", type = "danger")
   expect_equal(captured$id, "t1")
   expect_equal(captured$label, "New")
@@ -58,8 +62,12 @@ test_that("update_el_tag: sends correct message", {
 
 test_that("update_el_tag: only sends provided fields", {
   captured <- NULL
-  mock_session <- list(ns = function(id) id,
-                       sendCustomMessage = function(type, msg) { captured <<- msg })
+  mock_session <- list(
+    ns = function(id) id,
+    sendCustomMessage = function(type, msg) {
+      captured <<- msg
+    }
+  )
   update_el_tag(mock_session, "t1", label = "X")
   expect_null(captured$type)
   expect_null(captured$closable)
@@ -90,8 +98,11 @@ test_that("el_alert: description is bound and null when not supplied", {
   # data is not reactive, so the matching update_*() argument would be a
   # silent no-op. NA serialises to JSON null, which Element treats as unset.
   html <- render_html(el_alert("a1", title = "Alert"))
-  expect_match(html, sprintf(':description="%s"', .el_optional_bind("description")),
-               fixed = TRUE)
+  expect_match(
+    html,
+    sprintf(':description="%s"', .el_optional_bind("description")),
+    fixed = TRUE
+  )
   expect_match(html, '"description":null', fixed = TRUE)
 })
 
@@ -104,8 +115,12 @@ test_that("el_alert: close handler fires _closed input", {
 
 test_that("update_el_alert: sends correct message", {
   captured <- NULL
-  mock_session <- list(ns = function(id) id,
-                       sendCustomMessage = function(type, msg) { captured <<- msg })
+  mock_session <- list(
+    ns = function(id) id,
+    sendCustomMessage = function(type, msg) {
+      captured <<- msg
+    }
+  )
   update_el_alert(mock_session, "a1", title = "Updated", type = "error")
   expect_equal(captured$id, "a1")
   expect_equal(captured$title, "Updated")
@@ -114,8 +129,12 @@ test_that("update_el_alert: sends correct message", {
 
 test_that("update_el_alert: only sends provided fields", {
   captured <- NULL
-  mock_session <- list(ns = function(id) id,
-                       sendCustomMessage = function(type, msg) { captured <<- msg })
+  mock_session <- list(
+    ns = function(id) id,
+    sendCustomMessage = function(type, msg) {
+      captured <<- msg
+    }
+  )
   update_el_alert(mock_session, "a1", title = "X")
   expect_null(captured$type)
   expect_null(captured$description)
@@ -123,7 +142,8 @@ test_that("update_el_alert: only sends provided fields", {
 
 # ── el_collapse ───────────────────────────────────────────────────────────────
 test_that("el_collapse: renders items", {
-  tag <- el_collapse("c1",
+  tag <- el_collapse(
+    "c1",
     items = list(
       list(name = "p1", title = "Panel 1", content = tags$p("Content 1")),
       list(name = "p2", title = "Panel 2", content = tags$p("Content 2"))
@@ -145,9 +165,13 @@ test_that("el_collapse: accordion mode in Vue data", {
 test_that("el_collapse: a panel title survives spaces", {
   # It used to be a Vue-bound attribute, where a title containing spaces was
   # evaluated as a JS expression. It is now plain text in the header.
-  html <- render_html(el_collapse("c1",
-    items = list(list(name = "my panel", title = "My Title With Spaces",
-                      content = tags$p("x")))
+  html <- render_html(el_collapse(
+    "c1",
+    items = list(list(
+      name = "my panel",
+      title = "My Title With Spaces",
+      content = tags$p("x")
+    ))
   ))
   expect_match(html, "My Title With Spaces", fixed = TRUE)
   expect_match(html, 'data-el-name="my panel"', fixed = TRUE)
@@ -184,16 +208,24 @@ test_that("el_rate: change handler", {
 
 test_that("update_el_rate: sends value", {
   captured <- NULL
-  mock_session <- list(ns = function(id) id,
-                       sendCustomMessage = function(type, msg) { captured <<- msg })
+  mock_session <- list(
+    ns = function(id) id,
+    sendCustomMessage = function(type, msg) {
+      captured <<- msg
+    }
+  )
   update_el_rate(mock_session, "r1", value = 4)
   expect_equal(captured$value, 4)
 })
 
 test_that("update_el_rate: sends disabled", {
   captured <- NULL
-  mock_session <- list(ns = function(id) id,
-                       sendCustomMessage = function(type, msg) { captured <<- msg })
+  mock_session <- list(
+    ns = function(id) id,
+    sendCustomMessage = function(type, msg) {
+      captured <<- msg
+    }
+  )
   update_el_rate(mock_session, "r1", disabled = TRUE)
   expect_true(captured$disabled)
 })
@@ -235,8 +267,12 @@ test_that("el_input_number: Inf converted to large number", {
 
 test_that("update_el_input_number: sends fields", {
   captured <- NULL
-  mock_session <- list(ns = function(id) id,
-                       sendCustomMessage = function(type, msg) { captured <<- msg })
+  mock_session <- list(
+    ns = function(id) id,
+    sendCustomMessage = function(type, msg) {
+      captured <<- msg
+    }
+  )
   update_el_input_number(mock_session, "n1", value = 10, disabled = TRUE)
   expect_equal(captured$value, 10)
   expect_true(captured$disabled)

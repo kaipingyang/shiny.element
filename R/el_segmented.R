@@ -29,55 +29,81 @@
 #'
 #' @return A Shiny UI element.
 #' @examples
-#' el_segmented("period", options = c(Day = "d", Week = "w", Month = "m"), value = "w")
+#' el_segmented(
+#'   "period",
+#'   options = c(Day = "d", Week = "w", Month = "m"),
+#'   value = "w"
+#' )
 #' @export
-el_segmented <- function(id = NULL,
-                         value = NULL,
-                         options = NULL,
-                         size = NULL,
-                         block = NULL,
-                         disabled = NULL,
-                         validate_event = NULL,
-                         aria_label = NULL,
-                         direction = NULL,
-                         label = NULL,
-                         label_position = c("top", "left", "right"),
-                         label_width = NULL,
-                         label_suffix = NULL,
-                         required = FALSE,
-                         error = NULL,
-                         show_message = TRUE,
-                         inline_message = FALSE,
-                         width = NULL,
-                         slots = NULL) {
+el_segmented <- function(
+  id = NULL,
+  value = NULL,
+  options = NULL,
+  size = NULL,
+  block = NULL,
+  disabled = NULL,
+  validate_event = NULL,
+  aria_label = NULL,
+  direction = NULL,
+  label = NULL,
+  label_position = c("top", "left", "right"),
+  label_width = NULL,
+  label_suffix = NULL,
+  required = FALSE,
+  error = NULL,
+  show_message = TRUE,
+  inline_message = FALSE,
+  width = NULL,
+  slots = NULL
+) {
   .el_check_choices("el_segmented", environment())
   # A named vector c(Label = value), as the choice components take, or
   # Element Plus's list(value =, label =)
-  if (!is.null(options)) options <- .el_normalize_choices(options)
-  if (is.null(id)) id <- paste0("el_segmented_", uuid::UUIDgenerate())
+  if (!is.null(options)) {
+    options <- .el_normalize_choices(options)
+  }
+  if (is.null(id)) {
+    id <- paste0("el_segmented_", uuid::UUIDgenerate())
+  }
   ns_id <- .el_ui_id(id, NULL)
   events <- .el_event_bindings(ns_id, character())
-  attrs <- c(list("v-model" = "value", "@change" = "handleChange"), events$attrs)
+  attrs <- c(
+    list("v-model" = "value", "@change" = "handleChange"),
+    events$attrs
+  )
   el_widget(
-    label = label, label_position = label_position,
-    label_width = label_width, label_suffix = label_suffix, required = required,
-    error = error, show_message = show_message, inline_message = inline_message,
-    id      = ns_id,
-    markup  = htmltools::tag("el-segmented", attrs),
-    props   = .el_props(list(
+    label = label,
+    label_position = label_position,
+    label_width = label_width,
+    label_suffix = label_suffix,
+    required = required,
+    error = error,
+    show_message = show_message,
+    inline_message = inline_message,
+    id = ns_id,
+    markup = htmltools::tag("el-segmented", attrs),
+    props = .el_props(list(
       options = options,
       size = size,
       block = block,
       disabled = disabled,
       validate_event = validate_event,
       aria_label = aria_label,
-      direction = direction)),
-    data    = list(value = .el_restore(ns_id, if (is.null(value)) NA else value)),
-    methods = c(events$methods, list(handleChange = JS(sprintf(
-      "function(v) { window.Shiny && Shiny.setInputValue && Shiny.setInputValue('%s', v); }", ns_id)))),
+      direction = direction
+    )),
+    data = list(value = .el_restore(ns_id, if (is.null(value)) NA else value)),
+    methods = c(
+      events$methods,
+      list(
+        handleChange = JS(sprintf(
+          "function(v) { window.Shiny && Shiny.setInputValue && Shiny.setInputValue('%s', v); }",
+          ns_id
+        ))
+      )
+    ),
     mounted = .el_mounted_init(stats::setNames("value", ns_id)),
-    width   = width,
-    slots   = slots
+    width = width,
+    slots = slots
   )
 }
 
@@ -101,12 +127,22 @@ el_segmented <- function(id = NULL,
 #'   observeEvent(input$reset, update_el_segmented(session, "x", value = NULL))
 #' }
 #' @export
-update_el_segmented <- function(session = shiny::getDefaultReactiveDomain(), id, value = NULL,
-                              disabled = NULL, label = NULL, error = NULL) {
+update_el_segmented <- function(
+  session = shiny::getDefaultReactiveDomain(),
+  id,
+  value = NULL,
+  disabled = NULL,
+  label = NULL,
+  error = NULL
+) {
   .el_check_session(session)
   msg <- list(id = session$ns(id))
-  if (!is.null(value))    msg$value    <- value
-  if (!is.null(disabled)) msg$disabled <- disabled
+  if (!is.null(value)) {
+    msg$value <- value
+  }
+  if (!is.null(disabled)) {
+    msg$disabled <- disabled
+  }
   msg <- .el_form_item_update(msg, label, error)
   .el_send_update(session, msg)
   invisible(NULL)

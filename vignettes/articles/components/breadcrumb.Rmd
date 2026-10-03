@@ -13,11 +13,16 @@ Displays the location of the current page, making it easier to browser back.
 In `el-breadcrumb`, each `el-breadcrumb-item` is a tag that stands for every level starting from homepage. This component has a `String` attribute `separator`, and it determines the separator. Its default value is '/'.
 
 ```{r basic, eval = FALSE, shot = TRUE}
-el_breadcrumb("crumbs", separator = "/", items = list(
-  list(label = "homepage", to = "/"),
-  list(label = "promotion management"),
-  list(label = "promotion list"),
-  list(label = "promotion detail")))
+el_breadcrumb(
+  "crumbs",
+  separator = "/",
+  items = list(
+    list(label = "homepage", to = "/"),
+    list(label = "promotion management"),
+    list(label = "promotion list"),
+    list(label = "promotion detail")
+  )
+)
 ```
 
 ## Icon separator
@@ -25,9 +30,16 @@ el_breadcrumb("crumbs", separator = "/", items = list(
 Set `separator-icon` to use `svg icon` as the separator，it will cover `separator`
 
 ```{r icon, eval = FALSE, shot = TRUE}
-el_breadcrumb("crumbs_icon", separator_icon = "ArrowRight", items = list(
-  list(label = "homepage", to = "/"), list(label = "promotion management"),
-  list(label = "promotion list"), list(label = "promotion detail")))
+el_breadcrumb(
+  "crumbs_icon",
+  separator_icon = "ArrowRight",
+  items = list(
+    list(label = "homepage", to = "/"),
+    list(label = "promotion management"),
+    list(label = "promotion list"),
+    list(label = "promotion detail")
+  )
+)
 ```
 
 ## API

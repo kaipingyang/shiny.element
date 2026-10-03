@@ -118,9 +118,12 @@
 #' el_date_picker("dp2", value = Sys.Date())
 #'
 #' # Date range picker
-#' el_date_picker("dp3", type = "daterange",
-#'                start_placeholder = "Start date",
-#'                end_placeholder   = "End date")
+#' el_date_picker(
+#'   "dp3",
+#'   type = "daterange",
+#'   start_placeholder = "Start date",
+#'   end_placeholder = "End date"
+#' )
 #'
 #' # Shiny app example
 #' if (interactive()) {
@@ -135,68 +138,69 @@
 #'   }
 #'   shinyApp(ui, server)
 #' }
-#'
 #' @export
 el_date_picker <- function(
-    id                = NULL,
-    value             = NULL,
-    type              = "date",
-    value_format      = "YYYY-MM-DD",
-    format            = NULL,
-    placeholder       = NULL,
-    start_placeholder = NULL,
-    end_placeholder   = NULL,
-    clearable         = TRUE,
-    disabled          = FALSE,
-    editable          = TRUE,
-    readonly          = FALSE,
-    range_separator   = "-",
-    size              = NULL,
-    name              = NULL,
-    prefix_icon       = NULL,
-    clear_icon        = NULL,
-    popper_class      = NULL,
-    default_value     = NULL,
-    default_time      = NULL,
-    unlink_panels     = NULL,
-    validate_event    = NULL,
-    label = NULL,
-    label_position = c("top", "left", "right"),
-    label_width = NULL,
-    label_suffix = NULL,
-    required = FALSE,
-    error = NULL,
-    show_message = TRUE,
-    inline_message = FALSE,
-    width             = NULL,
-    slots             = NULL,
-    arrow_control = NULL,
-    automatic_dropdown = NULL,
-    cell_class_name = NULL,
-    date_format = NULL,
-    disabled_date = NULL,
-    disabled_hours = NULL,
-    disabled_minutes = NULL,
-    disabled_seconds = NULL,
-    empty_values = NULL,
-    fallback_placements = NULL,
-    placement = NULL,
-    popper_options = NULL,
-    popper_style = NULL,
-    shortcuts = NULL,
-    show_confirm = NULL,
-    show_footer = NULL,
-    show_now = NULL,
-    show_week_number = NULL,
-    single_panel = NULL,
-    teleported = NULL,
-    time_format = NULL,
-    value_on_clear = NULL,
-    session           = NULL
+  id = NULL,
+  value = NULL,
+  type = "date",
+  value_format = "YYYY-MM-DD",
+  format = NULL,
+  placeholder = NULL,
+  start_placeholder = NULL,
+  end_placeholder = NULL,
+  clearable = TRUE,
+  disabled = FALSE,
+  editable = TRUE,
+  readonly = FALSE,
+  range_separator = "-",
+  size = NULL,
+  name = NULL,
+  prefix_icon = NULL,
+  clear_icon = NULL,
+  popper_class = NULL,
+  default_value = NULL,
+  default_time = NULL,
+  unlink_panels = NULL,
+  validate_event = NULL,
+  label = NULL,
+  label_position = c("top", "left", "right"),
+  label_width = NULL,
+  label_suffix = NULL,
+  required = FALSE,
+  error = NULL,
+  show_message = TRUE,
+  inline_message = FALSE,
+  width = NULL,
+  slots = NULL,
+  arrow_control = NULL,
+  automatic_dropdown = NULL,
+  cell_class_name = NULL,
+  date_format = NULL,
+  disabled_date = NULL,
+  disabled_hours = NULL,
+  disabled_minutes = NULL,
+  disabled_seconds = NULL,
+  empty_values = NULL,
+  fallback_placements = NULL,
+  placement = NULL,
+  popper_options = NULL,
+  popper_style = NULL,
+  shortcuts = NULL,
+  show_confirm = NULL,
+  show_footer = NULL,
+  show_now = NULL,
+  show_week_number = NULL,
+  single_panel = NULL,
+  teleported = NULL,
+  time_format = NULL,
+  value_on_clear = NULL,
+  session = NULL
 ) {
   .el_check_choices("el_date_picker", environment())
-  if (is.null(id)) id <- paste0("el_date_picker_", uuid::UUIDgenerate())
-  ns_id        <- .el_ui_id(id, session)
+  if (is.null(id)) {
+    id <- paste0("el_date_picker_", uuid::UUIDgenerate())
+  }
+  ns_id <- .el_ui_id(id, session)
   container_id <- paste0(ns_id, "_container")
 
   # Determine if this is a range-type picker
@@ -220,16 +224,16 @@ el_date_picker <- function(
 
   # Vue binding attributes
   picker_attrs <- list(
-    "v-model"          = "value",
-    ":type"            = "type",
-    ":value-format"    = "valueFormat",
-    ":format"          = "displayFormat",
-    ":clearable"       = "clearable",
-    ":disabled"        = "disabled",
-    ":editable"        = "editable",
-    ":readonly"        = "readonly",
+    "v-model" = "value",
+    ":type" = "type",
+    ":value-format" = "valueFormat",
+    ":format" = "displayFormat",
+    ":clearable" = "clearable",
+    ":disabled" = "disabled",
+    ":editable" = "editable",
+    ":readonly" = "readonly",
     ":range-separator" = "rangeSeparator",
-    "@change"          = "handleChange"
+    "@change" = "handleChange"
   )
   picker_attrs[[":placeholder"]] <- .el_optional_bind("placeholder")
   picker_attrs[[":start-placeholder"]] <- .el_optional_bind("startPlaceholder")
@@ -245,21 +249,28 @@ el_date_picker <- function(
   picker_attrs[[":validate-event"]] <- .el_optional_bind("validateEvent")
 
   # Forwarded to input$<id>_<event>; see .el_event_bindings().
-  events <- .el_event_bindings(ns_id, c(
-    "blur",
-    "focus",
-    "calendar-change", "clear", "panel-change", "visible-change"))
+  events <- .el_event_bindings(
+    ns_id,
+    c(
+      "blur",
+      "focus",
+      "calendar-change",
+      "clear",
+      "panel-change",
+      "visible-change"
+    )
+  )
   picker_attrs <- c(picker_attrs, events$attrs)
   # Vue data
   vue_data <- list(
-    value          = init_value,
-    type           = type,
-    valueFormat    = value_format,
-    displayFormat  = display_format,
-    clearable      = clearable,
-    disabled       = disabled,
-    editable       = editable,
-    readonly       = readonly,
+    value = init_value,
+    type = type,
+    valueFormat = value_format,
+    displayFormat = display_format,
+    clearable = clearable,
+    disabled = disabled,
+    editable = editable,
+    readonly = readonly,
     rangeSeparator = range_separator
   )
   vue_data$placeholder <- if (is.null(placeholder)) NA else placeholder
@@ -297,24 +308,38 @@ el_date_picker <- function(
       single_panel = single_panel,
       teleported = teleported,
       time_format = time_format,
-      value_on_clear = value_on_clear)),
-    label = label, label_position = label_position,
-    label_width = label_width, label_suffix = label_suffix, required = required,
-    error = error, show_message = show_message, inline_message = inline_message,
-    id     = ns_id,
+      value_on_clear = value_on_clear
+    )),
+    label = label,
+    label_position = label_position,
+    label_width = label_width,
+    label_suffix = label_suffix,
+    required = required,
+    error = error,
+    show_message = show_message,
+    inline_message = inline_message,
+    id = ns_id,
     markup = htmltools::tag("el-date-picker", picker_attrs),
     data = vue_data,
     # The value is the binding's: reported on load and on every change, and
     # converted on the way in. A change handler sending it too would send it
     # unconverted, overwriting the Date.
-    methods = c(events$methods, list(
-      handleChange = JS("function() {}")
-    )),
+    methods = c(
+      events$methods,
+      list(
+        handleChange = JS("function() {}")
+      )
+    ),
     mounted = .el_mounted_init(stats::setNames("value", ns_id)),
-    type    = if (type %in% c("date", "dates", "daterange") &&
-                  identical(value_format, "YYYY-MM-DD")) "shiny.element.date",
-    width      = width,
-    slots      = slots
+    type = if (
+      type %in%
+        c("date", "dates", "daterange") &&
+        identical(value_format, "YYYY-MM-DD")
+    ) {
+      "shiny.element.date"
+    },
+    width = width,
+    slots = slots
   )
 }
 
@@ -350,24 +375,38 @@ el_date_picker <- function(
 #' }
 #' @export
 update_el_date_picker <- function(
-    session = shiny::getDefaultReactiveDomain(),
-    id,
-    value       = NULL,
-    disabled    = NULL,
-    type        = NULL,
-    clearable   = NULL,
-    readonly    = NULL,
-    placeholder = NULL,
-    label = NULL, error = NULL) {
+  session = shiny::getDefaultReactiveDomain(),
+  id,
+  value = NULL,
+  disabled = NULL,
+  type = NULL,
+  clearable = NULL,
+  readonly = NULL,
+  placeholder = NULL,
+  label = NULL,
+  error = NULL
+) {
   .el_check_session(session)
   ns_id <- session$ns(id)
-  msg   <- list(id = ns_id)
-  if (!is.null(value))       msg$value       <- value
-  if (!is.null(disabled))    msg$disabled    <- disabled
-  if (!is.null(type))        msg$type        <- type
-  if (!is.null(clearable))   msg$clearable   <- clearable
-  if (!is.null(readonly))    msg$readonly    <- readonly
-  if (!is.null(placeholder)) msg$placeholder <- placeholder
+  msg <- list(id = ns_id)
+  if (!is.null(value)) {
+    msg$value <- value
+  }
+  if (!is.null(disabled)) {
+    msg$disabled <- disabled
+  }
+  if (!is.null(type)) {
+    msg$type <- type
+  }
+  if (!is.null(clearable)) {
+    msg$clearable <- clearable
+  }
+  if (!is.null(readonly)) {
+    msg$readonly <- readonly
+  }
+  if (!is.null(placeholder)) {
+    msg$placeholder <- placeholder
+  }
   msg <- .el_form_item_update(msg, label, error)
   .el_send_update(session, msg)
   invisible(NULL)

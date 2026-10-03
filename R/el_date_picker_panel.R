@@ -62,53 +62,69 @@
 #' @examples
 #' el_date_picker_panel("day", value = Sys.Date(), value_format = "YYYY-MM-DD")
 #' @export
-el_date_picker_panel <- function(id = NULL,
-                                 value = NULL,
-                                 border = NULL,
-                                 disabled = NULL,
-                                 clearable = NULL,
-                                 editable = NULL,
-                                 type = NULL,
-                                 default_value = NULL,
-                                 default_time = NULL,
-                                 value_format = NULL,
-                                 date_format = NULL,
-                                 time_format = NULL,
-                                 unlink_panels = NULL,
-                                 single_panel = NULL,
-                                 disabled_date = NULL,
-                                 shortcuts = NULL,
-                                 cell_class_name = NULL,
-                                 show_footer = NULL,
-                                 show_confirm = NULL,
-                                 show_week_number = NULL,
-                                 label = NULL,
-                                 label_position = c("top", "left", "right"),
-                                 label_width = NULL,
-                                 label_suffix = NULL,
-                                 required = FALSE,
-                                 error = NULL,
-                                 show_message = TRUE,
-                                 inline_message = FALSE,
-                                 width = NULL,
-                                 slots = NULL) {
+el_date_picker_panel <- function(
+  id = NULL,
+  value = NULL,
+  border = NULL,
+  disabled = NULL,
+  clearable = NULL,
+  editable = NULL,
+  type = NULL,
+  default_value = NULL,
+  default_time = NULL,
+  value_format = NULL,
+  date_format = NULL,
+  time_format = NULL,
+  unlink_panels = NULL,
+  single_panel = NULL,
+  disabled_date = NULL,
+  shortcuts = NULL,
+  cell_class_name = NULL,
+  show_footer = NULL,
+  show_confirm = NULL,
+  show_week_number = NULL,
+  label = NULL,
+  label_position = c("top", "left", "right"),
+  label_width = NULL,
+  label_suffix = NULL,
+  required = FALSE,
+  error = NULL,
+  show_message = TRUE,
+  inline_message = FALSE,
+  width = NULL,
+  slots = NULL
+) {
   .el_check_choices("el_date_picker_panel", environment())
-  if (inherits(value, "Date")) value <- format(value, "%Y-%m-%d")
-  if (length(value) > 1) value <- as.list(value)
+  if (inherits(value, "Date")) {
+    value <- format(value, "%Y-%m-%d")
+  }
+  if (length(value) > 1) {
+    value <- as.list(value)
+  }
   value_format <- .el_dayjs_format(value_format)
   date_format <- .el_dayjs_format(date_format)
   time_format <- .el_dayjs_format(time_format)
-  if (is.null(id)) id <- paste0("el_date_picker_panel_", uuid::UUIDgenerate())
+  if (is.null(id)) {
+    id <- paste0("el_date_picker_panel_", uuid::UUIDgenerate())
+  }
   ns_id <- .el_ui_id(id, NULL)
-  events <- .el_event_bindings(ns_id, c("calendar-change", "panel-change", "clear"))
+  events <- .el_event_bindings(
+    ns_id,
+    c("calendar-change", "panel-change", "clear")
+  )
   attrs <- c(list("v-model" = "value"), events$attrs)
   el_widget(
-    label = label, label_position = label_position,
-    label_width = label_width, label_suffix = label_suffix, required = required,
-    error = error, show_message = show_message, inline_message = inline_message,
-    id      = ns_id,
-    markup  = htmltools::tag("el-date-picker-panel", attrs),
-    props   = .el_props(list(
+    label = label,
+    label_position = label_position,
+    label_width = label_width,
+    label_suffix = label_suffix,
+    required = required,
+    error = error,
+    show_message = show_message,
+    inline_message = inline_message,
+    id = ns_id,
+    markup = htmltools::tag("el-date-picker-panel", attrs),
+    props = .el_props(list(
       border = border,
       disabled = disabled,
       clearable = clearable,
@@ -126,14 +142,19 @@ el_date_picker_panel <- function(id = NULL,
       cell_class_name = cell_class_name,
       show_footer = show_footer,
       show_confirm = show_confirm,
-      show_week_number = show_week_number)),
-    data    = list(value = .el_restore(ns_id, if (is.null(value)) NA else value)),
+      show_week_number = show_week_number
+    )),
+    data = list(value = .el_restore(ns_id, if (is.null(value)) NA else value)),
     methods = events$methods,
-    watch   = list(value = JS(sprintf(
-      "function(v) { window.Shiny && Shiny.setInputValue && Shiny.setInputValue('%s', v); }", ns_id))),
+    watch = list(
+      value = JS(sprintf(
+        "function(v) { window.Shiny && Shiny.setInputValue && Shiny.setInputValue('%s', v); }",
+        ns_id
+      ))
+    ),
     mounted = .el_mounted_init(stats::setNames("value", ns_id)),
-    width   = width,
-    slots   = slots
+    width = width,
+    slots = slots
   )
 }
 
@@ -154,15 +175,28 @@ el_date_picker_panel <- function(id = NULL,
 #' @examples
 #' if (interactive()) {
 #'   # inside a server function
-#'   observeEvent(input$reset, update_el_date_picker_panel(session, "x", value = NULL))
+#'   observeEvent(
+#'     input$reset,
+#'     update_el_date_picker_panel(session, "x", value = NULL)
+#'   )
 #' }
 #' @export
-update_el_date_picker_panel <- function(session = shiny::getDefaultReactiveDomain(), id, value = NULL,
-                                      disabled = NULL, label = NULL, error = NULL) {
+update_el_date_picker_panel <- function(
+  session = shiny::getDefaultReactiveDomain(),
+  id,
+  value = NULL,
+  disabled = NULL,
+  label = NULL,
+  error = NULL
+) {
   .el_check_session(session)
   msg <- list(id = session$ns(id))
-  if (!is.null(value))    msg$value    <- value
-  if (!is.null(disabled)) msg$disabled <- disabled
+  if (!is.null(value)) {
+    msg$value <- value
+  }
+  if (!is.null(disabled)) {
+    msg$disabled <- disabled
+  }
   msg <- .el_form_item_update(msg, label, error)
   .el_send_update(session, msg)
   invisible(NULL)

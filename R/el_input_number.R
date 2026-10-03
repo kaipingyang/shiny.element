@@ -64,63 +64,64 @@
 #' @examples
 #' el_input_number("n1", value = 5, min = 0, max = 100)
 #' el_input_number("n2", value = 1.5, step = 0.5, precision = 1)
-#'
 #' @export
 el_input_number <- function(
-    id                = NULL,
-    value             = 0,
-    min               = -Inf,
-    max               = Inf,
-    step              = 1,
-    step_strictly     = FALSE,
-    precision         = NULL,
-    size              = NULL,
-    disabled          = FALSE,
-    controls          = TRUE,
-    controls_position = "",
-    placeholder       = NULL,
-    label             = NULL,
-    name              = NULL,
-    label_position = c("top", "left", "right"),
-    label_width = NULL,
-    label_suffix = NULL,
-    required = FALSE,
-    error = NULL,
-    show_message = TRUE,
-    inline_message = FALSE,
-    align = NULL,
-    aria_label = NULL,
-    disabled_scientific = NULL,
-    formatter = NULL,
-    inputmode = NULL,
-    parser = NULL,
-    readonly = NULL,
-    tabindex = NULL,
-    validate_event = NULL,
-    value_on_clear = NULL,
-    width             = NULL,
-    slots             = NULL,
-    session           = NULL
+  id = NULL,
+  value = 0,
+  min = -Inf,
+  max = Inf,
+  step = 1,
+  step_strictly = FALSE,
+  precision = NULL,
+  size = NULL,
+  disabled = FALSE,
+  controls = TRUE,
+  controls_position = "",
+  placeholder = NULL,
+  label = NULL,
+  name = NULL,
+  label_position = c("top", "left", "right"),
+  label_width = NULL,
+  label_suffix = NULL,
+  required = FALSE,
+  error = NULL,
+  show_message = TRUE,
+  inline_message = FALSE,
+  align = NULL,
+  aria_label = NULL,
+  disabled_scientific = NULL,
+  formatter = NULL,
+  inputmode = NULL,
+  parser = NULL,
+  readonly = NULL,
+  tabindex = NULL,
+  validate_event = NULL,
+  value_on_clear = NULL,
+  width = NULL,
+  slots = NULL,
+  session = NULL
 ) {
   .el_check_choices("el_input_number", environment())
-  if (is.null(id)) id <- paste0("el_input_number_", uuid::UUIDgenerate())
-  ns_id        <- .el_ui_id(id, session)
+  if (is.null(id)) {
+    id <- paste0("el_input_number_", uuid::UUIDgenerate())
+  }
+  ns_id <- .el_ui_id(id, session)
   container_id <- paste0(ns_id, "_container")
 
   # Convert R Inf to JS-compatible large numbers
   js_min <- if (is.infinite(min) && min < 0) -1e308 else min
-  js_max <- if (is.infinite(max) && max > 0)  1e308 else max
+  js_max <- if (is.infinite(max) && max > 0) 1e308 else max
 
   num_attrs <- list(
-    "v-model"           = "value",
-    ":min"              = "min",
-    ":max"              = "max",
-    ":step"             = "step",
-    ":step-strictly"    = "stepStrictly",
-    ":disabled"         = "disabled",
-    ":controls"         = "controls",
-    ":controls-position"= "controlsPosition",
-    "@change"           = "handleChange"
+    "v-model" = "value",
+    ":min" = "min",
+    ":max" = "max",
+    ":step" = "step",
+    ":step-strictly" = "stepStrictly",
+    ":disabled" = "disabled",
+    ":controls" = "controls",
+    ":controls-position" = "controlsPosition",
+    "@change" = "handleChange"
   )
   num_attrs[[":size"]] <- .el_optional_bind("size")
   num_attrs[[":precision"]] <- .el_optional_bind("precision")
@@ -129,19 +130,22 @@ el_input_number <- function(
   num_attrs[[":name"]] <- .el_optional_bind("name")
 
   # Forwarded to input$<id>_<event>; see .el_event_bindings().
-  events <- .el_event_bindings(ns_id, c(
-    "blur",
-    "focus"
-  ))
+  events <- .el_event_bindings(
+    ns_id,
+    c(
+      "blur",
+      "focus"
+    )
+  )
   num_attrs <- c(num_attrs, events$attrs)
   vue_data <- list(
-    value            = value,
-    min              = js_min,
-    max              = js_max,
-    step             = step,
-    stepStrictly     = step_strictly,
-    disabled         = disabled,
-    controls         = controls,
+    value = value,
+    min = js_min,
+    max = js_max,
+    step = step,
+    stepStrictly = step_strictly,
+    disabled = disabled,
+    controls = controls,
     controlsPosition = controls_position
   )
   vue_data$size <- .el_or_na(size)
@@ -160,24 +164,33 @@ el_input_number <- function(
       readonly = readonly,
       tabindex = tabindex,
       validate_event = validate_event,
-      value_on_clear = value_on_clear)),
+      value_on_clear = value_on_clear
+    )),
     # Reported as the value changes, debounced, as Shiny's own inputs are
     rate = list(policy = "debounce", delay = 250),
-    label = label, label_position = label_position,
-    label_width = label_width, label_suffix = label_suffix, required = required,
-    error = error, show_message = show_message, inline_message = inline_message,
-    id     = ns_id,
+    label = label,
+    label_position = label_position,
+    label_width = label_width,
+    label_suffix = label_suffix,
+    required = required,
+    error = error,
+    show_message = show_message,
+    inline_message = inline_message,
+    id = ns_id,
     markup = htmltools::tag("el-input-number", num_attrs),
-    data    = vue_data,
-    methods = c(events$methods, list(
-      handleChange = JS(sprintf(
-        "function(val) { window.Shiny && Shiny.setInputValue && Shiny.setInputValue('%s', val); }",
-        ns_id
-      ))
-    )),
+    data = vue_data,
+    methods = c(
+      events$methods,
+      list(
+        handleChange = JS(sprintf(
+          "function(val) { window.Shiny && Shiny.setInputValue && Shiny.setInputValue('%s', val); }",
+          ns_id
+        ))
+      )
+    ),
     mounted = .el_mounted_init(stats::setNames("value", ns_id)),
-    width      = width,
-    slots      = slots
+    width = width,
+    slots = slots
   )
 }
 
@@ -209,19 +222,32 @@ el_input_number <- function(
 #'   })
 #' }
 #' @export
-update_el_input_number <- function(session = shiny::getDefaultReactiveDomain(), id, value = NULL, min = NULL,
-                                   max = NULL, disabled = NULL,
-                                   label = NULL, error = NULL) {
+update_el_input_number <- function(
+  session = shiny::getDefaultReactiveDomain(),
+  id,
+  value = NULL,
+  min = NULL,
+  max = NULL,
+  disabled = NULL,
+  label = NULL,
+  error = NULL
+) {
   .el_check_session(session)
   ns_id <- session$ns(id)
-  msg   <- list(id = ns_id)
-  if (!is.null(value))    msg$value    <- value
-  if (!is.null(min))      msg$min      <- min
-  if (!is.null(max))      msg$max      <- max
-  if (!is.null(disabled)) msg$disabled <- disabled
+  msg <- list(id = ns_id)
+  if (!is.null(value)) {
+    msg$value <- value
+  }
+  if (!is.null(min)) {
+    msg$min <- min
+  }
+  if (!is.null(max)) {
+    msg$max <- max
+  }
+  if (!is.null(disabled)) {
+    msg$disabled <- disabled
+  }
   msg <- .el_form_item_update(msg, label, error)
   .el_send_update(session, msg)
   invisible(NULL)
 }
-
-

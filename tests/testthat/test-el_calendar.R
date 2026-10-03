@@ -8,7 +8,9 @@ sent_message <- function(expr) {
   captured <- NULL
   session <- list(
     ns = function(id) id,
-    sendCustomMessage = function(type, msg) captured <<- list(type = type, msg = msg)
+    sendCustomMessage = function(type, msg) {
+      captured <<- list(type = type, msg = msg)
+    }
   )
   expr(session)
   captured
@@ -42,10 +44,14 @@ test_that("el_calendar: defaults to today", {
 })
 
 test_that("el_calendar: a Date is formatted, a string passes through", {
-  expect_match(render_html(el_calendar(id = "c1", value = as.Date("2026-03-01"))),
-               '"value":"2026-03-01"')
-  expect_match(render_html(el_calendar(id = "c1", value = "2026-03-01")),
-               '"value":"2026-03-01"')
+  expect_match(
+    render_html(el_calendar(id = "c1", value = as.Date("2026-03-01"))),
+    '"value":"2026-03-01"'
+  )
+  expect_match(
+    render_html(el_calendar(id = "c1", value = "2026-03-01")),
+    '"value":"2026-03-01"'
+  )
 })
 
 
@@ -55,18 +61,33 @@ test_that("el_calendar: range is always bound, null when not supplied", {
   # Declared and bound even when not supplied: a field missing from the Vue
   # data is not reactive, so the matching update_*() argument would be a
   # silent no-op. NA serialises to JSON null, which Element treats as unset.
-  expect_match(render_html(el_calendar(id = "c1")),
-               sprintf(':range="%s"', .el_optional_bind("range")), fixed = TRUE)
-  expect_match(render_html(el_calendar(id = "c1")), '"range":null', fixed = TRUE)
+  expect_match(
+    render_html(el_calendar(id = "c1")),
+    sprintf(':range="%s"', .el_optional_bind("range")),
+    fixed = TRUE
+  )
+  expect_match(
+    render_html(el_calendar(id = "c1")),
+    '"range":null',
+    fixed = TRUE
+  )
 
-  html <- render_html(el_calendar(id = "c1", range = c("2026-03-01", "2026-03-31")))
-  expect_match(html, sprintf(':range="%s"', .el_optional_bind("range")), fixed = TRUE)
+  html <- render_html(el_calendar(
+    id = "c1",
+    range = c("2026-03-01", "2026-03-31")
+  ))
+  expect_match(
+    html,
+    sprintf(':range="%s"', .el_optional_bind("range")),
+    fixed = TRUE
+  )
   expect_match(html, '"range":\\["2026-03-01","2026-03-31"\\]')
 })
 
 test_that("el_calendar: Date ranges are coerced to strings", {
   html <- render_html(el_calendar(
-    id = "c1", range = as.Date(c("2026-03-01", "2026-03-31"))
+    id = "c1",
+    range = as.Date(c("2026-03-01", "2026-03-31"))
   ))
   expect_match(html, '"range":\\["2026-03-01","2026-03-31"\\]')
 })
@@ -82,7 +103,9 @@ test_that("el_calendar: reports its value on mount as well as on change", {
 # ── update_el_calendar ────────────────────────────────────────────────────────
 
 test_that("update_el_calendar: sends under the right message type", {
-  out <- sent_message(function(s) update_el_calendar(s, "c1", value = "2026-05-05"))
+  out <- sent_message(function(s) {
+    update_el_calendar(s, "c1", value = "2026-05-05")
+  })
   expect_equal(out$type, "shinyVueUpdate")
   expect_equal(out$msg$id, "c1")
   expect_equal(out$msg$value, "2026-05-05")
@@ -103,7 +126,9 @@ test_that("update_el_calendar: range is coerced to character", {
 })
 
 test_that("update_el_calendar: NULL fields are excluded", {
-  out <- sent_message(function(s) update_el_calendar(s, "c1", value = "2026-01-01"))
+  out <- sent_message(function(s) {
+    update_el_calendar(s, "c1", value = "2026-01-01")
+  })
   expect_equal(out$msg$value, "2026-01-01")
   expect_null(out$msg$range)
 })

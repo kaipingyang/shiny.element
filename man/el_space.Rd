@@ -57,5 +57,10 @@ None: it reports nothing.
 }
 
 \examples{
-el_space(el_button("a", "One"), el_button("b", "Two"), el_button("c", "Three"), size = 20)
+el_space(
+  el_button("a", "One"),
+  el_button("b", "Two"),
+  el_button("c", "Three"),
+  size = 20
+)
 }

@@ -14,10 +14,16 @@ Indicate how the image should be resized to fit its container by `fit`, same as 
 
 ```{r basic-usage, eval = FALSE, shot = TRUE}
 url <- "https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg"
-tags$div(style = "display: flex; gap: 20px",
-  lapply(c("fill", "contain", "cover", "none", "scale-down"), function(f)
-    tags$div(style = "text-align: center", tags$div(class = "demonstration", f),
-             el_image(src = url, fit = f, alt = f, width = "100px"))))
+tags$div(
+  style = "display: flex; gap: 20px",
+  lapply(c("fill", "contain", "cover", "none", "scale-down"), function(f) {
+    tags$div(
+      style = "text-align: center",
+      tags$div(class = "demonstration", f),
+      el_image(src = url, fit = f, alt = f, width = "100px")
+    )
+  })
+)
 ```
 
 ## Placeholder
@@ -26,10 +32,27 @@ Custom placeholder content when image hasn't loaded yet by `slot = placeholder`
 
 ```{r placeholder, eval = FALSE, shot = TRUE}
 src <- "https://cube.elemecdn.com/6/94/4d3ea53c084bad6931a56d5158a48jpeg.jpeg"
-tags$div(style = "display: flex; gap: 40px",
-  tags$div(tags$div(class = "demonstration", "Default"), el_image(src = src, alt = "Default")),
-  tags$div(tags$div(class = "demonstration", "Custom"), el_image(src = src, alt = "Custom",
-    slots = list(placeholder = tags$div(class = "image-slot", "Loading", tags$span(class = "dot", "..."))))))
+tags$div(
+  style = "display: flex; gap: 40px",
+  tags$div(
+    tags$div(class = "demonstration", "Default"),
+    el_image(src = src, alt = "Default")
+  ),
+  tags$div(
+    tags$div(class = "demonstration", "Custom"),
+    el_image(
+      src = src,
+      alt = "Custom",
+      slots = list(
+        placeholder = tags$div(
+          class = "image-slot",
+          "Loading",
+          tags$span(class = "dot", "...")
+        )
+      )
+    )
+  )
+)
 ```
 
 ## Load Failed
@@ -37,9 +60,14 @@ tags$div(style = "display: flex; gap: 40px",
 Custom failed content when error occurs to image load by `slot = error` and `slot = viewer-error`.
 
 ```{r load-failed, eval = FALSE, shot = TRUE}
-tags$div(style = "display: flex; gap: 8px",
+tags$div(
+  style = "display: flex; gap: 8px",
   el_image(alt = "Default"),
-  el_image(alt = "Custom", slots = list(error = tags$div(class = "image-slot", el_icon("Picture")))))
+  el_image(
+    alt = "Custom",
+    slots = list(error = tags$div(class = "image-slot", el_icon("Picture")))
+  )
+)
 ```
 
 ## Lazy Load
@@ -53,11 +81,19 @@ tags$div(style = "display: flex; gap: 8px",
 Use lazy load by `lazy = true`. Image will load until scroll into view when set. You can indicate scroll container that adds scroll listener to by `scroll-container`. If undefined, will be the nearest parent container whose overflow property is auto or scroll.
 
 ```{r lazy-load, eval = FALSE, shot = TRUE}
-urls <- paste0("https://fuss10.elemecdn.com/", c("a/3f/3302e58f9a181d2509f3dc0fa68b0jpeg.jpeg",
-  "1/34/19aa98b1fcb2781c4fba33d850549jpeg.jpeg", "0/6f/e35ff375812e6b0020b6b4e8f9583jpeg.jpeg",
-  "9/bb/e27858e973f5d7d3904835f46abbdjpeg.jpeg"))
-tags$div(style = "height: 400px; overflow-y: auto",
-  lapply(urls, function(u) el_image(src = u, lazy = TRUE, alt = "lazy")))
+urls <- paste0(
+  "https://fuss10.elemecdn.com/",
+  c(
+    "a/3f/3302e58f9a181d2509f3dc0fa68b0jpeg.jpeg",
+    "1/34/19aa98b1fcb2781c4fba33d850549jpeg.jpeg",
+    "0/6f/e35ff375812e6b0020b6b4e8f9583jpeg.jpeg",
+    "9/bb/e27858e973f5d7d3904835f46abbdjpeg.jpeg"
+  )
+)
+tags$div(
+  style = "height: 400px; overflow-y: auto",
+  lapply(urls, function(u) el_image(src = u, lazy = TRUE, alt = "lazy"))
+)
 ```
 
 ## Image Preview
@@ -66,10 +102,25 @@ allow big image preview by setting `previewSrcList` prop. You can initialize the
 
 ```{r image-preview, eval = FALSE, shot = TRUE}
 url <- "https://fuss10.elemecdn.com/a/3f/3302e58f9a181d2509f3dc0fa68b0jpeg.jpeg"
-src_list <- paste0("https://fuss10.elemecdn.com/", c("a/3f/3302e58f9a181d2509f3dc0fa68b0jpeg.jpeg",
-  "1/34/19aa98b1fcb2781c4fba33d850549jpeg.jpeg", "0/6f/e35ff375812e6b0020b6b4e8f9583jpeg.jpeg"))
-el_image(src = url, alt = "preview", fit = "cover", width = "100px", zoom_rate = 1.2,
-         max_scale = 7, min_scale = 0.2, preview_src_list = src_list, initial_index = 1)
+src_list <- paste0(
+  "https://fuss10.elemecdn.com/",
+  c(
+    "a/3f/3302e58f9a181d2509f3dc0fa68b0jpeg.jpeg",
+    "1/34/19aa98b1fcb2781c4fba33d850549jpeg.jpeg",
+    "0/6f/e35ff375812e6b0020b6b4e8f9583jpeg.jpeg"
+  )
+)
+el_image(
+  src = url,
+  alt = "preview",
+  fit = "cover",
+  width = "100px",
+  zoom_rate = 1.2,
+  max_scale = 7,
+  min_scale = 0.2,
+  preview_src_list = src_list,
+  initial_index = 1
+)
 ```
 
 ## Manually Open Preview
@@ -80,8 +131,15 @@ el_image(src = url, alt = "preview", fit = "cover", width = "100px", zoom_rate =
 ```{r manually-preview, eval = FALSE, shot = TRUE}
 url <- "https://fuss10.elemecdn.com/a/3f/3302e58f9a181d2509f3dc0fa68b0jpeg.jpeg"
 tagList(
-  el_image("pic", src = url, alt = "preview", width = "100px", preview_src_list = list(url)),
-  el_image_viewer("viewer", url_list = c(url)))
+  el_image(
+    "pic",
+    src = url,
+    alt = "preview",
+    width = "100px",
+    preview_src_list = list(url)
+  ),
+  el_image_viewer("viewer", url_list = c(url))
+)
 ```
 
 ## Custom Toolbar
@@ -89,17 +147,34 @@ tagList(
 Custom toolbar content by `toolbar` slot, starting from version 2.9.7, the slot has a new `setActiveItem` function, which can be switched according to the index.
 
 ```{r custom-toolbar, eval = FALSE, shot = TRUE}
-src_list <- paste0("https://fuss10.elemecdn.com/", c("a/3f/3302e58f9a181d2509f3dc0fa68b0jpeg.jpeg",
-  "1/34/19aa98b1fcb2781c4fba33d850549jpeg.jpeg"))
-el_image(src = src_list[1], alt = "preview", fit = "cover", width = "100px",
-  preview_src_list = src_list, show_progress = TRUE,
-  slots = list(toolbar = template(htmltools::HTML(paste0(
-    "<el-icon @click=\"prev\"><Back /></el-icon>",
-    "<el-icon @click=\"next\"><Right /></el-icon>",
-    "<el-icon @click=\"setActiveItem(0)\"><DArrowLeft /></el-icon>",
-    "<el-icon @click=\"actions('zoomOut')\"><ZoomOut /></el-icon>",
-    "<el-icon @click=\"actions('zoomIn')\"><ZoomIn /></el-icon>")),
-    slot = "toolbar", scope = "{ actions, prev, next, setActiveItem }")))
+src_list <- paste0(
+  "https://fuss10.elemecdn.com/",
+  c(
+    "a/3f/3302e58f9a181d2509f3dc0fa68b0jpeg.jpeg",
+    "1/34/19aa98b1fcb2781c4fba33d850549jpeg.jpeg"
+  )
+)
+el_image(
+  src = src_list[1],
+  alt = "preview",
+  fit = "cover",
+  width = "100px",
+  preview_src_list = src_list,
+  show_progress = TRUE,
+  slots = list(
+    toolbar = template(
+      htmltools::HTML(paste0(
+        "<el-icon @click=\"prev\"><Back /></el-icon>",
+        "<el-icon @click=\"next\"><Right /></el-icon>",
+        "<el-icon @click=\"setActiveItem(0)\"><DArrowLeft /></el-icon>",
+        "<el-icon @click=\"actions('zoomOut')\"><ZoomOut /></el-icon>",
+        "<el-icon @click=\"actions('zoomIn')\"><ZoomIn /></el-icon>"
+      )),
+      slot = "toolbar",
+      scope = "{ actions, prev, next, setActiveItem }"
+    )
+  )
+)
 ```
 
 ## Custom progress
@@ -107,13 +182,29 @@ el_image(src = src_list[1], alt = "preview", fit = "cover", width = "100px",
 By setting the `show-progress` prop to control whether to display progress when previewing an image. After version 2.9.8, the progress content will be displayed as long as the `progress` slot is used.
 
 ```{r custom-progress, eval = FALSE, shot = TRUE}
-src_list <- paste0("https://fuss10.elemecdn.com/", c("a/3f/3302e58f9a181d2509f3dc0fa68b0jpeg.jpeg",
-  "1/34/19aa98b1fcb2781c4fba33d850549jpeg.jpeg"))
-el_image(src = src_list[1], alt = "preview", fit = "cover", width = "100px",
+src_list <- paste0(
+  "https://fuss10.elemecdn.com/",
+  c(
+    "a/3f/3302e58f9a181d2509f3dc0fa68b0jpeg.jpeg",
+    "1/34/19aa98b1fcb2781c4fba33d850549jpeg.jpeg"
+  )
+)
+el_image(
+  src = src_list[1],
+  alt = "preview",
+  fit = "cover",
+  width = "100px",
   preview_src_list = src_list,
-  slots = list(progress = template(htmltools::HTML(
-    "<span>{{ activeIndex + 1 }} / {{ total }}</span>"),
-    slot = "progress", scope = "{ activeIndex, total }")))
+  slots = list(
+    progress = template(
+      htmltools::HTML(
+        "<span>{{ activeIndex + 1 }} / {{ total }}</span>"
+      ),
+      slot = "progress",
+      scope = "{ activeIndex, total }"
+    )
+  )
+)
 ```
 
 ## API

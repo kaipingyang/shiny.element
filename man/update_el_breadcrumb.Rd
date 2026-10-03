@@ -29,9 +29,14 @@ Server-side update for \code{\link[=el_breadcrumb]{el_breadcrumb()}}.
 if (interactive()) {
   # inside a server function
   observeEvent(input$open_detail, {
-    update_el_breadcrumb(session, "trail", items = list(
-      list(label = "Home"), list(label = "Detail")
-    ))
+    update_el_breadcrumb(
+      session,
+      "trail",
+      items = list(
+        list(label = "Home"),
+        list(label = "Detail")
+      )
+    )
   })
 }
 }

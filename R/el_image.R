@@ -60,50 +60,58 @@
 #' el_image("photo", src = "a.png", fit = "cover", lazy = TRUE)
 #'
 #' # Click to open a gallery
-#' el_image("photo",
+#' el_image(
+#'   "photo",
 #'   src = "a.png",
 #'   preview_src_list = c("a.png", "b.png", "c.png")
 #' )
 #' @export
-el_image <- function(id = NULL,
-                     src = NULL,
-                     fit = NULL,
-                     alt = NULL,
-                     lazy = NULL,
-                     scroll_container = NULL,
-                     preview_src_list = NULL,
-                     z_index = NULL,
-                     initial_index   = NULL,
-                     close_on_press_escape = NULL,
-                     crossorigin = NULL,
-                     hide_on_click_modal = NULL,
-                     infinite = NULL,
-                     loading = NULL,
-                     max_scale = NULL,
-                     min_scale = NULL,
-                     preview_teleported = NULL,
-                     referrerpolicy = NULL,
-                     scale = NULL,
-                     show_progress = NULL,
-                     zoom_rate = NULL,
-                     width = NULL,
-                     slots   = NULL,
-                     session = NULL) {
+el_image <- function(
+  id = NULL,
+  src = NULL,
+  fit = NULL,
+  alt = NULL,
+  lazy = NULL,
+  scroll_container = NULL,
+  preview_src_list = NULL,
+  z_index = NULL,
+  initial_index = NULL,
+  close_on_press_escape = NULL,
+  crossorigin = NULL,
+  hide_on_click_modal = NULL,
+  infinite = NULL,
+  loading = NULL,
+  max_scale = NULL,
+  min_scale = NULL,
+  preview_teleported = NULL,
+  referrerpolicy = NULL,
+  scale = NULL,
+  show_progress = NULL,
+  zoom_rate = NULL,
+  width = NULL,
+  slots = NULL,
+  session = NULL
+) {
   .el_check_choices("el_image", environment())
-  if (is.null(id)) id <- paste0("el_image_", uuid::UUIDgenerate())
+  if (is.null(id)) {
+    id <- paste0("el_image_", uuid::UUIDgenerate())
+  }
   ns_id <- .el_ui_id(id, session)
 
   attrs <- list(
-    ":src"              = .el_optional_bind("src"),
-    ":fit"              = .el_optional_bind("fit"),
-    ":alt"              = .el_optional_bind("alt"),
-    ":lazy"             = .el_optional_bind("lazy"),
+    ":src" = .el_optional_bind("src"),
+    ":fit" = .el_optional_bind("fit"),
+    ":alt" = .el_optional_bind("alt"),
+    ":lazy" = .el_optional_bind("lazy"),
     ":scroll-container" = .el_optional_bind("scrollContainer"),
     ":preview-src-list" = .el_optional_bind("previewSrcList"),
-    ":z-index"          = .el_optional_bind("zIndex"),
-    ":initial-index"    = .el_optional_bind("initialIndex")
+    ":z-index" = .el_optional_bind("zIndex"),
+    ":initial-index" = .el_optional_bind("initialIndex")
   )
-  events <- .el_event_bindings(ns_id, c("load", "error", "close", "show", "switch"))
+  events <- .el_event_bindings(
+    ns_id,
+    c("load", "error", "close", "show", "switch")
+  )
   attrs <- c(attrs, events$attrs)
 
   el_widget(
@@ -119,22 +127,27 @@ el_image <- function(id = NULL,
       referrerpolicy = referrerpolicy,
       scale = scale,
       show_progress = show_progress,
-      zoom_rate = zoom_rate)),
-    id     = ns_id,
+      zoom_rate = zoom_rate
+    )),
+    id = ns_id,
     markup = htmltools::tag("el-image", attrs),
-    data   = list(
-      src             = .el_or_na(src),
-      fit             = .el_or_na(fit),
-      alt             = .el_or_na(alt),
-      lazy            = .el_or_na(lazy),
+    data = list(
+      src = .el_or_na(src),
+      fit = .el_or_na(fit),
+      alt = .el_or_na(alt),
+      lazy = .el_or_na(lazy),
       scrollContainer = .el_or_na(scroll_container),
-      previewSrcList  = if (is.null(preview_src_list)) NA else as.list(preview_src_list),
-      zIndex          = .el_or_na(z_index),
-      initialIndex    = .el_or_na(initial_index)
+      previewSrcList = if (is.null(preview_src_list)) {
+        NA
+      } else {
+        as.list(preview_src_list)
+      },
+      zIndex = .el_or_na(z_index),
+      initialIndex = .el_or_na(initial_index)
     ),
-    methods    = events$methods,
-    width      = width,
-    slots      = slots
+    methods = events$methods,
+    width = width,
+    slots = slots
   )
 }
 
@@ -157,16 +170,25 @@ el_image <- function(id = NULL,
 #'   })
 #' }
 #' @export
-update_el_image <- function(session = shiny::getDefaultReactiveDomain(), id, src = NULL, fit = NULL,
-                            preview_src_list = NULL) {
+update_el_image <- function(
+  session = shiny::getDefaultReactiveDomain(),
+  id,
+  src = NULL,
+  fit = NULL,
+  preview_src_list = NULL
+) {
   .el_check_session(session)
   ns_id <- session$ns(id)
   msg <- list(id = ns_id)
-  if (!is.null(src)) msg$src <- src
-  if (!is.null(fit)) msg$fit <- fit
-  if (!is.null(preview_src_list)) msg$previewSrcList <- as.list(preview_src_list)
+  if (!is.null(src)) {
+    msg$src <- src
+  }
+  if (!is.null(fit)) {
+    msg$fit <- fit
+  }
+  if (!is.null(preview_src_list)) {
+    msg$previewSrcList <- as.list(preview_src_list)
+  }
   .el_send_update(session, msg)
   invisible(NULL)
 }
-
-

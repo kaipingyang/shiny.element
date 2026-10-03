@@ -42,7 +42,11 @@ Server-side update for \code{\link[=el_autocomplete]{el_autocomplete()}}.
 if (interactive()) {
   # inside a server function
   observeEvent(input$country, {
-    update_el_autocomplete(session, "city", suggestions = cities_of(input$country))
+    update_el_autocomplete(
+      session,
+      "city",
+      suggestions = cities_of(input$country)
+    )
   })
 }
 }

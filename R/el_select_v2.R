@@ -144,87 +144,105 @@
 #' @examples
 #' el_select_v2("city", options = paste("City", 1:10000), filterable = TRUE)
 #' @export
-el_select_v2 <- function(id = NULL,
-                         value = NULL,
-                         options = NULL,
-                         multiple = NULL,
-                         disabled = NULL,
-                         value_key = NULL,
-                         size = NULL,
-                         clearable = NULL,
-                         clear_icon = NULL,
-                         collapse_tags = NULL,
-                         multiple_limit = NULL,
-                         effect = NULL,
-                         autocomplete = NULL,
-                         placeholder = NULL,
-                         filterable = NULL,
-                         allow_create = NULL,
-                         filter_method = NULL,
-                         loading = NULL,
-                         loading_text = NULL,
-                         reserve_keyword = NULL,
-                         default_first_option = NULL,
-                         no_match_text = NULL,
-                         no_data_text = NULL,
-                         popper_class = NULL,
-                         popper_style = NULL,
-                         teleported = NULL,
-                         append_to = NULL,
-                         persistent = NULL,
-                         popper_options = NULL,
-                         automatic_dropdown = NULL,
-                         fit_input_width = NULL,
-                         suffix_icon = NULL,
-                         height = NULL,
-                         item_height = NULL,
-                         estimated_option_height = NULL,
-                         scrollbar_always_on = NULL,
-                         remote = NULL,
-                         debounce = NULL,
-                         remote_method = NULL,
-                         remote_show_suffix = NULL,
-                         validate_event = NULL,
-                         offset = NULL,
-                         show_arrow = NULL,
-                         placement = NULL,
-                         fallback_placements = NULL,
-                         collapse_tags_tooltip = NULL,
-                         max_collapse_tags = NULL,
-                         tag_type = NULL,
-                         tag_effect = NULL,
-                         aria_label = NULL,
-                         empty_values = NULL,
-                         value_on_clear = NULL,
-                         popper_append_to_body = NULL,
-                         tabindex = NULL,
-                         label = NULL,
-                         label_position = c("top", "left", "right"),
-                         label_width = NULL,
-                         label_suffix = NULL,
-                         required = FALSE,
-                         error = NULL,
-                         show_message = TRUE,
-                         inline_message = FALSE,
-                         width = NULL,
-                         slots = NULL) {
+el_select_v2 <- function(
+  id = NULL,
+  value = NULL,
+  options = NULL,
+  multiple = NULL,
+  disabled = NULL,
+  value_key = NULL,
+  size = NULL,
+  clearable = NULL,
+  clear_icon = NULL,
+  collapse_tags = NULL,
+  multiple_limit = NULL,
+  effect = NULL,
+  autocomplete = NULL,
+  placeholder = NULL,
+  filterable = NULL,
+  allow_create = NULL,
+  filter_method = NULL,
+  loading = NULL,
+  loading_text = NULL,
+  reserve_keyword = NULL,
+  default_first_option = NULL,
+  no_match_text = NULL,
+  no_data_text = NULL,
+  popper_class = NULL,
+  popper_style = NULL,
+  teleported = NULL,
+  append_to = NULL,
+  persistent = NULL,
+  popper_options = NULL,
+  automatic_dropdown = NULL,
+  fit_input_width = NULL,
+  suffix_icon = NULL,
+  height = NULL,
+  item_height = NULL,
+  estimated_option_height = NULL,
+  scrollbar_always_on = NULL,
+  remote = NULL,
+  debounce = NULL,
+  remote_method = NULL,
+  remote_show_suffix = NULL,
+  validate_event = NULL,
+  offset = NULL,
+  show_arrow = NULL,
+  placement = NULL,
+  fallback_placements = NULL,
+  collapse_tags_tooltip = NULL,
+  max_collapse_tags = NULL,
+  tag_type = NULL,
+  tag_effect = NULL,
+  aria_label = NULL,
+  empty_values = NULL,
+  value_on_clear = NULL,
+  popper_append_to_body = NULL,
+  tabindex = NULL,
+  label = NULL,
+  label_position = c("top", "left", "right"),
+  label_width = NULL,
+  label_suffix = NULL,
+  required = FALSE,
+  error = NULL,
+  show_message = TRUE,
+  inline_message = FALSE,
+  width = NULL,
+  slots = NULL
+) {
   .el_check_choices("el_select_v2", environment())
   # A named vector c(Label = value), as the choice components take, or
   # Element Plus's list(value =, label =)
   # Groups -- list(label =, options =) -- are passed as Element Plus takes them
-  grouped <- is.list(options) && any(vapply(options, function(o) is.list(o) && !is.null(o$options), TRUE))
-  if (!is.null(options) && !grouped) options <- .el_normalize_choices(options)
-  if (is.null(id)) id <- paste0("el_select_v2_", uuid::UUIDgenerate())
+  grouped <- is.list(options) &&
+    any(vapply(options, function(o) is.list(o) && !is.null(o$options), TRUE))
+  if (!is.null(options) && !grouped) {
+    options <- .el_normalize_choices(options)
+  }
+  if (is.null(id)) {
+    id <- paste0("el_select_v2_", uuid::UUIDgenerate())
+  }
   ns_id <- .el_ui_id(id, NULL)
-  events <- .el_event_bindings(ns_id, c("visible-change", "remove-tag", "clear", "blur", "focus", "end-reached"))
-  attrs <- c(list("v-model" = "value", "@change" = "handleChange"), events$attrs)
+  events <- .el_event_bindings(
+    ns_id,
+    c("visible-change", "remove-tag", "clear", "blur", "focus", "end-reached")
+  )
+  attrs <- c(
+    list("v-model" = "value", "@change" = "handleChange"),
+    events$attrs
+  )
   el_widget(
-    label = label, label_position = label_position,
-    label_width = label_width, label_suffix = label_suffix, required = required,
-    error = error, show_message = show_message, inline_message = inline_message,
-    id      = ns_id,
-    markup  = htmltools::tag("el-select-v2", attrs),
-    props   = .el_props(list(
+    label = label,
+    label_position = label_position,
+    label_width = label_width,
+    label_suffix = label_suffix,
+    required = required,
+    error = error,
+    show_message = show_message,
+    inline_message = inline_message,
+    id = ns_id,
+    markup = htmltools::tag("el-select-v2", attrs),
+    props = .el_props(list(
       options = options,
       multiple = multiple,
       disabled = disabled,
@@ -276,13 +294,21 @@ el_select_v2 <- function(id = NULL,
       empty_values = empty_values,
       value_on_clear = value_on_clear,
       popper_append_to_body = popper_append_to_body,
-      tabindex = tabindex)),
-    data    = list(value = .el_restore(ns_id, if (is.null(value)) NA else value)),
-    methods = c(events$methods, list(handleChange = JS(sprintf(
-      "function(v) { window.Shiny && Shiny.setInputValue && Shiny.setInputValue('%s', v); }", ns_id)))),
+      tabindex = tabindex
+    )),
+    data = list(value = .el_restore(ns_id, if (is.null(value)) NA else value)),
+    methods = c(
+      events$methods,
+      list(
+        handleChange = JS(sprintf(
+          "function(v) { window.Shiny && Shiny.setInputValue && Shiny.setInputValue('%s', v); }",
+          ns_id
+        ))
+      )
+    ),
     mounted = .el_mounted_init(stats::setNames("value", ns_id)),
-    width   = width,
-    slots   = slots
+    width = width,
+    slots = slots
   )
 }
 
@@ -306,12 +332,22 @@ el_select_v2 <- function(id = NULL,
 #'   observeEvent(input$reset, update_el_select_v2(session, "x", value = NULL))
 #' }
 #' @export
-update_el_select_v2 <- function(session = shiny::getDefaultReactiveDomain(), id, value = NULL,
-                              disabled = NULL, label = NULL, error = NULL) {
+update_el_select_v2 <- function(
+  session = shiny::getDefaultReactiveDomain(),
+  id,
+  value = NULL,
+  disabled = NULL,
+  label = NULL,
+  error = NULL
+) {
   .el_check_session(session)
   msg <- list(id = session$ns(id))
-  if (!is.null(value))    msg$value    <- value
-  if (!is.null(disabled)) msg$disabled <- disabled
+  if (!is.null(value)) {
+    msg$value <- value
+  }
+  if (!is.null(disabled)) {
+    msg$disabled <- disabled
+  }
   msg <- .el_form_item_update(msg, label, error)
   .el_send_update(session, msg)
   invisible(NULL)

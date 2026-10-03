@@ -41,7 +41,10 @@ test_that("el: tags nest", {
   ))
   expect_match(html, "^<el-table>")
   expect_equal(
-    lengths(regmatches(html, gregexpr("<el-table-column", html, fixed = TRUE)))[[1]],
+    lengths(regmatches(
+      html,
+      gregexpr("<el-table-column", html, fixed = TRUE)
+    ))[[1]],
     2L
   )
 })
@@ -58,12 +61,29 @@ test_that("el$icon: extra attributes are kept", {
 })
 
 test_that("el: covers each documented Element UI category", {
-  for (nm in c("button", "link",                       # basic
-               "container", "header", "row", "col",     # layout
-               "form", "input", "select", "option",     # form
-               "table", "tag", "pagination",            # data
-               "menu", "tabs", "steps", "step",         # navigation
-               "dialog", "alert", "tooltip")) {         # feedback
+  for (nm in c(
+    "button",
+    "link", # basic
+    "container",
+    "header",
+    "row",
+    "col", # layout
+    "form",
+    "input",
+    "select",
+    "option", # form
+    "table",
+    "tag",
+    "pagination", # data
+    "menu",
+    "tabs",
+    "steps",
+    "step", # navigation
+    "dialog",
+    "alert",
+    "tooltip"
+  )) {
+    # feedback
     expect_true(nm %in% names(el), info = sprintf("el$%s exists", nm))
   }
 })
@@ -82,25 +102,121 @@ test_that("el: generators produce plain tags with no dependencies", {
 test_that("el holds every component Element Plus registers, and nothing it does not", {
   # Element Plus 2.14.7's packages/element-plus/component.ts, the components
   # install() registers
-  registered <- gsub("-", "_", c(
-    "affix", "alert", "anchor", "anchor-link", "aside", "autocomplete",
-    "auto-resizer", "avatar", "avatar-group", "backtop", "badge", "breadcrumb",
-    "breadcrumb-item", "button", "button-group", "calendar", "card", "carousel",
-    "carousel-item", "cascader", "cascader-panel", "checkbox", "checkbox-button",
-    "checkbox-group", "check-tag", "col", "collapse", "collapse-item",
-    "collapse-transition", "color-picker", "color-picker-panel", "config-provider",
-    "container", "countdown", "date-picker", "date-picker-panel", "descriptions",
-    "descriptions-item", "dialog", "divider", "drawer", "dropdown", "dropdown-item",
-    "dropdown-menu", "empty", "footer", "form", "form-item", "header", "icon",
-    "image", "image-viewer", "input", "input-number", "input-otp", "input-tag",
-    "link", "main", "mention", "menu", "menu-item", "menu-item-group", "option",
-    "option-group", "page-header", "pagination", "popconfirm", "popover",
-    "progress", "radio", "radio-button", "radio-group", "rate", "result", "row",
-    "scrollbar", "segmented", "select", "select-v2", "skeleton", "skeleton-item",
-    "slider", "space", "splitter", "splitter-panel", "statistic", "step", "steps",
-    "sub-menu", "switch", "table", "table-column", "table-v2", "tab-pane", "tabs",
-    "tag", "text", "timeline", "timeline-item", "time-picker", "time-select",
-    "tooltip", "tour", "tour-step", "transfer", "tree", "tree-select", "tree-v2",
-    "upload", "watermark"))
+  registered <- gsub(
+    "-",
+    "_",
+    c(
+      "affix",
+      "alert",
+      "anchor",
+      "anchor-link",
+      "aside",
+      "autocomplete",
+      "auto-resizer",
+      "avatar",
+      "avatar-group",
+      "backtop",
+      "badge",
+      "breadcrumb",
+      "breadcrumb-item",
+      "button",
+      "button-group",
+      "calendar",
+      "card",
+      "carousel",
+      "carousel-item",
+      "cascader",
+      "cascader-panel",
+      "checkbox",
+      "checkbox-button",
+      "checkbox-group",
+      "check-tag",
+      "col",
+      "collapse",
+      "collapse-item",
+      "collapse-transition",
+      "color-picker",
+      "color-picker-panel",
+      "config-provider",
+      "container",
+      "countdown",
+      "date-picker",
+      "date-picker-panel",
+      "descriptions",
+      "descriptions-item",
+      "dialog",
+      "divider",
+      "drawer",
+      "dropdown",
+      "dropdown-item",
+      "dropdown-menu",
+      "empty",
+      "footer",
+      "form",
+      "form-item",
+      "header",
+      "icon",
+      "image",
+      "image-viewer",
+      "input",
+      "input-number",
+      "input-otp",
+      "input-tag",
+      "link",
+      "main",
+      "mention",
+      "menu",
+      "menu-item",
+      "menu-item-group",
+      "option",
+      "option-group",
+      "page-header",
+      "pagination",
+      "popconfirm",
+      "popover",
+      "progress",
+      "radio",
+      "radio-button",
+      "radio-group",
+      "rate",
+      "result",
+      "row",
+      "scrollbar",
+      "segmented",
+      "select",
+      "select-v2",
+      "skeleton",
+      "skeleton-item",
+      "slider",
+      "space",
+      "splitter",
+      "splitter-panel",
+      "statistic",
+      "step",
+      "steps",
+      "sub-menu",
+      "switch",
+      "table",
+      "table-column",
+      "table-v2",
+      "tab-pane",
+      "tabs",
+      "tag",
+      "text",
+      "timeline",
+      "timeline-item",
+      "time-picker",
+      "time-select",
+      "tooltip",
+      "tour",
+      "tour-step",
+      "transfer",
+      "tree",
+      "tree-select",
+      "tree-v2",
+      "upload",
+      "watermark"
+    )
+  )
   expect_setequal(names(el), registered)
 })

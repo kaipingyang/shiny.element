@@ -11,69 +11,456 @@
 .el_choices <- local({
   list(
     el_affix = list(position = c("top", "bottom")),
-    el_alert = list(type = c("primary", "success", "warning", "info", "error"), effect = c("light", "dark")),
-    el_anchor = list(type = c("default", "underline"), direction = c("vertical", "horizontal")),
-    el_autocomplete = list(placement = c("top", "top-start", "top-end", "bottom", "bottom-start", "bottom-end")),
-    el_avatar = list(size = c("large", "default", "small"), shape = c("circle", "square"), fit = c("fill", "contain", "cover", "none", "scale-down")),
-    el_avatar_group = list(size = c("large", "default", "small"), shape = c("circle", "square"), placement = c("top", "top-start", "top-end", "bottom", "bottom-start", "bottom-end", "left", "left-start", "left-end", "right", "right-start", "right-end")),
-    el_badge = list(type = c("primary", "success", "warning", "danger", "info")),
-    el_button = list(size = c("large", "default", "small"), type = c("default", "primary", "success", "warning", "danger", "info", "", "text"), native_type = c("button", "submit", "reset")),
-    el_button_group = list(size = c("large", "default", "small"), type = c("primary", "success", "warning", "danger", "info"), direction = c("horizontal", "vertical")),
+    el_alert = list(
+      type = c("primary", "success", "warning", "info", "error"),
+      effect = c("light", "dark")
+    ),
+    el_anchor = list(
+      type = c("default", "underline"),
+      direction = c("vertical", "horizontal")
+    ),
+    el_autocomplete = list(
+      placement = c(
+        "top",
+        "top-start",
+        "top-end",
+        "bottom",
+        "bottom-start",
+        "bottom-end"
+      )
+    ),
+    el_avatar = list(
+      size = c("large", "default", "small"),
+      shape = c("circle", "square"),
+      fit = c("fill", "contain", "cover", "none", "scale-down")
+    ),
+    el_avatar_group = list(
+      size = c("large", "default", "small"),
+      shape = c("circle", "square"),
+      placement = c(
+        "top",
+        "top-start",
+        "top-end",
+        "bottom",
+        "bottom-start",
+        "bottom-end",
+        "left",
+        "left-start",
+        "left-end",
+        "right",
+        "right-start",
+        "right-end"
+      )
+    ),
+    el_badge = list(
+      type = c("primary", "success", "warning", "danger", "info")
+    ),
+    el_button = list(
+      size = c("large", "default", "small"),
+      type = c(
+        "default",
+        "primary",
+        "success",
+        "warning",
+        "danger",
+        "info",
+        "",
+        "text"
+      ),
+      native_type = c("button", "submit", "reset")
+    ),
+    el_button_group = list(
+      size = c("large", "default", "small"),
+      type = c("primary", "success", "warning", "danger", "info"),
+      direction = c("horizontal", "vertical")
+    ),
     el_calendar = list(controller_type = c("button", "select")),
-    el_carousel = list(trigger = c("hover", "click"), indicator_position = c("", "none", "outside"), arrow = c("always", "hover", "never"), type = c("", "card"), direction = c("horizontal", "vertical")),
-    el_cascader = list(size = c("large", "default", "small"), tag_type = c("success", "info", "warning", "danger", "primary"), tag_effect = c("light", "dark", "plain"), placement = c("top", "top-start", "top-end", "bottom", "bottom-start", "bottom-end", "left", "left-start", "left-end", "right", "right-start", "right-end"), show_checked_strategy = c("parent", "child")),
-    el_check_tag = list(type = c("primary", "success", "info", "warning", "danger")),
+    el_carousel = list(
+      trigger = c("hover", "click"),
+      indicator_position = c("", "none", "outside"),
+      arrow = c("always", "hover", "never"),
+      type = c("", "card"),
+      direction = c("horizontal", "vertical")
+    ),
+    el_cascader = list(
+      size = c("large", "default", "small"),
+      tag_type = c("success", "info", "warning", "danger", "primary"),
+      tag_effect = c("light", "dark", "plain"),
+      placement = c(
+        "top",
+        "top-start",
+        "top-end",
+        "bottom",
+        "bottom-start",
+        "bottom-end",
+        "left",
+        "left-start",
+        "left-end",
+        "right",
+        "right-start",
+        "right-end"
+      ),
+      show_checked_strategy = c("parent", "child")
+    ),
+    el_check_tag = list(
+      type = c("primary", "success", "info", "warning", "danger")
+    ),
     el_checkbox = list(size = c("large", "default", "small")),
-    el_checkbox_group = list(size = c("large", "default", "small"), type = c("checkbox", "button")),
+    el_checkbox_group = list(
+      size = c("large", "default", "small"),
+      type = c("checkbox", "button")
+    ),
     el_collapse = list(expand_icon_position = c("left", "right")),
-    el_color_picker = list(size = c("large", "default", "small"), color_format = c("rgb", "prgb", "hex", "hex3", "hex4", "hex6", "hex8", "name", "hsl", "hsv")),
-    el_color_picker_panel = list(color_format = c("rgb", "prgb", "hex", "hex3", "hex4", "hex6", "hex8", "name", "hsl", "hsv")),
+    el_color_picker = list(
+      size = c("large", "default", "small"),
+      color_format = c(
+        "rgb",
+        "prgb",
+        "hex",
+        "hex3",
+        "hex4",
+        "hex6",
+        "hex8",
+        "name",
+        "hsl",
+        "hsv"
+      )
+    ),
+    el_color_picker_panel = list(
+      color_format = c(
+        "rgb",
+        "prgb",
+        "hex",
+        "hex3",
+        "hex4",
+        "hex6",
+        "hex8",
+        "name",
+        "hsl",
+        "hsv"
+      )
+    ),
     el_container = list(direction = c("horizontal", "vertical")),
-    el_date_picker = list(size = c("", "large", "default", "small"), type = c("year", "years", "month", "months", "date", "dates", "datetime", "week", "quarter", "quarters", "datetimerange", "daterange", "monthrange", "yearrange", "quarterrange")),
-    el_date_picker_panel = list(type = c("year", "years", "month", "months", "date", "dates", "datetime", "week", "quarter", "quarters", "datetimerange", "daterange", "monthrange", "yearrange", "quarterrange")),
-    el_descriptions = list(direction = c("vertical", "horizontal"), size = c("", "large", "default", "small")),
-    el_divider = list(direction = c("horizontal", "vertical"), content_position = c("left", "right", "center")),
+    el_date_picker = list(
+      size = c("", "large", "default", "small"),
+      type = c(
+        "year",
+        "years",
+        "month",
+        "months",
+        "date",
+        "dates",
+        "datetime",
+        "week",
+        "quarter",
+        "quarters",
+        "datetimerange",
+        "daterange",
+        "monthrange",
+        "yearrange",
+        "quarterrange"
+      )
+    ),
+    el_date_picker_panel = list(
+      type = c(
+        "year",
+        "years",
+        "month",
+        "months",
+        "date",
+        "dates",
+        "datetime",
+        "week",
+        "quarter",
+        "quarters",
+        "datetimerange",
+        "daterange",
+        "monthrange",
+        "yearrange",
+        "quarterrange"
+      )
+    ),
+    el_descriptions = list(
+      direction = c("vertical", "horizontal"),
+      size = c("", "large", "default", "small")
+    ),
+    el_divider = list(
+      direction = c("horizontal", "vertical"),
+      content_position = c("left", "right", "center")
+    ),
     el_drawer = list(direction = c("rtl", "ltr", "ttb", "btt")),
-    el_dropdown = list(type = c("", "default", "primary", "success", "warning", "info", "danger", "text"), size = c("", "large", "default", "small"), placement = c("top", "top-start", "top-end", "bottom", "bottom-start", "bottom-end"), role = c("dialog", "grid", "group", "listbox", "menu", "navigation", "tooltip", "tree")),
-    el_form = list(label_position = c("left", "right", "top"), require_asterisk_position = c("left", "right"), size = c("", "large", "default", "small")),
-    el_image = list(fit = c("", "fill", "contain", "cover", "none", "scale-down"), loading = c("eager", "lazy"), crossorigin = c("", "anonymous", "use-credentials")),
-    el_input = list(word_limit_position = c("inside", "outside"), size = c("large", "default", "small"), resize = c("none", "both", "horizontal", "vertical")),
-    el_input_number = list(size = c("large", "default", "small"), controls_position = c("", "right"), align = c("left", "center", "right")),
-    el_input_otp = list(type = c("outlined", "filled", "underlined"), size = c("large", "default", "small")),
-    el_input_tag = list(tag_type = c("", "success", "info", "warning", "danger", "primary"), tag_effect = c("", "light", "dark", "plain"), trigger = c("Enter", "Space"), size = c("large", "default", "small")),
-    el_link = list(type = c("primary", "success", "warning", "danger", "info", "default"), target = c("_blank", "_parent", "_self", "_top")),
-    el_menu = list(mode = c("horizontal", "vertical"), menu_trigger = c("hover", "click")),
-    el_message = list(type = c("primary", "success", "warning", "info", "error"), placement = c("top", "top-left", "top-right", "bottom", "bottom-left", "bottom-right")),
-    el_message_box = list(type = c("primary", "success", "info", "warning", "error")),
-    el_notification = list(type = c("primary", "success", "warning", "info", "error", ""), position = c("top-right", "top-left", "bottom-right", "bottom-left")),
+    el_dropdown = list(
+      type = c(
+        "",
+        "default",
+        "primary",
+        "success",
+        "warning",
+        "info",
+        "danger",
+        "text"
+      ),
+      size = c("", "large", "default", "small"),
+      placement = c(
+        "top",
+        "top-start",
+        "top-end",
+        "bottom",
+        "bottom-start",
+        "bottom-end"
+      ),
+      role = c(
+        "dialog",
+        "grid",
+        "group",
+        "listbox",
+        "menu",
+        "navigation",
+        "tooltip",
+        "tree"
+      )
+    ),
+    el_form = list(
+      label_position = c("left", "right", "top"),
+      require_asterisk_position = c("left", "right"),
+      size = c("", "large", "default", "small")
+    ),
+    el_image = list(
+      fit = c("", "fill", "contain", "cover", "none", "scale-down"),
+      loading = c("eager", "lazy"),
+      crossorigin = c("", "anonymous", "use-credentials")
+    ),
+    el_input = list(
+      word_limit_position = c("inside", "outside"),
+      size = c("large", "default", "small"),
+      resize = c("none", "both", "horizontal", "vertical")
+    ),
+    el_input_number = list(
+      size = c("large", "default", "small"),
+      controls_position = c("", "right"),
+      align = c("left", "center", "right")
+    ),
+    el_input_otp = list(
+      type = c("outlined", "filled", "underlined"),
+      size = c("large", "default", "small")
+    ),
+    el_input_tag = list(
+      tag_type = c("", "success", "info", "warning", "danger", "primary"),
+      tag_effect = c("", "light", "dark", "plain"),
+      trigger = c("Enter", "Space"),
+      size = c("large", "default", "small")
+    ),
+    el_link = list(
+      type = c("primary", "success", "warning", "danger", "info", "default"),
+      target = c("_blank", "_parent", "_self", "_top")
+    ),
+    el_menu = list(
+      mode = c("horizontal", "vertical"),
+      menu_trigger = c("hover", "click")
+    ),
+    el_message = list(
+      type = c("primary", "success", "warning", "info", "error"),
+      placement = c(
+        "top",
+        "top-left",
+        "top-right",
+        "bottom",
+        "bottom-left",
+        "bottom-right"
+      )
+    ),
+    el_message_box = list(
+      type = c("primary", "success", "info", "warning", "error")
+    ),
+    el_notification = list(
+      type = c("primary", "success", "warning", "info", "error", ""),
+      position = c("top-right", "top-left", "bottom-right", "bottom-left")
+    ),
     el_pagination = list(size = c("large", "default", "small")),
-    el_popconfirm = list(confirm_button_type = c("primary", "success", "warning", "danger", "info", "text"), cancel_button_type = c("primary", "success", "warning", "danger", "info", "text")),
-    el_popover = list(placement = c("top", "top-start", "top-end", "bottom", "bottom-start", "bottom-end", "left", "left-start", "left-end", "right", "right-start", "right-end")),
-    el_progress = list(type = c("line", "circle", "dashboard"), status = c("success", "exception", "warning"), stroke_linecap = c("butt", "round", "square")),
+    el_popconfirm = list(
+      confirm_button_type = c(
+        "primary",
+        "success",
+        "warning",
+        "danger",
+        "info",
+        "text"
+      ),
+      cancel_button_type = c(
+        "primary",
+        "success",
+        "warning",
+        "danger",
+        "info",
+        "text"
+      )
+    ),
+    el_popover = list(
+      placement = c(
+        "top",
+        "top-start",
+        "top-end",
+        "bottom",
+        "bottom-start",
+        "bottom-end",
+        "left",
+        "left-start",
+        "left-end",
+        "right",
+        "right-start",
+        "right-end"
+      )
+    ),
+    el_progress = list(
+      type = c("line", "circle", "dashboard"),
+      status = c("success", "exception", "warning"),
+      stroke_linecap = c("butt", "round", "square")
+    ),
     el_radio_group = list(type = c("radio", "button")),
     el_rate = list(size = c("large", "default", "small")),
-    el_result = list(icon = c("primary", "success", "warning", "info", "error")),
-    el_row = list(justify = c("start", "end", "center", "space-around", "space-between", "space-evenly"), align = c("top", "middle", "bottom")),
+    el_result = list(
+      icon = c("primary", "success", "warning", "info", "error")
+    ),
+    el_row = list(
+      justify = c(
+        "start",
+        "end",
+        "center",
+        "space-around",
+        "space-between",
+        "space-evenly"
+      ),
+      align = c("top", "middle", "bottom")
+    ),
     el_scrollbar = list(aria_orientation = c("horizontal", "vertical")),
-    el_segmented = list(size = c("", "large", "default", "small"), direction = c("horizontal", "vertical")),
-    el_select = list(size = c("", "large", "default", "small"), tag_type = c("", "success", "info", "warning", "danger", "primary"), tag_effect = c("", "light", "dark", "plain"), placement = c("top", "top-start", "top-end", "bottom", "bottom-start", "bottom-end", "left", "left-start", "left-end", "right", "right-start", "right-end")),
-    el_select_v2 = list(size = c("", "large", "default", "small"), placement = c("top", "top-start", "top-end", "bottom", "bottom-start", "bottom-end", "left", "left-start", "left-end", "right", "right-start", "right-end"), tag_type = c("", "success", "info", "warning", "danger", "primary"), tag_effect = c("", "light", "dark", "plain")),
-    el_slider = list(size = c("", "large", "default", "small"), input_size = c("", "large", "default", "small"), placement = c("top", "top-start", "top-end", "bottom", "bottom-start", "bottom-end", "left", "left-start", "left-end", "right", "right-start", "right-end")),
+    el_segmented = list(
+      size = c("", "large", "default", "small"),
+      direction = c("horizontal", "vertical")
+    ),
+    el_select = list(
+      size = c("", "large", "default", "small"),
+      tag_type = c("", "success", "info", "warning", "danger", "primary"),
+      tag_effect = c("", "light", "dark", "plain"),
+      placement = c(
+        "top",
+        "top-start",
+        "top-end",
+        "bottom",
+        "bottom-start",
+        "bottom-end",
+        "left",
+        "left-start",
+        "left-end",
+        "right",
+        "right-start",
+        "right-end"
+      )
+    ),
+    el_select_v2 = list(
+      size = c("", "large", "default", "small"),
+      placement = c(
+        "top",
+        "top-start",
+        "top-end",
+        "bottom",
+        "bottom-start",
+        "bottom-end",
+        "left",
+        "left-start",
+        "left-end",
+        "right",
+        "right-start",
+        "right-end"
+      ),
+      tag_type = c("", "success", "info", "warning", "danger", "primary"),
+      tag_effect = c("", "light", "dark", "plain")
+    ),
+    el_slider = list(
+      size = c("", "large", "default", "small"),
+      input_size = c("", "large", "default", "small"),
+      placement = c(
+        "top",
+        "top-start",
+        "top-end",
+        "bottom",
+        "bottom-start",
+        "bottom-end",
+        "left",
+        "left-start",
+        "left-end",
+        "right",
+        "right-start",
+        "right-end"
+      )
+    ),
     el_space = list(direction = c("vertical", "horizontal")),
     el_splitter = list(layout = c("horizontal", "vertical")),
-    el_steps = list(direction = c("vertical", "horizontal"), process_status = c("wait", "process", "finish", "error", "success"), finish_status = c("wait", "process", "finish", "error", "success")),
+    el_steps = list(
+      direction = c("vertical", "horizontal"),
+      process_status = c("wait", "process", "finish", "error", "success"),
+      finish_status = c("wait", "process", "finish", "error", "success")
+    ),
     el_switch = list(size = c("", "large", "default", "small")),
-    el_table = list(size = c("", "large", "default", "small"), tooltip_effect = c("dark", "light"), table_layout = c("fixed", "auto")),
-    el_tabs = list(type = c("", "card", "border-card"), tab_position = c("top", "right", "bottom", "left")),
-    el_tag = list(type = c("primary", "success", "info", "warning", "danger"), size = c("large", "default", "small"), effect = c("dark", "light", "plain")),
-    el_text = list(type = c("primary", "success", "warning", "danger", "info"), size = c("large", "default", "small")),
+    el_table = list(
+      size = c("", "large", "default", "small"),
+      tooltip_effect = c("dark", "light"),
+      table_layout = c("fixed", "auto")
+    ),
+    el_tabs = list(
+      type = c("", "card", "border-card"),
+      tab_position = c("top", "right", "bottom", "left")
+    ),
+    el_tag = list(
+      type = c("primary", "success", "info", "warning", "danger"),
+      size = c("large", "default", "small"),
+      effect = c("dark", "light", "plain")
+    ),
+    el_text = list(
+      type = c("primary", "success", "warning", "danger", "info"),
+      size = c("large", "default", "small")
+    ),
     el_time_picker = list(size = c("large", "default", "small")),
     el_time_select = list(size = c("large", "default", "small")),
-    el_timeline = list(mode = c("start", "alternate", "alternate-reverse", "end")),
-    el_tooltip = list(placement = c("top", "top-start", "top-end", "bottom", "bottom-start", "bottom-end", "left", "left-start", "left-end", "right", "right-start", "right-end")),
-    el_tour = list(placement = c("top", "top-start", "top-end", "bottom", "bottom-start", "bottom-end", "left", "left-start", "left-end", "right", "right-start", "right-end")),
+    el_timeline = list(
+      mode = c("start", "alternate", "alternate-reverse", "end")
+    ),
+    el_tooltip = list(
+      placement = c(
+        "top",
+        "top-start",
+        "top-end",
+        "bottom",
+        "bottom-start",
+        "bottom-end",
+        "left",
+        "left-start",
+        "left-end",
+        "right",
+        "right-start",
+        "right-end"
+      )
+    ),
+    el_tour = list(
+      placement = c(
+        "top",
+        "top-start",
+        "top-end",
+        "bottom",
+        "bottom-start",
+        "bottom-end",
+        "left",
+        "left-start",
+        "left-end",
+        "right",
+        "right-start",
+        "right-end"
+      )
+    ),
     el_transfer = list(target_order = c("original", "push", "unshift")),
-    el_upload = list(crossorigin = c("", "anonymous", "use-credentials"), list_type = c("text", "picture", "picture-card"))
+    el_upload = list(
+      crossorigin = c("", "anonymous", "use-credentials"),
+      list_type = c("text", "picture", "picture-card")
+    )
   )
 })
 
@@ -92,15 +479,28 @@
 .el_check_choices <- function(fn, env) {
   allowed <- .el_choices[[fn]]
   for (arg in names(allowed)) {
-    if (!exists(arg, envir = env, inherits = FALSE)) next
+    if (!exists(arg, envir = env, inherits = FALSE)) {
+      next
+    }
     value <- get(arg, envir = env, inherits = FALSE)
-    if (is.null(value) || (length(value) == 1L && is.na(value))) next
-    if (is.numeric(value)) next
-    if (!is.character(value) || length(value) != 1L || !value %in% allowed[[arg]]) {
-      stop(sprintf("`%s` should be one of %s, not %s.", arg,
-                   paste0('"', allowed[[arg]], '"', collapse = ", "),
-                   paste(deparse(value), collapse = "")),
-           call. = FALSE)
+    if (is.null(value) || (length(value) == 1L && is.na(value))) {
+      next
+    }
+    if (is.numeric(value)) {
+      next
+    }
+    if (
+      !is.character(value) || length(value) != 1L || !value %in% allowed[[arg]]
+    ) {
+      stop(
+        sprintf(
+          "`%s` should be one of %s, not %s.",
+          arg,
+          paste0('"', allowed[[arg]], '"', collapse = ", "),
+          paste(deparse(value), collapse = "")
+        ),
+        call. = FALSE
+      )
     }
   }
   invisible(NULL)

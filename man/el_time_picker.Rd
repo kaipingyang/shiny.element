@@ -203,8 +203,12 @@ Callable with \code{\link[=el_call]{el_call()}}: \code{focus()}, \code{blur()}; 
 el_time_picker("start", value = "09:30:00")
 
 # Only office hours
-el_time_picker("start", disabled_hours = JS(
-  "function() { var h = []; for (var i = 0; i < 24; i++) if (i < 9 || i > 18) h.push(i); return h; }"))
+el_time_picker(
+  "start",
+  disabled_hours = JS(
+    "function() { var h = []; for (var i = 0; i < 24; i++) if (i < 9 || i > 18) h.push(i); return h; }"
+  )
+)
 
 # A range
 el_time_picker("shift", is_range = TRUE, value = c("09:00:00", "17:30:00"))

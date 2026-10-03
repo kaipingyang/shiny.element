@@ -48,31 +48,38 @@
 #' @examples
 #' el_scrollbar(height = "200px", lapply(1:20, function(i) shiny::tags$p(i)))
 #' @export
-el_scrollbar <- function(...,
-                         id = NULL,
-                         height = NULL,
-                         max_height = NULL,
-                         native = NULL,
-                         wrap_style = NULL,
-                         wrap_class = NULL,
-                         view_style = NULL,
-                         view_class = NULL,
-                         noresize = NULL,
-                         tag = NULL,
-                         always = NULL,
-                         min_size = NULL,
-                         role = NULL,
-                         aria_label = NULL,
-                         aria_orientation = NULL,
-                         tabindex = NULL,
-                         distance = NULL,
-                         width = NULL,
-                         slots = NULL) {
+el_scrollbar <- function(
+  ...,
+  id = NULL,
+  height = NULL,
+  max_height = NULL,
+  native = NULL,
+  wrap_style = NULL,
+  wrap_class = NULL,
+  view_style = NULL,
+  view_class = NULL,
+  noresize = NULL,
+  tag = NULL,
+  always = NULL,
+  min_size = NULL,
+  role = NULL,
+  aria_label = NULL,
+  aria_orientation = NULL,
+  tabindex = NULL,
+  distance = NULL,
+  width = NULL,
+  slots = NULL
+) {
   .el_check_choices("el_scrollbar", environment())
-  if (is.null(id)) id <- paste0("el_scrollbar_", uuid::UUIDgenerate())
+  if (is.null(id)) {
+    id <- paste0("el_scrollbar_", uuid::UUIDgenerate())
+  }
   ns_id <- .el_ui_id(id, NULL)
   events <- .el_event_bindings(ns_id, c("scroll", "end-reached"))
-  .el_wrap_widget("el-scrollbar", ns_id, list(...),
+  .el_wrap_widget(
+    "el-scrollbar",
+    ns_id,
+    list(...),
     props = .el_props(list(
       height = height,
       max_height = max_height,
@@ -89,6 +96,10 @@ el_scrollbar <- function(...,
       aria_label = aria_label,
       aria_orientation = aria_orientation,
       tabindex = tabindex,
-      distance = distance)),
-    events = events, width = width, slots = slots)
+      distance = distance
+    )),
+    events = events,
+    width = width,
+    slots = slots
+  )
 }

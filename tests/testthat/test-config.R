@@ -22,9 +22,16 @@ test_that("the config is checked", {
 
 test_that("Element Plus's display classes and dark mode are carried", {
   dep <- element_plus_dependency()[[1]]
-  expect_true(all(c("theme-chalk/display.css", "theme-chalk/dark/css-vars.css") %in%
-                    unlist(dep$stylesheet)))
+  expect_true(all(
+    c("theme-chalk/display.css", "theme-chalk/dark/css-vars.css") %in%
+      unlist(dep$stylesheet)
+  ))
   root <- system.file("element-plus", package = "shiny.element")
   expect_true(file.exists(file.path(root, "theme-chalk", "display.css")))
-  expect_true(file.exists(file.path(root, "theme-chalk", "dark", "css-vars.css")))
+  expect_true(file.exists(file.path(
+    root,
+    "theme-chalk",
+    "dark",
+    "css-vars.css"
+  )))
 })

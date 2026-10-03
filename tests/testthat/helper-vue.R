@@ -8,7 +8,10 @@
 vue_data_of <- function(ui) {
   html <- paste(as.character(htmltools::renderTags(ui)$html), collapse = "")
   if (!grepl('application/json', html, fixed = TRUE)) {
-    stop("no component options found -- is this a markup-only component?", call. = FALSE)
+    stop(
+      "no component options found -- is this a markup-only component?",
+      call. = FALSE
+    )
   }
   json <- sub('^.*?<script type="application/json"[^>]*>', "", html)
   json <- sub("</script>.*$", "", json)
@@ -19,7 +22,10 @@ vue_data_of <- function(ui) {
 vue_payload_of <- function(ui) {
   html <- paste(as.character(htmltools::renderTags(ui)$html), collapse = "")
   if (!grepl("application/json", html, fixed = TRUE)) {
-    stop("no component options found -- is this a markup-only component?", call. = FALSE)
+    stop(
+      "no component options found -- is this a markup-only component?",
+      call. = FALSE
+    )
   }
   json <- sub('^.*?<script type="application/json"[^>]*>', "", html)
   json <- sub("</script>.*$", "", json)
@@ -39,7 +45,7 @@ mock_session <- function() {
     ns = function(id) id,
     sendCustomMessage = function(type, msg) {
       env$type <- type
-      env$msg  <- msg
+      env$msg <- msg
     },
     captured = function() env
   )
@@ -50,7 +56,11 @@ mock_session <- function() {
 # with its `rate` and `type`.
 vue_spec_of <- function(ui) {
   html <- paste(as.character(htmltools::renderTags(ui)$html), collapse = "")
-  json <- sub('^.*?<script type="application/json" data-shiny-vue-options>', "", html)
+  json <- sub(
+    '^.*?<script type="application/json" data-shiny-vue-options>',
+    "",
+    html
+  )
   json <- sub("</script>.*$", "", json)
   jsonlite::fromJSON(json, simplifyVector = FALSE)
 }

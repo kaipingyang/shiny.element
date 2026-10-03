@@ -13,8 +13,12 @@
 #' @export
 JS <- function(...) {
   x <- c(...)
-  if (is.null(x)) return(NULL)
-  if (!is.character(x)) stop("The arguments for JS() must be a character vector.", call. = FALSE)
+  if (is.null(x)) {
+    return(NULL)
+  }
+  if (!is.character(x)) {
+    stop("The arguments for JS() must be a character vector.", call. = FALSE)
+  }
   x <- paste(x, collapse = "\n")
   structure(x, class = unique(c("JS_EVAL", oldClass(x))))
 }
@@ -30,16 +34,28 @@ JS <- function(...) {
   walk <- function(node, path) {
     if (is.list(node) && !inherits(node, "POSIXlt")) {
       n <- length(node)
-      if (!n) return(character(0))
+      if (!n) {
+        return(character(0))
+      }
       nms <- names(node)
-      if (is.null(nms)) nms <- as.character(seq_len(n) - 1L)
+      if (is.null(nms)) {
+        nms <- as.character(seq_len(n) - 1L)
+      }
       nms <- gsub(".", "\\.", nms, fixed = TRUE)
-      unlist(lapply(seq_len(n), function(i) {
-        walk(node[[i]], if (is.null(path)) nms[i] else paste0(path, ".", nms[i]))
-      }), use.names = FALSE)
+      unlist(
+        lapply(seq_len(n), function(i) {
+          walk(
+            node[[i]],
+            if (is.null(path)) nms[i] else paste0(path, ".", nms[i])
+          )
+        }),
+        use.names = FALSE
+      )
     } else if (is.character(node) && inherits(node, "JS_EVAL")) {
       path
-    } else character(0)
+    } else {
+      character(0)
+    }
   }
   out <- walk(x, NULL)
   if (is.null(out)) character(0) else out

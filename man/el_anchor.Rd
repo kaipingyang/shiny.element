@@ -69,8 +69,17 @@ Callable with \code{\link[=el_call]{el_call()}}: \code{scrollTo(href)}.
 }
 
 \examples{
-el_anchor("toc", links = list(
-  list(title = "Basic usage", href = "#basic"),
-  list(title = "API", href = "#api", children = list(
-    list(title = "Attributes", href = "#attributes")))))
+el_anchor(
+  "toc",
+  links = list(
+    list(title = "Basic usage", href = "#basic"),
+    list(
+      title = "API",
+      href = "#api",
+      children = list(
+        list(title = "Attributes", href = "#attributes")
+      )
+    )
+  )
+)
 }

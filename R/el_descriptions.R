@@ -28,29 +28,38 @@
 #'
 #' @return A Shiny UI element.
 #' @examples
-#' el_descriptions("user", title = "Account", border = TRUE, items = list(
-#'   list(label = "Name", content = "Ada Lovelace"),
-#'   list(label = "Plan", content = el_tag("plan", "Pro", type = "success")),
-#'   list(label = "Address", content = "12 St James's Square, London", span = 2)
-#' ))
+#' el_descriptions(
+#'   "user",
+#'   title = "Account",
+#'   border = TRUE,
+#'   items = list(
+#'     list(label = "Name", content = "Ada Lovelace"),
+#'     list(label = "Plan", content = el_tag("plan", "Pro", type = "success")),
+#'     list(label = "Address", content = "12 St James's Square, London", span = 2)
+#'   )
+#' )
 #'
 #' # The quick form: names are labels
 #' el_descriptions("car", items = as.list(mtcars[1, 1:6]))
 #' @export
-el_descriptions <- function(id = NULL,
-                            items = list(),
-                            title = NULL,
-                            extra = NULL,
-                            column = NULL,
-                            direction = NULL,
-                            border = NULL,
-                            size = NULL,
-                            label_width = NULL,
-                            width = NULL,
-                            slots = NULL,
-                            session = NULL) {
+el_descriptions <- function(
+  id = NULL,
+  items = list(),
+  title = NULL,
+  extra = NULL,
+  column = NULL,
+  direction = NULL,
+  border = NULL,
+  size = NULL,
+  label_width = NULL,
+  width = NULL,
+  slots = NULL,
+  session = NULL
+) {
   .el_check_choices("el_descriptions", environment())
-  if (is.null(id)) id <- paste0("el_descriptions_", uuid::UUIDgenerate())
+  if (is.null(id)) {
+    id <- paste0("el_descriptions_", uuid::UUIDgenerate())
+  }
   ns_id <- .el_ui_id(id, session)
 
   items <- .el_descriptions_items(items)
@@ -58,14 +67,17 @@ el_descriptions <- function(id = NULL,
   own <- list(
     markup = NULL,
     data = list(
-      dTitle            = .el_or_na(title),
-      dExtra            = .el_or_na(extra),
-      dColumn           = .el_or_na(column),
-      dDirection        = .el_or_na(direction),
-      dBorder           = .el_or_na(border),
-      dSize             = .el_or_na(size)
+      dTitle = .el_or_na(title),
+      dExtra = .el_or_na(extra),
+      dColumn = .el_or_na(column),
+      dDirection = .el_or_na(direction),
+      dBorder = .el_or_na(border),
+      dSize = .el_or_na(size)
     ),
-    methods = list(), watch = list(), computed = list(), mounted = NULL,
+    methods = list(),
+    watch = list(),
+    computed = list(),
+    mounted = NULL,
     dependencies = list()
   )
   inners <- lapply(items, function(it) .el_absorb(it$content))
@@ -73,43 +85,62 @@ el_descriptions <- function(id = NULL,
 
   # Items are markup rather than v-for, because each one's content is
   # arbitrary UI -- which may itself be a component folded in above.
-  item_tags <- Map(function(it, content) {
-    # A label may be markup too -- an icon beside the text, say -- which goes
-    # in the item's label slot rather than its label attribute.
-    label_ui <- !is.character(it$label)
-    attrs <- if (label_ui) list() else list(label = it$label)
-    if (label_ui) {
-      attrs <- c(attrs, list(.el_slot("label", it$label)))
-    }
-    for (key in c("span", "rowspan", "width", "minWidth", "labelWidth", "align",
-                  "labelAlign", "className", "labelClassName")) {
-      if (!is.null(it[[key]])) attrs[[paste0(":", .el_kebab_case(key))]] <-
-        jsonlite::toJSON(it[[key]], auto_unbox = TRUE)
-    }
-    htmltools::tag("el-descriptions-item", c(attrs, list(content)))
-  }, items, merged$markups[-1])
+  item_tags <- Map(
+    function(it, content) {
+      # A label may be markup too -- an icon beside the text, say -- which goes
+      # in the item's label slot rather than its label attribute.
+      label_ui <- !is.character(it$label)
+      attrs <- if (label_ui) list() else list(label = it$label)
+      if (label_ui) {
+        attrs <- c(attrs, list(.el_slot("label", it$label)))
+      }
+      for (key in c(
+        "span",
+        "rowspan",
+        "width",
+        "minWidth",
+        "labelWidth",
+        "align",
+        "labelAlign",
+        "className",
+        "labelClassName"
+      )) {
+        if (!is.null(it[[key]])) {
+          attrs[[paste0(":", .el_kebab_case(key))]] <-
+            jsonlite::toJSON(it[[key]], auto_unbox = TRUE)
+        }
+      }
+      htmltools::tag("el-descriptions-item", c(attrs, list(content)))
+    },
+    items,
+    merged$markups[-1]
+  )
 
   attrs <- list(
-    ":title"              = .el_optional_bind("dTitle"),
-    ":extra"              = .el_optional_bind("dExtra"),
-    ":column"             = .el_optional_bind("dColumn"),
-    ":direction"          = .el_optional_bind("dDirection"),
-    ":border"             = .el_optional_bind("dBorder"),
-    ":size"               = .el_optional_bind("dSize")
+    ":title" = .el_optional_bind("dTitle"),
+    ":extra" = .el_optional_bind("dExtra"),
+    ":column" = .el_optional_bind("dColumn"),
+    ":direction" = .el_optional_bind("dDirection"),
+    ":border" = .el_optional_bind("dBorder"),
+    ":size" = .el_optional_bind("dSize")
   )
 
   el_widget(
-    props = .el_props(prefix = "d", list(
-      label_width = label_width)),
-    id       = ns_id,
-    markup   = htmltools::tag("el-descriptions", c(attrs, unname(item_tags))),
-    data     = merged$data,
-    methods  = merged$methods,
-    watch    = merged$watch,
+    props = .el_props(
+      prefix = "d",
+      list(
+        label_width = label_width
+      )
+    ),
+    id = ns_id,
+    markup = htmltools::tag("el-descriptions", c(attrs, unname(item_tags))),
+    data = merged$data,
+    methods = merged$methods,
+    watch = merged$watch,
     computed = merged$computed,
-    mounted  = merged$mounted,
-    width    = width,
-    slots    = slots,
+    mounted = merged$mounted,
+    width = width,
+    slots = slots,
     dependency = merged$dependencies
   )
 }
@@ -124,17 +155,35 @@ el_descriptions <- function(id = NULL,
 #' @return A list of items, each with `label` and `content`.
 #' @keywords internal
 .el_descriptions_items <- function(items) {
-  if (!length(items)) return(list())
-  if (is.null(names(items)) && (is.atomic(items) || inherits(items, c("shiny.tag", "shiny.tag.list")))) {
-    stop("`items` must be named, as in c(Name = \"Ada\"), or a list of ",
-         "list(label = ..., content = ...).", call. = FALSE)
+  if (!length(items)) {
+    return(list())
   }
-  is_item <- function(x) is.list(x) && !inherits(x, c("shiny.tag", "shiny.tag.list")) &&
-    !is.null(x$label)
+  if (
+    is.null(names(items)) &&
+      (is.atomic(items) || inherits(items, c("shiny.tag", "shiny.tag.list")))
+  ) {
+    stop(
+      "`items` must be named, as in c(Name = \"Ada\"), or a list of ",
+      "list(label = ..., content = ...).",
+      call. = FALSE
+    )
+  }
+  is_item <- function(x) {
+    is.list(x) &&
+      !inherits(x, c("shiny.tag", "shiny.tag.list")) &&
+      !is.null(x$label)
+  }
   if (!is.null(names(items)) && !all(vapply(items, is_item, logical(1)))) {
-    items <- Map(function(label, content) {
-      list(label = label, content = if (is.atomic(content)) format(content) else content)
-    }, names(items), items)
+    items <- Map(
+      function(label, content) {
+        list(
+          label = label,
+          content = if (is.atomic(content)) format(content) else content
+        )
+      },
+      names(items),
+      items
+    )
   }
   lapply(unname(items), function(it) {
     for (key in grep("_", names(it), value = TRUE)) {
@@ -177,18 +226,32 @@ el_descriptions <- function(id = NULL,
 #'   })
 #' }
 #' @export
-update_el_descriptions <- function(session = shiny::getDefaultReactiveDomain(), id, title = NULL, extra = NULL,
-                                   column = NULL, direction = NULL,
-                                   border = NULL) {
+update_el_descriptions <- function(
+  session = shiny::getDefaultReactiveDomain(),
+  id,
+  title = NULL,
+  extra = NULL,
+  column = NULL,
+  direction = NULL,
+  border = NULL
+) {
   .el_check_session(session)
   msg <- list(id = session$ns(id))
-  if (!is.null(title))     msg$dTitle     <- title
-  if (!is.null(extra))     msg$dExtra     <- extra
-  if (!is.null(column))    msg$dColumn    <- column
-  if (!is.null(direction)) msg$dDirection <- direction
-  if (!is.null(border))    msg$dBorder    <- border
+  if (!is.null(title)) {
+    msg$dTitle <- title
+  }
+  if (!is.null(extra)) {
+    msg$dExtra <- extra
+  }
+  if (!is.null(column)) {
+    msg$dColumn <- column
+  }
+  if (!is.null(direction)) {
+    msg$dDirection <- direction
+  }
+  if (!is.null(border)) {
+    msg$dBorder <- border
+  }
   .el_send_update(session, msg)
   invisible(NULL)
 }
-
-

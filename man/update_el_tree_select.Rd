@@ -35,6 +35,9 @@ Update Element Plus Tree Select
 \examples{
 if (interactive()) {
   # inside a server function
-  observeEvent(input$reset, update_el_tree_select(session, "dept", value = "ops"))
+  observeEvent(
+    input$reset,
+    update_el_tree_select(session, "dept", value = "ops")
+  )
 }
 }

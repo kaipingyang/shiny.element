@@ -9,8 +9,11 @@ test_that("el_time_picker binds a single time", {
 })
 
 test_that("el_time_picker takes a range as two times", {
-  d <- vue_data_of(el_time_picker("t", is_range = TRUE,
-                                  value = c("09:00:00", "17:30:00")))
+  d <- vue_data_of(el_time_picker(
+    "t",
+    is_range = TRUE,
+    value = c("09:00:00", "17:30:00")
+  ))
   expect_true(d$isRange)
   expect_equal(d$value, list("09:00:00", "17:30:00"))
   # An empty range is an array, not a string
@@ -33,7 +36,11 @@ test_that("both report on load and on change, and forward focus and blur", {
   for (ui in list(el_time_picker("t"), el_time_select("t"))) {
     p <- vue_payload_of(ui)
     expect_equal(vue_spec_of(ui)$input, "value")
-    expect_false(grepl("setInputValue('t'", p$methods$handleChange, fixed = TRUE))
+    expect_false(grepl(
+      "setInputValue('t'",
+      p$methods$handleChange,
+      fixed = TRUE
+    ))
     expect_true(all(c("elEmitBlur", "elEmitFocus") %in% names(p$methods)))
   }
 })

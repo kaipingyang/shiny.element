@@ -19,28 +19,38 @@
 #' @examples
 #' el_empty("none", description = "No reports yet")
 #'
-#' el_empty("none", description = "No reports yet",
-#'          el_button("create", "Create one", type = "primary"))
+#' el_empty(
+#'   "none",
+#'   description = "No reports yet",
+#'   el_button("create", "Create one", type = "primary")
+#' )
 #' @export
-el_empty <- function(id = NULL,
-                     ...,
-                     description = NULL,
-                     image = NULL,
-                     image_size = NULL,
-                     width = NULL,
-                     slots = NULL,
-                     session = NULL) {
-  if (is.null(id)) id <- paste0("el_empty_", uuid::UUIDgenerate())
+el_empty <- function(
+  id = NULL,
+  ...,
+  description = NULL,
+  image = NULL,
+  image_size = NULL,
+  width = NULL,
+  slots = NULL,
+  session = NULL
+) {
+  if (is.null(id)) {
+    id <- paste0("el_empty_", uuid::UUIDgenerate())
+  }
   ns_id <- .el_ui_id(id, session)
 
   own <- list(
     markup = NULL,
     data = list(
       emptyDescription = .el_or_na(description),
-      emptyImage       = .el_or_na(image),
-      emptyImageSize   = .el_or_na(image_size)
+      emptyImage = .el_or_na(image),
+      emptyImageSize = .el_or_na(image_size)
     ),
-    methods = list(), watch = list(), computed = list(), mounted = NULL,
+    methods = list(),
+    watch = list(),
+    computed = list(),
+    mounted = NULL,
     dependencies = list()
   )
   inners <- lapply(list(...), .el_absorb)
@@ -48,20 +58,20 @@ el_empty <- function(id = NULL,
 
   attrs <- list(
     ":description" = .el_optional_bind("emptyDescription"),
-    ":image"       = .el_optional_bind("emptyImage"),
-    ":image-size"  = .el_optional_bind("emptyImageSize")
+    ":image" = .el_optional_bind("emptyImage"),
+    ":image-size" = .el_optional_bind("emptyImageSize")
   )
 
   el_widget(
-    id       = ns_id,
-    markup   = htmltools::tag("el-empty", c(attrs, merged$markups[-1])),
-    data     = merged$data,
-    methods  = merged$methods,
-    watch    = merged$watch,
+    id = ns_id,
+    markup = htmltools::tag("el-empty", c(attrs, merged$markups[-1])),
+    data = merged$data,
+    methods = merged$methods,
+    watch = merged$watch,
     computed = merged$computed,
-    mounted  = merged$mounted,
-    width    = width,
-    slots    = slots,
+    mounted = merged$mounted,
+    width = width,
+    slots = slots,
     dependency = merged$dependencies
   )
 }
@@ -81,18 +91,28 @@ el_empty <- function(id = NULL,
 #' if (interactive()) {
 #'   # inside a server function
 #'   observeEvent(input$search, {
-#'     update_el_empty(session, "none",
-#'                     description = paste("Nothing matches", input$search))
+#'     update_el_empty(
+#'       session,
+#'       "none",
+#'       description = paste("Nothing matches", input$search)
+#'     )
 #'   })
 #' }
 #' @export
-update_el_empty <- function(session = shiny::getDefaultReactiveDomain(), id, description = NULL, image = NULL) {
+update_el_empty <- function(
+  session = shiny::getDefaultReactiveDomain(),
+  id,
+  description = NULL,
+  image = NULL
+) {
   .el_check_session(session)
   msg <- list(id = session$ns(id))
-  if (!is.null(description)) msg$emptyDescription <- description
-  if (!is.null(image))       msg$emptyImage       <- image
+  if (!is.null(description)) {
+    msg$emptyDescription <- description
+  }
+  if (!is.null(image)) {
+    msg$emptyImage <- image
+  }
   .el_send_update(session, msg)
   invisible(NULL)
 }
-
-

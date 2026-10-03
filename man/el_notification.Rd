@@ -85,14 +85,14 @@ if (interactive()) {
   )
   server <- function(input, output, session) {
     observeEvent(input$btn, {
-      el_notification(session,
+      el_notification(
+        session,
         message = "Operation successful!",
-        title   = "Success",
-        type    = "success"
+        title = "Success",
+        type = "success"
       )
     })
   }
   shinyApp(ui, server)
 }
-
 }

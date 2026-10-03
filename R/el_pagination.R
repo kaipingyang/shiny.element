@@ -62,10 +62,10 @@
 #' # With custom page sizes and layout
 #' el_pagination(
 #'   "pg2",
-#'   total      = 500,
-#'   page_size  = 20,
+#'   total = 500,
+#'   page_size = 20,
 #'   page_sizes = c(10, 20, 50, 100),
-#'   layout     = "total, sizes, prev, pager, next"
+#'   layout = "total, sizes, prev, pager, next"
 #' )
 #'
 #' # Shiny app example
@@ -83,89 +83,94 @@
 #'   }
 #'   shinyApp(ui, server)
 #' }
-#'
 #' @export
 el_pagination <- function(
-    id           = NULL,
-    total,
-    page_size    = 10,
-    current_page = 1,
-    page_sizes   = c(10, 20, 30, 50),
-    layout       = "total, sizes, prev, pager, next, jumper",
-    background   = FALSE,
-    small        = FALSE,
-    disabled     = FALSE,
-    pager_count  = 7,
-    prev_text    = NULL,
-    next_text    = NULL,
-    hide_on_single_page = NULL,
-    page_count   = NULL,
-    popper_class = NULL,
-    append_size_to = NULL,
-    default_current_page = NULL,
-    default_page_size = NULL,
-    next_icon = NULL,
-    popper_style = NULL,
-    prev_icon = NULL,
-    size = NULL,
-    teleported = NULL,
-    width        = NULL,
-    slots        = NULL,
-    session      = NULL
+  id = NULL,
+  total,
+  page_size = 10,
+  current_page = 1,
+  page_sizes = c(10, 20, 30, 50),
+  layout = "total, sizes, prev, pager, next, jumper",
+  background = FALSE,
+  small = FALSE,
+  disabled = FALSE,
+  pager_count = 7,
+  prev_text = NULL,
+  next_text = NULL,
+  hide_on_single_page = NULL,
+  page_count = NULL,
+  popper_class = NULL,
+  append_size_to = NULL,
+  default_current_page = NULL,
+  default_page_size = NULL,
+  next_icon = NULL,
+  popper_style = NULL,
+  prev_icon = NULL,
+  size = NULL,
+  teleported = NULL,
+  width = NULL,
+  slots = NULL,
+  session = NULL
 ) {
   .el_check_choices("el_pagination", environment())
-  if (is.null(id)) id <- paste0("el_pagination_", uuid::UUIDgenerate())
-  ns_id        <- .el_ui_id(id, session)
+  if (is.null(id)) {
+    id <- paste0("el_pagination_", uuid::UUIDgenerate())
+  }
+  ns_id <- .el_ui_id(id, session)
   container_id <- paste0(ns_id, "_container")
   # The page is the value, restored by el_widget(); the size beside it
   page_size <- shiny::restoreInput(paste0(ns_id, "_size"), page_size)
 
   pagination_attrs <- list(
-    ":total"             = "total",
-    "v-model:page-size"    = "pageSize",
+    ":total" = "total",
+    "v-model:page-size" = "pageSize",
     "v-model:current-page" = "currentPage",
-    ":page-sizes"        = "pageSizes",
-    ":layout"            = "layout",
-    ":background"        = "background",
-    ":small"             = "small",
-    ":disabled"          = "disabled",
-    ":pager-count"       = "pagerCount",
-    "@current-change"    = "handlePageChange",
-    "@size-change"       = "handleSizeChange"
+    ":page-sizes" = "pageSizes",
+    ":layout" = "layout",
+    ":background" = "background",
+    ":small" = "small",
+    ":disabled" = "disabled",
+    ":pager-count" = "pagerCount",
+    "@current-change" = "handlePageChange",
+    "@size-change" = "handleSizeChange"
   )
 
   pagination_attrs[[":prev-text"]] <- .el_optional_bind("prevText")
 
   pagination_attrs[[":next-text"]] <- .el_optional_bind("nextText")
 
-  pagination_attrs[[":hide-on-single-page"]] <- .el_optional_bind("hideOnSinglePage")
+  pagination_attrs[[":hide-on-single-page"]] <- .el_optional_bind(
+    "hideOnSinglePage"
+  )
 
   pagination_attrs[[":page-count"]] <- .el_optional_bind("pageCount")
 
   pagination_attrs[[":popper-class"]] <- .el_optional_bind("popperClass")
 
-
   # Forwarded to input$<id>_<event>; see .el_event_bindings().
 
-  events <- .el_event_bindings(ns_id, c(
+  events <- .el_event_bindings(
+    ns_id,
+    c(
+      "prev-click",
 
-    "prev-click",
-
-    "next-click",
-    "change"))
+      "next-click",
+      "change"
+    )
+  )
 
   pagination_attrs <- c(pagination_attrs, events$attrs)
 
   vue_data <- list(
-    total       = total,
-    pageSize    = page_size,
+    total = total,
+    pageSize = page_size,
     currentPage = current_page,
-    pageSizes   = as.list(page_sizes),
-    layout      = layout,
-    background  = background,
-    small       = small,
-    disabled    = disabled,
-    pagerCount  = pager_count
+    pageSizes = as.list(page_sizes),
+    layout = layout,
+    background = background,
+    small = small,
+    disabled = disabled,
+    pagerCount = pager_count
   )
 
   vue_data$prevText <- .el_or_na(prev_text)
@@ -187,24 +192,30 @@ el_pagination <- function(
       popper_style = popper_style,
       prev_icon = .el_icon_name(prev_icon),
       size = size,
-      teleported = teleported)),
-    id     = ns_id,
-    markup = htmltools::tag("el-pagination", pagination_attrs),
-    data    = vue_data,
-    methods = c(events$methods, list(
-      handlePageChange = JS(sprintf(
-        "function(page) { window.Shiny && Shiny.setInputValue && Shiny.setInputValue('%s', page); }",
-        ns_id
-      )),
-      handleSizeChange = JS(sprintf(
-        "function(size) { window.Shiny && Shiny.setInputValue && Shiny.setInputValue('%s_size', size); }",
-        ns_id
-      ))
+      teleported = teleported
     )),
-    mounted = .el_mounted_init(stats::setNames(c("currentPage", "pageSize"),
-                              paste0(ns_id, c("", "_size")))),
-    width      = width,
-    slots      = slots
+    id = ns_id,
+    markup = htmltools::tag("el-pagination", pagination_attrs),
+    data = vue_data,
+    methods = c(
+      events$methods,
+      list(
+        handlePageChange = JS(sprintf(
+          "function(page) { window.Shiny && Shiny.setInputValue && Shiny.setInputValue('%s', page); }",
+          ns_id
+        )),
+        handleSizeChange = JS(sprintf(
+          "function(size) { window.Shiny && Shiny.setInputValue && Shiny.setInputValue('%s_size', size); }",
+          ns_id
+        ))
+      )
+    ),
+    mounted = .el_mounted_init(stats::setNames(
+      c("currentPage", "pageSize"),
+      paste0(ns_id, c("", "_size"))
+    )),
+    width = width,
+    slots = slots
   )
 }
 
@@ -231,22 +242,28 @@ el_pagination <- function(
 #' }
 #' @export
 update_el_pagination <- function(
-    session = shiny::getDefaultReactiveDomain(),
-    id,
-    total        = NULL,
-    current_page = NULL,
-    page_size    = NULL,
-    disabled     = NULL
+  session = shiny::getDefaultReactiveDomain(),
+  id,
+  total = NULL,
+  current_page = NULL,
+  page_size = NULL,
+  disabled = NULL
 ) {
   .el_check_session(session)
   ns_id <- session$ns(id)
-  msg   <- list(id = ns_id)
-  if (!is.null(total))        msg$total       <- total
-  if (!is.null(current_page)) msg$currentPage <- current_page
-  if (!is.null(page_size))    msg$pageSize    <- page_size
-  if (!is.null(disabled))     msg$disabled    <- disabled
+  msg <- list(id = ns_id)
+  if (!is.null(total)) {
+    msg$total <- total
+  }
+  if (!is.null(current_page)) {
+    msg$currentPage <- current_page
+  }
+  if (!is.null(page_size)) {
+    msg$pageSize <- page_size
+  }
+  if (!is.null(disabled)) {
+    msg$disabled <- disabled
+  }
   .el_send_update(session, msg)
   invisible(NULL)
 }
-
-

@@ -39,12 +39,19 @@ test_that("el_row: zero or missing gutter adds no margins", {
 })
 
 test_that("el_row: gutter preserves a column's own style", {
-  html <- render_html(el_row(gutter = 20, el_col(span = 12, style = "color:red")))
+  html <- render_html(el_row(
+    gutter = 20,
+    el_col(span = 12, style = "color:red")
+  ))
   expect_match(html, "color:red; padding-left:10px")
 })
 
 test_that("el_row: flex classes are only added for type = 'flex'", {
-  html <- render_html(el_row(type = "flex", justify = "center", align = "middle"))
+  html <- render_html(el_row(
+    type = "flex",
+    justify = "center",
+    align = "middle"
+  ))
   expect_match(html, "el-row--flex")
   expect_match(html, "is-justify-center")
   expect_match(html, "is-align-middle")
@@ -85,8 +92,13 @@ test_that("el_col: offset, push and pull each get their class", {
 
 test_that("el_col: a bare responsive value is treated as the span", {
   html <- render_html(el_col(xs = 24, sm = 12, md = 8, lg = 6, xl = 4))
-  for (cls in c("el-col-xs-24", "el-col-sm-12", "el-col-md-8",
-                "el-col-lg-6", "el-col-xl-4")) {
+  for (cls in c(
+    "el-col-xs-24",
+    "el-col-sm-12",
+    "el-col-md-8",
+    "el-col-lg-6",
+    "el-col-xl-4"
+  )) {
     expect_match(html, cls)
   }
 })
@@ -106,6 +118,9 @@ test_that("el_col: content is rendered inside", {
 
 test_that("el_row: a nested widget keeps its html dependencies", {
   # The old custom-tag/template approach dropped these.
-  deps <- htmltools::findDependencies(el_row(el_col(span = 12, el_switch("sw"))))
+  deps <- htmltools::findDependencies(el_row(el_col(
+    span = 12,
+    el_switch("sw")
+  )))
   expect_true("shiny-vue" %in% vapply(deps, function(d) d$name, character(1)))
 })

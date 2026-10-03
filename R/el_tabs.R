@@ -51,42 +51,54 @@
 #'   (`"remove"` or `"add"`).
 #'
 #' @examples
-#' el_tabs("t1", selected = "a", tabs = list(
-#'   list(name = "a", label = "First",  content = shiny::tags$p("One")),
-#'   list(name = "b", label = "Second", content = shiny::tags$p("Two"))
-#' ))
+#' el_tabs(
+#'   "t1",
+#'   selected = "a",
+#'   tabs = list(
+#'     list(name = "a", label = "First", content = shiny::tags$p("One")),
+#'     list(name = "b", label = "Second", content = shiny::tags$p("Two"))
+#'   )
+#' )
 #'
 #' # A tab can hold other components
-#' el_tabs("t2", tabs = list(
-#'   list(name = "data", label = "Data", content = el_table(data = head(iris, 3))),
-#'   list(name = "opts", label = "Options", content = el_switch("live"))
-#' ))
-#'
+#' el_tabs(
+#'   "t2",
+#'   tabs = list(
+#'     list(
+#'       name = "data",
+#'       label = "Data",
+#'       content = el_table(data = head(iris, 3))
+#'     ),
+#'     list(name = "opts", label = "Options", content = el_switch("live"))
+#'   )
+#' )
 #' @export
 el_tabs <- function(
-    id           = NULL,
-    tabs         = list(),
-    selected     = NULL,
-    type         = NULL,
-    tab_position = "top",
-    closable     = FALSE,
-    addable      = FALSE,
-    editable     = FALSE,
-    stretch      = FALSE,
-    before_leave = NULL,
-    add_icon     = NULL,
-    session      = NULL
+  id = NULL,
+  tabs = list(),
+  selected = NULL,
+  type = NULL,
+  tab_position = "top",
+  closable = FALSE,
+  addable = FALSE,
+  editable = FALSE,
+  stretch = FALSE,
+  before_leave = NULL,
+  add_icon = NULL,
+  session = NULL
 ) {
   .el_check_items(tabs, "tabs", c("name", "label"))
   .el_check_choices("el_tabs", environment())
-  if (is.null(id)) id <- paste0("el_tabs_", uuid::UUIDgenerate())
+  if (is.null(id)) {
+    id <- paste0("el_tabs_", uuid::UUIDgenerate())
+  }
   ns_id <- .el_ui_id(id, session)
   selected <- shiny::restoreInput(ns_id, selected)
 
   # Element's editable is closable and addable together
   if (isTRUE(editable)) {
     closable <- TRUE
-    addable  <- TRUE
+    addable <- TRUE
   }
 
   names_vec <- vapply(tabs, function(t) as.character(t$name), character(1))
@@ -103,34 +115,50 @@ el_tabs <- function(
   }
 
   items <- lapply(tabs, function(t) {
-    .el_tab_item(ns_id, t, active = identical(as.character(t$name), selected),
-                 closable = isTRUE(t$closable) || isTRUE(closable),
-                 pos_class = pos_class)
+    .el_tab_item(
+      ns_id,
+      t,
+      active = identical(as.character(t$name), selected),
+      closable = isTRUE(t$closable) || isTRUE(closable),
+      pos_class = pos_class
+    )
   })
   panes <- lapply(tabs, function(t) {
     .el_tab_pane(ns_id, t, active = identical(as.character(t$name), selected))
   })
 
-  root_class <- paste(c("el-tabs", paste0("el-tabs--", tab_position),
-                        if (!is.null(type)) paste0("el-tabs--", type)),
-                      collapse = " ")
+  root_class <- paste(
+    c(
+      "el-tabs",
+      paste0("el-tabs--", tab_position),
+      if (!is.null(type)) paste0("el-tabs--", type)
+    ),
+    collapse = " "
+  )
 
   new_tab <- if (isTRUE(addable)) {
-    shiny::tags$span(class = "el-tabs__new-tab", tabindex = "0",
-                     el_icon(if (is.null(add_icon)) "Plus" else .el_icon_name(add_icon),
-                             a11y = "none"))
+    shiny::tags$span(
+      class = "el-tabs__new-tab",
+      tabindex = "0",
+      el_icon(
+        if (is.null(add_icon)) "Plus" else .el_icon_name(add_icon),
+        a11y = "none"
+      )
+    )
   }
 
   htmltools::attachDependencies(
     shiny::tags$div(
-      id    = ns_id,
+      id = ns_id,
       class = root_class,
-      `data-el-tabs`  = "true",
+      `data-el-tabs` = "true",
       `data-position` = tab_position,
-      `data-carded`   = tolower(as.character(!is.null(type))),
+      `data-carded` = tolower(as.character(!is.null(type))),
       `data-closable` = tolower(as.character(isTRUE(closable))),
       # A function's source, turned back into one by the binding
-      `data-before-leave` = if (!is.null(before_leave)) as.character(before_leave),
+      `data-before-leave` = if (!is.null(before_leave)) {
+        as.character(before_leave)
+      },
       shiny::tags$div(
         class = paste("el-tabs__header", pos_class),
         new_tab,
@@ -139,10 +167,13 @@ el_tabs <- function(
           shiny::tags$div(
             class = "el-tabs__nav-scroll",
             shiny::tags$div(
-              role  = "tablist",
-              class = paste(c("el-tabs__nav", pos_class,
-                              if (stretch) "is-stretch"), collapse = " "),
-              bar, items
+              role = "tablist",
+              class = paste(
+                c("el-tabs__nav", pos_class, if (stretch) "is-stretch"),
+                collapse = " "
+              ),
+              bar,
+              items
             )
           )
         )
@@ -165,15 +196,21 @@ el_tabs <- function(
 .el_tab_item <- function(ns_id, t, active, closable, pos_class) {
   disabled <- isTRUE(t$disabled)
   shiny::tags$div(
-    id    = paste0(ns_id, "-tab-", t$name),
-    role  = "tab",
+    id = paste0(ns_id, "-tab-", t$name),
+    role = "tab",
     `aria-controls` = paste0(ns_id, "-pane-", t$name),
     `aria-selected` = if (active) "true",
-    tabindex        = if (active) "0" else "-1",
-    class = paste(c("el-tabs__item", pos_class,
-                    if (active) "is-active",
-                    if (disabled) "is-disabled",
-                    if (closable) "is-closable"), collapse = " "),
+    tabindex = if (active) "0" else "-1",
+    class = paste(
+      c(
+        "el-tabs__item",
+        pos_class,
+        if (active) "is-active",
+        if (disabled) "is-disabled",
+        if (closable) "is-closable"
+      ),
+      collapse = " "
+    ),
     `data-el-name` = t$name,
     t$label,
     if (closable) el_icon("Close", class = "is-icon-close", a11y = "none")
@@ -200,8 +237,8 @@ el_tabs <- function(
   }
   # Hidden rather than removed, so a nested component stays mounted.
   shiny::tags$div(
-    role  = "tabpanel",
-    id    = paste0(ns_id, "-pane-", t$name),
+    role = "tabpanel",
+    id = paste0(ns_id, "-pane-", t$name),
     `aria-labelledby` = paste0(ns_id, "-tab-", t$name),
     `aria-hidden` = if (!active) "true",
     class = "el-tab-pane",
@@ -230,10 +267,16 @@ el_tabs <- function(
 #'   })
 #' }
 #' @export
-update_el_tabs <- function(session = shiny::getDefaultReactiveDomain(), id, selected = NULL) {
+update_el_tabs <- function(
+  session = shiny::getDefaultReactiveDomain(),
+  id,
+  selected = NULL
+) {
   .el_check_session(session)
   msg <- list()
-  if (!is.null(selected)) msg$selected <- selected
+  if (!is.null(selected)) {
+    msg$selected <- selected
+  }
   session$sendInputMessage(id, msg)
   invisible(NULL)
 }
@@ -260,22 +303,38 @@ update_el_tabs <- function(session = shiny::getDefaultReactiveDomain(), id, sele
 #' @examples
 #' if (interactive()) {
 #'   library(shiny)
-#'   ui <- el_page(el_tabs("docs", editable = TRUE, tabs = list(
-#'     list(name = "t1", label = "Tab 1", content = tags$p("First"))
-#'   )))
+#'   ui <- el_page(el_tabs(
+#'     "docs",
+#'     editable = TRUE,
+#'     tabs = list(
+#'       list(name = "t1", label = "Tab 1", content = tags$p("First"))
+#'     )
+#'   ))
 #'   server <- function(input, output, session) {
 #'     n <- 1
 #'     observeEvent(input$docs_tab_add, {
 #'       n <<- n + 1
-#'       insert_el_tab(session, "docs", name = paste0("t", n),
-#'                     label = paste("Tab", n), content = tags$p("New"))
+#'       insert_el_tab(
+#'         session,
+#'         "docs",
+#'         name = paste0("t", n),
+#'         label = paste("Tab", n),
+#'         content = tags$p("New")
+#'       )
 #'     })
 #'   }
 #'   shinyApp(ui, server)
 #' }
 #' @export
-insert_el_tab <- function(session = shiny::getDefaultReactiveDomain(), id, name, label, content = NULL,
-                          closable = NULL, select = TRUE) {
+insert_el_tab <- function(
+  session = shiny::getDefaultReactiveDomain(),
+  id,
+  name,
+  label,
+  content = NULL,
+  closable = NULL,
+  select = TRUE
+) {
   .el_check_session(session)
   ns_id <- session$ns(id)
   # The pane goes in through insertUI, which renders its dependencies and
@@ -283,19 +342,32 @@ insert_el_tab <- function(session = shiny::getDefaultReactiveDomain(), id, name,
   # the tabs' position and closability.
   shiny::insertUI(
     selector = paste0("#", ns_id, " > .el-tabs__content"),
-    where = "beforeEnd", immediate = TRUE, session = session,
-    ui = .el_tab_pane(ns_id, list(name = name, content = content), active = FALSE)
+    where = "beforeEnd",
+    immediate = TRUE,
+    session = session,
+    ui = .el_tab_pane(
+      ns_id,
+      list(name = name, content = content),
+      active = FALSE
+    )
   )
-  session$sendInputMessage(id, list(
-    add_tab = list(name = name, label = label, closable = closable),
-    selected = if (isTRUE(select)) name
-  ))
+  session$sendInputMessage(
+    id,
+    list(
+      add_tab = list(name = name, label = label, closable = closable),
+      selected = if (isTRUE(select)) name
+    )
+  )
   invisible(NULL)
 }
 
 #' @rdname insert_el_tab
 #' @export
-remove_el_tab <- function(session = shiny::getDefaultReactiveDomain(), id, name) {
+remove_el_tab <- function(
+  session = shiny::getDefaultReactiveDomain(),
+  id,
+  name
+) {
   .el_check_session(session)
   session$sendInputMessage(id, list(remove_tab = name))
   invisible(NULL)
@@ -313,10 +385,10 @@ el_tabs_dependency <- function() {
   list(
     .el_jquery_dependency(),
     htmltools::htmlDependency(
-      name      = "el-tabs-binding",
-      version   = "1.0.0",
-      src       = system.file("js", package = "shiny.element"),
-      script    = "el-tabs-binding.js",
+      name = "el-tabs-binding",
+      version = "1.0.0",
+      src = system.file("js", package = "shiny.element"),
+      script = "el-tabs-binding.js",
       all_files = FALSE
     )
   )

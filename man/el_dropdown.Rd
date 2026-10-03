@@ -150,13 +150,18 @@ choosing the same item twice runs an \code{observeEvent()} twice.
 }
 
 \examples{
-el_dropdown("dd1", "Actions",
+el_dropdown(
+  "dd1",
+  "Actions",
   items = list(
-    list(command = "edit",   label = "Edit",   icon = "el-icon-edit"),
-    list(command = "copy",   label = "Copy",   icon = "el-icon-document"),
-    list(command = "delete", label = "Delete", icon = "el-icon-delete",
-         divided = TRUE)
+    list(command = "edit", label = "Edit", icon = "el-icon-edit"),
+    list(command = "copy", label = "Copy", icon = "el-icon-document"),
+    list(
+      command = "delete",
+      label = "Delete",
+      icon = "el-icon-delete",
+      divided = TRUE
+    )
   )
 )
-
 }

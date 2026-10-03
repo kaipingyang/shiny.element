@@ -5,7 +5,9 @@
 #' @return `TRUE` when `x` is a tag carrying one of `classes`.
 #' @keywords internal
 .el_has_class <- function(x, classes) {
-  if (!inherits(x, "shiny.tag")) return(FALSE)
+  if (!inherits(x, "shiny.tag")) {
+    return(FALSE)
+  }
   own <- unlist(strsplit(paste(x$attribs$class, collapse = " "), "\\s+"))
   any(classes %in% own)
 }
@@ -20,16 +22,27 @@
 #' @param extra_class Extra CSS classes.
 #' @return A Shiny UI element.
 #' @keywords internal
-.el_container_part <- function(class, children, size = NULL, size_prop = NULL,
-                               style = NULL, extra_class = NULL) {
-  htmltools::tag("div", c(
-    list(class = paste(c(class, extra_class), collapse = " ")),
-    list(style = .el_style(
-      if (!is.null(size)) sprintf("%s:%s", size_prop, size),
-      style
-    )),
-    children
-  ))
+.el_container_part <- function(
+  class,
+  children,
+  size = NULL,
+  size_prop = NULL,
+  style = NULL,
+  extra_class = NULL
+) {
+  htmltools::tag(
+    "div",
+    c(
+      list(class = paste(c(class, extra_class), collapse = " ")),
+      list(
+        style = .el_style(
+          if (!is.null(size)) sprintf("%s:%s", size_prop, size),
+          style
+        )
+      ),
+      children
+    )
+  )
 }
 
 #' Element Plus Container
@@ -67,25 +80,33 @@
 #'   el_header(el_switch("dark_mode", value = FALSE)),
 #'   el_main(el_slider("amount", value = 50))
 #' )
-el_container <- function(...,
-                         id = NULL,
-                         direction = NULL,
-                         style = NULL,
-                         class = NULL,
-                         session = NULL) {
+el_container <- function(
+  ...,
+  id = NULL,
+  direction = NULL,
+  style = NULL,
+  class = NULL,
+  session = NULL
+) {
   .el_check_choices("el_container", environment())
   children <- list(...)
 
   vertical <- if (!is.null(direction)) {
     identical(direction, "vertical")
   } else {
-    any(vapply(children, .el_has_class, logical(1),
-               classes = c("el-header", "el-footer")))
+    any(vapply(
+      children,
+      .el_has_class,
+      logical(1),
+      classes = c("el-header", "el-footer")
+    ))
   }
 
   attrs <- list(
-    class = paste(c("el-container", if (vertical) "is-vertical", class),
-                  collapse = " "),
+    class = paste(
+      c("el-container", if (vertical) "is-vertical", class),
+      collapse = " "
+    ),
     style = .el_style(style)
   )
   if (!is.null(id)) {

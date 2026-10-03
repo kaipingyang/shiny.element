@@ -68,7 +68,9 @@ el_theme()
 el_theme(primary = "#7c3aed")
 
 # Rounder and smaller, all through Element
-el_theme(element = list("border-radius-base" = "10px", "font-size-base" = "13px"))
+el_theme(
+  element = list("border-radius-base" = "10px", "font-size-base" = "13px")
+)
 
 if (interactive()) {
   el_page(theme = el_theme(), shiny::actionButton("go", "Shiny's own button"))

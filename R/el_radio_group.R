@@ -51,16 +51,18 @@
 #'
 #' @examples
 #' # Standard radio buttons from a named vector
-#' el_radio_group("size",
-#'   choices  = c(Small = "s", Medium = "m", Large = "l"),
+#' el_radio_group(
+#'   "size",
+#'   choices = c(Small = "s", Medium = "m", Large = "l"),
 #'   selected = "m"
 #' )
 #'
 #' # Button-style radio group
-#' el_radio_group("theme",
+#' el_radio_group(
+#'   "theme",
 #'   choices = c(Light = "light", Dark = "dark"),
-#'   button  = TRUE,
-#'   size    = "small"
+#'   button = TRUE,
+#'   size = "small"
 #' )
 #'
 #' # Shiny app example
@@ -68,8 +70,9 @@
 #'   library(shiny)
 #'   library(shiny.element)
 #'   ui <- el_page(
-#'     el_radio_group("fruit",
-#'       choices  = c(Apple = "apple", Banana = "banana", Cherry = "cherry"),
+#'     el_radio_group(
+#'       "fruit",
+#'       choices = c(Apple = "apple", Banana = "banana", Cherry = "cherry"),
 #'       selected = "apple"
 #'     ),
 #'     verbatimTextOutput("selected")
@@ -79,71 +82,77 @@
 #'   }
 #'   shinyApp(ui, server)
 #' }
-#'
 #' @export
 el_radio_group <- function(
-    id       = NULL,
-    choices  = NULL,
-    selected = NULL,
-    disabled = FALSE,
-    size     = NULL,
-    button   = FALSE,
-    fill     = NULL,
-    text_color = NULL,
-    label = NULL,
-    label_position = c("top", "left", "right"),
-    label_width = NULL,
-    label_suffix = NULL,
-    required = FALSE,
-    error = NULL,
-    show_message = TRUE,
-    inline_message = FALSE,
-    width    = NULL,
-    slots    = NULL,
-    value    = NULL,
-    options  = NULL,
-    aria_label = NULL,
-    props = NULL,
-    type = NULL,
-    validate_event = NULL,
-    session  = NULL
+  id = NULL,
+  choices = NULL,
+  selected = NULL,
+  disabled = FALSE,
+  size = NULL,
+  button = FALSE,
+  fill = NULL,
+  text_color = NULL,
+  label = NULL,
+  label_position = c("top", "left", "right"),
+  label_width = NULL,
+  label_suffix = NULL,
+  required = FALSE,
+  error = NULL,
+  show_message = TRUE,
+  inline_message = FALSE,
+  width = NULL,
+  slots = NULL,
+  value = NULL,
+  options = NULL,
+  aria_label = NULL,
+  props = NULL,
+  type = NULL,
+  validate_event = NULL,
+  session = NULL
 ) {
   .el_check_choices("el_radio_group", environment())
   selected <- .el_alias(selected, value, "selected", "value")
-  choices  <- .el_alias(choices, options, "choices", "options")
-  if (is.null(choices)) stop("`choices` (or `options`) is required.", call. = FALSE)
-  if (is.null(id)) id <- paste0("el_radio_group_", uuid::UUIDgenerate())
-  ns_id        <- .el_ui_id(id, session)
+  choices <- .el_alias(choices, options, "choices", "options")
+  if (is.null(choices)) {
+    stop("`choices` (or `options`) is required.", call. = FALSE)
+  }
+  if (is.null(id)) {
+    id <- paste0("el_radio_group_", uuid::UUIDgenerate())
+  }
+  ns_id <- .el_ui_id(id, session)
   container_id <- paste0(ns_id, "_container")
 
   # Choose el-radio or el-radio-button based on button param
   radio_tag_name <- if (button) "el-radio-button" else "el-radio"
 
   # Per-choice props are read off the option object, as in el_checkbox_group().
-  radio_slot <- htmltools::tag(radio_tag_name, list(
-    ":label"    = "opt.value",
-    "v-for"     = "opt in options",
-    ":key"      = "opt.value",
-    ":disabled" = "opt.disabled",
-    ":border"   = "opt.border",
-    ":name"     = "opt.name",
-    "@change"   = "handleItemChange(opt, $event)",
-    htmltools::HTML("{{opt.label}}")
-  ))
+  radio_slot <- htmltools::tag(
+    radio_tag_name,
+    list(
+      ":label" = "opt.value",
+      "v-for" = "opt in options",
+      ":key" = "opt.value",
+      ":disabled" = "opt.disabled",
+      ":border" = "opt.border",
+      ":name" = "opt.name",
+      "@change" = "handleItemChange(opt, $event)",
+      htmltools::HTML("{{opt.label}}")
+    )
+  )
 
   # Build el-radio-group attributes
   group_attrs <- list(
-    "v-model"   = "value",
+    "v-model" = "value",
     ":disabled" = "disabled",
-    "@change"   = "handleChange"
+    "@change" = "handleChange"
   )
   group_attrs[[":size"]] <- .el_optional_bind("size")
   group_attrs[[":fill"]] <- .el_optional_bind("fill")
   group_attrs[[":text-color"]] <- .el_optional_bind("textColor")
   # Build Vue data
   vue_data <- list(
-    value    = if (is.null(selected)) "" else selected,
-    options  = .el_normalize_choices(choices),
+    value = if (is.null(selected)) "" else selected,
+    options = .el_normalize_choices(choices),
     disabled = disabled
   )
   vue_data$size <- .el_or_na(size)
@@ -154,19 +163,27 @@ el_radio_group <- function(
       aria_label = aria_label,
       props = props,
       type = type,
-      validate_event = validate_event)),
-    label = label, label_position = label_position,
-    label_width = label_width, label_suffix = label_suffix, required = required,
-    error = error, show_message = show_message, inline_message = inline_message,
-    id     = ns_id,
+      validate_event = validate_event
+    )),
+    label = label,
+    label_position = label_position,
+    label_width = label_width,
+    label_suffix = label_suffix,
+    required = required,
+    error = error,
+    show_message = show_message,
+    inline_message = inline_message,
+    id = ns_id,
     markup = htmltools::tag("el-radio-group", c(group_attrs, list(radio_slot))),
-    data    = vue_data,
+    data = vue_data,
     methods = list(
       # Which choice changed, and to what: input$<id>_item_change
       handleItemChange = JS(sprintf(
-        paste0("function(opt, checked) { ",
-               "window.shinyVue.emit('%s', 'item_change', ",
-               "[{value: opt.value, label: opt.label, checked: checked}]); }"),
+        paste0(
+          "function(opt, checked) { ",
+          "window.shinyVue.emit('%s', 'item_change', ",
+          "[{value: opt.value, label: opt.label, checked: checked}]); }"
+        ),
         ns_id
       )),
       handleChange = JS(sprintf(
@@ -175,8 +192,8 @@ el_radio_group <- function(
       ))
     ),
     mounted = .el_mounted_init(stats::setNames("value", ns_id)),
-    width      = width,
-    slots      = slots
+    width = width,
+    slots = slots
   )
 }
 
@@ -211,22 +228,30 @@ el_radio_group <- function(
 #' }
 #' @export
 update_el_radio_group <- function(
-    session = shiny::getDefaultReactiveDomain(),
-    id,
-    selected = NULL,
-    choices  = NULL,
-    disabled = NULL,
-    value    = NULL,
-    options  = NULL,
-    label = NULL, error = NULL) {
+  session = shiny::getDefaultReactiveDomain(),
+  id,
+  selected = NULL,
+  choices = NULL,
+  disabled = NULL,
+  value = NULL,
+  options = NULL,
+  label = NULL,
+  error = NULL
+) {
   .el_check_session(session)
   selected <- .el_alias(selected, value, "selected", "value")
-  choices  <- .el_alias(choices, options, "choices", "options")
+  choices <- .el_alias(choices, options, "choices", "options")
   ns_id <- session$ns(id)
-  msg   <- list(id = ns_id)
-  if (!is.null(selected)) msg$value    <- selected
-  if (!is.null(choices))  msg$options  <- .el_normalize_choices(choices)
-  if (!is.null(disabled)) msg$disabled <- disabled
+  msg <- list(id = ns_id)
+  if (!is.null(selected)) {
+    msg$value <- selected
+  }
+  if (!is.null(choices)) {
+    msg$options <- .el_normalize_choices(choices)
+  }
+  if (!is.null(disabled)) {
+    msg$disabled <- disabled
+  }
   msg <- .el_form_item_update(msg, label, error)
   .el_send_update(session, msg)
   invisible(NULL)

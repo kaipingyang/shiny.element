@@ -1,11 +1,15 @@
 # Components Element added in 2.15, after this package first bundled 2.13.2
 
 test_that("el_empty renders, and absorbs a component placed in it", {
-  ui <- el_empty("e", description = "Nothing yet", el_button("create", "Create"))
+  ui <- el_empty(
+    "e",
+    description = "Nothing yet",
+    el_button("create", "Create")
+  )
   html <- paste(as.character(ui), collapse = "")
   expect_match(html, "<el-empty")
   expect_equal(vue_data_of(ui)$emptyDescription, "Nothing yet")
-  expect_true("label" %in% names(vue_data_of(ui)))   # the button's
+  expect_true("label" %in% names(vue_data_of(ui))) # the button's
 })
 
 test_that("content after the id goes to ..., not to the next argument", {
@@ -13,8 +17,14 @@ test_that("content after the id goes to ..., not to the next argument", {
   # el_button() to sub_title -- the button became the subtitle, and a tagList
   # landed in the Vue data.
   ui <- el_result("r", icon = "success", title = "Done", el_button("b", "Back"))
-  expect_true(is.na(vue_data_of(ui)$resultSubTitle) || is.null(vue_data_of(ui)$resultSubTitle))
-  expect_match(paste(as.character(ui), collapse = ""), '<template v-slot:extra>')
+  expect_true(
+    is.na(vue_data_of(ui)$resultSubTitle) ||
+      is.null(vue_data_of(ui)$resultSubTitle)
+  )
+  expect_match(
+    paste(as.character(ui), collapse = ""),
+    '<template v-slot:extra>'
+  )
 })
 
 test_that("el_skeleton starts loading and can be switched off", {
@@ -36,12 +46,19 @@ test_that("el_statistic carries its number and formatting", {
 })
 
 test_that("el_descriptions renders one item per field", {
-  ui <- el_descriptions("d", border = TRUE, items = list(
-    list(label = "Name", content = "Ada"),
-    list(label = "Address", content = "London", span = 2)
-  ))
+  ui <- el_descriptions(
+    "d",
+    border = TRUE,
+    items = list(
+      list(label = "Name", content = "Ada"),
+      list(label = "Address", content = "London", span = 2)
+    )
+  )
   html <- paste(as.character(ui), collapse = "")
-  expect_equal(lengths(regmatches(html, gregexpr("<el-descriptions-item", html))), 2L)
+  expect_equal(
+    lengths(regmatches(html, gregexpr("<el-descriptions-item", html))),
+    2L
+  )
   expect_match(html, ':span="2"', fixed = TRUE)
 })
 
@@ -52,10 +69,16 @@ test_that("el_descriptions takes names as labels", {
 })
 
 test_that("a descriptions label may be markup", {
-  ui <- el_descriptions("d", items = list(
-    list(label = shiny::tags$b("Bold"), content = "x")
-  ))
-  expect_match(paste(as.character(ui), collapse = ""), '<template v-slot:label>')
+  ui <- el_descriptions(
+    "d",
+    items = list(
+      list(label = shiny::tags$b("Bold"), content = "x")
+    )
+  )
+  expect_match(
+    paste(as.character(ui), collapse = ""),
+    '<template v-slot:label>'
+  )
 })
 
 test_that("el_countdown counts down to a date-time, in milliseconds", {
@@ -64,7 +87,11 @@ test_that("el_countdown counts down to a date-time, in milliseconds", {
   d <- vue_data_of(ui)
   expect_equal(d$value, as.numeric(end) * 1000)
   expect_equal(d$format, "HH:mm:ss")
-  expect_match(paste(as.character(ui), collapse = ""), "<el-countdown", fixed = TRUE)
+  expect_match(
+    paste(as.character(ui), collapse = ""),
+    "<el-countdown",
+    fixed = TRUE
+  )
 })
 
 test_that("el_countdown forwards finish, and throttles change to once a second", {

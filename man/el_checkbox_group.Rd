@@ -139,7 +139,7 @@ if (interactive()) {
   ui <- el_page(
     el_checkbox_group(
       "cb1",
-      choices  = c("Apple" = "apple", "Banana" = "banana"),
+      choices = c("Apple" = "apple", "Banana" = "banana"),
       selected = "apple"
     ),
     verbatimTextOutput("selected")
@@ -149,5 +149,4 @@ if (interactive()) {
   }
   shinyApp(ui, server)
 }
-
 }

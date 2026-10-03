@@ -54,40 +54,44 @@
 #'   shinyApp(ui, server)
 #' }
 #' @export
-el_infinite_scroll <- function(id = NULL,
-                               ...,
-                               height = "300px",
-                               disabled = NULL,
-                               delay = NULL,
-                               distance = NULL,
-                               immediate = NULL,
-                               width = NULL,
-                               slots   = NULL,
-                               session = NULL) {
+el_infinite_scroll <- function(
+  id = NULL,
+  ...,
+  height = "300px",
+  disabled = NULL,
+  delay = NULL,
+  distance = NULL,
+  immediate = NULL,
+  width = NULL,
+  slots = NULL,
+  session = NULL
+) {
   # Each piece of content is absorbed on its own, so several components
   # may sit in the same scrolling area.
   inners <- lapply(list(...), .el_absorb)
 
-  if (is.null(id)) id <- paste0("el_infinite_scroll_", uuid::UUIDgenerate())
+  if (is.null(id)) {
+    id <- paste0("el_infinite_scroll_", uuid::UUIDgenerate())
+  }
   ns_id <- .el_ui_id(id, session)
 
   attrs <- list(
-    "v-infinite-scroll"           = "handleLoad",
-    ":infinite-scroll-disabled"   = "scrollDisabled",
-    ":infinite-scroll-delay"      = .el_optional_bind("scrollDelay"),
-    ":infinite-scroll-distance"   = .el_optional_bind("scrollDistance"),
-    ":infinite-scroll-immediate"  = .el_optional_bind("scrollImmediate"),
+    "v-infinite-scroll" = "handleLoad",
+    ":infinite-scroll-disabled" = "scrollDisabled",
+    ":infinite-scroll-delay" = .el_optional_bind("scrollDelay"),
+    ":infinite-scroll-distance" = .el_optional_bind("scrollDistance"),
+    ":infinite-scroll-immediate" = .el_optional_bind("scrollImmediate"),
     style = paste0("overflow: auto; height: ", shiny::validateCssUnit(height))
   )
 
   own <- list(
     markup = NULL,
     data = list(
-      scrollDisabled  = if (is.null(disabled)) FALSE else disabled,
-      scrollDelay     = .el_or_na(delay),
-      scrollDistance  = .el_or_na(distance),
+      scrollDisabled = if (is.null(disabled)) FALSE else disabled,
+      scrollDelay = .el_or_na(delay),
+      scrollDistance = .el_or_na(distance),
       scrollImmediate = .el_or_na(immediate),
-      scrollCount     = 0L
+      scrollCount = 0L
     ),
     methods = list(
       handleLoad = JS(sprintf(
@@ -95,20 +99,23 @@ el_infinite_scroll <- function(id = NULL,
         ns_id
       ))
     ),
-    watch = list(), computed = list(), mounted = NULL, dependencies = list()
+    watch = list(),
+    computed = list(),
+    mounted = NULL,
+    dependencies = list()
   )
   merged <- do.call(.el_absorb_merge, c(list(own), inners))
 
   el_widget(
-    id       = ns_id,
-    markup   = htmltools::tag("div", c(attrs, merged$markups[-1])),
-    data     = merged$data,
-    methods  = merged$methods,
-    watch    = merged$watch,
+    id = ns_id,
+    markup = htmltools::tag("div", c(attrs, merged$markups[-1])),
+    data = merged$data,
+    methods = merged$methods,
+    watch = merged$watch,
     computed = merged$computed,
-    mounted  = merged$mounted,
-    width    = width,
-    slots      = slots,
+    mounted = merged$mounted,
+    width = width,
+    slots = slots,
     dependency = merged$dependencies
   )
 }
@@ -135,17 +142,26 @@ el_infinite_scroll <- function(id = NULL,
 #'   })
 #' }
 #' @export
-update_el_infinite_scroll <- function(session = shiny::getDefaultReactiveDomain(), id, disabled = NULL,
-                                      delay = NULL, distance = NULL) {
+update_el_infinite_scroll <- function(
+  session = shiny::getDefaultReactiveDomain(),
+  id,
+  disabled = NULL,
+  delay = NULL,
+  distance = NULL
+) {
   .el_check_session(session)
   ns_id <- session$ns(id)
   msg <- list(id = ns_id)
   # The area's fields carry a prefix, kept apart from its content's
-  if (!is.null(disabled)) msg$scrollDisabled <- disabled
-  if (!is.null(delay))    msg$scrollDelay    <- delay
-  if (!is.null(distance)) msg$scrollDistance <- distance
+  if (!is.null(disabled)) {
+    msg$scrollDisabled <- disabled
+  }
+  if (!is.null(delay)) {
+    msg$scrollDelay <- delay
+  }
+  if (!is.null(distance)) {
+    msg$scrollDistance <- distance
+  }
   .el_send_update(session, msg)
   invisible(NULL)
 }
-
-

@@ -56,39 +56,46 @@
 #'   id = "banner",
 #'   height = "200px",
 #'   items = list(
-#'     list(name = "one",   content = shiny::tags$h3("First slide")),
-#'     list(name = "two",   content = shiny::tags$h3("Second slide")),
+#'     list(name = "one", content = shiny::tags$h3("First slide")),
+#'     list(name = "two", content = shiny::tags$h3("Second slide")),
 #'     list(name = "three", content = shiny::tags$h3("Third slide"))
 #'   )
 #' )
 #'
 #' # Card layout, switching on click rather than hover
 #' el_carousel(
-#'   id = "cards", type = "card", trigger = "click", height = "180px",
+#'   id = "cards",
+#'   type = "card",
+#'   trigger = "click",
+#'   height = "180px",
 #'   items = lapply(1:4, function(i) list(content = paste("Card", i)))
 #' )
-el_carousel <- function(id = NULL,
-                        items = list(),
-                        height = "300px",
-                        initial_index = 0,
-                        autoplay = TRUE,
-                        interval = 3000,
-                        trigger = "hover",
-                        indicator_position = NULL,
-                        arrow = "hover",
-                        type = NULL,
-                        loop = TRUE,
-                        direction = "horizontal",
-                        card_scale = NULL,
-                        motion_blur = NULL,
-                        pause_on_hover = NULL,
-                        width   = NULL,
-                        slots   = NULL,
-                        session = NULL) {
+el_carousel <- function(
+  id = NULL,
+  items = list(),
+  height = "300px",
+  initial_index = 0,
+  autoplay = TRUE,
+  interval = 3000,
+  trigger = "hover",
+  indicator_position = NULL,
+  arrow = "hover",
+  type = NULL,
+  loop = TRUE,
+  direction = "horizontal",
+  card_scale = NULL,
+  motion_blur = NULL,
+  pause_on_hover = NULL,
+  width = NULL,
+  slots = NULL,
+  session = NULL
+) {
   .el_check_items(items, "items", c("content", "name"))
   .el_check_choices("el_carousel", environment())
-  if (is.null(id)) id <- paste0("el_carousel_", uuid::UUIDgenerate())
-  ns_id        <- .el_ui_id(id, session)
+  if (is.null(id)) {
+    id <- paste0("el_carousel_", uuid::UUIDgenerate())
+  }
+  ns_id <- .el_ui_id(id, session)
   container_id <- paste0(ns_id, "_container")
 
   # Slides are generated in R rather than with v-for so their content can be
@@ -98,88 +105,126 @@ el_carousel <- function(id = NULL,
   inners <- lapply(items, function(item) .el_absorb(item$content))
 
   carousel_attrs <- list(
-    ref                    = "carousel",
-    ":height"              = "height",
-    ":initial-index"       = "initialIndex",
-    ":autoplay"            = "autoplay",
-    ":interval"            = "interval",
-    ":trigger"             = "trigger",
-    ":arrow"               = "arrow",
-    ":loop"                = "loop",
-    ":direction"           = "direction",
-    ":indicator-position"  = .el_optional_bind("indicatorPosition"),
-    ":type"                = .el_optional_bind("carouselType"),
-    "@change"              = "handleChange"
+    ref = "carousel",
+    ":height" = "height",
+    ":initial-index" = "initialIndex",
+    ":autoplay" = "autoplay",
+    ":interval" = "interval",
+    ":trigger" = "trigger",
+    ":arrow" = "arrow",
+    ":loop" = "loop",
+    ":direction" = "direction",
+    ":indicator-position" = .el_optional_bind("indicatorPosition"),
+    ":type" = .el_optional_bind("carouselType"),
+    "@change" = "handleChange"
   )
 
-  names_vec <- vapply(items, function(item) {
-    if (is.null(item$name)) "" else as.character(item$name)
-  }, character(1))
+  names_vec <- vapply(
+    items,
+    function(item) {
+      if (is.null(item$name)) "" else as.character(item$name)
+    },
+    character(1)
+  )
 
   vue_data <- list(
-    height            = height,
-    initialIndex      = initial_index,
-    autoplay          = autoplay,
-    interval          = interval,
-    trigger           = trigger,
-    arrow             = arrow,
-    loop              = loop,
-    direction         = direction,
-    indicatorPosition = if (is.null(indicator_position)) NA else indicator_position,
-    carouselType      = if (is.null(type)) NA else type,
-    itemNames         = as.list(names_vec),
-    active            = initial_index,
-    activeName        = if (length(names_vec) > initial_index + 1L) {
+    height = height,
+    initialIndex = initial_index,
+    autoplay = autoplay,
+    interval = interval,
+    trigger = trigger,
+    arrow = arrow,
+    loop = loop,
+    direction = direction,
+    indicatorPosition = if (is.null(indicator_position)) {
+      NA
+    } else {
+      indicator_position
+    },
+    carouselType = if (is.null(type)) NA else type,
+    itemNames = as.list(names_vec),
+    active = initial_index,
+    activeName = if (length(names_vec) > initial_index + 1L) {
       names_vec[initial_index + 1L]
     } else {
       ""
     }
   )
 
-  own <- list(markup = NULL, data = vue_data, methods = list(),
-              watch = list(), computed = list(), dependencies = list(),
-              mounted = .el_mounted_init(stats::setNames(
-                c("active", "activeName"), paste0(ns_id, c("", "_name")))))
+  own <- list(
+    markup = NULL,
+    data = vue_data,
+    methods = list(),
+    watch = list(),
+    computed = list(),
+    dependencies = list(),
+    mounted = .el_mounted_init(stats::setNames(
+      c("active", "activeName"),
+      paste0(ns_id, c("", "_name"))
+    ))
+  )
   own$methods <- list(
-      handleChange = JS(sprintf(
-        paste0(
-          "function(index) { var self = this; self.active = index; ",
-          "self.activeName = self.itemNames[index] || ''; ",
-          "window.Shiny && Shiny.setInputValue && Shiny.setInputValue('%1$s', index); ",
-          "window.Shiny && Shiny.setInputValue && Shiny.setInputValue('%1$s_name', self.activeName); }"
-        ), ns_id
-      ))
+    handleChange = JS(sprintf(
+      paste0(
+        "function(index) { var self = this; self.active = index; ",
+        "self.activeName = self.itemNames[index] || ''; ",
+        "window.Shiny && Shiny.setInputValue && Shiny.setInputValue('%1$s', index); ",
+        "window.Shiny && Shiny.setInputValue && Shiny.setInputValue('%1$s_name', self.activeName); }"
+      ),
+      ns_id
+    ))
   )
   merged <- do.call(.el_absorb_merge, c(list(own), inners))
 
-  item_tags <- Map(function(item, content) {
-    # name lets setActiveItem() pick a slide by name; label is shown on its
-    # indicator
-    attrs <- list()
-    if (!is.null(item$name))  attrs$name  <- item$name
-    if (!is.null(item$label)) attrs$label <- item$label
-    htmltools::tag("el-carousel-item", c(attrs, list(content)))
-  }, items, merged$markups[-1])
+  item_tags <- Map(
+    function(item, content) {
+      # name lets setActiveItem() pick a slide by name; label is shown on its
+      # indicator
+      attrs <- list()
+      if (!is.null(item$name)) {
+        attrs$name <- item$name
+      }
+      if (!is.null(item$label)) {
+        attrs$label <- item$label
+      }
+      htmltools::tag("el-carousel-item", c(attrs, list(content)))
+    },
+    items,
+    merged$markups[-1]
+  )
 
   el_widget(
-    props = .el_props(prefix = "carousel", list(
-      card_scale = card_scale,
-      motion_blur = motion_blur,
-      pause_on_hover = pause_on_hover)),
-    id       = ns_id,
-    markup   = htmltools::tag("el-carousel", c(carousel_attrs, unname(item_tags))),
-    data     = merged$data,
+    props = .el_props(
+      prefix = "carousel",
+      list(
+        card_scale = card_scale,
+        motion_blur = motion_blur,
+        pause_on_hover = pause_on_hover
+      )
+    ),
+    id = ns_id,
+    markup = htmltools::tag(
+      "el-carousel",
+      c(carousel_attrs, unname(item_tags))
+    ),
+    data = merged$data,
     # update_el_carousel(active =) moves the carousel rather than set a field
-    methods  = c(merged$methods, list(shinyVueReceive = JS(paste0(
-      "function(d) { if ('active' in d) { ",
-      "if (this.$refs.carousel) this.$refs.carousel.setActiveItem(d.active); ",
-      "delete d.active; } return d; }")))),
-    watch    = merged$watch,
+    methods = c(
+      merged$methods,
+      list(
+        shinyVueReceive = JS(paste0(
+          "function(d) { if ('active' in d) { ",
+          "if (this.$refs.carousel) this.$refs.carousel.setActiveItem(d.active); ",
+          "delete d.active; } return d; }"
+        ))
+      )
+    ),
+    watch = merged$watch,
     computed = merged$computed,
     # The carousel's own hook and those of any component on a slide
-    mounted  = merged$mounted,
-    width      = width,
-    slots      = slots,
+    mounted = merged$mounted,
+    width = width,
+    slots = slots,
     dependency = merged$dependencies
   )
 }
@@ -201,17 +246,26 @@ el_carousel <- function(id = NULL,
 #'   })
 #' }
 #' @export
-update_el_carousel <- function(session = shiny::getDefaultReactiveDomain(), id,
-                               active = NULL,
-                               autoplay = NULL,
-                               interval = NULL) {
+update_el_carousel <- function(
+  session = shiny::getDefaultReactiveDomain(),
+  id,
+  active = NULL,
+  autoplay = NULL,
+  interval = NULL
+) {
   .el_check_session(session)
   msg <- list(id = session$ns(id))
   # `initial-index` is read once at mount and has no watcher, so moving to a
   # slide is a method call; the handler does that part.
-  if (!is.null(active))   msg$active   <- active
-  if (!is.null(autoplay)) msg$autoplay <- autoplay
-  if (!is.null(interval)) msg$interval <- interval
+  if (!is.null(active)) {
+    msg$active <- active
+  }
+  if (!is.null(autoplay)) {
+    msg$autoplay <- autoplay
+  }
+  if (!is.null(interval)) {
+    msg$interval <- interval
+  }
   .el_send_update(session, msg)
   invisible(NULL)
 }

@@ -42,11 +42,21 @@
 #'   library(shiny.element)
 #'
 #'   ui <- el_page(
-#'     el_tree("tree", show_checkbox = TRUE, node_key = "id", checked = "apple",
-#'             default_expand_all = TRUE,
-#'             data = list(list(id = "fruit", label = "Fruit", children = list(
-#'               list(id = "apple", label = "Apple"),
-#'               list(id = "pear", label = "Pear"))))),
+#'     el_tree(
+#'       "tree",
+#'       show_checkbox = TRUE,
+#'       node_key = "id",
+#'       checked = "apple",
+#'       default_expand_all = TRUE,
+#'       data = list(list(
+#'         id = "fruit",
+#'         label = "Fruit",
+#'         children = list(
+#'           list(id = "apple", label = "Apple"),
+#'           list(id = "pear", label = "Pear")
+#'         )
+#'       ))
+#'     ),
 #'     el_button("clear", "Clear the ticks"),
 #'     el_button("ask", "Which are ticked?"),
 #'     verbatimTextOutput("answer")
@@ -68,27 +78,42 @@
 #'   shinyApp(ui, server)
 #' }
 #' @export
-el_call <- function(session = shiny::getDefaultReactiveDomain(), id, method, args = list(), result = TRUE,
-                    component = NULL) {
+el_call <- function(
+  session = shiny::getDefaultReactiveDomain(),
+  id,
+  method,
+  args = list(),
+  result = TRUE,
+  component = NULL
+) {
   .el_check_session(session)
   if (!is.character(method) || length(method) != 1L || !nzchar(method)) {
     stop("`method` must be a single method name.", call. = FALSE)
   }
   if (!grepl("^[A-Za-z][A-Za-z0-9_]*$", method)) {
-    stop("`method` must be a plain method name, not ", sQuote(method), ".",
-         call. = FALSE)
+    stop(
+      "`method` must be a plain method name, not ",
+      sQuote(method),
+      ".",
+      call. = FALSE
+    )
   }
-  if (!is.list(args)) args <- list(args)
+  if (!is.list(args)) {
+    args <- list(args)
+  }
 
   ns_id <- session$ns(id)
-  session$sendCustomMessage("shinyVueCall", list(
-    id        = ns_id,
-    method    = method,
-    # Unnamed, so jsonlite writes an array and the arguments stay positional
-    args      = unname(args),
-    component = component,
-    input     = if (isTRUE(result)) paste0(ns_id, "_", .el_snake_case(method))
-  ))
+  session$sendCustomMessage(
+    "shinyVueCall",
+    list(
+      id = ns_id,
+      method = method,
+      # Unnamed, so jsonlite writes an array and the arguments stay positional
+      args = unname(args),
+      component = component,
+      input = if (isTRUE(result)) paste0(ns_id, "_", .el_snake_case(method))
+    )
+  )
   invisible(NULL)
 }
 
@@ -136,4 +161,3 @@ el_upload_file <- function(name) {
   stopifnot(is.character(name), length(name) == 1)
   list(.ref = "file", value = name)
 }
-

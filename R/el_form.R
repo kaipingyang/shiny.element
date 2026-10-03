@@ -17,27 +17,30 @@
 #' `option` is the child tag for the choice-based controls.
 #' @keywords internal
 .el_form_tags <- list(
-  "input"          = list(tag = "el-input"),
+  "input" = list(tag = "el-input"),
   # el-input's own `type`, which el_form_field()'s `type` cannot carry
-  "textarea"       = list(tag = "el-input", props = list(type = "textarea")),
-  "password"       = list(tag = "el-input", props = list(type = "password", showPassword = TRUE)),
-  "input-number"   = list(tag = "el-input-number"),
-  "select"         = list(tag = "el-select",         option = "el-option"),
-  "radio-group"    = list(tag = "el-radio-group",    option = "el-radio"),
+  "textarea" = list(tag = "el-input", props = list(type = "textarea")),
+  "password" = list(
+    tag = "el-input",
+    props = list(type = "password", showPassword = TRUE)
+  ),
+  "input-number" = list(tag = "el-input-number"),
+  "select" = list(tag = "el-select", option = "el-option"),
+  "radio-group" = list(tag = "el-radio-group", option = "el-radio"),
   "checkbox-group" = list(tag = "el-checkbox-group", option = "el-checkbox"),
-  "switch"         = list(tag = "el-switch"),
-  "slider"         = list(tag = "el-slider"),
-  "date-picker"    = list(tag = "el-date-picker"),
-  "time-picker"    = list(tag = "el-time-picker"),
-  "rate"           = list(tag = "el-rate"),
-  "cascader"       = list(tag = "el-cascader"),
+  "switch" = list(tag = "el-switch"),
+  "slider" = list(tag = "el-slider"),
+  "date-picker" = list(tag = "el-date-picker"),
+  "time-picker" = list(tag = "el-time-picker"),
+  "rate" = list(tag = "el-rate"),
+  "cascader" = list(tag = "el-cascader"),
   "cascader-panel" = list(tag = "el-cascader-panel"),
-  "color-picker"   = list(tag = "el-color-picker"),
-  "time-select"    = list(tag = "el-time-select"),
-  "autocomplete"   = list(tag = "el-autocomplete"),
-  "transfer"       = list(tag = "el-transfer"),
+  "color-picker" = list(tag = "el-color-picker"),
+  "time-select" = list(tag = "el-time-select"),
+  "autocomplete" = list(tag = "el-autocomplete"),
+  "transfer" = list(tag = "el-transfer"),
   # One box, true or false -- "I agree to the terms"
-  "checkbox"       = list(tag = "el-checkbox")
+  "checkbox" = list(tag = "el-checkbox")
 )
 
 #' Empty value for a field type
@@ -48,16 +51,17 @@
 #' @return The type's empty value.
 #' @keywords internal
 .el_form_empty_value <- function(type) {
-  switch(type,
-    "input-number"   = 0,
-    "slider"         = 0,
-    "rate"           = 0,
-    "switch"         = FALSE,
-    "checkbox"       = FALSE,
+  switch(
+    type,
+    "input-number" = 0,
+    "slider" = 0,
+    "rate" = 0,
+    "switch" = FALSE,
+    "checkbox" = FALSE,
     "checkbox-group" = list(),
-    "cascader"       = list(),
+    "cascader" = list(),
     "cascader-panel" = list(),
-    "transfer"       = list(),
+    "transfer" = list(),
     ""
   )
 }
@@ -83,7 +87,9 @@
 #' @return A list of `list(label=, value=, text=)` items.
 #' @keywords internal
 .el_form_options <- function(choices, option_tag) {
-  if (is.null(choices)) return(NULL)
+  if (is.null(choices)) {
+    return(NULL)
+  }
 
   lapply(.el_normalize_choices(choices), function(opt) {
     if (identical(option_tag, "el-option")) {
@@ -100,9 +106,15 @@
 #' @return An unnamed list of rules, or `NULL`.
 #' @keywords internal
 .el_normalize_rules <- function(rules) {
-  if (is.null(rules) || !length(rules)) return(NULL)
+  if (is.null(rules) || !length(rules)) {
+    return(NULL)
+  }
   # A single el_rule() is a named list; several are an unnamed list of them.
-  if (!is.null(names(rules)) && any(nzchar(names(rules)))) list(rules) else rules
+  if (!is.null(names(rules)) && any(nzchar(names(rules)))) {
+    list(rules)
+  } else {
+    rules
+  }
 }
 
 #' Declare a validation rule
@@ -135,40 +147,63 @@
 #' el_rule(type = "email", message = "Not a valid email", trigger = "blur")
 #' el_rule(type = "enum", enum = c("a", "b"), message = "a or b")
 #' # Element's custom validator
-#' el_rule(validator = JS(
-#'   "function(rule, value, callback) {",
-#'   "  value % 2 === 0 ? callback() : callback(new Error('An even number'));",
-#'   "}"), trigger = "change")
-el_rule <- function(required = NULL,
-                    min = NULL,
-                    max = NULL,
-                    len = NULL,
-                    pattern = NULL,
-                    type = NULL,
-                    message = NULL,
-                    trigger = "blur",
-                    enum = NULL,
-                    whitespace = NULL,
-                    validator = NULL,
-                    transform = NULL) {
+#' el_rule(
+#'   validator = JS(
+#'     "function(rule, value, callback) {",
+#'     "  value % 2 === 0 ? callback() : callback(new Error('An even number'));",
+#'     "}"
+#'   ),
+#'   trigger = "change"
+#' )
+el_rule <- function(
+  required = NULL,
+  min = NULL,
+  max = NULL,
+  len = NULL,
+  pattern = NULL,
+  type = NULL,
+  message = NULL,
+  trigger = "blur",
+  enum = NULL,
+  whitespace = NULL,
+  validator = NULL,
+  transform = NULL
+) {
   if (!is.null(type)) {
-    type <- match.arg(type, c("string", "number", "boolean", "method", "regexp",
-                              "integer", "float", "array", "object", "enum",
-                              "date", "url", "hex", "email", "any"))
+    type <- match.arg(
+      type,
+      c(
+        "string",
+        "number",
+        "boolean",
+        "method",
+        "regexp",
+        "integer",
+        "float",
+        "array",
+        "object",
+        "enum",
+        "date",
+        "url",
+        "hex",
+        "email",
+        "any"
+      )
+    )
   }
   rule <- list(
-    required   = required,
-    min        = min,
-    max        = max,
-    len        = len,
-    pattern    = pattern,
-    type       = type,
-    enum       = if (!is.null(enum)) as.list(enum),
+    required = required,
+    min = min,
+    max = max,
+    len = len,
+    pattern = pattern,
+    type = type,
+    enum = if (!is.null(enum)) as.list(enum),
     whitespace = whitespace,
-    validator  = validator,
-    transform  = transform,
-    message    = message,
-    trigger    = if (length(trigger) > 1) as.list(trigger) else trigger
+    validator = validator,
+    transform = transform,
+    message = message,
+    trigger = if (length(trigger) > 1) as.list(trigger) else trigger
   )
   rule[!vapply(rule, is.null, logical(1))]
 }
@@ -202,67 +237,114 @@ el_rule <- function(required = NULL,
 #' @return A field declaration, for [el_form()].
 #' @export
 #' @examples
-#' el_form_field("name", "input", label = "Name",
-#'               rules = el_rule(required = TRUE, message = "Required"))
-#' el_form_field("age", "input-number", label = "Age", value = 18,
-#'               min = 0, max = 150)
-#' el_form_field("city", "select", label = "City",
-#'               choices = c(Beijing = "bj", Shanghai = "sh"))
-el_form_field <- function(prop,
-                          type = "input",
-                          label = NULL,
-                          value = NULL,
-                          choices = NULL,
-                          rules = NULL,
-                          ...) {
+#' el_form_field(
+#'   "name",
+#'   "input",
+#'   label = "Name",
+#'   rules = el_rule(required = TRUE, message = "Required")
+#' )
+#' el_form_field(
+#'   "age",
+#'   "input-number",
+#'   label = "Age",
+#'   value = 18,
+#'   min = 0,
+#'   max = 150
+#' )
+#' el_form_field(
+#'   "city",
+#'   "select",
+#'   label = "City",
+#'   choices = c(Beijing = "bj", Shanghai = "sh")
+#' )
+el_form_field <- function(
+  prop,
+  type = "input",
+  label = NULL,
+  value = NULL,
+  choices = NULL,
+  rules = NULL,
+  ...
+) {
   spec <- .el_form_tags[[type]]
   if (is.null(spec)) {
-    stop("Unknown field type: ", type, ". One of: ",
-         paste(names(.el_form_tags), collapse = ", "), call. = FALSE)
+    stop(
+      "Unknown field type: ",
+      type,
+      ". One of: ",
+      paste(names(.el_form_tags), collapse = ", "),
+      call. = FALSE
+    )
   }
 
   props <- list(...)
-  if (length(props)) names(props) <- .el_camel(names(props))
+  if (length(props)) {
+    names(props) <- .el_camel(names(props))
+  }
   # el-form-item's own props go on the item, not the control: the template
   # reads f.required, f.error, ... off the field
-  item_props <- c("required", "error", "labelWidth", "size", "inlineMessage",
-                  "showMessage", "labelHtml", "errorHtml", "labelPosition",
-                  "validateStatus", "for")
+  item_props <- c(
+    "required",
+    "error",
+    "labelWidth",
+    "size",
+    "inlineMessage",
+    "showMessage",
+    "labelHtml",
+    "errorHtml",
+    "labelPosition",
+    "validateStatus",
+    "for"
+  )
   item <- props[intersect(names(props), item_props)]
   props <- props[setdiff(names(props), item_props)]
   # v-html takes a string: a tag would arrive as its JSON and show as text
   for (key in intersect(names(item), c("labelHtml", "errorHtml"))) {
     item[[key]] <- .el_html_string(item[[key]], .el_snake_case(key))
   }
-  if (!is.null(spec$props)) props <- utils::modifyList(spec$props, props)
+  if (!is.null(spec$props)) {
+    props <- utils::modifyList(spec$props, props)
+  }
   if (identical(type, "autocomplete") && is.null(props$fetchSuggestions)) {
     # Element's autocomplete asks a function for its suggestions; this one
     # filters the choices, as el_autocomplete() does
-    words <- vapply(.el_normalize_choices(choices), function(o) as.character(o$value), "")
-    props$fetchSuggestions <- JS(sprintf(paste0(
-      "function(q, cb) { var all = %s; q = (q || '').toLowerCase(); ",
-      "cb(all.filter(function(w) { return !q || w.toLowerCase().indexOf(q) === 0; })",
-      ".map(function(w) { return {value: w}; })); }"),
-      jsonlite::toJSON(unname(words))))
+    words <- vapply(
+      .el_normalize_choices(choices),
+      function(o) as.character(o$value),
+      ""
+    )
+    props$fetchSuggestions <- JS(sprintf(
+      paste0(
+        "function(q, cb) { var all = %s; q = (q || '').toLowerCase(); ",
+        "cb(all.filter(function(w) { return !q || w.toLowerCase().indexOf(q) === 0; })",
+        ".map(function(w) { return {value: w}; })); }"
+      ),
+      jsonlite::toJSON(unname(words))
+    ))
     choices <- NULL
   }
 
-  field <- c(list(
-    prop    = prop,
-    label   = label,
-    tag     = spec$tag,
-    props   = props), item, list(
-    value   = if (is.null(value)) .el_form_empty_value(type) else value,
-    rules   = .el_normalize_rules(rules)
-  ))
+  field <- c(
+    list(
+      prop = prop,
+      label = label,
+      tag = spec$tag,
+      props = props
+    ),
+    item,
+    list(
+      value = if (is.null(value)) .el_form_empty_value(type) else value,
+      rules = .el_normalize_rules(rules)
+    )
+  )
   if (identical(type, "checkbox")) {
     # One box: Shiny's checkboxInput() label is the box's own text
-    field$text  <- label
+    field$text <- label
     field$label <- NULL
   }
   if (!is.null(spec$option)) {
     field$optionTag <- spec$option
-    field$options   <- .el_form_options(choices, spec$option)
+    field$options <- .el_form_options(choices, spec$option)
   }
   field
 }
@@ -336,14 +418,31 @@ el_form_field <- function(prop,
 #' el_form(
 #'   id = "signup",
 #'   label_width = "100px",
-#'   el_form_field("name", "input", label = "Name",
-#'                 rules = el_rule(required = TRUE, message = "Name is required")),
-#'   el_form_field("age", "input-number", label = "Age", value = 18,
-#'                 min = 0, max = 150),
-#'   el_form_field("city", "select", label = "City",
-#'                 choices = c(Beijing = "bj", Shanghai = "sh"),
-#'                 rules = el_rule(required = TRUE, message = "Pick a city",
-#'                                 trigger = "change"))
+#'   el_form_field(
+#'     "name",
+#'     "input",
+#'     label = "Name",
+#'     rules = el_rule(required = TRUE, message = "Name is required")
+#'   ),
+#'   el_form_field(
+#'     "age",
+#'     "input-number",
+#'     label = "Age",
+#'     value = 18,
+#'     min = 0,
+#'     max = 150
+#'   ),
+#'   el_form_field(
+#'     "city",
+#'     "select",
+#'     label = "City",
+#'     choices = c(Beijing = "bj", Shanghai = "sh"),
+#'     rules = el_rule(
+#'       required = TRUE,
+#'       message = "Pick a city",
+#'       trigger = "change"
+#'     )
+#'   )
 #' )
 #'
 #' if (interactive()) {
@@ -351,79 +450,108 @@ el_form_field <- function(prop,
 #'   library(shiny.element)
 #'   ui <- el_page(
 #'     el_form(
-#'       id = "signup", label_width = "100px", reset_label = "Reset",
-#'       el_form_field("name", "input", label = "Name",
-#'                     rules = el_rule(required = TRUE, message = "Required")),
-#'       el_form_field("email", "input", label = "Email",
-#'                     rules = el_rule(type = "email", message = "Invalid email"))
+#'       id = "signup",
+#'       label_width = "100px",
+#'       reset_label = "Reset",
+#'       el_form_field(
+#'         "name",
+#'         "input",
+#'         label = "Name",
+#'         rules = el_rule(required = TRUE, message = "Required")
+#'       ),
+#'       el_form_field(
+#'         "email",
+#'         "input",
+#'         label = "Email",
+#'         rules = el_rule(type = "email", message = "Invalid email")
+#'       )
 #'     ),
 #'     verbatimTextOutput("out")
 #'   )
 #'   server <- function(input, output, session) {
 #'     output$out <- renderPrint({
 #'       req(input$signup_submit)
-#'       if (!isTRUE(input$signup_valid)) return("Please fix the errors above")
+#'       if (!isTRUE(input$signup_valid)) {
+#'         return("Please fix the errors above")
+#'       }
 #'       input$signup
 #'     })
 #'   }
 #'   shinyApp(ui, server)
 #' }
-el_form <- function(...,
-                    id = NULL,
-                    label_width = "100px",
-                    label_position = "right",
-                    inline = FALSE,
-                    size = NULL,
-                    submit_label = "Submit",
-                    reset_label = NULL,
-                    disabled = NULL,
-                    show_message = NULL,
-                    inline_message = NULL,
-                    status_icon = NULL,
-                    hide_required_asterisk = NULL,
-                    label_suffix = NULL,
-                    validate_on_rule_change = NULL,
-                    require_asterisk_position = NULL,
-                    scroll_into_view_options = NULL,
-                    scroll_to_error = NULL,
-                    width   = NULL,
-                    slots   = NULL,
-                    session = NULL) {
+el_form <- function(
+  ...,
+  id = NULL,
+  label_width = "100px",
+  label_position = "right",
+  inline = FALSE,
+  size = NULL,
+  submit_label = "Submit",
+  reset_label = NULL,
+  disabled = NULL,
+  show_message = NULL,
+  inline_message = NULL,
+  status_icon = NULL,
+  hide_required_asterisk = NULL,
+  label_suffix = NULL,
+  validate_on_rule_change = NULL,
+  require_asterisk_position = NULL,
+  scroll_into_view_options = NULL,
+  scroll_to_error = NULL,
+  width = NULL,
+  slots = NULL,
+  session = NULL
+) {
   .el_check_choices("el_form", environment())
-  if (is.null(id)) id <- paste0("el_form_", uuid::UUIDgenerate())
-  ns_id        <- .el_ui_id(id, session)
+  if (is.null(id)) {
+    id <- paste0("el_form_", uuid::UUIDgenerate())
+  }
+  ns_id <- .el_ui_id(id, session)
   container_id <- paste0(ns_id, "_container")
 
   fields <- list(...)
-  if (!length(fields)) fields <- list()
+  if (!length(fields)) {
+    fields <- list()
+  }
 
   model <- stats::setNames(
     lapply(fields, function(f) f$value),
     vapply(fields, function(f) f$prop, character(1))
   )
-  rules <- Filter(Negate(is.null), stats::setNames(
-    lapply(fields, function(f) f$rules),
-    vapply(fields, function(f) f$prop, character(1))
-  ))
+  rules <- Filter(
+    Negate(is.null),
+    stats::setNames(
+      lapply(fields, function(f) f$rules),
+      vapply(fields, function(f) f$prop, character(1))
+    )
+  )
   # `value` and `rules` live on the form, not on the control.
-  fields <- lapply(fields, function(f) { f$value <- NULL; f$rules <- NULL; f })
+  fields <- lapply(fields, function(f) {
+    f$value <- NULL
+    f$rules <- NULL
+    f
+  })
 
   form_attrs <- list(
-    ":model"          = "model",
-    ":rules"          = "rules",
-    ref               = "form",
-    ":label-width"    = "labelWidth",
+    ":model" = "model",
+    ":rules" = "rules",
+    ref = "form",
+    ":label-width" = "labelWidth",
     ":label-position" = "labelPosition",
-    ":inline"         = "inline"
+    ":inline" = "inline"
   )
   form_attrs[[":size"]] <- .el_optional_bind("size")
   form_attrs[[":disabled"]] <- .el_optional_bind("disabled")
   form_attrs[[":show-message"]] <- .el_optional_bind("showMessage")
   form_attrs[[":inline-message"]] <- .el_optional_bind("inlineMessage")
   form_attrs[[":status-icon"]] <- .el_optional_bind("statusIcon")
-  form_attrs[[":hide-required-asterisk"]] <- .el_optional_bind("hideRequiredAsterisk")
+  form_attrs[[":hide-required-asterisk"]] <- .el_optional_bind(
+    "hideRequiredAsterisk"
+  )
   form_attrs[[":label-suffix"]] <- .el_optional_bind("labelSuffix")
-  form_attrs[[":validate-on-rule-change"]] <- .el_optional_bind("validateOnRuleChange")
+  form_attrs[[":validate-on-rule-change"]] <- .el_optional_bind(
+    "validateOnRuleChange"
+  )
 
   # Forwarded to input$<id>_validate as list(prop, valid, message).
   events <- .el_event_bindings(ns_id, "validate")
@@ -431,27 +559,29 @@ el_form <- function(...,
   # One template for every control type. `component :is` dispatches on the tag
   # name, so adding a type means adding a row to .el_form_tags, not a branch.
   field_items <- htmltools::HTML(paste0(
-    paste0('<el-form-item v-for="f in fields" :key="f.prop" :prop="f.prop" ',
-           # Per-field props read off the field object: a field may carry
-           # required, rules, error, label-width or size of its own.
-           ':label="f.label" :required="f.required" :rules="f.rules" ',
-           ':error="f.error" :label-width="f.labelWidth" :size="f.size" ',
-           ':inline-message="f.inlineMessage" :show-message="f.showMessage" ',
-           ':label-position="f.labelPosition" :validate-status="f.validateStatus" ',
-           ':for="f.for">',
-           # A field may render its own label and error, from label_html and
-           # error_html in its definition. Inserted as markup, so pass only
-           # what you control.
-           '<template v-slot:label><span v-if="f.labelHtml" v-html="f.labelHtml">',
-           '</span><span v-else>{{f.label}}</span></template>',
-           # Element's own error slot renders a div.el-form-item__error, and
-           # filling the slot replaces it -- so keep the class, or the message
-           # loses its styling and anything looking for it stops finding it.
-           '<template v-slot:error="scope">',
-           '<div class="el-form-item__error">',
-           '<span v-if="f.errorHtml" v-html="f.errorHtml"></span>',
-           '<span v-else>{{scope.error}}</span>',
-           '</div></template>'),
+    paste0(
+      '<el-form-item v-for="f in fields" :key="f.prop" :prop="f.prop" ',
+      # Per-field props read off the field object: a field may carry
+      # required, rules, error, label-width or size of its own.
+      ':label="f.label" :required="f.required" :rules="f.rules" ',
+      ':error="f.error" :label-width="f.labelWidth" :size="f.size" ',
+      ':inline-message="f.inlineMessage" :show-message="f.showMessage" ',
+      ':label-position="f.labelPosition" :validate-status="f.validateStatus" ',
+      ':for="f.for">',
+      # A field may render its own label and error, from label_html and
+      # error_html in its definition. Inserted as markup, so pass only
+      # what you control.
+      '<template v-slot:label><span v-if="f.labelHtml" v-html="f.labelHtml">',
+      '</span><span v-else>{{f.label}}</span></template>',
+      # Element's own error slot renders a div.el-form-item__error, and
+      # filling the slot replaces it -- so keep the class, or the message
+      # loses its styling and anything looking for it stops finding it.
+      '<template v-slot:error="scope">',
+      '<div class="el-form-item__error">',
+      '<span v-if="f.errorHtml" v-html="f.errorHtml"></span>',
+      '<span v-else>{{scope.error}}</span>',
+      '</div></template>'
+    ),
     '<component :is="f.tag" v-model="model[f.prop]" v-bind="f.props">',
     '<template v-if="f.text">{{ f.text }}</template>',
     '<component v-for="o in (f.options || [])" :is="f.optionTag" :key="o.label" ',
@@ -465,25 +595,29 @@ el_form <- function(...,
       '<el-form-item>',
       if (!is.null(submit_label)) {
         '<el-button type="primary" @click="handleSubmit">{{ submitLabel }}</el-button>'
-      } else "",
+      } else {
+        ""
+      },
       if (!is.null(reset_label)) {
         '<el-button @click="handleReset">{{ resetLabel }}</el-button>'
-      } else "",
+      } else {
+        ""
+      },
       '</el-form-item>'
     ))
   }
 
   vue_data <- list(
-    model         = model,
-    rules         = rules,
-    fields        = fields,
-    labelWidth    = label_width,
+    model = model,
+    rules = rules,
+    fields = fields,
+    labelWidth = label_width,
     labelPosition = label_position,
-    inline        = inline,
-    submitLabel   = if (is.null(submit_label)) "" else submit_label,
-    resetLabel    = if (is.null(reset_label)) "" else reset_label,
-    submitCount   = 0L,
-    valid         = FALSE
+    inline = inline,
+    submitLabel = if (is.null(submit_label)) "" else submit_label,
+    resetLabel = if (is.null(reset_label)) "" else reset_label,
+    submitCount = 0L,
+    valid = FALSE
   )
   vue_data$size <- .el_or_na(size)
   vue_data$disabled <- .el_or_na(disabled)
@@ -499,60 +633,70 @@ el_form <- function(...,
     props = .el_props(list(
       require_asterisk_position = require_asterisk_position,
       scroll_into_view_options = scroll_into_view_options,
-      scroll_to_error = scroll_to_error)),
-    id     = ns_id,
-    markup = htmltools::tag("el-form", c(form_attrs, list(field_items, buttons))),
-    data = vue_data,
-    methods = c(events$methods, list(
-      handleSubmit = JS(sprintf(
-        paste0(
-          "function() { var self = this; ",
-          "this.$refs.form.validate(function(ok) { ",
-          "self.submitCount++; self.valid = ok; ",
-          # The model and the verdict are set before the counter, so an
-          # observeEvent on the counter sees this submit's values.
-          "window.Shiny && Shiny.setInputValue && Shiny.setInputValue(%1$s, self.model); ",
-          "window.Shiny && Shiny.setInputValue && Shiny.setInputValue(%1$s + '_valid', ok); ",
-          "window.Shiny && Shiny.setInputValue && Shiny.setInputValue(%1$s + '_submit', self.submitCount); ",
-          "}); }"
-        ), js_id
-      )),
-      # update_el_form() and el_form_validate()/_reset()/_clear_validate()
-      shinyVueReceive = JS(paste0(
-        "function(d) { var self = this, action = d['.action']; delete d['.action']; ",
-        # merged key by key, so fields not mentioned keep their values
-        "if (d.model) { Object.keys(d.model).forEach(function(k) { ",
-        "self.model[k] = d.model[k]; }); delete d.model; } ",
-        # The whole field list: kept values stay, new fields start from
-        # their own, removed ones leave the model, rules travel with fields
-        "if (d['.fields']) { var model = {}, rules = {}; ",
-        "d['.fields'].forEach(function(f) { ",
-        "model[f.prop] = Object.prototype.hasOwnProperty.call(self.model, f.prop) ? ",
-        "self.model[f.prop] : f.value; if (f.rules) rules[f.prop] = f.rules; ",
-        "delete f.value; delete f.rules; }); ",
-        "self.model = model; self.rules = rules; self.fields = d['.fields']; ",
-        "delete d['.fields']; } ",
-        # Element's error prop on each field: the form item shows it at once
-        "if (d['.errors']) { Object.keys(d['.errors']).forEach(function(k) { ",
-        "self.fields.forEach(function(f, i) { if (f.prop === k) ",
-        "self.fields[i].error = d['.errors'][k] || ''; }); }); ",
-        "delete d['.errors']; } ",
-        "if (action === 'validate') self.handleSubmit(); ",
-        "else if (action === 'reset') self.handleReset(); ",
-        "else if (action === 'clearValidate') { ",
-        "if (self.$refs.form) self.$refs.form.clearValidate(d.props || undefined); ",
-        "delete d.props; } ",
-        "return d; }")),
-      handleReset = JS(sprintf(
-        paste0(
-          "function() { this.$refs.form.resetFields(); ",
-          "window.Shiny && Shiny.setInputValue && Shiny.setInputValue(%1$s, this.model); }"
-        ), js_id
-      ))
+      scroll_to_error = scroll_to_error
     )),
+    id = ns_id,
+    markup = htmltools::tag(
+      "el-form",
+      c(form_attrs, list(field_items, buttons))
+    ),
+    data = vue_data,
+    methods = c(
+      events$methods,
+      list(
+        handleSubmit = JS(sprintf(
+          paste0(
+            "function() { var self = this; ",
+            "this.$refs.form.validate(function(ok) { ",
+            "self.submitCount++; self.valid = ok; ",
+            # The model and the verdict are set before the counter, so an
+            # observeEvent on the counter sees this submit's values.
+            "window.Shiny && Shiny.setInputValue && Shiny.setInputValue(%1$s, self.model); ",
+            "window.Shiny && Shiny.setInputValue && Shiny.setInputValue(%1$s + '_valid', ok); ",
+            "window.Shiny && Shiny.setInputValue && Shiny.setInputValue(%1$s + '_submit', self.submitCount); ",
+            "}); }"
+          ),
+          js_id
+        )),
+        # update_el_form() and el_form_validate()/_reset()/_clear_validate()
+        shinyVueReceive = JS(paste0(
+          "function(d) { var self = this, action = d['.action']; delete d['.action']; ",
+          # merged key by key, so fields not mentioned keep their values
+          "if (d.model) { Object.keys(d.model).forEach(function(k) { ",
+          "self.model[k] = d.model[k]; }); delete d.model; } ",
+          # The whole field list: kept values stay, new fields start from
+          # their own, removed ones leave the model, rules travel with fields
+          "if (d['.fields']) { var model = {}, rules = {}; ",
+          "d['.fields'].forEach(function(f) { ",
+          "model[f.prop] = Object.prototype.hasOwnProperty.call(self.model, f.prop) ? ",
+          "self.model[f.prop] : f.value; if (f.rules) rules[f.prop] = f.rules; ",
+          "delete f.value; delete f.rules; }); ",
+          "self.model = model; self.rules = rules; self.fields = d['.fields']; ",
+          "delete d['.fields']; } ",
+          # Element's error prop on each field: the form item shows it at once
+          "if (d['.errors']) { Object.keys(d['.errors']).forEach(function(k) { ",
+          "self.fields.forEach(function(f, i) { if (f.prop === k) ",
+          "self.fields[i].error = d['.errors'][k] || ''; }); }); ",
+          "delete d['.errors']; } ",
+          "if (action === 'validate') self.handleSubmit(); ",
+          "else if (action === 'reset') self.handleReset(); ",
+          "else if (action === 'clearValidate') { ",
+          "if (self.$refs.form) self.$refs.form.clearValidate(d.props || undefined); ",
+          "delete d.props; } ",
+          "return d; }"
+        )),
+        handleReset = JS(sprintf(
+          paste0(
+            "function() { this.$refs.form.resetFields(); ",
+            "window.Shiny && Shiny.setInputValue && Shiny.setInputValue(%1$s, this.model); }"
+          ),
+          js_id
+        ))
+      )
+    ),
     mounted = .el_mounted_init(stats::setNames("model", ns_id)),
-    width      = width,
-    slots      = slots
+    width = width,
+    slots = slots
   )
 }
 
@@ -582,25 +726,40 @@ el_form <- function(...,
 #'   update_el_form(session, "signup", model = list(name = "Ada", age = 36))
 #'
 #'   # A check only the server can make
-#'   update_el_form(session, "signup", errors = list(email = "That address is taken"))
+#'   update_el_form(
+#'     session,
+#'     "signup",
+#'     errors = list(email = "That address is taken")
+#'   )
 #' }
-update_el_form <- function(session = shiny::getDefaultReactiveDomain(), id,
-                           model = NULL,
-                           rules = NULL,
-                           label_width = NULL,
-                           fields = NULL,
-                           errors = NULL) {
+update_el_form <- function(
+  session = shiny::getDefaultReactiveDomain(),
+  id,
+  model = NULL,
+  rules = NULL,
+  label_width = NULL,
+  fields = NULL,
+  errors = NULL
+) {
   .el_check_session(session)
   ns_id <- session$ns(id)
-  msg   <- list(id = ns_id)
+  msg <- list(id = ns_id)
 
-  if (!is.null(model)) msg$model <- model
+  if (!is.null(model)) {
+    msg$model <- model
+  }
   if (!is.null(rules)) {
     msg$rules <- lapply(rules, .el_normalize_rules)
   }
-  if (!is.null(label_width)) msg$labelWidth <- label_width
-  if (!is.null(fields)) msg$.fields <- unname(fields)
-  if (!is.null(errors)) msg$.errors <- as.list(errors)
+  if (!is.null(label_width)) {
+    msg$labelWidth <- label_width
+  }
+  if (!is.null(fields)) {
+    msg$.fields <- unname(fields)
+  }
+  if (!is.null(errors)) {
+    msg$.errors <- as.list(errors)
+  }
 
   .el_send_update(session, msg)
   invisible(NULL)
@@ -672,10 +831,16 @@ el_form_reset <- function(session = shiny::getDefaultReactiveDomain(), id) {
 #'   })
 #' }
 #' @export
-el_form_clear_validate <- function(session = shiny::getDefaultReactiveDomain(), id, props = NULL) {
+el_form_clear_validate <- function(
+  session = shiny::getDefaultReactiveDomain(),
+  id,
+  props = NULL
+) {
   .el_check_session(session)
   msg <- list(id = session$ns(id))
-  if (!is.null(props)) msg$props <- as.list(props)
+  if (!is.null(props)) {
+    msg$props <- as.list(props)
+  }
   msg$.action <- "clearValidate"
   .el_send_update(session, msg)
   invisible(NULL)

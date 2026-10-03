@@ -32,7 +32,9 @@ skip_if_no_browser <- function() {
 use_browser_args <- function() {
   chromote::set_chrome_args(c(
     chromote::default_chrome_args(),
-    "--disable-dev-shm-usage", "--no-sandbox", "--disable-gpu"
+    "--disable-dev-shm-usage",
+    "--no-sandbox",
+    "--disable-gpu"
   ))
 }
 
@@ -41,12 +43,14 @@ use_browser_args <- function() {
 #' The app and the session are cached: booting Shiny and Chromium costs several
 #' seconds, and every test reads a different part of the same page.
 browser_session <- function() {
-  if (!is.null(.browser_env$session)) return(.browser_env$session)
+  if (!is.null(.browser_env$session)) {
+    return(.browser_env$session)
+  }
 
-  app  <- testthat::test_path("apps", "integration.R")
-  pkg  <- normalizePath(testthat::test_path("..", ".."))
+  app <- testthat::test_path("apps", "integration.R")
+  pkg <- normalizePath(testthat::test_path("..", ".."))
   port <- httpuv::randomPort()
-  log  <- tempfile(fileext = ".log")
+  log <- tempfile(fileext = ".log")
 
   proc <- callr::r_bg(
     function(app, pkg, port, libs) {
@@ -57,22 +61,40 @@ browser_session <- function() {
       # where teardown_env() does not exist.
       loaded <- FALSE
       if (requireNamespace("pkgload", quietly = TRUE)) {
-        loaded <- tryCatch({
-          pkgload::load_all(pkg, quiet = TRUE, helpers = FALSE, attach_testthat = FALSE)
-          TRUE
-        }, error = function(e) FALSE)
+        loaded <- tryCatch(
+          {
+            pkgload::load_all(
+              pkg,
+              quiet = TRUE,
+              helpers = FALSE,
+              attach_testthat = FALSE
+            )
+            TRUE
+          },
+          error = function(e) FALSE
+        )
       }
-      if (!loaded) library(shiny.element)
-      shiny::runApp(app, host = "127.0.0.1", port = port, launch.browser = FALSE)
+      if (!loaded) {
+        library(shiny.element)
+      }
+      shiny::runApp(
+        app,
+        host = "127.0.0.1",
+        port = port,
+        launch.browser = FALSE
+      )
     },
     args = list(app = app, pkg = pkg, port = port, libs = .libPaths()),
-    stdout = log, stderr = "2>&1"
+    stdout = log,
+    stderr = "2>&1"
   )
 
   ready <- FALSE
   for (i in seq_len(120)) {
     Sys.sleep(0.5)
-    if (!proc$is_alive()) break
+    if (!proc$is_alive()) {
+      break
+    }
     if (any(grepl("Listening on", readLines(log, warn = FALSE)))) {
       ready <- TRUE
       break
@@ -80,7 +102,10 @@ browser_session <- function() {
   }
   if (!ready) {
     proc$kill()
-    stop("fixture app failed to start:\n", paste(readLines(log, warn = FALSE), collapse = "\n"))
+    stop(
+      "fixture app failed to start:\n",
+      paste(readLines(log, warn = FALSE), collapse = "\n")
+    )
   }
 
   use_browser_args()
@@ -90,7 +115,10 @@ browser_session <- function() {
   errs$seen <- character(0)
   b$Runtime$enable()
   b$Runtime$exceptionThrown(callback_ = function(m) {
-    errs$seen <- c(errs$seen, sub("\n.*", "", m$exceptionDetails$exception$description))
+    errs$seen <- c(
+      errs$seen,
+      sub("\n.*", "", m$exceptionDetails$exception$description)
+    )
   })
 
   # Capture console.error/warn from inside the page. Page$enable() is required
@@ -101,17 +129,19 @@ browser_session <- function() {
   b$DOM$enable()
 
   b$Page$enable()
-  b$Page$addScriptToEvaluateOnNewDocument(source = paste0(
-    "window.__elLogs = [];",
-    "['error','warn'].forEach(function(k){",
-    "  var orig = console[k];",
-    "  console[k] = function(){",
-    "    try { window.__elLogs.push(Array.prototype.slice.call(arguments)",
-    "          .map(String).join(' ').slice(0, 300)); } catch(e) {}",
-    "    orig.apply(console, arguments);",
-    "  };",
-    "});"
-  ))
+  b$Page$addScriptToEvaluateOnNewDocument(
+    source = paste0(
+      "window.__elLogs = [];",
+      "['error','warn'].forEach(function(k){",
+      "  var orig = console[k];",
+      "  console[k] = function(){",
+      "    try { window.__elLogs.push(Array.prototype.slice.call(arguments)",
+      "          .map(String).join(' ').slice(0, 300)); } catch(e) {}",
+      "    orig.apply(console, arguments);",
+      "  };",
+      "});"
+    )
+  )
 
   b$Page$navigate(sprintf("http://127.0.0.1:%d/", port))
   b$Page$loadEventFired()
@@ -129,7 +159,10 @@ bev <- function(js) {
 
 #' Click an element by CSS selector, then wait for a reactive round-trip
 bclick <- function(selector, wait = 2) {
-  bev(sprintf("(function(){var e=document.querySelector('%s'); if(e) e.click(); return !!e})()", selector))
+  bev(sprintf(
+    "(function(){var e=document.querySelector('%s'); if(e) e.click(); return !!e})()",
+    selector
+  ))
   Sys.sleep(wait)
   invisible(NULL)
 }
@@ -139,11 +172,14 @@ bclick <- function(selector, wait = 2) {
 #' The fixture app prints one `key = value` line per input it reports.
 bdump <- function(id = "dump") {
   txt <- bev(sprintf(
-    "(function(){var e=document.getElementById('%s'); return e?e.innerText:''})()", id
+    "(function(){var e=document.getElementById('%s'); return e?e.innerText:''})()",
+    id
   ))
   lines <- trimws(strsplit(txt, "\n")[[1]])
   lines <- lines[grepl("=", lines, fixed = TRUE)]
-  if (!length(lines)) return(character(0))
+  if (!length(lines)) {
+    return(character(0))
+  }
   keys <- trimws(sub("=.*", "", lines))
   vals <- trimws(sub("^[^=]*=", "", lines))
   stats::setNames(vals, keys)
@@ -160,9 +196,11 @@ bjs_errors <- function() {
 #' `[Vue warn]` messages. The production build strips them, which is how a
 #' template that fails to compile renders nothing and reports nothing.
 bconsole <- function() {
-  logs <- unique(bev("JSON.stringify(window.__elLogs || [])") |>
-                   jsonlite::fromJSON(simplifyVector = TRUE) |>
-                   as.character())
+  logs <- unique(
+    bev("JSON.stringify(window.__elLogs || [])") |>
+      jsonlite::fromJSON(simplifyVector = TRUE) |>
+      as.character()
+  )
   # Element Plus's upload logs each failed file itself (use-handlers.ts,
   # console.error(err)); the upload tests fail some on purpose
   logs[!grepl("^Error: Upload failed for ", logs)]
@@ -171,7 +209,9 @@ bconsole <- function() {
 #' Tear the fixture down
 browser_cleanup <- function() {
   s <- .browser_env$session
-  if (is.null(s)) return(invisible(NULL))
+  if (is.null(s)) {
+    return(invisible(NULL))
+  }
   try(s$b$close(), silent = TRUE)
   try(s$b$parent$get_browser()$get_process()$kill(), silent = TRUE)
   try(s$proc$kill(), silent = TRUE)

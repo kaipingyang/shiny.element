@@ -38,70 +38,75 @@
 #' @examples
 #' el_tag("tag1", "Success", type = "success")
 #' el_tag("tag2", "Closable", closable = TRUE)
-#'
 #' @export
 el_tag <- function(
-    id                   = NULL,
-    label                = "Tag",
-    type                 = NULL,
-    closable             = FALSE,
-    size                 = NULL,
-    effect               = "light",
-    color                = NULL,
-    hit                  = FALSE,
-    disable_transitions  = FALSE,
-    round = NULL,
-    width                = NULL,
-    slots                = NULL,
-    session              = NULL
+  id = NULL,
+  label = "Tag",
+  type = NULL,
+  closable = FALSE,
+  size = NULL,
+  effect = "light",
+  color = NULL,
+  hit = FALSE,
+  disable_transitions = FALSE,
+  round = NULL,
+  width = NULL,
+  slots = NULL,
+  session = NULL
 ) {
   .el_check_choices("el_tag", environment())
-  if (is.null(id)) id <- paste0("el_tag_", uuid::UUIDgenerate())
-  ns_id        <- .el_ui_id(id, session)
+  if (is.null(id)) {
+    id <- paste0("el_tag_", uuid::UUIDgenerate())
+  }
+  ns_id <- .el_ui_id(id, session)
   container_id <- paste0(ns_id, "_container")
 
   tag_attrs <- list(
-    ":type"                = "type",
-    ":closable"            = "closable",
-    ":effect"             = "effect",
-    ":hit"                 = "hit",
+    ":type" = "type",
+    ":closable" = "closable",
+    ":effect" = "effect",
+    ":hit" = "hit",
     ":disable-transitions" = "disableTransitions",
-    "@click"               = "handleClick",
-    "@close"               = "handleClose"
+    "@click" = "handleClick",
+    "@close" = "handleClose"
   )
   tag_attrs[[":size"]] <- .el_optional_bind("size")
   tag_attrs[[":color"]] <- .el_optional_bind("color")
   el_widget(
     props = .el_props(list(
-      round = round)),
-    id     = ns_id,
+      round = round
+    )),
+    id = ns_id,
     markup = htmltools::tag("el-tag", c(tag_attrs, list("{{label}}"))),
     data = list(
-      label              = label,
-      type               = type,
-      closable           = closable,
-      size               = size,
-      effect             = effect,
-      color              = color,
-      hit                = hit,
+      label = label,
+      type = type,
+      closable = closable,
+      size = size,
+      effect = effect,
+      color = color,
+      hit = hit,
       disableTransitions = disable_transitions,
-      count              = 0L
+      count = 0L
     ),
     methods = list(
-      handleClick = JS(sprintf(paste0(
-        "function() { this.count++; ",
-        "window.Shiny && Shiny.setInputValue && Shiny.setInputValue('%s:shiny.action', this.count); }"),
-        ns_id)),
+      handleClick = JS(sprintf(
+        paste0(
+          "function() { this.count++; ",
+          "window.Shiny && Shiny.setInputValue && Shiny.setInputValue('%s:shiny.action', this.count); }"
+        ),
+        ns_id
+      )),
       handleClose = JS(sprintf(
         "function() { window.Shiny && Shiny.setInputValue && Shiny.setInputValue('%s_closed', 1, {priority: 'event'}); }",
         ns_id
       ))
     ),
     # Clicks counted as an action button's are
-    mounted    = .el_mounted_init(stats::setNames("count", ns_id)),
-    type       = "shiny.action",
-    width      = width,
-    slots      = slots
+    mounted = .el_mounted_init(stats::setNames("count", ns_id)),
+    type = "shiny.action",
+    width = width,
+    slots = slots
   )
 }
 
@@ -126,16 +131,25 @@ el_tag <- function(
 #'   })
 #' }
 #' @export
-update_el_tag <- function(session = shiny::getDefaultReactiveDomain(), id, label = NULL, type = NULL,
-                          closable = NULL) {
+update_el_tag <- function(
+  session = shiny::getDefaultReactiveDomain(),
+  id,
+  label = NULL,
+  type = NULL,
+  closable = NULL
+) {
   .el_check_session(session)
   ns_id <- session$ns(id)
-  msg   <- list(id = ns_id)
-  if (!is.null(label))    msg$label    <- label
-  if (!is.null(type))     msg$type     <- type
-  if (!is.null(closable)) msg$closable <- closable
+  msg <- list(id = ns_id)
+  if (!is.null(label)) {
+    msg$label <- label
+  }
+  if (!is.null(type)) {
+    msg$type <- type
+  }
+  if (!is.null(closable)) {
+    msg$closable <- closable
+  }
   .el_send_update(session, msg)
   invisible(NULL)
 }
-
-

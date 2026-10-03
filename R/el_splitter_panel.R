@@ -24,25 +24,36 @@
 #'
 #' @return A Shiny UI element.
 #' @export
-el_splitter_panel <- function(...,
-                              id = NULL,
-                              size = NULL,
-                              min = NULL,
-                              max = NULL,
-                              resizable = NULL,
-                              collapsible = NULL,
-                              width = NULL,
-                              slots = NULL) {
+el_splitter_panel <- function(
+  ...,
+  id = NULL,
+  size = NULL,
+  min = NULL,
+  max = NULL,
+  resizable = NULL,
+  collapsible = NULL,
+  width = NULL,
+  slots = NULL
+) {
   .el_check_choices("el_splitter_panel", environment())
-  if (is.null(id)) id <- paste0("el_splitter_panel_", uuid::UUIDgenerate())
+  if (is.null(id)) {
+    id <- paste0("el_splitter_panel_", uuid::UUIDgenerate())
+  }
   ns_id <- .el_ui_id(id, NULL)
   events <- .el_event_bindings(ns_id, character())
-  .el_wrap_widget("el-splitter-panel", ns_id, list(...),
+  .el_wrap_widget(
+    "el-splitter-panel",
+    ns_id,
+    list(...),
     props = .el_props(list(
       size = size,
       min = min,
       max = max,
       resizable = resizable,
-      collapsible = collapsible)),
-    events = events, width = width, slots = slots)
+      collapsible = collapsible
+    )),
+    events = events,
+    width = width,
+    slots = slots
+  )
 }

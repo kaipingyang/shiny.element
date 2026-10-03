@@ -29,40 +29,91 @@
 #'
 #' @return A Shiny UI element.
 #' @examples
-#' el_anchor("toc", links = list(
-#'   list(title = "Basic usage", href = "#basic"),
-#'   list(title = "API", href = "#api", children = list(
-#'     list(title = "Attributes", href = "#attributes")))))
+#' el_anchor(
+#'   "toc",
+#'   links = list(
+#'     list(title = "Basic usage", href = "#basic"),
+#'     list(
+#'       title = "API",
+#'       href = "#api",
+#'       children = list(
+#'         list(title = "Attributes", href = "#attributes")
+#'       )
+#'     )
+#'   )
+#' )
 #' @export
-el_anchor <- function(id = NULL, links = list(), container = NULL, offset = NULL,
-                      bound = NULL, duration = NULL, marker = NULL, type = NULL,
-                      direction = NULL, select_scroll_top = NULL, width = NULL,
-                      slots = NULL) {
+el_anchor <- function(
+  id = NULL,
+  links = list(),
+  container = NULL,
+  offset = NULL,
+  bound = NULL,
+  duration = NULL,
+  marker = NULL,
+  type = NULL,
+  direction = NULL,
+  select_scroll_top = NULL,
+  width = NULL,
+  slots = NULL
+) {
   .el_check_choices("el_anchor", environment())
   .el_check_items(links, "links", c("title", "href"))
-  if (is.null(id)) id <- paste0("el_anchor_", uuid::UUIDgenerate())
+  if (is.null(id)) {
+    id <- paste0("el_anchor_", uuid::UUIDgenerate())
+  }
   ns_id <- .el_ui_id(id, NULL)
   link_tags <- function(links) {
     lapply(links, function(l) {
-      htmltools::tag("el-anchor-link", c(
-        list(title = l$title, href = l$href),
-        if (length(l$children)) list(.el_slot("sub-link", link_tags(l$children)))))
+      htmltools::tag(
+        "el-anchor-link",
+        c(
+          list(title = l$title, href = l$href),
+          if (length(l$children)) {
+            list(.el_slot("sub-link", link_tags(l$children)))
+          }
+        )
+      )
     })
   }
-  events <- .el_event_bindings(ns_id, "click", shapes = list(
-    click = "function(e, href) { return href; }"))
+  events <- .el_event_bindings(
+    ns_id,
+    "click",
+    shapes = list(
+      click = "function(e, href) { return href; }"
+    )
+  )
   el_widget(
-    id      = ns_id,
-    markup  = htmltools::tag("el-anchor", c(
-      list("@change" = "handleChange"), events$attrs, link_tags(links))),
-    props   = .el_props(list(container = container, offset = offset, bound = bound,
-                             duration = duration, marker = marker, type = type,
-                             direction = direction, select_scroll_top = select_scroll_top)),
-    data    = list(),
-    methods = c(events$methods, list(handleChange = JS(sprintf(
-      "function(href) { window.Shiny && Shiny.setInputValue && Shiny.setInputValue('%s', href); }",
-      ns_id)))),
-    width   = width,
-    slots   = slots
+    id = ns_id,
+    markup = htmltools::tag(
+      "el-anchor",
+      c(
+        list("@change" = "handleChange"),
+        events$attrs,
+        link_tags(links)
+      )
+    ),
+    props = .el_props(list(
+      container = container,
+      offset = offset,
+      bound = bound,
+      duration = duration,
+      marker = marker,
+      type = type,
+      direction = direction,
+      select_scroll_top = select_scroll_top
+    )),
+    data = list(),
+    methods = c(
+      events$methods,
+      list(
+        handleChange = JS(sprintf(
+          "function(href) { window.Shiny && Shiny.setInputValue && Shiny.setInputValue('%s', href); }",
+          ns_id
+        ))
+      )
+    ),
+    width = width,
+    slots = slots
   )
 }

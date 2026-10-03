@@ -42,14 +42,25 @@ names(el)
 el_tooltip("hint", el$button(type = "primary", "Hover me"), content = "Help")
 
 # In a table cell, once per row
-el_table("tasks", data = data.frame(task = c("Draft", "Review"), done = c(TRUE, FALSE)),
+el_table(
+  "tasks",
+  data = data.frame(task = c("Draft", "Review"), done = c(TRUE, FALSE)),
   columns = list(
     list(prop = "task", label = "Task"),
-    list(label = "State", cell = el$tag(
-      ":type" = "scope.row.done ? 'success' : 'info'",
-      "{{ scope.row.done ? 'done' : 'open' }}"))))
+    list(
+      label = "State",
+      cell = el$tag(
+        ":type" = "scope.row.done ? 'success' : 'info'",
+        "{{ scope.row.done ? 'done' : 'open' }}"
+      )
+    )
+  )
+)
 
 # As the markup of a component of your own
-el_widget("me", markup = el$avatar(":size" = "size", "{{ initials }}"),
-          data = list(size = 48, initials = "KY"))
+el_widget(
+  "me",
+  markup = el$avatar(":size" = "size", "{{ initials }}"),
+  data = list(size = 48, initials = "KY")
+)
 }

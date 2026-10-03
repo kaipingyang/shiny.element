@@ -34,72 +34,111 @@
 #' @return A Shiny UI element.
 #' @examples
 #' el_statistic("users", value = 26048, title = "Active users")
-#' el_statistic("revenue", value = 1318.5, title = "Revenue", prefix = "$",
-#'              precision = 2)
+#' el_statistic(
+#'   "revenue",
+#'   value = 1318.5,
+#'   title = "Revenue",
+#'   prefix = "$",
+#'   precision = 2
+#' )
 #'
 #' # A countdown to an hour from now
-#' el_countdown("sale", title = "Sale ends in", value = Sys.time() + 3600,
-#'              format = "HH:mm:ss")
+#' el_countdown(
+#'   "sale",
+#'   title = "Sale ends in",
+#'   value = Sys.time() + 3600,
+#'   format = "HH:mm:ss"
+#' )
 #' @export
-el_statistic <- function(id = NULL,
-                         value = 0,
-                         title = NULL,
-                         prefix = NULL,
-                         suffix = NULL,
-                         precision = NULL,
-                         decimal_separator = NULL,
-                         group_separator = NULL,
-                         value_style = NULL,
-                         formatter = NULL,
-                         width = NULL,
-                         slots = NULL,
-                         session = NULL) {
-  if (is.null(id)) id <- paste0("el_statistic_", uuid::UUIDgenerate())
+el_statistic <- function(
+  id = NULL,
+  value = 0,
+  title = NULL,
+  prefix = NULL,
+  suffix = NULL,
+  precision = NULL,
+  decimal_separator = NULL,
+  group_separator = NULL,
+  value_style = NULL,
+  formatter = NULL,
+  width = NULL,
+  slots = NULL,
+  session = NULL
+) {
+  if (is.null(id)) {
+    id <- paste0("el_statistic_", uuid::UUIDgenerate())
+  }
   ns_id <- .el_ui_id(id, session)
   el_widget(
-    id     = ns_id,
+    id = ns_id,
     markup = htmltools::tag("el-statistic", list(":value" = "value")),
-    props  = .el_props(list(title = title, prefix = prefix, suffix = suffix,
-                            precision = precision, decimal_separator = decimal_separator,
-                            group_separator = group_separator, value_style = value_style,
-                            formatter = formatter)),
-    data   = list(value = value),
-    width  = width,
-    slots  = slots
+    props = .el_props(list(
+      title = title,
+      prefix = prefix,
+      suffix = suffix,
+      precision = precision,
+      decimal_separator = decimal_separator,
+      group_separator = group_separator,
+      value_style = value_style,
+      formatter = formatter
+    )),
+    data = list(value = value),
+    width = width,
+    slots = slots
   )
 }
 
 
 #' @rdname el_statistic
 #' @export
-el_countdown <- function(id = NULL,
-                         value = 0,
-                         title = NULL,
-                         prefix = NULL,
-                         suffix = NULL,
-                         format = NULL,
-                         value_style = NULL,
-                         width = NULL,
-                         slots = NULL,
-                         session = NULL) {
-  if (is.null(id)) id <- paste0("el_countdown_", uuid::UUIDgenerate())
+el_countdown <- function(
+  id = NULL,
+  value = 0,
+  title = NULL,
+  prefix = NULL,
+  suffix = NULL,
+  format = NULL,
+  value_style = NULL,
+  width = NULL,
+  slots = NULL,
+  session = NULL
+) {
+  if (is.null(id)) {
+    id <- paste0("el_countdown_", uuid::UUIDgenerate())
+  }
   ns_id <- .el_ui_id(id, session)
-  events <- .el_event_bindings(ns_id, c("finish", "change"), shapes = list(
-    finish = "function() { return true; }",
-    change = paste0("function(ms) { var now = Date.now(); ",
-                    "if (this._elLastChange && now - this._elLastChange < 1000) return undefined; ",
-                    "this._elLastChange = now; return ms; }")
-  ))
-  if (inherits(value, "POSIXt")) value <- as.numeric(value) * 1000
+  events <- .el_event_bindings(
+    ns_id,
+    c("finish", "change"),
+    shapes = list(
+      finish = "function() { return true; }",
+      change = paste0(
+        "function(ms) { var now = Date.now(); ",
+        "if (this._elLastChange && now - this._elLastChange < 1000) return undefined; ",
+        "this._elLastChange = now; return ms; }"
+      )
+    )
+  )
+  if (inherits(value, "POSIXt")) {
+    value <- as.numeric(value) * 1000
+  }
   el_widget(
-    id      = ns_id,
-    markup  = htmltools::tag("el-countdown", c(list(":value" = "value"), events$attrs)),
-    props   = .el_props(list(title = title, prefix = prefix, suffix = suffix,
-                             format = .el_dayjs_format(format), value_style = value_style)),
-    data    = list(value = value),
+    id = ns_id,
+    markup = htmltools::tag(
+      "el-countdown",
+      c(list(":value" = "value"), events$attrs)
+    ),
+    props = .el_props(list(
+      title = title,
+      prefix = prefix,
+      suffix = suffix,
+      format = .el_dayjs_format(format),
+      value_style = value_style
+    )),
+    data = list(value = value),
     methods = events$methods,
-    width   = width,
-    slots   = slots
+    width = width,
+    slots = slots
   )
 }
 
@@ -120,15 +159,31 @@ el_countdown <- function(id = NULL,
 #'   observe(update_el_statistic(session, "users", value = n_users()))
 #' }
 #' @export
-update_el_statistic <- function(session = shiny::getDefaultReactiveDomain(), id, value = NULL, title = NULL,
-                                prefix = NULL, suffix = NULL) {
+update_el_statistic <- function(
+  session = shiny::getDefaultReactiveDomain(),
+  id,
+  value = NULL,
+  title = NULL,
+  prefix = NULL,
+  suffix = NULL
+) {
   .el_check_session(session)
   msg <- list(id = session$ns(id))
-  if (inherits(value, "POSIXt")) value <- as.numeric(value) * 1000
-  if (!is.null(value))  msg$value  <- value
-  if (!is.null(title))  msg$title  <- title
-  if (!is.null(prefix)) msg$prefix <- prefix
-  if (!is.null(suffix)) msg$suffix <- suffix
+  if (inherits(value, "POSIXt")) {
+    value <- as.numeric(value) * 1000
+  }
+  if (!is.null(value)) {
+    msg$value <- value
+  }
+  if (!is.null(title)) {
+    msg$title <- title
+  }
+  if (!is.null(prefix)) {
+    msg$prefix <- prefix
+  }
+  if (!is.null(suffix)) {
+    msg$suffix <- suffix
+  }
   .el_send_update(session, msg)
   invisible(NULL)
 }

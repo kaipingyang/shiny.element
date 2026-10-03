@@ -49,6 +49,9 @@ Server-side update for \code{\link[=el_time_picker]{el_time_picker()}} and \code
 \examples{
 if (interactive()) {
   # inside a server function
-  observeEvent(input$reset, update_el_time_picker(session, "start", value = "09:00:00"))
+  observeEvent(
+    input$reset,
+    update_el_time_picker(session, "start", value = "09:00:00")
+  )
 }
 }

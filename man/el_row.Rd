@@ -56,7 +56,9 @@ el_row(
 
 # Centred flex row
 el_row(
-  type = "flex", justify = "center", align = "middle",
+  type = "flex",
+  justify = "center",
+  align = "middle",
   el_col(span = 8, "centred")
 )
 }

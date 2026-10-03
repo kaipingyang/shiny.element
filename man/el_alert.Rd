@@ -69,5 +69,4 @@ user closes the alert.
 \examples{
 el_alert("al1", "Operation successful", type = "success", show_icon = TRUE)
 el_alert("al2", "Warning!", description = "Please review.", type = "warning")
-
 }

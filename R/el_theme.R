@@ -57,7 +57,9 @@
 #' el_theme(primary = "#7c3aed")
 #'
 #' # Rounder and smaller, all through Element
-#' el_theme(element = list("border-radius-base" = "10px", "font-size-base" = "13px"))
+#' el_theme(
+#'   element = list("border-radius-base" = "10px", "font-size-base" = "13px")
+#' )
 #'
 #' if (interactive()) {
 #'   el_page(theme = el_theme(), shiny::actionButton("go", "Shiny's own button"))
@@ -65,43 +67,48 @@
 #' @export
 el_theme <- function(..., element = NULL, version = 5) {
   bs <- list(
-    version   = version,
-    primary   = "#409EFF",
+    version = version,
+    primary = "#409EFF",
     secondary = "#909399",
-    success   = "#67C23A",
-    info      = "#909399",
-    warning   = "#E6A23C",
-    danger    = "#F56C6C",
-    fg        = "#303133",
-    bg        = "#FFFFFF",
+    success = "#67C23A",
+    info = "#909399",
+    warning = "#E6A23C",
+    danger = "#F56C6C",
+    fg = "#303133",
+    bg = "#FFFFFF",
     # Element's documentation font stack. Its own components declare no font
     # family, so this is the one they show in.
     base_font = bslib::font_collection(
-      "Helvetica Neue", "Helvetica", "PingFang SC", "Hiragino Sans GB",
-      "Microsoft YaHei", "Arial", "sans-serif"
+      "Helvetica Neue",
+      "Helvetica",
+      "PingFang SC",
+      "Hiragino Sans GB",
+      "Microsoft YaHei",
+      "Arial",
+      "sans-serif"
     ),
-    "font-size-base"          = "0.875rem",
+    "font-size-base" = "0.875rem",
     # Element's 40px controls: a 14px line with its padding and border.
     # bslib's defaults draw Shiny's inputs and buttons a size larger.
-    "input-font-size"         = "0.875rem",
-    "input-color"             = "#606266",
-    "input-line-height"       = "1.5",
-    "input-padding-y"         = "8.5px",
-    "input-padding-x"         = "15px",
-    "btn-font-size"           = "0.875rem",
-    "btn-line-height"         = "1",
-    "btn-padding-y"           = "12px",
-    "btn-padding-x"           = "20px",
-    "border-color"            = "#DCDFE6",
-    "input-border-color"      = "#DCDFE6",
+    "input-font-size" = "0.875rem",
+    "input-color" = "#606266",
+    "input-line-height" = "1.5",
+    "input-padding-y" = "8.5px",
+    "input-padding-x" = "15px",
+    "btn-font-size" = "0.875rem",
+    "btn-line-height" = "1",
+    "btn-padding-y" = "12px",
+    "btn-padding-x" = "20px",
+    "border-color" = "#DCDFE6",
+    "input-border-color" = "#DCDFE6",
     "input-focus-border-color" = "#409EFF",
     "input-placeholder-color" = "#C0C4CC",
-    "text-muted"              = "#909399",
-    "border-radius"           = "4px",
-    "border-radius-sm"        = "3px",
-    "border-radius-lg"        = "4px",
-    "headings-font-weight"    = "500",
-    "min-contrast-ratio"      = "2"
+    "text-muted" = "#909399",
+    "border-radius" = "4px",
+    "border-radius-sm" = "3px",
+    "border-radius-lg" = "4px",
+    "headings-font-weight" = "500",
+    "min-contrast-ratio" = "2"
   )
   if (version < 5) {
     # Bootstrap 3 and 4 have no min-contrast-ratio
@@ -109,7 +116,10 @@ el_theme <- function(..., element = NULL, version = 5) {
   }
   overrides <- list(...)
   # A focused input is ringed in the brand colour, as Element's are
-  if (!is.null(overrides$primary) && is.null(overrides[["input-focus-border-color"]])) {
+  if (
+    !is.null(overrides$primary) &&
+      is.null(overrides[["input-focus-border-color"]])
+  ) {
     overrides[["input-focus-border-color"]] <- overrides$primary
   }
   theme <- do.call(bslib::bs_theme, utils::modifyList(bs, overrides))

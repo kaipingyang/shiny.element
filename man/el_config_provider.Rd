@@ -74,5 +74,10 @@ None: it reports nothing.
 }
 
 \examples{
-el_config_provider(size = "small", button = list(autoInsertSpace = TRUE), el_button("a", "OK"), el_input("b"))
+el_config_provider(
+  size = "small",
+  button = list(autoInsertSpace = TRUE),
+  el_button("a", "OK"),
+  el_input("b")
+)
 }

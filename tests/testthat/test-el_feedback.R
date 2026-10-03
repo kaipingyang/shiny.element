@@ -4,7 +4,9 @@ sent_message <- function(expr) {
   captured <- NULL
   session <- list(
     ns = function(id) id,
-    sendCustomMessage = function(type, msg) captured <<- list(type = type, msg = msg)
+    sendCustomMessage = function(type, msg) {
+      captured <<- list(type = type, msg = msg)
+    }
   )
   expr(session)
   captured
@@ -38,9 +40,16 @@ test_that("el_notification: defaults match Element UI's", {
 
 test_that("el_notification: every field passes through", {
   out <- sent_message(function(s) {
-    el_notification(s, message = "body", title = "Done", type = "success",
-                    duration = 0, position = "bottom-left", show_close = FALSE,
-                    offset = 40)
+    el_notification(
+      s,
+      message = "body",
+      title = "Done",
+      type = "success",
+      duration = 0,
+      position = "bottom-left",
+      show_close = FALSE,
+      offset = 40
+    )
   })
   expect_equal(out$msg$title, "Done")
   expect_equal(out$msg$type, "success")
@@ -73,8 +82,16 @@ test_that("el_message: defaults match Element UI's", {
 
 test_that("el_message: every field passes through", {
   out <- sent_message(function(s) {
-    el_message(s, message = "careful", type = "warning", duration = 0,
-               show_close = TRUE, placement = "bottom", grouping = TRUE, plain = TRUE)
+    el_message(
+      s,
+      message = "careful",
+      type = "warning",
+      duration = 0,
+      show_close = TRUE,
+      placement = "bottom",
+      grouping = TRUE,
+      plain = TRUE
+    )
   })
   expect_equal(out$msg$type, "warning")
   expect_equal(out$msg$duration, 0)
@@ -113,14 +130,16 @@ test_that("the feedback handler registers both message types", {
 # ── closing by id, and Element's further options ──────────────────────────────
 
 test_that("el_message and el_notification carry an id to close them by", {
-  out <- sent_message(function(s) el_message(s, "hi", id = "saving", offset = 60,
-                                             custom_class = "loud"))
+  out <- sent_message(function(s) {
+    el_message(s, "hi", id = "saving", offset = 60, custom_class = "loud")
+  })
   expect_equal(out$msg$id, "saving")
   expect_equal(out$msg$offset, 60)
   expect_equal(out$msg$customClass, "loud")
 
-  out <- sent_message(function(s) el_notification(s, "hi", id = "build",
-                                                  icon = "el-icon-bell"))
+  out <- sent_message(function(s) {
+    el_notification(s, "hi", id = "build", icon = "el-icon-bell")
+  })
   expect_equal(out$msg$id, "build")
   # Element UI's class name becomes Element Plus's icon
   expect_equal(out$msg$icon, "Bell")
@@ -139,9 +158,13 @@ test_that("el_message_close and el_notification_close close one, or all", {
 })
 
 test_that("the handler closes by id or closes all", {
-  js <- paste(readLines(
-    system.file("js", "el-feedback-handler.js", package = "shiny.element"), warn = FALSE
-  ), collapse = "\n")
+  js <- paste(
+    readLines(
+      system.file("js", "el-feedback-handler.js", package = "shiny.element"),
+      warn = FALSE
+    ),
+    collapse = "\n"
+  )
   expect_match(js, "elMessageClose", fixed = TRUE)
   expect_match(js, "elNotificationClose", fixed = TRUE)
   expect_match(js, "closeAll", fixed = TRUE)

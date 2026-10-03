@@ -6,7 +6,9 @@ sent_message <- function(expr) {
   captured <- NULL
   session <- list(
     ns = function(id) id,
-    sendCustomMessage = function(type, msg) captured <<- list(type = type, msg = msg)
+    sendCustomMessage = function(type, msg) {
+      captured <<- list(type = type, msg = msg)
+    }
   )
   expr(session)
   captured
@@ -40,7 +42,10 @@ test_that("el_upload: progress is forwarded to Element's own handler", {
 })
 
 test_that("el_upload: giving action uses Element's upload instead", {
-  direct <- render_html(el_upload("files", action = "https://example.invalid/put"))
+  direct <- render_html(el_upload(
+    "files",
+    action = "https://example.invalid/put"
+  ))
   expect_match(direct, 'action="https://example.invalid/put"', fixed = TRUE)
   expect_false(grepl("http-request", direct, fixed = TRUE))
   expect_false(grepl("uploadInit", direct, fixed = TRUE))
@@ -55,19 +60,38 @@ test_that("el_upload: Element still needs an action even when unused", {
 test_that("el_upload: the file field gets a unique name by default", {
   # Shiny's fileInputBinding claims every input[type=file] and keys it by id
   # or name, so two uploads both called "file" trip its duplicate-id warning.
-  expect_match(render_html(el_upload("files")), 'name="files_elfile"', fixed = TRUE)
-  expect_match(render_html(el_upload("other")), 'name="other_elfile"', fixed = TRUE)
+  expect_match(
+    render_html(el_upload("files")),
+    'name="files_elfile"',
+    fixed = TRUE
+  )
+  expect_match(
+    render_html(el_upload("other")),
+    'name="other_elfile"',
+    fixed = TRUE
+  )
 })
 
 test_that("el_upload: with action the field keeps Element's default name", {
   # There the name is the multipart field the server reads.
-  expect_match(render_html(el_upload("files", action = "/u")), 'name="file"', fixed = TRUE)
+  expect_match(
+    render_html(el_upload("files", action = "/u")),
+    'name="file"',
+    fixed = TRUE
+  )
 })
 
 test_that("el_upload: an explicit name wins either way", {
-  expect_match(render_html(el_upload("files", name = "doc")), 'name="doc"', fixed = TRUE)
-  expect_match(render_html(el_upload("files", action = "/u", name = "doc")),
-               'name="doc"', fixed = TRUE)
+  expect_match(
+    render_html(el_upload("files", name = "doc")),
+    'name="doc"',
+    fixed = TRUE
+  )
+  expect_match(
+    render_html(el_upload("files", action = "/u", name = "doc")),
+    'name="doc"',
+    fixed = TRUE
+  )
 })
 
 # ── rendering ─────────────────────────────────────────────────────────────────
@@ -84,7 +108,11 @@ test_that("el_upload: attaches the shared bridge", {
 })
 
 test_that("el_upload: drag renders a drop zone, otherwise a button", {
-  dragged <- render_html(el_upload("files", drag = TRUE, button_label = "Drop here"))
+  dragged <- render_html(el_upload(
+    "files",
+    drag = TRUE,
+    button_label = "Drop here"
+  ))
   expect_match(dragged, "drag", fixed = TRUE)
   expect_match(dragged, "<upload-filled>", fixed = TRUE)
   expect_match(dragged, "Drop here", fixed = TRUE)
@@ -100,13 +128,22 @@ test_that("el_upload: tip goes into the named slot", {
   expect_match(html, 'class="el-upload__tip"', fixed = TRUE)
   expect_match(html, "CSV only", fixed = TRUE)
 
-  expect_false(grepl("el-upload__tip", render_html(el_upload("files")), fixed = TRUE))
+  expect_false(grepl(
+    "el-upload__tip",
+    render_html(el_upload("files")),
+    fixed = TRUE
+  ))
 })
 
 test_that("el_upload: flags reach the Vue data", {
-  html <- render_html(el_upload("files", multiple = TRUE, show_file_list = FALSE,
-                                list_type = "picture", auto_upload = FALSE,
-                                disabled = TRUE))
+  html <- render_html(el_upload(
+    "files",
+    multiple = TRUE,
+    show_file_list = FALSE,
+    list_type = "picture",
+    auto_upload = FALSE,
+    disabled = TRUE
+  ))
   expect_match(html, '"multiple":true')
   expect_match(html, '"showFileList":false')
   expect_match(html, '"listType":"picture"')
@@ -172,10 +209,16 @@ test_that("letting go of an upload job removes it and its directory", {
   base <- tempfile("uploads")
   dir.create(base)
   ctx <- shiny:::FileUploadContext$new(base)
-  job <- ctx$createUploadOperation(list(list(name = "a.txt", size = 1, type = "text/plain")))
+  job <- ctx$createUploadOperation(list(list(
+    name = "a.txt",
+    size = 1,
+    type = "text/plain"
+  )))
   dir <- ctx$getUploadOperation(job)$.dir
   expect_true(dir.exists(dir))
-  session <- list(.__enclos_env__ = list(private = list(fileUploadContext = ctx)))
+  session <- list(
+    .__enclos_env__ = list(private = list(fileUploadContext = ctx))
+  )
   expect_true(shiny.element:::.el_upload_abandon(job, session))
   expect_null(ctx$getUploadOperation(job))
   expect_false(dir.exists(dir))

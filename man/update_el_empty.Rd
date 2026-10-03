@@ -29,8 +29,11 @@ Server-side update for \code{\link[=el_empty]{el_empty()}}.
 if (interactive()) {
   # inside a server function
   observeEvent(input$search, {
-    update_el_empty(session, "none",
-                    description = paste("Nothing matches", input$search))
+    update_el_empty(
+      session,
+      "none",
+      description = paste("Nothing matches", input$search)
+    )
   })
 }
 }

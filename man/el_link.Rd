@@ -62,5 +62,4 @@ el_link("With icon", icon = "el-icon-edit", type = "success")
 
 # An action link: input$more counts its clicks
 el_link("Show more", id = "more", type = "primary")
-
 }

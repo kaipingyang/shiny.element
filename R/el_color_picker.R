@@ -55,49 +55,50 @@
 #' @examples
 #' el_color_picker("cp1", value = "#409EFF")
 #' el_color_picker("cp2", show_alpha = TRUE, predefine = c("#ff4500", "#ff8c00"))
-#'
 #' @export
 el_color_picker <- function(
-    id           = NULL,
-    value        = NULL,
-    disabled     = FALSE,
-    size         = NULL,
-    show_alpha   = FALSE,
-    color_format = NULL,
-    predefine    = NULL,
-    popper_class = NULL,
-    label = NULL,
-    label_position = c("top", "left", "right"),
-    label_width = NULL,
-    label_suffix = NULL,
-    required = FALSE,
-    error = NULL,
-    show_message = TRUE,
-    inline_message = FALSE,
-    append_to = NULL,
-    aria_label = NULL,
-    clearable = NULL,
-    empty_values = NULL,
-    persistent = NULL,
-    popper_style = NULL,
-    tabindex = NULL,
-    teleported = NULL,
-    validate_event = NULL,
-    value_on_clear = NULL,
-    width        = NULL,
-    slots        = NULL,
-    session      = NULL
+  id = NULL,
+  value = NULL,
+  disabled = FALSE,
+  size = NULL,
+  show_alpha = FALSE,
+  color_format = NULL,
+  predefine = NULL,
+  popper_class = NULL,
+  label = NULL,
+  label_position = c("top", "left", "right"),
+  label_width = NULL,
+  label_suffix = NULL,
+  required = FALSE,
+  error = NULL,
+  show_message = TRUE,
+  inline_message = FALSE,
+  append_to = NULL,
+  aria_label = NULL,
+  clearable = NULL,
+  empty_values = NULL,
+  persistent = NULL,
+  popper_style = NULL,
+  tabindex = NULL,
+  teleported = NULL,
+  validate_event = NULL,
+  value_on_clear = NULL,
+  width = NULL,
+  slots = NULL,
+  session = NULL
 ) {
   .el_check_choices("el_color_picker", environment())
-  if (is.null(id)) id <- paste0("el_color_picker_", uuid::UUIDgenerate())
-  ns_id        <- .el_ui_id(id, session)
+  if (is.null(id)) {
+    id <- paste0("el_color_picker_", uuid::UUIDgenerate())
+  }
+  ns_id <- .el_ui_id(id, session)
   container_id <- paste0(ns_id, "_container")
 
   cp_attrs <- list(
-    "v-model"      = "value",
-    ":disabled"    = "disabled",
-    ":show-alpha"  = "showAlpha",
-    "@change"      = "handleChange"
+    "v-model" = "value",
+    ":disabled" = "disabled",
+    ":show-alpha" = "showAlpha",
+    "@change" = "handleChange"
   )
   cp_attrs[[":size"]] <- .el_optional_bind("size")
   cp_attrs[[":color-format"]] <- .el_optional_bind("colorFormat")
@@ -105,14 +106,20 @@ el_color_picker <- function(
   cp_attrs[[":popper-class"]] <- .el_optional_bind("popperClass")
 
   # Forwarded to input$<id>_<event>; see .el_event_bindings().
-  events <- .el_event_bindings(ns_id, c(
-    "active-change",
-    "blur", "clear", "focus"))
+  events <- .el_event_bindings(
+    ns_id,
+    c(
+      "active-change",
+      "blur",
+      "clear",
+      "focus"
+    )
+  )
   cp_attrs <- c(cp_attrs, events$attrs)
   vue_data <- list(
-    value      = value,
-    disabled   = disabled,
-    showAlpha  = show_alpha
+    value = value,
+    disabled = disabled,
+    showAlpha = show_alpha
   )
   vue_data$size <- .el_or_na(size)
   vue_data$colorFormat <- .el_or_na(color_format)
@@ -130,22 +137,31 @@ el_color_picker <- function(
       tabindex = tabindex,
       teleported = teleported,
       validate_event = validate_event,
-      value_on_clear = value_on_clear)),
-    label = label, label_position = label_position,
-    label_width = label_width, label_suffix = label_suffix, required = required,
-    error = error, show_message = show_message, inline_message = inline_message,
-    id     = ns_id,
-    markup = htmltools::tag("el-color-picker", cp_attrs),
-    data    = vue_data,
-    methods = c(events$methods, list(
-      handleChange = JS(sprintf(
-        "function(val) { window.Shiny && Shiny.setInputValue && Shiny.setInputValue('%s', val); }",
-        ns_id
-      ))
+      value_on_clear = value_on_clear
     )),
+    label = label,
+    label_position = label_position,
+    label_width = label_width,
+    label_suffix = label_suffix,
+    required = required,
+    error = error,
+    show_message = show_message,
+    inline_message = inline_message,
+    id = ns_id,
+    markup = htmltools::tag("el-color-picker", cp_attrs),
+    data = vue_data,
+    methods = c(
+      events$methods,
+      list(
+        handleChange = JS(sprintf(
+          "function(val) { window.Shiny && Shiny.setInputValue && Shiny.setInputValue('%s', val); }",
+          ns_id
+        ))
+      )
+    ),
     mounted = .el_mounted_init(stats::setNames("value", ns_id)),
-    width      = width,
-    slots      = slots
+    width = width,
+    slots = slots
   )
 }
 
@@ -175,16 +191,24 @@ el_color_picker <- function(
 #'   })
 #' }
 #' @export
-update_el_color_picker <- function(session = shiny::getDefaultReactiveDomain(), id, value = NULL, disabled = NULL,
-                                   label = NULL, error = NULL) {
+update_el_color_picker <- function(
+  session = shiny::getDefaultReactiveDomain(),
+  id,
+  value = NULL,
+  disabled = NULL,
+  label = NULL,
+  error = NULL
+) {
   .el_check_session(session)
   ns_id <- session$ns(id)
-  msg   <- list(id = ns_id)
-  if (!is.null(value))    msg$value    <- value
-  if (!is.null(disabled)) msg$disabled <- disabled
+  msg <- list(id = ns_id)
+  if (!is.null(value)) {
+    msg$value <- value
+  }
+  if (!is.null(disabled)) {
+    msg$disabled <- disabled
+  }
   msg <- .el_form_item_update(msg, label, error)
   .el_send_update(session, msg)
   invisible(NULL)
 }
-
-

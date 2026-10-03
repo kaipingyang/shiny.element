@@ -38,6 +38,9 @@ Server-side update for \code{\link[=el_cascader_panel]{el_cascader_panel()}}.
 \examples{
 if (interactive()) {
   # inside a server function
-  observeEvent(input$reset, update_el_cascader_panel(session, "where", value = list()))
+  observeEvent(
+    input$reset,
+    update_el_cascader_panel(session, "where", value = list())
+  )
 }
 }

@@ -26,12 +26,16 @@
 #' el_calendar("cal")
 #'
 #' # Your own, with whatever Element hands the template
-#' el_calendar("cal", slots = list(
-#'   dateCell = template(
-#'     htmltools::HTML("<p>{{ data.day.slice(8) }}</p>"),
-#'     slot = "dateCell", scope = "{date, data}"
+#' el_calendar(
+#'   "cal",
+#'   slots = list(
+#'     dateCell = template(
+#'       htmltools::HTML("<p>{{ data.day.slice(8) }}</p>"),
+#'       slot = "dateCell",
+#'       scope = "{date, data}"
+#'     )
 #'   )
-#' ))
+#' )
 #' # Basic usage
 #' el_calendar(id = "calendar1", value = Sys.Date())
 #'
@@ -73,37 +77,39 @@
 #'   shinyApp(ui, server)
 #' }
 
-el_calendar <- function(id = NULL,
-                        value = NULL,
-                        range = NULL,
-                        label = NULL,
-                        label_position = c("top", "left", "right"),
-                        label_width = NULL,
-                        label_suffix = NULL,
-                        required = FALSE,
-                        error = NULL,
-                        show_message = TRUE,
-                        inline_message = FALSE,
-                        controller_type = NULL,
-                        formatter = NULL,
-                        width   = NULL,
-                        slots   = NULL,
-                        session = NULL) {  
+el_calendar <- function(
+  id = NULL,
+  value = NULL,
+  range = NULL,
+  label = NULL,
+  label_position = c("top", "left", "right"),
+  label_width = NULL,
+  label_suffix = NULL,
+  required = FALSE,
+  error = NULL,
+  show_message = TRUE,
+  inline_message = FALSE,
+  controller_type = NULL,
+  formatter = NULL,
+  width = NULL,
+  slots = NULL,
+  session = NULL
+) {
   .el_check_choices("el_calendar", environment())
-  
-  if (is.null(id)) {  
-    id <- paste0("el_calendar_", uuid::UUIDgenerate())  
-  }  
-  ns_id <- .el_ui_id(id, session)  
-  container_id <- paste0(ns_id, "_container")  
-  
-  calendar_attrs <- list(  
-    "v-model" = "value"  
-  )  
+
+  if (is.null(id)) {
+    id <- paste0("el_calendar_", uuid::UUIDgenerate())
+  }
+  ns_id <- .el_ui_id(id, session)
+  container_id <- paste0(ns_id, "_container")
+
+  calendar_attrs <- list(
+    "v-model" = "value"
+  )
   # Bound unconditionally so update_el_calendar(range = ) can set it later; a
   # field left out of the Vue data is not reactive.
-  calendar_attrs[[":range"]] <- .el_optional_bind("range")  
-  
+  calendar_attrs[[":range"]] <- .el_optional_bind("range")
+
   # Element's own day cell is bare, so this is the default -- but it is only
   # a default: slots = list(`date-cell` = ...) replaces it.
   if (is.null(slots[["date-cell"]]) && is.null(slots$dateCell)) {
@@ -114,44 +120,55 @@ el_calendar <- function(id = NULL,
         '<span v-if="data.isSelected">\u2714</span>',
         "</p>"
       )),
-      slot = "date-cell", scope = "{date, data}"
+      slot = "date-cell",
+      scope = "{date, data}"
     )
   }
- 
-  
-  vue_data <- list(  
-    value = if (is.null(value)) format(Sys.Date(), "%Y-%m-%d") else {  
-      if (inherits(value, "Date")) format(value, "%Y-%m-%d") else value  
+
+  vue_data <- list(
+    value = if (is.null(value)) {
+      format(Sys.Date(), "%Y-%m-%d")
+    } else {
+      if (inherits(value, "Date")) format(value, "%Y-%m-%d") else value
     }
-  )  
-  vue_data$range <- if (is.null(range)) NA else as.character(range)  
-  
+  )
+  vue_data$range <- if (is.null(range)) NA else as.character(range)
+
   el_widget(
     props = .el_props(list(
       controller_type = controller_type,
-      formatter = formatter)),
-    label = label, label_position = label_position,
-    label_width = label_width, label_suffix = label_suffix, required = required,
-    error = error, show_message = show_message, inline_message = inline_message,
-    id     = ns_id,
+      formatter = formatter
+    )),
+    label = label,
+    label_position = label_position,
+    label_width = label_width,
+    label_suffix = label_suffix,
+    required = required,
+    error = error,
+    show_message = show_message,
+    inline_message = inline_message,
+    id = ns_id,
     markup = tag("el-calendar", calendar_attrs),
-    head   = tags$style(HTML("
+    head = tags$style(HTML(
+      "
       .is-selected {
         color: #1989FA;
         font-weight: bold;
       }
-    ")),
-    data  = vue_data,
+    "
+    )),
+    data = vue_data,
     watch = list(
       value = JS(sprintf(
-        "function(newVal) { window.Shiny && Shiny.setInputValue && Shiny.setInputValue('%s', newVal); }", ns_id
+        "function(newVal) { window.Shiny && Shiny.setInputValue && Shiny.setInputValue('%s', newVal); }",
+        ns_id
       ))
     ),
-    mounted    = .el_mounted_init(stats::setNames("value", ns_id)),
-    width      = width,
-    slots      = slots
-  )  
-}  
+    mounted = .el_mounted_init(stats::setNames("value", ns_id)),
+    width = width,
+    slots = slots
+  )
+}
 
 #' Update Element Plus Calendar Component
 #'
@@ -177,14 +194,28 @@ el_calendar <- function(id = NULL,
 #'   })
 #' }
 #' @export
-update_el_calendar <- function(session = shiny::getDefaultReactiveDomain(), id, value = NULL, range = NULL,
-                               label = NULL, error = NULL) {
+update_el_calendar <- function(
+  session = shiny::getDefaultReactiveDomain(),
+  id,
+  value = NULL,
+  range = NULL,
+  label = NULL,
+  error = NULL
+) {
   .el_check_session(session)
-  ns_id <- session$ns(id)  
-  message <- list(id = ns_id)  
-  if (!is.null(value)) message$value <- if (inherits(value, "Date")) format(value, "%Y-%m-%d") else value  
-  if (!is.null(range)) message$range <- as.character(range)  
-  
+  ns_id <- session$ns(id)
+  message <- list(id = ns_id)
+  if (!is.null(value)) {
+    message$value <- if (inherits(value, "Date")) {
+      format(value, "%Y-%m-%d")
+    } else {
+      value
+    }
+  }
+  if (!is.null(range)) {
+    message$range <- as.character(range)
+  }
+
   message <- .el_form_item_update(message, label, error)
   .el_send_update(session, message)
   invisible(NULL)

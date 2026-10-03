@@ -15,12 +15,23 @@ The current value is displayed when the slider is being dragged.
 Customize the initial value of the slider by setting the binding value.
 
 ```{r basic-usage, eval = FALSE, shot = TRUE}
-tags$div(style = "max-width: 600px",
-  tags$span("Default value"), el_slider("sl1", value = 0),
-  tags$span("Customized initial value"), el_slider("sl2", value = 50),
-  tags$span("Hide Tooltip"), el_slider("sl3", value = 36, show_tooltip = FALSE),
-  tags$span("Format Tooltip"), el_slider("sl4", value = 48, format_tooltip = JS("function(v) { return v / 100; }")),
-  tags$span("Disabled"), el_slider("sl5", value = 42, disabled = TRUE))
+tags$div(
+  style = "max-width: 600px",
+  tags$span("Default value"),
+  el_slider("sl1", value = 0),
+  tags$span("Customized initial value"),
+  el_slider("sl2", value = 50),
+  tags$span("Hide Tooltip"),
+  el_slider("sl3", value = 36, show_tooltip = FALSE),
+  tags$span("Format Tooltip"),
+  el_slider(
+    "sl4",
+    value = 48,
+    format_tooltip = JS("function(v) { return v / 100; }")
+  ),
+  tags$span("Disabled"),
+  el_slider("sl5", value = 42, disabled = TRUE)
+)
 ```
 
 ## Discrete values
@@ -30,9 +41,13 @@ The options can be discrete.
 Set step size with the `step` attribute. You can display breakpoints by setting the `show-stops` attribute.
 
 ```{r discrete-values, eval = FALSE, shot = TRUE}
-tags$div(style = "max-width: 600px",
-  tags$span("Breakpoints not displayed"), el_slider("sld1", value = 0, step = 10),
-  tags$span("Breakpoints displayed"), el_slider("sld2", value = 0, step = 10, show_stops = TRUE))
+tags$div(
+  style = "max-width: 600px",
+  tags$span("Breakpoints not displayed"),
+  el_slider("sld1", value = 0, step = 10),
+  tags$span("Breakpoints displayed"),
+  el_slider("sld2", value = 0, step = 10, show_stops = TRUE)
+)
 ```
 
 ## Slider with input box
@@ -48,10 +63,12 @@ el_slider("sl_input", value = 0, show_input = TRUE, width = "600px")
 ## Sizes
 
 ```{r sizes, eval = FALSE, shot = TRUE}
-tags$div(style = "max-width: 600px",
+tags$div(
+  style = "max-width: 600px",
   el_slider("sls_l", value = 0, show_input = TRUE, size = "large"),
   el_slider("sls_d", value = 0, show_input = TRUE),
-  el_slider("sls_s", value = 0, show_input = TRUE, size = "small"))
+  el_slider("sls_s", value = 0, show_input = TRUE, size = "small")
+)
 ```
 
 ## Placement
@@ -59,9 +76,13 @@ tags$div(style = "max-width: 600px",
 You can custom tooltip placement.
 
 ```{r placement, eval = FALSE, shot = TRUE}
-tags$div(style = "max-width: 600px; padding-top: 40px",
-  el_slider("slp1", value = 0, placement = "top"), el_slider("slp2", value = 0, placement = "bottom"),
-  el_slider("slp3", value = 0, placement = "right"), el_slider("slp4", value = 0, placement = "left"))
+tags$div(
+  style = "max-width: 600px; padding-top: 40px",
+  el_slider("slp1", value = 0, placement = "top"),
+  el_slider("slp2", value = 0, placement = "bottom"),
+  el_slider("slp3", value = 0, placement = "right"),
+  el_slider("slp4", value = 0, placement = "left")
+)
 ```
 
 ## Range selection
@@ -71,7 +92,14 @@ Selecting a range of values is supported.
 Setting the `range` attribute activates range mode, where the binding value is an array made up of two boundary values.
 
 ```{r range-selection, eval = FALSE, shot = TRUE}
-el_slider("sl_range", value = c(4, 8), range = TRUE, show_stops = TRUE, max = 10, width = "600px")
+el_slider(
+  "sl_range",
+  value = c(4, 8),
+  range = TRUE,
+  show_stops = TRUE,
+  max = 10,
+  width = "600px"
+)
 ```
 
 ## Vertical mode
@@ -87,9 +115,18 @@ el_slider("sl_vert", value = 0, vertical = TRUE, height = "200px")
 Setting this `marks` attribute can show mark on slider.
 
 ```{r show-marks, eval = FALSE, shot = TRUE}
-el_slider("sl_marks", value = c(30, 60), range = TRUE, width = "600px",
-          marks = list("0" = "0°C", "8" = "8°C", "37" = "37°C",
-                       "50" = list(style = list(color = "#1989FA"), label = "50%")))
+el_slider(
+  "sl_marks",
+  value = c(30, 60),
+  range = TRUE,
+  width = "600px",
+  marks = list(
+    "0" = "0°C",
+    "8" = "8°C",
+    "37" = "37°C",
+    "50" = list(style = list(color = "#1989FA"), label = "50%")
+  )
+)
 ```
 
 ## Restrict value

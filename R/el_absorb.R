@@ -21,33 +21,62 @@
 #'   back as `markup` with everything else empty.
 #' @keywords internal
 .el_absorb <- function(ui) {
-  empty <- list(markup = ui, data = list(), methods = list(), watch = list(),
-                computed = list(), mounted = NULL, dependencies = list())
-  if (is.null(ui)) return(empty)
+  empty <- list(
+    markup = ui,
+    data = list(),
+    methods = list(),
+    watch = list(),
+    computed = list(),
+    mounted = NULL,
+    dependencies = list()
+  )
+  if (is.null(ui)) {
+    return(empty)
+  }
 
   # Unwrap a one-element list of UI, as `...` collects
-  if (is.list(ui) && !inherits(ui, c("shiny.tag", "shiny.tag.list", "htmlwidget")) &&
-      length(ui) == 1L) {
+  if (
+    is.list(ui) &&
+      !inherits(ui, c("shiny.tag", "shiny.tag.list", "htmlwidget")) &&
+      length(ui) == 1L
+  ) {
     ui <- ui[[1]]
     empty$markup <- ui
   }
   # Several pieces -- text and components side by side, or two components --
   # are taken apart one by one and folded together, each keeping its place.
   # One component is itself a tag list, of its head and its host.
-  is_component <- function(x) inherits(x, "shiny.tag.list") && any(vapply(x, function(p)
-    inherits(p, "shiny.tag") && !is.null(attr(p, "el_spec")), logical(1)))
+  is_component <- function(x) {
+    inherits(x, "shiny.tag.list") &&
+      any(vapply(
+        x,
+        function(p) {
+          inherits(p, "shiny.tag") && !is.null(attr(p, "el_spec"))
+        },
+        logical(1)
+      ))
+  }
   # A plain tag holding a component -- tags$span(el_button(...)) -- is opened
   # up: its children are absorbed and the tag keeps its place around them.
   # Left whole, the component's own template would sit inside this one's,
   # where Vue's compiler drops the <script> holding it.
   holds_component <- function(x) {
-    if (is_component(x)) return(TRUE)
-    kids <- if (inherits(x, "shiny.tag")) x$children
-            else if (is.list(x)) unclass(x) else NULL
+    if (is_component(x)) {
+      return(TRUE)
+    }
+    kids <- if (inherits(x, "shiny.tag")) {
+      x$children
+    } else if (is.list(x)) {
+      unclass(x)
+    } else {
+      NULL
+    }
     length(kids) > 0 && any(vapply(kids, holds_component, logical(1)))
   }
   if (inherits(ui, "shiny.tag") && is.null(attr(ui, "el_spec"))) {
-    if (!holds_component(ui)) return(empty)
+    if (!holds_component(ui)) {
+      return(empty)
+    }
     inner <- .el_absorb(ui$children)
     ui$children <- list(inner$markup)
     inner$markup <- ui
@@ -55,31 +84,53 @@
   }
   if (is.list(ui) && !inherits(ui, "shiny.tag") && !is_component(ui)) {
     parts <- Filter(Negate(is.null), unclass(ui))
-    if (!any(vapply(parts, function(p) is_component(p) || holds_component(p) ||
-                      (is.list(p) && !inherits(p, "shiny.tag")), logical(1)))) return(empty)
+    if (
+      !any(vapply(
+        parts,
+        function(p) {
+          is_component(p) ||
+            holds_component(p) ||
+            (is.list(p) && !inherits(p, "shiny.tag"))
+        },
+        logical(1)
+      ))
+    ) {
+      return(empty)
+    }
     merged <- do.call(.el_absorb_merge, lapply(parts, .el_absorb))
-    return(list(markup = htmltools::tagList(merged$markups), data = merged$data,
-                methods = merged$methods %||% list(), watch = merged$watch %||% list(),
-                computed = merged$computed %||% list(), mounted = merged$mounted,
-                dependencies = merged$dependencies))
+    return(list(
+      markup = htmltools::tagList(merged$markups),
+      data = merged$data,
+      methods = merged$methods %||% list(),
+      watch = merged$watch %||% list(),
+      computed = merged$computed %||% list(),
+      mounted = merged$mounted,
+      dependencies = merged$dependencies
+    ))
   }
-  if (!inherits(ui, "shiny.tag.list")) return(empty)
+  if (!inherits(ui, "shiny.tag.list")) {
+    return(empty)
+  }
 
   host <- NULL
   for (part in ui) {
-    if (inherits(part, "shiny.tag") && !is.null(attr(part, "el_spec"))) host <- part
+    if (inherits(part, "shiny.tag") && !is.null(attr(part, "el_spec"))) {
+      host <- part
+    }
   }
-  if (is.null(host)) return(empty)
+  if (is.null(host)) {
+    return(empty)
+  }
 
-  spec    <- attr(host, "el_spec")
+  spec <- attr(host, "el_spec")
   options <- spec$options
   list(
-    markup       = spec$markup,
-    data         = if (is.null(options$data)) list() else options$data,
-    methods      = if (is.null(options$methods)) list() else options$methods,
-    watch        = if (is.null(options$watch)) list() else options$watch,
-    computed     = if (is.null(options$computed)) list() else options$computed,
-    mounted      = options$mounted,
+    markup = spec$markup,
+    data = if (is.null(options$data)) list() else options$data,
+    methods = if (is.null(options$methods)) list() else options$methods,
+    watch = if (is.null(options$watch)) list() else options$watch,
+    computed = if (is.null(options$computed)) list() else options$computed,
+    mounted = options$mounted,
     dependencies = htmltools::findDependencies(ui)
   )
 }
@@ -100,10 +151,13 @@
   # later one's fields -- markup, methods and all -- so both can coexist.
   taken <- character(0)
   for (i in seq_along(parts)) {
-    names_of <- function(p) unique(c(names(p$data), names(p$methods),
-                                     names(p$computed)))
+    names_of <- function(p) {
+      unique(c(names(p$data), names(p$methods), names(p$computed)))
+    }
     fields <- names_of(parts[[i]])
-    if (!length(fields)) next
+    if (!length(fields)) {
+      next
+    }
     if (length(intersect(taken, fields))) {
       parts[[i]] <- .el_prefix_absorbed(parts[[i]], paste0("el", i))
       fields <- names_of(parts[[i]])
@@ -114,13 +168,19 @@
     out <- list()
     for (p in parts) {
       value <- p[[field]]
-      if (!length(value)) next
+      if (!length(value)) {
+        next
+      }
       clash <- intersect(names(out), names(value))
       if (length(clash)) {
-        stop("Two components inside the same wrapper both declare ",
-             paste(sQuote(clash), collapse = ", "), " in their Vue ", field,
-             ", which renaming did not separate. Please report this.",
-             call. = FALSE)
+        stop(
+          "Two components inside the same wrapper both declare ",
+          paste(sQuote(clash), collapse = ", "),
+          " in their Vue ",
+          field,
+          ", which renaming did not separate. Please report this.",
+          call. = FALSE
+        )
       }
       out <- c(out, value)
     }
@@ -130,11 +190,15 @@
   }
 
   mounts <- Filter(Negate(is.null), lapply(parts, `[[`, "mounted"))
-  mounted <- if (!length(mounts)) NULL else JS(
-    "function() { var self = this; [",
-    paste(vapply(mounts, as.character, character(1)), collapse = ", "),
-    "].forEach(function(f) { f.call(self); }); }"
-  )
+  mounted <- if (!length(mounts)) {
+    NULL
+  } else {
+    JS(
+      "function() { var self = this; [",
+      paste(vapply(mounts, as.character, character(1)), collapse = ", "),
+      "].forEach(function(f) { f.call(self); }); }"
+    )
+  }
   # When every hook is only reporting -- what .el_mounted_init() writes --
   # say so, with every field each reports. el_widget() then binds the
   # wrapper's own value to Shiny, as it does for any other component, and
@@ -147,14 +211,17 @@
   list(
     # Renaming rewrites the markup too, so the caller has to use what comes
     # back rather than what it passed in -- in the same order.
-    markups  = lapply(parts, `[[`, "markup"),
-    data     = pick("data"),
-    methods  = pick("methods"),
-    watch    = pick("watch"),
+    markups = lapply(parts, `[[`, "markup"),
+    data = pick("data"),
+    methods = pick("methods"),
+    watch = pick("watch"),
     computed = pick("computed"),
     # Each component's mounted hook runs in turn, on the shared instance
-    mounted  = mounted,
-    dependencies = unlist(lapply(parts, `[[`, "dependencies"), recursive = FALSE)
+    mounted = mounted,
+    dependencies = unlist(
+      lapply(parts, `[[`, "dependencies"),
+      recursive = FALSE
+    )
   )
 }
 
@@ -177,38 +244,62 @@
 .el_prefix_absorbed <- function(absorbed, prefix) {
   # Methods collide as readily as data: most components call theirs
   # handleChange or handleClick. The markup names both, so both are renamed.
-  fields <- unique(c(names(absorbed$data), names(absorbed$methods),
-                     names(absorbed$computed)))
-  if (!length(fields)) return(absorbed)
+  fields <- unique(c(
+    names(absorbed$data),
+    names(absorbed$methods),
+    names(absorbed$computed)
+  ))
+  if (!length(fields)) {
+    return(absorbed)
+  }
 
   rename <- stats::setNames(paste0(prefix, "_", fields), fields)
 
   rename_keys <- function(x) {
-    if (!length(x)) return(x)
-    stats::setNames(x, vapply(names(x),
-      function(n) if (n %in% names(rename)) rename[[n]] else n, character(1)))
+    if (!length(x)) {
+      return(x)
+    }
+    stats::setNames(
+      x,
+      vapply(
+        names(x),
+        function(n) if (n %in% names(rename)) rename[[n]] else n,
+        character(1)
+      )
+    )
   }
-  absorbed$data     <- rename_keys(absorbed$data)
-  absorbed$methods  <- rename_keys(absorbed$methods)
+  absorbed$data <- rename_keys(absorbed$data)
+  absorbed$methods <- rename_keys(absorbed$methods)
   absorbed$computed <- rename_keys(absorbed$computed)
   if (length(absorbed$watch)) {
     absorbed$watch <- stats::setNames(
       absorbed$watch,
-      vapply(names(absorbed$watch),
-             function(n) if (!is.na(rename[n])) rename[[n]] else n, character(1))
+      vapply(
+        names(absorbed$watch),
+        function(n) if (!is.na(rename[n])) rename[[n]] else n,
+        character(1)
+      )
     )
   }
 
-  absorbed$markup  <- .el_rewrite_markup(absorbed$markup, rename)
+  absorbed$markup <- .el_rewrite_markup(absorbed$markup, rename)
   absorbed$methods <- lapply(absorbed$methods, .el_rewrite_js, rename = rename)
-  absorbed$computed <- lapply(absorbed$computed, .el_rewrite_js, rename = rename)
+  absorbed$computed <- lapply(
+    absorbed$computed,
+    .el_rewrite_js,
+    rename = rename
+  )
   if (!is.null(absorbed$mounted)) {
     report <- attr(absorbed$mounted, "el_report")
     absorbed$mounted <- .el_rewrite_js(absorbed$mounted, rename)
     # The fields it reports are renamed with the rest
     if (!is.null(report)) {
       attr(absorbed$mounted, "el_report") <- vapply(
-        report, .el_rewrite_expr, character(1), rename = rename)
+        report,
+        .el_rewrite_expr,
+        character(1),
+        rename = rename
+      )
     }
   }
   if (length(absorbed$watch)) {
@@ -225,14 +316,18 @@
 #' @return The expression, rewritten.
 #' @keywords internal
 .el_rewrite_expr <- function(expr, rename) {
-  if (!is.character(expr) || !length(expr)) return(expr)
+  if (!is.character(expr) || !length(expr)) {
+    return(expr)
+  }
 
   # Protect string literals, which may contain anything
   literals <- list()
   protect <- function(x) {
     repeat {
       m <- regexpr("'[^']*'|\"[^\"]*\"", x)
-      if (m == -1) break
+      if (m == -1) {
+        break
+      }
       lit <- regmatches(x, m)
       key <- sprintf("\u0001%d\u0001", length(literals) + 1L)
       literals[[length(literals) + 1L]] <<- lit
@@ -244,8 +339,12 @@
 
   for (old in names(rename)) {
     # A whole identifier, not preceded by a dot (obj.value is a member)
-    out <- gsub(paste0("(?<![A-Za-z0-9_$.])", old, "(?![A-Za-z0-9_$])"),
-                rename[[old]], out, perl = TRUE)
+    out <- gsub(
+      paste0("(?<![A-Za-z0-9_$.])", old, "(?![A-Za-z0-9_$])"),
+      rename[[old]],
+      out,
+      perl = TRUE
+    )
   }
 
   for (i in rev(seq_along(literals))) {
@@ -264,12 +363,17 @@
 .el_rewrite_markup <- function(ui, rename) {
   if (inherits(ui, "shiny.tag")) {
     bindings <- grepl("^[:@]|^v-(model|if|for|show|bind|on)", names(ui$attribs))
-    ui$attribs[bindings] <- lapply(ui$attribs[bindings], .el_rewrite_expr,
-                                   rename = rename)
+    ui$attribs[bindings] <- lapply(
+      ui$attribs[bindings],
+      .el_rewrite_expr,
+      rename = rename
+    )
     ui$children <- lapply(ui$children, .el_rewrite_markup, rename = rename)
     return(ui)
   }
-  if (is.list(ui)) return(lapply(ui, .el_rewrite_markup, rename = rename))
+  if (is.list(ui)) {
+    return(lapply(ui, .el_rewrite_markup, rename = rename))
+  }
   # Interpolation in a text node: {{label}}
   if (is.character(ui) && grepl("\\{\\{", ui)) {
     return(htmltools::HTML(.el_rewrite_expr(as.character(ui), rename)))
@@ -285,12 +389,18 @@
 #' @return The function, rewritten.
 #' @keywords internal
 .el_rewrite_js <- function(js, rename) {
-  if (is.null(js)) return(NULL)
+  if (is.null(js)) {
+    return(NULL)
+  }
   body <- paste(as.character(js), collapse = "\n")
   for (old in names(rename)) {
     # Only fields reached off the instance: this.value, self.value
-    body <- gsub(paste0("((?:this|self)\\.)", old, "(?![A-Za-z0-9_$])"),
-                 paste0("\\1", rename[[old]]), body, perl = TRUE)
+    body <- gsub(
+      paste0("((?:this|self)\\.)", old, "(?![A-Za-z0-9_$])"),
+      paste0("\\1", rename[[old]]),
+      body,
+      perl = TRUE
+    )
   }
   JS(body)
 }
@@ -314,24 +424,41 @@
 #' @param data Further fields of the container's own.
 #' @return A Shiny UI element.
 #' @keywords internal
-.el_wrap_widget <- function(tag, ns_id, children, props = NULL, events = NULL,
-                            attrs = list(), width = NULL, slots = NULL, data = list()) {
-  own <- list(markup = NULL, data = c(data, props$data),
-              methods = if (is.null(events)) list() else events$methods,
-              watch = list(), computed = list(), mounted = NULL, dependencies = list())
+.el_wrap_widget <- function(
+  tag,
+  ns_id,
+  children,
+  props = NULL,
+  events = NULL,
+  attrs = list(),
+  width = NULL,
+  slots = NULL,
+  data = list()
+) {
+  own <- list(
+    markup = NULL,
+    data = c(data, props$data),
+    methods = if (is.null(events)) list() else events$methods,
+    watch = list(),
+    computed = list(),
+    mounted = NULL,
+    dependencies = list()
+  )
   parts <- lapply(Filter(Negate(is.null), children), .el_absorb)
   merged <- do.call(.el_absorb_merge, c(list(own), parts))
   el_widget(
-    id       = ns_id,
-    markup   = htmltools::tag(tag, c(attrs, props$attrs, events$attrs,
-                                     unname(merged$markups[-1]))),
-    data     = merged$data,
-    methods  = merged$methods,
-    watch    = merged$watch,
+    id = ns_id,
+    markup = htmltools::tag(
+      tag,
+      c(attrs, props$attrs, events$attrs, unname(merged$markups[-1]))
+    ),
+    data = merged$data,
+    methods = merged$methods,
+    watch = merged$watch,
     computed = merged$computed,
-    mounted  = merged$mounted,
-    width    = width,
-    slots    = slots,
+    mounted = merged$mounted,
+    width = width,
+    slots = slots,
     dependency = merged$dependencies
   )
 }

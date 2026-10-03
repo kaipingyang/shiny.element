@@ -18,7 +18,11 @@
 #' # Set two fields of a component of your own
 #' update_vue_data(session, "price", list(range = list(0, 50), max = 500))
 #' }
-update_vue_data <- function(session = shiny::getDefaultReactiveDomain(), id, data) {
+update_vue_data <- function(
+  session = shiny::getDefaultReactiveDomain(),
+  id,
+  data
+) {
   .el_check_session(session)
   ns_id <- session$ns(id)
   .el_send_update(session, c(list(id = ns_id), data))

@@ -169,8 +169,13 @@ el_slider("slider1", value = 30, min = 0, max = 100)
 el_slider("slider2", value = c(20, 80), range = TRUE)
 
 # Vertical slider with marks
-el_slider("slider3", value = 50, vertical = TRUE, height = "200px",
-          marks = list("0" = "0km", "50" = "50km", "100" = "100km"))
+el_slider(
+  "slider3",
+  value = 50,
+  vertical = TRUE,
+  height = "200px",
+  marks = list("0" = "0km", "50" = "50km", "100" = "100km")
+)
 
 # Shiny app example
 if (interactive()) {
@@ -185,5 +190,4 @@ if (interactive()) {
   }
   shinyApp(ui, server)
 }
-
 }

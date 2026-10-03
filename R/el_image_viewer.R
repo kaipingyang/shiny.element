@@ -43,34 +43,40 @@
 #'
 #' @return A Shiny UI element.
 #' @export
-el_image_viewer <- function(id = NULL,
-                            url_list = NULL,
-                            visible = FALSE,
-                            z_index = NULL,
-                            initial_index = NULL,
-                            infinite = NULL,
-                            hide_on_click_modal = NULL,
-                            teleported = NULL,
-                            zoom_rate = NULL,
-                            scale = NULL,
-                            min_scale = NULL,
-                            max_scale = NULL,
-                            close_on_press_escape = NULL,
-                            show_progress = NULL,
-                            width = NULL,
-                            slots = NULL) {
+el_image_viewer <- function(
+  id = NULL,
+  url_list = NULL,
+  visible = FALSE,
+  z_index = NULL,
+  initial_index = NULL,
+  infinite = NULL,
+  hide_on_click_modal = NULL,
+  teleported = NULL,
+  zoom_rate = NULL,
+  scale = NULL,
+  min_scale = NULL,
+  max_scale = NULL,
+  close_on_press_escape = NULL,
+  show_progress = NULL,
+  width = NULL,
+  slots = NULL
+) {
   .el_check_choices("el_image_viewer", environment())
-  if (is.null(id)) id <- paste0("el_image_viewer_", uuid::UUIDgenerate())
+  if (is.null(id)) {
+    id <- paste0("el_image_viewer_", uuid::UUIDgenerate())
+  }
   ns_id <- .el_ui_id(id, NULL)
   events <- .el_event_bindings(ns_id, c("error", "switch", "rotate"))
   # Element Plus's viewer is open while it is mounted: v-if stands for its
   # visibility, and closing it unmounts it and reports
   attrs <- c(list("v-if" = "visible", "@close" = "handleClose"), events$attrs)
-  if (!is.null(url_list)) url_list <- as.list(url_list)
+  if (!is.null(url_list)) {
+    url_list <- as.list(url_list)
+  }
   el_widget(
-    id      = ns_id,
-    markup  = htmltools::tag("el-image-viewer", attrs),
-    props   = .el_props(list(
+    id = ns_id,
+    markup = htmltools::tag("el-image-viewer", attrs),
+    props = .el_props(list(
       url_list = url_list,
       z_index = z_index,
       initial_index = initial_index,
@@ -82,13 +88,23 @@ el_image_viewer <- function(id = NULL,
       min_scale = min_scale,
       max_scale = max_scale,
       close_on_press_escape = close_on_press_escape,
-      show_progress = show_progress)),
-    data    = list(visible = visible),
-    methods = c(events$methods, list(handleClose = JS(sprintf(paste0(
-      "function() { this.visible = false; window.Shiny && Shiny.setInputValue && ",
-      "Shiny.setInputValue('%s_close', true, {priority: 'event'}); }"), ns_id)))),
-    width   = width,
-    slots   = slots
+      show_progress = show_progress
+    )),
+    data = list(visible = visible),
+    methods = c(
+      events$methods,
+      list(
+        handleClose = JS(sprintf(
+          paste0(
+            "function() { this.visible = false; window.Shiny && Shiny.setInputValue && ",
+            "Shiny.setInputValue('%s_close', true, {priority: 'event'}); }"
+          ),
+          ns_id
+        ))
+      )
+    ),
+    width = width,
+    slots = slots
   )
 }
 
@@ -106,16 +122,30 @@ el_image_viewer <- function(id = NULL,
 #' @examples
 #' if (interactive()) {
 #'   # inside a server function
-#'   observeEvent(input$show, update_el_image_viewer(session, "photos", visible = TRUE))
+#'   observeEvent(
+#'     input$show,
+#'     update_el_image_viewer(session, "photos", visible = TRUE)
+#'   )
 #' }
 #' @export
-update_el_image_viewer <- function(session = shiny::getDefaultReactiveDomain(), id,
-                                   visible = NULL, url_list = NULL, initial_index = NULL) {
+update_el_image_viewer <- function(
+  session = shiny::getDefaultReactiveDomain(),
+  id,
+  visible = NULL,
+  url_list = NULL,
+  initial_index = NULL
+) {
   .el_check_session(session)
   msg <- list(id = session$ns(id))
-  if (!is.null(visible))       msg$visible      <- visible
-  if (!is.null(url_list))      msg$urlList      <- as.list(url_list)
-  if (!is.null(initial_index)) msg$initialIndex <- initial_index
+  if (!is.null(visible)) {
+    msg$visible <- visible
+  }
+  if (!is.null(url_list)) {
+    msg$urlList <- as.list(url_list)
+  }
+  if (!is.null(initial_index)) {
+    msg$initialIndex <- initial_index
+  }
   .el_send_update(session, msg)
   invisible(NULL)
 }

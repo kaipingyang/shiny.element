@@ -77,13 +77,13 @@ if (interactive()) {
   )
   server <- function(input, output, session) {
     observeEvent(input$btn, {
-      el_message(session,
+      el_message(
+        session,
         message = "This is a message toast.",
-        type    = "warning"
+        type = "warning"
       )
     })
   }
   shinyApp(ui, server)
 }
-
 }

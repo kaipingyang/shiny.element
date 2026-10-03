@@ -22,13 +22,12 @@ Convert a data.frame with custom value/label columns to Element-UI Cascader opti
 \examples{
 df <- data.frame(
   province = c("Zhejiang", "Zhejiang", "Jiangsu"),
-  city     = c("Hangzhou", "Ningbo", "Nanjing"),
+  city = c("Hangzhou", "Ningbo", "Nanjing"),
   stringsAsFactors = FALSE
 )
 df_to_cascader_options(df, c("province", "city"))
 
 # Separate value and label columns
 df$province_label <- paste(df$province, "Province")
-df_to_cascader_options(df, c("province", "city"),
-                       c("province_label", NA))
+df_to_cascader_options(df, c("province", "city"), c("province_label", NA))
 }

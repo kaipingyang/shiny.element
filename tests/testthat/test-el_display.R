@@ -150,8 +150,14 @@ test_that("el_link: disabled removes href", {
 
 test_that("el_link: underline classes, as Element Plus names them", {
   expect_match(render_html(el_link("Link")), "is-hover-underline")
-  expect_match(render_html(el_link("Link", underline = TRUE)), "is-hover-underline")
-  expect_match(render_html(el_link("Link", underline = "always")), "is-underline\\b")
+  expect_match(
+    render_html(el_link("Link", underline = TRUE)),
+    "is-hover-underline"
+  )
+  expect_match(
+    render_html(el_link("Link", underline = "always")),
+    "is-underline\\b"
+  )
   expect_no_match(render_html(el_link("Link", underline = FALSE)), "underline")
 })
 

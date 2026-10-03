@@ -76,56 +76,75 @@
 #'
 #' @return A Shiny UI element.
 #' @examples
-#' el_input_tag("keywords", value = c("shiny", "element"), placeholder = "Add a keyword")
+#' el_input_tag(
+#'   "keywords",
+#'   value = c("shiny", "element"),
+#'   placeholder = "Add a keyword"
+#' )
 #' @export
-el_input_tag <- function(id = NULL,
-                         value = list(),
-                         max = NULL,
-                         tag_type = NULL,
-                         tag_effect = NULL,
-                         effect = NULL,
-                         trigger = NULL,
-                         draggable = NULL,
-                         delimiter = NULL,
-                         size = NULL,
-                         collapse_tags = NULL,
-                         collapse_tags_tooltip = NULL,
-                         save_on_blur = NULL,
-                         clearable = NULL,
-                         clear_icon = NULL,
-                         disabled = NULL,
-                         validate_event = NULL,
-                         readonly = NULL,
-                         autofocus = NULL,
-                         tabindex = NULL,
-                         max_collapse_tags = NULL,
-                         maxlength = NULL,
-                         minlength = NULL,
-                         placeholder = NULL,
-                         autocomplete = NULL,
-                         aria_label = NULL,
-                         label = NULL,
-                         label_position = c("top", "left", "right"),
-                         label_width = NULL,
-                         label_suffix = NULL,
-                         required = FALSE,
-                         error = NULL,
-                         show_message = TRUE,
-                         inline_message = FALSE,
-                         width = NULL,
-                         slots = NULL) {
+el_input_tag <- function(
+  id = NULL,
+  value = list(),
+  max = NULL,
+  tag_type = NULL,
+  tag_effect = NULL,
+  effect = NULL,
+  trigger = NULL,
+  draggable = NULL,
+  delimiter = NULL,
+  size = NULL,
+  collapse_tags = NULL,
+  collapse_tags_tooltip = NULL,
+  save_on_blur = NULL,
+  clearable = NULL,
+  clear_icon = NULL,
+  disabled = NULL,
+  validate_event = NULL,
+  readonly = NULL,
+  autofocus = NULL,
+  tabindex = NULL,
+  max_collapse_tags = NULL,
+  maxlength = NULL,
+  minlength = NULL,
+  placeholder = NULL,
+  autocomplete = NULL,
+  aria_label = NULL,
+  label = NULL,
+  label_position = c("top", "left", "right"),
+  label_width = NULL,
+  label_suffix = NULL,
+  required = FALSE,
+  error = NULL,
+  show_message = TRUE,
+  inline_message = FALSE,
+  width = NULL,
+  slots = NULL
+) {
   .el_check_choices("el_input_tag", environment())
-  if (is.null(id)) id <- paste0("el_input_tag_", uuid::UUIDgenerate())
+  if (is.null(id)) {
+    id <- paste0("el_input_tag_", uuid::UUIDgenerate())
+  }
   ns_id <- .el_ui_id(id, NULL)
-  events <- .el_event_bindings(ns_id, c("input", "add-tag", "remove-tag", "drag-tag", "focus", "blur", "clear"))
-  attrs <- c(list("v-model" = "value", "@change" = "handleChange"), events$attrs)
+  events <- .el_event_bindings(
+    ns_id,
+    c("input", "add-tag", "remove-tag", "drag-tag", "focus", "blur", "clear")
+  )
+  attrs <- c(
+    list("v-model" = "value", "@change" = "handleChange"),
+    events$attrs
+  )
   el_widget(
-    label = label, label_position = label_position,
-    label_width = label_width, label_suffix = label_suffix, required = required,
-    error = error, show_message = show_message, inline_message = inline_message,
-    id      = ns_id,
-    markup  = htmltools::tag("el-input-tag", attrs),
-    props   = .el_props(list(
+    label = label,
+    label_position = label_position,
+    label_width = label_width,
+    label_suffix = label_suffix,
+    required = required,
+    error = error,
+    show_message = show_message,
+    inline_message = inline_message,
+    id = ns_id,
+    markup = htmltools::tag("el-input-tag", attrs),
+    props = .el_props(list(
       max = max,
       tag_type = tag_type,
       tag_effect = tag_effect,
@@ -149,13 +168,21 @@ el_input_tag <- function(id = NULL,
       minlength = minlength,
       placeholder = placeholder,
       autocomplete = autocomplete,
-      aria_label = aria_label)),
-    data    = list(value = .el_restore(ns_id, if (is.null(value)) NA else value)),
-    methods = c(events$methods, list(handleChange = JS(sprintf(
-      "function(v) { window.Shiny && Shiny.setInputValue && Shiny.setInputValue('%s', v); }", ns_id)))),
+      aria_label = aria_label
+    )),
+    data = list(value = .el_restore(ns_id, if (is.null(value)) NA else value)),
+    methods = c(
+      events$methods,
+      list(
+        handleChange = JS(sprintf(
+          "function(v) { window.Shiny && Shiny.setInputValue && Shiny.setInputValue('%s', v); }",
+          ns_id
+        ))
+      )
+    ),
     mounted = .el_mounted_init(stats::setNames("value", ns_id)),
-    width   = width,
-    slots   = slots
+    width = width,
+    slots = slots
   )
 }
 
@@ -179,12 +206,22 @@ el_input_tag <- function(id = NULL,
 #'   observeEvent(input$reset, update_el_input_tag(session, "x", value = NULL))
 #' }
 #' @export
-update_el_input_tag <- function(session = shiny::getDefaultReactiveDomain(), id, value = NULL,
-                              disabled = NULL, label = NULL, error = NULL) {
+update_el_input_tag <- function(
+  session = shiny::getDefaultReactiveDomain(),
+  id,
+  value = NULL,
+  disabled = NULL,
+  label = NULL,
+  error = NULL
+) {
   .el_check_session(session)
   msg <- list(id = session$ns(id))
-  if (!is.null(value))    msg$value    <- value
-  if (!is.null(disabled)) msg$disabled <- disabled
+  if (!is.null(value)) {
+    msg$value <- value
+  }
+  if (!is.null(disabled)) {
+    msg$disabled <- disabled
+  }
   msg <- .el_form_item_update(msg, label, error)
   .el_send_update(session, msg)
   invisible(NULL)

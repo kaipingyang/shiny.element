@@ -10,13 +10,13 @@ test_that("el_progress: returns a tagList", {
 })
 
 test_that("el_progress: container div has correct id", {
-  pr   <- el_progress("pr1", session = NULL)
+  pr <- el_progress("pr1", session = NULL)
   html <- render_html(pr)
   expect_match(html, 'id="pr1_container"')
 })
 
 test_that("el_progress: auto-generated id when NULL", {
-  pr   <- el_progress(NULL, session = NULL)
+  pr <- el_progress(NULL, session = NULL)
   html <- render_html(pr)
   expect_match(html, 'id="el_progress_.*_container"')
 })
@@ -24,43 +24,43 @@ test_that("el_progress: auto-generated id when NULL", {
 # ── Vue data 字段 ─────────────────────────────────────────────────────────────
 
 test_that("el_progress: percentage appears in Vue data", {
-  pr   <- el_progress("pr1", percentage = 75, session = NULL)
+  pr <- el_progress("pr1", percentage = 75, session = NULL)
   html <- render_html(pr)
   expect_match(html, '"percentage"\\s*:\\s*75')
 })
 
 test_that("el_progress: type appears in Vue data", {
-  pr   <- el_progress("pr1", type = "circle", session = NULL)
+  pr <- el_progress("pr1", type = "circle", session = NULL)
   html <- render_html(pr)
   expect_match(html, '"type"\\s*:\\s*"circle"')
 })
 
 test_that("el_progress: strokeWidth appears in Vue data", {
-  pr   <- el_progress("pr1", stroke_width = 10, session = NULL)
+  pr <- el_progress("pr1", stroke_width = 10, session = NULL)
   html <- render_html(pr)
   expect_match(html, '"strokeWidth"\\s*:\\s*10')
 })
 
 test_that("el_progress: showText=FALSE appears in Vue data", {
-  pr   <- el_progress("pr1", show_text = FALSE, session = NULL)
+  pr <- el_progress("pr1", show_text = FALSE, session = NULL)
   html <- render_html(pr)
   expect_match(html, '"showText"\\s*:\\s*false')
 })
 
 test_that("el_progress: textInside=TRUE appears in Vue data", {
-  pr   <- el_progress("pr1", text_inside = TRUE, session = NULL)
+  pr <- el_progress("pr1", text_inside = TRUE, session = NULL)
   html <- render_html(pr)
   expect_match(html, '"textInside"\\s*:\\s*true')
 })
 
 test_that("el_progress: width appears in Vue data", {
-  pr   <- el_progress("pr1", width = 200, session = NULL)
+  pr <- el_progress("pr1", width = 200, session = NULL)
   html <- render_html(pr)
   expect_match(html, '"width"\\s*:\\s*200')
 })
 
 test_that("el_progress: status included in Vue data when set", {
-  pr   <- el_progress("pr1", status = "success", session = NULL)
+  pr <- el_progress("pr1", status = "success", session = NULL)
   html <- render_html(pr)
   expect_match(html, '"status"\\s*:\\s*"success"')
 })
@@ -69,12 +69,15 @@ test_that("el_progress: status is declared as null when not supplied", {
   # Declared and bound even when not supplied: a field missing from the Vue
   # data is not reactive, so the matching update_*() argument would be a
   # silent no-op. NA serialises to JSON null, which Element treats as unset.
-  expect_match(render_html(el_progress("pr1", status = NULL, session = NULL)),
-               '"status":null', fixed = TRUE)
+  expect_match(
+    render_html(el_progress("pr1", status = NULL, session = NULL)),
+    '"status":null',
+    fixed = TRUE
+  )
 })
 
 test_that("el_progress: color included in Vue data when set", {
-  pr   <- el_progress("pr1", color = "#409EFF", session = NULL)
+  pr <- el_progress("pr1", color = "#409EFF", session = NULL)
   html <- render_html(pr)
   expect_match(html, '"color"\\s*:\\s*"#409EFF"')
 })
@@ -83,32 +86,35 @@ test_that("el_progress: color falls back to Element's own default, not null", {
   # ElProgress declares color as [String, Array, Function] defaulting to "" and
   # calls .length on it, so JSON null throws during render. Verified in a
   # browser: it reports [Vue warn] Error in render ---> <ElProgress>.
-  expect_match(render_html(el_progress("pr1", color = NULL, session = NULL)),
-               '"color":""', fixed = TRUE)
+  expect_match(
+    render_html(el_progress("pr1", color = NULL, session = NULL)),
+    '"color":""',
+    fixed = TRUE
+  )
 })
 
 # ── Vue 属性绑定 ───────────────────────────────────────────────────────────────
 
 test_that("el_progress: :percentage binding present on el-progress tag", {
-  pr   <- el_progress("pr1", session = NULL)
+  pr <- el_progress("pr1", session = NULL)
   html <- render_html(pr)
   expect_match(html, ":percentage")
 })
 
 test_that("el_progress: :stroke-width binding present", {
-  pr   <- el_progress("pr1", session = NULL)
+  pr <- el_progress("pr1", session = NULL)
   html <- render_html(pr)
   expect_match(html, ":stroke-width")
 })
 
 test_that("el_progress: :show-text binding present", {
-  pr   <- el_progress("pr1", session = NULL)
+  pr <- el_progress("pr1", session = NULL)
   html <- render_html(pr)
   expect_match(html, ":show-text")
 })
 
 test_that("el_progress: :status binding present when status is set", {
-  pr   <- el_progress("pr1", status = "warning", session = NULL)
+  pr <- el_progress("pr1", status = "warning", session = NULL)
   html <- render_html(pr)
   expect_match(html, ":status")
 })
@@ -116,41 +122,54 @@ test_that("el_progress: :status binding present when status is set", {
 # ── update_el_progress ────────────────────────────────────────────────────────
 
 test_that("update_el_progress: sends percentage update", {
-  captured     <- NULL
+  captured <- NULL
   mock_session <- list(
-    ns                = function(id) id,
-    sendCustomMessage = function(type, msg) { captured <<- msg }
+    ns = function(id) id,
+    sendCustomMessage = function(type, msg) {
+      captured <<- msg
+    }
   )
   update_el_progress(mock_session, "pr1", percentage = 80)
   expect_equal(captured$percentage, 80)
 })
 
 test_that("update_el_progress: sends status and color update", {
-  captured     <- NULL
+  captured <- NULL
   mock_session <- list(
-    ns                = function(id) id,
-    sendCustomMessage = function(type, msg) { captured <<- msg }
+    ns = function(id) id,
+    sendCustomMessage = function(type, msg) {
+      captured <<- msg
+    }
   )
-  update_el_progress(mock_session, "pr1", status = "exception", color = "#F56C6C")
+  update_el_progress(
+    mock_session,
+    "pr1",
+    status = "exception",
+    color = "#F56C6C"
+  )
   expect_equal(captured$status, "exception")
-  expect_equal(captured$color,  "#F56C6C")
+  expect_equal(captured$color, "#F56C6C")
 })
 
 test_that("update_el_progress: sends strokeWidth update", {
-  captured     <- NULL
+  captured <- NULL
   mock_session <- list(
-    ns                = function(id) id,
-    sendCustomMessage = function(type, msg) { captured <<- msg }
+    ns = function(id) id,
+    sendCustomMessage = function(type, msg) {
+      captured <<- msg
+    }
   )
   update_el_progress(mock_session, "pr1", stroke_width = 12)
   expect_equal(captured$strokeWidth, 12)
 })
 
 test_that("update_el_progress: NULL fields excluded from message", {
-  captured     <- NULL
+  captured <- NULL
   mock_session <- list(
-    ns                = function(id) id,
-    sendCustomMessage = function(type, msg) { captured <<- msg }
+    ns = function(id) id,
+    sendCustomMessage = function(type, msg) {
+      captured <<- msg
+    }
   )
   update_el_progress(mock_session, "pr1", percentage = 50)
   expect_equal(captured$percentage, 50)
@@ -160,10 +179,12 @@ test_that("update_el_progress: NULL fields excluded from message", {
 })
 
 test_that("update_el_progress: id is namespaced in message", {
-  captured     <- NULL
+  captured <- NULL
   mock_session <- list(
-    ns                = function(id) paste0("ns-", id),
-    sendCustomMessage = function(type, msg) { captured <<- msg }
+    ns = function(id) paste0("ns-", id),
+    sendCustomMessage = function(type, msg) {
+      captured <<- msg
+    }
   )
   update_el_progress(mock_session, "pr1", percentage = 0)
   expect_equal(captured$id, "ns-pr1")

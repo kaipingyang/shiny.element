@@ -1,6 +1,10 @@
 # Fixture for test-shinytest2.R: a page shinytest2's AppDriver drives.
-pkgload::load_all(Sys.getenv("SHINY_ELEMENT_PKG"), quiet = TRUE, helpers = FALSE,
-                  attach_testthat = FALSE)
+pkgload::load_all(
+  Sys.getenv("SHINY_ELEMENT_PKG"),
+  quiet = TRUE,
+  helpers = FALSE,
+  attach_testthat = FALSE
+)
 library(shiny)
 
 ui <- el_page(

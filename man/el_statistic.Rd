@@ -88,10 +88,19 @@ can usefully hear it.
 
 \examples{
 el_statistic("users", value = 26048, title = "Active users")
-el_statistic("revenue", value = 1318.5, title = "Revenue", prefix = "$",
-             precision = 2)
+el_statistic(
+  "revenue",
+  value = 1318.5,
+  title = "Revenue",
+  prefix = "$",
+  precision = 2
+)
 
 # A countdown to an hour from now
-el_countdown("sale", title = "Sale ends in", value = Sys.time() + 3600,
-             format = "HH:mm:ss")
+el_countdown(
+  "sale",
+  title = "Sale ends in",
+  value = Sys.time() + 3600,
+  format = "HH:mm:ss"
+)
 }

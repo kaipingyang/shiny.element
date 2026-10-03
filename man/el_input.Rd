@@ -211,8 +211,12 @@ as \code{\link[shiny:textInput]{shiny::textInput()}} does, and after an \code{\l
 el_input("name", placeholder = "Enter your name")
 
 # Clearable search input with icon
-el_input("search", placeholder = "Search...",
-         clearable = TRUE, prefix_icon = "el-icon-search")
+el_input(
+  "search",
+  placeholder = "Search...",
+  clearable = TRUE,
+  prefix_icon = "el-icon-search"
+)
 
 # Shiny app example
 if (interactive()) {
@@ -227,5 +231,4 @@ if (interactive()) {
   }
   shinyApp(ui, server)
 }
-
 }

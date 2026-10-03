@@ -37,32 +37,42 @@
 #' el_timeline(
 #'   id = "log",
 #'   items = list(
-#'     list(content = "Order placed",  timestamp = "2026-03-01", type = "primary"),
-#'     list(content = "Order shipped", timestamp = "2026-03-02", type = "success",
-#'          icon = "el-icon-check", size = "large"),
-#'     list(content = "Delivered",     timestamp = "2026-03-04", color = "#0bbd87")
+#'     list(content = "Order placed", timestamp = "2026-03-01", type = "primary"),
+#'     list(
+#'       content = "Order shipped",
+#'       timestamp = "2026-03-02",
+#'       type = "success",
+#'       icon = "el-icon-check",
+#'       size = "large"
+#'     ),
+#'     list(content = "Delivered", timestamp = "2026-03-04", color = "#0bbd87")
 #'   )
 #' )
 #'
 #' # Newest first, timestamps above each entry
 #' el_timeline(
-#'   id = "log", reverse = TRUE,
+#'   id = "log",
+#'   reverse = TRUE,
 #'   items = list(
 #'     list(content = "Second", timestamp = "10:30", placement = "top"),
-#'     list(content = "First",  timestamp = "09:15", placement = "top")
+#'     list(content = "First", timestamp = "09:15", placement = "top")
 #'   )
 #' )
-el_timeline <- function(id = NULL,
-                        items = list(),
-                        reverse = FALSE,
-                        html = FALSE,
-                        mode = NULL,
-                        width   = NULL,
-                        slots   = NULL,
-                        session = NULL) {
+el_timeline <- function(
+  id = NULL,
+  items = list(),
+  reverse = FALSE,
+  html = FALSE,
+  mode = NULL,
+  width = NULL,
+  slots = NULL,
+  session = NULL
+) {
   .el_check_choices("el_timeline", environment())
-  if (is.null(id)) id <- paste0("el_timeline_", uuid::UUIDgenerate())
-  ns_id        <- .el_ui_id(id, session)
+  if (is.null(id)) {
+    id <- paste0("el_timeline_", uuid::UUIDgenerate())
+  }
+  ns_id <- .el_ui_id(id, session)
   container_id <- paste0(ns_id, "_container")
 
   # One v-for over a data field, so update_el_timeline() can replace the lot.
@@ -72,34 +82,41 @@ el_timeline <- function(id = NULL,
     htmltools::HTML("{{ item.content }}")
   }
 
-  item_tag <- htmltools::tag("el-timeline-item", list(
-    "v-for"      = "(item, index) in items",
-    ":key"       = "index",
-    ":timestamp" = "item.timestamp",
-    ":type"      = "item.type",
-    ":color"     = "item.color",
-    ":size"      = "item.size",
-    ":icon"      = "item.icon",
-    ":placement" = "item.placement",
-    ":center"    = "item.center",
-    ":hollow"    = "item.hollow",
-    ":hide-timestamp" = "!item.timestamp",
-    body
-  ))
+  item_tag <- htmltools::tag(
+    "el-timeline-item",
+    list(
+      "v-for" = "(item, index) in items",
+      ":key" = "index",
+      ":timestamp" = "item.timestamp",
+      ":type" = "item.type",
+      ":color" = "item.color",
+      ":size" = "item.size",
+      ":icon" = "item.icon",
+      ":placement" = "item.placement",
+      ":center" = "item.center",
+      ":hollow" = "item.hollow",
+      ":hide-timestamp" = "!item.timestamp",
+      body
+    )
+  )
 
   vue_data <- list(
-    items   = .el_timeline_items(items),
+    items = .el_timeline_items(items),
     reverse = reverse
   )
 
   el_widget(
     props = .el_props(list(
-      mode = mode)),
-    id     = ns_id,
-    markup = htmltools::tag("el-timeline", list(":reverse" = "reverse", item_tag)),
-    data   = vue_data,
-    width      = width,
-    slots      = slots
+      mode = mode
+    )),
+    id = ns_id,
+    markup = htmltools::tag(
+      "el-timeline",
+      list(":reverse" = "reverse", item_tag)
+    ),
+    data = vue_data,
+    width = width,
+    slots = slots
   )
 }
 
@@ -115,8 +132,17 @@ el_timeline <- function(id = NULL,
 #' @return The entries with unknown and empty fields dropped.
 #' @keywords internal
 .el_timeline_items <- function(items) {
-  fields <- c("content", "timestamp", "type", "color", "size", "icon", "placement",
-              "center", "hollow")
+  fields <- c(
+    "content",
+    "timestamp",
+    "type",
+    "color",
+    "size",
+    "icon",
+    "placement",
+    "center",
+    "hollow"
+  )
   lapply(items, function(item) {
     kept <- item[intersect(fields, names(item))]
     kept[!vapply(kept, is.null, logical(1))]
@@ -136,16 +162,27 @@ el_timeline <- function(id = NULL,
 #' if (interactive()) {
 #'   # Append an entry to a growing log
 #'   observeEvent(input$refresh, {
-#'     log_entries(c(log_entries(), list(list(content = "Refreshed",
-#'                                            timestamp = format(Sys.time(), "%H:%M")))))
+#'     log_entries(c(
+#'       log_entries(),
+#'       list(list(content = "Refreshed", timestamp = format(Sys.time(), "%H:%M")))
+#'     ))
 #'     update_el_timeline(session, "log", items = log_entries())
 #'   })
 #' }
-update_el_timeline <- function(session = shiny::getDefaultReactiveDomain(), id, items = NULL, reverse = NULL) {
+update_el_timeline <- function(
+  session = shiny::getDefaultReactiveDomain(),
+  id,
+  items = NULL,
+  reverse = NULL
+) {
   .el_check_session(session)
   msg <- list(id = session$ns(id))
-  if (!is.null(items))   msg$items   <- .el_timeline_items(items)
-  if (!is.null(reverse)) msg$reverse <- reverse
+  if (!is.null(items)) {
+    msg$items <- .el_timeline_items(items)
+  }
+  if (!is.null(reverse)) {
+    msg$reverse <- reverse
+  }
   .el_send_update(session, msg)
   invisible(NULL)
 }

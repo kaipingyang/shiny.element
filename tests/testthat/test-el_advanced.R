@@ -38,24 +38,31 @@ test_that("el_color_picker: change handler", {
 
 test_that("update_el_color_picker: sends value", {
   captured <- NULL
-  mock_session <- list(ns = function(id) id,
-                       sendCustomMessage = function(type, msg) { captured <<- msg })
+  mock_session <- list(
+    ns = function(id) id,
+    sendCustomMessage = function(type, msg) {
+      captured <<- msg
+    }
+  )
   update_el_color_picker(mock_session, "cp1", value = "#123456")
   expect_equal(captured$value, "#123456")
 })
 
 test_that("update_el_color_picker: sends disabled", {
   captured <- NULL
-  mock_session <- list(ns = function(id) id,
-                       sendCustomMessage = function(type, msg) { captured <<- msg })
+  mock_session <- list(
+    ns = function(id) id,
+    sendCustomMessage = function(type, msg) {
+      captured <<- msg
+    }
+  )
   update_el_color_picker(mock_session, "cp1", disabled = TRUE)
   expect_true(captured$disabled)
 })
 
 # ── el_drawer ─────────────────────────────────────────────────────────────────
 test_that("el_drawer: renders component", {
-  tag <- el_drawer("d1", title = "Settings",
-                   content = tags$p("Settings here."))
+  tag <- el_drawer("d1", title = "Settings", content = tags$p("Settings here."))
   html <- render_html(tag)
   expect_match(html, "el-drawer")
 })
@@ -89,10 +96,17 @@ test_that("el_drawer: content rendered inside drawer", {
 test_that("update_el_drawer: sends an input message, not a custom message", {
   # The overlay binding owns the element; Shiny routes the message by id.
   sent <- NULL
-  mock_session <- list(ns = function(id) id,
-                       sendInputMessage = function(id, msg) sent <<- list(id = id, msg = msg))
-  update_el_drawer(mock_session, "d1", visible = TRUE, title = "New Title",
-                   size = "50%")
+  mock_session <- list(
+    ns = function(id) id,
+    sendInputMessage = function(id, msg) sent <<- list(id = id, msg = msg)
+  )
+  update_el_drawer(
+    mock_session,
+    "d1",
+    visible = TRUE,
+    title = "New Title",
+    size = "50%"
+  )
   expect_equal(sent$id, "d1")
   expect_true(sent$msg$visible)
   expect_equal(sent$msg$title, "New Title")
@@ -101,9 +115,11 @@ test_that("update_el_drawer: sends an input message, not a custom message", {
 
 # ── el_dropdown ───────────────────────────────────────────────────────────────
 test_that("el_dropdown: renders component", {
-  tag <- el_dropdown("dd1", "Actions",
+  tag <- el_dropdown(
+    "dd1",
+    "Actions",
     items = list(
-      list(command = "edit",   label = "Edit"),
+      list(command = "edit", label = "Edit"),
       list(command = "delete", label = "Delete")
     )
   )
@@ -120,7 +136,9 @@ test_that("el_dropdown: trigger label rendered", {
 })
 
 test_that("el_dropdown: items rendered", {
-  tag <- el_dropdown("dd1", "X",
+  tag <- el_dropdown(
+    "dd1",
+    "X",
     items = list(
       list(command = "c1", label = "Label One"),
       list(command = "c2", label = "Label Two")
@@ -145,7 +163,9 @@ test_that("el_dropdown: _count input registered", {
 })
 
 test_that("el_dropdown: item with icon", {
-  tag <- el_dropdown("dd1", "X",
+  tag <- el_dropdown(
+    "dd1",
+    "X",
     items = list(list(command = "edit", icon = "el-icon-edit"))
   )
   html <- render_html(tag)
@@ -154,7 +174,9 @@ test_that("el_dropdown: item with icon", {
 })
 
 test_that("el_dropdown: divided item", {
-  tag <- el_dropdown("dd1", "X",
+  tag <- el_dropdown(
+    "dd1",
+    "X",
     items = list(
       list(command = "a"),
       list(command = "b", divided = TRUE)
@@ -166,8 +188,12 @@ test_that("el_dropdown: divided item", {
 
 test_that("update_el_dropdown: sends disabled", {
   captured <- NULL
-  mock_session <- list(ns = function(id) id,
-                       sendCustomMessage = function(type, msg) { captured <<- msg })
+  mock_session <- list(
+    ns = function(id) id,
+    sendCustomMessage = function(type, msg) {
+      captured <<- msg
+    }
+  )
   update_el_dropdown(mock_session, "dd1", disabled = TRUE)
   expect_equal(captured$id, "dd1")
   expect_true(captured$disabled)
@@ -175,10 +201,19 @@ test_that("update_el_dropdown: sends disabled", {
 
 test_that("el_dropdown adds an arrow to a text trigger, not to a tag", {
   items <- list(list(command = "a", label = "A"))
-  text <- paste(as.character(el_dropdown("d", trigger_label = "Menu", items = items)), collapse = "")
+  text <- paste(
+    as.character(el_dropdown("d", trigger_label = "Menu", items = items)),
+    collapse = ""
+  )
   expect_match(text, "<arrow-down />", fixed = TRUE)
-  icon <- paste(as.character(el_dropdown("d", items = items,
-    trigger_label = el_icon("Setting"))), collapse = "")
+  icon <- paste(
+    as.character(el_dropdown(
+      "d",
+      items = items,
+      trigger_label = el_icon("Setting")
+    )),
+    collapse = ""
+  )
   expect_false(grepl("arrow-down", icon, fixed = TRUE))
   expect_match(icon, 'data-el-icon="Setting"', fixed = TRUE)
 })

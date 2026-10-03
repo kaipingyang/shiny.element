@@ -16,22 +16,29 @@
 #' el_divider()
 #' el_divider("Title Text", content_position = "left")
 #' el_divider(direction = "vertical")
-#'
 #' @export
-el_divider <- function(content = NULL, direction = "horizontal",
-                       content_position = "center", border_style = "solid") {
+el_divider <- function(
+  content = NULL,
+  direction = "horizontal",
+  content_position = "center",
+  border_style = "solid"
+) {
   .el_check_choices("el_divider", environment())
-  direction        <- match.arg(direction, c("horizontal", "vertical"))
+  direction <- match.arg(direction, c("horizontal", "vertical"))
   content_position <- match.arg(content_position, c("center", "left", "right"))
 
   div_class <- paste0("el-divider el-divider--", direction)
   # Element Plus draws the line from --el-border-style
-  style <- if (!identical(border_style, "solid")) sprintf("--el-border-style: %s;", border_style)
+  style <- if (!identical(border_style, "solid")) {
+    sprintf("--el-border-style: %s;", border_style)
+  }
 
   if (!is.null(content) && direction == "horizontal") {
     text_class <- paste0("el-divider__text is-", content_position)
     shiny::tags$div(
-      class = div_class, role = "separator", style = style,
+      class = div_class,
+      role = "separator",
+      style = style,
       shiny::tags$div(class = text_class, content)
     )
   } else {

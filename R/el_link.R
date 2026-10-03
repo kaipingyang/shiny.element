@@ -33,43 +33,67 @@
 #'
 #' # An action link: input$more counts its clicks
 #' el_link("Show more", id = "more", type = "primary")
-#'
 #' @export
-el_link <- function(label = "Link",
-                    href = NULL,
-                    type = "default",
-                    underline = "hover",
-                    disabled = FALSE,
-                    icon = NULL,
-                    id = NULL,
-                    ...,
-                    target = "_self") {
+el_link <- function(
+  label = "Link",
+  href = NULL,
+  type = "default",
+  underline = "hover",
+  disabled = FALSE,
+  icon = NULL,
+  id = NULL,
+  ...,
+  target = "_self"
+) {
   .el_check_choices("el_link", environment())
   # Element Plus's boolean form: TRUE is "hover", FALSE "never"
-  if (isTRUE(underline)) underline <- "hover"
-  if (isFALSE(underline)) underline <- "never"
+  if (isTRUE(underline)) {
+    underline <- "hover"
+  }
+  if (isFALSE(underline)) {
+    underline <- "never"
+  }
   underline <- match.arg(underline, c("hover", "always", "never"))
   icon <- .el_icon_name(icon)
   if (!is.null(id)) {
     ns_id <- .el_ui_id(id, NULL)
     return(el_widget(
-      id     = ns_id,
-      markup = htmltools::tag("el-link", list(
-        ":href" = "href === null ? undefined : href", ":type" = "type",
-        ":target" = "target",
-        ":underline" = "underline", ":disabled" = "disabled",
-        ":icon" = "icon === null ? undefined : icon", "@click" = "handleClick",
-        "{{ text }}")),
-      data = list(text = label, href = .el_or_na(href), type = type, target = target,
-                  underline = underline, disabled = disabled, icon = .el_or_na(icon),
-                  count = 0L),
-      methods = list(handleClick = JS(sprintf(paste0(
-        "function() { if (this.disabled) return; this.count++; ",
-        "window.Shiny && Shiny.setInputValue && Shiny.setInputValue('%s:shiny.action', this.count); }"),
-        ns_id))),
+      id = ns_id,
+      markup = htmltools::tag(
+        "el-link",
+        list(
+          ":href" = "href === null ? undefined : href",
+          ":type" = "type",
+          ":target" = "target",
+          ":underline" = "underline",
+          ":disabled" = "disabled",
+          ":icon" = "icon === null ? undefined : icon",
+          "@click" = "handleClick",
+          "{{ text }}"
+        )
+      ),
+      data = list(
+        text = label,
+        href = .el_or_na(href),
+        type = type,
+        target = target,
+        underline = underline,
+        disabled = disabled,
+        icon = .el_or_na(icon),
+        count = 0L
+      ),
+      methods = list(
+        handleClick = JS(sprintf(
+          paste0(
+            "function() { if (this.disabled) return; this.count++; ",
+            "window.Shiny && Shiny.setInputValue && Shiny.setInputValue('%s:shiny.action', this.count); }"
+          ),
+          ns_id
+        ))
+      ),
       # An action link, as actionLink() is
       mounted = .el_mounted_init(stats::setNames("count", ns_id)),
-      type    = "shiny.action"
+      type = "shiny.action"
     ))
   }
   link_classes <- c(
@@ -82,7 +106,7 @@ el_link <- function(label = "Link",
 
   a_attrs <- list(
     class = paste(link_classes, collapse = " "),
-    href  = if (!disabled && !is.null(href)) href else NULL,
+    href = if (!disabled && !is.null(href)) href else NULL,
     target = if (!disabled && !is.null(href)) target else NULL,
     ...
   )
@@ -111,17 +135,36 @@ el_link <- function(label = "Link",
 #'   observeEvent(input$more, update_el_link(session, "more", label = "Show less"))
 #' }
 #' @export
-update_el_link <- function(session = shiny::getDefaultReactiveDomain(), id,
-                           label = NULL, href = NULL, type = NULL, underline = NULL,
-                           disabled = NULL, icon = NULL) {
+update_el_link <- function(
+  session = shiny::getDefaultReactiveDomain(),
+  id,
+  label = NULL,
+  href = NULL,
+  type = NULL,
+  underline = NULL,
+  disabled = NULL,
+  icon = NULL
+) {
   .el_check_session(session)
   msg <- list(id = session$ns(id))
-  if (!is.null(label))     msg$text      <- label
-  if (!is.null(href))      msg$href      <- href
-  if (!is.null(type))      msg$type      <- type
-  if (!is.null(underline)) msg$underline <- underline
-  if (!is.null(disabled))  msg$disabled  <- disabled
-  if (!is.null(icon))      msg$icon      <- icon
+  if (!is.null(label)) {
+    msg$text <- label
+  }
+  if (!is.null(href)) {
+    msg$href <- href
+  }
+  if (!is.null(type)) {
+    msg$type <- type
+  }
+  if (!is.null(underline)) {
+    msg$underline <- underline
+  }
+  if (!is.null(disabled)) {
+    msg$disabled <- disabled
+  }
+  if (!is.null(icon)) {
+    msg$icon <- icon
+  }
   .el_send_update(session, msg)
   invisible(NULL)
 }

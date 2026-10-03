@@ -26,9 +26,13 @@ Text hyperlink
 Basic text link
 
 ```{r basic, eval = FALSE, shot = TRUE}
-tags$div(style = "display: flex; gap: 16px",
+tags$div(
+  style = "display: flex; gap: 16px",
   el_link("default", href = "https://element-plus.org", target = "_blank"),
-  lapply(c("primary", "success", "warning", "danger", "info"), function(t) el_link(t, type = t)))
+  lapply(c("primary", "success", "warning", "danger", "info"), function(t) {
+    el_link(t, type = t)
+  })
+)
 ```
 
 ## Disabled
@@ -36,9 +40,15 @@ tags$div(style = "display: flex; gap: 16px",
 Disabled state of link
 
 ```{r disabled, eval = FALSE, shot = TRUE}
-tags$div(style = "display: flex; gap: 16px",
-  lapply(c("default", "primary", "success", "warning", "danger", "info"), function(t)
-    el_link(t, type = t, disabled = TRUE)))
+tags$div(
+  style = "display: flex; gap: 16px",
+  lapply(
+    c("default", "primary", "success", "warning", "danger", "info"),
+    function(t) {
+      el_link(t, type = t, disabled = TRUE)
+    }
+  )
+)
 ```
 
 ## Underline
@@ -54,9 +64,13 @@ Controlling when underlines should appear
 > Starting from 2.9.9 , you can use `'always' | 'hover' | 'never'` to control when underlines should appear. The examples in the document all use these values. If you are using a version **less than** 2.9.9 , please refer to:
 
 ```{r underline, eval = FALSE, shot = TRUE}
-tags$div(style = "display: flex; gap: 16px",
-  el_link("default"), el_link("always", underline = "always"),
-  el_link("hover", underline = "hover"), el_link("never", underline = "never"))
+tags$div(
+  style = "display: flex; gap: 16px",
+  el_link("default"),
+  el_link("always", underline = "always"),
+  el_link("hover", underline = "hover"),
+  el_link("never", underline = "never")
+)
 ```
 
 ## Icon
@@ -68,9 +82,11 @@ Link with icon
 > Use the `icon` attribute to add icon. You can pass either string for the component name (registered in advance) or the component itself which is a SVG Vue component. Element Plus has provided a set of icon that you can find at [icon](icon.html)
 
 ```{r with-icon, eval = FALSE, shot = TRUE}
-tags$div(style = "display: flex; gap: 16px",
+tags$div(
+  style = "display: flex; gap: 16px",
   el_link("Edit", icon = "Edit"),
-  el_link(tagList("Check", el_icon("View", class = "el-icon--right"))))
+  el_link(tagList("Check", el_icon("View", class = "el-icon--right")))
+)
 ```
 
 ## API

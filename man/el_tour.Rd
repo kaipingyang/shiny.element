@@ -64,7 +64,16 @@ with the rest of the page dimmed.
 }
 
 \examples{
-el_tour("intro", open = TRUE, steps = list(
-  list(target = "#upload", title = "Upload", description = "Put your file here."),
-  list(target = "#run", title = "Run", description = "Then press this.")))
+el_tour(
+  "intro",
+  open = TRUE,
+  steps = list(
+    list(
+      target = "#upload",
+      title = "Upload",
+      description = "Put your file here."
+    ),
+    list(target = "#run", title = "Run", description = "Then press this.")
+  )
+)
 }

@@ -149,5 +149,4 @@ A star-rating input. Supports half-stars, custom icons, and read-only display.
 \examples{
 el_rate("rate1", value = 3)
 el_rate("rate2", allow_half = TRUE, show_score = TRUE)
-
 }

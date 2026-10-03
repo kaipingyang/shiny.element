@@ -1,5 +1,3 @@
-
-
 #' Element Plus Checkbox Group
 #'
 #' Creates an Element Plus checkbox group with Vue instance, supporting individual
@@ -58,7 +56,7 @@
 #'   ui <- el_page(
 #'     el_checkbox_group(
 #'       "cb1",
-#'       choices  = c("Apple" = "apple", "Banana" = "banana"),
+#'       choices = c("Apple" = "apple", "Banana" = "banana"),
 #'       selected = "apple"
 #'     ),
 #'     verbatimTextOutput("selected")
@@ -68,80 +66,89 @@
 #'   }
 #'   shinyApp(ui, server)
 #' }
-#'
 #' @export
 el_checkbox_group <- function(
-    id       = NULL,
-    choices  = NULL,
-    selected = NULL,
-    disabled = FALSE,
-    size     = NULL,
-    min      = NULL,
-    max      = NULL,
-    button   = FALSE,
-    fill     = NULL,
-    text_color = NULL,
-    label = NULL,
-    label_position = c("top", "left", "right"),
-    label_width = NULL,
-    label_suffix = NULL,
-    required = FALSE,
-    error = NULL,
-    show_message = TRUE,
-    inline_message = FALSE,
-    width    = NULL,
-    slots    = NULL,
-    value    = NULL,
-    options  = NULL,
-    aria_label = NULL,
-    props = NULL,
-    tag = NULL,
-    type = NULL,
-    validate_event = NULL,
-    session  = NULL
+  id = NULL,
+  choices = NULL,
+  selected = NULL,
+  disabled = FALSE,
+  size = NULL,
+  min = NULL,
+  max = NULL,
+  button = FALSE,
+  fill = NULL,
+  text_color = NULL,
+  label = NULL,
+  label_position = c("top", "left", "right"),
+  label_width = NULL,
+  label_suffix = NULL,
+  required = FALSE,
+  error = NULL,
+  show_message = TRUE,
+  inline_message = FALSE,
+  width = NULL,
+  slots = NULL,
+  value = NULL,
+  options = NULL,
+  aria_label = NULL,
+  props = NULL,
+  tag = NULL,
+  type = NULL,
+  validate_event = NULL,
+  session = NULL
 ) {
   .el_check_choices("el_checkbox_group", environment())
   selected <- .el_alias(selected, value, "selected", "value")
-  choices  <- .el_alias(choices, options, "choices", "options")
-  if (is.null(choices)) stop("`choices` (or `options`) is required.", call. = FALSE)
-  if (is.null(id)) id <- paste0("el_checkbox_group_", uuid::UUIDgenerate())
-  ns_id        <- .el_ui_id(id, session)
+  choices <- .el_alias(choices, options, "choices", "options")
+  if (is.null(choices)) {
+    stop("`choices` (or `options`) is required.", call. = FALSE)
+  }
+  if (is.null(id)) {
+    id <- paste0("el_checkbox_group_", uuid::UUIDgenerate())
+  }
+  ns_id <- .el_ui_id(id, session)
   container_id <- paste0(ns_id, "_container")
 
   cb_tag_name <- if (button) "el-checkbox-button" else "el-checkbox"
   # Per-choice props are read off the option object, so a choice may be given
   # as list(value =, label =, disabled = TRUE, border = TRUE). A key that is
   # absent reads back as undefined, which is Element's own default.
-  cb_slot <- htmltools::tag(cb_tag_name, list(
-    ":label"         = "opt.value",
-    "v-for"          = "opt in options",
-    ":key"           = "opt.value",
-    ":disabled"      = "opt.disabled",
-    ":border"        = "opt.border",
-    ":name"          = "opt.name",
-    "@change"        = "handleItemChange(opt, $event)",
-    ":checked"       = "opt.checked",
-    ":indeterminate" = "opt.indeterminate",
-    ":true-label"    = "opt.trueLabel",
-    ":false-label"   = "opt.falseLabel",
-    htmltools::HTML("{{opt.label}}")
-  ))
+  cb_slot <- htmltools::tag(
+    cb_tag_name,
+    list(
+      ":label" = "opt.value",
+      "v-for" = "opt in options",
+      ":key" = "opt.value",
+      ":disabled" = "opt.disabled",
+      ":border" = "opt.border",
+      ":name" = "opt.name",
+      "@change" = "handleItemChange(opt, $event)",
+      ":checked" = "opt.checked",
+      ":indeterminate" = "opt.indeterminate",
+      ":true-label" = "opt.trueLabel",
+      ":false-label" = "opt.falseLabel",
+      htmltools::HTML("{{opt.label}}")
+    )
+  )
 
   group_attrs <- list(
-    "v-model"   = "value",
+    "v-model" = "value",
     ":disabled" = "disabled",
-    "@change"   = "handleChange"
+    "@change" = "handleChange"
   )
   group_attrs[[":size"]] <- .el_optional_bind("size")
   group_attrs[[":min"]] <- .el_optional_bind("min")
   group_attrs[[":max"]] <- .el_optional_bind("max")
   group_attrs[[":fill"]] <- .el_optional_bind("fill")
   group_attrs[[":text-color"]] <- .el_optional_bind("textColor")
-  group_tag <- htmltools::tag("el-checkbox-group", c(group_attrs, list(cb_slot)))
+  group_tag <- htmltools::tag(
+    "el-checkbox-group",
+    c(group_attrs, list(cb_slot))
+  )
 
   vue_data <- list(
-    value    = if (is.null(selected)) list() else as.list(selected),
-    options  = .el_normalize_choices(choices),
+    value = if (is.null(selected)) list() else as.list(selected),
+    options = .el_normalize_choices(choices),
     disabled = disabled
   )
   vue_data$size <- .el_or_na(size)
@@ -155,19 +162,27 @@ el_checkbox_group <- function(
       props = props,
       tag = tag,
       type = type,
-      validate_event = validate_event)),
-    label = label, label_position = label_position,
-    label_width = label_width, label_suffix = label_suffix, required = required,
-    error = error, show_message = show_message, inline_message = inline_message,
-    id     = ns_id,
+      validate_event = validate_event
+    )),
+    label = label,
+    label_position = label_position,
+    label_width = label_width,
+    label_suffix = label_suffix,
+    required = required,
+    error = error,
+    show_message = show_message,
+    inline_message = inline_message,
+    id = ns_id,
     markup = group_tag,
     data = vue_data,
     methods = list(
       # Which choice changed, and to what: input$<id>_item_change
       handleItemChange = JS(sprintf(
-        paste0("function(opt, checked) { ",
-               "window.shinyVue.emit('%s', 'item_change', ",
-               "[{value: opt.value, label: opt.label, checked: checked}]); }"),
+        paste0(
+          "function(opt, checked) { ",
+          "window.shinyVue.emit('%s', 'item_change', ",
+          "[{value: opt.value, label: opt.label, checked: checked}]); }"
+        ),
         ns_id
       )),
       handleChange = JS(sprintf(
@@ -176,8 +191,8 @@ el_checkbox_group <- function(
       ))
     ),
     mounted = .el_mounted_init(stats::setNames("value", ns_id)),
-    width      = width,
-    slots      = slots
+    width = width,
+    slots = slots
   )
 }
 
@@ -214,29 +229,39 @@ el_checkbox_group <- function(
 #' }
 #' @export
 update_el_checkbox_group <- function(
-    session = shiny::getDefaultReactiveDomain(),
-    id,
-    selected = NULL,
-    choices  = NULL,
-    disabled = NULL,
-    min      = NULL,
-    max      = NULL,
-    value    = NULL,
-    options  = NULL,
-    label = NULL, error = NULL) {
+  session = shiny::getDefaultReactiveDomain(),
+  id,
+  selected = NULL,
+  choices = NULL,
+  disabled = NULL,
+  min = NULL,
+  max = NULL,
+  value = NULL,
+  options = NULL,
+  label = NULL,
+  error = NULL
+) {
   .el_check_session(session)
   selected <- .el_alias(selected, value, "selected", "value")
-  choices  <- .el_alias(choices, options, "choices", "options")
+  choices <- .el_alias(choices, options, "choices", "options")
   ns_id <- session$ns(id)
-  msg   <- list(id = ns_id)
-  if (!is.null(selected)) msg$value    <- selected
-  if (!is.null(choices))  msg$options  <- .el_normalize_choices(choices)
-  if (!is.null(disabled)) msg$disabled <- disabled
-  if (!is.null(min))      msg$min      <- min
-  if (!is.null(max))      msg$max      <- max
+  msg <- list(id = ns_id)
+  if (!is.null(selected)) {
+    msg$value <- selected
+  }
+  if (!is.null(choices)) {
+    msg$options <- .el_normalize_choices(choices)
+  }
+  if (!is.null(disabled)) {
+    msg$disabled <- disabled
+  }
+  if (!is.null(min)) {
+    msg$min <- min
+  }
+  if (!is.null(max)) {
+    msg$max <- max
+  }
   msg <- .el_form_item_update(msg, label, error)
   .el_send_update(session, msg)
   invisible(NULL)
 }
-
-

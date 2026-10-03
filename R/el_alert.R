@@ -34,60 +34,61 @@
 #' @examples
 #' el_alert("al1", "Operation successful", type = "success", show_icon = TRUE)
 #' el_alert("al2", "Warning!", description = "Please review.", type = "warning")
-#'
 #' @export
 el_alert <- function(
-    id           = NULL,
-    title        = "",
-    description  = NULL,
-    type         = "info",
-    closable     = TRUE,
-    close_text   = "",
-    show_icon    = FALSE,
-    center       = FALSE,
-    effect       = "light",
-    width        = NULL,
-    slots        = NULL,
-    session      = NULL
+  id = NULL,
+  title = "",
+  description = NULL,
+  type = "info",
+  closable = TRUE,
+  close_text = "",
+  show_icon = FALSE,
+  center = FALSE,
+  effect = "light",
+  width = NULL,
+  slots = NULL,
+  session = NULL
 ) {
   .el_check_choices("el_alert", environment())
-  if (is.null(id)) id <- paste0("el_alert_", uuid::UUIDgenerate())
-  ns_id        <- .el_ui_id(id, session)
+  if (is.null(id)) {
+    id <- paste0("el_alert_", uuid::UUIDgenerate())
+  }
+  ns_id <- .el_ui_id(id, session)
   container_id <- paste0(ns_id, "_container")
 
   alert_attrs <- list(
-    ":title"       = "title",
-    ":type"        = "type",
-    ":closable"    = "closable",
-    ":close-text"  = "closeText",
-    ":show-icon"   = "showIcon",
-    ":center"      = "center",
-    ":effect"      = "effect",
-    "@close"       = "handleClose"
+    ":title" = "title",
+    ":type" = "type",
+    ":closable" = "closable",
+    ":close-text" = "closeText",
+    ":show-icon" = "showIcon",
+    ":center" = "center",
+    ":effect" = "effect",
+    "@close" = "handleClose"
   )
   alert_attrs[[":description"]] <- .el_optional_bind("description")
   vue_data <- list(
-    title       = title,
-    type        = type,
-    closable    = closable,
-    closeText   = close_text,
-    showIcon    = show_icon,
-    center      = center,
-    effect      = effect
+    title = title,
+    type = type,
+    closable = closable,
+    closeText = close_text,
+    showIcon = show_icon,
+    center = center,
+    effect = effect
   )
   vue_data$description <- if (is.null(description)) NA else description
   el_widget(
-    id     = ns_id,
+    id = ns_id,
     markup = htmltools::tag("el-alert", alert_attrs),
-    data    = vue_data,
+    data = vue_data,
     methods = list(
       handleClose = JS(sprintf(
         "function() { window.Shiny && Shiny.setInputValue && Shiny.setInputValue('%s_closed', 1, {priority: 'event'}); }",
         ns_id
       ))
     ),
-    width      = width,
-    slots      = slots
+    width = width,
+    slots = slots
   )
 }
 
@@ -112,16 +113,25 @@ el_alert <- function(
 #'   })
 #' }
 #' @export
-update_el_alert <- function(session = shiny::getDefaultReactiveDomain(), id, title = NULL, type = NULL,
-                            description = NULL) {
+update_el_alert <- function(
+  session = shiny::getDefaultReactiveDomain(),
+  id,
+  title = NULL,
+  type = NULL,
+  description = NULL
+) {
   .el_check_session(session)
   ns_id <- session$ns(id)
-  msg   <- list(id = ns_id)
-  if (!is.null(title))       msg$title       <- title
-  if (!is.null(type))        msg$type        <- type
-  if (!is.null(description)) msg$description <- description
+  msg <- list(id = ns_id)
+  if (!is.null(title)) {
+    msg$title <- title
+  }
+  if (!is.null(type)) {
+    msg$type <- type
+  }
+  if (!is.null(description)) {
+    msg$description <- description
+  }
   .el_send_update(session, msg)
   invisible(NULL)
 }
-
-

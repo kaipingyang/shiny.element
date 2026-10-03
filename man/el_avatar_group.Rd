@@ -79,5 +79,9 @@ None: it reports nothing.
 }
 
 \examples{
-el_avatar_group(el_avatar(src = "https://example.com/a.png"), el_avatar("B"), collapse_avatars = TRUE)
+el_avatar_group(
+  el_avatar(src = "https://example.com/a.png"),
+  el_avatar("B"),
+  collapse_avatars = TRUE
+)
 }

@@ -25,49 +25,61 @@
 #'
 #' @return A Shiny UI element.
 #' @examples
-#' el_breadcrumb("trail", items = list(
-#'   list(label = "Home"),
-#'   list(label = "Reports"),
-#'   list(label = "March")
-#' ))
+#' el_breadcrumb(
+#'   "trail",
+#'   items = list(
+#'     list(label = "Home"),
+#'     list(label = "Reports"),
+#'     list(label = "March")
+#'   )
+#' )
 #'
 #' # An arrow instead of a slash
-#' el_breadcrumb("trail",
+#' el_breadcrumb(
+#'   "trail",
 #'   items = list(list(label = "Home"), list(label = "Detail")),
 #'   separator_icon = "ArrowRight"
 #' )
 #' @export
-el_breadcrumb <- function(id = NULL,
-                          items = list(),
-                          separator = NULL,
-                          separator_icon = NULL,
-                          width = NULL,
-                          slots   = NULL,
-                          session = NULL) {
-  if (is.null(id)) id <- paste0("el_breadcrumb_", uuid::UUIDgenerate())
+el_breadcrumb <- function(
+  id = NULL,
+  items = list(),
+  separator = NULL,
+  separator_icon = NULL,
+  width = NULL,
+  slots = NULL,
+  session = NULL
+) {
+  if (is.null(id)) {
+    id <- paste0("el_breadcrumb_", uuid::UUIDgenerate())
+  }
   ns_id <- .el_ui_id(id, session)
 
-  item_tag <- htmltools::tag("el-breadcrumb-item", list(
-    "v-for"  = "(item, index) in items",
-    ":key"   = "index",
-    ":to"    = "item.to",
-    ":replace" = "item.replace",
-    "@click" = "handleClick(item)",
-    htmltools::HTML("{{item.label}}")
-  ))
+  item_tag <- htmltools::tag(
+    "el-breadcrumb-item",
+    list(
+      "v-for" = "(item, index) in items",
+      ":key" = "index",
+      ":to" = "item.to",
+      ":replace" = "item.replace",
+      "@click" = "handleClick(item)",
+      htmltools::HTML("{{item.label}}")
+    )
+  )
 
   attrs <- list(
-    ":separator"       = .el_optional_bind("separator")
+    ":separator" = .el_optional_bind("separator")
   )
 
   el_widget(
     props = .el_props(list(
-      separator_icon = .el_icon_name(separator_icon))),
-    id     = ns_id,
+      separator_icon = .el_icon_name(separator_icon)
+    )),
+    id = ns_id,
     markup = htmltools::tag("el-breadcrumb", c(attrs, list(item_tag))),
-    data   = list(
-      items           = unname(items),
-      separator       = .el_or_na(separator)
+    data = list(
+      items = unname(items),
+      separator = .el_or_na(separator)
     ),
     methods = list(
       handleClick = JS(sprintf(
@@ -75,8 +87,8 @@ el_breadcrumb <- function(id = NULL,
         ns_id
       ))
     ),
-    width      = width,
-    slots      = slots
+    width = width,
+    slots = slots
   )
 }
 
@@ -95,20 +107,32 @@ el_breadcrumb <- function(id = NULL,
 #' if (interactive()) {
 #'   # inside a server function
 #'   observeEvent(input$open_detail, {
-#'     update_el_breadcrumb(session, "trail", items = list(
-#'       list(label = "Home"), list(label = "Detail")
-#'     ))
+#'     update_el_breadcrumb(
+#'       session,
+#'       "trail",
+#'       items = list(
+#'         list(label = "Home"),
+#'         list(label = "Detail")
+#'       )
+#'     )
 #'   })
 #' }
 #' @export
-update_el_breadcrumb <- function(session = shiny::getDefaultReactiveDomain(), id, items = NULL, separator = NULL) {
+update_el_breadcrumb <- function(
+  session = shiny::getDefaultReactiveDomain(),
+  id,
+  items = NULL,
+  separator = NULL
+) {
   .el_check_session(session)
   ns_id <- session$ns(id)
   msg <- list(id = ns_id)
-  if (!is.null(items))     msg$items     <- unname(items)
-  if (!is.null(separator)) msg$separator <- separator
+  if (!is.null(items)) {
+    msg$items <- unname(items)
+  }
+  if (!is.null(separator)) {
+    msg$separator <- separator
+  }
   .el_send_update(session, msg)
   invisible(NULL)
 }
-
-

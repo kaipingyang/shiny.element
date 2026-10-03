@@ -39,9 +39,9 @@ suppressMessages({
   library(callr)
 })
 
-PKG    <- normalizePath(".")
+PKG <- normalizePath(".")
 OUTDIR <- file.path(PKG, "pkgdown", "assets", "shots")
-PORT   <- httpuv::randomPort()
+PORT <- httpuv::randomPort()
 
 # ── reading the articles ─────────────────────────────────────────────────────
 
@@ -50,7 +50,9 @@ parse_header <- function(header) {
   nms <- names(args) %||% rep("", length(args))
   label <- if (any(!nzchar(nms))) {
     gsub(" ", "", paste(deparse(args[[which(!nzchar(nms))[1]]]), collapse = ""))
-  } else NA_character_
+  } else {
+    NA_character_
+  }
   opts <- lapply(args[nzchar(nms)], eval)
   list(label = label, opts = opts)
 }
@@ -66,41 +68,63 @@ read_shots <- function(path) {
     header <- sub("^```\\{r\\s*,?\\s*(.*)\\}\\s*$", "\\1", lines[s])
     end <- s + which(grepl("^```\\s*$", lines[(s + 1):length(lines)]))[1]
     chunk <- parse_header(header)
-    if (!isTRUE(chunk$opts$shot)) next
+    if (!isTRUE(chunk$opts$shot)) {
+      next
+    }
     key <- paste0(article, "-", chunk$label)
     # A chunk may show a file instead -- knitr's `file` option -- so that a
     # whole app lives once, under inst/examples, and the article shows it.
     code <- if (!is.null(chunk$opts$file)) {
-      paste(readLines(file.path(dirname(path), chunk$opts$file), warn = FALSE),
-            collapse = "\n")
+      paste(
+        readLines(file.path(dirname(path), chunk$opts$file), warn = FALSE),
+        collapse = "\n"
+      )
     } else {
       paste(lines[(s + 1):(end - 1)], collapse = "\n")
     }
     out[[key]] <- list(
-      key  = key,
+      key = key,
       code = code,
-      js   = chunk$opts$shot_js,
-      sel  = chunk$opts$shot_sel,
+      js = chunk$opts$shot_js,
+      sel = chunk$opts$shot_sel,
       wait = chunk$opts$shot_wait %||% 1.5
     )
   }
   out
 }
 
-articles <- list.files(file.path(PKG, "vignettes"), pattern = "[.]Rmd$", recursive = TRUE,
-                       full.names = TRUE)
+articles <- list.files(
+  file.path(PKG, "vignettes"),
+  pattern = "[.]Rmd$",
+  recursive = TRUE,
+  full.names = TRUE
+)
 shots <- do.call(c, unname(lapply(articles, read_shots)))
 
 wanted <- commandArgs(TRUE)
 if (length(wanted)) {
-  keep <- vapply(names(shots), function(k) {
-    any(vapply(wanted, function(w) {
-      if (grepl(":", w)) k == sub(":", "-", w) else startsWith(k, paste0(w, "-"))
-    }, logical(1)))
-  }, logical(1))
+  keep <- vapply(
+    names(shots),
+    function(k) {
+      any(vapply(
+        wanted,
+        function(w) {
+          if (grepl(":", w)) {
+            k == sub(":", "-", w)
+          } else {
+            startsWith(k, paste0(w, "-"))
+          }
+        },
+        logical(1)
+      ))
+    },
+    logical(1)
+  )
   shots <- shots[keep]
 }
-if (!length(shots)) stop("no example chunks matched")
+if (!length(shots)) {
+  stop("no example chunks matched")
+}
 message(sprintf("%d examples", length(shots)))
 
 # ── one app serving every example ────────────────────────────────────────────
@@ -109,100 +133,132 @@ spec_file <- tempfile(fileext = ".rds")
 saveRDS(shots, spec_file)
 
 app_file <- tempfile(fileext = ".R")
-writeLines(c(
-  "suppressMessages({library(shiny); library(htmltools)})",
-  sprintf("pkgload::load_all(%s, quiet = TRUE, helpers = FALSE)", shQuote(PKG)),
-  "library(shiny.element)",
-  # Vue's development build, so a template error is logged rather than lost
-  "options(shiny.element.dev = TRUE)",
-  "shots <- readRDS(Sys.getenv('EL_SHOT_SPEC'))",
-  "",
-  "run_chunk <- function(code) {",
-  "  env <- new.env(parent = globalenv())",
-  "  # An example ending in shinyApp(ui, server) is taken apart, not launched",
-  "  env$shinyApp <- function(ui, server, ...) structure(",
-  "    list(ui = ui, server = server), class = 'shot_app')",
-  "  ui <- list(); server <- function(input, output, session) NULL",
-  "  for (e in parse(text = code)) {",
-  "    v <- withVisible(eval(e, env))",
-  "    if (inherits(v$value, 'shot_app')) {",
-  "      ui <- list(v$value$ui); server <- v$value$server",
-  "    } else if (v$visible && inherits(v$value,",
-  "               c('shiny.tag', 'shiny.tag.list', 'htmlwidget', 'html'))) {",
-  "      ui <- c(ui, list(v$value))",
-  "    }",
-  "  }",
-  "  list(ui = ui, server = server)",
-  "}",
-  "",
-  "built <- lapply(shots, function(s) tryCatch(run_chunk(s$code),",
-  "  error = function(e) list(error = conditionMessage(e))))",
-  "",
-  "ui <- function(req) {",
-  "  key <- parseQueryString(req$QUERY_STRING)$shot",
-  "  b <- built[[key]]",
-  "  if (!is.null(b$error)) return(tags$pre(id = 'shot-error', b$error))",
-  # An example whose last value is a plain list -- lapply() at the top --
-  # shows nothing, here and on the website alike
-  "  if (!length(b$ui)) return(tags$pre(id = 'shot-error', 'the example shows nothing: wrap a list of UI in tagList()'))",
-  "  content <- lapply(b$ui, function(u) if (is.function(u)) u(req) else u)",
-  # chromote's capture at scale 2 resizes the page under a floating card,
-  # and a tour's card, sized by its content, collapses to one letter wide
-  "  el_page(tags$style('.el-tour__content { width: var(--el-tour-width) !important; max-width: none !important; }'),",
-  "    tags$div(id = 'shot',",
-  "    style = 'padding:24px; max-width:860px; display:flow-root', content))",
-  "}",
-  "",
-  "server <- function(input, output, session) {",
-  "  key <- isolate(parseQueryString(session$clientData$url_search))$shot",
-  "  b <- built[[key]]",
-  "  if (is.null(b$error)) b$server(input, output, session)",
-  "}",
-  "shinyApp(ui, server)"
-), app_file)
+writeLines(
+  c(
+    "suppressMessages({library(shiny); library(htmltools)})",
+    sprintf(
+      "pkgload::load_all(%s, quiet = TRUE, helpers = FALSE)",
+      shQuote(PKG)
+    ),
+    "library(shiny.element)",
+    # Vue's development build, so a template error is logged rather than lost
+    "options(shiny.element.dev = TRUE)",
+    "shots <- readRDS(Sys.getenv('EL_SHOT_SPEC'))",
+    "",
+    "run_chunk <- function(code) {",
+    "  env <- new.env(parent = globalenv())",
+    "  # An example ending in shinyApp(ui, server) is taken apart, not launched",
+    "  env$shinyApp <- function(ui, server, ...) structure(",
+    "    list(ui = ui, server = server), class = 'shot_app')",
+    "  ui <- list(); server <- function(input, output, session) NULL",
+    "  for (e in parse(text = code)) {",
+    "    v <- withVisible(eval(e, env))",
+    "    if (inherits(v$value, 'shot_app')) {",
+    "      ui <- list(v$value$ui); server <- v$value$server",
+    "    } else if (v$visible && inherits(v$value,",
+    "               c('shiny.tag', 'shiny.tag.list', 'htmlwidget', 'html'))) {",
+    "      ui <- c(ui, list(v$value))",
+    "    }",
+    "  }",
+    "  list(ui = ui, server = server)",
+    "}",
+    "",
+    "built <- lapply(shots, function(s) tryCatch(run_chunk(s$code),",
+    "  error = function(e) list(error = conditionMessage(e))))",
+    "",
+    "ui <- function(req) {",
+    "  key <- parseQueryString(req$QUERY_STRING)$shot",
+    "  b <- built[[key]]",
+    "  if (!is.null(b$error)) return(tags$pre(id = 'shot-error', b$error))",
+    # An example whose last value is a plain list -- lapply() at the top --
+    # shows nothing, here and on the website alike
+    "  if (!length(b$ui)) return(tags$pre(id = 'shot-error', 'the example shows nothing: wrap a list of UI in tagList()'))",
+    "  content <- lapply(b$ui, function(u) if (is.function(u)) u(req) else u)",
+    # chromote's capture at scale 2 resizes the page under a floating card,
+    # and a tour's card, sized by its content, collapses to one letter wide
+    "  el_page(tags$style('.el-tour__content { width: var(--el-tour-width) !important; max-width: none !important; }'),",
+    "    tags$div(id = 'shot',",
+    "    style = 'padding:24px; max-width:860px; display:flow-root', content))",
+    "}",
+    "",
+    "server <- function(input, output, session) {",
+    "  key <- isolate(parseQueryString(session$clientData$url_search))$shot",
+    "  b <- built[[key]]",
+    "  if (is.null(b$error)) b$server(input, output, session)",
+    "}",
+    "shinyApp(ui, server)"
+  ),
+  app_file
+)
 
-proc <- callr::r_bg(function(app, port, spec) {
-  Sys.setenv(EL_SHOT_SPEC = spec)
-  shiny::runApp(app, host = "127.0.0.1", port = port, launch.browser = FALSE)
-}, args = list(app = app_file, port = PORT, spec = spec_file),
-   stdout = "/tmp/article-shots.log", stderr = "2>&1")
+proc <- callr::r_bg(
+  function(app, port, spec) {
+    Sys.setenv(EL_SHOT_SPEC = spec)
+    shiny::runApp(app, host = "127.0.0.1", port = port, launch.browser = FALSE)
+  },
+  args = list(app = app_file, port = PORT, spec = spec_file),
+  stdout = "/tmp/article-shots.log",
+  stderr = "2>&1"
+)
 on.exit(proc$kill(), add = TRUE)
 
 for (i in 1:120) {
   Sys.sleep(1)
-  if (!proc$is_alive()) stop(paste(readLines("/tmp/article-shots.log"), collapse = "\n"))
-  if (any(grepl("Listening", readLines("/tmp/article-shots.log", warn = FALSE)))) break
+  if (!proc$is_alive()) {
+    stop(paste(readLines("/tmp/article-shots.log"), collapse = "\n"))
+  }
+  if (
+    any(grepl("Listening", readLines("/tmp/article-shots.log", warn = FALSE)))
+  ) {
+    break
+  }
 }
 
 # ── capturing ────────────────────────────────────────────────────────────────
 
-chromote::set_chrome_args(c(chromote::default_chrome_args(),
-  "--disable-dev-shm-usage", "--no-sandbox", "--disable-gpu",
-  "--force-device-scale-factor=1"))
+chromote::set_chrome_args(c(
+  chromote::default_chrome_args(),
+  "--disable-dev-shm-usage",
+  "--no-sandbox",
+  "--disable-gpu",
+  "--force-device-scale-factor=1"
+))
 b <- ChromoteSession$new(width = 1000, height = 900)
-on.exit(try(b$parent$get_browser()$get_process()$kill(), silent = TRUE), add = TRUE)
+on.exit(
+  try(b$parent$get_browser()$get_process()$kill(), silent = TRUE),
+  add = TRUE
+)
 
 # Console messages, per page. Runtime has to be enabled before the page
 # loads, or nothing is reported -- which reads exactly like a clean page.
 console <- character(0)
 invisible(b$Runtime$enable())
 b$Runtime$consoleAPICalled(callback = function(msg) {
-  text <- paste(vapply(msg$args, function(a) as.character(a$value %||% ""),
-                       character(1)), collapse = " ")
+  text <- paste(
+    vapply(msg$args, function(a) as.character(a$value %||% ""), character(1)),
+    collapse = " "
+  )
   console <<- c(console, text)
 })
 # An exception in the page -- a template Vue 3 cannot compile -- is a
 # failure too
 b$Runtime$exceptionThrown(callback = function(e) {
-  console <<- c(console, paste("[shiny-vue] exception:",
-                               e$exceptionDetails$exception$description %||% "?"))
+  console <<- c(
+    console,
+    paste(
+      "[shiny-vue] exception:",
+      e$exceptionDetails$exception$description %||% "?"
+    )
+  )
 })
 
 js <- function(expr) b$Runtime$evaluate(expr)$result$value
 
 wait_for <- function(expr, timeout = 20) {
   for (i in seq_len(timeout * 4)) {
-    if (isTRUE(js(expr))) return(TRUE)
+    if (isTRUE(js(expr))) {
+      return(TRUE)
+    }
     Sys.sleep(0.25)
   }
   FALSE
@@ -216,8 +272,10 @@ for (s in shots) {
   # Listen before navigating: a fast page can finish loading before a
   # listener attached afterwards starts waiting, and then it waits forever.
   loaded <- b$Page$loadEventFired(wait_ = FALSE)
-  b$Page$navigate(sprintf("http://127.0.0.1:%d/?shot=%s", PORT, s$key),
-                  wait_ = FALSE)
+  b$Page$navigate(
+    sprintf("http://127.0.0.1:%d/?shot=%s", PORT, s$key),
+    wait_ = FALSE
+  )
   b$wait_for(loaded)
 
   err <- js("(document.getElementById('shot-error') || {}).innerText || ''")
@@ -227,22 +285,29 @@ for (s in shots) {
     next
   }
 
-  ok <- wait_for("!!(window.Shiny && Shiny.shinyapp && Shiny.shinyapp.isConnected())")
+  ok <- wait_for(
+    "!!(window.Shiny && Shiny.shinyapp && Shiny.shinyapp.isConnected())"
+  )
   if (!ok) {
     problems <- c(problems, sprintf("%s: Shiny never connected", s$key))
     next
   }
-  Sys.sleep(1.5)   # Vue instances mount after the widgets are bound
+  Sys.sleep(1.5) # Vue instances mount after the widgets are bound
 
   # Two components in one example sharing an id leave one of them blank, and
   # nothing logs it -- the gallery's first version did this with three
   # el_avatar("me") calls in one chunk.
-  dup <- js("(function(){ var seen = {}, dup = [];
+  dup <- js(
+    "(function(){ var seen = {}, dup = [];
     document.querySelectorAll('[data-shiny-vue]').forEach(function(e){
       if (seen[e.id]) dup.push(e.id); seen[e.id] = true; });
-    return dup.join(', '); })()")
+    return dup.join(', '); })()"
+  )
   if (nzchar(dup %||% "")) {
-    problems <- c(problems, sprintf("%s: duplicate component ids: %s", s$key, dup))
+    problems <- c(
+      problems,
+      sprintf("%s: duplicate component ids: %s", s$key, dup)
+    )
     message(sprintf("  x %-34s duplicate ids: %s", s$key, dup))
     next
   }
@@ -252,8 +317,15 @@ for (s in shots) {
     # and the picture shows the untouched page -- so a throw is a failure.
     res <- b$Runtime$evaluate(s$js)
     if (!is.null(res$exceptionDetails)) {
-      problems <- c(problems, sprintf("%s: shot_js threw: %s", s$key,
-        res$exceptionDetails$exception$description %||% res$exceptionDetails$text))
+      problems <- c(
+        problems,
+        sprintf(
+          "%s: shot_js threw: %s",
+          s$key,
+          res$exceptionDetails$exception$description %||%
+            res$exceptionDetails$text
+        )
+      )
       message(sprintf("  x %-34s shot_js threw", s$key))
       next
     }
@@ -264,10 +336,19 @@ for (s in shots) {
   # the page out and the screenshot still gets taken -- the first version of
   # the row-click example did exactly that and was reported as clean.
   if (isTRUE(js("!!document.getElementById('shiny-disconnected-overlay')"))) {
-    log_tail <- grep("Error|error", readLines("/tmp/article-shots.log", warn = FALSE),
-                     value = TRUE)
-    problems <- c(problems, sprintf("%s: the server disconnected: %s", s$key,
-                                    substr(paste(tail(log_tail, 1), collapse = ""), 1, 160)))
+    log_tail <- grep(
+      "Error|error",
+      readLines("/tmp/article-shots.log", warn = FALSE),
+      value = TRUE
+    )
+    problems <- c(
+      problems,
+      sprintf(
+        "%s: the server disconnected: %s",
+        s$key,
+        substr(paste(tail(log_tail, 1), collapse = ""), 1, 160)
+      )
+    )
     message(sprintf("  x %-34s the server disconnected", s$key))
     next
   }
@@ -276,19 +357,25 @@ for (s in shots) {
   # unknown <el-button> element and shows as bare text. The raw-tag example
   # in the limitations article did exactly that, under a sentence saying it
   # worked.
-  raw <- js("(function(){ var t = {};
+  raw <- js(
+    "(function(){ var t = {};
     document.querySelectorAll('*').forEach(function(e){
       if (/^EL-/.test(e.tagName)) t[e.tagName.toLowerCase()] = 1; });
-    return Object.keys(t).join(', '); })()")
+    return Object.keys(t).join(', '); })()"
+  )
   if (nzchar(raw %||% "")) {
-    problems <- c(problems, sprintf("%s: uncompiled Element tags: %s", s$key, raw))
+    problems <- c(
+      problems,
+      sprintf("%s: uncompiled Element tags: %s", s$key, raw)
+    )
     message(sprintf("  x %-34s uncompiled tags: %s", s$key, raw))
   }
 
   # An item whose label went nowhere renders as a blank entry, and nothing
   # logs it -- the navigation menu was written with `title =` where the
   # package reads `label =`, and its screenshot showed an icon and an arrow.
-  blank <- js("(function(){
+  blank <- js(
+    "(function(){
     var sel = ['.el-menu-item', '.el-submenu__title', '.el-tabs__item',
                '.el-breadcrumb__inner', '.el-step__title', '.el-radio__label',
                '.el-checkbox__label', '.el-tag', '.el-dropdown-menu__item',
@@ -306,7 +393,8 @@ for (s in shots) {
       });
     });
     return Array.from(new Set(out)).join(', ');
-  })()")
+  })()"
+  )
   if (nzchar(blank %||% "")) {
     problems <- c(problems, sprintf("%s: blank items: %s", s$key, blank))
     message(sprintf("  x %-34s blank items: %s", s$key, blank))
@@ -315,18 +403,44 @@ for (s in shots) {
   # A modal's mask is position: fixed, so it covers the viewport and no
   # more; a page longer than the viewport came out with its lower part
   # unmasked under an open dialog. Grow the viewport to the page first.
-  page_h <- js("Math.max(document.documentElement.scrollHeight, document.body.scrollHeight)")
+  # Pictures from the network -- an upload's thumbnails, an image's src --
+  # arrive after the page settles; captured before then they are blank
+  # cards. Wait for every <img> to finish, up to ten seconds.
+  for (i in 1:50) {
+    if (
+      isTRUE(js(
+        "Array.from(document.images).every(function(i){ return i.complete; })"
+      ))
+    ) {
+      break
+    }
+    Sys.sleep(0.2)
+  }
+
+  page_h <- js(
+    "Math.max(document.documentElement.scrollHeight, document.body.scrollHeight)"
+  )
   tall <- !is.null(page_h) && page_h > 900
   if (tall) {
-    b$Emulation$setDeviceMetricsOverride(width = 1000, height = page_h,
-                                         deviceScaleFactor = 1, mobile = FALSE)
+    b$Emulation$setDeviceMetricsOverride(
+      width = 1000,
+      height = page_h,
+      deviceScaleFactor = 1,
+      mobile = FALSE
+    )
     Sys.sleep(0.5)
   }
 
   selectors <- c("#shot", s$sel)
-  present <- Filter(function(sel) isTRUE(js(sprintf(
-    "!!document.querySelector(%s)", jsonlite::toJSON(sel, auto_unbox = TRUE)))),
-    selectors)
+  present <- Filter(
+    function(sel) {
+      isTRUE(js(sprintf(
+        "!!document.querySelector(%s)",
+        jsonlite::toJSON(sel, auto_unbox = TRUE)
+      )))
+    },
+    selectors
+  )
 
   out <- file.path(OUTDIR, paste0(s$key, ".png"))
   # The frame is worked out here, as the union of every element matched,
@@ -334,7 +448,8 @@ for (s in shots) {
   # first, so a message box -- appended to <body>, centred on screen -- was
   # dropped from its own screenshot. Scroll offsets are added because
   # getBoundingClientRect() is relative to the viewport and the clip is not.
-  rect <- jsonlite::fromJSON(js(sprintf("(function(sels){
+  rect <- jsonlite::fromJSON(js(sprintf(
+    "(function(sels){
     var l = Infinity, t = Infinity, r = -Infinity, b = -Infinity;
     sels.forEach(function(sel){
       document.querySelectorAll(sel).forEach(function(e){
@@ -346,30 +461,46 @@ for (s in shots) {
     });
     return JSON.stringify({x: l + window.scrollX, y: t + window.scrollY,
                            w: r - l, h: b - t});
-  })(%s)", jsonlite::toJSON(present))))
+  })(%s)",
+    jsonlite::toJSON(present)
+  )))
   b$screenshot(out, cliprect = c(rect$x, rect$y, rect$w, rect$h), scale = 2)
   # Back to the session's own size -- clearing the override instead drops
   # to the bare window, shorter than the one the session was opened with
-  if (tall) b$Emulation$setDeviceMetricsOverride(width = 1000, height = 900,
-                                                  deviceScaleFactor = 1, mobile = FALSE)
+  if (tall) {
+    b$Emulation$setDeviceMetricsOverride(
+      width = 1000,
+      height = 900,
+      deviceScaleFactor = 1,
+      mobile = FALSE
+    )
+  }
 
   # Vue's warnings, and the package's own -- an update sent to a widget that
   # is not there, a method that does not exist. Both mean the example does
   # not do what it shows.
-  warns <- console[grepl("[Vue warn]", console, fixed = TRUE) |
-                   grepl("[shiny.element]", console, fixed = TRUE) |
-                   grepl("[shiny-vue]", console, fixed = TRUE)]
+  warns <- console[
+    grepl("[Vue warn]", console, fixed = TRUE) |
+      grepl("[shiny.element]", console, fixed = TRUE) |
+      grepl("[shiny-vue]", console, fixed = TRUE)
+  ]
   if (length(warns)) {
     problems <- c(problems, sprintf("%s: %s", s$key, substr(warns[1], 1, 160)))
   }
-  message(sprintf("  %s %-34s %s", if (length(warns)) "!" else " ", s$key,
-                  if (length(warns)) "Vue warned" else ""))
+  message(sprintf(
+    "  %s %-34s %s",
+    if (length(warns)) "!" else " ",
+    s$key,
+    if (length(warns)) "Vue warned" else ""
+  ))
 }
 
 # Screenshots nothing refers to any more
 if (!length(wanted)) {
-  stale <- setdiff(list.files(OUTDIR, pattern = "[.]png$"),
-                   paste0(names(shots), ".png"))
+  stale <- setdiff(
+    list.files(OUTDIR, pattern = "[.]png$"),
+    paste0(names(shots), ".png")
+  )
   if (length(stale)) {
     file.remove(file.path(OUTDIR, stale))
     message("removed ", length(stale), " stale screenshot(s)")
@@ -377,7 +508,12 @@ if (!length(wanted)) {
 }
 
 if (length(problems)) {
-  message("\n", length(problems), " problem(s):\n  ", paste(problems, collapse = "\n  "))
+  message(
+    "\n",
+    length(problems),
+    " problem(s):\n  ",
+    paste(problems, collapse = "\n  ")
+  )
   quit(status = 1)
 }
 message("\nall ", length(shots), " examples ran cleanly")

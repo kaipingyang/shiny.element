@@ -18,21 +18,39 @@
 #' el_check_tag("pinned", "Pinned", value = TRUE)
 #' el_check_tag("urgent", "Urgent", type = "danger")
 #' @export
-el_check_tag <- function(id, label, value = FALSE, disabled = NULL, type = NULL,
-                         width = NULL) {
+el_check_tag <- function(
+  id,
+  label,
+  value = FALSE,
+  disabled = NULL,
+  type = NULL,
+  width = NULL
+) {
   .el_check_choices("el_check_tag", environment())
   ns_id <- .el_ui_id(id, NULL)
   el_widget(
-    id      = ns_id,
-    markup  = htmltools::tag("el-check-tag", list(
-      ":checked" = "value", "@change" = "handleChange", "{{ text }}")),
-    props   = .el_props(list(disabled = disabled, type = type)),
-    data    = list(value = isTRUE(.el_restore(ns_id, value)), text = label),
-    methods = list(handleChange = JS(sprintf(paste0(
-      "function(v) { this.value = v; window.Shiny && Shiny.setInputValue && ",
-      "Shiny.setInputValue('%s', v); }"), ns_id))),
+    id = ns_id,
+    markup = htmltools::tag(
+      "el-check-tag",
+      list(
+        ":checked" = "value",
+        "@change" = "handleChange",
+        "{{ text }}"
+      )
+    ),
+    props = .el_props(list(disabled = disabled, type = type)),
+    data = list(value = isTRUE(.el_restore(ns_id, value)), text = label),
+    methods = list(
+      handleChange = JS(sprintf(
+        paste0(
+          "function(v) { this.value = v; window.Shiny && Shiny.setInputValue && ",
+          "Shiny.setInputValue('%s', v); }"
+        ),
+        ns_id
+      ))
+    ),
     mounted = .el_mounted_init(stats::setNames("value", ns_id)),
-    width   = width
+    width = width
   )
 }
 
@@ -47,16 +65,30 @@ el_check_tag <- function(id, label, value = FALSE, disabled = NULL, type = NULL,
 #' @examples
 #' if (interactive()) {
 #'   # inside a server function
-#'   observeEvent(input$clear, update_el_check_tag(session, "pinned", value = FALSE))
+#'   observeEvent(
+#'     input$clear,
+#'     update_el_check_tag(session, "pinned", value = FALSE)
+#'   )
 #' }
 #' @export
-update_el_check_tag <- function(session = shiny::getDefaultReactiveDomain(), id,
-                                value = NULL, label = NULL, disabled = NULL) {
+update_el_check_tag <- function(
+  session = shiny::getDefaultReactiveDomain(),
+  id,
+  value = NULL,
+  label = NULL,
+  disabled = NULL
+) {
   .el_check_session(session)
   msg <- list(id = session$ns(id))
-  if (!is.null(value))    msg$value    <- value
-  if (!is.null(label))    msg$text     <- label
-  if (!is.null(disabled)) msg$disabled <- disabled
+  if (!is.null(value)) {
+    msg$value <- value
+  }
+  if (!is.null(label)) {
+    msg$text <- label
+  }
+  if (!is.null(disabled)) {
+    msg$disabled <- disabled
+  }
   .el_send_update(session, msg)
   invisible(NULL)
 }

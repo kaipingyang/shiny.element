@@ -71,52 +71,59 @@
 #' @examples
 #' el_autocomplete("city", suggestions = c("Beijing", "Shanghai", "Shenzhen"))
 #'
-#' el_autocomplete("city",
+#' el_autocomplete(
+#'   "city",
 #'   suggestions = c("Beijing", "Shanghai"),
-#'   placeholder = "Where to?", clearable = TRUE, width = 260
+#'   placeholder = "Where to?",
+#'   clearable = TRUE,
+#'   width = 260
 #' )
 #' @export
-el_autocomplete <- function(id = NULL,
-                            value = "",
-                            suggestions = NULL,
-                            remote = FALSE,
-                            fetch_suggestions = NULL,
-                            placeholder = NULL,
-                            clearable = NULL,
-                            disabled = NULL,
-                            value_key = NULL,
-                            debounce = NULL,
-                            placement = NULL,
-                            trigger_on_focus = NULL,
-                            select_when_unmatched = NULL,
-                            highlight_first_item = NULL,
-                            hide_loading = NULL,
-                            icon = NULL,
-                            prefix_icon = NULL,
-                            suffix_icon = NULL,
-                            label = NULL,
-                            name = NULL,
-                            popper_class = NULL,
-                            label_position = c("top", "left", "right"),
-                            label_width = NULL,
-                            label_suffix = NULL,
-                            required = FALSE,
-                            error = NULL,
-                            show_message = TRUE,
-                            inline_message = FALSE,
-                            append_to = NULL,
-                            aria_label = NULL,
-                            fit_input_width = NULL,
-                            loop_navigation = NULL,
-                            popper_options = NULL,
-                            popper_style = NULL,
-                            show_arrow = NULL,
-                            teleported = NULL,
-                            width = NULL,
-                            slots   = NULL,
-                            session = NULL) {
+el_autocomplete <- function(
+  id = NULL,
+  value = "",
+  suggestions = NULL,
+  remote = FALSE,
+  fetch_suggestions = NULL,
+  placeholder = NULL,
+  clearable = NULL,
+  disabled = NULL,
+  value_key = NULL,
+  debounce = NULL,
+  placement = NULL,
+  trigger_on_focus = NULL,
+  select_when_unmatched = NULL,
+  highlight_first_item = NULL,
+  hide_loading = NULL,
+  icon = NULL,
+  prefix_icon = NULL,
+  suffix_icon = NULL,
+  label = NULL,
+  name = NULL,
+  popper_class = NULL,
+  label_position = c("top", "left", "right"),
+  label_width = NULL,
+  label_suffix = NULL,
+  required = FALSE,
+  error = NULL,
+  show_message = TRUE,
+  inline_message = FALSE,
+  append_to = NULL,
+  aria_label = NULL,
+  fit_input_width = NULL,
+  loop_navigation = NULL,
+  popper_options = NULL,
+  popper_style = NULL,
+  show_arrow = NULL,
+  teleported = NULL,
+  width = NULL,
+  slots = NULL,
+  session = NULL
+) {
   .el_check_choices("el_autocomplete", environment())
-  if (is.null(id)) id <- paste0("el_autocomplete_", uuid::UUIDgenerate())
+  if (is.null(id)) {
+    id <- paste0("el_autocomplete_", uuid::UUIDgenerate())
+  }
   ns_id <- .el_ui_id(id, session)
 
   # Local filtering over `suggestions` unless the caller supplies their own
@@ -128,22 +135,27 @@ el_autocomplete <- function(id = NULL,
     # order they were asked, so the latest callback is kept until every
     # answer is in -- the last one is the answer to the last query. A query
     # with no answer at all settles empty after shinyVue.askTimeout.
-    JS(sprintf(paste0(
-      "function(queryString, callback) {",
-      "  if (!(window.Shiny && Shiny.setInputValue)) { callback([]); return; }",
-      "  var self = this;",
-      "  this._elPending = callback;",
-      "  this._elAsked = (this._elAsked || 0) + 1;",
-      "  clearTimeout(this._elQueryTimer);",
-      "  this._elQueryTimer = setTimeout(function() {",
-      "    var cb = self._elPending;",
-      "    if (!cb) return;",
-      "    self._elPending = null; self._elAnswered = self._elAsked;",
-      "    console.warn('[shiny.element] no answer to input$%s_query within ' + window.shinyVue.askTimeout / 1000 + ' s');",
-      "    cb([]);",
-      "  }, window.shinyVue.askTimeout);",
-      "  window.Shiny && Shiny.setInputValue && Shiny.setInputValue('%s_query', queryString || '', {priority: 'event'});",
-      "}"), ns_id, ns_id))
+    JS(sprintf(
+      paste0(
+        "function(queryString, callback) {",
+        "  if (!(window.Shiny && Shiny.setInputValue)) { callback([]); return; }",
+        "  var self = this;",
+        "  this._elPending = callback;",
+        "  this._elAsked = (this._elAsked || 0) + 1;",
+        "  clearTimeout(this._elQueryTimer);",
+        "  this._elQueryTimer = setTimeout(function() {",
+        "    var cb = self._elPending;",
+        "    if (!cb) return;",
+        "    self._elPending = null; self._elAnswered = self._elAsked;",
+        "    console.warn('[shiny.element] no answer to input$%s_query within ' + window.shinyVue.askTimeout / 1000 + ' s');",
+        "    cb([]);",
+        "  }, window.shinyVue.askTimeout);",
+        "  window.Shiny && Shiny.setInputValue && Shiny.setInputValue('%s_query', queryString || '', {priority: 'event'});",
+        "}"
+      ),
+      ns_id,
+      ns_id
+    ))
   } else {
     JS(
       "function(queryString, callback) {",
@@ -157,26 +169,29 @@ el_autocomplete <- function(id = NULL,
   }
 
   attrs <- list(
-    "v-model"                = "value",
-    ":fetch-suggestions"     = "fetchSuggestions",
-    ":placeholder"           = .el_optional_bind("placeholder"),
-    ":clearable"             = .el_optional_bind("clearable"),
-    ":disabled"              = .el_optional_bind("disabled"),
-    ":value-key"             = .el_optional_bind("valueKey"),
-    ":debounce"              = .el_optional_bind("debounce"),
-    ":placement"             = .el_optional_bind("placement"),
-    ":trigger-on-focus"      = .el_optional_bind("triggerOnFocus"),
+    "v-model" = "value",
+    ":fetch-suggestions" = "fetchSuggestions",
+    ":placeholder" = .el_optional_bind("placeholder"),
+    ":clearable" = .el_optional_bind("clearable"),
+    ":disabled" = .el_optional_bind("disabled"),
+    ":value-key" = .el_optional_bind("valueKey"),
+    ":debounce" = .el_optional_bind("debounce"),
+    ":placement" = .el_optional_bind("placement"),
+    ":trigger-on-focus" = .el_optional_bind("triggerOnFocus"),
     ":select-when-unmatched" = .el_optional_bind("selectWhenUnmatched"),
-    ":highlight-first-item"  = .el_optional_bind("highlightFirstItem"),
-    ":hide-loading"          = .el_optional_bind("hideLoading"),
-    ":icon"                  = .el_optional_bind("icon"),
-    ":prefix-icon"           = .el_optional_bind("prefixIcon"),
-    ":suffix-icon"           = .el_optional_bind("suffixIcon"),
-    ":label"                 = .el_optional_bind("label"),
-    ":name"                  = .el_optional_bind("name"),
-    ":popper-class"          = .el_optional_bind("popperClass")
+    ":highlight-first-item" = .el_optional_bind("highlightFirstItem"),
+    ":hide-loading" = .el_optional_bind("hideLoading"),
+    ":icon" = .el_optional_bind("icon"),
+    ":prefix-icon" = .el_optional_bind("prefixIcon"),
+    ":suffix-icon" = .el_optional_bind("suffixIcon"),
+    ":label" = .el_optional_bind("label"),
+    ":name" = .el_optional_bind("name"),
+    ":popper-class" = .el_optional_bind("popperClass")
   )
-  events <- .el_event_bindings(ns_id, c("select", "change", "blur", "clear", "focus", "input"))
+  events <- .el_event_bindings(
+    ns_id,
+    c("select", "change", "blur", "clear", "focus", "input")
+  )
   attrs <- c(attrs, events$attrs)
 
   el_widget(
@@ -188,51 +203,59 @@ el_autocomplete <- function(id = NULL,
       popper_options = popper_options,
       popper_style = popper_style,
       show_arrow = show_arrow,
-      teleported = teleported)),
+      teleported = teleported
+    )),
     # Reported as the value changes, debounced, as Shiny's own inputs are
     rate = list(policy = "debounce", delay = 250),
-    label = label, label_position = label_position,
-    label_width = label_width, label_suffix = label_suffix, required = required,
-    error = error, show_message = show_message, inline_message = inline_message,
-    id     = ns_id,
+    label = label,
+    label_position = label_position,
+    label_width = label_width,
+    label_suffix = label_suffix,
+    required = required,
+    error = error,
+    show_message = show_message,
+    inline_message = inline_message,
+    id = ns_id,
     markup = htmltools::tag("el-autocomplete", attrs),
-    data   = list(
-      value               = value,
-      suggestions         = .el_autocomplete_suggestions(suggestions),
-      placeholder         = .el_or_na(placeholder),
-      clearable           = .el_or_na(clearable),
-      disabled            = .el_or_na(disabled),
-      valueKey            = .el_or_na(value_key),
-      debounce            = .el_or_na(debounce),
-      placement           = .el_or_na(placement),
-      triggerOnFocus      = .el_or_na(trigger_on_focus),
+    data = list(
+      value = value,
+      suggestions = .el_autocomplete_suggestions(suggestions),
+      placeholder = .el_or_na(placeholder),
+      clearable = .el_or_na(clearable),
+      disabled = .el_or_na(disabled),
+      valueKey = .el_or_na(value_key),
+      debounce = .el_or_na(debounce),
+      placement = .el_or_na(placement),
+      triggerOnFocus = .el_or_na(trigger_on_focus),
       selectWhenUnmatched = .el_or_na(select_when_unmatched),
-      highlightFirstItem  = .el_or_na(highlight_first_item),
-      hideLoading         = .el_or_na(hide_loading),
-      icon                = .el_or_na(icon),
-      prefixIcon          = .el_or_na(prefix_icon),
-      suffixIcon          = .el_or_na(suffix_icon),
-      label               = .el_or_na(label),
-      name                = .el_or_na(name),
-      popperClass         = .el_or_na(popper_class)
+      highlightFirstItem = .el_or_na(highlight_first_item),
+      hideLoading = .el_or_na(hide_loading),
+      icon = .el_or_na(icon),
+      prefixIcon = .el_or_na(prefix_icon),
+      suffixIcon = .el_or_na(suffix_icon),
+      label = .el_or_na(label),
+      name = .el_or_na(name),
+      popperClass = .el_or_na(popper_class)
     ),
     methods = c(events$methods, list(fetchSuggestions = fetcher)),
     watch = list(
       # Kept for when the autocomplete is absorbed into a wrapper and has no
       # binding; el_widget() strips it otherwise
       value = JS(sprintf(
-        "function(newVal) { window.Shiny && Shiny.setInputValue && Shiny.setInputValue('%s', newVal); }", ns_id
+        "function(newVal) { window.Shiny && Shiny.setInputValue && Shiny.setInputValue('%s', newVal); }",
+        ns_id
       )),
       suggestions = JS(paste0(
         "function(v) { var cb = this._elPending; if (!cb) return; ",
         "clearTimeout(this._elQueryTimer); ",
         "this._elAnswered = (this._elAnswered || 0) + 1; ",
         "if (this._elAnswered >= this._elAsked) this._elPending = null; ",
-        "cb(v); }"))
+        "cb(v); }"
+      ))
     ),
-    mounted    = .el_mounted_init(stats::setNames("value", ns_id)),
-    width      = width,
-    slots      = slots
+    mounted = .el_mounted_init(stats::setNames("value", ns_id)),
+    width = width,
+    slots = slots
   )
 }
 
@@ -246,8 +269,12 @@ el_autocomplete <- function(id = NULL,
 #' @return A list of objects, each with at least a `value`.
 #' @keywords internal
 .el_autocomplete_suggestions <- function(suggestions) {
-  if (is.null(suggestions) || !length(suggestions)) return(list())
-  if (is.list(suggestions)) return(unname(suggestions))
+  if (is.null(suggestions) || !length(suggestions)) {
+    return(list())
+  }
+  if (is.list(suggestions)) {
+    return(unname(suggestions))
+  }
   lapply(as.character(suggestions), function(x) list(value = x))
 }
 
@@ -273,24 +300,40 @@ el_autocomplete <- function(id = NULL,
 #' if (interactive()) {
 #'   # inside a server function
 #'   observeEvent(input$country, {
-#'     update_el_autocomplete(session, "city", suggestions = cities_of(input$country))
+#'     update_el_autocomplete(
+#'       session,
+#'       "city",
+#'       suggestions = cities_of(input$country)
+#'     )
 #'   })
 #' }
 #' @export
-update_el_autocomplete <- function(session = shiny::getDefaultReactiveDomain(), id, value = NULL,
-                                   suggestions = NULL, placeholder = NULL,
-                                   disabled = NULL,
-                                   label = NULL, error = NULL) {
+update_el_autocomplete <- function(
+  session = shiny::getDefaultReactiveDomain(),
+  id,
+  value = NULL,
+  suggestions = NULL,
+  placeholder = NULL,
+  disabled = NULL,
+  label = NULL,
+  error = NULL
+) {
   .el_check_session(session)
   ns_id <- session$ns(id)
   msg <- list(id = ns_id)
-  if (!is.null(value))       msg$value       <- value
-  if (!is.null(suggestions)) msg$suggestions <- .el_autocomplete_suggestions(suggestions)
-  if (!is.null(placeholder)) msg$placeholder <- placeholder
-  if (!is.null(disabled))    msg$disabled    <- disabled
+  if (!is.null(value)) {
+    msg$value <- value
+  }
+  if (!is.null(suggestions)) {
+    msg$suggestions <- .el_autocomplete_suggestions(suggestions)
+  }
+  if (!is.null(placeholder)) {
+    msg$placeholder <- placeholder
+  }
+  if (!is.null(disabled)) {
+    msg$disabled <- disabled
+  }
   msg <- .el_form_item_update(msg, label, error)
   .el_send_update(session, msg)
   invisible(NULL)
 }
-
-

@@ -19,7 +19,12 @@ el_input("in_basic", placeholder = "Please input", width = "240px")
 Disable the Input with the `disabled` attribute.
 
 ```{r disabled, eval = FALSE, shot = TRUE}
-el_input("in_dis", placeholder = "Please input", disabled = TRUE, width = "240px")
+el_input(
+  "in_dis",
+  placeholder = "Please input",
+  disabled = TRUE,
+  width = "240px"
+)
 ```
 
 ## Clearable
@@ -27,7 +32,12 @@ el_input("in_dis", placeholder = "Please input", disabled = TRUE, width = "240px
 Make the Input clearable with the `clearable` attribute. After version 2.13.4, the clearable feature is also available for textarea type of Input.
 
 ```{r clearable, eval = FALSE, shot = TRUE}
-el_input("in_clear", placeholder = "Please input", clearable = TRUE, width = "240px")
+el_input(
+  "in_clear",
+  placeholder = "Please input",
+  clearable = TRUE,
+  width = "240px"
+)
 ```
 
 ## Custom Clear Icon
@@ -35,8 +45,13 @@ el_input("in_clear", placeholder = "Please input", clearable = TRUE, width = "24
 You can customize the clear icon by setting the `clear-icon` attribute.
 
 ```{r clear-icon, eval = FALSE, shot = TRUE}
-el_input("in_clear_icon", placeholder = "Please input", clearable = TRUE, clear_icon = "CloseBold",
-         width = "240px")
+el_input(
+  "in_clear_icon",
+  placeholder = "Please input",
+  clearable = TRUE,
+  clear_icon = "CloseBold",
+  width = "240px"
+)
 ```
 
 ## Formatter
@@ -46,9 +61,15 @@ Display value within it's situation with `formatter`, and we usually use `parser
 `formatter` shows the value its way; `parser` reads it back.
 
 ```{r formatter, eval = FALSE, shot = TRUE}
-el_input("in_fmt", placeholder = "Please input", width = "240px",
-  formatter = JS("function(value) { return `$ ${value}`.replace(/\\B(?=(\\d{3})+(?!\\d))/g, ','); }"),
-  parser = JS("function(value) { return value.replace(/\\$\\s?|(,*)/g, ''); }"))
+el_input(
+  "in_fmt",
+  placeholder = "Please input",
+  width = "240px",
+  formatter = JS(
+    "function(value) { return `$ ${value}`.replace(/\\B(?=(\\d{3})+(?!\\d))/g, ','); }"
+  ),
+  parser = JS("function(value) { return value.replace(/\\$\\s?|(,*)/g, ''); }")
+)
 ```
 
 ## Password box
@@ -56,8 +77,13 @@ el_input("in_fmt", placeholder = "Please input", width = "240px",
 Make a toggle-able password Input with the `show-password` attribute. Since 2.13.6, the `password-icon` slot is supported to override the default icon.
 
 ```{r password, eval = FALSE, shot = TRUE}
-el_input("in_pass", type = "password", placeholder = "Please input password",
-         show_password = TRUE, width = "240px")
+el_input(
+  "in_pass",
+  type = "password",
+  placeholder = "Please input password",
+  show_password = TRUE,
+  width = "240px"
+)
 ```
 
 ## Input with icon
@@ -67,9 +93,21 @@ Add an icon to indicate input type.
 To add icons in Input, you can simply use `prefix-icon` and `suffix-icon` attributes. Also, the `prefix` and `suffix` named slots works as well.
 
 ```{r with-icon, eval = FALSE, shot = TRUE}
-tags$div(style = "display: flex; gap: 16px",
-  el_input("in_suffix", placeholder = "Pick a date", suffix_icon = "Calendar", width = "240px"),
-  el_input("in_prefix", placeholder = "Type something", prefix_icon = "Search", width = "240px"))
+tags$div(
+  style = "display: flex; gap: 16px",
+  el_input(
+    "in_suffix",
+    placeholder = "Pick a date",
+    suffix_icon = "Calendar",
+    width = "240px"
+  ),
+  el_input(
+    "in_prefix",
+    placeholder = "Type something",
+    prefix_icon = "Search",
+    width = "240px"
+  )
+)
 ```
 
 ## Textarea
@@ -79,7 +117,13 @@ Resizable for entering multiple lines of text information. Add attribute `type="
 Control the height by setting the `rows` prop.
 
 ```{r textarea, eval = FALSE, shot = TRUE}
-el_input("in_area", type = "textarea", rows = 2, placeholder = "Please input", width = "240px")
+el_input(
+  "in_area",
+  type = "textarea",
+  rows = 2,
+  placeholder = "Please input",
+  width = "240px"
+)
 ```
 
 ## Autosize Textarea
@@ -88,10 +132,22 @@ Setting the `autosize` prop for a textarea type of Input makes the height to aut
 
 ```{r auto-sizing-textarea, eval = FALSE, shot = TRUE}
 tagList(
-  el_input("in_auto1", type = "textarea", autosize = TRUE, placeholder = "Please input", width = "240px"),
+  el_input(
+    "in_auto1",
+    type = "textarea",
+    autosize = TRUE,
+    placeholder = "Please input",
+    width = "240px"
+  ),
   tags$div(style = "margin: 20px 0"),
-  el_input("in_auto2", type = "textarea", autosize = list(minRows = 2, maxRows = 4),
-           placeholder = "Please input", width = "240px"))
+  el_input(
+    "in_auto2",
+    type = "textarea",
+    autosize = list(minRows = 2, maxRows = 4),
+    placeholder = "Please input",
+    width = "240px"
+  )
+)
 ```
 
 ## Mixed input
@@ -101,11 +157,27 @@ Prepend or append an element, generally a label or a button.
 Use `slot` to distribute elements that prepend or append to Input.
 
 ```{r mixed-input, eval = FALSE, shot = TRUE}
-tags$div(style = "display: grid; gap: 16px; max-width: 600px",
-  el_input("in_pre", placeholder = "Please input", slots = list(prepend = "Http://")),
-  el_input("in_app", placeholder = "Please input", slots = list(append = ".com")),
-  el_input("in_both", placeholder = "Please input",
-           slots = list(prepend = "Http://", append = el_button("in_search", NULL, icon = "Search"))))
+tags$div(
+  style = "display: grid; gap: 16px; max-width: 600px",
+  el_input(
+    "in_pre",
+    placeholder = "Please input",
+    slots = list(prepend = "Http://")
+  ),
+  el_input(
+    "in_app",
+    placeholder = "Please input",
+    slots = list(append = ".com")
+  ),
+  el_input(
+    "in_both",
+    placeholder = "Please input",
+    slots = list(
+      prepend = "Http://",
+      append = el_button("in_search", NULL, icon = "Search")
+    )
+  )
+)
 ```
 
 ## Sizes
@@ -113,10 +185,22 @@ tags$div(style = "display: grid; gap: 16px; max-width: 600px",
 Add `size` attribute to change the size of Input. In addition to the default size, there are two other options: `large`, `small`.
 
 ```{r various-size, eval = FALSE, shot = TRUE}
-tags$div(style = "display: flex; gap: 16px",
-  el_input("in_l", size = "large", placeholder = "Please Input", width = "240px"),
+tags$div(
+  style = "display: flex; gap: 16px",
+  el_input(
+    "in_l",
+    size = "large",
+    placeholder = "Please Input",
+    width = "240px"
+  ),
   el_input("in_d", placeholder = "Please Input", width = "240px"),
-  el_input("in_s", size = "small", placeholder = "Please Input", width = "240px"))
+  el_input(
+    "in_s",
+    size = "small",
+    placeholder = "Please Input",
+    width = "240px"
+  )
+)
 ```
 
 ## Limit length
@@ -125,11 +209,22 @@ tags$div(style = "display: flex; gap: 16px",
 
 ```{r length-limiting, eval = FALSE, shot = TRUE}
 tagList(
-  el_input("in_lim", maxlength = 10, show_word_limit = TRUE, placeholder = "Please input",
-           width = "240px"),
+  el_input(
+    "in_lim",
+    maxlength = 10,
+    show_word_limit = TRUE,
+    placeholder = "Please input",
+    width = "240px"
+  ),
   tags$div(style = "margin: 20px 0"),
-  el_input("in_lim_area", type = "textarea", maxlength = 30, show_word_limit = TRUE,
-           placeholder = "Please input"))
+  el_input(
+    "in_lim_area",
+    type = "textarea",
+    maxlength = 30,
+    show_word_limit = TRUE,
+    placeholder = "Please input"
+  )
+)
 ```
 
 ## Count graphemes
@@ -139,9 +234,16 @@ Set `count-graphemes` to calculate text length. If it's set, native `maxlength` 
 `count_graphemes` counts as a reader would: an emoji is one character.
 
 ```{r count-graphemes, eval = FALSE, shot = TRUE}
-el_input("in_graph", maxlength = 10, show_word_limit = TRUE, width = "240px",
+el_input(
+  "in_graph",
+  maxlength = 10,
+  show_word_limit = TRUE,
+  width = "240px",
   value = "\U0001F468‍\U0001F469‍\U0001F467",
-  count_graphemes = JS("function(value) { return [...new Intl.Segmenter().segment(value)].length; }"))
+  count_graphemes = JS(
+    "function(value) { return [...new Intl.Segmenter().segment(value)].length; }"
+  )
+)
 ```
 
 > **Tip**

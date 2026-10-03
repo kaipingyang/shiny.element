@@ -164,5 +164,10 @@ Callable with \code{\link[=el_call]{el_call()}}: \code{scrollTo()}, \code{scroll
 }
 
 \examples{
-el_table_v2("big", data = data.frame(x = 1:10000, y = rnorm(10000)), width = 600, height = 400)
+el_table_v2(
+  "big",
+  data = data.frame(x = 1:10000, y = rnorm(10000)),
+  width = 600,
+  height = 400
+)
 }

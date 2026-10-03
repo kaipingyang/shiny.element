@@ -51,38 +51,55 @@
 #'
 #' el_checkbox("remember", "Remember me", value = TRUE, border = TRUE)
 #' @export
-el_checkbox <- function(id = NULL,
-                        label = NULL,
-                        value = FALSE,
-                        indeterminate = NULL,
-                        disabled = NULL,
-                        border = NULL,
-                        size = NULL,
-                        true_label = NULL,
-                        false_label = NULL,
-                        name = NULL,
-                        checked = NULL,
-                        aria_controls = NULL,
-                        aria_label = NULL,
-                        controls = NULL,
-                        false_value = NULL,
-                        tabindex = NULL,
-                        true_value = NULL,
-                        validate_event = NULL,
-                        width = NULL,
-                        slots = NULL,
-                        session = NULL) {
+el_checkbox <- function(
+  id = NULL,
+  label = NULL,
+  value = FALSE,
+  indeterminate = NULL,
+  disabled = NULL,
+  border = NULL,
+  size = NULL,
+  true_label = NULL,
+  false_label = NULL,
+  name = NULL,
+  checked = NULL,
+  aria_controls = NULL,
+  aria_label = NULL,
+  controls = NULL,
+  false_value = NULL,
+  tabindex = NULL,
+  true_value = NULL,
+  validate_event = NULL,
+  width = NULL,
+  slots = NULL,
+  session = NULL
+) {
   .el_check_choices("el_checkbox", environment())
-  if (is.null(id)) id <- paste0("el_checkbox_", uuid::UUIDgenerate())
+  if (is.null(id)) {
+    id <- paste0("el_checkbox_", uuid::UUIDgenerate())
+  }
   ns_id <- .el_ui_id(id, session)
 
   # A box outside a group shows its `label` prop as its text, as Element's
   # template does when the default slot is empty
-  attrs <- list("v-model" = "value", ":label" = "text", "@change" = "handleChange")
-  fields <- list(indeterminate = indeterminate, disabled = disabled, border = border,
-                 size = size, trueLabel = true_label, falseLabel = false_label,
-                 name = name, checked = checked)
-  for (f in names(fields)) attrs[[paste0(":", .el_kebab_case(f))]] <- .el_optional_bind(f)
+  attrs <- list(
+    "v-model" = "value",
+    ":label" = "text",
+    "@change" = "handleChange"
+  )
+  fields <- list(
+    indeterminate = indeterminate,
+    disabled = disabled,
+    border = border,
+    size = size,
+    trueLabel = true_label,
+    falseLabel = false_label,
+    name = name,
+    checked = checked
+  )
+  for (f in names(fields)) {
+    attrs[[paste0(":", .el_kebab_case(f))]] <- .el_optional_bind(f)
+  }
 
   el_widget(
     props = .el_props(list(
@@ -92,19 +109,23 @@ el_checkbox <- function(id = NULL,
       false_value = false_value,
       tabindex = tabindex,
       true_value = true_value,
-      validate_event = validate_event)),
-    id     = ns_id,
+      validate_event = validate_event
+    )),
+    id = ns_id,
     markup = htmltools::tag("el-checkbox", attrs),
-    data   = c(list(value = value, text = if (is.null(label)) "" else label),
-               lapply(fields, .el_or_na)),
+    data = c(
+      list(value = value, text = if (is.null(label)) "" else label),
+      lapply(fields, .el_or_na)
+    ),
     methods = list(
       handleChange = JS(sprintf(
-        "function(v) { window.Shiny && Shiny.setInputValue && Shiny.setInputValue('%s', v); }", ns_id
+        "function(v) { window.Shiny && Shiny.setInputValue && Shiny.setInputValue('%s', v); }",
+        ns_id
       ))
     ),
     mounted = .el_mounted_init(stats::setNames("value", ns_id)),
-    width   = width,
-    slots   = slots
+    width = width,
+    slots = slots
   )
 }
 
@@ -124,22 +145,43 @@ el_checkbox <- function(id = NULL,
 #' @examples
 #' if (interactive()) {
 #'   # inside a server function: the "check all" box follows the group
-#'   observeEvent(input$cities, {
-#'     n <- length(input$cities)
-#'     update_el_checkbox(session, "all", value = n == 4,
-#'                        indeterminate = n > 0 && n < 4)
-#'   }, ignoreNULL = FALSE)
+#'   observeEvent(
+#'     input$cities,
+#'     {
+#'       n <- length(input$cities)
+#'       update_el_checkbox(
+#'         session,
+#'         "all",
+#'         value = n == 4,
+#'         indeterminate = n > 0 && n < 4
+#'       )
+#'     },
+#'     ignoreNULL = FALSE
+#'   )
 #' }
 #' @export
-update_el_checkbox <- function(session = shiny::getDefaultReactiveDomain(), id,
-                               value = NULL, label = NULL, indeterminate = NULL,
-                               disabled = NULL) {
+update_el_checkbox <- function(
+  session = shiny::getDefaultReactiveDomain(),
+  id,
+  value = NULL,
+  label = NULL,
+  indeterminate = NULL,
+  disabled = NULL
+) {
   .el_check_session(session)
   msg <- list(id = session$ns(id))
-  if (!is.null(value))         msg$value         <- value
-  if (!is.null(label))         msg$text          <- label
-  if (!is.null(indeterminate)) msg$indeterminate <- indeterminate
-  if (!is.null(disabled))      msg$disabled      <- disabled
+  if (!is.null(value)) {
+    msg$value <- value
+  }
+  if (!is.null(label)) {
+    msg$text <- label
+  }
+  if (!is.null(indeterminate)) {
+    msg$indeterminate <- indeterminate
+  }
+  if (!is.null(disabled)) {
+    msg$disabled <- disabled
+  }
   .el_send_update(session, msg)
   invisible(NULL)
 }

@@ -32,27 +32,38 @@
 #' @examples
 #' el_affix(el_button("top", "Stays on top"), offset = 120)
 #' @export
-el_affix <- function(...,
-                     id = NULL,
-                     offset = NULL,
-                     position = NULL,
-                     target = NULL,
-                     z_index = NULL,
-                     teleported = NULL,
-                     append_to = NULL,
-                     width = NULL,
-                     slots = NULL) {
+el_affix <- function(
+  ...,
+  id = NULL,
+  offset = NULL,
+  position = NULL,
+  target = NULL,
+  z_index = NULL,
+  teleported = NULL,
+  append_to = NULL,
+  width = NULL,
+  slots = NULL
+) {
   .el_check_choices("el_affix", environment())
-  if (is.null(id)) id <- paste0("el_affix_", uuid::UUIDgenerate())
+  if (is.null(id)) {
+    id <- paste0("el_affix_", uuid::UUIDgenerate())
+  }
   ns_id <- .el_ui_id(id, NULL)
   events <- .el_event_bindings(ns_id, c("change", "scroll"))
-  .el_wrap_widget("el-affix", ns_id, list(...),
+  .el_wrap_widget(
+    "el-affix",
+    ns_id,
+    list(...),
     props = .el_props(list(
       offset = offset,
       position = position,
       target = target,
       z_index = z_index,
       teleported = teleported,
-      append_to = append_to)),
-    events = events, width = width, slots = slots)
+      append_to = append_to
+    )),
+    events = events,
+    width = width,
+    slots = slots
+  )
 }

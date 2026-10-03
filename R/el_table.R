@@ -12,9 +12,11 @@
 #' @return A list of named lists, one per row.
 #' @keywords internal
 .el_table_rows <- function(data) {
-  if (!is.data.frame(data)) return(data)
+  if (!is.data.frame(data)) {
+    return(data)
+  }
 
-  nms  <- names(data)
+  nms <- names(data)
   safe <- gsub("\\.", "_", nms)
 
   lapply(seq_len(nrow(data)), function(i) {
@@ -36,15 +38,23 @@
   if (is.data.frame(data)) {
     nms <- names(data)
   } else {
-    if (!length(data)) return(list())
+    if (!length(data)) {
+      return(list())
+    }
     nms <- names(data[[1]])
   }
-  if (!length(nms)) return(list())
+  if (!length(nms)) {
+    return(list())
+  }
 
   # Row names carry no heading, as when R prints a data.frame
   labels <- ifelse(nms == "rowname", "", nms)
-  Map(function(prop, label) list(prop = prop, label = label),
-      gsub("\\.", "_", nms), labels, USE.NAMES = FALSE)
+  Map(
+    function(prop, label) list(prop = prop, label = label),
+    gsub("\\.", "_", nms),
+    labels,
+    USE.NAMES = FALSE
+  )
 }
 
 #' Align user-supplied column configs with sanitised data keys
@@ -56,14 +66,19 @@
   if (!is.list(columns)) {
     stop(
       "`columns` must be a list of column definitions, not ",
-      class(columns)[1], ". Did you mean el_table(id = ..., data = ...)?",
+      class(columns)[1],
+      ". Did you mean el_table(id = ..., data = ...)?",
       call. = FALSE
     )
   }
   lapply(columns, function(col) {
-    if (!is.null(col$prop)) col$prop <- gsub("\\.", "_", col$prop)
+    if (!is.null(col$prop)) {
+      col$prop <- gsub("\\.", "_", col$prop)
+    }
     # A group header's columns, as Element nests el-table-column
-    if (!is.null(col$children)) col$children <- .el_table_sanitize_columns(col$children)
+    if (!is.null(col$children)) {
+      col$children <- .el_table_sanitize_columns(col$children)
+    }
     # The template reads each prop off the column object in camelCase, so a
     # snake_case key would be there but never looked at -- silently doing
     # nothing. Accept both, as the rest of the package does.
@@ -72,7 +87,9 @@
       col[[.el_camel_case(key)]] <- col[[key]]
       col[[key]] <- NULL
     }
-    if (!is.null(col$headerHtml)) col$headerHtml <- .el_html_string(col$headerHtml, "headerHtml")
+    if (!is.null(col$headerHtml)) {
+      col$headerHtml <- .el_html_string(col$headerHtml, "headerHtml")
+    }
     if (!is.null(col$header_html)) {
       col$headerHtml <- .el_html_string(col$header_html, "header_html")
       col$header_html <- NULL
@@ -96,51 +113,76 @@
   col <- "window.shinyElement.colProp(%s)"
   row_event <- sprintf(
     "function(row, column) { return {row_index: %s, row: row, column: %s}; }",
-    sprintf(idx, "row"), sprintf(col, "column"))
-  cell_event <- sprintf(paste0(
-    "function(row, column) { var prop = %s; ",
-    "return {row_index: %s, row: row, column: prop, value: row[prop]}; }"),
-    sprintf(col, "column"), sprintf(idx, "row"))
+    sprintf(idx, "row"),
+    sprintf(col, "column")
+  )
+  cell_event <- sprintf(
+    paste0(
+      "function(row, column) { var prop = %s; ",
+      "return {row_index: %s, row: row, column: prop, value: row[prop]}; }"
+    ),
+    sprintf(col, "column"),
+    sprintf(idx, "row")
+  )
   header_event <- sprintf(
     "function(column) { return {column: %s, label: column.label}; }",
-    sprintf(col, "column"))
+    sprintf(col, "column")
+  )
   sel_rows <- paste0(
-    "(selection || []).map(function(r) { return window.shinyElement.rowIndex(vm, r); })")
+    "(selection || []).map(function(r) { return window.shinyElement.rowIndex(vm, r); })"
+  )
 
   list(
-    "row-click"          = row_event,
-    "row-dblclick"       = row_event,
-    "row-contextmenu"    = row_event,
-    "cell-click"         = cell_event,
-    "cell-dblclick"      = cell_event,
-    "cell-mouse-enter"   = cell_event,
-    "cell-mouse-leave"   = cell_event,
-    "cell-contextmenu"   = cell_event,
+    "row-click" = row_event,
+    "row-dblclick" = row_event,
+    "row-contextmenu" = row_event,
+    "cell-click" = cell_event,
+    "cell-dblclick" = cell_event,
+    "cell-mouse-enter" = cell_event,
+    "cell-mouse-leave" = cell_event,
+    "cell-contextmenu" = cell_event,
     # Scrolling fires on every frame; a server hears it at most every 200 ms
     "scroll" = paste0(
       "function(e) { var now = Date.now(); ",
       "if (this._elLastScroll && now - this._elLastScroll < 200) return undefined; ",
-      "this._elLastScroll = now; return {scroll_left: e.scrollLeft, scroll_top: e.scrollTop}; }"),
-    "header-click"       = header_event,
+      "this._elLastScroll = now; return {scroll_left: e.scrollLeft, scroll_top: e.scrollTop}; }"
+    ),
+    "header-click" = header_event,
     "header-contextmenu" = header_event,
     "select" = paste0(
-      "function(selection, row) { var vm = this; return {rows: ", sel_rows,
-      ", row_index: window.shinyElement.rowIndex(vm, row)}; }"),
+      "function(selection, row) { var vm = this; return {rows: ",
+      sel_rows,
+      ", row_index: window.shinyElement.rowIndex(vm, row)}; }"
+    ),
     "select-all" = paste0(
-      "function(selection) { var vm = this; return {rows: ", sel_rows, "}; }"),
-    "sort-change" =
-      "function(s) { return {column: s.prop, order: s.order}; }",
-    "current-change" = sprintf(paste0(
-      "function(row, old) { return {row_index: %s, row: row, ",
-      "previous_index: %s}; }"), sprintf(idx, "row"), sprintf(idx, "old")),
-    "header-dragend" = sprintf(paste0(
-      "function(newWidth, oldWidth, column) { return {column: %s, ",
-      "width: newWidth, previous_width: oldWidth}; }"), sprintf(col, "column")),
-    "expand-change" = sprintf(paste0(
-      "function(row, expanded) { var vm = this; return {row_index: %s, ",
-      "expanded: Array.isArray(expanded) ? expanded.map(function(r) { ",
-      "return window.shinyElement.rowIndex(vm, r); }) : expanded}; }"),
-      sprintf(idx, "row"))
+      "function(selection) { var vm = this; return {rows: ",
+      sel_rows,
+      "}; }"
+    ),
+    "sort-change" = "function(s) { return {column: s.prop, order: s.order}; }",
+    "current-change" = sprintf(
+      paste0(
+        "function(row, old) { return {row_index: %s, row: row, ",
+        "previous_index: %s}; }"
+      ),
+      sprintf(idx, "row"),
+      sprintf(idx, "old")
+    ),
+    "header-dragend" = sprintf(
+      paste0(
+        "function(newWidth, oldWidth, column) { return {column: %s, ",
+        "width: newWidth, previous_width: oldWidth}; }"
+      ),
+      sprintf(col, "column")
+    ),
+    "expand-change" = sprintf(
+      paste0(
+        "function(row, expanded) { var vm = this; return {row_index: %s, ",
+        "expanded: Array.isArray(expanded) ? expanded.map(function(r) { ",
+        "return window.shinyElement.rowIndex(vm, r); }) : expanded}; }"
+      ),
+      sprintf(idx, "row")
+    )
   )
 }
 
@@ -157,7 +199,9 @@
 #' @return The data, with a `rowname` column first when kept.
 #' @keywords internal
 .el_table_rownames <- function(data, rownames = NULL) {
-  if (!is.data.frame(data)) return(data)
+  if (!is.data.frame(data)) {
+    return(data)
+  }
   # Row numbers are not names, whether automatic (1..n) or left over from a
   # subset (3, 7, 12) -- .row_names_info() calls head(iris)'s names real ones
   keep <- if (is.null(rownames)) {
@@ -165,7 +209,9 @@
   } else {
     isTRUE(rownames)
   }
-  if (!keep || "rowname" %in% names(data)) return(data)
+  if (!keep || "rowname" %in% names(data)) {
+    return(data)
+  }
   cbind(data.frame(rowname = rownames(data), stringsAsFactors = FALSE), data)
 }
 
@@ -228,14 +274,24 @@
     lapply(seq_along(columns), function(i) {
       col <- columns[[i]]
       # A group header's columns carry templates of their own, one level down
-      if (!is.null(col$children)) col$children <- lift(col$children, depth + 1L)
+      if (!is.null(col$children)) {
+        col$children <- lift(col$children, depth + 1L)
+      }
       if (is.null(col[["cell"]])) {
         col$slot <- "none"
         return(col)
       }
-      base <- if (!is.null(col$prop)) col$prop else if (!is.null(col$label)) col$label else i
+      base <- if (!is.null(col$prop)) {
+        col$prop
+      } else if (!is.null(col$label)) {
+        col$label
+      } else {
+        i
+      }
       key <- paste0("cell_", gsub("[^A-Za-z0-9_]", "_", base))
-      if (key %in% names(cells)) key <- paste0(key, "_", length(cells) + 1L)
+      if (key %in% names(cells)) {
+        key <- paste0(key, "_", length(cells) + 1L)
+      }
       cells[[key]] <<- col[["cell"]]
       depths[[key]] <<- depth
       col[["cell"]] <- NULL
@@ -265,11 +321,13 @@
 #' @keywords internal
 .el_table_prep <- function(data = list(), columns = list()) {
   cells <- .el_table_cells(.el_table_sanitize_columns(columns))
-  list(rows    = .el_table_rows(data),
-       columns = cells$columns,
-       auto    = .el_table_cells(.el_table_infer_columns(data))$columns,
-       cells   = cells$cells,
-       depths  = cells$depths)
+  list(
+    rows = .el_table_rows(data),
+    columns = cells$columns,
+    auto = .el_table_cells(.el_table_infer_columns(data))$columns,
+    cells = cells$cells,
+    depths = cells$depths
+  )
 }
 
 #' Element Plus Table Component
@@ -456,59 +514,61 @@
 #'   }
 #'   shinyApp(ui, server)
 #' }
-el_table <- function(id = NULL,
-                     data = list(),
-                     columns = list(),
-                     selection = FALSE,
-                     rownames = NULL,
-                     border = FALSE,
-                     stripe  = NULL,
-                     size    = NULL,
-                     height  = NULL,
-                     max_height = NULL,
-                     fit     = NULL,
-                     show_header = NULL,
-                     highlight_current_row = NULL,
-                     current_row_key = NULL,
-                     row_key = NULL,
-                     empty_text = NULL,
-                     default_expand_all = NULL,
-                     expand_row_keys = NULL,
-                     default_sort = NULL,
-                     tooltip_effect = NULL,
-                     show_summary = NULL,
-                     sum_text = NULL,
-                     select_on_indeterminate = NULL,
-                     indent  = NULL,
-                     lazy    = NULL,
-                     tree_props = NULL,
-                     row_class_name = NULL,
-                     row_style = NULL,
-                     cell_class_name = NULL,
-                     cell_style = NULL,
-                     header_row_class_name = NULL,
-                     header_row_style = NULL,
-                     header_cell_class_name = NULL,
-                     header_cell_style = NULL,
-                     span_method = NULL,
-                     summary_method = NULL,
-                     load    = NULL,
-                     width  = NULL,
-                     slots   = NULL,
-                     loading = FALSE,
-                     allow_drag_last_column = NULL,
-                     append_filter_panel_to = NULL,
-                     flexible = NULL,
-                     native_scrollbar = NULL,
-                     preserve_expanded_content = NULL,
-                     row_expandable = NULL,
-                     scrollbar_always_on = NULL,
-                     scrollbar_tabindex = NULL,
-                     show_overflow_tooltip = NULL,
-                     table_layout = NULL,
-                     tooltip_formatter = NULL,
-                     tooltip_options = NULL,
-                     session = NULL) {
+el_table <- function(
+  id = NULL,
+  data = list(),
+  columns = list(),
+  selection = FALSE,
+  rownames = NULL,
+  border = FALSE,
+  stripe = NULL,
+  size = NULL,
+  height = NULL,
+  max_height = NULL,
+  fit = NULL,
+  show_header = NULL,
+  highlight_current_row = NULL,
+  current_row_key = NULL,
+  row_key = NULL,
+  empty_text = NULL,
+  default_expand_all = NULL,
+  expand_row_keys = NULL,
+  default_sort = NULL,
+  tooltip_effect = NULL,
+  show_summary = NULL,
+  sum_text = NULL,
+  select_on_indeterminate = NULL,
+  indent = NULL,
+  lazy = NULL,
+  tree_props = NULL,
+  row_class_name = NULL,
+  row_style = NULL,
+  cell_class_name = NULL,
+  cell_style = NULL,
+  header_row_class_name = NULL,
+  header_row_style = NULL,
+  header_cell_class_name = NULL,
+  header_cell_style = NULL,
+  span_method = NULL,
+  summary_method = NULL,
+  load = NULL,
+  width = NULL,
+  slots = NULL,
+  loading = FALSE,
+  allow_drag_last_column = NULL,
+  append_filter_panel_to = NULL,
+  flexible = NULL,
+  native_scrollbar = NULL,
+  preserve_expanded_content = NULL,
+  row_expandable = NULL,
+  scrollbar_always_on = NULL,
+  scrollbar_tabindex = NULL,
+  show_overflow_tooltip = NULL,
+  table_layout = NULL,
+  tooltip_formatter = NULL,
+  tooltip_options = NULL,
+  session = NULL
+) {
   .el_check_choices("el_table", environment())
   args <- .el_table_args(id, data, columns)
   id <- args$id
@@ -527,11 +587,14 @@ el_table <- function(id = NULL,
   # Columns are rendered with v-for rather than baked into the markup, so
   # update_el_table() can change them -- Vue only tracks fields declared in
   # `data`, and a column set generated in R would be frozen at render time.
-  selection_col <- htmltools::tag("el-table-column", list(
-    "v-if" = "selection",
-    type   = "selection",
-    width  = "55"
-  ))
+  selection_col <- htmltools::tag(
+    "el-table-column",
+    list(
+      "v-if" = "selection",
+      type = "selection",
+      width = "55"
+    )
+  )
   # Every documented column prop is bound off the column object, so a user
   # writes list(prop = "x", sortable = TRUE, align = "center") and Element
   # sees it. An absent key reads back as undefined, which is Element's own
@@ -550,15 +613,29 @@ el_table <- function(id = NULL,
     here <- names(prep$depths)[prep$depths == depth]
     branches <- list()
     if (depth < 2) {
-      branches <- list(htmltools::tag("template", list(
-        "v-if" = sprintf("%s.children && %s.children.length", v, v),
-        nested(v, paste0(v, "x"), depth + 1L))))
+      branches <- list(htmltools::tag(
+        "template",
+        list(
+          "v-if" = sprintf("%s.children && %s.children.length", v, v),
+          nested(v, paste0(v, "x"), depth + 1L)
+        )
+      ))
     }
     for (key in here) {
       cond <- sprintf("%s.cellKey === '%s'", v, key)
-      branches <- c(branches, list(htmltools::tag("template", c(
-        stats::setNames(list(cond), if (length(branches)) "v-else-if" else "v-if"),
-        list(prep$cells[[key]])))))
+      branches <- c(
+        branches,
+        list(htmltools::tag(
+          "template",
+          c(
+            stats::setNames(
+              list(cond),
+              if (length(branches)) "v-else-if" else "v-if"
+            ),
+            list(prep$cells[[key]])
+          )
+        ))
+      )
     }
     htmltools::tag("template", c(list("v-slot:default" = "scope"), branches))
   }
@@ -566,80 +643,142 @@ el_table <- function(id = NULL,
   # definition. It is inserted as markup, so only pass what you control.
   # A column's own filter icon, by name; otherwise Element's arrow
   filter_icon_slot <- function(v) {
-    htmltools::tag("template", c(
-      stats::setNames(list(NA), sprintf("v-slot:[%1$s.filterIcon?'filter-icon':'no-filter-icon']", v)),
-      list(htmltools::HTML(sprintf(
-        "<el-icon><component :is=\"%s.filterIcon\" /></el-icon>", v)))))
+    htmltools::tag(
+      "template",
+      c(
+        stats::setNames(
+          list(NA),
+          sprintf("v-slot:[%1$s.filterIcon?'filter-icon':'no-filter-icon']", v)
+        ),
+        list(htmltools::HTML(sprintf(
+          "<el-icon><component :is=\"%s.filterIcon\" /></el-icon>",
+          v
+        )))
+      )
+    )
   }
   header_slot <- function(v) {
-    htmltools::tag("template", list(
-      "v-slot:header" = "scope",
-      htmltools::tag("span", list("v-if" = sprintf("%s.headerHtml", v),
-                                  "v-html" = sprintf("%s.headerHtml", v))),
-      htmltools::tag("span", list("v-else" = NA, sprintf("{{%s.label}}", v)))
-    ))
+    htmltools::tag(
+      "template",
+      list(
+        "v-slot:header" = "scope",
+        htmltools::tag(
+          "span",
+          list(
+            "v-if" = sprintf("%s.headerHtml", v),
+            "v-html" = sprintf("%s.headerHtml", v)
+          )
+        ),
+        htmltools::tag("span", list("v-else" = NA, sprintf("{{%s.label}}", v)))
+      )
+    )
   }
 
   # Every column prop, read off the column object `v`
   col_props <- function(v) {
-    props <- c(prop = "prop", label = "label", width = "width", align = "align",
-               "header-align" = "headerAlign", "class-name" = "className",
-               "label-class-name" = "labelClassName", "column-key" = "columnKey",
-               "min-width" = "minWidth", fixed = "fixed", resizable = "resizable",
-               sortable = "sortable", "sort-by" = "sortBy", "sort-orders" = "sortOrders",
-               "show-overflow-tooltip" = "showOverflowTooltip", filters = "filters",
-               "filtered-value" = "filteredValue", "filter-multiple" = "filterMultiple",
-               "filter-placement" = "filterPlacement", "reserve-selection" = "reserveSelection",
-               index = "index",
-               # Props taking a function: pass JS("function(...) {...}") in
-               # the column definition and it is evaluated in the browser.
-               formatter = "formatter", "filter-method" = "filterMethod",
-               "filter-class-name" = "filterClassName",
-               "tooltip-formatter" = "tooltipFormatter",
-               "sort-method" = "sortMethod", "render-header" = "renderHeader",
-               selectable = "selectable", type = "type")
+    props <- c(
+      prop = "prop",
+      label = "label",
+      width = "width",
+      align = "align",
+      "header-align" = "headerAlign",
+      "class-name" = "className",
+      "label-class-name" = "labelClassName",
+      "column-key" = "columnKey",
+      "min-width" = "minWidth",
+      fixed = "fixed",
+      resizable = "resizable",
+      sortable = "sortable",
+      "sort-by" = "sortBy",
+      "sort-orders" = "sortOrders",
+      "show-overflow-tooltip" = "showOverflowTooltip",
+      filters = "filters",
+      "filtered-value" = "filteredValue",
+      "filter-multiple" = "filterMultiple",
+      "filter-placement" = "filterPlacement",
+      "reserve-selection" = "reserveSelection",
+      index = "index",
+      # Props taking a function: pass JS("function(...) {...}") in
+      # the column definition and it is evaluated in the browser.
+      formatter = "formatter",
+      "filter-method" = "filterMethod",
+      "filter-class-name" = "filterClassName",
+      "tooltip-formatter" = "tooltipFormatter",
+      "sort-method" = "sortMethod",
+      "render-header" = "renderHeader",
+      selectable = "selectable",
+      type = "type"
+    )
     stats::setNames(as.list(paste0(v, ".", props)), paste0(":", names(props)))
   }
   # A column with `children` is a group header, as Element nests
   # el-table-column: two levels below the top, each with its own header
   # and cell templates
   nested <- function(parent, v, depth) {
-    htmltools::tag("el-table-column", c(
-      list("v-for" = sprintf("%s in %s.children", v, parent),
-           ":key" = sprintf("%s.prop || %s.label", v, v)),
-      col_props(v),
-      list(header_slot(v), filter_icon_slot(v), default_slot(v, depth))
-    ))
+    htmltools::tag(
+      "el-table-column",
+      c(
+        list(
+          "v-for" = sprintf("%s in %s.children", v, parent),
+          ":key" = sprintf("%s.prop || %s.label", v, v)
+        ),
+        col_props(v),
+        list(header_slot(v), filter_icon_slot(v), default_slot(v, depth))
+      )
+    )
   }
 
-  data_col <- htmltools::tag("el-table-column", c(
-    list("v-for"  = "col in (columns.length ? columns : autoColumns)",
-         ":key"   = "col.prop || col.label"),
-    col_props("col"),
-    list(
-      header_slot("col"),
-      filter_icon_slot("col"),
-      default_slot("col", 0L)
+  data_col <- htmltools::tag(
+    "el-table-column",
+    c(
+      list(
+        "v-for" = "col in (columns.length ? columns : autoColumns)",
+        ":key" = "col.prop || col.label"
+      ),
+      col_props("col"),
+      list(
+        header_slot("col"),
+        filter_icon_slot("col"),
+        default_slot("col", 0L)
+      )
     )
-  ))
+  )
 
   table_attrs <- list(
-    ":data"             = "tableData",
-    ":border"           = "border",
-    style               = "width: 100%",
-    "v-loading"         = "loading",
+    ":data" = "tableData",
+    ":border" = "border",
+    style = "width: 100%",
+    "v-loading" = "loading",
     # Always bound: selection can be switched on later by update_el_table().
     "@selection-change" = "handleSelectionChange"
   )
 
   # The rest of Element's table events are forwarded as-is; each sets
   # input$<id>_<event>, e.g. input$tbl_row_click.
-  events <- .el_event_bindings(ns_id, c(
-    "select", "select-all", "cell-click", "cell-dblclick",
-    "cell-mouse-enter", "cell-mouse-leave", "row-click", "row-dblclick",
-    "row-contextmenu", "header-click", "header-contextmenu", "header-dragend",
-    "sort-change", "filter-change", "current-change", "expand-change",
-    "cell-contextmenu", "scroll"), shapes = .el_table_event_shapes())
+  events <- .el_event_bindings(
+    ns_id,
+    c(
+      "select",
+      "select-all",
+      "cell-click",
+      "cell-dblclick",
+      "cell-mouse-enter",
+      "cell-mouse-leave",
+      "row-click",
+      "row-dblclick",
+      "row-contextmenu",
+      "header-click",
+      "header-contextmenu",
+      "header-dragend",
+      "sort-change",
+      "filter-change",
+      "current-change",
+      "expand-change",
+      "cell-contextmenu",
+      "scroll"
+    ),
+    shapes = .el_table_event_shapes()
+  )
   table_attrs <- c(table_attrs, events$attrs)
 
   table_attrs[[":stripe"]] <- .el_optional_bind("stripe")
@@ -654,7 +793,9 @@ el_table <- function(id = NULL,
 
   table_attrs[[":show-header"]] <- .el_optional_bind("showHeader")
 
-  table_attrs[[":highlight-current-row"]] <- .el_optional_bind("highlightCurrentRow")
+  table_attrs[[":highlight-current-row"]] <- .el_optional_bind(
+    "highlightCurrentRow"
+  )
 
   table_attrs[[":current-row-key"]] <- .el_optional_bind("currentRowKey")
 
@@ -674,7 +815,9 @@ el_table <- function(id = NULL,
 
   table_attrs[[":sum-text"]] <- .el_optional_bind("sumText")
 
-  table_attrs[[":select-on-indeterminate"]] <- .el_optional_bind("selectOnIndeterminate")
+  table_attrs[[":select-on-indeterminate"]] <- .el_optional_bind(
+    "selectOnIndeterminate"
+  )
 
   table_attrs[[":indent"]] <- .el_optional_bind("indent")
 
@@ -690,11 +833,15 @@ el_table <- function(id = NULL,
 
   table_attrs[[":cell-style"]] <- .el_optional_bind("cellStyle")
 
-  table_attrs[[":header-row-class-name"]] <- .el_optional_bind("headerRowClassName")
+  table_attrs[[":header-row-class-name"]] <- .el_optional_bind(
+    "headerRowClassName"
+  )
 
   table_attrs[[":header-row-style"]] <- .el_optional_bind("headerRowStyle")
 
-  table_attrs[[":header-cell-class-name"]] <- .el_optional_bind("headerCellClassName")
+  table_attrs[[":header-cell-class-name"]] <- .el_optional_bind(
+    "headerCellClassName"
+  )
 
   table_attrs[[":header-cell-style"]] <- .el_optional_bind("headerCellStyle")
 
@@ -702,9 +849,7 @@ el_table <- function(id = NULL,
 
   table_attrs[[":summary-method"]] <- .el_optional_bind("summaryMethod")
 
-  table_attrs[[":load"]] <- "load === null ? elLoad : load"   # the server, by default
-
-
+  table_attrs[[":load"]] <- "load === null ? elLoad : load" # the server, by default
 
   table_content <- c(table_attrs, list(selection_col, data_col))
 
@@ -721,79 +866,88 @@ el_table <- function(id = NULL,
       show_overflow_tooltip = show_overflow_tooltip,
       table_layout = table_layout,
       tooltip_formatter = tooltip_formatter,
-      tooltip_options = tooltip_options)),
-    id     = ns_id,
+      tooltip_options = tooltip_options
+    )),
+    id = ns_id,
     markup = htmltools::tag("el-table", table_content),
     data = list(
-      tableData    = prep$rows,
-      columns      = prep$columns,
-      autoColumns  = prep$auto,
-      border       = border,
-      selection    = selection,
-      selected     = list(),
+      tableData = prep$rows,
+      columns = prep$columns,
+      autoColumns = prep$auto,
+      border = border,
+      selection = selection,
+      selected = list(),
       selectedRows = list(),
-      loading      = isTRUE(loading),
-    stripe = .el_or_na(stripe),
-    size = .el_or_na(size),
-    height = .el_or_na(height),
-    maxHeight = .el_or_na(max_height),
-    fit = .el_or_na(fit),
-    showHeader = .el_or_na(show_header),
-    highlightCurrentRow = .el_or_na(highlight_current_row),
-    currentRowKey = .el_or_na(current_row_key),
-    rowKey = .el_or_na(row_key),
-    emptyText = .el_or_na(empty_text),
-    defaultExpandAll = .el_or_na(default_expand_all),
-    expandRowKeys = .el_or_na(expand_row_keys),
-    defaultSort = .el_or_na(default_sort),
-    tooltipEffect = .el_or_na(tooltip_effect),
-    showSummary = .el_or_na(show_summary),
-    sumText = .el_or_na(sum_text),
-    selectOnIndeterminate = .el_or_na(select_on_indeterminate),
-    indent = .el_or_na(indent),
-    lazy = .el_or_na(lazy),
-    treeProps = .el_or_na(tree_props),
-    rowClassName = .el_or_na(row_class_name),
-    rowStyle = .el_or_na(row_style),
-    cellClassName = .el_or_na(cell_class_name),
-    cellStyle = .el_or_na(cell_style),
-    headerRowClassName = .el_or_na(header_row_class_name),
-    headerRowStyle = .el_or_na(header_row_style),
-    headerCellClassName = .el_or_na(header_cell_class_name),
-    headerCellStyle = .el_or_na(header_cell_style),
-    spanMethod = .el_or_na(span_method),
-    summaryMethod = .el_or_na(summary_method),
-    load = .el_or_na(load)
+      loading = isTRUE(loading),
+      stripe = .el_or_na(stripe),
+      size = .el_or_na(size),
+      height = .el_or_na(height),
+      maxHeight = .el_or_na(max_height),
+      fit = .el_or_na(fit),
+      showHeader = .el_or_na(show_header),
+      highlightCurrentRow = .el_or_na(highlight_current_row),
+      currentRowKey = .el_or_na(current_row_key),
+      rowKey = .el_or_na(row_key),
+      emptyText = .el_or_na(empty_text),
+      defaultExpandAll = .el_or_na(default_expand_all),
+      expandRowKeys = .el_or_na(expand_row_keys),
+      defaultSort = .el_or_na(default_sort),
+      tooltipEffect = .el_or_na(tooltip_effect),
+      showSummary = .el_or_na(show_summary),
+      sumText = .el_or_na(sum_text),
+      selectOnIndeterminate = .el_or_na(select_on_indeterminate),
+      indent = .el_or_na(indent),
+      lazy = .el_or_na(lazy),
+      treeProps = .el_or_na(tree_props),
+      rowClassName = .el_or_na(row_class_name),
+      rowStyle = .el_or_na(row_style),
+      cellClassName = .el_or_na(cell_class_name),
+      cellStyle = .el_or_na(cell_style),
+      headerRowClassName = .el_or_na(header_row_class_name),
+      headerRowStyle = .el_or_na(header_row_style),
+      headerCellClassName = .el_or_na(header_cell_class_name),
+      headerCellStyle = .el_or_na(header_cell_style),
+      spanMethod = .el_or_na(span_method),
+      summaryMethod = .el_or_na(summary_method),
+      load = .el_or_na(load)
     ),
-    methods = c(events$methods, list(
-      elLoad = .el_lazy_load_method(ns_id, "table"),
-      # Called from a cell template: rowAction('edit', scope) sets
-      # input$<id>_edit to the row's number and the row.
-      rowAction = JS(sprintf(paste0(
-        "function(name, scope) { var se = window.shinyElement; ",
-        "window.Shiny && Shiny.setInputValue && Shiny.setInputValue('%s_' + name, {row_index: se.rowIndex(this, scope.row), ",
-        "row: window.shinyVue.plain(scope.row)}, {priority: 'event'}); }"), ns_id)),
-      handleSelectionChange = JS(sprintf(
-        paste0(
-          "function(selection) { var self = this; ",
-          "self.selected = selection; ",
-          "self.selectedRows = selection.map(function(r) { ",
-          "return self.tableData.indexOf(r) + 1; }); ",
-          "window.Shiny && Shiny.setInputValue && Shiny.setInputValue('%s_selected', self.selected); ",
-          # Row numbers survive the JSON round-trip with their R types
-          # intact, unlike the row objects themselves: a mixed-type row
-          # is simplified to a character vector on the way back.
-          "window.Shiny && Shiny.setInputValue && Shiny.setInputValue('%s_selected_rows', self.selectedRows); }"
-        ),
-        ns_id, ns_id
-      ))
-    )),
+    methods = c(
+      events$methods,
+      list(
+        elLoad = .el_lazy_load_method(ns_id, "table"),
+        # Called from a cell template: rowAction('edit', scope) sets
+        # input$<id>_edit to the row's number and the row.
+        rowAction = JS(sprintf(
+          paste0(
+            "function(name, scope) { var se = window.shinyElement; ",
+            "window.Shiny && Shiny.setInputValue && Shiny.setInputValue('%s_' + name, {row_index: se.rowIndex(this, scope.row), ",
+            "row: window.shinyVue.plain(scope.row)}, {priority: 'event'}); }"
+          ),
+          ns_id
+        )),
+        handleSelectionChange = JS(sprintf(
+          paste0(
+            "function(selection) { var self = this; ",
+            "self.selected = selection; ",
+            "self.selectedRows = selection.map(function(r) { ",
+            "return self.tableData.indexOf(r) + 1; }); ",
+            "window.Shiny && Shiny.setInputValue && Shiny.setInputValue('%s_selected', self.selected); ",
+            # Row numbers survive the JSON round-trip with their R types
+            # intact, unlike the row objects themselves: a mixed-type row
+            # is simplified to a character vector on the way back.
+            "window.Shiny && Shiny.setInputValue && Shiny.setInputValue('%s_selected_rows', self.selectedRows); }"
+          ),
+          ns_id,
+          ns_id
+        ))
+      )
+    ),
     mounted = .el_mounted_init(stats::setNames(
       c("selected", "selectedRows"),
       paste0(ns_id, c("_selected", "_selected_rows"))
     )),
-    width      = width,
-    slots      = slots
+    width = width,
+    slots = slots
   )
 }
 
@@ -823,12 +977,15 @@ el_table <- function(id = NULL,
 #'   })
 #' }
 #' @export
-update_el_table <- function(session = shiny::getDefaultReactiveDomain(), id,
-                            data = NULL,
-                            columns = NULL,
-                            border = NULL,
-                            selection = NULL,
-                            loading = NULL) {
+update_el_table <- function(
+  session = shiny::getDefaultReactiveDomain(),
+  id,
+  data = NULL,
+  columns = NULL,
+  border = NULL,
+  selection = NULL,
+  loading = NULL
+) {
   .el_check_session(session)
   ns_id <- session$ns(id)
   msg <- list(id = ns_id)
@@ -841,16 +998,22 @@ update_el_table <- function(session = shiny::getDefaultReactiveDomain(), id,
     # Named for the Vue data fields they target: the shared updater assigns
     # by key, so a message field that does not match is refused.
     if (!is.null(data)) {
-      msg$tableData   <- prep$rows
+      msg$tableData <- prep$rows
       # Shown only while the table has no written columns of its own
       msg$autoColumns <- prep$auto
     }
     # list() clears the written columns, going back to inferring them
     if (!is.null(columns)) msg$columns <- prep$columns
   }
-  if (!is.null(border))    msg$border    <- border
-  if (!is.null(selection)) msg$selection <- selection
-  if (!is.null(loading))   msg$loading   <- loading
+  if (!is.null(border)) {
+    msg$border <- border
+  }
+  if (!is.null(selection)) {
+    msg$selection <- selection
+  }
+  if (!is.null(loading)) {
+    msg$loading <- loading
+  }
 
   .el_send_update(session, msg)
   invisible(NULL)
@@ -890,12 +1053,18 @@ el_table_config <- function(df, max_rows = NULL, add_name = TRUE) {
   data <- lapply(seq_len(nrow(df)), function(i) {
     row <- lapply(safe_names, function(col) {
       val <- df[i, col]
-      if (is.factor(val)) as.character(val[[1]])
-      else if (is.numeric(val)) as.numeric(val[[1]])
-      else as.character(val[[1]])
+      if (is.factor(val)) {
+        as.character(val[[1]])
+      } else if (is.numeric(val)) {
+        as.numeric(val[[1]])
+      } else {
+        as.character(val[[1]])
+      }
     })
     names(row) <- safe_names
-    if (add_name) row$name <- rownames(df)[i]
+    if (add_name) {
+      row$name <- rownames(df)[i]
+    }
     row
   })
 
@@ -903,11 +1072,14 @@ el_table_config <- function(df, max_rows = NULL, add_name = TRUE) {
   for (i in seq_along(safe_names)) {
     col_class <- class(df[[safe_names[i]]])[1]
     width <- if (col_class %in% c("numeric", "integer")) "100" else "120"
-    columns <- c(columns, list(list(
-      prop = safe_names[i],
-      label = paste0(original_names[i], " (", col_class, ")"),
-      width = width
-    )))
+    columns <- c(
+      columns,
+      list(list(
+        prop = safe_names[i],
+        label = paste0(original_names[i], " (", col_class, ")"),
+        width = width
+      ))
+    )
   }
   list(data = data, columns = columns)
 }

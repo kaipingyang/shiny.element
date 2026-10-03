@@ -182,5 +182,9 @@ Callable with \code{\link[=el_call]{el_call()}}: \code{focus()}, \code{blur()}.
 }
 
 \examples{
-el_input_tag("keywords", value = c("shiny", "element"), placeholder = "Add a keyword")
+el_input_tag(
+  "keywords",
+  value = c("shiny", "element"),
+  placeholder = "Add a keyword"
+)
 }

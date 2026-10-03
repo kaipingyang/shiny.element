@@ -83,101 +83,132 @@
 #'
 #' @return A Shiny UI element.
 #' @examples
-#' el_table_v2("big", data = data.frame(x = 1:10000, y = rnorm(10000)), width = 600, height = 400)
+#' el_table_v2(
+#'   "big",
+#'   data = data.frame(x = 1:10000, y = rnorm(10000)),
+#'   width = 600,
+#'   height = 400
+#' )
 #' @export
-el_table_v2 <- function(id = NULL,
-                        cache = NULL,
-                        estimated_row_height = NULL,
-                        header_class = NULL,
-                        header_props = NULL,
-                        header_cell_props = NULL,
-                        header_height = NULL,
-                        footer_height = NULL,
-                        row_class = NULL,
-                        row_key = NULL,
-                        row_props = NULL,
-                        row_height = NULL,
-                        row_event_handlers = NULL,
-                        cell_props = NULL,
-                        columns = NULL,
-                        data = NULL,
-                        data_getter = NULL,
-                        fixed_data = NULL,
-                        expand_column_key = NULL,
-                        expanded_row_keys = NULL,
-                        default_expanded_row_keys = NULL,
-                        fixed = NULL,
-                        table_v2_width = NULL,
-                        height = NULL,
-                        max_height = NULL,
-                        indent_size = NULL,
-                        h_scrollbar_size = NULL,
-                        v_scrollbar_size = NULL,
-                        scrollbar_always_on = NULL,
-                        sort_by = NULL,
-                        sort_state = NULL,
-                        width = NULL,
-                        slots = NULL) {
+el_table_v2 <- function(
+  id = NULL,
+  cache = NULL,
+  estimated_row_height = NULL,
+  header_class = NULL,
+  header_props = NULL,
+  header_cell_props = NULL,
+  header_height = NULL,
+  footer_height = NULL,
+  row_class = NULL,
+  row_key = NULL,
+  row_props = NULL,
+  row_height = NULL,
+  row_event_handlers = NULL,
+  cell_props = NULL,
+  columns = NULL,
+  data = NULL,
+  data_getter = NULL,
+  fixed_data = NULL,
+  expand_column_key = NULL,
+  expanded_row_keys = NULL,
+  default_expanded_row_keys = NULL,
+  fixed = NULL,
+  table_v2_width = NULL,
+  height = NULL,
+  max_height = NULL,
+  indent_size = NULL,
+  h_scrollbar_size = NULL,
+  v_scrollbar_size = NULL,
+  scrollbar_always_on = NULL,
+  sort_by = NULL,
+  sort_state = NULL,
+  width = NULL,
+  slots = NULL
+) {
   .el_check_choices("el_table_v2", environment())
-  if (is.null(id)) id <- paste0("el_table_v2_", uuid::UUIDgenerate())
+  if (is.null(id)) {
+    id <- paste0("el_table_v2_", uuid::UUIDgenerate())
+  }
   ns_id <- .el_ui_id(id, NULL)
   # A data.frame is rows; columns not given are one per variable
   if (is.data.frame(data)) {
     if (is.null(columns)) {
-      columns <- lapply(names(data), function(n)
-        list(key = gsub(".", "_", n, fixed = TRUE), dataKey = gsub(".", "_", n, fixed = TRUE),
-             title = n, width = 150))
+      columns <- lapply(names(data), function(n) {
+        list(
+          key = gsub(".", "_", n, fixed = TRUE),
+          dataKey = gsub(".", "_", n, fixed = TRUE),
+          title = n,
+          width = 150
+        )
+      })
     }
     data <- .el_table_rows(data)
   }
-  if (is.null(table_v2_width)) table_v2_width <- 700
-  if (is.null(height) && is.null(max_height)) height <- 400
+  if (is.null(table_v2_width)) {
+    table_v2_width <- 700
+  }
+  if (is.null(height) && is.null(max_height)) {
+    height <- 400
+  }
   throttle <- paste0(
     "function(e) { var now = Date.now(); ",
     "if (this._elLast && now - this._elLast < 200) return undefined; ",
-    "this._elLast = now; return e; }")
-  events <- .el_event_bindings(ns_id, c("column-sort", "expanded-rows-change", "end-reached",
-                                        "scroll", "rows-rendered", "row-expand"),
-                               shapes = list(scroll = throttle, "rows-rendered" = throttle))
+    "this._elLast = now; return e; }"
+  )
+  events <- .el_event_bindings(
+    ns_id,
+    c(
+      "column-sort",
+      "expanded-rows-change",
+      "end-reached",
+      "scroll",
+      "rows-rendered",
+      "row-expand"
+    ),
+    shapes = list(scroll = throttle, "rows-rendered" = throttle)
+  )
   attrs <- c(list(), events$attrs)
   el_widget(
-    id      = ns_id,
-    markup  = htmltools::tag("el-table-v2", attrs),
-    props   = .el_props(list(
-      cache = cache,
-      estimated_row_height = estimated_row_height,
-      header_class = header_class,
-      header_props = header_props,
-      header_cell_props = header_cell_props,
-      header_height = header_height,
-      footer_height = footer_height,
-      row_class = row_class,
-      row_key = row_key,
-      row_props = row_props,
-      row_height = row_height,
-      row_event_handlers = row_event_handlers,
-      cell_props = cell_props,
-      columns = columns,
-      data = data,
-      data_getter = data_getter,
-      fixed_data = fixed_data,
-      expand_column_key = expand_column_key,
-      expanded_row_keys = expanded_row_keys,
-      default_expanded_row_keys = default_expanded_row_keys,
-      fixed = fixed,
-      table_v2_width = table_v2_width,
-      height = height,
-      max_height = max_height,
-      indent_size = indent_size,
-      h_scrollbar_size = h_scrollbar_size,
-      v_scrollbar_size = v_scrollbar_size,
-      scrollbar_always_on = scrollbar_always_on,
-      sort_by = sort_by,
-      sort_state = sort_state),
-      rename = c(table_v2_width = "width")),
-    data    = list(),
+    id = ns_id,
+    markup = htmltools::tag("el-table-v2", attrs),
+    props = .el_props(
+      list(
+        cache = cache,
+        estimated_row_height = estimated_row_height,
+        header_class = header_class,
+        header_props = header_props,
+        header_cell_props = header_cell_props,
+        header_height = header_height,
+        footer_height = footer_height,
+        row_class = row_class,
+        row_key = row_key,
+        row_props = row_props,
+        row_height = row_height,
+        row_event_handlers = row_event_handlers,
+        cell_props = cell_props,
+        columns = columns,
+        data = data,
+        data_getter = data_getter,
+        fixed_data = fixed_data,
+        expand_column_key = expand_column_key,
+        expanded_row_keys = expanded_row_keys,
+        default_expanded_row_keys = default_expanded_row_keys,
+        fixed = fixed,
+        table_v2_width = table_v2_width,
+        height = height,
+        max_height = max_height,
+        indent_size = indent_size,
+        h_scrollbar_size = h_scrollbar_size,
+        v_scrollbar_size = v_scrollbar_size,
+        scrollbar_always_on = scrollbar_always_on,
+        sort_by = sort_by,
+        sort_state = sort_state
+      ),
+      rename = c(table_v2_width = "width")
+    ),
+    data = list(),
     methods = events$methods,
-    width   = width,
-    slots   = slots
+    width = width,
+    slots = slots
   )
 }

@@ -1,4 +1,3 @@
-
 # Private dependency loader (not exported)
 
 #' Element Plus Select Component
@@ -133,16 +132,25 @@
 #'
 #' @examples
 #' # Each option drawn with a second field beside its label
-#' el_select("city", choices = list(
-#'   list(value = "bj", label = "Beijing", code = "PEK"),
-#'   list(value = "sh", label = "Shanghai", code = "SHA")),
+#' el_select(
+#'   "city",
+#'   choices = list(
+#'     list(value = "bj", label = "Beijing", code = "PEK"),
+#'     list(value = "sh", label = "Shanghai", code = "SHA")
+#'   ),
 #'   option_template = htmltools::tagList(
 #'     htmltools::tags$span(style = "float: left", "{{ opt.label }}"),
-#'     htmltools::tags$span(style = "float: right; color: #8492a6", "{{ opt.code }}")))
+#'     htmltools::tags$span(
+#'       style = "float: right; color: #8492a6",
+#'       "{{ opt.code }}"
+#'     )
+#'   )
+#' )
 #'
 #' # Single-select from a named vector
-#' el_select("sel1",
-#'   choices  = c(Apple = "apple", Banana = "banana", Cherry = "cherry"),
+#' el_select(
+#'   "sel1",
+#'   choices = c(Apple = "apple", Banana = "banana", Cherry = "cherry"),
 #'   selected = "banana"
 #' )
 #'
@@ -151,8 +159,9 @@
 #'   library(shiny)
 #'   library(shiny.element)
 #'   ui <- el_page(
-#'     el_select("fruit",
-#'       choices  = c(Apple = "apple", Banana = "banana", Cherry = "cherry"),
+#'     el_select(
+#'       "fruit",
+#'       choices = c(Apple = "apple", Banana = "banana", Cherry = "cherry"),
 #'       selected = "apple",
 #'       clearable = TRUE
 #'     ),
@@ -163,81 +172,84 @@
 #'   }
 #'   shinyApp(ui, server)
 #' }
-#'
 #' @export
 el_select <- function(
-    id             = NULL,
-    choices        = NULL,
-    selected       = NULL,
-    multiple       = FALSE,
-    placeholder    = NULL,
-    disabled       = FALSE,
-    clearable      = FALSE,
-    filterable     = FALSE,
-    size           = NULL,
-    multiple_limit = 0,
-    collapse_tags  = FALSE,
-    value_key      = NULL,
-    name           = NULL,
-    autocomplete   = NULL,
-    automatic_dropdown = NULL,
-    allow_create   = NULL,
-    loading        = NULL,
-    loading_text   = NULL,
-    no_match_text  = NULL,
-    no_data_text   = NULL,
-    popper_class   = NULL,
-    reserve_keyword = NULL,
-    default_first_option = NULL,
-    remote         = NULL,
-    filter_method  = NULL,
-    remote_method  = NULL,
-    label = NULL,
-    label_position = c("top", "left", "right"),
-    label_width = NULL,
-    label_suffix = NULL,
-    required = FALSE,
-    error = NULL,
-    show_message = TRUE,
-    inline_message = FALSE,
-    width          = NULL,
-    option_template = NULL,
-    slots          = NULL,
-    value          = NULL,
-    options        = NULL,
-    append_to = NULL,
-    aria_label = NULL,
-    clear_icon = NULL,
-    collapse_tags_tooltip = NULL,
-    debounce = NULL,
-    effect = NULL,
-    empty_values = NULL,
-    fallback_placements = NULL,
-    fit_input_width = NULL,
-    max_collapse_tags = NULL,
-    offset = NULL,
-    persistent = NULL,
-    placement = NULL,
-    popper_options = NULL,
-    popper_style = NULL,
-    remote_show_suffix = NULL,
-    show_arrow = NULL,
-    suffix_icon = NULL,
-    suffix_transition = NULL,
-    tabindex = NULL,
-    tag_effect = NULL,
-    tag_type = NULL,
-    teleported = NULL,
-    validate_event = NULL,
-    value_on_clear = NULL,
-    session        = NULL
+  id = NULL,
+  choices = NULL,
+  selected = NULL,
+  multiple = FALSE,
+  placeholder = NULL,
+  disabled = FALSE,
+  clearable = FALSE,
+  filterable = FALSE,
+  size = NULL,
+  multiple_limit = 0,
+  collapse_tags = FALSE,
+  value_key = NULL,
+  name = NULL,
+  autocomplete = NULL,
+  automatic_dropdown = NULL,
+  allow_create = NULL,
+  loading = NULL,
+  loading_text = NULL,
+  no_match_text = NULL,
+  no_data_text = NULL,
+  popper_class = NULL,
+  reserve_keyword = NULL,
+  default_first_option = NULL,
+  remote = NULL,
+  filter_method = NULL,
+  remote_method = NULL,
+  label = NULL,
+  label_position = c("top", "left", "right"),
+  label_width = NULL,
+  label_suffix = NULL,
+  required = FALSE,
+  error = NULL,
+  show_message = TRUE,
+  inline_message = FALSE,
+  width = NULL,
+  option_template = NULL,
+  slots = NULL,
+  value = NULL,
+  options = NULL,
+  append_to = NULL,
+  aria_label = NULL,
+  clear_icon = NULL,
+  collapse_tags_tooltip = NULL,
+  debounce = NULL,
+  effect = NULL,
+  empty_values = NULL,
+  fallback_placements = NULL,
+  fit_input_width = NULL,
+  max_collapse_tags = NULL,
+  offset = NULL,
+  persistent = NULL,
+  placement = NULL,
+  popper_options = NULL,
+  popper_style = NULL,
+  remote_show_suffix = NULL,
+  show_arrow = NULL,
+  suffix_icon = NULL,
+  suffix_transition = NULL,
+  tabindex = NULL,
+  tag_effect = NULL,
+  tag_type = NULL,
+  teleported = NULL,
+  validate_event = NULL,
+  value_on_clear = NULL,
+  session = NULL
 ) {
   .el_check_choices("el_select", environment())
   selected <- .el_alias(selected, value, "selected", "value")
-  choices  <- .el_alias(choices, options, "choices", "options")
-  if (is.null(choices)) choices <- list()
-  if (is.null(id)) id <- paste0("el_select_", uuid::UUIDgenerate())
-  ns_id        <- .el_ui_id(id, session)
+  choices <- .el_alias(choices, options, "choices", "options")
+  if (is.null(choices)) {
+    choices <- list()
+  }
+  if (is.null(id)) {
+    id <- paste0("el_select_", uuid::UUIDgenerate())
+  }
+  ns_id <- .el_ui_id(id, session)
   container_id <- paste0(ns_id, "_container")
 
   # Options are rendered with v-for so update_el_select() can replace them.
@@ -245,41 +257,54 @@ el_select <- function(
   # the whole control, not one choice.
   # option_template is Element's "custom template": markup inside each
   # el-option, with the option in reach as `opt`
-  option_tag <- function(each) htmltools::tag("el-option", c(list(
-    "v-for"     = each,
-    ":key"      = "opt.value",
-    ":value"    = "opt.value",
-    ":label"    = "opt.label",
-    ":disabled" = "opt.disabled"
-  ), if (!is.null(option_template)) list(option_template)))
+  option_tag <- function(each) {
+    htmltools::tag(
+      "el-option",
+      c(
+        list(
+          "v-for" = each,
+          ":key" = "opt.value",
+          ":value" = "opt.value",
+          ":label" = "opt.label",
+          ":disabled" = "opt.disabled"
+        ),
+        if (!is.null(option_template)) list(option_template)
+      )
+    )
+  }
   option_slot <- list(
     option_tag("opt in options"),
-    htmltools::tag("el-option-group", list(
-      "v-for"     = "g in groups",
-      ":key"      = "g.label",
-      ":label"    = "g.label",
-      ":disabled" = "g.disabled",
-      option_tag("opt in g.options")
-    ))
+    htmltools::tag(
+      "el-option-group",
+      list(
+        "v-for" = "g in groups",
+        ":key" = "g.label",
+        ":label" = "g.label",
+        ":disabled" = "g.disabled",
+        option_tag("opt in g.options")
+      )
+    )
   )
 
   # Build el-select attributes
   select_attrs <- list(
-    "v-model"         = "value",
-    ":multiple"       = "multiple",
-    ":disabled"       = "disabled",
-    ":clearable"      = "clearable",
-    ":filterable"     = "filterable",
+    "v-model" = "value",
+    ":multiple" = "multiple",
+    ":disabled" = "disabled",
+    ":clearable" = "clearable",
+    ":filterable" = "filterable",
     ":multiple-limit" = "multipleLimit",
-    ":collapse-tags"  = "collapseTags",
-    "@change"         = "handleChange"
+    ":collapse-tags" = "collapseTags",
+    "@change" = "handleChange"
   )
   select_attrs[[":placeholder"]] <- .el_optional_bind("placeholder")
   select_attrs[[":size"]] <- .el_optional_bind("size")
   select_attrs[[":value-key"]] <- .el_optional_bind("valueKey")
   select_attrs[[":name"]] <- .el_optional_bind("name")
   select_attrs[[":autocomplete"]] <- .el_optional_bind("autocomplete")
-  select_attrs[[":automatic-dropdown"]] <- .el_optional_bind("automaticDropdown")
+  select_attrs[[":automatic-dropdown"]] <- .el_optional_bind(
+    "automaticDropdown"
+  )
   select_attrs[[":allow-create"]] <- .el_optional_bind("allowCreate")
   select_attrs[[":loading"]] <- .el_optional_bind("loading")
   select_attrs[[":loading-text"]] <- .el_optional_bind("loadingText")
@@ -287,37 +312,49 @@ el_select <- function(
   select_attrs[[":no-data-text"]] <- .el_optional_bind("noDataText")
   select_attrs[[":popper-class"]] <- .el_optional_bind("popperClass")
   select_attrs[[":reserve-keyword"]] <- .el_optional_bind("reserveKeyword")
-  select_attrs[[":default-first-option"]] <- .el_optional_bind("defaultFirstOption")
+  select_attrs[[":default-first-option"]] <- .el_optional_bind(
+    "defaultFirstOption"
+  )
   select_attrs[[":remote"]] <- .el_optional_bind("remote")
   select_attrs[[":filter-method"]] <- .el_optional_bind("filterMethod")
   # The server answers by default: input$<id>_query, then update_el_select()
-  select_attrs[[":remote-method"]] <- "remoteMethod === null ? elRemoteQuery : remoteMethod"
+  select_attrs[[
+    ":remote-method"
+  ]] <- "remoteMethod === null ? elRemoteQuery : remoteMethod"
 
   # Forwarded to input$<id>_<event>; see .el_event_bindings().
-  events <- .el_event_bindings(ns_id, c(
-    "visible-change",
-    "remove-tag",
-    "clear",
-    "blur",
-    "focus",
-    "end-reached", "popup-scroll"), shapes = list(
+  events <- .el_event_bindings(
+    ns_id,
+    c(
+      "visible-change",
+      "remove-tag",
+      "clear",
+      "blur",
+      "focus",
+      "end-reached",
+      "popup-scroll"
+    ),
+    shapes = list(
       # Fires on every frame of a scroll; a server hears it at most every 200 ms
       "popup-scroll" = paste0(
         "function(e) { var now = Date.now(); ",
         "if (this._elLastScroll && now - this._elLastScroll < 200) return undefined; ",
-        "this._elLastScroll = now; return {scroll_left: e.scrollLeft, scroll_top: e.scrollTop}; }")))
+        "this._elLastScroll = now; return {scroll_left: e.scrollLeft, scroll_top: e.scrollTop}; }"
+      )
+    )
+  )
   select_attrs <- c(select_attrs, events$attrs)
   # Build Vue data
   vue_data <- list(
-    value        = if (is.null(selected)) (if (multiple) list() else "") else selected,
-    options      = .el_select_choices(choices)$options,
-    groups       = .el_select_choices(choices)$groups,
-    multiple     = multiple,
-    disabled     = disabled,
-    clearable    = clearable,
-    filterable   = filterable,
+    value = if (is.null(selected)) (if (multiple) list() else "") else selected,
+    options = .el_select_choices(choices)$options,
+    groups = .el_select_choices(choices)$groups,
+    multiple = multiple,
+    disabled = disabled,
+    clearable = clearable,
+    filterable = filterable,
     multipleLimit = multiple_limit,
-    collapseTags  = collapse_tags
+    collapseTags = collapse_tags
   )
   vue_data$placeholder <- if (is.null(placeholder)) NA else placeholder
   vue_data$size <- .el_or_na(size)
@@ -362,37 +399,51 @@ el_select <- function(
       tag_type = tag_type,
       teleported = teleported,
       validate_event = validate_event,
-      value_on_clear = value_on_clear)),
-    label = label, label_position = label_position,
-    label_width = label_width, label_suffix = label_suffix, required = required,
-    error = error, show_message = show_message, inline_message = inline_message,
-    id     = ns_id,
-    markup = htmltools::tag("el-select", c(select_attrs, option_slot)),
-    data    = vue_data,
-    methods = c(events$methods, list(
-      # A search the server never answers stops loading after
-      # shinyVue.askTimeout, as a lazy load's question settles
-      elRemoteQuery = JS(sprintf(paste0(
-        "function(query) {\n",
-        "  if (!(window.Shiny && Shiny.setInputValue)) return;\n",
-        "  var self = this, n = this._elQueryN = (this._elQueryN || 0) + 1;\n",
-        "  this.loading = true;\n",
-        "  clearTimeout(this._elQueryTimer);\n",
-        "  this._elQueryTimer = setTimeout(function() {\n",
-        "    if (self._elQueryN !== n || !self.loading) return;\n",
-        "    self.loading = false;\n",
-        "    console.warn('[shiny.element] no answer to input$%s_query within ' + window.shinyVue.askTimeout / 1000 + ' s');\n",
-        "  }, window.shinyVue.askTimeout);\n",
-        "  window.Shiny && Shiny.setInputValue && Shiny.setInputValue('%s_query', query, {priority: 'event'});\n",
-        "}"), ns_id, ns_id)),
-      handleChange = JS(sprintf(
-        "function(value) { window.Shiny && Shiny.setInputValue && Shiny.setInputValue('%s', value); }",
-        ns_id
-      ))
+      value_on_clear = value_on_clear
     )),
+    label = label,
+    label_position = label_position,
+    label_width = label_width,
+    label_suffix = label_suffix,
+    required = required,
+    error = error,
+    show_message = show_message,
+    inline_message = inline_message,
+    id = ns_id,
+    markup = htmltools::tag("el-select", c(select_attrs, option_slot)),
+    data = vue_data,
+    methods = c(
+      events$methods,
+      list(
+        # A search the server never answers stops loading after
+        # shinyVue.askTimeout, as a lazy load's question settles
+        elRemoteQuery = JS(sprintf(
+          paste0(
+            "function(query) {\n",
+            "  if (!(window.Shiny && Shiny.setInputValue)) return;\n",
+            "  var self = this, n = this._elQueryN = (this._elQueryN || 0) + 1;\n",
+            "  this.loading = true;\n",
+            "  clearTimeout(this._elQueryTimer);\n",
+            "  this._elQueryTimer = setTimeout(function() {\n",
+            "    if (self._elQueryN !== n || !self.loading) return;\n",
+            "    self.loading = false;\n",
+            "    console.warn('[shiny.element] no answer to input$%s_query within ' + window.shinyVue.askTimeout / 1000 + ' s');\n",
+            "  }, window.shinyVue.askTimeout);\n",
+            "  window.Shiny && Shiny.setInputValue && Shiny.setInputValue('%s_query', query, {priority: 'event'});\n",
+            "}"
+          ),
+          ns_id,
+          ns_id
+        )),
+        handleChange = JS(sprintf(
+          "function(value) { window.Shiny && Shiny.setInputValue && Shiny.setInputValue('%s', value); }",
+          ns_id
+        ))
+      )
+    ),
     mounted = .el_mounted_init(stats::setNames("value", ns_id)),
-    width      = width,
-    slots      = slots
+    width = width,
+    slots = slots
   )
 }
 
@@ -431,44 +482,66 @@ el_select <- function(
 #' }
 #' @export
 update_el_select <- function(
-    session = shiny::getDefaultReactiveDomain(),
-    id,
-    selected       = NULL,
-    choices        = NULL,
-    disabled       = NULL,
-    placeholder    = NULL,
-    clearable      = NULL,
-    filterable     = NULL,
-    multiple_limit = NULL,
-    loading        = NULL,
-    loading_text   = NULL,
-    no_match_text  = NULL,
-    no_data_text   = NULL,
-    value          = NULL,
-    options        = NULL,
-    label = NULL, error = NULL) {
+  session = shiny::getDefaultReactiveDomain(),
+  id,
+  selected = NULL,
+  choices = NULL,
+  disabled = NULL,
+  placeholder = NULL,
+  clearable = NULL,
+  filterable = NULL,
+  multiple_limit = NULL,
+  loading = NULL,
+  loading_text = NULL,
+  no_match_text = NULL,
+  no_data_text = NULL,
+  value = NULL,
+  options = NULL,
+  label = NULL,
+  error = NULL
+) {
   .el_check_session(session)
   selected <- .el_alias(selected, value, "selected", "value")
-  choices  <- .el_alias(choices, options, "choices", "options")
+  choices <- .el_alias(choices, options, "choices", "options")
   ns_id <- session$ns(id)
-  msg   <- list(id = ns_id)
-  if (!is.null(selected))    msg$value       <- selected
+  msg <- list(id = ns_id)
+  if (!is.null(selected)) {
+    msg$value <- selected
+  }
   if (!is.null(choices)) {
     parts <- .el_select_choices(choices)
     msg$options <- parts$options
-    msg$groups  <- parts$groups
+    msg$groups <- parts$groups
     # New choices answer a remote search, so it is no longer loading
     if (is.null(loading)) msg$loading <- FALSE
   }
-  if (!is.null(disabled))    msg$disabled    <- disabled
-  if (!is.null(placeholder)) msg$placeholder <- placeholder
-  if (!is.null(clearable))   msg$clearable   <- clearable
-  if (!is.null(filterable))  msg$filterable  <- filterable
-  if (!is.null(multiple_limit)) msg$multipleLimit <- multiple_limit
-  if (!is.null(loading))       msg$loading       <- loading
-  if (!is.null(loading_text))  msg$loadingText   <- loading_text
-  if (!is.null(no_match_text)) msg$noMatchText   <- no_match_text
-  if (!is.null(no_data_text))  msg$noDataText    <- no_data_text
+  if (!is.null(disabled)) {
+    msg$disabled <- disabled
+  }
+  if (!is.null(placeholder)) {
+    msg$placeholder <- placeholder
+  }
+  if (!is.null(clearable)) {
+    msg$clearable <- clearable
+  }
+  if (!is.null(filterable)) {
+    msg$filterable <- filterable
+  }
+  if (!is.null(multiple_limit)) {
+    msg$multipleLimit <- multiple_limit
+  }
+  if (!is.null(loading)) {
+    msg$loading <- loading
+  }
+  if (!is.null(loading_text)) {
+    msg$loadingText <- loading_text
+  }
+  if (!is.null(no_match_text)) {
+    msg$noMatchText <- no_match_text
+  }
+  if (!is.null(no_data_text)) {
+    msg$noDataText <- no_data_text
+  }
   msg <- .el_form_item_update(msg, label, error)
   .el_send_update(session, msg)
   invisible(NULL)
@@ -491,23 +564,41 @@ update_el_select <- function(
   }
   nms <- names(choices) %||% rep("", length(choices))
   is_group <- function(x, nm) {
-    (is.list(x) && !is.null(x$options)) || (nzchar(nm) && is.atomic(x) && length(x) > 0 &&
-      !(identical(names(x), c("value", "label"))))
+    (is.list(x) && !is.null(x$options)) ||
+      (nzchar(nm) &&
+        is.atomic(x) &&
+        length(x) > 0 &&
+        !(identical(names(x), c("value", "label"))))
   }
   flags <- mapply(is_group, choices, nms)
-  if (!any(flags)) return(list(options = .el_normalize_choices(choices), groups = list()))
+  if (!any(flags)) {
+    return(list(options = .el_normalize_choices(choices), groups = list()))
+  }
 
-  groups <- Map(function(x, nm) {
-    if (is.list(x) && !is.null(x$options)) {
-      list(label = x$label %||% nm, disabled = isTRUE(x$disabled),
-           options = .el_normalize_choices(x$options))
-    } else {
-      list(label = nm, disabled = FALSE, options = .el_normalize_choices(x))
-    }
-  }, choices[flags], nms[flags])
+  groups <- Map(
+    function(x, nm) {
+      if (is.list(x) && !is.null(x$options)) {
+        list(
+          label = x$label %||% nm,
+          disabled = isTRUE(x$disabled),
+          options = .el_normalize_choices(x$options)
+        )
+      } else {
+        list(label = nm, disabled = FALSE, options = .el_normalize_choices(x))
+      }
+    },
+    choices[flags],
+    nms[flags]
+  )
   loose <- choices[!flags]
-  list(options = if (length(loose)) .el_normalize_choices(unname(loose)) else list(),
-       groups = unname(groups))
+  list(
+    options = if (length(loose)) {
+      .el_normalize_choices(unname(loose))
+    } else {
+      list()
+    },
+    groups = unname(groups)
+  )
 }
 
 `%||%` <- function(a, b) if (is.null(a)) b else a

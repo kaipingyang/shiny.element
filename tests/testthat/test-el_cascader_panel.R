@@ -1,6 +1,12 @@
 regions <- list(
-  list(value = "asia", label = "Asia", children = list(
-    list(value = "cn", label = "China"), list(value = "jp", label = "Japan")))
+  list(
+    value = "asia",
+    label = "Asia",
+    children = list(
+      list(value = "cn", label = "China"),
+      list(value = "jp", label = "Japan")
+    )
+  )
 )
 
 test_that("el_cascader_panel renders Element's panel with its options", {
@@ -13,14 +19,23 @@ test_that("el_cascader_panel renders Element's panel with its options", {
 })
 
 test_that("el_cascader_panel starts empty as an array, not a string", {
-  expect_equal(vue_data_of(el_cascader_panel("where", options = regions))$value, list())
+  expect_equal(
+    vue_data_of(el_cascader_panel("where", options = regions))$value,
+    list()
+  )
 })
 
 test_that("el_cascader_panel reports its path and forwards expand-change", {
-  p <- vue_payload_of(el_cascader_panel("where", options = regions,
-                                        props = list(multiple = TRUE)))
+  p <- vue_payload_of(el_cascader_panel(
+    "where",
+    options = regions,
+    props = list(multiple = TRUE)
+  ))
   expect_equal(p$data$props, list(multiple = TRUE))
-  expect_equal(vue_spec_of(el_cascader_panel("where", options = regions))$input, "value")
+  expect_equal(
+    vue_spec_of(el_cascader_panel("where", options = regions))$input,
+    "value"
+  )
   expect_true("elEmitExpandChange" %in% names(p$methods))
 })
 

@@ -112,5 +112,9 @@ A tree drawing only the nodes in view, for tens of thousands of nodes.
 }
 
 \examples{
-el_tree_v2("big", data = lapply(1:1000, function(i) list(id = i, label = paste("Node", i))), height = 300)
+el_tree_v2(
+  "big",
+  data = lapply(1:1000, function(i) list(id = i, label = paste("Node", i))),
+  height = 300
+)
 }

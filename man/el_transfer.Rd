@@ -144,14 +144,17 @@ Callable with \code{\link[=el_call]{el_call()}}:
 }
 
 \examples{
-el_transfer("cols",
+el_transfer(
+  "cols",
   data = data.frame(key = names(iris), label = names(iris)),
   value = c("Species")
 )
 
-el_transfer("cols",
+el_transfer(
+  "cols",
   data = data.frame(key = names(mtcars), label = names(mtcars)),
   titles = c("Available", "Chosen"),
-  filterable = TRUE, width = "100\%"
+  filterable = TRUE,
+  width = "100\%"
 )
 }

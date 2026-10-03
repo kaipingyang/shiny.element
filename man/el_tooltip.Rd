@@ -146,15 +146,20 @@ through \code{\link[=update_vue_data]{update_vue_data()}} on the tooltip's id in
 }
 \examples{
 # A plain tag as the trigger
-el_tooltip("hint", el$button(type = "primary", "Save"),
-           content = "Writes to disk")
+el_tooltip(
+  "hint",
+  el$button(type = "primary", "Save"),
+  content = "Writes to disk"
+)
 
 # Or a component, which keeps working
 el_tooltip("hint", el_button("save", "Save"), content = "Writes to disk")
 
-el_tooltip("hint",
+el_tooltip(
+  "hint",
   trigger = el$button(type = "danger", "Delete"),
   content = "This cannot be undone",
-  placement = "right", effect = "light"
+  placement = "right",
+  effect = "light"
 )
 }

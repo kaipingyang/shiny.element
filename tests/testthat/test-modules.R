@@ -17,10 +17,23 @@ test_that("a component keeps the id it is given inside a module's renderUI()", {
   m <- module_session()
   shiny::withReactiveDomain(m, {
     expect_equal(widget_id(el_input(ns("name"))), "mod-name")
-    expect_equal(widget_id(el_select(ns("pick"), choices = c("a", "b"))), "mod-pick")
-    expect_equal(widget_id(el_table(ns("rows"), data = head(iris, 2))), "mod-rows")
-    tabs <- paste(as.character(el_tabs(ns("tabs"), tabs = list(
-      list(name = "a", label = "A", content = "x")))), collapse = "")
+    expect_equal(
+      widget_id(el_select(ns("pick"), choices = c("a", "b"))),
+      "mod-pick"
+    )
+    expect_equal(
+      widget_id(el_table(ns("rows"), data = head(iris, 2))),
+      "mod-rows"
+    )
+    tabs <- paste(
+      as.character(el_tabs(
+        ns("tabs"),
+        tabs = list(
+          list(name = "a", label = "A", content = "x")
+        )
+      )),
+      collapse = ""
+    )
     expect_match(tabs, 'id="mod-tabs"', fixed = TRUE)
   })
 })
@@ -29,10 +42,14 @@ test_that("no UI function reads the default reactive domain", {
   ns <- asNamespace("shiny.element")
   for (f in getNamespaceExports("shiny.element")) {
     g <- get(f, ns)
-    if (!is.function(g) || !"session" %in% names(formals(g))) next
+    if (!is.function(g) || !"session" %in% names(formals(g))) {
+      next
+    }
     fm <- formals(g)
     # Server functions take the session first, and default to the current one
-    if (identical(names(fm)[1], "session")) next
+    if (identical(names(fm)[1], "session")) {
+      next
+    }
     expect_null(fm$session, info = f)
     expect_false(any(grepl("getDefaultReactiveDomain", deparse(g))), info = f)
   }
@@ -47,8 +64,9 @@ test_that("a session given explicitly still namespaces, with a warning", {
 test_that("server functions namespace the id they are given, as update*Input() do", {
   # The parts of a module session these functions use
   sent <- NULL
-  m <- list(ns = shiny::NS("mod"),
-            sendCustomMessage = function(type, message) sent <<- message)
+  m <- list(ns = shiny::NS("mod"), sendCustomMessage = function(type, message) {
+    sent <<- message
+  })
   update_el_input(m, "name", value = "x")
   expect_equal(sent$id, "mod-name")
   el_call(m, "rows", "clearSelection")
@@ -58,15 +76,22 @@ test_that("server functions namespace the id they are given, as update*Input() d
 test_that("server functions take the current session by default, as update*Input() do", {
   for (f in getNamespaceExports("shiny.element")) {
     g <- get(f, asNamespace("shiny.element"))
-    if (!is.function(g) || !identical(names(formals(g))[1], "session")) next
-    expect_identical(formals(g)$session, quote(shiny::getDefaultReactiveDomain()), info = f)
+    if (!is.function(g) || !identical(names(formals(g))[1], "session")) {
+      next
+    }
+    expect_identical(
+      formals(g)$session,
+      quote(shiny::getDefaultReactiveDomain()),
+      info = f
+    )
   }
 })
 
 test_that("an update inside a module's server needs no session argument", {
   sent <- NULL
-  m <- list(ns = shiny::NS("mod"),
-            sendCustomMessage = function(type, message) sent <<- message)
+  m <- list(ns = shiny::NS("mod"), sendCustomMessage = function(type, message) {
+    sent <<- message
+  })
   shiny::withReactiveDomain(m, update_el_input(id = "name", value = "x"))
   expect_equal(sent$id, "mod-name")
 })

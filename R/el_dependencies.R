@@ -35,11 +35,15 @@
 #'   el_button("btn1", "Click me")
 #' )
 #' }
-use_element <- function(theme = NULL, offline = TRUE,
-                        dev = getOption("shiny.element.dev", FALSE),
-                        locale = getOption("shiny.element.locale", "en"),
-                        size = NULL, z_index = NULL,
-                        layout_css = el_layout_css_dependency()) {
+use_element <- function(
+  theme = NULL,
+  offline = TRUE,
+  dev = getOption("shiny.element.dev", FALSE),
+  locale = getOption("shiny.element.locale", "en"),
+  size = NULL,
+  z_index = NULL,
+  layout_css = el_layout_css_dependency()
+) {
   deps <- c(
     list(.el_vue_dependency(dev = dev)),
     element_plus_dependency(offline = offline),
@@ -48,7 +52,10 @@ use_element <- function(theme = NULL, offline = TRUE,
     .el_vue_dependencies(),
     el_locale_dependency(locale),
     .el_config_dependency(size, z_index),
-    Filter(Negate(is.null), list(.el_themed_dependency(.el_element_vars(theme)))),
+    Filter(
+      Negate(is.null),
+      list(.el_themed_dependency(.el_element_vars(theme)))
+    ),
     list(el_feedback_dependency())
   )
 
@@ -86,35 +93,53 @@ use_element <- function(theme = NULL, offline = TRUE,
 #' # Or set it for the whole session
 #' options(shiny.element.locale = "zh-cn")
 el_locale_dependency <- function(locale = NULL) {
-  if (is.null(locale)) return(NULL)
+  if (is.null(locale)) {
+    return(NULL)
+  }
   code <- tolower(locale)
-  if (identical(code, "en")) return(NULL)
+  if (identical(code, "en")) {
+    return(NULL)
+  }
   root <- system.file("element-plus", package = "shiny.element")
-  if (!file.exists(file.path(root, "dist", "locale", paste0(code, ".min.js")))) {
-    stop("No bundled locale '", locale, "'. Element Plus ships these: ",
-         paste(el_locales(), collapse = ", "), ".", call. = FALSE)
+  if (
+    !file.exists(file.path(root, "dist", "locale", paste0(code, ".min.js")))
+  ) {
+    stop(
+      "No bundled locale '",
+      locale,
+      "'. Element Plus ships these: ",
+      paste(el_locales(), collapse = ", "),
+      ".",
+      call. = FALSE
+    )
   }
   # The file defines ElementPlusLocale<Code>: "pt-br" is ElementPlusLocalePtBr
   parts <- strsplit(code, "-", fixed = TRUE)[[1]]
-  global <- paste0("ElementPlusLocale",
-                   paste0(toupper(substring(parts, 1, 1)), substring(parts, 2), collapse = ""))
+  global <- paste0(
+    "ElementPlusLocale",
+    paste0(toupper(substring(parts, 1, 1)), substring(parts, 2), collapse = "")
+  )
   list(
     htmltools::htmlDependency(
-      name      = paste0("element-plus-locale-", code),
-      version   = "2.14.7",
-      src       = root,
-      script    = paste0("dist/locale/", code, ".min.js"),
+      name = paste0("element-plus-locale-", code),
+      version = "2.14.7",
+      src = root,
+      script = paste0("dist/locale/", code, ".min.js"),
       all_files = FALSE
     ),
     # Every component is an app of its own, given the locale as it installs
     # Element Plus; this hands it over. It runs after the locale file.
     htmltools::htmlDependency(
-      name    = paste0("element-plus-locale-apply-", code),
+      name = paste0("element-plus-locale-apply-", code),
       version = "2.14.7",
-      src     = root,
-      head    = sprintf(paste0(
-        "<script>window.shinyElementConfig = window.shinyElementConfig || {};",
-        "if (window.%1$s) shinyElementConfig.locale = window.%1$s;</script>"), global)
+      src = root,
+      head = sprintf(
+        paste0(
+          "<script>window.shinyElementConfig = window.shinyElementConfig || {};",
+          "if (window.%1$s) shinyElementConfig.locale = window.%1$s;</script>"
+        ),
+        global
+      )
     )
   )
 }
@@ -140,20 +165,31 @@ element_plus_dependency <- function(offline = TRUE) {
   local <- system.file("element-plus", package = "shiny.element")
   list(
     htmltools::htmlDependency(
-      name       = "element-plus",
-      version    = "2.14.7",
-      src        = if (offline) local else c(href = "https://unpkg.com/element-plus@2.14.7/"),
-      script     = "dist/index.full.min.js",
-      stylesheet = c("theme-chalk/index.css", "theme-chalk/dark/css-vars.css",
-                     "theme-chalk/display.css"),
-      all_files  = FALSE,
-      head       = .el_css_fixes()
+      name = "element-plus",
+      version = "2.14.7",
+      src = if (offline) {
+        local
+      } else {
+        c(href = "https://unpkg.com/element-plus@2.14.7/")
+      },
+      script = "dist/index.full.min.js",
+      stylesheet = c(
+        "theme-chalk/index.css",
+        "theme-chalk/dark/css-vars.css",
+        "theme-chalk/display.css"
+      ),
+      all_files = FALSE,
+      head = .el_css_fixes()
     ),
     htmltools::htmlDependency(
-      name    = "element-plus-icons",
+      name = "element-plus-icons",
       version = "2.3.2",
-      src     = if (offline) local else c(href = "https://unpkg.com/@element-plus/icons-vue@2.3.2/dist/"),
-      script  = if (offline) "icons-vue.iife.min.js" else "index.iife.min.js",
+      src = if (offline) {
+        local
+      } else {
+        c(href = "https://unpkg.com/@element-plus/icons-vue@2.3.2/dist/")
+      },
+      script = if (offline) "icons-vue.iife.min.js" else "index.iife.min.js",
       all_files = FALSE
     )
   )
@@ -203,34 +239,15 @@ el_layout_css_dependency <- function() {
 #' @export
 el_feedback_dependency <- function() {
   htmltools::htmlDependency(
-    name    = "el-feedback-handler",
+    name = "el-feedback-handler",
     version = "1.0.0",
-    src     = system.file("js", package = "shiny.element"),
-    script  = "el-feedback-handler.js"
+    src = system.file("js", package = "shiny.element"),
+    script = "el-feedback-handler.js"
   )
 }
 
 
-
-
-
-
-
-
 #' Collapse Handler Dependency
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 #' Languages Element Plus can use for its built-in text
 #'
@@ -240,7 +257,12 @@ el_feedback_dependency <- function() {
 #' @examples
 #' el_locales()
 el_locales <- function() {
-  root <- system.file("element-plus", "dist", "locale", package = "shiny.element")
+  root <- system.file(
+    "element-plus",
+    "dist",
+    "locale",
+    package = "shiny.element"
+  )
   sort(sub("[.]min[.]js$", "", list.files(root, pattern = "[.]min[.]js$")))
 }
 
@@ -257,20 +279,30 @@ el_locales <- function() {
 #'   to set.
 #' @keywords internal
 .el_config_dependency <- function(size = NULL, z_index = NULL) {
-  if (is.null(size) && is.null(z_index)) return(NULL)
-  if (!is.null(size)) size <- match.arg(size, c("large", "default", "small"))
+  if (is.null(size) && is.null(z_index)) {
+    return(NULL)
+  }
+  if (!is.null(size)) {
+    size <- match.arg(size, c("large", "default", "small"))
+  }
   if (!is.null(z_index) && (!is.numeric(z_index) || length(z_index) != 1)) {
     stop("`z_index` must be a single number.", call. = FALSE)
   }
-  config <- jsonlite::toJSON(Filter(Negate(is.null), list(size = size, zIndex = z_index)),
-                             auto_unbox = TRUE)
+  config <- jsonlite::toJSON(
+    Filter(Negate(is.null), list(size = size, zIndex = z_index)),
+    auto_unbox = TRUE
+  )
   list(htmltools::htmlDependency(
-    name    = "element-plus-config",
+    name = "element-plus-config",
     version = "2.14.7",
-    src     = system.file("element-plus", package = "shiny.element"),
-    head    = sprintf(paste0(
-      "<script>window.shinyElementConfig = Object.assign(",
-      "window.shinyElementConfig || {}, %s);</script>"), config),
+    src = system.file("element-plus", package = "shiny.element"),
+    head = sprintf(
+      paste0(
+        "<script>window.shinyElementConfig = Object.assign(",
+        "window.shinyElementConfig || {}, %s);</script>"
+      ),
+      config
+    ),
     all_files = FALSE
   ))
 }

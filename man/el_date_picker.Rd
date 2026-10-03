@@ -260,9 +260,12 @@ el_date_picker("dp1")
 el_date_picker("dp2", value = Sys.Date())
 
 # Date range picker
-el_date_picker("dp3", type = "daterange",
-               start_placeholder = "Start date",
-               end_placeholder   = "End date")
+el_date_picker(
+  "dp3",
+  type = "daterange",
+  start_placeholder = "Start date",
+  end_placeholder = "End date"
+)
 
 # Shiny app example
 if (interactive()) {
@@ -277,5 +280,4 @@ if (interactive()) {
   }
   shinyApp(ui, server)
 }
-
 }

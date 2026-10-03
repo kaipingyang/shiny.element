@@ -90,8 +90,12 @@
 #' el_input("name", placeholder = "Enter your name")
 #'
 #' # Clearable search input with icon
-#' el_input("search", placeholder = "Search...",
-#'          clearable = TRUE, prefix_icon = "el-icon-search")
+#' el_input(
+#'   "search",
+#'   placeholder = "Search...",
+#'   clearable = TRUE,
+#'   prefix_icon = "el-icon-search"
+#' )
 #'
 #' # Shiny app example
 #' if (interactive()) {
@@ -106,73 +110,74 @@
 #'   }
 #'   shinyApp(ui, server)
 #' }
-#'
 #' @export
 el_input <- function(
-    id              = NULL,
-    value           = "",
-    placeholder     = NULL,
-    type            = "text",
-    size            = NULL,
-    disabled        = FALSE,
-    readonly        = FALSE,
-    clearable       = FALSE,
-    show_password   = FALSE,
-    show_word_limit = FALSE,
-    maxlength       = NULL,
-    rows            = NULL,
-    autosize        = FALSE,
-    prefix_icon     = NULL,
-    suffix_icon     = NULL,
-    label           = NULL,
-    autocomplete    = NULL,
-    autofocus       = NULL,
-    name            = NULL,
-    form            = NULL,
-    minlength       = NULL,
-    max             = NULL,
-    min             = NULL,
-    step            = NULL,
-    resize          = NULL,
-    tabindex        = NULL,
-    validate_event  = NULL,
-    label_position = c("top", "left", "right"),
-    label_width = NULL,
-    label_suffix = NULL,
-    required = FALSE,
-    error = NULL,
-    show_message = TRUE,
-    inline_message = FALSE,
-    aria_label = NULL,
-    clear_icon = NULL,
-    count_graphemes = NULL,
-    formatter = NULL,
-    input_style = NULL,
-    inputmode = NULL,
-    parser = NULL,
-    word_limit_position = NULL,
-    width           = NULL,
-    slots           = NULL,
-    session         = NULL
+  id = NULL,
+  value = "",
+  placeholder = NULL,
+  type = "text",
+  size = NULL,
+  disabled = FALSE,
+  readonly = FALSE,
+  clearable = FALSE,
+  show_password = FALSE,
+  show_word_limit = FALSE,
+  maxlength = NULL,
+  rows = NULL,
+  autosize = FALSE,
+  prefix_icon = NULL,
+  suffix_icon = NULL,
+  label = NULL,
+  autocomplete = NULL,
+  autofocus = NULL,
+  name = NULL,
+  form = NULL,
+  minlength = NULL,
+  max = NULL,
+  min = NULL,
+  step = NULL,
+  resize = NULL,
+  tabindex = NULL,
+  validate_event = NULL,
+  label_position = c("top", "left", "right"),
+  label_width = NULL,
+  label_suffix = NULL,
+  required = FALSE,
+  error = NULL,
+  show_message = TRUE,
+  inline_message = FALSE,
+  aria_label = NULL,
+  clear_icon = NULL,
+  count_graphemes = NULL,
+  formatter = NULL,
+  input_style = NULL,
+  inputmode = NULL,
+  parser = NULL,
+  word_limit_position = NULL,
+  width = NULL,
+  slots = NULL,
+  session = NULL
 ) {
   .el_check_choices("el_input", environment())
-  if (is.null(id)) id <- paste0("el_input_", uuid::UUIDgenerate())
-  ns_id        <- .el_ui_id(id, session)
+  if (is.null(id)) {
+    id <- paste0("el_input_", uuid::UUIDgenerate())
+  }
+  ns_id <- .el_ui_id(id, session)
   container_id <- paste0(ns_id, "_container")
 
   # Always-present Vue binding attributes
   input_attrs <- list(
-    "v-model"          = "value",
-    ":type"            = "type",
-    ":disabled"        = "disabled",
-    ":readonly"        = "readonly",
-    ":clearable"       = "clearable",
-    ":show-password"   = "showPassword",
+    "v-model" = "value",
+    ":type" = "type",
+    ":disabled" = "disabled",
+    ":readonly" = "readonly",
+    ":clearable" = "clearable",
+    ":show-password" = "showPassword",
     ":show-word-limit" = "showWordLimit",
-    ":autosize"        = "autosize",
-    ":prefix-icon"     = "prefixIcon",
-    ":suffix-icon"     = "suffixIcon",
-    "@change"          = "handleChange"
+    ":autosize" = "autosize",
+    ":prefix-icon" = "prefixIcon",
+    ":suffix-icon" = "suffixIcon",
+    "@change" = "handleChange"
   )
 
   # Conditional attributes (only add when not NULL)
@@ -194,25 +199,34 @@ el_input <- function(
   input_attrs[[":validate-event"]] <- .el_optional_bind("validateEvent")
 
   # Forwarded to input$<id>_<event>; see .el_event_bindings().
-  events <- .el_event_bindings(ns_id, c(
-    "input",
-    "blur",
-    "focus",
-    "clear",
-    "compositionend", "compositionstart", "compositionupdate", "keydown", "mouseenter", "mouseleave"))
+  events <- .el_event_bindings(
+    ns_id,
+    c(
+      "input",
+      "blur",
+      "focus",
+      "clear",
+      "compositionend",
+      "compositionstart",
+      "compositionupdate",
+      "keydown",
+      "mouseenter",
+      "mouseleave"
+    )
+  )
   input_attrs <- c(input_attrs, events$attrs)
   # Always-present Vue data fields
   vue_data <- list(
-    value         = value,
-    type          = type,
-    disabled      = disabled,
-    readonly      = readonly,
-    clearable     = clearable,
-    showPassword  = show_password,
+    value = value,
+    type = type,
+    disabled = disabled,
+    readonly = readonly,
+    clearable = clearable,
+    showPassword = show_password,
     showWordLimit = show_word_limit,
-    autosize      = autosize,
-    prefixIcon    = prefix_icon,
-    suffixIcon    = suffix_icon
+    autosize = autosize,
+    prefixIcon = prefix_icon,
+    suffixIcon = suffix_icon
   )
 
   # Conditional data fields (only add when not NULL)
@@ -241,24 +255,33 @@ el_input <- function(
       input_style = input_style,
       inputmode = inputmode,
       parser = parser,
-      word_limit_position = word_limit_position)),
+      word_limit_position = word_limit_position
+    )),
     # Reported as the value changes, debounced, as Shiny's own inputs are
     rate = list(policy = "debounce", delay = 250),
-    label = label, label_position = label_position,
-    label_width = label_width, label_suffix = label_suffix, required = required,
-    error = error, show_message = show_message, inline_message = inline_message,
-    id     = ns_id,
+    label = label,
+    label_position = label_position,
+    label_width = label_width,
+    label_suffix = label_suffix,
+    required = required,
+    error = error,
+    show_message = show_message,
+    inline_message = inline_message,
+    id = ns_id,
     markup = htmltools::tag("el-input", input_attrs),
-    data    = vue_data,
-    methods = c(events$methods, list(
-      handleChange = JS(sprintf(
-        "function(value) { window.Shiny && Shiny.setInputValue && Shiny.setInputValue('%s', value); }",
-        ns_id
-      ))
-    )),
+    data = vue_data,
+    methods = c(
+      events$methods,
+      list(
+        handleChange = JS(sprintf(
+          "function(value) { window.Shiny && Shiny.setInputValue && Shiny.setInputValue('%s', value); }",
+          ns_id
+        ))
+      )
+    ),
     mounted = .el_mounted_init(stats::setNames("value", ns_id)),
-    width      = width,
-    slots      = slots
+    width = width,
+    slots = slots
   )
 }
 
@@ -296,31 +319,47 @@ el_input <- function(
 #' }
 #' @export
 update_el_input <- function(
-    session = shiny::getDefaultReactiveDomain(),
-    id,
-    value        = NULL,
-    placeholder  = NULL,
-    disabled     = NULL,
-    readonly     = NULL,
-    type         = NULL,
-    size         = NULL,
-    clearable    = NULL,
-    show_password = NULL,
-    label = NULL, error = NULL) {
+  session = shiny::getDefaultReactiveDomain(),
+  id,
+  value = NULL,
+  placeholder = NULL,
+  disabled = NULL,
+  readonly = NULL,
+  type = NULL,
+  size = NULL,
+  clearable = NULL,
+  show_password = NULL,
+  label = NULL,
+  error = NULL
+) {
   .el_check_session(session)
   ns_id <- session$ns(id)
-  msg   <- list(id = ns_id)
-  if (!is.null(value))        msg$value        <- value
-  if (!is.null(placeholder))  msg$placeholder  <- placeholder
-  if (!is.null(disabled))     msg$disabled     <- disabled
-  if (!is.null(readonly))     msg$readonly     <- readonly
-  if (!is.null(type))         msg$type         <- type
-  if (!is.null(size))         msg$size         <- size
-  if (!is.null(clearable))    msg$clearable    <- clearable
-  if (!is.null(show_password)) msg$showPassword <- show_password
+  msg <- list(id = ns_id)
+  if (!is.null(value)) {
+    msg$value <- value
+  }
+  if (!is.null(placeholder)) {
+    msg$placeholder <- placeholder
+  }
+  if (!is.null(disabled)) {
+    msg$disabled <- disabled
+  }
+  if (!is.null(readonly)) {
+    msg$readonly <- readonly
+  }
+  if (!is.null(type)) {
+    msg$type <- type
+  }
+  if (!is.null(size)) {
+    msg$size <- size
+  }
+  if (!is.null(clearable)) {
+    msg$clearable <- clearable
+  }
+  if (!is.null(show_password)) {
+    msg$showPassword <- show_password
+  }
   msg <- .el_form_item_update(msg, label, error)
   .el_send_update(session, msg)
   invisible(NULL)
 }
-
-

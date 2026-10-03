@@ -15,14 +15,39 @@ Autocomplete component provides input suggestions.
 The `fetch-suggestions` attribute is a method that return suggested inputs. In this example, `querySearch(queryString, cb)` return suggestions to Autocomplete via `cb(data)` when suggestions are ready.
 
 ```{r autocomplete, eval = FALSE, shot = TRUE}
-restaurants <- c("vue", "element", "cooking", "mint-ui", "vuex", "vue-router", "babel")
-tags$div(style = "display: flex; gap: 40px",
-  tags$div(tags$div(class = "demo-title", "list suggestions when activated"),
-    el_autocomplete("ac1", suggestions = restaurants, clearable = TRUE,
-                    placeholder = "Please Input", width = "240px")),
-  tags$div(tags$div(class = "demo-title", "list suggestions on input"),
-    el_autocomplete("ac2", suggestions = restaurants, trigger_on_focus = FALSE,
-                    clearable = TRUE, placeholder = "Please Input", width = "240px")))
+restaurants <- c(
+  "vue",
+  "element",
+  "cooking",
+  "mint-ui",
+  "vuex",
+  "vue-router",
+  "babel"
+)
+tags$div(
+  style = "display: flex; gap: 40px",
+  tags$div(
+    tags$div(class = "demo-title", "list suggestions when activated"),
+    el_autocomplete(
+      "ac1",
+      suggestions = restaurants,
+      clearable = TRUE,
+      placeholder = "Please Input",
+      width = "240px"
+    )
+  ),
+  tags$div(
+    tags$div(class = "demo-title", "list suggestions on input"),
+    el_autocomplete(
+      "ac2",
+      suggestions = restaurants,
+      trigger_on_focus = FALSE,
+      clearable = TRUE,
+      placeholder = "Please Input",
+      width = "240px"
+    )
+  )
+)
 ```
 
 ## Custom template
@@ -34,14 +59,24 @@ Use `scoped slot` to customize suggestion items. In the scope, you can access th
 Each suggestion drawn with a template of its own: the scoped default slot.
 
 ```{r autocomplete-template, eval = FALSE, shot = TRUE}
-el_autocomplete("ac_tpl", placeholder = "Please input", popper_class = "my-autocomplete",
-  suggestions = list(list(value = "vue", link = "https://github.com/vuejs/vue"),
-                     list(value = "element", link = "https://github.com/ElemeFE/element")),
+el_autocomplete(
+  "ac_tpl",
+  placeholder = "Please input",
+  popper_class = "my-autocomplete",
+  suggestions = list(
+    list(value = "vue", link = "https://github.com/vuejs/vue"),
+    list(value = "element", link = "https://github.com/ElemeFE/element")
+  ),
   slots = list(
     suffix = el_icon("Edit", class = "el-input__icon"),
-    default = template(htmltools::HTML(
-      '<div class="value">{{ item.value }}</div><span class="link">{{ item.link }}</span>'),
-      scope = "{ item }")))
+    default = template(
+      htmltools::HTML(
+        '<div class="value">{{ item.value }}</div><span class="link">{{ item.link }}</span>'
+      ),
+      scope = "{ item }"
+    )
+  )
+)
 ```
 
 ## Remote search
@@ -60,8 +95,12 @@ el_autocomplete("ac_remote", remote = TRUE, placeholder = "Please input")
 Override loading content.
 
 ```{r custom-loading, eval = FALSE, shot = TRUE}
-el_autocomplete("ac_loading", remote = TRUE, placeholder = "Please input",
-  slots = list(loading = el_icon("Loading", class = "is-loading")))
+el_autocomplete(
+  "ac_loading",
+  remote = TRUE,
+  placeholder = "Please input",
+  slots = list(loading = el_icon("Loading", class = "is-loading"))
+)
 ```
 
 ## Custom Header & Footer
@@ -71,11 +110,21 @@ You can customize both the header and footer of the dropdown using slots
 Use slot to customize the content.
 
 ```{r custom-header-footer, eval = FALSE, shot = TRUE}
-tags$div(style = "display: flex; gap: 40px",
-  el_autocomplete("ac_header", suggestions = c("vue", "element", "cooking"),
-                  placeholder = "Please input", slots = list(header = "header content")),
-  el_autocomplete("ac_footer", suggestions = c("vue", "element", "cooking"),
-                  placeholder = "Please input", slots = list(footer = "footer content")))
+tags$div(
+  style = "display: flex; gap: 40px",
+  el_autocomplete(
+    "ac_header",
+    suggestions = c("vue", "element", "cooking"),
+    placeholder = "Please input",
+    slots = list(header = "header content")
+  ),
+  el_autocomplete(
+    "ac_footer",
+    suggestions = c("vue", "element", "cooking"),
+    placeholder = "Please input",
+    slots = list(footer = "footer content")
+  )
+)
 ```
 
 ## API

@@ -13,16 +13,25 @@ Used for rating
 Rate divides rating scores into several levels and these levels can be distinguished by using different background colors. By default background colors are the same, but you can assign them an array with three element to reflect three levels using the `colors` attribute, and their two thresholds can be defined by `low-threshold` and `high-threshold`, or you can assign them with a object which key is the threshold between two levels and value is the corresponding color.
 
 ```{r basic-usage, eval = FALSE, shot = TRUE}
-tags$div(style = "display: flex; gap: 40px",
+tags$div(
+  style = "display: flex; gap: 40px",
   tags$div(tags$div("Default"), el_rate("rate1")),
-  tags$div(tags$div("Color for different levels"), el_rate("rate2", colors = c("#99A9BF", "#F7BA2A", "#FF9900"))))
+  tags$div(
+    tags$div("Color for different levels"),
+    el_rate("rate2", colors = c("#99A9BF", "#F7BA2A", "#FF9900"))
+  )
+)
 ```
 
 ## Sizes
 
 ```{r sizes, eval = FALSE, shot = TRUE}
-tags$div(style = "display: grid; gap: 8px",
-  el_rate("rate_l", size = "large"), el_rate("rate_d"), el_rate("rate_s", size = "small"))
+tags$div(
+  style = "display: grid; gap: 8px",
+  el_rate("rate_l", size = "large"),
+  el_rate("rate_d"),
+  el_rate("rate_s", size = "small")
+)
 ```
 
 ## With allow-half
@@ -40,7 +49,11 @@ Using text to indicate rating score
 Add attribute `show-text` to display text at the right of Rate. You can assign texts for different scores using `texts`. `texts` is an array whose length should be equal to the max score `max`.
 
 ```{r text, eval = FALSE, shot = TRUE}
-el_rate("rate_text", show_text = TRUE, texts = c("oops", "disappointed", "normal", "good", "great"))
+el_rate(
+  "rate_text",
+  show_text = TRUE,
+  texts = c("oops", "disappointed", "normal", "good", "great")
+)
 ```
 
 ## Clearable
@@ -58,8 +71,12 @@ You can use different icons to distinguish different rate components.
 You can customize icons by passing `icons` an array with three elements or a object which key is the threshold between two levels and value is the corresponding icon. In this example, we also use `void-icon` to set the icon if it is unselected.
 
 ```{r more-icons, eval = FALSE, shot = TRUE}
-el_rate("rate_icons", icons = c("ChatRound", "ChatLineRound", "ChatDotRound"), void_icon = "ChatRound",
-        colors = c("#409eff", "#67c23a", "#FF9900"))
+el_rate(
+  "rate_icons",
+  icons = c("ChatRound", "ChatLineRound", "ChatDotRound"),
+  void_icon = "ChatRound",
+  colors = c("#409eff", "#67c23a", "#FF9900")
+)
 ```
 
 ## Read-only
@@ -69,8 +86,14 @@ Read-only Rate is for displaying rating score. Half star is supported.
 Use attribute `disabled` to make the component read-only. Add `show-score` to display the rating score at the right side. Additionally, you can use attribute `score-template` to provide a score template. It must contain `{value}`, and `{value}` will be replaced with the rating score.
 
 ```{r readonly, eval = FALSE, shot = TRUE}
-el_rate("rate_ro", value = 3.7, disabled = TRUE, show_score = TRUE, text_color = "#ff9900",
-        score_template = "{value} points")
+el_rate(
+  "rate_ro",
+  value = 3.7,
+  disabled = TRUE,
+  show_score = TRUE,
+  text_color = "#ff9900",
+  score_template = "{value} points"
+)
 ```
 
 ## Custom styles

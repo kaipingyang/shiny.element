@@ -17,24 +17,27 @@
   if (!is.character(job_id) || length(job_id) != 1L || !nzchar(job_id)) {
     return(invisible(FALSE))
   }
-  done <- tryCatch({
-    ctx <- session$.__enclos_env__$private$fileUploadContext
-    op <- ctx$getUploadOperation(job_id)
-    if (is.null(op)) {
-      FALSE
-    } else {
-      # A file half written is still open
-      if (inherits(op$.currentFileData, "connection")) {
-        try(close(op$.currentFileData), silent = TRUE)
+  done <- tryCatch(
+    {
+      ctx <- session$.__enclos_env__$private$fileUploadContext
+      op <- ctx$getUploadOperation(job_id)
+      if (is.null(op)) {
+        FALSE
+      } else {
+        # A file half written is still open
+        if (inherits(op$.currentFileData, "connection")) {
+          try(close(op$.currentFileData), silent = TRUE)
+        }
+        dir <- op$.dir
+        ctx$onJobFinished(job_id)
+        if (is.character(dir) && length(dir) == 1L && dir.exists(dir)) {
+          unlink(dir, recursive = TRUE)
+        }
+        TRUE
       }
-      dir <- op$.dir
-      ctx$onJobFinished(job_id)
-      if (is.character(dir) && length(dir) == 1L && dir.exists(dir)) {
-        unlink(dir, recursive = TRUE)
-      }
-      TRUE
-    }
-  }, error = function(e) FALSE)
+    },
+    error = function(e) FALSE
+  )
   invisible(done)
 }
 
@@ -68,95 +71,98 @@
 #' @return A [JS()] object for the `http-request` prop.
 #' @keywords internal
 .el_upload_js <- function(ns_id) {
-  JS(sprintf(paste0(
-    "function(options) {\n",
-    "  var self = this, inputId = %s;\n",
-    # Outside a Shiny app there is nowhere to send the file; fail it the
-    # way Element shows a failed upload rather than throw
-    "  if (!window.Shiny || !Shiny.shinyapp) {\n",
-    "    options.onError(new Error('no Shiny session to upload to'));\n",
-    "    return Object.defineProperty(Object.create(XMLHttpRequest.prototype), 'abort', { value: function() {} });\n",
-    "  }\n",
-    "  var entry = { o: options, aborted: false, failed: false, xhr: null };\n",
-    "  self._queue = self._queue || [];\n",
-    "  self._queue.push(entry);\n",
-    "  if (!self._flushing) {\n",
-    "    self._flushing = true;\n",
-    "    Promise.resolve().then(function() {\n",
-    "      self._flushing = false;\n",
-    "      runJob(self._queue.splice(0));\n",
-    "    });\n",
-    "  }\n",
-    "  function warn(m) { if (window.console) console.warn('[shiny.element] upload: ' + m); }\n",
-    # A job given up on is named to the server, which lets it go
-    "  function abandon(res) {\n",
-    "    window.Shiny && Shiny.setInputValue && Shiny.setInputValue('.shiny_element_upload_abandon:shiny.element.upload_abandon',\n",
-    "                        res.jobId, { priority: 'event' });\n",
-    "  }\n",
-    "  function runJob(batch) {\n",
-    "    batch = batch.filter(function(e) { return !e.aborted && !e.failed; });\n",
-    "    if (!batch.length) return;\n",
-    "    var info = batch.map(function(e) {\n",
-    "      return { name: e.o.file.name, size: e.o.file.size, type: e.o.file.type };\n",
-    "    });\n",
-    "    Shiny.shinyapp.makeRequest('uploadInit', [info], function(res) {\n",
-    "      postNext(batch, 0, res);\n",
-    "    }, function(err) {\n",
-    "      warn('uploadInit: ' + err);\n",
-    "      batch.forEach(function(e) { e.failed = true; e.o.onError(new Error(String(err))); });\n",
-    "    });\n",
-    "  }\n",
-    # One file at a time; a gap in the batch sends the rest again
-    "  function postNext(batch, i, res) {\n",
-    "    if (i === batch.length) return finish(batch, res);\n",
-    "    var e = batch[i];\n",
-    "    if (e.aborted) { abandon(res); return runJob(batch); }\n",
-    "    e.xhr = $.ajax(res.uploadUrl, {\n",
-    "      type: 'POST', cache: false, data: e.o.file,\n",
-    "      processData: false, contentType: 'application/octet-stream',\n",
-    "      xhr: function() {\n",
-    "        var x = new window.XMLHttpRequest();\n",
-    "        x.upload.addEventListener('progress', function(ev) {\n",
-    "          if (ev.lengthComputable) {\n",
-    # 99 at most: the file is done when the batch is
-    "            e.o.onProgress({ percent: Math.min(99, Math.round(ev.loaded / ev.total * 100)) });\n",
-    "          }\n",
-    "        });\n",
-    "        return x;\n",
-    "      },\n",
-    "      success: function() { e.xhr = null; postNext(batch, i + 1, res); },\n",
-    "      error: function(x, status) {\n",
-    "        e.xhr = null;\n",
-    "        if (!e.aborted) {\n",
-    "          e.failed = true;\n",
-    "          e.o.onError(new Error('Upload failed for ' + e.o.file.name + ': ' + (status || 'error')));\n",
-    "        }\n",
-    "        abandon(res);\n",
-    "        runJob(batch);\n",
-    "      }\n",
-    "    });\n",
-    "  }\n",
-    "  function finish(batch, res) {\n",
-    # A file aborted after it was sent is still in the job: send the rest again
-    "    if (batch.some(function(e) { return e.aborted; })) { abandon(res); return runJob(batch); }\n",
-    "    Shiny.shinyapp.makeRequest('uploadEnd', [res.jobId, inputId], function() {\n",
-    "      batch.forEach(function(e) { if (!e.aborted) e.o.onSuccess({ ok: true }); });\n",
-    "    }, function(err) {\n",
-    "      warn('uploadEnd: ' + err);\n",
-    "      abandon(res);\n",
-    "      batch.forEach(function(e) { e.failed = true; e.o.onError(new Error(String(err))); });\n",
-    "    });\n",
-    "  }\n",
-    # What Element keeps in its requests[uid]. Element Plus calls abort() only
-    # on an XMLHttpRequest, so the handle is one as far as instanceof goes
-    "  var handle = Object.create(XMLHttpRequest.prototype);\n",
-    "  Object.defineProperty(handle, 'abort', { value: function() {\n",
-    "    entry.aborted = true;\n",
-    "    if (entry.xhr) entry.xhr.abort();\n",
-    "  } });\n",
-    "  return handle;\n",
-    "}"
-  ), as.character(jsonlite::toJSON(ns_id, auto_unbox = TRUE))))
+  JS(sprintf(
+    paste0(
+      "function(options) {\n",
+      "  var self = this, inputId = %s;\n",
+      # Outside a Shiny app there is nowhere to send the file; fail it the
+      # way Element shows a failed upload rather than throw
+      "  if (!window.Shiny || !Shiny.shinyapp) {\n",
+      "    options.onError(new Error('no Shiny session to upload to'));\n",
+      "    return Object.defineProperty(Object.create(XMLHttpRequest.prototype), 'abort', { value: function() {} });\n",
+      "  }\n",
+      "  var entry = { o: options, aborted: false, failed: false, xhr: null };\n",
+      "  self._queue = self._queue || [];\n",
+      "  self._queue.push(entry);\n",
+      "  if (!self._flushing) {\n",
+      "    self._flushing = true;\n",
+      "    Promise.resolve().then(function() {\n",
+      "      self._flushing = false;\n",
+      "      runJob(self._queue.splice(0));\n",
+      "    });\n",
+      "  }\n",
+      "  function warn(m) { if (window.console) console.warn('[shiny.element] upload: ' + m); }\n",
+      # A job given up on is named to the server, which lets it go
+      "  function abandon(res) {\n",
+      "    window.Shiny && Shiny.setInputValue && Shiny.setInputValue('.shiny_element_upload_abandon:shiny.element.upload_abandon',\n",
+      "                        res.jobId, { priority: 'event' });\n",
+      "  }\n",
+      "  function runJob(batch) {\n",
+      "    batch = batch.filter(function(e) { return !e.aborted && !e.failed; });\n",
+      "    if (!batch.length) return;\n",
+      "    var info = batch.map(function(e) {\n",
+      "      return { name: e.o.file.name, size: e.o.file.size, type: e.o.file.type };\n",
+      "    });\n",
+      "    Shiny.shinyapp.makeRequest('uploadInit', [info], function(res) {\n",
+      "      postNext(batch, 0, res);\n",
+      "    }, function(err) {\n",
+      "      warn('uploadInit: ' + err);\n",
+      "      batch.forEach(function(e) { e.failed = true; e.o.onError(new Error(String(err))); });\n",
+      "    });\n",
+      "  }\n",
+      # One file at a time; a gap in the batch sends the rest again
+      "  function postNext(batch, i, res) {\n",
+      "    if (i === batch.length) return finish(batch, res);\n",
+      "    var e = batch[i];\n",
+      "    if (e.aborted) { abandon(res); return runJob(batch); }\n",
+      "    e.xhr = $.ajax(res.uploadUrl, {\n",
+      "      type: 'POST', cache: false, data: e.o.file,\n",
+      "      processData: false, contentType: 'application/octet-stream',\n",
+      "      xhr: function() {\n",
+      "        var x = new window.XMLHttpRequest();\n",
+      "        x.upload.addEventListener('progress', function(ev) {\n",
+      "          if (ev.lengthComputable) {\n",
+      # 99 at most: the file is done when the batch is
+      "            e.o.onProgress({ percent: Math.min(99, Math.round(ev.loaded / ev.total * 100)) });\n",
+      "          }\n",
+      "        });\n",
+      "        return x;\n",
+      "      },\n",
+      "      success: function() { e.xhr = null; postNext(batch, i + 1, res); },\n",
+      "      error: function(x, status) {\n",
+      "        e.xhr = null;\n",
+      "        if (!e.aborted) {\n",
+      "          e.failed = true;\n",
+      "          e.o.onError(new Error('Upload failed for ' + e.o.file.name + ': ' + (status || 'error')));\n",
+      "        }\n",
+      "        abandon(res);\n",
+      "        runJob(batch);\n",
+      "      }\n",
+      "    });\n",
+      "  }\n",
+      "  function finish(batch, res) {\n",
+      # A file aborted after it was sent is still in the job: send the rest again
+      "    if (batch.some(function(e) { return e.aborted; })) { abandon(res); return runJob(batch); }\n",
+      "    Shiny.shinyapp.makeRequest('uploadEnd', [res.jobId, inputId], function() {\n",
+      "      batch.forEach(function(e) { if (!e.aborted) e.o.onSuccess({ ok: true }); });\n",
+      "    }, function(err) {\n",
+      "      warn('uploadEnd: ' + err);\n",
+      "      abandon(res);\n",
+      "      batch.forEach(function(e) { e.failed = true; e.o.onError(new Error(String(err))); });\n",
+      "    });\n",
+      "  }\n",
+      # What Element keeps in its requests[uid]. Element Plus calls abort() only
+      # on an XMLHttpRequest, so the handle is one as far as instanceof goes
+      "  var handle = Object.create(XMLHttpRequest.prototype);\n",
+      "  Object.defineProperty(handle, 'abort', { value: function() {\n",
+      "    entry.aborted = true;\n",
+      "    if (entry.xhr) entry.xhr.abort();\n",
+      "  } });\n",
+      "  return handle;\n",
+      "}"
+    ),
+    as.character(jsonlite::toJSON(ns_id, auto_unbox = TRUE))
+  ))
 }
 
 #' Element Plus Upload
@@ -253,8 +259,13 @@
 #' @export
 #' @examples
 #' # A drop zone taking several CSVs, read on the server like fileInput()
-#' el_upload("files", drag = TRUE, multiple = TRUE, accept = ".csv",
-#'           tip = "CSV files only")
+#' el_upload(
+#'   "files",
+#'   drag = TRUE,
+#'   multiple = TRUE,
+#'   accept = ".csv",
+#'   tip = "CSV files only"
+#' )
 #'
 #' # A plain button
 #' el_upload("avatar", button_label = "Choose a picture", accept = "image/*")
@@ -277,46 +288,50 @@
 #'   }
 #'   shinyApp(ui, server)
 #' }
-el_upload <- function(id = NULL,
-                      button_label = "Upload",
-                      drag = FALSE,
-                      multiple = FALSE,
-                      accept = NULL,
-                      limit = NULL,
-                      show_file_list = TRUE,
-                      list_type = "text",
-                      auto_upload = TRUE,
-                      disabled = FALSE,
-                      name = NULL,
-                      tip = NULL,
-                      action = NULL,
-                      headers = NULL,
-                      extra_data = NULL,
-                      file_list = NULL,
-                      with_credentials = NULL,
-                      before_upload = NULL,
-                      before_remove = NULL,
-                      on_change = NULL,
-                      on_progress = NULL,
-                      on_preview = NULL,
-                      on_remove = NULL,
-                      on_exceed = NULL,
-                      label = NULL,
-                      label_position = c("top", "left", "right"),
-                      label_width = NULL,
-                      label_suffix = NULL,
-                      required = FALSE,
-                      error = NULL,
-                      show_message = TRUE,
-                      inline_message = FALSE,
-                      crossorigin = NULL,
-                      directory = NULL,
-                      width   = NULL,
-                      slots   = NULL,
-                      session = NULL) {
+el_upload <- function(
+  id = NULL,
+  button_label = "Upload",
+  drag = FALSE,
+  multiple = FALSE,
+  accept = NULL,
+  limit = NULL,
+  show_file_list = TRUE,
+  list_type = "text",
+  auto_upload = TRUE,
+  disabled = FALSE,
+  name = NULL,
+  tip = NULL,
+  action = NULL,
+  headers = NULL,
+  extra_data = NULL,
+  file_list = NULL,
+  with_credentials = NULL,
+  before_upload = NULL,
+  before_remove = NULL,
+  on_change = NULL,
+  on_progress = NULL,
+  on_preview = NULL,
+  on_remove = NULL,
+  on_exceed = NULL,
+  label = NULL,
+  label_position = c("top", "left", "right"),
+  label_width = NULL,
+  label_suffix = NULL,
+  required = FALSE,
+  error = NULL,
+  show_message = TRUE,
+  inline_message = FALSE,
+  crossorigin = NULL,
+  directory = NULL,
+  width = NULL,
+  slots = NULL,
+  session = NULL
+) {
   .el_check_choices("el_upload", environment())
-  if (is.null(id)) id <- paste0("el_upload_", uuid::UUIDgenerate())
-  ns_id        <- .el_ui_id(id, session)
+  if (is.null(id)) {
+    id <- paste0("el_upload_", uuid::UUIDgenerate())
+  }
+  ns_id <- .el_ui_id(id, session)
   container_id <- paste0(ns_id, "_container")
 
   via_shiny <- is.null(action)
@@ -334,21 +349,21 @@ el_upload <- function(id = NULL,
   }
 
   upload_attrs <- list(
-    ref              = "upload",
-    name             = field_name,
+    ref = "upload",
+    name = field_name,
     # Element requires `action`; it goes unused when http-request takes over.
-    action           = if (via_shiny) "#" else action,
-    ":multiple"      = "multiple",
+    action = if (via_shiny) "#" else action,
+    ":multiple" = "multiple",
     ":show-file-list" = "showFileList",
-    ":list-type"     = "listType",
-    ":auto-upload"   = "autoUpload",
-    ":disabled"      = "disabled",
-    ":accept"        = .el_optional_bind("accept"),
-    ":limit"         = .el_optional_bind("limit"),
+    ":list-type" = "listType",
+    ":auto-upload" = "autoUpload",
+    ":disabled" = "disabled",
+    ":accept" = .el_optional_bind("accept"),
+    ":limit" = .el_optional_bind("limit"),
     # on-success and on-error are props taking a function, not events, so
     # they bind with : rather than @. Written as events they simply never run.
-    ":on-success"    = "handleSuccess",
-    ":on-error"      = "handleError"
+    ":on-success" = "handleSuccess",
+    ":on-error" = "handleError"
   )
   upload_attrs[[":drag"]] <- "drag"
   upload_attrs[[":headers"]] <- .el_optional_bind("headers")
@@ -364,7 +379,9 @@ el_upload <- function(id = NULL,
   upload_attrs[[":on-preview"]] <- .el_optional_bind("onPreview")
   upload_attrs[[":on-remove"]] <- .el_optional_bind("onRemove")
   upload_attrs[[":on-exceed"]] <- .el_optional_bind("onExceed")
-  if (via_shiny) upload_attrs[[":http-request"]] <- "shinyUpload"
+  if (via_shiny) {
+    upload_attrs[[":http-request"]] <- "shinyUpload"
+  }
 
   # Both triggers are rendered and switched by v-if, so update_el_upload(drag =)
   # changes the drop zone and its contents together. Picking one in R would
@@ -372,34 +389,60 @@ el_upload <- function(id = NULL,
   # A picture card's trigger is the card itself, a "+" as upstream draws it.
   # A `default` slot of the caller's replaces the trigger: Vue refuses a
   # default slot given both as loose children and as a template.
-  trigger <- if (is.null(slots$default)) list(
-    htmltools::tag("el-icon", list(class = "el-icon--upload", "v-if" = "drag",
-                                   htmltools::tag("upload-filled", list()))),
-    htmltools::tags$div(class = "el-upload__text", "v-if" = "drag", "{{buttonLabel}}"),
-    htmltools::tag("el-icon", list("v-else-if" = "listType === 'picture-card'",
-                                   htmltools::tag("plus", list()))),
-    htmltools::tag("el-button", list(
-      "v-else" = NA, size = "small", type = "primary", "{{buttonLabel}}"
-    ))
-  )
+  trigger <- if (is.null(slots$default)) {
+    list(
+      htmltools::tag(
+        "el-icon",
+        list(
+          class = "el-icon--upload",
+          "v-if" = "drag",
+          htmltools::tag("upload-filled", list())
+        )
+      ),
+      htmltools::tags$div(
+        class = "el-upload__text",
+        "v-if" = "drag",
+        "{{buttonLabel}}"
+      ),
+      htmltools::tag(
+        "el-icon",
+        list(
+          "v-else-if" = "listType === 'picture-card'",
+          htmltools::tag("plus", list())
+        )
+      ),
+      htmltools::tag(
+        "el-button",
+        list(
+          "v-else" = NA,
+          size = "small",
+          type = "primary",
+          "{{buttonLabel}}"
+        )
+      )
+    )
+  }
   if (!is.null(tip)) {
-    trigger <- c(trigger, list(
-      .el_slot("tip", htmltools::tags$div(class = "el-upload__tip", tip))
-    ))
+    trigger <- c(
+      trigger,
+      list(
+        .el_slot("tip", htmltools::tags$div(class = "el-upload__tip", tip))
+      )
+    )
   }
 
   vue_data <- list(
-    drag         = drag,
-    buttonLabel  = button_label,
-    multiple     = multiple,
+    drag = drag,
+    buttonLabel = button_label,
+    multiple = multiple,
     showFileList = show_file_list,
-    listType     = list_type,
-    autoUpload   = auto_upload,
-    disabled     = disabled,
-    accept       = if (is.null(accept)) NA else accept,
-    limit        = if (is.null(limit)) NA else limit,
-    succeeded    = list(),
-    failed       = ""
+    listType = list_type,
+    autoUpload = auto_upload,
+    disabled = disabled,
+    accept = if (is.null(accept)) NA else accept,
+    limit = if (is.null(limit)) NA else limit,
+    succeeded = list(),
+    failed = ""
   )
 
   vue_data$headers <- .el_or_na(headers)
@@ -408,7 +451,6 @@ el_upload <- function(id = NULL,
   vue_data$fileList <- if (is.null(file_list)) list() else file_list
 
   vue_data$withCredentials <- .el_or_na(with_credentials)
-
 
   vue_data$beforeUpload <- .el_or_na(before_upload)
 
@@ -431,34 +473,47 @@ el_upload <- function(id = NULL,
         "this.succeeded = fileList.filter(function(f) { return f.status === 'success'; })",
         ".map(function(f) { return f.name; }); ",
         "window.Shiny && Shiny.setInputValue && Shiny.setInputValue('%s_success', this.succeeded); }"
-      ), ns_id
+      ),
+      ns_id
     )),
     handleError = JS(sprintf(
       "function(err, file) { this.failed = file.name; window.Shiny && Shiny.setInputValue && Shiny.setInputValue('%s_error', file.name, {priority: 'event'}); }",
       ns_id
     ))
   )
-  if (via_shiny) methods$shinyUpload <- .el_upload_js(ns_id)
+  if (via_shiny) {
+    methods$shinyUpload <- .el_upload_js(ns_id)
+  }
   # el_upload_clear(): empty the list and what was reported of it
-  methods$shinyVueReceive <- JS(sprintf(paste0(
-    "function(d) { if (d['.action'] === 'clear') { ",
-    "if (this.$refs.upload) this.$refs.upload.clearFiles(); this.succeeded = []; ",
-    "window.Shiny && Shiny.setInputValue && Shiny.setInputValue('%s_success', []); } ",
-    "delete d['.action']; return d; }"), ns_id))
+  methods$shinyVueReceive <- JS(sprintf(
+    paste0(
+      "function(d) { if (d['.action'] === 'clear') { ",
+      "if (this.$refs.upload) this.$refs.upload.clearFiles(); this.succeeded = []; ",
+      "window.Shiny && Shiny.setInputValue && Shiny.setInputValue('%s_success', []); } ",
+      "delete d['.action']; return d; }"
+    ),
+    ns_id
+  ))
 
   el_widget(
     props = .el_props(list(
       crossorigin = crossorigin,
-      directory = directory)),
-    label = label, label_position = label_position,
-    label_width = label_width, label_suffix = label_suffix, required = required,
-    error = error, show_message = show_message, inline_message = inline_message,
-    id     = ns_id,
+      directory = directory
+    )),
+    label = label,
+    label_position = label_position,
+    label_width = label_width,
+    label_suffix = label_suffix,
+    required = required,
+    error = error,
+    show_message = show_message,
+    inline_message = inline_message,
+    id = ns_id,
     markup = htmltools::tag("el-upload", c(upload_attrs, trigger)),
-    data    = vue_data,
+    data = vue_data,
     methods = methods,
-    width      = width,
-    slots      = slots
+    width = width,
+    slots = slots
   )
 }
 
@@ -484,12 +539,22 @@ el_upload <- function(id = NULL,
 #'   })
 #' }
 #' @export
-update_el_upload <- function(session = shiny::getDefaultReactiveDomain(), id, disabled = NULL, limit = NULL,
-                             label = NULL, error = NULL) {
+update_el_upload <- function(
+  session = shiny::getDefaultReactiveDomain(),
+  id,
+  disabled = NULL,
+  limit = NULL,
+  label = NULL,
+  error = NULL
+) {
   .el_check_session(session)
   msg <- list(id = session$ns(id))
-  if (!is.null(disabled)) msg$disabled <- disabled
-  if (!is.null(limit))    msg$limit    <- limit
+  if (!is.null(disabled)) {
+    msg$disabled <- disabled
+  }
+  if (!is.null(limit)) {
+    msg$limit <- limit
+  }
   msg <- .el_form_item_update(msg, label, error)
   .el_send_update(session, msg)
   invisible(NULL)

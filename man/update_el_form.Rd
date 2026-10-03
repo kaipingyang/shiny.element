@@ -50,6 +50,10 @@ if (interactive()) {
   update_el_form(session, "signup", model = list(name = "Ada", age = 36))
 
   # A check only the server can make
-  update_el_form(session, "signup", errors = list(email = "That address is taken"))
+  update_el_form(
+    session,
+    "signup",
+    errors = list(email = "That address is taken")
+  )
 }
 }

@@ -18,31 +18,48 @@
 #' @examples
 #' el_card(shiny::tags$p("Card body text."), header = "My Card")
 #' el_card(shiny::tags$p("No shadow."), shadow = "never")
-#'
 #' @export
-el_card <- function(...,
-                    header = NULL,
-                    body_style = NULL,
-                    shadow = "always",
-                    footer = NULL,
-                    header_class = NULL,
-                    body_class = NULL,
-                    footer_class = NULL) {
+el_card <- function(
+  ...,
+  header = NULL,
+  body_style = NULL,
+  shadow = "always",
+  footer = NULL,
+  header_class = NULL,
+  body_class = NULL,
+  footer_class = NULL
+) {
   .el_check_choices("el_card", environment())
   card_class <- paste0("el-card is-", shadow, "-shadow")
 
   header_div <- if (!is.null(header)) {
-    shiny::tags$div(class = paste(c("el-card__header", header_class), collapse = " "), header)
+    shiny::tags$div(
+      class = paste(c("el-card__header", header_class), collapse = " "),
+      header
+    )
   }
   footer_div <- if (!is.null(footer)) {
-    shiny::tags$div(class = paste(c("el-card__footer", footer_class), collapse = " "), footer)
+    shiny::tags$div(
+      class = paste(c("el-card__footer", footer_class), collapse = " "),
+      footer
+    )
   }
 
   if (is.list(body_style)) {
-    body_style <- paste0(names(body_style), ":", unlist(body_style), ";", collapse = "")
+    body_style <- paste0(
+      names(body_style),
+      ":",
+      unlist(body_style),
+      ";",
+      collapse = ""
+    )
   }
-  body_attrs <- list(class = paste(c("el-card__body", body_class), collapse = " "))
-  if (!is.null(body_style)) body_attrs[["style"]] <- body_style
+  body_attrs <- list(
+    class = paste(c("el-card__body", body_class), collapse = " ")
+  )
+  if (!is.null(body_style)) {
+    body_attrs[["style"]] <- body_style
+  }
 
   body_div <- do.call(shiny::tags$div, c(body_attrs, list(...)))
 

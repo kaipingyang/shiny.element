@@ -8,16 +8,22 @@ sent_message <- function(expr) {
   captured <- NULL
   session <- list(
     ns = function(id) id,
-    sendCustomMessage = function(type, msg) captured <<- list(type = type, msg = msg)
+    sendCustomMessage = function(type, msg) {
+      captured <<- list(type = type, msg = msg)
+    }
   )
   expr(session)
   captured
 }
 
 demo_options <- list(
-  list(value = "zj", label = "Zhejiang", children = list(
-    list(value = "hz", label = "Hangzhou")
-  ))
+  list(
+    value = "zj",
+    label = "Zhejiang",
+    children = list(
+      list(value = "hz", label = "Hangzhou")
+    )
+  )
 )
 
 # ── 基础结构 ──────────────────────────────────────────────────────────────────
@@ -31,7 +37,7 @@ test_that("el_cascader: returns a tagList with the container id", {
 test_that("el_cascader: loads the shared bridge, not another component's handler", {
   # It used to attach el_button_handler_dependency(), so
   # el-cascader-handler.js was never on the page and every update was ignored.
-  deps  <- htmltools::findDependencies(el_cascader(id = "c1"))
+  deps <- htmltools::findDependencies(el_cascader(id = "c1"))
   names <- vapply(deps, function(d) d$name, character(1))
   expect_true("shiny-vue" %in% names)
   # and no per-component handler at all, its own or another's
@@ -52,15 +58,22 @@ test_that("el_cascader: a NULL value serialises as an empty array", {
 })
 
 test_that("el_cascader: a path value is kept in order", {
-  html <- render_html(el_cascader(id = "c1", options = demo_options,
-                                  value = list("zj", "hz")))
+  html <- render_html(el_cascader(
+    id = "c1",
+    options = demo_options,
+    value = list("zj", "hz")
+  ))
   expect_match(html, '"value":\\["zj","hz"\\]')
 })
 
 test_that("el_cascader: reports to input$<id>, as every other input does", {
   spec <- vue_spec_of(el_cascader(id = "c1"))
   expect_equal(spec$input, "value")
-  expect_false(grepl("c1_value", render_html(el_cascader(id = "c1")), fixed = TRUE))
+  expect_false(grepl(
+    "c1_value",
+    render_html(el_cascader(id = "c1")),
+    fixed = TRUE
+  ))
 })
 
 # ── optional attributes ───────────────────────────────────────────────────────
@@ -69,16 +82,26 @@ test_that("el_cascader: props stays reachable by update even when not supplied",
   plain <- el_cascader(id = "c1")
   expect_true(binds_attr(plain, "props"))
 
-  supplied <- el_cascader(id = "c1", props = list(expandTrigger = "hover"), size = "small")
+  supplied <- el_cascader(
+    id = "c1",
+    props = list(expandTrigger = "hover"),
+    size = "small"
+  )
   expect_equal(vue_data_of(supplied)$size, "small")
   expect_match(render_html(supplied), '"expandTrigger":"hover"')
 })
 
 test_that("el_cascader: flags reach the Vue data", {
   html <- render_html(el_cascader(
-    id = "c1", clearable = TRUE, filterable = TRUE, disabled = TRUE,
-    show_all_levels = FALSE, collapse_tags = TRUE, separator = " > ",
-    debounce = 100, placeholder = "pick"
+    id = "c1",
+    clearable = TRUE,
+    filterable = TRUE,
+    disabled = TRUE,
+    show_all_levels = FALSE,
+    collapse_tags = TRUE,
+    separator = " > ",
+    debounce = 100,
+    placeholder = "pick"
   ))
   expect_match(html, '"clearable":true')
   expect_match(html, '"filterable":true')
@@ -93,7 +116,9 @@ test_that("el_cascader: flags reach the Vue data", {
 # ── update_el_cascader ────────────────────────────────────────────────────────
 
 test_that("update_el_cascader: sends under the right message type", {
-  out <- sent_message(function(s) update_el_cascader(s, "c1", value = list("zj")))
+  out <- sent_message(function(s) {
+    update_el_cascader(s, "c1", value = list("zj"))
+  })
   expect_equal(out$type, "shinyVueUpdate")
   expect_equal(out$msg$id, "c1")
   expect_equal(out$msg$value, list("zj"))
@@ -101,8 +126,15 @@ test_that("update_el_cascader: sends under the right message type", {
 
 test_that("update_el_cascader: every supported field passes through", {
   out <- sent_message(function(s) {
-    update_el_cascader(s, "c1", options = demo_options, placeholder = "new",
-                       clearable = TRUE, filterable = TRUE, disabled = TRUE)
+    update_el_cascader(
+      s,
+      "c1",
+      options = demo_options,
+      placeholder = "new",
+      clearable = TRUE,
+      filterable = TRUE,
+      disabled = TRUE
+    )
   })
   expect_equal(out$msg$options, demo_options)
   expect_equal(out$msg$placeholder, "new")
@@ -145,13 +177,21 @@ test_that("df_to_cascader_options: label falls back to value", {
 })
 
 test_that("df_to_cascader_options: label columns are used when given", {
-  opts <- df_to_cascader_options(demo_df, c("prov", "city"), c("prov_label", "city_label"))
+  opts <- df_to_cascader_options(
+    demo_df,
+    c("prov", "city"),
+    c("prov_label", "city_label")
+  )
   expect_equal(opts[[1]]$label, "Prov A")
   expect_equal(opts[[1]]$children[[1]]$label, "City a1")
 })
 
 test_that("df_to_cascader_options: NA in label_cols falls back for that level", {
-  opts <- df_to_cascader_options(demo_df, c("prov", "city"), c(NA, "city_label"))
+  opts <- df_to_cascader_options(
+    demo_df,
+    c("prov", "city"),
+    c(NA, "city_label")
+  )
   expect_equal(opts[[1]]$label, "A")
   expect_equal(opts[[1]]$children[[1]]$label, "City a1")
 })
@@ -172,10 +212,14 @@ test_that("df_to_cascader_options: nodes are ordered by split(), not by row orde
   # rows appeared in -- numerically for numeric columns, alphabetically for
   # character ones. Values always arrive as strings.
   num <- df_to_cascader_options(data.frame(code = c(10, 9, 2)), "code")
-  expect_equal(vapply(num, function(o) o$value, character(1)), c("2", "9", "10"))
+  expect_equal(
+    vapply(num, function(o) o$value, character(1)),
+    c("2", "9", "10")
+  )
 
   chr <- df_to_cascader_options(
-    data.frame(code = c("b", "c", "a"), stringsAsFactors = FALSE), "code"
+    data.frame(code = c("b", "c", "a"), stringsAsFactors = FALSE),
+    "code"
   )
   expect_equal(vapply(chr, function(o) o$value, character(1)), c("a", "b", "c"))
 })

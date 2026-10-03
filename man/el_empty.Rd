@@ -45,6 +45,9 @@ A placeholder for a view with nothing in it yet.
 \examples{
 el_empty("none", description = "No reports yet")
 
-el_empty("none", description = "No reports yet",
-         el_button("create", "Create one", type = "primary"))
+el_empty(
+  "none",
+  description = "No reports yet",
+  el_button("create", "Create one", type = "primary")
+)
 }

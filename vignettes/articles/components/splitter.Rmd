@@ -13,9 +13,19 @@ Divide the area horizontally or vertically, and freely drag to adjust the size o
 The most basic usage, if no default size is passed, it will be automatically divided equally.
 
 ```{r basic, eval = FALSE, shot = TRUE}
-panel <- function(x) tags$div(style = "display: flex; align-items: center; justify-content: center; height: 100%", x)
-tags$div(style = "height: 250px; box-shadow: var(--el-border-color-light) 0px 0px 10px",
-  el_splitter(el_splitter_panel(size = "30%", panel(1)), el_splitter_panel(panel(2))))
+panel <- function(x) {
+  tags$div(
+    style = "display: flex; align-items: center; justify-content: center; height: 100%",
+    x
+  )
+}
+tags$div(
+  style = "height: 250px; box-shadow: var(--el-border-color-light) 0px 0px 10px",
+  el_splitter(
+    el_splitter_panel(size = "30%", panel(1)),
+    el_splitter_panel(panel(2))
+  )
+)
 ```
 
 ## Vertical
@@ -23,9 +33,20 @@ tags$div(style = "height: 250px; box-shadow: var(--el-border-color-light) 0px 0p
 Use vertical orientation.
 
 ```{r vertical, eval = FALSE, shot = TRUE}
-panel <- function(x) tags$div(style = "display: flex; align-items: center; justify-content: center; height: 100%", x)
-tags$div(style = "height: 250px; box-shadow: var(--el-border-color-light) 0px 0px 10px",
-  el_splitter(layout = "vertical", el_splitter_panel(panel(1)), el_splitter_panel(panel(2))))
+panel <- function(x) {
+  tags$div(
+    style = "display: flex; align-items: center; justify-content: center; height: 100%",
+    x
+  )
+}
+tags$div(
+  style = "height: 250px; box-shadow: var(--el-border-color-light) 0px 0px 10px",
+  el_splitter(
+    layout = "vertical",
+    el_splitter_panel(panel(1)),
+    el_splitter_panel(panel(2))
+  )
+)
 ```
 
 ## Collapsible
@@ -33,11 +54,20 @@ tags$div(style = "height: 250px; box-shadow: var(--el-border-color-light) 0px 0p
 Configuring `collapsible` provides quick shrinking capability. You can use the `min` property to prevent expanding through dragging after collapsing.
 
 ```{r collapsible, eval = FALSE, shot = TRUE}
-panel <- function(x) tags$div(style = "display: flex; align-items: center; justify-content: center; height: 100%", x)
-tags$div(style = "height: 250px; box-shadow: var(--el-border-color-light) 0px 0px 10px",
-  el_splitter(el_splitter_panel(collapsible = TRUE, min = 50, panel(1)),
-              el_splitter_panel(collapsible = TRUE, panel(2)),
-              el_splitter_panel(panel(3))))
+panel <- function(x) {
+  tags$div(
+    style = "display: flex; align-items: center; justify-content: center; height: 100%",
+    x
+  )
+}
+tags$div(
+  style = "height: 250px; box-shadow: var(--el-border-color-light) 0px 0px 10px",
+  el_splitter(
+    el_splitter_panel(collapsible = TRUE, min = 50, panel(1)),
+    el_splitter_panel(collapsible = TRUE, panel(2)),
+    el_splitter_panel(panel(3))
+  )
+)
 ```
 
 ## Disable drag
@@ -45,9 +75,19 @@ tags$div(style = "height: 250px; box-shadow: var(--el-border-color-light) 0px 0p
 When either panel disables `resizable`, dragging will be disabled.
 
 ```{r disabledrag, eval = FALSE, shot = TRUE}
-panel <- function(x) tags$div(style = "display: flex; align-items: center; justify-content: center; height: 100%", x)
-tags$div(style = "height: 250px; box-shadow: var(--el-border-color-light) 0px 0px 10px",
-  el_splitter(el_splitter_panel(resizable = FALSE, panel(1)), el_splitter_panel(panel(2))))
+panel <- function(x) {
+  tags$div(
+    style = "display: flex; align-items: center; justify-content: center; height: 100%",
+    x
+  )
+}
+tags$div(
+  style = "height: 250px; box-shadow: var(--el-border-color-light) 0px 0px 10px",
+  el_splitter(
+    el_splitter_panel(resizable = FALSE, panel(1)),
+    el_splitter_panel(panel(2))
+  )
+)
 ```
 
 ## Panel size
@@ -57,9 +97,20 @@ tags$div(style = "height: 250px; box-shadow: var(--el-border-color-light) 0px 0p
 Dragging reports `input$<id>_resize_start`, `_resize` and `_resize_end`.
 
 ```{r size, eval = FALSE, shot = TRUE}
-panel <- function(x) tags$div(style = "display: flex; align-items: center; justify-content: center; height: 100%", x)
-tags$div(style = "height: 250px; box-shadow: var(--el-border-color-light) 0px 0px 10px",
-  el_splitter(id = "split_size", el_splitter_panel(size = "200px", panel(1)), el_splitter_panel(panel(2))))
+panel <- function(x) {
+  tags$div(
+    style = "display: flex; align-items: center; justify-content: center; height: 100%",
+    x
+  )
+}
+tags$div(
+  style = "height: 250px; box-shadow: var(--el-border-color-light) 0px 0px 10px",
+  el_splitter(
+    id = "split_size",
+    el_splitter_panel(size = "200px", panel(1)),
+    el_splitter_panel(panel(2))
+  )
+)
 ```
 
 ## Lazy
@@ -67,9 +118,20 @@ tags$div(style = "height: 250px; box-shadow: var(--el-border-color-light) 0px 0p
 When `lazy` is enabled, the panel size will not update in real time during dragging, but only after the drag ends.
 
 ```{r lazy, eval = FALSE, shot = TRUE}
-panel <- function(x) tags$div(style = "display: flex; align-items: center; justify-content: center; height: 100%", x)
-tags$div(style = "height: 250px; box-shadow: var(--el-border-color-light) 0px 0px 10px",
-  el_splitter(lazy = TRUE, el_splitter_panel(panel(1)), el_splitter_panel(panel(2))))
+panel <- function(x) {
+  tags$div(
+    style = "display: flex; align-items: center; justify-content: center; height: 100%",
+    x
+  )
+}
+tags$div(
+  style = "height: 250px; box-shadow: var(--el-border-color-light) 0px 0px 10px",
+  el_splitter(
+    lazy = TRUE,
+    el_splitter_panel(panel(1)),
+    el_splitter_panel(panel(2))
+  )
+)
 ```
 
 ## API

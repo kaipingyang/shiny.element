@@ -11,8 +11,14 @@
 #' @keywords internal
 .el_camel_case <- function(x) {
   parts <- strsplit(x, "_", fixed = TRUE)[[1]]
-  paste0(parts[1], paste0(toupper(substring(parts[-1], 1, 1)),
-                          substring(parts[-1], 2), collapse = ""))
+  paste0(
+    parts[1],
+    paste0(
+      toupper(substring(parts[-1], 1, 1)),
+      substring(parts[-1], 2),
+      collapse = ""
+    )
+  )
 }
 
 #' Forward Element Plus events to Shiny inputs
@@ -39,8 +45,14 @@
   }
   method_name <- function(event) {
     parts <- strsplit(event, "-", fixed = TRUE)[[1]]
-    paste0("elEmit", paste0(toupper(substring(parts, 1, 1)), substring(parts, 2),
-                            collapse = ""))
+    paste0(
+      "elEmit",
+      paste0(
+        toupper(substring(parts, 1, 1)),
+        substring(parts, 2),
+        collapse = ""
+      )
+    )
   }
   input_name <- function(event) gsub("-", "_", event, fixed = TRUE)
 
@@ -54,7 +66,8 @@
       if (is.null(shape)) {
         return(JS(sprintf(
           "function() { window.shinyVue.emit('%s', '%s', arguments); }",
-          ns_id, input_name(event)
+          ns_id,
+          input_name(event)
         )))
       }
       # The shape runs with `this` as the Vue instance, so it can look a row
@@ -62,10 +75,14 @@
       # A shape that returns undefined skips that emission -- how a
       # high-frequency event is throttled.
       JS(sprintf(
-        paste0("function() { var shape = %s; ",
-               "var v = shape.apply(this, arguments); if (v === undefined) return; ",
-               "window.shinyVue.emit('%s', '%s', [v]); }"),
-        shape, ns_id, input_name(event)
+        paste0(
+          "function() { var shape = %s; ",
+          "var v = shape.apply(this, arguments); if (v === undefined) return; ",
+          "window.shinyVue.emit('%s', '%s', [v]); }"
+        ),
+        shape,
+        ns_id,
+        input_name(event)
       ))
     }),
     vapply(events, method_name, character(1))
@@ -108,11 +125,18 @@
   # Set by the package's own articles, which render many examples on one page:
   # two that both use "city" would otherwise share one id.
   prefix <- getOption("shiny.element.id_prefix")
-  if (!is.null(prefix)) id <- paste0(prefix, id)
-  if (is.null(session)) return(id)
-  warning("`session` is deprecated in UI functions. Inside a module, wrap ",
-          "the id in ns() instead, as for any Shiny input: ",
-          "el_input(ns(\"name\")).", call. = FALSE)
+  if (!is.null(prefix)) {
+    id <- paste0(prefix, id)
+  }
+  if (is.null(session)) {
+    return(id)
+  }
+  warning(
+    "`session` is deprecated in UI functions. Inside a module, wrap ",
+    "the id in ns() instead, as for any Shiny input: ",
+    "el_input(ns(\"name\")).",
+    call. = FALSE
+  )
   session$ns(id)
 }
 
@@ -134,17 +158,27 @@
 #' @keywords internal
 .el_mounted_init <- function(bindings) {
   js_str <- function(x) {
-    vapply(x, function(e) as.character(jsonlite::toJSON(e, auto_unbox = TRUE)),
-           character(1), USE.NAMES = FALSE)
+    vapply(
+      x,
+      function(e) as.character(jsonlite::toJSON(e, auto_unbox = TRUE)),
+      character(1),
+      USE.NAMES = FALSE
+    )
   }
 
   sends <- paste(
-    sprintf("window.Shiny && Shiny.setInputValue && Shiny.setInputValue(%s, self.%s);", js_str(names(bindings)), bindings),
+    sprintf(
+      "window.Shiny && Shiny.setInputValue && Shiny.setInputValue(%s, self.%s);",
+      js_str(names(bindings)),
+      bindings
+    ),
     collapse = " "
   )
   js <- JS(paste0(
     "function() { var self = this; ",
-    "var send = function() { ", sends, " }; ",
+    "var send = function() { ",
+    sends,
+    " }; ",
     "if (window.Shiny && Shiny.shinyapp && ",
     "typeof Shiny.shinyapp.isConnected === 'function' && Shiny.shinyapp.isConnected()) ",
     "{ send(); } else if (window.jQuery) { jQuery(document).one('shiny:connected', send); } ",
@@ -180,13 +214,17 @@
 #' @keywords internal
 .el_normalize_choices <- function(choices) {
   # A list is assumed to be in option shape already.
-  if (is.list(choices)) return(choices)
+  if (is.list(choices)) {
+    return(choices)
+  }
 
   if (!is.null(names(choices))) {
     return(mapply(
       function(label, value) list(value = value, label = label),
-      names(choices), unname(choices),
-      SIMPLIFY = FALSE, USE.NAMES = FALSE
+      names(choices),
+      unname(choices),
+      SIMPLIFY = FALSE,
+      USE.NAMES = FALSE
     ))
   }
 
@@ -243,10 +281,18 @@
 #' @return Whichever was given; `main` when neither was.
 #' @keywords internal
 .el_alias <- function(main, alias, main_name, alias_name) {
-  if (is.null(alias)) return(main)
+  if (is.null(alias)) {
+    return(main)
+  }
   if (!is.null(main) && !identical(main, alias)) {
-    stop(sprintf("`%s` and `%s` are the same argument; give one of them.",
-                 main_name, alias_name), call. = FALSE)
+    stop(
+      sprintf(
+        "`%s` and `%s` are the same argument; give one of them.",
+        main_name,
+        alias_name
+      ),
+      call. = FALSE
+    )
   }
   alias
 }
@@ -279,11 +325,11 @@
 #' @keywords internal
 .el_vue_dependency <- function(dev = getOption("shiny.element.dev", FALSE)) {
   htmltools::htmlDependency(
-    name    = "vue",
+    name = "vue",
     version = "3.5.43",
-    src     = "vue3",
+    src = "vue3",
     package = "shiny.element",
-    script  = "vue.global.prod.js",
+    script = "vue.global.prod.js",
     all_files = FALSE
   )
 }
@@ -301,10 +347,20 @@
   list(
     .el_jquery_dependency(),
     .el_vue_dependency(),
-    htmltools::htmlDependency("shiny-vue", "1.0.0", src = js,
-                              script = "shiny-vue.js", all_files = FALSE),
-    htmltools::htmlDependency("el-events", "1.0.0", src = js,
-                              script = "el-events.js", all_files = FALSE)
+    htmltools::htmlDependency(
+      "shiny-vue",
+      "1.0.0",
+      src = js,
+      script = "shiny-vue.js",
+      all_files = FALSE
+    ),
+    htmltools::htmlDependency(
+      "el-events",
+      "1.0.0",
+      src = js,
+      script = "el-events.js",
+      all_files = FALSE
+    )
   )
 }
 
@@ -322,9 +378,18 @@
   spec <- .el_tags_as_html(spec)
   spec$evals <- I(.el_js_paths(spec))
   json <- jsonlite::toJSON(
-    spec, auto_unbox = TRUE, null = "null", na = "null", digits = NA,
-    force = TRUE, POSIXt = "ISO8601", UTC = TRUE, rownames = FALSE,
-    keep_vec_names = TRUE, dataframe = "columns", json_verbatim = TRUE
+    spec,
+    auto_unbox = TRUE,
+    null = "null",
+    na = "null",
+    digits = NA,
+    force = TRUE,
+    POSIXt = "ISO8601",
+    UTC = TRUE,
+    rownames = FALSE,
+    keep_vec_names = TRUE,
+    dataframe = "columns",
+    json_verbatim = TRUE
   )
   gsub("</", "<\\/", as.character(json), fixed = TRUE)
 }
@@ -343,7 +408,9 @@
 #' @keywords internal
 .el_restore <- function(id, default) {
   value <- shiny::restoreInput(id = id, default = default)
-  if (identical(value, default)) return(default)
+  if (identical(value, default)) {
+    return(default)
+  }
   if (is.list(default) && is.null(names(default))) {
     return(if (is.null(value)) list() else as.list(value))
   }
@@ -367,7 +434,9 @@
   msg <- .el_tags_as_html(msg)
   # Functions travel as source, listed by path, as a component's options do
   evals <- .el_js_paths(msg)
-  if (length(evals)) msg[[".evals"]] <- I(evals)
+  if (length(evals)) {
+    msg[[".evals"]] <- I(evals)
+  }
   session$sendCustomMessage("shinyVueUpdate", msg)
   invisible(NULL)
 }
@@ -388,13 +457,17 @@
   # Markup -- tags or HTML() -- goes as HTML, as Shiny's update*Input()
   # takes it; anything else as text
   if (!is.null(label)) {
-    msg[[".label"]] <- if (inherits(label, c("shiny.tag", "shiny.tag.list", "html"))) {
+    msg[[".label"]] <- if (
+      inherits(label, c("shiny.tag", "shiny.tag.list", "html"))
+    ) {
       list(html = as.character(htmltools::renderTags(label)$html))
     } else {
       as.character(label)
     }
   }
-  if (!is.null(error)) msg[[".error"]] <- as.character(error)
+  if (!is.null(error)) {
+    msg[[".error"]] <- as.character(error)
+  }
   msg
 }
 
@@ -411,20 +484,45 @@
 #' @return `session`, invisibly.
 #' @keywords internal
 .el_check_session <- function(session, fn = NULL) {
-  if (is.null(fn)) fn <- tryCatch(deparse(sys.call(-1)[[1]]), error = function(e) "the function")
+  if (is.null(fn)) {
+    fn <- tryCatch(deparse(sys.call(-1)[[1]]), error = function(e) {
+      "the function"
+    })
+  }
   if (is.null(session)) {
-    stop(sprintf("`%s()` was called outside a Shiny session: there is no server to send to.", fn),
-         call. = FALSE)
+    stop(
+      sprintf(
+        "`%s()` was called outside a Shiny session: there is no server to send to.",
+        fn
+      ),
+      call. = FALSE
+    )
   }
   if (is.atomic(session)) {
     # The argument the caller most likely meant to give first
-    second <- tryCatch(names(formals(sys.function(-1)))[2], error = function(e) NULL)
-    if (is.null(second) || is.na(second)) second <- "id"
-    stop(sprintf(paste0("`session` must be a Shiny session, not %s. It is the first argument; ",
-                        "to use the current session, name the rest: `%s(%s = ...)`."),
-                 if (is.character(session)) sprintf('"%s"', session[1]) else class(session)[1],
-                 fn, second),
-         call. = FALSE)
+    second <- tryCatch(
+      names(formals(sys.function(-1)))[2],
+      error = function(e) NULL
+    )
+    if (is.null(second) || is.na(second)) {
+      second <- "id"
+    }
+    stop(
+      sprintf(
+        paste0(
+          "`session` must be a Shiny session, not %s. It is the first argument; ",
+          "to use the current session, name the rest: `%s(%s = ...)`."
+        ),
+        if (is.character(session)) {
+          sprintf('"%s"', session[1])
+        } else {
+          class(session)[1]
+        },
+        fn,
+        second
+      ),
+      call. = FALSE
+    )
   }
   invisible(session)
 }
@@ -438,12 +536,16 @@
 #' @return An `<i>` tag holding the SVG.
 #' @keywords internal
 .el_close_icon <- function(class) {
-  htmltools::tags$i(class = paste("el-icon", class), htmltools::HTML(paste0(
-    '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024">',
-    '<path fill="currentColor" d="M764.288 214.592 512 466.88 259.712 214.592a31.936 ',
-    '31.936 0 0 0-45.12 45.12L466.752 512 214.528 764.224a31.936 31.936 0 1 0 45.12 ',
-    '45.184L512 557.184l252.288 252.288a31.936 31.936 0 0 0 45.12-45.12L557.12 ',
-    '512.064l252.288-252.352a31.936 31.936 0 1 0-45.12-45.184z"></path></svg>')))
+  htmltools::tags$i(
+    class = paste("el-icon", class),
+    htmltools::HTML(paste0(
+      '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024">',
+      '<path fill="currentColor" d="M764.288 214.592 512 466.88 259.712 214.592a31.936 ',
+      '31.936 0 0 0-45.12 45.12L466.752 512 214.528 764.224a31.936 31.936 0 1 0 45.12 ',
+      '45.184L512 557.184l252.288 252.288a31.936 31.936 0 0 0 45.12-45.12L557.12 ',
+      '512.064l252.288-252.352a31.936 31.936 0 1 0-45.12-45.184z"></path></svg>'
+    ))
+  )
 }
 
 #' A slot's content, in Vue 3's syntax
@@ -457,9 +559,16 @@
 #' @return A template tag.
 #' @keywords internal
 .el_slot <- function(name, ..., scope = NULL) {
-  htmltools::tag("template", c(
-    stats::setNames(list(if (is.null(scope)) NA else scope), paste0("v-slot:", name)),
-    list(...)))
+  htmltools::tag(
+    "template",
+    c(
+      stats::setNames(
+        list(if (is.null(scope)) NA else scope),
+        paste0("v-slot:", name)
+      ),
+      list(...)
+    )
+  )
 }
 
 #' Tags in Vue data, as the HTML they stand for
@@ -497,14 +606,26 @@
 #' @return A single string, or `NULL`.
 #' @keywords internal
 .el_html_string <- function(x, arg = "html") {
-  if (is.null(x)) return(NULL)
-  if (inherits(x, c("shiny.tag", "shiny.tag.list")) ||
-      (is.list(x) && !is.data.frame(x))) {
+  if (is.null(x)) {
+    return(NULL)
+  }
+  if (
+    inherits(x, c("shiny.tag", "shiny.tag.list")) ||
+      (is.list(x) && !is.data.frame(x))
+  ) {
     return(as.character(htmltools::renderTags(x)$html))
   }
-  if (is.character(x)) return(paste(x, collapse = ""))
-  stop("`", arg, "` must be a string of HTML or htmltools tags, not ",
-       class(x)[1], ".", call. = FALSE)
+  if (is.character(x)) {
+    return(paste(x, collapse = ""))
+  }
+  stop(
+    "`",
+    arg,
+    "` must be a string of HTML or htmltools tags, not ",
+    class(x)[1],
+    ".",
+    call. = FALSE
+  )
 }
 
 #' Check that items are a list of lists
@@ -520,13 +641,29 @@
 #' @return `x`, invisibly.
 #' @keywords internal
 .el_check_items <- function(x, arg, fields) {
-  if (is.null(x) || (is.list(x) && !length(x))) return(invisible(x))
-  ok <- is.list(x) && !is.data.frame(x) && !inherits(x, c("shiny.tag", "shiny.tag.list")) &&
-    all(vapply(x, function(i) is.list(i) && !inherits(i, "shiny.tag"), logical(1)))
+  if (is.null(x) || (is.list(x) && !length(x))) {
+    return(invisible(x))
+  }
+  ok <- is.list(x) &&
+    !is.data.frame(x) &&
+    !inherits(x, c("shiny.tag", "shiny.tag.list")) &&
+    all(vapply(
+      x,
+      function(i) is.list(i) && !inherits(i, "shiny.tag"),
+      logical(1)
+    ))
   if (!ok) {
-    stop("`", arg, "` must be a list of items, each a list such as ",
-         "list(", paste0(fields, " = ...", collapse = ", "), "), not ",
-         if (inherits(x, "shiny.tag")) "a tag" else class(x)[1], ".", call. = FALSE)
+    stop(
+      "`",
+      arg,
+      "` must be a list of items, each a list such as ",
+      "list(",
+      paste0(fields, " = ...", collapse = ", "),
+      "), not ",
+      if (inherits(x, "shiny.tag")) "a tag" else class(x)[1],
+      ".",
+      call. = FALSE
+    )
   }
   invisible(x)
 }
@@ -545,7 +682,9 @@
 #' @return A list of `attrs` (for the tag) and `data` (for the Vue data).
 #' @keywords internal
 .el_props <- function(values, prefix = NULL, rename = NULL) {
-  if (!length(values)) return(list(attrs = list(), data = list()))
+  if (!length(values)) {
+    return(list(attrs = list(), data = list()))
+  }
   # An argument named apart from its prop -- a watermark's `width` would
   # be the component's own -- maps to the prop's upstream name
   upstream <- names(values)
@@ -555,10 +694,19 @@
   camel <- vapply(names(values), .el_camel_case, "")
   # A wrapper that absorbs a trigger keeps its fields apart from the
   # trigger's own: tipPlacement, not placement
-  if (!is.null(prefix)) camel <- paste0(prefix, toupper(substring(camel, 1, 1)), substring(camel, 2))
+  if (!is.null(prefix)) {
+    camel <- paste0(
+      prefix,
+      toupper(substring(camel, 1, 1)),
+      substring(camel, 2)
+    )
+  }
   kebab <- gsub("_", "-", names(values), fixed = TRUE)
   attrs <- stats::setNames(lapply(camel, .el_optional_bind), paste0(":", kebab))
-  data  <- stats::setNames(lapply(values, function(v) if (is.null(v)) NA else v), camel)
+  data <- stats::setNames(
+    lapply(values, function(v) if (is.null(v)) NA else v),
+    camel
+  )
   list(attrs = attrs, data = data)
 }
 
@@ -573,14 +721,28 @@
 #' @return The Element Plus name, or `x` unchanged.
 #' @keywords internal
 .el_icon_name <- function(x) {
-  if (!is.character(x) || length(x) != 1L || !grepl("^el-icon-", x)) return(x)
+  if (!is.character(x) || length(x) != 1L || !grepl("^el-icon-", x)) {
+    return(x)
+  }
   parts <- strsplit(sub("^el-icon-", "", x), "-", fixed = TRUE)[[1]]
-  name <- paste0(toupper(substring(parts, 1, 1)), substring(parts, 2), collapse = "")
+  name <- paste0(
+    toupper(substring(parts, 1, 1)),
+    substring(parts, 2),
+    collapse = ""
+  )
   # Element UI names that Element Plus spells differently
-  renamed <- c(STools = "Tools", UserSolid = "UserFilled", StarOn = "StarFilled",
-               StarOff = "Star", More = "MoreFilled", Error = "CircleCloseFilled",
-               Success = "CircleCheckFilled", Warning = "WarningFilled",
-               Info = "InfoFilled", Question = "QuestionFilled")
+  renamed <- c(
+    STools = "Tools",
+    UserSolid = "UserFilled",
+    StarOn = "StarFilled",
+    StarOff = "Star",
+    More = "MoreFilled",
+    Error = "CircleCloseFilled",
+    Success = "CircleCheckFilled",
+    Warning = "WarningFilled",
+    Info = "InfoFilled",
+    Question = "QuestionFilled"
+  )
   if (name %in% names(renamed)) renamed[[name]] else name
 }
 
@@ -594,8 +756,12 @@
 #' @return `x` in day.js's tokens.
 #' @keywords internal
 .el_dayjs_format <- function(x) {
-  if (!is.character(x) || length(x) != 1L) return(x)
-  if (identical(x, "timestamp")) return("x")
+  if (!is.character(x) || length(x) != 1L) {
+    return(x)
+  }
+  if (identical(x, "timestamp")) {
+    return("x")
+  }
   x <- gsub("yyyy", "YYYY", x, fixed = TRUE)
   x <- gsub("yy", "YY", x, fixed = TRUE)
   gsub("(?<![D])dd(?!d)", "DD", x, perl = TRUE)
@@ -611,6 +777,8 @@
 #' @return Markup.
 #' @keywords internal
 .el_vue_icon <- function(x) {
-  if (!is.character(x)) return(x)
+  if (!is.character(x)) {
+    return(x)
+  }
   htmltools::HTML(sprintf("<el-icon><%s /></el-icon>", .el_icon_pascal(x)))
 }

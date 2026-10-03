@@ -16,15 +16,25 @@ test_that("element_plus_dependency: serves from the package by default", {
 
 test_that("element_plus_dependency: offline = FALSE falls back to the CDN", {
   deps <- element_plus_dependency(offline = FALSE)
-  expect_match(unname(deps[[1]]$src[["href"]]), "^https://unpkg\\.com/element-plus@2\\.14\\.7/")
-  expect_match(unname(deps[[2]]$src[["href"]]), "^https://unpkg\\.com/@element-plus/icons-vue@2\\.3\\.2/")
+  expect_match(
+    unname(deps[[1]]$src[["href"]]),
+    "^https://unpkg\\.com/element-plus@2\\.14\\.7/"
+  )
+  expect_match(
+    unname(deps[[2]]$src[["href"]]),
+    "^https://unpkg\\.com/@element-plus/icons-vue@2\\.3\\.2/"
+  )
 })
 
 test_that("element_plus_dependency: the bundled files are actually there", {
   root <- system.file("element-plus", package = "shiny.element")
-  for (f in c("dist/index.full.min.js", "theme-chalk/index.css",
-              "theme-chalk/dark/css-vars.css", "theme-chalk/display.css",
-              "icons-vue.iife.min.js")) {
+  for (f in c(
+    "dist/index.full.min.js",
+    "theme-chalk/index.css",
+    "theme-chalk/dark/css-vars.css",
+    "theme-chalk/display.css",
+    "icons-vue.iife.min.js"
+  )) {
     expect_true(file.exists(file.path(root, f)), info = f)
   }
 })
@@ -38,8 +48,18 @@ test_that("element_plus_dependency: the bundled files are not truncated", {
 
 test_that("element_plus_dependency: the stylesheet needs no fonts or remote files", {
   # Element Plus's icons are SVG components: the stylesheet loads nothing
-  css <- paste(readLines(system.file("element-plus", "theme-chalk", "index.css",
-                                     package = "shiny.element"), warn = FALSE), collapse = "\n")
+  css <- paste(
+    readLines(
+      system.file(
+        "element-plus",
+        "theme-chalk",
+        "index.css",
+        package = "shiny.element"
+      ),
+      warn = FALSE
+    ),
+    collapse = "\n"
+  )
   expect_false(grepl("url\\(['\"]?https?://", css))
   expect_false(grepl("element-icons.woff", css, fixed = TRUE))
 })
@@ -48,7 +68,7 @@ test_that("element_plus_dependency: the stylesheet needs no fonts or remote file
 
 src_of <- function(tags) {
   deps <- htmltools::findDependencies(tags)
-  dep  <- Filter(function(d) identical(d$name, "element-plus"), deps)[[1]]
+  dep <- Filter(function(d) identical(d$name, "element-plus"), deps)[[1]]
   paste(unlist(dep$src), collapse = " ")
 }
 
@@ -70,15 +90,20 @@ test_that("Vue 3 is bundled, the global build with the template compiler", {
   head <- readLines(path, n = 3, warn = FALSE)
   expect_match(paste(head, collapse = " "), "vue v3.5.43", fixed = TRUE)
   # the compiler: components compile in the browser from their x-template
-  expect_match(paste(readLines(path, warn = FALSE), collapse = ""),
-               "vuejs.org/error-reference/#compiler-", fixed = TRUE)
+  expect_match(
+    paste(readLines(path, warn = FALSE), collapse = ""),
+    "vuejs.org/error-reference/#compiler-",
+    fixed = TRUE
+  )
 })
 
 test_that("every script a component brings resolves to a file", {
   for (dep in .el_vue_dependencies()) {
     # jQuery comes from jquerylib, its src relative to that package
     dir <- unname(dep$src[["file"]])
-    if (!is.null(dep$package)) dir <- system.file(dir, package = dep$package)
+    if (!is.null(dep$package)) {
+      dir <- system.file(dir, package = dep$package)
+    }
     expect_true(file.exists(file.path(dir, dep$script)), info = dep$script)
   }
 })
@@ -89,9 +114,13 @@ test_that("every component brings the bridge, after jQuery and Vue", {
 })
 
 test_that("the bridge checks each updated key against the component's data", {
-  js <- paste(readLines(
-    system.file("js", "shiny-vue.js", package = "shiny.element"), warn = FALSE
-  ), collapse = "\n")
+  js <- paste(
+    readLines(
+      system.file("js", "shiny-vue.js", package = "shiny.element"),
+      warn = FALSE
+    ),
+    collapse = "\n"
+  )
   # Writing a field the component never declared is a silent no-op in Vue 2,
   # which is how el-table's handler shipped three assignments that could
   # never have worked.
@@ -107,8 +136,10 @@ test_that("no component brings a handler script of its own", {
   # script arrived late -- through renderUI() -- or was never attached (the
   # cascader once got the button's) heard nothing. One message, handled by
   # the bridge, replaced them. Feedback stays: it belongs to no component.
-  handlers <- list.files(system.file("js", package = "shiny.element"),
-                         pattern = "-handler\\.js$")
+  handlers <- list.files(
+    system.file("js", package = "shiny.element"),
+    pattern = "-handler\\.js$"
+  )
   expect_equal(handlers, "el-feedback-handler.js")
 })
 
@@ -120,18 +151,31 @@ test_that("el-layout.css applies nothing automatically", {
   # line-height 160-320px, text-align center and a grey-blue palette, forced
   # onto .el-main / .el-aside / .el-header of every app that loaded it. A
   # showcase page measured 4524px tall instead of 1444px.
-  css <- paste(readLines(
-    system.file("css", "el-layout.css", package = "shiny.element"), warn = FALSE
-  ), collapse = "\n")
+  css <- paste(
+    readLines(
+      system.file("css", "el-layout.css", package = "shiny.element"),
+      warn = FALSE
+    ),
+    collapse = "\n"
+  )
 
   # Strip comments before looking for rules.
   rules <- gsub("/\\*.*?\\*/", "", css)
 
-  expect_false(grepl("^\\.el-[a-z-]+[ ,{]", rules),
-               info = "no selector may target an Element UI class directly")
-  for (prop in c("line-height", "text-align", "background-color", "margin-bottom")) {
-    expect_false(grepl(paste0("\\.el-[a-z-]+[^{]*\\{[^}]*", prop), rules),
-                 info = prop)
+  expect_false(
+    grepl("^\\.el-[a-z-]+[ ,{]", rules),
+    info = "no selector may target an Element UI class directly"
+  )
+  for (prop in c(
+    "line-height",
+    "text-align",
+    "background-color",
+    "margin-bottom"
+  )) {
+    expect_false(
+      grepl(paste0("\\.el-[a-z-]+[^{]*\\{[^}]*", prop), rules),
+      info = prop
+    )
   }
   # The position-dependent selectors were the worst of it: what a component
   # looked like depended on where it happened to sit in the document.
@@ -139,9 +183,13 @@ test_that("el-layout.css applies nothing automatically", {
 })
 
 test_that("el-layout.css keeps its opt-in helper classes", {
-  css <- paste(readLines(
-    system.file("css", "el-layout.css", package = "shiny.element"), warn = FALSE
-  ), collapse = "\n")
+  css <- paste(
+    readLines(
+      system.file("css", "el-layout.css", package = "shiny.element"),
+      warn = FALSE
+    ),
+    collapse = "\n"
+  )
   for (cls in c(".bg-purple", ".grid-content", ".row-bg")) {
     expect_match(css, cls, fixed = TRUE)
   }
@@ -167,15 +215,28 @@ test_that("el_locale_dependency: a locale loads its file and hands it over", {
   # every app as it installs Element Plus
   expect_match(deps[[2]]$head, "ElementPlusLocaleZhCn", fixed = TRUE)
   expect_match(deps[[2]]$head, "shinyElementConfig.locale", fixed = TRUE)
-  expect_match(el_locale_dependency("pt-br")[[2]]$head, "ElementPlusLocalePtBr", fixed = TRUE)
+  expect_match(
+    el_locale_dependency("pt-br")[[2]]$head,
+    "ElementPlusLocalePtBr",
+    fixed = TRUE
+  )
 })
 
 test_that("el_locale_dependency: the bundled locale file is really there", {
-  p <- system.file("element-plus", "dist", "locale", "zh-cn.min.js", package = "shiny.element")
+  p <- system.file(
+    "element-plus",
+    "dist",
+    "locale",
+    "zh-cn.min.js",
+    package = "shiny.element"
+  )
   expect_true(file.exists(p))
   expect_gt(file.size(p), 2000)
-  expect_match(paste(readLines(p, warn = FALSE), collapse = "\n"),
-               "ElementPlusLocaleZhCn", fixed = TRUE)
+  expect_match(
+    paste(readLines(p, warn = FALSE), collapse = "\n"),
+    "ElementPlusLocaleZhCn",
+    fixed = TRUE
+  )
 })
 
 test_that("el_locale_dependency: an unknown locale fails naming the real ones", {
@@ -202,28 +263,38 @@ test_that("el_page speaks English unless told otherwise", {
 })
 
 test_that("el_page and use_element pass locale through", {
-  expect_true("element-plus-locale-zh-cn" %in% names_of(el_page(locale = "zh-CN")))
+  expect_true(
+    "element-plus-locale-zh-cn" %in% names_of(el_page(locale = "zh-CN"))
+  )
   expect_true("element-plus-locale-ja" %in% names_of(el_page(locale = "ja")))
   expect_false(any(grepl("locale", names_of(use_element(locale = "en")))))
 })
 
 test_that("the locale is handed over before any component installs Element Plus", {
   names <- names_of(el_page(locale = "ja"))
-  expect_lt(which(names == "element-plus-locale-ja"),
-            which(names == "element-plus-locale-apply-ja"))
+  expect_lt(
+    which(names == "element-plus-locale-ja"),
+    which(names == "element-plus-locale-apply-ja")
+  )
 })
 
 test_that("every generated call to Shiny is guarded, so components work without it", {
   # A static page -- R Markdown, Quarto, the package's website -- has no
   # Shiny; an unguarded call threw on every change a user made.
   ui <- htmltools::tagList(
-    el_input("i"), el_select("s", choices = "a"), el_table("t", data = head(iris, 1)),
+    el_input("i"),
+    el_select("s", choices = "a"),
+    el_table("t", data = head(iris, 1)),
     el_menu("m", items = list(list(index = "a", label = "A"))),
-    el_pagination("p", total = 10), el_tree("tr", data = list(list(label = "x")))
+    el_pagination("p", total = 10),
+    el_tree("tr", data = list(list(label = "x")))
   )
   html <- paste(as.character(htmltools::renderTags(ui)$html), collapse = "")
-  n_all     <- lengths(regmatches(html, gregexpr("Shiny[.]setInputValue[(]", html)))
-  n_guarded <- lengths(regmatches(html, gregexpr("Shiny[.]setInputValue && Shiny[.]setInputValue[(]", html)))
+  n_all <- lengths(regmatches(html, gregexpr("Shiny[.]setInputValue[(]", html)))
+  n_guarded <- lengths(regmatches(
+    html,
+    gregexpr("Shiny[.]setInputValue && Shiny[.]setInputValue[(]", html)
+  ))
   expect_gt(n_all, 0)
   expect_equal(n_guarded, n_all)
 })

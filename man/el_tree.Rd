@@ -211,18 +211,31 @@ Callable with \code{\link[=el_call]{el_call()}}:
 
 \examples{
 nodes <- list(
-  list(id = "fruit", label = "Fruit", children = list(
-    list(id = "apple",  label = "Apple"),
-    list(id = "cherry", label = "Cherry")
-  )),
-  list(id = "veg", label = "Vegetables", children = list(
-    list(id = "leek", label = "Leek", disabled = TRUE)
-  ))
+  list(
+    id = "fruit",
+    label = "Fruit",
+    children = list(
+      list(id = "apple", label = "Apple"),
+      list(id = "cherry", label = "Cherry")
+    )
+  ),
+  list(
+    id = "veg",
+    label = "Vegetables",
+    children = list(
+      list(id = "leek", label = "Leek", disabled = TRUE)
+    )
+  )
 )
 
 el_tree(id = "picker", data = nodes)
 
 # With checkboxes, two nodes checked and the first branch open
-el_tree(id = "picker", data = nodes, show_checkbox = TRUE,
-        checked = c("apple", "cherry"), expanded = "fruit")
+el_tree(
+  id = "picker",
+  data = nodes,
+  show_checkbox = TRUE,
+  checked = c("apple", "cherry"),
+  expanded = "fruit"
+)
 }

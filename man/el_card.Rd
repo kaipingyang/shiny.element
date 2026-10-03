@@ -41,5 +41,4 @@ and \code{never} shadow modes.
 \examples{
 el_card(shiny::tags$p("Card body text."), header = "My Card")
 el_card(shiny::tags$p("No shadow."), shadow = "never")
-
 }

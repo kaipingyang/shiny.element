@@ -24,8 +24,10 @@ Let's demonstrate the performance of the Virtualized Table by rendering a basic 
 A data.frame, its columns made from its variables.
 
 ```{r basic, eval = FALSE, shot = TRUE}
-df <- as.data.frame(setNames(lapply(1:10, function(j) paste0("Row ", 1:1000, " - Col ", j)),
-                             paste0("column-", 1:10)))
+df <- as.data.frame(setNames(
+  lapply(1:10, function(j) paste0("Row ", 1:1000, " - Col ", j)),
+  paste0("column-", 1:10)
+))
 el_table_v2("tv_basic", data = df, table_v2_width = 700, height = 400)
 ```
 
@@ -45,7 +47,11 @@ Element Plus's table needs a width and height in pixels; give the size
 the space has.
 
 ```{r auto-resizer, eval = FALSE, shot = TRUE}
-df <- data.frame(id = 1:1000, name = paste("Name", 1:1000), value = round(runif(1000) * 100))
+df <- data.frame(
+  id = 1:1000,
+  name = paste("Name", 1:1000),
+  value = round(runif(1000) * 100)
+)
 el_table_v2("tv_auto", data = df, table_v2_width = 700, height = 400)
 ```
 
@@ -56,12 +62,26 @@ Of course, you can render the table cell according to your needs. Here's a simpl
 A cell drawn with a template: the `cell` slot, its scope the row and column.
 
 ```{r cell-templating, eval = FALSE, shot = TRUE}
-df <- data.frame(name = paste("User", 1:200), state = sample(c("active", "inactive"), 200, TRUE))
-el_table_v2("tv_cell", data = df, table_v2_width = 700, height = 300, slots = list(
-  cell = template(htmltools::HTML(paste0(
-    "<el-tag v-if=\"column.dataKey === 'state'\" :type=\"rowData.state === 'active' ? 'success' : 'info'\">",
-    "{{ rowData.state }}</el-tag><span v-else>{{ rowData[column.dataKey] }}</span>")),
-    slot = "cell", scope = "{ rowData, column }")))
+df <- data.frame(
+  name = paste("User", 1:200),
+  state = sample(c("active", "inactive"), 200, TRUE)
+)
+el_table_v2(
+  "tv_cell",
+  data = df,
+  table_v2_width = 700,
+  height = 300,
+  slots = list(
+    cell = template(
+      htmltools::HTML(paste0(
+        "<el-tag v-if=\"column.dataKey === 'state'\" :type=\"rowData.state === 'active' ? 'success' : 'info'\">",
+        "{{ rowData.state }}</el-tag><span v-else>{{ rowData[column.dataKey] }}</span>"
+      )),
+      slot = "cell",
+      scope = "{ rowData, column }"
+    )
+  )
+)
 ```
 
 ## Table with selections
@@ -92,8 +112,16 @@ To customize the appearance of rows, use the `row-class-name` attribute. For exa
 df <- data.frame(id = 1:200, name = paste("Name", 1:200))
 tagList(
   tags$style(".tv-odd { background: var(--el-color-primary-light-9); }"),
-  el_table_v2("tv_rowclass", data = df, table_v2_width = 700, height = 300,
-              row_class = JS("function({ rowIndex }) { return rowIndex % 2 ? 'tv-odd' : ''; }")))
+  el_table_v2(
+    "tv_rowclass",
+    data = df,
+    table_v2_width = 700,
+    height = 300,
+    row_class = JS(
+      "function({ rowIndex }) { return rowIndex % 2 ? 'tv-odd' : ''; }"
+    )
+  )
+)
 ```
 
 ## Table with sticky rows
@@ -104,8 +132,13 @@ You can dynamically set the sticky row based on scroll events, as shown in this 
 
 ```{r sticky-rows, eval = FALSE, shot = TRUE}
 df <- data.frame(id = 1:200, name = paste("Name", 1:200))
-el_table_v2("tv_sticky", data = df, table_v2_width = 700, height = 300,
-            fixed_data = list(list(id = "Pinned", name = "Stays on top")))
+el_table_v2(
+  "tv_sticky",
+  data = df,
+  table_v2_width = 700,
+  height = 300,
+  fixed_data = list(list(id = "Pinned", name = "Stays on top"))
+)
 ```
 
 ## Table with fixed columns
@@ -115,10 +148,31 @@ If you want to have columns stick to the left or right for some reason, you can 
 You can set the column's attribute `fixed` to `true` (representing `FixedDir.LEFT`) or `FixedDir.LEFT` or `FixedDir.RIGHT`
 
 ```{r fixed-columns, eval = FALSE, shot = TRUE}
-cols <- lapply(1:10, function(j) list(key = paste0("c", j), dataKey = paste0("c", j),
-  title = paste("Column", j), width = 150, fixed = if (j == 1) "left" else if (j == 10) "right"))
-df <- as.data.frame(setNames(lapply(1:10, function(j) paste0("Row ", 1:200, " - Col ", j)), paste0("c", 1:10)))
-el_table_v2("tv_fixed", data = df, columns = cols, table_v2_width = 700, height = 300, fixed = TRUE)
+cols <- lapply(1:10, function(j) {
+  list(
+    key = paste0("c", j),
+    dataKey = paste0("c", j),
+    title = paste("Column", j),
+    width = 150,
+    fixed = if (j == 1) {
+      "left"
+    } else if (j == 10) {
+      "right"
+    }
+  )
+})
+df <- as.data.frame(setNames(
+  lapply(1:10, function(j) paste0("Row ", 1:200, " - Col ", j)),
+  paste0("c", 1:10)
+))
+el_table_v2(
+  "tv_fixed",
+  data = df,
+  columns = cols,
+  table_v2_width = 700,
+  height = 300,
+  fixed = TRUE
+)
 ```
 
 ## Grouping header
@@ -154,10 +208,24 @@ which way.
 
 ```{r sort, eval = FALSE, shot = TRUE}
 df <- data.frame(id = 1:200, value = round(runif(200) * 100))
-cols <- list(list(key = "id", dataKey = "id", title = "Id", width = 150, sortable = TRUE),
-             list(key = "value", dataKey = "value", title = "Value", width = 150, sortable = TRUE))
-el_table_v2("tv_sort", data = df, columns = cols, table_v2_width = 700, height = 300,
-            sort_by = list(key = "id", order = "asc"))
+cols <- list(
+  list(key = "id", dataKey = "id", title = "Id", width = 150, sortable = TRUE),
+  list(
+    key = "value",
+    dataKey = "value",
+    title = "Value",
+    width = 150,
+    sortable = TRUE
+  )
+)
+el_table_v2(
+  "tv_sort",
+  data = df,
+  columns = cols,
+  table_v2_width = 700,
+  height = 300,
+  sort_by = list(key = "id", order = "asc")
+)
 ```
 
 ## Controlled Sort
@@ -167,10 +235,24 @@ may appear confusing to your users, as it becomes unclear which column is curren
 
 ```{r controlled-sort, eval = FALSE, shot = TRUE}
 df <- data.frame(id = 1:200, value = round(runif(200) * 100))
-cols <- list(list(key = "id", dataKey = "id", title = "Id", width = 150, sortable = TRUE),
-             list(key = "value", dataKey = "value", title = "Value", width = 150, sortable = TRUE))
-el_table_v2("tv_csort", data = df, columns = cols, table_v2_width = 700, height = 300,
-            sort_state = list(id = "desc", value = "asc"))
+cols <- list(
+  list(key = "id", dataKey = "id", title = "Id", width = 150, sortable = TRUE),
+  list(
+    key = "value",
+    dataKey = "value",
+    title = "Value",
+    width = 150,
+    sortable = TRUE
+  )
+)
+el_table_v2(
+  "tv_csort",
+  data = df,
+  columns = cols,
+  table_v2_width = 700,
+  height = 300,
+  sort_state = list(id = "desc", value = "asc")
+)
 ```
 
 ## Cross hovering
@@ -214,11 +296,26 @@ We can combine rowspan and colspan together to meet your business goal!
 Virtual Table can also render data in a tree-like structure. By clicking the arrow icon, you can expand or collapse the tree nodes.
 
 ```{r tree-data, eval = FALSE, shot = TRUE}
-rows <- lapply(1:50, function(i) list(id = paste0("r", i), name = paste("Parent", i),
-  children = lapply(1:3, function(j) list(id = paste0("r", i, "-", j), name = paste("Child", i, j)))))
-el_table_v2("tv_tree", data = rows, expand_column_key = "name", table_v2_width = 700, height = 300,
-            columns = list(list(key = "name", dataKey = "name", title = "Name", width = 300),
-                           list(key = "id", dataKey = "id", title = "Id", width = 150)))
+rows <- lapply(1:50, function(i) {
+  list(
+    id = paste0("r", i),
+    name = paste("Parent", i),
+    children = lapply(1:3, function(j) {
+      list(id = paste0("r", i, "-", j), name = paste("Child", i, j))
+    })
+  )
+})
+el_table_v2(
+  "tv_tree",
+  data = rows,
+  expand_column_key = "name",
+  table_v2_width = 700,
+  height = 300,
+  columns = list(
+    list(key = "name", dataKey = "name", title = "Name", width = 300),
+    list(key = "id", dataKey = "id", title = "Id", width = 150)
+  )
+)
 ```
 
 ## Dynamic height rows
@@ -235,10 +332,21 @@ The closer the estimated height matches the actual content, the smoother the ren
 `estimated_row_height` lets each row take the height of its content.
 
 ```{r dynamic-height, eval = FALSE, shot = TRUE}
-df <- data.frame(id = 1:100, text = vapply(1:100, function(i) strrep("text ", (i %% 7 + 1) * 8), ""))
-el_table_v2("tv_dyn", data = df, estimated_row_height = 50, table_v2_width = 700, height = 300,
-            columns = list(list(key = "id", dataKey = "id", title = "Id", width = 80),
-                           list(key = "text", dataKey = "text", title = "Text", width = 600)))
+df <- data.frame(
+  id = 1:100,
+  text = vapply(1:100, function(i) strrep("text ", (i %% 7 + 1) * 8), "")
+)
+el_table_v2(
+  "tv_dyn",
+  data = df,
+  estimated_row_height = 50,
+  table_v2_width = 700,
+  height = 300,
+  columns = list(
+    list(key = "id", dataKey = "id", title = "Id", width = 80),
+    list(key = "text", dataKey = "text", title = "Text", width = 600)
+  )
+)
 ```
 
 ## Detail view
@@ -256,9 +364,19 @@ Render a customized footer when you want to show a concluding message or informa
 
 ```{r footer, eval = FALSE, shot = TRUE}
 df <- data.frame(id = 1:200, name = paste("Name", 1:200))
-el_table_v2("tv_footer", data = df, table_v2_width = 700, height = 300, footer_height = 50,
-            slots = list(footer = tags$div(style = "display: flex; align-items: center; justify-content: center; height: 100%",
-                                           "Display a message in the footer")))
+el_table_v2(
+  "tv_footer",
+  data = df,
+  table_v2_width = 700,
+  height = 300,
+  footer_height = 50,
+  slots = list(
+    footer = tags$div(
+      style = "display: flex; align-items: center; justify-content: center; height: 100%",
+      "Display a message in the footer"
+    )
+  )
+)
 ```
 
 ## Customized Empty Renderer
@@ -266,9 +384,19 @@ el_table_v2("tv_footer", data = df, table_v2_width = 700, height = 300, footer_h
 Render a customized empty element.
 
 ```{r empty, eval = FALSE, shot = TRUE}
-el_table_v2("tv_empty", data = list(), table_v2_width = 700, height = 300,
-            columns = list(list(key = "a", dataKey = "a", title = "A", width = 150)),
-            slots = list(empty = tags$div(style = "display: flex; justify-content: center", el_empty())))
+el_table_v2(
+  "tv_empty",
+  data = list(),
+  table_v2_width = 700,
+  height = 300,
+  columns = list(list(key = "a", dataKey = "a", title = "A", width = 150)),
+  slots = list(
+    empty = tags$div(
+      style = "display: flex; justify-content: center",
+      el_empty()
+    )
+  )
+)
 ```
 
 ## Overlay
@@ -277,10 +405,19 @@ Render an overlay on top of the table when you want to show a loading indicator 
 
 ```{r overlay, eval = FALSE, shot = TRUE}
 df <- data.frame(id = 1:200, name = paste("Name", 1:200))
-el_table_v2("tv_overlay", data = df, table_v2_width = 700, height = 300,
-            slots = list(overlay = tags$div(class = "el-loading-mask",
-              style = "display: flex; align-items: center; justify-content: center",
-              el_icon("Loading", class = "is-loading", size = "26px"))))
+el_table_v2(
+  "tv_overlay",
+  data = df,
+  table_v2_width = 700,
+  height = 300,
+  slots = list(
+    overlay = tags$div(
+      class = "el-loading-mask",
+      style = "display: flex; align-items: center; justify-content: center",
+      el_icon("Loading", class = "is-loading", size = "26px")
+    )
+  )
+)
 ```
 
 ## Manual scrolling

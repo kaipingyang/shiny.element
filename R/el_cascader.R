@@ -155,54 +155,56 @@
 #'
 #' # Update cascader options in server:
 #' # update_el_cascader(session, "cascader1", options = new_options)
-el_cascader <- function(id = NULL,
-                        options = list(),
-                        value = NULL,
-                        placeholder = "Please select",
-                        props = NULL,
-                        clearable = FALSE,
-                        filterable = FALSE,
-                        disabled = FALSE,
-                        size = NULL,
-                        show_all_levels = TRUE,
-                        collapse_tags = FALSE,
-                        separator = " / ",
-                        debounce = 300,
-                        popper_class = NULL,
-                        filter_method = NULL,
-                        before_filter = NULL,
-                        label = NULL,
-                        label_position = c("top", "left", "right"),
-                        label_width = NULL,
-                        label_suffix = NULL,
-                        required = FALSE,
-                        error = NULL,
-                        show_message = TRUE,
-                        inline_message = FALSE,
-                        clear_icon = NULL,
-                        collapse_tags_tooltip = NULL,
-                        effect = NULL,
-                        empty_values = NULL,
-                        fallback_placements = NULL,
-                        fit_input_width = NULL,
-                        height = NULL,
-                        item_size = NULL,
-                        max_collapse_tags = NULL,
-                        max_collapse_tags_tooltip_height = NULL,
-                        persistent = NULL,
-                        placement = NULL,
-                        popper_append_to_body = NULL,
-                        popper_style = NULL,
-                        show_checked_strategy = NULL,
-                        tag_effect = NULL,
-                        tag_type = NULL,
-                        teleported = NULL,
-                        validate_event = NULL,
-                        value_on_clear = NULL,
-                        virtual_scroll = NULL,
-                        width   = NULL,
-                        slots   = NULL,
-                        session = NULL) {
+el_cascader <- function(
+  id = NULL,
+  options = list(),
+  value = NULL,
+  placeholder = "Please select",
+  props = NULL,
+  clearable = FALSE,
+  filterable = FALSE,
+  disabled = FALSE,
+  size = NULL,
+  show_all_levels = TRUE,
+  collapse_tags = FALSE,
+  separator = " / ",
+  debounce = 300,
+  popper_class = NULL,
+  filter_method = NULL,
+  before_filter = NULL,
+  label = NULL,
+  label_position = c("top", "left", "right"),
+  label_width = NULL,
+  label_suffix = NULL,
+  required = FALSE,
+  error = NULL,
+  show_message = TRUE,
+  inline_message = FALSE,
+  clear_icon = NULL,
+  collapse_tags_tooltip = NULL,
+  effect = NULL,
+  empty_values = NULL,
+  fallback_placements = NULL,
+  fit_input_width = NULL,
+  height = NULL,
+  item_size = NULL,
+  max_collapse_tags = NULL,
+  max_collapse_tags_tooltip_height = NULL,
+  persistent = NULL,
+  placement = NULL,
+  popper_append_to_body = NULL,
+  popper_style = NULL,
+  show_checked_strategy = NULL,
+  tag_effect = NULL,
+  tag_type = NULL,
+  teleported = NULL,
+  validate_event = NULL,
+  value_on_clear = NULL,
+  virtual_scroll = NULL,
+  width = NULL,
+  slots = NULL,
+  session = NULL
+) {
   .el_check_choices("el_cascader", environment())
   if (is.null(id)) {
     id <- paste0("el_cascader_", uuid::UUIDgenerate())
@@ -231,18 +233,22 @@ el_cascader <- function(id = NULL,
   cascader_attrs[[":before-filter"]] <- .el_optional_bind("beforeFilter")
 
   # Forwarded to input$<id>_<event>; see .el_event_bindings().
-  events <- .el_event_bindings(ns_id, c(
-    "expand-change",
-    "blur",
-    "focus",
-    "visible-change",
-    "remove-tag",
-    "clear"))
+  events <- .el_event_bindings(
+    ns_id,
+    c(
+      "expand-change",
+      "blur",
+      "focus",
+      "visible-change",
+      "remove-tag",
+      "clear"
+    )
+  )
   cascader_attrs <- c(cascader_attrs, events$attrs)
 
   vue_data <- list(
     options = options,
-    value = if(is.null(value)) list() else value,
+    value = if (is.null(value)) list() else value,
     placeholder = placeholder,
     clearable = clearable,
     filterable = filterable,
@@ -279,21 +285,32 @@ el_cascader <- function(id = NULL,
       teleported = teleported,
       validate_event = validate_event,
       value_on_clear = value_on_clear,
-      virtual_scroll = virtual_scroll)),
-    label = label, label_position = label_position,
-    label_width = label_width, label_suffix = label_suffix, required = required,
-    error = error, show_message = show_message, inline_message = inline_message,
-    id     = ns_id,
+      virtual_scroll = virtual_scroll
+    )),
+    label = label,
+    label_position = label_position,
+    label_width = label_width,
+    label_suffix = label_suffix,
+    required = required,
+    error = error,
+    show_message = show_message,
+    inline_message = inline_message,
+    id = ns_id,
     markup = tag("el-cascader", cascader_attrs),
     data = vue_data,
-    methods = c(events$methods, list(
-      handleChange = JS(sprintf(
-        "function(value) {\n  window.Shiny && Shiny.setInputValue && Shiny.setInputValue('%s', value);\n}", ns_id))
-    )),
+    methods = c(
+      events$methods,
+      list(
+        handleChange = JS(sprintf(
+          "function(value) {\n  window.Shiny && Shiny.setInputValue && Shiny.setInputValue('%s', value);\n}",
+          ns_id
+        ))
+      )
+    ),
     mounted = .el_mounted_init(stats::setNames("value", ns_id)),
     computed = list(elProps = .el_lazy_props(ns_id)),
-    width      = width,
-    slots      = slots
+    width = width,
+    slots = slots
   )
 }
 
@@ -323,23 +340,39 @@ el_cascader <- function(id = NULL,
 #'   })
 #' }
 #' @export
-update_el_cascader <- function(session = shiny::getDefaultReactiveDomain(), id,
-                               options = NULL,
-                               value = NULL,
-                               placeholder = NULL,
-                               clearable = NULL,
-                               filterable = NULL,
-                               disabled = NULL,
-                               label = NULL, error = NULL) {
+update_el_cascader <- function(
+  session = shiny::getDefaultReactiveDomain(),
+  id,
+  options = NULL,
+  value = NULL,
+  placeholder = NULL,
+  clearable = NULL,
+  filterable = NULL,
+  disabled = NULL,
+  label = NULL,
+  error = NULL
+) {
   .el_check_session(session)
   ns_id <- session$ns(id)
   message <- list(id = ns_id)
-  if (!is.null(options)) message$options <- options
-  if (!is.null(value)) message$value <- value
-  if (!is.null(placeholder)) message$placeholder <- placeholder
-  if (!is.null(clearable)) message$clearable <- clearable
-  if (!is.null(filterable)) message$filterable <- filterable
-  if (!is.null(disabled)) message$disabled <- disabled
+  if (!is.null(options)) {
+    message$options <- options
+  }
+  if (!is.null(value)) {
+    message$value <- value
+  }
+  if (!is.null(placeholder)) {
+    message$placeholder <- placeholder
+  }
+  if (!is.null(clearable)) {
+    message$clearable <- clearable
+  }
+  if (!is.null(filterable)) {
+    message$filterable <- filterable
+  }
+  if (!is.null(disabled)) {
+    message$disabled <- disabled
+  }
 
   message <- .el_form_item_update(message, label, error)
   .el_send_update(session, message)
@@ -355,27 +388,32 @@ update_el_cascader <- function(session = shiny::getDefaultReactiveDomain(), id,
 #' @examples
 #' df <- data.frame(
 #'   province = c("Zhejiang", "Zhejiang", "Jiangsu"),
-#'   city     = c("Hangzhou", "Ningbo", "Nanjing"),
+#'   city = c("Hangzhou", "Ningbo", "Nanjing"),
 #'   stringsAsFactors = FALSE
 #' )
 #' df_to_cascader_options(df, c("province", "city"))
 #'
 #' # Separate value and label columns
 #' df$province_label <- paste(df$province, "Province")
-#' df_to_cascader_options(df, c("province", "city"),
-#'                        c("province_label", NA))
+#' df_to_cascader_options(df, c("province", "city"), c("province_label", NA))
 #' @export
 df_to_cascader_options <- function(df, value_cols, label_cols = NULL) {
   n <- length(value_cols)
   build_level <- function(df, level) {
-    if (level > n) return(NULL)
+    if (level > n) {
+      return(NULL)
+    }
     split_df <- split(df, df[[value_cols[level]]])
     lapply(names(split_df), function(val) {
       item <- list(value = val)
       # 支持 label_cols 为 NULL 或部分为 NA，label 为空时 fallback 到 value
       if (!is.null(label_cols) && !is.na(label_cols[level])) {
         label_val <- split_df[[val]][[label_cols[level]]][1]
-        item$label <- if (!is.na(label_val) && nzchar(label_val)) label_val else val
+        item$label <- if (!is.na(label_val) && nzchar(label_val)) {
+          label_val
+        } else {
+          val
+        }
       } else {
         item$label <- val
       }

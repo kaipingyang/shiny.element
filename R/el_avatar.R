@@ -30,50 +30,54 @@
 #' el_avatar("initials", content = "KY", shape = "square", size = 40)
 #' el_avatar("anon", icon = "el-icon-user-solid")
 #' @export
-el_avatar <- function(id = NULL,
-                      content = NULL,
-                      src = NULL,
-                      icon = NULL,
-                      size = NULL,
-                      shape = NULL,
-                      fit = NULL,
-                      src_set = NULL,
-                      alt = NULL,
-                      width = NULL,
-                      slots   = NULL,
-                      session = NULL) {
+el_avatar <- function(
+  id = NULL,
+  content = NULL,
+  src = NULL,
+  icon = NULL,
+  size = NULL,
+  shape = NULL,
+  fit = NULL,
+  src_set = NULL,
+  alt = NULL,
+  width = NULL,
+  slots = NULL,
+  session = NULL
+) {
   .el_check_choices("el_avatar", environment())
-  if (is.null(id)) id <- paste0("el_avatar_", uuid::UUIDgenerate())
+  if (is.null(id)) {
+    id <- paste0("el_avatar_", uuid::UUIDgenerate())
+  }
   ns_id <- .el_ui_id(id, session)
 
   avatar_attrs <- list(
-    ":src"     = .el_optional_bind("src"),
-    ":icon"    = .el_optional_bind("icon"),
-    ":size"    = .el_optional_bind("size"),
-    ":shape"   = .el_optional_bind("shape"),
-    ":fit"     = .el_optional_bind("fit"),
+    ":src" = .el_optional_bind("src"),
+    ":icon" = .el_optional_bind("icon"),
+    ":size" = .el_optional_bind("size"),
+    ":shape" = .el_optional_bind("shape"),
+    ":fit" = .el_optional_bind("fit"),
     ":src-set" = .el_optional_bind("srcSet"),
-    ":alt"     = .el_optional_bind("alt")
+    ":alt" = .el_optional_bind("alt")
   )
   events <- .el_event_bindings(ns_id, "error")
   avatar_attrs <- c(avatar_attrs, events$attrs)
 
   el_widget(
-    id     = ns_id,
+    id = ns_id,
     markup = htmltools::tag("el-avatar", c(avatar_attrs, list("{{content}}"))),
-    data   = list(
+    data = list(
       content = .el_or_na(content),
-      src     = .el_or_na(src),
-      icon    = .el_or_na(icon),
-      size    = .el_or_na(size),
-      shape   = .el_or_na(shape),
-      fit     = .el_or_na(fit),
-      srcSet  = .el_or_na(src_set),
-      alt     = .el_or_na(alt)
+      src = .el_or_na(src),
+      icon = .el_or_na(icon),
+      size = .el_or_na(size),
+      shape = .el_or_na(shape),
+      fit = .el_or_na(fit),
+      srcSet = .el_or_na(src_set),
+      alt = .el_or_na(alt)
     ),
-    methods    = events$methods,
-    width      = width,
-    slots      = slots
+    methods = events$methods,
+    width = width,
+    slots = slots
   )
 }
 
@@ -96,18 +100,33 @@ el_avatar <- function(id = NULL,
 #'   })
 #' }
 #' @export
-update_el_avatar <- function(session = shiny::getDefaultReactiveDomain(), id, content = NULL, src = NULL,
-                             icon = NULL, size = NULL, shape = NULL) {
+update_el_avatar <- function(
+  session = shiny::getDefaultReactiveDomain(),
+  id,
+  content = NULL,
+  src = NULL,
+  icon = NULL,
+  size = NULL,
+  shape = NULL
+) {
   .el_check_session(session)
   ns_id <- session$ns(id)
   msg <- list(id = ns_id)
-  if (!is.null(content)) msg$content <- content
-  if (!is.null(src))     msg$src     <- src
-  if (!is.null(icon))    msg$icon    <- icon
-  if (!is.null(size))    msg$size    <- size
-  if (!is.null(shape))   msg$shape   <- shape
+  if (!is.null(content)) {
+    msg$content <- content
+  }
+  if (!is.null(src)) {
+    msg$src <- src
+  }
+  if (!is.null(icon)) {
+    msg$icon <- icon
+  }
+  if (!is.null(size)) {
+    msg$size <- size
+  }
+  if (!is.null(shape)) {
+    msg$shape <- shape
+  }
   .el_send_update(session, msg)
   invisible(NULL)
 }
-
-

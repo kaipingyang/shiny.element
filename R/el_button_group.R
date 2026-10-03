@@ -26,27 +26,44 @@
 #'   el_button("next", "Next", type = "primary")
 #' )
 #' @export
-el_button_group <- function(..., id = NULL, size = NULL, type = NULL,
-                            direction = NULL, width = NULL) {
+el_button_group <- function(
+  ...,
+  id = NULL,
+  size = NULL,
+  type = NULL,
+  direction = NULL,
+  width = NULL
+) {
   .el_check_choices("el_button_group", environment())
-  if (is.null(id)) id <- paste0("el_button_group_", uuid::UUIDgenerate())
-  own <- list(markup = NULL, data = list(), methods = list(), watch = list(),
-              computed = list(), mounted = NULL, dependencies = list())
+  if (is.null(id)) {
+    id <- paste0("el_button_group_", uuid::UUIDgenerate())
+  }
+  own <- list(
+    markup = NULL,
+    data = list(),
+    methods = list(),
+    watch = list(),
+    computed = list(),
+    mounted = NULL,
+    dependencies = list()
+  )
   parts <- lapply(list(...), .el_absorb)
   merged <- do.call(.el_absorb_merge, c(list(own), parts))
 
   el_widget(
-    id       = id,
+    id = id,
     # Prefixed: the buttons folded in have a size and a type of their own
-    props    = .el_props(list(size = size, type = type, direction = direction),
-                         prefix = "bg"),
-    markup   = htmltools::tag("el-button-group", unname(merged$markups[-1])),
-    data     = merged$data,
-    methods  = merged$methods,
-    watch    = merged$watch,
+    props = .el_props(
+      list(size = size, type = type, direction = direction),
+      prefix = "bg"
+    ),
+    markup = htmltools::tag("el-button-group", unname(merged$markups[-1])),
+    data = merged$data,
+    methods = merged$methods,
+    watch = merged$watch,
     computed = merged$computed,
-    mounted  = merged$mounted,
-    width    = width,
+    mounted = merged$mounted,
+    width = width,
     dependency = merged$dependencies
   )
 }

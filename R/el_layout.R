@@ -10,7 +10,9 @@
 .el_style <- function(...) {
   parts <- unlist(list(...))
   parts <- parts[!is.na(parts) & nzchar(parts)]
-  if (!length(parts)) return(NULL)
+  if (!length(parts)) {
+    return(NULL)
+  }
   paste(sub(";\\s*$", "", parts), collapse = "; ")
 }
 
@@ -24,7 +26,9 @@
 #' @return The child with padding merged into its `style`.
 #' @keywords internal
 .el_col_gutter <- function(child, half) {
-  if (!inherits(child, "shiny.tag")) return(child)
+  if (!inherits(child, "shiny.tag")) {
+    return(child)
+  }
   child$attribs$style <- .el_style(
     child$attribs$style,
     sprintf("padding-left:%gpx", half),
@@ -65,14 +69,24 @@
 #'
 #' # Centred flex row
 #' el_row(
-#'   type = "flex", justify = "center", align = "middle",
+#'   type = "flex",
+#'   justify = "center",
+#'   align = "middle",
 #'   el_col(span = 8, "centred")
 #' )
-el_row <- function(..., gutter = NULL, type = NULL, justify = NULL,
-                   align = NULL, tag = "div", class = NULL, style = NULL) {
+el_row <- function(
+  ...,
+  gutter = NULL,
+  type = NULL,
+  justify = NULL,
+  align = NULL,
+  tag = "div",
+  class = NULL,
+  style = NULL
+) {
   .el_check_choices("el_row", environment())
   children <- list(...)
-  is_flex  <- identical(type, "flex")
+  is_flex <- identical(type, "flex")
 
   classes <- c(
     "el-row",
@@ -88,7 +102,10 @@ el_row <- function(..., gutter = NULL, type = NULL, justify = NULL,
   )
 
   gutter_style <- NULL
-  if (!is.null(gutter) && !(is.numeric(gutter) && length(gutter) == 1L && !is.na(gutter))) {
+  if (
+    !is.null(gutter) &&
+      !(is.numeric(gutter) && length(gutter) == 1L && !is.na(gutter))
+  ) {
     stop("`gutter` must be a single number of pixels.", call. = FALSE)
   }
   if (!is.null(gutter) && gutter > 0) {
@@ -100,11 +117,14 @@ el_row <- function(..., gutter = NULL, type = NULL, justify = NULL,
     children <- lapply(children, .el_col_gutter, half = half)
   }
 
-  htmltools::tag(tag, c(
-    list(class = paste(classes, collapse = " ")),
-    list(style = .el_style(gutter_style, style)),
-    children
-  ))
+  htmltools::tag(
+    tag,
+    c(
+      list(class = paste(classes, collapse = " ")),
+      list(style = .el_style(gutter_style, style)),
+      children
+    )
+  )
 }
 
 #' Element Plus Layout Column
@@ -129,9 +149,21 @@ el_row <- function(..., gutter = NULL, type = NULL, justify = NULL,
 #' el_col(span = 6, offset = 6, "quarter, pushed right")
 #' el_col(xs = 24, sm = 12, md = 8, "responsive")
 #' el_col(md = list(span = 12, offset = 6), "responsive with offset")
-el_col <- function(..., span = 24, offset = NULL, push = NULL, pull = NULL,
-                   xs = NULL, sm = NULL, md = NULL, lg = NULL, xl = NULL,
-                   tag = "div", class = NULL, style = NULL) {
+el_col <- function(
+  ...,
+  span = 24,
+  offset = NULL,
+  push = NULL,
+  pull = NULL,
+  xs = NULL,
+  sm = NULL,
+  md = NULL,
+  lg = NULL,
+  xl = NULL,
+  tag = "div",
+  class = NULL,
+  style = NULL
+) {
   classes <- c("el-col", sprintf("el-col-%s", span))
 
   for (nm in c("offset", "push", "pull")) {
@@ -142,9 +174,13 @@ el_col <- function(..., span = 24, offset = NULL, push = NULL, pull = NULL,
   breakpoints <- list(xs = xs, sm = sm, md = md, lg = lg, xl = xl)
   for (bp in names(breakpoints)) {
     val <- breakpoints[[bp]]
-    if (is.null(val)) next
+    if (is.null(val)) {
+      next
+    }
     if (is.list(val)) {
-      if (!is.null(val$span)) classes <- c(classes, sprintf("el-col-%s-%s", bp, val$span))
+      if (!is.null(val$span)) {
+        classes <- c(classes, sprintf("el-col-%s-%s", bp, val$span))
+      }
       for (nm in c("offset", "push", "pull")) {
         if (!is.null(val[[nm]])) {
           classes <- c(classes, sprintf("el-col-%s-%s-%s", bp, nm, val[[nm]]))
@@ -155,11 +191,14 @@ el_col <- function(..., span = 24, offset = NULL, push = NULL, pull = NULL,
     }
   }
 
-  htmltools::tag(tag, c(
-    list(class = paste(c(classes, class), collapse = " ")),
-    list(style = .el_style(style)),
-    list(...)
-  ))
+  htmltools::tag(
+    tag,
+    c(
+      list(class = paste(c(classes, class), collapse = " ")),
+      list(style = .el_style(style)),
+      list(...)
+    )
+  )
 }
 
 #' Element Plus Page Wrapper with Theme Support
@@ -209,8 +248,8 @@ el_col <- function(..., span = 24, offset = NULL, push = NULL, pull = NULL,
 #' el_page(locale = "en", dev = TRUE, el_input("name"))
 #' @export
 el_page <- function(
-  ..., 
-  title = NULL, 
+  ...,
+  title = NULL,
   theme = el_theme(),
   theme_css = el_layout_css_dependency(),
   offline = TRUE,
@@ -229,14 +268,22 @@ el_page <- function(
     .el_config_dependency(size, z_index),
     # The theme's colours, and any Element variable it sets, on Element's own
     # components too: Element's stylesheet built for the theme
-    Filter(Negate(is.null), list(.el_themed_dependency(.el_element_vars(theme)))),
+    Filter(
+      Negate(is.null),
+      list(.el_themed_dependency(.el_element_vars(theme)))
+    ),
     list(el_feedback_dependency())
   )
   if (!is.null(theme_css) && !inherits(theme_css, "html_dependency")) {
-    stop("`theme_css` must be an htmlDependency, such as el_layout_css_dependency(), ",
-         "or NULL.", call. = FALSE)
+    stop(
+      "`theme_css` must be an htmlDependency, such as el_layout_css_dependency(), ",
+      "or NULL.",
+      call. = FALSE
+    )
   }
-  if (!is.null(theme_css)) deps <- c(deps, list(theme_css))
+  if (!is.null(theme_css)) {
+    deps <- c(deps, list(theme_css))
+  }
 
   # Given to fluidPage() rather than attached as dependencies, so that Shiny
   # knows the page's theme -- bslib::bs_themer() and session$setCurrentTheme()

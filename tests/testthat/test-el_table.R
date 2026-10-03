@@ -64,7 +64,7 @@ test_that(".el_table_sanitize_columns: rewrites prop, leaves label and width", {
   cols <- .el_table_sanitize_columns(
     list(list(prop = "a.b", label = "A.B", width = "100"))
   )
-  expect_equal(cols[[1]]$prop,  "a_b")
+  expect_equal(cols[[1]]$prop, "a_b")
   expect_equal(cols[[1]]$label, "A.B")
   expect_equal(cols[[1]]$width, "100")
 })
@@ -85,7 +85,11 @@ test_that("el_table: returns a tagList with the container id", {
 
 test_that("el_table: columns render via v-for so they stay updatable", {
   html <- render_html(el_table(id = "t1", data = head(iris, 2)))
-  expect_match(html, 'v-for="col in (columns.length ? columns : autoColumns)"', fixed = TRUE)
+  expect_match(
+    html,
+    'v-for="col in (columns.length ? columns : autoColumns)"',
+    fixed = TRUE
+  )
   expect_match(html, ':prop="col.prop"')
 })
 
@@ -109,7 +113,11 @@ test_that("el_table: selection column is bound to the reactive flag", {
 })
 
 test_that("el_table: reports selected rows as well as selected row objects", {
-  html <- render_html(el_table(id = "t1", data = head(iris, 2), selection = TRUE))
+  html <- render_html(el_table(
+    id = "t1",
+    data = head(iris, 2),
+    selection = TRUE
+  ))
   expect_match(html, 't1_selected', fixed = TRUE)
   expect_match(html, 't1_selected_rows', fixed = TRUE)
 })
@@ -128,7 +136,7 @@ mock_session <- function() {
     ns = function(id) id,
     sendCustomMessage = function(type, msg) {
       env$type <- type
-      env$msg  <- msg
+      env$msg <- msg
     },
     captured = function() env
   )
@@ -147,7 +155,7 @@ test_that("update_el_table: sends row-shaped data under the right message type",
 test_that("update_el_table: infers columns when only data is given", {
   s <- mock_session()
   update_el_table(s, "t1", data = data.frame(Sepal.Length = 1))
-  expect_equal(s$captured()$msg$autoColumns[[1]]$prop,  "Sepal_Length")
+  expect_equal(s$captured()$msg$autoColumns[[1]]$prop, "Sepal_Length")
   expect_equal(s$captured()$msg$autoColumns[[1]]$label, "Sepal.Length")
   # Written columns are left alone: a new data set must not discard the
   # labels, formatters and cell templates the table was created with
@@ -161,8 +169,11 @@ test_that("update_el_table: list() goes back to inferring the columns", {
 })
 
 test_that("el_table keeps written and inferred columns apart", {
-  d <- vue_data_of(el_table("t", data = data.frame(a = 1, b = 2),
-                            columns = list(list(prop = "a", label = "A"))))
+  d <- vue_data_of(el_table(
+    "t",
+    data = data.frame(a = 1, b = 2),
+    columns = list(list(prop = "a", label = "A"))
+  ))
   expect_equal(length(d$columns), 1L)
   expect_equal(length(d$autoColumns), 2L)
   d <- vue_data_of(el_table("t", data = data.frame(a = 1, b = 2)))
@@ -172,12 +183,14 @@ test_that("el_table keeps written and inferred columns apart", {
 
 test_that("update_el_table: explicit columns win and are sanitised", {
   s <- mock_session()
-  update_el_table(s, "t1",
-    data    = data.frame(a.b = 1),
+  update_el_table(
+    s,
+    "t1",
+    data = data.frame(a.b = 1),
     columns = list(list(prop = "a.b", label = "Custom"))
   )
   expect_length(s$captured()$msg$columns, 1)
-  expect_equal(s$captured()$msg$columns[[1]]$prop,  "a_b")
+  expect_equal(s$captured()$msg$columns[[1]]$prop, "a_b")
   expect_equal(s$captured()$msg$columns[[1]]$label, "Custom")
 })
 
@@ -260,13 +273,19 @@ test_that("el_table: a data.frame in the id slot still renders its rows", {
   quiet <- el_table(data = df)
   expect_equal(
     gsub("el_table_[a-f0-9-]+", "<id>", paste(as.character(ui), collapse = "")),
-    gsub("el_table_[a-f0-9-]+", "<id>", paste(as.character(quiet), collapse = ""))
+    gsub(
+      "el_table_[a-f0-9-]+",
+      "<id>",
+      paste(as.character(quiet), collapse = "")
+    )
   )
 })
 
 test_that("el_table: columns given as something other than a list is caught", {
-  expect_error(el_table("tbl", data = data.frame(a = 1), columns = "oops"),
-               "must be a list of column definitions")
+  expect_error(
+    el_table("tbl", data = data.frame(a = 1), columns = "oops"),
+    "must be a list of column definitions"
+  )
 })
 
 # ── column props in either spelling ───────────────────────────────────────────
@@ -276,11 +295,18 @@ test_that("a column prop written in snake_case reaches the template", {
   # show_overflow_tooltip would sit in the object and never be looked at --
   # the column would render with the prop silently doing nothing.
   cols <- .el_table_sanitize_columns(list(
-    list(prop = "a", label = "A", show_overflow_tooltip = TRUE,
-         min_width = "100", sort_by = "b")
+    list(
+      prop = "a",
+      label = "A",
+      show_overflow_tooltip = TRUE,
+      min_width = "100",
+      sort_by = "b"
+    )
   ))
-  expect_named(cols[[1]],
-               c("prop", "label", "showOverflowTooltip", "minWidth", "sortBy"))
+  expect_named(
+    cols[[1]],
+    c("prop", "label", "showOverflowTooltip", "minWidth", "sortBy")
+  )
   expect_true(cols[[1]]$showOverflowTooltip)
 })
 
@@ -305,33 +331,60 @@ test_that("header_html keeps its own spelling rule", {
 test_that("row names that name something are kept as the first column", {
   # mtcars keeps its car names in the row names; dropping them dropped the
   # one column saying what each row was.
-  cols <- vapply(vue_data_of(el_table("t", data = head(mtcars[, 1:2], 2)))$autoColumns,
-                 `[[`, "", "prop")
+  cols <- vapply(
+    vue_data_of(el_table("t", data = head(mtcars[, 1:2], 2)))$autoColumns,
+    `[[`,
+    "",
+    "prop"
+  )
   expect_equal(cols[1], "rowname")
 })
 
 test_that("row numbers are not treated as names", {
   for (d in list(head(iris[, 1:2], 2), iris[3:5, 1:2])) {
-    cols <- vapply(vue_data_of(el_table("t", data = d))$autoColumns, `[[`, "", "prop")
+    cols <- vapply(
+      vue_data_of(el_table("t", data = d))$autoColumns,
+      `[[`,
+      "",
+      "prop"
+    )
     expect_false("rowname" %in% cols)
   }
 })
 
 test_that("rownames can be forced either way", {
-  props <- function(...) vapply(vue_data_of(el_table("t", ...))$autoColumns, `[[`, "", "prop")
-  expect_false("rowname" %in% props(data = head(mtcars[, 1:2]), rownames = FALSE))
+  props <- function(...) {
+    vapply(vue_data_of(el_table("t", ...))$autoColumns, `[[`, "", "prop")
+  }
+  expect_false(
+    "rowname" %in% props(data = head(mtcars[, 1:2]), rownames = FALSE)
+  )
   expect_true("rowname" %in% props(data = head(iris[, 1:2]), rownames = TRUE))
 })
 
 test_that("every forwarded table event with arguments has a shape", {
   shapes <- .el_table_event_shapes()
-  expect_true(all(c("row-click", "cell-click", "sort-change", "current-change",
-                    "select", "expand-change") %in% names(shapes)))
-  html <- paste(as.character(el_table("t", data = head(iris, 2))), collapse = "")
+  expect_true(all(
+    c(
+      "row-click",
+      "cell-click",
+      "sort-change",
+      "current-change",
+      "select",
+      "expand-change"
+    ) %in%
+      names(shapes)
+  ))
+  html <- paste(
+    as.character(el_table("t", data = head(iris, 2))),
+    collapse = ""
+  )
   expect_match(html, "rowIndex", fixed = TRUE)
 })
 
 test_that("el_table draws no borders unless asked, as Element", {
   expect_false(vue_data_of(el_table("t", data = head(iris, 2)))$border)
-  expect_true(vue_data_of(el_table("t", data = head(iris, 2), border = TRUE))$border)
+  expect_true(
+    vue_data_of(el_table("t", data = head(iris, 2), border = TRUE))$border
+  )
 })

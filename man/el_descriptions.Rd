@@ -62,11 +62,16 @@ A Shiny UI element.
 A read-only grid of labelled values -- the detail view of a record.
 }
 \examples{
-el_descriptions("user", title = "Account", border = TRUE, items = list(
-  list(label = "Name", content = "Ada Lovelace"),
-  list(label = "Plan", content = el_tag("plan", "Pro", type = "success")),
-  list(label = "Address", content = "12 St James's Square, London", span = 2)
-))
+el_descriptions(
+  "user",
+  title = "Account",
+  border = TRUE,
+  items = list(
+    list(label = "Name", content = "Ada Lovelace"),
+    list(label = "Plan", content = el_tag("plan", "Pro", type = "success")),
+    list(label = "Address", content = "12 St James's Square, London", span = 2)
+  )
+)
 
 # The quick form: names are labels
 el_descriptions("car", items = as.list(mtcars[1, 1:6]))

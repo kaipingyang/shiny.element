@@ -30,16 +30,27 @@
 #' el_tooltip("hint", el$button(type = "primary", "Hover me"), content = "Help")
 #'
 #' # In a table cell, once per row
-#' el_table("tasks", data = data.frame(task = c("Draft", "Review"), done = c(TRUE, FALSE)),
+#' el_table(
+#'   "tasks",
+#'   data = data.frame(task = c("Draft", "Review"), done = c(TRUE, FALSE)),
 #'   columns = list(
 #'     list(prop = "task", label = "Task"),
-#'     list(label = "State", cell = el$tag(
-#'       ":type" = "scope.row.done ? 'success' : 'info'",
-#'       "{{ scope.row.done ? 'done' : 'open' }}"))))
+#'     list(
+#'       label = "State",
+#'       cell = el$tag(
+#'         ":type" = "scope.row.done ? 'success' : 'info'",
+#'         "{{ scope.row.done ? 'done' : 'open' }}"
+#'       )
+#'     )
+#'   )
+#' )
 #'
 #' # As the markup of a component of your own
-#' el_widget("me", markup = el$avatar(":size" = "size", "{{ initials }}"),
-#'           data = list(size = 48, initials = "KY"))
+#' el_widget(
+#'   "me",
+#'   markup = el$avatar(":size" = "size", "{{ initials }}"),
+#'   data = list(size = 48, initials = "KY")
+#' )
 #' @return A named list of tag-generating functions, one per Element Plus tag.
 #' @export
 el <- local({
@@ -50,34 +61,123 @@ el <- local({
   # inside a component
   el_tag_names <- c(
     # Basic
-    "button", "button-group", "link", "text", "icon", "scrollbar", "space", "splitter",
+    "button",
+    "button-group",
+    "link",
+    "text",
+    "icon",
+    "scrollbar",
+    "space",
+    "splitter",
     "splitter-panel",
     # Layout
-    "container", "header", "aside", "main", "footer", "row", "col",
+    "container",
+    "header",
+    "aside",
+    "main",
+    "footer",
+    "row",
+    "col",
     # Configuration
     "config-provider",
     # Form
-    "form", "form-item", "input", "input-number", "input-otp", "input-tag", "radio",
-    "radio-group", "radio-button", "checkbox", "checkbox-button", "checkbox-group",
-    "switch", "select", "select-v2", "option", "option-group", "cascader",
-    "cascader-panel", "slider", "time-picker", "time-select", "date-picker",
-    "date-picker-panel", "upload", "rate", "color-picker", "color-picker-panel",
-    "transfer", "autocomplete", "mention", "tree-select",
+    "form",
+    "form-item",
+    "input",
+    "input-number",
+    "input-otp",
+    "input-tag",
+    "radio",
+    "radio-group",
+    "radio-button",
+    "checkbox",
+    "checkbox-button",
+    "checkbox-group",
+    "switch",
+    "select",
+    "select-v2",
+    "option",
+    "option-group",
+    "cascader",
+    "cascader-panel",
+    "slider",
+    "time-picker",
+    "time-select",
+    "date-picker",
+    "date-picker-panel",
+    "upload",
+    "rate",
+    "color-picker",
+    "color-picker-panel",
+    "transfer",
+    "autocomplete",
+    "mention",
+    "tree-select",
     # Data
-    "table", "table-column", "table-v2", "tag", "check-tag", "progress", "tree",
-    "tree-v2", "pagination", "badge", "avatar", "avatar-group", "calendar", "card",
-    "carousel", "carousel-item", "collapse", "collapse-item", "timeline", "timeline-item",
-    "image", "image-viewer", "empty", "skeleton", "skeleton-item", "result",
-    "statistic", "countdown", "descriptions", "descriptions-item", "segmented", "tour",
+    "table",
+    "table-column",
+    "table-v2",
+    "tag",
+    "check-tag",
+    "progress",
+    "tree",
+    "tree-v2",
+    "pagination",
+    "badge",
+    "avatar",
+    "avatar-group",
+    "calendar",
+    "card",
+    "carousel",
+    "carousel-item",
+    "collapse",
+    "collapse-item",
+    "timeline",
+    "timeline-item",
+    "image",
+    "image-viewer",
+    "empty",
+    "skeleton",
+    "skeleton-item",
+    "result",
+    "statistic",
+    "countdown",
+    "descriptions",
+    "descriptions-item",
+    "segmented",
+    "tour",
     "tour-step",
     # Navigation
-    "affix", "anchor", "anchor-link", "menu", "sub-menu", "menu-item", "menu-item-group",
-    "tabs", "tab-pane", "breadcrumb", "breadcrumb-item", "dropdown", "dropdown-menu",
-    "dropdown-item", "steps", "step", "page-header", "backtop",
+    "affix",
+    "anchor",
+    "anchor-link",
+    "menu",
+    "sub-menu",
+    "menu-item",
+    "menu-item-group",
+    "tabs",
+    "tab-pane",
+    "breadcrumb",
+    "breadcrumb-item",
+    "dropdown",
+    "dropdown-menu",
+    "dropdown-item",
+    "steps",
+    "step",
+    "page-header",
+    "backtop",
     # Feedback
-    "dialog", "alert", "drawer", "popover", "tooltip", "popconfirm",
+    "dialog",
+    "alert",
+    "drawer",
+    "popover",
+    "tooltip",
+    "popconfirm",
     # Others
-    "divider", "watermark", "collapse-transition", "auto-resizer"
+    "divider",
+    "watermark",
+    "collapse-transition",
+    "auto-resizer"
   )
 
   # Auto-generate each tag function
@@ -90,13 +190,14 @@ el <- local({
       }
     ))
     # Add roxygen2-style comment as attribute for documentation tools (optional)
-    attr(el[[fun_name]], "comment") <- paste0("Create a pure <el-", tag, "> tag. See Element Plus docs for usage.")
+    attr(el[[fun_name]], "comment") <- paste0(
+      "Create a pure <el-",
+      tag,
+      "> tag. See Element Plus docs for usage."
+    )
   }
 
   # An icon by name, drawn anywhere: el_icon()
   el$icon <- function(name, ...) el_icon(name, ...)
   el
 })
-
-
-

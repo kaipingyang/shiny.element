@@ -11,7 +11,10 @@ test_that("every checked argument is a real argument of its function", {
 test_that("every function checks its own arguments", {
   for (fn in names(.el_choices)) {
     body <- deparse(body(get(fn, envir = asNamespace("shiny.element"))))
-    expect_true(any(grepl(sprintf('.el_check_choices("%s"', fn), body, fixed = TRUE)), info = fn)
+    expect_true(
+      any(grepl(sprintf('.el_check_choices("%s"', fn), body, fixed = TRUE)),
+      info = fn
+    )
   }
 })
 
@@ -20,19 +23,33 @@ test_that("each default is a value Element accepts", {
     fm <- formals(get(fn, envir = asNamespace("shiny.element")))
     for (arg in names(.el_choices[[fn]])) {
       d <- fm[[arg]]
-      if (is.character(d)) expect_true(d %in% .el_choices[[fn]][[arg]], info = paste(fn, arg))
+      if (is.character(d)) {
+        expect_true(d %in% .el_choices[[fn]][[arg]], info = paste(fn, arg))
+      }
     }
   }
 })
 
 test_that("a value Element does not accept is an error naming the ones it does", {
-  expect_error(el_button("b", "Go", type = "primry"), '`type` should be one of "default", "primary"')
+  expect_error(
+    el_button("b", "Go", type = "primry"),
+    '`type` should be one of "default", "primary"'
+  )
   expect_error(el_input("i", size = "huge"), "`size` should be one of")
-  expect_error(el_tooltip("t", el$button("x"), content = "c", placement = "middle"), "`placement`")
+  expect_error(
+    el_tooltip("t", el$button("x"), content = "c", placement = "middle"),
+    "`placement`"
+  )
   # exact, as Element is: a prefix is not the value
   expect_error(el_button("b", "Go", type = "prim"), "should be one of")
-  expect_error(el_message(list(ns = identity, sendCustomMessage = function(...) NULL),
-                          "hi", type = "fatal"), "`type`")
+  expect_error(
+    el_message(
+      list(ns = identity, sendCustomMessage = function(...) NULL),
+      "hi",
+      type = "fatal"
+    ),
+    "`type`"
+  )
 })
 
 test_that("Element Plus's values are accepted, Element UI's sizes are not", {

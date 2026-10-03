@@ -74,119 +74,138 @@
 #' @return A Shiny UI element.
 #' @examples
 #' # A plain tag as the trigger
-#' el_tooltip("hint", el$button(type = "primary", "Save"),
-#'            content = "Writes to disk")
+#' el_tooltip(
+#'   "hint",
+#'   el$button(type = "primary", "Save"),
+#'   content = "Writes to disk"
+#' )
 #'
 #' # Or a component, which keeps working
 #' el_tooltip("hint", el_button("save", "Save"), content = "Writes to disk")
 #'
-#' el_tooltip("hint",
+#' el_tooltip(
+#'   "hint",
 #'   trigger = el$button(type = "danger", "Delete"),
 #'   content = "This cannot be undone",
-#'   placement = "right", effect = "light"
+#'   placement = "right",
+#'   effect = "light"
 #' )
 #' @export
-el_tooltip <- function(id = NULL,
-                       trigger = NULL,
-                       content = NULL,
-                       placement = NULL,
-                       effect = NULL,
-                       disabled = NULL,
-                       offset = NULL,
-                       hide_after = NULL,
-                       enterable = NULL,
-                       transition = NULL,
-                       popper_class = NULL,
-                       popper_options = NULL,
-                       append_to = NULL,
-                       aria_label = NULL,
-                       arrow_offset = NULL,
-                       auto_close = NULL,
-                       fallback_placements = NULL,
-                       focus_on_target = NULL,
-                       persistent = NULL,
-                       popper_style = NULL,
-                       raw_content = NULL,
-                       show_after = NULL,
-                       show_arrow = NULL,
-                       teleported = NULL,
-                       trigger_keys = NULL,
-                       virtual_ref = NULL,
-                       virtual_triggering = NULL,
-                       visible = NULL,
-                       width = NULL,
-                       slots   = NULL,
-                       session = NULL) {
+el_tooltip <- function(
+  id = NULL,
+  trigger = NULL,
+  content = NULL,
+  placement = NULL,
+  effect = NULL,
+  disabled = NULL,
+  offset = NULL,
+  hide_after = NULL,
+  enterable = NULL,
+  transition = NULL,
+  popper_class = NULL,
+  popper_options = NULL,
+  append_to = NULL,
+  aria_label = NULL,
+  arrow_offset = NULL,
+  auto_close = NULL,
+  fallback_placements = NULL,
+  focus_on_target = NULL,
+  persistent = NULL,
+  popper_style = NULL,
+  raw_content = NULL,
+  show_after = NULL,
+  show_arrow = NULL,
+  teleported = NULL,
+  trigger_keys = NULL,
+  virtual_ref = NULL,
+  virtual_triggering = NULL,
+  visible = NULL,
+  width = NULL,
+  slots = NULL,
+  session = NULL
+) {
   .el_check_choices("el_tooltip", environment())
   # A component handed in here is folded into this one's Vue instance rather
   # than nested inside it -- see .el_absorb().
   inner <- .el_absorb(trigger)
 
-  if (is.null(id)) id <- paste0("el_tooltip_", uuid::UUIDgenerate())
+  if (is.null(id)) {
+    id <- paste0("el_tooltip_", uuid::UUIDgenerate())
+  }
   ns_id <- .el_ui_id(id, session)
 
   attrs <- list(
-    ":content"         = .el_optional_bind("tipContent"),
-    ":placement"       = .el_optional_bind("tipPlacement"),
-    ":effect"          = .el_optional_bind("tipEffect"),
-    ":disabled"        = .el_optional_bind("tipDisabled"),
-    ":offset"          = .el_optional_bind("tipOffset"),
-    ":hide-after"      = .el_optional_bind("tipHideAfter"),
-    ":enterable"       = .el_optional_bind("tipEnterable"),
-    ":transition"      = .el_optional_bind("tipTransition"),
-    ":popper-class"    = .el_optional_bind("tipPopperClass"),
-    ":popper-options"  = .el_optional_bind("tipPopperOptions")
+    ":content" = .el_optional_bind("tipContent"),
+    ":placement" = .el_optional_bind("tipPlacement"),
+    ":effect" = .el_optional_bind("tipEffect"),
+    ":disabled" = .el_optional_bind("tipDisabled"),
+    ":offset" = .el_optional_bind("tipOffset"),
+    ":hide-after" = .el_optional_bind("tipHideAfter"),
+    ":enterable" = .el_optional_bind("tipEnterable"),
+    ":transition" = .el_optional_bind("tipTransition"),
+    ":popper-class" = .el_optional_bind("tipPopperClass"),
+    ":popper-options" = .el_optional_bind("tipPopperOptions")
   )
 
-  events <- .el_event_bindings(ns_id, c("show", "hide", "before-show", "before-hide"))
+  events <- .el_event_bindings(
+    ns_id,
+    c("show", "hide", "before-show", "before-hide")
+  )
   attrs <- c(attrs, events$attrs)
 
   own <- list(
     markup = NULL,
     data = list(
-      tipContent        = .el_or_na(content),
-      tipPlacement      = .el_or_na(placement),
-      tipEffect         = .el_or_na(effect),
-      tipDisabled       = .el_or_na(disabled),
-      tipOffset         = .el_or_na(offset),
-      tipHideAfter      = .el_or_na(hide_after),
-      tipEnterable      = .el_or_na(enterable),
-      tipTransition     = .el_or_na(transition),
-      tipPopperClass    = .el_or_na(popper_class),
-      tipPopperOptions  = .el_or_na(popper_options)
+      tipContent = .el_or_na(content),
+      tipPlacement = .el_or_na(placement),
+      tipEffect = .el_or_na(effect),
+      tipDisabled = .el_or_na(disabled),
+      tipOffset = .el_or_na(offset),
+      tipHideAfter = .el_or_na(hide_after),
+      tipEnterable = .el_or_na(enterable),
+      tipTransition = .el_or_na(transition),
+      tipPopperClass = .el_or_na(popper_class),
+      tipPopperOptions = .el_or_na(popper_options)
     ),
-    methods = events$methods, watch = list(), computed = list(), mounted = NULL,
+    methods = events$methods,
+    watch = list(),
+    computed = list(),
+    mounted = NULL,
     dependencies = list()
   )
   merged <- .el_absorb_merge(own, inner)
 
   el_widget(
-    props = .el_props(prefix = "tip", list(
-      append_to = append_to,
-      aria_label = aria_label,
-      arrow_offset = arrow_offset,
-      auto_close = auto_close,
-      fallback_placements = fallback_placements,
-      focus_on_target = focus_on_target,
-      persistent = persistent,
-      popper_style = popper_style,
-      raw_content = raw_content,
-      show_after = show_after,
-      show_arrow = show_arrow,
-      teleported = teleported,
-      trigger_keys = trigger_keys,
-      virtual_ref = virtual_ref,
-      virtual_triggering = virtual_triggering,
-      visible = visible)),
-    id       = ns_id,
-    markup   = htmltools::tag("el-tooltip", c(attrs, list(merged$markups[[2]]))),
-    data     = merged$data,
-    methods  = merged$methods,
-    watch    = merged$watch,
+    props = .el_props(
+      prefix = "tip",
+      list(
+        append_to = append_to,
+        aria_label = aria_label,
+        arrow_offset = arrow_offset,
+        auto_close = auto_close,
+        fallback_placements = fallback_placements,
+        focus_on_target = focus_on_target,
+        persistent = persistent,
+        popper_style = popper_style,
+        raw_content = raw_content,
+        show_after = show_after,
+        show_arrow = show_arrow,
+        teleported = teleported,
+        trigger_keys = trigger_keys,
+        virtual_ref = virtual_ref,
+        virtual_triggering = virtual_triggering,
+        visible = visible
+      )
+    ),
+    id = ns_id,
+    markup = htmltools::tag("el-tooltip", c(attrs, list(merged$markups[[2]]))),
+    data = merged$data,
+    methods = merged$methods,
+    watch = merged$watch,
     computed = merged$computed,
-    mounted  = merged$mounted,
-    width    = width,
-    slots      = slots,
+    mounted = merged$mounted,
+    width = width,
+    slots = slots,
     dependency = merged$dependencies
   )
 }
@@ -212,20 +231,26 @@ el_tooltip <- function(id = NULL,
 #'   })
 #' }
 #' @export
-update_el_tooltip <- function(session = shiny::getDefaultReactiveDomain(),
-                              id,
-                              content = NULL,
-                              disabled = NULL,
-                              visible = NULL) {
+update_el_tooltip <- function(
+  session = shiny::getDefaultReactiveDomain(),
+  id,
+  content = NULL,
+  disabled = NULL,
+  visible = NULL
+) {
   .el_check_session(session)
   ns_id <- session$ns(id)
   msg <- list(id = ns_id)
   # The tooltip's fields carry a prefix, kept apart from a trigger's own
-  if (!is.null(content))  msg$tipContent  <- content
-  if (!is.null(disabled)) msg$tipDisabled <- disabled
-  if (!is.null(visible))  msg$tipVisible  <- visible
+  if (!is.null(content)) {
+    msg$tipContent <- content
+  }
+  if (!is.null(disabled)) {
+    msg$tipDisabled <- disabled
+  }
+  if (!is.null(visible)) {
+    msg$tipVisible <- visible
+  }
   .el_send_update(session, msg)
   invisible(NULL)
 }
-
-

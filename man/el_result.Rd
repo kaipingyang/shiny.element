@@ -45,7 +45,11 @@ The outcome of an operation: an icon, a title, a line of detail, and
 what to do next.
 }
 \examples{
-el_result("done", icon = "success", title = "Report submitted",
-          sub_title = "It will be reviewed within a day",
-          el_button("back", "Back to the list", type = "primary"))
+el_result(
+  "done",
+  icon = "success",
+  title = "Report submitted",
+  sub_title = "It will be reviewed within a day",
+  el_button("back", "Back to the list", type = "primary")
+)
 }

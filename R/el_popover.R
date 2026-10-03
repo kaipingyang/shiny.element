@@ -68,127 +68,152 @@
 #'
 #' @return A Shiny UI element.
 #' @examples
-#' el_popover("info",
+#' el_popover(
+#'   "info",
 #'   reference = el$button("Details"),
 #'   title = "March",
 #'   content = "Revenue up 4% on February."
 #' )
 #'
 #' # Hover, with markup in the body
-#' el_popover("info",
+#' el_popover(
+#'   "info",
 #'   reference = el$button("Details"),
 #'   body = shiny::tags$ul(shiny::tags$li("One"), shiny::tags$li("Two")),
-#'   trigger = "hover", placement = "right"
+#'   trigger = "hover",
+#'   placement = "right"
 #' )
 #' @export
-el_popover <- function(id = NULL,
-                       reference = NULL,
-                       title = NULL,
-                       content = NULL,
-                       body = NULL,
-                       trigger = NULL,
-                       placement = NULL,
-                       popover_width = NULL,
-                       disabled = NULL,
-                       offset = NULL,
-                       transition = NULL,
-                       popper_class = NULL,
-                       popper_options = NULL,
-                       tabindex = NULL,
-                       append_to = NULL,
-                       auto_close = NULL,
-                       effect = NULL,
-                       hide_after = NULL,
-                       persistent = NULL,
-                       popper_style = NULL,
-                       show_after = NULL,
-                       show_arrow = NULL,
-                       teleported = NULL,
-                       trigger_keys = NULL,
-                       virtual_ref = NULL,
-                       virtual_triggering = NULL,
-                       visible = NULL,
-                       width = NULL,
-                       slots   = NULL,
-                       session = NULL) {
+el_popover <- function(
+  id = NULL,
+  reference = NULL,
+  title = NULL,
+  content = NULL,
+  body = NULL,
+  trigger = NULL,
+  placement = NULL,
+  popover_width = NULL,
+  disabled = NULL,
+  offset = NULL,
+  transition = NULL,
+  popper_class = NULL,
+  popper_options = NULL,
+  tabindex = NULL,
+  append_to = NULL,
+  auto_close = NULL,
+  effect = NULL,
+  hide_after = NULL,
+  persistent = NULL,
+  popper_style = NULL,
+  show_after = NULL,
+  show_arrow = NULL,
+  teleported = NULL,
+  trigger_keys = NULL,
+  virtual_ref = NULL,
+  virtual_triggering = NULL,
+  visible = NULL,
+  width = NULL,
+  slots = NULL,
+  session = NULL
+) {
   .el_check_choices("el_popover", environment())
-  inner_ref  <- .el_absorb(reference)
+  inner_ref <- .el_absorb(reference)
   inner_body <- .el_absorb(body)
 
-  if (is.null(id)) id <- paste0("el_popover_", uuid::UUIDgenerate())
+  if (is.null(id)) {
+    id <- paste0("el_popover_", uuid::UUIDgenerate())
+  }
   ns_id <- .el_ui_id(id, session)
 
   attrs <- list(
-    ":title"          = .el_optional_bind("popTitle"),
-    ":content"        = .el_optional_bind("popContent"),
-    ":trigger"        = .el_optional_bind("popTrigger"),
-    ":placement"      = .el_optional_bind("popPlacement"),
-    ":width"          = .el_optional_bind("popPopoverWidth"),
-    ":disabled"       = .el_optional_bind("popDisabled"),
-    ":offset"         = .el_optional_bind("popOffset"),
-    ":transition"     = .el_optional_bind("popTransition"),
-    ":popper-class"   = .el_optional_bind("popPopperClass"),
+    ":title" = .el_optional_bind("popTitle"),
+    ":content" = .el_optional_bind("popContent"),
+    ":trigger" = .el_optional_bind("popTrigger"),
+    ":placement" = .el_optional_bind("popPlacement"),
+    ":width" = .el_optional_bind("popPopoverWidth"),
+    ":disabled" = .el_optional_bind("popDisabled"),
+    ":offset" = .el_optional_bind("popOffset"),
+    ":transition" = .el_optional_bind("popTransition"),
+    ":popper-class" = .el_optional_bind("popPopperClass"),
     ":popper-options" = .el_optional_bind("popPopperOptions")
   )
-  events <- .el_event_bindings(ns_id, c("show", "hide", "after-enter", "after-leave", "before-enter", "before-leave"))
+  events <- .el_event_bindings(
+    ns_id,
+    c(
+      "show",
+      "hide",
+      "after-enter",
+      "after-leave",
+      "before-enter",
+      "before-leave"
+    )
+  )
   attrs <- c(attrs, events$attrs)
-
-
 
   own <- list(
     markup = NULL,
     data = list(
-      popTitle         = .el_or_na(title),
-      popContent       = .el_or_na(content),
-      popTrigger       = .el_or_na(trigger),
-      popPlacement     = .el_or_na(placement),
-      popPopoverWidth  = .el_or_na(popover_width),
-      popDisabled      = .el_or_na(disabled),
-      popOffset        = .el_or_na(offset),
-      popTransition    = .el_or_na(transition),
-      popPopperClass   = .el_or_na(popper_class),
+      popTitle = .el_or_na(title),
+      popContent = .el_or_na(content),
+      popTrigger = .el_or_na(trigger),
+      popPlacement = .el_or_na(placement),
+      popPopoverWidth = .el_or_na(popover_width),
+      popDisabled = .el_or_na(disabled),
+      popOffset = .el_or_na(offset),
+      popTransition = .el_or_na(transition),
+      popPopperClass = .el_or_na(popper_class),
       popPopperOptions = .el_or_na(popper_options)
     ),
     methods = events$methods,
-    watch = list(), computed = list(), mounted = NULL, dependencies = list()
+    watch = list(),
+    computed = list(),
+    mounted = NULL,
+    dependencies = list()
   )
   merged <- .el_absorb_merge(own, inner_ref, inner_body)
   # markups keeps the order the parts went in: own, reference, body
-  ref_markup  <- merged$markups[[2]]
+  ref_markup <- merged$markups[[2]]
   body_markup <- merged$markups[[3]]
 
   children <- list(body_markup)
   if (!is.null(ref_markup)) {
-    children <- c(children, list(
-      .el_slot("reference", htmltools::tags$span(ref_markup))
-    ))
+    children <- c(
+      children,
+      list(
+        .el_slot("reference", htmltools::tags$span(ref_markup))
+      )
+    )
   }
 
   el_widget(
-    props = .el_props(prefix = "pop", list(
-      tabindex = tabindex,
-      append_to = append_to,
-      auto_close = auto_close,
-      effect = effect,
-      hide_after = hide_after,
-      persistent = persistent,
-      popper_style = popper_style,
-      show_after = show_after,
-      show_arrow = show_arrow,
-      teleported = teleported,
-      trigger_keys = trigger_keys,
-      virtual_ref = virtual_ref,
-      virtual_triggering = virtual_triggering,
-      visible = visible)),
-    id       = ns_id,
-    markup   = htmltools::tag("el-popover", c(attrs, children)),
-    data     = merged$data,
-    methods  = merged$methods,
-    watch    = merged$watch,
+    props = .el_props(
+      prefix = "pop",
+      list(
+        tabindex = tabindex,
+        append_to = append_to,
+        auto_close = auto_close,
+        effect = effect,
+        hide_after = hide_after,
+        persistent = persistent,
+        popper_style = popper_style,
+        show_after = show_after,
+        show_arrow = show_arrow,
+        teleported = teleported,
+        trigger_keys = trigger_keys,
+        virtual_ref = virtual_ref,
+        virtual_triggering = virtual_triggering,
+        visible = visible
+      )
+    ),
+    id = ns_id,
+    markup = htmltools::tag("el-popover", c(attrs, children)),
+    data = merged$data,
+    methods = merged$methods,
+    watch = merged$watch,
     computed = merged$computed,
-    mounted  = merged$mounted,
-    width    = width,
-    slots      = slots,
+    mounted = merged$mounted,
+    width = width,
+    slots = slots,
     dependency = merged$dependencies
   )
 }
@@ -214,22 +239,30 @@ el_popover <- function(id = NULL,
 #'   })
 #' }
 #' @export
-update_el_popover <- function(session = shiny::getDefaultReactiveDomain(),
-                              id,
-                              title = NULL,
-                              content = NULL,
-                              disabled = NULL,
-                              visible = NULL) {
+update_el_popover <- function(
+  session = shiny::getDefaultReactiveDomain(),
+  id,
+  title = NULL,
+  content = NULL,
+  disabled = NULL,
+  visible = NULL
+) {
   .el_check_session(session)
   ns_id <- session$ns(id)
   msg <- list(id = ns_id)
   # The popover's fields carry a prefix, kept apart from its reference's
-  if (!is.null(title))    msg$popTitle    <- title
-  if (!is.null(content))  msg$popContent  <- content
-  if (!is.null(disabled)) msg$popDisabled <- disabled
-  if (!is.null(visible))  msg$popVisible  <- visible
+  if (!is.null(title)) {
+    msg$popTitle <- title
+  }
+  if (!is.null(content)) {
+    msg$popContent <- content
+  }
+  if (!is.null(disabled)) {
+    msg$popDisabled <- disabled
+  }
+  if (!is.null(visible)) {
+    msg$popVisible <- visible
+  }
   .el_send_update(session, msg)
   invisible(NULL)
 }
-
-
