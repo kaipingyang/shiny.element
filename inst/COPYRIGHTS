@@ -1,40 +1,14 @@
 The R code in this package is copyright Kaiping Yang and released under the
 MIT licence, as stated in DESCRIPTION and LICENSE.
 
-inst/element-ui/ contains an unmodified copy of Element UI 2.15.14
-(index.js, its locales, theme-chalk/index.css and display.css, and the
-element-icons fonts), bundled so the
-package works without fetching anything at runtime.
+inst/element-plus/ contains unmodified copies of Element Plus 2.14.7
+(dist/index.full.min.js, its 67 locales under locale/, and theme-chalk's
+index.css, display.css and dark/css-vars.css) and of @element-plus/icons-vue
+2.3.2 (dist/index.iife.min.js), bundled so the package works without
+fetching anything at runtime. Both are copyright the Element Plus team and
+released under the MIT licence; see inst/element-plus/LICENSE and
+inst/element-plus/icons-vue.LICENSE.
 
-inst/element-ui/theme-chalk-src.tar.gz contains Element UI 2.15.14's theme
-Sass sources (packages/theme-chalk/src, without the fonts), from which a themed
-stylesheet is compiled. Two mixins in mixins/mixins.scss, m() and e(), are
-rewritten to build their selector lists without a trailing comma, which
-crashes the libsass the sass package uses; the selectors they produce are
-the same. Otherwise the files are unmodified.
-
-Both are copyright ElemeFE and released under the MIT licence:
-
-  Copyright (c) 2016-present ElemeFE
-
-  Permission is hereby granted, free of charge, to any person obtaining a copy
-  of this software and associated documentation files (the "Software"), to deal
-  in the Software without restriction, including without limitation the rights
-  to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-  copies of the Software, and to permit persons to whom the Software is
-  furnished to do so, subject to the following conditions:
-
-  The above copyright notice and this permission notice shall be included in
-  all copies or substantial portions of the Software.
-
-  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-  THE SOFTWARE.
-
-inst/vue/ contains an unmodified copy of Vue 2.7.14 (vue.js and vue.min.js),
-the version Element UI 2 runs on. It is copyright Yuxi (Evan) You and released
-under the MIT licence; the licence text is in inst/vue/LICENSE.
+inst/vue3/ contains an unmodified copy of Vue 3.5.43
+(dist/vue.global.prod.js), copyright Yuxi (Evan) You and released under the
+MIT licence; see inst/vue3/LICENSE.

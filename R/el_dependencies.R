@@ -12,11 +12,11 @@
 #' @param layout_css Element's layout CSS, [el_layout_css_dependency()];
 #'   `NULL` leaves it out.
 #' @param offline Serve Element UI from the copy bundled with this package
-#'   rather than the unpkg CDN. See [element_ui_dependency()].
+#'   rather than the unpkg CDN. See [element_plus_dependency()].
 #' @param dev Load the development build of Vue instead of `vue.min.js`, so
 #'   Vue's warnings are not stripped. Defaults to
 #'   `getOption("shiny.element.dev", FALSE)`.
-#' @param locale Language for Element UI's built-in text. English by default,
+#' @param locale Language for Element Plus's built-in text. English by default,
 #'   or `getOption("shiny.element.locale")` when set. See
 #'   [el_locale_dependency()].
 #' @param size,z_index Element's global config, as `Vue.use(Element, {size,
@@ -42,7 +42,7 @@ use_element <- function(theme = NULL, offline = TRUE,
                         layout_css = el_layout_css_dependency()) {
   deps <- c(
     list(.el_vue_dependency(dev = dev)),
-    element_ui_dependency(offline = offline),
+    element_plus_dependency(offline = offline),
     # the bridge and Element's side of it, which checks for raw el$ tags
     # left outside any component -- a page may hold nothing else
     .el_vue_dependencies(),
@@ -59,51 +59,55 @@ use_element <- function(theme = NULL, offline = TRUE,
   htmltools::tagList(deps)
 }
 
-#' Element UI Locale Dependency
+#' Element Plus Locale Dependency
 #'
-#' Element UI's own build defaults to Simplified Chinese for every
-#' component's built-in text -- a pagination control's total, a date picker's
-#' buttons, a select's placeholder, a table's empty message. Loading a locale
-#' file and calling `ELEMENT.locale()` switches all of it.
+#' Element Plus's own build is in English: a pagination control's total, a
+#' date picker's buttons, a select's placeholder, a table's empty message.
+#' Loading a locale file and handing it to Element Plus, as
+#' `app.use(ElementPlus, {locale})` does, switches all of it.
 #'
-#' [el_page()] and [use_element()] ask for English unless told otherwise, so
-#' a page built from this package's English documentation reads in English.
-#' All 59 of Element's locales are bundled; `el_locales()` lists them.
+#' All 67 of Element Plus's locales are bundled; `el_locales()` lists them.
+#' Codes are matched without regard to case, so Element UI's `"zh-CN"` is
+#' Element Plus's `"zh-cn"`.
 #'
-#' @param locale Language to switch to, such as `"en"`, `"fr"` or `"zh-TW"`.
-#'   `NULL` or `"zh-CN"` leaves Element's built-in Simplified Chinese.
+#' @param locale Language to switch to, such as `"fr"`, `"zh-cn"` or
+#'   `"pt-br"`. `NULL` or `"en"` leaves Element Plus's built-in English.
 #' @return A list of htmlDependency objects, or `NULL` for the built-in locale.
 #' @export
 #' @examples
 #' el_locales()
 #'
-#' # English is the default
+#' # English is Element Plus's own
 #' el_page(el_select("city", choices = c("Beijing", "Shanghai")))
 #'
-#' # Anything Element ships
+#' # Anything Element Plus ships
 #' el_page(locale = "ja", el_select("city", choices = c("Beijing", "Shanghai")))
 #'
 #' # Or set it for the whole session
-#' options(shiny.element.locale = "zh-CN")
+#' options(shiny.element.locale = "zh-cn")
 el_locale_dependency <- function(locale = NULL) {
-  if (is.null(locale) || identical(locale, "zh-CN")) return(NULL)
+  if (is.null(locale)) return(NULL)
   code <- tolower(locale)
+  if (identical(code, "en")) return(NULL)
   root <- system.file("element-plus", package = "shiny.element")
-  if (!file.exists(file.path(root, "locale", paste0(code, ".min.js")))) {
-    stop("No bundled locale '", locale, "'. Element ships these: ",
+  if (!file.exists(file.path(root, "dist", "locale", paste0(code, ".min.js")))) {
+    stop("No bundled locale '", locale, "'. Element Plus ships these: ",
          paste(el_locales(), collapse = ", "), ".", call. = FALSE)
   }
-  # The locale file defines ElementPlusLocale<Code>; every app is given it
-  global <- paste0("ElementPlusLocale", paste(vapply(strsplit(code, "-")[[1]], function(p)
-    paste0(toupper(substring(p, 1, 1)), substring(p, 2)), ""), collapse = ""))
+  # The file defines ElementPlusLocale<Code>: "pt-br" is ElementPlusLocalePtBr
+  parts <- strsplit(code, "-", fixed = TRUE)[[1]]
+  global <- paste0("ElementPlusLocale",
+                   paste0(toupper(substring(parts, 1, 1)), substring(parts, 2), collapse = ""))
   list(
     htmltools::htmlDependency(
       name      = paste0("element-plus-locale-", code),
       version   = "2.14.7",
       src       = root,
-      script    = paste0("locale/", code, ".min.js"),
+      script    = paste0("dist/locale/", code, ".min.js"),
       all_files = FALSE
     ),
+    # Every component is an app of its own, given the locale as it installs
+    # Element Plus; this hands it over. It runs after the locale file.
     htmltools::htmlDependency(
       name    = paste0("element-plus-locale-apply-", code),
       version = "2.14.7",
@@ -115,42 +119,41 @@ el_locale_dependency <- function(locale = NULL) {
   )
 }
 
-#' Element UI Dependency
+#' Element Plus Dependency
 #'
-#' @param offline Serve Element UI from the copy bundled with this package
+#' Element Plus's script and stylesheets -- its components, its dark mode
+#' variables and its display classes (`hidden-xs-only`, ...) -- and its icons,
+#' which are components registered on every app by name.
+#'
+#' @param offline Serve Element Plus from the copy bundled with this package
 #'   (the default) instead of the unpkg CDN. The bundled files are
 #'   byte-identical to the CDN's. A runtime CDN dependency leaves the page
 #'   blank on an intranet, offline, or whenever unpkg is unreachable, so the
 #'   local copy is the safer default; pass `FALSE` to trade that for a smaller
 #'   deployment bundle.
-#' @return An htmlDependency object for Element UI.
+#' @return A list of htmlDependency objects.
 #' @examples
-#' element_ui_dependency()
-#' element_ui_dependency(offline = FALSE)
+#' element_plus_dependency()
+#' element_plus_dependency(offline = FALSE)
 #' @export
-element_ui_dependency <- function(offline = TRUE) {
-  src <- if (offline) {
-    system.file("element-plus", package = "shiny.element")
-  } else {
-    c(href = "https://unpkg.com/element-plus@2.14.7/dist/")
-  }
-
+element_plus_dependency <- function(offline = TRUE) {
+  local <- system.file("element-plus", package = "shiny.element")
   list(
     htmltools::htmlDependency(
       name       = "element-plus",
       version    = "2.14.7",
-      src        = src,
-      script     = if (offline) "index.full.min.js" else "index.full.min.js",
-      stylesheet = if (offline) c("theme-chalk/index.css", "theme-chalk/dark/css-vars.css")
-                   else "index.css",
-      all_files  = FALSE
+      src        = if (offline) local else c(href = "https://unpkg.com/element-plus@2.14.7/"),
+      script     = "dist/index.full.min.js",
+      stylesheet = c("theme-chalk/index.css", "theme-chalk/dark/css-vars.css",
+                     "theme-chalk/display.css"),
+      all_files  = FALSE,
+      head       = .el_css_fixes()
     ),
-    # Icons are components in Element Plus, registered on every app by name
     htmltools::htmlDependency(
       name    = "element-plus-icons",
       version = "2.3.2",
-      src     = system.file("element-plus", package = "shiny.element"),
-      script  = "icons-vue.iife.min.js",
+      src     = if (offline) local else c(href = "https://unpkg.com/@element-plus/icons-vue@2.3.2/dist/"),
+      script  = if (offline) "icons-vue.iife.min.js" else "index.iife.min.js",
       all_files = FALSE
     )
   )
@@ -160,21 +163,13 @@ element_ui_dependency <- function(offline = TRUE) {
 #' Corrections to Element's own stylesheet
 #'
 #' Carried in the dependency's `head`, so they apply whether Element is
-#' served from the package or from the CDN.
+#' served from the package or from the CDN. None are needed for Element
+#' Plus 2.14.7; the hook stays for the next one.
 #'
-#' * 2.15 gave every table cell `.el-table .el-table__cell { padding: 12px
-#'   0 }`. It outranks the expanded row's `.el-table__expanded-cell[class*=cell]
-#'   { padding: 20px 50px }` -- the same specificity, later in the file -- so
-#'   an expanded row's content sat flush against the table's edge.
-#'
-#' @return A `<style>` element, as text.
+#' @return A `<style>` element, as text, or `NULL`.
 #' @keywords internal
 .el_css_fixes <- function() {
-  paste0(
-    "<style>",
-    ".el-table .el-table__expanded-cell[class*=cell]{padding:20px 50px}",
-    "</style>"
-  )
+  NULL
 }
 
 #' Element UI Layout CSS Dependency
@@ -245,7 +240,7 @@ el_feedback_dependency <- function() {
 #' @examples
 #' el_locales()
 el_locales <- function() {
-  root <- system.file("element-plus", "locale", package = "shiny.element")
+  root <- system.file("element-plus", "dist", "locale", package = "shiny.element")
   sort(sub("[.]min[.]js$", "", list.files(root, pattern = "[.]min[.]js$")))
 }
 

@@ -20,7 +20,7 @@
 #'   set has to be declared here -- Vue does not track one that is not.
 #' @param methods,watch,mounted,computed Vue options, included when not `NULL`.
 #' @param dependency htmlDependency objects to attach. Outside this package
-#'   pass [element_ui_dependency()], unless the page already loads it through
+#'   pass [element_plus_dependency()], unless the page already loads it through
 #'   [el_page()] or [use_element()].
 #' @param head Tags to place before the host, such as a `<style>` block.
 #' @param slots Named list of slot contents, one entry per Element slot:

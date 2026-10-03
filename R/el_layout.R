@@ -179,7 +179,7 @@ el_col <- function(..., span = 24, offset = NULL, push = NULL, pull = NULL,
 #' @param theme_css Element's layout CSS, [el_layout_css_dependency()];
 #'   `NULL` leaves it out.
 #' @param offline Serve Element UI from the copy bundled with this package
-#'   rather than the unpkg CDN. See [element_ui_dependency()].
+#'   rather than the unpkg CDN. See [element_plus_dependency()].
 #' @param locale Language for Element UI's built-in text -- pagination
 #'   summaries, date-picker buttons, select placeholders. English by default,
 #'   or `getOption("shiny.element.locale")` when set; `"zh-CN"` gives Element's
@@ -221,7 +221,7 @@ el_page <- function(
 ) {
   deps <- c(
     list(.el_vue_dependency(dev = dev)),
-    element_ui_dependency(offline = offline),
+    element_plus_dependency(offline = offline),
     # the bridge and Element's side of it, which checks for raw el$ tags
     # left outside any component -- a page may hold nothing else
     .el_vue_dependencies(),

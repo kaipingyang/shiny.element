@@ -1,17 +1,17 @@
 Package: shiny.element
-Title: 'Element UI' Components for 'Shiny'
+Title: 'Element Plus' Components for 'Shiny'
 Version: 0.1.0
 Authors@R: c(
     person("Kaiping Yang", role = c("aut", "cre"), email = "1260146556@qq.com"),
-    person("ElemeFE", role = c("ctb", "cph"),
-           comment = "Element UI library bundled in inst/element-ui, MIT licence"),
+    person("Element Plus team", role = c("ctb", "cph"),
+           comment = "Element Plus and its icons, bundled in inst/element-plus, MIT licence"),
     person("Evan You", role = c("ctb", "cph"),
-           comment = "Vue library bundled in inst/vue, MIT licence")
+           comment = "Vue library bundled in inst/vue3, MIT licence")
   )
-Description: 'Element UI' ('Vue' 2) components for 'Shiny': forms, tables,
+Description: 'Element Plus' ('Vue' 3) components for 'Shiny': forms, tables,
     trees, menus, dialogs and the rest, each reporting to the server and
-    updated from it like any other 'Shiny' input. 'Element UI' and 'Vue' are
-    bundled, so applications work offline.
+    updated from it like any other 'Shiny' input. 'Element Plus' and 'Vue'
+    are bundled, so applications work offline.
 License: MIT + file LICENSE
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
@@ -25,8 +25,7 @@ Imports:
     bslib,
     grDevices,
     utils,
-    jquerylib,
-    sass
+    jquerylib
 Suggests:
     testthat (>= 3.0.0),
     shinyjs,

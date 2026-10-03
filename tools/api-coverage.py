@@ -1,82 +1,95 @@
 #!/usr/bin/env python3
-"""Measure how much of upstream Element UI's documented API this package exposes.
+"""Measure how much of upstream Element Plus's documented API this package exposes.
 
-Needs the upstream sources, which are not in the repo (see .gitignore):
+Needs the upstream sources, which are not in the repo (see .gitignore and
+.upstream/README.md):
 
-    mkdir -p .upstream && cd .upstream
-    curl -sL https://github.com/ElemeFE/element/archive/refs/tags/v2.15.14.tar.gz | tar xz
-    mv element-2.15.14 element
+    git clone --depth 1 --branch 2.14.7 https://github.com/element-plus/element-plus .upstream/element-plus
 
 and a snapshot of what we render, written by tools/api-coverage.R:
 
     Rscript tools/api-coverage.R
 
-Then:
+Then (Python from the project venv, ~/claude_code/bin/python):
 
-    python3 tools/api-coverage.py [--missing el_table]
+    python tools/api-coverage.py [--missing el_table | --gaps]
 
-The baseline is the API tables in the upstream docs, not the props found in
-the minified bundle: the bundle hides props behind mixins, and the docs are
-what upstream actually promises.
+The baseline is the API tables in the upstream docs
+(docs/en-US/component/*.md): what upstream actually promises.
 """
 import sys, os
 
-if not os.path.isdir(".upstream/element/examples/docs/en-US"):
+DOCS = ".upstream/element-plus/docs/en-US/component"
+if not os.path.isdir(DOCS):
     sys.exit("upstream sources missing -- see the header of this file")
 if not os.path.exists("/tmp/elapi/ours.json"):
     sys.exit("run Rscript tools/api-coverage.R first")
 
-import re, json, os, glob
+import re, json, glob
 
-DOCS = ".upstream/element/examples/docs/en-US"
+# Section titles that document a component's API, and what they hold.
+# "Exposes" are the component's instance: its functions are what el_call()
+# can call (Methods); the rest are refs and values.
+KINDS = (("Attributes", "Attributes"), ("Attribute", "Attributes"), ("Options", "Attributes"),
+         ("Events", "Events"), ("Event", "Events"), ("Exposes", "Methods"),
+         ("Slots", "Slot"), ("Slot", "Slot"))
+# Tables that are not one component's props: a prop's own fields, type
+# declarations, ConfigProvider's per-component settings
+SKIP_TITLE = re.compile(r"(Options attribute|Declarations|Types?$|Configurations|value-key|"
+                        r"Tab-bar|Tab-nav)", re.I)
+# ConfigProvider documents each component's settings under that component's
+# name; only its own table is its API
+CONFIG_OWN = re.compile(r"^(Config Provider )?(Attributes|Slots)$")
+
+def clean(cell):
+    cell = re.sub(r"\^\([^)]*\)", "", cell)            # ^(2.2.0) version marks
+    return cell.strip()
 
 def parse(path):
     lines = open(path, encoding="utf-8", errors="replace").read().split("\n")
-    out, cur = {}, None
-    for i, ln in enumerate(lines):
+    out, cur, comp = {}, None, os.path.basename(path)[:-3]
+    for ln in lines:
         h = re.match(r'^#{2,4}\s+(.+?)\s*$', ln)
         if h:
-            title = h.group(1)
+            title = clean(h.group(1))
             kind = None
-            # Services document their arguments as "Options" (Message,
-            # Notification, MessageBox, Loading); they are attributes here.
-            for k, norm in (("Options","Attributes"), ("Attributes","Attributes"), ("Attribute","Attributes"),
-                            ("Events","Events"), ("Event","Events"),
-                            ("Methods","Methods"), ("Method","Methods"),
-                            ("Scoped Slot","Slot"), ("Slots","Slot"), ("Slot","Slot")):
-                if title.endswith(k) or f" {k} " in f" {title} ":
+            for k, norm in KINDS:
+                if title == k or title.endswith(" " + k):
                     kind = norm
                     break
-            # "Picker Options", "Time Select Options": the fields of one
-            # argument (picker_options = list(...)), not props of a component
-            if kind and title.endswith("Options") and title.strip() != "Options":
+            if kind and SKIP_TITLE.search(title):
+                kind = None
+            if kind and comp == "config-provider" and not CONFIG_OWN.match(title):
+                kind = None
+            # Options belong to services only (message, notification, ...)
+            if kind == "Attributes" and title.endswith("Options") and \
+                    comp not in ("message", "notification", "message-box", "loading"):
                 kind = None
             cur = (title, kind) if kind else None
             continue
-        # Some tables are written without leading/trailing pipes
         if cur and ln.count("|") >= 2 and not re.match(r'^[\s:\-|]+$', ln):
-            cells = [c.strip() for c in ln.strip().strip("|").split("|")]
+            cells = [c.strip() for c in re.split(r'(?<!\\)\|', ln.strip().strip("|"))]
             if not cells or not cells[0]: continue
-            # Header row: a header word in the first column and "Description"
-            # in the second. Checking the second alone dropped el-empty's
-            # `description` prop, whose own description is "description".
-            if (len(cells) > 1 and cells[1].strip().lower() in ("description", "desc")
-                    and re.match(r'^(attribute|attributes|name|event|method|slot|param|parameter|option)s?(\s+name)?$',
-                                 cells[0].strip("`*_ ").lower())):
-                continue
-            name = cells[0].strip("`*_ ")
-            # "value / v-model" documents one prop under two spellings
+            name = clean(cells[0]).strip("`*_ ")
+            # "model-value / v-model" documents one prop under two spellings
             name = name.split("/")[0].strip().strip("`*_ ")
-            if re.match(r'^(attribute|event|method|slot|parameter|param)s?(\s+name)?$', name, re.I): continue
+            if name.lower() in ("name", "attribute", "event", "method", "slot", "option", "property"): continue
             if not re.match(r'^[a-zA-Z][\w:.-]*$', name): continue
             title, kind = cur
+            typ = cells[2] if len(cells) > 2 else ""
+            # An exposed value or ref is not something to call
+            if kind == "Methods" and "Function" not in typ and "=>" not in typ:
+                continue
+            # v-model's plumbing, not an event of its own
+            if kind == "Events" and name.startswith("update:"):
+                continue
             out.setdefault(title, {"kind": kind, "items": []})
             out[title]["items"].append({
                 "name": name,
                 "desc": cells[1] if len(cells) > 1 else "",
-                "type": cells[2] if len(cells) > 2 else "",
-                "accepted": cells[3] if len(cells) > 4 else "",
-                "default": cells[4] if len(cells) > 4 else "",
+                "type": typ,
+                "accepted": "",
+                "default": cells[3] if len(cells) > 3 and kind == "Attributes" else "",
             })
     return out
 
@@ -109,17 +122,21 @@ EXCLUDED = {
     ("el-checkbox", "value"): "the group owns the value through v-model; a child's own value is unused inside one",
     ("el-radio", "value"): "the group owns the value through v-model; a child's own value is unused inside one",
 }
-SPECIAL = {"submenu": "el-submenu", "menu-group": "el-menu-item-group"}
+# Section names that are not the tag's
+SPECIAL = {"submenu": "el-sub-menu", "own": None, "transfer-panel": "el-transfer-panel",
+           "config-provider": "el-config-provider", "countdown": "el-countdown"}
 
 def section_tag(fileslug, title):
-    """'Table-column Attributes' -> el-table-column ; 'Attributes' -> el-<file>"""
-    base = re.sub(r'\s*(Attributes?|Events?|Methods?|Scoped Slot|Slots?|Options)\s*$', '', title).strip()
-    if not base:
+    """'ButtonGroup Attributes' -> el-button-group ; 'Attributes' -> el-<file>"""
+    base = re.sub(r'\s*(Attributes?|Events?|Exposes|Slots?|Options)\s*$', '', title).strip()
+    if not base or base.lower() == "own":
         base = fileslug
-    slug = re.sub(r'(?<!^)(?=[A-Z])', '-', base).lower()
+    slug = re.sub(r'(?<=[a-z0-9])(?=[A-Z])', '-', base).lower()   # ButtonGroup -> button-group
+    slug = re.sub(r'(?<=[a-z])(?=v2$)', '-', slug)                 # TableV2 -> table-v2
     slug = re.sub(r'[\s_]+', '-', slug).strip('-')
     slug = re.sub(r'-+', '-', slug)
-    return SPECIAL.get(slug, "el-" + slug)
+    if slug in SPECIAL and SPECIAL[slug]: return SPECIAL[slug]
+    return "el-" + slug
 
 # 上游：tag -> {kind -> [names]}
 up = {}
@@ -141,11 +158,7 @@ def _merge(into, frm):
     for k, v in up.pop(frm).items():
         have = up.setdefault(into, {}).setdefault(k, [])
         have.extend(x for x in v if x not in have)
-_merge("el-submenu", "el-sub-menu")
-_merge("el-dropdown-item", "el-dropdown-menu-item")
 _merge("el-date-picker", "el-datetime-picker")      # type = "datetime"
-_merge("el-statistic", "el-statistic.-countdown")   # time-indices
-up.pop("el-date-cell-scoped-slot-parameters", None) # a doc table, not a tag
 
 def camel(a):
     a = a.lstrip(":@").split(".")[0]
