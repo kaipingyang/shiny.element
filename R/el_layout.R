@@ -223,8 +223,8 @@ el_col <- function(
 #'   summaries, date-picker buttons, select placeholders. English by default,
 #'   or `getOption("shiny.element.locale")` when set; `"zh-CN"` gives Element's
 #'   own Simplified Chinese. See [el_locales()] for the rest.
-#' @param dev Load the development build of Vue instead of `vue.min.js`.
-#'   The production build strips every warning, which is why a template that
+#' @param dev Load Vue's development build (`vue.global.js`) instead of the
+#'   production one. The production build strips every warning, which is why a template that
 #'   fails to compile renders nothing and says nothing. Defaults to
 #'   `getOption("shiny.element.dev", FALSE)`, so it can be turned on for a
 #'   whole session without touching the UI code.

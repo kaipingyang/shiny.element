@@ -90,9 +90,46 @@ server <- function(input, output, session) {
 }
 shinyApp(ui, server)
 
-## use-vnode !skip
-A VNode is a Vue render function's; from R, send the message as HTML with
-`dangerously_use_html_string = TRUE`.
+## use-vnode
+#' A message can be a VNode, given as `JS()` code calling `Vue.h()`; one
+#' whose props change is a function returning it.
+#| shot_js = "document.querySelector('#open_container button').click()", shot_sel = ".el-notification", shot_wait = 1
+ui <- el_page(
+  el_button("open", "Common VNode", plain = TRUE),
+  el_button("open1", "Dynamic props", plain = TRUE)
+)
+server <- function(input, output, session) {
+  observeEvent(input$open, {
+    el_notification(
+      session,
+      title = "Use Vnode",
+      message = JS(
+        "Vue.h('p', null, [
+          Vue.h('span', null, 'Message can be '),
+          Vue.h('i', { style: 'color: teal' }, 'VNode')
+        ])"
+      )
+    )
+  })
+  observeEvent(input$open1, {
+    el_notification(
+      session,
+      title = "Use Vnode",
+      message = JS(
+        "(function() {
+          var checked = Vue.ref(false);
+          return function() {
+            return Vue.h(ElementPlus.ElSwitch, {
+              modelValue: checked.value,
+              'onUpdate:modelValue': function(v) { checked.value = v; }
+            });
+          };
+        })()"
+      )
+    )
+  })
+}
+shinyApp(ui, server)
 
 ## progress-bar
 #| shot_js = "document.querySelector('#show_container button').click()", shot_sel = ".el-notification", shot_wait = 1

@@ -212,10 +212,38 @@ tags$div(
 
 Sometimes we want to render the dropdown on some other trigger element, we can separate the trigger and the content.
 
-> **In R**
->
-> Element Plus's virtual trigger takes a DOM element from the page's own
-> script; in R, put the trigger in `trigger_label` instead.
+`virtual_ref` is a CSS selector for the element the menu opens from, here
+a card: right-click it. Upstream also moves the menu to the pointer, from
+its own script; here it opens at the card's corner.
+
+```{r virtual-trigger, eval = FALSE, shot = TRUE, shot_js = "var c = document.querySelector('#ctx-card .el-card'); c.dispatchEvent(new MouseEvent('contextmenu', {bubbles: true, clientX: 20, clientY: 20}));", shot_sel = ".el-popper", shot_wait = 1}
+tagList(
+  tags$div(
+    id = "ctx-card",
+    el_card(
+      tags$div(
+        style = "height: 160px; display: flex; align-items: center;
+          justify-content: center",
+        "Right click"
+      )
+    )
+  ),
+  el_dropdown(
+    "vdd",
+    virtual_ref = "#ctx-card .el-card",
+    trigger = "contextmenu",
+    placement = "bottom-start",
+    show_arrow = FALSE,
+    items = list(
+      list(command = "a1", label = "Action 1", icon = "Plus"),
+      list(command = "a2", label = "Action 2", icon = "CirclePlusFilled"),
+      list(command = "a3", label = "Action 3", icon = "CirclePlus"),
+      list(command = "a4", label = "Action 4", icon = "Check"),
+      list(command = "a5", label = "Action 5", icon = "CircleCheck")
+    )
+  )
+)
+```
 
 ## API
 

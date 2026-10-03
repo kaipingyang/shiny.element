@@ -7,7 +7,9 @@
 #' directory. The browser names it here and it is removed: dropped from the
 #' session's upload jobs and its directory deleted. Shiny offers no public
 #' way to do this, so the session's upload context is reached into; should
-#' that change, the job is left as before, to go when the session does.
+#' that change, the job is left as before, to go when the session does, and
+#' a warning says so once per session. `test-el_upload.R` checks that the
+#' installed Shiny still has every internal used here.
 #'
 #' @param job_id The job's id, from `uploadInit`.
 #' @param session The Shiny session the job belongs to.
@@ -17,9 +19,31 @@
   if (!is.character(job_id) || length(job_id) != 1L || !nzchar(job_id)) {
     return(invisible(FALSE))
   }
+  ctx <- tryCatch(
+    session$.__enclos_env__$private$fileUploadContext,
+    error = function(e) NULL
+  )
+  usable <- is.environment(ctx) &&
+    is.function(ctx$getUploadOperation) &&
+    is.function(ctx$onJobFinished)
+  if (!usable) {
+    # A real session without them: Shiny's internals have moved
+    if (inherits(session, "ShinySession") && is.environment(session$userData)) {
+      if (!isTRUE(session$userData$.el_upload_warned)) {
+        session$userData$.el_upload_warned <- TRUE
+        warning(
+          "shiny.element could not release an interrupted upload: shiny ",
+          as.character(utils::packageVersion("shiny")),
+          " no longer has the internals it uses. The partial upload stays ",
+          "until the session ends.",
+          call. = FALSE
+        )
+      }
+    }
+    return(invisible(FALSE))
+  }
   done <- tryCatch(
     {
-      ctx <- session$.__enclos_env__$private$fileUploadContext
       op <- ctx$getUploadOperation(job_id)
       if (is.null(op)) {
         FALSE
@@ -193,10 +217,9 @@
 #' @param disabled Disable the control.
 #' @param name Field name Element posts the file under. Only meaningful with
 #'   `action`, where it names the multipart field; it defaults to `"file"`
-#'   there. Without `action` a unique name is used instead, because Shiny's
-#'   own file-input binding claims every `input[type=file]` on the page and
-#'   keys them by name -- two uploads both called "file" make it report a
-#'   duplicate input id.
+#'   there. Without `action` the field has no name: Shiny's own file-input
+#'   binding claims every `input[type=file]` on the page that has an id or a
+#'   name, and would add an `input$<name>` of its own beside `input$<id>`.
 #' @param tip Help text shown under the control.
 #' @param action Post to this URL using Element's own upload instead of
 #'   Shiny's channel. See details.
@@ -336,14 +359,14 @@ el_upload <- function(
 
   via_shiny <- is.null(action)
 
-  # Shiny's fileInputBinding matches every input[type=file] and identifies it
-  # by id or name, so several uploads sharing Element's default "file" trip
-  # its duplicate-id warning. The field name is unused when we do the
-  # transport ourselves, so it can safely be made unique there.
+  # Shiny's fileInputBinding matches every input[type=file] and binds one
+  # with an id or a name as an input of its own -- input$<id>_elfile once
+  # stood beside input$<id>. The field name is unused when we do the
+  # transport ourselves, so there it is empty and Shiny passes it over.
   field_name <- if (!is.null(name)) {
     name
   } else if (via_shiny) {
-    paste0(ns_id, "_elfile")
+    ""
   } else {
     "file"
   }

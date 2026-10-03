@@ -1,4 +1,4 @@
-# Snapshot which Element UI attributes and events each component renders.
+# Snapshot which Element Plus attributes and events each component renders.
 #
 # Components are rendered with their defaults and the resulting markup is read
 # back, so this records what the package actually emits rather than what the
@@ -236,8 +236,14 @@ slot_names <- list(
 # a component passing slots = through to its markup fills them all
 upstream_slots <- local({
   path <- "/tmp/elapi/docs.json"
-  if (!file.exists(path)) {
-    return(list())
+  docs_dir <- ".upstream/element-plus/docs/en-US/component"
+  # Without the parsed docs every upstream-only slot goes unprobed and reads
+  # as missing (150/233 instead of 233/233), so refuse rather than undercount.
+  if (!file.exists(path) || file.mtime(path) < file.mtime(docs_dir)) {
+    stop(
+      "Parse the upstream docs first: python tools/api-coverage.py --docs",
+      call. = FALSE
+    )
   }
   docs <- jsonlite::read_json(path)
   found <- list()

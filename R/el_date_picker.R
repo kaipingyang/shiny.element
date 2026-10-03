@@ -243,8 +243,9 @@ el_date_picker <- function(
   picker_attrs[[":prefix-icon"]] <- .el_optional_bind("prefixIcon")
   picker_attrs[[":clear-icon"]] <- .el_optional_bind("clearIcon")
   picker_attrs[[":popper-class"]] <- .el_optional_bind("popperClass")
-  picker_attrs[[":default-value"]] <- .el_optional_bind("defaultValue")
-  picker_attrs[[":default-time"]] <- .el_optional_bind("defaultTime")
+  # Dates in Element Plus, text from R: $elDate (el-events.js) converts
+  picker_attrs[[":default-value"]] <- "$elDate(defaultValue)"
+  picker_attrs[[":default-time"]] <- "$elDate(defaultTime)"
   picker_attrs[[":unlink-panels"]] <- .el_optional_bind("unlinkPanels")
   picker_attrs[[":validate-event"]] <- .el_optional_bind("validateEvent")
 

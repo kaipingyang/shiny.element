@@ -19,6 +19,8 @@ el_popconfirm(
   hide_after = NULL,
   persistent = NULL,
   teleported = NULL,
+  popconfirm_width = NULL,
+  ...,
   width = NULL,
   slots = NULL,
   session = NULL,
@@ -57,6 +59,13 @@ popconfirm will be destroyed. Element Plus's \code{persistent} (boolean).}
 
 \item{teleported}{Whether popconfirm is teleported to the body. Element
 Plus's \code{teleported} (boolean).}
+
+\item{popconfirm_width}{Width of the prompt: pixels, or a CSS width; at
+least 150px. Element Plus's \code{width}, named apart from \code{width} (the
+component's own box) as \code{\link[=el_popover]{el_popover()}}'s \code{popover_width} is.}
+
+\item{...}{Any other attribute of Element Plus's tooltip, which the popconfirm
+inherits, in snake_case: \code{enterable = FALSE}, \code{offset = 20}.}
 
 \item{width}{Component width, as a CSS unit.}
 

@@ -30,6 +30,28 @@ ui <- el_page(
     )
   ),
   el_drawer("drw", title = "Drawer", content = "drawer body"),
+  # focus trap: two controls inside, one outside
+  actionButton("outside_btn", "outside"),
+  el_dialog(
+    "trap",
+    title = "Trap",
+    content = tagList(
+      tags$input(id = "trap_a"),
+      tags$button(id = "trap_b", "b")
+    )
+  ),
+  el_dialog("race", title = "Race", content = "race"),
+  el_tabs(
+    "tabs2",
+    addable = TRUE,
+    closable = TRUE,
+    tabs = list(
+      list(name = "a", label = "A", content = "a"),
+      list(name = "b", label = "B", content = "b", disabled = TRUE),
+      list(name = "c", label = "C", content = "c")
+    ),
+    selected = "a"
+  ),
   tags$div(
     style = "width: 420px",
     el_tabs("tabs", tabs = many_tabs, selected = "t1")
@@ -63,6 +85,8 @@ server <- function(input, output, session) {
     cat("col =", paste(input$col, collapse = ","), "\n")
     cat("drw =", format(input$drw), "\n")
     cat("outer_opened =", opened(), "\n")
+    cat("tabs2 =", format(input$tabs2), "\n")
+    cat("tabs2_add =", format(input$tabs2_tab_add), "\n")
   })
 }
 

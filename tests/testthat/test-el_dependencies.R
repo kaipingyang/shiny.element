@@ -97,6 +97,36 @@ test_that("Vue 3 is bundled, the global build with the template compiler", {
   )
 })
 
+test_that("dev = TRUE loads Vue's development build, and it wins", {
+  prod <- .el_vue_dependency(dev = FALSE)
+  dev <- .el_vue_dependency(dev = TRUE)
+  expect_equal(prod$script, "vue.global.prod.js")
+  expect_equal(dev$script, "vue.global.js")
+  for (dep in list(prod, dev)) {
+    path <- system.file(dep$src$file, dep$script, package = "shiny.element")
+    expect_true(file.exists(path), info = dep$script)
+    expect_match(readLines(path, n = 2)[2], "vue v3.5.43", fixed = TRUE)
+  }
+  # the development build keeps Vue's warnings
+  path <- system.file("vue3", "vue.global.js", package = "shiny.element")
+  expect_match(
+    paste(readLines(path, warn = FALSE), collapse = "\n"),
+    "[Vue warn]",
+    fixed = TRUE
+  )
+  # a page with both keeps the development one
+  kept <- htmltools::resolveDependencies(list(prod, dev, prod))
+  expect_length(kept, 1)
+  expect_equal(kept[[1]]$script, "vue.global.js")
+
+  deps <- htmltools::resolveDependencies(
+    htmltools::findDependencies(el_page(dev = TRUE, el_input("x")))
+  )
+  vue <- Filter(function(d) d$name == "vue", deps)
+  expect_length(vue, 1)
+  expect_equal(vue[[1]]$script, "vue.global.js")
+})
+
 test_that("every script a component brings resolves to a file", {
   for (dep in .el_vue_dependencies()) {
     # jQuery comes from jquerylib, its src relative to that package

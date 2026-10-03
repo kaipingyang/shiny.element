@@ -9,7 +9,8 @@ update_el_tooltip(
   id,
   content = NULL,
   disabled = NULL,
-  visible = NULL
+  visible = NULL,
+  virtual_ref = NULL
 )
 }
 \arguments{
@@ -19,6 +20,9 @@ update_el_tooltip(
 \item{id}{Tooltip ID (un-namespaced).}
 
 \item{content, disabled, visible}{New values; \code{NULL} leaves one unchanged.}
+
+\item{virtual_ref}{A new CSS selector for the element the tooltip is
+attached to, as in \code{\link[=el_tooltip]{el_tooltip()}}.}
 }
 \value{
 Called for its side effect; returns \code{NULL} invisibly.

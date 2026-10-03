@@ -19,6 +19,9 @@
 #'   label =, leaf = TRUE)`; for a cascader, options such as `list(value =,
 #'   label =, leaf = TRUE)`; for a table, rows, as a data.frame or a list.
 #'   An empty list means there is nothing below.
+#' @param reject `TRUE` to answer that the load failed, Element Plus's
+#'   `reject()`: a tree node stops spinning and can be loaded again when it
+#'   is next expanded. A cascader or table takes it as nothing below.
 #'
 #' @return Called for its side effect; returns `NULL` invisibly.
 #' @examples
@@ -51,7 +54,8 @@ el_load_children <- function(
   session = shiny::getDefaultReactiveDomain(),
   id,
   request,
-  children = list()
+  children = list(),
+  reject = FALSE
 ) {
   .el_check_session(session)
   number <- if (is.list(request)) request$request else request
@@ -70,10 +74,14 @@ el_load_children <- function(
     session,
     list(
       id = session$ns(id),
-      .resolve = list(
-        request = number,
-        value = if (length(children)) children else list()
-      )
+      .resolve = if (isTRUE(reject)) {
+        list(request = number, failed = TRUE)
+      } else {
+        list(
+          request = number,
+          value = if (length(children)) children else list()
+        )
+      }
     )
   )
   invisible(NULL)
@@ -100,7 +108,8 @@ el_load_children <- function(
       "  return Object.assign({}, p, {lazyLoad: function(node, resolve) {\n",
       "    window.shinyVue.ask('%s_lazy_load', {level: node.level,\n",
       "      value: node.level ? node.value : null, path: node.level ? node.pathValues : []}, vm)\n",
-      "      .then(function(children) { resolve(children || []); });\n",
+      "      .then(function(children) { resolve(children || []); },\n",
+      "            function() { resolve([]); });\n",
       "  }});\n",
       "}"
     ),
@@ -122,11 +131,12 @@ el_load_children <- function(
     kind,
     tree = sprintf(
       paste0(
-        "function(node, resolve) {\n",
+        "function(node, resolve, reject) {\n",
         "  var key = node.level && this.nodeKey ? node.data[this.nodeKey] : null;\n",
         "  window.shinyVue.ask('%s_load', {level: node.level, key: key,\n",
         "      data: node.level ? node.data : null}, this)\n",
-        "    .then(function(children) { resolve(children || []); });\n",
+        "    .then(function(children) { resolve(children || []); },\n",
+        "          function() { if (reject) reject(); else resolve([]); });\n",
         "}"
       ),
       ns_id
@@ -136,7 +146,8 @@ el_load_children <- function(
         "function(row, treeNode, resolve) {\n",
         "  var key = this.rowKey && typeof this.rowKey === 'string' ? row[this.rowKey] : null;\n",
         "  window.shinyVue.ask('%s_load', {key: key, row: row, level: treeNode ? treeNode.level : null}, this)\n",
-        "    .then(function(children) { resolve(children || []); });\n",
+        "    .then(function(children) { resolve(children || []); },\n",
+        "          function() { resolve([]); });\n",
         "}"
       ),
       ns_id

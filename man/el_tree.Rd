@@ -12,6 +12,7 @@ el_tree(
   children_field = "children",
   disabled_field = "disabled",
   is_leaf_field = "isLeaf",
+  class_field = NULL,
   show_checkbox = FALSE,
   check_strictly = FALSE,
   default_expand_all = FALSE,
@@ -66,6 +67,10 @@ children.}
 \item{is_leaf_field}{Field marking a node as a leaf, so lazy loading knows
 not to ask it for children. Default \code{"isLeaf"}. Element replaces its
 whole field map at once, so all four are sent together.}
+
+\item{class_field}{A node's own class: the field holding it, or a \code{\link[=JS]{JS()}}
+function of the node's data (and node) returning it, as Element Plus's
+\code{props.class}.}
 
 \item{show_checkbox}{Show a checkbox beside every node.}
 

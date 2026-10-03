@@ -103,12 +103,16 @@ el_calendar <- function(
   ns_id <- .el_ui_id(id, session)
   container_id <- paste0(ns_id, "_container")
 
+  # Element Plus's calendar takes and gives Date objects; the value stays a
+  # "YYYY-MM-DD" string here, as input$<id> reports it, read and written in
+  # local time so a day never shifts with the time zone.
   calendar_attrs <- list(
-    "v-model" = "value"
+    ":model-value" = "elDate(value)",
+    "@update:model-value" = "elPick"
   )
   # Bound unconditionally so update_el_calendar(range = ) can set it later; a
   # field left out of the Vue data is not reactive.
-  calendar_attrs[[":range"]] <- .el_optional_bind("range")
+  calendar_attrs[[":range"]] <- "range === null ? undefined : range.map(elDate)"
 
   # Element's own day cell is bare, so this is the default -- but it is only
   # a default: slots = list(`date-cell` = ...) replaces it.
@@ -158,6 +162,19 @@ el_calendar <- function(
     "
     )),
     data = vue_data,
+    methods = list(
+      elPick = JS("function(d) { this.value = this.elDay(d); }"),
+      elDate = JS(paste0(
+        "function(s) { if (!s || typeof s !== 'string') return s; ",
+        "var p = s.slice(0, 10).split('-'); ",
+        "return new Date(+p[0], +p[1] - 1, +p[2]); }"
+      )),
+      elDay = JS(paste0(
+        "function(d) { if (!(d instanceof Date)) return d; ",
+        "var pad = function(n) { return (n < 10 ? '0' : '') + n; }; ",
+        "return d.getFullYear() + '-' + pad(d.getMonth() + 1) + '-' + pad(d.getDate()); }"
+      ))
+    ),
     watch = list(
       value = JS(sprintf(
         "function(newVal) { window.Shiny && Shiny.setInputValue && Shiny.setInputValue('%s', newVal); }",

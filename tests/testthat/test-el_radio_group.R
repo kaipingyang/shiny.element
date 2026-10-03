@@ -146,12 +146,14 @@ test_that("el_radio_group: size written to Vue data when provided", {
   rg <- el_radio_group(
     "rg1",
     choices = c(A = "a"),
-    size = "mini",
+    size = "small",
     button = TRUE,
     session = NULL
   )
   html <- render_html(rg)
-  expect_match(html, '"size"\\s*:\\s*"mini"')
+  expect_match(html, '"size"\\s*:\\s*"small"')
+  # Element UI's "mini" is not an Element Plus size
+  expect_error(el_radio_group("rg2", choices = "a", size = "mini"), "size")
 })
 
 # ── update_el_radio_group ─────────────────────────────────────────────────────

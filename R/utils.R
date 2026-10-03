@@ -316,20 +316,22 @@
 #' Vue, as bundled with the package
 #'
 #' Vue 3, the global build with the template compiler, from `inst/vue3`:
-#' components are compiled in the browser from their x-template. `dev` is
-#' kept for the argument's sake; the production build is the only one
-#' bundled.
+#' components are compiled in the browser from their x-template. The
+#' development build keeps Vue's warnings (`[Vue warn]`), which the production
+#' build strips. It is versioned one step above the production build, so on a
+#' page holding both -- `el_page(dev = TRUE)` beside components that bring the
+#' default -- htmltools keeps the development one.
 #'
-#' @param dev Unused.
+#' @param dev Load `vue.global.js` rather than `vue.global.prod.js`.
 #' @return An htmlDependency object.
 #' @keywords internal
 .el_vue_dependency <- function(dev = getOption("shiny.element.dev", FALSE)) {
   htmltools::htmlDependency(
     name = "vue",
-    version = "3.5.43",
+    version = if (isTRUE(dev)) "3.5.43.1" else "3.5.43",
     src = "vue3",
     package = "shiny.element",
-    script = "vue.global.prod.js",
+    script = if (isTRUE(dev)) "vue.global.js" else "vue.global.prod.js",
     all_files = FALSE
   )
 }
@@ -703,12 +705,68 @@
   }
   kebab <- gsub("_", "-", names(values), fixed = TRUE)
   attrs <- stats::setNames(lapply(camel, .el_optional_bind), paste0(":", kebab))
+  # A picker's default value and time are Dates; from R they are text, made
+  # into Dates in the browser by $elDate (el-events.js)
+  for (k in which(names(values) %in% c("default_value", "default_time"))) {
+    attrs[[k]] <- sprintf("$elDate(%s)", camel[[k]])
+  }
+  # A virtual-ref is an element; from R it is a CSS selector, looked up in
+  # the browser by $elRef (el-events.js). Giving one turns on
+  # virtual-triggering, which Element Plus needs to use it.
+  vref <- which(names(values) == "virtual_ref")
+  if (length(vref)) {
+    attrs[[vref]] <- sprintf("$elRef(%s)", camel[[vref]])
+    vtrig <- which(names(values) == "virtual_triggering")
+    if (!is.null(values[[vref]]) && length(vtrig) && is.null(values[[vtrig]])) {
+      values[vtrig] <- list(TRUE)
+    }
+  }
+  # A prop Element Plus takes only as an array stays one when R gives a
+  # single value: jsonlite would write "1" for c(1), and a tree-v2 handed a
+  # string for its default-expanded-keys fails to mount
+  arrays <- names(values) %in% .el_array_props & vapply(values, is.atomic, TRUE)
+  values[arrays] <- lapply(values[arrays], function(v) {
+    if (is.null(v) || inherits(v, "JS_EVAL")) v else as.list(v)
+  })
   data <- stats::setNames(
     lapply(values, function(v) if (is.null(v)) NA else v),
     camel
   )
   list(attrs = attrs, data = data)
 }
+
+#' Props Element Plus takes only as arrays
+#'
+#' From its API tables: those typed `Array` with no string, number or boolean
+#' alternative. [.el_props()] keeps a length-one vector given for one of them
+#' an array.
+#'
+#' @keywords internal
+.el_array_props <- c(
+  "button_texts",
+  "colors",
+  "default_checked_keys",
+  "default_expanded_keys",
+  "default_openeds",
+  "empty_values",
+  "expand_row_keys",
+  "expanded_row_keys",
+  "default_expanded_row_keys",
+  "fallback_placements",
+  "filtered_value",
+  "gap",
+  "icons",
+  "left_default_checked",
+  "right_default_checked",
+  "page_sizes",
+  "predefine",
+  "preview_src_list",
+  "range",
+  "texts",
+  "titles",
+  "trigger_keys",
+  "url_list"
+)
 
 #' An icon, as Element Plus names it
 #'

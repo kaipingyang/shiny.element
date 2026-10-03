@@ -15,6 +15,11 @@
 #' @param icon Icon class shown beside the question.
 #' @param icon_color Colour of that icon.
 #' @param hide_icon Whether to leave the icon out. Default `FALSE`.
+#' @param popconfirm_width Width of the prompt: pixels, or a CSS width; at
+#'   least 150px. Element Plus's `width`, named apart from `width` (the
+#'   component's own box) as [el_popover()]'s `popover_width` is.
+#' @param ... Any other attribute of Element Plus's tooltip, which the popconfirm
+#'   inherits, in snake_case: `enterable = FALSE`, `offset = 20`.
 #' @param width Component width, as a CSS unit.
 #' @param effect Tooltip theme, built-in theme: `dark` / `light`. Element
 #'   Plus's `effect` ('dark' | 'light' / string).
@@ -81,6 +86,8 @@ el_popconfirm <- function(
   hide_after = NULL,
   persistent = NULL,
   teleported = NULL,
+  popconfirm_width = NULL,
+  ...,
   width = NULL,
   slots = NULL,
   session = NULL,
@@ -155,8 +162,11 @@ el_popconfirm <- function(
         hide_after = hide_after,
         persistent = persistent,
         teleported = teleported,
-        placement = placement
-      )
+        placement = placement,
+        popconfirm_width = popconfirm_width,
+        ...
+      ),
+      rename = c(popconfirm_width = "width")
     ),
     id = ns_id,
     markup = htmltools::tag("el-popconfirm", c(attrs, children)),

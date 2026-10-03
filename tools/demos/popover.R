@@ -38,9 +38,20 @@ tagList(lapply(c("hover", "click", "focus", "contextmenu"), function(t) {
   )
 }))
 
-## virtual-triggering !skip
-A virtual trigger is a DOM element the page's own script holds; in R, give
-the trigger as `reference`.
+## virtual-triggering
+#' `virtual_ref` is a CSS selector for the element that opens the popover,
+#' wherever it is on the page.
+#| shot_js = "document.querySelector('#shot button').click()", shot_sel = ".el-popper", shot_wait = 1
+tagList(
+  el_button("vp_btn", "Click me"),
+  el_popover(
+    "vp",
+    title = "With title",
+    content = "Some content",
+    trigger = "click",
+    virtual_ref = "#vp_btn"
+  )
+)
 
 ## nested-information
 #| shot_js = "document.querySelector('#shot button').click()", shot_sel = ".el-popper", shot_wait = 1
@@ -85,5 +96,7 @@ server <- function(input, output, session) {
 shinyApp(ui, server)
 
 ## directive-usage !skip
-Element Plus's `v-popover` directive is a template's; in R a popover is
-`el_popover()` around its reference.
+Element Plus's `v-popover` directive is template syntax on another
+component's element, and each component here is an application of its own,
+so it has no R form. `virtual_ref` does what it does -- see Virtual
+triggering above.

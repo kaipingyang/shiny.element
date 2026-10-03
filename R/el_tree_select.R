@@ -26,6 +26,11 @@
 #' @param size `"large"`, `"default"` or `"small"`.
 #' @param disabled Whether it can be changed.
 #' @param cache_data The nodes behind a value not yet loaded, for a lazy tree.
+#' @param lazy Whether child nodes are loaded on demand -- from the server,
+#'   which answers `input$<id>_load` with [el_load_children()], unless `load`
+#'   is given.
+#' @param load [JS()] function loading child nodes in the browser instead of
+#'   from the server. Needs `lazy = TRUE`.
 #' @param ... Any other prop of Element Plus's select or tree, in snake_case:
 #'   `max_collapse_tags = 2`, `expand_on_click_node = FALSE`.
 #' @inheritParams el_widget
@@ -34,6 +39,9 @@
 #'
 #' @section Shiny inputs:
 #' - `input$<id>` -- the selected value, or several, on load and on change.
+#' - `input$<id>_load` -- with `lazy = TRUE`, a node asking for its
+#'   children: `level`, `key` (its `node_key` field) and `data`. Answer with
+#'   [el_load_children()].
 #' - `input$<id>_visible_change`, `input$<id>_clear`, `input$<id>_remove_tag`,
 #'   `input$<id>_node_click`, `input$<id>_check` -- Element Plus's events.
 #'
@@ -78,6 +86,8 @@ el_tree_select <- function(
   size = NULL,
   disabled = NULL,
   cache_data = NULL,
+  lazy = NULL,
+  load = NULL,
   ...,
   label = NULL,
   label_position = c("top", "left", "right"),
@@ -119,7 +129,13 @@ el_tree_select <- function(
     markup = htmltools::tag(
       "el-tree-select",
       c(
-        list("v-model" = "value", ":data" = "data", "@change" = "handleChange"),
+        list(
+          "v-model" = "value",
+          ":data" = "data",
+          "@change" = "handleChange",
+          # the server loads a lazy tree's nodes unless `load` is given
+          ":load" = "load === null ? elLoad : load"
+        ),
         events$attrs
       )
     ),
@@ -140,14 +156,16 @@ el_tree_select <- function(
         collapse_tags_tooltip = collapse_tags_tooltip,
         size = size,
         disabled = disabled,
-        cache_data = cache_data
+        cache_data = cache_data,
+        lazy = lazy
       ),
       list(...)
     )),
-    data = list(value = value, data = data),
+    data = list(value = value, data = data, load = .el_or_na(load)),
     methods = c(
       events$methods,
       list(
+        elLoad = .el_lazy_load_method(ns_id, "tree"),
         handleChange = JS(sprintf(
           "function(v) { window.Shiny && Shiny.setInputValue && Shiny.setInputValue('%s', v); }",
           ns_id

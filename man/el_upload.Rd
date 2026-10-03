@@ -70,10 +70,9 @@ them, e.g. \code{".csv,.tsv"} or \code{"image/*"}.}
 
 \item{name}{Field name Element posts the file under. Only meaningful with
 \code{action}, where it names the multipart field; it defaults to \code{"file"}
-there. Without \code{action} a unique name is used instead, because Shiny's
-own file-input binding claims every \code{input[type=file]} on the page and
-keys them by name -- two uploads both called "file" make it report a
-duplicate input id.}
+there. Without \code{action} the field has no name: Shiny's own file-input
+binding claims every \code{input[type=file]} on the page that has an id or a
+name, and would add an \verb{input$<name>} of its own beside \verb{input$<id>}.}
 
 \item{tip}{Help text shown under the control.}
 

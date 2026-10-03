@@ -78,7 +78,7 @@ the server loads each column: see "Shiny inputs".}
 
 \item{disabled}{Whether disabled}
 
-\item{size}{Size of cascader (medium, small, mini)}
+\item{size}{Size of cascader: \code{"large"}, \code{"default"} or \code{"small"}.}
 
 \item{show_all_levels}{Whether to show all levels in input}
 

@@ -97,10 +97,52 @@ server <- function(input, output, session) {
 
 shinyApp(ui, server)
 
-## multiple-times-load !skip
-Upstream, a failed load calls `reject()` so the node can be loaded again.
-In R the server answers every `input$<id>_load`; to let a node retry,
-answer it later -- the node keeps spinning until `el_load_children()` comes.
+## multiple-times-load
+#' A load can fail: `el_load_children(reject = TRUE)` is Element Plus's
+#' `reject()`, and the node can be expanded again to retry. Here the server
+#' refuses the first three tries.
+#| shot_js = "document.querySelector('#shot .el-tree-node__content').click()", shot_wait = 2
+ui <- el_page(el_tree("regions", lazy = TRUE, is_leaf_field = "leaf"))
+
+server <- function(input, output, session) {
+  tries <- 0
+  observeEvent(input$regions_load, {
+    q <- input$regions_load
+    if (q$level == 0) {
+      el_load_children(
+        id = "regions",
+        request = q,
+        children = list(list(label = "region"))
+      )
+      return()
+    }
+    tries <<- tries + 1
+    later::later(
+      function() {
+        if (tries > 3) {
+          el_load_children(
+            id = "regions",
+            request = q,
+            children = lapply(1:3, function(i) {
+              list(label = paste0("zone", i), leaf = TRUE)
+            }),
+            session = session
+          )
+        } else {
+          el_load_children(
+            id = "regions",
+            request = q,
+            reject = TRUE,
+            session = session
+          )
+        }
+      },
+      3
+    )
+  })
+}
+
+shinyApp(ui, server)
 
 ## disabled
 el_tree(
@@ -243,10 +285,60 @@ el_tree(
   )
 )
 
-## custom-node-class !skip
-Upstream builds each node's class with `props.class`. In R, style nodes with
-the default slot: give the `<span>` a class from the node's data, as
-`:class="data.isPenultimate ? 'is-penultimate' : ''"`.
+## custom-node-class
+#' `class_field` gives each node a class of its own: a field, or a `JS()`
+#' function of the node's data, Element Plus's `props.class`.
+nodes <- list(
+  list(
+    id = 1,
+    label = "Level one 1",
+    children = list(list(
+      id = 4,
+      label = "Level two 1-1",
+      isPenultimate = TRUE,
+      children = list(
+        list(id = 9, label = "Level three 1-1-1"),
+        list(id = 10, label = "Level three 1-1-2")
+      )
+    ))
+  ),
+  list(
+    id = 2,
+    label = "Level one 2",
+    children = list(
+      list(
+        id = 5,
+        label = "Level two 2-1",
+        isPenultimate = TRUE,
+        children = list(
+          list(id = 11, label = "Level three 2-1-1"),
+          list(id = 12, label = "Level three 2-1-2")
+        )
+      ),
+      list(id = 6, label = "Level two 2-2")
+    )
+  )
+)
+tagList(
+  el_tree(
+    "classed",
+    data = nodes,
+    show_checkbox = TRUE,
+    default_expand_all = TRUE,
+    expand_on_click_node = FALSE,
+    class_field = JS(
+      "function(data) { return data.isPenultimate ? 'is-penultimate' : ''; }"
+    )
+  ),
+  tags$style(HTML(
+    ".is-penultimate > .el-tree-node__content { color: #626aef; }
+    .el-tree-node.is-expanded.is-penultimate > .el-tree-node__children {
+      display: flex;
+      flex-direction: row;
+    }
+    .is-penultimate > .el-tree-node__children > div { width: 25%; }"
+  ))
+)
 
 ## filtering
 #' `filter()` keeps the nodes whose label contains the text; give

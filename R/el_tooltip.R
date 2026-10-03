@@ -3,19 +3,22 @@
 #' A hint shown when the pointer rests on something.
 #'
 #' @details
-#' A component passed as `trigger` becomes part of the tooltip's Vue instance
+#' A component passed as `reference` becomes part of the tooltip's Vue instance
 #' rather than a separate one, which is what lets it survive being compiled
 #' into the tooltip's markup. It reports its inputs as usual, but it no longer
 #' has a host of its own, so its `update_el_*()` cannot find it -- drive it
 #' through [update_vue_data()] on the tooltip's id instead.
 #'
 #' @param id Tooltip ID. Auto-generated if `NULL`.
-#' @param trigger The element the tooltip describes. Any Shiny UI, including
+#' @param reference The element the tooltip describes. Any Shiny UI, including
 #'   another shiny.element component -- that component is folded into the
 #'   tooltip's own Vue instance rather than nested inside it, so its inputs
 #'   keep reporting. Its `update_el_*()` no longer reaches it, though; see
 #'   Details.
 #' @param content Text of the hint.
+#' @param trigger How it opens: `"hover"` (default), `"click"`, `"focus"` or
+#'   `"contextmenu"`, or several of them as a character vector. Element Plus's
+#'   `trigger`.
 #' @param placement Where the hint appears: `"top"` (default), `"bottom"`,
 #'   `"left"`, `"right"`, each also with `-start` and `-end`.
 #' @param effect `"dark"` (default) or `"light"`.
@@ -58,10 +61,13 @@
 #'   element, you can define a set of keyboard codes to control the display of
 #'   tooltip through the keyboard, not valid in controlled mode. Element
 #'   Plus's `trigger-keys` (Array).
-#' @param virtual_ref Indicates the reference element to which the tooltip is
-#'   attached. Element Plus's `virtual-ref` (HTMLElement).
-#' @param virtual_triggering Indicates whether virtual triggering is enabled.
-#'   Element Plus's `virtual-triggering` (boolean).
+#' @param virtual_ref A CSS selector, `"#help-icon"`, for an element elsewhere
+#'   on the page that the tooltip is attached to, in place of a trigger of its
+#'   own. Element Plus's `virtual-ref` takes the element itself; the selector
+#'   is looked up in the browser.
+#' @param virtual_triggering Whether virtual triggering is enabled. Element
+#'   Plus's `virtual-triggering` (boolean); `TRUE` when `virtual_ref` is
+#'   given.
 #' @param visible Visibility of Tooltip. Element Plus's `visible` (boolean).
 #' @param session Deprecated. Inside a module, wrap `id` in `ns()`, as for
 #'   any Shiny input; a session given here namespaces `id` once more, with
@@ -73,7 +79,7 @@
 #'
 #' @return A Shiny UI element.
 #' @examples
-#' # A plain tag as the trigger
+#' # A plain tag as the reference
 #' el_tooltip(
 #'   "hint",
 #'   el$button(type = "primary", "Save"),
@@ -85,7 +91,7 @@
 #'
 #' el_tooltip(
 #'   "hint",
-#'   trigger = el$button(type = "danger", "Delete"),
+#'   reference = el$button(type = "danger", "Delete"),
 #'   content = "This cannot be undone",
 #'   placement = "right",
 #'   effect = "light"
@@ -93,8 +99,9 @@
 #' @export
 el_tooltip <- function(
   id = NULL,
-  trigger = NULL,
+  reference = NULL,
   content = NULL,
+  trigger = NULL,
   placement = NULL,
   effect = NULL,
   disabled = NULL,
@@ -125,9 +132,16 @@ el_tooltip <- function(
   session = NULL
 ) {
   .el_check_choices("el_tooltip", environment())
+  if (!is.null(trigger) && !is.character(trigger)) {
+    stop(
+      "`trigger` is how the tooltip opens (\"hover\", \"click\", ...); ",
+      "give the element it describes as `reference`.",
+      call. = FALSE
+    )
+  }
   # A component handed in here is folded into this one's Vue instance rather
   # than nested inside it -- see .el_absorb().
-  inner <- .el_absorb(trigger)
+  inner <- .el_absorb(reference)
 
   if (is.null(id)) {
     id <- paste0("el_tooltip_", uuid::UUIDgenerate())
@@ -191,6 +205,7 @@ el_tooltip <- function(
         show_after = show_after,
         show_arrow = show_arrow,
         teleported = teleported,
+        trigger = trigger,
         trigger_keys = trigger_keys,
         virtual_ref = virtual_ref,
         virtual_triggering = virtual_triggering,
@@ -221,6 +236,8 @@ el_tooltip <- function(
 #'   [shiny::updateTextInput()].
 #' @param id Tooltip ID (un-namespaced).
 #' @param content,disabled,visible New values; `NULL` leaves one unchanged.
+#' @param virtual_ref A new CSS selector for the element the tooltip is
+#'   attached to, as in [el_tooltip()].
 #'
 #' @return Called for its side effect; returns `NULL` invisibly.
 #' @examples
@@ -236,7 +253,8 @@ update_el_tooltip <- function(
   id,
   content = NULL,
   disabled = NULL,
-  visible = NULL
+  visible = NULL,
+  virtual_ref = NULL
 ) {
   .el_check_session(session)
   ns_id <- session$ns(id)
@@ -250,6 +268,9 @@ update_el_tooltip <- function(
   }
   if (!is.null(visible)) {
     msg$tipVisible <- visible
+  }
+  if (!is.null(virtual_ref)) {
+    msg$tipVirtualRef <- virtual_ref
   }
   .el_send_update(session, msg)
   invisible(NULL)

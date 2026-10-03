@@ -24,8 +24,8 @@ Bootstrap. \code{NULL} leaves Element as it ships.}
 \item{offline}{Serve Element Plus from the copy bundled with this package
 rather than the unpkg CDN. See \code{\link[=element_plus_dependency]{element_plus_dependency()}}.}
 
-\item{dev}{Load the development build of Vue instead of \code{vue.min.js}, so
-Vue's warnings are not stripped. Defaults to
+\item{dev}{Load Vue's development build (\code{vue.global.js}) instead of the
+production one, so Vue's warnings are not stripped. Defaults to
 \code{getOption("shiny.element.dev", FALSE)}.}
 
 \item{locale}{Language for Element Plus's built-in text. English by default,

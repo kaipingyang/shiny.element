@@ -16,6 +16,9 @@
 #'   `validate-event` (boolean).
 #' @param aria_label Native `aria-label` attribute. Element Plus's
 #'   `aria-label` (string).
+#' @param props Which field of an option holds what, when the options are
+#'   records named otherwise: `list(value =, label =, disabled =)`, Element
+#'   Plus's `props`.
 #' @param direction Display direction. Element Plus's `direction`
 #'   ('horizontal' | 'vertical').
 #' @inheritParams el_widget
@@ -45,6 +48,7 @@ el_segmented <- function(
   validate_event = NULL,
   aria_label = NULL,
   direction = NULL,
+  props = NULL,
   label = NULL,
   label_position = c("top", "left", "right"),
   label_width = NULL,
@@ -89,7 +93,8 @@ el_segmented <- function(
       disabled = disabled,
       validate_event = validate_event,
       aria_label = aria_label,
-      direction = direction
+      direction = direction,
+      props = props
     )),
     data = list(value = .el_restore(ns_id, if (is.null(value)) NA else value)),
     methods = c(

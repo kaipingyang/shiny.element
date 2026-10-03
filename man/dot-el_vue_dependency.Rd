@@ -7,15 +7,17 @@
 .el_vue_dependency(dev = getOption("shiny.element.dev", FALSE))
 }
 \arguments{
-\item{dev}{Unused.}
+\item{dev}{Load \code{vue.global.js} rather than \code{vue.global.prod.js}.}
 }
 \value{
 An htmlDependency object.
 }
 \description{
 Vue 3, the global build with the template compiler, from \code{inst/vue3}:
-components are compiled in the browser from their x-template. \code{dev} is
-kept for the argument's sake; the production build is the only one
-bundled.
+components are compiled in the browser from their x-template. The
+development build keeps Vue's warnings (\verb{[Vue warn]}), which the production
+build strips. It is versioned one step above the production build, so on a
+page holding both -- \code{el_page(dev = TRUE)} beside components that bring the
+default -- htmltools keeps the development one.
 }
 \keyword{internal}

@@ -19,6 +19,10 @@
 #' bare text; the browser console says so. There, use the component
 #' functions: [el_button()], [el_tag()] and the rest.
 #'
+#' A logical attribute is a Vue boolean: `el$button(link = TRUE)` writes
+#' `<el-button link>` and `plain = FALSE` writes `:plain="false"` -- as text,
+#' `link="TRUE"`, Element Plus would refuse it.
+#'
 #' Mounting a Vue instance over such markup automatically is deliberately not
 #' done: it would rebuild every component and Shiny input inside it, leaving
 #' them on screen but disconnected from the server.
@@ -186,7 +190,7 @@ el <- local({
     fun_name <- gsub("-", "_", tag)
     el[[fun_name]] <- eval(bquote(
       function(...) {
-        htmltools::tag(.(paste0("el-", tag)), list(...))
+        htmltools::tag(.(paste0("el-", tag)), .el_tag_args(list(...)))
       }
     ))
     # Add roxygen2-style comment as attribute for documentation tools (optional)
@@ -201,3 +205,35 @@ el <- local({
   el$icon <- function(name, ...) el_icon(name, ...)
   el
 })
+
+
+#' Logical attributes of an Element tag, as Vue reads booleans
+#'
+#' @param args The tag's arguments: named attributes and children.
+#' @return The arguments, `TRUE` as a bare attribute and `FALSE` bound.
+#' @keywords internal
+.el_tag_args <- function(args) {
+  nms <- names(args)
+  if (is.null(nms)) {
+    return(args)
+  }
+  for (i in which(nzchar(nms))) {
+    v <- args[[i]]
+    if (
+      is.logical(v) &&
+        length(v) == 1L &&
+        !is.na(v) &&
+        !startsWith(nms[i], ":") &&
+        !startsWith(nms[i], "@")
+    ) {
+      if (v) {
+        args[i] <- list(NA)
+      } else {
+        args[[i]] <- "false"
+        nms[i] <- paste0(":", nms[i])
+      }
+    }
+  }
+  names(args) <- nms
+  args
+}

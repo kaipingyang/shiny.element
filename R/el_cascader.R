@@ -17,7 +17,7 @@
 #' @param clearable Whether clearable
 #' @param filterable Whether filterable (searchable)
 #' @param disabled Whether disabled
-#' @param size Size of cascader (medium, small, mini)
+#' @param size Size of cascader: `"large"`, `"default"` or `"small"`.
 #' @param show_all_levels Whether to show all levels in input
 #' @param collapse_tags Whether to collapse tags in multiple mode
 #' @param separator Separator for display

@@ -37,10 +37,23 @@ el_config_provider(
   el_dialog("cfg_dlg", title = "Tips", content = "This is a message")
 )
 
-## message !skip
-A message sent with `el_message()` is not inside any component, so a config
-provider's `message` settings do not reach it; give `el_message()` its
-`plain`, `placement` and `grouping` instead.
+## message
+#' The provider's `message` settings are Element Plus's page-wide message
+#' defaults, so they reach `el_message()` from the server: at most three at
+#' a time, plain, at the bottom.
+#| shot_js = "var b = document.querySelector('#shot button'); [0, 300, 600, 900].forEach(function(t) { setTimeout(function() { b.click(); }, t); });", shot_sel = ".el-message", shot_wait = 1
+ui <- el_page(
+  el_config_provider(
+    message = list(max = 3, plain = TRUE, placement = "bottom"),
+    el_button("cfg_msg", "OPEN")
+  )
+)
+server <- function(input, output, session) {
+  observeEvent(input$cfg_msg, {
+    el_message(session, "This is a message from bottom.")
+  })
+}
+shinyApp(ui, server)
 
 ## empty-values
 el_config_provider(

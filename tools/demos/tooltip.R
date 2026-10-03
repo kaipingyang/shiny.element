@@ -89,13 +89,49 @@ el_tooltip(
   content = "<span>The content can be <strong>HTML</strong></span>"
 )
 
-## virtual-trigger !skip
-A virtual trigger is a DOM element the page's own script holds; in R, give
-the trigger itself.
+## virtual-trigger
+#' Upstream hands `virtual-ref` an element from the page's script. In R,
+#' `virtual_ref` is a CSS selector for it -- here a button drawn apart from
+#' the tooltip -- and `virtual_triggering` turns on with it. A `JS()`
+#' function returning an object with `getBoundingClientRect()` also works,
+#' for a point that is not an element.
+#| shot_js = "document.querySelector('#shot button').click()", shot_sel = ".el-popper", shot_wait = 1
+tagList(
+  el_button("vt_btn", "test"),
+  el_tooltip(
+    "vt",
+    content = "Bottom center",
+    placement = "bottom",
+    effect = "light",
+    trigger = "click",
+    virtual_ref = "#vt_btn"
+  )
+)
 
-## singleton !skip
-Element Plus's singleton tooltip moves one tooltip between triggers held by
-the page's script; in R each trigger has a tooltip of its own.
+## singleton
+#' A `virtual_ref` matching several elements gives them one tooltip, which
+#' moves to whichever the pointer is over.
+#| shot_js = "var b = document.querySelectorAll('#shot .singleton-btn button'); b[1].dispatchEvent(new MouseEvent('mouseover', {bubbles: true})); setTimeout(function(){ b[1].click(); }, 100);", shot_sel = ".el-popper", shot_wait = 1
+tagList(
+  lapply(1:3, function(i) {
+    tags$span(
+      class = "singleton-btn",
+      el_button(paste0("single_", i), "Click to open tooltip")
+    )
+  }),
+  el_tooltip(
+    "single",
+    content = "Some content",
+    trigger = "click",
+    virtual_ref = ".singleton-btn",
+    popper_class = "singleton-tooltip"
+  ),
+  tags$style(
+    ".singleton-tooltip {
+      transition: transform 0.3s var(--el-transition-function-fast-bezier);
+    }"
+  )
+)
 
 ## controlled
 #' Shown and hidden from the server, `update_el_tooltip(visible =)`, and

@@ -59,6 +59,8 @@ el_select_v2(
   value_on_clear = NULL,
   popper_append_to_body = NULL,
   tabindex = NULL,
+  props = NULL,
+  tag_tooltip = NULL,
   label = NULL,
   label_position = c("top", "left", "right"),
   label_width = NULL,
@@ -244,6 +246,14 @@ false. Element Plus's \code{popper-append-to-body} (boolean).}
 
 \item{tabindex}{Tabindex for input. Element Plus's \code{tabindex} (string /
 number).}
+
+\item{props}{Which field of an option holds what, when the options are
+records named otherwise: \code{list(value =, label =, disabled =, options =)},
+Element Plus's \code{props}.}
+
+\item{tag_tooltip}{Settings for the tooltip listing collapsed tags, with
+\code{collapse_tags} and \code{collapse_tags_tooltip}: a named list of tooltip
+attributes (\code{placement}, \code{effect}, ...). Element Plus's \code{tag-tooltip}.}
 
 \item{label}{A label shown with the component, as Shiny's inputs have:
 text or a tag. \code{NULL}, the default, shows none. It is the component's

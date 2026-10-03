@@ -86,7 +86,12 @@ undeclared_refs <- function(ui) {
     # Vue's own template variables
     "$event",
     "$refs",
-    "$emit"
+    "$emit",
+    # the bridge's own global properties (shiny-vue.js, el-events.js)
+    "$elRef",
+    "$elDate",
+    "$setInput",
+    "$ELEMENT"
   )
   setdiff(refs, c(declared, locals, scoped, members, literals))
 }
@@ -327,7 +332,14 @@ test_that("a component used as slot content is absorbed", {
   # One instance, carrying the tag's fields as well as the alert's
   expect_equal(length(gregexpr("html-widget", html)[[1]]), 1L)
   expect_match(html, "<el-tag")
-  expect_true("label" %in% names(vue_data_of(ui)))
+  # The tag's fields join the alert's; those both declare -- type,
+  # closable, effect -- are the tag's under a prefix, not the alert's
+  # overwritten, which is what happened before
+  d <- vue_data_of(ui)
+  expect_true(any(grepl("label$", names(d))))
+  expect_equal(sum(names(d) == "type"), 1L)
+  expect_true(any(grepl("^el[0-9]+_type$", names(d))))
+  expect_match(html, ':type="el[0-9]+_type')
 })
 
 test_that("a scoped slot is passed through as written", {

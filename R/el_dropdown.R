@@ -51,10 +51,13 @@
 #'   Element Plus's `teleported` (boolean).
 #' @param trigger_keys Specify which keys on the keyboard can trigger when
 #'   pressed. Element Plus's `trigger-keys` (`string[]`).
-#' @param virtual_ref Indicates the reference element to which the dropdown is
-#'   attached. Element Plus's `virtual-ref` (HTMLElement).
-#' @param virtual_triggering Indicates whether virtual triggering is enabled.
-#'   Element Plus's `virtual-triggering` (boolean).
+#' @param virtual_ref A CSS selector, `"#help-icon"`, for an element elsewhere
+#'   on the page that the dropdown is attached to, in place of a trigger of its
+#'   own. Element Plus's `virtual-ref` takes the element itself; the selector
+#'   is looked up in the browser.
+#' @param virtual_triggering Whether virtual triggering is enabled. Element
+#'   Plus's `virtual-triggering` (boolean); `TRUE` when `virtual_ref` is
+#'   given.
 #' @param session Deprecated. Inside a module, wrap `id` in `ns()`, as for
 #'   any Shiny input; a session given here namespaces `id` once more, with
 #'   a warning.
@@ -159,24 +162,14 @@ el_dropdown <- function(
     htmltools::tag("el-dropdown-menu", item_tags)
   )
 
-  # Trigger slot content
-  trigger_content <- if (isTRUE(split_button)) {
-    # split button — label is the main button text
-    trigger_label
-  } else if (is.character(trigger_label)) {
-    shiny::tags$span(
-      class = "el-dropdown-link",
-      trigger_label,
-      htmltools::HTML(
-        '<el-icon class="el-icon--right"><arrow-down /></el-icon>'
-      )
-    )
+  # A component as the trigger -- el_button() -- is folded into the
+  # dropdown's own Vue instance; nested whole, its host would land inside
+  # the template and break it
+  inner <- if (is.character(trigger_label)) {
+    .el_absorb(NULL)
   } else {
-    # A tag is the trigger as given -- an icon, an avatar -- with no arrow
-    # added, as Element's own examples write it.
-    shiny::tags$span(class = "el-dropdown-link", trigger_label)
+    .el_absorb(trigger_label)
   }
-
   dd_attrs <- list(
     ":trigger" = "trigger",
     ":hide-on-click" = "hideOnClick",
@@ -213,6 +206,51 @@ el_dropdown <- function(
   vue_data$showTimeout <- .el_or_na(show_timeout)
   vue_data$hideTimeout <- .el_or_na(hide_timeout)
   vue_data$tabindex <- .el_or_na(tabindex)
+  own <- list(
+    markup = NULL,
+    data = vue_data,
+    methods = c(
+      events$methods,
+      list(
+        handleCommand = JS(sprintf(
+          "function(cmd) { this.count++; window.Shiny && Shiny.setInputValue && Shiny.setInputValue('%s', cmd, {priority: 'event'}); window.Shiny && Shiny.setInputValue && Shiny.setInputValue('%s_count', this.count); }",
+          ns_id,
+          ns_id
+        ))
+      )
+    ),
+    watch = list(),
+    computed = list(),
+    mounted = NULL,
+    dependencies = list()
+  )
+  merged <- .el_absorb_merge(own, inner)
+  if (!is.character(trigger_label) && !is.null(trigger_label)) {
+    # the merge may have renamed the trigger's fields
+    trigger_label <- merged$markups[[2]]
+  }
+
+  # Trigger slot content
+  trigger_content <- if (!is.null(virtual_ref) && missing(trigger_label)) {
+    # attached to an element elsewhere on the page: no trigger of its own
+    NULL
+  } else if (isTRUE(split_button)) {
+    # split button — label is the main button text
+    trigger_label
+  } else if (is.character(trigger_label)) {
+    shiny::tags$span(
+      class = "el-dropdown-link",
+      trigger_label,
+      htmltools::HTML(
+        '<el-icon class="el-icon--right"><arrow-down /></el-icon>'
+      )
+    )
+  } else {
+    # A tag is the trigger as given -- an icon, an avatar -- with no arrow
+    # added, as Element's own examples write it.
+    shiny::tags$span(class = "el-dropdown-link", trigger_label)
+  }
+
   el_widget(
     props = .el_props(list(
       append_to = append_to,
@@ -235,17 +273,12 @@ el_dropdown <- function(
       "el-dropdown",
       c(dd_attrs, list(trigger_content, menu_tag))
     ),
-    data = vue_data,
-    methods = c(
-      events$methods,
-      list(
-        handleCommand = JS(sprintf(
-          "function(cmd) { this.count++; window.Shiny && Shiny.setInputValue && Shiny.setInputValue('%s', cmd, {priority: 'event'}); window.Shiny && Shiny.setInputValue && Shiny.setInputValue('%s_count', this.count); }",
-          ns_id,
-          ns_id
-        ))
-      )
-    ),
+    data = merged$data,
+    methods = merged$methods,
+    watch = merged$watch,
+    computed = merged$computed,
+    mounted = merged$mounted,
+    dependency = merged$dependencies,
     width = width,
     slots = slots
   )

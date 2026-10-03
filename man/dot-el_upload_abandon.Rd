@@ -22,6 +22,8 @@ session until it ended, with whatever part of a file reached its
 directory. The browser names it here and it is removed: dropped from the
 session's upload jobs and its directory deleted. Shiny offers no public
 way to do this, so the session's upload context is reached into; should
-that change, the job is left as before, to go when the session does.
+that change, the job is left as before, to go when the session does, and
+a warning says so once per session. \code{test-el_upload.R} checks that the
+installed Shiny still has every internal used here.
 }
 \keyword{internal}

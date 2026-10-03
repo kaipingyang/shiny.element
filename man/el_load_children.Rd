@@ -8,7 +8,8 @@ el_load_children(
   session = shiny::getDefaultReactiveDomain(),
   id,
   request,
-  children = list()
+  children = list(),
+  reject = FALSE
 )
 }
 \arguments{
@@ -22,6 +23,10 @@ el_load_children(
 
 \item{children}{What to load. For a tree, nodes such as \code{list(id =, label =, leaf = TRUE)}; for a cascader, options such as \code{list(value =, label =, leaf = TRUE)}; for a table, rows, as a data.frame or a list.
 An empty list means there is nothing below.}
+
+\item{reject}{\code{TRUE} to answer that the load failed, Element Plus's
+\code{reject()}: a tree node stops spinning and can be loaded again when it
+is next expanded. A cascader or table takes it as nothing below.}
 }
 \value{
 Called for its side effect; returns \code{NULL} invisibly.

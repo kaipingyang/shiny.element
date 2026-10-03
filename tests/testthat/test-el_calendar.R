@@ -26,7 +26,9 @@ test_that("el_calendar: returns a tagList with the container id", {
 
 test_that("el_calendar: binds value, and Element Plus's controller type", {
   html <- render_html(el_calendar(id = "c1", controller_type = "select"))
-  expect_match(html, 'v-model="value"')
+  # Element Plus wants a Date; the value stays a "YYYY-MM-DD" string
+  expect_match(html, ':model-value="elDate(value)"', fixed = TRUE)
+  expect_match(html, '@update:model-value="elPick"', fixed = TRUE)
   expect_match(html, ':controller-type="controllerType', fixed = TRUE)
   expect_match(html, '"controllerType":"select"', fixed = TRUE)
 })
@@ -63,7 +65,7 @@ test_that("el_calendar: range is always bound, null when not supplied", {
   # silent no-op. NA serialises to JSON null, which Element treats as unset.
   expect_match(
     render_html(el_calendar(id = "c1")),
-    sprintf(':range="%s"', .el_optional_bind("range")),
+    ':range="range === null ? undefined : range.map(elDate)"',
     fixed = TRUE
   )
   expect_match(
@@ -78,7 +80,7 @@ test_that("el_calendar: range is always bound, null when not supplied", {
   ))
   expect_match(
     html,
-    sprintf(':range="%s"', .el_optional_bind("range")),
+    ':range="range === null ? undefined : range.map(elDate)"',
     fixed = TRUE
   )
   expect_match(html, '"range":\\["2026-03-01","2026-03-31"\\]')

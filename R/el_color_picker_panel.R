@@ -79,7 +79,9 @@ el_color_picker_panel <- function(
     props = .el_props(list(
       border = border,
       disabled = disabled,
-      show_alpha = show_alpha,
+      # Element Plus 2.14.7 hands an unset show-alpha on to its predefined
+      # swatches as undefined, a Boolean prop: Vue warns. FALSE is its default.
+      show_alpha = if (is.null(show_alpha)) FALSE else show_alpha,
       color_format = color_format,
       predefine = predefine,
       validate_event = validate_event,

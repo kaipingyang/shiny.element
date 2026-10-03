@@ -32,6 +32,7 @@ el_popover(
   virtual_ref = NULL,
   virtual_triggering = NULL,
   visible = NULL,
+  ...,
   width = NULL,
   slots = NULL,
   session = NULL
@@ -106,14 +107,20 @@ element, you can define a set of keyboard codes to control the display of
 popover through the keyboard, not valid in controlled mode. Element
 Plus's \code{trigger-keys} (Array).}
 
-\item{virtual_ref}{Indicates the reference element to which the popover is
-attached. Element Plus's \code{virtual-ref} (HTMLElement).}
+\item{virtual_ref}{A CSS selector, \code{"#help-icon"}, for an element elsewhere
+on the page that the popover is attached to, in place of a trigger of its
+own. Element Plus's \code{virtual-ref} takes the element itself; the selector
+is looked up in the browser.}
 
-\item{virtual_triggering}{Indicates whether virtual triggering is enabled.
-Element Plus's \code{virtual-triggering} (boolean).}
+\item{virtual_triggering}{Whether virtual triggering is enabled. Element
+Plus's \code{virtual-triggering} (boolean); \code{TRUE} when \code{virtual_ref} is
+given.}
 
 \item{visible}{Whether popover is visible. Element Plus's \code{visible}
 (boolean / null).}
+
+\item{...}{Any other attribute of Element Plus's tooltip, which the popover
+inherits, in snake_case: \code{enterable = FALSE}, \code{offset = 20}.}
 
 \item{width}{Component width, as a CSS unit.}
 

@@ -22,6 +22,7 @@ el_tree_v2(
   icon = NULL,
   item_size = NULL,
   scrollbar_always_on = NULL,
+  props = NULL,
   height = NULL,
   width = NULL,
   slots = NULL
@@ -83,6 +84,9 @@ Element Plus's \code{indent} (number).}
 
 \item{scrollbar_always_on}{Always show scrollbar. Element Plus's
 \code{scrollbar-always-on} (boolean).}
+
+\item{props}{Which field of a node holds what: \code{list(value =, label =, children =, disabled =, class =)}, Element Plus's \code{props}. \code{class} may be
+a \code{\link[=JS]{JS()}} function of the node's data returning its class.}
 
 \item{height}{Height of the tree. Element Plus's \code{height} (number).}
 

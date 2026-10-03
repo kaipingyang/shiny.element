@@ -129,9 +129,11 @@ Three layers, each blind to what the next one catches — see lessons.md §5.
 |---|---|---|
 | Unit | `test-el_*.R` | HTML generation, message fields, helper logic |
 | Browser | `test-browser.R` + `apps/integration.R` | mounting, interaction, geometry, Vue warnings |
+| Methods | `test-browser-methods.R` + `apps/methods.R` | every documented method runs on a live component |
 | Screenshot | `tools/article-shots.R` | layout and appearance — invisible to the other two |
 
-Browser tests run Vue's development build and assert zero warnings. They skip
+Browser tests run Vue's development build (`inst/vue3/vue.global.js`,
+`el_page(dev = TRUE)`) and assert zero warnings. They skip
 on CRAN and where no Chrome is available:
 
 ```bash
@@ -164,8 +166,10 @@ blocks, `#'` prose, `#|` chunk options, `!skip` for prose-only), and
 `vignettes/articles/components/<slug>.Rmd` from upstream's markdown and those
 demos (color, icon and the overview are hand-written / `tools/ep-overview.py`).
 `Rscript tools/article-shots.R [slug...]` screenshots and checks every
-example; `python tools/api-coverage.py --write-api` writes the API tables'
-JSON with the R name of each entry.
+example; API coverage is `python tools/api-coverage.py --docs`, then
+`Rscript tools/api-coverage.R`, then `python tools/api-coverage.py`
+(`--gaps`, `--write-api` for the API tables' JSON with the R name of each
+entry, `--write-docs`).
 
 R code is formatted with air (`air.toml`, line width 80): `air format .` for
 every .R file but the demos, then `python tools/format-r.py` for the demo

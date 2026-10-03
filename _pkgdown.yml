@@ -405,6 +405,7 @@ reference:
       - update_el_table
       - el_table_config
       - el_table_v2
+      - update_el_table_v2
       - el_tag
       - update_el_tag
       - el_check_tag

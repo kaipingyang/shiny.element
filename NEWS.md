@@ -12,8 +12,10 @@ them. In short:
 * Each component is its own Vue application, made with `Vue.createApp()`:
   one that fails to mount leaves the rest of the page working, and a
   component Shiny removes is unmounted.
-* Every component Element Plus documents is wrapped -- 1430 of its
-  attributes, 222 events, 116 methods and 233 slots, all of them -- with the
+* Every component Element Plus documents is wrapped -- 1435 of its
+  attributes, 222 events, 151 methods and 233 slots, all of them, each
+  attribute bound to Element Plus's own prop and each method run in a
+  browser test -- with the
   components new in Element Plus: `el_input_otp()`, `el_input_tag()`,
   `el_segmented()`, `el_select_v2()`, `el_mention()`, `el_tree_select()`,
   `el_tree_v2()`, `el_table_v2()`, `el_color_picker_panel()`,
@@ -31,6 +33,44 @@ them. In short:
   and pages, each demo in R, its API tables beside the R names, and its
   guides -- design, installation, i18n, theming, dark mode, custom defaults,
   transitions -- from R.
+
+## What Element Plus writes in JavaScript, from R
+
+* `JS()` code is evaluated in the browser wherever Element Plus takes a
+  value: a VNode built with `Vue.h()` as a message box's or notification's
+  message, a space's spacer, a table-v2 column's `cellRenderer`.
+* `el_table_v2(methods =)` gives its slot templates functions of your own,
+  so upstream's row and header renderers port across; `auto_resize = TRUE`
+  is Element Plus's `el-auto-resizer`; `update_el_table_v2()` replaces its
+  rows and columns from the server.
+* `$setInput(name, value)` in any template is Shiny's `setInputValue()`.
+* `virtual_ref` (tooltip, popover, dropdown) is a CSS selector, looked up in
+  the browser; one matching several elements gives them a single popup that
+  follows the pointer.
+* `el_tooltip()`'s `trigger` is Element Plus's own -- how it opens -- and
+  the element it describes is `reference`, as for `el_popover()`.
+  `el_popconfirm(popconfirm_width =)` sizes the prompt. Popover and
+  popconfirm take the tooltip's other attributes through `...`.
+* `el_load_children(reject = TRUE)` fails a lazy load, so the node can be
+  loaded again; `el_tree_select()` loads lazily from the server as
+  `el_tree()` does. `el_tree(class_field =)`, `el_tree_v2(props =)`,
+  `el_select(props =)`, `el_select_v2(props =)`, `el_segmented(props =)` and
+  `tag_tooltip` are new. `el_tree_node()` names a tree's node for
+  `el_call()`.
+* `el_page(dev = TRUE)` loads Vue's development build, which is bundled:
+  until now it loaded the production build either way, so Vue's warnings
+  never reached the console the tests read.
+
+## Behaviour closer to Element Plus
+
+* A dialog or drawer keeps focus inside while open, as Element Plus's focus
+  trap does, and one closed straight after opening no longer reports
+  `opened`.
+* Tabs pass over disabled tabs with the arrow keys, a disabled tab cannot
+  be closed, and Enter on the "+" adds one.
+* An upload's file field no longer appears as an extra `input$<id>_elfile`.
+* Releasing an interrupted upload warns, once, if Shiny's internals it
+  relies on have moved.
 
 ## Documentation, after Element's own
 

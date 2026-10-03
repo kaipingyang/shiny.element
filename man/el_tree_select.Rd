@@ -24,6 +24,8 @@ el_tree_select(
   size = NULL,
   disabled = NULL,
   cache_data = NULL,
+  lazy = NULL,
+  load = NULL,
   ...,
   label = NULL,
   label_position = c("top", "left", "right"),
@@ -77,6 +79,13 @@ selection is shown as one tag and a count, with the rest in a tooltip.}
 
 \item{cache_data}{The nodes behind a value not yet loaded, for a lazy tree.}
 
+\item{lazy}{Whether child nodes are loaded on demand -- from the server,
+which answers \verb{input$<id>_load} with \code{\link[=el_load_children]{el_load_children()}}, unless \code{load}
+is given.}
+
+\item{load}{\code{\link[=JS]{JS()}} function loading child nodes in the browser instead of
+from the server. Needs \code{lazy = TRUE}.}
+
 \item{...}{Any other prop of Element Plus's select or tree, in snake_case:
 \code{max_collapse_tags = 2}, \code{expand_on_click_node = FALSE}.}
 
@@ -122,6 +131,9 @@ takes the props of both \code{\link[=el_select]{el_select()}} and \code{\link[=e
 
 \itemize{
 \item \verb{input$<id>} -- the selected value, or several, on load and on change.
+\item \verb{input$<id>_load} -- with \code{lazy = TRUE}, a node asking for its
+children: \code{level}, \code{key} (its \code{node_key} field) and \code{data}. Answer with
+\code{\link[=el_load_children]{el_load_children()}}.
 \item \verb{input$<id>_visible_change}, \verb{input$<id>_clear}, \verb{input$<id>_remove_tag},
 \verb{input$<id>_node_click}, \verb{input$<id>_check} -- Element Plus's events.
 }

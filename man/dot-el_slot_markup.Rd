@@ -4,10 +4,13 @@
 \alias{.el_slot_markup}
 \title{Turn named slot contents into markup, absorbing any components}
 \usage{
-.el_slot_markup(slots)
+.el_slot_markup(slots, taken = character(0))
 }
 \arguments{
 \item{slots}{Named list of slot contents.}
+
+\item{taken}{Field and method names the component itself already uses;
+an absorbed component declaring one of them is renamed.}
 }
 \value{
 A list of \code{markup} plus the Vue options its components contribute.

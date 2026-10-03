@@ -45,10 +45,15 @@
 #'   element, you can define a set of keyboard codes to control the display of
 #'   popover through the keyboard, not valid in controlled mode. Element
 #'   Plus's `trigger-keys` (Array).
-#' @param virtual_ref Indicates the reference element to which the popover is
-#'   attached. Element Plus's `virtual-ref` (HTMLElement).
-#' @param virtual_triggering Indicates whether virtual triggering is enabled.
-#'   Element Plus's `virtual-triggering` (boolean).
+#' @param ... Any other attribute of Element Plus's tooltip, which the popover
+#'   inherits, in snake_case: `enterable = FALSE`, `offset = 20`.
+#' @param virtual_ref A CSS selector, `"#help-icon"`, for an element elsewhere
+#'   on the page that the popover is attached to, in place of a trigger of its
+#'   own. Element Plus's `virtual-ref` takes the element itself; the selector
+#'   is looked up in the browser.
+#' @param virtual_triggering Whether virtual triggering is enabled. Element
+#'   Plus's `virtual-triggering` (boolean); `TRUE` when `virtual_ref` is
+#'   given.
 #' @param visible Whether popover is visible. Element Plus's `visible`
 #'   (boolean / null).
 #' @param tabindex Tabindex of Popover. Element Plus's `tabindex` (number /
@@ -112,6 +117,7 @@ el_popover <- function(
   virtual_ref = NULL,
   virtual_triggering = NULL,
   visible = NULL,
+  ...,
   width = NULL,
   slots = NULL,
   session = NULL
@@ -202,7 +208,8 @@ el_popover <- function(
         trigger_keys = trigger_keys,
         virtual_ref = virtual_ref,
         virtual_triggering = virtual_triggering,
-        visible = visible
+        visible = visible,
+        ...
       )
     ),
     id = ns_id,

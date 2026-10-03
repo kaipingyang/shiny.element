@@ -69,6 +69,8 @@ el_select(
   teleported = NULL,
   validate_event = NULL,
   value_on_clear = NULL,
+  props = NULL,
+  tag_tooltip = NULL,
   session = NULL
 )
 }
@@ -254,6 +256,14 @@ be teleported to where \code{append-to} sets. Element Plus's \code{teleported}
 \item{value_on_clear}{Clear return value, see config-provider. Element
 Plus's \code{value-on-clear} (string / number / boolean / Function). Give it
 as \code{\link[=JS]{JS()}}.}
+
+\item{props}{Which field of an option holds what, when the options are
+records named otherwise: \code{list(value =, label =, disabled =, options =)},
+Element Plus's \code{props}.}
+
+\item{tag_tooltip}{Settings for the tooltip listing collapsed tags, with
+\code{collapse_tags} and \code{collapse_tags_tooltip}: a named list of tooltip
+attributes (\code{placement}, \code{effect}, ...). Element Plus's \code{tag-tooltip}.}
 
 \item{session}{Deprecated. Inside a module, wrap \code{id} in \code{ns()}, as for
 any Shiny input; a session given here namespaces \code{id} once more, with

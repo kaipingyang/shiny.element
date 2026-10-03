@@ -39,6 +39,9 @@
 #'   / Component). An icon's name, such as `"Search"`.
 #' @param item_size Custom tree node height. Element Plus's `item-size`
 #'   (number).
+#' @param props Which field of a node holds what: `list(value =, label =,
+#'   children =, disabled =, class =)`, Element Plus's `props`. `class` may be
+#'   a [JS()] function of the node's data returning its class.
 #' @param scrollbar_always_on Always show scrollbar. Element Plus's
 #'   `scrollbar-always-on` (boolean).
 #' @param height Height of the tree. Element Plus's `height` (number).
@@ -82,6 +85,7 @@ el_tree_v2 <- function(
   icon = NULL,
   item_size = NULL,
   scrollbar_always_on = NULL,
+  props = NULL,
   height = NULL,
   width = NULL,
   slots = NULL
@@ -109,6 +113,7 @@ el_tree_v2 <- function(
     id = ns_id,
     markup = htmltools::tag("el-tree-v2", attrs),
     props = .el_props(list(
+      props = props,
       data = data,
       empty_text = empty_text,
       highlight_current = highlight_current,

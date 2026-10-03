@@ -14,6 +14,9 @@
 #' @param label_field,children_field Fields holding a node's label and its
 #'   children.
 #' @param disabled_field Field marking a node disabled. Default `"disabled"`.
+#' @param class_field A node's own class: the field holding it, or a [JS()]
+#'   function of the node's data (and node) returning it, as Element Plus's
+#'   `props.class`.
 #' @param is_leaf_field Field marking a node as a leaf, so lazy loading knows
 #'   not to ask it for children. Default `"isLeaf"`. Element replaces its
 #'   whole field map at once, so all four are sent together.
@@ -134,6 +137,7 @@ el_tree <- function(
   children_field = "children",
   disabled_field = "disabled",
   is_leaf_field = "isLeaf",
+  class_field = NULL,
   show_checkbox = FALSE,
   check_strictly = FALSE,
   default_expand_all = FALSE,
@@ -259,11 +263,15 @@ el_tree <- function(
     treeData = data,
     # Element's default props map is replaced wholesale, not merged, so
     # `disabled` has to be named here or a disabled node renders as normal.
-    treeProps = list(
-      label = label_field,
-      children = children_field,
-      disabled = disabled_field,
-      isLeaf = is_leaf_field
+    treeProps = Filter(
+      Negate(is.null),
+      list(
+        label = label_field,
+        children = children_field,
+        disabled = disabled_field,
+        isLeaf = is_leaf_field,
+        class = class_field
+      )
     ),
     nodeKey = node_key,
     showCheckbox = show_checkbox,

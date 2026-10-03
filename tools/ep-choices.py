@@ -3,8 +3,14 @@
 
 Every argument of a component function that is an enumerated prop upstream
 -- ^[enum]`'a' | 'b'` with no free-form alternative -- is checked against
-upstream's values. Needs /tmp/elapi/docs.json (tools/api-coverage.py) and
-/tmp/elapi/formals.json (the functions' arguments).
+upstream's values. Needs /tmp/elapi/docs.json (tools/api-coverage.py --docs)
+and /tmp/elapi/formals.json, the functions' arguments:
+
+    Rscript -e 'pkgload::load_all(); ns <- asNamespace("shiny.element");
+      f <- grep("^el_", getNamespaceExports(ns), value = TRUE);
+      f <- Filter(function(x) is.function(ns[[x]]), f);
+      jsonlite::write_json(lapply(setNames(f, f), function(x) names(formals(ns[[x]]))),
+                           "/tmp/elapi/formals.json")'
 """
 import json, re
 docs = json.load(open("/tmp/elapi/docs.json"))
@@ -42,7 +48,10 @@ for f, secs in docs.items():
             if vals:
                 enums.setdefault(tag, {})[it["name"].replace("-", "_")] = vals
 # the component each function draws, and the children whose props it takes
-EXTRA = {"el_checkbox_group": ["el-checkbox-group"], "el_radio_group": ["el-radio-group"],
+# (a radio group's size is a free string upstream, but every radio it holds
+# takes only large, default or small; a tree select is a select)
+EXTRA = {"el_checkbox_group": ["el-checkbox-group"], "el_radio_group": ["el-radio-group", "el-radio"],
+         "el_tree_select": ["el-tree-select", "el-select"],
          "el_message": ["el-message"], "el_notification": ["el-notification"],
          "el_message_box": ["el-message-box"], "el_time_select": ["el-time-select"],
          "el_countdown": ["el-countdown"]}

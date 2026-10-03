@@ -181,8 +181,7 @@ test_that("optional props are bound through the fallback expression", {
     list(el_date_picker("x"), "placeholder"),
     list(el_checkbox_group("x", choices = c(A = "a")), c("min", "max")),
     list(el_progress("x"), "status"),
-    list(el_alert("x"), "description"),
-    list(el_calendar("x"), "range")
+    list(el_alert("x"), "description")
   )
   for (case in cases) {
     html <- paste(as.character(case[[1]]), collapse = "")

@@ -57,7 +57,9 @@ el_message_box(
 
 \item{id}{Input ID the answer is reported to.}
 
-\item{message}{The question or statement.}
+\item{message}{The question or statement, or a VNode built in the
+browser: \code{\link[=JS]{JS()}} code calling \code{Vue.h()}, or a function of the box's
+actions (\code{confirm}, \code{cancel}, \code{close}) returning one.}
 
 \item{title}{Title of the box.}
 

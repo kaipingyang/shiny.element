@@ -128,18 +128,21 @@ el_call <- function(
 }
 
 
-#' Name a table row or an uploaded file for a method
+#' Name a table row, an uploaded file or a tree node for a method
 #'
 #' Element's table methods take the row object itself --
 #' `toggleRowSelection(row)`, `setCurrentRow(row)`,
 #' `toggleRowExpansion(row)` -- and compare it by identity, so a copy sent
-#' from R would match nothing. Likewise the upload's `abort(file)`. These
-#' stand for the object instead, and the page puts the real one in its place
-#' before the method runs.
+#' from R would match nothing. Likewise the upload's `abort(file)` and
+#' `handleRemove(file)`, and a virtualized tree's `expandNode(node)` and
+#' `collapseNode(node)`. These stand for the object instead, and the page
+#' puts the real one in its place before the method runs.
 #'
 #' @param index A row's number, 1-based, as `input$<id>_selected_rows`
 #'   reports them.
 #' @param name A file's name, as it shows in the upload's list.
+#' @param key A node's key: the field `node_key` names, or the tree's
+#'   `props$value`.
 #' @return A reference, for [el_call()]'s `args`.
 #' @examples
 #' if (interactive()) {
@@ -148,6 +151,8 @@ el_call <- function(
 #'   el_call(session, "tbl", "setCurrentRow", list(el_table_row(3)))
 #'   # stop one file
 #'   el_call(session, "docs", "abort", list(el_upload_file("big.csv")))
+#'   # open a node of a virtualized tree
+#'   el_call(session, "files", "expandNode", list(el_tree_node("src")))
 #' }
 #' @export
 el_table_row <- function(index) {
@@ -160,4 +165,11 @@ el_table_row <- function(index) {
 el_upload_file <- function(name) {
   stopifnot(is.character(name), length(name) == 1)
   list(.ref = "file", value = name)
+}
+
+#' @rdname el_table_row
+#' @export
+el_tree_node <- function(key) {
+  stopifnot(length(key) == 1)
+  list(.ref = "node", value = key)
 }

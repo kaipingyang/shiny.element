@@ -1843,6 +1843,14 @@
 "r": "`el_cascader(options =)`"
 },
 {
+"name": "props",
+"desc": "configuration options, see the following `CascaderProps` table.",
+"type": "^[object]`CascaderProps`",
+"accepted": "",
+"default": "—",
+"r": "`el_cascader(props =)`"
+},
+{
 "name": "size",
 "desc": "size of input",
 "type": "^[enum]`'large' \\| 'default' \\| 'small'`",
@@ -2289,6 +2297,14 @@
 "accepted": "",
 "default": "—",
 "r": "`el_cascader(options =)`"
+},
+{
+"name": "props",
+"desc": "configuration options, see the following `CascaderProps` table.",
+"type": "^[object]`CascaderProps`",
+"accepted": "",
+"default": "—",
+"r": "`el_cascader(props =)`"
 },
 {
 "name": "virtual-scroll",
@@ -10277,6 +10293,14 @@
 "accepted": "",
 "default": "150",
 "r": "`width`"
+},
+{
+"name": "tooltip",
+"desc": "Inherits all attributes from Tooltip, except: `popper-class`, `popper-style`, `fallback-placements`",
+"type": "—",
+"accepted": "",
+"default": "—",
+"r": ""
 }
 ]
 },
@@ -10535,6 +10559,14 @@
 "accepted": "",
 "default": "—",
 "r": "`virtual_ref`"
+},
+{
+"name": "tooltip",
+"desc": "Inherits all attributes from Tooltip",
+"type": "—",
+"accepted": "",
+"default": "—",
+"r": ""
 }
 ]
 },
@@ -11559,6 +11591,14 @@
 "r": "`options`"
 },
 {
+"name": "props",
+"desc": "configuration options, see the following table",
+"type": "^[object]",
+"accepted": "",
+"default": "—",
+"r": "`props`"
+},
+{
 "name": "size",
 "desc": "size of component",
 "type": "^[enum]`'' \\| 'large' \\| 'default' \\| 'small'`",
@@ -11665,6 +11705,14 @@
 "accepted": "",
 "default": "—",
 "r": "`options`"
+},
+{
+"name": "props",
+"desc": "configuration options, see the following table",
+"type": "^[object]",
+"accepted": "",
+"default": "—",
+"r": "`props`"
 },
 {
 "name": "multiple",
@@ -12019,6 +12067,14 @@
 "r": "`collapse_tags_tooltip`"
 },
 {
+"name": "tag-tooltip",
+"desc": "configuration object for the collapse-tags tooltip. To use this, `collapse-tags` and `collapse-tags-tooltip` must be true",
+"type": "^[object]`TagTooltipProps`",
+"accepted": "",
+"default": "{}",
+"r": "`tag_tooltip`"
+},
+{
 "name": "max-collapse-tags",
 "desc": "The max tags number to be shown. To use this, `collapse-tags` must be true",
 "type": "^[number]",
@@ -12269,6 +12325,14 @@
 "r": "`options`"
 },
 {
+"name": "props",
+"desc": "configuration options",
+"type": "^[object]",
+"accepted": "",
+"default": "—",
+"r": "`props`"
+},
+{
 "name": "disabled",
 "desc": "whether Select is disabled",
 "type": "^[boolean]",
@@ -12315,6 +12379,14 @@
 "accepted": "",
 "default": "false",
 "r": "`collapse_tags_tooltip`"
+},
+{
+"name": "tag-tooltip",
+"desc": "configuration object for the collapse-tags tooltip. To use this, `collapse-tags` and `collapse-tags-tooltip` must be true",
+"type": "^[object]`TagTooltipProps`",
+"accepted": "",
+"default": "{}",
+"r": "`tag_tooltip`"
 },
 {
 "name": "multiple-limit",
@@ -17503,6 +17575,14 @@
 "r": "`format`"
 },
 {
+"name": "props",
+"desc": "prop aliases for data source",
+"type": "^[object]`TransferPropsAlias`",
+"accepted": "",
+"default": "—",
+"r": "`props`"
+},
+{
 "name": "left-default-checked",
 "desc": "key array of initially checked data items of the left list",
 "type": "^[array]`Array<string \\| number>`",
@@ -17647,6 +17727,22 @@
 "accepted": "",
 "default": "",
 "r": "any argument of `el_tree()` or `el_select()`, through `...`"
+},
+{
+"name": "tree",
+"desc": "[tree](./tree.md#exposes)",
+"type": "[tree](./tree.md#events)",
+"accepted": "",
+"default": "[tree](./tree.md#slots)",
+"r": ""
+},
+{
+"name": "select",
+"desc": "[select](./select.md#select-exposes)",
+"type": "[select](./select.md#select-events)",
+"accepted": "",
+"default": "[select](./select.md#select-slots)",
+"r": ""
 }
 ]
 },
@@ -17707,6 +17803,14 @@
 "accepted": "",
 "default": "—",
 "r": "`empty_text`"
+},
+{
+"name": "props",
+"desc": "configuration options, see the following table",
+"type": "^[object]",
+"accepted": "",
+"default": "—",
+"r": "`props`"
 },
 {
 "name": "highlight-current",
@@ -17831,6 +17935,148 @@
 ]
 },
 {
+"title": "TreeV2 Exposes",
+"kind": "Methods",
+"rows": [
+{
+"name": "filter",
+"desc": "filter all tree nodes, filtered nodes will be hidden",
+"type": "`(query: string)`",
+"accepted": "",
+"default": "",
+"r": "`el_call(session, id, \"filter\")`"
+},
+{
+"name": "getCheckedNodes",
+"desc": "If the node can be selected (`show-checkbox` is `true`), it returns the currently selected array of nodes",
+"type": "`(leafOnly: boolean)`",
+"accepted": "",
+"default": "",
+"r": "`el_call(session, id, \"getCheckedNodes\")`"
+},
+{
+"name": "getCheckedKeys",
+"desc": "If the node can be selected (`show-checkbox` is `true`), it returns the currently selected array of node's keys",
+"type": "`(leafOnly: boolean)`",
+"accepted": "",
+"default": "",
+"r": "`el_call(session, id, \"getCheckedKeys\")`"
+},
+{
+"name": "setCheckedKeys",
+"desc": "set certain nodes to be checked",
+"type": "`(keys: TreeKey[])`",
+"accepted": "",
+"default": "",
+"r": "`el_call(session, id, \"setCheckedKeys\")`"
+},
+{
+"name": "setChecked",
+"desc": "set node to be checked or not, `deep` (added in ^(2.14.0)) indicates whether child nodes should be recursively checked/unchecked.",
+"type": "`(key: TreeKey, checked: boolean, deep?: boolean)`",
+"accepted": "",
+"default": "",
+"r": "`el_call(session, id, \"setChecked\")`"
+},
+{
+"name": "setExpandedKeys",
+"desc": "set certain nodes to be expanded",
+"type": "`(keys: TreeKey[])`",
+"accepted": "",
+"default": "",
+"r": "`el_call(session, id, \"setExpandedKeys\")`"
+},
+{
+"name": "getHalfCheckedNodes",
+"desc": "If the node can be selected (`show-checkbox` is `true`), it returns the currently half selected array of nodes",
+"type": "—",
+"accepted": "",
+"default": "",
+"r": "`el_call(session, id, \"getHalfCheckedNodes\")`"
+},
+{
+"name": "getHalfCheckedKeys",
+"desc": "If the node can be selected (`show-checkbox` is `true`), it returns the currently half selected array of node's keys",
+"type": "—",
+"accepted": "",
+"default": "",
+"r": "`el_call(session, id, \"getHalfCheckedKeys\")`"
+},
+{
+"name": "getCurrentKey",
+"desc": "return the highlight node's key (undefined if no node is highlighted)",
+"type": "—",
+"accepted": "",
+"default": "",
+"r": "`el_call(session, id, \"getCurrentKey\")`"
+},
+{
+"name": "getCurrentNode",
+"desc": "return the highlight node's data (undefined if no node is highlighted)",
+"type": "—",
+"accepted": "",
+"default": "",
+"r": "`el_call(session, id, \"getCurrentNode\")`"
+},
+{
+"name": "setCurrentKey",
+"desc": "set highlighted node by key",
+"type": "`(key: TreeKey)`",
+"accepted": "",
+"default": "",
+"r": "`el_call(session, id, \"setCurrentKey\")`"
+},
+{
+"name": "getNode",
+"desc": "get node by key or data",
+"type": "`(data: TreeKey \\| TreeNodeData)`",
+"accepted": "",
+"default": "",
+"r": "`el_call(session, id, \"getNode\")`"
+},
+{
+"name": "expandNode",
+"desc": "expand specified node",
+"type": "`(node: TreeNode)`",
+"accepted": "",
+"default": "",
+"r": "`el_call(session, id, \"expandNode\")`"
+},
+{
+"name": "collapseNode",
+"desc": "collapse specified node",
+"type": "`(node: TreeNode)`",
+"accepted": "",
+"default": "",
+"r": "`el_call(session, id, \"collapseNode\")`"
+},
+{
+"name": "setData",
+"desc": "When the data is very large, using reactive data will cause the poor performance, so we provide a way to avoid this situation",
+"type": "`(data: TreeData)`",
+"accepted": "",
+"default": "",
+"r": "`el_call(session, id, \"setData\")`"
+},
+{
+"name": "scrollTo",
+"desc": "scroll to a given position",
+"type": "`(offset: number)`",
+"accepted": "",
+"default": "",
+"r": "`el_call(session, id, \"scrollTo\")`"
+},
+{
+"name": "scrollToNode",
+"desc": "scroll to a given tree key with specified scroll strategy",
+"type": "`(key: TreeKey, strategy?: auto \\| smart \\| center \\| start \\| end)`",
+"accepted": "",
+"default": "",
+"r": "`el_call(session, id, \"scrollToNode\")`"
+}
+]
+},
+{
 "title": "TreeV2 Events",
 "kind": "Events",
 "rows": [
@@ -17951,6 +18197,14 @@
 "accepted": "",
 "default": "—",
 "r": "`node_key`"
+},
+{
+"name": "props",
+"desc": "configuration options, see the following table",
+"type": "^[object]",
+"accepted": "",
+"default": "—",
+"r": "`label_field, children_field, disabled_field, is_leaf_field`"
 },
 {
 "name": "render-after-expand",
@@ -18127,6 +18381,156 @@
 "accepted": "",
 "default": "—",
 "r": "`allow_drop`"
+}
+]
+},
+{
+"title": "Exposes",
+"kind": "Methods",
+"rows": [
+{
+"name": "filter",
+"desc": "filter all tree nodes, filtered nodes will be hidden",
+"type": "Accept a parameter which will be used as first parameter for filter-node-method",
+"accepted": "",
+"default": "",
+"r": "`el_call(session, id, \"filter\")`"
+},
+{
+"name": "updateKeyChildren",
+"desc": "set new data to node, only works when `node-key` is assigned",
+"type": "(key, data) Accept two parameters: 1. key of node 2. new data",
+"accepted": "",
+"default": "",
+"r": "`el_call(session, id, \"updateKeyChildren\")`"
+},
+{
+"name": "getCheckedNodes",
+"desc": "If the node can be selected (`show-checkbox` is `true`), it returns the currently selected array of nodes",
+"type": "(leafOnly, includeHalfChecked) Accept two boolean type parameters: 1. default value is `false`. If the parameter is `true`, it only returns the currently selected array of sub-nodes. 2. default value is `false`. If the parameter is `true`, the return value contains halfchecked nodes",
+"accepted": "",
+"default": "",
+"r": "`el_call(session, id, \"getCheckedNodes\")`"
+},
+{
+"name": "setCheckedNodes",
+"desc": "set certain nodes to be checked, only works when `node-key` is assigned",
+"type": "(nodes, leafOnly) Accept two parameters: 1. an array of node objects to be checked 2. a boolean parameter. If set to `true`, only the checked status of leaf nodes will be set. The default value is `false`.",
+"accepted": "",
+"default": "",
+"r": "`el_call(session, id, \"setCheckedNodes\")`"
+},
+{
+"name": "getCheckedKeys",
+"desc": "If the node can be selected (`show-checkbox` is `true`), it returns the currently selected array of node's keys",
+"type": "(leafOnly) Accept a boolean type parameter whose default value is `false`. If the parameter is `true`, it only returns the currently selected array of sub-nodes.",
+"accepted": "",
+"default": "",
+"r": "`el_call(session, id, \"getCheckedKeys\")`"
+},
+{
+"name": "setCheckedKeys",
+"desc": "set certain nodes to be checked, only works when `node-key` is assigned",
+"type": "(keys, leafOnly) Accept two parameters: 1. an array of node's keys to be checked 2. a boolean parameter. If set to `true`, only the checked status of leaf nodes will be set. The default value is `false`.",
+"accepted": "",
+"default": "",
+"r": "`el_call(session, id, \"setCheckedKeys\")`"
+},
+{
+"name": "setChecked",
+"desc": "set node to be checked or not, only works when `node-key` is assigned",
+"type": "(key/data, checked, deep) Accept three parameters: 1. node's key or data to be checked 2. a boolean typed parameter indicating checked or not. 3. a boolean typed parameter indicating whether to recursively check/uncheck child nodes (since ^(2.14.0), this works regardless of the `check-strictly` setting).",
+"accepted": "",
+"default": "",
+"r": "`el_call(session, id, \"setChecked\")`"
+},
+{
+"name": "getHalfCheckedNodes",
+"desc": "If the node can be selected (`show-checkbox` is `true`), it returns the currently half selected array of nodes",
+"type": "—",
+"accepted": "",
+"default": "",
+"r": "`el_call(session, id, \"getHalfCheckedNodes\")`"
+},
+{
+"name": "getHalfCheckedKeys",
+"desc": "If the node can be selected (`show-checkbox` is `true`), it returns the currently half selected array of node's keys",
+"type": "—",
+"accepted": "",
+"default": "",
+"r": "`el_call(session, id, \"getHalfCheckedKeys\")`"
+},
+{
+"name": "getCurrentKey",
+"desc": "return the highlight node's key (null if no node is highlighted)",
+"type": "—",
+"accepted": "",
+"default": "",
+"r": "`el_call(session, id, \"getCurrentKey\")`"
+},
+{
+"name": "getCurrentNode",
+"desc": "return the highlight node's data (null if no node is highlighted)",
+"type": "—",
+"accepted": "",
+"default": "",
+"r": "`el_call(session, id, \"getCurrentNode\")`"
+},
+{
+"name": "setCurrentKey",
+"desc": "set highlighted node by key, only works when `node-key` is assigned",
+"type": "(key, shouldAutoExpandParent=true) 1. the node's key to be highlighted. If `null`, cancel the currently highlighted node 2. whether to automatically expand parent node",
+"accepted": "",
+"default": "",
+"r": "`el_call(session, id, \"setCurrentKey\")`"
+},
+{
+"name": "setCurrentNode",
+"desc": "set highlighted node, only works when `node-key` is assigned",
+"type": "(node, shouldAutoExpandParent=true) 1. the node to be highlighted 2. whether to automatically expand parent node",
+"accepted": "",
+"default": "",
+"r": "`el_call(session, id, \"setCurrentNode\")`"
+},
+{
+"name": "getNode",
+"desc": "get node by data or key",
+"type": "(data) the node's data or key",
+"accepted": "",
+"default": "",
+"r": "`el_call(session, id, \"getNode\")`"
+},
+{
+"name": "remove",
+"desc": "remove a node, only works when node-key is assigned",
+"type": "(data) the node's data or node to be deleted",
+"accepted": "",
+"default": "",
+"r": "`el_call(session, id, \"remove\")`"
+},
+{
+"name": "append",
+"desc": "append a child node to a given node in the tree",
+"type": "(data, parentNode) 1. child node's data to be appended 2. parent node's data, key or node",
+"accepted": "",
+"default": "",
+"r": "`el_call(session, id, \"append\")`"
+},
+{
+"name": "insertBefore",
+"desc": "insert a node before a given node in the tree",
+"type": "(data, refNode) 1. node's data to be inserted 2. reference node's data, key or node",
+"accepted": "",
+"default": "",
+"r": "`el_call(session, id, \"insertBefore\")`"
+},
+{
+"name": "insertAfter",
+"desc": "insert a node after a given node in the tree",
+"type": "(data, refNode) 1. node's data to be inserted 2. reference node's data, key or node",
+"accepted": "",
+"default": "",
+"r": "`el_call(session, id, \"insertAfter\")`"
 }
 ]
 },

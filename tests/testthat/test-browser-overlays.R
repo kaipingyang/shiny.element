@@ -112,6 +112,72 @@ test_that("overlays stack with Element's popups, focus returns, keys work", {
   Sys.sleep(1.5)
   expect_equal(js("document.activeElement.id"), "open_drawer")
 
+  # ── focus trap: Tab and Shift+Tab stay inside the open dialog
+  js(
+    "(function(){ var w = document.getElementById('trap');
+      $(w).data('shiny-input-binding').setValue(w, true); })()"
+  )
+  Sys.sleep(1.5)
+  tab <- function(shift = FALSE) {
+    b$Input$dispatchKeyEvent(
+      type = "keyDown",
+      windowsVirtualKeyCode = 9,
+      key = "Tab",
+      code = "Tab",
+      modifiers = if (shift) 8 else 0
+    )
+    Sys.sleep(0.2)
+    js(
+      "(function(){ var a = document.activeElement;
+        return document.querySelector('#trap .el-dialog').contains(a) ? 'in' : (a.id || a.tagName); })()"
+    )
+  }
+  where <- vapply(1:6, function(i) tab(), "")
+  expect_equal(unique(where), "in")
+  where <- vapply(1:4, function(i) tab(TRUE), "")
+  expect_equal(unique(where), "in")
+  # focus that lands under the mask is brought back
+  js("document.getElementById('outside_btn').focus()")
+  Sys.sleep(0.2)
+  expect_true(js(
+    "document.querySelector('#trap .el-dialog').contains(document.activeElement)"
+  ))
+  js(
+    "(function(){ var w = document.getElementById('trap');
+      $(w).data('shiny-input-binding').setValue(w, false); })()"
+  )
+  Sys.sleep(1)
+
+  # ── closed straight after opening: no late "opened"
+  order <- js(
+    "(async function(){
+      var seen = [], orig = Shiny.setInputValue;
+      Shiny.setInputValue = function(n){ if (/^race_/.test(n) && !/auto_focus/.test(n)) seen.push(n.slice(5)); return orig.apply(this, arguments); };
+      var w = document.getElementById('race'), bd = $(w).data('shiny-input-binding');
+      bd.setValue(w, true);
+      await new Promise(function(r){ setTimeout(r, 50); });
+      bd.setValue(w, false);
+      await new Promise(function(r){ setTimeout(r, 1200); });
+      Shiny.setInputValue = orig;
+      return seen.join(' > ');
+    })()"
+  )
+  expect_equal(order, "open > close > closed")
+
+  # ── tabs: disabled tabs are passed over, cannot be closed; Enter adds
+  js("document.getElementById('tabs2-tab-a').focus()")
+  key("keyDown", 39, "ArrowRight")
+  Sys.sleep(0.8)
+  expect_equal(vals()[["tabs2"]], "c")
+  expect_false(js(
+    "document.getElementById('tabs2-tab-b').classList.contains('is-closable')"
+  ))
+  expect_false(js("!!document.querySelector('#tabs2-tab-b .is-icon-close')"))
+  js("document.querySelector('#tabs2 .el-tabs__new-tab').focus()")
+  key("keyDown", 13, "Enter")
+  Sys.sleep(0.8)
+  expect_equal(vals()[["tabs2_add"]], "TRUE")
+
   # ── tabs: arrows move and select, Delete closes, overflow scrolls
   expect_true(js(
     "document.querySelector('#tabs .el-tabs__nav-wrap').classList.contains('is-scrollable')"

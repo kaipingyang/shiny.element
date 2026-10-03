@@ -61,13 +61,89 @@ server <- function(input, output, session) {
 }
 shinyApp(ui, server)
 
-## use-vnode !skip
-A VNode is a Vue render function's; from R, send the message as HTML with
-`dangerously_use_html_string = TRUE`.
+## use-vnode
+#' A message can be a VNode, built in the browser: give it as `JS()` code
+#' calling `Vue.h()`. One with props that change -- the switch -- is a
+#' function returning the VNode, as upstream says.
+#| shot_js = "document.querySelector('#open_container button').click()", shot_sel = ".el-message-box", shot_wait = 1
+ui <- el_page(
+  el_button("open", "Common VNode", plain = TRUE),
+  el_button("open1", "Dynamic props", plain = TRUE)
+)
+server <- function(input, output, session) {
+  observeEvent(input$open, {
+    el_message_box(
+      session,
+      "vn",
+      JS(
+        "Vue.h('p', null, [
+          Vue.h('span', null, 'Message can be '),
+          Vue.h('i', { style: 'color: teal' }, 'VNode')
+        ])"
+      ),
+      title = "Message",
+      box_type = "alert"
+    )
+  })
+  observeEvent(input$open1, {
+    el_message_box(
+      session,
+      "vn1",
+      JS(
+        "(function() {
+          var checked = Vue.ref(false);
+          return function() {
+            return Vue.h(ElementPlus.ElSwitch, {
+              modelValue: checked.value,
+              'onUpdate:modelValue': function(v) { checked.value = v; }
+            });
+          };
+        })()"
+      ),
+      title = "Message",
+      box_type = "alert"
+    )
+  })
+}
+shinyApp(ui, server)
 
-## use-vnode-with-action-handlers !skip
-A VNode is a Vue render function's; from R, send the message as HTML with
-`dangerously_use_html_string = TRUE`.
+## use-vnode-with-action-handlers
+#' A function message is handed the box's own actions, `confirm`, `cancel`
+#' and `close`, for buttons of its own. The answer reaches the server as
+#' `input$handled`, as for any message box.
+#| shot_js = "document.querySelector('#open_container button').click()", shot_sel = ".el-message-box", shot_wait = 1
+ui <- el_page(el_button("open", "Click to open Message Box", plain = TRUE))
+server <- function(input, output, session) {
+  observeEvent(input$open, {
+    el_message_box(
+      session,
+      "handled",
+      JS(
+        "function({ confirm, cancel, close }) {
+          var button = function(props, text) {
+            return Vue.h(ElementPlus.ElButton, props, function() { return text; });
+          };
+          return Vue.h('div', [
+            Vue.h('p', { style: 'margin-bottom: 8px' },
+              'Custom buttons with MessageBox action handlers'),
+            button({ type: 'primary', onClick: function() { confirm(); } }, 'Resolve'),
+            button({ type: 'danger', onClick: function() { cancel(); } }, 'Reject'),
+            button({ onClick: function() { close(); } }, 'Close')
+          ]);
+        }"
+      ),
+      title = "Message",
+      show_confirm_button = FALSE,
+      show_cancel_button = FALSE,
+      distinguish_cancel_and_close = TRUE
+    )
+  })
+  observeEvent(
+    input$handled,
+    el_message(session, paste("Answer:", input$handled))
+  )
+}
+shinyApp(ui, server)
 
 ## customization
 #| shot_js = "document.querySelector('#open_container button').click()", shot_sel = ".el-message-box", shot_wait = 1

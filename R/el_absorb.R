@@ -362,7 +362,9 @@
 #' @keywords internal
 .el_rewrite_markup <- function(ui, rename) {
   if (inherits(ui, "shiny.tag")) {
-    bindings <- grepl("^[:@]|^v-(model|if|for|show|bind|on)", names(ui$attribs))
+    # Every directive's value is an expression -- v-loading as much as v-if --
+    # except a slot's, which declares its scope's names
+    bindings <- grepl("^[:@]|^v-(?!slot)", names(ui$attribs), perl = TRUE)
     ui$attribs[bindings] <- lapply(
       ui$attribs[bindings],
       .el_rewrite_expr,

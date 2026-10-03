@@ -55,8 +55,14 @@ el_space(
   el_button("sp_l2", "button 2")
 )
 
-## vnode-type-spacer !skip
-A VNode spacer is a Vue render function's; give `spacer` a string -- `"|"`.
+## vnode-type-spacer
+#' A spacer can be a VNode too, built in the browser from `JS()` code.
+el_space(
+  size = 10,
+  spacer = JS("Vue.h(ElementPlus.ElDivider, { direction: 'vertical' })"),
+  el_button("sp_v1", "button 1"),
+  el_button("sp_v2", "button 2")
+)
 
 ## alignment
 tags$div(

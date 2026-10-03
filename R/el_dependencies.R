@@ -13,8 +13,8 @@
 #'   `NULL` leaves it out.
 #' @param offline Serve Element Plus from the copy bundled with this package
 #'   rather than the unpkg CDN. See [element_plus_dependency()].
-#' @param dev Load the development build of Vue instead of `vue.min.js`, so
-#'   Vue's warnings are not stripped. Defaults to
+#' @param dev Load Vue's development build (`vue.global.js`) instead of the
+#'   production one, so Vue's warnings are not stripped. Defaults to
 #'   `getOption("shiny.element.dev", FALSE)`.
 #' @param locale Language for Element Plus's built-in text. English by default,
 #'   or `getOption("shiny.element.locale")` when set. See

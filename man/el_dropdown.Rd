@@ -114,11 +114,14 @@ Element Plus's \code{teleported} (boolean).}
 \item{trigger_keys}{Specify which keys on the keyboard can trigger when
 pressed. Element Plus's \code{trigger-keys} (\code{string[]}).}
 
-\item{virtual_ref}{Indicates the reference element to which the dropdown is
-attached. Element Plus's \code{virtual-ref} (HTMLElement).}
+\item{virtual_ref}{A CSS selector, \code{"#help-icon"}, for an element elsewhere
+on the page that the dropdown is attached to, in place of a trigger of its
+own. Element Plus's \code{virtual-ref} takes the element itself; the selector
+is looked up in the browser.}
 
-\item{virtual_triggering}{Indicates whether virtual triggering is enabled.
-Element Plus's \code{virtual-triggering} (boolean).}
+\item{virtual_triggering}{Whether virtual triggering is enabled. Element
+Plus's \code{virtual-triggering} (boolean); \code{TRUE} when \code{virtual_ref} is
+given.}
 
 \item{width}{Component width, as a CSS unit -- \code{"200px"}, \code{"50\%"}, or a
 number taken as pixels. Element's own markup carries it, so it behaves

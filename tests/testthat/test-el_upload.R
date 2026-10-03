@@ -57,19 +57,10 @@ test_that("el_upload: Element still needs an action even when unused", {
 
 # ── the duplicate-input-id problem ────────────────────────────────────────────
 
-test_that("el_upload: the file field gets a unique name by default", {
-  # Shiny's fileInputBinding claims every input[type=file] and keys it by id
-  # or name, so two uploads both called "file" trip its duplicate-id warning.
-  expect_match(
-    render_html(el_upload("files")),
-    'name="files_elfile"',
-    fixed = TRUE
-  )
-  expect_match(
-    render_html(el_upload("other")),
-    'name="other_elfile"',
-    fixed = TRUE
-  )
+test_that("el_upload: the file field has no name by default", {
+  # Shiny's fileInputBinding binds every input[type=file] with an id or a
+  # name as an input of its own; an empty name keeps it out.
+  expect_match(render_html(el_upload("files")), 'name=""', fixed = TRUE)
 })
 
 test_that("el_upload: with action the field keeps Element's default name", {
@@ -226,4 +217,16 @@ test_that("letting go of an upload job removes it and its directory", {
   expect_false(shiny.element:::.el_upload_abandon(job, session))
   expect_false(shiny.element:::.el_upload_abandon(NULL, session))
   expect_false(shiny.element:::.el_upload_abandon("x", list()))
+})
+
+test_that("the installed Shiny still has the upload internals el_upload uses", {
+  # .el_upload_abandon() reaches into these; a Shiny release that moves them
+  # fails here rather than leaving partial uploads behind unnoticed.
+  expect_true(
+    "fileUploadContext" %in% names(shiny:::ShinySession$private_fields)
+  )
+  ctx_methods <- names(shiny:::FileUploadContext$public_methods)
+  expect_true(all(c("getUploadOperation", "onJobFinished") %in% ctx_methods))
+  op_fields <- names(shiny:::FileUploadOperation$public_fields)
+  expect_true(all(c(".dir", ".currentFileData") %in% op_fields))
 })

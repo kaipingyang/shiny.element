@@ -574,16 +574,20 @@ test_that("the upload renders a drop zone with its tip", {
   )
 })
 
-test_that("the file field is named uniquely so Shiny sees no duplicate id", {
+test_that("Shiny's file-input binding leaves the upload's field alone", {
   skip_if_no_browser()
-  # Shiny's fileInputBinding claims every input[type=file] and keys it by
-  # name; Element's default "file" collides as soon as there are two uploads.
+  # Shiny's fileInputBinding binds every input[type=file] with an id or a
+  # name; the field has neither, so no input$<id>_elfile appears.
   expect_equal(
     bev(
-      "(function(){var i=document.querySelector('#up_container input[type=file]'); return i ? i.name : 'NONE'})()"
+      "(function(){var i=document.querySelector('#up_container input[type=file]'); return i ? [i.name, i.classList.contains('shiny-bound-input')].join('|') : 'NONE'})()"
     ),
-    "up_elfile"
+    "|false"
   )
+  expect_false(any(grepl(
+    "_elfile",
+    bev("Object.keys(Shiny.shinyapp.$inputValues).join(' ')")
+  )))
 })
 
 test_that("a whole selection goes through one upload job", {
@@ -1051,6 +1055,27 @@ test_that("Vue raises no warnings", {
   # error is stripped entirely -- which is how a container that rendered
   # nothing at all went unnoticed.
   expect_equal(bconsole(), character(0))
+})
+
+test_that("the fixture runs Vue's development build, which does warn", {
+  skip_if_no_browser()
+  # Guards the test above: with the production build bconsole() is empty
+  # whatever happens. Mount a template naming a missing property, catching
+  # console.warn for the moment so the page's own log stays clean.
+  got <- bev(
+    "(function(){
+       var seen = [], warn = console.warn;
+       console.warn = function(m){ seen.push(String(m)); };
+       var box = document.createElement('div');
+       document.body.appendChild(box);
+       var app = Vue.createApp({ template: '<span>{{ notDefined }}</span>' });
+       app.mount(box); app.unmount(); box.remove();
+       console.warn = warn;
+       return seen.join(' | ');
+     })()"
+  )
+  expect_match(got, "[Vue warn]", fixed = TRUE)
+  expect_match(got, "notDefined", fixed = TRUE)
 })
 
 # ── forwarded Element events ──────────────────────────────────────────────────

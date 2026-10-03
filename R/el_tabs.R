@@ -195,6 +195,8 @@ el_tabs <- function(
 #' @keywords internal
 .el_tab_item <- function(ns_id, t, active, closable, pos_class) {
   disabled <- isTRUE(t$disabled)
+  # A disabled tab cannot be closed, as in Element Plus's TabNav
+  closable <- closable && !disabled
   shiny::tags$div(
     id = paste0(ns_id, "-tab-", t$name),
     role = "tab",

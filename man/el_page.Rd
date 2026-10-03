@@ -37,8 +37,8 @@ summaries, date-picker buttons, select placeholders. English by default,
 or \code{getOption("shiny.element.locale")} when set; \code{"zh-CN"} gives Element's
 own Simplified Chinese. See \code{\link[=el_locales]{el_locales()}} for the rest.}
 
-\item{dev}{Load the development build of Vue instead of \code{vue.min.js}.
-The production build strips every warning, which is why a template that
+\item{dev}{Load Vue's development build (\code{vue.global.js}) instead of the
+production one. The production build strips every warning, which is why a template that
 fails to compile renders nothing and says nothing. Defaults to
 \code{getOption("shiny.element.dev", FALSE)}, so it can be turned on for a
 whole session without touching the UI code.}

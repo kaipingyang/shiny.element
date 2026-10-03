@@ -5,7 +5,8 @@
 #'
 #' @param session Shiny session; the current one by default, as for
 #'   [shiny::updateTextInput()].
-#' @param message Notification body text.
+#' @param message Notification body text, or a VNode built in the browser:
+#'   [JS()] code calling `Vue.h()`, or a function returning one.
 #' @param title Notification title. Default `""`.
 #' @param type Notification type: `"info"`, `"success"`, `"warning"`,
 #'   or `"error"`. Default `"info"`.
@@ -90,7 +91,8 @@ el_notification <- function(
 #'
 #' @param session Shiny session; the current one by default, as for
 #'   [shiny::updateTextInput()].
-#' @param message Message text.
+#' @param message Message text, or a VNode built in the browser: [JS()]
+#'   code calling `Vue.h()`.
 #' @param type Message type: `"info"`, `"success"`, `"warning"`, or `"error"`.
 #'   Default `"info"`.
 #' @param duration Auto-close delay in milliseconds. `0` disables auto-close.
@@ -174,7 +176,9 @@ el_message <- function(
 #' @param session Shiny session; the current one by default, as for
 #'   [shiny::updateTextInput()].
 #' @param id Input ID the answer is reported to.
-#' @param message The question or statement.
+#' @param message The question or statement, or a VNode built in the
+#'   browser: [JS()] code calling `Vue.h()`, or a function of the box's
+#'   actions (`confirm`, `cancel`, `close`) returning one.
 #' @param title Title of the box.
 #' @param type Icon shown: `"success"`, `"info"`, `"warning"` or `"error"`.
 #' @param box_type `"confirm"` (default) offers two buttons, `"alert"` one,
@@ -312,6 +316,12 @@ el_message_box <- function(
     as.list(environment()),
     c("session", "id", "message", "title", "box_type")
   )
+  # A JS() message -- a VNode, or a function of the box's actions -- is
+  # built in the browser
+  if (inherits(message, "JS_EVAL")) {
+    message <- as.character(message)
+    opts$.functions <- I(c(opts$.functions, "message"))
+  }
   session$sendCustomMessage(
     "elMessageBox",
     c(

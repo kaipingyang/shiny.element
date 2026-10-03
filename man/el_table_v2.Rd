@@ -37,7 +37,9 @@ el_table_v2(
   sort_by = NULL,
   sort_state = NULL,
   width = NULL,
-  slots = NULL
+  slots = NULL,
+  methods = NULL,
+  auto_resize = FALSE
 )
 }
 \arguments{
@@ -139,6 +141,16 @@ instead of when mouse is placed above the table. Element Plus's
 \item{slots}{Named list of Element slot contents: \code{cell}, \code{header},
 \code{header-cell}, \code{row}, \code{footer}, \code{empty}, \code{overlay}. A scoped slot is
 written with \code{\link[=template]{template()}}.}
+
+\item{methods}{Named list of \code{\link[=JS]{JS()}} functions that the slot templates can
+call by name. Element Plus's own examples build cells, header rows and
+rows in JavaScript; such a function, given the slot's scope, can do the
+same and return the cells to draw (\code{Vue.h()}, \code{Vue.cloneVNode()}). Each
+is drawn with \verb{<component :is="cell" />}.}
+
+\item{auto_resize}{\code{TRUE} to size the table to its container, as Element
+Plus's \code{el-auto-resizer} does: \code{table_v2_width} and \code{height} are then
+ignored, and the container needs a height of its own.}
 }
 \value{
 A Shiny UI element.

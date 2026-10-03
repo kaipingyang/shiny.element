@@ -14,6 +14,7 @@ el_segmented(
   validate_event = NULL,
   aria_label = NULL,
   direction = NULL,
+  props = NULL,
   label = NULL,
   label_position = c("top", "left", "right"),
   label_width = NULL,
@@ -51,6 +52,10 @@ or a list of \code{list(value =, label =, disabled =)}, as Element Plus takes th
 
 \item{direction}{Display direction. Element Plus's \code{direction}
 ('horizontal' | 'vertical').}
+
+\item{props}{Which field of an option holds what, when the options are
+records named otherwise: \code{list(value =, label =, disabled =)}, Element
+Plus's \code{props}.}
 
 \item{label}{A label shown with the component, as Shiny's inputs have:
 text or a tag. \code{NULL}, the default, shows none. It is the component's

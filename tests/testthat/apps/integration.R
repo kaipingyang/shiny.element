@@ -38,7 +38,7 @@ mod_ui <- function(id) {
         list(
           label = "",
           cell = el$button(
-            size = "mini",
+            size = "small",
             "@click" = "rowAction('go', scope)",
             "Go"
           )

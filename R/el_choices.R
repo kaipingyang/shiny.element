@@ -140,6 +140,7 @@
         "hsv"
       )
     ),
+    el_config_provider = list(size = c("large", "default", "small")),
     el_container = list(direction = c("horizontal", "vertical")),
     el_date_picker = list(
       size = c("", "large", "default", "small"),
@@ -316,7 +317,10 @@
       status = c("success", "exception", "warning"),
       stroke_linecap = c("butt", "round", "square")
     ),
-    el_radio_group = list(type = c("radio", "button")),
+    el_radio_group = list(
+      type = c("radio", "button"),
+      size = c("large", "default", "small")
+    ),
     el_rate = list(size = c("large", "default", "small")),
     el_result = list(
       icon = c("primary", "success", "warning", "info", "error")
@@ -457,6 +461,7 @@
       )
     ),
     el_transfer = list(target_order = c("original", "push", "unshift")),
+    el_tree_select = list(size = c("", "large", "default", "small")),
     el_upload = list(
       crossorigin = c("", "anonymous", "use-credentials"),
       list_type = c("text", "picture", "picture-card")

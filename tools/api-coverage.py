@@ -6,13 +6,15 @@ Needs the upstream sources, which are not in the repo (see .gitignore and
 
     git clone --depth 1 --branch 2.14.7 https://github.com/element-plus/element-plus .upstream/element-plus
 
-and a snapshot of what we render, written by tools/api-coverage.R:
+In three steps, in this order (Python from the project venv): parse the
+upstream docs, snapshot what we render -- which probes every slot the docs
+list, so it needs the first step's output -- and compare:
 
+    python tools/api-coverage.py --docs
     Rscript tools/api-coverage.R
-
-Then (Python from the project venv, ~/claude_code/bin/python):
-
     python tools/api-coverage.py [--missing el_table | --gaps]
+
+The snapshot stops if the parsed docs are missing or older than the docs.
 
 The baseline is the API tables in the upstream docs
 (docs/en-US/component/*.md): what upstream actually promises.
@@ -22,9 +24,6 @@ import sys, os
 DOCS = ".upstream/element-plus/docs/en-US/component"
 if not os.path.isdir(DOCS):
     sys.exit("upstream sources missing -- see the header of this file")
-if not os.path.exists("/tmp/elapi/ours.json"):
-    sys.exit("run Rscript tools/api-coverage.R first")
-
 import re, json, glob
 
 # Section titles that document a component's API, and what they hold.
@@ -43,11 +42,12 @@ CONFIG_OWN = re.compile(r"^(Config Provider )?(Attributes|Slots)$")
 
 def clean(cell):
     cell = re.sub(r"\^\([^)]*\)", "", cell)            # ^(2.2.0) version marks
+    cell = re.sub(r"\[([^\]]*)\]\([^)]*\)", r"\1", cell)   # [props](#props): a link to its own table
     return cell.strip()
 
 def parse(path):
     lines = open(path, encoding="utf-8", errors="replace").read().split("\n")
-    out, cur, comp = {}, None, os.path.basename(path)[:-3]
+    out, cur, comp, cols = {}, None, os.path.basename(path)[:-3], []
     for ln in lines:
         h = re.match(r'^#{2,4}\s+(.+?)\s*$', ln)
         if h:
@@ -73,12 +73,17 @@ def parse(path):
             name = clean(cells[0]).strip("`*_ ")
             # "model-value / v-model" documents one prop under two spellings
             name = name.split("/")[0].strip().strip("`*_ ")
-            if name.lower() in ("name", "attribute", "event", "method", "slot", "option", "property"): continue
+            if name.lower() in ("name", "attribute", "event", "method", "slot", "option", "property"):
+                # a table listing methods by their parameters rather than a
+                # type (tree's) is still methods
+                cols = [clean(c).lower() for c in cells]
+                continue
             if not re.match(r'^[a-zA-Z][\w:.-]*$', name): continue
             title, kind = cur
             typ = cells[2] if len(cells) > 2 else ""
             # An exposed value or ref is not something to call
-            if kind == "Methods" and "Function" not in typ and "=>" not in typ:
+            if kind == "Methods" and "Function" not in typ and "=>" not in typ \
+                    and "parameters" not in cols:
                 continue
             # v-model's plumbing, not an event of its own
             if kind == "Events" and name.startswith("update:"):
@@ -101,6 +106,11 @@ for p in sorted(glob.glob(f"{DOCS}/*.md")):
 
 os.makedirs("/tmp/elapi", exist_ok=True)
 json.dump(api, open("/tmp/elapi/docs.json","w"), indent=1)
+if "--docs" in sys.argv:
+    sys.exit(0)
+if not os.path.exists("/tmp/elapi/ours.json") or \
+        os.path.getmtime("/tmp/elapi/ours.json") < os.path.getmtime(DOCS):
+    sys.exit("run Rscript tools/api-coverage.R first (after --docs)")
 
 docs = api
 ours = json.load(open("/tmp/elapi/ours.json"))
@@ -124,6 +134,10 @@ EXCLUDED = {
     ("el-checkbox", "validateEvent"): "inside a group, validation is the group's",
     ("el-tabs", "tabindex"): "the tabs are markup here; each tab's tabindex follows Element's roving focus",
     ("el-tree-select", "Attributes"): "a cross-reference row in upstream's table, not a prop",
+    ("el-tree-select", "select"): "a cross-reference row: el_tree_select() takes the select's attributes, its `...` the rest",
+    ("el-tree-select", "tree"): "a cross-reference row: el_tree_select() takes the tree's attributes, its `...` the rest",
+    ("el-popover", "tooltip"): "a cross-reference row: the tooltip's other attributes go through el_popover(...)",
+    ("el-popconfirm", "tooltip"): "a cross-reference row: the tooltip's other attributes go through el_popconfirm(...)",
     ("el-config-provider", "locale"): "the page's: el_page(locale =), as every component is an app of its own",
     ("el-config-provider", "zIndex"): "the page's: el_page(z_index =)",
     ("el-config-provider", "namespace"): "the stylesheet is Element Plus's own, built for the el- namespace",
@@ -144,7 +158,20 @@ EXCLUDED = {
     ("el-select", "autoComplete"): "upstream marks auto-complete @DEPRECATED; autocomplete is bound",
     ("el-input", "autoComplete"): "upstream marks auto-complete @DEPRECATED; autocomplete is bound",
     ("el-checkbox", "value"): "the group owns the value through v-model; a child's own value is unused inside one",
+    ("el-switch", "label"): "upstream marks label deprecated, an alias of aria-label, which is bound; `label` is the Shiny label",
+    ("el-rate", "label"): "upstream marks label deprecated, an alias of aria-label, which is bound; `label` is the Shiny label",
+    ("el-color-picker", "label"): "upstream marks label deprecated, an alias of aria-label, which is bound; `label` is the Shiny label",
+    ("el-time-picker", "label"): "upstream marks label deprecated, an alias of aria-label, which is bound; `label` is the Shiny label",
     ("el-radio", "value"): "the group owns the value through v-model; a child's own value is unused inside one",
+}
+# An argument named as the prop but honoured otherwise than by binding it.
+# Only these count as covered without a binding; any other argument that
+# merely shares a prop's name is reported as missing.
+ALIASES = {
+    ("el-checkbox-group", "options"): "an alias of `choices`, rendered as el-checkbox children",
+    ("el-radio-group", "options"): "an alias of `choices`, rendered as el-radio children",
+    ("el-select", "options"): "an alias of `choices`, rendered as el-option children",
+    ("el-select", "props"): "applied in R: the options are drawn as el-option children, their fields renamed",
 }
 # Events not forwarded, with the reason
 EVENTS_EXCLUDED = {"el-tour-step": {"close"}}   # the tour's own close reports it, step and all
@@ -188,6 +215,8 @@ def _merge(into, frm):
 _merge("el-date-picker", "el-datetime-picker")      # type = "datetime"
 
 def camel(a):
+    # v-model:current-page binds current-page
+    if a.startswith("v-model:"): a = a[len("v-model:"):]
     a = a.lstrip(":@").split(".")[0]
     p = a.split("-")
     return p[0] + "".join(x.capitalize() for x in p[1:])
@@ -252,11 +281,15 @@ for fn, info in sorted(ours.items()):
         if any(a == "v-model" for a in attrs): mine_a |= {"value", "modelValue"}
         # Settable but not bound: the UI accepts it, update_el_*() cannot touch it
         conditional = sorted((upa & params) - mine_a - (bound_by_fn.get(fn, set()) & (params | PROPAGATED.get(tag, set()))))
+        # An argument that only shares the prop's name -- el_tooltip's old
+        # `trigger`, which was the reference -- is not the prop
+        aliased = {p for p in conditional if (tag, p) in ALIASES}
+        covered = upa & (mine_a | (params - set(conditional)) | aliased)
         report.append({
-            "fn": fn, "tag": tag, "conditional": conditional,
-            "attr": [len(upa & (mine_a | params)), len(upa)],
+            "fn": fn, "tag": tag, "conditional": sorted(aliased),
+            "attr": [len(covered), len(upa)],
             "bound": [len(upa & mine_a), len(upa)],
-            "attr_missing": sorted(upa - mine_a - params),
+            "attr_missing": sorted(upa - covered),
             "evt": [len(upe & mine_e), len(upe)], "evt_missing": sorted(upe - mine_e),
             # el_call() can invoke any of them on a component with a Vue instance
             "method": [len(upm) if info.get("invokable") else 0, len(upm)],
@@ -431,7 +464,7 @@ if "--missing" in sys.argv:
         if want not in (r["fn"], r["tag"], r["tag"].split(" ")[0]): continue
         print(f"\n== {r['fn']}  <{r['tag']}> ==")
         if r["conditional"]:
-            print(f"  条件绑定/update不可达 ({len(r['conditional'])}): {', '.join(r['conditional'])}")
+            print(f"  别名，未绑定同名 prop ({len(r['conditional'])}): {', '.join(r['conditional'])}")
         for key, label in (("attr_missing","属性缺失"), ("evt_missing","事件"),
                            ("method_missing","方法"), ("slot_missing","插槽")):
             if r[key]:
@@ -439,7 +472,7 @@ if "--missing" in sys.argv:
     sys.exit(0)
 
 report.sort(key=lambda r: (r["attr"][0]/max(r["attr"][1],1), -r["attr"][1]))
-print(f"{'函数':22s} {'标签':20s} {'可设':>8s} {'仅条件':>5s} {'事件':>6s} {'方法':>6s} {'插槽':>6s}")
+print(f"{'函数':22s} {'标签':20s} {'可设':>8s} {'别名':>5s} {'事件':>6s} {'方法':>6s} {'插槽':>6s}")
 print("-"*74)
 for r in report:
     print(f"  {r['fn']:20s} {r['tag']:20s} "
@@ -453,8 +486,8 @@ tm = [sum(r["method"][i] for r in report) for i in (0, 1)]
 ts = [sum(r["slot"][i] for r in report) for i in (0, 1)]
 print("-"*74)
 if any(True for _ in EXCLUDED):
-    print(f"  ({len(EXCLUDED)} 个上游 prop 按设计排除，见 tools/api-coverage.py 的 EXCLUDED)")
-print(f"  合计  可设 {ta[0]}/{ta[1]} ({100*ta[0]//ta[1]}%)  其中已绑定 {tb}, 仅条件绑定 {tc}   事件 {te[0]}/{te[1]} ({100*te[0]//max(te[1],1)}%)   方法 {tm[0]}/{tm[1]}   插槽 {ts[0]}/{ts[1]}")
+    print(f"  ({len(EXCLUDED)} 个上游 prop 按设计排除，不计入分母，见 tools/api-coverage.py 的 EXCLUDED)")
+print(f"  合计  可设 {ta[0]}/{ta[1]} ({100*ta[0]//ta[1]}%)  其中绑定到同名 prop {tb}, 由父标签下传 {ta[0]-tb-tc}, 声明的别名 {tc}   事件 {te[0]}/{te[1]} ({100*te[0]//max(te[1],1)}%)   方法 {tm[0]}/{tm[1]}   插槽 {ts[0]}/{ts[1]}")
 
 # ── methods: reachable, and verified ──────────────────────────────────────────
 # Every method of a component with a Vue instance can be called by name; what
@@ -470,6 +503,9 @@ tested = set()
 for f in _glob.glob("tests/testthat/*.R") + _glob.glob("tests/testthat/apps/*.R"):
     src = open(f, encoding="utf-8").read()
     tested |= set(re.findall(r'el_call\([^)]*?"[^"]+",\s*"([A-Za-z]+)"', src))
+    # apps/methods.R lists every documented method, run one by one by
+    # test-browser-methods.R through el_call()'s channel
+    tested |= set(re.findall(r'method = "([A-Za-z]+)"', src))
 upstream_methods = set()
 for r in report:
     upstream_methods |= set(up.get(r["tag"].split(" ")[0], {}).get("Methods", []))

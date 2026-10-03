@@ -31,6 +31,10 @@ containers (\code{\link[=el_tabs]{el_tabs()}}, \code{\link[=el_collapse]{el_coll
 bare text; the browser console says so. There, use the component
 functions: \code{\link[=el_button]{el_button()}}, \code{\link[=el_tag]{el_tag()}} and the rest.
 
+A logical attribute is a Vue boolean: \code{el$button(link = TRUE)} writes
+\verb{<el-button link>} and \code{plain = FALSE} writes \verb{:plain="false"} -- as text,
+\code{link="TRUE"}, Element Plus would refuse it.
+
 Mounting a Vue instance over such markup automatically is deliberately not
 done: it would rebuild every component and Shiny input inside it, leaving
 them on screen but disconnected from the server.

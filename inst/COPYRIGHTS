@@ -9,6 +9,10 @@ fetching anything at runtime. Both are copyright the Element Plus team and
 released under the MIT licence; see inst/element-plus/LICENSE and
 inst/element-plus/icons-vue.LICENSE.
 
-inst/vue3/ contains an unmodified copy of Vue 3.5.43
-(dist/vue.global.prod.js), copyright Yuxi (Evan) You and released under the
-MIT licence; see inst/vue3/LICENSE.
+inst/vue3/ contains Vue 3.5.43, copyright Yuxi (Evan) You and Vue
+contributors and released under the MIT licence; see inst/vue3/LICENSE.
+vue.global.prod.js is an unmodified copy of dist/vue.global.prod.js.
+vue.global.js is dist/vue.global.js, the development build, minified with
+terser 5 (`terser vue.global.js --compress --mangle --comments
+'/^!|@license|vue v/'`) to keep the package small; its code, warnings
+included, is otherwise unchanged.

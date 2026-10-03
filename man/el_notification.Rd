@@ -28,7 +28,8 @@ el_notification(
 \item{session}{Shiny session; the current one by default, as for
 \code{\link[shiny:updateTextInput]{shiny::updateTextInput()}}.}
 
-\item{message}{Notification body text.}
+\item{message}{Notification body text, or a VNode built in the browser:
+\code{\link[=JS]{JS()}} code calling \code{Vue.h()}, or a function returning one.}
 
 \item{title}{Notification title. Default \code{""}.}
 

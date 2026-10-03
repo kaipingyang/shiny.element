@@ -3,17 +3,23 @@
 \name{el_table_row}
 \alias{el_table_row}
 \alias{el_upload_file}
-\title{Name a table row or an uploaded file for a method}
+\alias{el_tree_node}
+\title{Name a table row, an uploaded file or a tree node for a method}
 \usage{
 el_table_row(index)
 
 el_upload_file(name)
+
+el_tree_node(key)
 }
 \arguments{
 \item{index}{A row's number, 1-based, as \verb{input$<id>_selected_rows}
 reports them.}
 
 \item{name}{A file's name, as it shows in the upload's list.}
+
+\item{key}{A node's key: the field \code{node_key} names, or the tree's
+\code{props$value}.}
 }
 \value{
 A reference, for \code{\link[=el_call]{el_call()}}'s \code{args}.
@@ -22,9 +28,10 @@ A reference, for \code{\link[=el_call]{el_call()}}'s \code{args}.
 Element's table methods take the row object itself --
 \code{toggleRowSelection(row)}, \code{setCurrentRow(row)},
 \code{toggleRowExpansion(row)} -- and compare it by identity, so a copy sent
-from R would match nothing. Likewise the upload's \code{abort(file)}. These
-stand for the object instead, and the page puts the real one in its place
-before the method runs.
+from R would match nothing. Likewise the upload's \code{abort(file)} and
+\code{handleRemove(file)}, and a virtualized tree's \code{expandNode(node)} and
+\code{collapseNode(node)}. These stand for the object instead, and the page
+puts the real one in its place before the method runs.
 }
 \examples{
 if (interactive()) {
@@ -33,5 +40,7 @@ if (interactive()) {
   el_call(session, "tbl", "setCurrentRow", list(el_table_row(3)))
   # stop one file
   el_call(session, "docs", "abort", list(el_upload_file("big.csv")))
+  # open a node of a virtualized tree
+  el_call(session, "files", "expandNode", list(el_tree_node("src")))
 }
 }

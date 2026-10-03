@@ -69,6 +69,12 @@
 #'   number).
 #' @param tag_effect Tag effect. Element Plus's `tag-effect` ('' | 'light' |
 #'   'dark' | 'plain').
+#' @param props Which field of an option holds what, when the options are
+#'   records named otherwise: `list(value =, label =, disabled =, options =)`,
+#'   Element Plus's `props`.
+#' @param tag_tooltip Settings for the tooltip listing collapsed tags, with
+#'   `collapse_tags` and `collapse_tags_tooltip`: a named list of tooltip
+#'   attributes (`placement`, `effect`, ...). Element Plus's `tag-tooltip`.
 #' @param tag_type Tag type. Element Plus's `tag-type` ('' | 'success' |
 #'   'info' | 'warning' | 'danger').
 #' @param teleported Whether select dropdown is teleported, if `true` it will
@@ -238,11 +244,16 @@ el_select <- function(
   teleported = NULL,
   validate_event = NULL,
   value_on_clear = NULL,
+  props = NULL,
+  tag_tooltip = NULL,
   session = NULL
 ) {
   .el_check_choices("el_select", environment())
   selected <- .el_alias(selected, value, "selected", "value")
   choices <- .el_alias(choices, options, "choices", "options")
+  # Options are drawn here, not by Element Plus from an `options` prop, so
+  # `props` renames their fields here
+  choices <- .el_rename_option_fields(choices, props)
   if (is.null(choices)) {
     choices <- list()
   }
@@ -397,6 +408,7 @@ el_select <- function(
       tabindex = tabindex,
       tag_effect = tag_effect,
       tag_type = tag_type,
+      tag_tooltip = tag_tooltip,
       teleported = teleported,
       validate_event = validate_event,
       value_on_clear = value_on_clear
@@ -602,3 +614,33 @@ update_el_select <- function(
 }
 
 `%||%` <- function(a, b) if (is.null(a)) b else a
+
+
+#' Rename the fields of record options, as Element Plus's `props` does
+#'
+#' @param choices The choices as given.
+#' @param props `list(value =, label =, disabled =, options =)`: the fields
+#'   holding each, or `NULL`.
+#' @return The choices, with the fields `.el_select_choices()` reads.
+#' @keywords internal
+.el_rename_option_fields <- function(choices, props) {
+  if (is.null(props) || !is.list(choices)) {
+    return(choices)
+  }
+  from <- unlist(props[intersect(
+    names(props),
+    c("value", "label", "disabled", "options")
+  )])
+  rename <- function(x) {
+    if (!is.list(x) || is.null(names(x))) {
+      return(x)
+    }
+    hit <- names(x) %in% from
+    names(x)[hit] <- names(from)[match(names(x)[hit], from)]
+    if (is.list(x$options)) {
+      x$options <- lapply(x$options, rename)
+    }
+    x
+  }
+  lapply(choices, rename)
+}

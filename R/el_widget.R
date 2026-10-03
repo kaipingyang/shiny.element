@@ -128,7 +128,12 @@ el_widget <- function(
   watch_given <- watch
 
   if (length(slots)) {
-    filled <- .el_slot_markup(slots)
+    # A component in a slot joins this one's instance: its fields must not
+    # land on this component's own (a progress's `type` on a button in it)
+    filled <- .el_slot_markup(
+      slots,
+      taken = c(names(data), names(methods), names(computed))
+    )
     markup <- .el_append_children(markup, filled$markup)
     data <- c(data, filled$data)
     methods <- c(methods, filled$methods)
@@ -393,9 +398,11 @@ el_widget <- function(
 #' Turn named slot contents into markup, absorbing any components
 #'
 #' @param slots Named list of slot contents.
+#' @param taken Field and method names the component itself already uses;
+#'   an absorbed component declaring one of them is renamed.
 #' @return A list of `markup` plus the Vue options its components contribute.
 #' @keywords internal
-.el_slot_markup <- function(slots) {
+.el_slot_markup <- function(slots, taken = character(0)) {
   if (!length(slots) || is.null(names(slots))) {
     stop(
       "`slots` must be a named list, one entry per Element slot.",
@@ -404,7 +411,16 @@ el_widget <- function(
   }
 
   parts <- lapply(slots, .el_absorb)
-  merged <- do.call(.el_absorb_merge, parts)
+  # The component's own names go first, as a part with nothing in it but
+  # them, so the merge renames whatever in a slot would clash
+  taken <- unique(taken[nzchar(taken)])
+  host <- list(
+    markup = NULL,
+    data = stats::setNames(rep(list(NA), length(taken)), taken)
+  )
+  merged <- do.call(.el_absorb_merge, c(list(host), unname(parts)))
+  merged$markups <- merged$markups[-1]
+  merged$data <- merged$data[setdiff(names(merged$data), taken)]
 
   markup <- Map(
     function(name, ui) {

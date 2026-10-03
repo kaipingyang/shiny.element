@@ -51,6 +51,9 @@
 #' @param table_v2_width Width of the table, in pixels: Element Plus's
 #'   `width`, which it needs as a number. Default `700`.
 #' @param height Height of the table, in pixels. Default `400`.
+#' @param auto_resize `TRUE` to size the table to its container, as Element
+#'   Plus's `el-auto-resizer` does: `table_v2_width` and `height` are then
+#'   ignored, and the container needs a height of its own.
 #' @param max_height Maximum height of the table. Element Plus's `max-height`.
 #' @param indent_size Horizontal indentation of tree table. Element Plus's
 #'   `indent-size`.
@@ -69,6 +72,11 @@
 #' @param slots Named list of Element slot contents: `cell`, `header`,
 #'   `header-cell`, `row`, `footer`, `empty`, `overlay`. A scoped slot is
 #'   written with [template()].
+#' @param methods Named list of [JS()] functions that the slot templates can
+#'   call by name. Element Plus's own examples build cells, header rows and
+#'   rows in JavaScript; such a function, given the slot's scope, can do the
+#'   same and return the cells to draw (`Vue.h()`, `Vue.cloneVNode()`). Each
+#'   is drawn with `<component :is="cell" />`.
 #'
 #' @section Shiny inputs:
 #' - `input$<id>_column_sort` -- Element Plus's `column-sort` event.
@@ -123,9 +131,19 @@ el_table_v2 <- function(
   sort_by = NULL,
   sort_state = NULL,
   width = NULL,
-  slots = NULL
+  slots = NULL,
+  methods = NULL,
+  auto_resize = FALSE
 ) {
   .el_check_choices("el_table_v2", environment())
+  if (
+    !is.null(methods) &&
+      (!is.list(methods) ||
+        is.null(names(methods)) ||
+        any(!nzchar(names(methods))))
+  ) {
+    stop("`methods` must be a named list of JS() functions.", call. = FALSE)
+  }
   if (is.null(id)) {
     id <- paste0("el_table_v2_", uuid::UUIDgenerate())
   }
@@ -147,7 +165,7 @@ el_table_v2 <- function(
   if (is.null(table_v2_width)) {
     table_v2_width <- 700
   }
-  if (is.null(height) && is.null(max_height)) {
+  if (is.null(height) && is.null(max_height) && !isTRUE(auto_resize)) {
     height <- 400
   }
   throttle <- paste0(
@@ -168,47 +186,126 @@ el_table_v2 <- function(
     shapes = list(scroll = throttle, "rows-rendered" = throttle)
   )
   attrs <- c(list(), events$attrs)
+  props <- .el_props(
+    list(
+      cache = cache,
+      estimated_row_height = estimated_row_height,
+      header_class = header_class,
+      header_props = header_props,
+      header_cell_props = header_cell_props,
+      header_height = header_height,
+      footer_height = footer_height,
+      row_class = row_class,
+      row_key = row_key,
+      row_props = row_props,
+      row_height = row_height,
+      row_event_handlers = row_event_handlers,
+      cell_props = cell_props,
+      columns = columns,
+      data = data,
+      data_getter = data_getter,
+      fixed_data = fixed_data,
+      expand_column_key = expand_column_key,
+      expanded_row_keys = expanded_row_keys,
+      default_expanded_row_keys = default_expanded_row_keys,
+      fixed = fixed,
+      table_v2_width = table_v2_width,
+      height = height,
+      max_height = max_height,
+      indent_size = indent_size,
+      h_scrollbar_size = h_scrollbar_size,
+      v_scrollbar_size = v_scrollbar_size,
+      scrollbar_always_on = scrollbar_always_on,
+      sort_by = sort_by,
+      sort_state = sort_state
+    ),
+    rename = c(table_v2_width = "width")
+  )
+  if (!isTRUE(auto_resize)) {
+    return(el_widget(
+      id = ns_id,
+      markup = htmltools::tag("el-table-v2", c(attrs, props$attrs)),
+      data = props$data,
+      methods = c(events$methods, methods),
+      width = width,
+      slots = slots
+    ))
+  }
+  # el-auto-resizer measures its box and hands the table its size through
+  # its slot; the table's own slots go inside, on the table
+  sized <- props$attrs[!names(props$attrs) %in% c(":width", ":height")]
+  table <- htmltools::tag(
+    "el-table-v2",
+    c(attrs, sized, list(":width" = "size.width", ":height" = "size.height"))
+  )
+  filled <- if (length(slots)) {
+    .el_slot_markup(
+      slots,
+      taken = c(names(props$data), names(events$methods), names(methods))
+    )
+  }
+  table <- .el_append_children(table, filled$markup)
   el_widget(
     id = ns_id,
-    markup = htmltools::tag("el-table-v2", attrs),
-    props = .el_props(
-      list(
-        cache = cache,
-        estimated_row_height = estimated_row_height,
-        header_class = header_class,
-        header_props = header_props,
-        header_cell_props = header_cell_props,
-        header_height = header_height,
-        footer_height = footer_height,
-        row_class = row_class,
-        row_key = row_key,
-        row_props = row_props,
-        row_height = row_height,
-        row_event_handlers = row_event_handlers,
-        cell_props = cell_props,
-        columns = columns,
-        data = data,
-        data_getter = data_getter,
-        fixed_data = fixed_data,
-        expand_column_key = expand_column_key,
-        expanded_row_keys = expanded_row_keys,
-        default_expanded_row_keys = default_expanded_row_keys,
-        fixed = fixed,
-        table_v2_width = table_v2_width,
-        height = height,
-        max_height = max_height,
-        indent_size = indent_size,
-        h_scrollbar_size = h_scrollbar_size,
-        v_scrollbar_size = v_scrollbar_size,
-        scrollbar_always_on = scrollbar_always_on,
-        sort_by = sort_by,
-        sort_state = sort_state
-      ),
-      rename = c(table_v2_width = "width")
+    markup = htmltools::tag(
+      "el-auto-resizer",
+      list(htmltools::tag("template", list("v-slot:default" = "size", table)))
     ),
-    data = list(),
-    methods = events$methods,
-    width = width,
-    slots = slots
+    data = c(props$data, filled$data),
+    methods = c(events$methods, methods, filled$methods),
+    watch = filled$watch,
+    dependency = filled$dependencies,
+    width = width
   )
+}
+
+
+#' Update Element Plus Virtualized Table
+#'
+#' Server-side update for [el_table_v2()]: new rows, new columns, or the sort
+#' indicator. Rows are given as for [el_table_v2()], a data.frame or a list
+#' of rows; a data.frame without `columns` keeps the table's columns.
+#'
+#' @param session Shiny session; the current one by default, as for
+#'   [shiny::updateTextInput()].
+#' @param id Table ID (un-namespaced).
+#' @param data,columns,sort_by,expanded_row_keys New values; `NULL` leaves
+#'   one unchanged.
+#'
+#' @return Called for its side effect; returns `NULL` invisibly.
+#' @examples
+#' if (interactive()) {
+#'   # inside a server function
+#'   observeEvent(input$filter_on, {
+#'     update_el_table_v2(id = "big", data = subset(big, keep))
+#'   })
+#' }
+#' @export
+update_el_table_v2 <- function(
+  session = shiny::getDefaultReactiveDomain(),
+  id,
+  data = NULL,
+  columns = NULL,
+  sort_by = NULL,
+  expanded_row_keys = NULL
+) {
+  .el_check_session(session)
+  msg <- list(id = session$ns(id))
+  if (is.data.frame(data)) {
+    data <- .el_table_rows(data)
+  }
+  if (!is.null(data)) {
+    msg$data <- data
+  }
+  if (!is.null(columns)) {
+    msg$columns <- columns
+  }
+  if (!is.null(sort_by)) {
+    msg$sortBy <- sort_by
+  }
+  if (!is.null(expanded_row_keys)) {
+    msg$expandedRowKeys <- expanded_row_keys
+  }
+  .el_send_update(session, msg)
+  invisible(NULL)
 }

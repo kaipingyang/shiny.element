@@ -105,6 +105,12 @@
 #' @param max_collapse_tags The max tags number to be shown. To use this,
 #'   `collapse-tags` must be true. Element Plus's `max-collapse-tags`
 #'   (number).
+#' @param props Which field of an option holds what, when the options are
+#'   records named otherwise: `list(value =, label =, disabled =, options =)`,
+#'   Element Plus's `props`.
+#' @param tag_tooltip Settings for the tooltip listing collapsed tags, with
+#'   `collapse_tags` and `collapse_tags_tooltip`: a named list of tooltip
+#'   attributes (`placement`, `effect`, ...). Element Plus's `tag-tooltip`.
 #' @param tag_type Tag type. Element Plus's `tag-type` ('' | 'success' |
 #'   'info' | 'warning' | 'danger').
 #' @param tag_effect Tag effect. Element Plus's `tag-effect` ('' | 'light' |
@@ -199,6 +205,8 @@ el_select_v2 <- function(
   value_on_clear = NULL,
   popper_append_to_body = NULL,
   tabindex = NULL,
+  props = NULL,
+  tag_tooltip = NULL,
   label = NULL,
   label_position = c("top", "left", "right"),
   label_width = NULL,
@@ -243,7 +251,9 @@ el_select_v2 <- function(
     id = ns_id,
     markup = htmltools::tag("el-select-v2", attrs),
     props = .el_props(list(
-      options = options,
+      # Element Plus iterates its options as soon as it mounts: none is an
+      # empty list, as a remote search starts
+      options = if (is.null(options)) list() else options,
       multiple = multiple,
       disabled = disabled,
       value_key = value_key,
@@ -289,6 +299,8 @@ el_select_v2 <- function(
       collapse_tags_tooltip = collapse_tags_tooltip,
       max_collapse_tags = max_collapse_tags,
       tag_type = tag_type,
+      props = props,
+      tag_tooltip = tag_tooltip,
       tag_effect = tag_effect,
       aria_label = aria_label,
       empty_values = empty_values,
