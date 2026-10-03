@@ -4,6 +4,11 @@
 #'
 #' @param id Calendar ID (auto-generated if NULL)
 #' @param value Bound value (Date/string/number)
+#' @param controller_type How the header switches month and year: `"button"`
+#'   (the default) or `"select"`. Element Plus's `controller-type`.
+#' @param formatter With `controller_type = "select"`, a [JS()] function
+#'   `function(value, type)` returning the label of each option. Element
+#'   Plus's `formatter`.
 #' @param range Date range, c("YYYY-MM-DD", "YYYY-MM-DD")
 #' @inheritParams el_widget
 #' @param width Component width, as a CSS unit -- `"200px"`, `"50%"`, or a

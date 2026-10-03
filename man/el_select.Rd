@@ -169,8 +169,8 @@ like the \code{width} argument of a Shiny input.}
 
 \item{option_template}{Markup drawn inside each option, in place of its
 label -- Element's "custom template". The option is in reach as \code{opt},
-with any field its choice carries: \verb{tags$span("\{\{ opt.label \}\}"), tags$span(style = "float: right", "\{\{ opt.code \}\}")} for choices given
-as \code{list(value =, label =, code =)}.}
+with any field its choice carries -- \code{{{ opt.label }}}, \code{{{ opt.code }}} --
+for choices given as \code{list(value =, label =, code =)}. See the example.}
 
 \item{slots}{Named list of Element slot contents, such as
 \code{list(title = shiny::tags$b("Bold"))}. A shiny.element component

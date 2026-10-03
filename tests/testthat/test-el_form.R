@@ -269,7 +269,7 @@ test_that("el_form_clear_validate: props are optional", {
 
 test_that("the form's receiver handles every operation it is sent", {
   m <- vue_payload_of(demo_form())$methods
-  for (op in c("validate", "reset", "clearValidate", "$set(self.model")) {
+  for (op in c("validate", "reset", "clearValidate", "self.model[k] = d.model[k]")) {
     expect_match(m$shinyVueReceive, op, fixed = TRUE)
   }
 })

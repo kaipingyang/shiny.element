@@ -35,7 +35,7 @@
 #'   date as its parameter. Should return a Boolean. Element Plus's
 #'   `disabled-date` ((data: Date) => boolean). Give it as [JS()].
 #' @param shortcuts An object array to set shortcut options. Element Plus's
-#'   `shortcuts` (Array<{ text: string, value: Date | Function }>). Give it as
+#'   `shortcuts` (`Array<{ text: string, value: Date | Function }>`). Give it as
 #'   [JS()].
 #' @param cell_class_name Set custom className. Element Plus's
 #'   `cell-class-name` ((data: Date) => string). Give it as [JS()].

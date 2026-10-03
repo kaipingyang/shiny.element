@@ -20,8 +20,7 @@
 #'   Default `FALSE`.
 #' @param aria_label Native `aria-label` attribute. Element Plus's
 #'   `aria-label` (string).
-#' @param props Configuration options. Element Plus's `props` ({ value?:
-#'   string, label?: string, disabled?: string}).
+#' @param props Configuration options. Element Plus's `props` (`{ value?: string, label?: string, disabled?: string}`).
 #' @param tag Element tag of the checkbox group. Element Plus's `tag`
 #'   (string).
 #' @param type Component type to render options (e.g. `'button'`). Element

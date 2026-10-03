@@ -43,7 +43,8 @@ fails to compile renders nothing and says nothing. Defaults to
 \code{getOption("shiny.element.dev", FALSE)}, so it can be turned on for a
 whole session without touching the UI code.}
 
-\item{size, z_index}{Element Plus's global config, as \verb{app.use(ElementPlus, \{size, zIndex\})} sets it: the size of every component not given one of its own
+\item{size, z_index}{Element Plus's global config, as \code{app.use()} gives it:
+the size of every component not given one of its own
 (\code{"large"}, \code{"default"} or \code{"small"}), and the z-index its popups start
 from (2000 by default). \code{NULL} leaves Element's default.}
 }

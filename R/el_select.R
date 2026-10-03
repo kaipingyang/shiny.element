@@ -106,9 +106,8 @@
 #'   like the `width` argument of a Shiny input.
 #' @param option_template Markup drawn inside each option, in place of its
 #'   label -- Element's "custom template". The option is in reach as `opt`,
-#'   with any field its choice carries: `tags$span("{{ opt.label }}"),
-#'   tags$span(style = "float: right", "{{ opt.code }}")` for choices given
-#'   as `list(value =, label =, code =)`.
+#'   with any field its choice carries -- `{{ opt.label }}`, `{{ opt.code }}` --
+#'   for choices given as `list(value =, label =, code =)`. See the example.
 #' @param slots Named list of Element slot contents, such as
 #'   `list(title = shiny::tags$b("Bold"))`. A shiny.element component
 #'   given here is absorbed rather than nested. For a scoped slot, write

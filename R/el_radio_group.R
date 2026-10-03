@@ -24,8 +24,7 @@
 #'   instead of standard `<el-radio>`. Default `FALSE`.
 #' @param aria_label Same as `aria-label` in RadioGroup. Element Plus's
 #'   `aria-label` (string).
-#' @param props Configuration options. Element Plus's `props` ({ value?:
-#'   string, label?: string, disabled?: string}).
+#' @param props Configuration options. Element Plus's `props` (`{ value?: string, label?: string, disabled?: string}`).
 #' @param type Component type to render options (e.g. `'button'`). Element
 #'   Plus's `type` ('radio' | 'button').
 #' @param validate_event Whether to trigger form validation. Element Plus's

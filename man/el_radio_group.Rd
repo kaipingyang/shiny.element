@@ -96,8 +96,7 @@ the template with \code{\link[=template]{template()}}.}
 \item{aria_label}{Same as \code{aria-label} in RadioGroup. Element Plus's
 \code{aria-label} (string).}
 
-\item{props}{Configuration options. Element Plus's \code{props} ({ value?:
-string, label?: string, disabled?: string}).}
+\item{props}{Configuration options. Element Plus's \code{props} (\verb{\{ value?: string, label?: string, disabled?: string\}}).}
 
 \item{type}{Component type to render options (e.g. \code{'button'}). Element
 Plus's \code{type} ('radio' | 'button').}

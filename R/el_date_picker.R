@@ -55,7 +55,7 @@
 #' @param popper_style Custom style for DatePicker's dropdown. Element Plus's
 #'   `popper-style` (string / object).
 #' @param shortcuts An object array to set shortcut options. Element Plus's
-#'   `shortcuts` (Array<{ text: string, value: Date | Function }>). Give it as
+#'   `shortcuts` (`Array<{ text: string, value: Date | Function }>`). Give it as
 #'   [JS()].
 #' @param show_confirm Whether to show the confirm button. Element Plus's
 #'   `show-confirm` (boolean).

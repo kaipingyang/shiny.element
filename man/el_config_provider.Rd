@@ -33,13 +33,13 @@ into this one's Vue instance, as \code{\link[=el_button_group]{el_button_group()
 Element Plus's \code{button} (object).}
 
 \item{link}{Link related configuration, see the following table. Element
-Plus's \code{link} ({type?: string, underline?: boolean | string}).}
+Plus's \code{link} (\verb{\{type?: string, underline?: boolean | string\}}).}
 
 \item{dialog}{Dialog related configuration, see the following table.
 Element Plus's \code{dialog} (object).}
 
 \item{message}{Message related configuration, see the following table.
-Element Plus's \code{message} ({max?: number}).}
+Element Plus's \code{message} (\verb{\{max?: number\}}).}
 
 \item{experimental_features}{Features at experimental stage to be added,
 all features are default to be set to false. Element Plus's

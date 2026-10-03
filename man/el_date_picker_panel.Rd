@@ -86,7 +86,7 @@ date as its parameter. Should return a Boolean. Element Plus's
 \code{disabled-date} ((data: Date) => boolean). Give it as \code{\link[=JS]{JS()}}.}
 
 \item{shortcuts}{An object array to set shortcut options. Element Plus's
-\code{shortcuts} (Array<{ text: string, value: Date | Function }>). Give it as
+\code{shortcuts} (\verb{Array<\{ text: string, value: Date | Function \}>}). Give it as
 \code{\link[=JS]{JS()}}.}
 
 \item{cell_class_name}{Set custom className. Element Plus's

@@ -32,7 +32,8 @@ Vue's warnings are not stripped. Defaults to
 or \code{getOption("shiny.element.locale")} when set. See
 \code{\link[=el_locale_dependency]{el_locale_dependency()}}.}
 
-\item{size, z_index}{Element Plus's global config, as \verb{app.use(ElementPlus, \{size, zIndex\})} sets it: the size of every component not given one of its own
+\item{size, z_index}{Element Plus's global config, as \code{app.use()} gives it:
+the size of every component not given one of its own
 (\code{"large"}, \code{"default"} or \code{"small"}), and the z-index its popups start
 from (2000 by default). \code{NULL} leaves Element's default.}
 

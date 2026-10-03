@@ -100,8 +100,7 @@ the template with \code{\link[=template]{template()}}.}
 \item{aria_label}{Native \code{aria-label} attribute. Element Plus's
 \code{aria-label} (string).}
 
-\item{props}{Configuration options. Element Plus's \code{props} ({ value?:
-string, label?: string, disabled?: string}).}
+\item{props}{Configuration options. Element Plus's \code{props} (\verb{\{ value?: string, label?: string, disabled?: string\}}).}
 
 \item{tag}{Element tag of the checkbox group. Element Plus's \code{tag}
 (string).}

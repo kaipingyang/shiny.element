@@ -19,8 +19,8 @@
 #' @param locale Language for Element Plus's built-in text. English by default,
 #'   or `getOption("shiny.element.locale")` when set. See
 #'   [el_locale_dependency()].
-#' @param size,z_index Element Plus's global config, as `app.use(ElementPlus, {size,
-#'   zIndex})` sets it: the size of every component not given one of its own
+#' @param size,z_index Element Plus's global config, as `app.use()` gives it:
+#'   the size of every component not given one of its own
 #'   (`"large"`, `"default"` or `"small"`), and the z-index its popups start
 #'   from (2000 by default). `NULL` leaves Element's default.
 #' @return A list of htmlDependency objects

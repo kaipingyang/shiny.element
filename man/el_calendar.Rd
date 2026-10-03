@@ -57,6 +57,13 @@ style, the field framed in red. Element's \code{error}.}
 whether beside the component rather than under it. Element's
 \code{show-message} and \code{inline-message}.}
 
+\item{controller_type}{How the header switches month and year: \code{"button"}
+(the default) or \code{"select"}. Element Plus's \code{controller-type}.}
+
+\item{formatter}{With \code{controller_type = "select"}, a \code{\link[=JS]{JS()}} function
+\verb{function(value, type)} returning the label of each option. Element
+Plus's \code{formatter}.}
+
 \item{width}{Component width, as a CSS unit -- \code{"200px"}, \code{"50\%"}, or a
 number taken as pixels.}
 

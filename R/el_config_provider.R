@@ -12,11 +12,11 @@
 #' @param button Button related configuration, see the following table.
 #'   Element Plus's `button` (object).
 #' @param link Link related configuration, see the following table. Element
-#'   Plus's `link` ({type?: string, underline?: boolean | string}).
+#'   Plus's `link` (`{type?: string, underline?: boolean | string}`).
 #' @param dialog Dialog related configuration, see the following table.
 #'   Element Plus's `dialog` (object).
 #' @param message Message related configuration, see the following table.
-#'   Element Plus's `message` ({max?: number}).
+#'   Element Plus's `message` (`{max?: number}`).
 #' @param experimental_features Features at experimental stage to be added,
 #'   all features are default to be set to false. Element Plus's
 #'   `experimental-features` (object).

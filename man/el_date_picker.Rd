@@ -195,7 +195,7 @@ Element Plus's \code{popper-options} (Partial\if{html}{\out{<PopperOptions>}}).}
 \code{popper-style} (string / object).}
 
 \item{shortcuts}{An object array to set shortcut options. Element Plus's
-\code{shortcuts} (Array<{ text: string, value: Date | Function }>). Give it as
+\code{shortcuts} (\verb{Array<\{ text: string, value: Date | Function \}>}). Give it as
 \code{\link[=JS]{JS()}}.}
 
 \item{show_confirm}{Whether to show the confirm button. Element Plus's
