@@ -18,7 +18,9 @@ the bridge's own keys, `.label` and `.error`, which el-events.js draws.
 
 - label:
 
-  New label text, or `NULL`.
+  New label: text, tags or
+  [`HTML()`](https://rstudio.github.io/htmltools/reference/HTML.html),
+  or `NULL`.
 
 - error:
 

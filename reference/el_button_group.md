@@ -50,8 +50,8 @@ el_button_group(
   el_button("prev", "Previous", icon = "el-icon-arrow-left", type = "primary"),
   el_button("next", "Next", type = "primary")
 )
-#> <div id="el_button_group_a02fd20f-fb8b-462d-9618-d3a4382449b8" data-shiny-vue style="display: contents">
-#>   <script type="text/x-template" data-shiny-vue-template><div id="el_button_group_a02fd20f-fb8b-462d-9618-d3a4382449b8_container" style="display: contents">
+#> <div id="el_button_group_6fd47220-3f5f-401d-b45e-3a0538fec09c" data-shiny-vue style="display: contents">
+#>   <script type="text/x-template" data-shiny-vue-template><div id="el_button_group_6fd47220-3f5f-401d-b45e-3a0538fec09c_container" style="display: contents">
 #>   <el-button-group>
 #>     <el-button :type="type" :plain="plain" :round="round" :circle="circle" :loading="loading" :disabled="disabled" :native-type="native_type" @click="handleClick" :size="size === null ? undefined : size" :icon="icon === null ? undefined : icon" :autofocus="autofocus === null ? undefined : autofocus">{{label}}</el-button>
 #>     <el-button :type="el3_type" :plain="el3_plain" :round="el3_round" :circle="el3_circle" :loading="el3_loading" :disabled="el3_disabled" :native-type="el3_native_type" @click="el3_handleClick" :size="el3_size === null ? undefined : el3_size" :icon="el3_icon === null ? undefined : el3_icon" :autofocus="el3_autofocus === null ? undefined : el3_autofocus">{{el3_label}}</el-button>

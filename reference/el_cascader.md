@@ -20,7 +20,6 @@ el_cascader(
   collapse_tags = FALSE,
   separator = " / ",
   debounce = 300,
-  icon = NULL,
   popper_class = NULL,
   filter_method = NULL,
   before_filter = NULL,
@@ -98,10 +97,6 @@ el_cascader(
 - debounce:
 
   Debounce delay for filter
-
-- icon:
-
-  Icon for the cascader (shiny.tag or NULL)
 
 - popper_class:
 

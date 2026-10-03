@@ -68,7 +68,13 @@
         '" was built without a label, so there is none to change');
       return;
     }
-    label.textContent = String(text) + (label.getAttribute('data-suffix') || '');
+    var suffix = label.getAttribute('data-suffix') || '';
+    if (text && typeof text === 'object' && typeof text.html === 'string') {
+      label.innerHTML = text.html;
+      label.appendChild(document.createTextNode(suffix));
+    } else {
+      label.textContent = String(text) + suffix;
+    }
   };
 
   // el_call() arguments that stand for an object: el_table_row(3) is the

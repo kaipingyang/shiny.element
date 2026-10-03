@@ -36,9 +36,9 @@ el_timeline(
 
 - html:
 
-  Render each entry's `content` as HTML rather than text. Only use it
-  with content you control: it goes through `v-html`, which does not
-  escape anything.
+  Render each entry's `content` as HTML rather than text – a string of
+  markup, or tags. Only use it with content you control: it goes through
+  `v-html`, which does not escape anything.
 
 - width:
 

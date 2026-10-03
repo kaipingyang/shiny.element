@@ -161,9 +161,8 @@ batch: until then nothing has reached <code>input$&lt;id&gt;</code>.</p></li>
 <li><p>A job cannot finish with a file missing – Shiny stops it as "stopped
 prematurely". So when a file fails, or is aborted with Element's
 <code>abort()</code>, that file is marked failed (or left, if aborted) and the rest
-of the batch is sent again as a fresh job. If nothing is left, the job
-is abandoned, as <code><a href="https://rdrr.io/pkg/shiny/man/fileInput.html" class="external-link">fileInput()</a></code> abandons a failed one; Shiny clears it
-with the session.</p></li>
+of the batch is sent again as a fresh job. The interrupted job is
+named to the server, which lets it go (<code><a href="dot-el_upload_abandon.html">.el_upload_abandon()</a></code>).</p></li>
 </ul><p>Each call returns an object with <code>abort()</code>, which Element keeps per file:
 it stops that file's request if it is in flight and drops it from the
 batch otherwise.</p>

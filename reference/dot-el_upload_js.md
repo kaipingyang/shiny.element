@@ -39,10 +39,9 @@ whole batch is present. Then, as Shiny's own
 - A job cannot finish with a file missing – Shiny stops it as "stopped
   prematurely". So when a file fails, or is aborted with Element's
   `abort()`, that file is marked failed (or left, if aborted) and the
-  rest of the batch is sent again as a fresh job. If nothing is left,
-  the job is abandoned, as
-  [`fileInput()`](https://rdrr.io/pkg/shiny/man/fileInput.html) abandons
-  a failed one; Shiny clears it with the session.
+  rest of the batch is sent again as a fresh job. The interrupted job is
+  named to the server, which lets it go
+  ([`.el_upload_abandon()`](https://kaipingyang.github.io/shiny.element/reference/dot-el_upload_abandon.md)).
 
 Each call returns an object with `abort()`, which Element keeps per
 file: it stops that file's request if it is in flight and drops it from

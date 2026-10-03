@@ -47,9 +47,12 @@ update_el_time_select(
 
 - label:
 
-  New label text, as for
-  [`shiny::updateTextInput()`](https://rdrr.io/pkg/shiny/man/updateTextInput.html).
-  Only a component built with a `label` has one to change.
+  New label, as for
+  [`shiny::updateTextInput()`](https://rdrr.io/pkg/shiny/man/updateTextInput.html):
+  text, or tags or
+  [`HTML()`](https://rstudio.github.io/htmltools/reference/HTML.html)
+  drawn as markup. Only a component built with a `label` has one to
+  change.
 
 - error:
 
