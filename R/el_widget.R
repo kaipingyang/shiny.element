@@ -305,7 +305,7 @@ el_widget <- function(id, markup, data, methods = NULL, watch = NULL,
     if (inherits(ui, "html") && grepl("^\\s*<template", as.character(ui))) {
       return(ui)
     }
-    htmltools::tag("template", list(slot = name, ui))
+    .el_slot(name, ui)
   }, names(slots), merged$markups)
 
   list(markup = unname(markup), data = merged$data, methods = merged$methods,

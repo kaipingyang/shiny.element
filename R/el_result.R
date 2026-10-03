@@ -55,7 +55,7 @@ el_result <- function(id = NULL,
   )
   extra <- merged$markups[-1]
   children <- if (length(extra)) {
-    list(htmltools::tag("template", list(slot = "extra", extra)))
+    list(.el_slot("extra", extra))
   } else list()
 
   el_widget(

@@ -134,7 +134,7 @@ el_popover <- function(id = NULL,
   children <- list(body_markup)
   if (!is.null(ref_markup)) {
     children <- c(children, list(
-      htmltools::tags$span(slot = "reference", ref_markup)
+      .el_slot("reference", htmltools::tags$span(ref_markup))
     ))
   }
 

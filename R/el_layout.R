@@ -220,10 +220,8 @@ el_page <- function(
   z_index = NULL
 ) {
   deps <- c(
-    list(
-      .el_vue_dependency(dev = dev),
-      element_ui_dependency(offline = offline)
-    ),
+    list(.el_vue_dependency(dev = dev)),
+    element_ui_dependency(offline = offline),
     # the bridge and Element's side of it, which checks for raw el$ tags
     # left outside any component -- a page may hold nothing else
     .el_vue_dependencies(),

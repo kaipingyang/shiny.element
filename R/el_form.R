@@ -427,12 +427,12 @@ el_form <- function(...,
            # A field may render its own label and error, from label_html and
            # error_html in its definition. Inserted as markup, so pass only
            # what you control.
-           '<template slot="label"><span v-if="f.labelHtml" v-html="f.labelHtml">',
+           '<template v-slot:label><span v-if="f.labelHtml" v-html="f.labelHtml">',
            '</span><span v-else>{{f.label}}</span></template>',
            # Element's own error slot renders a div.el-form-item__error, and
            # filling the slot replaces it -- so keep the class, or the message
            # loses its styling and anything looking for it stops finding it.
-           '<template slot="error" slot-scope="scope">',
+           '<template v-slot:error="scope">',
            '<div class="el-form-item__error">',
            '<span v-if="f.errorHtml" v-html="f.errorHtml"></span>',
            '<span v-else>{{scope.error}}</span>',

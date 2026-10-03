@@ -94,8 +94,8 @@ el_pagination <- function(
 
   pagination_attrs <- list(
     ":total"             = "total",
-    ":page-size.sync"    = "pageSize",
-    ":current-page.sync" = "currentPage",
+    "v-model:page-size"    = "pageSize",
+    "v-model:current-page" = "currentPage",
     ":page-sizes"        = "pageSizes",
     ":layout"            = "layout",
     ":background"        = "background",

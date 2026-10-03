@@ -495,20 +495,26 @@ el_table <- function(id = NULL,
   # "none" where Element should render the cell itself. The slot name is a
   # plain field, not an expression, because the browser parses this markup
   # before Vue does and would mangle quotes or spaces in an attribute name.
-  # Each level of nesting gets the branches of the templates at that level,
-  # read off its own column variable `v`.
-  cell_slot <- function(v, depth) {
+  # A column's default slot, in Vue 3: Element Plus renders a cell from it,
+  # falling back to its own rendering when the slot gives nothing but
+  # comments -- so every branch is a v-if. The same slot holds a group
+  # header's child columns. Each level of nesting has the templates at that
+  # level, read off its own column variable `v`.
+  default_slot <- function(v, depth) {
     here <- names(prep$depths)[prep$depths == depth]
-    if (!length(here)) return(NULL)
-    htmltools::tag("template", c(
-      stats::setNames(list("scope"), sprintf("v-slot:[%s.slot]", v)),
-      unname(Map(function(key, first) {
-        cond <- sprintf("%s.cellKey === '%s'", v, key)
-        htmltools::tag("template", c(
-          stats::setNames(list(cond), if (first) "v-if" else "v-else-if"),
-          list(prep$cells[[key]])))
-      }, here, seq_along(here) == 1L))
-    ))
+    branches <- list()
+    if (depth < 2) {
+      branches <- list(htmltools::tag("template", list(
+        "v-if" = sprintf("%s.children && %s.children.length", v, v),
+        nested(v, paste0(v, "x"), depth + 1L))))
+    }
+    for (key in here) {
+      cond <- sprintf("%s.cellKey === '%s'", v, key)
+      branches <- c(branches, list(htmltools::tag("template", c(
+        stats::setNames(list(cond), if (length(branches)) "v-else-if" else "v-if"),
+        list(prep$cells[[key]])))))
+    }
+    htmltools::tag("template", c(list("v-slot:default" = "scope"), branches))
   }
   # A column may render its own header: give it header_html in the column
   # definition. It is inserted as markup, so only pass what you control.
@@ -543,14 +549,11 @@ el_table <- function(id = NULL,
   # el-table-column: two levels below the top, each with its own header
   # and cell templates
   nested <- function(parent, v, depth) {
-    if (depth > 2) return(NULL)
     htmltools::tag("el-table-column", c(
-      list("v-for" = sprintf("%s in (%s.children || [])", v, parent),
+      list("v-for" = sprintf("%s in %s.children", v, parent),
            ":key" = sprintf("%s.prop || %s.label", v, v)),
       col_props(v),
-      list(header_slot(v),
-           nested(v, paste0(v, "x"), depth + 1L),
-           cell_slot(v, depth))
+      list(header_slot(v), default_slot(v, depth))
     ))
   }
 
@@ -560,8 +563,7 @@ el_table <- function(id = NULL,
     col_props("col"),
     list(
       header_slot("col"),
-      nested("col", "sub", 1L),
-      cell_slot("col", 0L)
+      default_slot("col", 0L)
     )
   ))
 

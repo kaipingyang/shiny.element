@@ -115,7 +115,7 @@ el_popconfirm <- function(id = NULL,
   merged <- .el_absorb_merge(own, inner)
   ref_markup <- merged$markups[[2]]
   children <- if (is.null(ref_markup)) list() else list(
-    htmltools::tags$span(slot = "reference", ref_markup)
+    .el_slot("reference", htmltools::tags$span(ref_markup))
   )
 
   el_widget(

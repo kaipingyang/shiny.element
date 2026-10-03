@@ -83,14 +83,14 @@ el_drawer <- function(
 
   header <- if (with_header) {
     shiny::tags$header(
-      id = title_id, class = "el-drawer__header",
-      shiny::tags$span(role = "heading", tabindex = "0",
-                       title = if (is.character(title)) title, title),
+      class = "el-drawer__header",
+      shiny::tags$span(id = title_id, role = "heading", class = "el-drawer__title",
+                       title),
       if (show_close) {
         shiny::tags$button(
           `aria-label` = paste("close", title), type = "button",
           class = "el-drawer__close-btn",
-          shiny::tags$i(class = "el-dialog__close el-icon el-icon-close")
+          .el_close_icon("el-drawer__close")
         )
       }
     )
@@ -99,32 +99,26 @@ el_drawer <- function(
   htmltools::attachDependencies(
     shiny::tags$div(
       id    = ns_id,
-      tabindex = "-1",
-      class = "el-drawer__wrapper",
-      style = if (!visible) "display:none",
-      `data-el-overlay` = "true",
+      class = "el-overlay",
+      style = paste0(if (!visible) "display:none;", if (!modal) "background-color:transparent;"),
+      `data-el-overlay` = "drawer",
       `data-visible`    = tolower(as.character(visible)),
       `data-modal`      = tolower(as.character(modal)),
-      `data-mask-close` = tolower(as.character(modal && wrapper_closable)),
+      `data-mask-close` = tolower(as.character(wrapper_closable)),
       `data-esc-close`  = tolower(as.character(close_on_press_escape)),
+      `data-lock-scroll` = "true",
       `data-append-to-body` = tolower(as.character(append_to_body)),
-      `data-modal-append-to-body` = tolower(as.character(modal_append_to_body)),
       `data-destroy-on-close` = tolower(as.character(destroy_on_close)),
       `data-before-close` = if (!is.null(before_close)) as.character(before_close),
       shiny::tags$div(
-        role = "document", tabindex = "-1",
-        # el-drawer__open is what triggers the slide-in; the binding adds it.
-        class = paste(c("el-drawer__container",
-                        if (visible) "el-drawer__open"), collapse = " "),
-        shiny::tags$div(
-          `aria-modal` = "true", `aria-labelledby` = title_id,
-          `aria-label` = if (is.character(title)) title, role = "dialog", tabindex = "-1",
-          class = paste(c("el-drawer", direction, custom_class), collapse = " "),
-          style = sprintf("%s: %s;", if (vertical) "height" else "width", size),
-          header,
-          shiny::tags$section(class = "el-drawer__body",
-                              .el_overlay_content(content, destroy_on_close, visible))
-        )
+        `aria-modal` = "true", `aria-labelledby` = if (with_header) title_id,
+        `aria-label` = if (is.character(title)) title, role = "dialog", tabindex = "-1",
+        class = paste(c("el-drawer", direction, if (visible) "open", custom_class),
+                      collapse = " "),
+        style = sprintf("%s: %s;", if (vertical) "height" else "width", size),
+        header,
+        shiny::tags$div(class = "el-drawer__body",
+                        .el_overlay_content(content, destroy_on_close, visible))
       )
     ),
     el_overlay_dependency()

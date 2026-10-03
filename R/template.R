@@ -33,10 +33,11 @@
 #'   scope = "{date, data}"
 #' )
 template <- function(..., slot = NULL, scope = NULL) {
-  attrs <- c(
-    if (!is.null(slot)) sprintf('slot="%s"', slot),
-    if (!is.null(scope)) sprintf('slot-scope="%s"', scope)
-  )
+  # Vue 3's slot syntax: v-slot:name="scope"
+  attrs <- if (!is.null(slot) || !is.null(scope)) {
+    paste0("v-slot:", if (is.null(slot)) "default" else slot,
+           if (!is.null(scope)) sprintf('="%s"', scope) else "")
+  }
   attr_str <- if (length(attrs) > 0) paste(attrs, collapse = " ") else ""
   htmltools::HTML(
     sprintf('<template %s>%s</template>', attr_str, paste0(..., collapse = ""))

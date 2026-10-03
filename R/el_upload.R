@@ -367,7 +367,7 @@ el_upload <- function(id = NULL,
   )
   if (!is.null(tip)) {
     trigger <- c(trigger, list(
-      htmltools::tags$div(class = "el-upload__tip", slot = "tip", tip)
+      .el_slot("tip", htmltools::tags$div(class = "el-upload__tip", tip))
     ))
   }
 

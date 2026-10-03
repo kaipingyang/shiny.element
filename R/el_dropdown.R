@@ -94,10 +94,7 @@ el_dropdown <- function(
     htmltools::tag("el-dropdown-item", c(i_attrs, list(lbl)))
   })
 
-  menu_tag <- htmltools::tag(
-    "el-dropdown-menu",
-    c(list(slot = "dropdown"), item_tags)
-  )
+  menu_tag <- .el_slot("dropdown", htmltools::tag("el-dropdown-menu", item_tags))
 
   # Trigger slot content
   trigger_content <- if (isTRUE(split_button)) {

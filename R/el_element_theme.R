@@ -113,34 +113,32 @@ NULL
 #' @keywords internal
 .el_themed_dependency <- function(vars) {
   if (!length(vars)) return(NULL)
-  root <- system.file("element-ui", package = "shiny.element")
-  key <- paste(names(vars), vars, sep = "=", collapse = ";")
-  dir <- file.path(tempdir(), paste0("shiny.element-theme-",
-                                     substr(gsub("[^a-z0-9]", "", tolower(key)), 1, 80),
-                                     "-", nchar(key)))
-  css_file <- file.path(dir, "theme-chalk", "index.css")
-  if (!file.exists(css_file)) {
-    dir.create(file.path(dir, "theme-chalk"), recursive = TRUE, showWarnings = FALSE)
-    file.copy(file.path(root, "index.js"), dir)
-    file.copy(file.path(root, "theme-chalk", "display.css"), file.path(dir, "theme-chalk"))
-    file.copy(file.path(root, "theme-chalk", "fonts"), file.path(dir, "theme-chalk"),
-              recursive = TRUE)
-    brand <- paste0("color-", c("primary", "success", "warning", "danger"))
-    css <- if (all(names(vars) %in% brand)) .el_recolour(vars) else .el_compile(vars)
-    writeLines(css, css_file)
+  # Element Plus draws from CSS variables, --el-<name>: setting them is the
+  # whole theme. A brand colour also sets the tints and shade Element's Sass
+  # would have mixed from it.
+  mix <- function(hex, with, weight) {
+    a <- grDevices::col2rgb(hex)[, 1]; b <- grDevices::col2rgb(with)[, 1]
+    m <- round(b * weight + a * (1 - weight))
+    grDevices::rgb(m[1], m[2], m[3], maxColorValue = 255)
   }
-  # Later than Element's own, so it wins; and different for every theme, so
-  # its URL is too -- a browser holding one theme's stylesheet under
-  # element-ui-2.15.14.1/ showed it again for the next
+  decl <- unlist(Map(function(name, value) {
+    out <- sprintf("--el-%s: %s;", name, value)
+    if (grepl("^color-(primary|success|warning|danger|info|error)$", name)) {
+      for (l in c(3, 5, 7, 8, 9)) {
+        out <- c(out, sprintf("--el-%s-light-%d: %s;", name, l, mix(value, "#ffffff", l / 10)))
+      }
+      out <- c(out, sprintf("--el-%s-dark-2: %s;", name, mix(value, "#000000", 0.2)))
+    }
+    out
+  }, names(vars), unname(vars)))
+  key <- paste(decl, collapse = "")
   stamp <- sum(utf8ToInt(key) * seq_len(nchar(key))) %% 999983
   htmltools::htmlDependency(
-    name       = "element-ui",
-    version    = paste0("2.15.14.1.", stamp),
-    src        = dir,
-    script     = "index.js",
-    stylesheet = c("theme-chalk/index.css", "theme-chalk/display.css"),
-    all_files  = TRUE,
-    head       = .el_css_fixes()
+    name    = "element-plus-theme",
+    version = paste0("1.0.", stamp),
+    src     = system.file("element-plus", package = "shiny.element"),
+    head    = paste0("<style>:root {", paste(decl, collapse = " "), "}</style>"),
+    all_files = FALSE
   )
 }
 

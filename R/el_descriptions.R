@@ -90,7 +90,7 @@ el_descriptions <- function(id = NULL,
     label_ui <- !is.character(it$label)
     attrs <- if (label_ui) list() else list(label = it$label)
     if (label_ui) {
-      attrs <- c(attrs, list(htmltools::tag("template", list(slot = "label", it$label))))
+      attrs <- c(attrs, list(.el_slot("label", it$label)))
     }
     for (key in c("span", "labelClassName", "contentClassName")) {
       if (!is.null(it[[key]])) attrs[[paste0(":", .el_kebab_case(key))]] <-

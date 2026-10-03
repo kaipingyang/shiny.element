@@ -41,10 +41,8 @@ use_element <- function(theme = NULL, offline = TRUE,
                         size = NULL, z_index = NULL,
                         layout_css = el_layout_css_dependency()) {
   deps <- c(
-    list(
-      .el_vue_dependency(dev = dev),
-      element_ui_dependency(offline = offline)
-    ),
+    list(.el_vue_dependency(dev = dev)),
+    element_ui_dependency(offline = offline),
     # the bridge and Element's side of it, which checks for raw el$ tags
     # left outside any component -- a page may hold nothing else
     .el_vue_dependencies(),
@@ -89,33 +87,30 @@ use_element <- function(theme = NULL, offline = TRUE,
 #' options(shiny.element.locale = "zh-CN")
 el_locale_dependency <- function(locale = NULL) {
   if (is.null(locale) || identical(locale, "zh-CN")) return(NULL)
-
-  root <- system.file("element-ui", package = "shiny.element")
-  if (!file.exists(file.path(root, "locale", paste0(locale, ".js")))) {
+  code <- tolower(locale)
+  root <- system.file("element-plus", package = "shiny.element")
+  if (!file.exists(file.path(root, "locale", paste0(code, ".min.js")))) {
     stop("No bundled locale '", locale, "'. Element ships these: ",
          paste(el_locales(), collapse = ", "), ".", call. = FALSE)
   }
-
+  # The locale file defines ElementPlusLocale<Code>; every app is given it
+  global <- paste0("ElementPlusLocale", paste(vapply(strsplit(code, "-")[[1]], function(p)
+    paste0(toupper(substring(p, 1, 1)), substring(p, 2)), ""), collapse = ""))
   list(
     htmltools::htmlDependency(
-      name      = paste0("element-ui-locale-", locale),
-      version   = "2.15.14",
+      name      = paste0("element-plus-locale-", code),
+      version   = "2.14.7",
       src       = root,
-      script    = paste0("locale/", locale, ".js"),
+      script    = paste0("locale/", code, ".min.js"),
       all_files = FALSE
     ),
-    # The locale file only registers ELEMENT.lang.<locale>; this applies it.
-    # It has to run after both element-ui and the locale file, which is why it
-    # is a dependency of its own rather than part of either.
     htmltools::htmlDependency(
-      name    = paste0("element-ui-locale-apply-", locale),
-      version = "2.15.14",
+      name    = paste0("element-plus-locale-apply-", code),
+      version = "2.14.7",
       src     = root,
-      head    = sprintf(
-        paste0("<script>if (window.ELEMENT && ELEMENT.locale && ELEMENT.lang && ",
-               "ELEMENT.lang['%1$s']) { ELEMENT.locale(ELEMENT.lang['%1$s']); }</script>"),
-        locale
-      )
+      head    = sprintf(paste0(
+        "<script>window.shinyElementConfig = window.shinyElementConfig || {};",
+        "if (window.%1$s) shinyElementConfig.locale = window.%1$s;</script>"), global)
     )
   )
 }
@@ -135,24 +130,29 @@ el_locale_dependency <- function(locale = NULL) {
 #' @export
 element_ui_dependency <- function(offline = TRUE) {
   src <- if (offline) {
-    system.file("element-ui", package = "shiny.element")
+    system.file("element-plus", package = "shiny.element")
   } else {
-    c(href = "https://unpkg.com/element-ui@2.15.14/lib/")
+    c(href = "https://unpkg.com/element-plus@2.14.7/dist/")
   }
 
-  htmltools::htmlDependency(
-    name       = "element-ui",
-    version    = "2.15.14",
-    src        = src,
-    script     = "index.js",
-    # display.css is Element's hidden-xs-only, hidden-md-and-up, ... --
-    # separate upstream, so a page that wants them imports it; small enough
-    # here to always carry
-    stylesheet = c("theme-chalk/index.css", "theme-chalk/display.css"),
-    # The stylesheet references fonts/element-icons.woff relatively, so the
-    # whole directory has to be served, not just the two named files.
-    all_files  = TRUE,
-    head       = .el_css_fixes()
+  list(
+    htmltools::htmlDependency(
+      name       = "element-plus",
+      version    = "2.14.7",
+      src        = src,
+      script     = if (offline) "index.full.min.js" else "index.full.min.js",
+      stylesheet = if (offline) c("theme-chalk/index.css", "theme-chalk/dark/css-vars.css")
+                   else "index.css",
+      all_files  = FALSE
+    ),
+    # Icons are components in Element Plus, registered on every app by name
+    htmltools::htmlDependency(
+      name    = "element-plus-icons",
+      version = "2.3.2",
+      src     = system.file("element-plus", package = "shiny.element"),
+      script  = "icons-vue.iife.min.js",
+      all_files = FALSE
+    )
   )
 }
 
@@ -245,8 +245,8 @@ el_feedback_dependency <- function() {
 #' @examples
 #' el_locales()
 el_locales <- function() {
-  root <- system.file("element-ui", "locale", package = "shiny.element")
-  sort(sub("[.]js$", "", list.files(root, pattern = "[.]js$")))
+  root <- system.file("element-plus", "locale", package = "shiny.element")
+  sort(sub("[.]min[.]js$", "", list.files(root, pattern = "[.]min[.]js$")))
 }
 
 
@@ -263,18 +263,19 @@ el_locales <- function() {
 #' @keywords internal
 .el_config_dependency <- function(size = NULL, z_index = NULL) {
   if (is.null(size) && is.null(z_index)) return(NULL)
-  if (!is.null(size)) size <- match.arg(size, c("medium", "small", "mini"))
+  if (!is.null(size)) size <- match.arg(size, c("large", "default", "small"))
   if (!is.null(z_index) && (!is.numeric(z_index) || length(z_index) != 1)) {
     stop("`z_index` must be a single number.", call. = FALSE)
   }
-  config <- jsonlite::toJSON(list(size = if (is.null(size)) "" else size,
-                                  zIndex = if (is.null(z_index)) 2000 else z_index),
+  config <- jsonlite::toJSON(Filter(Negate(is.null), list(size = size, zIndex = z_index)),
                              auto_unbox = TRUE)
   list(htmltools::htmlDependency(
-    name    = "element-ui-config",
-    version = "2.15.14",
-    src     = system.file("element-ui", package = "shiny.element"),
-    head    = sprintf("<script>if (window.Vue) Vue.prototype.$ELEMENT = %s;</script>", config),
+    name    = "element-plus-config",
+    version = "2.14.7",
+    src     = system.file("element-plus", package = "shiny.element"),
+    head    = sprintf(paste0(
+      "<script>window.shinyElementConfig = Object.assign(",
+      "window.shinyElementConfig || {}, %s);</script>"), config),
     all_files = FALSE
   ))
 }

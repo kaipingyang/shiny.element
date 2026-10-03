@@ -76,7 +76,7 @@ el_steps <- function(id = NULL,
       if (is.character(value)) {
         attrs[[field]] <- value
       } else {
-        attrs <- c(attrs, list(htmltools::tag("template", list(slot = field, value))))
+        attrs <- c(attrs, list(.el_slot(field, value)))
       }
     }
     if (!is.null(step$status)) attrs$status <- step$status

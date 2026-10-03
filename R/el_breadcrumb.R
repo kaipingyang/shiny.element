@@ -51,7 +51,7 @@ el_breadcrumb <- function(id = NULL,
     ":key"   = "index",
     ":to"    = "item.to",
     ":replace" = "item.replace",
-    "@click.native" = "handleClick(item)",
+    "@click" = "handleClick(item)",
     htmltools::HTML("{{item.label}}")
   ))
 

@@ -29,7 +29,7 @@
 
     } else if (length(item$children)) {
       # Element puts a submenu's own label in a named slot, not its body.
-      title <- htmltools::tag("template", list(slot = "title", icon, label))
+      title <- .el_slot("title", icon, label)
       attrs <- c(list(index = item$index), .el_menu_item_props(item, c(
         "disabled", "popper_class", "show_timeout", "hide_timeout",
         "popper_append_to_body")))

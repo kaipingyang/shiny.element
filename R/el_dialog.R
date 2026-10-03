@@ -87,45 +87,49 @@ el_dialog <- function(
   ns_id <- .el_ui_id(id, session)
   visible <- isTRUE(shiny::restoreInput(ns_id, visible))
 
-  header <- shiny::tags$div(
+  header <- shiny::tags$header(
     class = "el-dialog__header",
-    shiny::tags$span(class = "el-dialog__title", title),
+    shiny::tags$span(role = "heading", class = "el-dialog__title", title),
     if (show_close) {
       shiny::tags$button(
         type = "button", `aria-label` = "Close", class = "el-dialog__headerbtn",
-        shiny::tags$i(class = "el-dialog__close el-icon el-icon-close")
+        .el_close_icon("el-dialog__close")
       )
     }
   )
 
+  # Element Plus: the overlay (the mask) holds a full-screen box that holds
+  # the panel; a click on that box, outside the panel, is a click on the mask
   htmltools::attachDependencies(
     shiny::tags$div(
       id    = ns_id,
-      class = "el-dialog__wrapper",
-      style = if (!visible) "display:none",
-      `data-el-overlay`  = "true",
+      class = paste(c("el-overlay", if (!modal) "is-mask-less"), collapse = " "),
+      style = paste0(if (!visible) "display:none;", if (!modal) "background-color:transparent;"),
+      `data-el-overlay`  = "dialog",
       `data-visible`     = tolower(as.character(visible)),
       `data-modal`       = tolower(as.character(modal)),
-      `data-mask-close`  = tolower(as.character(modal && close_on_click_modal)),
+      `data-mask-close`  = tolower(as.character(close_on_click_modal)),
       `data-esc-close`   = tolower(as.character(close_on_press_escape)),
       `data-lock-scroll` = tolower(as.character(lock_scroll)),
       `data-append-to-body` = tolower(as.character(append_to_body)),
-      `data-modal-append-to-body` = tolower(as.character(modal_append_to_body)),
       `data-destroy-on-close` = tolower(as.character(destroy_on_close)),
       `data-before-close` = if (!is.null(before_close)) as.character(before_close),
       shiny::tags$div(
-        role = "dialog", `aria-modal` = "true",
+        class = "el-overlay-dialog", role = "dialog", `aria-modal` = "true",
         `aria-label` = if (is.character(title)) title,
-        class = paste(c("el-dialog",
-                        if (fullscreen) "is-fullscreen",
-                        if (center) "el-dialog--center", custom_class), collapse = " "),
-        style = if (!fullscreen) sprintf("margin-top: %s; width: %s;", top, width),
-        header,
-        # Hidden rather than removed when closed, so a nested component stays
-        # mounted between openings.
-        shiny::tags$div(class = "el-dialog__body",
-                        .el_overlay_content(content, destroy_on_close, visible)),
-        if (!is.null(footer)) shiny::tags$div(class = "el-dialog__footer", footer)
+        shiny::tags$div(
+          class = paste(c("el-dialog",
+                          if (fullscreen) "is-fullscreen",
+                          if (center) "el-dialog--center", custom_class), collapse = " "),
+          tabindex = "-1",
+          style = sprintf("--el-dialog-width: %s; --el-dialog-margin-top: %s;", width, top),
+          header,
+          # Hidden rather than removed when closed, so a nested component stays
+          # mounted between openings.
+          shiny::tags$div(class = "el-dialog__body",
+                          .el_overlay_content(content, destroy_on_close, visible)),
+          if (!is.null(footer)) shiny::tags$footer(class = "el-dialog__footer", footer)
+        )
       )
     ),
     el_overlay_dependency()

@@ -8,6 +8,32 @@
   var se = window.shinyElement = window.shinyElement || {};
   var sv = window.shinyVue = window.shinyVue || {};
 
+  // Every component is an app of its own in Vue 3, so Element Plus -- with
+  // the page's config: locale, size, z-index -- and its icons are installed
+  // on each. Element's z-index counter is shared between them all.
+  // The services -- message, notification, message box, loading -- under
+  // the names the feedback handler calls them by
+  if (window.ElementPlus && !window.ELEMENT) {
+    window.ELEMENT = {
+      Message: ElementPlus.ElMessage, Notification: ElementPlus.ElNotification,
+      MessageBox: ElementPlus.ElMessageBox, Loading: ElementPlus.ElLoading
+    };
+  }
+
+  sv.install = function (app) {
+    if (!window.ElementPlus) return;
+    var cfg = window.shinyElementConfig || {};
+    var opts = {};
+    if (cfg.locale) opts.locale = cfg.locale;
+    if (cfg.size) opts.size = cfg.size;
+    if (cfg.zIndex) opts.zIndex = cfg.zIndex;
+    app.use(window.ElementPlus, opts);
+    var icons = window.ElementPlusIconsVue || {};
+    Object.keys(icons).forEach(function (name) {
+      if (name.charAt(0) === name.charAt(0).toUpperCase()) app.component(name, icons[name]);
+    });
+  };
+
   // A validation message from shinyvalidate, drawn as Element draws a
   // failed el-form rule: the control framed in red, the message under it.
   // Element's rules hang off .el-form-item.is-error. A labelled component is
@@ -15,7 +41,7 @@
   // in its content, under the control; an unlabelled one has the host take
   // the classes, which generates no box, but descendant selectors match.
   function formItem(host) {
-    return host.querySelector(':scope > .el-form-item') || host;
+    return host.querySelector(':scope > .el-form-item, :scope > [data-shiny-vue-root] > .el-form-item') || host;
   }
   function messageParent(item, host) {
     return item === host ? host : item.querySelector(':scope > .el-form-item__content');

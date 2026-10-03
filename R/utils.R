@@ -269,22 +269,21 @@
 
 #' Vue, as bundled with the package
 #'
-#' Vue 2.7.14, the version Element UI 2 runs on, from `inst/vue`. The
-#' development build is versioned one step above the production one, so that
-#' when a page asks for it anywhere -- `el_page(dev = TRUE)` -- htmltools keeps
-#' it over the production copy every component brings, rather than loading
-#' Vue twice.
+#' Vue 3, the global build with the template compiler, from `inst/vue3`:
+#' components are compiled in the browser from their x-template. `dev` is
+#' kept for the argument's sake; the production build is the only one
+#' bundled.
 #'
-#' @param dev Load the development build, which reports template errors.
+#' @param dev Unused.
 #' @return An htmlDependency object.
 #' @keywords internal
 .el_vue_dependency <- function(dev = getOption("shiny.element.dev", FALSE)) {
   htmltools::htmlDependency(
     name    = "vue",
-    version = if (isTRUE(dev)) "2.7.14.1" else "2.7.14",
-    src     = "vue",
+    version = "3.5.43",
+    src     = "vue3",
     package = "shiny.element",
-    script  = if (isTRUE(dev)) "vue.js" else "vue.min.js",
+    script  = "vue.global.prod.js",
     all_files = FALSE
   )
 }
@@ -428,6 +427,39 @@
          call. = FALSE)
   }
   invisible(session)
+}
+
+#' Element Plus's close icon, as its components draw it
+#'
+#' Icons are SVG components in Element Plus. A panel drawn as markup -- a
+#' dialog, a drawer -- draws the same SVG itself.
+#'
+#' @param class The icon's own class, beside `el-icon`.
+#' @return An `<i>` tag holding the SVG.
+#' @keywords internal
+.el_close_icon <- function(class) {
+  htmltools::tags$i(class = paste("el-icon", class), htmltools::HTML(paste0(
+    '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024">',
+    '<path fill="currentColor" d="M764.288 214.592 512 466.88 259.712 214.592a31.936 ',
+    '31.936 0 0 0-45.12 45.12L466.752 512 214.528 764.224a31.936 31.936 0 1 0 45.12 ',
+    '45.184L512 557.184l252.288 252.288a31.936 31.936 0 0 0 45.12-45.12L557.12 ',
+    '512.064l252.288-252.352a31.936 31.936 0 1 0-45.12-45.184z"></path></svg>')))
+}
+
+#' A slot's content, in Vue 3's syntax
+#'
+#' `<template v-slot:name>` -- Vue 3 has no `slot="name"` attribute, and an
+#' element carrying one is rendered into the default slot instead.
+#'
+#' @param name The slot's name.
+#' @param ... Its content.
+#' @param scope The scope's name or destructuring, for a scoped slot.
+#' @return A template tag.
+#' @keywords internal
+.el_slot <- function(name, ..., scope = NULL) {
+  htmltools::tag("template", c(
+    stats::setNames(list(if (is.null(scope)) NA else scope), paste0("v-slot:", name)),
+    list(...)))
 }
 
 #' Tags in Vue data, as the HTML they stand for

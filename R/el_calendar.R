@@ -110,7 +110,7 @@ el_calendar <- function(id = NULL,
         '<span v-if="data.isSelected">\u2714</span>',
         "</p>"
       )),
-      slot = "dateCell", scope = "{date, data}"
+      slot = "date-cell", scope = "{date, data}"
     )
   }
  
