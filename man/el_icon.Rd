@@ -7,12 +7,12 @@
 el_icon(
   name,
   size = NULL,
-  color = NULL,
   class = NULL,
   title = NULL,
   a11y = c("auto", "deco", "sem", "none"),
   lib = c("element-plus", "font-awesome", "none"),
-  ...
+  ...,
+  color = NULL
 )
 }
 \arguments{
@@ -23,9 +23,6 @@ el_icon(
 
 \item{size}{CSS size string (e.g. \code{"1.5em"}, \code{"20px"}), as Element Plus's
 \verb{<el-icon size>}. \code{NULL} (default) follows the surrounding text.}
-
-\item{color}{Icon colour, as Element Plus's \verb{<el-icon color>}. \code{NULL}
-follows the surrounding text.}
 
 \item{class}{Additional CSS class(es) to append.}
 
@@ -50,6 +47,9 @@ and \code{role="img"}.}
 }}
 
 \item{...}{Additional HTML attributes passed to the \verb{<i>} tag.}
+
+\item{color}{Icon colour, as Element Plus's \verb{<el-icon color>}. \code{NULL}
+follows the surrounding text.}
 }
 \value{
 An \code{htmltools} tag object.

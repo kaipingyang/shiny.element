@@ -22,6 +22,7 @@ el_mention(
   popper_style = NULL,
   popper_options = NULL,
   placeholder = NULL,
+  disabled = NULL,
   type = NULL,
   rows = NULL,
   label = NULL,
@@ -88,7 +89,8 @@ state. Element Plus's \code{loading} (boolean).}
 \item{popper_options}{Popper.js parameters. Element Plus's \code{popper-options}
 (object).}
 
-\item{placeholder, type, rows}{As for \code{\link[=el_input]{el_input()}}: the placeholder text, and
+\item{placeholder, disabled, type, rows}{As for \code{\link[=el_input]{el_input()}}: the placeholder
+text, whether it can be changed, and
 \code{type = "textarea"} with its number of rows for a longer message.}
 
 \item{label}{A label shown with the component, as Shiny's inputs have:

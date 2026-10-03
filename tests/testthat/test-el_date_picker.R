@@ -42,9 +42,10 @@ test_that("el_date_picker: disabled=TRUE appears in Vue data", {
 })
 
 test_that("el_date_picker: value_format appears in Vue data", {
+  # Element UI's tokens are translated to day.js's
   dp   <- el_date_picker("dp1", value_format = "yyyy-MM-dd", session = NULL)
   html <- render_html(dp)
-  expect_match(html, '"valueFormat"\\s*:\\s*"yyyy-MM-dd"')
+  expect_match(html, '"valueFormat"\\s*:\\s*"YYYY-MM-DD"')
 })
 
 # ── value 处理 ────────────────────────────────────────────────────────────────

@@ -29,8 +29,6 @@ el_upload(
   on_preview = NULL,
   on_remove = NULL,
   on_exceed = NULL,
-  crossorigin = NULL,
-  directory = NULL,
   label = NULL,
   label_position = c("top", "left", "right"),
   label_width = NULL,
@@ -39,6 +37,8 @@ el_upload(
   error = NULL,
   show_message = TRUE,
   inline_message = FALSE,
+  crossorigin = NULL,
+  directory = NULL,
   width = NULL,
   slots = NULL,
   session = NULL
@@ -102,14 +102,6 @@ Shiny's channel. See details.}
 
 \item{on_exceed}{\code{JS()} function called when more files are picked than \code{limit}.}
 
-\item{crossorigin}{Native attribute crossorigin. Element Plus's
-\code{crossorigin} ('' | 'anonymous' | 'use-credentials').}
-
-\item{directory}{Whether to support uploading directory. After enabling it,
-only folders can be selected, and after selecting a folder, the files
-within the folder will be flattened. Element Plus's \code{directory}
-(boolean).}
-
 \item{label}{A label shown with the component, as Shiny's inputs have:
 text or a tag. \code{NULL}, the default, shows none. It is the component's
 accessible name too -- tied to it with \code{for} where the component has a
@@ -136,6 +128,14 @@ style, the field framed in red. Element's \code{error}.}
 \item{show_message, inline_message}{Whether \code{error}'s message is shown, and
 whether beside the component rather than under it. Element's
 \code{show-message} and \code{inline-message}.}
+
+\item{crossorigin}{Native attribute crossorigin. Element Plus's
+\code{crossorigin} ('' | 'anonymous' | 'use-credentials').}
+
+\item{directory}{Whether to support uploading directory. After enabling it,
+only folders can be selected, and after selecting a folder, the files
+within the folder will be flattened. Element Plus's \code{directory}
+(boolean).}
 
 \item{width}{Component width, as a CSS unit -- \code{"200px"}, \code{"50\%"}, or a
 number taken as pixels. Element's own markup carries it, so it behaves

@@ -206,7 +206,12 @@ test_that("every updater of a Vue component sends only declared fields", {
     update_el_select = quote(el_select("x", choices = "a")),
     update_el_table = quote(el_table(id = "x", data = head(iris, 2))),
     update_el_dropdown = quote(el_dropdown("x", items = list(list(command = "c", label = "L")))),
-    update_el_steps = quote(el_steps("x", steps = list(list(title = "S"))))
+    update_el_steps = quote(el_steps("x", steps = list(list(title = "S")))),
+    update_el_check_tag = quote(el_check_tag("x", "Tag")),
+    update_el_tree_select = quote(el_tree_select("x")),
+    update_el_tour = quote(el_tour("x", steps = list(list(title = "S")))),
+    update_el_image_viewer = quote(el_image_viewer("x", url_list = "a.png")),
+    update_el_countdown = quote(el_countdown("x"))
   )
   fns <- setdiff(grep("^update_el_", getNamespaceExports("shiny.element"), value = TRUE), markup)
   for (fn in fns) {

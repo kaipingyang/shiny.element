@@ -87,13 +87,28 @@
 #'   report = c(value = "score")
 #' )
 #' @export
-el_widget <- function(id, markup, data, methods = NULL, watch = NULL,
-                      mounted = NULL, computed = NULL, dependency = NULL,
-                      head = NULL, width = NULL, slots = NULL, report = NULL,
-                      rate = NULL, type = NULL, label = NULL,
+el_widget <- function(id,
+                      markup,
+                      data,
+                      methods = NULL,
+                      watch = NULL,
+                      mounted = NULL,
+                      computed = NULL,
+                      dependency = NULL,
+                      head = NULL,
+                      width = NULL,
+                      slots = NULL,
+                      report = NULL,
+                      rate = NULL,
+                      type = NULL,
+                      label = NULL,
                       label_position = c("top", "left", "right"),
-                      label_width = NULL, label_suffix = NULL, required = FALSE,
-                      error = NULL, show_message = TRUE, inline_message = FALSE,
+                      label_width = NULL,
+                      label_suffix = NULL,
+                      required = FALSE,
+                      error = NULL,
+                      show_message = TRUE,
+                      inline_message = FALSE,
                       props = NULL) {
   container_id <- paste0(id, "_container")
   # Optional props from .el_props(): bound on the component's own tag, the

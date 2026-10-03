@@ -10,7 +10,6 @@ el_time_picker(
   value = NULL,
   is_range = FALSE,
   value_format = "HH:mm:ss",
-  format = NULL,
   arrow_control = NULL,
   placeholder = NULL,
   start_placeholder = NULL,
@@ -22,22 +21,9 @@ el_time_picker(
   readonly = NULL,
   size = NULL,
   popper_class = NULL,
-  popper_style = NULL,
-  popper_options = NULL,
-  placement = NULL,
-  fallback_placements = NULL,
   default_value = NULL,
-  disabled_hours = NULL,
-  disabled_minutes = NULL,
-  disabled_seconds = NULL,
   prefix_icon = NULL,
   clear_icon = NULL,
-  teleported = NULL,
-  tabindex = NULL,
-  aria_label = NULL,
-  empty_values = NULL,
-  value_on_clear = NULL,
-  save_on_blur = NULL,
   label = NULL,
   label_position = c("top", "left", "right"),
   label_width = NULL,
@@ -46,6 +32,20 @@ el_time_picker(
   error = NULL,
   show_message = TRUE,
   inline_message = FALSE,
+  format = NULL,
+  popper_style = NULL,
+  popper_options = NULL,
+  placement = NULL,
+  fallback_placements = NULL,
+  disabled_hours = NULL,
+  disabled_minutes = NULL,
+  disabled_seconds = NULL,
+  teleported = NULL,
+  tabindex = NULL,
+  aria_label = NULL,
+  empty_values = NULL,
+  value_on_clear = NULL,
+  save_on_blur = NULL,
   width = NULL,
   slots = NULL,
   session = NULL
@@ -54,25 +54,14 @@ el_time_picker(
 el_time_select(
   id = NULL,
   value = NULL,
-  start = NULL,
-  end = NULL,
-  step = NULL,
-  min_time = NULL,
-  max_time = NULL,
-  include_end_time = NULL,
-  format = NULL,
   placeholder = NULL,
   clearable = NULL,
   disabled = NULL,
   editable = NULL,
   size = NULL,
-  effect = NULL,
   popper_class = NULL,
-  popper_style = NULL,
   prefix_icon = NULL,
   clear_icon = NULL,
-  empty_values = NULL,
-  value_on_clear = NULL,
   label = NULL,
   label_position = c("top", "left", "right"),
   label_width = NULL,
@@ -81,6 +70,17 @@ el_time_select(
   error = NULL,
   show_message = TRUE,
   inline_message = FALSE,
+  start = NULL,
+  end = NULL,
+  step = NULL,
+  min_time = NULL,
+  max_time = NULL,
+  include_end_time = NULL,
+  format = NULL,
+  effect = NULL,
+  popper_style = NULL,
+  empty_values = NULL,
+  value_on_clear = NULL,
   width = NULL,
   slots = NULL,
   session = NULL
@@ -97,8 +97,6 @@ range.}
 \item{value_format}{Format of the value reported to Shiny, in day.js's
 tokens. Default \code{"HH:mm:ss"}.}
 
-\item{format}{Format of the time shown in the input, in day.js's tokens.}
-
 \item{arrow_control}{Whether hours, minutes and seconds are changed with
 arrow buttons rather than by scrolling.}
 
@@ -113,26 +111,9 @@ latter two for a range.}
 
 \item{popper_class, popper_style}{Extra class name and style for the panel.}
 
-\item{popper_options, placement, fallback_placements}{Where the panel opens,
-as Element Plus's tooltip takes them.}
-
 \item{default_value}{Time the panel opens on when nothing is picked.}
 
-\item{disabled_hours, disabled_minutes, disabled_seconds}{\code{\link[=JS]{JS()}} functions
-returning the hours, minutes or seconds that cannot be picked -- what
-Element UI's \code{selectableRange} did.}
-
 \item{prefix_icon, clear_icon}{Icons, by name: \code{"Clock"}, \code{"CircleClose"}.}
-
-\item{teleported}{Whether the panel is moved to \verb{<body>}.}
-
-\item{tabindex, aria_label}{Native attributes of the input.}
-
-\item{empty_values, value_on_clear}{What counts as empty, and the value a
-cleared picker reports. See Element Plus's config provider.}
-
-\item{save_on_blur}{Whether the time typed is kept when the input loses
-focus.}
 
 \item{label}{A label shown with the component, as Shiny's inputs have:
 text or a tag. \code{NULL}, the default, shows none. It is the component's
@@ -160,6 +141,25 @@ style, the field framed in red. Element's \code{error}.}
 \item{show_message, inline_message}{Whether \code{error}'s message is shown, and
 whether beside the component rather than under it. Element's
 \code{show-message} and \code{inline-message}.}
+
+\item{format}{Format of the time shown in the input, in day.js's tokens.}
+
+\item{popper_options, placement, fallback_placements}{Where the panel opens,
+as Element Plus's tooltip takes them.}
+
+\item{disabled_hours, disabled_minutes, disabled_seconds}{\code{\link[=JS]{JS()}} functions
+returning the hours, minutes or seconds that cannot be picked -- what
+Element UI's \code{selectableRange} did.}
+
+\item{teleported}{Whether the panel is moved to \verb{<body>}.}
+
+\item{tabindex, aria_label}{Native attributes of the input.}
+
+\item{empty_values, value_on_clear}{What counts as empty, and the value a
+cleared picker reports. See Element Plus's config provider.}
+
+\item{save_on_blur}{Whether the time typed is kept when the input loses
+focus.}
 
 \item{width}{Component width, as a CSS unit.}
 

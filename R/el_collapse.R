@@ -64,6 +64,7 @@ el_collapse <- function(
     session   = NULL
 ) {
   .el_check_items(items, "items", c("name", "title"))
+  .el_check_choices("el_collapse", environment())
   expand_icon_position <- match.arg(expand_icon_position, c("right", "left"))
   if (is.null(id)) id <- paste0("el_collapse_", uuid::UUIDgenerate())
   ns_id <- .el_ui_id(id, session)

@@ -35,9 +35,15 @@
 #' el_link("Show more", id = "more", type = "primary")
 #'
 #' @export
-el_link <- function(label = "Link", href = NULL, type = "default",
-                    underline = "hover", disabled = FALSE, icon = NULL,
-                    target = "_self", id = NULL, ...) {
+el_link <- function(label = "Link",
+                    href = NULL,
+                    type = "default",
+                    underline = "hover",
+                    disabled = FALSE,
+                    icon = NULL,
+                    id = NULL,
+                    ...,
+                    target = "_self") {
   .el_check_choices("el_link", environment())
   # Element Plus's boolean form: TRUE is "hover", FALSE "never"
   if (isTRUE(underline)) underline <- "hover"

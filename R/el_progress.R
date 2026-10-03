@@ -73,14 +73,14 @@ el_progress <- function(
     text_inside  = FALSE,
     show_text    = TRUE,
     color        = NULL,
-    duration = NULL,
-    indeterminate = NULL,
-    striped = NULL,
-    striped_flow = NULL,
     width        = 126,
     stroke_linecap = NULL,
     slots        = NULL,
     format       = NULL,
+    duration = NULL,
+    indeterminate = NULL,
+    striped = NULL,
+    striped_flow = NULL,
     session      = NULL
 ) {
   .el_check_choices("el_progress", environment())

@@ -86,7 +86,7 @@ test_that("el_upload: attaches the shared bridge", {
 test_that("el_upload: drag renders a drop zone, otherwise a button", {
   dragged <- render_html(el_upload("files", drag = TRUE, button_label = "Drop here"))
   expect_match(dragged, "drag", fixed = TRUE)
-  expect_match(dragged, "el-icon-upload", fixed = TRUE)
+  expect_match(dragged, "<upload-filled>", fixed = TRUE)
   expect_match(dragged, "Drop here", fixed = TRUE)
 
   plain <- render_html(el_upload("files", button_label = "Pick"))
@@ -96,7 +96,8 @@ test_that("el_upload: drag renders a drop zone, otherwise a button", {
 
 test_that("el_upload: tip goes into the named slot", {
   html <- render_html(el_upload("files", tip = "CSV only"))
-  expect_match(html, 'class="el-upload__tip" slot="tip"', fixed = TRUE)
+  expect_match(html, '<template v-slot:tip>', fixed = TRUE)
+  expect_match(html, 'class="el-upload__tip"', fixed = TRUE)
   expect_match(html, "CSV only", fixed = TRUE)
 
   expect_false(grepl("el-upload__tip", render_html(el_upload("files")), fixed = TRUE))

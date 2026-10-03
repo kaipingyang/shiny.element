@@ -21,11 +21,12 @@ test_that("el_collapse: renders plain markup with no Vue instance", {
 
 test_that("el_collapse: carries Element's own classes", {
   html <- render_html(el_collapse("c1", items = demo_items))
-  expect_match(html, 'class="el-collapse"', fixed = TRUE)
+  expect_match(html, 'class="el-collapse el-collapse-icon-position-right"', fixed = TRUE)
   expect_match(html, "el-collapse-item__header", fixed = TRUE)
   expect_match(html, "el-collapse-item__wrap", fixed = TRUE)
   expect_match(html, "el-collapse-item__content", fixed = TRUE)
-  expect_match(html, "el-collapse-item__arrow el-icon-arrow-right", fixed = TRUE)
+  expect_match(html, 'class="el-icon el-collapse-item__arrow" data-el-icon="ArrowRight"', fixed = TRUE)
+  expect_match(html, '<span class="el-collapse-item__title">', fixed = TRUE)
 })
 
 test_that("el_collapse: the binding finds it by a data attribute", {
@@ -48,7 +49,7 @@ test_that("el_collapse: open panels are marked on all three elements", {
   # Element styles the item, its header and its arrow separately.
   expect_match(html, 'class="el-collapse-item is-active" data-el-name="p1"', fixed = TRUE)
   expect_match(html, 'class="el-collapse-item__header is-active"', fixed = TRUE)
-  expect_match(html, 'el-icon-arrow-right is-active', fixed = TRUE)
+  expect_match(html, 'el-collapse-item__arrow is-active', fixed = TRUE)
 })
 
 test_that("el_collapse: a closed panel is hidden, not removed", {
@@ -69,9 +70,8 @@ test_that("el_collapse: Element's ARIA ties each header to its panel", {
   html <- render_html(el_collapse("c1", value = "a", items = list(
     list(name = "a", title = "A", content = "x"),
     list(name = "b c", title = "B", content = "y"))))
-  expect_match(html, 'role="tab" aria-expanded="true" aria-controls="c1-content-a"', fixed = TRUE)
-  expect_match(html, 'id="c1-head-a" role="button" tabindex="0"', fixed = TRUE)
-  expect_match(html, 'id="c1-content-b_c" role="tabpanel" aria-hidden="true" aria-labelledby="c1-head-b_c"',
+  expect_match(html, 'id="c1-head-a" role="button" tabindex="0" aria-expanded="true" aria-controls="c1-content-a"', fixed = TRUE)
+  expect_match(html, 'id="c1-content-b_c" role="region" aria-hidden="true" aria-labelledby="c1-head-b_c"',
                fixed = TRUE)
 })
 
@@ -102,7 +102,7 @@ test_that("el_collapse: nested components keep their own dependencies", {
 
 test_that("el_collapse: an empty collapse still renders", {
   html <- render_html(el_collapse("c1"))
-  expect_match(html, 'class="el-collapse"', fixed = TRUE)
+  expect_match(html, 'class="el-collapse el-collapse-icon-position-right"', fixed = TRUE)
   expect_false(grepl("el-collapse-item", html, fixed = TRUE))
 })
 
@@ -150,4 +150,13 @@ test_that("the binding degrades gracefully outside Shiny", {
   expect_match(js, "function standalone(binding)", fixed = TRUE)
   expect_match(js, "else standalone(binding)", fixed = TRUE)
   expect_false(grepl("[^&] Shiny[.]setInputValue[(]", js))
+})
+
+test_that("el_collapse: Element Plus's icon position, item icons and before-collapse", {
+  html <- render_html(el_collapse("c1", expand_icon_position = "left",
+    before_collapse = JS("function(name) { return name !== 'a'; }"),
+    items = list(list(name = "a", title = "A", icon = "CaretRight", "x"))))
+  expect_match(html, "el-collapse-icon-position-left", fixed = TRUE)
+  expect_match(html, 'data-el-icon="CaretRight"', fixed = TRUE)
+  expect_match(html, "data-before-collapse=", fixed = TRUE)
 })

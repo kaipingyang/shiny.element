@@ -108,12 +108,13 @@ test_that("error draws Element's error state, under the control or beside it", {
 })
 
 test_that("the component's size sizes the form item, so a label lines up", {
-  # bound to the size field, falling back to Element's global size
+  # bound to the size field, falling back to the page's size, which the
+  # bridge gives every app as $ELEMENT
   tpl <- template_of(el_input("x", label = "L", size = "small"))
   expect_match(tpl, ":class=\"(size || ($ELEMENT &amp;&amp; $ELEMENT.size)) ? &#39;el-form-item--&#39; +",
                fixed = TRUE)
   # a component with no size of its own takes only the global one
-  expect_match(template_of(el_switch("x", label = "L")),
+  expect_match(template_of(el_color_picker_panel("x", label = "L")),
                ":class=\"($ELEMENT &amp;&amp; $ELEMENT.size) ? &#39;el-form-item--&#39; +", fixed = TRUE)
 })
 

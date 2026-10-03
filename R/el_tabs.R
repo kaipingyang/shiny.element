@@ -73,8 +73,8 @@ el_tabs <- function(
     addable      = FALSE,
     editable     = FALSE,
     stretch      = FALSE,
-    add_icon     = NULL,
     before_leave = NULL,
+    add_icon     = NULL,
     session      = NULL
 ) {
   .el_check_items(tabs, "tabs", c("name", "label"))

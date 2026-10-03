@@ -18,12 +18,12 @@ test_that("el_time_picker takes a range as two times", {
 })
 
 test_that("el_time_select has no range, format or arrows of its own", {
-  ui <- el_time_select("s", picker_options = list(start = "09:00", step = "00:30",
-                                                  end = "18:00"))
+  ui <- el_time_select("s", start = "09:00", step = "00:30", end = "18:00")
   html <- paste(as.character(ui), collapse = "")
   expect_match(html, "<el-time-select", fixed = TRUE)
   d <- vue_data_of(ui)
-  expect_equal(d$pickerOptions$step, "00:30")
+  expect_equal(d$step, "00:30")
+  expect_equal(d$start, "09:00")
   for (f in c("isRange", "valueFormat", "arrowControl", "rangeSeparator")) {
     expect_false(f %in% names(d), info = f)
   }

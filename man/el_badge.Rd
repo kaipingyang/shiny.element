@@ -11,12 +11,12 @@ el_badge(
   is_dot = FALSE,
   hidden = FALSE,
   type = NULL,
+  id = NULL,
   show_zero = TRUE,
   color = NULL,
   offset = NULL,
   badge_style = NULL,
-  badge_class = NULL,
-  id = NULL
+  badge_class = NULL
 )
 }
 \arguments{
@@ -34,6 +34,11 @@ shows \code{"<max>+"}. Only applies when \code{value} is numeric.}
 \item{type}{Badge colour type: \code{NULL} (red, default), \code{"primary"},
 \code{"success"}, \code{"warning"}, \code{"info"}, \code{"danger"}.}
 
+\item{id}{Give the badge an id and \code{\link[=update_el_badge]{update_el_badge()}} can change it -- a
+count of unread messages, say. A component inside is then folded into
+the badge's Vue instance, as for \code{\link[=el_tooltip]{el_tooltip()}}: it keeps reporting, but
+is reached through \code{\link[=update_vue_data]{update_vue_data()}} on the badge's id.}
+
 \item{show_zero}{Whether a value of \code{0} is shown. Default \code{TRUE}.}
 
 \item{color}{Background colour of the badge.}
@@ -42,11 +47,6 @@ shows \code{"<max>+"}. Only applies when \code{value} is numeric.}
 
 \item{badge_style, badge_class}{Extra CSS -- a string or a named list -- and
 class names for the badge.}
-
-\item{id}{Give the badge an id and \code{\link[=update_el_badge]{update_el_badge()}} can change it -- a
-count of unread messages, say. A component inside is then folded into
-the badge's Vue instance, as for \code{\link[=el_tooltip]{el_tooltip()}}: it keeps reporting, but
-is reached through \code{\link[=update_vue_data]{update_vue_data()}} on the badge's id.}
 }
 \value{
 An \code{htmltools} tag, or with an \code{id} a Shiny UI element.

@@ -76,7 +76,7 @@ test_that("el_drawer: the binding finds it and knows how it may close", {
   # It was a Vue component with a visible.sync binding; it is now markup
   # driven by the shared overlay binding. See test-el_overlay.R.
   html <- render_html(el_drawer("d1"))
-  expect_match(html, 'data-el-overlay="true"', fixed = TRUE)
+  expect_match(html, 'data-el-overlay="drawer"', fixed = TRUE)
   expect_match(html, 'data-esc-close="true"', fixed = TRUE)
 })
 
@@ -149,7 +149,8 @@ test_that("el_dropdown: item with icon", {
     items = list(list(command = "edit", icon = "el-icon-edit"))
   )
   html <- render_html(tag)
-  expect_match(html, "el-icon-edit")
+  # Element UI's class name becomes Element Plus's icon
+  expect_match(html, 'icon="Edit"', fixed = TRUE)
 })
 
 test_that("el_dropdown: divided item", {
@@ -175,14 +176,14 @@ test_that("update_el_dropdown: sends disabled", {
 test_that("el_dropdown adds an arrow to a text trigger, not to a tag", {
   items <- list(list(command = "a", label = "A"))
   text <- paste(as.character(el_dropdown("d", trigger_label = "Menu", items = items)), collapse = "")
-  expect_match(text, "el-icon-arrow-down", fixed = TRUE)
+  expect_match(text, "<arrow-down />", fixed = TRUE)
   icon <- paste(as.character(el_dropdown("d", items = items,
-    trigger_label = shiny::tags$i(class = "el-icon-setting"))), collapse = "")
-  expect_false(grepl("el-icon-arrow-down", icon, fixed = TRUE))
-  expect_match(icon, "el-icon-setting", fixed = TRUE)
+    trigger_label = el_icon("Setting"))), collapse = "")
+  expect_false(grepl("arrow-down", icon, fixed = TRUE))
+  expect_match(icon, 'data-el-icon="Setting"', fixed = TRUE)
 })
 
-test_that("Element's stylesheet carries the expanded-row padding fix", {
-  dep <- element_ui_dependency()
-  expect_match(dep$head, ".el-table .el-table__expanded-cell[class*=cell]", fixed = TRUE)
+test_that("Element Plus's stylesheet needs no correction of ours", {
+  # Element UI 2.15's expanded-row padding fix is not needed in Element Plus
+  expect_null(element_plus_dependency()[[1]]$head)
 })

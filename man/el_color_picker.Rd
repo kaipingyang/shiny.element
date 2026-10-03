@@ -13,6 +13,14 @@ el_color_picker(
   color_format = NULL,
   predefine = NULL,
   popper_class = NULL,
+  label = NULL,
+  label_position = c("top", "left", "right"),
+  label_width = NULL,
+  label_suffix = NULL,
+  required = FALSE,
+  error = NULL,
+  show_message = TRUE,
+  inline_message = FALSE,
   append_to = NULL,
   aria_label = NULL,
   clearable = NULL,
@@ -23,14 +31,6 @@ el_color_picker(
   teleported = NULL,
   validate_event = NULL,
   value_on_clear = NULL,
-  label = NULL,
-  label_position = c("top", "left", "right"),
-  label_width = NULL,
-  label_suffix = NULL,
-  required = FALSE,
-  error = NULL,
-  show_message = TRUE,
-  inline_message = FALSE,
   width = NULL,
   slots = NULL,
   session = NULL
@@ -55,6 +55,33 @@ When \code{TRUE}, the returned value is an \code{rgba(...)} string.}
 none.}
 
 \item{popper_class}{Extra class name for the dropdown panel.}
+
+\item{label}{A label shown with the component, as Shiny's inputs have:
+text or a tag. \code{NULL}, the default, shows none. It is the component's
+accessible name too -- tied to it with \code{for} where the component has a
+native input that takes the id \verb{<id>-input}, else with
+\code{aria-labelledby}.}
+
+\item{label_position}{Where the label sits, as \code{el_form()}'s
+\code{label_position}: \code{"top"} (the default, as Shiny's labels sit), or
+beside the component, its text aligned \code{"left"} or \code{"right"} -- which
+shows once \code{label_width} gives the labels a common width.}
+
+\item{label_width}{Width of a label beside the component, as a CSS unit,
+so that several line up. Element's \code{label-width}.}
+
+\item{label_suffix}{Text after the label, such as \code{":"}. Element's
+\code{label-suffix}.}
+
+\item{required}{Draw Element's red asterisk before the label. It marks the
+field; it does not check it -- shinyvalidate or \code{\link[=el_form]{el_form()}} does that.}
+
+\item{error}{An error message shown under the component in Element's
+style, the field framed in red. Element's \code{error}.}
+
+\item{show_message, inline_message}{Whether \code{error}'s message is shown, and
+whether beside the component rather than under it. Element's
+\code{show-message} and \code{inline-message}.}
 
 \item{append_to}{Which element the color-picker panel appends to. Element
 Plus's \code{append-to} (CSSSelector / HTMLElement).}
@@ -86,33 +113,6 @@ Element Plus's \code{teleported} (boolean).}
 \item{value_on_clear}{Clear return value, see config-provider. Element
 Plus's \code{value-on-clear} (string / number / boolean / Function). Give it
 as \code{\link[=JS]{JS()}}.}
-
-\item{label}{A label shown with the component, as Shiny's inputs have:
-text or a tag. \code{NULL}, the default, shows none. It is the component's
-accessible name too -- tied to it with \code{for} where the component has a
-native input that takes the id \verb{<id>-input}, else with
-\code{aria-labelledby}.}
-
-\item{label_position}{Where the label sits, as \code{el_form()}'s
-\code{label_position}: \code{"top"} (the default, as Shiny's labels sit), or
-beside the component, its text aligned \code{"left"} or \code{"right"} -- which
-shows once \code{label_width} gives the labels a common width.}
-
-\item{label_width}{Width of a label beside the component, as a CSS unit,
-so that several line up. Element's \code{label-width}.}
-
-\item{label_suffix}{Text after the label, such as \code{":"}. Element's
-\code{label-suffix}.}
-
-\item{required}{Draw Element's red asterisk before the label. It marks the
-field; it does not check it -- shinyvalidate or \code{\link[=el_form]{el_form()}} does that.}
-
-\item{error}{An error message shown under the component in Element's
-style, the field framed in red. Element's \code{error}.}
-
-\item{show_message, inline_message}{Whether \code{error}'s message is shown, and
-whether beside the component rather than under it. Element's
-\code{show-message} and \code{inline-message}.}
 
 \item{width}{Component width, as a CSS unit -- \code{"200px"}, \code{"50\%"}, or a
 number taken as pixels. Element's own markup carries it, so it behaves

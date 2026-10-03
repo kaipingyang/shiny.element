@@ -11,9 +11,9 @@ el_link(
   underline = "hover",
   disabled = FALSE,
   icon = NULL,
-  target = "_self",
   id = NULL,
-  ...
+  ...,
+  target = "_self"
 )
 }
 \arguments{
@@ -33,15 +33,15 @@ el_link(
 \item{icon}{Icon class string (e.g. \code{"el-icon-edit"}). Placed before the
 label. \code{NULL} for none.}
 
-\item{target}{Where the link opens, as an \verb{<a>}'s \code{target}. Default
-\code{"_self"}.}
-
 \item{id}{Give the link an id and it reports its clicks, as
 \code{\link[shiny:actionLink]{shiny::actionLink()}} does: \verb{input$<id>} counts them, 0 on load, and
 \code{\link[=update_el_link]{update_el_link()}} changes it. Without one it is a plain link.}
 
 \item{...}{Additional HTML attributes passed to the \verb{<a>} tag (a plain
 link only).}
+
+\item{target}{Where the link opens, as an \verb{<a>}'s \code{target}. Default
+\code{"_self"}.}
 }
 \value{
 An \code{htmltools} \verb{<a>} tag, or with an \code{id} a Shiny UI element.

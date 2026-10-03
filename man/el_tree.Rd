@@ -33,8 +33,6 @@ el_tree(
   render_content = NULL,
   allow_drag = NULL,
   allow_drop = NULL,
-  check_on_click_leaf = NULL,
-  icon = NULL,
   label = NULL,
   label_position = c("top", "left", "right"),
   label_width = NULL,
@@ -43,6 +41,8 @@ el_tree(
   error = NULL,
   show_message = TRUE,
   inline_message = FALSE,
+  check_on_click_leaf = NULL,
+  icon = NULL,
   width = NULL,
   slots = NULL,
   session = NULL
@@ -114,13 +114,6 @@ contains the text, ignoring case, so \code{el_call(session, id, "filter", list(t
 
 \item{allow_drop}{\code{JS()} function deciding whether a node may be dropped somewhere.}
 
-\item{check_on_click_leaf}{Whether to check or uncheck node when clicking
-on leaf node (last children). Element Plus's \code{check-on-click-leaf}
-(boolean).}
-
-\item{icon}{Custom tree node icon component. Element Plus's \code{icon} (string
-/ Component). An icon's name, such as \code{"Search"}.}
-
 \item{label}{A label shown with the component, as Shiny's inputs have:
 text or a tag. \code{NULL}, the default, shows none. It is the component's
 accessible name too -- tied to it with \code{for} where the component has a
@@ -147,6 +140,13 @@ style, the field framed in red. Element's \code{error}.}
 \item{show_message, inline_message}{Whether \code{error}'s message is shown, and
 whether beside the component rather than under it. Element's
 \code{show-message} and \code{inline-message}.}
+
+\item{check_on_click_leaf}{Whether to check or uncheck node when clicking
+on leaf node (last children). Element Plus's \code{check-on-click-leaf}
+(boolean).}
+
+\item{icon}{Custom tree node icon component. Element Plus's \code{icon} (string
+/ Component). An icon's name, such as \code{"Search"}.}
 
 \item{width}{Component width, as a CSS unit -- \code{"200px"}, \code{"50\%"}, or a
 number taken as pixels. Element's own markup carries it, so it behaves

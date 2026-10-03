@@ -20,8 +20,13 @@
 #' el_card(shiny::tags$p("No shadow."), shadow = "never")
 #'
 #' @export
-el_card <- function(..., header = NULL, footer = NULL, body_style = NULL,
-                    shadow = "always", header_class = NULL, body_class = NULL,
+el_card <- function(...,
+                    header = NULL,
+                    body_style = NULL,
+                    shadow = "always",
+                    footer = NULL,
+                    header_class = NULL,
+                    body_class = NULL,
                     footer_class = NULL) {
   .el_check_choices("el_card", environment())
   card_class <- paste0("el-card is-", shadow, "-shadow")

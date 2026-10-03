@@ -42,7 +42,6 @@
 #' @export
 el_tag <- function(
     id                   = NULL,
-    round = NULL,
     label                = "Tag",
     type                 = NULL,
     closable             = FALSE,
@@ -51,6 +50,7 @@ el_tag <- function(
     color                = NULL,
     hit                  = FALSE,
     disable_transitions  = FALSE,
+    round = NULL,
     width                = NULL,
     slots                = NULL,
     session              = NULL

@@ -32,10 +32,18 @@
 #' el_badge(el_button("inbox", "Inbox"), value = 3, id = "unread")
 #'
 #' @export
-el_badge <- function(..., value = NULL, max = NULL, is_dot = FALSE,
-                     hidden = FALSE, type = NULL, show_zero = TRUE, color = NULL,
-                     offset = NULL, badge_style = NULL, badge_class = NULL,
-                     id = NULL) {
+el_badge <- function(...,
+                     value = NULL,
+                     max = NULL,
+                     is_dot = FALSE,
+                     hidden = FALSE,
+                     type = NULL,
+                     id = NULL,
+                     show_zero = TRUE,
+                     color = NULL,
+                     offset = NULL,
+                     badge_style = NULL,
+                     badge_class = NULL) {
   .el_check_choices("el_badge", environment())
   if (!is.null(id)) {
     content <- list(...)
@@ -94,7 +102,7 @@ el_badge <- function(..., value = NULL, max = NULL, is_dot = FALSE,
       if (is.character(badge_style)) badge_style
       else if (is.list(badge_style)) paste0(names(badge_style), ":", unlist(badge_style), ";", collapse = ""))
     sup_attrs <- list(class = paste(sup_classes, collapse = " "),
-                      style = if (nzchar(style)) style)
+                      style = if (length(style) && nzchar(style)) style)
     do.call(shiny::tags$sup, c(sup_attrs, list(display_value)))
   }
 

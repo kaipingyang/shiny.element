@@ -29,11 +29,13 @@
 #'     "{{ data.day.split('-').slice(1).join('-') }}",
 #'     shiny::tags$span("\u2714\ufe0f", `v-if` = "data.isSelected")
 #'   ),
-#'   slot = "dateCell",
+#'   slot = "date-cell",
 #'   scope = "{date, data}"
 #' )
 template <- function(..., slot = NULL, scope = NULL) {
-  # Vue 3's slot syntax: v-slot:name="scope"
+  # Vue 3's slot syntax: v-slot:name="scope". Element Plus names its slots in
+  # kebab-case, and Vue 3 matches them as written: dateCell is date-cell.
+  if (!is.null(slot)) slot <- gsub("([a-z0-9])([A-Z])", "\\1-\\L\\2", slot, perl = TRUE)
   attrs <- if (!is.null(slot) || !is.null(scope)) {
     paste0("v-slot:", if (is.null(slot)) "default" else slot,
            if (!is.null(scope)) sprintf('="%s"', scope) else "")

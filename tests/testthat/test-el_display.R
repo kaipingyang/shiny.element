@@ -148,20 +148,21 @@ test_that("el_link: disabled removes href", {
   expect_no_match(html, "https://example.com")
 })
 
-test_that("el_link: underline class", {
-  tag <- el_link("Link", underline = TRUE)
-  html <- render_html(tag)
-  expect_match(html, "is-underline")
+test_that("el_link: underline classes, as Element Plus names them", {
+  expect_match(render_html(el_link("Link")), "is-hover-underline")
+  expect_match(render_html(el_link("Link", underline = TRUE)), "is-hover-underline")
+  expect_match(render_html(el_link("Link", underline = "always")), "is-underline\\b")
+  expect_no_match(render_html(el_link("Link", underline = FALSE)), "underline")
 })
 
 test_that("el_link: no underline when disabled", {
   tag <- el_link("Link", disabled = TRUE)
   html <- render_html(tag)
-  expect_no_match(html, "is-underline")
+  expect_no_match(html, "underline")
 })
 
 test_that("el_link: icon rendered", {
-  tag <- el_link("Edit", icon = "el-icon-edit")
-  html <- render_html(tag)
-  expect_match(html, "el-icon-edit")
+  # Element UI's class name reaches Element Plus's icon
+  html <- render_html(el_link("Edit", icon = "el-icon-edit"))
+  expect_match(html, 'data-el-icon="Edit"', fixed = TRUE)
 })

@@ -6,7 +6,6 @@
 \usage{
 el_tag(
   id = NULL,
-  round = NULL,
   label = "Tag",
   type = NULL,
   closable = FALSE,
@@ -15,6 +14,7 @@ el_tag(
   color = NULL,
   hit = FALSE,
   disable_transitions = FALSE,
+  round = NULL,
   width = NULL,
   slots = NULL,
   session = NULL
@@ -22,8 +22,6 @@ el_tag(
 }
 \arguments{
 \item{id}{Tag ID. Auto-generated UUID if \code{NULL}.}
-
-\item{round}{Whether Tag is rounded. Element Plus's \code{round} (boolean).}
 
 \item{label}{Tag text.}
 
@@ -42,6 +40,8 @@ el_tag(
 \item{hit}{Whether to show a solid border. Default \code{FALSE}.}
 
 \item{disable_transitions}{Disable the zoom-in-center animation. Default \code{FALSE}.}
+
+\item{round}{Whether Tag is rounded. Element Plus's \code{round} (boolean).}
 
 \item{width}{Component width, as a CSS unit -- \code{"200px"}, \code{"50\%"}, or a
 number taken as pixels. Element's own markup carries it, so it behaves

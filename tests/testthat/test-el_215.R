@@ -14,7 +14,7 @@ test_that("content after the id goes to ..., not to the next argument", {
   # landed in the Vue data.
   ui <- el_result("r", icon = "success", title = "Done", el_button("b", "Back"))
   expect_true(is.na(vue_data_of(ui)$resultSubTitle) || is.null(vue_data_of(ui)$resultSubTitle))
-  expect_match(paste(as.character(ui), collapse = ""), '<template slot="extra">')
+  expect_match(paste(as.character(ui), collapse = ""), '<template v-slot:extra>')
 })
 
 test_that("el_skeleton starts loading and can be switched off", {
@@ -55,20 +55,20 @@ test_that("a descriptions label may be markup", {
   ui <- el_descriptions("d", items = list(
     list(label = shiny::tags$b("Bold"), content = "x")
   ))
-  expect_match(paste(as.character(ui), collapse = ""), '<template slot="label">')
+  expect_match(paste(as.character(ui), collapse = ""), '<template v-slot:label>')
 })
 
-test_that("el_statistic counts down to a date-time, in milliseconds", {
+test_that("el_countdown counts down to a date-time, in milliseconds", {
   end <- as.POSIXct("2026-10-02 00:00:00", tz = "UTC")
-  d <- vue_data_of(el_statistic("left", value = end, time_indices = TRUE,
-                                format = "HH:mm:ss"))
+  ui <- el_countdown("left", value = end, format = "HH:mm:ss")
+  d <- vue_data_of(ui)
   expect_equal(d$value, as.numeric(end) * 1000)
-  expect_true(d$timeIndices)
   expect_equal(d$format, "HH:mm:ss")
+  expect_match(paste(as.character(ui), collapse = ""), "<el-countdown", fixed = TRUE)
 })
 
-test_that("el_statistic forwards finish, and throttles change to once a second", {
-  p <- vue_payload_of(el_statistic("left", value = 1, time_indices = TRUE))
+test_that("el_countdown forwards finish, and throttles change to once a second", {
+  p <- vue_payload_of(el_countdown("left", value = 1))
   expect_true(all(c("elEmitFinish", "elEmitChange") %in% names(p$methods)))
   expect_match(p$methods$elEmitChange, "_elLastChange", fixed = TRUE)
 })

@@ -6,15 +6,6 @@
 \usage{
 el_button(
   id = NULL,
-  auto_insert_space = NULL,
-  bg = NULL,
-  color = NULL,
-  dark = NULL,
-  dashed = NULL,
-  link = NULL,
-  loading_icon = NULL,
-  tag = NULL,
-  text = NULL,
   label = "Button",
   type = "default",
   size = NULL,
@@ -26,6 +17,15 @@ el_button(
   icon = NULL,
   native_type = "button",
   autofocus = FALSE,
+  auto_insert_space = NULL,
+  bg = NULL,
+  color = NULL,
+  dark = NULL,
+  dashed = NULL,
+  link = NULL,
+  loading_icon = NULL,
+  tag = NULL,
+  text = NULL,
   width = NULL,
   slots = NULL,
   session = NULL
@@ -33,6 +33,34 @@ el_button(
 }
 \arguments{
 \item{id}{Button ID. Auto-generated UUID if \code{NULL}.}
+
+\item{label}{Button text. Ignored (and defaults to \code{""}) when \code{circle = TRUE}.}
+
+\item{type}{Button type: \code{"default"}, \code{"primary"}, \code{"success"}, \code{"warning"},
+\code{"danger"}, \code{"info"}, \code{"text"}.}
+
+\item{size}{Size: \code{"large"}, \code{"default"} or \code{"small"}; \code{NULL} follows the form or the page.}
+
+\item{plain}{Whether to use the plain (hollow) style. Default \code{FALSE}.}
+
+\item{round}{Whether to use rounded corners. Default \code{FALSE}.}
+
+\item{circle}{Whether to render as a circle button (icon only, no label).
+Default \code{FALSE}.}
+
+\item{loading}{Whether to show loading spinner. Disables click while active.
+Default \code{FALSE}.}
+
+\item{disabled}{Whether the button is disabled. Default \code{FALSE}.}
+
+\item{icon}{Either an Element icon class name such as \code{"el-icon-search"},
+which Element renders itself and \code{\link[=update_el_button]{update_el_button()}} can change, or a tag
+(for example from \code{\link[=el_icon]{el_icon()}}), which is inserted as button content.}
+
+\item{native_type}{HTML native button type: \code{"button"} (default), \code{"submit"},
+\code{"reset"}.}
+
+\item{autofocus}{Whether the button takes focus on page load. Default \code{FALSE}.}
 
 \item{auto_insert_space}{Automatically insert a space between two chinese
 characters(this will only take effect when the text length is 2 and all
@@ -63,34 +91,6 @@ An icon's name, such as \code{"Search"}.}
 
 \item{text}{Determine whether it's a text button. Element Plus's \code{text}
 (boolean).}
-
-\item{label}{Button text. Ignored (and defaults to \code{""}) when \code{circle = TRUE}.}
-
-\item{type}{Button type: \code{"default"}, \code{"primary"}, \code{"success"}, \code{"warning"},
-\code{"danger"}, \code{"info"}, \code{"text"}.}
-
-\item{size}{Size: \code{"large"}, \code{"default"} or \code{"small"}; \code{NULL} follows the form or the page.}
-
-\item{plain}{Whether to use the plain (hollow) style. Default \code{FALSE}.}
-
-\item{round}{Whether to use rounded corners. Default \code{FALSE}.}
-
-\item{circle}{Whether to render as a circle button (icon only, no label).
-Default \code{FALSE}.}
-
-\item{loading}{Whether to show loading spinner. Disables click while active.
-Default \code{FALSE}.}
-
-\item{disabled}{Whether the button is disabled. Default \code{FALSE}.}
-
-\item{icon}{Either an Element icon class name such as \code{"el-icon-search"},
-which Element renders itself and \code{\link[=update_el_button]{update_el_button()}} can change, or a tag
-(for example from \code{\link[=el_icon]{el_icon()}}), which is inserted as button content.}
-
-\item{native_type}{HTML native button type: \code{"button"} (default), \code{"submit"},
-\code{"reset"}.}
-
-\item{autofocus}{Whether the button takes focus on page load. Default \code{FALSE}.}
 
 \item{width}{Component width, as a CSS unit -- \code{"200px"}, \code{"50\%"}, or a
 number taken as pixels. Element's own markup carries it, so it behaves

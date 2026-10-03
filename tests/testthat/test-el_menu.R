@@ -18,7 +18,7 @@ sent_message <- function(expr) {
 }
 
 demo_items <- list(
-  list(index = "home", label = "Home", icon = "el-icon-house"),
+  list(index = "home", label = "Home", icon = "House"),
   list(index = "products", label = "Products", children = list(
     list(index = "p-all", label = "All"),
     list(index = "p-old", label = "Old", disabled = TRUE)
@@ -38,16 +38,16 @@ test_that(".el_menu_nodes: a leaf becomes an el-menu-item", {
 
 test_that(".el_menu_nodes: an item with children becomes a submenu", {
   html <- render_html(.el_menu_nodes(list(demo_items[[2]])))
-  expect_match(html, '<el-submenu index="products"')
+  expect_match(html, '<el-sub-menu index="products"')
   # Element takes a submenu's own label from a named slot, not its body.
-  expect_match(html, '<template slot="title">', fixed = TRUE)
+  expect_match(html, '<template v-slot:title>', fixed = TRUE)
   expect_match(html, '<el-menu-item index="p-all"')
 })
 
 test_that(".el_menu_nodes: group = TRUE becomes a titled group, not a submenu", {
   html <- render_html(.el_menu_nodes(list(demo_items[[3]])))
   expect_match(html, '<el-menu-item-group title="Group"')
-  expect_false(grepl("<el-submenu", html, fixed = TRUE))
+  expect_false(grepl("<el-sub-menu", html, fixed = TRUE))
   # A group is a label, so it carries no index and cannot be selected.
   expect_false(grepl('el-menu-item-group index=', html, fixed = TRUE))
 })
@@ -66,7 +66,7 @@ test_that(".el_menu_nodes: a group's title falls back to its label", {
 
 test_that(".el_menu_nodes: icons and disabled are emitted only when asked", {
   with_icon <- render_html(.el_menu_nodes(list(demo_items[[1]])))
-  expect_match(with_icon, '<i class="el-icon-house"')
+  expect_match(with_icon, '<el-icon><House /></el-icon>', fixed = TRUE)
 
   plain <- render_html(.el_menu_nodes(list(list(index = "a", label = "A"))))
   expect_false(grepl("<i class=", plain, fixed = TRUE))
@@ -86,7 +86,7 @@ test_that(".el_menu_nodes: nests to arbitrary depth", {
     ))
   )))
   html <- render_html(.el_menu_nodes(deep))
-  expect_equal(lengths(regmatches(html, gregexpr("<el-submenu", html, fixed = TRUE)))[[1]], 3L)
+  expect_equal(lengths(regmatches(html, gregexpr("<el-sub-menu", html, fixed = TRUE)))[[1]], 3L)
   expect_match(html, '<el-menu-item index="4"')
 })
 

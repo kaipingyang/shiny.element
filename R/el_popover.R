@@ -94,6 +94,7 @@ el_popover <- function(id = NULL,
                        transition = NULL,
                        popper_class = NULL,
                        popper_options = NULL,
+                       tabindex = NULL,
                        append_to = NULL,
                        auto_close = NULL,
                        effect = NULL,
@@ -107,7 +108,6 @@ el_popover <- function(id = NULL,
                        virtual_ref = NULL,
                        virtual_triggering = NULL,
                        visible = NULL,
-                       tabindex = NULL,
                        width = NULL,
                        slots   = NULL,
                        session = NULL) {
@@ -214,8 +214,12 @@ el_popover <- function(id = NULL,
 #'   })
 #' }
 #' @export
-update_el_popover <- function(session = shiny::getDefaultReactiveDomain(), id, title = NULL, content = NULL,
-                              disabled = NULL, visible = NULL) {
+update_el_popover <- function(session = shiny::getDefaultReactiveDomain(),
+                              id,
+                              title = NULL,
+                              content = NULL,
+                              disabled = NULL,
+                              visible = NULL) {
   .el_check_session(session)
   ns_id <- session$ns(id)
   msg <- list(id = ns_id)

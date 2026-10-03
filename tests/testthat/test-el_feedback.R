@@ -68,18 +68,20 @@ test_that("el_message: defaults match Element UI's", {
   expect_equal(out$msg$type, "info")
   expect_equal(out$msg$duration, 3000)
   expect_false(out$msg$showClose)
-  expect_false(out$msg$center)
+  expect_equal(out$msg$offset, 16)
 })
 
 test_that("el_message: every field passes through", {
   out <- sent_message(function(s) {
     el_message(s, message = "careful", type = "warning", duration = 0,
-               show_close = TRUE, center = TRUE)
+               show_close = TRUE, placement = "bottom", grouping = TRUE, plain = TRUE)
   })
   expect_equal(out$msg$type, "warning")
   expect_equal(out$msg$duration, 0)
   expect_true(out$msg$showClose)
-  expect_true(out$msg$center)
+  expect_equal(out$msg$placement, "bottom")
+  expect_true(out$msg$grouping)
+  expect_true(out$msg$plain)
 })
 
 test_that("el_message: carries no notification-only fields", {
@@ -118,9 +120,10 @@ test_that("el_message and el_notification carry an id to close them by", {
   expect_equal(out$msg$customClass, "loud")
 
   out <- sent_message(function(s) el_notification(s, "hi", id = "build",
-                                                  icon_class = "el-icon-bell"))
+                                                  icon = "el-icon-bell"))
   expect_equal(out$msg$id, "build")
-  expect_equal(out$msg$iconClass, "el-icon-bell")
+  # Element UI's class name becomes Element Plus's icon
+  expect_equal(out$msg$icon, "Bell")
 })
 
 test_that("el_message_close and el_notification_close close one, or all", {

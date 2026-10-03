@@ -49,7 +49,7 @@ test_that("el: tags nest", {
 test_that("el$icon: is a special case emitting an i with the icon class", {
   # Element UI icons are a class on <i>, not an <el-icon> tag.
   html <- render_html(el$icon("star"))
-  expect_match(html, '<i class="el-icon-star"')
+  expect_match(html, '<i class="el-icon" data-el-icon="Star"', fixed = TRUE)
   expect_false(grepl("<el-icon", html, fixed = TRUE))
 })
 
@@ -79,24 +79,28 @@ test_that("el: generators produce plain tags with no dependencies", {
   expect_true(inherits(el$button("x"), "shiny.tag"))
 })
 
-test_that("el holds every component Element registers, and nothing it does not", {
-  # Element 2.15.14's src/index.js, the components install() registers
-  registered <- c(
-    "pagination", "dialog", "autocomplete", "dropdown", "dropdown_menu",
-    "dropdown_item", "menu", "submenu", "menu_item", "menu_item_group", "input",
-    "input_number", "radio", "radio_group", "radio_button", "checkbox",
-    "checkbox_button", "checkbox_group", "switch", "select", "option",
-    "option_group", "button", "button_group", "table", "table_column",
-    "date_picker", "time_select", "time_picker", "popover", "tooltip",
-    "breadcrumb", "breadcrumb_item", "form", "form_item", "tabs", "tab_pane",
-    "tag", "tree", "alert", "slider", "icon", "row", "col", "upload", "progress",
-    "spinner", "badge", "card", "rate", "steps", "step", "carousel", "scrollbar",
-    "carousel_item", "collapse", "collapse_item", "cascader", "color_picker",
-    "transfer", "container", "header", "aside", "main", "footer", "timeline",
-    "timeline_item", "link", "divider", "image", "calendar", "backtop",
-    "page_header", "cascader_panel", "avatar", "drawer", "statistic",
-    "popconfirm", "skeleton", "skeleton_item", "empty", "descriptions",
-    "descriptions_item", "result", "collapse_transition"
-  )
+test_that("el holds every component Element Plus registers, and nothing it does not", {
+  # Element Plus 2.14.7's packages/element-plus/component.ts, the components
+  # install() registers
+  registered <- gsub("-", "_", c(
+    "affix", "alert", "anchor", "anchor-link", "aside", "autocomplete",
+    "auto-resizer", "avatar", "avatar-group", "backtop", "badge", "breadcrumb",
+    "breadcrumb-item", "button", "button-group", "calendar", "card", "carousel",
+    "carousel-item", "cascader", "cascader-panel", "checkbox", "checkbox-button",
+    "checkbox-group", "check-tag", "col", "collapse", "collapse-item",
+    "collapse-transition", "color-picker", "color-picker-panel", "config-provider",
+    "container", "countdown", "date-picker", "date-picker-panel", "descriptions",
+    "descriptions-item", "dialog", "divider", "drawer", "dropdown", "dropdown-item",
+    "dropdown-menu", "empty", "footer", "form", "form-item", "header", "icon",
+    "image", "image-viewer", "input", "input-number", "input-otp", "input-tag",
+    "link", "main", "mention", "menu", "menu-item", "menu-item-group", "option",
+    "option-group", "page-header", "pagination", "popconfirm", "popover",
+    "progress", "radio", "radio-button", "radio-group", "rate", "result", "row",
+    "scrollbar", "segmented", "select", "select-v2", "skeleton", "skeleton-item",
+    "slider", "space", "splitter", "splitter-panel", "statistic", "step", "steps",
+    "sub-menu", "switch", "table", "table-column", "table-v2", "tab-pane", "tabs",
+    "tag", "text", "timeline", "timeline-item", "time-picker", "time-select",
+    "tooltip", "tour", "tour-step", "transfer", "tree", "tree-select", "tree-v2",
+    "upload", "watermark"))
   expect_setequal(names(el), registered)
 })

@@ -36,7 +36,8 @@
 #'   `popper-style` (string / object).
 #' @param popper_options Popper.js parameters. Element Plus's `popper-options`
 #'   (object).
-#' @param placeholder,type,rows As for [el_input()]: the placeholder text, and
+#' @param placeholder,disabled,type,rows As for [el_input()]: the placeholder
+#'   text, whether it can be changed, and
 #'   `type = "textarea"` with its number of rows for a longer message.
 #' @inheritParams el_widget
 #' @param width Component width, as a CSS unit.
@@ -70,6 +71,7 @@ el_mention <- function(id = NULL,
                        popper_style = NULL,
                        popper_options = NULL,
                        placeholder = NULL,
+                       disabled = NULL,
                        type = NULL,
                        rows = NULL,
                        label = NULL,
@@ -112,6 +114,7 @@ el_mention <- function(id = NULL,
       popper_style = popper_style,
       popper_options = popper_options,
       placeholder = placeholder,
+      disabled = disabled,
       type = type,
       rows = rows)),
     data    = list(value = .el_restore(ns_id, if (is.null(value)) NA else value)),

@@ -13,10 +13,6 @@ el_radio_group(
   button = FALSE,
   fill = NULL,
   text_color = NULL,
-  aria_label = NULL,
-  props = NULL,
-  type = NULL,
-  validate_event = NULL,
   label = NULL,
   label_position = c("top", "left", "right"),
   label_width = NULL,
@@ -25,6 +21,10 @@ el_radio_group(
   error = NULL,
   show_message = TRUE,
   inline_message = FALSE,
+  aria_label = NULL,
+  props = NULL,
+  type = NULL,
+  validate_event = NULL,
   width = NULL,
   slots = NULL,
   value = NULL,
@@ -57,18 +57,6 @@ instead of standard \verb{<el-radio>}. Default \code{FALSE}.}
 
 \item{text_color}{Text colour of a checked radio button.}
 
-\item{aria_label}{Same as \code{aria-label} in RadioGroup. Element Plus's
-\code{aria-label} (string).}
-
-\item{props}{Configuration options. Element Plus's \code{props} ({ value?:
-string, label?: string, disabled?: string}).}
-
-\item{type}{Component type to render options (e.g. \code{'button'}). Element
-Plus's \code{type} ('radio' | 'button').}
-
-\item{validate_event}{Whether to trigger form validation. Element Plus's
-\code{validate-event} (boolean).}
-
 \item{label}{A label shown with the component, as Shiny's inputs have:
 text or a tag. \code{NULL}, the default, shows none. It is the component's
 accessible name too -- tied to it with \code{for} where the component has a
@@ -95,6 +83,18 @@ style, the field framed in red. Element's \code{error}.}
 \item{show_message, inline_message}{Whether \code{error}'s message is shown, and
 whether beside the component rather than under it. Element's
 \code{show-message} and \code{inline-message}.}
+
+\item{aria_label}{Same as \code{aria-label} in RadioGroup. Element Plus's
+\code{aria-label} (string).}
+
+\item{props}{Configuration options. Element Plus's \code{props} ({ value?:
+string, label?: string, disabled?: string}).}
+
+\item{type}{Component type to render options (e.g. \code{'button'}). Element
+Plus's \code{type} ('radio' | 'button').}
+
+\item{validate_event}{Whether to trigger form validation. Element Plus's
+\code{validate-event} (boolean).}
 
 \item{width}{Component width, as a CSS unit -- \code{"200px"}, \code{"50\%"}, or a
 number taken as pixels. Element's own markup carries it, so it behaves

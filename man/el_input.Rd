@@ -20,14 +20,6 @@ el_input(
   autosize = FALSE,
   prefix_icon = NULL,
   suffix_icon = NULL,
-  aria_label = NULL,
-  clear_icon = NULL,
-  count_graphemes = NULL,
-  formatter = NULL,
-  input_style = NULL,
-  inputmode = NULL,
-  parser = NULL,
-  word_limit_position = NULL,
   label = NULL,
   autocomplete = NULL,
   autofocus = NULL,
@@ -47,6 +39,14 @@ el_input(
   error = NULL,
   show_message = TRUE,
   inline_message = FALSE,
+  aria_label = NULL,
+  clear_icon = NULL,
+  count_graphemes = NULL,
+  formatter = NULL,
+  input_style = NULL,
+  inputmode = NULL,
+  parser = NULL,
+  word_limit_position = NULL,
   width = NULL,
   slots = NULL,
   session = NULL
@@ -87,37 +87,6 @@ or a named list \code{list(minRows = 2, maxRows = 4)}. Default \code{FALSE}.}
 
 \item{suffix_icon}{Icon class for the suffix slot (e.g. \code{"el-icon-date"}).
 \code{NULL} means no icon.}
-
-\item{aria_label}{Same as \code{aria-label} in native input. Element Plus's
-\code{aria-label} (string).}
-
-\item{clear_icon}{Custom clear icon component. Element Plus's \code{clear-icon}
-(string / Component). An icon's name, such as \code{"Search"}.}
-
-\item{count_graphemes}{Custom function to count graphemes; when set, native
-\code{maxlength}/\code{minlength} constraints are bypassed. Component uses
-\code{Intl.Segmenter} (Chrome 87+, Firefox 125+, Safari 14.1+) for proper
-grapheme clustering; older browsers fall back to \code{Array.from()} for
-code-point iteration. Element Plus's \code{count-graphemes} ((value: string)
-=> number).}
-
-\item{formatter}{Specifies the format of the value presented input.(only
-works when \code{type} is 'text'). Element Plus's \code{formatter} ((value: string
-| number) => string).}
-
-\item{input_style}{The style of the input element or textarea element.
-Element Plus's \code{input-style} (\code{string / CSSProperties | CSSProperties[] | string[]}).}
-
-\item{inputmode}{Same as \code{inputmode} in native input. Element Plus's
-\code{inputmode} (string).}
-
-\item{parser}{Specifies the value extracted from formatter input.(only
-works when \code{type} is 'text'). Element Plus's \code{parser} ((value: string) =>
-string).}
-
-\item{word_limit_position}{Word count position, valid when
-\code{show-word-limit} is true. Element Plus's \code{word-limit-position} ('inside'
-| 'outside').}
 
 \item{label}{A label shown with the component, as Shiny's inputs have:
 text or a tag. \code{NULL}, the default, shows none. It is the component's
@@ -167,6 +136,37 @@ style, the field framed in red. Element's \code{error}.}
 \item{show_message, inline_message}{Whether \code{error}'s message is shown, and
 whether beside the component rather than under it. Element's
 \code{show-message} and \code{inline-message}.}
+
+\item{aria_label}{Same as \code{aria-label} in native input. Element Plus's
+\code{aria-label} (string).}
+
+\item{clear_icon}{Custom clear icon component. Element Plus's \code{clear-icon}
+(string / Component). An icon's name, such as \code{"Search"}.}
+
+\item{count_graphemes}{Custom function to count graphemes; when set, native
+\code{maxlength}/\code{minlength} constraints are bypassed. Component uses
+\code{Intl.Segmenter} (Chrome 87+, Firefox 125+, Safari 14.1+) for proper
+grapheme clustering; older browsers fall back to \code{Array.from()} for
+code-point iteration. Element Plus's \code{count-graphemes} ((value: string)
+=> number).}
+
+\item{formatter}{Specifies the format of the value presented input.(only
+works when \code{type} is 'text'). Element Plus's \code{formatter} ((value: string
+| number) => string).}
+
+\item{input_style}{The style of the input element or textarea element.
+Element Plus's \code{input-style} (\code{string / CSSProperties | CSSProperties[] | string[]}).}
+
+\item{inputmode}{Same as \code{inputmode} in native input. Element Plus's
+\code{inputmode} (string).}
+
+\item{parser}{Specifies the value extracted from formatter input.(only
+works when \code{type} is 'text'). Element Plus's \code{parser} ((value: string) =>
+string).}
+
+\item{word_limit_position}{Word count position, valid when
+\code{show-word-limit} is true. Element Plus's \code{word-limit-position} ('inside'
+| 'outside').}
 
 \item{width}{Component width, as a CSS unit -- \code{"200px"}, \code{"50\%"}, or a
 number taken as pixels. Element's own markup carries it, so it behaves

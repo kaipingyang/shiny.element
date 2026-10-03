@@ -28,7 +28,7 @@ test_that("el_checkbox is one box with its own text", {
   expect_true(d$value)
   expect_equal(d$text, "I agree")
   expect_equal(vue_spec_of(el_checkbox("agree"))$input, "value")
-  expect_error(el_checkbox("x", size = "large"), "should be one of")
+  expect_error(el_checkbox("x", size = "huge"), "should be one of")
 })
 
 test_that("without an id, a link and a badge are plain markup", {

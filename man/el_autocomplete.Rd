@@ -23,14 +23,6 @@ el_autocomplete(
   icon = NULL,
   prefix_icon = NULL,
   suffix_icon = NULL,
-  append_to = NULL,
-  aria_label = NULL,
-  fit_input_width = NULL,
-  loop_navigation = NULL,
-  popper_options = NULL,
-  popper_style = NULL,
-  show_arrow = NULL,
-  teleported = NULL,
   label = NULL,
   name = NULL,
   popper_class = NULL,
@@ -41,6 +33,14 @@ el_autocomplete(
   error = NULL,
   show_message = TRUE,
   inline_message = FALSE,
+  append_to = NULL,
+  aria_label = NULL,
+  fit_input_width = NULL,
+  loop_navigation = NULL,
+  popper_options = NULL,
+  popper_style = NULL,
+  show_arrow = NULL,
+  teleported = NULL,
   width = NULL,
   slots = NULL,
   session = NULL
@@ -89,30 +89,6 @@ Default \code{TRUE}.}
 
 \item{icon, prefix_icon, suffix_icon}{Icon classes.}
 
-\item{append_to}{Which select dropdown appends to. Element Plus's
-\code{append-to} (CSSSelector / HTMLElement).}
-
-\item{aria_label}{Native \code{aria-label} attribute. Element Plus's
-\code{aria-label} (string).}
-
-\item{fit_input_width}{Whether the width of the dropdown is the same as the
-input. Element Plus's \code{fit-input-width} (boolean).}
-
-\item{loop_navigation}{Whether keyboard navigation loops from end to start.
-Element Plus's \code{loop-navigation} (boolean).}
-
-\item{popper_options}{Popper.js parameters. Element Plus's \code{popper-options}
-(object).}
-
-\item{popper_style}{Custom style for autocomplete's dropdown. Element
-Plus's \code{popper-style} (string / object).}
-
-\item{show_arrow}{Whether the dropdown has an arrow. Element Plus's
-\code{show-arrow} (boolean).}
-
-\item{teleported}{Whether select dropdown is teleported to the body.
-Element Plus's \code{teleported} (boolean).}
-
 \item{label}{A label shown with the component, as Shiny's inputs have:
 text or a tag. \code{NULL}, the default, shows none. It is the component's
 accessible name too -- tied to it with \code{for} where the component has a
@@ -143,6 +119,30 @@ style, the field framed in red. Element's \code{error}.}
 \item{show_message, inline_message}{Whether \code{error}'s message is shown, and
 whether beside the component rather than under it. Element's
 \code{show-message} and \code{inline-message}.}
+
+\item{append_to}{Which select dropdown appends to. Element Plus's
+\code{append-to} (CSSSelector / HTMLElement).}
+
+\item{aria_label}{Native \code{aria-label} attribute. Element Plus's
+\code{aria-label} (string).}
+
+\item{fit_input_width}{Whether the width of the dropdown is the same as the
+input. Element Plus's \code{fit-input-width} (boolean).}
+
+\item{loop_navigation}{Whether keyboard navigation loops from end to start.
+Element Plus's \code{loop-navigation} (boolean).}
+
+\item{popper_options}{Popper.js parameters. Element Plus's \code{popper-options}
+(object).}
+
+\item{popper_style}{Custom style for autocomplete's dropdown. Element
+Plus's \code{popper-style} (string / object).}
+
+\item{show_arrow}{Whether the dropdown has an arrow. Element Plus's
+\code{show-arrow} (boolean).}
+
+\item{teleported}{Whether select dropdown is teleported to the body.
+Element Plus's \code{teleported} (boolean).}
 
 \item{width}{Component width, as a CSS unit.}
 

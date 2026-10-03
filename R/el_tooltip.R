@@ -212,7 +212,10 @@ el_tooltip <- function(id = NULL,
 #'   })
 #' }
 #' @export
-update_el_tooltip <- function(session = shiny::getDefaultReactiveDomain(), id, content = NULL, disabled = NULL,
+update_el_tooltip <- function(session = shiny::getDefaultReactiveDomain(),
+                              id,
+                              content = NULL,
+                              disabled = NULL,
                               visible = NULL) {
   .el_check_session(session)
   ns_id <- session$ns(id)

@@ -19,9 +19,6 @@ el_transfer(
   left_default_checked = NULL,
   right_default_checked = NULL,
   render_content = NULL,
-  item_size = NULL,
-  validate_event = NULL,
-  virtual_scroll = NULL,
   label = NULL,
   label_position = c("top", "left", "right"),
   label_width = NULL,
@@ -30,6 +27,9 @@ el_transfer(
   error = NULL,
   show_message = TRUE,
   inline_message = FALSE,
+  item_size = NULL,
+  validate_event = NULL,
+  virtual_scroll = NULL,
   width = NULL,
   slots = NULL,
   session = NULL
@@ -71,15 +71,6 @@ returning whether an item survives the search.}
 
 \item{render_content}{\code{JS()} render function for an item.}
 
-\item{item_size}{Item height for virtual scrolling. Element Plus's
-\code{item-size} (number).}
-
-\item{validate_event}{Whether to trigger form validation. Element Plus's
-\code{validate-event} (boolean).}
-
-\item{virtual_scroll}{Whether to enable virtual scrolling. Element Plus's
-\code{virtual-scroll} (boolean).}
-
 \item{label}{A label shown with the component, as Shiny's inputs have:
 text or a tag. \code{NULL}, the default, shows none. It is the component's
 accessible name too -- tied to it with \code{for} where the component has a
@@ -106,6 +97,15 @@ style, the field framed in red. Element's \code{error}.}
 \item{show_message, inline_message}{Whether \code{error}'s message is shown, and
 whether beside the component rather than under it. Element's
 \code{show-message} and \code{inline-message}.}
+
+\item{item_size}{Item height for virtual scrolling. Element Plus's
+\code{item-size} (number).}
+
+\item{validate_event}{Whether to trigger form validation. Element Plus's
+\code{validate-event} (boolean).}
+
+\item{virtual_scroll}{Whether to enable virtual scrolling. Element Plus's
+\code{virtual-scroll} (boolean).}
 
 \item{width}{Component width, as a CSS unit.}
 

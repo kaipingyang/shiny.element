@@ -5,11 +5,11 @@
 \title{Update Element UI Tooltip}
 \usage{
 update_el_tooltip(
+  visible = NULL,
   session = shiny::getDefaultReactiveDomain(),
   id,
   content = NULL,
-  disabled = NULL,
-  visible = NULL
+  disabled = NULL
 )
 }
 \arguments{

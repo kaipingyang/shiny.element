@@ -82,11 +82,6 @@ el_checkbox_group <- function(
     button   = FALSE,
     fill     = NULL,
     text_color = NULL,
-    aria_label = NULL,
-    props = NULL,
-    tag = NULL,
-    type = NULL,
-    validate_event = NULL,
     label = NULL,
     label_position = c("top", "left", "right"),
     label_width = NULL,
@@ -99,6 +94,11 @@ el_checkbox_group <- function(
     slots    = NULL,
     value    = NULL,
     options  = NULL,
+    aria_label = NULL,
+    props = NULL,
+    tag = NULL,
+    type = NULL,
+    validate_event = NULL,
     session  = NULL
 ) {
   .el_check_choices("el_checkbox_group", environment())

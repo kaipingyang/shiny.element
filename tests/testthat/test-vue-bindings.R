@@ -107,7 +107,7 @@ test_that("el_widget() lets a user wrap a component the package does not cover",
     id         = "face",
     markup     = el$avatar(":src" = "src", ":size" = "size"),
     data       = list(src = "a.png", size = 50),
-    dependency = element_ui_dependency()
+    dependency = element_plus_dependency()
   )
   html <- paste(as.character(htmltools::renderTags(avatar)$html), collapse = "")
 
@@ -126,7 +126,7 @@ test_that("a user's component can report to Shiny the same way", {
     methods = list(onChange = JS(
       "function(v) { Shiny.setInputValue('score', v); }"
     )),
-    dependency = element_ui_dependency()
+    dependency = element_plus_dependency()
   )
   expect_equal(names(vue_payload_of(w)$methods), "onChange")
   expect_true("onChange" %in% unlist(vue_payload_of(w)$evals) ||
@@ -231,7 +231,7 @@ test_that("renaming leaves string literals alone", {
 test_that("slots fill the component's named slots", {
   ui <- el_alert("a", title = "Plain", slots = list(title = shiny::tags$b("Bold")))
   html <- paste(as.character(htmltools::renderTags(ui)$html), collapse = "")
-  expect_match(html, '<template slot="title">')
+  expect_match(html, '<template v-slot:title>')
   expect_match(html, "<b>Bold</b>", fixed = TRUE)
 })
 
@@ -252,7 +252,7 @@ test_that("a scoped slot is passed through as written", {
                         slot = "dateCell", scope = "{date, data}")
   ))
   html <- paste(as.character(htmltools::renderTags(ui)$html), collapse = "")
-  expect_match(html, 'slot-scope="{date, data}"', fixed = TRUE)
+  expect_match(html, 'v-slot:date-cell="{date, data}"', fixed = TRUE)
   expect_match(html, "{{data.day}}", fixed = TRUE)
 })
 
@@ -291,22 +291,23 @@ test_that("a column's cell template is lifted out of the column data", {
 
   # The markup holds the templates, one branch each; the JSON does not
   expect_false(any(vapply(cols, function(c) "cell" %in% names(c), logical(1))))
-  expect_match(html, 'v-slot:[col.slot]="scope"', fixed = TRUE)
-  expect_match(html, "v-if=\"col.cellKey === &#39;cell_s&#39;\"|v-if=\"col.cellKey === 'cell_s'\"",
+  expect_match(html, 'v-slot:default="scope"', fixed = TRUE)
+  expect_match(html, "v-(else-)?if=\"col.cellKey === &#39;cell_s&#39;\"|v-(else-)?if=\"col.cellKey === 'cell_s'\"",
                perl = TRUE)
   expect_match(html, "v-else-if=", fixed = TRUE)
   expect_match(html, "<el-tag>{{ scope.row.s }}</el-tag>", fixed = TRUE)
 
-  # Columns without a template get no default slot, so Element renders them
+  # A column without a template gets only comments from its default slot, so
+  # Element Plus renders the cell itself
   expect_equal(vapply(cols, `[[`, "", "slot"), c("none", "default", "default"))
   expect_equal(cols[[3]]$cellKey, "cell_Do")
   expect_equal(cols[[1]]$type, "index")
   expect_true(binds_attr(ui, "type"))
 })
 
-test_that("a table without cell templates renders no cell slot at all", {
+test_that("a table without cell templates renders no cell branch at all", {
   html <- paste(as.character(el_table("t", data = head(iris, 2))), collapse = "")
-  expect_false(grepl("col.slot", html, fixed = TRUE))
+  expect_false(grepl("cellKey", html, fixed = TRUE))
 })
 
 test_that("rowAction reports the row number and row as an event input", {

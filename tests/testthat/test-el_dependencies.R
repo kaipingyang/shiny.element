@@ -1,87 +1,77 @@
-# ── element_ui_dependency ─────────────────────────────────────────────────────
+# ── element_plus_dependency ───────────────────────────────────────────────────
 
-test_that("element_ui_dependency: serves from the package by default", {
+ep_dep <- function() element_plus_dependency()[[1]]
+
+test_that("element_plus_dependency: serves from the package by default", {
   # A runtime CDN dependency leaves the page blank on an intranet or offline,
   # so the bundled copy is the default.
-  dep <- element_ui_dependency()
-  expect_equal(dep$name, "element-ui")
-  expect_equal(dep$version, "2.15.14")
+  dep <- ep_dep()
+  expect_equal(dep$name, "element-plus")
+  expect_equal(dep$version, "2.14.7")
   expect_false(grepl("unpkg", paste(unlist(dep$src), collapse = " ")))
   expect_true(dir.exists(unname(dep$src[["file"]])))
+  # and its icons, which are components, with it
+  expect_equal(element_plus_dependency()[[2]]$name, "element-plus-icons")
 })
 
-test_that("element_ui_dependency: offline = FALSE falls back to the CDN", {
-  dep <- element_ui_dependency(offline = FALSE)
-  expect_match(unname(dep$src[["href"]]), "^https://unpkg\\.com/element-ui@2\\.15\\.14/")
+test_that("element_plus_dependency: offline = FALSE falls back to the CDN", {
+  deps <- element_plus_dependency(offline = FALSE)
+  expect_match(unname(deps[[1]]$src[["href"]]), "^https://unpkg\\.com/element-plus@2\\.14\\.7/")
+  expect_match(unname(deps[[2]]$src[["href"]]), "^https://unpkg\\.com/@element-plus/icons-vue@2\\.3\\.2/")
 })
 
-test_that("element_ui_dependency: serves the whole directory", {
-  # index.css references fonts/element-icons.woff relatively; naming only the
-  # script and stylesheet would leave every icon as a blank box.
-  expect_true(element_ui_dependency()$all_files)
-})
-
-test_that("element_ui_dependency: the bundled files are actually there", {
-  root <- system.file("element-ui", package = "shiny.element")
-  for (f in c("index.js", "theme-chalk/index.css",
-              "theme-chalk/fonts/element-icons.woff",
-              "theme-chalk/fonts/element-icons.ttf")) {
+test_that("element_plus_dependency: the bundled files are actually there", {
+  root <- system.file("element-plus", package = "shiny.element")
+  for (f in c("dist/index.full.min.js", "theme-chalk/index.css",
+              "theme-chalk/dark/css-vars.css", "theme-chalk/display.css",
+              "icons-vue.iife.min.js")) {
     expect_true(file.exists(file.path(root, f)), info = f)
   }
 })
 
-test_that("element_ui_dependency: the bundled files are not truncated", {
-  root <- system.file("element-ui", package = "shiny.element")
-  expect_gt(file.size(file.path(root, "index.js")), 400 * 1024)
-  expect_gt(file.size(file.path(root, "theme-chalk/index.css")), 150 * 1024)
-  expect_gt(file.size(file.path(root, "theme-chalk/fonts/element-icons.woff")), 20 * 1024)
+test_that("element_plus_dependency: the bundled files are not truncated", {
+  root <- system.file("element-plus", package = "shiny.element")
+  expect_gt(file.size(file.path(root, "dist/index.full.min.js")), 900 * 1024)
+  expect_gt(file.size(file.path(root, "theme-chalk/index.css")), 300 * 1024)
+  expect_gt(file.size(file.path(root, "icons-vue.iife.min.js")), 150 * 1024)
 })
 
-test_that("element_ui_dependency: the stylesheet keeps its relative font paths", {
-  css <- readLines(
-    system.file("element-ui", "theme-chalk", "index.css", package = "shiny.element"),
-    warn = FALSE, n = 200
-  )
-  css <- paste(css, collapse = "\n")
-  expect_match(css, "fonts/element-icons.woff", fixed = TRUE)
-  # An absolute or CDN-rooted url() would defeat bundling them.
+test_that("element_plus_dependency: the stylesheet needs no fonts or remote files", {
+  # Element Plus's icons are SVG components: the stylesheet loads nothing
+  css <- paste(readLines(system.file("element-plus", "theme-chalk", "index.css",
+                                     package = "shiny.element"), warn = FALSE), collapse = "\n")
   expect_false(grepl("url\\(['\"]?https?://", css))
+  expect_false(grepl("element-icons.woff", css, fixed = TRUE))
 })
 
 # ── wiring ────────────────────────────────────────────────────────────────────
 
+src_of <- function(tags) {
+  deps <- htmltools::findDependencies(tags)
+  dep  <- Filter(function(d) identical(d$name, "element-plus"), deps)[[1]]
+  paste(unlist(dep$src), collapse = " ")
+}
+
 test_that("el_page: passes offline through to the dependency", {
-  local_src <- function(tags) {
-    deps <- htmltools::findDependencies(tags)
-    dep  <- Filter(function(d) identical(d$name, "element-ui"), deps)[[1]]
-    paste(unlist(dep$src), collapse = " ")
-  }
-  expect_false(grepl("unpkg", local_src(el_page())))
-  expect_true(grepl("unpkg", local_src(el_page(offline = FALSE))))
+  expect_false(grepl("unpkg", src_of(el_page())))
+  expect_true(grepl("unpkg", src_of(el_page(offline = FALSE))))
 })
 
 test_that("use_element: passes offline through to the dependency", {
-  src_of <- function(tags) {
-    deps <- htmltools::findDependencies(tags)
-    dep  <- Filter(function(d) identical(d$name, "element-ui"), deps)[[1]]
-    paste(unlist(dep$src), collapse = " ")
-  }
   expect_false(grepl("unpkg", src_of(use_element())))
   expect_true(grepl("unpkg", src_of(use_element(offline = FALSE))))
 })
 
-test_that("Vue is bundled, in the version Element UI 2 runs on", {
-  for (dev in c(FALSE, TRUE)) {
-    dep <- .el_vue_dependency(dev = dev)
-    expect_equal(dep$package, "shiny.element")
-    expect_true(file.exists(system.file(dep$src$file, dep$script, package = "shiny.element")))
-  }
-  head <- readLines(system.file("vue", "vue.min.js", package = "shiny.element"), n = 3)
-  expect_match(paste(head, collapse = " "), "v2.7.14", fixed = TRUE)
-  # The development build outranks the production copy every component
-  # brings, so el_page(dev = TRUE) gets it rather than Vue twice
-  expect_gt(package_version(.el_vue_dependency(TRUE)$version),
-            package_version(.el_vue_dependency(FALSE)$version))
+test_that("Vue 3 is bundled, the global build with the template compiler", {
+  dep <- .el_vue_dependency()
+  expect_equal(dep$package, "shiny.element")
+  path <- system.file(dep$src$file, dep$script, package = "shiny.element")
+  expect_true(file.exists(path))
+  head <- readLines(path, n = 3, warn = FALSE)
+  expect_match(paste(head, collapse = " "), "vue v3.5.43", fixed = TRUE)
+  # the compiler: components compile in the browser from their x-template
+  expect_match(paste(readLines(path, warn = FALSE), collapse = ""),
+               "vuejs.org/error-reference/#compiler-", fixed = TRUE)
 })
 
 test_that("every script a component brings resolves to a file", {
@@ -159,75 +149,68 @@ test_that("el-layout.css keeps its opt-in helper classes", {
 
 # ── locale ────────────────────────────────────────────────────────────────────
 
+names_of <- function(tags) {
+  vapply(htmltools::findDependencies(tags), function(d) d$name, character(1))
+}
+
 test_that("el_locale_dependency: the built-in locale needs nothing extra", {
-  # Element UI's bundle already carries Simplified Chinese.
+  # Element Plus's bundle already speaks English
   expect_null(el_locale_dependency())
-  expect_null(el_locale_dependency("zh-CN"))
+  expect_null(el_locale_dependency("en"))
 })
 
-test_that("el_locale_dependency: 'en' loads the file and applies it", {
-  deps <- el_locale_dependency("en")
+test_that("el_locale_dependency: a locale loads its file and hands it over", {
+  deps <- el_locale_dependency("zh-CN")
   expect_length(deps, 2)
-  expect_equal(deps[[1]]$script, "locale/en.js")
-  # The locale file only registers ELEMENT.lang.en; a second dependency calls
-  # ELEMENT.locale() after both it and element-ui have loaded.
-  expect_match(deps[[2]]$head, "ELEMENT.locale", fixed = TRUE)
-  expect_match(deps[[2]]$head, "ELEMENT.lang['en']", fixed = TRUE)
+  expect_equal(deps[[1]]$script, "dist/locale/zh-cn.min.js")
+  # The file defines ElementPlusLocaleZhCn; a second dependency gives it to
+  # every app as it installs Element Plus
+  expect_match(deps[[2]]$head, "ElementPlusLocaleZhCn", fixed = TRUE)
+  expect_match(deps[[2]]$head, "shinyElementConfig.locale", fixed = TRUE)
+  expect_match(el_locale_dependency("pt-br")[[2]]$head, "ElementPlusLocalePtBr", fixed = TRUE)
 })
 
 test_that("el_locale_dependency: the bundled locale file is really there", {
-  p <- system.file("element-ui", "locale", "en.js", package = "shiny.element")
+  p <- system.file("element-plus", "dist", "locale", "zh-cn.min.js", package = "shiny.element")
   expect_true(file.exists(p))
   expect_gt(file.size(p), 2000)
-  js <- paste(readLines(p, warn = FALSE), collapse = "\n")
-  expect_match(js, "ELEMENT.lang.en", fixed = TRUE)
+  expect_match(paste(readLines(p, warn = FALSE), collapse = "\n"),
+               "ElementPlusLocaleZhCn", fixed = TRUE)
 })
 
 test_that("el_locale_dependency: an unknown locale fails naming the real ones", {
   expect_error(el_locale_dependency("xx"), "No bundled locale")
-  expect_error(el_locale_dependency("xx"), "zh-TW")
+  expect_error(el_locale_dependency("xx"), "zh-tw")
 })
 
-test_that("every locale Element ships is bundled", {
-  expect_gte(length(el_locales()), 50)
-  expect_true(all(c("en", "fr", "ja", "zh-CN", "zh-TW") %in% el_locales()))
+test_that("every locale Element Plus ships is bundled", {
+  expect_equal(length(el_locales()), 67)
+  expect_true(all(c("en", "fr", "ja", "zh-cn", "zh-tw") %in% el_locales()))
   expect_type(el_locale_dependency("fr"), "list")
 })
 
 test_that("el_page speaks English unless told otherwise", {
-  # Element's own default is Simplified Chinese, which put the select
-  # placeholder of every example in this package's English docs in Chinese.
-  names_of <- function(tags) {
-    vapply(htmltools::findDependencies(tags), function(d) d$name, character(1))
-  }
-  expect_true("element-ui-locale-en" %in% names_of(el_page()))
-  expect_true("element-ui-locale-en" %in% names_of(use_element()))
-
+  expect_false(any(grepl("locale", names_of(el_page()))))
+  expect_false(any(grepl("locale", names_of(use_element()))))
   # and the option switches it for a whole session
   withr::with_options(list(shiny.element.locale = "zh-CN"), {
-    expect_false(any(grepl("locale", names_of(el_page()))))
+    expect_true("element-plus-locale-zh-cn" %in% names_of(el_page()))
   })
   withr::with_options(list(shiny.element.locale = "fr"), {
-    expect_true("element-ui-locale-fr" %in% names_of(el_page()))
+    expect_true("element-plus-locale-fr" %in% names_of(el_page()))
   })
 })
 
 test_that("el_page and use_element pass locale through", {
-  names_of <- function(tags) {
-    vapply(htmltools::findDependencies(tags), function(d) d$name, character(1))
-  }
-  expect_false(any(grepl("locale", names_of(el_page(locale = "zh-CN")))))
-  expect_true("element-ui-locale-ja" %in% names_of(el_page(locale = "ja")))
-  expect_true("element-ui-locale-en" %in% names_of(use_element(locale = "en")))
+  expect_true("element-plus-locale-zh-cn" %in% names_of(el_page(locale = "zh-CN")))
+  expect_true("element-plus-locale-ja" %in% names_of(el_page(locale = "ja")))
+  expect_false(any(grepl("locale", names_of(use_element(locale = "en")))))
 })
 
-test_that("the locale is applied after element-ui itself has loaded", {
-  # Ordering matters: ELEMENT.locale() does not exist until element-ui runs.
-  names <- vapply(htmltools::findDependencies(el_page(locale = "en")),
-                  function(d) d$name, character(1))
-  expect_lt(which(names == "element-ui"), which(names == "element-ui-locale-en"))
-  expect_lt(which(names == "element-ui-locale-en"),
-            which(names == "element-ui-locale-apply-en"))
+test_that("the locale is handed over before any component installs Element Plus", {
+  names <- names_of(el_page(locale = "ja"))
+  expect_lt(which(names == "element-plus-locale-ja"),
+            which(names == "element-plus-locale-apply-ja"))
 })
 
 test_that("every generated call to Shiny is guarded, so components work without it", {

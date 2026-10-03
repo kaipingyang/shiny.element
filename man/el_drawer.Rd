@@ -8,31 +8,31 @@ el_drawer(
   id = NULL,
   title = "",
   content = NULL,
-  footer = NULL,
   visible = FALSE,
   direction = "rtl",
   size = "30\%",
-  resizable = FALSE,
   modal = TRUE,
-  modal_penetrable = FALSE,
   with_header = TRUE,
   show_close = TRUE,
-  close_on_click_modal = TRUE,
   close_on_press_escape = TRUE,
-  lock_scroll = TRUE,
   custom_class = NULL,
+  append_to_body = FALSE,
+  destroy_on_close = FALSE,
+  before_close = NULL,
+  footer = NULL,
+  resizable = FALSE,
+  modal_penetrable = FALSE,
+  close_on_click_modal = TRUE,
+  lock_scroll = TRUE,
   modal_class = NULL,
   header_class = NULL,
   body_class = NULL,
   footer_class = NULL,
   append_to = NULL,
-  append_to_body = FALSE,
   open_delay = NULL,
   close_delay = NULL,
   z_index = NULL,
   header_aria_level = "2",
-  destroy_on_close = FALSE,
-  before_close = NULL,
   session = NULL
 )
 }
@@ -44,8 +44,6 @@ el_drawer(
 \item{content}{Drawer body. Any tag or tagList, including this package's
 own components.}
 
-\item{footer}{Footer content, usually buttons. \code{NULL} for none.}
-
 \item{visible}{Whether it starts open: Element Plus's \code{model-value}.}
 
 \item{direction}{Edge it slides from: \code{"rtl"} (from the right, the
@@ -53,25 +51,36 @@ default), \code{"ltr"}, \code{"ttb"} or \code{"btt"}.}
 
 \item{size}{Width for a horizontal drawer, height for a vertical one.}
 
-\item{resizable}{Let the drawer be resized by dragging its inner edge.}
-
 \item{modal}{Show the backdrop.}
-
-\item{modal_penetrable}{Let clicks through the backdrop to the page
-beneath, when \code{modal = FALSE}.}
 
 \item{with_header}{Show the header bar.}
 
 \item{show_close}{Show the close button in the header.}
 
+\item{close_on_press_escape}{Close on Escape.}
+
+\item{custom_class}{Extra class name for the panel.}
+
+\item{append_to_body}{\code{append_to = "body"}.}
+
+\item{destroy_on_close}{Re-create the content each time it opens, and remove
+it when it closes: inputs inside start from their initial values again.}
+
+\item{before_close}{\code{htmltools::JS()} function \verb{function(done)}, run when
+the user closes it -- by the cross, the backdrop or Escape; call \code{done()}
+to let it close.}
+
+\item{footer}{Footer content, usually buttons. \code{NULL} for none.}
+
+\item{resizable}{Let the drawer be resized by dragging its inner edge.}
+
+\item{modal_penetrable}{Let clicks through the backdrop to the page
+beneath, when \code{modal = FALSE}.}
+
 \item{close_on_click_modal}{Close when the backdrop is clicked. (Element
 UI's \code{wrapper-closable}.)}
 
-\item{close_on_press_escape}{Close on Escape.}
-
 \item{lock_scroll}{Whether the page stops scrolling while it is open.}
-
-\item{custom_class}{Extra class name for the panel.}
 
 \item{modal_class, header_class, body_class, footer_class}{Extra class names
 for the backdrop, the header, the body and the footer.}
@@ -80,8 +89,6 @@ for the backdrop, the header, the body and the footer.}
 so a container's \code{overflow} or \code{transform} cannot clip it. Its
 components keep working; they are moved, not re-created.}
 
-\item{append_to_body}{\code{append_to = "body"}.}
-
 \item{open_delay, close_delay}{Milliseconds to wait before opening and
 closing.}
 
@@ -89,13 +96,6 @@ closing.}
 hands out.}
 
 \item{header_aria_level}{The title's \code{aria-level}. Default \code{"2"}.}
-
-\item{destroy_on_close}{Re-create the content each time it opens, and remove
-it when it closes: inputs inside start from their initial values again.}
-
-\item{before_close}{\code{htmltools::JS()} function \verb{function(done)}, run when
-the user closes it -- by the cross, the backdrop or Escape; call \code{done()}
-to let it close.}
 
 \item{session}{Deprecated. Inside a module, wrap \code{id} in \code{ns()}, as for
 any Shiny input; a session given here namespaces \code{id} once more, with

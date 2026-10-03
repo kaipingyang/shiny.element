@@ -86,9 +86,9 @@ test_that("el_tabs: position sets the root class and every is- modifier", {
 test_that("el_tabs: closable adds the marker and the close icon", {
   html <- render_html(el_tabs("t1", tabs = demo_tabs, closable = TRUE))
   expect_match(html, "is-closable", fixed = TRUE)
-  expect_match(html, '<span class="el-icon-close"></span>', fixed = TRUE)
+  expect_match(html, 'class="el-icon is-icon-close" data-el-icon="Close"', fixed = TRUE)
 
-  expect_false(grepl("el-icon-close", render_html(el_tabs("t1", tabs = demo_tabs)),
+  expect_false(grepl("is-icon-close", render_html(el_tabs("t1", tabs = demo_tabs)),
                      fixed = TRUE))
 })
 
@@ -174,7 +174,7 @@ test_that("el_tabs: a closable tab can be set one at a time", {
   tabs[[2]]$closable <- TRUE
   html <- render_html(el_tabs("t1", tabs = tabs))
   expect_match(html, 'is-closable" data-el-name="b"|data-el-name="b"[^>]*is-closable', perl = TRUE)
-  expect_equal(lengths(regmatches(html, gregexpr("el-icon-close", html))), 1L)
+  expect_equal(lengths(regmatches(html, gregexpr("is-icon-close", html))), 1L)
 })
 
 test_that("el_tabs: a lazy pane holds its content in a template until shown", {

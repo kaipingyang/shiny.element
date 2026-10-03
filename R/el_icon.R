@@ -48,12 +48,12 @@
 el_icon <- function(
     name,
     size  = NULL,
-    color = NULL,
     class = NULL,
     title = NULL,
     a11y  = c("auto", "deco", "sem", "none"),
     lib   = c("element-plus", "font-awesome", "none"),
-    ...
+    ...,
+    color = NULL
 ) {
   if (identical(lib, "element-ui")) lib <- "element-plus"
   lib  <- match.arg(lib)

@@ -68,11 +68,9 @@
 #'   shinyApp(ui, server)
 #' }
 
-el_calendar <- function(id = NULL,  
-                        value = NULL,  
-                        range = NULL,  
-                        controller_type = NULL,
-                        formatter = NULL,
+el_calendar <- function(id = NULL,
+                        value = NULL,
+                        range = NULL,
                         label = NULL,
                         label_position = c("top", "left", "right"),
                         label_width = NULL,
@@ -81,6 +79,8 @@ el_calendar <- function(id = NULL,
                         error = NULL,
                         show_message = TRUE,
                         inline_message = FALSE,
+                        controller_type = NULL,
+                        formatter = NULL,
                         width   = NULL,
                         slots   = NULL,
                         session = NULL) {  

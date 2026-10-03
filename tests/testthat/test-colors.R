@@ -1,52 +1,40 @@
-# Element's own stylesheet, built for the page's theme: brand colours
-# recoloured in place, as Element's theme picker does; anything more
-# compiled from its Sass, as its theme tool does.
+# Element Plus's look, set for the page's theme through its CSS variables,
+# as its theming guide does: no build, no stylesheet of our own.
 
-element_dep <- function(page) {
-  deps <- htmltools::resolveDependencies(htmltools::findDependencies(page))
-  Filter(function(d) d$name == "element-ui", deps)[[1]]
-}
-css_of <- function(dep) {
-  paste(readLines(file.path(dep$src$file, "theme-chalk", "index.css"), warn = FALSE),
-        collapse = "\n")
+theme_css <- function(page) {
+  deps <- htmltools::findDependencies(page)
+  d <- Filter(function(d) d$name == "element-plus-theme", deps)
+  if (length(d)) d[[1]]$head else NULL
 }
 
-test_that("a colour's cluster matches what Element's Sass compiled", {
-  css <- paste(readLines(system.file("element-ui", "theme-chalk", "index.css",
-                                     package = "shiny.element"), warn = FALSE),
-               collapse = "\n")
-  # #409EFF's tints at 20%, 50% and 90%, and its shade -- all in the stylesheet
-  cl <- .el_color_cluster("#409EFF")
-  expect_equal(cl[c(1, 3, 6, 10, 11)],
-               c("#409eff", "#66b1ff", "#a0cfff", "#ecf5ff", "#3a8ee6"))
-  for (x in cl[c(3, 6, 10, 11)]) expect_match(css, x, ignore.case = TRUE)
+test_that("a colour's tints are Sass's mix(), as Element Plus computes them", {
+  # #409eff's light-3, light-9 and dark-2, as theme-chalk's index.css has them
+  expect_equal(.el_mix("#409eff", "#ffffff", 0.3), "#79bbff")
+  expect_equal(.el_mix("#409eff", "#ffffff", 0.9), "#ecf5ff")
+  expect_equal(.el_mix("#409eff", "#000000", 0.2), "#337ecc")
+  css <- paste(readLines(system.file("element-plus", "theme-chalk", "index.css",
+                                     package = "shiny.element"), warn = FALSE), collapse = "")
+  for (x in c("#79bbff", "#ecf5ff", "#337ecc")) expect_match(css, x, fixed = TRUE)
 })
 
-test_that("Element's own theme changes nothing", {
+test_that("Element's own theme sets nothing", {
   expect_length(.el_element_vars(el_theme()), 0)
-  expect_equal(element_dep(el_page())$version, "2.15.14")
+  expect_null(theme_css(el_page()))
 })
 
-test_that("a brand colour recolours the shipped stylesheet", {
-  dep <- element_dep(el_page(theme = el_theme(primary = "#7c3aed")))
-  expect_match(dep$version, "^2\\.15\\.14\\.1\\.")
-  css <- css_of(dep)
-  expect_match(css, "#7c3aed", fixed = TRUE)
-  expect_false(grepl("#409eff", css, ignore.case = TRUE))
-  # the script and the icon font travel with it
-  expect_true(file.exists(file.path(dep$src$file, "index.js")))
-  expect_true(file.exists(file.path(dep$src$file, "theme-chalk", "fonts", "element-icons.woff")))
+test_that("a brand colour sets the variable and its tints, light and dark", {
+  css <- theme_css(el_page(theme = el_theme(primary = "#7c3aed")))
+  expect_match(css, "--el-color-primary: #7c3aed;", fixed = TRUE)
+  expect_match(css, "--el-color-primary-light-9:", fixed = TRUE)
+  expect_match(css, "--el-color-primary-dark-2:", fixed = TRUE)
+  expect_match(css, "html.dark {", fixed = TRUE)
 })
 
-test_that("anything else compiles Element's Sass with the variables set", {
-  dep <- element_dep(el_page(theme = el_theme(
+test_that("any other Element Plus variable is set as given", {
+  css <- theme_css(el_page(theme = el_theme(
     info = "#123456", element = list("border-radius-base" = "10px"))))
-  css <- css_of(dep)
-  expect_match(css, "border-radius:10px", fixed = TRUE)
-  # info, which recolouring cannot reach: compiled, the secondary text keeps
-  # Element's grey
-  expect_match(css, "#123456", fixed = TRUE)
-  expect_match(css, "#909399", ignore.case = TRUE)
+  expect_match(css, "--el-border-radius-base: 10px;", fixed = TRUE)
+  expect_match(css, "--el-color-info: #123456;", fixed = TRUE)
 })
 
 test_that("a focused Bootstrap input follows the brand colour", {
@@ -57,14 +45,17 @@ test_that("a focused Bootstrap input follows the brand colour", {
 test_that("Element variables are checked by name, and use_element() takes the theme", {
   expect_error(el_theme(element = list("border-radius-bas" = "1px")), "no theme variable")
   expect_error(el_theme(element = list("8px")), "must be named")
+  # Element UI's Sass spelling and the CSS variable's both reach the name
   expect_equal(unname(.el_element_vars(list("$--font-size-base" = "13px"))), "13px")
-  dep <- element_dep(htmltools::tagList(use_element(theme = el_theme(danger = "#d63384"))))
-  expect_match(css_of(dep), "#d63384", fixed = TRUE)
+  expect_equal(names(.el_element_vars(list("--el-font-size-base" = "13px"))), "font-size-base")
+  css <- theme_css(htmltools::tagList(use_element(theme = el_theme(danger = "#d63384"))))
+  expect_match(css, "#d63384", fixed = TRUE)
 })
 
-test_that("each theme's stylesheet has its own URL", {
-  a <- element_dep(el_page(theme = el_theme(primary = "#7c3aed")))
-  b <- element_dep(el_page(theme = el_theme(primary = "#0f766e")))
+test_that("each theme's variables travel under their own version", {
+  a <- Filter(function(d) d$name == "element-plus-theme",
+              htmltools::findDependencies(el_page(theme = el_theme(primary = "#7c3aed"))))[[1]]
+  b <- Filter(function(d) d$name == "element-plus-theme",
+              htmltools::findDependencies(el_page(theme = el_theme(primary = "#0f766e"))))[[1]]
   expect_false(identical(a$version, b$version))
-  expect_true(numeric_version(a$version) > numeric_version("2.15.14"))
 })

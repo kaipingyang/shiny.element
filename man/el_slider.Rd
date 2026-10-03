@@ -18,14 +18,6 @@ el_slider(
   vertical = FALSE,
   height = NULL,
   marks = NULL,
-  aria_label = NULL,
-  format_value_text = NULL,
-  persistent = NULL,
-  placement = NULL,
-  range_end_label = NULL,
-  range_start_label = NULL,
-  size = NULL,
-  validate_event = NULL,
   label = NULL,
   input_size = NULL,
   show_input_controls = NULL,
@@ -38,6 +30,14 @@ el_slider(
   error = NULL,
   show_message = TRUE,
   inline_message = FALSE,
+  aria_label = NULL,
+  format_value_text = NULL,
+  persistent = NULL,
+  placement = NULL,
+  range_end_label = NULL,
+  range_start_label = NULL,
+  size = NULL,
+  validate_event = NULL,
   width = NULL,
   slots = NULL,
   session = NULL
@@ -75,31 +75,6 @@ Defaults to \code{"200px"} when \code{vertical = TRUE} and not explicitly provid
 \item{marks}{Named list of mark labels, e.g.,
 \code{list("0" = "0km", "50" = "50km")}. Default \code{NULL} (no marks).}
 
-\item{aria_label}{Native \code{aria-label} attribute. Element Plus's
-\code{aria-label} (string).}
-
-\item{format_value_text}{Format to display the \code{aria-valuenow} attribute
-for screen readers. Element Plus's \code{format-value-text} ((value: number)
-=> string).}
-
-\item{persistent}{When slider tooltip inactive and \code{persistent} is \code{false}
-, tooltip will be destroyed. \code{persistent} always be \code{false} when
-\code{show-tooltip } is \code{false}. Element Plus's \code{persistent} (boolean).}
-
-\item{placement}{Position of Tooltip. Element Plus's \code{placement} (enum).}
-
-\item{range_end_label}{When \code{range} is true, screen reader label for the
-end of the range. Element Plus's \code{range-end-label} (string).}
-
-\item{range_start_label}{When \code{range} is true, screen reader label for the
-start of the range. Element Plus's \code{range-start-label} (string).}
-
-\item{size}{Size of the slider wrapper, will not work in vertical mode.
-Element Plus's \code{size} ('' | 'large' | 'default' | 'small').}
-
-\item{validate_event}{Whether to trigger form validation. Element Plus's
-\code{validate-event} (boolean).}
-
 \item{label}{A label shown with the component, as Shiny's inputs have:
 text or a tag. \code{NULL}, the default, shows none. It is the component's
 accessible name too -- tied to it with \code{for} where the component has a
@@ -134,6 +109,31 @@ style, the field framed in red. Element's \code{error}.}
 \item{show_message, inline_message}{Whether \code{error}'s message is shown, and
 whether beside the component rather than under it. Element's
 \code{show-message} and \code{inline-message}.}
+
+\item{aria_label}{Native \code{aria-label} attribute. Element Plus's
+\code{aria-label} (string).}
+
+\item{format_value_text}{Format to display the \code{aria-valuenow} attribute
+for screen readers. Element Plus's \code{format-value-text} ((value: number)
+=> string).}
+
+\item{persistent}{When slider tooltip inactive and \code{persistent} is \code{false}
+, tooltip will be destroyed. \code{persistent} always be \code{false} when
+\code{show-tooltip } is \code{false}. Element Plus's \code{persistent} (boolean).}
+
+\item{placement}{Position of Tooltip. Element Plus's \code{placement} (enum).}
+
+\item{range_end_label}{When \code{range} is true, screen reader label for the
+end of the range. Element Plus's \code{range-end-label} (string).}
+
+\item{range_start_label}{When \code{range} is true, screen reader label for the
+start of the range. Element Plus's \code{range-start-label} (string).}
+
+\item{size}{Size of the slider wrapper, will not work in vertical mode.
+Element Plus's \code{size} ('' | 'large' | 'default' | 'small').}
+
+\item{validate_event}{Whether to trigger form validation. Element Plus's
+\code{validate-event} (boolean).}
 
 \item{width}{Component width, as a CSS unit -- \code{"200px"}, \code{"50\%"}, or a
 number taken as pixels. Element's own markup carries it, so it behaves

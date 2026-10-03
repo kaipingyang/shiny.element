@@ -6,13 +6,6 @@
 \usage{
 el_checkbox(
   id = NULL,
-  aria_controls = NULL,
-  aria_label = NULL,
-  controls = NULL,
-  false_value = NULL,
-  tabindex = NULL,
-  true_value = NULL,
-  validate_event = NULL,
   label = NULL,
   value = FALSE,
   indeterminate = NULL,
@@ -23,6 +16,13 @@ el_checkbox(
   false_label = NULL,
   name = NULL,
   checked = NULL,
+  aria_controls = NULL,
+  aria_label = NULL,
+  controls = NULL,
+  false_value = NULL,
+  tabindex = NULL,
+  true_value = NULL,
+  validate_event = NULL,
   width = NULL,
   slots = NULL,
   session = NULL
@@ -30,27 +30,6 @@ el_checkbox(
 }
 \arguments{
 \item{id}{Checkbox ID. Auto-generated if \code{NULL}.}
-
-\item{aria_controls}{Same as aria-controls, takes effect when
-\code{indeterminate} is \code{true}. Element Plus's \code{aria-controls} (string).}
-
-\item{aria_label}{Native \code{aria-label} attribute. Element Plus's
-\code{aria-label} (string).}
-
-\item{controls}{Same as aria-controls, takes effect when \code{indeterminate} is
-\code{true}. Element Plus's \code{controls} (string).}
-
-\item{false_value}{Value of the Checkbox if it's not checked. Element
-Plus's \code{false-value} (string / number).}
-
-\item{tabindex}{Input tabindex. Element Plus's \code{tabindex} (string /
-number).}
-
-\item{true_value}{Value of the Checkbox if it's checked. Element Plus's
-\code{true-value} (string / number).}
-
-\item{validate_event}{Whether to trigger form validation. Element Plus's
-\code{validate-event} (boolean).}
 
 \item{label}{The box's text, as for \code{\link[shiny:checkboxInput]{shiny::checkboxInput()}}.}
 
@@ -73,6 +52,27 @@ above a partly checked group. Only the look: \code{value} is unchanged.}
 \item{checked}{Element's \code{checked}: tick the box when it is created,
 whatever \code{value} says. The same as \code{value = TRUE}, kept for code written
 from Element's documentation.}
+
+\item{aria_controls}{Same as aria-controls, takes effect when
+\code{indeterminate} is \code{true}. Element Plus's \code{aria-controls} (string).}
+
+\item{aria_label}{Native \code{aria-label} attribute. Element Plus's
+\code{aria-label} (string).}
+
+\item{controls}{Same as aria-controls, takes effect when \code{indeterminate} is
+\code{true}. Element Plus's \code{controls} (string).}
+
+\item{false_value}{Value of the Checkbox if it's not checked. Element
+Plus's \code{false-value} (string / number).}
+
+\item{tabindex}{Input tabindex. Element Plus's \code{tabindex} (string /
+number).}
+
+\item{true_value}{Value of the Checkbox if it's checked. Element Plus's
+\code{true-value} (string / number).}
+
+\item{validate_event}{Whether to trigger form validation. Element Plus's
+\code{validate-event} (boolean).}
 
 \item{width}{Component width, as a CSS unit.}
 

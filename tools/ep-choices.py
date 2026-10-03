@@ -23,6 +23,9 @@ for f, secs in docs.items():
         if f in ("message", "notification", "message-box", "loading"): tag = "el-" + f
         for it in sec["items"]:
             typ = it["type"].replace("\\|", "|")
+            # a deprecated value is still accepted: drop the note, keep the value
+            typ = re.sub(r"\s*\(deprecated\)", "", typ)
+            typ = re.sub(r"\s*\([\d.]+\)", "", typ)
             alts = re.findall(r"\^\[(\w+)\](`[^`]*`)?", typ)
             kinds = {a for a, _ in alts}
             if "enum" not in kinds: continue

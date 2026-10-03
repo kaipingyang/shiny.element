@@ -5,6 +5,12 @@
 \title{Show Element Plus Notification}
 \usage{
 el_notification(
+  icon = NULL,
+  append_to = NULL,
+  z_index = NULL,
+  close_icon = NULL,
+  progress = NULL,
+  pause_on_hover = NULL,
   session = shiny::getDefaultReactiveDomain(),
   message,
   title = "",
@@ -13,18 +19,27 @@ el_notification(
   position = "top-right",
   show_close = TRUE,
   offset = 0,
-  icon = NULL,
   custom_class = NULL,
   dangerously_use_html_string = FALSE,
-  append_to = NULL,
-  z_index = NULL,
-  close_icon = NULL,
-  progress = NULL,
-  pause_on_hover = NULL,
   id = NULL
 )
 }
 \arguments{
+\item{icon}{Icon to show instead of the one \code{type} implies, by name.}
+
+\item{append_to}{CSS selector of the element it is appended to. Default
+\verb{<body>}.}
+
+\item{z_index}{Its z-index, instead of the next one Element Plus hands out.}
+
+\item{close_icon}{The close button's icon, by name.}
+
+\item{progress}{Show a bar counting down \code{duration}: \code{TRUE}, or a list of
+Element Plus's progress options.}
+
+\item{pause_on_hover}{Whether the countdown stops while the pointer is
+over it. Default \code{TRUE}.}
+
 \item{session}{Shiny session; the current one by default, as for
 \code{\link[shiny:updateTextInput]{shiny::updateTextInput()}}.}
 
@@ -45,25 +60,10 @@ Default \code{4500}.}
 
 \item{offset}{Distance from the corner edge in pixels. Default \code{0}.}
 
-\item{icon}{Icon to show instead of the one \code{type} implies, by name.}
-
 \item{custom_class}{Extra class name.}
 
 \item{dangerously_use_html_string}{Whether \code{message} is inserted as HTML.
 Only pass \code{TRUE} for markup you control -- it is not escaped.}
-
-\item{append_to}{CSS selector of the element it is appended to. Default
-\verb{<body>}.}
-
-\item{z_index}{Its z-index, instead of the next one Element Plus hands out.}
-
-\item{close_icon}{The close button's icon, by name.}
-
-\item{progress}{Show a bar counting down \code{duration}: \code{TRUE}, or a list of
-Element Plus's progress options.}
-
-\item{pause_on_hover}{Whether the countdown stops while the pointer is
-over it. Default \code{TRUE}.}
 
 \item{id}{Name for this notification, so \code{\link[=el_notification_close]{el_notification_close()}} can
 close it, \verb{input$<id>_close} reports when it closes and

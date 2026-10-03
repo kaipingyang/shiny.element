@@ -28,6 +28,9 @@
     if (cfg.size) opts.size = cfg.size;
     if (cfg.zIndex) opts.zIndex = cfg.zIndex;
     app.use(window.ElementPlus, opts);
+    // The page's size, for markup around a component -- its form item --
+    // to follow as Element Plus's own components do
+    app.config.globalProperties.$ELEMENT = { size: cfg.size || '' };
     var icons = window.ElementPlusIconsVue || {};
     Object.keys(icons).forEach(function (name) {
       if (name.charAt(0) !== name.charAt(0).toUpperCase()) return;

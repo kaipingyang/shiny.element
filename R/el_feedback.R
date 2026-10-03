@@ -61,18 +61,19 @@ el_notification <- function(
     position   = "top-right",
     show_close = TRUE,
     offset     = 0,
-    icon       = NULL,
     custom_class = NULL,
     dangerously_use_html_string = FALSE,
+    id         = NULL,
+    icon       = NULL,
     append_to  = NULL,
     z_index    = NULL,
     close_icon = NULL,
     progress   = NULL,
-    pause_on_hover = NULL,
-    id         = NULL
+    pause_on_hover = NULL
 ) {
   .el_check_session(session)
   .el_check_choices("el_notification", environment())
+  force(message)
   opts <- .el_service_options(as.list(environment()), c("session", "id"))
   session$sendCustomMessage("elNotification", c(list(id = if (!is.null(id)) session$ns(id)), opts))
   invisible(NULL)
@@ -135,18 +136,19 @@ el_message <- function(
     duration   = 3000,
     show_close = FALSE,
     offset     = 16,
-    icon       = NULL,
     custom_class = NULL,
     dangerously_use_html_string = FALSE,
+    id         = NULL,
+    icon       = NULL,
     plain      = NULL,
     placement  = NULL,
     append_to  = NULL,
     grouping   = NULL,
-    repeat_num = NULL,
-    id         = NULL
+    repeat_num = NULL
 ) {
   .el_check_session(session)
   .el_check_choices("el_message", environment())
+  force(message)
   opts <- .el_service_options(as.list(environment()), c("session", "id"))
   session$sendCustomMessage("elMessage", c(list(id = if (!is.null(id)) session$ns(id)), opts))
   invisible(NULL)
@@ -244,7 +246,10 @@ el_message <- function(
 #'   shinyApp(ui, server)
 #' }
 #' @export
-el_message_box <- function(session = shiny::getDefaultReactiveDomain(), id, message, title = NULL,
+el_message_box <- function(session = shiny::getDefaultReactiveDomain(),
+                           id,
+                           message,
+                           title = NULL,
                            type = NULL,
                            box_type = c("confirm", "alert", "prompt"),
                            confirm_button_text = NULL,
@@ -255,9 +260,6 @@ el_message_box <- function(session = shiny::getDefaultReactiveDomain(), id, mess
                            round_button = FALSE,
                            dangerously_use_html_string = FALSE,
                            custom_class = NULL,
-                           custom_style = NULL,
-                           icon = NULL,
-                           close_icon = NULL,
                            close_on_click_modal = NULL,
                            close_on_press_escape = NULL,
                            input_placeholder = NULL,
@@ -270,23 +272,27 @@ el_message_box <- function(session = shiny::getDefaultReactiveDomain(), id, mess
                            show_confirm_button = NULL,
                            confirm_button_class = NULL,
                            cancel_button_class = NULL,
+                           distinguish_cancel_and_close = NULL,
+                           lock_scroll = NULL,
+                           close_on_hash_change = NULL,
+                           before_close = NULL,
+                           custom_style = NULL,
+                           icon = NULL,
+                           close_icon = NULL,
                            confirm_button_type = NULL,
                            cancel_button_type = NULL,
                            confirm_button_loading_icon = NULL,
                            cancel_button_loading_icon = NULL,
-                           distinguish_cancel_and_close = NULL,
-                           lock_scroll = NULL,
-                           close_on_hash_change = NULL,
                            autofocus = NULL,
                            modal = NULL,
                            modal_class = NULL,
                            draggable = NULL,
                            overflow = NULL,
                            button_size = NULL,
-                           append_to = NULL,
-                           before_close = NULL) {
+                           append_to = NULL) {
   .el_check_session(session)
   .el_check_choices("el_message_box", environment())
+  force(message)
   box_type <- match.arg(box_type)
   opts <- .el_service_options(as.list(environment()),
                               c("session", "id", "message", "title", "box_type"))
@@ -344,10 +350,18 @@ el_message_box <- function(session = shiny::getDefaultReactiveDomain(), id, mess
 #'   shinyApp(ui, server)
 #' }
 #' @export
-el_loading <- function(session = shiny::getDefaultReactiveDomain(), id = "default", text = NULL, target = NULL,
-                       fullscreen = NULL, lock = NULL, body = NULL,
-                       spinner = NULL, background = NULL,
-                       custom_class = NULL, svg = NULL, svg_view_box = NULL,
+el_loading <- function(session = shiny::getDefaultReactiveDomain(),
+                       id = "default",
+                       text = NULL,
+                       target = NULL,
+                       fullscreen = NULL,
+                       lock = NULL,
+                       body = NULL,
+                       spinner = NULL,
+                       background = NULL,
+                       custom_class = NULL,
+                       svg = NULL,
+                       svg_view_box = NULL,
                        before_close = NULL) {
   .el_check_session(session)
   opts <- .el_service_options(as.list(environment()), c("session", "id"))

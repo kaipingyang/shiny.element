@@ -1,7 +1,8 @@
-test_that("el_icon: basic element-ui icon", {
-  icon <- el_icon("search")
+test_that("el_icon: an Element Plus icon, drawn by name", {
+  icon <- el_icon("Search")
   expect_equal(icon$name, "i")
-  expect_match(icon$attribs$class, "el-icon-search")
+  expect_equal(icon$attribs$class, "el-icon")
+  expect_equal(icon$attribs[["data-el-icon"]], "Search")
 })
 
 test_that("el_icon: backward compat — same output as old el_icon", {
@@ -13,19 +14,23 @@ test_that("el_icon: backward compat — same output as old el_icon", {
 
 # ── name normalization ──────────────────────────────────────────────────────
 
-test_that("el_icon: name uppercased → lowercased", {
-  icon <- el_icon("SEARCH")
-  expect_match(icon$attribs$class, "el-icon-search")
+test_that("el_icon: a lowercase name reaches Element Plus's", {
+  expect_equal(el_icon("search")$attribs[["data-el-icon"]], "Search")
+  expect_equal(el_icon("SEARCH")$attribs[["data-el-icon"]], "SEARCH")
 })
 
 test_that("el_icon: spaces in name → dashes", {
-  icon <- el_icon("arrow left")
-  expect_match(icon$attribs$class, "el-icon-arrow-left")
+  expect_equal(el_icon("arrow left")$attribs[["data-el-icon"]], "ArrowLeft")
+  expect_equal(el_icon("arrow-left")$attribs[["data-el-icon"]], "ArrowLeft")
 })
 
-test_that("el_icon: el-icon- prefix not doubled", {
-  icon <- el_icon("el-icon-search")
-  expect_equal(icon$attribs$class, "el-icon-search")
+test_that("el_icon: Element UI's class names are translated", {
+  expect_equal(el_icon("el-icon-search")$attribs[["data-el-icon"]], "Search")
+  expect_equal(el_icon("el-icon-user-solid")$attribs[["data-el-icon"]], "UserFilled")
+})
+
+test_that("el_icon: colour, as Element Plus's el-icon takes it", {
+  expect_match(el_icon("Search", color = "red")$attribs$style, "--color:red")
 })
 
 # ── size ────────────────────────────────────────────────────────────────────
@@ -49,7 +54,7 @@ test_that("el_icon: size validates CSS unit (px)", {
 
 test_that("el_icon: extra class is appended", {
   icon <- el_icon("search", class = "my-class")
-  expect_match(icon$attribs$class, "el-icon-search")
+  expect_match(icon$attribs$class, "el-icon")
   expect_match(icon$attribs$class, "my-class")
 })
 
@@ -82,7 +87,7 @@ test_that("el_icon: a11y sem + title → aria-label uses title", {
 
 test_that("el_icon: a11y sem + no title → aria-label falls back to name", {
   icon <- el_icon("search", a11y = "sem")
-  expect_equal(icon$attribs[["aria-label"]], "search")
+  expect_equal(icon$attribs[["aria-label"]], "Search")
 })
 
 test_that("el_icon: a11y none → no aria attributes", {

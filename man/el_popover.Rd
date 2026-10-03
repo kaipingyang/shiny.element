@@ -18,6 +18,7 @@ el_popover(
   transition = NULL,
   popper_class = NULL,
   popper_options = NULL,
+  tabindex = NULL,
   append_to = NULL,
   auto_close = NULL,
   effect = NULL,
@@ -31,7 +32,6 @@ el_popover(
   virtual_ref = NULL,
   virtual_triggering = NULL,
   visible = NULL,
-  tabindex = NULL,
   width = NULL,
   slots = NULL,
   session = NULL
@@ -70,6 +70,9 @@ prop, named apart from \code{width} so the two are not confused.}
 \item{popper_class}{Extra class name for the card.}
 
 \item{popper_options}{Additional Popper.js options, as a named list.}
+
+\item{tabindex}{Tabindex of Popover. Element Plus's \code{tabindex} (number /
+string).}
 
 \item{append_to}{Which element the popover CONTENT appends to. Element
 Plus's \code{append-to} (CSSSelector / HTMLElement).}
@@ -111,9 +114,6 @@ Element Plus's \code{virtual-triggering} (boolean).}
 
 \item{visible}{Whether popover is visible. Element Plus's \code{visible}
 (boolean / null).}
-
-\item{tabindex}{Tabindex of Popover. Element Plus's \code{tabindex} (number /
-string).}
 
 \item{width}{Component width, as a CSS unit.}
 

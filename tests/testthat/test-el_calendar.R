@@ -22,10 +22,11 @@ test_that("el_calendar: returns a tagList with the container id", {
   expect_match(render_html(cal), 'id="c1_container"')
 })
 
-test_that("el_calendar: binds value and first-day-of-week", {
-  html <- render_html(el_calendar(id = "c1"))
+test_that("el_calendar: binds value, and Element Plus's controller type", {
+  html <- render_html(el_calendar(id = "c1", controller_type = "select"))
   expect_match(html, 'v-model="value"')
-  expect_match(html, ':first-day-of-week="firstDayOfWeek"')
+  expect_match(html, ':controller-type="controllerType', fixed = TRUE)
+  expect_match(html, '"controllerType":"select"', fixed = TRUE)
 })
 
 test_that("el_calendar: attaches the shared bridge", {
@@ -47,10 +48,6 @@ test_that("el_calendar: a Date is formatted, a string passes through", {
                '"value":"2026-03-01"')
 })
 
-test_that("el_calendar: first_day_of_week reaches the data", {
-  expect_match(render_html(el_calendar(id = "c1", first_day_of_week = 7)),
-               '"firstDayOfWeek":7')
-})
 
 # ── range ─────────────────────────────────────────────────────────────────────
 
@@ -106,8 +103,7 @@ test_that("update_el_calendar: range is coerced to character", {
 })
 
 test_that("update_el_calendar: NULL fields are excluded", {
-  out <- sent_message(function(s) update_el_calendar(s, "c1", first_day_of_week = 7))
-  expect_equal(out$msg$firstDayOfWeek, 7)
-  expect_null(out$msg$value)
+  out <- sent_message(function(s) update_el_calendar(s, "c1", value = "2026-01-01"))
+  expect_equal(out$msg$value, "2026-01-01")
   expect_null(out$msg$range)
 })

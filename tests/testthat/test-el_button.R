@@ -98,7 +98,7 @@ test_that("el_button: circle=TRUE forces label to empty string", {
 test_that("el_button: icon tag rendered inside button", {
   btn  <- el_button("btn1", icon = el_icon("search"), session = NULL)
   html <- render_html(btn)
-  expect_match(html, "el-icon-search")
+  expect_match(html, 'data-el-icon="Search"', fixed = TRUE)
 })
 
 test_that("el_button: NULL icon does not break output", {
@@ -154,13 +154,13 @@ test_that("update_el_button: sends correct message with new fields", {
     loading = TRUE,
     plain   = TRUE,
     round   = TRUE,
-    size    = "mini"
+    size    = "small"
   )
   expect_equal(captured$label,   "New Label")
   expect_true(captured$loading)
   expect_true(captured$plain)
   expect_true(captured$round)
-  expect_equal(captured$size,    "mini")
+  expect_equal(captured$size,    "small")
 })
 
 test_that("update_el_button: NULL fields are excluded from message", {

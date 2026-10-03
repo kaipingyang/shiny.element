@@ -14,8 +14,8 @@ el_tabs(
   addable = FALSE,
   editable = FALSE,
   stretch = FALSE,
-  add_icon = NULL,
   before_leave = NULL,
+  add_icon = NULL,
   session = NULL
 )
 }
@@ -51,11 +51,11 @@ from the page; the server is told through \verb{input$<id>_tab_remove}.}
 
 \item{stretch}{Stretch the tabs to fill the available width.}
 
-\item{add_icon}{The add button's icon, by name. Default \code{"Plus"}.}
-
 \item{before_leave}{\code{JS()} function
 \verb{function(activeName, oldActiveName)} run before switching tabs; return
 \code{false}, or a promise that rejects, to stay put.}
+
+\item{add_icon}{The add button's icon, by name. Default \code{"Plus"}.}
 
 \item{session}{Deprecated. Inside a module, wrap \code{id} in \code{ns()}, as for
 any Shiny input; a session given here namespaces \code{id} once more, with

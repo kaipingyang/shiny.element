@@ -1,4 +1,5 @@
-# Enumerated arguments are checked against what Element accepts.
+# Enumerated arguments are checked against what Element Plus accepts, as its
+# API tables list them (tools/ep-choices.py).
 
 test_that("every checked argument is a real argument of its function", {
   for (fn in names(.el_choices)) {
@@ -34,10 +35,13 @@ test_that("a value Element does not accept is an error naming the ones it does",
                           "hi", type = "fatal"), "`type`")
 })
 
-test_that("values the documentation leaves out but Element renders are accepted", {
+test_that("Element Plus's values are accepted, Element UI's sizes are not", {
   expect_no_error(el_button("b", "Go", type = "default"))
+  # deprecated upstream, but still drawn
+  expect_no_error(el_button("b", "Go", type = "text"))
   expect_no_error(el_link("l", "Go", type = "default"))
-  expect_no_error(el_select("s", choices = "a", size = "medium"))
+  expect_no_error(el_select("s", choices = "a", size = "default"))
+  expect_error(el_select("s", choices = "a", size = "medium"), "`size`")
   expect_no_error(el_input_number("n", size = "large"))
   expect_no_error(el_avatar("a", size = 64))
   expect_error(el_avatar("a", size = "huge"), "`size`")

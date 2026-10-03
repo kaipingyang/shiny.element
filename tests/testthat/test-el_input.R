@@ -161,7 +161,7 @@ test_that("el_input: label is declared as null when not supplied", {
 # ── 可选属性：始终绑定，未提供时回退 Element 默认 ─────────────────────────────
 
 test_that("el_input: :size attr present when size set", {
-  inp  <- el_input("inp1", size = "mini", session = NULL)
+  inp  <- el_input("inp1", size = "small", session = NULL)
   html <- render_html(inp)
   expect_match(html, ":size")
 })

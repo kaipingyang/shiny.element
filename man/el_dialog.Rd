@@ -10,32 +10,32 @@ el_dialog(
   content = NULL,
   footer = NULL,
   visible = FALSE,
-  width = "50\%",
-  top = "15vh",
-  fullscreen = FALSE,
-  modal = TRUE,
   modal_penetrable = FALSE,
-  close_on_click_modal = TRUE,
-  close_on_press_escape = TRUE,
-  show_close = TRUE,
   close_icon = NULL,
-  center = FALSE,
   align_center = FALSE,
   draggable = FALSE,
   overflow = FALSE,
-  lock_scroll = TRUE,
-  custom_class = NULL,
   modal_class = NULL,
   header_class = NULL,
   body_class = NULL,
   footer_class = NULL,
   append_to = NULL,
-  append_to_body = FALSE,
   open_delay = NULL,
   close_delay = NULL,
   z_index = NULL,
   header_aria_level = "2",
   transition = NULL,
+  width = "50\%",
+  top = "15vh",
+  fullscreen = FALSE,
+  modal = TRUE,
+  close_on_click_modal = TRUE,
+  close_on_press_escape = TRUE,
+  show_close = TRUE,
+  center = FALSE,
+  lock_scroll = TRUE,
+  custom_class = NULL,
+  append_to_body = FALSE,
   destroy_on_close = FALSE,
   before_close = NULL,
   session = NULL
@@ -53,27 +53,10 @@ own components.}
 
 \item{visible}{Whether it starts open: Element Plus's \code{model-value}.}
 
-\item{width}{Dialog width, e.g. \code{"50\%"} or \code{"600px"}.}
-
-\item{top}{Distance from the top of the viewport. Ignored when
-\code{fullscreen = TRUE} or \code{align_center = TRUE}.}
-
-\item{fullscreen}{Fill the viewport.}
-
-\item{modal}{Show the backdrop.}
-
 \item{modal_penetrable}{Let clicks through the backdrop to the page
 beneath, when \code{modal = FALSE}.}
 
-\item{close_on_click_modal}{Close when the backdrop is clicked.}
-
-\item{close_on_press_escape}{Close on Escape.}
-
-\item{show_close}{Show the close button in the header.}
-
 \item{close_icon}{The close button's icon, by name. Default \code{"Close"}.}
-
-\item{center}{Centre the header and footer.}
 
 \item{align_center}{Centre the dialog in the viewport, vertically too.}
 
@@ -81,18 +64,12 @@ beneath, when \code{modal = FALSE}.}
 
 \item{overflow}{With \code{draggable}, let it be dragged past the viewport.}
 
-\item{lock_scroll}{Whether the page stops scrolling while it is open.}
-
-\item{custom_class}{Extra class name for the panel.}
-
 \item{modal_class, header_class, body_class, footer_class}{Extra class names
 for the backdrop, the header, the body and the footer.}
 
 \item{append_to}{A CSS selector for where the overlay goes when it opens,
 so a container's \code{overflow} or \code{transform} cannot clip it. Its
 components keep working; they are moved, not re-created.}
-
-\item{append_to_body}{\code{append_to = "body"}.}
 
 \item{open_delay, close_delay}{Milliseconds to wait before opening and
 closing.}
@@ -104,6 +81,29 @@ hands out.}
 
 \item{transition}{The name of the transition it plays, instead of
 Element's \code{"dialog-fade"}.}
+
+\item{width}{Dialog width, e.g. \code{"50\%"} or \code{"600px"}.}
+
+\item{top}{Distance from the top of the viewport. Ignored when
+\code{fullscreen = TRUE} or \code{align_center = TRUE}.}
+
+\item{fullscreen}{Fill the viewport.}
+
+\item{modal}{Show the backdrop.}
+
+\item{close_on_click_modal}{Close when the backdrop is clicked.}
+
+\item{close_on_press_escape}{Close on Escape.}
+
+\item{show_close}{Show the close button in the header.}
+
+\item{center}{Centre the header and footer.}
+
+\item{lock_scroll}{Whether the page stops scrolling while it is open.}
+
+\item{custom_class}{Extra class name for the panel.}
+
+\item{append_to_body}{\code{append_to = "body"}.}
 
 \item{destroy_on_close}{Re-create the content each time it opens, and remove
 it when it closes: inputs inside start from their initial values again.}

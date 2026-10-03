@@ -77,7 +77,7 @@ if not new:
 # 1. signature: before label/width/slots/session, whichever comes first
 indent = re.search(r"\n(\s+)\w", sig).group(1)
 m = None
-for anchor in ("label", "width", "slots", "session"):
+for anchor in ("width", "slots", "session"):
     m = re.search(r"\n\s+" + anchor + r"\s*=", sig)
     if m: break
 ins = "".join(f"\n{indent}{snake(p)} = NULL," for p in new)
