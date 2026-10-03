@@ -108,7 +108,7 @@ Plus's \code{effect} ('dark' | 'light' / string).}
 Plus's \code{empty-values} (array).}
 
 \item{fallback_placements}{List of possible positions for Tooltip
-popper.js. Element Plus's \code{fallback-placements} (Placement[]).}
+popper.js. Element Plus's \code{fallback-placements} (\code{Placement[]}).}
 
 \item{fit_input_width}{Whether the width of the suggestion panel is the
 same as the input, if the value is \code{number}, then the width is fixed.

@@ -13,14 +13,16 @@ fixtures <- list(
   el_select         = list("sel", choices = c("A", "B")),
   el_form_field     = list(prop = "f", label = "F"),
   el_icon           = list("edit"),
+  el_check_tag      = list("ct", "Tag"),
+  el_tree_select    = list("ts"),
   el_pagination     = list("pg", total = 100),
   # Per-item props only render once there is an item to carry them
   el_descriptions   = list("d", items = list(
     list(label = htmltools::tags$b("L"), content = "y"),
     list(
-    label = "A", content = "x", span = 1, label_class_name = "a",
-    content_class_name = "b", label_style = list(color = "red"),
-    content_style = list(color = "red")))),
+    label = "A", content = "x", span = 1, rowspan = 1, width = 1, min_width = 1,
+    label_width = 1, align = "left", label_align = "left", class_name = "a",
+    label_class_name = "b"))),
   el_skeleton       = list("sk", slots = list(
     template = htmltools::tag("template", list(slot = "template",
       htmltools::tag("el-skeleton-item", list(variant = "text"))))))
@@ -38,15 +40,18 @@ ui_fns <- setdiff(grep("^el_", getNamespaceExports("shiny.element"), value = TRU
 slots_of <- function(html) {
   m <- regmatches(html, gregexpr('(?<![-:])slot="[^"]+"', html, perl = TRUE))[[1]]
   v <- regmatches(html, gregexpr('(v-slot:|<template #)[A-Za-z][A-Za-z0-9_-]*', html))[[1]]
+  # a dynamic slot name names its slots in quotes: v-slot:[x ? 'filter-icon' : 'none']
+  d <- regmatches(html, gregexpr("v-slot:\\[[^]]*\\]", html))[[1]]
+  dyn <- unlist(regmatches(d, gregexpr("'[a-z][a-z0-9-]*'", d)))
   unique(c(sub('^slot="', "", sub('"$', "", m)),
-           sub("^(v-slot:|<template #)", "", v)))
+           sub("^(v-slot:|<template #)", "", v), gsub("'", "", dyn)))
 }
 
 attrs_of <- function(html) {
-  tags <- regmatches(html, gregexpr("<el-[a-z-]+[^>]*>", html))[[1]]
+  tags <- regmatches(html, gregexpr("<el-[a-z0-9-]+[^>]*>", html))[[1]]
   per <- list()
   for (t in tags) {
-    nm <- sub("^<(el-[a-z-]+).*", "\\1", t)
+    nm <- sub("^<(el-[a-z0-9-]+).*", "\\1", t)
     at <- regmatches(t, gregexpr("(?<=\\s)[:@a-zA-Z][a-zA-Z0-9:@._-]*(?==\")", t, perl = TRUE))[[1]]
     per[[nm]] <- union(per[[nm]], at)
   }
@@ -57,6 +62,12 @@ attrs_of <- function(html) {
 # mode (el-checkbox-button needs button = TRUE), so a component may be rendered
 # more than once and its tags pooled.
 variants <- list(
+  el_tour = list(list("tr", steps = list(list(target = "#a", title = "A", description = "d",
+    show_arrow = TRUE, placement = "top", content_style = list(), mask = TRUE, type = "primary",
+    next_button_props = list(), prev_button_props = list(), scroll_into_view_options = TRUE,
+    show_close = TRUE, close_icon = "Close", header = htmltools::tags$b("H"))))),
+  el_anchor = list(list("an", links = list(list(title = "A", href = "#a",
+    children = list(list(title = "B", href = "#b")))))),
   el_steps = list(list("st", steps = list(
     list(title = "A", description = "d", icon = "el-icon-edit", status = "success"),
     list(title = htmltools::tags$b("A"), description = htmltools::tags$i("d"),
@@ -65,12 +76,18 @@ variants <- list(
     content = "x")))),
   el_menu = list(list("mn", items = list(
     list(index = "a", label = "A", route = "/a", disabled = TRUE),
-    list(index = "b", title = "B", popper_class = "p", show_timeout = 1,
-         hide_timeout = 1, disabled = FALSE, popper_append_to_body = TRUE,
+    list(index = "b", title = "B", popper_class = "p", popper_style = "x",
+         show_timeout = 1, hide_timeout = 1, disabled = FALSE, teleported = TRUE,
+         popper_offset = 6, expand_close_icon = "Plus", expand_open_icon = "Minus",
+         collapse_close_icon = "Plus", collapse_open_icon = "Minus",
          children = list(list(index = "b1", title = "B1"))),
     list(group = TRUE, title = "G", children = list(list(index = "c", label = "C")))))),
   el_dropdown = list(list("dd", items = list(list(command = "a", label = "A",
-    disabled = TRUE, divided = TRUE, icon = "el-icon-plus")))),
+    disabled = TRUE, divided = TRUE, icon = "Plus"),
+    list(command = "b", label = "B", icon = htmltools::tags$b("i"))))),
+  el_table = list(list("tb", data = data.frame(a = 1), columns = list(
+    list(prop = "a", filter_icon = "Filter"),
+    list(type = "expand", cell = htmltools::tags$p("x"))))),
   el_select = list(list("sg", choices = list(
     list(label = "G1", disabled = FALSE, options = list(list(value = "a", label = "A")))))),
   el_checkbox_group = list(list("cb", choices = c("A", "B"), button = TRUE)),
@@ -105,7 +122,7 @@ upstream_slots <- local({
   for (file in names(docs)) for (title in names(docs[[file]])) {
     sec <- docs[[file]][[title]]
     if (!identical(sec$kind, "Slot")) next
-    base <- trimws(sub("\\s*Slots?$", "", title))
+    base <- trimws(sub("\\s*[Ss]lots?$", "", title))
     if (!nzchar(base)) base <- file
     slug <- tolower(gsub("([a-z0-9])([A-Z])", "\\1-\\2", base))
     slug <- gsub("[[:space:]_]+", "-", slug)

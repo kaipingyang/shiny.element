@@ -291,6 +291,7 @@
 #'     (`el$tag()`, `el$button()`) work: `el$tag(":type" = "scope.row.ok ?
 #'     'success' : 'danger'", "{{ scope.row.status }}")`. A column without
 #'     a `prop` -- a column of buttons -- is fine. See "Row actions" below.
+#'   * `filter_icon` -- the filter's icon, by name.
 #'   * `header_html` -- markup for the header cell, a string or htmltools
 #'     tags, inserted unescaped, so pass only what you control.
 #'   * `children` -- the columns under a group header, as Element nests
@@ -563,6 +564,13 @@ el_table <- function(id = NULL,
   }
   # A column may render its own header: give it header_html in the column
   # definition. It is inserted as markup, so only pass what you control.
+  # A column's own filter icon, by name; otherwise Element's arrow
+  filter_icon_slot <- function(v) {
+    htmltools::tag("template", c(
+      stats::setNames(list(NA), sprintf("v-slot:[%1$s.filterIcon?'filter-icon':'no-filter-icon']", v)),
+      list(htmltools::HTML(sprintf(
+        "<el-icon><component :is=\"%s.filterIcon\" /></el-icon>", v)))))
+  }
   header_slot <- function(v) {
     htmltools::tag("template", list(
       "v-slot:header" = "scope",
@@ -586,6 +594,8 @@ el_table <- function(id = NULL,
                # Props taking a function: pass JS("function(...) {...}") in
                # the column definition and it is evaluated in the browser.
                formatter = "formatter", "filter-method" = "filterMethod",
+               "filter-class-name" = "filterClassName",
+               "tooltip-formatter" = "tooltipFormatter",
                "sort-method" = "sortMethod", "render-header" = "renderHeader",
                selectable = "selectable", type = "type")
     stats::setNames(as.list(paste0(v, ".", props)), paste0(":", names(props)))
@@ -598,7 +608,7 @@ el_table <- function(id = NULL,
       list("v-for" = sprintf("%s in %s.children", v, parent),
            ":key" = sprintf("%s.prop || %s.label", v, v)),
       col_props(v),
-      list(header_slot(v), default_slot(v, depth))
+      list(header_slot(v), filter_icon_slot(v), default_slot(v, depth))
     ))
   }
 
@@ -608,6 +618,7 @@ el_table <- function(id = NULL,
     col_props("col"),
     list(
       header_slot("col"),
+      filter_icon_slot("col"),
       default_slot("col", 0L)
     )
   ))

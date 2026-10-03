@@ -82,7 +82,7 @@ relative to the popper. Element Plus's \code{arrow-offset} (number).}
 controlled mode. Element Plus's \code{auto-close} (number).}
 
 \item{fallback_placements}{List of possible positions for Tooltip
-popper.js. Element Plus's \code{fallback-placements} (Placement[]).}
+popper.js. Element Plus's \code{fallback-placements} (\code{Placement[]}).}
 
 \item{focus_on_target}{When triggering tooltips through hover, whether to
 focus the trigger element, which improves accessibility. Element Plus's

@@ -77,6 +77,7 @@ to show its \code{cell}, or \code{"selection"}.
 \code{scope.column} and \code{scope.$index} are in reach, and raw Element tags
 (\code{el$tag()}, \code{el$button()}) work: \code{el$tag(":type" = "scope.row.ok ? 'success' : 'danger'", "{{ scope.row.status }}")}. A column without
 a \code{prop} -- a column of buttons -- is fine. See "Row actions" below.
+\item \code{filter_icon} -- the filter's icon, by name.
 \item \code{header_html} -- markup for the header cell, a string or htmltools
 tags, inserted unescaped, so pass only what you control.
 \item \code{children} -- the columns under a group header, as Element nests

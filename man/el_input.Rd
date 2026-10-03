@@ -106,8 +106,7 @@ works when \code{type} is 'text'). Element Plus's \code{formatter} ((value: stri
 | number) => string).}
 
 \item{input_style}{The style of the input element or textarea element.
-Element Plus's \code{input-style} (string / CSSProperties | CSSProperties[] |
-string[]).}
+Element Plus's \code{input-style} (\code{string / CSSProperties | CSSProperties[] | string[]}).}
 
 \item{inputmode}{Same as \code{inputmode} in native input. Element Plus's
 \code{inputmode} (string).}

@@ -32,7 +32,7 @@
 #' @param empty_values Empty values of component, see config-provider. Element
 #'   Plus's `empty-values` (array).
 #' @param fallback_placements List of possible positions for Tooltip
-#'   popper.js. Element Plus's `fallback-placements` (Placement[]).
+#'   popper.js. Element Plus's `fallback-placements` (`Placement[]`).
 #' @param fit_input_width Whether the width of the suggestion panel is the
 #'   same as the input, if the value is `number`, then the width is fixed.
 #'   Element Plus's `fit-input-width` (boolean / number).

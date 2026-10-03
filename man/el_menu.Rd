@@ -2,7 +2,7 @@
 % Please edit documentation in R/el_menu.R
 \name{el_menu}
 \alias{el_menu}
-\title{Element UI Menu}
+\title{Element Plus Menu}
 \usage{
 el_menu(
   id = NULL,
@@ -38,11 +38,13 @@ el_menu(
 
 \item{items}{A list of items. Each is a list with \code{index} (the value
 reported when selected), \code{label} (or \code{title}, Element's name for it),
-and optionally \code{icon} (an Element icon
-class such as \code{"el-icon-house"}), \code{disabled}, \code{route} (for
-\code{router = TRUE}), or \code{children} for a submenu. A submenu may also carry
-\code{popper_class}, \code{show_timeout}, \code{hide_timeout} and
-\code{popper_append_to_body}. An item with \code{group = TRUE} becomes a titled
+and optionally \code{icon} (an icon's name, such as \code{"House"}), \code{disabled},
+\code{route} (for \code{router = TRUE}), or \code{children} for a submenu. A submenu
+may also carry Element Plus's sub-menu props: \code{popper_class},
+\code{popper_style}, \code{show_timeout}, \code{hide_timeout}, \code{teleported},
+\code{popper_offset}, and its expand and collapse icons
+(\code{expand_close_icon}, \code{expand_open_icon}, \code{collapse_close_icon},
+\code{collapse_open_icon}). An item with \code{group = TRUE} becomes a titled
 group of its \code{children} rather than a submenu.
 
 Clicking an item reports \verb{input$<id>} (the index selected) and
@@ -141,8 +143,8 @@ el_menu(
   id = "nav",
   active = "home",
   items = list(
-    list(index = "home", label = "Home", icon = "el-icon-house"),
-    list(index = "products", label = "Products", icon = "el-icon-goods",
+    list(index = "home", label = "Home", icon = "House"),
+    list(index = "products", label = "Products", icon = "Goods",
          children = list(
            list(index = "products-all", label = "All"),
            list(index = "products-new", label = "New")

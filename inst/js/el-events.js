@@ -36,6 +36,14 @@
       // when given to an icon prop
       app.component('el-icon-' + name.replace(/([a-z0-9])([A-Z])/g, '$1-$2').toLowerCase(), icons[name]);
     });
+    // Element UI names Element Plus spells differently
+    var legacy = { 'user-solid': 'UserFilled', 'star-on': 'StarFilled', 'star-off': 'Star',
+                   's-tools': 'Tools', 'more': 'MoreFilled', 'error': 'CircleCloseFilled',
+                   'success': 'CircleCheckFilled', 'warning': 'WarningFilled',
+                   'info': 'InfoFilled', 'question': 'QuestionFilled' };
+    Object.keys(legacy).forEach(function (old) {
+      if (icons[legacy[old]]) app.component('el-icon-' + old, icons[legacy[old]]);
+    });
   };
 
   // el_icon(): an <i class="el-icon" data-el-icon="Search">, drawn here with

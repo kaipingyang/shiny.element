@@ -112,7 +112,7 @@ use case, you may want to change this to 'navigation'. Element Plus's
 Element Plus's \code{teleported} (boolean).}
 
 \item{trigger_keys}{Specify which keys on the keyboard can trigger when
-pressed. Element Plus's \code{trigger-keys} (string[]).}
+pressed. Element Plus's \code{trigger-keys} (\code{string[]}).}
 
 \item{virtual_ref}{Indicates the reference element to which the dropdown is
 attached. Element Plus's \code{virtual-ref} (HTMLElement).}

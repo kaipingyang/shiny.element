@@ -50,7 +50,7 @@
 #' @param teleported Whether the dropdown popup is teleported to the body.
 #'   Element Plus's `teleported` (boolean).
 #' @param trigger_keys Specify which keys on the keyboard can trigger when
-#'   pressed. Element Plus's `trigger-keys` (string[]).
+#'   pressed. Element Plus's `trigger-keys` (`string[]`).
 #' @param virtual_ref Indicates the reference element to which the dropdown is
 #'   attached. Element Plus's `virtual-ref` (HTMLElement).
 #' @param virtual_triggering Indicates whether virtual triggering is enabled.
@@ -132,9 +132,12 @@ el_dropdown <- function(
     i_attrs <- list(":command" = jsonlite::toJSON(cmd, auto_unbox = TRUE))
     if (isTRUE(item$disabled)) i_attrs[[":disabled"]] <- "true"
     if (isTRUE(item$divided))  i_attrs[[":divided"]]  <- "true"
-    if (!is.null(item$icon))   i_attrs[["icon"]]      <- item$icon
+    # An icon by name is the item's prop; a tag fills its icon slot
+    icon_slot <- NULL
+    if (is.character(item$icon)) i_attrs[["icon"]] <- .el_icon_name(item$icon)
+    else if (!is.null(item$icon)) icon_slot <- .el_slot("icon", item$icon)
 
-    htmltools::tag("el-dropdown-item", c(i_attrs, list(lbl)))
+    htmltools::tag("el-dropdown-item", c(i_attrs, list(lbl, icon_slot)))
   })
 
   menu_tag <- .el_slot("dropdown", htmltools::tag("el-dropdown-menu", item_tags))

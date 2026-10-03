@@ -38,8 +38,8 @@
 #'   works when `type` is 'text'). Element Plus's `formatter` ((value: string
 #'   | number) => string).
 #' @param input_style The style of the input element or textarea element.
-#'   Element Plus's `input-style` (string / CSSProperties | CSSProperties[] |
-#'   string[]).
+#'   Element Plus's `input-style` (`string / CSSProperties | CSSProperties[] |
+#'   string[]`).
 #' @param inputmode Same as `inputmode` in native input. Element Plus's
 #'   `inputmode` (string).
 #' @param parser Specifies the value extracted from formatter input.(only

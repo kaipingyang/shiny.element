@@ -2,7 +2,7 @@
 % Please edit documentation in R/el_feedback.R
 \name{el_loading}
 \alias{el_loading}
-\title{Element UI Loading Mask}
+\title{Element Plus Loading Mask}
 \usage{
 el_loading(
   session = shiny::getDefaultReactiveDomain(),
@@ -14,7 +14,10 @@ el_loading(
   body = NULL,
   spinner = NULL,
   background = NULL,
-  custom_class = NULL
+  custom_class = NULL,
+  svg = NULL,
+  svg_view_box = NULL,
+  before_close = NULL
 )
 }
 \arguments{
@@ -40,6 +43,11 @@ target.}
 \item{background}{Background colour of the mask.}
 
 \item{custom_class}{Extra class name.}
+
+\item{svg, svg_view_box}{A spinner of your own, as SVG path markup and its
+\code{viewBox}.}
+
+\item{before_close}{\code{\link[=JS]{JS()}} function returning whether the mask may close.}
 }
 \value{
 Called for its side effect; returns \code{NULL} invisibly.
@@ -49,6 +57,13 @@ Cover the page, or one element, while something is being worked out.
 Each mask is named, and stays until \code{\link[=el_loading_close]{el_loading_close()}} is called with the
 same \code{id}.
 }
+\section{Shiny inputs}{
+
+\itemize{
+\item \verb{input$<id>_closed} -- fires once the mask has closed.
+}
+}
+
 \examples{
 if (interactive()) {
   library(shiny)

@@ -43,7 +43,7 @@
 #' @param empty_values Empty values of component, see config-provider. Element
 #'   Plus's `empty-values` (array).
 #' @param fallback_placements List of possible positions for dropdown
-#'   popper.js. Element Plus's `fallback-placements` (Placement[]).
+#'   popper.js. Element Plus's `fallback-placements` (`Placement[]`).
 #' @param fit_input_width Whether the width of the dropdown is the same as the
 #'   input. Element Plus's `fit-input-width` (boolean).
 #' @param max_collapse_tags The max tags number to be shown. To use this,

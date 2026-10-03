@@ -25,8 +25,8 @@
 #' @param icons Icon components. If array, it should have 3 elements, each of
 #'   which corresponds with a score level, else if object, the key should be
 #'   threshold value between two levels, and the value should be corresponding
-#'   icon component. Element Plus's `icons` (string[] | Component[] /
-#'   Record<number, string | Component>). An icon's name, such as `"Search"`.
+#'   icon component. Element Plus's `icons` (`string[] | Component[] /
+#'   Record<number, string | Component>`). An icon's name, such as `"Search"`.
 #' @param size Size of Rate. Element Plus's `size` ('large' | 'default' |
 #'   'small').
 #' @param void_icon Component of unselected icons. Element Plus's `void-icon`

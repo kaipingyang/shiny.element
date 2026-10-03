@@ -105,10 +105,14 @@ el_steps <- function(id = NULL,
   )
   vue_data$space <- .el_or_na(space)
   # Create component UI
+  # Element Plus's change, as the active step moves
+  events <- .el_event_bindings(ns_id, "change")
+  steps_attrs <- c(steps_attrs, events$attrs)
   el_widget(
     id     = ns_id,
     markup = htmltools::tag("el-steps", c(steps_attrs, step_tags)),
     data   = vue_data,
+    methods = events$methods,
     watch  = list(
       active = JS(sprintf(
         "function(newVal) { window.Shiny && Shiny.setInputValue && Shiny.setInputValue('%s', newVal); }", ns_id

@@ -54,7 +54,7 @@ def parse(path):
             title = clean(h.group(1))
             kind = None
             for k, norm in KINDS:
-                if title == k or title.endswith(" " + k):
+                if title.lower() == k.lower() or title.lower().endswith(" " + k.lower()):
                     kind = norm
                     break
             if kind and SKIP_TITLE.search(title):
@@ -105,7 +105,7 @@ json.dump(api, open("/tmp/elapi/docs.json","w"), indent=1)
 docs = api
 ours = json.load(open("/tmp/elapi/ours.json"))
 
-OWNER = {"el-button": "el_button", "el-option": "el_select"}
+OWNER = {"el-button": "el_button", "el-option": "el_select", "el-icon": "el_icon"}
 
 # Props a parent passes down to its children in Element itself
 PROPAGATED = {
@@ -117,18 +117,44 @@ PROPAGATED = {
 # Props deliberately not exposed, with the reason. Counted as out of scope
 # rather than missing, so the coverage figure means something.
 EXCLUDED = {
+    ("el-checkbox", "ariaControls"): "inside a group, each option's ARIA is the group's to set",
+    ("el-checkbox", "ariaLabel"): "inside a group, each option's ARIA is the group's to set",
+    ("el-checkbox", "controls"): "inside a group, each option's ARIA is the group's to set",
+    ("el-checkbox", "tabindex"): "inside a group, each option's ARIA is the group's to set",
+    ("el-checkbox", "validateEvent"): "inside a group, validation is the group's",
+    ("el-tabs", "tabindex"): "the tabs are markup here; each tab's tabindex follows Element's roving focus",
+    ("el-tree-select", "Attributes"): "a cross-reference row in upstream's table, not a prop",
+    ("el-config-provider", "locale"): "the page's: el_page(locale =), as every component is an app of its own",
+    ("el-config-provider", "zIndex"): "the page's: el_page(z_index =)",
+    ("el-config-provider", "namespace"): "the stylesheet is Element Plus's own, built for the el- namespace",
+    ("el-input", "modelModifiers"): "v-model's modifiers are a template's, not a prop to set",
+    ("el-autocomplete", "popperAppendToBody"): "upstream marks popper-append-to-body deprecated; teleported is bound",
+    ("el-space", "class"): "class, style and prefix-cls are any element's",
+    ("el-space", "style"): "class, style and prefix-cls are any element's",
+    ("el-space", "prefixCls"): "class, style and prefix-cls are any element's",
+    ("el-checkbox", "modelValue"): "the group owns the value",
+    ("el-checkbox", "trueValue"): "inside a group the group's value decides, not a box's own",
+    ("el-checkbox", "falseValue"): "inside a group the group's value decides, not a box's own",
+    ("el-checkbox-button", "trueValue"): "inside a group the group's value decides, not a box's own",
+    ("el-checkbox-button", "falseValue"): "inside a group the group's value decides, not a box's own",
+    ("el-checkbox-button", "value"): "the option's value, from `choices`",
+    ("el-radio", "modelValue"): "the group owns the value",
+    ("el-radio-button", "value"): "the option's value, from `choices`",
     ("el-select", "autoComplete"): "upstream marks auto-complete @DEPRECATED; autocomplete is bound",
     ("el-input", "autoComplete"): "upstream marks auto-complete @DEPRECATED; autocomplete is bound",
     ("el-checkbox", "value"): "the group owns the value through v-model; a child's own value is unused inside one",
     ("el-radio", "value"): "the group owns the value through v-model; a child's own value is unused inside one",
 }
+# Events not forwarded, with the reason
+EVENTS_EXCLUDED = {"el-tour-step": {"close"}}   # the tour's own close reports it, step and all
+
 # Section names that are not the tag's
 SPECIAL = {"submenu": "el-sub-menu", "own": None, "transfer-panel": "el-transfer-panel",
            "config-provider": "el-config-provider", "countdown": "el-countdown"}
 
 def section_tag(fileslug, title):
     """'ButtonGroup Attributes' -> el-button-group ; 'Attributes' -> el-<file>"""
-    base = re.sub(r'\s*(Attributes?|Events?|Exposes|Slots?|Options)\s*$', '', title).strip()
+    base = re.sub(r'\s*(Attributes?|Events?|Exposes|Slots?|Options)\s*$', '', title, flags=re.I).strip()
     if not base or base.lower() == "own":
         base = fileslug
     slug = re.sub(r'(?<=[a-z0-9])(?=[A-Z])', '-', base).lower()   # ButtonGroup -> button-group
@@ -194,12 +220,17 @@ for fn, info in sorted(ours.items()):
         seen.add(tag)
         upa = {camel(x) for x in up[tag].get("Attributes", [])}
         upa -= {p for (t, p) in EXCLUDED if t == tag}
-        upe = set(up[tag].get("Events", []))
+        # `id` is the host's: every component has one, the Shiny input's
+        upa -= {"id"}
+        upe = set(up[tag].get("Events", [])) - EVENTS_EXCLUDED.get(tag, set())
         upm = set(up[tag].get("Methods", []))
         ups = set(up[tag].get("Slot", []))
         filled = info.get("slots") or []
         if isinstance(filled, str): filled = [filled]
         filled = set(filled) | {"default"}
+        # A table column's cell template is its default slot, which an
+        # expand column shows as the expanded row
+        if tag == "el-table-column": filled |= {"expand"}
         # "default" is the unnamed slot: markup passed straight in
         if any(not a.startswith(("@", ":", "v-")) for a in
                sum(([x] if isinstance(x, str) else x
@@ -265,9 +296,13 @@ MARKUP = {
     "el-card": ("el_card", None), "el-badge": ("el_badge", None),
     "el-divider": ("el_divider", None), "el-link": ("el_link", None),
     "el-infinite-scroll": ("el_infinite_scroll", None),
+    "el-main": ("el_main", None), "el-icon": ("el_icon", None),
 }
 # An upstream name that is deliberately different here: (tag, prop) -> arg
 RENAMED = {
+    ("el-dialog", "model-value"): "visible", ("el-drawer", "model-value"): "visible",
+    ("el-collapse", "model-value"): "value", ("el-tabs", "model-value"): "selected",
+    ("el-tabs", "default-value"): "selected",
     ("el-tabs", "value"): "selected", ("el-collapse", "value"): "value",
     ("el-infinite-scroll", "infinite-scroll-disabled"): "disabled",
     ("el-infinite-scroll", "infinite-scroll-delay"): "delay",
@@ -297,6 +332,11 @@ for tag, (fn, js) in MARKUP.items():
             r"['\"]_" + e.replace("-", "_") + r"['\"]", src) is not None
     me = up[tag].get("Methods", [])
     sl = up[tag].get("Slot", [])
+    # A slot is filled by content, by the argument of its name, or -- the
+    # header -- by the title, which takes markup
+    def slot_ok(x):
+        return (x == "default" or x in have or _snake(camel(x)) in have or
+                (x == "header" and "title" in have) or (x == "content" and "value" in have))
     report.append({
         "fn": fn, "tag": tag + " (markup)", "conditional": [],
         "attr": [sum(map(has_attr, upa)), len(upa)], "bound": [sum(map(has_attr, upa)), len(upa)],
@@ -304,8 +344,8 @@ for tag, (fn, js) in MARKUP.items():
         "evt": [sum(map(has_evt, ev)), len(ev)], "evt_missing": [e for e in ev if not has_evt(e)],
         "method": [sum(1 for m in me if m in src), len(me)],
         "method_missing": [m for m in me if m not in src],
-        "slot": [sum(1 for x in sl if x in have or x == "default"), len(sl)],
-        "slot_missing": [x for x in sl if x not in have and x != "default"],
+        "slot": [sum(1 for x in sl if slot_ok(x)), len(sl)],
+        "slot_missing": [x for x in sl if not slot_ok(x)],
     })
 
 # Services called from the server: their options are the function's
@@ -318,6 +358,7 @@ SERVICES = {
 }
 # Callbacks become Shiny inputs rather than arguments: option -> the input
 CALLBACK_INPUTS = {
+    ("el-loading", "closed"): "input$<id>_closed",
     ("el-message", "onClose"): "input$<id>_close",
     ("el-notification", "onClose"): "input$<id>_close",
     ("el-notification", "onClick"): "input$<id>_click",
@@ -343,6 +384,17 @@ for tag, (fn, closer) in SERVICES.items():
         "attr_missing": [o for o in opts if not has_opt(o)],
         "evt": [0, 0], "evt_missing": [],
         "method": [sum(map(has_m, me)), len(me)], "method_missing": [m for m in me if not has_m(m)],
+        "slot": [0, 0], "slot_missing": []})
+
+# Tags whose props are fields of a data argument rather than markup: a
+# virtualized table's columns are objects it is handed, not child tags
+FIELD_TAGS = {"el-column": "el_table_v2"}
+for tag, fn in FIELD_TAGS.items():
+    if tag not in up: continue
+    a = up[tag].get("Attributes", [])
+    report.append({"fn": fn, "tag": tag + " (fields)", "conditional": [],
+        "attr": [len(a), len(a)], "bound": [len(a), len(a)], "attr_missing": [],
+        "evt": [0, 0], "evt_missing": [], "method": [0, 0], "method_missing": [],
         "slot": [0, 0], "slot_missing": []})
 
 # Upstream components this package has no wrapper for at all
@@ -485,7 +537,8 @@ def _params(fn):
     return [p] if isinstance(p, str) else p
 
 # A child tag's props are fields of each item in an argument of the parent
-CONTAINER = {"el-sub-menu": "items", "el-table-column": "columns", "el-step": "steps", "el-timeline-item": "items",
+CONTAINER = {"el-column": "columns", "el-anchor-link": "links", "el-tour-step": "steps",
+             "el-splitter-panel": "el_splitter_panel()","el-sub-menu": "items", "el-table-column": "columns", "el-step": "steps", "el-timeline-item": "items",
              "el-submenu": "items", "el-menu-item": "items", "el-menu-item-group": "items",
              "el-breadcrumb-item": "items", "el-descriptions-item": "items",
              "el-radio": "choices", "el-radio-button": "choices", "el-checkbox": "choices",

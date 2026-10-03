@@ -2,7 +2,7 @@
 % Please edit documentation in R/el_feedback.R
 \name{el_message_box}
 \alias{el_message_box}
-\title{Element UI Message Box}
+\title{Element Plus Message Box}
 \usage{
 el_message_box(
   session = shiny::getDefaultReactiveDomain(),
@@ -19,7 +19,9 @@ el_message_box(
   round_button = FALSE,
   dangerously_use_html_string = FALSE,
   custom_class = NULL,
-  icon_class = NULL,
+  custom_style = NULL,
+  icon = NULL,
+  close_icon = NULL,
   close_on_click_modal = NULL,
   close_on_press_escape = NULL,
   input_placeholder = NULL,
@@ -32,9 +34,20 @@ el_message_box(
   show_confirm_button = NULL,
   confirm_button_class = NULL,
   cancel_button_class = NULL,
+  confirm_button_type = NULL,
+  cancel_button_type = NULL,
+  confirm_button_loading_icon = NULL,
+  cancel_button_loading_icon = NULL,
   distinguish_cancel_and_close = NULL,
   lock_scroll = NULL,
   close_on_hash_change = NULL,
+  autofocus = NULL,
+  modal = NULL,
+  modal_class = NULL,
+  draggable = NULL,
+  overflow = NULL,
+  button_size = NULL,
+  append_to = NULL,
   before_close = NULL
 )
 }
@@ -67,7 +80,12 @@ for \code{"confirm"} and \code{"prompt"}.}
 \item{dangerously_use_html_string}{Whether \code{message} is rendered as HTML.
 Only pass \code{TRUE} for markup you control -- it is inserted unescaped.}
 
-\item{custom_class, icon_class}{Extra class names.}
+\item{custom_class}{Extra class name.}
+
+\item{custom_style}{CSS for the box, a string or a named list.}
+
+\item{icon, close_icon}{The icon shown instead of the one \code{type} implies,
+and the close button's, by name.}
 
 \item{close_on_click_modal}{Whether clicking the backdrop closes it.}
 
@@ -92,12 +110,34 @@ the text; return \code{true}, or an error message.}
 \item{confirm_button_class, cancel_button_class}{Extra class names for the
 buttons.}
 
+\item{confirm_button_type, cancel_button_type}{The buttons' types, as
+\code{\link[=el_button]{el_button()}}'s \code{type}.}
+
+\item{confirm_button_loading_icon, cancel_button_loading_icon}{The buttons'
+loading icons, by name.}
+
 \item{distinguish_cancel_and_close}{Whether closing by the cross or Escape
 reports \code{"close"} rather than \code{"cancel"}.}
 
 \item{lock_scroll}{Whether the page stops scrolling while the box is open.}
 
 \item{close_on_hash_change}{Whether a change of the URL hash closes it.}
+
+\item{autofocus}{Whether the box takes focus when it opens. Default \code{TRUE}.}
+
+\item{modal}{Whether it has a backdrop. Default \code{TRUE}.}
+
+\item{modal_class}{Extra class name for the backdrop.}
+
+\item{draggable}{Whether it can be dragged by its header.}
+
+\item{overflow}{With \code{draggable}, whether it can be dragged past the
+viewport.}
+
+\item{button_size}{The buttons' size: \code{"small"}, \code{"default"} or \code{"large"}.}
+
+\item{append_to}{CSS selector of the element it is appended to. Default
+\verb{<body>}.}
 
 \item{before_close}{\code{JS()} function
 \verb{function(action, instance, done)}, called before the box closes; call

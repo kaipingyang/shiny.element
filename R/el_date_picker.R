@@ -48,7 +48,7 @@
 #' @param empty_values Empty values of component, see config-provider. Element
 #'   Plus's `empty-values` (array).
 #' @param fallback_placements List of possible positions for Tooltip
-#'   popper.js. Element Plus's `fallback-placements` (Placement[]).
+#'   popper.js. Element Plus's `fallback-placements` (`Placement[]`).
 #' @param placement Position of dropdown. Element Plus's `placement`.
 #' @param popper_options Customized popper option see more at popper.js.
 #'   Element Plus's `popper-options` (Partial<PopperOptions>).

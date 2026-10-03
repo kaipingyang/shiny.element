@@ -37,7 +37,7 @@
 #' @param auto_close Timeout in milliseconds to hide tooltip, not valid in
 #'   controlled mode. Element Plus's `auto-close` (number).
 #' @param fallback_placements List of possible positions for Tooltip
-#'   popper.js. Element Plus's `fallback-placements` (Placement[]).
+#'   popper.js. Element Plus's `fallback-placements` (`Placement[]`).
 #' @param focus_on_target When triggering tooltips through hover, whether to
 #'   focus the trigger element, which improves accessibility. Element Plus's
 #'   `focus-on-target` (boolean).
@@ -138,6 +138,9 @@ el_tooltip <- function(id = NULL,
     ":popper-options"  = .el_optional_bind("tipPopperOptions")
   )
 
+  events <- .el_event_bindings(ns_id, c("show", "hide", "before-show", "before-hide"))
+  attrs <- c(attrs, events$attrs)
+
   own <- list(
     markup = NULL,
     data = list(
@@ -152,7 +155,7 @@ el_tooltip <- function(id = NULL,
       tipPopperClass    = .el_or_na(popper_class),
       tipPopperOptions  = .el_or_na(popper_options)
     ),
-    methods = list(), watch = list(), computed = list(), mounted = NULL,
+    methods = events$methods, watch = list(), computed = list(), mounted = NULL,
     dependencies = list()
   )
   merged <- .el_absorb_merge(own, inner)

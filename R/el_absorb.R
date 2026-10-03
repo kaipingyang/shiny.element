@@ -277,3 +277,44 @@
   }
   JS(body)
 }
+
+
+#' A component holding other UI, as one Vue instance
+#'
+#' For Element Plus's containers -- affix, space, scrollbar, watermark and the
+#' like -- whose content is arbitrary UI: each child that is a component of
+#' this package is folded into the container's instance ([.el_absorb()]),
+#' the rest is markup inside its template. The container's own fields are
+#' taken first, so a child's field of the same name is the one renamed.
+#'
+#' @param tag The Element Plus tag.
+#' @param ns_id The namespaced id.
+#' @param children A list of UI.
+#' @param props Output of [.el_props()], or `NULL`.
+#' @param events Output of [.el_event_bindings()], or `NULL`.
+#' @param attrs Further attributes of the tag.
+#' @param width,slots As for [el_widget()].
+#' @param data Further fields of the container's own.
+#' @return A Shiny UI element.
+#' @keywords internal
+.el_wrap_widget <- function(tag, ns_id, children, props = NULL, events = NULL,
+                            attrs = list(), width = NULL, slots = NULL, data = list()) {
+  own <- list(markup = NULL, data = c(data, props$data),
+              methods = if (is.null(events)) list() else events$methods,
+              watch = list(), computed = list(), mounted = NULL, dependencies = list())
+  parts <- lapply(Filter(Negate(is.null), children), .el_absorb)
+  merged <- do.call(.el_absorb_merge, c(list(own), parts))
+  el_widget(
+    id       = ns_id,
+    markup   = htmltools::tag(tag, c(attrs, props$attrs, events$attrs,
+                                     unname(merged$markups[-1]))),
+    data     = merged$data,
+    methods  = merged$methods,
+    watch    = merged$watch,
+    computed = merged$computed,
+    mounted  = merged$mounted,
+    width    = width,
+    slots    = slots,
+    dependency = merged$dependencies
+  )
+}

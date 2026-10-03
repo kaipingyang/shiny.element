@@ -11,8 +11,9 @@
 #' @param items A list of entries. Each is a list with `content` and
 #'   optionally `timestamp`, `type` (`"primary"`, `"success"`, `"warning"`,
 #'   `"danger"` or `"info"`), `color`, `size` (`"normal"` or `"large"`),
-#'   `icon` (an Element icon class) and `placement` (`"bottom"` or `"top"`,
-#'   where the timestamp goes).
+#'   `icon` (an icon's name), `placement` (`"bottom"` or `"top"`, where the
+#'   timestamp goes), `center` (centre the dot against the content) and
+#'   `hollow` (draw the dot hollow).
 #' @param reverse Show the entries newest first.
 #' @param html Render each entry's `content` as HTML rather than text --
 #'   a string of markup, or tags. Only use it with content you control: it
@@ -80,6 +81,8 @@ el_timeline <- function(id = NULL,
     ":size"      = "item.size",
     ":icon"      = "item.icon",
     ":placement" = "item.placement",
+    ":center"    = "item.center",
+    ":hollow"    = "item.hollow",
     ":hide-timestamp" = "!item.timestamp",
     body
   ))
@@ -112,7 +115,8 @@ el_timeline <- function(id = NULL,
 #' @return The entries with unknown and empty fields dropped.
 #' @keywords internal
 .el_timeline_items <- function(items) {
-  fields <- c("content", "timestamp", "type", "color", "size", "icon", "placement")
+  fields <- c("content", "timestamp", "type", "color", "size", "icon", "placement",
+              "center", "hollow")
   lapply(items, function(item) {
     kept <- item[intersect(fields, names(item))]
     kept[!vapply(kept, is.null, logical(1))]

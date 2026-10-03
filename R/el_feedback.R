@@ -1,4 +1,4 @@
-#' Show Element UI Notification
+#' Show Element Plus Notification
 #'
 #' Server-side function to show a desktop-corner notification popup.
 #' Requires `use_element()` or `el_page()` in the UI to load the JS handler.
@@ -15,10 +15,18 @@
 #'   `"bottom-right"`, or `"bottom-left"`. Default `"top-right"`.
 #' @param show_close Whether to show the close button. Default `TRUE`.
 #' @param offset Distance from the corner edge in pixels. Default `0`.
-#' @param icon_class Icon class to show instead of the one `type` implies.
+#' @param icon Icon to show instead of the one `type` implies, by name.
 #' @param custom_class Extra class name.
 #' @param dangerously_use_html_string Whether `message` is inserted as HTML.
 #'   Only pass `TRUE` for markup you control -- it is not escaped.
+#' @param append_to CSS selector of the element it is appended to. Default
+#'   `<body>`.
+#' @param z_index Its z-index, instead of the next one Element Plus hands out.
+#' @param close_icon The close button's icon, by name.
+#' @param progress Show a bar counting down `duration`: `TRUE`, or a list of
+#'   Element Plus's progress options.
+#' @param pause_on_hover Whether the countdown stops while the pointer is
+#'   over it. Default `TRUE`.
 #' @param id Name for this notification, so [el_notification_close()] can
 #'   close it, `input$<id>_close` reports when it closes and
 #'   `input$<id>_click` when it is clicked.
@@ -53,31 +61,25 @@ el_notification <- function(
     position   = "top-right",
     show_close = TRUE,
     offset     = 0,
-    icon_class = NULL,
+    icon       = NULL,
     custom_class = NULL,
     dangerously_use_html_string = FALSE,
+    append_to  = NULL,
+    z_index    = NULL,
+    close_icon = NULL,
+    progress   = NULL,
+    pause_on_hover = NULL,
     id         = NULL
 ) {
   .el_check_session(session)
   .el_check_choices("el_notification", environment())
-  session$sendCustomMessage("elNotification", list(
-    id        = if (!is.null(id)) session$ns(id),
-    title     = title,
-    message   = message,
-    type      = type,
-    duration  = duration,
-    position  = position,
-    showClose = show_close,
-    offset    = offset,
-    iconClass = icon_class,
-    customClass = custom_class,
-    dangerouslyUseHTMLString = dangerously_use_html_string
-  ))
+  opts <- .el_service_options(as.list(environment()), c("session", "id"))
+  session$sendCustomMessage("elNotification", c(list(id = if (!is.null(id)) session$ns(id)), opts))
   invisible(NULL)
 }
 
 
-#' Show Element UI Message
+#' Show Element Plus Message
 #'
 #' Server-side function to show a top-centre message toast.
 #' Requires `use_element()` or `el_page()` in the UI to load the JS handler.
@@ -90,9 +92,16 @@ el_notification <- function(
 #' @param duration Auto-close delay in milliseconds. `0` disables auto-close.
 #'   Default `3000`.
 #' @param show_close Whether to show the close button. Default `FALSE`.
-#' @param center Whether to centre the message text. Default `FALSE`.
-#' @param offset Distance from the top of the window, in pixels.
-#' @param icon_class Icon class to show instead of the one `type` implies.
+#' @param offset Distance from the edge of the window, in pixels. Default `16`.
+#' @param icon Icon to show instead of the one `type` implies, by name.
+#' @param plain Whether it is drawn plain, without a background colour.
+#' @param placement Where it appears: `"top"` (the default), `"top-left"`,
+#'   `"top-right"`, `"bottom"`, `"bottom-left"` or `"bottom-right"`.
+#' @param append_to CSS selector of the element it is appended to. Default
+#'   `<body>`.
+#' @param grouping Whether identical messages shown together are merged into
+#'   one, with a count.
+#' @param repeat_num The count a grouped message starts from.
 #' @param custom_class Extra class name.
 #' @param dangerously_use_html_string Whether `message` is inserted as HTML.
 #'   Only pass `TRUE` for markup you control -- it is not escaped.
@@ -125,32 +134,26 @@ el_message <- function(
     type       = "info",
     duration   = 3000,
     show_close = FALSE,
-    center     = FALSE,
-    offset     = 20,
-    icon_class = NULL,
+    offset     = 16,
+    icon       = NULL,
     custom_class = NULL,
     dangerously_use_html_string = FALSE,
+    plain      = NULL,
+    placement  = NULL,
+    append_to  = NULL,
+    grouping   = NULL,
+    repeat_num = NULL,
     id         = NULL
 ) {
   .el_check_session(session)
   .el_check_choices("el_message", environment())
-  session$sendCustomMessage("elMessage", list(
-    id        = if (!is.null(id)) session$ns(id),
-    message   = message,
-    type      = type,
-    duration  = duration,
-    showClose = show_close,
-    center    = center,
-    offset    = offset,
-    iconClass = icon_class,
-    customClass = custom_class,
-    dangerouslyUseHTMLString = dangerously_use_html_string
-  ))
+  opts <- .el_service_options(as.list(environment()), c("session", "id"))
+  session$sendCustomMessage("elMessage", c(list(id = if (!is.null(id)) session$ns(id)), opts))
   invisible(NULL)
 }
 
 
-#' Element UI Message Box
+#' Element Plus Message Box
 #'
 #' A modal that asks something and waits for an answer: a confirmation, an
 #' acknowledgement, or a line of text.
@@ -176,7 +179,10 @@ el_message <- function(
 #' @param round_button Whether the buttons are rounded.
 #' @param dangerously_use_html_string Whether `message` is rendered as HTML.
 #'   Only pass `TRUE` for markup you control -- it is inserted unescaped.
-#' @param custom_class,icon_class Extra class names.
+#' @param custom_class Extra class name.
+#' @param custom_style CSS for the box, a string or a named list.
+#' @param icon,close_icon The icon shown instead of the one `type` implies,
+#'   and the close button's, by name.
 #' @param close_on_click_modal Whether clicking the backdrop closes it.
 #' @param close_on_press_escape Whether Escape closes it.
 #' @param input_placeholder,input_value For `box_type = "prompt"`: the
@@ -190,6 +196,19 @@ el_message <- function(
 #' @param show_confirm_button Whether to show the confirm button.
 #' @param confirm_button_class,cancel_button_class Extra class names for the
 #'   buttons.
+#' @param confirm_button_type,cancel_button_type The buttons' types, as
+#'   [el_button()]'s `type`.
+#' @param confirm_button_loading_icon,cancel_button_loading_icon The buttons'
+#'   loading icons, by name.
+#' @param autofocus Whether the box takes focus when it opens. Default `TRUE`.
+#' @param modal Whether it has a backdrop. Default `TRUE`.
+#' @param modal_class Extra class name for the backdrop.
+#' @param draggable Whether it can be dragged by its header.
+#' @param overflow With `draggable`, whether it can be dragged past the
+#'   viewport.
+#' @param button_size The buttons' size: `"small"`, `"default"` or `"large"`.
+#' @param append_to CSS selector of the element it is appended to. Default
+#'   `<body>`.
 #' @param distinguish_cancel_and_close Whether closing by the cross or Escape
 #'   reports `"close"` rather than `"cancel"`.
 #' @param lock_scroll Whether the page stops scrolling while the box is open.
@@ -236,7 +255,9 @@ el_message_box <- function(session = shiny::getDefaultReactiveDomain(), id, mess
                            round_button = FALSE,
                            dangerously_use_html_string = FALSE,
                            custom_class = NULL,
-                           icon_class = NULL,
+                           custom_style = NULL,
+                           icon = NULL,
+                           close_icon = NULL,
                            close_on_click_modal = NULL,
                            close_on_press_escape = NULL,
                            input_placeholder = NULL,
@@ -249,53 +270,37 @@ el_message_box <- function(session = shiny::getDefaultReactiveDomain(), id, mess
                            show_confirm_button = NULL,
                            confirm_button_class = NULL,
                            cancel_button_class = NULL,
+                           confirm_button_type = NULL,
+                           cancel_button_type = NULL,
+                           confirm_button_loading_icon = NULL,
+                           cancel_button_loading_icon = NULL,
                            distinguish_cancel_and_close = NULL,
                            lock_scroll = NULL,
                            close_on_hash_change = NULL,
+                           autofocus = NULL,
+                           modal = NULL,
+                           modal_class = NULL,
+                           draggable = NULL,
+                           overflow = NULL,
+                           button_size = NULL,
+                           append_to = NULL,
                            before_close = NULL) {
   .el_check_session(session)
   .el_check_choices("el_message_box", environment())
   box_type <- match.arg(box_type)
-
-  session$sendCustomMessage("elMessageBox", list(
-    id                       = session$ns(id),
-    boxType                  = box_type,
-    message                  = message,
-    title                    = title,
-    type                     = type,
-    confirmButtonText        = confirm_button_text,
-    cancelButtonText         = cancel_button_text,
-    showCancelButton         = show_cancel_button,
-    showClose                = show_close,
-    center                   = center,
-    roundButton              = round_button,
-    dangerouslyUseHTMLString = dangerously_use_html_string,
-    customClass              = custom_class,
-    iconClass                = icon_class,
-    closeOnClickModal        = close_on_click_modal,
-    closeOnPressEscape       = close_on_press_escape,
-    inputPlaceholder         = input_placeholder,
-    inputValue               = input_value,
-    inputPattern             = input_pattern,
-    inputErrorMessage        = input_error_message,
-    inputType                = input_type,
-    # Functions cannot travel in a custom message; they go as source text and
-    # are turned back into functions in the browser.
-    inputValidator           = if (!is.null(input_validator)) as.character(input_validator),
-    showInput                = show_input,
-    showConfirmButton        = show_confirm_button,
-    confirmButtonClass       = confirm_button_class,
-    cancelButtonClass        = cancel_button_class,
-    distinguishCancelAndClose = distinguish_cancel_and_close,
-    lockScroll               = lock_scroll,
-    closeOnHashChange        = close_on_hash_change,
-    beforeClose              = if (!is.null(before_close)) as.character(before_close)
-  ))
+  opts <- .el_service_options(as.list(environment()),
+                              c("session", "id", "message", "title", "box_type"))
+  session$sendCustomMessage("elMessageBox", c(list(
+    id      = session$ns(id),
+    boxType = box_type,
+    message = message,
+    title   = title
+  ), opts))
   invisible(NULL)
 }
 
 
-#' Element UI Loading Mask
+#' Element Plus Loading Mask
 #'
 #' Cover the page, or one element, while something is being worked out.
 #' Each mask is named, and stays until [el_loading_close()] is called with the
@@ -314,6 +319,12 @@ el_message_box <- function(session = shiny::getDefaultReactiveDomain(), id, mess
 #' @param spinner Class name of a custom spinner.
 #' @param background Background colour of the mask.
 #' @param custom_class Extra class name.
+#' @param svg,svg_view_box A spinner of your own, as SVG path markup and its
+#'   `viewBox`.
+#' @param before_close [JS()] function returning whether the mask may close.
+#'
+#' @section Shiny inputs:
+#' - `input$<id>_closed` -- fires once the mask has closed.
 #'
 #' @return Called for its side effect; returns `NULL` invisibly.
 #' @examples
@@ -336,19 +347,11 @@ el_message_box <- function(session = shiny::getDefaultReactiveDomain(), id, mess
 el_loading <- function(session = shiny::getDefaultReactiveDomain(), id = "default", text = NULL, target = NULL,
                        fullscreen = NULL, lock = NULL, body = NULL,
                        spinner = NULL, background = NULL,
-                       custom_class = NULL) {
+                       custom_class = NULL, svg = NULL, svg_view_box = NULL,
+                       before_close = NULL) {
   .el_check_session(session)
-  session$sendCustomMessage("elLoading", list(
-    id          = session$ns(id),
-    text        = text,
-    target      = target,
-    fullscreen  = fullscreen,
-    lock        = lock,
-    body        = body,
-    spinner     = spinner,
-    background  = background,
-    customClass = custom_class
-  ))
+  opts <- .el_service_options(as.list(environment()), c("session", "id"))
+  session$sendCustomMessage("elLoading", c(list(id = session$ns(id)), opts))
   invisible(NULL)
 }
 
@@ -417,4 +420,34 @@ el_notification_close <- function(session = shiny::getDefaultReactiveDomain(), i
   session$sendCustomMessage("elNotificationClose",
                             list(id = if (!is.null(id)) session$ns(id)))
   invisible(NULL)
+}
+
+
+#' A service's options, as Element Plus names them
+#'
+#' The arguments a call to a service -- message, notification, message box,
+#' loading -- was given, in camelCase, without those left `NULL`. Icons are
+#' turned into Element Plus's names; [JS()] functions travel as source and are
+#' listed in `.functions`, for the browser to turn back into functions.
+#'
+#' @param args The calling function's arguments, `as.list(environment())`.
+#' @param skip Names that are not options.
+#' @return A named list.
+#' @keywords internal
+.el_service_options <- function(args, skip) {
+  args <- args[setdiff(names(args), skip)]
+  args <- Filter(Negate(is.null), args)
+  names(args) <- vapply(names(args), .el_camel_case, "")
+  names(args)[names(args) == "dangerouslyUseHtmlString"] <- "dangerouslyUseHTMLString"
+  names(args)[names(args) == "svgViewBox"] <- "svgViewBox"
+  for (k in intersect(names(args), c("icon", "closeIcon", "confirmButtonLoadingIcon",
+                                     "cancelButtonLoadingIcon"))) {
+    args[[k]] <- .el_icon_name(args[[k]])
+  }
+  # Functions: given with JS(), or as source for the options that only take one
+  fns <- names(args)[vapply(names(args), function(k) inherits(args[[k]], "JS_EVAL") ||
+    (k %in% c("beforeClose", "inputValidator") && is.character(args[[k]])), logical(1))]
+  for (k in fns) args[[k]] <- as.character(args[[k]])
+  if (length(fns)) args$.functions <- I(fns)
+  args
 }

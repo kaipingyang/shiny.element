@@ -2,7 +2,7 @@
 % Please edit documentation in R/el_feedback.R
 \name{el_message}
 \alias{el_message}
-\title{Show Element UI Message}
+\title{Show Element Plus Message}
 \usage{
 el_message(
   session = shiny::getDefaultReactiveDomain(),
@@ -10,11 +10,15 @@ el_message(
   type = "info",
   duration = 3000,
   show_close = FALSE,
-  center = FALSE,
-  offset = 20,
-  icon_class = NULL,
+  offset = 16,
+  icon = NULL,
   custom_class = NULL,
   dangerously_use_html_string = FALSE,
+  plain = NULL,
+  placement = NULL,
+  append_to = NULL,
+  grouping = NULL,
+  repeat_num = NULL,
   id = NULL
 )
 }
@@ -32,16 +36,27 @@ Default \code{3000}.}
 
 \item{show_close}{Whether to show the close button. Default \code{FALSE}.}
 
-\item{center}{Whether to centre the message text. Default \code{FALSE}.}
+\item{offset}{Distance from the edge of the window, in pixels. Default \code{16}.}
 
-\item{offset}{Distance from the top of the window, in pixels.}
-
-\item{icon_class}{Icon class to show instead of the one \code{type} implies.}
+\item{icon}{Icon to show instead of the one \code{type} implies, by name.}
 
 \item{custom_class}{Extra class name.}
 
 \item{dangerously_use_html_string}{Whether \code{message} is inserted as HTML.
 Only pass \code{TRUE} for markup you control -- it is not escaped.}
+
+\item{plain}{Whether it is drawn plain, without a background colour.}
+
+\item{placement}{Where it appears: \code{"top"} (the default), \code{"top-left"},
+\code{"top-right"}, \code{"bottom"}, \code{"bottom-left"} or \code{"bottom-right"}.}
+
+\item{append_to}{CSS selector of the element it is appended to. Default
+\verb{<body>}.}
+
+\item{grouping}{Whether identical messages shown together are merged into
+one, with a count.}
+
+\item{repeat_num}{The count a grouped message starts from.}
 
 \item{id}{Name for this message, so \code{\link[=el_message_close]{el_message_close()}} can close it and
 \verb{input$<id>_close} reports when it closes.}

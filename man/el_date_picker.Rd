@@ -148,7 +148,7 @@ selected. Element Plus's \code{disabled-seconds} (Function). Give it as
 Plus's \code{empty-values} (array).}
 
 \item{fallback_placements}{List of possible positions for Tooltip
-popper.js. Element Plus's \code{fallback-placements} (Placement[]).}
+popper.js. Element Plus's \code{fallback-placements} (\code{Placement[]}).}
 
 \item{placement}{Position of dropdown. Element Plus's \code{placement}.}
 

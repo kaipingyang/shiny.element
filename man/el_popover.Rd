@@ -31,6 +31,7 @@ el_popover(
   virtual_ref = NULL,
   virtual_triggering = NULL,
   visible = NULL,
+  tabindex = NULL,
   width = NULL,
   slots = NULL,
   session = NULL
@@ -110,6 +111,9 @@ Element Plus's \code{virtual-triggering} (boolean).}
 
 \item{visible}{Whether popover is visible. Element Plus's \code{visible}
 (boolean / null).}
+
+\item{tabindex}{Tabindex of Popover. Element Plus's \code{tabindex} (number /
+string).}
 
 \item{width}{Component width, as a CSS unit.}
 

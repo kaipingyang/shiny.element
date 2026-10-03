@@ -21,8 +21,9 @@ el_timeline(
 \item{items}{A list of entries. Each is a list with \code{content} and
 optionally \code{timestamp}, \code{type} (\code{"primary"}, \code{"success"}, \code{"warning"},
 \code{"danger"} or \code{"info"}), \code{color}, \code{size} (\code{"normal"} or \code{"large"}),
-\code{icon} (an Element icon class) and \code{placement} (\code{"bottom"} or \code{"top"},
-where the timestamp goes).}
+\code{icon} (an icon's name), \code{placement} (\code{"bottom"} or \code{"top"}, where the
+timestamp goes), \code{center} (centre the dot against the content) and
+\code{hollow} (draw the dot hollow).}
 
 \item{reverse}{Show the entries newest first.}
 

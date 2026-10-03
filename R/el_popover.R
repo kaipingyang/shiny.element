@@ -51,6 +51,8 @@
 #'   Element Plus's `virtual-triggering` (boolean).
 #' @param visible Whether popover is visible. Element Plus's `visible`
 #'   (boolean / null).
+#' @param tabindex Tabindex of Popover. Element Plus's `tabindex` (number /
+#'   string).
 #' @param session Deprecated. Inside a module, wrap `id` in `ns()`, as for
 #'   any Shiny input; a session given here namespaces `id` once more, with
 #'   a warning.
@@ -105,6 +107,7 @@ el_popover <- function(id = NULL,
                        virtual_ref = NULL,
                        virtual_triggering = NULL,
                        visible = NULL,
+                       tabindex = NULL,
                        width = NULL,
                        slots   = NULL,
                        session = NULL) {
@@ -163,6 +166,7 @@ el_popover <- function(id = NULL,
 
   el_widget(
     props = .el_props(prefix = "pop", list(
+      tabindex = tabindex,
       append_to = append_to,
       auto_close = auto_close,
       effect = effect,

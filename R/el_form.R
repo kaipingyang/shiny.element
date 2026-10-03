@@ -193,7 +193,8 @@ el_rule <- function(required = NULL,
 #'   `list(value=, label=)`. For `"checkbox"`, the box's text is `label`.
 #' @param rules A single [el_rule()] or a list of them.
 #' @param ... Further props. Element's form-item props -- `required`,
-#'   `error`, `label_width`, `size`, `show_message`, `inline_message`, and
+#'   `error`, `label_width`, `label_position`, `size`, `show_message`,
+#'   `inline_message`, `validate_status`, `for`, and
 #'   `label_html`/`error_html` for markup of your own, a string or
 #'   htmltools tags -- go on the field's
 #'   form item; anything else on the control, e.g. `placeholder`, `min`,
@@ -225,7 +226,8 @@ el_form_field <- function(prop,
   # el-form-item's own props go on the item, not the control: the template
   # reads f.required, f.error, ... off the field
   item_props <- c("required", "error", "labelWidth", "size", "inlineMessage",
-                  "showMessage", "labelHtml", "errorHtml")
+                  "showMessage", "labelHtml", "errorHtml", "labelPosition",
+                  "validateStatus", "for")
   item <- props[intersect(names(props), item_props)]
   props <- props[setdiff(names(props), item_props)]
   # v-html takes a string: a tag would arrive as its JSON and show as text
@@ -434,7 +436,9 @@ el_form <- function(...,
            # required, rules, error, label-width or size of its own.
            ':label="f.label" :required="f.required" :rules="f.rules" ',
            ':error="f.error" :label-width="f.labelWidth" :size="f.size" ',
-           ':inline-message="f.inlineMessage" :show-message="f.showMessage">',
+           ':inline-message="f.inlineMessage" :show-message="f.showMessage" ',
+           ':label-position="f.labelPosition" :validate-status="f.validateStatus" ',
+           ':for="f.for">',
            # A field may render its own label and error, from label_html and
            # error_html in its definition. Inserted as markup, so pass only
            # what you control.

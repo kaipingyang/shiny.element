@@ -9,7 +9,7 @@
 #' @keywords internal
 .el_menu_nodes <- function(items) {
   lapply(items, function(item) {
-    icon  <- if (!is.null(item$icon)) htmltools::tags$i(class = item$icon)
+    icon  <- if (!is.null(item$icon)) .el_vue_icon(item$icon)
     # `title` is Element's own word for it -- the slot is named title -- and
     # an item given one rendered as a blank entry, with nothing logged.
     text <- if (!is.null(item$label)) item$label else item$title
@@ -31,9 +31,10 @@
       # Element puts a submenu's own label in a named slot, not its body.
       title <- .el_slot("title", icon, label)
       attrs <- c(list(index = item$index), .el_menu_item_props(item, c(
-        "disabled", "popper_class", "show_timeout", "hide_timeout",
-        "popper_append_to_body")))
-      htmltools::tag("el-submenu", c(attrs, list(title),
+        "disabled", "popper_class", "popper_style", "show_timeout", "hide_timeout",
+        "teleported", "popper_offset", "expand_close_icon", "expand_open_icon",
+        "collapse_close_icon", "collapse_open_icon")))
+      htmltools::tag("el-sub-menu", c(attrs, list(title),
                                      .el_menu_nodes(item$children)))
 
     } else {
@@ -65,7 +66,7 @@
 `%||%` <- function(a, b) if (is.null(a)) b else a
 
 
-#' Element UI Menu
+#' Element Plus Menu
 #'
 #' A navigation menu, vertical or horizontal, with submenus nested to any
 #' depth.
@@ -73,11 +74,13 @@
 #' @param id Menu ID (auto-generated if NULL).
 #' @param items A list of items. Each is a list with `index` (the value
 #'   reported when selected), `label` (or `title`, Element's name for it),
-#'   and optionally `icon` (an Element icon
-#'   class such as `"el-icon-house"`), `disabled`, `route` (for
-#'   `router = TRUE`), or `children` for a submenu. A submenu may also carry
-#'   `popper_class`, `show_timeout`, `hide_timeout` and
-#'   `popper_append_to_body`. An item with `group = TRUE` becomes a titled
+#'   and optionally `icon` (an icon's name, such as `"House"`), `disabled`,
+#'   `route` (for `router = TRUE`), or `children` for a submenu. A submenu
+#'   may also carry Element Plus's sub-menu props: `popper_class`,
+#'   `popper_style`, `show_timeout`, `hide_timeout`, `teleported`,
+#'   `popper_offset`, and its expand and collapse icons
+#'   (`expand_close_icon`, `expand_open_icon`, `collapse_close_icon`,
+#'   `collapse_open_icon`). An item with `group = TRUE` becomes a titled
 #'   group of its `children` rather than a submenu.
 #'
 #'   Clicking an item reports `input$<id>` (the index selected) and
@@ -144,8 +147,8 @@
 #'   id = "nav",
 #'   active = "home",
 #'   items = list(
-#'     list(index = "home", label = "Home", icon = "el-icon-house"),
-#'     list(index = "products", label = "Products", icon = "el-icon-goods",
+#'     list(index = "home", label = "Home", icon = "House"),
+#'     list(index = "products", label = "Products", icon = "Goods",
 #'          children = list(
 #'            list(index = "products-all", label = "All"),
 #'            list(index = "products-new", label = "New")

@@ -39,7 +39,8 @@ user types. A named vector \code{c(Label = value)} or a list of
 \item{rules}{A single \code{\link[=el_rule]{el_rule()}} or a list of them.}
 
 \item{...}{Further props. Element's form-item props -- \code{required},
-\code{error}, \code{label_width}, \code{size}, \code{show_message}, \code{inline_message}, and
+\code{error}, \code{label_width}, \code{label_position}, \code{size}, \code{show_message},
+\code{inline_message}, \code{validate_status}, \code{for}, and
 \code{label_html}/\code{error_html} for markup of your own, a string or
 htmltools tags -- go on the field's
 form item; anything else on the control, e.g. \code{placeholder}, \code{min},

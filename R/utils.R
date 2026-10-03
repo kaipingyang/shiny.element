@@ -540,10 +540,18 @@
 #'
 #' @param values A named list, names in snake_case as the R arguments are.
 #' @param prefix A prefix for the fields' names, or `NULL`.
+#' @param rename Named character vector: an argument's name, and the prop it
+#'   stands for, where the two differ.
 #' @return A list of `attrs` (for the tag) and `data` (for the Vue data).
 #' @keywords internal
-.el_props <- function(values, prefix = NULL) {
+.el_props <- function(values, prefix = NULL, rename = NULL) {
   if (!length(values)) return(list(attrs = list(), data = list()))
+  # An argument named apart from its prop -- a watermark's `width` would
+  # be the component's own -- maps to the prop's upstream name
+  upstream <- names(values)
+  hit <- upstream %in% names(rename)
+  upstream[hit] <- gsub("-", "_", rename[upstream[hit]])
+  names(values) <- upstream
   camel <- vapply(names(values), .el_camel_case, "")
   # A wrapper that absorbs a trigger keeps its fields apart from the
   # trigger's own: tipPlacement, not placement
@@ -569,11 +577,10 @@
   parts <- strsplit(sub("^el-icon-", "", x), "-", fixed = TRUE)[[1]]
   name <- paste0(toupper(substring(parts, 1, 1)), substring(parts, 2), collapse = "")
   # Element UI names that Element Plus spells differently
-  renamed <- c(S_tools = "Tools", UserSolid = "UserFilled", StarOn = "StarFilled",
-               StarOff = "Star", Bottom = "Bottom", Close = "Close", Plus = "Plus",
-               Setting = "Setting", Delete = "Delete", Edit = "Edit",
-               More = "MoreFilled", Loading = "Loading", House = "House",
-               SuccessFilled = "SuccessFilled")
+  renamed <- c(STools = "Tools", UserSolid = "UserFilled", StarOn = "StarFilled",
+               StarOff = "Star", More = "MoreFilled", Error = "CircleCloseFilled",
+               Success = "CircleCheckFilled", Warning = "WarningFilled",
+               Info = "InfoFilled", Question = "QuestionFilled")
   if (name %in% names(renamed)) renamed[[name]] else name
 }
 
@@ -592,4 +599,18 @@
   x <- gsub("yyyy", "YYYY", x, fixed = TRUE)
   x <- gsub("yy", "YY", x, fixed = TRUE)
   gsub("(?<![D])dd(?!d)", "DD", x, perl = TRUE)
+}
+
+#' An icon inside a component's template
+#'
+#' Where Vue compiles the markup -- a menu, a dropdown, a slot -- an icon is
+#' Element Plus's own `<el-icon>` holding the icon component. A tag is passed
+#' through.
+#'
+#' @param x An icon's name (any form [el_icon()] takes), or a tag.
+#' @return Markup.
+#' @keywords internal
+.el_vue_icon <- function(x) {
+  if (!is.character(x)) return(x)
+  htmltools::HTML(sprintf("<el-icon><%s /></el-icon>", .el_icon_pascal(x)))
 }

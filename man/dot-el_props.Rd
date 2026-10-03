@@ -4,12 +4,15 @@
 \alias{.el_props}
 \title{Optional props, bound and given their data}
 \usage{
-.el_props(values, prefix = NULL)
+.el_props(values, prefix = NULL, rename = NULL)
 }
 \arguments{
 \item{values}{A named list, names in snake_case as the R arguments are.}
 
 \item{prefix}{A prefix for the fields' names, or \code{NULL}.}
+
+\item{rename}{Named character vector: an argument's name, and the prop it
+stands for, where the two differ.}
 }
 \value{
 A list of \code{attrs} (for the tag) and \code{data} (for the Vue data).
