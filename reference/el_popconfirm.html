@@ -177,6 +177,8 @@ for actions that warrant a check but not a dialog.</p>
 <span>  hide_after <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  persistent <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  teleported <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  popconfirm_width <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  <span class="va">...</span>,</span>
 <span>  width <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  slots <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  session <span class="op">=</span> <span class="cn">NULL</span>,</span>
@@ -244,6 +246,17 @@ popconfirm will be destroyed. Element Plus's <code>persistent</code> (boolean).<
 Plus's <code>teleported</code> (boolean).</p></dd>
 
 
+<dt id="arg-popconfirm-width">popconfirm_width<a class="anchor" aria-label="anchor" href="#arg-popconfirm-width"></a></dt>
+<dd><p>Width of the prompt: pixels, or a CSS width; at
+least 150px. Element Plus's <code>width</code>, named apart from <code>width</code> (the
+component's own box) as <code><a href="el_popover.html">el_popover()</a></code>'s <code>popover_width</code> is.</p></dd>
+
+
+<dt id="arg--">...<a class="anchor" aria-label="anchor" href="#arg--"></a></dt>
+<dd><p>Any other attribute of Element Plus's tooltip, which the popconfirm
+inherits, in snake_case: <code>enterable = FALSE</code>, <code>offset = 20</code>.</p></dd>
+
+
 <dt id="arg-width">width<a class="anchor" aria-label="anchor" href="#arg-width"></a></dt>
 <dd><p>Component width, as a CSS unit.</p></dd>
 
@@ -289,7 +302,7 @@ upstream passes it. Default <code>"bottom"</code>.</p></dd>
 <span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> &lt;div id="del" data-shiny-vue style="display: contents"&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   &lt;script type="text/x-template" data-shiny-vue-template&gt;&lt;div id="del_container" style="display: contents"&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   &lt;el-popconfirm :title="pcTitle === null ? undefined : pcTitle" :confirm-button-text="pcConfirmButtonText === null ? undefined : pcConfirmButtonText" :cancel-button-text="pcCancelButtonText === null ? undefined : pcCancelButtonText" :confirm-button-type="pcConfirmButtonType === null ? undefined : pcConfirmButtonType" :cancel-button-type="pcCancelButtonType === null ? undefined : pcCancelButtonType" :icon="pcIcon === null ? undefined : pcIcon" :icon-color="pcIconColor === null ? undefined : pcIconColor" :hide-icon="pcHideIcon === null ? undefined : pcHideIcon" @confirm="handleConfirm" @cancel="handleCancel" :effect="pcEffect === null ? undefined : pcEffect" :hide-after="pcHideAfter === null ? undefined : pcHideAfter" :persistent="pcPersistent === null ? undefined : pcPersistent" :teleported="pcTeleported === null ? undefined : pcTeleported" :placement="pcPlacement === null ? undefined : pcPlacement"&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   &lt;el-popconfirm :title="pcTitle === null ? undefined : pcTitle" :confirm-button-text="pcConfirmButtonText === null ? undefined : pcConfirmButtonText" :cancel-button-text="pcCancelButtonText === null ? undefined : pcCancelButtonText" :confirm-button-type="pcConfirmButtonType === null ? undefined : pcConfirmButtonType" :cancel-button-type="pcCancelButtonType === null ? undefined : pcCancelButtonType" :icon="pcIcon === null ? undefined : pcIcon" :icon-color="pcIconColor === null ? undefined : pcIconColor" :hide-icon="pcHideIcon === null ? undefined : pcHideIcon" @confirm="handleConfirm" @cancel="handleCancel" :effect="pcEffect === null ? undefined : pcEffect" :hide-after="pcHideAfter === null ? undefined : pcHideAfter" :persistent="pcPersistent === null ? undefined : pcPersistent" :teleported="pcTeleported === null ? undefined : pcTeleported" :placement="pcPlacement === null ? undefined : pcPlacement" :width="pcWidth === null ? undefined : pcWidth"&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     &lt;template v-slot:reference&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>       &lt;span&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>         &lt;el-button type="danger"&gt;Delete&lt;/el-button&gt;</span>
@@ -297,7 +310,7 @@ upstream passes it. Default <code>"bottom"</code>.</p></dd>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     &lt;/template&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   &lt;/el-popconfirm&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> &lt;/div&gt;&lt;/script&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   &lt;script type="application/json" data-shiny-vue-options&gt;{"options":{"data":{"pcTitle":"Delete this row?","pcConfirmButtonText":null,"pcCancelButtonText":null,"pcConfirmButtonType":null,"pcCancelButtonType":null,"pcIcon":null,"pcIconColor":null,"pcHideIcon":null,"pcEffect":null,"pcHideAfter":null,"pcPersistent":null,"pcTeleported":null,"pcPlacement":null},"methods":{"handleConfirm":"function() { window.Shiny &amp;&amp; Shiny.setInputValue &amp;&amp; Shiny.setInputValue('del_confirm', true, {priority: 'event'}); }","handleCancel":"function() { window.Shiny &amp;&amp; Shiny.setInputValue &amp;&amp; Shiny.setInputValue('del_cancel', true, {priority: 'event'}); }"}},"input":null,"rate":null,"type":null,"evals":["options.methods.handleConfirm","options.methods.handleCancel"]}&lt;/script&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   &lt;script type="application/json" data-shiny-vue-options&gt;{"options":{"data":{"pcTitle":"Delete this row?","pcConfirmButtonText":null,"pcCancelButtonText":null,"pcConfirmButtonType":null,"pcCancelButtonType":null,"pcIcon":null,"pcIconColor":null,"pcHideIcon":null,"pcEffect":null,"pcHideAfter":null,"pcPersistent":null,"pcTeleported":null,"pcPlacement":null,"pcWidth":null},"methods":{"handleConfirm":"function() { window.Shiny &amp;&amp; Shiny.setInputValue &amp;&amp; Shiny.setInputValue('del_confirm', true, {priority: 'event'}); }","handleCancel":"function() { window.Shiny &amp;&amp; Shiny.setInputValue &amp;&amp; Shiny.setInputValue('del_cancel', true, {priority: 'event'}); }"}},"input":null,"rate":null,"type":null,"evals":["options.methods.handleConfirm","options.methods.handleCancel"]}&lt;/script&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> &lt;/div&gt;</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/interactive.html" class="external-link">interactive</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span></span>

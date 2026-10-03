@@ -178,7 +178,8 @@ until this function answers.</p>
 <span>  session <span class="op">=</span> <span class="fu">shiny</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/domains.html" class="external-link">getDefaultReactiveDomain</a></span><span class="op">(</span><span class="op">)</span>,</span>
 <span>  <span class="va">id</span>,</span>
 <span>  <span class="va">request</span>,</span>
-<span>  children <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">)</span></span>
+<span>  children <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>  reject <span class="op">=</span> <span class="cn">FALSE</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
 
@@ -203,6 +204,12 @@ until this function answers.</p>
 <dt id="arg-children">children<a class="anchor" aria-label="anchor" href="#arg-children"></a></dt>
 <dd><p>What to load. For a tree, nodes such as <code>list(id =, label =, leaf = TRUE)</code>; for a cascader, options such as <code>list(value =, label =, leaf = TRUE)</code>; for a table, rows, as a data.frame or a list.
 An empty list means there is nothing below.</p></dd>
+
+
+<dt id="arg-reject">reject<a class="anchor" aria-label="anchor" href="#arg-reject"></a></dt>
+<dd><p><code>TRUE</code> to answer that the load failed, Element Plus's
+<code>reject()</code>: a tree node stops spinning and can be loaded again when it
+is next expanded. A cascader or table takes it as nothing below.</p></dd>
 
 </dl></div>
     <div class="section level2">

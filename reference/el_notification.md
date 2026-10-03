@@ -40,7 +40,9 @@ el_notification(
 
 - message:
 
-  Notification body text.
+  Notification body text, or a VNode built in the browser:
+  [`JS()`](https://kaipingyang.github.io/shiny.element/reference/JS.md)
+  code calling `Vue.h()`, or a function returning one.
 
 - title:
 

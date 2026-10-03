@@ -38,7 +38,9 @@ el_table_v2(
   sort_by = NULL,
   sort_state = NULL,
   width = NULL,
-  slots = NULL
+  slots = NULL,
+  methods = NULL,
+  auto_resize = FALSE
 )
 ```
 
@@ -212,6 +214,22 @@ el_table_v2(
   Named list of Element slot contents: `cell`, `header`, `header-cell`,
   `row`, `footer`, `empty`, `overlay`. A scoped slot is written with
   [`template()`](https://kaipingyang.github.io/shiny.element/reference/template.md).
+
+- methods:
+
+  Named list of
+  [`JS()`](https://kaipingyang.github.io/shiny.element/reference/JS.md)
+  functions that the slot templates can call by name. Element Plus's own
+  examples build cells, header rows and rows in JavaScript; such a
+  function, given the slot's scope, can do the same and return the cells
+  to draw (`Vue.h()`, `Vue.cloneVNode()`). Each is drawn with
+  `<component :is="cell" />`.
+
+- auto_resize:
+
+  `TRUE` to size the table to its container, as Element Plus's
+  `el-auto-resizer` does: `table_v2_width` and `height` are then
+  ignored, and the container needs a height of its own.
 
 ## Value
 

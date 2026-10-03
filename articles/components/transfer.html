@@ -325,10 +325,10 @@ customize the empty content for each panel.</p>
       <el-empty :description="emptyDescription === null ? undefined : emptyDescription" :image="emptyImage === null ? undefined : emptyImage" :image-size="emptyImageSize === null ? undefined : emptyImageSize"></el-empty>
     </template>
     <template v-slot:right-empty>
-      <el-empty :description="el2_emptyDescription === null ? undefined : el2_emptyDescription" :image="el2_emptyImage === null ? undefined : el2_emptyImage" :image-size="el2_emptyImageSize === null ? undefined : el2_emptyImageSize"></el-empty>
+      <el-empty :description="el3_emptyDescription === null ? undefined : el3_emptyDescription" :image="el3_emptyImage === null ? undefined : el3_emptyImage" :image-size="el3_emptyImageSize === null ? undefined : el3_emptyImageSize"></el-empty>
     </template>
   </el-transfer>
-</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":[],"data":[],"titles":null,"buttonTexts":null,"filterable":null,"filterPlaceholder":null,"filterMethod":null,"targetOrder":null,"format":null,"props":null,"leftDefaultChecked":null,"rightDefaultChecked":null,"renderContent":null,"itemSize":null,"validateEvent":null,"virtualScroll":null,"emptyDescription":"No data","emptyImage":null,"emptyImageSize":60,"el2_emptyDescription":"No data","el2_emptyImage":null,"el2_emptyImageSize":60},"methods":{"elEmitChange":"function() { var shape = function(value, direction, moved) { return {value: value, direction: direction, moved: moved}; }; var v = shape.apply(this, arguments); if (v === undefined) return; window.shinyVue.emit('empty-content-empty', 'change', [v]); }","elEmitLeftCheckChange":"function() { var shape = function(checked, changed) { return {checked: checked, changed: changed}; }; var v = shape.apply(this, arguments); if (v === undefined) return; window.shinyVue.emit('empty-content-empty', 'left_check_change', [v]); }","elEmitRightCheckChange":"function() { var shape = function(checked, changed) { return {checked: checked, changed: changed}; }; var v = shape.apply(this, arguments); if (v === undefined) return; window.shinyVue.emit('empty-content-empty', 'right_check_change', [v]); }"},"watch":{"value":"function(newVal) { }"}},"input":"value","rate":null,"type":null,"evals":["options.methods.elEmitChange","options.methods.elEmitLeftCheckChange","options.methods.elEmitRightCheckChange","options.watch.value"]}</script>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":[],"data":[],"titles":null,"buttonTexts":null,"filterable":null,"filterPlaceholder":null,"filterMethod":null,"targetOrder":null,"format":null,"props":null,"leftDefaultChecked":null,"rightDefaultChecked":null,"renderContent":null,"itemSize":null,"validateEvent":null,"virtualScroll":null,"emptyDescription":"No data","emptyImage":null,"emptyImageSize":60,"el3_emptyDescription":"No data","el3_emptyImage":null,"el3_emptyImageSize":60},"methods":{"elEmitChange":"function() { var shape = function(value, direction, moved) { return {value: value, direction: direction, moved: moved}; }; var v = shape.apply(this, arguments); if (v === undefined) return; window.shinyVue.emit('empty-content-empty', 'change', [v]); }","elEmitLeftCheckChange":"function() { var shape = function(checked, changed) { return {checked: checked, changed: changed}; }; var v = shape.apply(this, arguments); if (v === undefined) return; window.shinyVue.emit('empty-content-empty', 'left_check_change', [v]); }","elEmitRightCheckChange":"function() { var shape = function(checked, changed) { return {checked: checked, changed: changed}; }; var v = shape.apply(this, arguments); if (v === undefined) return; window.shinyVue.emit('empty-content-empty', 'right_check_change', [v]); }"},"watch":{"value":"function(newVal) { }"}},"input":"value","rate":null,"type":null,"evals":["options.methods.elEmitChange","options.methods.elEmitLeftCheckChange","options.methods.elEmitRightCheckChange","options.watch.value"]}</script>
 </div>
 </div>
 </div>
@@ -515,19 +515,19 @@ elements will be inserted on the top</td>
 <td>{}</td>
 </tr>
 <tr class="odd">
+<td><code>props</code></td>
+<td><code>props</code></td>
+<td>prop aliases for data source</td>
+<td>
+<a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;object&lt;/p&gt;"><sup>11</sup></a><code>TransferPropsAlias</code>
+</td>
+<td></td>
+<td>—</td>
+</tr>
+<tr class="even">
 <td><code>left-default-checked</code></td>
 <td><code>left_default_checked</code></td>
 <td>key array of initially checked data items of the left list</td>
-<td>
-<a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;array&lt;/p&gt;"><sup>11</sup></a><code>Array&lt;string \\| number&gt;</code>
-</td>
-<td></td>
-<td>[]</td>
-</tr>
-<tr class="even">
-<td><code>right-default-checked</code></td>
-<td><code>right_default_checked</code></td>
-<td>key array of initially checked data items of the right list</td>
 <td>
 <a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;array&lt;/p&gt;"><sup>12</sup></a><code>Array&lt;string \\| number&gt;</code>
 </td>
@@ -535,26 +535,36 @@ elements will be inserted on the top</td>
 <td>[]</td>
 </tr>
 <tr class="odd">
+<td><code>right-default-checked</code></td>
+<td><code>right_default_checked</code></td>
+<td>key array of initially checked data items of the right list</td>
+<td>
+<a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;array&lt;/p&gt;"><sup>13</sup></a><code>Array&lt;string \\| number&gt;</code>
+</td>
+<td></td>
+<td>[]</td>
+</tr>
+<tr class="even">
 <td><code>validate-event</code></td>
 <td><code>validate_event</code></td>
 <td>whether to trigger form validation</td>
-<td><a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;boolean&lt;/p&gt;"><sup>13</sup></a></td>
+<td><a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;boolean&lt;/p&gt;"><sup>14</sup></a></td>
 <td></td>
 <td>true</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td><code>virtual-scroll</code></td>
 <td><code>virtual_scroll</code></td>
 <td>whether to enable virtual scrolling</td>
-<td><a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;boolean&lt;/p&gt;"><sup>14</sup></a></td>
+<td><a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;boolean&lt;/p&gt;"><sup>15</sup></a></td>
 <td></td>
 <td>false</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td><code>item-size</code></td>
 <td><code>item_size</code></td>
 <td>item height for virtual scrolling</td>
-<td><a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;number&lt;/p&gt;"><sup>15</sup></a></td>
+<td><a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;number&lt;/p&gt;"><sup>16</sup></a></td>
 <td></td>
 <td>30</td>
 </tr>

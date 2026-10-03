@@ -14,7 +14,8 @@ el_load_children(
   session = shiny::getDefaultReactiveDomain(),
   id,
   request,
-  children = list()
+  children = list(),
+  reject = FALSE
 )
 ```
 
@@ -40,6 +41,12 @@ el_load_children(
   `list(id =, label =, leaf = TRUE)`; for a cascader, options such as
   `list(value =, label =, leaf = TRUE)`; for a table, rows, as a
   data.frame or a list. An empty list means there is nothing below.
+
+- reject:
+
+  `TRUE` to answer that the load failed, Element Plus's `reject()`: a
+  tree node stops spinning and can be loaded again when it is next
+  expanded. A cascader or table takes it as nothing below.
 
 ## Value
 

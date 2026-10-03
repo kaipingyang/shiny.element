@@ -21,6 +21,8 @@ el_popconfirm(
   hide_after = NULL,
   persistent = NULL,
   teleported = NULL,
+  popconfirm_width = NULL,
+  ...,
   width = NULL,
   slots = NULL,
   session = NULL,
@@ -87,6 +89,18 @@ el_popconfirm(
   Whether popconfirm is teleported to the body. Element Plus's
   `teleported` (boolean).
 
+- popconfirm_width:
+
+  Width of the prompt: pixels, or a CSS width; at least 150px. Element
+  Plus's `width`, named apart from `width` (the component's own box) as
+  [`el_popover()`](https://kaipingyang.github.io/shiny.element/reference/el_popover.md)'s
+  `popover_width` is.
+
+- ...:
+
+  Any other attribute of Element Plus's tooltip, which the popconfirm
+  inherits, in snake_case: `enterable = FALSE`, `offset = 20`.
+
 - width:
 
   Component width, as a CSS unit.
@@ -133,7 +147,7 @@ el_popconfirm(
 )
 #> <div id="del" data-shiny-vue style="display: contents">
 #>   <script type="text/x-template" data-shiny-vue-template><div id="del_container" style="display: contents">
-#>   <el-popconfirm :title="pcTitle === null ? undefined : pcTitle" :confirm-button-text="pcConfirmButtonText === null ? undefined : pcConfirmButtonText" :cancel-button-text="pcCancelButtonText === null ? undefined : pcCancelButtonText" :confirm-button-type="pcConfirmButtonType === null ? undefined : pcConfirmButtonType" :cancel-button-type="pcCancelButtonType === null ? undefined : pcCancelButtonType" :icon="pcIcon === null ? undefined : pcIcon" :icon-color="pcIconColor === null ? undefined : pcIconColor" :hide-icon="pcHideIcon === null ? undefined : pcHideIcon" @confirm="handleConfirm" @cancel="handleCancel" :effect="pcEffect === null ? undefined : pcEffect" :hide-after="pcHideAfter === null ? undefined : pcHideAfter" :persistent="pcPersistent === null ? undefined : pcPersistent" :teleported="pcTeleported === null ? undefined : pcTeleported" :placement="pcPlacement === null ? undefined : pcPlacement">
+#>   <el-popconfirm :title="pcTitle === null ? undefined : pcTitle" :confirm-button-text="pcConfirmButtonText === null ? undefined : pcConfirmButtonText" :cancel-button-text="pcCancelButtonText === null ? undefined : pcCancelButtonText" :confirm-button-type="pcConfirmButtonType === null ? undefined : pcConfirmButtonType" :cancel-button-type="pcCancelButtonType === null ? undefined : pcCancelButtonType" :icon="pcIcon === null ? undefined : pcIcon" :icon-color="pcIconColor === null ? undefined : pcIconColor" :hide-icon="pcHideIcon === null ? undefined : pcHideIcon" @confirm="handleConfirm" @cancel="handleCancel" :effect="pcEffect === null ? undefined : pcEffect" :hide-after="pcHideAfter === null ? undefined : pcHideAfter" :persistent="pcPersistent === null ? undefined : pcPersistent" :teleported="pcTeleported === null ? undefined : pcTeleported" :placement="pcPlacement === null ? undefined : pcPlacement" :width="pcWidth === null ? undefined : pcWidth">
 #>     <template v-slot:reference>
 #>       <span>
 #>         <el-button type="danger">Delete</el-button>
@@ -141,7 +155,7 @@ el_popconfirm(
 #>     </template>
 #>   </el-popconfirm>
 #> </div></script>
-#>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"pcTitle":"Delete this row?","pcConfirmButtonText":null,"pcCancelButtonText":null,"pcConfirmButtonType":null,"pcCancelButtonType":null,"pcIcon":null,"pcIconColor":null,"pcHideIcon":null,"pcEffect":null,"pcHideAfter":null,"pcPersistent":null,"pcTeleported":null,"pcPlacement":null},"methods":{"handleConfirm":"function() { window.Shiny && Shiny.setInputValue && Shiny.setInputValue('del_confirm', true, {priority: 'event'}); }","handleCancel":"function() { window.Shiny && Shiny.setInputValue && Shiny.setInputValue('del_cancel', true, {priority: 'event'}); }"}},"input":null,"rate":null,"type":null,"evals":["options.methods.handleConfirm","options.methods.handleCancel"]}</script>
+#>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"pcTitle":"Delete this row?","pcConfirmButtonText":null,"pcCancelButtonText":null,"pcConfirmButtonType":null,"pcCancelButtonType":null,"pcIcon":null,"pcIconColor":null,"pcHideIcon":null,"pcEffect":null,"pcHideAfter":null,"pcPersistent":null,"pcTeleported":null,"pcPlacement":null,"pcWidth":null},"methods":{"handleConfirm":"function() { window.Shiny && Shiny.setInputValue && Shiny.setInputValue('del_confirm', true, {priority: 'event'}); }","handleCancel":"function() { window.Shiny && Shiny.setInputValue && Shiny.setInputValue('del_cancel', true, {priority: 'event'}); }"}},"input":null,"rate":null,"type":null,"evals":["options.methods.handleConfirm","options.methods.handleCancel"]}</script>
 #> </div>
 
 if (interactive()) {

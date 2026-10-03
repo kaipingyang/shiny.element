@@ -148,10 +148,63 @@ el_tree_v2(
 
 The class of tree nodes can be customized
 
-> **In R**
->
-> Upstream builds each node’s class with `props.class`; in R, draw the
-> node with the default slot and give its markup the class.
+`props = list(class =)` gives each node a class of its own, from a
+[`JS()`](https://kaipingyang.github.io/shiny.element/reference/JS.md)
+function of its data.
+
+``` r
+
+nodes <- list(
+  list(
+    id = "1",
+    label = "Level one 1",
+    children = list(list(
+      id = 4,
+      label = "Level two 1-1",
+      isPenultimate = TRUE,
+      children = list(
+        list(id = 9, label = "Level three 1-1-1"),
+        list(id = 10, label = "Level three 1-1-2")
+      )
+    ))
+  ),
+  list(
+    id = 2,
+    label = "Level one 2",
+    children = list(
+      list(
+        id = 5,
+        label = "Level two 2-1",
+        isPenultimate = TRUE,
+        children = list(
+          list(id = 11, label = "Level three 2-1-1"),
+          list(id = 12, label = "Level three 2-1-2")
+        )
+      ),
+      list(id = 6, label = "Level two 2-2")
+    )
+  )
+)
+tagList(
+  el_tree_v2(
+    "tv2_classed",
+    data = nodes,
+    show_checkbox = TRUE,
+    expand_on_click_node = FALSE,
+    height = 208,
+    default_expanded_keys = c("1", "2"),
+    props = list(
+      value = "id",
+      label = "label",
+      children = "children",
+      class = JS(
+        "function(data) { return data.isPenultimate ? 'is-penultimate' : ''; }"
+      )
+    )
+  ),
+  tags$style(".is-penultimate .el-tree-node__label { color: #626aef; }")
+)
+```
 
 ## Custom node icon
 
@@ -240,21 +293,44 @@ Element Plus’s tables, and beside each entry where it is in R.
 |----|----|----|----|----|----|
 | `data` | `data` | tree data | [^1]`Array<{[key: string]: any}>` |  | — |
 | `empty-text` | `empty_text` | text displayed when data is void | [^2] |  | — |
-| `highlight-current` | `highlight_current` | whether current node is highlighted | [^3] |  | false |
-| `expand-on-click-node` | `expand_on_click_node` | whether to expand or collapse node when clicking on the node, if false, then expand or collapse node only when clicking on the arrow icon. | [^4] |  | true |
-| `check-on-click-node` | `check_on_click_node` | whether to check or uncheck node when clicking on the node, if false, the node can only be checked or unchecked by clicking on the checkbox. | [^5] |  | false |
-| `check-on-click-leaf` | `check_on_click_leaf` | whether to check or uncheck node when clicking on leaf node (last children). | [^6] |  | true |
-| `default-expanded-keys` | `default_expanded_keys` | array of keys of initially expanded nodes | [^7]`Array<string \\| number>` |  | — |
-| `show-checkbox` | `show_checkbox` | whether node is selectable | [^8] |  | false |
-| `check-strictly` | `check_strictly` | whether checked state of a node not affects its father and child nodes when `show-checkbox` is `true` | [^9] |  | false |
-| `default-checked-keys` | `default_checked_keys` | array of keys of initially checked nodes | [^10]`Array<string \\| number>` |  | — |
-| `current-node-key` | `current_node_key` | key of initially selected node | [^11] / [^12] |  | — |
-| `filter-method` | `filter_method` | this function will be executed on each node when use filter method. if return `false`, tree node will be hidden. | [^13]`(query: string, data: TreeNodeData, node: TreeNode) => boolean` |  | — |
-| `indent` | `indent` | horizontal indentation of nodes in adjacent levels in pixels | [^14] |  | 16 |
-| `icon` | `icon` | custom tree node icon component | [^15] / [^16] |  | — |
-| `item-size` | `item_size` | custom tree node height | [^17] |  | 26 |
-| `scrollbar-always-on` | `scrollbar_always_on` | always show scrollbar | [^18] |  | false |
-| `height` | `height` | height of the tree | [^19] |  | 200 |
+| `props` | `props` | configuration options, see the following table | [^3] |  | — |
+| `highlight-current` | `highlight_current` | whether current node is highlighted | [^4] |  | false |
+| `expand-on-click-node` | `expand_on_click_node` | whether to expand or collapse node when clicking on the node, if false, then expand or collapse node only when clicking on the arrow icon. | [^5] |  | true |
+| `check-on-click-node` | `check_on_click_node` | whether to check or uncheck node when clicking on the node, if false, the node can only be checked or unchecked by clicking on the checkbox. | [^6] |  | false |
+| `check-on-click-leaf` | `check_on_click_leaf` | whether to check or uncheck node when clicking on leaf node (last children). | [^7] |  | true |
+| `default-expanded-keys` | `default_expanded_keys` | array of keys of initially expanded nodes | [^8]`Array<string \\| number>` |  | — |
+| `show-checkbox` | `show_checkbox` | whether node is selectable | [^9] |  | false |
+| `check-strictly` | `check_strictly` | whether checked state of a node not affects its father and child nodes when `show-checkbox` is `true` | [^10] |  | false |
+| `default-checked-keys` | `default_checked_keys` | array of keys of initially checked nodes | [^11]`Array<string \\| number>` |  | — |
+| `current-node-key` | `current_node_key` | key of initially selected node | [^12] / [^13] |  | — |
+| `filter-method` | `filter_method` | this function will be executed on each node when use filter method. if return `false`, tree node will be hidden. | [^14]`(query: string, data: TreeNodeData, node: TreeNode) => boolean` |  | — |
+| `indent` | `indent` | horizontal indentation of nodes in adjacent levels in pixels | [^15] |  | 16 |
+| `icon` | `icon` | custom tree node icon component | [^16] / [^17] |  | — |
+| `item-size` | `item_size` | custom tree node height | [^18] |  | 26 |
+| `scrollbar-always-on` | `scrollbar_always_on` | always show scrollbar | [^19] |  | false |
+| `height` | `height` | height of the tree | [^20] |  | 200 |
+
+### TreeV2 Exposes
+
+| Element | In R | Description |
+|----|----|----|
+| `filter` | `el_call(session, id, "filter")` | filter all tree nodes, filtered nodes will be hidden |
+| `getCheckedNodes` | `el_call(session, id, "getCheckedNodes")` | If the node can be selected (`show-checkbox` is `true`), it returns the currently selected array of nodes |
+| `getCheckedKeys` | `el_call(session, id, "getCheckedKeys")` | If the node can be selected (`show-checkbox` is `true`), it returns the currently selected array of node’s keys |
+| `setCheckedKeys` | `el_call(session, id, "setCheckedKeys")` | set certain nodes to be checked |
+| `setChecked` | `el_call(session, id, "setChecked")` | set node to be checked or not, `deep` (added in ^(2.14.0)) indicates whether child nodes should be recursively checked/unchecked. |
+| `setExpandedKeys` | `el_call(session, id, "setExpandedKeys")` | set certain nodes to be expanded |
+| `getHalfCheckedNodes` | `el_call(session, id, "getHalfCheckedNodes")` | If the node can be selected (`show-checkbox` is `true`), it returns the currently half selected array of nodes |
+| `getHalfCheckedKeys` | `el_call(session, id, "getHalfCheckedKeys")` | If the node can be selected (`show-checkbox` is `true`), it returns the currently half selected array of node’s keys |
+| `getCurrentKey` | `el_call(session, id, "getCurrentKey")` | return the highlight node’s key (undefined if no node is highlighted) |
+| `getCurrentNode` | `el_call(session, id, "getCurrentNode")` | return the highlight node’s data (undefined if no node is highlighted) |
+| `setCurrentKey` | `el_call(session, id, "setCurrentKey")` | set highlighted node by key |
+| `getNode` | `el_call(session, id, "getNode")` | get node by key or data |
+| `expandNode` | `el_call(session, id, "expandNode")` | expand specified node |
+| `collapseNode` | `el_call(session, id, "collapseNode")` | collapse specified node |
+| `setData` | `el_call(session, id, "setData")` | When the data is very large, using reactive data will cause the poor performance, so we provide a way to avoid this situation |
+| `scrollTo` | `el_call(session, id, "scrollTo")` | scroll to a given position |
+| `scrollToNode` | `el_call(session, id, "scrollToNode")` | scroll to a given tree key with specified scroll strategy |
 
 ### TreeV2 Events
 
@@ -280,7 +356,7 @@ Element Plus’s tables, and beside each entry where it is in R.
 
 [^2]: string
 
-[^3]: boolean
+[^3]: object
 
 [^4]: boolean
 
@@ -288,28 +364,30 @@ Element Plus’s tables, and beside each entry where it is in R.
 
 [^6]: boolean
 
-[^7]: array
+[^7]: boolean
 
-[^8]: boolean
+[^8]: array
 
 [^9]: boolean
 
-[^10]: array
+[^10]: boolean
 
-[^11]: string
+[^11]: array
 
-[^12]: number
+[^12]: string
 
-[^13]: Function
+[^13]: number
 
-[^14]: number
+[^14]: Function
 
-[^15]: string
+[^15]: number
 
-[^16]: Component
+[^16]: string
 
-[^17]: number
+[^17]: Component
 
-[^18]: boolean
+[^18]: number
 
-[^19]: number
+[^19]: boolean
+
+[^20]: number

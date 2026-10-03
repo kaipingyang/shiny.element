@@ -235,13 +235,16 @@
     var pos = 'is-' + (el.getAttribute('data-position') || 'top');
     var closable = tab.closable === null || tab.closable === undefined
       ? el.getAttribute('data-closable') === 'true' : !!tab.closable;
+    // a disabled tab cannot be closed, as in Element Plus's TabNav
+    if (tab.disabled) closable = false;
     var item = document.createElement('div');
     item.id = el.id + '-tab-' + tab.name;
     item.setAttribute('role', 'tab');
     item.setAttribute('aria-controls', el.id + '-pane-' + tab.name);
     item.setAttribute('tabindex', '-1');
     item.setAttribute('data-el-name', tab.name);
-    item.className = 'el-tabs__item ' + pos + (closable ? ' is-closable' : '');
+    item.className = 'el-tabs__item ' + pos + (closable ? ' is-closable' : '') +
+      (tab.disabled ? ' is-disabled' : '');
     item.appendChild(document.createTextNode(tab.label));
     if (closable) {
       var x = document.createElement('i');
@@ -278,9 +281,14 @@
       // receiveMessage has no callback of its own; it raises this instead.
       $(el).on('elTabsChange.elTabs', function() { callback(false); });
 
-      $(el).on('click.elTabs', '.el-tabs__new-tab', function() {
+      function add() {
         report(el, '_tab_add', true);
         report(el, '_edit', { target: null, action: 'add' });
+      }
+      $(el).on('click.elTabs', '.el-tabs__new-tab', add);
+      // focusable, so Enter adds a tab as a click does (Element's handleKeydown)
+      $(el).on('keydown.elTabs', '.el-tabs__new-tab', function(e) {
+        if (e.key === 'Enter' || e.keyCode === 13) { e.preventDefault(); add(); }
       });
 
       $(el).on('click.elTabs', '.el-tabs__item', function(e) {
@@ -291,6 +299,7 @@
         // otherwise select the tab on its way out.
         if (e.target.closest && e.target.closest('.is-icon-close')) {
           e.stopPropagation();
+          if (item.classList.contains('is-disabled')) return;
           removeTab(el, name, callback);
           report(el, '_tab_remove', name);
           report(el, '_edit', { target: name, action: 'remove' });
@@ -315,9 +324,12 @@
         }
         if ([37, 38, 39, 40].indexOf(k) === -1) return;
         e.preventDefault();
-        var list = items(el), i = list.indexOf(item);
-        var to = (k === 37 || k === 38) ? (i === 0 ? list.length - 1 : i - 1)
-                                        : (i < list.length - 1 ? i + 1 : 0);
+        // disabled tabs are passed over, as Element's changeTab does
+        var list = items(el).filter(function(t) { return !t.classList.contains('is-disabled'); });
+        var i = list.indexOf(item);
+        if (!list.length) return;
+        var to = i + ((k === 37 || k === 38) ? -1 : 1);
+        if (to < 0) to = list.length - 1; else if (to >= list.length) to = 0;
         el._elKeyboard = true;
         list[to].focus();
         list[to].click();

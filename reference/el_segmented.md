@@ -15,6 +15,7 @@ el_segmented(
   validate_event = NULL,
   aria_label = NULL,
   direction = NULL,
+  props = NULL,
   label = NULL,
   label_position = c("top", "left", "right"),
   label_width = NULL,
@@ -69,6 +70,12 @@ el_segmented(
 
   Display direction. Element Plus's `direction` ('horizontal' \|
   'vertical').
+
+- props:
+
+  Which field of an option holds what, when the options are records
+  named otherwise: `list(value =, label =, disabled =)`, Element Plus's
+  `props`.
 
 - label:
 
@@ -140,8 +147,8 @@ el_segmented(
 )
 #> <div id="period" data-shiny-vue style="display: contents">
 #>   <script type="text/x-template" data-shiny-vue-template><div id="period_container" style="display: contents">
-#>   <el-segmented v-model="value" @change="handleChange" :options="options === null ? undefined : options" :size="size === null ? undefined : size" :block="block === null ? undefined : block" :disabled="disabled === null ? undefined : disabled" :validate-event="validateEvent === null ? undefined : validateEvent" :aria-label="ariaLabel === null ? undefined : ariaLabel" :direction="direction === null ? undefined : direction"></el-segmented>
+#>   <el-segmented v-model="value" @change="handleChange" :options="options === null ? undefined : options" :size="size === null ? undefined : size" :block="block === null ? undefined : block" :disabled="disabled === null ? undefined : disabled" :validate-event="validateEvent === null ? undefined : validateEvent" :aria-label="ariaLabel === null ? undefined : ariaLabel" :direction="direction === null ? undefined : direction" :props="props === null ? undefined : props"></el-segmented>
 #> </div></script>
-#>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":"w","options":[{"value":"d","label":"Day"},{"value":"w","label":"Week"},{"value":"m","label":"Month"}],"size":null,"block":null,"disabled":null,"validateEvent":null,"ariaLabel":null,"direction":null},"methods":{"handleChange":"function(v) { }"}},"input":"value","rate":null,"type":null,"evals":["options.methods.handleChange"]}</script>
+#>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":"w","options":[{"value":"d","label":"Day"},{"value":"w","label":"Week"},{"value":"m","label":"Month"}],"size":null,"block":null,"disabled":null,"validateEvent":null,"ariaLabel":null,"direction":null,"props":null},"methods":{"handleChange":"function(v) { }"}},"input":"value","rate":null,"type":null,"evals":["options.methods.handleChange"]}</script>
 #> </div>
 ```

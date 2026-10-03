@@ -14,7 +14,8 @@ update_el_tooltip(
   id,
   content = NULL,
   disabled = NULL,
-  visible = NULL
+  visible = NULL,
+  virtual_ref = NULL
 )
 ```
 
@@ -32,6 +33,11 @@ update_el_tooltip(
 - content, disabled, visible:
 
   New values; `NULL` leaves one unchanged.
+
+- virtual_ref:
+
+  A new CSS selector for the element the tooltip is attached to, as in
+  [`el_tooltip()`](https://kaipingyang.github.io/shiny.element/reference/el_tooltip.md).
 
 ## Value
 

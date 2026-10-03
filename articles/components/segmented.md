@@ -134,13 +134,14 @@ Element Plus’s tables, and beside each entry where it is in R.
 |----|----|----|----|----|----|
 | `model-value` | `value`; `input$<id>` | binding value | [^1] / [^2] / [^3] |  | — |
 | `options` | `options` | data of the options | [^4]`Option[]` |  | \[\] |
-| `size` | `size` | size of component | [^5]`'' \\| 'large' \\| 'default' \\| 'small'` |  | ’’ |
-| `block` | `block` | fit width of parent content | [^6] |  | false |
-| `disabled` | `disabled` | whether segmented is disabled | [^7] |  | false |
-| `validate-event` | `validate_event` | whether to trigger form validation | [^8] |  | true |
-| `id` | `id`, the Shiny input’s | native `id` attribute | [^9] |  | — |
-| `aria-label` | `aria_label` | native `aria-label` attribute | [^10] |  | — |
-| `direction` | `direction` | display direction | [^11]`'horizontal' \\| 'vertical'` |  | horizontal |
+| `props` | `props` | configuration options, see the following table | [^5] |  | — |
+| `size` | `size` | size of component | [^6]`'' \\| 'large' \\| 'default' \\| 'small'` |  | ’’ |
+| `block` | `block` | fit width of parent content | [^7] |  | false |
+| `disabled` | `disabled` | whether segmented is disabled | [^8] |  | false |
+| `validate-event` | `validate_event` | whether to trigger form validation | [^9] |  | true |
+| `id` | `id`, the Shiny input’s | native `id` attribute | [^10] |  | — |
+| `aria-label` | `aria_label` | native `aria-label` attribute | [^11] |  | — |
+| `direction` | `direction` | display direction | [^12]`'horizontal' \\| 'vertical'` |  | horizontal |
 
 ### Events
 
@@ -162,16 +163,18 @@ Element Plus’s tables, and beside each entry where it is in R.
 
 [^4]: array
 
-[^5]: enum
+[^5]: object
 
-[^6]: boolean
+[^6]: enum
 
 [^7]: boolean
 
 [^8]: boolean
 
-[^9]: string
+[^9]: boolean
 
 [^10]: string
 
-[^11]: enum
+[^11]: string
+
+[^12]: enum

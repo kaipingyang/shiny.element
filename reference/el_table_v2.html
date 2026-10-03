@@ -192,7 +192,9 @@
 <span>  sort_by <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  sort_state <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  width <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  slots <span class="op">=</span> <span class="cn">NULL</span></span>
+<span>  slots <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  methods <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  auto_resize <span class="op">=</span> <span class="cn">FALSE</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
 
@@ -363,6 +365,20 @@ instead of when mouse is placed above the table. Element Plus's
 <dd><p>Named list of Element slot contents: <code>cell</code>, <code>header</code>,
 <code>header-cell</code>, <code>row</code>, <code>footer</code>, <code>empty</code>, <code>overlay</code>. A scoped slot is
 written with <code><a href="template.html">template()</a></code>.</p></dd>
+
+
+<dt id="arg-methods">methods<a class="anchor" aria-label="anchor" href="#arg-methods"></a></dt>
+<dd><p>Named list of <code><a href="JS.html">JS()</a></code> functions that the slot templates can
+call by name. Element Plus's own examples build cells, header rows and
+rows in JavaScript; such a function, given the slot's scope, can do the
+same and return the cells to draw (<code>Vue.h()</code>, <code>Vue.cloneVNode()</code>). Each
+is drawn with <code>&lt;component :is="cell" /&gt;</code>.</p></dd>
+
+
+<dt id="arg-auto-resize">auto_resize<a class="anchor" aria-label="anchor" href="#arg-auto-resize"></a></dt>
+<dd><p><code>TRUE</code> to size the table to its container, as Element
+Plus's <code>el-auto-resizer</code> does: <code>table_v2_width</code> and <code>height</code> are then
+ignored, and the container needs a height of its own.</p></dd>
 
 </dl></div>
     <div class="section level2">

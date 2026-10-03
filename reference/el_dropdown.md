@@ -179,13 +179,15 @@ el_dropdown(
 
 - virtual_ref:
 
-  Indicates the reference element to which the dropdown is attached.
-  Element Plus's `virtual-ref` (HTMLElement).
+  A CSS selector, `"#help-icon"`, for an element elsewhere on the page
+  that the dropdown is attached to, in place of a trigger of its own.
+  Element Plus's `virtual-ref` takes the element itself; the selector is
+  looked up in the browser.
 
 - virtual_triggering:
 
-  Indicates whether virtual triggering is enabled. Element Plus's
-  `virtual-triggering` (boolean).
+  Whether virtual triggering is enabled. Element Plus's
+  `virtual-triggering` (boolean); `TRUE` when `virtual_ref` is given.
 
 - width:
 
@@ -238,7 +240,7 @@ el_dropdown(
 )
 #> <div id="dd1" data-shiny-vue style="display: contents">
 #>   <script type="text/x-template" data-shiny-vue-template><div id="dd1_container" style="display: contents">
-#>   <el-dropdown :trigger="trigger" :hide-on-click="hideOnClick" :placement="placement" :disabled="disabled" :split-button="splitButton" @command="handleCommand" :type="type === null ? undefined : type" :size="size === null ? undefined : size" :show-timeout="showTimeout === null ? undefined : showTimeout" :hide-timeout="hideTimeout === null ? undefined : hideTimeout" :tabindex="tabindex === null ? undefined : tabindex" @click="elEmitClick" @visible-change="elEmitVisibleChange" :append-to="appendTo === null ? undefined : appendTo" :button-props="buttonProps === null ? undefined : buttonProps" :effect="effect === null ? undefined : effect" :max-height="maxHeight === null ? undefined : maxHeight" :persistent="persistent === null ? undefined : persistent" :popper-class="popperClass === null ? undefined : popperClass" :popper-options="popperOptions === null ? undefined : popperOptions" :popper-style="popperStyle === null ? undefined : popperStyle" :role="role === null ? undefined : role" :show-arrow="showArrow === null ? undefined : showArrow" :teleported="teleported === null ? undefined : teleported" :trigger-keys="triggerKeys === null ? undefined : triggerKeys" :virtual-ref="virtualRef === null ? undefined : virtualRef" :virtual-triggering="virtualTriggering === null ? undefined : virtualTriggering">
+#>   <el-dropdown :trigger="trigger" :hide-on-click="hideOnClick" :placement="placement" :disabled="disabled" :split-button="splitButton" @command="handleCommand" :type="type === null ? undefined : type" :size="size === null ? undefined : size" :show-timeout="showTimeout === null ? undefined : showTimeout" :hide-timeout="hideTimeout === null ? undefined : hideTimeout" :tabindex="tabindex === null ? undefined : tabindex" @click="elEmitClick" @visible-change="elEmitVisibleChange" :append-to="appendTo === null ? undefined : appendTo" :button-props="buttonProps === null ? undefined : buttonProps" :effect="effect === null ? undefined : effect" :max-height="maxHeight === null ? undefined : maxHeight" :persistent="persistent === null ? undefined : persistent" :popper-class="popperClass === null ? undefined : popperClass" :popper-options="popperOptions === null ? undefined : popperOptions" :popper-style="popperStyle === null ? undefined : popperStyle" :role="role === null ? undefined : role" :show-arrow="showArrow === null ? undefined : showArrow" :teleported="teleported === null ? undefined : teleported" :trigger-keys="triggerKeys === null ? undefined : triggerKeys" :virtual-ref="$elRef(virtualRef)" :virtual-triggering="virtualTriggering === null ? undefined : virtualTriggering">
 #>     <span class="el-dropdown-link">
 #>       Actions
 #>       <el-icon class="el-icon--right"><arrow-down /></el-icon>

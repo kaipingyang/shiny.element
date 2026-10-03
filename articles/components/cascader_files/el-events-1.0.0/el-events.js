@@ -1,4 +1,4 @@
-// Element UI's side of the bridge.
+// Element Plus's side of the bridge.
 //
 // Mounting, the Shiny binding, serialising values and forwarding events are
 // shiny-vue.js's (window.shinyVue), and know nothing of Element. What is
@@ -20,6 +20,21 @@
     };
   }
 
+  var refState = new WeakMap();
+  // A component's host -- el_button("save") is #save -- draws no box of its
+  // own (display: contents), so a popup anchored there has nowhere to go:
+  // anchor it to the first element inside that does.
+  function boxOf(el) {
+    while (el && getComputedStyle(el).display === 'contents') {
+      var next = null;
+      for (var i = 0; i < el.children.length; i++) {
+        var c = el.children[i];
+        if (c.tagName !== 'SCRIPT' && c.tagName !== 'TEMPLATE') { next = c; break; }
+      }
+      el = next;
+    }
+    return el || undefined;
+  }
   sv.install = function (app) {
     if (!window.ElementPlus) return;
     var cfg = window.shinyElementConfig || {};
@@ -31,19 +46,68 @@
     // The page's size, for markup around a component -- its form item --
     // to follow as Element Plus's own components do
     app.config.globalProperties.$ELEMENT = { size: cfg.size || '' };
+    // A virtual-ref is an element, which R cannot send: it sends a CSS
+    // selector, looked up here. An element drawn after this component -- by
+    // another component, or by the server -- is looked for again on the next
+    // frames, a few times, before giving up. A selector matching several
+    // elements follows the pointer between them, one popup for all of them
+    // (Element Plus's singleton tooltip). A JS() function is called for
+    // anything else, an object with getBoundingClientRect() say.
+    app.config.globalProperties.$elRef = function (sel) {
+      if (sel === null || sel === undefined || sel === '') return undefined;
+      if (typeof sel === 'function') return sel.call(this);
+      if (typeof sel !== 'string') return sel;
+      // state per component instance, kept off the proxy: an unknown key
+      // read during render is a Vue warning
+      var vm = this, inst = vm.$;
+      var st = refState.get(inst);
+      if (!st) refState.set(inst, st = { tries: 0 });
+      var all = document.querySelectorAll(sel);
+      if (!all.length) {
+        if (++st.tries <= 30) requestAnimationFrame(function () { vm.$forceUpdate(); });
+        return undefined;
+      }
+      if (all.length === 1) return boxOf(all[0]);
+      if (st.sel !== sel) {
+        st.sel = sel;
+        st.cur = all[0];
+        document.addEventListener('mouseover', function (e) {
+          if (st.sel !== sel || inst.isUnmounted) return;
+          var t = e.target && e.target.closest && e.target.closest(sel);
+          if (t && t !== st.cur) { st.cur = t; vm.$forceUpdate(); }
+        }, true);
+      }
+      return boxOf(document.contains(st.cur) ? st.cur : all[0]);
+    };
+    // A picker's default-value and default-time are Dates; R sends text --
+    // "2010-10-01", "2010-10-01 12:00:00", "12:00:00" -- read in local time
+    // so a day never shifts with the time zone. A pair maps item by item.
+    app.config.globalProperties.$elDate = function (v) {
+      if (v === null || v === undefined || v === '') return undefined;
+      if (Array.isArray(v)) return v.map(app.config.globalProperties.$elDate);
+      if (typeof v !== 'string') return v;
+      var m = /^(?:(\d{4})-(\d{1,2})-(\d{1,2}))?[ T]?(?:(\d{1,2}):(\d{2})(?::(\d{2}))?)?$/.exec(v.trim());
+      if (!m || (!m[1] && !m[4])) return new Date(v);
+      return m[1]
+        ? new Date(+m[1], +m[2] - 1, +m[3], +(m[4] || 0), +(m[5] || 0), +(m[6] || 0))
+        : new Date(2000, 0, 1, +m[4], +m[5], +(m[6] || 0));
+    };
     var icons = window.ElementPlusIconsVue || {};
+    // Element UI names Element Plus spells differently. Element UI's "more"
+    // and "warning" were the filled icons, so they win over Element Plus's
+    // outlined More and Warning -- registered once, as Vue warns on a second.
+    var legacy = { 'user-solid': 'UserFilled', 'star-on': 'StarFilled', 'star-off': 'Star',
+                   's-tools': 'Tools', 'more': 'MoreFilled', 'error': 'CircleCloseFilled',
+                   'success': 'CircleCheckFilled', 'warning': 'WarningFilled',
+                   'info': 'InfoFilled', 'question': 'QuestionFilled' };
     Object.keys(icons).forEach(function (name) {
       if (name.charAt(0) !== name.charAt(0).toUpperCase()) return;
       app.component(name, icons[name]);
       // Element UI's class names, el-icon-arrow-right, reach the same icon
       // when given to an icon prop
-      app.component('el-icon-' + name.replace(/([a-z0-9])([A-Z])/g, '$1-$2').toLowerCase(), icons[name]);
+      var kebab = name.replace(/([a-z0-9])([A-Z])/g, '$1-$2').toLowerCase();
+      if (!legacy[kebab]) app.component('el-icon-' + kebab, icons[name]);
     });
-    // Element UI names Element Plus spells differently
-    var legacy = { 'user-solid': 'UserFilled', 'star-on': 'StarFilled', 'star-off': 'Star',
-                   's-tools': 'Tools', 'more': 'MoreFilled', 'error': 'CircleCloseFilled',
-                   'success': 'CircleCheckFilled', 'warning': 'WarningFilled',
-                   'info': 'InfoFilled', 'question': 'QuestionFilled' };
     Object.keys(legacy).forEach(function (old) {
       if (icons[legacy[old]]) app.component('el-icon-' + old, icons[legacy[old]]);
     });
@@ -161,6 +225,11 @@
   sv.refs.row = function(i, vm) {
     var rows = vm.tableData || [];
     return rows[i - 1];
+  };
+  // el_tree_node(key): a tree's node, the object its expandNode() and the
+  // like take, found by its key
+  sv.refs.node = function(key, vm, target) {
+    return target && typeof target.getNode === 'function' ? target.getNode(key) : undefined;
   };
   sv.refs.file = function(name, vm, target) {
     var files = vm.fileList || (target && target.uploadFiles) || [];

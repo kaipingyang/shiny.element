@@ -75,12 +75,14 @@
 
     var opts = options(message, ['id', 'boxType', 'message', 'title']);
     if (opts.inputPattern) opts.inputPattern = new RegExp(opts.inputPattern);
+    var text = (message['.functions'] || []).indexOf('message') !== -1
+      ? fn(message.message) : message.message;
 
     var box = message.boxType === 'prompt'
-      ? window.ELEMENT.MessageBox.prompt(message.message, message.title, opts)
+      ? window.ELEMENT.MessageBox.prompt(text, message.title, opts)
       : message.boxType === 'alert'
-        ? window.ELEMENT.MessageBox.alert(message.message, message.title, opts)
-        : window.ELEMENT.MessageBox.confirm(message.message, message.title, opts);
+        ? window.ELEMENT.MessageBox.alert(text, message.title, opts)
+        : window.ELEMENT.MessageBox.confirm(text, message.title, opts);
 
     function report(action, value) {
       Shiny.setInputValue(message.id,

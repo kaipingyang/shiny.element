@@ -70,14 +70,28 @@ el_config_provider(
 
 ## Message Configurations
 
-> **In R**
->
-> A message sent with
-> [`el_message()`](https://kaipingyang.github.io/shiny.element/reference/el_message.md)
-> is not inside any component, so a config provider’s `message` settings
-> do not reach it; give
-> [`el_message()`](https://kaipingyang.github.io/shiny.element/reference/el_message.md)
-> its `plain`, `placement` and `grouping` instead.
+The provider’s `message` settings are Element Plus’s page-wide message
+defaults, so they reach
+[`el_message()`](https://kaipingyang.github.io/shiny.element/reference/el_message.md)
+from the server: at most three at a time, plain, at the bottom.
+
+``` r
+
+ui <- el_page(
+  el_config_provider(
+    message = list(max = 3, plain = TRUE, placement = "bottom"),
+    el_button("cfg_msg", "OPEN")
+  )
+)
+server <- function(input, output, session) {
+  observeEvent(input$cfg_msg, {
+    el_message(session, "This is a message from bottom.")
+  })
+}
+shinyApp(ui, server)
+```
+
+![The message example, running](../../shots/config-provider-message.png)
 
 ## Empty Values Configurations
 

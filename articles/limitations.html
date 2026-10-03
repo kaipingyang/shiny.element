@@ -187,18 +187,21 @@
 
     
     
-<p>Every component Element Plus 2.14.7 documents is wrapped, with every
-documented attribute, event and slot reachable from R and every method
-callable by name. What follows is the small print – the places where
-this package behaves differently from Element in a browser, and why.</p>
+<p>Every component Element Plus 2.14.7 documents is wrapped, and every
+documented attribute, event and slot is reachable from R – each
+attribute bound to Element Plus’s own prop, or named in a short list of
+aliases and exclusions below – and every method is callable by name.
+What follows is the small print: the places where this package behaves
+differently from Element in a browser, the few things Element Plus does
+that R cannot, and why.</p>
 <p>Coverage is measured rather than claimed.
 <code>tools/api-coverage.R</code> renders every component and reads the
 markup back; <code>tools/api-coverage.py</code> compares that with the
-API tables in Element’s own documentation. A method being callable is
-not the same as it having been run: the methods exercised end to end in
-the package’s browser tests are fewer, and a method whose argument is a
-JavaScript callback cannot be called from R at all – Element’s promise
-form, where it has one, is what <code><a href="../reference/el_call.html">el_call()</a></code> uses.</p>
+API tables in Element’s own documentation. An argument counts only when
+the markup binds it to the prop of the same name; one that merely shares
+the name does not. Every method is also run, once, on a live component
+in a browser test; the few that cannot be called from R are listed
+below.</p>
 <div class="section level2">
 <h2 id="where-the-argument-name-differs-from-elements">Where the argument name differs from Element’s<a class="anchor" aria-label="anchor" href="#where-the-argument-name-differs-from-elements"></a>
 </h2>
@@ -239,11 +242,12 @@ a few exceptions. Each is deliberate; the rest translate mechanically
 <td><code>props</code></td>
 <td>
 <code>label_field</code>, <code>children_field</code>,
-<code>disabled_field</code>, <code>is_leaf_field</code>
+<code>disabled_field</code>, <code>is_leaf_field</code>,
+<code>class_field</code>
 </td>
 <td>
-<code><a href="../reference/el_tree.html">el_tree()</a></code>’s field map is four arguments rather than a
-nested list</td>
+<code><a href="../reference/el_tree.html">el_tree()</a></code>’s field map is arguments rather than a nested
+list</td>
 </tr>
 <tr class="odd">
 <td>
@@ -255,12 +259,34 @@ not the fields sent beside it</td>
 </tr>
 <tr class="even">
 <td>
-<code>width</code> (popover)</td>
-<td><code>popover_width</code></td>
+<code>width</code> (popover, popconfirm)</td>
+<td>
+<code>popover_width</code>, <code>popconfirm_width</code>
+</td>
 <td>Every component takes <code>width</code> for its own size; this one
 sizes the card</td>
 </tr>
 <tr class="odd">
+<td>
+<code>props.class</code> (tree)</td>
+<td><code>class_field</code></td>
+<td>As for the other fields of <code><a href="../reference/el_tree.html">el_tree()</a></code>’s map</td>
+</tr>
+<tr class="even">
+<td>
+<code>#reference</code> slot (tooltip)</td>
+<td><code>reference</code></td>
+<td>The element the tooltip describes, as for <code><a href="../reference/el_popover.html">el_popover()</a></code>;
+<code>trigger</code> is Element’s own, how it opens</td>
+</tr>
+<tr class="odd">
+<td><code>virtual-ref</code></td>
+<td>
+<code>virtual_ref</code>, a CSS selector</td>
+<td>Element takes the element itself, which R cannot send; the selector
+is looked up in the browser</td>
+</tr>
+<tr class="even">
 <td><code>model-value</code></td>
 <td>
 <code>value</code>, or <code>visible</code> (dialog, drawer),
@@ -270,7 +296,7 @@ sizes the card</td>
 <code>input$&lt;id&gt;</code>
 </td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td>
 <code>width</code> (watermark, table-v2)</td>
 <td>
@@ -278,7 +304,7 @@ sizes the card</td>
 </td>
 <td>As for the popover</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td>a prop named like a child’s field</td>
 <td>prefixed: <code>tip_</code>, <code>pop_</code>,
 <code>pc_</code>
@@ -331,23 +357,23 @@ from either side:</p>
 <div class="el-demo">
   <div id="two-names-city_shiny" data-shiny-vue style="display: contents">
     <script type="text/x-template" data-shiny-vue-template><div id="two-names-city_shiny_container" style="display: contents">
-  <el-select v-model="value" :multiple="multiple" :disabled="disabled" :clearable="clearable" :filterable="filterable" :multiple-limit="multipleLimit" :collapse-tags="collapseTags" @change="handleChange" :placeholder="placeholder === null ? undefined : placeholder" :size="size === null ? undefined : size" :value-key="valueKey === null ? undefined : valueKey" :name="name === null ? undefined : name" :autocomplete="autocomplete === null ? undefined : autocomplete" :automatic-dropdown="automaticDropdown === null ? undefined : automaticDropdown" :allow-create="allowCreate === null ? undefined : allowCreate" :loading="loading === null ? undefined : loading" :loading-text="loadingText === null ? undefined : loadingText" :no-match-text="noMatchText === null ? undefined : noMatchText" :no-data-text="noDataText === null ? undefined : noDataText" :popper-class="popperClass === null ? undefined : popperClass" :reserve-keyword="reserveKeyword === null ? undefined : reserveKeyword" :default-first-option="defaultFirstOption === null ? undefined : defaultFirstOption" :remote="remote === null ? undefined : remote" :filter-method="filterMethod === null ? undefined : filterMethod" :remote-method="remoteMethod === null ? elRemoteQuery : remoteMethod" @visible-change="elEmitVisibleChange" @remove-tag="elEmitRemoveTag" @clear="elEmitClear" @blur="elEmitBlur" @focus="elEmitFocus" @end-reached="elEmitEndReached" @popup-scroll="elEmitPopupScroll" :append-to="appendTo === null ? undefined : appendTo" :aria-label="ariaLabel === null ? undefined : ariaLabel" :clear-icon="clearIcon === null ? undefined : clearIcon" :collapse-tags-tooltip="collapseTagsTooltip === null ? undefined : collapseTagsTooltip" :debounce="debounce === null ? undefined : debounce" :effect="effect === null ? undefined : effect" :empty-values="emptyValues === null ? undefined : emptyValues" :fallback-placements="fallbackPlacements === null ? undefined : fallbackPlacements" :fit-input-width="fitInputWidth === null ? undefined : fitInputWidth" :max-collapse-tags="maxCollapseTags === null ? undefined : maxCollapseTags" :offset="offset === null ? undefined : offset" :persistent="persistent === null ? undefined : persistent" :placement="placement === null ? undefined : placement" :popper-options="popperOptions === null ? undefined : popperOptions" :popper-style="popperStyle === null ? undefined : popperStyle" :remote-show-suffix="remoteShowSuffix === null ? undefined : remoteShowSuffix" :show-arrow="showArrow === null ? undefined : showArrow" :suffix-icon="suffixIcon === null ? undefined : suffixIcon" :suffix-transition="suffixTransition === null ? undefined : suffixTransition" :tabindex="tabindex === null ? undefined : tabindex" :tag-effect="tagEffect === null ? undefined : tagEffect" :tag-type="tagType === null ? undefined : tagType" :teleported="teleported === null ? undefined : teleported" :validate-event="validateEvent === null ? undefined : validateEvent" :value-on-clear="valueOnClear === null ? undefined : valueOnClear">
+  <el-select v-model="value" :multiple="multiple" :disabled="disabled" :clearable="clearable" :filterable="filterable" :multiple-limit="multipleLimit" :collapse-tags="collapseTags" @change="handleChange" :placeholder="placeholder === null ? undefined : placeholder" :size="size === null ? undefined : size" :value-key="valueKey === null ? undefined : valueKey" :name="name === null ? undefined : name" :autocomplete="autocomplete === null ? undefined : autocomplete" :automatic-dropdown="automaticDropdown === null ? undefined : automaticDropdown" :allow-create="allowCreate === null ? undefined : allowCreate" :loading="loading === null ? undefined : loading" :loading-text="loadingText === null ? undefined : loadingText" :no-match-text="noMatchText === null ? undefined : noMatchText" :no-data-text="noDataText === null ? undefined : noDataText" :popper-class="popperClass === null ? undefined : popperClass" :reserve-keyword="reserveKeyword === null ? undefined : reserveKeyword" :default-first-option="defaultFirstOption === null ? undefined : defaultFirstOption" :remote="remote === null ? undefined : remote" :filter-method="filterMethod === null ? undefined : filterMethod" :remote-method="remoteMethod === null ? elRemoteQuery : remoteMethod" @visible-change="elEmitVisibleChange" @remove-tag="elEmitRemoveTag" @clear="elEmitClear" @blur="elEmitBlur" @focus="elEmitFocus" @end-reached="elEmitEndReached" @popup-scroll="elEmitPopupScroll" :append-to="appendTo === null ? undefined : appendTo" :aria-label="ariaLabel === null ? undefined : ariaLabel" :clear-icon="clearIcon === null ? undefined : clearIcon" :collapse-tags-tooltip="collapseTagsTooltip === null ? undefined : collapseTagsTooltip" :debounce="debounce === null ? undefined : debounce" :effect="effect === null ? undefined : effect" :empty-values="emptyValues === null ? undefined : emptyValues" :fallback-placements="fallbackPlacements === null ? undefined : fallbackPlacements" :fit-input-width="fitInputWidth === null ? undefined : fitInputWidth" :max-collapse-tags="maxCollapseTags === null ? undefined : maxCollapseTags" :offset="offset === null ? undefined : offset" :persistent="persistent === null ? undefined : persistent" :placement="placement === null ? undefined : placement" :popper-options="popperOptions === null ? undefined : popperOptions" :popper-style="popperStyle === null ? undefined : popperStyle" :remote-show-suffix="remoteShowSuffix === null ? undefined : remoteShowSuffix" :show-arrow="showArrow === null ? undefined : showArrow" :suffix-icon="suffixIcon === null ? undefined : suffixIcon" :suffix-transition="suffixTransition === null ? undefined : suffixTransition" :tabindex="tabindex === null ? undefined : tabindex" :tag-effect="tagEffect === null ? undefined : tagEffect" :tag-type="tagType === null ? undefined : tagType" :tag-tooltip="tagTooltip === null ? undefined : tagTooltip" :teleported="teleported === null ? undefined : teleported" :validate-event="validateEvent === null ? undefined : validateEvent" :value-on-clear="valueOnClear === null ? undefined : valueOnClear">
     <el-option v-for="opt in options" :key="opt.value" :value="opt.value" :label="opt.label" :disabled="opt.disabled"></el-option>
     <el-option-group v-for="g in groups" :key="g.label" :label="g.label" :disabled="g.disabled">
       <el-option v-for="opt in g.options" :key="opt.value" :value="opt.value" :label="opt.label" :disabled="opt.disabled"></el-option>
     </el-option-group>
   </el-select>
-</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":"sh","options":[{"value":"bj","label":"Beijing"},{"value":"sh","label":"Shanghai"}],"groups":[],"multiple":false,"disabled":false,"clearable":false,"filterable":false,"multipleLimit":0,"collapseTags":false,"placeholder":null,"size":null,"valueKey":null,"name":null,"autocomplete":null,"automaticDropdown":null,"allowCreate":null,"loading":null,"loadingText":null,"noMatchText":null,"noDataText":null,"popperClass":null,"reserveKeyword":null,"defaultFirstOption":null,"remote":null,"filterMethod":null,"remoteMethod":null,"appendTo":null,"ariaLabel":null,"clearIcon":null,"collapseTagsTooltip":null,"debounce":null,"effect":null,"emptyValues":null,"fallbackPlacements":null,"fitInputWidth":null,"maxCollapseTags":null,"offset":null,"persistent":null,"placement":null,"popperOptions":null,"popperStyle":null,"remoteShowSuffix":null,"showArrow":null,"suffixIcon":null,"suffixTransition":null,"tabindex":null,"tagEffect":null,"tagType":null,"teleported":null,"validateEvent":null,"valueOnClear":null},"methods":{"elEmitVisibleChange":"function() { window.shinyVue.emit('two-names-city_shiny', 'visible_change', arguments); }","elEmitRemoveTag":"function() { window.shinyVue.emit('two-names-city_shiny', 'remove_tag', arguments); }","elEmitClear":"function() { window.shinyVue.emit('two-names-city_shiny', 'clear', arguments); }","elEmitBlur":"function() { window.shinyVue.emit('two-names-city_shiny', 'blur', arguments); }","elEmitFocus":"function() { window.shinyVue.emit('two-names-city_shiny', 'focus', arguments); }","elEmitEndReached":"function() { window.shinyVue.emit('two-names-city_shiny', 'end_reached', arguments); }","elEmitPopupScroll":"function() { var shape = function(e) { var now = Date.now(); if (this._elLastScroll && now - this._elLastScroll < 200) return undefined; this._elLastScroll = now; return {scroll_left: e.scrollLeft, scroll_top: e.scrollTop}; }; var v = shape.apply(this, arguments); if (v === undefined) return; window.shinyVue.emit('two-names-city_shiny', 'popup_scroll', [v]); }","elRemoteQuery":"function(query) {\n  if (!(window.Shiny && Shiny.setInputValue)) return;\n  var self = this, n = this._elQueryN = (this._elQueryN || 0) + 1;\n  this.loading = true;\n  clearTimeout(this._elQueryTimer);\n  this._elQueryTimer = setTimeout(function() {\n    if (self._elQueryN !== n || !self.loading) return;\n    self.loading = false;\n    console.warn('[shiny.element] no answer to input$two-names-city_shiny_query within ' + window.shinyVue.askTimeout / 1000 + ' s');\n  }, window.shinyVue.askTimeout);\n  window.Shiny && Shiny.setInputValue && Shiny.setInputValue('two-names-city_shiny_query', query, {priority: 'event'});\n}","handleChange":"function(value) { }"}},"input":"value","rate":null,"type":null,"evals":["options.methods.elEmitVisibleChange","options.methods.elEmitRemoveTag","options.methods.elEmitClear","options.methods.elEmitBlur","options.methods.elEmitFocus","options.methods.elEmitEndReached","options.methods.elEmitPopupScroll","options.methods.elRemoteQuery","options.methods.handleChange"]}</script>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":"sh","options":[{"value":"bj","label":"Beijing"},{"value":"sh","label":"Shanghai"}],"groups":[],"multiple":false,"disabled":false,"clearable":false,"filterable":false,"multipleLimit":0,"collapseTags":false,"placeholder":null,"size":null,"valueKey":null,"name":null,"autocomplete":null,"automaticDropdown":null,"allowCreate":null,"loading":null,"loadingText":null,"noMatchText":null,"noDataText":null,"popperClass":null,"reserveKeyword":null,"defaultFirstOption":null,"remote":null,"filterMethod":null,"remoteMethod":null,"appendTo":null,"ariaLabel":null,"clearIcon":null,"collapseTagsTooltip":null,"debounce":null,"effect":null,"emptyValues":null,"fallbackPlacements":null,"fitInputWidth":null,"maxCollapseTags":null,"offset":null,"persistent":null,"placement":null,"popperOptions":null,"popperStyle":null,"remoteShowSuffix":null,"showArrow":null,"suffixIcon":null,"suffixTransition":null,"tabindex":null,"tagEffect":null,"tagType":null,"tagTooltip":null,"teleported":null,"validateEvent":null,"valueOnClear":null},"methods":{"elEmitVisibleChange":"function() { window.shinyVue.emit('two-names-city_shiny', 'visible_change', arguments); }","elEmitRemoveTag":"function() { window.shinyVue.emit('two-names-city_shiny', 'remove_tag', arguments); }","elEmitClear":"function() { window.shinyVue.emit('two-names-city_shiny', 'clear', arguments); }","elEmitBlur":"function() { window.shinyVue.emit('two-names-city_shiny', 'blur', arguments); }","elEmitFocus":"function() { window.shinyVue.emit('two-names-city_shiny', 'focus', arguments); }","elEmitEndReached":"function() { window.shinyVue.emit('two-names-city_shiny', 'end_reached', arguments); }","elEmitPopupScroll":"function() { var shape = function(e) { var now = Date.now(); if (this._elLastScroll && now - this._elLastScroll < 200) return undefined; this._elLastScroll = now; return {scroll_left: e.scrollLeft, scroll_top: e.scrollTop}; }; var v = shape.apply(this, arguments); if (v === undefined) return; window.shinyVue.emit('two-names-city_shiny', 'popup_scroll', [v]); }","elRemoteQuery":"function(query) {\n  if (!(window.Shiny && Shiny.setInputValue)) return;\n  var self = this, n = this._elQueryN = (this._elQueryN || 0) + 1;\n  this.loading = true;\n  clearTimeout(this._elQueryTimer);\n  this._elQueryTimer = setTimeout(function() {\n    if (self._elQueryN !== n || !self.loading) return;\n    self.loading = false;\n    console.warn('[shiny.element] no answer to input$two-names-city_shiny_query within ' + window.shinyVue.askTimeout / 1000 + ' s');\n  }, window.shinyVue.askTimeout);\n  window.Shiny && Shiny.setInputValue && Shiny.setInputValue('two-names-city_shiny_query', query, {priority: 'event'});\n}","handleChange":"function(value) { }"}},"input":"value","rate":null,"type":null,"evals":["options.methods.elEmitVisibleChange","options.methods.elEmitRemoveTag","options.methods.elEmitClear","options.methods.elEmitBlur","options.methods.elEmitFocus","options.methods.elEmitEndReached","options.methods.elEmitPopupScroll","options.methods.elRemoteQuery","options.methods.handleChange"]}</script>
 </div>
   <div id="two-names-city_element" data-shiny-vue style="display: contents">
     <script type="text/x-template" data-shiny-vue-template><div id="two-names-city_element_container" style="display: contents">
-  <el-select v-model="value" :multiple="multiple" :disabled="disabled" :clearable="clearable" :filterable="filterable" :multiple-limit="multipleLimit" :collapse-tags="collapseTags" @change="handleChange" :placeholder="placeholder === null ? undefined : placeholder" :size="size === null ? undefined : size" :value-key="valueKey === null ? undefined : valueKey" :name="name === null ? undefined : name" :autocomplete="autocomplete === null ? undefined : autocomplete" :automatic-dropdown="automaticDropdown === null ? undefined : automaticDropdown" :allow-create="allowCreate === null ? undefined : allowCreate" :loading="loading === null ? undefined : loading" :loading-text="loadingText === null ? undefined : loadingText" :no-match-text="noMatchText === null ? undefined : noMatchText" :no-data-text="noDataText === null ? undefined : noDataText" :popper-class="popperClass === null ? undefined : popperClass" :reserve-keyword="reserveKeyword === null ? undefined : reserveKeyword" :default-first-option="defaultFirstOption === null ? undefined : defaultFirstOption" :remote="remote === null ? undefined : remote" :filter-method="filterMethod === null ? undefined : filterMethod" :remote-method="remoteMethod === null ? elRemoteQuery : remoteMethod" @visible-change="elEmitVisibleChange" @remove-tag="elEmitRemoveTag" @clear="elEmitClear" @blur="elEmitBlur" @focus="elEmitFocus" @end-reached="elEmitEndReached" @popup-scroll="elEmitPopupScroll" :append-to="appendTo === null ? undefined : appendTo" :aria-label="ariaLabel === null ? undefined : ariaLabel" :clear-icon="clearIcon === null ? undefined : clearIcon" :collapse-tags-tooltip="collapseTagsTooltip === null ? undefined : collapseTagsTooltip" :debounce="debounce === null ? undefined : debounce" :effect="effect === null ? undefined : effect" :empty-values="emptyValues === null ? undefined : emptyValues" :fallback-placements="fallbackPlacements === null ? undefined : fallbackPlacements" :fit-input-width="fitInputWidth === null ? undefined : fitInputWidth" :max-collapse-tags="maxCollapseTags === null ? undefined : maxCollapseTags" :offset="offset === null ? undefined : offset" :persistent="persistent === null ? undefined : persistent" :placement="placement === null ? undefined : placement" :popper-options="popperOptions === null ? undefined : popperOptions" :popper-style="popperStyle === null ? undefined : popperStyle" :remote-show-suffix="remoteShowSuffix === null ? undefined : remoteShowSuffix" :show-arrow="showArrow === null ? undefined : showArrow" :suffix-icon="suffixIcon === null ? undefined : suffixIcon" :suffix-transition="suffixTransition === null ? undefined : suffixTransition" :tabindex="tabindex === null ? undefined : tabindex" :tag-effect="tagEffect === null ? undefined : tagEffect" :tag-type="tagType === null ? undefined : tagType" :teleported="teleported === null ? undefined : teleported" :validate-event="validateEvent === null ? undefined : validateEvent" :value-on-clear="valueOnClear === null ? undefined : valueOnClear">
+  <el-select v-model="value" :multiple="multiple" :disabled="disabled" :clearable="clearable" :filterable="filterable" :multiple-limit="multipleLimit" :collapse-tags="collapseTags" @change="handleChange" :placeholder="placeholder === null ? undefined : placeholder" :size="size === null ? undefined : size" :value-key="valueKey === null ? undefined : valueKey" :name="name === null ? undefined : name" :autocomplete="autocomplete === null ? undefined : autocomplete" :automatic-dropdown="automaticDropdown === null ? undefined : automaticDropdown" :allow-create="allowCreate === null ? undefined : allowCreate" :loading="loading === null ? undefined : loading" :loading-text="loadingText === null ? undefined : loadingText" :no-match-text="noMatchText === null ? undefined : noMatchText" :no-data-text="noDataText === null ? undefined : noDataText" :popper-class="popperClass === null ? undefined : popperClass" :reserve-keyword="reserveKeyword === null ? undefined : reserveKeyword" :default-first-option="defaultFirstOption === null ? undefined : defaultFirstOption" :remote="remote === null ? undefined : remote" :filter-method="filterMethod === null ? undefined : filterMethod" :remote-method="remoteMethod === null ? elRemoteQuery : remoteMethod" @visible-change="elEmitVisibleChange" @remove-tag="elEmitRemoveTag" @clear="elEmitClear" @blur="elEmitBlur" @focus="elEmitFocus" @end-reached="elEmitEndReached" @popup-scroll="elEmitPopupScroll" :append-to="appendTo === null ? undefined : appendTo" :aria-label="ariaLabel === null ? undefined : ariaLabel" :clear-icon="clearIcon === null ? undefined : clearIcon" :collapse-tags-tooltip="collapseTagsTooltip === null ? undefined : collapseTagsTooltip" :debounce="debounce === null ? undefined : debounce" :effect="effect === null ? undefined : effect" :empty-values="emptyValues === null ? undefined : emptyValues" :fallback-placements="fallbackPlacements === null ? undefined : fallbackPlacements" :fit-input-width="fitInputWidth === null ? undefined : fitInputWidth" :max-collapse-tags="maxCollapseTags === null ? undefined : maxCollapseTags" :offset="offset === null ? undefined : offset" :persistent="persistent === null ? undefined : persistent" :placement="placement === null ? undefined : placement" :popper-options="popperOptions === null ? undefined : popperOptions" :popper-style="popperStyle === null ? undefined : popperStyle" :remote-show-suffix="remoteShowSuffix === null ? undefined : remoteShowSuffix" :show-arrow="showArrow === null ? undefined : showArrow" :suffix-icon="suffixIcon === null ? undefined : suffixIcon" :suffix-transition="suffixTransition === null ? undefined : suffixTransition" :tabindex="tabindex === null ? undefined : tabindex" :tag-effect="tagEffect === null ? undefined : tagEffect" :tag-type="tagType === null ? undefined : tagType" :tag-tooltip="tagTooltip === null ? undefined : tagTooltip" :teleported="teleported === null ? undefined : teleported" :validate-event="validateEvent === null ? undefined : validateEvent" :value-on-clear="valueOnClear === null ? undefined : valueOnClear">
     <el-option v-for="opt in options" :key="opt.value" :value="opt.value" :label="opt.label" :disabled="opt.disabled"></el-option>
     <el-option-group v-for="g in groups" :key="g.label" :label="g.label" :disabled="g.disabled">
       <el-option v-for="opt in g.options" :key="opt.value" :value="opt.value" :label="opt.label" :disabled="opt.disabled"></el-option>
     </el-option-group>
   </el-select>
-</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":"sh","options":[{"value":"bj","label":"Beijing"},{"value":"sh","label":"Shanghai"}],"groups":[],"multiple":false,"disabled":false,"clearable":false,"filterable":false,"multipleLimit":0,"collapseTags":false,"placeholder":null,"size":null,"valueKey":null,"name":null,"autocomplete":null,"automaticDropdown":null,"allowCreate":null,"loading":null,"loadingText":null,"noMatchText":null,"noDataText":null,"popperClass":null,"reserveKeyword":null,"defaultFirstOption":null,"remote":null,"filterMethod":null,"remoteMethod":null,"appendTo":null,"ariaLabel":null,"clearIcon":null,"collapseTagsTooltip":null,"debounce":null,"effect":null,"emptyValues":null,"fallbackPlacements":null,"fitInputWidth":null,"maxCollapseTags":null,"offset":null,"persistent":null,"placement":null,"popperOptions":null,"popperStyle":null,"remoteShowSuffix":null,"showArrow":null,"suffixIcon":null,"suffixTransition":null,"tabindex":null,"tagEffect":null,"tagType":null,"teleported":null,"validateEvent":null,"valueOnClear":null},"methods":{"elEmitVisibleChange":"function() { window.shinyVue.emit('two-names-city_element', 'visible_change', arguments); }","elEmitRemoveTag":"function() { window.shinyVue.emit('two-names-city_element', 'remove_tag', arguments); }","elEmitClear":"function() { window.shinyVue.emit('two-names-city_element', 'clear', arguments); }","elEmitBlur":"function() { window.shinyVue.emit('two-names-city_element', 'blur', arguments); }","elEmitFocus":"function() { window.shinyVue.emit('two-names-city_element', 'focus', arguments); }","elEmitEndReached":"function() { window.shinyVue.emit('two-names-city_element', 'end_reached', arguments); }","elEmitPopupScroll":"function() { var shape = function(e) { var now = Date.now(); if (this._elLastScroll && now - this._elLastScroll < 200) return undefined; this._elLastScroll = now; return {scroll_left: e.scrollLeft, scroll_top: e.scrollTop}; }; var v = shape.apply(this, arguments); if (v === undefined) return; window.shinyVue.emit('two-names-city_element', 'popup_scroll', [v]); }","elRemoteQuery":"function(query) {\n  if (!(window.Shiny && Shiny.setInputValue)) return;\n  var self = this, n = this._elQueryN = (this._elQueryN || 0) + 1;\n  this.loading = true;\n  clearTimeout(this._elQueryTimer);\n  this._elQueryTimer = setTimeout(function() {\n    if (self._elQueryN !== n || !self.loading) return;\n    self.loading = false;\n    console.warn('[shiny.element] no answer to input$two-names-city_element_query within ' + window.shinyVue.askTimeout / 1000 + ' s');\n  }, window.shinyVue.askTimeout);\n  window.Shiny && Shiny.setInputValue && Shiny.setInputValue('two-names-city_element_query', query, {priority: 'event'});\n}","handleChange":"function(value) { }"}},"input":"value","rate":null,"type":null,"evals":["options.methods.elEmitVisibleChange","options.methods.elEmitRemoveTag","options.methods.elEmitClear","options.methods.elEmitBlur","options.methods.elEmitFocus","options.methods.elEmitEndReached","options.methods.elEmitPopupScroll","options.methods.elRemoteQuery","options.methods.handleChange"]}</script>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":"sh","options":[{"value":"bj","label":"Beijing"},{"value":"sh","label":"Shanghai"}],"groups":[],"multiple":false,"disabled":false,"clearable":false,"filterable":false,"multipleLimit":0,"collapseTags":false,"placeholder":null,"size":null,"valueKey":null,"name":null,"autocomplete":null,"automaticDropdown":null,"allowCreate":null,"loading":null,"loadingText":null,"noMatchText":null,"noDataText":null,"popperClass":null,"reserveKeyword":null,"defaultFirstOption":null,"remote":null,"filterMethod":null,"remoteMethod":null,"appendTo":null,"ariaLabel":null,"clearIcon":null,"collapseTagsTooltip":null,"debounce":null,"effect":null,"emptyValues":null,"fallbackPlacements":null,"fitInputWidth":null,"maxCollapseTags":null,"offset":null,"persistent":null,"placement":null,"popperOptions":null,"popperStyle":null,"remoteShowSuffix":null,"showArrow":null,"suffixIcon":null,"suffixTransition":null,"tabindex":null,"tagEffect":null,"tagType":null,"tagTooltip":null,"teleported":null,"validateEvent":null,"valueOnClear":null},"methods":{"elEmitVisibleChange":"function() { window.shinyVue.emit('two-names-city_element', 'visible_change', arguments); }","elEmitRemoveTag":"function() { window.shinyVue.emit('two-names-city_element', 'remove_tag', arguments); }","elEmitClear":"function() { window.shinyVue.emit('two-names-city_element', 'clear', arguments); }","elEmitBlur":"function() { window.shinyVue.emit('two-names-city_element', 'blur', arguments); }","elEmitFocus":"function() { window.shinyVue.emit('two-names-city_element', 'focus', arguments); }","elEmitEndReached":"function() { window.shinyVue.emit('two-names-city_element', 'end_reached', arguments); }","elEmitPopupScroll":"function() { var shape = function(e) { var now = Date.now(); if (this._elLastScroll && now - this._elLastScroll < 200) return undefined; this._elLastScroll = now; return {scroll_left: e.scrollLeft, scroll_top: e.scrollTop}; }; var v = shape.apply(this, arguments); if (v === undefined) return; window.shinyVue.emit('two-names-city_element', 'popup_scroll', [v]); }","elRemoteQuery":"function(query) {\n  if (!(window.Shiny && Shiny.setInputValue)) return;\n  var self = this, n = this._elQueryN = (this._elQueryN || 0) + 1;\n  this.loading = true;\n  clearTimeout(this._elQueryTimer);\n  this._elQueryTimer = setTimeout(function() {\n    if (self._elQueryN !== n || !self.loading) return;\n    self.loading = false;\n    console.warn('[shiny.element] no answer to input$two-names-city_element_query within ' + window.shinyVue.askTimeout / 1000 + ' s');\n  }, window.shinyVue.askTimeout);\n  window.Shiny && Shiny.setInputValue && Shiny.setInputValue('two-names-city_element_query', query, {priority: 'event'});\n}","handleChange":"function(value) { }"}},"input":"value","rate":null,"type":null,"evals":["options.methods.elEmitVisibleChange","options.methods.elEmitRemoveTag","options.methods.elEmitClear","options.methods.elEmitBlur","options.methods.elEmitFocus","options.methods.elEmitEndReached","options.methods.elEmitPopupScroll","options.methods.elRemoteQuery","options.methods.handleChange"]}</script>
 </div>
 </div>
 <p>The same holds in the server:
@@ -404,9 +430,18 @@ where <code>el_page(z_index =)</code> says;</li>
 <code>opened</code> and <code>closed</code> follow the end of
 Element’s own transitions, and a drawer gives focus back to what had
 it;</li>
-<li>tabs take the arrow keys and Delete, scroll when they outgrow the
-bar, and carry Element’s ARIA; collapse headers take Enter and Space,
-animate open and closed, and carry Element’s ARIA.</li>
+<li>focus stays inside an open dialog or drawer, as Element Plus’s focus
+trap keeps it: Tab and Shift+Tab go round its controls, and focus that
+lands on the page underneath is brought back. Element’s own popups – a
+select’s dropdown, a date picker’s panel – are left alone;</li>
+<li>closed straight after opening, a dialog never reports
+<code>opened</code>: the closing cancels the opening, as Vue’s
+transitions do;</li>
+<li>tabs take the arrow keys and Delete, passing over disabled tabs,
+scroll when they outgrow the bar, and carry Element’s ARIA; a disabled
+tab cannot be closed, and Enter on the “+” adds one; collapse headers
+take Enter and Space, animate open and closed, and carry Element’s
+ARIA.</li>
 </ul>
 <p>What remains different: a dialog’s or drawer’s props other than
 <code>visible</code>, <code>title</code>, <code>width</code> and
@@ -432,16 +467,129 @@ compiles templates in the browser, and functions given with
 <code><a href="../reference/JS.html">JS()</a></code> are evaluated there.</p>
 </div>
 <div class="section level2">
-<h2 id="known-gaps">Known gaps<a class="anchor" aria-label="anchor" href="#known-gaps"></a>
+<h2 id="writing-what-element-plus-writes-in-javascript">Writing what Element Plus writes in JavaScript<a class="anchor" aria-label="anchor" href="#writing-what-element-plus-writes-in-javascript"></a>
 </h2>
-<p><strong>Three attributes are deliberately unbound.</strong>
-<code>value</code> on <code>el-checkbox</code> and
-<code>el-radio</code>, which a group owns through <code>v-model</code>,
-and the deprecated <code>auto-complete</code> spellings on
-<code>el-select</code> and <code>el-input</code>, which upstream marks
-<code>@DEPRECATED</code> beside the <code>autocomplete</code> this
-package binds. They are listed in <code>tools/api-coverage.py</code>
-with the reason.</p>
+<p>Element Plus’s own examples build cells, header rows, messages and
+spacers with render functions in JSX. The same goes through R:</p>
+<ul>
+<li>
+<strong><code><a href="../reference/JS.html">JS()</a></code> code is evaluated in the browser</strong>,
+so a prop, a column field or a message that upstream builds with
+<code>h()</code> takes <code><a href="../reference/JS.html">JS()</a></code> code calling
+<code>Vue.h()</code> – with Element Plus’s components as
+<code>ElementPlus.ElSwitch</code> and the like. A message whose content
+changes is a function returning the VNode, as upstream says.</li>
+<li>
+<strong>Slots are templates.</strong> A table’s <code>cell</code>,
+<code>header-cell</code> or <code>row</code> slot is written with
+<code><a href="../reference/template.html">template()</a></code>, and <code>&lt;component :is="cell" /&gt;</code>
+draws a cell Element handed the slot – merging new props into it, as
+<code>cloneVNode()</code> does.</li>
+<li>
+<strong><code>el_table_v2(methods =)</code></strong> gives its slot
+templates functions of your own, so upstream’s row and header functions
+port across nearly line for line.</li>
+<li>
+<strong><code>$setInput(name, value)</code></strong> in a template
+is Shiny’s <code>setInputValue()</code>, which Vue does not let a
+template reach: a checkbox in a table cell can report the rows
+ticked.</li>
+<li>
+<strong><code>virtual_ref</code></strong> is a CSS selector for the
+element a tooltip, popover or dropdown attaches to; one matching several
+elements gives them a single popup that follows the pointer.</li>
+</ul>
+<p>The table-v2, tree, message-box, notification, space and tooltip
+pages show each of these on Element Plus’s own examples.</p>
+</div>
+<div class="section level2">
+<h2 id="what-r-cannot-do">What R cannot do<a class="anchor" aria-label="anchor" href="#what-r-cannot-do"></a>
+</h2>
+<p>Out of every example in Element Plus’s documentation, one has no R
+version:</p>
+<ul>
+<li>
+<strong><code>v-popover</code>, the directive.</strong> A directive
+is template syntax on another component’s element, and each component
+here is an application of its own. <code>virtual_ref</code> does what
+the directive does: it attaches a popover to an element drawn
+elsewhere.</li>
+</ul>
+<p>And a few things are different by construction:</p>
+<ul>
+<li>
+<strong>A component’s own instance stays in the browser.</strong> Of
+the 151 methods Element Plus documents, three take an object only the
+browser can make: the calendar’s <code>pickDay()</code> and
+<code>calculateValidatedDateRange()</code> take day.js dates – set the
+day with <code>update_el_calendar(value =)</code> instead – and the
+upload’s <code>handleStart()</code> takes a file the user picked. The
+objects a component already holds are named from R: a table’s rows
+(<code><a href="../reference/el_table_row.html">el_table_row()</a></code>), an upload’s files
+(<code><a href="../reference/el_table_row.html">el_upload_file()</a></code>) and a tree’s nodes
+(<code><a href="../reference/el_table_row.html">el_tree_node()</a></code>). A method’s callback argument is left out:
+Element’s promise form, where it has one, is what <code><a href="../reference/el_call.html">el_call()</a></code>
+uses. The rest are each run in a browser test
+(<code>test-browser-methods.R</code>).</li>
+<li>
+<strong><code><a href="../reference/el_config_provider.html">el_config_provider()</a></code>’s <code>locale</code>,
+<code>z-index</code> and <code>namespace</code> are the page’s:</strong>
+<code>el_page(locale =, z_index =)</code>. Every component is an
+application of its own, so a locale cannot be scoped to part of the
+page; and the bundled stylesheet is built for the <code>el-</code>
+namespace. Its other settings – <code>message</code> included, which
+reaches <code><a href="../reference/el_message.html">el_message()</a></code> – work as upstream’s do.</li>
+<li>
+<strong><code><a href="../reference/el_upload.html">el_upload()</a></code>’s <code>on-success</code>,
+<code>on-error</code> and <code>http-request</code></strong> are how
+files reach Shiny, so they are taken. Releasing an upload that was
+interrupted reaches into Shiny’s own upload context, for which Shiny has
+no public interface; <code>test-el_upload.R</code> checks the installed
+Shiny still has it, and if a future one does not, the partial upload
+stays until the session ends and a warning says so.</li>
+</ul>
+</div>
+<div class="section level2">
+<h2 id="attributes-not-bound-and-why">Attributes not bound, and why<a class="anchor" aria-label="anchor" href="#attributes-not-bound-and-why"></a>
+</h2>
+<p><code>tools/api-coverage.py</code> lists each upstream attribute not
+bound to a prop of its own name, with the reason (<code>EXCLUDED</code>,
+<code>ALIASES</code>). They fall into a few kinds:</p>
+<ul>
+<li>
+<strong>Owned by a group.</strong> A checkbox or radio inside a
+group takes its value, <code>true-value</code>, <code>false-value</code>
+and ARIA from the group, which binds them.</li>
+<li>
+<strong>Deprecated upstream, with the replacement bound.</strong>
+The <code>auto-complete</code> spellings of select and input;
+<code>popper-append-to-body</code> of autocomplete; the
+<code>label</code> of switch, rate, color picker and time picker, which
+upstream marks as an old name for <code>aria-label</code> – here
+<code>label</code> is the Shiny label above the control, and
+<code>aria_label</code> is bound.</li>
+<li>
+<strong>Any element’s.</strong> <code>class</code>,
+<code>style</code> and <code>prefix-cls</code> on space and table-v2;
+<code>model-modifiers</code>, which are template syntax.</li>
+<li>
+<strong>Cross-references.</strong> Rows in upstream’s tables that
+point to another component’s: tree select takes the select’s and the
+tree’s attributes (<code>...</code> for those without an argument),
+popover and popconfirm the tooltip’s (<code>...</code> likewise).</li>
+<li>
+<strong>Aliases.</strong> <code>options</code> for
+<code>choices</code> in the choice components, drawn as child options
+rather than through the prop; a select’s <code>props</code>, which
+renames the fields of its choices in R for the same reason.</li>
+<li>
+<strong>The page’s.</strong> ConfigProvider’s <code>locale</code>,
+<code>z-index</code> and <code>namespace</code>, as above.</li>
+</ul>
+</div>
+<div class="section level2">
+<h2 id="other-notes">Other notes<a class="anchor" aria-label="anchor" href="#other-notes"></a>
+</h2>
 <p><strong>Element’s i18n covers the component text, not yours.</strong>
 <code>el_page(locale =)</code> switches Element’s own strings – a date
 picker’s month names, a table’s “No Data”. Text you pass in is yours to

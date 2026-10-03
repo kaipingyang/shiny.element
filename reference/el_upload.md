@@ -95,10 +95,10 @@ el_upload(
 
   Field name Element posts the file under. Only meaningful with
   `action`, where it names the multipart field; it defaults to `"file"`
-  there. Without `action` a unique name is used instead, because Shiny's
-  own file-input binding claims every `input[type=file]` on the page and
-  keys them by name – two uploads both called "file" make it report a
-  duplicate input id.
+  there. Without `action` the field has no name: Shiny's own file-input
+  binding claims every `input[type=file]` on the page that has an id or
+  a name, and would add an `input$<name>` of its own beside
+  `input$<id>`.
 
 - tip:
 
@@ -297,7 +297,7 @@ el_upload(
 )
 #> <div id="files" data-shiny-vue style="display: contents">
 #>   <script type="text/x-template" data-shiny-vue-template><div id="files_container" style="display: contents">
-#>   <el-upload ref="upload" name="files_elfile" action="#" :multiple="multiple" :show-file-list="showFileList" :list-type="listType" :auto-upload="autoUpload" :disabled="disabled" :accept="accept === null ? undefined : accept" :limit="limit === null ? undefined : limit" :on-success="handleSuccess" :on-error="handleError" :drag="drag" :headers="headers === null ? undefined : headers" :data="extraData === null ? undefined : extraData" v-model:file-list="fileList" :with-credentials="withCredentials === null ? undefined : withCredentials" :before-upload="beforeUpload === null ? undefined : beforeUpload" :before-remove="beforeRemove === null ? undefined : beforeRemove" :on-change="onChange === null ? undefined : onChange" :on-progress="onProgress === null ? undefined : onProgress" :on-preview="onPreview === null ? undefined : onPreview" :on-remove="onRemove === null ? undefined : onRemove" :on-exceed="onExceed === null ? undefined : onExceed" :http-request="shinyUpload" :crossorigin="crossorigin === null ? undefined : crossorigin" :directory="directory === null ? undefined : directory">
+#>   <el-upload ref="upload" name="" action="#" :multiple="multiple" :show-file-list="showFileList" :list-type="listType" :auto-upload="autoUpload" :disabled="disabled" :accept="accept === null ? undefined : accept" :limit="limit === null ? undefined : limit" :on-success="handleSuccess" :on-error="handleError" :drag="drag" :headers="headers === null ? undefined : headers" :data="extraData === null ? undefined : extraData" v-model:file-list="fileList" :with-credentials="withCredentials === null ? undefined : withCredentials" :before-upload="beforeUpload === null ? undefined : beforeUpload" :before-remove="beforeRemove === null ? undefined : beforeRemove" :on-change="onChange === null ? undefined : onChange" :on-progress="onProgress === null ? undefined : onProgress" :on-preview="onPreview === null ? undefined : onPreview" :on-remove="onRemove === null ? undefined : onRemove" :on-exceed="onExceed === null ? undefined : onExceed" :http-request="shinyUpload" :crossorigin="crossorigin === null ? undefined : crossorigin" :directory="directory === null ? undefined : directory">
 #>     <el-icon class="el-icon--upload" v-if="drag">
 #>       <upload-filled></upload-filled>
 #>     </el-icon>
@@ -318,7 +318,7 @@ el_upload(
 el_upload("avatar", button_label = "Choose a picture", accept = "image/*")
 #> <div id="avatar" data-shiny-vue style="display: contents">
 #>   <script type="text/x-template" data-shiny-vue-template><div id="avatar_container" style="display: contents">
-#>   <el-upload ref="upload" name="avatar_elfile" action="#" :multiple="multiple" :show-file-list="showFileList" :list-type="listType" :auto-upload="autoUpload" :disabled="disabled" :accept="accept === null ? undefined : accept" :limit="limit === null ? undefined : limit" :on-success="handleSuccess" :on-error="handleError" :drag="drag" :headers="headers === null ? undefined : headers" :data="extraData === null ? undefined : extraData" v-model:file-list="fileList" :with-credentials="withCredentials === null ? undefined : withCredentials" :before-upload="beforeUpload === null ? undefined : beforeUpload" :before-remove="beforeRemove === null ? undefined : beforeRemove" :on-change="onChange === null ? undefined : onChange" :on-progress="onProgress === null ? undefined : onProgress" :on-preview="onPreview === null ? undefined : onPreview" :on-remove="onRemove === null ? undefined : onRemove" :on-exceed="onExceed === null ? undefined : onExceed" :http-request="shinyUpload" :crossorigin="crossorigin === null ? undefined : crossorigin" :directory="directory === null ? undefined : directory">
+#>   <el-upload ref="upload" name="" action="#" :multiple="multiple" :show-file-list="showFileList" :list-type="listType" :auto-upload="autoUpload" :disabled="disabled" :accept="accept === null ? undefined : accept" :limit="limit === null ? undefined : limit" :on-success="handleSuccess" :on-error="handleError" :drag="drag" :headers="headers === null ? undefined : headers" :data="extraData === null ? undefined : extraData" v-model:file-list="fileList" :with-credentials="withCredentials === null ? undefined : withCredentials" :before-upload="beforeUpload === null ? undefined : beforeUpload" :before-remove="beforeRemove === null ? undefined : beforeRemove" :on-change="onChange === null ? undefined : onChange" :on-progress="onProgress === null ? undefined : onProgress" :on-preview="onPreview === null ? undefined : onPreview" :on-remove="onRemove === null ? undefined : onRemove" :on-exceed="onExceed === null ? undefined : onExceed" :http-request="shinyUpload" :crossorigin="crossorigin === null ? undefined : crossorigin" :directory="directory === null ? undefined : directory">
 #>     <el-icon class="el-icon--upload" v-if="drag">
 #>       <upload-filled></upload-filled>
 #>     </el-icon>

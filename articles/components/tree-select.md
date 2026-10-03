@@ -261,12 +261,56 @@ el_tree_select(
 
 Lazy loading of tree nodes, suitable for large data lists.
 
-> **In R**
->
-> Upstream loads a node’s children with a `load` function. A lazy tree
-> in R asks the server; `el_tree(lazy = TRUE)` with
-> [`el_load_children()`](https://kaipingyang.github.io/shiny.element/reference/el_load_children.md)
-> shows the pattern.
+`lazy = TRUE` loads a node’s children when it opens, from the server:
+`input$<id>_load` asks and
+[`el_load_children()`](https://kaipingyang.github.io/shiny.element/reference/el_load_children.md)
+answers. `cache_data` gives the label of a value whose node is not
+loaded yet.
+
+``` r
+
+ui <- el_page(
+  el_tree_select(
+    "lazy1",
+    lazy = TRUE,
+    props = list(label = "label", children = "children", isLeaf = "isLeaf"),
+    width = "240px"
+  ),
+  el_divider(),
+  el_tree_select(
+    "lazy2",
+    value = 5,
+    lazy = TRUE,
+    props = list(label = "label", children = "children", isLeaf = "isLeaf"),
+    cache_data = list(list(value = 5, label = "lazy load node5")),
+    width = "240px"
+  )
+)
+
+server <- function(input, output, session) {
+  id <- 0
+  load <- function(q, tree) {
+    if (isTRUE(q$data$isLeaf)) {
+      return(el_load_children(id = tree, request = q))
+    }
+    id <<- id + 2
+    el_load_children(
+      id = tree,
+      request = q,
+      children = list(
+        list(value = id - 1, label = paste0("lazy load node", id - 1)),
+        list(value = id, label = paste0("lazy load node", id), isLeaf = TRUE)
+      )
+    )
+  }
+  observeEvent(input$lazy1_load, load(input$lazy1_load, "lazy1"))
+  observeEvent(input$lazy2_load, load(input$lazy2_load, "lazy2"))
+}
+
+shinyApp(ui, server)
+```
+
+![The lazy example, running](../../shots/tree-select-lazy.png)
 
 ## Use node-key attribute
 
@@ -315,6 +359,8 @@ Element Plus’s tables, and beside each entry where it is in R.
 | Element | In R | Description | Type | Accepted | Default |
 |----|----|----|----|----|----|
 | `tree, select` | any argument of [`el_tree()`](https://kaipingyang.github.io/shiny.element/reference/el_tree.md) or [`el_select()`](https://kaipingyang.github.io/shiny.element/reference/el_select.md), through `...` | The props of el-tree and el-select. |  |  |  |
+| `tree` |  | [tree](https://kaipingyang.github.io/shiny.element/articles/components/tree.html#exposes) | [tree](https://kaipingyang.github.io/shiny.element/articles/components/tree.html#events) |  | [tree](https://kaipingyang.github.io/shiny.element/articles/components/tree.html#slots) |
+| `select` |  | [select](https://kaipingyang.github.io/shiny.element/articles/components/select.html#select-exposes) | [select](https://kaipingyang.github.io/shiny.element/articles/components/select.html#select-events) |  | [select](https://kaipingyang.github.io/shiny.element/articles/components/select.html#select-slots) |
 
 ### Own Attributes
 

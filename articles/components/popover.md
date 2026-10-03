@@ -77,10 +77,22 @@ element should be an element that accepts `mouse` and `keyboard` event.
 > `v-popover` is about to be deprecated, please use `virtual-ref` as
 > alternative.
 
-> **In R**
->
-> A virtual trigger is a DOM element the page’s own script holds; in R,
-> give the trigger as `reference`.
+`virtual_ref` is a CSS selector for the element that opens the popover,
+wherever it is on the page.
+
+``` r
+
+tagList(
+  el_button("vp_btn", "Click me"),
+  el_popover(
+    "vp",
+    title = "With title",
+    content = "Some content",
+    trigger = "click",
+    virtual_ref = "#vp_btn"
+  )
+)
+```
 
 ## Rich content
 
@@ -150,10 +162,10 @@ may refer to the virtual triggering for more information.
 
 > **In R**
 >
-> Element Plus’s `v-popover` directive is a template’s; in R a popover
-> is
-> [`el_popover()`](https://kaipingyang.github.io/shiny.element/reference/el_popover.md)
-> around its reference.
+> Element Plus’s `v-popover` directive is template syntax on another
+> component’s element, and each component here is an application of its
+> own, so it has no R form. `virtual_ref` does what it does – see
+> Virtual triggering above.
 
 ## API
 
@@ -187,6 +199,7 @@ Element Plus’s tables, and beside each entry where it is in R.
 | `persistent` | `persistent` | when popover inactive and `persistent` is `false` , popover will be destroyed | [^29] |  | true |
 | `virtual-triggering` | `virtual_triggering` | Indicates whether virtual triggering is enabled | [^30] |  | — |
 | `virtual-ref` | `virtual_ref` | Indicates the reference element to which the popover is attached | [^31] |  | — |
+| `tooltip` |  | Inherits all attributes from Tooltip | — |  | — |
 
 ### Slots
 

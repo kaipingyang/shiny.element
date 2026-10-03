@@ -244,10 +244,15 @@
 <code>test-browser.R</code> + <code>apps/integration.R</code>
 </td>
 <td>mounting, interaction, geometry, Vue warnings</td>
+</tr><tr><td>Methods</td>
+<td>
+<code>test-browser-methods.R</code> + <code>apps/methods.R</code>
+</td>
+<td>every documented method runs on a live component</td>
 </tr><tr><td>Screenshot</td>
 <td><code>tools/article-shots.R</code></td>
 <td>layout and appearance — invisible to the other two</td>
-</tr></tbody></table><p>Browser tests run Vue’s development build and assert zero warnings. They skip on CRAN and where no Chrome is available:</p>
+</tr></tbody></table><p>Browser tests run Vue’s development build (<code>inst/vue3/vue.global.js</code>, <code>el_page(dev = TRUE)</code>) and assert zero warnings. They skip on CRAN and where no Chrome is available:</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a><span class="va">NOT_CRAN</span><span class="op">=</span>true <span class="ex">Rscript</span> <span class="at">-e</span> <span class="st">'devtools::load_all("."); testthat::test_dir("tests/testthat")'</span></span></code></pre></div>
 <p>Unit tests use a <code>mock_session</code> list to avoid a live Shiny session:</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
@@ -260,7 +265,7 @@
 </div>
 <div class="section level3">
 <h3 id="documentation-site">Documentation site<a class="anchor" aria-label="anchor" href="#documentation-site"></a></h3>
-<p>The pkgdown site replicates element-plus.org. Component pages are generated: <code>tools/demos/&lt;slug&gt;.R</code> holds the R version of each upstream demo (<code>## name</code> blocks, <code>#'</code> prose, <code>#|</code> chunk options, <code>!skip</code> for prose-only), and <code>python tools/ep-pages.py [slug...]</code> writes <code>vignettes/articles/components/&lt;slug&gt;.Rmd</code> from upstream’s markdown and those demos (color, icon and the overview are hand-written / <code>tools/ep-overview.py</code>). <code>Rscript tools/article-shots.R [slug...]</code> screenshots and checks every example; <code>python tools/api-coverage.py --write-api</code> writes the API tables’ JSON with the R name of each entry.</p>
+<p>The pkgdown site replicates element-plus.org. Component pages are generated: <code>tools/demos/&lt;slug&gt;.R</code> holds the R version of each upstream demo (<code>## name</code> blocks, <code>#'</code> prose, <code>#|</code> chunk options, <code>!skip</code> for prose-only), and <code>python tools/ep-pages.py [slug...]</code> writes <code>vignettes/articles/components/&lt;slug&gt;.Rmd</code> from upstream’s markdown and those demos (color, icon and the overview are hand-written / <code>tools/ep-overview.py</code>). <code>Rscript tools/article-shots.R [slug...]</code> screenshots and checks every example; API coverage is <code>python tools/api-coverage.py --docs</code>, then <code>Rscript tools/api-coverage.R</code>, then <code>python tools/api-coverage.py</code> (<code>--gaps</code>, <code>--write-api</code> for the API tables’ JSON with the R name of each entry, <code>--write-docs</code>).</p>
 <p>R code is formatted with air (<code>air.toml</code>, line width 80): <code>air format .</code> for every .R file but the demos, then <code>python tools/format-r.py</code> for the demo blocks, the hand-written articles’ chunks and roxygen <code>@examples</code> (it lists any block air cannot parse), followed by <code>tools/ep-pages.py</code> and <code>devtools::document()</code>. <code>air format --check .</code> should print nothing.</p>
 </div>
 </div>

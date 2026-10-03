@@ -396,7 +396,7 @@ seed_orders <- data.frame(
 status_tag <- el$tag(
   size = "small",
   ":type" = paste0(
-    "({pending: 'warning', paid: 'success', shipped: '', ",
+    "({pending: 'warning', paid: 'success', shipped: 'primary', ",
     "refunded: 'info'})[scope.row.status]"
   ),
   "{{ scope.row.status }}"
@@ -432,9 +432,9 @@ columns <- list(
     width = "160",
     fixed = "right",
     cell = tagList(
-      el$button(size = "mini", "@click" = "rowAction('edit', scope)", "Edit"),
+      el$button(size = "small", "@click" = "rowAction('edit', scope)", "Edit"),
       el$button(
-        size = "mini",
+        size = "small",
         type = "danger",
         plain = NA,
         "@click" = "rowAction('delete', scope)",
@@ -780,7 +780,7 @@ seed_orders <- data.frame(
 status_tag <- el$tag(
   size = "small",
   ":type" = paste0(
-    "({pending: 'warning', paid: 'success', shipped: '', ",
+    "({pending: 'warning', paid: 'success', shipped: 'primary', ",
     "refunded: 'info'})[scope.row.status]"
   ),
   "{{ scope.row.status }}"
@@ -816,9 +816,9 @@ columns <- list(
     width = "160",
     fixed = "right",
     cell = tagList(
-      el$button(size = "mini", "@click" = "rowAction('edit', scope)", "Edit"),
+      el$button(size = "small", "@click" = "rowAction('edit', scope)", "Edit"),
       el$button(
-        size = "mini",
+        size = "small",
         type = "danger",
         plain = NA,
         "@click" = "rowAction('delete', scope)",

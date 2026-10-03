@@ -472,53 +472,55 @@ Element Plus’s tables, and beside each entry where it is in R.
 | `model-value` | `value`; `input$<id>` | binding value | [^1] / [^2] / [^3] / [^4] / [^5] |  | — |
 | `multiple` | `multiple` | whether multiple-select is activated | [^6] |  | false |
 | `options` | `options` | data of the options, the key of `value` and `label` and `disabled` can be customize by `props` | [^7]`Array<{[key: string]: any}>` |  | — |
-| `disabled` | `disabled` | whether Select is disabled | [^8] |  | false |
-| `value-key` | `value_key` | unique identity key name for value, required when value is an object | [^9] |  | value |
-| `size` | `size` | size of Input | [^10]`'' \\| 'large' \\| 'default' \\| 'small'` |  | — |
-| `clearable` | `clearable` | whether select can be cleared | [^11] |  | false |
-| `collapse-tags` | `collapse_tags` | whether to collapse tags to a text when multiple selecting | [^12] |  | false |
-| `collapse-tags-tooltip` | `collapse_tags_tooltip` | whether show all selected tags when mouse hover text of collapse-tags. To use this, `collapse-tags` must be true | [^13] |  | false |
-| `multiple-limit` | `multiple_limit` | maximum number of options user can select when `multiple` is `true`. No limit when set to 0 | [^14] |  | 0 |
-| `id` | `id`, the Shiny input’s | native input id input | [^15] |  | — |
-| `effect` | `effect` | tooltip theme, built-in theme: `dark` / `light` | [^16]`'dark' \\| 'light'` / [^17] |  | light |
-| `autocomplete` | `autocomplete` | the autocomplete attribute of select input | [^18] |  | off |
-| `placeholder` | `placeholder` | placeholder, default is ‘Select’ | [^19] |  | — |
-| `filterable` | `filterable` | whether Select is filterable | [^20] |  | false |
-| `allow-create` | `allow_create` | whether creating new items is allowed. To use this, `filterable` must be true | [^21] |  | false |
-| `filter-method` | `filter_method` | custom filter method, the first parameter is the current input value. To use this, `filterable` must be true | [^22]`(query: string) => void` |  | — |
-| `remote` | `remote` | whether options are loaded from server | [^23] |  | false |
-| `debounce` | `debounce` | debounce delay during remote search, in milliseconds | [^24] |  | 300 |
-| `remote-method` | `remote_method` | function that gets called when the input value changes. Its parameter is the current input value. To use this, `filterable` must be true | [^25]`(query: string) => void` |  | — |
-| `remote-show-suffix` | `remote_show_suffix` | in remote search method show suffix icon | [^26] |  | false |
-| `loading` | `loading` | whether Select is loading data from server | [^27] |  | false |
-| `loading-text` | `loading_text` | displayed text while loading data from server, default is ‘Loading’ | [^28] |  | — |
-| `no-match-text` | `no_match_text` | displayed text when no data matches the filtering query, you can also use slot `empty`, default is ‘No matching data’ | [^29] |  | — |
-| `no-data-text` | `no_data_text` | displayed text when there is no options, you can also use slot `empty`, default is ‘No data’ | [^30] |  | — |
-| `popper-class` | `popper_class` | custom class name for Select’s dropdown and tags’ tooltip | [^31] |  | ’’ |
-| `popper-style` | `popper_style` | custom style for Select’s dropdown and tags’ tooltip | [^32] / [^33] |  | — |
-| `reserve-keyword` | `reserve_keyword` | when `multiple` and `filterable` is true, whether to reserve current keyword after selecting an option | [^34] |  | true |
-| `default-first-option` | `default_first_option` | select first matching option on enter key. Use with `filterable` or `remote` | [^35] |  | false |
-| `teleported` | `teleported` | whether select dropdown is teleported, if `true` it will be teleported to where `append-to` sets | [^36] |  | true |
-| `append-to` | `append_to` | which element the select dropdown appends to | [^37] / [^38] |  | — |
-| `persistent` | `persistent` | when select dropdown is inactive and `persistent` is `false`, select dropdown will be destroyed | [^39] |  | true |
-| `automatic-dropdown` | `automatic_dropdown` | for non-filterable Select, this prop decides if the option menu pops up when the input is focused | [^40] |  | false |
-| `clear-icon` | `clear_icon` | custom clear icon component | [^41] / [^42]`Component` |  | CircleClose |
-| `fit-input-width` | `fit_input_width` | whether the width of the dropdown is the same as the input | [^43] |  | false |
-| `suffix-icon` | `suffix_icon` | custom suffix icon component | [^44] / [^45]`Component` |  | ArrowDown |
-| `tag-type` | `tag_type` | tag type | [^46]`'' \\| 'success' \\| 'info' \\| 'warning' \\| 'danger'` |  | info |
-| `tag-effect` | `tag_effect` | tag effect | [^47]`'' \\| 'light' \\| 'dark' \\| 'plain'` |  | light |
-| `validate-event` | `validate_event` | whether to trigger form validation | [^48] |  | true |
-| `offset` | `offset` | offset of the dropdown | [^49] |  | 12 |
-| `show-arrow` | `show_arrow` | whether the dropdown has an arrow | [^50] |  | true |
-| `placement` | `placement` | position of dropdown | [^51]`'top' \\| 'top-start' \\| 'top-end' \\| 'bottom' \\| 'bottom-start' \\| 'bottom-end' \\| 'left' \\| 'left-start' \\| 'left-end' \\| 'right' \\| 'right-start' \\| 'right-end'` |  | bottom-start |
-| `fallback-placements` | `fallback_placements` | list of possible positions for dropdown [popper.js](https://popper.js.org/docs/v2/modifiers/flip/#fallbackplacements) | [^52]`Placement[]` |  | \[‘bottom-start’, ‘top-start’, ‘right’, ‘left’\] |
-| `max-collapse-tags` | `max_collapse_tags` | the max tags number to be shown. To use this, `collapse-tags` must be true | [^53] |  | 1 |
-| `popper-options` | `popper_options` | [popper.js](https://popper.js.org/docs/v2/) parameters | [^54]refer to [popper.js](https://popper.js.org/docs/v2/) doc |  | {} |
-| `aria-label` | `aria_label` | same as `aria-label` in native input | [^55] |  | — |
-| `empty-values` | `empty_values` | empty values of component, [see config-provider](https://kaipingyang.github.io/shiny.element/articles/components/config-provider.html#empty-values-configurations) | [^56] |  | — |
-| `value-on-clear` | `value_on_clear` | clear return value, [see config-provider](https://kaipingyang.github.io/shiny.element/articles/components/config-provider.html#empty-values-configurations) | [^57] / [^58] / [^59] / [^60] |  | — |
-| `suffix-transition` | `suffix_transition` | animation when dropdown appears/disappears icon | [^61] |  | true |
-| `tabindex` | `tabindex` | tabindex for input | [^62] / [^63] |  | — |
+| `props` | `props` | configuration options | [^8] |  | — |
+| `disabled` | `disabled` | whether Select is disabled | [^9] |  | false |
+| `value-key` | `value_key` | unique identity key name for value, required when value is an object | [^10] |  | value |
+| `size` | `size` | size of Input | [^11]`'' \\| 'large' \\| 'default' \\| 'small'` |  | — |
+| `clearable` | `clearable` | whether select can be cleared | [^12] |  | false |
+| `collapse-tags` | `collapse_tags` | whether to collapse tags to a text when multiple selecting | [^13] |  | false |
+| `collapse-tags-tooltip` | `collapse_tags_tooltip` | whether show all selected tags when mouse hover text of collapse-tags. To use this, `collapse-tags` must be true | [^14] |  | false |
+| `tag-tooltip` | `tag_tooltip` | configuration object for the collapse-tags tooltip. To use this, `collapse-tags` and `collapse-tags-tooltip` must be true | [^15]`TagTooltipProps` |  | {} |
+| `multiple-limit` | `multiple_limit` | maximum number of options user can select when `multiple` is `true`. No limit when set to 0 | [^16] |  | 0 |
+| `id` | `id`, the Shiny input’s | native input id input | [^17] |  | — |
+| `effect` | `effect` | tooltip theme, built-in theme: `dark` / `light` | [^18]`'dark' \\| 'light'` / [^19] |  | light |
+| `autocomplete` | `autocomplete` | the autocomplete attribute of select input | [^20] |  | off |
+| `placeholder` | `placeholder` | placeholder, default is ‘Select’ | [^21] |  | — |
+| `filterable` | `filterable` | whether Select is filterable | [^22] |  | false |
+| `allow-create` | `allow_create` | whether creating new items is allowed. To use this, `filterable` must be true | [^23] |  | false |
+| `filter-method` | `filter_method` | custom filter method, the first parameter is the current input value. To use this, `filterable` must be true | [^24]`(query: string) => void` |  | — |
+| `remote` | `remote` | whether options are loaded from server | [^25] |  | false |
+| `debounce` | `debounce` | debounce delay during remote search, in milliseconds | [^26] |  | 300 |
+| `remote-method` | `remote_method` | function that gets called when the input value changes. Its parameter is the current input value. To use this, `filterable` must be true | [^27]`(query: string) => void` |  | — |
+| `remote-show-suffix` | `remote_show_suffix` | in remote search method show suffix icon | [^28] |  | false |
+| `loading` | `loading` | whether Select is loading data from server | [^29] |  | false |
+| `loading-text` | `loading_text` | displayed text while loading data from server, default is ‘Loading’ | [^30] |  | — |
+| `no-match-text` | `no_match_text` | displayed text when no data matches the filtering query, you can also use slot `empty`, default is ‘No matching data’ | [^31] |  | — |
+| `no-data-text` | `no_data_text` | displayed text when there is no options, you can also use slot `empty`, default is ‘No data’ | [^32] |  | — |
+| `popper-class` | `popper_class` | custom class name for Select’s dropdown and tags’ tooltip | [^33] |  | ’’ |
+| `popper-style` | `popper_style` | custom style for Select’s dropdown and tags’ tooltip | [^34] / [^35] |  | — |
+| `reserve-keyword` | `reserve_keyword` | when `multiple` and `filterable` is true, whether to reserve current keyword after selecting an option | [^36] |  | true |
+| `default-first-option` | `default_first_option` | select first matching option on enter key. Use with `filterable` or `remote` | [^37] |  | false |
+| `teleported` | `teleported` | whether select dropdown is teleported, if `true` it will be teleported to where `append-to` sets | [^38] |  | true |
+| `append-to` | `append_to` | which element the select dropdown appends to | [^39] / [^40] |  | — |
+| `persistent` | `persistent` | when select dropdown is inactive and `persistent` is `false`, select dropdown will be destroyed | [^41] |  | true |
+| `automatic-dropdown` | `automatic_dropdown` | for non-filterable Select, this prop decides if the option menu pops up when the input is focused | [^42] |  | false |
+| `clear-icon` | `clear_icon` | custom clear icon component | [^43] / [^44]`Component` |  | CircleClose |
+| `fit-input-width` | `fit_input_width` | whether the width of the dropdown is the same as the input | [^45] |  | false |
+| `suffix-icon` | `suffix_icon` | custom suffix icon component | [^46] / [^47]`Component` |  | ArrowDown |
+| `tag-type` | `tag_type` | tag type | [^48]`'' \\| 'success' \\| 'info' \\| 'warning' \\| 'danger'` |  | info |
+| `tag-effect` | `tag_effect` | tag effect | [^49]`'' \\| 'light' \\| 'dark' \\| 'plain'` |  | light |
+| `validate-event` | `validate_event` | whether to trigger form validation | [^50] |  | true |
+| `offset` | `offset` | offset of the dropdown | [^51] |  | 12 |
+| `show-arrow` | `show_arrow` | whether the dropdown has an arrow | [^52] |  | true |
+| `placement` | `placement` | position of dropdown | [^53]`'top' \\| 'top-start' \\| 'top-end' \\| 'bottom' \\| 'bottom-start' \\| 'bottom-end' \\| 'left' \\| 'left-start' \\| 'left-end' \\| 'right' \\| 'right-start' \\| 'right-end'` |  | bottom-start |
+| `fallback-placements` | `fallback_placements` | list of possible positions for dropdown [popper.js](https://popper.js.org/docs/v2/modifiers/flip/#fallbackplacements) | [^54]`Placement[]` |  | \[‘bottom-start’, ‘top-start’, ‘right’, ‘left’\] |
+| `max-collapse-tags` | `max_collapse_tags` | the max tags number to be shown. To use this, `collapse-tags` must be true | [^55] |  | 1 |
+| `popper-options` | `popper_options` | [popper.js](https://popper.js.org/docs/v2/) parameters | [^56]refer to [popper.js](https://popper.js.org/docs/v2/) doc |  | {} |
+| `aria-label` | `aria_label` | same as `aria-label` in native input | [^57] |  | — |
+| `empty-values` | `empty_values` | empty values of component, [see config-provider](https://kaipingyang.github.io/shiny.element/articles/components/config-provider.html#empty-values-configurations) | [^58] |  | — |
+| `value-on-clear` | `value_on_clear` | clear return value, [see config-provider](https://kaipingyang.github.io/shiny.element/articles/components/config-provider.html#empty-values-configurations) | [^59] / [^60] / [^61] / [^62] |  | — |
+| `suffix-transition` | `suffix_transition` | animation when dropdown appears/disappears icon | [^63] |  | true |
+| `tabindex` | `tabindex` | tabindex for input | [^64] / [^65] |  | — |
 
 ### Select Events
 
@@ -557,8 +559,8 @@ Element Plus’s tables, and beside each entry where it is in R.
 
 | Element | In R | Description | Type | Accepted | Default |
 |----|----|----|----|----|----|
-| `label` | `label` | name of the group | [^64] |  | — |
-| `disabled` | `disabled` | whether to disable all options in this group | [^65] |  | false |
+| `label` | `label` | name of the group | [^66] |  | — |
+| `disabled` | `disabled` | whether to disable all options in this group | [^67] |  | false |
 
 ### Option Group Slots
 
@@ -570,9 +572,9 @@ Element Plus’s tables, and beside each entry where it is in R.
 
 | Element | In R | Description | Type | Accepted | Default |
 |----|----|----|----|----|----|
-| `value` | `value` | value of option | [^66] / [^67] / [^68] / [^69] |  | — |
-| `label` | `label` | label of option, same as `value` if omitted | [^70] / [^71] |  | — |
-| `disabled` | `disabled` | whether option is disabled | [^72] |  | false |
+| `value` | `value` | value of option | [^68] / [^69] / [^70] / [^71] |  | — |
+| `label` | `label` | label of option, same as `value` if omitted | [^72] / [^73] |  | — |
+| `disabled` | `disabled` | whether option is disabled | [^74] |  | false |
 
 ### Option Slots
 
@@ -594,49 +596,49 @@ Element Plus’s tables, and beside each entry where it is in R.
 
 [^7]: array
 
-[^8]: boolean
+[^8]: object
 
-[^9]: string
+[^9]: boolean
 
-[^10]: enum
+[^10]: string
 
-[^11]: boolean
+[^11]: enum
 
 [^12]: boolean
 
 [^13]: boolean
 
-[^14]: number
+[^14]: boolean
 
-[^15]: string
+[^15]: object
 
-[^16]: enum
+[^16]: number
 
 [^17]: string
 
-[^18]: string
+[^18]: enum
 
 [^19]: string
 
-[^20]: boolean
+[^20]: string
 
-[^21]: boolean
+[^21]: string
 
-[^22]: Function
+[^22]: boolean
 
 [^23]: boolean
 
-[^24]: number
+[^24]: Function
 
-[^25]: Function
+[^25]: boolean
 
-[^26]: boolean
+[^26]: number
 
-[^27]: boolean
+[^27]: Function
 
-[^28]: string
+[^28]: boolean
 
-[^29]: string
+[^29]: boolean
 
 [^30]: string
 
@@ -644,82 +646,86 @@ Element Plus’s tables, and beside each entry where it is in R.
 
 [^32]: string
 
-[^33]: object
+[^33]: string
 
-[^34]: boolean
+[^34]: string
 
-[^35]: boolean
+[^35]: object
 
 [^36]: boolean
 
-[^37]: CSSSelector
+[^37]: boolean
 
-[^38]: HTMLElement
+[^38]: boolean
 
-[^39]: boolean
+[^39]: CSSSelector
 
-[^40]: boolean
+[^40]: HTMLElement
 
-[^41]: string
+[^41]: boolean
 
-[^42]: object
+[^42]: boolean
 
-[^43]: boolean
+[^43]: string
 
-[^44]: string
+[^44]: object
 
-[^45]: object
+[^45]: boolean
 
-[^46]: enum
+[^46]: string
 
-[^47]: enum
+[^47]: object
 
-[^48]: boolean
+[^48]: enum
 
-[^49]: number
+[^49]: enum
 
 [^50]: boolean
 
-[^51]: enum
+[^51]: number
 
-[^52]: array
+[^52]: boolean
 
-[^53]: number
+[^53]: enum
 
-[^54]: object
+[^54]: array
 
-[^55]: string
+[^55]: number
 
-[^56]: array
+[^56]: object
 
 [^57]: string
 
-[^58]: number
+[^58]: array
 
-[^59]: boolean
+[^59]: string
 
-[^60]: Function
+[^60]: number
 
 [^61]: boolean
 
-[^62]: string
+[^62]: Function
 
-[^63]: number
+[^63]: boolean
 
 [^64]: string
 
-[^65]: boolean
+[^65]: number
 
 [^66]: string
 
-[^67]: number
+[^67]: boolean
 
-[^68]: boolean
+[^68]: string
 
-[^69]: object
+[^69]: number
 
-[^70]: string
+[^70]: boolean
 
-[^71]: number
+[^71]: object
 
-[^72]: boolean
+[^72]: string
+
+[^73]: number
+
+[^74]: boolean

@@ -63,11 +63,11 @@ el_page(
 
 - dev:
 
-  Load the development build of Vue instead of `vue.min.js`. The
-  production build strips every warning, which is why a template that
-  fails to compile renders nothing and says nothing. Defaults to
-  `getOption("shiny.element.dev", FALSE)`, so it can be turned on for a
-  whole session without touching the UI code.
+  Load Vue's development build (`vue.global.js`) instead of the
+  production one. The production build strips every warning, which is
+  why a template that fails to compile renders nothing and says nothing.
+  Defaults to `getOption("shiny.element.dev", FALSE)`, so it can be
+  turned on for a whole session without touching the UI code.
 
 - size, z_index:
 

@@ -258,6 +258,8 @@ change.
   : Prepare Data for Element Table
 - [`el_table_v2()`](https://kaipingyang.github.io/shiny.element/reference/el_table_v2.md)
   : Element Plus Virtualized Table
+- [`update_el_table_v2()`](https://kaipingyang.github.io/shiny.element/reference/update_el_table_v2.md)
+  : Update Element Plus Virtualized Table
 - [`el_tag()`](https://kaipingyang.github.io/shiny.element/reference/el_tag.md)
   : Element Plus Tag
 - [`update_el_tag()`](https://kaipingyang.github.io/shiny.element/reference/update_el_tag.md)
@@ -390,7 +392,8 @@ asks the server for.
   : Call a method of an Element component
 - [`el_table_row()`](https://kaipingyang.github.io/shiny.element/reference/el_table_row.md)
   [`el_upload_file()`](https://kaipingyang.github.io/shiny.element/reference/el_table_row.md)
-  : Name a table row or an uploaded file for a method
+  [`el_tree_node()`](https://kaipingyang.github.io/shiny.element/reference/el_table_row.md)
+  : Name a table row, an uploaded file or a tree node for a method
 - [`el_load_children()`](https://kaipingyang.github.io/shiny.element/reference/el_load_children.md)
   : Answer a component that asked the server for data
 

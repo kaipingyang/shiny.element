@@ -132,10 +132,19 @@ el_space(
 
 ## Spacer can also be VNode
 
-> **In R**
->
-> A VNode spacer is a Vue render function’s; give `spacer` a string –
-> `"|"`.
+A spacer can be a VNode too, built in the browser from
+[`JS()`](https://kaipingyang.github.io/shiny.element/reference/JS.md)
+code.
+
+``` r
+
+el_space(
+  size = 10,
+  spacer = JS("Vue.h(ElementPlus.ElDivider, { direction: 'vertical' })"),
+  el_button("sp_v1", "button 1"),
+  el_button("sp_v2", "button 2")
+)
+```
 
 ## Alignment
 

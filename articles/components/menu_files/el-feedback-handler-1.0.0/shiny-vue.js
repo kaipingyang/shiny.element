@@ -1,4 +1,4 @@
-// Vue components as Shiny inputs. Nothing here is specific to Element UI:
+// Vue components as Shiny inputs. Nothing here is specific to Element Plus:
 // this is the layer a component library builds on.
 //
 // A component is rendered as
@@ -115,6 +115,15 @@
     if (options.beforeDestroy) { options.beforeUnmount = options.beforeDestroy; delete options.beforeDestroy; }
     if (options.destroyed) { options.unmounted = options.destroyed; delete options.destroyed; }
     var app = Vue.createApp(options);
+    // A template cannot reach window.Shiny: Vue allows only a few globals in
+    // its expressions. $setInput(name, value) is Shiny.setInputValue for
+    // templates -- a checkbox in a table cell reporting the rows ticked.
+    // An event's value by default, so the same value twice still counts.
+    app.config.globalProperties.$setInput = function(name, value, opts) {
+      if (window.Shiny && Shiny.setInputValue) {
+        Shiny.setInputValue(name, plain(value), opts || { priority: 'event' });
+      }
+    };
     // the component library installs itself on every app
     if (typeof sv.install === 'function') sv.install(app);
     // The app's root goes into a box of its own: Vue 3 owns its container
@@ -276,12 +285,16 @@
   // page settle at once, so nothing waits on a spinner or stays in memory.
   var pending = {}, nextRequest = 0;
   sv.askTimeout = 30000;
-  function settle(request, value) {
+  // An answer can also be a refusal (`failed`): the promise rejects, and a
+  // tree's loader calls Element Plus's reject(), so the node can be loaded
+  // again.
+  function settle(request, value, failed) {
     var p = pending[request];
     if (!p) return false;
     delete pending[request];
     clearTimeout(p.timer);
-    p.resolve(value);
+    if (failed) p.reject(new Error('the server refused request ' + request));
+    else p.resolve(value);
     return true;
   }
   sv.ask = function(input, question, owner) {
@@ -290,9 +303,9 @@
     var payload = plain(question) || {};
     payload.request = request;
     var host = owner && owner._shinyVueHost ? owner._shinyVueHost : null;
-    return new Promise(function(resolve) {
+    return new Promise(function(resolve, reject) {
       pending[request] = {
-        resolve: resolve, host: host,
+        resolve: resolve, reject: reject, host: host,
         timer: setTimeout(function() {
           if (settle(request, null)) warn('no answer to input$' + input + ' request ' + request +
                                           ' within ' + sv.askTimeout / 1000 + ' s');
@@ -302,7 +315,7 @@
     });
   };
   sv.hooks['.resolve'] = function(host, answer) {
-    if (!answer || !settle(answer.request, answer.value)) {
+    if (!answer || !settle(answer.request, answer.value, answer.failed)) {
       warn('update: "' + host.id + '" answered request ' + (answer && answer.request) +
            ', which nothing is waiting for');
     }
@@ -320,7 +333,9 @@
   // $refs.el if marked, else the first child of the given name, else the
   // first child at all.
   function componentOf(vm, name) {
-    if (vm.$refs && vm.$refs.el) return vm.$refs.el;
+    // A component named outright is looked for; otherwise the one the
+    // template marks ref="el", or the first
+    if (!name && vm.$refs && vm.$refs.el) return vm.$refs.el;
     var found = null;
     (function walk(node, depth) {
       if (found || depth > 4) return;
@@ -405,7 +420,13 @@
     try { result = target[msg.method].apply(target, args); }
     catch (e) { warn('call: ' + msg.method + '() raised: ' + e.message); return; }
     if (vm._elReport) vm._elReport();   // a method can change a reported value
-    if (!msg.input) return;
+    // A promise that rejects -- a form's validate() on invalid fields -- is
+    // an answer, not an error: with no input to report it to, it is dropped
+    // rather than left unhandled
+    if (!msg.input) {
+      if (result && typeof result.then === 'function') result.then(null, function() {});
+      return;
+    }
     if (result && typeof result.then === 'function') {
       result.then(function(v) { reportResult(msg.input, v); },
                   function() { reportResult(msg.input, false); });

@@ -177,11 +177,12 @@ Element Plus’s tables, and beside each entry where it is in R.
 | `button-texts` | `button_texts` | custom button texts | [^8]`[string, string]` |  | \[\] |
 | `render-content` | `render_content` | custom render function for data items | [^9]`renderContent` |  | — |
 | `format` | `format` | texts for checking status in list header | [^10]`TransferFormat` |  | {} |
-| `left-default-checked` | `left_default_checked` | key array of initially checked data items of the left list | [^11]`Array<string \\| number>` |  | \[\] |
-| `right-default-checked` | `right_default_checked` | key array of initially checked data items of the right list | [^12]`Array<string \\| number>` |  | \[\] |
-| `validate-event` | `validate_event` | whether to trigger form validation | [^13] |  | true |
-| `virtual-scroll` | `virtual_scroll` | whether to enable virtual scrolling | [^14] |  | false |
-| `item-size` | `item_size` | item height for virtual scrolling | [^15] |  | 30 |
+| `props` | `props` | prop aliases for data source | [^11]`TransferPropsAlias` |  | — |
+| `left-default-checked` | `left_default_checked` | key array of initially checked data items of the left list | [^12]`Array<string \\| number>` |  | \[\] |
+| `right-default-checked` | `right_default_checked` | key array of initially checked data items of the right list | [^13]`Array<string \\| number>` |  | \[\] |
+| `validate-event` | `validate_event` | whether to trigger form validation | [^14] |  | true |
+| `virtual-scroll` | `virtual_scroll` | whether to enable virtual scrolling | [^15] |  | false |
+| `item-size` | `item_size` | item height for virtual scrolling | [^16] |  | 30 |
 
 ### Transfer Events
 
@@ -227,12 +228,14 @@ Element Plus’s tables, and beside each entry where it is in R.
 
 [^10]: object
 
-[^11]: array
+[^11]: object
 
 [^12]: array
 
-[^13]: boolean
+[^13]: array
 
 [^14]: boolean
 
-[^15]: number
+[^15]: boolean
+
+[^16]: number

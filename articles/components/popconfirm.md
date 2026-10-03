@@ -114,6 +114,7 @@ Element Plus’s tables, and beside each entry where it is in R.
 | `teleported` | `teleported` | whether popconfirm is teleported to the body | [^13] |  | true |
 | `persistent` | `persistent` | when popconfirm inactive and `persistent` is `false` , popconfirm will be destroyed | [^14] |  | false |
 | `width` | `width` | popconfirm width, min width 150px | [^15] / [^16] |  | 150 |
+| `tooltip` |  | Inherits all attributes from Tooltip, except: `popper-class`, `popper-style`, `fallback-placements` | — |  | — |
 
 ### Events
 

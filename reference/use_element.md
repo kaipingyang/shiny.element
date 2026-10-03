@@ -40,8 +40,8 @@ use_element(
 
 - dev:
 
-  Load the development build of Vue instead of `vue.min.js`, so Vue's
-  warnings are not stripped. Defaults to
+  Load Vue's development build (`vue.global.js`) instead of the
+  production one, so Vue's warnings are not stripped. Defaults to
   `getOption("shiny.element.dev", FALSE)`.
 
 - locale:

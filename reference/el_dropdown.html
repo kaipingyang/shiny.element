@@ -336,13 +336,16 @@ pressed. Element Plus's <code>trigger-keys</code> (<code>string[]</code>).</p></
 
 
 <dt id="arg-virtual-ref">virtual_ref<a class="anchor" aria-label="anchor" href="#arg-virtual-ref"></a></dt>
-<dd><p>Indicates the reference element to which the dropdown is
-attached. Element Plus's <code>virtual-ref</code> (HTMLElement).</p></dd>
+<dd><p>A CSS selector, <code>"#help-icon"</code>, for an element elsewhere
+on the page that the dropdown is attached to, in place of a trigger of its
+own. Element Plus's <code>virtual-ref</code> takes the element itself; the selector
+is looked up in the browser.</p></dd>
 
 
 <dt id="arg-virtual-triggering">virtual_triggering<a class="anchor" aria-label="anchor" href="#arg-virtual-triggering"></a></dt>
-<dd><p>Indicates whether virtual triggering is enabled.
-Element Plus's <code>virtual-triggering</code> (boolean).</p></dd>
+<dd><p>Whether virtual triggering is enabled. Element
+Plus's <code>virtual-triggering</code> (boolean); <code>TRUE</code> when <code>virtual_ref</code> is
+given.</p></dd>
 
 
 <dt id="arg-width">width<a class="anchor" aria-label="anchor" href="#arg-width"></a></dt>
@@ -395,7 +398,7 @@ choosing the same item twice runs an <code><a href="https://rdrr.io/pkg/shiny/ma
 <span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> &lt;div id="dd1" data-shiny-vue style="display: contents"&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   &lt;script type="text/x-template" data-shiny-vue-template&gt;&lt;div id="dd1_container" style="display: contents"&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   &lt;el-dropdown :trigger="trigger" :hide-on-click="hideOnClick" :placement="placement" :disabled="disabled" :split-button="splitButton" @command="handleCommand" :type="type === null ? undefined : type" :size="size === null ? undefined : size" :show-timeout="showTimeout === null ? undefined : showTimeout" :hide-timeout="hideTimeout === null ? undefined : hideTimeout" :tabindex="tabindex === null ? undefined : tabindex" @click="elEmitClick" @visible-change="elEmitVisibleChange" :append-to="appendTo === null ? undefined : appendTo" :button-props="buttonProps === null ? undefined : buttonProps" :effect="effect === null ? undefined : effect" :max-height="maxHeight === null ? undefined : maxHeight" :persistent="persistent === null ? undefined : persistent" :popper-class="popperClass === null ? undefined : popperClass" :popper-options="popperOptions === null ? undefined : popperOptions" :popper-style="popperStyle === null ? undefined : popperStyle" :role="role === null ? undefined : role" :show-arrow="showArrow === null ? undefined : showArrow" :teleported="teleported === null ? undefined : teleported" :trigger-keys="triggerKeys === null ? undefined : triggerKeys" :virtual-ref="virtualRef === null ? undefined : virtualRef" :virtual-triggering="virtualTriggering === null ? undefined : virtualTriggering"&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   &lt;el-dropdown :trigger="trigger" :hide-on-click="hideOnClick" :placement="placement" :disabled="disabled" :split-button="splitButton" @command="handleCommand" :type="type === null ? undefined : type" :size="size === null ? undefined : size" :show-timeout="showTimeout === null ? undefined : showTimeout" :hide-timeout="hideTimeout === null ? undefined : hideTimeout" :tabindex="tabindex === null ? undefined : tabindex" @click="elEmitClick" @visible-change="elEmitVisibleChange" :append-to="appendTo === null ? undefined : appendTo" :button-props="buttonProps === null ? undefined : buttonProps" :effect="effect === null ? undefined : effect" :max-height="maxHeight === null ? undefined : maxHeight" :persistent="persistent === null ? undefined : persistent" :popper-class="popperClass === null ? undefined : popperClass" :popper-options="popperOptions === null ? undefined : popperOptions" :popper-style="popperStyle === null ? undefined : popperStyle" :role="role === null ? undefined : role" :show-arrow="showArrow === null ? undefined : showArrow" :teleported="teleported === null ? undefined : teleported" :trigger-keys="triggerKeys === null ? undefined : triggerKeys" :virtual-ref="$elRef(virtualRef)" :virtual-triggering="virtualTriggering === null ? undefined : virtualTriggering"&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     &lt;span class="el-dropdown-link"&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>       Actions</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>       &lt;el-icon class="el-icon--right"&gt;&lt;arrow-down /&gt;&lt;/el-icon&gt;</span>

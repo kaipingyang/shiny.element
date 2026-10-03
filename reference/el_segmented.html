@@ -169,6 +169,7 @@
 <span>  validate_event <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  aria_label <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  direction <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  props <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  label <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  label_position <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"top"</span>, <span class="st">"left"</span>, <span class="st">"right"</span><span class="op">)</span>,</span>
 <span>  label_width <span class="op">=</span> <span class="cn">NULL</span>,</span>
@@ -227,6 +228,12 @@ or a list of <code>list(value =, label =, disabled =)</code>, as Element Plus ta
 <dt id="arg-direction">direction<a class="anchor" aria-label="anchor" href="#arg-direction"></a></dt>
 <dd><p>Display direction. Element Plus's <code>direction</code>
 ('horizontal' | 'vertical').</p></dd>
+
+
+<dt id="arg-props">props<a class="anchor" aria-label="anchor" href="#arg-props"></a></dt>
+<dd><p>Which field of an option holds what, when the options are
+records named otherwise: <code>list(value =, label =, disabled =)</code>, Element
+Plus's <code>props</code>.</p></dd>
 
 
 <dt id="arg-label">label<a class="anchor" aria-label="anchor" href="#arg-label"></a></dt>
@@ -300,9 +307,9 @@ with <code><a href="template.html">template()</a></code>.</p></dd>
 <span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> &lt;div id="period" data-shiny-vue style="display: contents"&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   &lt;script type="text/x-template" data-shiny-vue-template&gt;&lt;div id="period_container" style="display: contents"&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   &lt;el-segmented v-model="value" @change="handleChange" :options="options === null ? undefined : options" :size="size === null ? undefined : size" :block="block === null ? undefined : block" :disabled="disabled === null ? undefined : disabled" :validate-event="validateEvent === null ? undefined : validateEvent" :aria-label="ariaLabel === null ? undefined : ariaLabel" :direction="direction === null ? undefined : direction"&gt;&lt;/el-segmented&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   &lt;el-segmented v-model="value" @change="handleChange" :options="options === null ? undefined : options" :size="size === null ? undefined : size" :block="block === null ? undefined : block" :disabled="disabled === null ? undefined : disabled" :validate-event="validateEvent === null ? undefined : validateEvent" :aria-label="ariaLabel === null ? undefined : ariaLabel" :direction="direction === null ? undefined : direction" :props="props === null ? undefined : props"&gt;&lt;/el-segmented&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> &lt;/div&gt;&lt;/script&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   &lt;script type="application/json" data-shiny-vue-options&gt;{"options":{"data":{"value":"w","options":[{"value":"d","label":"Day"},{"value":"w","label":"Week"},{"value":"m","label":"Month"}],"size":null,"block":null,"disabled":null,"validateEvent":null,"ariaLabel":null,"direction":null},"methods":{"handleChange":"function(v) { }"}},"input":"value","rate":null,"type":null,"evals":["options.methods.handleChange"]}&lt;/script&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   &lt;script type="application/json" data-shiny-vue-options&gt;{"options":{"data":{"value":"w","options":[{"value":"d","label":"Day"},{"value":"w","label":"Week"},{"value":"m","label":"Month"}],"size":null,"block":null,"disabled":null,"validateEvent":null,"ariaLabel":null,"direction":null,"props":null},"methods":{"handleChange":"function(v) { }"}},"input":"value","rate":null,"type":null,"evals":["options.methods.handleChange"]}&lt;/script&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> &lt;/div&gt;</span>
 </code></pre></div>
     </div>

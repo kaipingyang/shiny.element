@@ -33,6 +33,7 @@ el_popover(
   virtual_ref = NULL,
   virtual_triggering = NULL,
   visible = NULL,
+  ...,
   width = NULL,
   slots = NULL,
   session = NULL
@@ -158,17 +159,24 @@ el_popover(
 
 - virtual_ref:
 
-  Indicates the reference element to which the popover is attached.
-  Element Plus's `virtual-ref` (HTMLElement).
+  A CSS selector, `"#help-icon"`, for an element elsewhere on the page
+  that the popover is attached to, in place of a trigger of its own.
+  Element Plus's `virtual-ref` takes the element itself; the selector is
+  looked up in the browser.
 
 - virtual_triggering:
 
-  Indicates whether virtual triggering is enabled. Element Plus's
-  `virtual-triggering` (boolean).
+  Whether virtual triggering is enabled. Element Plus's
+  `virtual-triggering` (boolean); `TRUE` when `virtual_ref` is given.
 
 - visible:
 
   Whether popover is visible. Element Plus's `visible` (boolean / null).
+
+- ...:
+
+  Any other attribute of Element Plus's tooltip, which the popover
+  inherits, in snake_case: `enterable = FALSE`, `offset = 20`.
 
 - width:
 
@@ -210,7 +218,7 @@ el_popover(
 )
 #> <div id="info" data-shiny-vue style="display: contents">
 #>   <script type="text/x-template" data-shiny-vue-template><div id="info_container" style="display: contents">
-#>   <el-popover :title="popTitle === null ? undefined : popTitle" :content="popContent === null ? undefined : popContent" :trigger="popTrigger === null ? undefined : popTrigger" :placement="popPlacement === null ? undefined : popPlacement" :width="popPopoverWidth === null ? undefined : popPopoverWidth" :disabled="popDisabled === null ? undefined : popDisabled" :offset="popOffset === null ? undefined : popOffset" :transition="popTransition === null ? undefined : popTransition" :popper-class="popPopperClass === null ? undefined : popPopperClass" :popper-options="popPopperOptions === null ? undefined : popPopperOptions" @show="elEmitShow" @hide="elEmitHide" @after-enter="elEmitAfterEnter" @after-leave="elEmitAfterLeave" @before-enter="elEmitBeforeEnter" @before-leave="elEmitBeforeLeave" :tabindex="popTabindex === null ? undefined : popTabindex" :append-to="popAppendTo === null ? undefined : popAppendTo" :auto-close="popAutoClose === null ? undefined : popAutoClose" :effect="popEffect === null ? undefined : popEffect" :hide-after="popHideAfter === null ? undefined : popHideAfter" :persistent="popPersistent === null ? undefined : popPersistent" :popper-style="popPopperStyle === null ? undefined : popPopperStyle" :show-after="popShowAfter === null ? undefined : popShowAfter" :show-arrow="popShowArrow === null ? undefined : popShowArrow" :teleported="popTeleported === null ? undefined : popTeleported" :trigger-keys="popTriggerKeys === null ? undefined : popTriggerKeys" :virtual-ref="popVirtualRef === null ? undefined : popVirtualRef" :virtual-triggering="popVirtualTriggering === null ? undefined : popVirtualTriggering" :visible="popVisible === null ? undefined : popVisible">
+#>   <el-popover :title="popTitle === null ? undefined : popTitle" :content="popContent === null ? undefined : popContent" :trigger="popTrigger === null ? undefined : popTrigger" :placement="popPlacement === null ? undefined : popPlacement" :width="popPopoverWidth === null ? undefined : popPopoverWidth" :disabled="popDisabled === null ? undefined : popDisabled" :offset="popOffset === null ? undefined : popOffset" :transition="popTransition === null ? undefined : popTransition" :popper-class="popPopperClass === null ? undefined : popPopperClass" :popper-options="popPopperOptions === null ? undefined : popPopperOptions" @show="elEmitShow" @hide="elEmitHide" @after-enter="elEmitAfterEnter" @after-leave="elEmitAfterLeave" @before-enter="elEmitBeforeEnter" @before-leave="elEmitBeforeLeave" :tabindex="popTabindex === null ? undefined : popTabindex" :append-to="popAppendTo === null ? undefined : popAppendTo" :auto-close="popAutoClose === null ? undefined : popAutoClose" :effect="popEffect === null ? undefined : popEffect" :hide-after="popHideAfter === null ? undefined : popHideAfter" :persistent="popPersistent === null ? undefined : popPersistent" :popper-style="popPopperStyle === null ? undefined : popPopperStyle" :show-after="popShowAfter === null ? undefined : popShowAfter" :show-arrow="popShowArrow === null ? undefined : popShowArrow" :teleported="popTeleported === null ? undefined : popTeleported" :trigger-keys="popTriggerKeys === null ? undefined : popTriggerKeys" :virtual-ref="$elRef(popVirtualRef)" :virtual-triggering="popVirtualTriggering === null ? undefined : popVirtualTriggering" :visible="popVisible === null ? undefined : popVisible">
 #>     <template v-slot:reference>
 #>       <span>
 #>         <el-button>Details</el-button>
@@ -231,7 +239,7 @@ el_popover(
 )
 #> <div id="info" data-shiny-vue style="display: contents">
 #>   <script type="text/x-template" data-shiny-vue-template><div id="info_container" style="display: contents">
-#>   <el-popover :title="popTitle === null ? undefined : popTitle" :content="popContent === null ? undefined : popContent" :trigger="popTrigger === null ? undefined : popTrigger" :placement="popPlacement === null ? undefined : popPlacement" :width="popPopoverWidth === null ? undefined : popPopoverWidth" :disabled="popDisabled === null ? undefined : popDisabled" :offset="popOffset === null ? undefined : popOffset" :transition="popTransition === null ? undefined : popTransition" :popper-class="popPopperClass === null ? undefined : popPopperClass" :popper-options="popPopperOptions === null ? undefined : popPopperOptions" @show="elEmitShow" @hide="elEmitHide" @after-enter="elEmitAfterEnter" @after-leave="elEmitAfterLeave" @before-enter="elEmitBeforeEnter" @before-leave="elEmitBeforeLeave" :tabindex="popTabindex === null ? undefined : popTabindex" :append-to="popAppendTo === null ? undefined : popAppendTo" :auto-close="popAutoClose === null ? undefined : popAutoClose" :effect="popEffect === null ? undefined : popEffect" :hide-after="popHideAfter === null ? undefined : popHideAfter" :persistent="popPersistent === null ? undefined : popPersistent" :popper-style="popPopperStyle === null ? undefined : popPopperStyle" :show-after="popShowAfter === null ? undefined : popShowAfter" :show-arrow="popShowArrow === null ? undefined : popShowArrow" :teleported="popTeleported === null ? undefined : popTeleported" :trigger-keys="popTriggerKeys === null ? undefined : popTriggerKeys" :virtual-ref="popVirtualRef === null ? undefined : popVirtualRef" :virtual-triggering="popVirtualTriggering === null ? undefined : popVirtualTriggering" :visible="popVisible === null ? undefined : popVisible">
+#>   <el-popover :title="popTitle === null ? undefined : popTitle" :content="popContent === null ? undefined : popContent" :trigger="popTrigger === null ? undefined : popTrigger" :placement="popPlacement === null ? undefined : popPlacement" :width="popPopoverWidth === null ? undefined : popPopoverWidth" :disabled="popDisabled === null ? undefined : popDisabled" :offset="popOffset === null ? undefined : popOffset" :transition="popTransition === null ? undefined : popTransition" :popper-class="popPopperClass === null ? undefined : popPopperClass" :popper-options="popPopperOptions === null ? undefined : popPopperOptions" @show="elEmitShow" @hide="elEmitHide" @after-enter="elEmitAfterEnter" @after-leave="elEmitAfterLeave" @before-enter="elEmitBeforeEnter" @before-leave="elEmitBeforeLeave" :tabindex="popTabindex === null ? undefined : popTabindex" :append-to="popAppendTo === null ? undefined : popAppendTo" :auto-close="popAutoClose === null ? undefined : popAutoClose" :effect="popEffect === null ? undefined : popEffect" :hide-after="popHideAfter === null ? undefined : popHideAfter" :persistent="popPersistent === null ? undefined : popPersistent" :popper-style="popPopperStyle === null ? undefined : popPopperStyle" :show-after="popShowAfter === null ? undefined : popShowAfter" :show-arrow="popShowArrow === null ? undefined : popShowArrow" :teleported="popTeleported === null ? undefined : popTeleported" :trigger-keys="popTriggerKeys === null ? undefined : popTriggerKeys" :virtual-ref="$elRef(popVirtualRef)" :virtual-triggering="popVirtualTriggering === null ? undefined : popVirtualTriggering" :visible="popVisible === null ? undefined : popVisible">
 #>     <ul>
 #>       <li>One</li>
 #>       <li>Two</li>

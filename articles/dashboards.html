@@ -569,7 +569,7 @@ carry the row.</p>
 <span><span class="va">status_tag</span> <span class="op">&lt;-</span> <span class="va">el</span><span class="op">$</span><span class="fu">tag</span><span class="op">(</span></span>
 <span>  size <span class="op">=</span> <span class="st">"small"</span>,</span>
 <span>  <span class="st">":type"</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span></span>
-<span>    <span class="st">"({pending: 'warning', paid: 'success', shipped: '', "</span>,</span>
+<span>    <span class="st">"({pending: 'warning', paid: 'success', shipped: 'primary', "</span>,</span>
 <span>    <span class="st">"refunded: 'info'})[scope.row.status]"</span></span>
 <span>  <span class="op">)</span>,</span>
 <span>  <span class="st">"{{ scope.row.status }}"</span></span>
@@ -605,9 +605,9 @@ carry the row.</p>
 <span>    width <span class="op">=</span> <span class="st">"160"</span>,</span>
 <span>    fixed <span class="op">=</span> <span class="st">"right"</span>,</span>
 <span>    cell <span class="op">=</span> <span class="fu"><a href="https://rstudio.github.io/htmltools/reference/tagList.html" class="external-link">tagList</a></span><span class="op">(</span></span>
-<span>      <span class="va">el</span><span class="op">$</span><span class="fu">button</span><span class="op">(</span>size <span class="op">=</span> <span class="st">"mini"</span>, <span class="st">"@click"</span> <span class="op">=</span> <span class="st">"rowAction('edit', scope)"</span>, <span class="st">"Edit"</span><span class="op">)</span>,</span>
+<span>      <span class="va">el</span><span class="op">$</span><span class="fu">button</span><span class="op">(</span>size <span class="op">=</span> <span class="st">"small"</span>, <span class="st">"@click"</span> <span class="op">=</span> <span class="st">"rowAction('edit', scope)"</span>, <span class="st">"Edit"</span><span class="op">)</span>,</span>
 <span>      <span class="va">el</span><span class="op">$</span><span class="fu">button</span><span class="op">(</span></span>
-<span>        size <span class="op">=</span> <span class="st">"mini"</span>,</span>
+<span>        size <span class="op">=</span> <span class="st">"small"</span>,</span>
 <span>        type <span class="op">=</span> <span class="st">"danger"</span>,</span>
 <span>        plain <span class="op">=</span> <span class="cn">NA</span>,</span>
 <span>        <span class="st">"@click"</span> <span class="op">=</span> <span class="st">"rowAction('delete', scope)"</span>,</span>
@@ -947,7 +947,7 @@ the form from that row:</p>
 <span><span class="va">status_tag</span> <span class="op">&lt;-</span> <span class="va">el</span><span class="op">$</span><span class="fu">tag</span><span class="op">(</span></span>
 <span>  size <span class="op">=</span> <span class="st">"small"</span>,</span>
 <span>  <span class="st">":type"</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span></span>
-<span>    <span class="st">"({pending: 'warning', paid: 'success', shipped: '', "</span>,</span>
+<span>    <span class="st">"({pending: 'warning', paid: 'success', shipped: 'primary', "</span>,</span>
 <span>    <span class="st">"refunded: 'info'})[scope.row.status]"</span></span>
 <span>  <span class="op">)</span>,</span>
 <span>  <span class="st">"{{ scope.row.status }}"</span></span>
@@ -983,9 +983,9 @@ the form from that row:</p>
 <span>    width <span class="op">=</span> <span class="st">"160"</span>,</span>
 <span>    fixed <span class="op">=</span> <span class="st">"right"</span>,</span>
 <span>    cell <span class="op">=</span> <span class="fu"><a href="https://rstudio.github.io/htmltools/reference/tagList.html" class="external-link">tagList</a></span><span class="op">(</span></span>
-<span>      <span class="va">el</span><span class="op">$</span><span class="fu">button</span><span class="op">(</span>size <span class="op">=</span> <span class="st">"mini"</span>, <span class="st">"@click"</span> <span class="op">=</span> <span class="st">"rowAction('edit', scope)"</span>, <span class="st">"Edit"</span><span class="op">)</span>,</span>
+<span>      <span class="va">el</span><span class="op">$</span><span class="fu">button</span><span class="op">(</span>size <span class="op">=</span> <span class="st">"small"</span>, <span class="st">"@click"</span> <span class="op">=</span> <span class="st">"rowAction('edit', scope)"</span>, <span class="st">"Edit"</span><span class="op">)</span>,</span>
 <span>      <span class="va">el</span><span class="op">$</span><span class="fu">button</span><span class="op">(</span></span>
-<span>        size <span class="op">=</span> <span class="st">"mini"</span>,</span>
+<span>        size <span class="op">=</span> <span class="st">"small"</span>,</span>
 <span>        type <span class="op">=</span> <span class="st">"danger"</span>,</span>
 <span>        plain <span class="op">=</span> <span class="cn">NA</span>,</span>
 <span>        <span class="st">"@click"</span> <span class="op">=</span> <span class="st">"rowAction('delete', scope)"</span>,</span>

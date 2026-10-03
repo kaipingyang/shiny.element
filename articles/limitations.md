@@ -1,19 +1,20 @@
 # What works, and what does not
 
-Every component Element Plus 2.14.7 documents is wrapped, with every
-documented attribute, event and slot reachable from R and every method
-callable by name. What follows is the small print – the places where
-this package behaves differently from Element in a browser, and why.
+Every component Element Plus 2.14.7 documents is wrapped, and every
+documented attribute, event and slot is reachable from R – each
+attribute bound to Element Plus’s own prop, or named in a short list of
+aliases and exclusions below – and every method is callable by name.
+What follows is the small print: the places where this package behaves
+differently from Element in a browser, the few things Element Plus does
+that R cannot, and why.
 
 Coverage is measured rather than claimed. `tools/api-coverage.R` renders
 every component and reads the markup back; `tools/api-coverage.py`
-compares that with the API tables in Element’s own documentation. A
-method being callable is not the same as it having been run: the methods
-exercised end to end in the package’s browser tests are fewer, and a
-method whose argument is a JavaScript callback cannot be called from R
-at all – Element’s promise form, where it has one, is what
-[`el_call()`](https://kaipingyang.github.io/shiny.element/reference/el_call.md)
-uses.
+compares that with the API tables in Element’s own documentation. An
+argument counts only when the markup binds it to the prop of the same
+name; one that merely shares the name does not. Every method is also
+run, once, on a live component in a browser test; the few that cannot be
+called from R are listed below.
 
 ## Where the argument name differs from Element’s
 
@@ -26,9 +27,12 @@ few exceptions. Each is deliberate; the rest translate mechanically
 | `default-active` | `active` | It is the current item, and [`update_el_menu()`](https://kaipingyang.github.io/shiny.element/reference/update_el_menu.md) changes it – “default” would suggest it is only read once |
 | `default-expanded-keys` | `expanded` | As above, for [`el_tree()`](https://kaipingyang.github.io/shiny.element/reference/el_tree.md) |
 | `default-checked-keys` | `checked` | As above |
-| `props` | `label_field`, `children_field`, `disabled_field`, `is_leaf_field` | [`el_tree()`](https://kaipingyang.github.io/shiny.element/reference/el_tree.md)’s field map is four arguments rather than a nested list |
+| `props` | `label_field`, `children_field`, `disabled_field`, `is_leaf_field`, `class_field` | [`el_tree()`](https://kaipingyang.github.io/shiny.element/reference/el_tree.md)’s field map is arguments rather than a nested list |
 | `data` (upload) | `extra_data` | [`el_upload()`](https://kaipingyang.github.io/shiny.element/reference/el_upload.md)’s `data` would read as the file, not the fields sent beside it |
-| `width` (popover) | `popover_width` | Every component takes `width` for its own size; this one sizes the card |
+| `width` (popover, popconfirm) | `popover_width`, `popconfirm_width` | Every component takes `width` for its own size; this one sizes the card |
+| `props.class` (tree) | `class_field` | As for the other fields of [`el_tree()`](https://kaipingyang.github.io/shiny.element/reference/el_tree.md)’s map |
+| `#reference` slot (tooltip) | `reference` | The element the tooltip describes, as for [`el_popover()`](https://kaipingyang.github.io/shiny.element/reference/el_popover.md); `trigger` is Element’s own, how it opens |
+| `virtual-ref` | `virtual_ref`, a CSS selector | Element takes the element itself, which R cannot send; the selector is looked up in the browser |
 | `model-value` | `value`, or `visible` (dialog, drawer), `selected` (tabs), `open` (tour) | `v-model`’s prop is the component’s value, read back as `input$<id>` |
 | `width` (watermark, table-v2) | `watermark_width`, `table_v2_width` | As for the popover |
 | a prop named like a child’s field | prefixed: `tip_`, `pop_`, `pc_` | A component that absorbs its children keeps their data apart from its own |
@@ -119,9 +123,17 @@ disconnect them. They follow Element closely:
   starts where `el_page(z_index =)` says;
 - `opened` and `closed` follow the end of Element’s own transitions, and
   a drawer gives focus back to what had it;
-- tabs take the arrow keys and Delete, scroll when they outgrow the bar,
-  and carry Element’s ARIA; collapse headers take Enter and Space,
-  animate open and closed, and carry Element’s ARIA.
+- focus stays inside an open dialog or drawer, as Element Plus’s focus
+  trap keeps it: Tab and Shift+Tab go round its controls, and focus that
+  lands on the page underneath is brought back. Element’s own popups – a
+  select’s dropdown, a date picker’s panel – are left alone;
+- closed straight after opening, a dialog never reports `opened`: the
+  closing cancels the opening, as Vue’s transitions do;
+- tabs take the arrow keys and Delete, passing over disabled tabs,
+  scroll when they outgrow the bar, and carry Element’s ARIA; a disabled
+  tab cannot be closed, and Enter on the “+” adds one; collapse headers
+  take Enter and Space, animate open and closed, and carry Element’s
+  ARIA.
 
 What remains different: a dialog’s or drawer’s props other than
 `visible`, `title`, `width` and `size` are set when the page is built –
@@ -144,13 +156,109 @@ compiles templates in the browser, and functions given with
 [`JS()`](https://kaipingyang.github.io/shiny.element/reference/JS.md)
 are evaluated there.
 
-## Known gaps
+## Writing what Element Plus writes in JavaScript
 
-**Three attributes are deliberately unbound.** `value` on `el-checkbox`
-and `el-radio`, which a group owns through `v-model`, and the deprecated
-`auto-complete` spellings on `el-select` and `el-input`, which upstream
-marks `@DEPRECATED` beside the `autocomplete` this package binds. They
-are listed in `tools/api-coverage.py` with the reason.
+Element Plus’s own examples build cells, header rows, messages and
+spacers with render functions in JSX. The same goes through R:
+
+- **[`JS()`](https://kaipingyang.github.io/shiny.element/reference/JS.md)
+  code is evaluated in the browser**, so a prop, a column field or a
+  message that upstream builds with `h()` takes
+  [`JS()`](https://kaipingyang.github.io/shiny.element/reference/JS.md)
+  code calling `Vue.h()` – with Element Plus’s components as
+  `ElementPlus.ElSwitch` and the like. A message whose content changes
+  is a function returning the VNode, as upstream says.
+- **Slots are templates.** A table’s `cell`, `header-cell` or `row` slot
+  is written with
+  [`template()`](https://kaipingyang.github.io/shiny.element/reference/template.md),
+  and `<component :is="cell" />` draws a cell Element handed the slot –
+  merging new props into it, as `cloneVNode()` does.
+- **`el_table_v2(methods =)`** gives its slot templates functions of
+  your own, so upstream’s row and header functions port across nearly
+  line for line.
+- **`$setInput(name, value)`** in a template is Shiny’s
+  `setInputValue()`, which Vue does not let a template reach: a checkbox
+  in a table cell can report the rows ticked.
+- **`virtual_ref`** is a CSS selector for the element a tooltip, popover
+  or dropdown attaches to; one matching several elements gives them a
+  single popup that follows the pointer.
+
+The table-v2, tree, message-box, notification, space and tooltip pages
+show each of these on Element Plus’s own examples.
+
+## What R cannot do
+
+Out of every example in Element Plus’s documentation, one has no R
+version:
+
+- **`v-popover`, the directive.** A directive is template syntax on
+  another component’s element, and each component here is an application
+  of its own. `virtual_ref` does what the directive does: it attaches a
+  popover to an element drawn elsewhere.
+
+And a few things are different by construction:
+
+- **A component’s own instance stays in the browser.** Of the 151
+  methods Element Plus documents, three take an object only the browser
+  can make: the calendar’s `pickDay()` and
+  `calculateValidatedDateRange()` take day.js dates – set the day with
+  `update_el_calendar(value =)` instead – and the upload’s
+  `handleStart()` takes a file the user picked. The objects a component
+  already holds are named from R: a table’s rows
+  ([`el_table_row()`](https://kaipingyang.github.io/shiny.element/reference/el_table_row.md)),
+  an upload’s files
+  ([`el_upload_file()`](https://kaipingyang.github.io/shiny.element/reference/el_table_row.md))
+  and a tree’s nodes
+  ([`el_tree_node()`](https://kaipingyang.github.io/shiny.element/reference/el_table_row.md)).
+  A method’s callback argument is left out: Element’s promise form,
+  where it has one, is what
+  [`el_call()`](https://kaipingyang.github.io/shiny.element/reference/el_call.md)
+  uses. The rest are each run in a browser test
+  (`test-browser-methods.R`).
+- **[`el_config_provider()`](https://kaipingyang.github.io/shiny.element/reference/el_config_provider.md)’s
+  `locale`, `z-index` and `namespace` are the page’s:**
+  `el_page(locale =, z_index =)`. Every component is an application of
+  its own, so a locale cannot be scoped to part of the page; and the
+  bundled stylesheet is built for the `el-` namespace. Its other
+  settings – `message` included, which reaches
+  [`el_message()`](https://kaipingyang.github.io/shiny.element/reference/el_message.md)
+  – work as upstream’s do.
+- **[`el_upload()`](https://kaipingyang.github.io/shiny.element/reference/el_upload.md)’s
+  `on-success`, `on-error` and `http-request`** are how files reach
+  Shiny, so they are taken. Releasing an upload that was interrupted
+  reaches into Shiny’s own upload context, for which Shiny has no public
+  interface; `test-el_upload.R` checks the installed Shiny still has it,
+  and if a future one does not, the partial upload stays until the
+  session ends and a warning says so.
+
+## Attributes not bound, and why
+
+`tools/api-coverage.py` lists each upstream attribute not bound to a
+prop of its own name, with the reason (`EXCLUDED`, `ALIASES`). They fall
+into a few kinds:
+
+- **Owned by a group.** A checkbox or radio inside a group takes its
+  value, `true-value`, `false-value` and ARIA from the group, which
+  binds them.
+- **Deprecated upstream, with the replacement bound.** The
+  `auto-complete` spellings of select and input; `popper-append-to-body`
+  of autocomplete; the `label` of switch, rate, color picker and time
+  picker, which upstream marks as an old name for `aria-label` – here
+  `label` is the Shiny label above the control, and `aria_label` is
+  bound.
+- **Any element’s.** `class`, `style` and `prefix-cls` on space and
+  table-v2; `model-modifiers`, which are template syntax.
+- **Cross-references.** Rows in upstream’s tables that point to another
+  component’s: tree select takes the select’s and the tree’s attributes
+  (`...` for those without an argument), popover and popconfirm the
+  tooltip’s (`...` likewise).
+- **Aliases.** `options` for `choices` in the choice components, drawn
+  as child options rather than through the prop; a select’s `props`,
+  which renames the fields of its choices in R for the same reason.
+- **The page’s.** ConfigProvider’s `locale`, `z-index` and `namespace`,
+  as above.
+
+## Other notes
 
 **Element’s i18n covers the component text, not yours.**
 `el_page(locale =)` switches Element’s own strings – a date picker’s

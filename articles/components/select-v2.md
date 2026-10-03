@@ -462,58 +462,60 @@ Element Plus’s tables, and beside each entry where it is in R.
 |----|----|----|----|----|----|
 | `model-value` | `value`; `input$<id>` | binding value | [^1] / [^2] / [^3] / [^4] / [^5] |  | — |
 | `options` | `options` | data of the options, the key of `value` and `label` can be customize by `props` | [^6] |  | — |
-| `multiple` | `multiple` | is multiple | [^7] |  | false |
-| `disabled` | `disabled` | is disabled | [^8] |  | false |
-| `value-key` | `value_key` | unique identity key name for value, required when value is an object | [^9] |  | value |
-| `size` | `size` | size of component | [^10]`'' \\| 'large' \\| 'default' \\| 'small'` |  | ’’ |
-| `clearable` | `clearable` | whether select can be cleared | [^11] |  | false |
-| `clear-icon` | `clear_icon` | custom clear icon | [^12] / [^13]`Component` |  | CircleClose |
-| `collapse-tags` | `collapse_tags` | whether to collapse tags to a text when multiple selecting | [^14] |  | false |
-| `multiple-limit` | `multiple_limit` | maximum number of options user can select when multiple is true. No limit when set to 0 | [^15] |  | 0 |
-| `id` | `id`, the Shiny input’s | native input id input | [^16] |  | — |
-| `effect` | `effect` | tooltip theme, built-in theme: `dark` / `light` | [^17]`'dark' \\| 'light'` / [^18] |  | light |
-| `autocomplete` | `autocomplete` | autocomplete of select input | [^19] |  | off |
-| `placeholder` | `placeholder` | placeholder | [^20] |  | Please select |
-| `filterable` | `filterable` | whether Select is filterable | [^21] |  | false |
-| `allow-create` | `allow_create` | whether creating new items is allowed. To use this, `filterable` must be true | [^22] |  | false |
-| `filter-method` | `filter_method` | custom filter method, the first parameter is the current input value. To use this, `filterable` must be true method | [^23]`(query: string) => void` |  | — |
-| `loading` | `loading` | whether Select is loading data from server | [^24] |  | false |
-| `loading-text` | `loading_text` | displayed text while loading data from server, default is ‘Loading’ | [^25] |  | — |
-| `reserve-keyword` | `reserve_keyword` | whether reserve the keyword after select filtered option. | [^26] |  | true |
-| `default-first-option` | `default_first_option` | select first matching option on enter key. Use with `filterable` or `remote` | [^27] |  | false |
-| `no-match-text` | `no_match_text` | displayed text when no data matches the filtering query, you can also use slot `empty`, default is ‘No matching data’ | [^28] |  | — |
-| `no-data-text` | `no_data_text` | displayed text when there is no options, you can also use slot empty | [^29] |  | No Data |
-| `popper-class` | `popper_class` | custom class name for Select’s dropdown and tags’ tooltip | [^30] / [^31] |  | ’’ |
-| `popper-style` | `popper_style` | custom style for Select’s dropdown and tags’ tooltip | [^32] / [^33] |  | — |
-| `teleported` | `teleported` | whether select dropdown is teleported, if `true` it will be teleported to where `append-to` sets | [^34] |  | true |
-| `append-to` | `append_to` | which element the select dropdown appends to | [^35] / [^36] |  | — |
-| `persistent` | `persistent` | when select dropdown is inactive and `persistent` is `false`, select dropdown will be destroyed | [^37] |  | true |
-| `popper-options` | `popper_options` | [popper.js](https://popper.js.org/docs/v2/) parameters | [^38]refer to [popper.js](https://popper.js.org/docs/v2/) doc |  | {} |
-| `automatic-dropdown` | `automatic_dropdown` | for non-filterable Select, this prop decides if the option menu pops up when the input is focused | [^39] |  | false |
-| `fit-input-width` | `fit_input_width` | whether the width of the dropdown is the same as the input, if the value is `number`, then the width is fixed | [^40] / [^41] |  | true |
-| `suffix-icon` | `suffix_icon` | custom suffix icon component | [^42] / [^43]`Component` |  | ArrowDown |
-| `height` | `height` | The height of the dropdown panel, 34px for each item | [^44] |  | 274 |
-| `item-height` | `item_height` | The height of the dropdown item | [^45] |  | 34 |
-| `estimated-option-height` | `estimated_option_height` | Controls virtual-list sizing mode: if undefined, the list uses fixed item height from `item-height`; if provided, the list uses dynamic item sizing and this value as the estimated item height. | [^46] |  | — |
-| `scrollbar-always-on` | `scrollbar_always_on` | Controls whether the scrollbar is always displayed | [^47] |  | false |
-| `remote` | `remote` | whether search data from server | [^48] |  | false |
-| `debounce` | `debounce` | debounce delay during remote search, in milliseconds | [^49] |  | 300 |
-| `remote-method` | `remote_method` | function that gets called when the input value changes. Its parameter is the current input value. To use this, `filterable` must be true | [^50]`(query: string) => void` |  | — |
-| `remote-show-suffix` | `remote_show_suffix` | in remote search method show suffix icon | [^51] |  | false |
-| `validate-event` | `validate_event` | whether to trigger form validation | [^52] |  | true |
-| `offset` | `offset` | offset of the dropdown | [^53] |  | 12 |
-| `show-arrow` | `show_arrow` | whether the dropdown has an arrow | [^54] |  | true |
-| `placement` | `placement` | position of dropdown | [^55]`'top' \\| 'top-start' \\| 'top-end' \\| 'bottom' \\| 'bottom-start' \\| 'bottom-end' \\| 'left' \\| 'left-start' \\| 'left-end' \\| 'right' \\| 'right-start' \\| 'right-end'` |  | bottom-start |
-| `fallback-placements` | `fallback_placements` | list of possible positions for dropdown [popper.js](https://popper.js.org/docs/v2/modifiers/flip/#fallbackplacements) | [^56]`Placement[]` |  | \[‘bottom-start’, ‘top-start’, ‘right’, ‘left’\] |
-| `collapse-tags-tooltip` | `collapse_tags_tooltip` | whether show all selected tags when mouse hover text of collapse-tags. To use this, `collapse-tags` must be true | [^57] |  | false |
-| `max-collapse-tags` | `max_collapse_tags` | The max tags number to be shown. To use this, `collapse-tags` must be true | [^58] |  | 1 |
-| `tag-type` | `tag_type` | tag type | [^59]`'' \\| 'success' \\| 'info' \\| 'warning' \\| 'danger'` |  | info |
-| `tag-effect` | `tag_effect` | tag effect | [^60]`'' \\| 'light' \\| 'dark' \\| 'plain'` |  | light |
-| `aria-label` | `aria_label` | same as `aria-label` in native input | [^61] |  | — |
-| `empty-values` | `empty_values` | empty values of component, [see config-provider](https://kaipingyang.github.io/shiny.element/articles/components/config-provider.html#empty-values-configurations) | [^62] |  | — |
-| `value-on-clear` | `value_on_clear` | clear return value, [see config-provider](https://kaipingyang.github.io/shiny.element/articles/components/config-provider.html#empty-values-configurations) | [^63] / [^64] / [^65] / [^66] |  | — |
-| `popper-append-to-body` | `popper_append_to_body` | whether to append the popper menu to body. If the positioning of the popper is wrong, you can try to set this prop to false | [^67] |  | false |
-| `tabindex` | `tabindex` | tabindex for input | [^68] / [^69] |  | — |
+| `props` | `props` | configuration options, see the following table | [^7] |  | — |
+| `multiple` | `multiple` | is multiple | [^8] |  | false |
+| `disabled` | `disabled` | is disabled | [^9] |  | false |
+| `value-key` | `value_key` | unique identity key name for value, required when value is an object | [^10] |  | value |
+| `size` | `size` | size of component | [^11]`'' \\| 'large' \\| 'default' \\| 'small'` |  | ’’ |
+| `clearable` | `clearable` | whether select can be cleared | [^12] |  | false |
+| `clear-icon` | `clear_icon` | custom clear icon | [^13] / [^14]`Component` |  | CircleClose |
+| `collapse-tags` | `collapse_tags` | whether to collapse tags to a text when multiple selecting | [^15] |  | false |
+| `multiple-limit` | `multiple_limit` | maximum number of options user can select when multiple is true. No limit when set to 0 | [^16] |  | 0 |
+| `id` | `id`, the Shiny input’s | native input id input | [^17] |  | — |
+| `effect` | `effect` | tooltip theme, built-in theme: `dark` / `light` | [^18]`'dark' \\| 'light'` / [^19] |  | light |
+| `autocomplete` | `autocomplete` | autocomplete of select input | [^20] |  | off |
+| `placeholder` | `placeholder` | placeholder | [^21] |  | Please select |
+| `filterable` | `filterable` | whether Select is filterable | [^22] |  | false |
+| `allow-create` | `allow_create` | whether creating new items is allowed. To use this, `filterable` must be true | [^23] |  | false |
+| `filter-method` | `filter_method` | custom filter method, the first parameter is the current input value. To use this, `filterable` must be true method | [^24]`(query: string) => void` |  | — |
+| `loading` | `loading` | whether Select is loading data from server | [^25] |  | false |
+| `loading-text` | `loading_text` | displayed text while loading data from server, default is ‘Loading’ | [^26] |  | — |
+| `reserve-keyword` | `reserve_keyword` | whether reserve the keyword after select filtered option. | [^27] |  | true |
+| `default-first-option` | `default_first_option` | select first matching option on enter key. Use with `filterable` or `remote` | [^28] |  | false |
+| `no-match-text` | `no_match_text` | displayed text when no data matches the filtering query, you can also use slot `empty`, default is ‘No matching data’ | [^29] |  | — |
+| `no-data-text` | `no_data_text` | displayed text when there is no options, you can also use slot empty | [^30] |  | No Data |
+| `popper-class` | `popper_class` | custom class name for Select’s dropdown and tags’ tooltip | [^31] / [^32] |  | ’’ |
+| `popper-style` | `popper_style` | custom style for Select’s dropdown and tags’ tooltip | [^33] / [^34] |  | — |
+| `teleported` | `teleported` | whether select dropdown is teleported, if `true` it will be teleported to where `append-to` sets | [^35] |  | true |
+| `append-to` | `append_to` | which element the select dropdown appends to | [^36] / [^37] |  | — |
+| `persistent` | `persistent` | when select dropdown is inactive and `persistent` is `false`, select dropdown will be destroyed | [^38] |  | true |
+| `popper-options` | `popper_options` | [popper.js](https://popper.js.org/docs/v2/) parameters | [^39]refer to [popper.js](https://popper.js.org/docs/v2/) doc |  | {} |
+| `automatic-dropdown` | `automatic_dropdown` | for non-filterable Select, this prop decides if the option menu pops up when the input is focused | [^40] |  | false |
+| `fit-input-width` | `fit_input_width` | whether the width of the dropdown is the same as the input, if the value is `number`, then the width is fixed | [^41] / [^42] |  | true |
+| `suffix-icon` | `suffix_icon` | custom suffix icon component | [^43] / [^44]`Component` |  | ArrowDown |
+| `height` | `height` | The height of the dropdown panel, 34px for each item | [^45] |  | 274 |
+| `item-height` | `item_height` | The height of the dropdown item | [^46] |  | 34 |
+| `estimated-option-height` | `estimated_option_height` | Controls virtual-list sizing mode: if undefined, the list uses fixed item height from `item-height`; if provided, the list uses dynamic item sizing and this value as the estimated item height. | [^47] |  | — |
+| `scrollbar-always-on` | `scrollbar_always_on` | Controls whether the scrollbar is always displayed | [^48] |  | false |
+| `remote` | `remote` | whether search data from server | [^49] |  | false |
+| `debounce` | `debounce` | debounce delay during remote search, in milliseconds | [^50] |  | 300 |
+| `remote-method` | `remote_method` | function that gets called when the input value changes. Its parameter is the current input value. To use this, `filterable` must be true | [^51]`(query: string) => void` |  | — |
+| `remote-show-suffix` | `remote_show_suffix` | in remote search method show suffix icon | [^52] |  | false |
+| `validate-event` | `validate_event` | whether to trigger form validation | [^53] |  | true |
+| `offset` | `offset` | offset of the dropdown | [^54] |  | 12 |
+| `show-arrow` | `show_arrow` | whether the dropdown has an arrow | [^55] |  | true |
+| `placement` | `placement` | position of dropdown | [^56]`'top' \\| 'top-start' \\| 'top-end' \\| 'bottom' \\| 'bottom-start' \\| 'bottom-end' \\| 'left' \\| 'left-start' \\| 'left-end' \\| 'right' \\| 'right-start' \\| 'right-end'` |  | bottom-start |
+| `fallback-placements` | `fallback_placements` | list of possible positions for dropdown [popper.js](https://popper.js.org/docs/v2/modifiers/flip/#fallbackplacements) | [^57]`Placement[]` |  | \[‘bottom-start’, ‘top-start’, ‘right’, ‘left’\] |
+| `collapse-tags-tooltip` | `collapse_tags_tooltip` | whether show all selected tags when mouse hover text of collapse-tags. To use this, `collapse-tags` must be true | [^58] |  | false |
+| `tag-tooltip` | `tag_tooltip` | configuration object for the collapse-tags tooltip. To use this, `collapse-tags` and `collapse-tags-tooltip` must be true | [^59]`TagTooltipProps` |  | {} |
+| `max-collapse-tags` | `max_collapse_tags` | The max tags number to be shown. To use this, `collapse-tags` must be true | [^60] |  | 1 |
+| `tag-type` | `tag_type` | tag type | [^61]`'' \\| 'success' \\| 'info' \\| 'warning' \\| 'danger'` |  | info |
+| `tag-effect` | `tag_effect` | tag effect | [^62]`'' \\| 'light' \\| 'dark' \\| 'plain'` |  | light |
+| `aria-label` | `aria_label` | same as `aria-label` in native input | [^63] |  | — |
+| `empty-values` | `empty_values` | empty values of component, [see config-provider](https://kaipingyang.github.io/shiny.element/articles/components/config-provider.html#empty-values-configurations) | [^64] |  | — |
+| `value-on-clear` | `value_on_clear` | clear return value, [see config-provider](https://kaipingyang.github.io/shiny.element/articles/components/config-provider.html#empty-values-configurations) | [^65] / [^66] / [^67] / [^68] |  | — |
+| `popper-append-to-body` | `popper_append_to_body` | whether to append the popper menu to body. If the positioning of the popper is wrong, you can try to set this prop to false | [^69] |  | false |
+| `tabindex` | `tabindex` | tabindex for input | [^70] / [^71] |  | — |
 
 ### Events
 
@@ -559,128 +561,132 @@ Element Plus’s tables, and beside each entry where it is in R.
 
 [^6]: array
 
-[^7]: boolean
+[^7]: object
 
 [^8]: boolean
 
-[^9]: string
+[^9]: boolean
 
-[^10]: enum
+[^10]: string
 
-[^11]: boolean
+[^11]: enum
 
-[^12]: string
+[^12]: boolean
 
-[^13]: object
+[^13]: string
 
-[^14]: boolean
+[^14]: object
 
-[^15]: number
+[^15]: boolean
 
-[^16]: string
+[^16]: number
 
-[^17]: enum
+[^17]: string
 
-[^18]: string
+[^18]: enum
 
 [^19]: string
 
 [^20]: string
 
-[^21]: boolean
+[^21]: string
 
 [^22]: boolean
 
-[^23]: Function
+[^23]: boolean
 
-[^24]: boolean
+[^24]: Function
 
-[^25]: string
+[^25]: boolean
 
-[^26]: boolean
+[^26]: string
 
 [^27]: boolean
 
-[^28]: string
+[^28]: boolean
 
 [^29]: string
 
 [^30]: string
 
-[^31]: object
+[^31]: string
 
-[^32]: string
+[^32]: object
 
-[^33]: object
+[^33]: string
 
-[^34]: boolean
+[^34]: object
 
-[^35]: CSSSelector
+[^35]: boolean
 
-[^36]: HTMLElement
+[^36]: CSSSelector
 
-[^37]: boolean
+[^37]: HTMLElement
 
-[^38]: object
+[^38]: boolean
 
-[^39]: boolean
+[^39]: object
 
 [^40]: boolean
 
-[^41]: number
+[^41]: boolean
 
-[^42]: string
+[^42]: number
 
-[^43]: object
+[^43]: string
 
-[^44]: number
+[^44]: object
 
 [^45]: number
 
 [^46]: number
 
-[^47]: boolean
+[^47]: number
 
 [^48]: boolean
 
-[^49]: number
+[^49]: boolean
 
-[^50]: Function
+[^50]: number
 
-[^51]: boolean
+[^51]: Function
 
 [^52]: boolean
 
-[^53]: number
+[^53]: boolean
 
-[^54]: boolean
+[^54]: number
 
-[^55]: enum
+[^55]: boolean
 
-[^56]: array
+[^56]: enum
 
-[^57]: boolean
+[^57]: array
 
-[^58]: number
+[^58]: boolean
 
-[^59]: enum
+[^59]: object
 
-[^60]: enum
+[^60]: number
 
-[^61]: string
+[^61]: enum
 
-[^62]: array
+[^62]: enum
 
 [^63]: string
 
-[^64]: number
+[^64]: array
 
-[^65]: boolean
+[^65]: string
 
-[^66]: Function
+[^66]: number
 
 [^67]: boolean
 
-[^68]: string
+[^68]: Function
 
-[^69]: number
+[^69]: boolean
+
+[^70]: string
+
+[^71]: number

@@ -61,6 +61,51 @@
     if (top && top.getAttribute('data-esc-close') !== 'false') requestClose(top);
   });
 
+  // Focus stays inside the topmost open overlay, as Element Plus's
+  // ElFocusTrap keeps it: Tab from the last control comes round to the
+  // first, Shift+Tab from the first to the last, and focus that lands
+  // outside -- a click on the page under the mask -- is brought back.
+  // Element's own popups (a select's dropdown, a date picker's panel, a
+  // message box) are appended to <body> outside the overlay and are left
+  // alone.
+  var TABBABLE = 'a[href], area[href], button:not([disabled]), ' +
+    'input:not([disabled]):not([type="hidden"]), select:not([disabled]), ' +
+    'textarea:not([disabled]), [tabindex]:not([tabindex="-1"]), [contenteditable="true"]';
+  function panelOf(wrapper) { return wrapper.querySelector('.el-dialog, .el-drawer'); }
+  function tabbables(panel) {
+    return Array.prototype.filter.call(panel.querySelectorAll(TABBABLE), function(el) {
+      return el.tabIndex >= 0 && el.getClientRects().length > 0 &&
+        getComputedStyle(el).visibility !== 'hidden';
+    });
+  }
+  function popupOutside(el) {
+    return !!(el && el.closest && el.closest(
+      '.el-popper, .el-message-box, .el-message, .el-notification, .el-overlay, .el-image-viewer__wrapper'));
+  }
+  document.addEventListener('keydown', function(e) {
+    if (e.key !== 'Tab') return;
+    var top = stack[stack.length - 1];
+    var panel = top && panelOf(top);
+    if (!panel) return;
+    var active = document.activeElement;
+    if (active !== panel && !panel.contains(active) && popupOutside(active)) return;
+    var items = tabbables(panel);
+    if (!items.length) { e.preventDefault(); panel.focus(); return; }
+    var first = items[0], last = items[items.length - 1];
+    var inside = panel.contains(active) && active !== panel;
+    if (e.shiftKey && (!inside || active === first)) { e.preventDefault(); last.focus(); }
+    else if (!e.shiftKey && (!inside || active === last)) { e.preventDefault(); first.focus(); }
+  });
+  document.addEventListener('focusin', function(e) {
+    var top = stack[stack.length - 1];
+    var panel = top && panelOf(top);
+    if (!panel || panel.contains(e.target) || popupOutside(e.target)) return;
+    // only while it is fully open; the enter animation focuses the panel
+    if (top._elEntering) return;
+    var items = tabbables(panel);
+    (items[0] || panel).focus();
+  });
+
   // destroy-on-close: the content is re-created from an inert <template> each
   // time the overlay opens, and unbound and removed when it closes.
   function bodyOf(wrapper) {
@@ -95,28 +140,39 @@
   // Element's after-enter and after-leave do; a fallback timer covers a page
   // where nothing animates.
   function isDrawer(wrapper) { return wrapper.getAttribute('data-el-overlay') === 'drawer'; }
+  // A new phase cancels the one still playing, as Vue's <transition> does:
+  // closed straight after opening, the dialog never reports opened, and its
+  // enter step does not take focus after the leave began.
   function animate(wrapper, phase, done) {
+    if (wrapper._elCancelAnim) wrapper._elCancelAnim();
     var name = wrapper.getAttribute('data-transition') ||
                (isDrawer(wrapper) ? 'el-drawer-fade' : 'dialog-fade');
     var from = name + '-' + phase + '-from', active = name + '-' + phase + '-active',
         to = name + '-' + phase + '-to';
-    var finished = false;
-    function end(e) {
-      if (finished || (e && e.target !== wrapper && !wrapper.contains(e.target))) return;
+    var finished = false, timer;
+    function stop() {
       finished = true;
+      clearTimeout(timer);
       wrapper.removeEventListener('animationend', end);
       wrapper.removeEventListener('transitionend', end);
       wrapper.classList.remove(from, active, to);
+      if (wrapper._elCancelAnim === stop) wrapper._elCancelAnim = null;
+    }
+    function end(e) {
+      if (finished || (e && e.target !== wrapper && !wrapper.contains(e.target))) return;
+      stop();
       done();
     }
+    wrapper._elCancelAnim = stop;
     wrapper.classList.add(from, active);
     requestAnimationFrame(function() { requestAnimationFrame(function() {
+      if (finished) return;
       wrapper.classList.remove(from);
       wrapper.classList.add(to);
     }); });
     wrapper.addEventListener('animationend', end);
     wrapper.addEventListener('transitionend', end);
-    setTimeout(end, 450);
+    timer = setTimeout(end, 450);
   }
 
   function isOpen(wrapper) { return !!wrapper._elOpen; }
@@ -142,11 +198,14 @@
     stack.push(wrapper);
     lockScroll();
     // A drawer gives focus back to what had it, as Element's does
-    wrapper._elPrevFocus = document.activeElement;
+    // (reopened while closing, focus is still inside: keep the first one)
+    if (!wrapper.contains(document.activeElement)) wrapper._elPrevFocus = document.activeElement;
     wrapper.style.display = '';
     var panel = wrapper.querySelector('.el-drawer, .el-dialog');
     if (panel && isDrawer(wrapper)) panel.classList.add('open');
+    wrapper._elEntering = true;
     animate(wrapper, 'enter', function() {
+      wrapper._elEntering = false;
       if (panel) { panel.focus(); report(wrapper, '_open_auto_focus'); }
       if (notify !== false) report(wrapper, '_opened');
     });
@@ -155,6 +214,7 @@
   function hide(wrapper, notify) {
     if (!isOpen(wrapper)) return;
     wrapper._elOpen = false;
+    wrapper._elEntering = false;
     report(wrapper, '_close');
     var i = stack.indexOf(wrapper);
     if (i !== -1) stack.splice(i, 1);

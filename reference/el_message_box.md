@@ -67,7 +67,10 @@ el_message_box(
 
 - message:
 
-  The question or statement.
+  The question or statement, or a VNode built in the browser:
+  [`JS()`](https://kaipingyang.github.io/shiny.element/reference/JS.md)
+  code calling `Vue.h()`, or a function of the box's actions (`confirm`,
+  `cancel`, `close`) returning one.
 
 - title:
 

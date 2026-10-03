@@ -151,6 +151,6 @@ el_color_picker_panel("brand", value = "#409EFF")
 #>   <script type="text/x-template" data-shiny-vue-template><div id="brand_container" style="display: contents">
 #>   <el-color-picker-panel v-model="value" :border="border === null ? undefined : border" :disabled="disabled === null ? undefined : disabled" :show-alpha="showAlpha === null ? undefined : showAlpha" :color-format="colorFormat === null ? undefined : colorFormat" :predefine="predefine === null ? undefined : predefine" :validate-event="validateEvent === null ? undefined : validateEvent" :hue-slider-class="hueSliderClass === null ? undefined : hueSliderClass" :hue-slider-style="hueSliderStyle === null ? undefined : hueSliderStyle"></el-color-picker-panel>
 #> </div></script>
-#>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":"#409EFF","border":null,"disabled":null,"showAlpha":null,"colorFormat":null,"predefine":null,"validateEvent":null,"hueSliderClass":null,"hueSliderStyle":null},"methods":[],"watch":{"value":"function(v) { }"}},"input":"value","rate":null,"type":null,"evals":["options.watch.value"]}</script>
+#>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":"#409EFF","border":null,"disabled":null,"showAlpha":false,"colorFormat":null,"predefine":null,"validateEvent":null,"hueSliderClass":null,"hueSliderStyle":null},"methods":[],"watch":{"value":"function(v) { }"}},"input":"value","rate":null,"type":null,"evals":["options.watch.value"]}</script>
 #> </div>
 ```

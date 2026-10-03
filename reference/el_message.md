@@ -37,7 +37,9 @@ el_message(
 
 - message:
 
-  Message text.
+  Message text, or a VNode built in the browser:
+  [`JS()`](https://kaipingyang.github.io/shiny.element/reference/JS.md)
+  code calling `Vue.h()`.
 
 - type:
 

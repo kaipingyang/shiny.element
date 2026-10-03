@@ -101,7 +101,7 @@ el_cascader(
 
 - size:
 
-  Size of cascader (medium, small, mini)
+  Size of cascader: `"large"`, `"default"` or `"small"`.
 
 - show_all_levels:
 
