@@ -71,12 +71,12 @@ A list of htmlDependency objects
 
 ``` r
 if (FALSE) { # \dontrun{
-library(bslib)
-theme <- el_theme(primary = "#7c3aed")
-ui <- page_sidebar(
-  theme = theme,
-  use_element(theme = theme),
-  el_button("btn1", "Click me")
-)
+  library(bslib)
+  theme <- el_theme(primary = "#7c3aed")
+  ui <- page_sidebar(
+    theme = theme,
+    use_element(theme = theme),
+    el_button("btn1", "Click me")
+  )
 } # }
 ```

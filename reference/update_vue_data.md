@@ -36,8 +36,8 @@ Called for its side effect; returns `NULL` invisibly.
 
 ``` r
 if (FALSE) { # \dontrun{
-# In a Shiny server function:
-# Set two fields of a component of your own
-update_vue_data(session, "price", list(range = list(0, 50), max = 500))
+  # In a Shiny server function:
+  # Set two fields of a component of your own
+  update_vue_data(session, "price", list(range = list(0, 50), max = 500))
 } # }
 ```

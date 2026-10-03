@@ -261,7 +261,7 @@
 <div class="section level3">
 <h3 id="documentation-site">Documentation site<a class="anchor" aria-label="anchor" href="#documentation-site"></a></h3>
 <p>The pkgdown site replicates element-plus.org. Component pages are generated: <code>tools/demos/&lt;slug&gt;.R</code> holds the R version of each upstream demo (<code>## name</code> blocks, <code>#'</code> prose, <code>#|</code> chunk options, <code>!skip</code> for prose-only), and <code>python tools/ep-pages.py [slug...]</code> writes <code>vignettes/articles/components/&lt;slug&gt;.Rmd</code> from upstream’s markdown and those demos (color, icon and the overview are hand-written / <code>tools/ep-overview.py</code>). <code>Rscript tools/article-shots.R [slug...]</code> screenshots and checks every example; <code>python tools/api-coverage.py --write-api</code> writes the API tables’ JSON with the R name of each entry.</p>
-<p>R code is formatted with air (<code>air.toml</code>, line width 80): <code>air format R tests tools/*.R</code> for the files, then <code>python tools/format-r.py</code> for the demo blocks, the hand-written articles’ chunks and roxygen <code>@examples</code>, followed by <code>tools/ep-pages.py</code> and <code>devtools::document()</code>.</p>
+<p>R code is formatted with air (<code>air.toml</code>, line width 80): <code>air format .</code> for every .R file but the demos, then <code>python tools/format-r.py</code> for the demo blocks, the hand-written articles’ chunks and roxygen <code>@examples</code> (it lists any block air cannot parse), followed by <code>tools/ep-pages.py</code> and <code>devtools::document()</code>. <code>air format --check .</code> should print nothing.</p>
 </div>
 </div>
 <div class="section level2">
