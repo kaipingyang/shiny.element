@@ -18,7 +18,6 @@ el_cascader(
   collapse_tags = FALSE,
   separator = " / ",
   debounce = 300,
-  icon = NULL,
   popper_class = NULL,
   filter_method = NULL,
   before_filter = NULL,
@@ -67,8 +66,6 @@ the server loads each column: see "Shiny inputs".}
 \item{separator}{Separator for display}
 
 \item{debounce}{Debounce delay for filter}
-
-\item{icon}{Icon for the cascader (shiny.tag or NULL)}
 
 \item{popper_class}{Extra class name for the dropdown panel.}
 

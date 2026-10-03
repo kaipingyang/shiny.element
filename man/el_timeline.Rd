@@ -25,9 +25,9 @@ where the timestamp goes).}
 
 \item{reverse}{Show the entries newest first.}
 
-\item{html}{Render each entry's \code{content} as HTML rather than text. Only
-use it with content you control: it goes through \code{v-html}, which does not
-escape anything.}
+\item{html}{Render each entry's \code{content} as HTML rather than text --
+a string of markup, or tags. Only use it with content you control: it
+goes through \code{v-html}, which does not escape anything.}
 
 \item{width}{Component width, as a CSS unit -- \code{"200px"}, \code{"50\%"}, or a
 number taken as pixels. Element's own markup carries it, so it behaves

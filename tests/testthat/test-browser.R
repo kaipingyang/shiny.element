@@ -1082,6 +1082,9 @@ test_that("update_el_*(label, error) redraw the form item, as update*Input() doe
   bclick("#upd_clear", wait = 2)
   expect_false(bev("!!document.querySelector('#upd_lab_container .el-form-item__error')"))
   expect_false(bev("document.getElementById('upd_lab_container').classList.contains('is-error')"))
+  bclick("#upd_tag", wait = 2)
+  expect_equal(bev("(document.getElementById('upd-b') || {}).textContent || 'none'"), "Bold")
+  expect_equal(bev("document.getElementById('upd_lab-label').textContent"), "Bold:")
 })
 
 test_that("a lazy tree loads its nodes from the server", {

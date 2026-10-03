@@ -22,7 +22,6 @@
 #' @param collapse_tags Whether to collapse tags in multiple mode
 #' @param separator Separator for display
 #' @param debounce Debounce delay for filter
-#' @param icon Icon for the cascader (shiny.tag or NULL)
 #' @param session Deprecated. Inside a module, wrap `id` in `ns()`, as for
 #'   any Shiny input; a session given here namespaces `id` once more, with
 #'   a warning.
@@ -120,7 +119,6 @@ el_cascader <- function(id = NULL,
                         collapse_tags = FALSE,
                         separator = " / ",
                         debounce = 300,
-                        icon = NULL,
                         popper_class = NULL,
                         filter_method = NULL,
                         before_filter = NULL,
@@ -218,8 +216,9 @@ el_cascader <- function(id = NULL,
 #' @param clearable Whether clearable
 #' @param filterable Whether filterable
 #' @param disabled Whether disabled
-#' @param label New label text, as for [shiny::updateTextInput()]. Only a
-#'   component built with a `label` has one to change.
+#' @param label New label, as for [shiny::updateTextInput()]: text, or
+#'   tags or `HTML()` drawn as markup. Only a component built with a `label`
+#'   has one to change.
 #' @param error An error message to show on the component, as Element's
 #'   `error` does -- for a check only the server can make, such as whether
 #'   a name is taken. `""` clears it.

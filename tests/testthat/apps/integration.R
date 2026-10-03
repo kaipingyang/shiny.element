@@ -303,6 +303,7 @@ ui <- el_page(
 
   # The server answering what Element would fetch with a JS function
   el_input("upd_lab", label = "Old", label_suffix = ":"),
+  actionButton("upd_tag", "tag label"),
   actionButton("upd_go", "update label"),
   actionButton("upd_clear", "clear error"),
   el_tree("lz_tree", lazy = TRUE, node_key = "id", is_leaf_field = "leaf"),
@@ -373,6 +374,9 @@ server <- function(input, output, session) {
   observeEvent(input$upd_go, update_el_input(session, "upd_lab", label = "New",
                                              error = "Taken"))
   observeEvent(input$upd_clear, update_el_input(session, "upd_lab", error = ""))
+  # a label given as tags is drawn as HTML, as update*Input() draws it
+  observeEvent(input$upd_tag, update_el_input(session, "upd_lab",
+                                              label = tags$b(id = "upd-b", "Bold")))
   observeEvent(input$lz_tree_load, {
     q <- input$lz_tree_load
     el_load_children(session, "lz_tree", q, if (q$level == 0) {

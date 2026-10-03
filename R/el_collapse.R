@@ -55,6 +55,7 @@ el_collapse <- function(
     accordion = FALSE,
     session   = NULL
 ) {
+  .el_check_items(items, "items", c("name", "title"))
   if (is.null(id)) id <- paste0("el_collapse_", uuid::UUIDgenerate())
   ns_id <- .el_ui_id(id, session)
   value <- shiny::restoreInput(ns_id, value)

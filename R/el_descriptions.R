@@ -142,6 +142,10 @@ el_descriptions <- function(id = NULL,
 #' @keywords internal
 .el_descriptions_items <- function(items) {
   if (!length(items)) return(list())
+  if (is.null(names(items)) && (is.atomic(items) || inherits(items, c("shiny.tag", "shiny.tag.list")))) {
+    stop("`items` must be named, as in c(Name = \"Ada\"), or a list of ",
+         "list(label = ..., content = ...).", call. = FALSE)
+  }
   is_item <- function(x) is.list(x) && !inherits(x, c("shiny.tag", "shiny.tag.list")) &&
     !is.null(x$label)
   if (!is.null(names(items)) && !all(vapply(items, is_item, logical(1)))) {

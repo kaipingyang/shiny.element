@@ -157,8 +157,9 @@ el_calendar <- function(id = NULL,
 #' @param first_day_of_week New first day of week (1~7)
 #' @param session Shiny session; the current one by default, as for
 #'   [shiny::updateTextInput()].
-#' @param label New label text, as for [shiny::updateTextInput()]. Only a
-#'   component built with a `label` has one to change.
+#' @param label New label, as for [shiny::updateTextInput()]: text, or
+#'   tags or `HTML()` drawn as markup. Only a component built with a `label`
+#'   has one to change.
 #' @param error An error message to show on the component, as Element's
 #'   `error` does -- for a check only the server can make, such as whether
 #'   a name is taken. `""` clears it.

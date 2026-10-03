@@ -216,6 +216,15 @@ Shiny integration article shows, needs no JavaScript.
   no answer stops loading after the same 30 seconds; an autocomplete typed
   into faster than the server answers shows the answer to the last query,
   not an earlier one.
+* **Tags where a string was expected.** Tags in a component's data --
+  a timeline entry's `content`, a column's `header_html`, a form item's
+  `label_html` -- are sent as the HTML they stand for, not as a serialised
+  object; `update_el_*(label =)` takes tags or `HTML()` and draws them as
+  markup, as `update*Input()` does. Items, steps and tabs that are not a
+  list of lists, a `gutter` that is not a number, and a `theme_css` that is
+  not a dependency are refused with a message saying what was expected.
+  `el_cascader()` loses its `icon` argument, which did nothing: Element's
+  cascader has no icon.
 * **Found while writing the component pages.** `el_table()` columns nest
   under group headers (`children`); `el_form_field()` has `"textarea"` and
   `"password"`, and its form-item props (`required`, `error`, `label_width`,

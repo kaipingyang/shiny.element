@@ -9,7 +9,7 @@
 \arguments{
 \item{msg}{The update message.}
 
-\item{label}{New label text, or \code{NULL}.}
+\item{label}{New label: text, tags or \code{HTML()}, or \code{NULL}.}
 
 \item{error}{New error message, \code{""} to clear it, or \code{NULL}.}
 }

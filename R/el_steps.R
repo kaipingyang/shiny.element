@@ -57,6 +57,7 @@ el_steps <- function(id = NULL,
                      width   = NULL,
                      slots   = NULL,
                      session = NULL) {
+  .el_check_items(steps, "steps", c("title", "description"))
   if (is.null(id)) {
     id <- paste0("el_steps_", uuid::UUIDgenerate())
   }

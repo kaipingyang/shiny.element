@@ -29,8 +29,9 @@ only ever opens nodes.}
 \item{checked}{Keys to check, replacing the current selection entirely.
 Pass \code{list()} to clear it.}
 
-\item{label}{New label text, as for \code{\link[shiny:updateTextInput]{shiny::updateTextInput()}}. Only a
-component built with a \code{label} has one to change.}
+\item{label}{New label, as for \code{\link[shiny:updateTextInput]{shiny::updateTextInput()}}: text, or
+tags or \code{HTML()} drawn as markup. Only a component built with a \code{label}
+has one to change.}
 
 \item{error}{An error message to show on the component, as Element's
 \code{error} does -- for a check only the server can make, such as whether

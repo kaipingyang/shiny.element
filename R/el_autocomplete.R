@@ -233,8 +233,9 @@ el_autocomplete <- function(id = NULL,
 #' @param value,suggestions,placeholder,disabled New values; `NULL` leaves one
 #'   unchanged.
 #'
-#' @param label New label text, as for [shiny::updateTextInput()]. Only a
-#'   component built with a `label` has one to change.
+#' @param label New label, as for [shiny::updateTextInput()]: text, or
+#'   tags or `HTML()` drawn as markup. Only a component built with a `label`
+#'   has one to change.
 #' @param error An error message to show on the component, as Element's
 #'   `error` does -- for a check only the server can make, such as whether
 #'   a name is taken. `""` clears it.

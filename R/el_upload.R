@@ -1,33 +1,3 @@
-#' JavaScript that pushes a batch of files through Shiny's upload channel
-#'
-#' Element calls `http-request` once per file, but Shiny's protocol is
-#' per-batch: `uploadInit` opens a job for a set of files, each is POSTed to
-#' the job's URL, and `uploadEnd` sets the input to that job's files. Running
-#' the protocol per file would make each upload overwrite the last.
-#'
-#' Element's `uploadFiles()` starts every file in one synchronous loop, so
-#' the calls are collected and flushed from a microtask, by which point the
-#' whole batch is present. Then, as Shiny's own `fileInput()` does:
-#'
-#' * Files are POSTed **one after another**. Shiny's job takes each POST as
-#'   the next file in its list, so two in flight at once could land under
-#'   each other's names.
-#' * A file is Element's "success" only once `uploadEnd` has accepted the
-#'   batch: until then nothing has reached `input$<id>`.
-#' * A job cannot finish with a file missing -- Shiny stops it as "stopped
-#'   prematurely". So when a file fails, or is aborted with Element's
-#'   `abort()`, that file is marked failed (or left, if aborted) and the rest
-#'   of the batch is sent again as a fresh job. If nothing is left, the job
-#'   is abandoned, as `fileInput()` abandons a failed one; Shiny clears it
-#'   with the session.
-#'
-#' Each call returns an object with `abort()`, which Element keeps per file:
-#' it stops that file's request if it is in flight and drops it from the
-#' batch otherwise.
-#'
-#' @param ns_id The namespaced input id.
-#' @return A [JS()] object for the `http-request` prop.
-#' @keywords internal
 #' Let go of an upload job a failed or aborted file left behind
 #'
 #' Shiny keeps an upload job until `uploadEnd` finishes it, and finishing
@@ -68,6 +38,35 @@
   invisible(done)
 }
 
+#' JavaScript that pushes a batch of files through Shiny's upload channel
+#'
+#' Element calls `http-request` once per file, but Shiny's protocol is
+#' per-batch: `uploadInit` opens a job for a set of files, each is POSTed to
+#' the job's URL, and `uploadEnd` sets the input to that job's files. Running
+#' the protocol per file would make each upload overwrite the last.
+#'
+#' Element's `uploadFiles()` starts every file in one synchronous loop, so
+#' the calls are collected and flushed from a microtask, by which point the
+#' whole batch is present. Then, as Shiny's own `fileInput()` does:
+#'
+#' * Files are POSTed **one after another**. Shiny's job takes each POST as
+#'   the next file in its list, so two in flight at once could land under
+#'   each other's names.
+#' * A file is Element's "success" only once `uploadEnd` has accepted the
+#'   batch: until then nothing has reached `input$<id>`.
+#' * A job cannot finish with a file missing -- Shiny stops it as "stopped
+#'   prematurely". So when a file fails, or is aborted with Element's
+#'   `abort()`, that file is marked failed (or left, if aborted) and the rest
+#'   of the batch is sent again as a fresh job. The interrupted job is
+#'   named to the server, which lets it go ([.el_upload_abandon()]).
+#'
+#' Each call returns an object with `abort()`, which Element keeps per file:
+#' it stops that file's request if it is in flight and drops it from the
+#' batch otherwise.
+#'
+#' @param ns_id The namespaced input id.
+#' @return A [JS()] object for the `http-request` prop.
+#' @keywords internal
 .el_upload_js <- function(ns_id) {
   JS(sprintf(paste0(
     "function(options) {\n",
@@ -451,8 +450,9 @@ el_upload <- function(id = NULL,
 #' @param id Upload ID (un-namespaced).
 #' @param disabled New disabled state.
 #' @param limit New maximum number of files.
-#' @param label New label text, as for [shiny::updateTextInput()]. Only a
-#'   component built with a `label` has one to change.
+#' @param label New label, as for [shiny::updateTextInput()]: text, or
+#'   tags or `HTML()` drawn as markup. Only a component built with a `label`
+#'   has one to change.
 #' @param error An error message to show on the component, as Element's
 #'   `error` does -- for a check only the server can make, such as whether
 #'   a name is taken. `""` clears it.

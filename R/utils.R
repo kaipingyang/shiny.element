@@ -320,6 +320,7 @@
 #' @return The JSON, as a single string.
 #' @keywords internal
 .el_vue_json <- function(spec) {
+  spec <- .el_tags_as_html(spec)
   spec$evals <- I(.el_js_paths(spec))
   json <- jsonlite::toJSON(
     spec, auto_unbox = TRUE, null = "null", na = "null", digits = NA,
@@ -364,6 +365,7 @@
 #' @return `NULL`, invisibly.
 #' @keywords internal
 .el_send_update <- function(session, msg) {
+  msg <- .el_tags_as_html(msg)
   # Functions travel as source, listed by path, as a component's options do
   evals <- .el_js_paths(msg)
   if (length(evals)) msg[[".evals"]] <- I(evals)
@@ -379,12 +381,20 @@
 #' bridge's own keys, `.label` and `.error`, which el-events.js draws.
 #'
 #' @param msg The update message.
-#' @param label New label text, or `NULL`.
+#' @param label New label: text, tags or `HTML()`, or `NULL`.
 #' @param error New error message, `""` to clear it, or `NULL`.
 #' @return The message.
 #' @keywords internal
 .el_form_item_update <- function(msg, label = NULL, error = NULL) {
-  if (!is.null(label)) msg[[".label"]] <- as.character(label)
+  # Markup -- tags or HTML() -- goes as HTML, as Shiny's update*Input()
+  # takes it; anything else as text
+  if (!is.null(label)) {
+    msg[[".label"]] <- if (inherits(label, c("shiny.tag", "shiny.tag.list", "html"))) {
+      list(html = as.character(htmltools::renderTags(label)$html))
+    } else {
+      as.character(label)
+    }
+  }
   if (!is.null(error)) msg[[".error"]] <- as.character(error)
   msg
 }
@@ -420,6 +430,30 @@
   invisible(session)
 }
 
+#' Tags in Vue data, as the HTML they stand for
+#'
+#' A field of a component's data travels as JSON, where a tag -- an item's
+#' `content = tags$b("x")`, a column's header -- would arrive as its
+#' serialised object, and show as that, or as `[object Object]`. Every tag
+#' and tag list found in the data is rendered to its HTML string instead,
+#' which is what a `v-html` field reads; a field shown as text shows the
+#' markup rather than an object.
+#'
+#' @param x A list of options or an update message.
+#' @return `x`, with tags replaced by strings.
+#' @keywords internal
+.el_tags_as_html <- function(x) {
+  if (inherits(x, c("shiny.tag", "shiny.tag.list"))) {
+    return(as.character(htmltools::renderTags(x)$html))
+  }
+  if (is.list(x) && !is.data.frame(x) && length(x)) {
+    attrs <- attributes(x)
+    x[] <- lapply(x, .el_tags_as_html)
+    attributes(x) <- attrs
+  }
+  x
+}
+
 #' Markup as a string, for a `v-html` field
 #'
 #' A field read by `v-html` travels as JSON, where a tag would arrive as its
@@ -434,9 +468,33 @@
   if (is.null(x)) return(NULL)
   if (inherits(x, c("shiny.tag", "shiny.tag.list")) ||
       (is.list(x) && !is.data.frame(x))) {
-    return(htmltools::renderTags(x)$html)
+    return(as.character(htmltools::renderTags(x)$html))
   }
   if (is.character(x)) return(paste(x, collapse = ""))
   stop("`", arg, "` must be a string of HTML or htmltools tags, not ",
        class(x)[1], ".", call. = FALSE)
+}
+
+#' Check that items are a list of lists
+#'
+#' Components built from items -- tabs, panels, menu entries -- read each
+#' item's fields with `$`, which on a string or a vector fails with R's own
+#' "$ operator is invalid for atomic vectors". Saying what was expected is
+#' more use.
+#'
+#' @param x The items as given; `NULL` and an empty list pass.
+#' @param arg The argument's name, for the error.
+#' @param fields The fields an item has, for the error.
+#' @return `x`, invisibly.
+#' @keywords internal
+.el_check_items <- function(x, arg, fields) {
+  if (is.null(x) || (is.list(x) && !length(x))) return(invisible(x))
+  ok <- is.list(x) && !is.data.frame(x) && !inherits(x, c("shiny.tag", "shiny.tag.list")) &&
+    all(vapply(x, function(i) is.list(i) && !inherits(i, "shiny.tag"), logical(1)))
+  if (!ok) {
+    stop("`", arg, "` must be a list of items, each a list such as ",
+         "list(", paste0(fields, " = ...", collapse = ", "), "), not ",
+         if (inherits(x, "shiny.tag")) "a tag" else class(x)[1], ".", call. = FALSE)
+  }
+  invisible(x)
 }

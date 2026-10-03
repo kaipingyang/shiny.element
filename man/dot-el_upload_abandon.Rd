@@ -2,7 +2,7 @@
 % Please edit documentation in R/el_upload.R
 \name{.el_upload_abandon}
 \alias{.el_upload_abandon}
-\title{JavaScript that pushes a batch of files through Shiny's upload channel}
+\title{Let go of an upload job a failed or aborted file left behind}
 \usage{
 .el_upload_abandon(job_id, session)
 }
@@ -10,115 +10,18 @@
 \item{job_id}{The job's id, from \code{uploadInit}.}
 
 \item{session}{The Shiny session the job belongs to.}
-
-\item{ns_id}{The namespaced input id.}
 }
 \value{
-A \code{\link[=JS]{JS()}} object for the \code{http-request} prop.
-
 Whether the job was found and removed, invisibly.
 }
 \description{
-Element calls \code{http-request} once per file, but Shiny's protocol is
-per-batch: \code{uploadInit} opens a job for a set of files, each is POSTed to
-the job's URL, and \code{uploadEnd} sets the input to that job's files. Running
-the protocol per file would make each upload overwrite the last.
+Shiny keeps an upload job until \code{uploadEnd} finishes it, and finishing
+one with files still to come is an error. A batch with a failed or
+aborted file is sent again as a new job, so the old one would wait in the
+session until it ended, with whatever part of a file reached its
+directory. The browser names it here and it is removed: dropped from the
+session's upload jobs and its directory deleted. Shiny offers no public
+way to do this, so the session's upload context is reached into; should
+that change, the job is left as before, to go when the session does.
 }
-\details{
-Element's \code{uploadFiles()} starts every file in one synchronous loop, so
-the calls are collected and flushed from a microtask, by which point the
-whole batch is present. Then, as Shiny's own \code{fileInput()} does:
-\itemize{
-\item Files are POSTed \strong{one after another}. Shiny's job takes each POST as
-the next file in its list, so two in flight at once could land under
-each other's names.
-\item A file is Element's "success" only once \code{uploadEnd} has accepted the
-batch: until then nothing has reached \verb{input$<id>}.
-\item A job cannot finish with a file missing -- Shiny stops it as "stopped
-prematurely". So when a file fails, or is aborted with Element's
-\code{abort()}, that file is marked failed (or left, if aborted) and the rest
-of the batch is sent again as a fresh job. If nothing is left, the job
-is abandoned, as \code{fileInput()} abandons a failed one; Shiny clears it
-with the session.
-}
-
-Each call returns an object with \code{abort()}, which Element keeps per file:
-it stops that file's request if it is in flight and drops it from the
-batch otherwise.
-}
-\keyword{A}
-\keyword{Let}
-\keyword{Shiny}
-\keyword{The}
-\keyword{`uploadEnd`}
-\keyword{a}
-\keyword{aborted}
-\keyword{again}
-\keyword{an}
-\keyword{and}
-\keyword{as}
-\keyword{batch}
-\keyword{before,}
-\keyword{behind}
-\keyword{browser}
-\keyword{change,}
-\keyword{come}
-\keyword{context}
-\keyword{deleted.}
-\keyword{directory}
-\keyword{directory.}
-\keyword{do}
-\keyword{does.}
-\keyword{dropped}
-\keyword{ended,}
-\keyword{error.}
-\keyword{failed}
-\keyword{file}
-\keyword{files}
-\keyword{finishes}
-\keyword{finishing}
-\keyword{from}
-\keyword{go}
-\keyword{here}
-\keyword{in}
 \keyword{internal}
-\keyword{into;}
-\keyword{is}
-\keyword{it}
-\keyword{it,}
-\keyword{its}
-\keyword{job}
-\keyword{job,}
-\keyword{jobs}
-\keyword{keeps}
-\keyword{left}
-\keyword{names}
-\keyword{new}
-\keyword{no}
-\keyword{of}
-\keyword{offers}
-\keyword{old}
-\keyword{one}
-\keyword{or}
-\keyword{part}
-\keyword{public}
-\keyword{reached}
-\keyword{removed:}
-\keyword{sent}
-\keyword{session}
-\keyword{session's}
-\keyword{should}
-\keyword{so}
-\keyword{still}
-\keyword{that}
-\keyword{the}
-\keyword{this,}
-\keyword{to}
-\keyword{until}
-\keyword{upload}
-\keyword{wait}
-\keyword{way}
-\keyword{whatever}
-\keyword{when}
-\keyword{with}
-\keyword{would}

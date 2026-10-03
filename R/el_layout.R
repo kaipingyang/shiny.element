@@ -88,6 +88,9 @@ el_row <- function(..., gutter = NULL, type = NULL, justify = NULL,
   )
 
   gutter_style <- NULL
+  if (!is.null(gutter) && !(is.numeric(gutter) && length(gutter) == 1L && !is.na(gutter))) {
+    stop("`gutter` must be a single number of pixels.", call. = FALSE)
+  }
   if (!is.null(gutter) && gutter > 0) {
     half <- gutter / 2
     gutter_style <- c(
@@ -231,6 +234,10 @@ el_page <- function(
     Filter(Negate(is.null), list(.el_themed_dependency(.el_element_vars(theme)))),
     list(el_feedback_dependency())
   )
+  if (!is.null(theme_css) && !inherits(theme_css, "html_dependency")) {
+    stop("`theme_css` must be an htmlDependency, such as el_layout_css_dependency(), ",
+         "or NULL.", call. = FALSE)
+  }
   if (!is.null(theme_css)) deps <- c(deps, list(theme_css))
 
   # Given to fluidPage() rather than attached as dependencies, so that Shiny
