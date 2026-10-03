@@ -585,7 +585,10 @@ el_form <- function(
     '<component :is="f.tag" v-model="model[f.prop]" v-bind="f.props">',
     '<template v-if="f.text">{{ f.text }}</template>',
     '<component v-for="o in (f.options || [])" :is="f.optionTag" :key="o.label" ',
-    ':label="o.label" :value="o.value">{{ o.text }}</component>',
+    # An el-option draws its label itself; filling its slot with the empty
+    # text would replace it with nothing (Vue 3 draws a slot given only an
+    # empty string), so the slot is filled only when there is text
+    ':label="o.label" :value="o.value"><template v-if="o.text">{{ o.text }}</template></component>',
     '</component>',
     '</el-form-item>'
   ))

@@ -232,7 +232,19 @@ ui <- el_page(
   el_dropdown("m_dd", items = list(list(command = "a", label = "A"))),
   el_form(
     id = "m_form",
-    el_form_field("name", "input", label = "Name", required = TRUE)
+    el_form_field("name", "input", label = "Name", required = TRUE),
+    el_form_field(
+      "city",
+      "select",
+      label = "City",
+      choices = c("Beijing", "Shanghai")
+    ),
+    el_form_field(
+      "pick",
+      "radio-group",
+      label = "Pick",
+      choices = c(One = "1", Two = "2")
+    )
   ),
   el_image(
     "m_img",

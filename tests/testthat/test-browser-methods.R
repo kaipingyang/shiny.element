@@ -152,4 +152,19 @@ test_that("every documented method runs on a live component", {
   expect_true(js(
     "document.querySelector('#p_lazy').textContent.indexOf('zone') !== -1"
   ))
+
+  # a form's select shows its options' labels: its slot was once filled
+  # with an empty string, and Vue 3 drew that instead of the label
+  # (Element Plus renders the options when the select mounts)
+  expect_true(js(
+    "(function(){ var t = Array.from(document.querySelectorAll('.el-select-dropdown__item')).map(function(e){ return e.textContent.trim(); });
+      return t.indexOf('Beijing') !== -1 && t.indexOf('Shanghai') !== -1; })()"
+  ))
+  # radios take the text as their slot
+  expect_equal(
+    js(
+      "Array.from(document.querySelectorAll('#m_form .el-radio__label')).map(function(e){ return e.textContent.trim(); }).join(',')"
+    ),
+    "One,Two"
+  )
 })
