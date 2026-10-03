@@ -214,10 +214,16 @@ the description following the button of the checkbox.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">row</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">...</span><span class="op">)</span> <span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span>style <span class="op">=</span> <span class="st">"margin: 8px 0"</span>, <span class="va">...</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rstudio.github.io/htmltools/reference/tagList.html" class="external-link">tagList</a></span><span class="op">(</span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/row.html" class="external-link">row</a></span><span class="op">(</span><span class="fu"><a href="../../reference/el_checkbox.html">el_checkbox</a></span><span class="op">(</span><span class="st">"cb1"</span>, <span class="st">"Option 1"</span>, value <span class="op">=</span> <span class="cn">TRUE</span>, size <span class="op">=</span> <span class="st">"large"</span><span class="op">)</span>,</span>
-<span>      <span class="fu"><a href="../../reference/el_checkbox.html">el_checkbox</a></span><span class="op">(</span><span class="st">"cb2"</span>, <span class="st">"Option 2"</span>, size <span class="op">=</span> <span class="st">"large"</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/row.html" class="external-link">row</a></span><span class="op">(</span></span>
+<span>    <span class="fu"><a href="../../reference/el_checkbox.html">el_checkbox</a></span><span class="op">(</span><span class="st">"cb1"</span>, <span class="st">"Option 1"</span>, value <span class="op">=</span> <span class="cn">TRUE</span>, size <span class="op">=</span> <span class="st">"large"</span><span class="op">)</span>,</span>
+<span>    <span class="fu"><a href="../../reference/el_checkbox.html">el_checkbox</a></span><span class="op">(</span><span class="st">"cb2"</span>, <span class="st">"Option 2"</span>, size <span class="op">=</span> <span class="st">"large"</span><span class="op">)</span></span>
+<span>  <span class="op">)</span>,</span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/row.html" class="external-link">row</a></span><span class="op">(</span><span class="fu"><a href="../../reference/el_checkbox.html">el_checkbox</a></span><span class="op">(</span><span class="st">"cb3"</span>, <span class="st">"Option 1"</span><span class="op">)</span>, <span class="fu"><a href="../../reference/el_checkbox.html">el_checkbox</a></span><span class="op">(</span><span class="st">"cb4"</span>, <span class="st">"Option 2"</span><span class="op">)</span><span class="op">)</span>,</span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/row.html" class="external-link">row</a></span><span class="op">(</span><span class="fu"><a href="../../reference/el_checkbox.html">el_checkbox</a></span><span class="op">(</span><span class="st">"cb5"</span>, <span class="st">"Option 1"</span>, size <span class="op">=</span> <span class="st">"small"</span><span class="op">)</span>, <span class="fu"><a href="../../reference/el_checkbox.html">el_checkbox</a></span><span class="op">(</span><span class="st">"cb6"</span>, <span class="st">"Option 2"</span>, size <span class="op">=</span> <span class="st">"small"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/row.html" class="external-link">row</a></span><span class="op">(</span></span>
+<span>    <span class="fu"><a href="../../reference/el_checkbox.html">el_checkbox</a></span><span class="op">(</span><span class="st">"cb5"</span>, <span class="st">"Option 1"</span>, size <span class="op">=</span> <span class="st">"small"</span><span class="op">)</span>,</span>
+<span>    <span class="fu"><a href="../../reference/el_checkbox.html">el_checkbox</a></span><span class="op">(</span><span class="st">"cb6"</span>, <span class="st">"Option 2"</span>, size <span class="op">=</span> <span class="st">"small"</span><span class="op">)</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
   <div style="margin: 8px 0">
     <div id="basic-cb1" data-shiny-vue style="display: contents">
@@ -263,8 +269,10 @@ the description following the button of the checkbox.</p>
 <p>Disabled state for checkbox.</p>
 <p>Set the <code>disabled</code> attribute.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rstudio.github.io/htmltools/reference/tagList.html" class="external-link">tagList</a></span><span class="op">(</span><span class="fu"><a href="../../reference/el_checkbox.html">el_checkbox</a></span><span class="op">(</span><span class="st">"cbd1"</span>, <span class="st">"Disabled"</span>, disabled <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,</span>
-<span>        <span class="fu"><a href="../../reference/el_checkbox.html">el_checkbox</a></span><span class="op">(</span><span class="st">"cbd2"</span>, <span class="st">"Not disabled"</span>, value <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rstudio.github.io/htmltools/reference/tagList.html" class="external-link">tagList</a></span><span class="op">(</span></span>
+<span>  <span class="fu"><a href="../../reference/el_checkbox.html">el_checkbox</a></span><span class="op">(</span><span class="st">"cbd1"</span>, <span class="st">"Disabled"</span>, disabled <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="../../reference/el_checkbox.html">el_checkbox</a></span><span class="op">(</span><span class="st">"cbd2"</span>, <span class="st">"Not disabled"</span>, value <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
   <div id="disabled-cbd1" data-shiny-vue style="display: contents">
     <script type="text/x-template" data-shiny-vue-template><div id="disabled-cbd1_container" style="display: contents">
@@ -293,11 +301,21 @@ following the button of the checkbox. <code>value</code> also
 corresponds with the element values in the array. It is selected if the
 specified value exists in the array, and vice versa.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_checkbox_group.html">el_checkbox_group</a></span><span class="op">(</span><span class="st">"cbg"</span>, selected <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Value selected and disabled"</span>, <span class="st">"Value A"</span><span class="op">)</span>, choices <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>label <span class="op">=</span> <span class="st">"Option A"</span>, value <span class="op">=</span> <span class="st">"Value A"</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>label <span class="op">=</span> <span class="st">"Option B"</span>, value <span class="op">=</span> <span class="st">"Value B"</span><span class="op">)</span>,</span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>label <span class="op">=</span> <span class="st">"Option C"</span>, value <span class="op">=</span> <span class="st">"Value C"</span><span class="op">)</span>,</span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>label <span class="op">=</span> <span class="st">"disabled"</span>, value <span class="op">=</span> <span class="st">"Value disabled"</span>, disabled <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,</span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>label <span class="op">=</span> <span class="st">"selected and disabled"</span>, value <span class="op">=</span> <span class="st">"Value selected and disabled"</span>, disabled <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_checkbox_group.html">el_checkbox_group</a></span><span class="op">(</span></span>
+<span>  <span class="st">"cbg"</span>,</span>
+<span>  selected <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Value selected and disabled"</span>, <span class="st">"Value A"</span><span class="op">)</span>,</span>
+<span>  choices <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>label <span class="op">=</span> <span class="st">"Option A"</span>, value <span class="op">=</span> <span class="st">"Value A"</span><span class="op">)</span>,</span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>label <span class="op">=</span> <span class="st">"Option B"</span>, value <span class="op">=</span> <span class="st">"Value B"</span><span class="op">)</span>,</span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>label <span class="op">=</span> <span class="st">"Option C"</span>, value <span class="op">=</span> <span class="st">"Value C"</span><span class="op">)</span>,</span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>label <span class="op">=</span> <span class="st">"disabled"</span>, value <span class="op">=</span> <span class="st">"Value disabled"</span>, disabled <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,</span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>      label <span class="op">=</span> <span class="st">"selected and disabled"</span>,</span>
+<span>      value <span class="op">=</span> <span class="st">"Value selected and disabled"</span>,</span>
+<span>      disabled <span class="op">=</span> <span class="cn">TRUE</span></span>
+<span>    <span class="op">)</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
   <div id="grouping-cbg" data-shiny-vue style="display: contents">
     <script type="text/x-template" data-shiny-vue-template><div id="grouping-cbg_container" style="display: contents">
@@ -317,11 +335,16 @@ customize the alias of the <code>options</code> through the
 <p>Choices given in fields of other names, mapped with
 <code>props</code>.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_checkbox_group.html">el_checkbox_group</a></span><span class="op">(</span><span class="st">"cbo"</span>, selected <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Value A"</span><span class="op">)</span>,</span>
+<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_checkbox_group.html">el_checkbox_group</a></span><span class="op">(</span></span>
+<span>  <span class="st">"cbo"</span>,</span>
+<span>  selected <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Value A"</span><span class="op">)</span>,</span>
 <span>  props <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>label <span class="op">=</span> <span class="st">"name"</span>, value <span class="op">=</span> <span class="st">"id"</span>, disabled <span class="op">=</span> <span class="st">"unable"</span><span class="op">)</span>,</span>
-<span>  choices <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>label <span class="op">=</span> <span class="st">"Option A"</span>, value <span class="op">=</span> <span class="st">"Value A"</span><span class="op">)</span>,</span>
-<span>                 <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>label <span class="op">=</span> <span class="st">"Option B"</span>, value <span class="op">=</span> <span class="st">"Value B"</span><span class="op">)</span>,</span>
-<span>                 <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>label <span class="op">=</span> <span class="st">"Option C"</span>, value <span class="op">=</span> <span class="st">"Value C"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<span>  choices <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>label <span class="op">=</span> <span class="st">"Option A"</span>, value <span class="op">=</span> <span class="st">"Value A"</span><span class="op">)</span>,</span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>label <span class="op">=</span> <span class="st">"Option B"</span>, value <span class="op">=</span> <span class="st">"Value B"</span><span class="op">)</span>,</span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>label <span class="op">=</span> <span class="st">"Option C"</span>, value <span class="op">=</span> <span class="st">"Value C"</span><span class="op">)</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
   <div id="options-cbo" data-shiny-vue style="display: contents">
     <script type="text/x-template" data-shiny-vue-template><div id="options-cbo_container" style="display: contents">
@@ -343,8 +366,12 @@ does in its handler:
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rstudio.github.io/htmltools/reference/tagList.html" class="external-link">tagList</a></span><span class="op">(</span></span>
 <span>  <span class="fu"><a href="../../reference/el_checkbox.html">el_checkbox</a></span><span class="op">(</span><span class="st">"all"</span>, <span class="st">"Check all"</span>, indeterminate <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,</span>
-<span>  <span class="fu"><a href="../../reference/el_checkbox_group.html">el_checkbox_group</a></span><span class="op">(</span><span class="st">"cities"</span>, choices <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Shanghai"</span>, <span class="st">"Beijing"</span>, <span class="st">"Guangzhou"</span>, <span class="st">"Shenzhen"</span><span class="op">)</span>,</span>
-<span>                    selected <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Shanghai"</span>, <span class="st">"Beijing"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<span>  <span class="fu"><a href="../../reference/el_checkbox_group.html">el_checkbox_group</a></span><span class="op">(</span></span>
+<span>    <span class="st">"cities"</span>,</span>
+<span>    choices <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Shanghai"</span>, <span class="st">"Beijing"</span>, <span class="st">"Guangzhou"</span>, <span class="st">"Shenzhen"</span><span class="op">)</span>,</span>
+<span>    selected <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Shanghai"</span>, <span class="st">"Beijing"</span><span class="op">)</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
   <div id="intermediate-all" data-shiny-vue style="display: contents">
     <script type="text/x-template" data-shiny-vue-template><div id="intermediate-all_container" style="display: contents">
@@ -366,8 +393,13 @@ does in its handler:
 <p>The <code>min</code> and <code>max</code> properties can help you to
 limit the number of checked items.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_checkbox_group.html">el_checkbox_group</a></span><span class="op">(</span><span class="st">"cities_lim"</span>, choices <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Shanghai"</span>, <span class="st">"Beijing"</span>, <span class="st">"Guangzhou"</span>, <span class="st">"Shenzhen"</span><span class="op">)</span>,</span>
-<span>                  selected <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Shanghai"</span>, <span class="st">"Beijing"</span><span class="op">)</span>, min <span class="op">=</span> <span class="fl">1</span>, max <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_checkbox_group.html">el_checkbox_group</a></span><span class="op">(</span></span>
+<span>  <span class="st">"cities_lim"</span>,</span>
+<span>  choices <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Shanghai"</span>, <span class="st">"Beijing"</span>, <span class="st">"Guangzhou"</span>, <span class="st">"Shenzhen"</span><span class="op">)</span>,</span>
+<span>  selected <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Shanghai"</span>, <span class="st">"Beijing"</span><span class="op">)</span>,</span>
+<span>  min <span class="op">=</span> <span class="fl">1</span>,</span>
+<span>  max <span class="op">=</span> <span class="fl">2</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
   <div id="limitation-cities_lim" data-shiny-vue style="display: contents">
     <script type="text/x-template" data-shiny-vue-template><div id="limitation-cities_lim_container" style="display: contents">
@@ -387,12 +419,37 @@ limit the number of checked items.</p>
 <code>size</code> attribute.</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">cities</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Shanghai"</span>, <span class="st">"Beijing"</span>, <span class="st">"Guangzhou"</span>, <span class="st">"Shenzhen"</span><span class="op">)</span></span>
-<span><span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span>style <span class="op">=</span> <span class="st">"display: grid; gap: 16px"</span>,</span>
-<span>  <span class="fu"><a href="../../reference/el_checkbox_group.html">el_checkbox_group</a></span><span class="op">(</span><span class="st">"cbb1"</span>, choices <span class="op">=</span> <span class="va">cities</span>, selected <span class="op">=</span> <span class="st">"Shanghai"</span>, button <span class="op">=</span> <span class="cn">TRUE</span>, size <span class="op">=</span> <span class="st">"large"</span><span class="op">)</span>,</span>
-<span>  <span class="fu"><a href="../../reference/el_checkbox_group.html">el_checkbox_group</a></span><span class="op">(</span><span class="st">"cbb2"</span>, choices <span class="op">=</span> <span class="va">cities</span>, selected <span class="op">=</span> <span class="st">"Shanghai"</span>, button <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,</span>
-<span>  <span class="fu"><a href="../../reference/el_checkbox_group.html">el_checkbox_group</a></span><span class="op">(</span><span class="st">"cbb3"</span>, choices <span class="op">=</span> <span class="va">cities</span>, selected <span class="op">=</span> <span class="st">"Shanghai"</span>, button <span class="op">=</span> <span class="cn">TRUE</span>, size <span class="op">=</span> <span class="st">"small"</span><span class="op">)</span>,</span>
-<span>  <span class="fu"><a href="../../reference/el_checkbox_group.html">el_checkbox_group</a></span><span class="op">(</span><span class="st">"cbb4"</span>, choices <span class="op">=</span> <span class="va">cities</span>, selected <span class="op">=</span> <span class="st">"Shanghai"</span>, button <span class="op">=</span> <span class="cn">TRUE</span>, size <span class="op">=</span> <span class="st">"small"</span>,</span>
-<span>                    disabled <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<span><span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span></span>
+<span>  style <span class="op">=</span> <span class="st">"display: grid; gap: 16px"</span>,</span>
+<span>  <span class="fu"><a href="../../reference/el_checkbox_group.html">el_checkbox_group</a></span><span class="op">(</span></span>
+<span>    <span class="st">"cbb1"</span>,</span>
+<span>    choices <span class="op">=</span> <span class="va">cities</span>,</span>
+<span>    selected <span class="op">=</span> <span class="st">"Shanghai"</span>,</span>
+<span>    button <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>    size <span class="op">=</span> <span class="st">"large"</span></span>
+<span>  <span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="../../reference/el_checkbox_group.html">el_checkbox_group</a></span><span class="op">(</span></span>
+<span>    <span class="st">"cbb2"</span>,</span>
+<span>    choices <span class="op">=</span> <span class="va">cities</span>,</span>
+<span>    selected <span class="op">=</span> <span class="st">"Shanghai"</span>,</span>
+<span>    button <span class="op">=</span> <span class="cn">TRUE</span></span>
+<span>  <span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="../../reference/el_checkbox_group.html">el_checkbox_group</a></span><span class="op">(</span></span>
+<span>    <span class="st">"cbb3"</span>,</span>
+<span>    choices <span class="op">=</span> <span class="va">cities</span>,</span>
+<span>    selected <span class="op">=</span> <span class="st">"Shanghai"</span>,</span>
+<span>    button <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>    size <span class="op">=</span> <span class="st">"small"</span></span>
+<span>  <span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="../../reference/el_checkbox_group.html">el_checkbox_group</a></span><span class="op">(</span></span>
+<span>    <span class="st">"cbb4"</span>,</span>
+<span>    choices <span class="op">=</span> <span class="va">cities</span>,</span>
+<span>    selected <span class="op">=</span> <span class="st">"Shanghai"</span>,</span>
+<span>    button <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>    size <span class="op">=</span> <span class="st">"small"</span>,</span>
+<span>    disabled <span class="op">=</span> <span class="cn">TRUE</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
   <div style="display: grid; gap: 16px">
     <div id="button-style-cbb1" data-shiny-vue style="display: contents">
@@ -433,9 +490,15 @@ limit the number of checked items.</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">row</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">...</span><span class="op">)</span> <span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span>style <span class="op">=</span> <span class="st">"margin-top: 16px"</span>, <span class="va">...</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rstudio.github.io/htmltools/reference/tagList.html" class="external-link">tagList</a></span><span class="op">(</span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/row.html" class="external-link">row</a></span><span class="op">(</span><span class="fu"><a href="../../reference/el_checkbox.html">el_checkbox</a></span><span class="op">(</span><span class="st">"cbr1"</span>, <span class="st">"Option1"</span>, value <span class="op">=</span> <span class="cn">TRUE</span>, size <span class="op">=</span> <span class="st">"large"</span>, border <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,</span>
-<span>      <span class="fu"><a href="../../reference/el_checkbox.html">el_checkbox</a></span><span class="op">(</span><span class="st">"cbr2"</span>, <span class="st">"Option2"</span>, size <span class="op">=</span> <span class="st">"large"</span>, border <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span>,</span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/row.html" class="external-link">row</a></span><span class="op">(</span><span class="fu"><a href="../../reference/el_checkbox.html">el_checkbox</a></span><span class="op">(</span><span class="st">"cbr3"</span>, <span class="st">"Option1"</span>, border <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>, <span class="fu"><a href="../../reference/el_checkbox.html">el_checkbox</a></span><span class="op">(</span><span class="st">"cbr4"</span>, <span class="st">"Option2"</span>, value <span class="op">=</span> <span class="cn">TRUE</span>, border <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/row.html" class="external-link">row</a></span><span class="op">(</span></span>
+<span>    <span class="fu"><a href="../../reference/el_checkbox.html">el_checkbox</a></span><span class="op">(</span><span class="st">"cbr1"</span>, <span class="st">"Option1"</span>, value <span class="op">=</span> <span class="cn">TRUE</span>, size <span class="op">=</span> <span class="st">"large"</span>, border <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,</span>
+<span>    <span class="fu"><a href="../../reference/el_checkbox.html">el_checkbox</a></span><span class="op">(</span><span class="st">"cbr2"</span>, <span class="st">"Option2"</span>, size <span class="op">=</span> <span class="st">"large"</span>, border <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span>  <span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/row.html" class="external-link">row</a></span><span class="op">(</span></span>
+<span>    <span class="fu"><a href="../../reference/el_checkbox.html">el_checkbox</a></span><span class="op">(</span><span class="st">"cbr3"</span>, <span class="st">"Option1"</span>, border <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,</span>
+<span>    <span class="fu"><a href="../../reference/el_checkbox.html">el_checkbox</a></span><span class="op">(</span><span class="st">"cbr4"</span>, <span class="st">"Option2"</span>, value <span class="op">=</span> <span class="cn">TRUE</span>, border <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
   <div style="margin-top: 16px">
     <div id="with-border-cbr1" data-shiny-vue style="display: contents">

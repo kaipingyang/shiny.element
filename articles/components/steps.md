@@ -19,8 +19,16 @@ been completed.
 
 ``` r
 
-el_steps("st_basic", active = 0, finish_status = "success", steps = list(
-  list(title = "Step 1"), list(title = "Step 2"), list(title = "Step 3")))
+el_steps(
+  "st_basic",
+  active = 0,
+  finish_status = "success",
+  steps = list(
+    list(title = "Step 1"),
+    list(title = "Step 2"),
+    list(title = "Step 3")
+  )
+)
 ```
 
 ## Step bar that contains status
@@ -33,8 +41,17 @@ you at the end of this page.
 
 ``` r
 
-el_steps("st_status", active = 1, space = 200, finish_status = "success", steps = list(
-  list(title = "Done"), list(title = "Processing"), list(title = "Step 3")))
+el_steps(
+  "st_status",
+  active = 1,
+  space = 200,
+  finish_status = "success",
+  steps = list(
+    list(title = "Done"),
+    list(title = "Processing"),
+    list(title = "Step 3")
+  )
+)
 ```
 
 ## Center
@@ -43,9 +60,17 @@ Title and description can be centered.
 
 ``` r
 
-el_steps("st_center", active = 2, align_center = TRUE, steps = list(
-  list(title = "Step 1", description = "Some description"), list(title = "Step 2", description = "Some description"),
-  list(title = "Step 3", description = "Some description"), list(title = "Step 4", description = "Some description")))
+el_steps(
+  "st_center",
+  active = 2,
+  align_center = TRUE,
+  steps = list(
+    list(title = "Step 1", description = "Some description"),
+    list(title = "Step 2", description = "Some description"),
+    list(title = "Step 3", description = "Some description"),
+    list(title = "Step 4", description = "Some description")
+  )
+)
 ```
 
 ## Step bar with description
@@ -54,9 +79,15 @@ There is description for each step.
 
 ``` r
 
-el_steps("st_desc", active = 1, steps = list(
-  list(title = "Step 1", description = "Some description"), list(title = "Step 2", description = "Some description"),
-  list(title = "Step 3", description = "Some description")))
+el_steps(
+  "st_desc",
+  active = 1,
+  steps = list(
+    list(title = "Step 1", description = "Some description"),
+    list(title = "Step 2", description = "Some description"),
+    list(title = "Step 3", description = "Some description")
+  )
+)
 ```
 
 ## Step bar with icon
@@ -69,8 +100,15 @@ the icon through a named `slot`.
 
 ``` r
 
-el_steps("st_icon", active = 1, steps = list(
-  list(title = "Step 1", icon = "Edit"), list(title = "Step 2", icon = "Upload"), list(title = "Step 3", icon = "Picture")))
+el_steps(
+  "st_icon",
+  active = 1,
+  steps = list(
+    list(title = "Step 1", icon = "Edit"),
+    list(title = "Step 2", icon = "Upload"),
+    list(title = "Step 3", icon = "Picture")
+  )
+)
 ```
 
 ## Vertical step bar
@@ -82,9 +120,19 @@ You only need to set the `direction` attribute to `vertical` in the
 
 ``` r
 
-tags$div(style = "height: 300px",
-  el_steps("st_vert", direction = "vertical", active = 1, steps = list(
-    list(title = "Step 1"), list(title = "Step 2"), list(title = "Step 3"))))
+tags$div(
+  style = "height: 300px",
+  el_steps(
+    "st_vert",
+    direction = "vertical",
+    active = 1,
+    steps = list(
+      list(title = "Step 1"),
+      list(title = "Step 2"),
+      list(title = "Step 3")
+    )
+  )
+)
 ```
 
 ## Simple step bar
@@ -95,12 +143,29 @@ Simple step bars, where `align-center`, `description`, `direction` and
 ``` r
 
 tagList(
-  el_steps("st_simple", active = 0, simple = TRUE, steps = list(
-    list(title = "Step 1", icon = "Edit"), list(title = "Step 2", icon = "UploadFilled"),
-    list(title = "Step 3", icon = "Picture"))),
+  el_steps(
+    "st_simple",
+    active = 0,
+    simple = TRUE,
+    steps = list(
+      list(title = "Step 1", icon = "Edit"),
+      list(title = "Step 2", icon = "UploadFilled"),
+      list(title = "Step 3", icon = "Picture")
+    )
+  ),
   tags$div(style = "margin-top: 20px"),
-  el_steps("st_simple2", active = 0, finish_status = "success", simple = TRUE, steps = list(
-    list(title = "Step 1"), list(title = "Step 2"), list(title = "Step 3"))))
+  el_steps(
+    "st_simple2",
+    active = 0,
+    finish_status = "success",
+    simple = TRUE,
+    steps = list(
+      list(title = "Step 1"),
+      list(title = "Step 2"),
+      list(title = "Step 3")
+    )
+  )
+)
 ```
 
 ## API

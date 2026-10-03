@@ -185,10 +185,10 @@ el_pagination("pg1", total = 100)
 # With custom page sizes and layout
 el_pagination(
   "pg2",
-  total      = 500,
-  page_size  = 20,
+  total = 500,
+  page_size = 20,
   page_sizes = c(10, 20, 50, 100),
-  layout     = "total, sizes, prev, pager, next"
+  layout = "total, sizes, prev, pager, next"
 )
 #> <div id="pg2" data-shiny-vue style="display: contents">
 #>   <script type="text/x-template" data-shiny-vue-template><div id="pg2_container" style="display: contents">

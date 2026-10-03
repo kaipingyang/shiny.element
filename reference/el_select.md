@@ -419,12 +419,20 @@ loading text until then, or for 30 seconds at most.
 
 ``` r
 # Each option drawn with a second field beside its label
-el_select("city", choices = list(
-  list(value = "bj", label = "Beijing", code = "PEK"),
-  list(value = "sh", label = "Shanghai", code = "SHA")),
+el_select(
+  "city",
+  choices = list(
+    list(value = "bj", label = "Beijing", code = "PEK"),
+    list(value = "sh", label = "Shanghai", code = "SHA")
+  ),
   option_template = htmltools::tagList(
     htmltools::tags$span(style = "float: left", "{{ opt.label }}"),
-    htmltools::tags$span(style = "float: right; color: #8492a6", "{{ opt.code }}")))
+    htmltools::tags$span(
+      style = "float: right; color: #8492a6",
+      "{{ opt.code }}"
+    )
+  )
+)
 #> <div id="city" data-shiny-vue style="display: contents">
 #>   <script type="text/x-template" data-shiny-vue-template><div id="city_container" style="display: contents">
 #>   <el-select v-model="value" :multiple="multiple" :disabled="disabled" :clearable="clearable" :filterable="filterable" :multiple-limit="multipleLimit" :collapse-tags="collapseTags" @change="handleChange" :placeholder="placeholder === null ? undefined : placeholder" :size="size === null ? undefined : size" :value-key="valueKey === null ? undefined : valueKey" :name="name === null ? undefined : name" :autocomplete="autocomplete === null ? undefined : autocomplete" :automatic-dropdown="automaticDropdown === null ? undefined : automaticDropdown" :allow-create="allowCreate === null ? undefined : allowCreate" :loading="loading === null ? undefined : loading" :loading-text="loadingText === null ? undefined : loadingText" :no-match-text="noMatchText === null ? undefined : noMatchText" :no-data-text="noDataText === null ? undefined : noDataText" :popper-class="popperClass === null ? undefined : popperClass" :reserve-keyword="reserveKeyword === null ? undefined : reserveKeyword" :default-first-option="defaultFirstOption === null ? undefined : defaultFirstOption" :remote="remote === null ? undefined : remote" :filter-method="filterMethod === null ? undefined : filterMethod" :remote-method="remoteMethod === null ? elRemoteQuery : remoteMethod" @visible-change="elEmitVisibleChange" @remove-tag="elEmitRemoveTag" @clear="elEmitClear" @blur="elEmitBlur" @focus="elEmitFocus" @end-reached="elEmitEndReached" @popup-scroll="elEmitPopupScroll" :append-to="appendTo === null ? undefined : appendTo" :aria-label="ariaLabel === null ? undefined : ariaLabel" :clear-icon="clearIcon === null ? undefined : clearIcon" :collapse-tags-tooltip="collapseTagsTooltip === null ? undefined : collapseTagsTooltip" :debounce="debounce === null ? undefined : debounce" :effect="effect === null ? undefined : effect" :empty-values="emptyValues === null ? undefined : emptyValues" :fallback-placements="fallbackPlacements === null ? undefined : fallbackPlacements" :fit-input-width="fitInputWidth === null ? undefined : fitInputWidth" :max-collapse-tags="maxCollapseTags === null ? undefined : maxCollapseTags" :offset="offset === null ? undefined : offset" :persistent="persistent === null ? undefined : persistent" :placement="placement === null ? undefined : placement" :popper-options="popperOptions === null ? undefined : popperOptions" :popper-style="popperStyle === null ? undefined : popperStyle" :remote-show-suffix="remoteShowSuffix === null ? undefined : remoteShowSuffix" :show-arrow="showArrow === null ? undefined : showArrow" :suffix-icon="suffixIcon === null ? undefined : suffixIcon" :suffix-transition="suffixTransition === null ? undefined : suffixTransition" :tabindex="tabindex === null ? undefined : tabindex" :tag-effect="tagEffect === null ? undefined : tagEffect" :tag-type="tagType === null ? undefined : tagType" :teleported="teleported === null ? undefined : teleported" :validate-event="validateEvent === null ? undefined : validateEvent" :value-on-clear="valueOnClear === null ? undefined : valueOnClear">
@@ -444,8 +452,9 @@ el_select("city", choices = list(
 #> </div>
 
 # Single-select from a named vector
-el_select("sel1",
-  choices  = c(Apple = "apple", Banana = "banana", Cherry = "cherry"),
+el_select(
+  "sel1",
+  choices = c(Apple = "apple", Banana = "banana", Cherry = "cherry"),
   selected = "banana"
 )
 #> <div id="sel1" data-shiny-vue style="display: contents">
@@ -465,8 +474,9 @@ if (interactive()) {
   library(shiny)
   library(shiny.element)
   ui <- el_page(
-    el_select("fruit",
-      choices  = c(Apple = "apple", Banana = "banana", Cherry = "cherry"),
+    el_select(
+      "fruit",
+      choices = c(Apple = "apple", Banana = "banana", Cherry = "cherry"),
       selected = "apple",
       clearable = TRUE
     ),

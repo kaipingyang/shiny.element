@@ -11,7 +11,10 @@ value is 0.
 
 ``` r
 
-el_affix(offset = 120, el_button("affix_top", "Offset top 120px", type = "primary"))
+el_affix(
+  offset = 120,
+  el_button("affix_top", "Offset top 120px", type = "primary")
+)
 ```
 
 ## Target Container
@@ -23,9 +26,15 @@ Please notice that the container avoid having scrollbar.
 
 ``` r
 
-tags$div(class = "affix-container", style = "height: 400px; background: var(--el-color-primary-light-9)",
-  el_affix(target = ".affix-container", offset = 80,
-           el_button("affix_target", "Target container", type = "primary")))
+tags$div(
+  class = "affix-container",
+  style = "height: 400px; background: var(--el-color-primary-light-9)",
+  el_affix(
+    target = ".affix-container",
+    offset = 80,
+    el_button("affix_target", "Target container", type = "primary")
+  )
+)
 ```
 
 ## Fixed Position
@@ -37,8 +46,11 @@ default value is `top`.
 
 ``` r
 
-el_affix(position = "bottom", offset = 20,
-         el_button("affix_bottom", "Offset bottom 20px", type = "primary"))
+el_affix(
+  position = "bottom",
+  offset = 20,
+  el_button("affix_bottom", "Offset bottom 20px", type = "primary")
+)
 ```
 
 ## API

@@ -55,6 +55,9 @@ Called for its side effect; returns `NULL` invisibly.
 ``` r
 if (interactive()) {
   # inside a server function
-  observeEvent(input$reset, update_el_cascader_panel(session, "where", value = list()))
+  observeEvent(
+    input$reset,
+    update_el_cascader_panel(session, "where", value = list())
+  )
 }
 ```

@@ -197,8 +197,8 @@ interactions for your end users, you can choose
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_skeleton.html">el_skeleton</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
-  <div id="basic-usage-el_skeleton_56cde5c4-801d-4a16-ba05-0aee0b3b9219" data-shiny-vue style="display: contents">
-    <script type="text/x-template" data-shiny-vue-template><div id="basic-usage-el_skeleton_56cde5c4-801d-4a16-ba05-0aee0b3b9219_container" style="display: contents">
+  <div id="basic-usage-el_skeleton_6c63c2cd-8b7a-4f4c-8e3c-912eb6319b66" data-shiny-vue style="display: contents">
+    <script type="text/x-template" data-shiny-vue-template><div id="basic-usage-el_skeleton_6c63c2cd-8b7a-4f4c-8e3c-912eb6319b66_container" style="display: contents">
   <el-skeleton :loading="skLoading" :rows="skRows === null ? undefined : skRows" :animated="skAnimated === null ? undefined : skAnimated" :count="skCount === null ? undefined : skCount" :throttle="skThrottle === null ? undefined : skThrottle"></el-skeleton>
 </div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"skLoading":true,"skRows":null,"skAnimated":null,"skCount":null,"skThrottle":null}},"input":null,"rate":null,"type":null,"evals":[]}</script>
 </div>
@@ -214,8 +214,8 @@ with 33% width of the others.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_skeleton.html">el_skeleton</a></span><span class="op">(</span>rows <span class="op">=</span> <span class="fl">5</span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
-  <div id="configurable-rows-el_skeleton_8d109fbc-8626-4b7d-be66-7ea4849d378f" data-shiny-vue style="display: contents">
-    <script type="text/x-template" data-shiny-vue-template><div id="configurable-rows-el_skeleton_8d109fbc-8626-4b7d-be66-7ea4849d378f_container" style="display: contents">
+  <div id="configurable-rows-el_skeleton_fbd6bdf9-4577-46c6-a8f5-cc4d3145bb00" data-shiny-vue style="display: contents">
+    <script type="text/x-template" data-shiny-vue-template><div id="configurable-rows-el_skeleton_fbd6bdf9-4577-46c6-a8f5-cc4d3145bb00_container" style="display: contents">
   <el-skeleton :loading="skLoading" :rows="skRows === null ? undefined : skRows" :animated="skAnimated === null ? undefined : skAnimated" :count="skCount === null ? undefined : skCount" :throttle="skThrottle === null ? undefined : skThrottle"></el-skeleton>
 </div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"skLoading":true,"skRows":5,"skAnimated":null,"skCount":null,"skThrottle":null}},"input":null,"rate":null,"type":null,"evals":[]}</script>
 </div>
@@ -230,8 +230,8 @@ of <code>el-skeleton</code> will show animation</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_skeleton.html">el_skeleton</a></span><span class="op">(</span>rows <span class="op">=</span> <span class="fl">5</span>, animated <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
-  <div id="animation-el_skeleton_55598ce1-976c-4e7c-9d21-0e5e4a05a5cf" data-shiny-vue style="display: contents">
-    <script type="text/x-template" data-shiny-vue-template><div id="animation-el_skeleton_55598ce1-976c-4e7c-9d21-0e5e4a05a5cf_container" style="display: contents">
+  <div id="animation-el_skeleton_9c73995d-449a-40d1-8564-67379d01bda4" data-shiny-vue style="display: contents">
+    <script type="text/x-template" data-shiny-vue-template><div id="animation-el_skeleton_9c73995d-449a-40d1-8564-67379d01bda4_container" style="display: contents">
   <el-skeleton :loading="skLoading" :rows="skRows === null ? undefined : skRows" :animated="skAnimated === null ? undefined : skAnimated" :count="skCount === null ? undefined : skCount" :throttle="skThrottle === null ? undefined : skThrottle"></el-skeleton>
 </div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"skLoading":true,"skRows":5,"skAnimated":true,"skCount":null,"skThrottle":null}},"input":null,"rate":null,"type":null,"evals":[]}</script>
 </div>
@@ -250,16 +250,29 @@ skeleton structure, you should be structuring them as closer to the real
 DOM as possible, which avoiding the DOM bouncing caused by the height
 difference.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_skeleton.html">el_skeleton</a></span><span class="op">(</span>width <span class="op">=</span> <span class="st">"240px"</span>, slots <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>template <span class="op">=</span> <span class="fu"><a href="https://rstudio.github.io/htmltools/reference/tagList.html" class="external-link">tagList</a></span><span class="op">(</span></span>
-<span>  <span class="va">el</span><span class="op">$</span><span class="fu">skeleton_item</span><span class="op">(</span>variant <span class="op">=</span> <span class="st">"image"</span>, style <span class="op">=</span> <span class="st">"width: 240px; height: 240px"</span><span class="op">)</span>,</span>
-<span>  <span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span>style <span class="op">=</span> <span class="st">"padding: 14px"</span>,</span>
-<span>    <span class="va">el</span><span class="op">$</span><span class="fu">skeleton_item</span><span class="op">(</span>variant <span class="op">=</span> <span class="st">"p"</span>, style <span class="op">=</span> <span class="st">"width: 50%"</span><span class="op">)</span>,</span>
-<span>    <span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span>style <span class="op">=</span> <span class="st">"display: flex; align-items: center; justify-items: space-between; margin-top: 16px; height: 16px"</span>,</span>
-<span>      <span class="va">el</span><span class="op">$</span><span class="fu">skeleton_item</span><span class="op">(</span>variant <span class="op">=</span> <span class="st">"text"</span>, style <span class="op">=</span> <span class="st">"margin-right: 16px"</span><span class="op">)</span>,</span>
-<span>      <span class="va">el</span><span class="op">$</span><span class="fu">skeleton_item</span><span class="op">(</span>variant <span class="op">=</span> <span class="st">"text"</span>, style <span class="op">=</span> <span class="st">"width: 30%"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_skeleton.html">el_skeleton</a></span><span class="op">(</span></span>
+<span>  width <span class="op">=</span> <span class="st">"240px"</span>,</span>
+<span>  slots <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>    template <span class="op">=</span> <span class="fu"><a href="https://rstudio.github.io/htmltools/reference/tagList.html" class="external-link">tagList</a></span><span class="op">(</span></span>
+<span>      <span class="va">el</span><span class="op">$</span><span class="fu">skeleton_item</span><span class="op">(</span></span>
+<span>        variant <span class="op">=</span> <span class="st">"image"</span>,</span>
+<span>        style <span class="op">=</span> <span class="st">"width: 240px; height: 240px"</span></span>
+<span>      <span class="op">)</span>,</span>
+<span>      <span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span></span>
+<span>        style <span class="op">=</span> <span class="st">"padding: 14px"</span>,</span>
+<span>        <span class="va">el</span><span class="op">$</span><span class="fu">skeleton_item</span><span class="op">(</span>variant <span class="op">=</span> <span class="st">"p"</span>, style <span class="op">=</span> <span class="st">"width: 50%"</span><span class="op">)</span>,</span>
+<span>        <span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span></span>
+<span>          style <span class="op">=</span> <span class="st">"display: flex; align-items: center; justify-items: space-between; margin-top: 16px; height: 16px"</span>,</span>
+<span>          <span class="va">el</span><span class="op">$</span><span class="fu">skeleton_item</span><span class="op">(</span>variant <span class="op">=</span> <span class="st">"text"</span>, style <span class="op">=</span> <span class="st">"margin-right: 16px"</span><span class="op">)</span>,</span>
+<span>          <span class="va">el</span><span class="op">$</span><span class="fu">skeleton_item</span><span class="op">(</span>variant <span class="op">=</span> <span class="st">"text"</span>, style <span class="op">=</span> <span class="st">"width: 30%"</span><span class="op">)</span></span>
+<span>        <span class="op">)</span></span>
+<span>      <span class="op">)</span></span>
+<span>    <span class="op">)</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
-  <div id="customized-template-el_skeleton_e2d40ed5-bd97-4c47-9f6d-5f5a56297185" data-shiny-vue style="display: contents">
-    <script type="text/x-template" data-shiny-vue-template><div id="customized-template-el_skeleton_e2d40ed5-bd97-4c47-9f6d-5f5a56297185_container" style="display: contents">
+  <div id="customized-template-el_skeleton_63339f25-f5cb-4b7b-8ff0-933e6a8922f2" data-shiny-vue style="display: contents">
+    <script type="text/x-template" data-shiny-vue-template><div id="customized-template-el_skeleton_63339f25-f5cb-4b7b-8ff0-933e6a8922f2_container" style="display: contents">
   <el-skeleton :loading="skLoading" :rows="skRows === null ? undefined : skRows" :animated="skAnimated === null ? undefined : skAnimated" :count="skCount === null ? undefined : skCount" :throttle="skThrottle === null ? undefined : skThrottle" style="width: 240px">
     <template v-slot:template>
       <el-skeleton-item variant="image" style="width: 240px; height: 240px"></el-skeleton-item>
@@ -286,9 +299,16 @@ can control whether showing the DOM. You can also use slot
 <p><code>update_el_skeleton(loading = FALSE)</code> swaps it for its
 content.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_skeleton.html">el_skeleton</a></span><span class="op">(</span><span class="st">"sk_load"</span>, loading <span class="op">=</span> <span class="cn">TRUE</span>, animated <span class="op">=</span> <span class="cn">TRUE</span>,</span>
-<span>  <span class="fu"><a href="../../reference/el_card.html">el_card</a></span><span class="op">(</span><span class="va">tags</span><span class="op">$</span><span class="fu">img</span><span class="op">(</span>src <span class="op">=</span> <span class="st">"https://shadow.elemecdn.com/app/element/hamburger.9cf7b091-55e9-11e9-a976-7f4d0b07eef6.png"</span>,</span>
-<span>                   alt <span class="op">=</span> <span class="st">"A hamburger"</span>, style <span class="op">=</span> <span class="st">"width: 100%"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_skeleton.html">el_skeleton</a></span><span class="op">(</span></span>
+<span>  <span class="st">"sk_load"</span>,</span>
+<span>  loading <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  animated <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  <span class="fu"><a href="../../reference/el_card.html">el_card</a></span><span class="op">(</span><span class="va">tags</span><span class="op">$</span><span class="fu">img</span><span class="op">(</span></span>
+<span>    src <span class="op">=</span> <span class="st">"https://shadow.elemecdn.com/app/element/hamburger.9cf7b091-55e9-11e9-a976-7f4d0b07eef6.png"</span>,</span>
+<span>    alt <span class="op">=</span> <span class="st">"A hamburger"</span>,</span>
+<span>    style <span class="op">=</span> <span class="st">"width: 100%"</span></span>
+<span>  <span class="op">)</span><span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
   <div id="loading-state-sk_load" data-shiny-vue style="display: contents">
     <script type="text/x-template" data-shiny-vue-template><div id="loading-state-sk_load_container" style="display: contents">
@@ -323,8 +343,8 @@ user experience.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_skeleton.html">el_skeleton</a></span><span class="op">(</span>count <span class="op">=</span> <span class="fl">3</span>, rows <span class="op">=</span> <span class="fl">2</span>, animated <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
-  <div id="rendering-with-data-el_skeleton_64daeb33-6db9-416e-99a2-d1b596d561df" data-shiny-vue style="display: contents">
-    <script type="text/x-template" data-shiny-vue-template><div id="rendering-with-data-el_skeleton_64daeb33-6db9-416e-99a2-d1b596d561df_container" style="display: contents">
+  <div id="rendering-with-data-el_skeleton_64f5afb3-0f1b-4853-86eb-eb2e3ae0f4bf" data-shiny-vue style="display: contents">
+    <script type="text/x-template" data-shiny-vue-template><div id="rendering-with-data-el_skeleton_64f5afb3-0f1b-4853-86eb-eb2e3ae0f4bf_container" style="display: contents">
   <el-skeleton :loading="skLoading" :rows="skRows === null ? undefined : skRows" :animated="skAnimated === null ? undefined : skAnimated" :count="skCount === null ? undefined : skCount" :throttle="skThrottle === null ? undefined : skThrottle"></el-skeleton>
 </div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"skLoading":true,"skRows":2,"skAnimated":true,"skCount":3,"skThrottle":null}},"input":null,"rate":null,"type":null,"evals":[]}</script>
 </div>
@@ -347,7 +367,13 @@ you can also control the throttling of the skeleton screen disappearance
 by passing <code>{trailing: xxx}</code></p>
 </blockquote>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_skeleton.html">el_skeleton</a></span><span class="op">(</span><span class="st">"sk_throttle"</span>, loading <span class="op">=</span> <span class="cn">TRUE</span>, throttle <span class="op">=</span> <span class="fl">500</span>, animated <span class="op">=</span> <span class="cn">TRUE</span>, <span class="st">"Content"</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_skeleton.html">el_skeleton</a></span><span class="op">(</span></span>
+<span>  <span class="st">"sk_throttle"</span>,</span>
+<span>  loading <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  throttle <span class="op">=</span> <span class="fl">500</span>,</span>
+<span>  animated <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  <span class="st">"Content"</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
   <div id="avoiding-rendering-bouncing-sk_throttle" data-shiny-vue style="display: contents">
     <script type="text/x-template" data-shiny-vue-template><div id="avoiding-rendering-bouncing-sk_throttle_container" style="display: contents">
@@ -365,7 +391,12 @@ by passing <code>{trailing: xxx}</code></p>
 <code>throttle: {initVal: true, leading: xxx}</code> to control the
 immediate display of the initial skeleton screen without throttling.</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_skeleton.html">el_skeleton</a></span><span class="op">(</span><span class="st">"sk_initial"</span>, loading <span class="op">=</span> <span class="cn">TRUE</span>, throttle <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>leading <span class="op">=</span> <span class="fl">500</span>, initVal <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>, <span class="st">"Content"</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_skeleton.html">el_skeleton</a></span><span class="op">(</span></span>
+<span>  <span class="st">"sk_initial"</span>,</span>
+<span>  loading <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  throttle <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>leading <span class="op">=</span> <span class="fl">500</span>, initVal <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,</span>
+<span>  <span class="st">"Content"</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
   <div id="initial-rendering-loading-sk_initial" data-shiny-vue style="display: contents">
     <script type="text/x-template" data-shiny-vue-template><div id="initial-rendering-loading-sk_initial_container" style="display: contents">
@@ -392,7 +423,12 @@ when loading toggle show or hide. You can use set the
 <code>throttle: {leading: xxx, trailing:xxx}</code> to control the
 rendering bouncing.</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_skeleton.html">el_skeleton</a></span><span class="op">(</span><span class="st">"sk_lt"</span>, loading <span class="op">=</span> <span class="cn">TRUE</span>, throttle <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>leading <span class="op">=</span> <span class="fl">500</span>, trailing <span class="op">=</span> <span class="fl">500</span><span class="op">)</span>, <span class="st">"Content"</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_skeleton.html">el_skeleton</a></span><span class="op">(</span></span>
+<span>  <span class="st">"sk_lt"</span>,</span>
+<span>  loading <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  throttle <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>leading <span class="op">=</span> <span class="fl">500</span>, trailing <span class="op">=</span> <span class="fl">500</span><span class="op">)</span>,</span>
+<span>  <span class="st">"Content"</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
   <div id="leading-trailing-without-bouncing-sk_lt" data-shiny-vue style="display: contents">
     <script type="text/x-template" data-shiny-vue-template><div id="leading-trailing-without-bouncing-sk_lt_container" style="display: contents">

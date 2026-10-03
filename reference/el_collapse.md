@@ -93,7 +93,8 @@ and on every change. Empty when all are closed, which Shiny reports as
 ## Examples
 
 ``` r
-el_collapse("col1",
+el_collapse(
+  "col1",
   items = list(
     list(name = "p1", title = "Panel 1", content = shiny::tags$p("Content 1")),
     list(name = "p2", title = "Panel 2", content = shiny::tags$p("Content 2"))
@@ -126,10 +127,14 @@ el_collapse("col1",
 #> </div>
 
 # A panel can hold other components
-el_collapse("col2",
+el_collapse(
+  "col2",
   items = list(
-    list(name = "f", title = "Filters",
-         content = shiny::tagList(el_input("q"), el_switch("live")))
+    list(
+      name = "f",
+      title = "Filters",
+      content = shiny::tagList(el_input("q"), el_switch("live"))
+    )
   )
 )
 #> <div id="col2" class="el-collapse el-collapse-icon-position-right" data-el-collapse="true" data-accordion="false">

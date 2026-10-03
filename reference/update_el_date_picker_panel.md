@@ -53,6 +53,9 @@ Called for its side effect; returns `NULL` invisibly.
 ``` r
 if (interactive()) {
   # inside a server function
-  observeEvent(input$reset, update_el_date_picker_panel(session, "x", value = NULL))
+  observeEvent(
+    input$reset,
+    update_el_date_picker_panel(session, "x", value = NULL)
+  )
 }
 ```

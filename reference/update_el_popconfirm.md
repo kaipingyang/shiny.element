@@ -40,8 +40,11 @@ Called for its side effect; returns `NULL` invisibly.
 if (interactive()) {
   # inside a server function
   observeEvent(input$row_click, {
-    update_el_popconfirm(session, "del",
-                         title = paste0("Delete ", selected_name(), "?"))
+    update_el_popconfirm(
+      session,
+      "del",
+      title = paste0("Delete ", selected_name(), "?")
+    )
   })
 }
 ```

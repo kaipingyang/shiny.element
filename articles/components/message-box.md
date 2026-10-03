@@ -27,8 +27,17 @@ The answer is `input$<id>`: `"confirm"`, `"cancel"` or `"close"`.
 
 ui <- el_page(el_button("open", "Click to open the Message Box", plain = TRUE))
 server <- function(input, output, session) {
-  observeEvent(input$open, el_message_box(session, "answer", "This is a message", title = "Title",
-                                          box_type = "alert", confirm_button_text = "OK"))
+  observeEvent(
+    input$open,
+    el_message_box(
+      session,
+      "answer",
+      "This is a message",
+      title = "Title",
+      box_type = "alert",
+      confirm_button_text = "OK"
+    )
+  )
 }
 shinyApp(ui, server)
 ```
@@ -52,10 +61,22 @@ handle further processing. `primary` has been added in 2.9.11.
 
 ui <- el_page(el_button("open", "Click to open the Message Box", plain = TRUE))
 server <- function(input, output, session) {
-  observeEvent(input$open, el_message_box(session, "answer",
-    "proxy will permanently delete the file. Continue?", title = "Warning", type = "warning",
-    confirm_button_text = "OK", cancel_button_text = "Cancel"))
-  observeEvent(input$answer, el_message(session, paste("Answer:", input$answer)))
+  observeEvent(
+    input$open,
+    el_message_box(
+      session,
+      "answer",
+      "proxy will permanently delete the file. Continue?",
+      title = "Warning",
+      type = "warning",
+      confirm_button_text = "OK",
+      cancel_button_text = "Cancel"
+    )
+  )
+  observeEvent(
+    input$answer,
+    el_message(session, paste("Answer:", input$answer))
+  )
 }
 shinyApp(ui, server)
 ```
@@ -78,10 +99,20 @@ placeholder of the input box with `inputPlaceholder` parameter.
 
 ui <- el_page(el_button("open", "Click to open Message Box", plain = TRUE))
 server <- function(input, output, session) {
-  observeEvent(input$open, el_message_box(session, "email", "Please input your e-mail", title = "Tip",
-    box_type = "prompt", confirm_button_text = "OK", cancel_button_text = "Cancel",
-    input_pattern = "[\\w!#$%&'*+/=?^_`{|}~-]+(?:\\.[\\w!#$%&'*+/=?^_`{|}~-]+)*@(?:[\\w](?:[\\w-]*[\\w])?\\.)+[\\w](?:[\\w-]*[\\w])?",
-    input_error_message = "Invalid Email"))
+  observeEvent(
+    input$open,
+    el_message_box(
+      session,
+      "email",
+      "Please input your e-mail",
+      title = "Tip",
+      box_type = "prompt",
+      confirm_button_text = "OK",
+      cancel_button_text = "Cancel",
+      input_pattern = "[\\w!#$%&'*+/=?^_`{|}~-]+(?:\\.[\\w!#$%&'*+/=?^_`{|}~-]+)*@(?:[\\w](?:[\\w-]*[\\w])?\\.)+[\\w](?:[\\w-]*[\\w])?",
+      input_error_message = "Invalid Email"
+    )
+  )
 }
 shinyApp(ui, server)
 ```
@@ -131,9 +162,20 @@ inside `beforeClose`, the instance will not be closed).
 
 ui <- el_page(el_button("open", "Click to open Message Box", plain = TRUE))
 server <- function(input, output, session) {
-  observeEvent(input$open, el_message_box(session, "answer", "This is a message", title = "Title",
-    show_cancel_button = TRUE, confirm_button_text = "OK", cancel_button_text = "Cancel",
-    confirm_button_type = "danger", button_size = "small"))
+  observeEvent(
+    input$open,
+    el_message_box(
+      session,
+      "answer",
+      "This is a message",
+      title = "Title",
+      show_cancel_button = TRUE,
+      confirm_button_text = "OK",
+      cancel_button_text = "Cancel",
+      confirm_button_type = "danger",
+      button_size = "small"
+    )
+  )
 }
 shinyApp(ui, server)
 ```
@@ -152,8 +194,17 @@ an HTML string.
 
 ui <- el_page(el_button("open", "Click to open Message Box", plain = TRUE))
 server <- function(input, output, session) {
-  observeEvent(input$open, el_message_box(session, "answer", "<strong>proxy is <i>HTML</i> string</strong>",
-    title = "HTML String", box_type = "alert", dangerously_use_html_string = TRUE))
+  observeEvent(
+    input$open,
+    el_message_box(
+      session,
+      "answer",
+      "<strong>proxy is <i>HTML</i> string</strong>",
+      title = "HTML String",
+      box_type = "alert",
+      dangerously_use_html_string = TRUE
+    )
+  )
 }
 shinyApp(ui, server)
 ```
@@ -186,9 +237,18 @@ respectively.
 
 ui <- el_page(el_button("open", "Click to open Message Box", plain = TRUE))
 server <- function(input, output, session) {
-  observeEvent(input$open, el_message_box(session, "answer",
-    "You have unsaved changes, save and proceed?", title = "Confirm",
-    distinguish_cancel_and_close = TRUE, confirm_button_text = "Save", cancel_button_text = "Discard Changes"))
+  observeEvent(
+    input$open,
+    el_message_box(
+      session,
+      "answer",
+      "You have unsaved changes, save and proceed?",
+      title = "Confirm",
+      distinguish_cancel_and_close = TRUE,
+      confirm_button_text = "Save",
+      cancel_button_text = "Discard Changes"
+    )
+  )
 }
 shinyApp(ui, server)
 ```
@@ -206,9 +266,19 @@ Setting `center` to `true` will center the content.
 
 ui <- el_page(el_button("open", "Click to open Message Box", plain = TRUE))
 server <- function(input, output, session) {
-  observeEvent(input$open, el_message_box(session, "answer",
-    "proxy will permanently delete the file. Continue?", title = "Warning", type = "warning",
-    center = TRUE, confirm_button_text = "OK", cancel_button_text = "Cancel"))
+  observeEvent(
+    input$open,
+    el_message_box(
+      session,
+      "answer",
+      "proxy will permanently delete the file. Continue?",
+      title = "Warning",
+      type = "warning",
+      center = TRUE,
+      confirm_button_text = "OK",
+      cancel_button_text = "Cancel"
+    )
+  )
 }
 shinyApp(ui, server)
 ```
@@ -225,9 +295,19 @@ The icon can be customized to any Vue component or [render function
 
 ui <- el_page(el_button("open", "Click to open Message Box", plain = TRUE))
 server <- function(input, output, session) {
-  observeEvent(input$open, el_message_box(session, "answer",
-    "Are you sure to delete this?", title = "Warning", type = "warning", icon = "Delete",
-    confirm_button_text = "OK", cancel_button_text = "Cancel"))
+  observeEvent(
+    input$open,
+    el_message_box(
+      session,
+      "answer",
+      "Are you sure to delete this?",
+      title = "Warning",
+      type = "warning",
+      icon = "Delete",
+      confirm_button_text = "OK",
+      cancel_button_text = "Cancel"
+    )
+  )
 }
 shinyApp(ui, server)
 ```
@@ -246,9 +326,19 @@ Setting `draggable` to `true` allows user to drag MessageBox. Set
 
 ui <- el_page(el_button("open", "Click to open Message Box", plain = TRUE))
 server <- function(input, output, session) {
-  observeEvent(input$open, el_message_box(session, "answer", "proxy will permanently delete the file. Continue?",
-    title = "Warning", type = "warning", draggable = TRUE,
-    confirm_button_text = "OK", cancel_button_text = "Cancel"))
+  observeEvent(
+    input$open,
+    el_message_box(
+      session,
+      "answer",
+      "proxy will permanently delete the file. Continue?",
+      title = "Warning",
+      type = "warning",
+      draggable = TRUE,
+      confirm_button_text = "OK",
+      cancel_button_text = "Cancel"
+    )
+  )
 }
 shinyApp(ui, server)
 ```

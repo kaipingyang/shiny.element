@@ -195,12 +195,23 @@
 <p>Customize the initial value of the slider by setting the binding
 value.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span>style <span class="op">=</span> <span class="st">"max-width: 600px"</span>,</span>
-<span>  <span class="va">tags</span><span class="op">$</span><span class="fu">span</span><span class="op">(</span><span class="st">"Default value"</span><span class="op">)</span>, <span class="fu"><a href="../../reference/el_slider.html">el_slider</a></span><span class="op">(</span><span class="st">"sl1"</span>, value <span class="op">=</span> <span class="fl">0</span><span class="op">)</span>,</span>
-<span>  <span class="va">tags</span><span class="op">$</span><span class="fu">span</span><span class="op">(</span><span class="st">"Customized initial value"</span><span class="op">)</span>, <span class="fu"><a href="../../reference/el_slider.html">el_slider</a></span><span class="op">(</span><span class="st">"sl2"</span>, value <span class="op">=</span> <span class="fl">50</span><span class="op">)</span>,</span>
-<span>  <span class="va">tags</span><span class="op">$</span><span class="fu">span</span><span class="op">(</span><span class="st">"Hide Tooltip"</span><span class="op">)</span>, <span class="fu"><a href="../../reference/el_slider.html">el_slider</a></span><span class="op">(</span><span class="st">"sl3"</span>, value <span class="op">=</span> <span class="fl">36</span>, show_tooltip <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>,</span>
-<span>  <span class="va">tags</span><span class="op">$</span><span class="fu">span</span><span class="op">(</span><span class="st">"Format Tooltip"</span><span class="op">)</span>, <span class="fu"><a href="../../reference/el_slider.html">el_slider</a></span><span class="op">(</span><span class="st">"sl4"</span>, value <span class="op">=</span> <span class="fl">48</span>, format_tooltip <span class="op">=</span> <span class="fu"><a href="../../reference/JS.html">JS</a></span><span class="op">(</span><span class="st">"function(v) { return v / 100; }"</span><span class="op">)</span><span class="op">)</span>,</span>
-<span>  <span class="va">tags</span><span class="op">$</span><span class="fu">span</span><span class="op">(</span><span class="st">"Disabled"</span><span class="op">)</span>, <span class="fu"><a href="../../reference/el_slider.html">el_slider</a></span><span class="op">(</span><span class="st">"sl5"</span>, value <span class="op">=</span> <span class="fl">42</span>, disabled <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span></span>
+<span>  style <span class="op">=</span> <span class="st">"max-width: 600px"</span>,</span>
+<span>  <span class="va">tags</span><span class="op">$</span><span class="fu">span</span><span class="op">(</span><span class="st">"Default value"</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="../../reference/el_slider.html">el_slider</a></span><span class="op">(</span><span class="st">"sl1"</span>, value <span class="op">=</span> <span class="fl">0</span><span class="op">)</span>,</span>
+<span>  <span class="va">tags</span><span class="op">$</span><span class="fu">span</span><span class="op">(</span><span class="st">"Customized initial value"</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="../../reference/el_slider.html">el_slider</a></span><span class="op">(</span><span class="st">"sl2"</span>, value <span class="op">=</span> <span class="fl">50</span><span class="op">)</span>,</span>
+<span>  <span class="va">tags</span><span class="op">$</span><span class="fu">span</span><span class="op">(</span><span class="st">"Hide Tooltip"</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="../../reference/el_slider.html">el_slider</a></span><span class="op">(</span><span class="st">"sl3"</span>, value <span class="op">=</span> <span class="fl">36</span>, show_tooltip <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>,</span>
+<span>  <span class="va">tags</span><span class="op">$</span><span class="fu">span</span><span class="op">(</span><span class="st">"Format Tooltip"</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="../../reference/el_slider.html">el_slider</a></span><span class="op">(</span></span>
+<span>    <span class="st">"sl4"</span>,</span>
+<span>    value <span class="op">=</span> <span class="fl">48</span>,</span>
+<span>    format_tooltip <span class="op">=</span> <span class="fu"><a href="../../reference/JS.html">JS</a></span><span class="op">(</span><span class="st">"function(v) { return v / 100; }"</span><span class="op">)</span></span>
+<span>  <span class="op">)</span>,</span>
+<span>  <span class="va">tags</span><span class="op">$</span><span class="fu">span</span><span class="op">(</span><span class="st">"Disabled"</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="../../reference/el_slider.html">el_slider</a></span><span class="op">(</span><span class="st">"sl5"</span>, value <span class="op">=</span> <span class="fl">42</span>, disabled <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
   <div style="max-width: 600px">
     <span>Default value</span>
@@ -243,9 +254,13 @@ value.</p>
 <p>Set step size with the <code>step</code> attribute. You can display
 breakpoints by setting the <code>show-stops</code> attribute.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span>style <span class="op">=</span> <span class="st">"max-width: 600px"</span>,</span>
-<span>  <span class="va">tags</span><span class="op">$</span><span class="fu">span</span><span class="op">(</span><span class="st">"Breakpoints not displayed"</span><span class="op">)</span>, <span class="fu"><a href="../../reference/el_slider.html">el_slider</a></span><span class="op">(</span><span class="st">"sld1"</span>, value <span class="op">=</span> <span class="fl">0</span>, step <span class="op">=</span> <span class="fl">10</span><span class="op">)</span>,</span>
-<span>  <span class="va">tags</span><span class="op">$</span><span class="fu">span</span><span class="op">(</span><span class="st">"Breakpoints displayed"</span><span class="op">)</span>, <span class="fu"><a href="../../reference/el_slider.html">el_slider</a></span><span class="op">(</span><span class="st">"sld2"</span>, value <span class="op">=</span> <span class="fl">0</span>, step <span class="op">=</span> <span class="fl">10</span>, show_stops <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span></span>
+<span>  style <span class="op">=</span> <span class="st">"max-width: 600px"</span>,</span>
+<span>  <span class="va">tags</span><span class="op">$</span><span class="fu">span</span><span class="op">(</span><span class="st">"Breakpoints not displayed"</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="../../reference/el_slider.html">el_slider</a></span><span class="op">(</span><span class="st">"sld1"</span>, value <span class="op">=</span> <span class="fl">0</span>, step <span class="op">=</span> <span class="fl">10</span><span class="op">)</span>,</span>
+<span>  <span class="va">tags</span><span class="op">$</span><span class="fu">span</span><span class="op">(</span><span class="st">"Breakpoints displayed"</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="../../reference/el_slider.html">el_slider</a></span><span class="op">(</span><span class="st">"sld2"</span>, value <span class="op">=</span> <span class="fl">0</span>, step <span class="op">=</span> <span class="fl">10</span>, show_stops <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
   <div style="max-width: 600px">
     <span>Breakpoints not displayed</span>
@@ -283,10 +298,12 @@ the right.</p>
 <h2 id="sizes">Sizes<a class="anchor" aria-label="anchor" href="#sizes"></a>
 </h2>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span>style <span class="op">=</span> <span class="st">"max-width: 600px"</span>,</span>
+<code class="sourceCode R"><span><span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span></span>
+<span>  style <span class="op">=</span> <span class="st">"max-width: 600px"</span>,</span>
 <span>  <span class="fu"><a href="../../reference/el_slider.html">el_slider</a></span><span class="op">(</span><span class="st">"sls_l"</span>, value <span class="op">=</span> <span class="fl">0</span>, show_input <span class="op">=</span> <span class="cn">TRUE</span>, size <span class="op">=</span> <span class="st">"large"</span><span class="op">)</span>,</span>
 <span>  <span class="fu"><a href="../../reference/el_slider.html">el_slider</a></span><span class="op">(</span><span class="st">"sls_d"</span>, value <span class="op">=</span> <span class="fl">0</span>, show_input <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,</span>
-<span>  <span class="fu"><a href="../../reference/el_slider.html">el_slider</a></span><span class="op">(</span><span class="st">"sls_s"</span>, value <span class="op">=</span> <span class="fl">0</span>, show_input <span class="op">=</span> <span class="cn">TRUE</span>, size <span class="op">=</span> <span class="st">"small"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<span>  <span class="fu"><a href="../../reference/el_slider.html">el_slider</a></span><span class="op">(</span><span class="st">"sls_s"</span>, value <span class="op">=</span> <span class="fl">0</span>, show_input <span class="op">=</span> <span class="cn">TRUE</span>, size <span class="op">=</span> <span class="st">"small"</span><span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
   <div style="max-width: 600px">
     <div id="sizes-sls_l" data-shiny-vue style="display: contents">
@@ -312,9 +329,13 @@ the right.</p>
 </h2>
 <p>You can custom tooltip placement.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span>style <span class="op">=</span> <span class="st">"max-width: 600px; padding-top: 40px"</span>,</span>
-<span>  <span class="fu"><a href="../../reference/el_slider.html">el_slider</a></span><span class="op">(</span><span class="st">"slp1"</span>, value <span class="op">=</span> <span class="fl">0</span>, placement <span class="op">=</span> <span class="st">"top"</span><span class="op">)</span>, <span class="fu"><a href="../../reference/el_slider.html">el_slider</a></span><span class="op">(</span><span class="st">"slp2"</span>, value <span class="op">=</span> <span class="fl">0</span>, placement <span class="op">=</span> <span class="st">"bottom"</span><span class="op">)</span>,</span>
-<span>  <span class="fu"><a href="../../reference/el_slider.html">el_slider</a></span><span class="op">(</span><span class="st">"slp3"</span>, value <span class="op">=</span> <span class="fl">0</span>, placement <span class="op">=</span> <span class="st">"right"</span><span class="op">)</span>, <span class="fu"><a href="../../reference/el_slider.html">el_slider</a></span><span class="op">(</span><span class="st">"slp4"</span>, value <span class="op">=</span> <span class="fl">0</span>, placement <span class="op">=</span> <span class="st">"left"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span></span>
+<span>  style <span class="op">=</span> <span class="st">"max-width: 600px; padding-top: 40px"</span>,</span>
+<span>  <span class="fu"><a href="../../reference/el_slider.html">el_slider</a></span><span class="op">(</span><span class="st">"slp1"</span>, value <span class="op">=</span> <span class="fl">0</span>, placement <span class="op">=</span> <span class="st">"top"</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="../../reference/el_slider.html">el_slider</a></span><span class="op">(</span><span class="st">"slp2"</span>, value <span class="op">=</span> <span class="fl">0</span>, placement <span class="op">=</span> <span class="st">"bottom"</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="../../reference/el_slider.html">el_slider</a></span><span class="op">(</span><span class="st">"slp3"</span>, value <span class="op">=</span> <span class="fl">0</span>, placement <span class="op">=</span> <span class="st">"right"</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="../../reference/el_slider.html">el_slider</a></span><span class="op">(</span><span class="st">"slp4"</span>, value <span class="op">=</span> <span class="fl">0</span>, placement <span class="op">=</span> <span class="st">"left"</span><span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
   <div style="max-width: 600px; padding-top: 40px">
     <div id="placement-slp1" data-shiny-vue style="display: contents">
@@ -347,7 +368,14 @@ the right.</p>
 <p>Setting the <code>range</code> attribute activates range mode, where
 the binding value is an array made up of two boundary values.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_slider.html">el_slider</a></span><span class="op">(</span><span class="st">"sl_range"</span>, value <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">4</span>, <span class="fl">8</span><span class="op">)</span>, range <span class="op">=</span> <span class="cn">TRUE</span>, show_stops <span class="op">=</span> <span class="cn">TRUE</span>, max <span class="op">=</span> <span class="fl">10</span>, width <span class="op">=</span> <span class="st">"600px"</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_slider.html">el_slider</a></span><span class="op">(</span></span>
+<span>  <span class="st">"sl_range"</span>,</span>
+<span>  value <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">4</span>, <span class="fl">8</span><span class="op">)</span>,</span>
+<span>  range <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  show_stops <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  max <span class="op">=</span> <span class="fl">10</span>,</span>
+<span>  width <span class="op">=</span> <span class="st">"600px"</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
   <div id="range-selection-sl_range" data-shiny-vue style="display: contents">
     <script type="text/x-template" data-shiny-vue-template><div id="range-selection-sl_range_container" style="display: contents">
@@ -378,9 +406,18 @@ attribute is required.</p>
 <p>Setting this <code>marks</code> attribute can show mark on
 slider.</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_slider.html">el_slider</a></span><span class="op">(</span><span class="st">"sl_marks"</span>, value <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">30</span>, <span class="fl">60</span><span class="op">)</span>, range <span class="op">=</span> <span class="cn">TRUE</span>, width <span class="op">=</span> <span class="st">"600px"</span>,</span>
-<span>          marks <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="st">"0"</span> <span class="op">=</span> <span class="st">"0°C"</span>, <span class="st">"8"</span> <span class="op">=</span> <span class="st">"8°C"</span>, <span class="st">"37"</span> <span class="op">=</span> <span class="st">"37°C"</span>,</span>
-<span>                       <span class="st">"50"</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>style <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>color <span class="op">=</span> <span class="st">"#1989FA"</span><span class="op">)</span>, label <span class="op">=</span> <span class="st">"50%"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_slider.html">el_slider</a></span><span class="op">(</span></span>
+<span>  <span class="st">"sl_marks"</span>,</span>
+<span>  value <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">30</span>, <span class="fl">60</span><span class="op">)</span>,</span>
+<span>  range <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  width <span class="op">=</span> <span class="st">"600px"</span>,</span>
+<span>  marks <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>    <span class="st">"0"</span> <span class="op">=</span> <span class="st">"0°C"</span>,</span>
+<span>    <span class="st">"8"</span> <span class="op">=</span> <span class="st">"8°C"</span>,</span>
+<span>    <span class="st">"37"</span> <span class="op">=</span> <span class="st">"37°C"</span>,</span>
+<span>    <span class="st">"50"</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>style <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>color <span class="op">=</span> <span class="st">"#1989FA"</span><span class="op">)</span>, label <span class="op">=</span> <span class="st">"50%"</span><span class="op">)</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
   <div id="show-marks-sl_marks" data-shiny-vue style="display: contents">
     <script type="text/x-template" data-shiny-vue-template><div id="show-marks-sl_marks_container" style="display: contents">

@@ -44,8 +44,10 @@ Called for its side effect; returns `NULL` invisibly.
 if (interactive()) {
   # Append an entry to a growing log
   observeEvent(input$refresh, {
-    log_entries(c(log_entries(), list(list(content = "Refreshed",
-                                           timestamp = format(Sys.time(), "%H:%M")))))
+    log_entries(c(
+      log_entries(),
+      list(list(content = "Refreshed", timestamp = format(Sys.time(), "%H:%M")))
+    ))
     update_el_timeline(session, "log", items = log_entries())
   })
 }

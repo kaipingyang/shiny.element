@@ -66,11 +66,14 @@ A Shiny UI element.
 ## Examples
 
 ``` r
-el_breadcrumb("trail", items = list(
-  list(label = "Home"),
-  list(label = "Reports"),
-  list(label = "March")
-))
+el_breadcrumb(
+  "trail",
+  items = list(
+    list(label = "Home"),
+    list(label = "Reports"),
+    list(label = "March")
+  )
+)
 #> <div id="trail" data-shiny-vue style="display: contents">
 #>   <script type="text/x-template" data-shiny-vue-template><div id="trail_container" style="display: contents">
 #>   <el-breadcrumb :separator="separator === null ? undefined : separator" :separator-icon="separatorIcon === null ? undefined : separatorIcon">
@@ -81,7 +84,8 @@ el_breadcrumb("trail", items = list(
 #> </div>
 
 # An arrow instead of a slash
-el_breadcrumb("trail",
+el_breadcrumb(
+  "trail",
   items = list(list(label = "Home"), list(label = "Detail")),
   separator_icon = "ArrowRight"
 )

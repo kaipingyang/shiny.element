@@ -202,7 +202,8 @@ A Shiny UI element.
 ## Examples
 
 ``` r
-el_popover("info",
+el_popover(
+  "info",
   reference = el$button("Details"),
   title = "March",
   content = "Revenue up 4% on February."
@@ -221,10 +222,12 @@ el_popover("info",
 #> </div>
 
 # Hover, with markup in the body
-el_popover("info",
+el_popover(
+  "info",
   reference = el$button("Details"),
   body = shiny::tags$ul(shiny::tags$li("One"), shiny::tags$li("Two")),
-  trigger = "hover", placement = "right"
+  trigger = "hover",
+  placement = "right"
 )
 #> <div id="info" data-shiny-vue style="display: contents">
 #>   <script type="text/x-template" data-shiny-vue-template><div id="info_container" style="display: contents">

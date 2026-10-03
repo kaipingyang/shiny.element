@@ -203,9 +203,15 @@ element.</p>
 as <code>v-loading</code> does; <code>update_el_table(loading =)</code>
 turns it on and off.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_table.html">el_table</a></span><span class="op">(</span><span class="st">"ld_tbl"</span>, loading <span class="op">=</span> <span class="cn">TRUE</span>, data <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span></span>
-<span>  Date <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"2016-05-02"</span>, <span class="st">"2016-05-04"</span>, <span class="st">"2016-05-01"</span><span class="op">)</span>, Name <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"John Smith"</span>, <span class="st">"John Smith"</span>, <span class="st">"John Smith"</span><span class="op">)</span>,</span>
-<span>  Address <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="st">"No.1518,  Jinshajiang Road, Putuo District"</span>, <span class="fl">3</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_table.html">el_table</a></span><span class="op">(</span></span>
+<span>  <span class="st">"ld_tbl"</span>,</span>
+<span>  loading <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  data <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span></span>
+<span>    Date <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"2016-05-02"</span>, <span class="st">"2016-05-04"</span>, <span class="st">"2016-05-01"</span><span class="op">)</span>,</span>
+<span>    Name <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"John Smith"</span>, <span class="st">"John Smith"</span>, <span class="st">"John Smith"</span><span class="op">)</span>,</span>
+<span>    Address <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="st">"No.1518,  Jinshajiang Road, Putuo District"</span>, <span class="fl">3</span><span class="op">)</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
   <div id="basic-ld_tbl" data-shiny-vue style="display: contents">
     <script type="text/x-template" data-shiny-vue-template><div id="basic-ld_tbl_container" style="display: contents">
@@ -262,10 +268,22 @@ text, spinner and background.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/el_page.html">el_page</a></span><span class="op">(</span></span>
 <span>  <span class="fu"><a href="../../reference/el_button.html">el_button</a></span><span class="op">(</span><span class="st">"go"</span>, <span class="st">"Cover the table"</span><span class="op">)</span>,</span>
-<span>  <span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span>id <span class="op">=</span> <span class="st">"covered"</span>, <span class="fu"><a href="../../reference/el_table.html">el_table</a></span><span class="op">(</span><span class="st">"ld_tbl2"</span>, data <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>Date <span class="op">=</span> <span class="st">"2016-05-02"</span>, Name <span class="op">=</span> <span class="st">"John"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
+<span>  <span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span></span>
+<span>    id <span class="op">=</span> <span class="st">"covered"</span>,</span>
+<span>    <span class="fu"><a href="../../reference/el_table.html">el_table</a></span><span class="op">(</span><span class="st">"ld_tbl2"</span>, data <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>Date <span class="op">=</span> <span class="st">"2016-05-02"</span>, Name <span class="op">=</span> <span class="st">"John"</span><span class="op">)</span><span class="op">)</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">)</span></span>
 <span><span class="va">server</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span>, <span class="va">session</span><span class="op">)</span> <span class="op">{</span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/observeEvent.html" class="external-link">observeEvent</a></span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">go</span>, <span class="fu"><a href="../../reference/el_loading.html">el_loading</a></span><span class="op">(</span><span class="va">session</span>, <span class="st">"covering"</span>, target <span class="op">=</span> <span class="st">"#covered"</span>, text <span class="op">=</span> <span class="st">"Loading..."</span>,</span>
-<span>                                    background <span class="op">=</span> <span class="st">"rgba(122, 122, 122, 0.8)"</span><span class="op">)</span><span class="op">)</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/observeEvent.html" class="external-link">observeEvent</a></span><span class="op">(</span></span>
+<span>    <span class="va">input</span><span class="op">$</span><span class="va">go</span>,</span>
+<span>    <span class="fu"><a href="../../reference/el_loading.html">el_loading</a></span><span class="op">(</span></span>
+<span>      <span class="va">session</span>,</span>
+<span>      <span class="st">"covering"</span>,</span>
+<span>      target <span class="op">=</span> <span class="st">"#covered"</span>,</span>
+<span>      text <span class="op">=</span> <span class="st">"Loading..."</span>,</span>
+<span>      background <span class="op">=</span> <span class="st">"rgba(122, 122, 122, 0.8)"</span></span>
+<span>    <span class="op">)</span></span>
+<span>  <span class="op">)</span></span>
 <span><span class="op">}</span></span>
 <span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/shinyApp.html" class="external-link">shinyApp</a></span><span class="op">(</span><span class="va">ui</span>, <span class="va">server</span><span class="op">)</span></span></code></pre></div>
 <img src="../../shots/loading-customization.png" alt="The customization example, running" style="max-width: 100%"><blockquote>
@@ -294,7 +312,13 @@ screen by default.</p>
 <code class="sourceCode R"><span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/el_page.html">el_page</a></span><span class="op">(</span><span class="fu"><a href="../../reference/el_button.html">el_button</a></span><span class="op">(</span><span class="st">"full"</span>, <span class="st">"As a service"</span>, type <span class="op">=</span> <span class="st">"primary"</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="va">server</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span>, <span class="va">session</span><span class="op">)</span> <span class="op">{</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/observeEvent.html" class="external-link">observeEvent</a></span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">full</span>, <span class="op">{</span></span>
-<span>    <span class="fu"><a href="../../reference/el_loading.html">el_loading</a></span><span class="op">(</span><span class="va">session</span>, <span class="st">"page"</span>, text <span class="op">=</span> <span class="st">"Loading"</span>, fullscreen <span class="op">=</span> <span class="cn">TRUE</span>, lock <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span>    <span class="fu"><a href="../../reference/el_loading.html">el_loading</a></span><span class="op">(</span></span>
+<span>      <span class="va">session</span>,</span>
+<span>      <span class="st">"page"</span>,</span>
+<span>      text <span class="op">=</span> <span class="st">"Loading"</span>,</span>
+<span>      fullscreen <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>      lock <span class="op">=</span> <span class="cn">TRUE</span></span>
+<span>    <span class="op">)</span></span>
 <span>    <span class="fu">later</span><span class="fu">::</span><span class="fu"><a href="https://later.r-lib.org/reference/later.html" class="external-link">later</a></span><span class="op">(</span><span class="kw">function</span><span class="op">(</span><span class="op">)</span> <span class="fu"><a href="../../reference/el_loading_close.html">el_loading_close</a></span><span class="op">(</span><span class="va">session</span>, <span class="st">"page"</span><span class="op">)</span>, <span class="fl">2</span><span class="op">)</span></span>
 <span>  <span class="op">}</span><span class="op">)</span></span>
 <span><span class="op">}</span></span>

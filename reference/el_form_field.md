@@ -74,8 +74,12 @@ A field declaration, for
 ## Examples
 
 ``` r
-el_form_field("name", "input", label = "Name",
-              rules = el_rule(required = TRUE, message = "Required"))
+el_form_field(
+  "name",
+  "input",
+  label = "Name",
+  rules = el_rule(required = TRUE, message = "Required")
+)
 #> $prop
 #> [1] "name"
 #> 
@@ -104,8 +108,14 @@ el_form_field("name", "input", label = "Name",
 #> 
 #> 
 #> 
-el_form_field("age", "input-number", label = "Age", value = 18,
-              min = 0, max = 150)
+el_form_field(
+  "age",
+  "input-number",
+  label = "Age",
+  value = 18,
+  min = 0,
+  max = 150
+)
 #> $prop
 #> [1] "age"
 #> 
@@ -129,8 +139,12 @@ el_form_field("age", "input-number", label = "Age", value = 18,
 #> $rules
 #> NULL
 #> 
-el_form_field("city", "select", label = "City",
-              choices = c(Beijing = "bj", Shanghai = "sh"))
+el_form_field(
+  "city",
+  "select",
+  label = "City",
+  choices = c(Beijing = "bj", Shanghai = "sh")
+)
 #> $prop
 #> [1] "city"
 #> 

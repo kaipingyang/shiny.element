@@ -194,10 +194,35 @@
 <p>You can expand multiple panels</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">panels</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">"1"</span>, title <span class="op">=</span> <span class="st">"Consistency"</span>, <span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span><span class="st">"Consistent with real life: in line with the process and logic of real life, and comply with languages and habits that the users are used to;"</span><span class="op">)</span><span class="op">)</span>,</span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">"2"</span>, title <span class="op">=</span> <span class="st">"Feedback"</span>, <span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span><span class="st">"Operation feedback: enable the users to clearly perceive their operations by style updates and interactive effects;"</span><span class="op">)</span><span class="op">)</span>,</span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">"3"</span>, title <span class="op">=</span> <span class="st">"Efficiency"</span>, <span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span><span class="st">"Simplify the process: keep operating process simple and intuitive;"</span><span class="op">)</span><span class="op">)</span>,</span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">"4"</span>, title <span class="op">=</span> <span class="st">"Controllability"</span>, <span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span><span class="st">"Decision making: giving advices about operations is acceptable, but do not make decisions for the users;"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>    name <span class="op">=</span> <span class="st">"1"</span>,</span>
+<span>    title <span class="op">=</span> <span class="st">"Consistency"</span>,</span>
+<span>    <span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span></span>
+<span>      <span class="st">"Consistent with real life: in line with the process and logic of real life, and comply with languages and habits that the users are used to;"</span></span>
+<span>    <span class="op">)</span></span>
+<span>  <span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>    name <span class="op">=</span> <span class="st">"2"</span>,</span>
+<span>    title <span class="op">=</span> <span class="st">"Feedback"</span>,</span>
+<span>    <span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span></span>
+<span>      <span class="st">"Operation feedback: enable the users to clearly perceive their operations by style updates and interactive effects;"</span></span>
+<span>    <span class="op">)</span></span>
+<span>  <span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>    name <span class="op">=</span> <span class="st">"3"</span>,</span>
+<span>    title <span class="op">=</span> <span class="st">"Efficiency"</span>,</span>
+<span>    <span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span></span>
+<span>      <span class="st">"Simplify the process: keep operating process simple and intuitive;"</span></span>
+<span>    <span class="op">)</span></span>
+<span>  <span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>    name <span class="op">=</span> <span class="st">"4"</span>,</span>
+<span>    title <span class="op">=</span> <span class="st">"Controllability"</span>,</span>
+<span>    <span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span></span>
+<span>      <span class="st">"Decision making: giving advices about operations is acceptable, but do not make decisions for the users;"</span></span>
+<span>    <span class="op">)</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">)</span></span>
 <span><span class="fu"><a href="../../reference/el_collapse.html">el_collapse</a></span><span class="op">(</span><span class="st">"coll"</span>, items <span class="op">=</span> <span class="va">panels</span>, value <span class="op">=</span> <span class="st">"1"</span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
   <div id="basic-coll" class="el-collapse el-collapse-icon-position-right" data-el-collapse="true" data-accordion="false">
@@ -247,11 +272,21 @@
 <p>Activate accordion mode using the <code>accordion</code>
 attribute.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_collapse.html">el_collapse</a></span><span class="op">(</span><span class="st">"coll_acc"</span>, value <span class="op">=</span> <span class="st">"1"</span>, accordion <span class="op">=</span> <span class="cn">TRUE</span>, items <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">"1"</span>, title <span class="op">=</span> <span class="st">"Consistency"</span>, <span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span><span class="st">"Consistent with real life."</span><span class="op">)</span><span class="op">)</span>,</span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">"2"</span>, title <span class="op">=</span> <span class="st">"Feedback"</span>, <span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span><span class="st">"Operation feedback."</span><span class="op">)</span><span class="op">)</span>,</span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">"3"</span>, title <span class="op">=</span> <span class="st">"Efficiency"</span>, <span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span><span class="st">"Simplify the process."</span><span class="op">)</span><span class="op">)</span>,</span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">"4"</span>, title <span class="op">=</span> <span class="st">"Controllability"</span>, <span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span><span class="st">"Decision making."</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_collapse.html">el_collapse</a></span><span class="op">(</span></span>
+<span>  <span class="st">"coll_acc"</span>,</span>
+<span>  value <span class="op">=</span> <span class="st">"1"</span>,</span>
+<span>  accordion <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  items <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>      name <span class="op">=</span> <span class="st">"1"</span>,</span>
+<span>      title <span class="op">=</span> <span class="st">"Consistency"</span>,</span>
+<span>      <span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span><span class="st">"Consistent with real life."</span><span class="op">)</span></span>
+<span>    <span class="op">)</span>,</span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">"2"</span>, title <span class="op">=</span> <span class="st">"Feedback"</span>, <span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span><span class="st">"Operation feedback."</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">"3"</span>, title <span class="op">=</span> <span class="st">"Efficiency"</span>, <span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span><span class="st">"Simplify the process."</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">"4"</span>, title <span class="op">=</span> <span class="st">"Controllability"</span>, <span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span><span class="st">"Decision making."</span><span class="op">)</span><span class="op">)</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
   <div id="accordion-coll_acc" class="el-collapse el-collapse-icon-position-right" data-el-collapse="true" data-accordion="true">
     <div class="el-collapse-item is-active" data-el-name="1">
@@ -307,10 +342,21 @@ collapse item is active.</p>
 </blockquote>
 <p>A title may be markup: an icon beside the text.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_collapse.html">el_collapse</a></span><span class="op">(</span><span class="st">"coll_title"</span>, accordion <span class="op">=</span> <span class="cn">TRUE</span>, items <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">"1"</span>, title <span class="op">=</span> <span class="va">tags</span><span class="op">$</span><span class="fu">span</span><span class="op">(</span><span class="st">"Consistency "</span>, <span class="fu"><a href="../../reference/el_icon.html">el_icon</a></span><span class="op">(</span><span class="st">"InfoFilled"</span>, class <span class="op">=</span> <span class="st">"header-icon"</span><span class="op">)</span><span class="op">)</span>,</span>
-<span>       <span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span><span class="st">"Consistent with real life."</span><span class="op">)</span><span class="op">)</span>,</span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">"2"</span>, title <span class="op">=</span> <span class="st">"Feedback"</span>, <span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span><span class="st">"Operation feedback."</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_collapse.html">el_collapse</a></span><span class="op">(</span></span>
+<span>  <span class="st">"coll_title"</span>,</span>
+<span>  accordion <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  items <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>      name <span class="op">=</span> <span class="st">"1"</span>,</span>
+<span>      title <span class="op">=</span> <span class="va">tags</span><span class="op">$</span><span class="fu">span</span><span class="op">(</span></span>
+<span>        <span class="st">"Consistency "</span>,</span>
+<span>        <span class="fu"><a href="../../reference/el_icon.html">el_icon</a></span><span class="op">(</span><span class="st">"InfoFilled"</span>, class <span class="op">=</span> <span class="st">"header-icon"</span><span class="op">)</span></span>
+<span>      <span class="op">)</span>,</span>
+<span>      <span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span><span class="st">"Consistent with real life."</span><span class="op">)</span></span>
+<span>    <span class="op">)</span>,</span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">"2"</span>, title <span class="op">=</span> <span class="st">"Feedback"</span>, <span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span><span class="st">"Operation feedback."</span><span class="op">)</span><span class="op">)</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
   <div id="customization-coll_title" class="el-collapse el-collapse-icon-position-right" data-el-collapse="true" data-accordion="true">
     <div class="el-collapse-item" data-el-name="1">
@@ -345,9 +391,24 @@ collapse item is active.</p>
 <p>Besides using the <code>icon</code> attribute, you can customize icon
 of panel item with named slots, which makes adding custom content.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_collapse.html">el_collapse</a></span><span class="op">(</span><span class="st">"coll_icon"</span>, value <span class="op">=</span> <span class="st">"1"</span>, items <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">"1"</span>, title <span class="op">=</span> <span class="st">"Consistency"</span>, icon <span class="op">=</span> <span class="st">"CaretRight"</span>, <span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span><span class="st">"Consistent with real life."</span><span class="op">)</span><span class="op">)</span>,</span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">"2"</span>, title <span class="op">=</span> <span class="st">"Feedback"</span>, icon <span class="op">=</span> <span class="st">"ArrowRightBold"</span>, <span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span><span class="st">"Operation feedback."</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_collapse.html">el_collapse</a></span><span class="op">(</span></span>
+<span>  <span class="st">"coll_icon"</span>,</span>
+<span>  value <span class="op">=</span> <span class="st">"1"</span>,</span>
+<span>  items <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>      name <span class="op">=</span> <span class="st">"1"</span>,</span>
+<span>      title <span class="op">=</span> <span class="st">"Consistency"</span>,</span>
+<span>      icon <span class="op">=</span> <span class="st">"CaretRight"</span>,</span>
+<span>      <span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span><span class="st">"Consistent with real life."</span><span class="op">)</span></span>
+<span>    <span class="op">)</span>,</span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>      name <span class="op">=</span> <span class="st">"2"</span>,</span>
+<span>      title <span class="op">=</span> <span class="st">"Feedback"</span>,</span>
+<span>      icon <span class="op">=</span> <span class="st">"ArrowRightBold"</span>,</span>
+<span>      <span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span><span class="st">"Operation feedback."</span><span class="op">)</span></span>
+<span>    <span class="op">)</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
   <div id="custom-icon-coll_icon" class="el-collapse el-collapse-icon-position-right" data-el-collapse="true" data-accordion="false">
     <div class="el-collapse-item is-active" data-el-name="1">
@@ -377,9 +438,18 @@ of panel item with named slots, which makes adding custom content.</p>
 <p>using the <code>expand-icon-position</code> attribute, you can
 customize icon position.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_collapse.html">el_collapse</a></span><span class="op">(</span><span class="st">"coll_pos"</span>, expand_icon_position <span class="op">=</span> <span class="st">"left"</span>, items <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">"1"</span>, title <span class="op">=</span> <span class="st">"Consistency"</span>, <span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span><span class="st">"Consistent with real life."</span><span class="op">)</span><span class="op">)</span>,</span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">"2"</span>, title <span class="op">=</span> <span class="st">"Feedback"</span>, <span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span><span class="st">"Operation feedback."</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_collapse.html">el_collapse</a></span><span class="op">(</span></span>
+<span>  <span class="st">"coll_pos"</span>,</span>
+<span>  expand_icon_position <span class="op">=</span> <span class="st">"left"</span>,</span>
+<span>  items <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>      name <span class="op">=</span> <span class="st">"1"</span>,</span>
+<span>      title <span class="op">=</span> <span class="st">"Consistency"</span>,</span>
+<span>      <span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span><span class="st">"Consistent with real life."</span><span class="op">)</span></span>
+<span>    <span class="op">)</span>,</span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">"2"</span>, title <span class="op">=</span> <span class="st">"Feedback"</span>, <span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span><span class="st">"Operation feedback."</span><span class="op">)</span><span class="op">)</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
   <div id="custom-icon-position-coll_pos" class="el-collapse el-collapse-icon-position-left" data-el-collapse="true" data-accordion="false">
     <div class="el-collapse-item" data-el-name="1">
@@ -412,9 +482,20 @@ will stop collapsing.</p>
 <p><code>before_collapse</code> may hold a panel as it is: return
 <code>false</code>, or a promise.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_collapse.html">el_collapse</a></span><span class="op">(</span><span class="st">"coll_guard"</span>, before_collapse <span class="op">=</span> <span class="fu"><a href="../../reference/JS.html">JS</a></span><span class="op">(</span><span class="st">"function(name) { return confirm('Toggle ' + name + '?'); }"</span><span class="op">)</span>,</span>
-<span>  items <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">"1"</span>, title <span class="op">=</span> <span class="st">"Consistency"</span>, <span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span><span class="st">"Consistent with real life."</span><span class="op">)</span><span class="op">)</span>,</span>
-<span>               <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">"2"</span>, title <span class="op">=</span> <span class="st">"Feedback"</span>, <span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span><span class="st">"Operation feedback."</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_collapse.html">el_collapse</a></span><span class="op">(</span></span>
+<span>  <span class="st">"coll_guard"</span>,</span>
+<span>  before_collapse <span class="op">=</span> <span class="fu"><a href="../../reference/JS.html">JS</a></span><span class="op">(</span></span>
+<span>    <span class="st">"function(name) { return confirm('Toggle ' + name + '?'); }"</span></span>
+<span>  <span class="op">)</span>,</span>
+<span>  items <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>      name <span class="op">=</span> <span class="st">"1"</span>,</span>
+<span>      title <span class="op">=</span> <span class="st">"Consistency"</span>,</span>
+<span>      <span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span><span class="st">"Consistent with real life."</span><span class="op">)</span></span>
+<span>    <span class="op">)</span>,</span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">"2"</span>, title <span class="op">=</span> <span class="st">"Feedback"</span>, <span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span><span class="st">"Operation feedback."</span><span class="op">)</span><span class="op">)</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
   <div id="prevent-collapsing-coll_guard" class="el-collapse el-collapse-icon-position-right" data-el-collapse="true" data-accordion="false" data-before-collapse="function(name) { return confirm('Toggle ' + name + '?'); }">
     <div class="el-collapse-item" data-el-name="1">

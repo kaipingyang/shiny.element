@@ -58,7 +58,11 @@ Called for its side effect; returns `NULL` invisibly.
 if (interactive()) {
   # inside a server function
   observeEvent(input$country, {
-    update_el_autocomplete(session, "city", suggestions = cities_of(input$country))
+    update_el_autocomplete(
+      session,
+      "city",
+      suggestions = cities_of(input$country)
+    )
   })
 }
 ```

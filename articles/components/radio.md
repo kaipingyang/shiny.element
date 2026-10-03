@@ -25,12 +25,33 @@ radio. The type of `value` is `String`, `Number` or `Boolean`.
 
 ``` r
 
-tags$div(style = "display: grid; gap: 12px",
-  el_radio_group("rd_l", choices = c("Option 1" = "1", "Option 2" = "2"), selected = "1", size = "large"),
-  el_radio_group("rd_d", choices = c("Option 1" = "1", "Option 2" = "2"), selected = "1"),
-  el_radio_group("rd_s", choices = c("Option 1" = "1", "Option 2" = "2"), selected = "1", size = "small"),
-  el_radio_group("rd_x", choices = c("Option 1" = "1", "Option 2" = "2"), selected = "1", size = "small",
-                 disabled = TRUE))
+tags$div(
+  style = "display: grid; gap: 12px",
+  el_radio_group(
+    "rd_l",
+    choices = c("Option 1" = "1", "Option 2" = "2"),
+    selected = "1",
+    size = "large"
+  ),
+  el_radio_group(
+    "rd_d",
+    choices = c("Option 1" = "1", "Option 2" = "2"),
+    selected = "1"
+  ),
+  el_radio_group(
+    "rd_s",
+    choices = c("Option 1" = "1", "Option 2" = "2"),
+    selected = "1",
+    size = "small"
+  ),
+  el_radio_group(
+    "rd_x",
+    choices = c("Option 1" = "1", "Option 2" = "2"),
+    selected = "1",
+    size = "small",
+    disabled = TRUE
+  )
+)
 ```
 
 ## Disabled
@@ -41,7 +62,12 @@ You just need to add the `disabled` attribute.
 
 ``` r
 
-el_radio_group("rd_dis", choices = c("Option A" = "a", "Option B" = "b"), selected = "a", disabled = TRUE)
+el_radio_group(
+  "rd_dis",
+  choices = c("Option A" = "a", "Option B" = "b"),
+  selected = "a",
+  disabled = TRUE
+)
 ```
 
 ## Radio Group
@@ -55,7 +81,11 @@ value as its parameter.
 
 ``` r
 
-el_radio_group("rd_group", choices = c("Option A" = 3, "Option B" = 6, "Option C" = 9), selected = 3)
+el_radio_group(
+  "rd_group",
+  choices = c("Option A" = 3, "Option B" = 6, "Option C" = 9),
+  selected = 3
+)
 ```
 
 ## With borders
@@ -66,11 +96,26 @@ A choice’s `border = TRUE` draws it bordered.
 
 ``` r
 
-tags$div(style = "display: grid; gap: 12px",
-  el_radio_group("rd_b1", selected = "1", size = "large", choices = list(
-    list(label = "Option A", value = "1", border = TRUE), list(label = "Option B", value = "2", border = TRUE))),
-  el_radio_group("rd_b2", selected = "1", choices = list(
-    list(label = "Option A", value = "1", border = TRUE), list(label = "Option B", value = "2", border = TRUE))))
+tags$div(
+  style = "display: grid; gap: 12px",
+  el_radio_group(
+    "rd_b1",
+    selected = "1",
+    size = "large",
+    choices = list(
+      list(label = "Option A", value = "1", border = TRUE),
+      list(label = "Option B", value = "2", border = TRUE)
+    )
+  ),
+  el_radio_group(
+    "rd_b2",
+    selected = "1",
+    choices = list(
+      list(label = "Option A", value = "1", border = TRUE),
+      list(label = "Option B", value = "2", border = TRUE)
+    )
+  )
+)
 ```
 
 ## Options attribute
@@ -80,9 +125,16 @@ of the `options` through the `props` attribute.
 
 ``` r
 
-el_radio_group("rd_opts", selected = "Value A", props = list(label = "name", value = "id", disabled = "unable"),
-  choices = list(list(label = "Option A", value = "Value A"), list(label = "Option B", value = "Value B"),
-                 list(label = "Option C", value = "Value C")))
+el_radio_group(
+  "rd_opts",
+  selected = "Value A",
+  props = list(label = "name", value = "id", disabled = "unable"),
+  choices = list(
+    list(label = "Option A", value = "Value A"),
+    list(label = "Option B", value = "Value B"),
+    list(label = "Option C", value = "Value C")
+  )
+)
 ```
 
 ## Radio Button
@@ -96,10 +148,29 @@ using `fill` and `text-color`.
 ``` r
 
 cities <- c("New York", "Washington", "Los Angeles", "Chicago")
-tags$div(style = "display: grid; gap: 12px",
-  el_radio_group("rdb1", choices = cities, selected = "New York", button = TRUE, size = "large"),
-  el_radio_group("rdb2", choices = cities, selected = "New York", button = TRUE),
-  el_radio_group("rdb3", choices = cities, selected = "New York", button = TRUE, size = "small"))
+tags$div(
+  style = "display: grid; gap: 12px",
+  el_radio_group(
+    "rdb1",
+    choices = cities,
+    selected = "New York",
+    button = TRUE,
+    size = "large"
+  ),
+  el_radio_group(
+    "rdb2",
+    choices = cities,
+    selected = "New York",
+    button = TRUE
+  ),
+  el_radio_group(
+    "rdb3",
+    choices = cities,
+    selected = "New York",
+    button = TRUE,
+    size = "small"
+  )
+)
 ```
 
 ## API

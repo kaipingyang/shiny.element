@@ -202,11 +202,27 @@ setting <code>type</code> to <code>datetime</code>. The way to use
 shortcuts is the same as Date Picker.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rstudio.github.io/htmltools/reference/tagList.html" class="external-link">tagList</a></span><span class="op">(</span></span>
-<span>  <span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span><span class="st">"Default"</span><span class="op">)</span>, <span class="fu"><a href="../../reference/el_date_picker.html">el_date_picker</a></span><span class="op">(</span><span class="st">"dtp1"</span>, type <span class="op">=</span> <span class="st">"datetime"</span>, placeholder <span class="op">=</span> <span class="st">"Select date and time"</span><span class="op">)</span>,</span>
-<span>  <span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span><span class="st">"With shortcuts"</span><span class="op">)</span>, <span class="fu"><a href="../../reference/el_date_picker.html">el_date_picker</a></span><span class="op">(</span><span class="st">"dtp2"</span>, type <span class="op">=</span> <span class="st">"datetime"</span>, placeholder <span class="op">=</span> <span class="st">"Select date and time"</span>,</span>
-<span>    shortcuts <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>text <span class="op">=</span> <span class="st">"Today"</span>, value <span class="op">=</span> <span class="fu"><a href="../../reference/JS.html">JS</a></span><span class="op">(</span><span class="st">"new Date()"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>,</span>
-<span>  <span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span><span class="st">"With default time"</span><span class="op">)</span>, <span class="fu"><a href="../../reference/el_date_picker.html">el_date_picker</a></span><span class="op">(</span><span class="st">"dtp3"</span>, type <span class="op">=</span> <span class="st">"datetime"</span>,</span>
-<span>    placeholder <span class="op">=</span> <span class="st">"Select date and time"</span>, default_time <span class="op">=</span> <span class="fu"><a href="../../reference/JS.html">JS</a></span><span class="op">(</span><span class="st">"new Date(2000, 1, 1, 12, 0, 0)"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<span>  <span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span><span class="st">"Default"</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="../../reference/el_date_picker.html">el_date_picker</a></span><span class="op">(</span></span>
+<span>    <span class="st">"dtp1"</span>,</span>
+<span>    type <span class="op">=</span> <span class="st">"datetime"</span>,</span>
+<span>    placeholder <span class="op">=</span> <span class="st">"Select date and time"</span></span>
+<span>  <span class="op">)</span>,</span>
+<span>  <span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span><span class="st">"With shortcuts"</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="../../reference/el_date_picker.html">el_date_picker</a></span><span class="op">(</span></span>
+<span>    <span class="st">"dtp2"</span>,</span>
+<span>    type <span class="op">=</span> <span class="st">"datetime"</span>,</span>
+<span>    placeholder <span class="op">=</span> <span class="st">"Select date and time"</span>,</span>
+<span>    shortcuts <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>text <span class="op">=</span> <span class="st">"Today"</span>, value <span class="op">=</span> <span class="fu"><a href="../../reference/JS.html">JS</a></span><span class="op">(</span><span class="st">"new Date()"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
+<span>  <span class="op">)</span>,</span>
+<span>  <span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span><span class="st">"With default time"</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="../../reference/el_date_picker.html">el_date_picker</a></span><span class="op">(</span></span>
+<span>    <span class="st">"dtp3"</span>,</span>
+<span>    type <span class="op">=</span> <span class="st">"datetime"</span>,</span>
+<span>    placeholder <span class="op">=</span> <span class="st">"Select date and time"</span>,</span>
+<span>    default_time <span class="op">=</span> <span class="fu"><a href="../../reference/JS.html">JS</a></span><span class="op">(</span><span class="st">"new Date(2000, 1, 1, 12, 0, 0)"</span><span class="op">)</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
   <div>Default</div>
   <div id="date-and-time-dtp1" data-shiny-vue style="display: contents">
@@ -243,8 +259,14 @@ of all available formats of Day.js.</p>
 <p>Pay attention to capitalization</p>
 </blockquote>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_date_picker.html">el_date_picker</a></span><span class="op">(</span><span class="st">"dtp_fmt"</span>, type <span class="op">=</span> <span class="st">"datetime"</span>, placeholder <span class="op">=</span> <span class="st">"Pick a Date"</span>,</span>
-<span>               format <span class="op">=</span> <span class="st">"YYYY/MM/DD hh:mm:ss"</span>, date_format <span class="op">=</span> <span class="st">"YYYY/MM/DD ddd"</span>, time_format <span class="op">=</span> <span class="st">"A hh:mm:ss"</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_date_picker.html">el_date_picker</a></span><span class="op">(</span></span>
+<span>  <span class="st">"dtp_fmt"</span>,</span>
+<span>  type <span class="op">=</span> <span class="st">"datetime"</span>,</span>
+<span>  placeholder <span class="op">=</span> <span class="st">"Pick a Date"</span>,</span>
+<span>  format <span class="op">=</span> <span class="st">"YYYY/MM/DD hh:mm:ss"</span>,</span>
+<span>  date_format <span class="op">=</span> <span class="st">"YYYY/MM/DD ddd"</span>,</span>
+<span>  time_format <span class="op">=</span> <span class="st">"A hh:mm:ss"</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
   <div id="date-and-time-formats-dtp_fmt" data-shiny-vue style="display: contents">
     <script type="text/x-template" data-shiny-vue-template><div id="date-and-time-formats-dtp_fmt_container" style="display: contents">
@@ -259,8 +281,13 @@ of all available formats of Day.js.</p>
 <p>Use <code>date-format</code> and <code>time-format</code> to control
 displayed text’s format in the dropdown panel’s input box.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_date_picker.html">el_date_picker</a></span><span class="op">(</span><span class="st">"dtp_fmt_panel"</span>, type <span class="op">=</span> <span class="st">"datetime"</span>, placeholder <span class="op">=</span> <span class="st">"Pick a Date"</span>,</span>
-<span>               date_format <span class="op">=</span> <span class="st">"YYYY/MM/DD"</span>, time_format <span class="op">=</span> <span class="st">"hh:mm:ss"</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_date_picker.html">el_date_picker</a></span><span class="op">(</span></span>
+<span>  <span class="st">"dtp_fmt_panel"</span>,</span>
+<span>  type <span class="op">=</span> <span class="st">"datetime"</span>,</span>
+<span>  placeholder <span class="op">=</span> <span class="st">"Pick a Date"</span>,</span>
+<span>  date_format <span class="op">=</span> <span class="st">"YYYY/MM/DD"</span>,</span>
+<span>  time_format <span class="op">=</span> <span class="st">"hh:mm:ss"</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
   <div id="date-and-time-formats-panel-dtp_fmt_panel" data-shiny-vue style="display: contents">
     <script type="text/x-template" data-shiny-vue-template><div id="date-and-time-formats-panel-dtp_fmt_panel_container" style="display: contents">
@@ -275,8 +302,13 @@ displayed text’s format in the dropdown panel’s input box.</p>
 <p>You can select date and time range by setting <code>type</code> to
 <code>datetimerange</code>.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_date_picker.html">el_date_picker</a></span><span class="op">(</span><span class="st">"dtp_range"</span>, type <span class="op">=</span> <span class="st">"datetimerange"</span>, range_separator <span class="op">=</span> <span class="st">"To"</span>,</span>
-<span>               start_placeholder <span class="op">=</span> <span class="st">"Start date"</span>, end_placeholder <span class="op">=</span> <span class="st">"End date"</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_date_picker.html">el_date_picker</a></span><span class="op">(</span></span>
+<span>  <span class="st">"dtp_range"</span>,</span>
+<span>  type <span class="op">=</span> <span class="st">"datetimerange"</span>,</span>
+<span>  range_separator <span class="op">=</span> <span class="st">"To"</span>,</span>
+<span>  start_placeholder <span class="op">=</span> <span class="st">"Start date"</span>,</span>
+<span>  end_placeholder <span class="op">=</span> <span class="st">"End date"</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
   <div id="date-and-time-range-dtp_range" data-shiny-vue style="display: contents">
     <script type="text/x-template" data-shiny-vue-template><div id="date-and-time-range-dtp_range_container" style="display: contents">
@@ -291,8 +323,13 @@ displayed text’s format in the dropdown panel’s input box.</p>
 <p>By default date picker ranges have two panels. If you want one panel
 set the <code>single-panel</code> attribute.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_date_picker.html">el_date_picker</a></span><span class="op">(</span><span class="st">"dtp_single"</span>, type <span class="op">=</span> <span class="st">"datetimerange"</span>, single_panel <span class="op">=</span> <span class="cn">TRUE</span>,</span>
-<span>               start_placeholder <span class="op">=</span> <span class="st">"Start date"</span>, end_placeholder <span class="op">=</span> <span class="st">"End date"</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_date_picker.html">el_date_picker</a></span><span class="op">(</span></span>
+<span>  <span class="st">"dtp_single"</span>,</span>
+<span>  type <span class="op">=</span> <span class="st">"datetimerange"</span>,</span>
+<span>  single_panel <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  start_placeholder <span class="op">=</span> <span class="st">"Start date"</span>,</span>
+<span>  end_placeholder <span class="op">=</span> <span class="st">"End date"</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
   <div id="single-panel-dtp_single" data-shiny-vue style="display: contents">
     <script type="text/x-template" data-shiny-vue-template><div id="single-panel-dtp_single_container" style="display: contents">
@@ -312,9 +349,16 @@ an array of up to two Date objects. The first item controls time value
 of the start date and the second item controls time value of the end
 date.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_date_picker.html">el_date_picker</a></span><span class="op">(</span><span class="st">"dtp_dt"</span>, type <span class="op">=</span> <span class="st">"datetimerange"</span>, start_placeholder <span class="op">=</span> <span class="st">"Start Date"</span>,</span>
-<span>               end_placeholder <span class="op">=</span> <span class="st">"End Date"</span>,</span>
-<span>               default_time <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="fu"><a href="../../reference/JS.html">JS</a></span><span class="op">(</span><span class="st">"new Date(2000, 1, 1, 0, 0, 0)"</span><span class="op">)</span>, <span class="fu"><a href="../../reference/JS.html">JS</a></span><span class="op">(</span><span class="st">"new Date(2000, 2, 1, 23, 59, 59)"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_date_picker.html">el_date_picker</a></span><span class="op">(</span></span>
+<span>  <span class="st">"dtp_dt"</span>,</span>
+<span>  type <span class="op">=</span> <span class="st">"datetimerange"</span>,</span>
+<span>  start_placeholder <span class="op">=</span> <span class="st">"Start Date"</span>,</span>
+<span>  end_placeholder <span class="op">=</span> <span class="st">"End Date"</span>,</span>
+<span>  default_time <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>    <span class="fu"><a href="../../reference/JS.html">JS</a></span><span class="op">(</span><span class="st">"new Date(2000, 1, 1, 0, 0, 0)"</span><span class="op">)</span>,</span>
+<span>    <span class="fu"><a href="../../reference/JS.html">JS</a></span><span class="op">(</span><span class="st">"new Date(2000, 2, 1, 23, 59, 59)"</span><span class="op">)</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
   <div id="default-time-dtp_dt" data-shiny-vue style="display: contents">
     <script type="text/x-template" data-shiny-vue-template><div id="default-time-dtp_dt_container" style="display: contents">
@@ -328,8 +372,15 @@ date.</p>
 </h2>
 <p>Custom icons available with slots.</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_date_picker.html">el_date_picker</a></span><span class="op">(</span><span class="st">"dtp_icons"</span>, type <span class="op">=</span> <span class="st">"datetime"</span>, placeholder <span class="op">=</span> <span class="st">"Pick a Date"</span>, slots <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
-<span>  `prev-month` <span class="op">=</span> <span class="fu"><a href="../../reference/el_icon.html">el_icon</a></span><span class="op">(</span><span class="st">"CaretLeft"</span><span class="op">)</span>, `next-month` <span class="op">=</span> <span class="fu"><a href="../../reference/el_icon.html">el_icon</a></span><span class="op">(</span><span class="st">"CaretRight"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_date_picker.html">el_date_picker</a></span><span class="op">(</span></span>
+<span>  <span class="st">"dtp_icons"</span>,</span>
+<span>  type <span class="op">=</span> <span class="st">"datetime"</span>,</span>
+<span>  placeholder <span class="op">=</span> <span class="st">"Pick a Date"</span>,</span>
+<span>  slots <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>    `prev-month` <span class="op">=</span> <span class="fu"><a href="../../reference/el_icon.html">el_icon</a></span><span class="op">(</span><span class="st">"CaretLeft"</span><span class="op">)</span>,</span>
+<span>    `next-month` <span class="op">=</span> <span class="fu"><a href="../../reference/el_icon.html">el_icon</a></span><span class="op">(</span><span class="st">"CaretRight"</span><span class="op">)</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
   <div id="custom-icon-dtp_icons" data-shiny-vue style="display: contents">
     <script type="text/x-template" data-shiny-vue-template><div id="custom-icon-dtp_icons_container" style="display: contents">

@@ -268,8 +268,12 @@ el_time_picker("start", value = "09:30:00")
 #> </div>
 
 # Only office hours
-el_time_picker("start", disabled_hours = JS(
-  "function() { var h = []; for (var i = 0; i < 24; i++) if (i < 9 || i > 18) h.push(i); return h; }"))
+el_time_picker(
+  "start",
+  disabled_hours = JS(
+    "function() { var h = []; for (var i = 0; i < 24; i++) if (i < 9 || i > 18) h.push(i); return h; }"
+  )
+)
 #> <div id="start" data-shiny-vue style="display: contents">
 #>   <script type="text/x-template" data-shiny-vue-template><div id="start_container" style="display: contents">
 #>   <el-time-picker v-model="value" @change="handleChange" @blur="elEmitBlur" @focus="elEmitFocus" @clear="elEmitClear" @visible-change="elEmitVisibleChange" :is-range="isRange === null ? undefined : isRange" :value-format="valueFormat === null ? undefined : valueFormat" :format="format === null ? undefined : format" :arrow-control="arrowControl === null ? undefined : arrowControl" :placeholder="placeholder === null ? undefined : placeholder" :start-placeholder="startPlaceholder === null ? undefined : startPlaceholder" :end-placeholder="endPlaceholder === null ? undefined : endPlaceholder" :range-separator="rangeSeparator === null ? undefined : rangeSeparator" :clearable="clearable === null ? undefined : clearable" :disabled="disabled === null ? undefined : disabled" :editable="editable === null ? undefined : editable" :readonly="readonly === null ? undefined : readonly" :size="size === null ? undefined : size" :popper-class="popperClass === null ? undefined : popperClass" :popper-style="popperStyle === null ? undefined : popperStyle" :popper-options="popperOptions === null ? undefined : popperOptions" :placement="placement === null ? undefined : placement" :fallback-placements="fallbackPlacements === null ? undefined : fallbackPlacements" :default-value="defaultValue === null ? undefined : defaultValue" :disabled-hours="disabledHours === null ? undefined : disabledHours" :disabled-minutes="disabledMinutes === null ? undefined : disabledMinutes" :disabled-seconds="disabledSeconds === null ? undefined : disabledSeconds" :prefix-icon="prefixIcon === null ? undefined : prefixIcon" :clear-icon="clearIcon === null ? undefined : clearIcon" :teleported="teleported === null ? undefined : teleported" :tabindex="tabindex === null ? undefined : tabindex" :aria-label="ariaLabel === null ? undefined : ariaLabel" :empty-values="emptyValues === null ? undefined : emptyValues" :value-on-clear="valueOnClear === null ? undefined : valueOnClear" :save-on-blur="saveOnBlur === null ? undefined : saveOnBlur"></el-time-picker>

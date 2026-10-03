@@ -202,11 +202,32 @@ alignment is null. Take <code>placement="left-end"</code> for example,
 Tooltip will display on the left of the element which you are hovering
 and the bottom of the tooltip aligns with the bottom of the element.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">places</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"top-start"</span>, <span class="st">"top"</span>, <span class="st">"top-end"</span>, <span class="st">"left-start"</span>, <span class="st">"left"</span>, <span class="st">"left-end"</span>,</span>
-<span>            <span class="st">"right-start"</span>, <span class="st">"right"</span>, <span class="st">"right-end"</span>, <span class="st">"bottom-start"</span>, <span class="st">"bottom"</span>, <span class="st">"bottom-end"</span><span class="op">)</span></span>
-<span><span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span>style <span class="op">=</span> <span class="st">"padding: 40px 80px"</span>, <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply</a></span><span class="op">(</span><span class="va">places</span>, <span class="kw">function</span><span class="op">(</span><span class="va">p</span><span class="op">)</span></span>
-<span>  <span class="fu"><a href="../../reference/el_tooltip.html">el_tooltip</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="st">"tip_"</span>, <span class="fu"><a href="https://rdrr.io/r/base/grep.html" class="external-link">gsub</a></span><span class="op">(</span><span class="st">"-"</span>, <span class="st">"_"</span>, <span class="va">p</span><span class="op">)</span><span class="op">)</span>, <span class="va">el</span><span class="op">$</span><span class="fu">button</span><span class="op">(</span><span class="va">p</span><span class="op">)</span>, placement <span class="op">=</span> <span class="va">p</span>,</span>
-<span>             content <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="va">p</span>, <span class="st">"prompts info"</span><span class="op">)</span>, effect <span class="op">=</span> <span class="st">"dark"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">places</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span>
+<span>  <span class="st">"top-start"</span>,</span>
+<span>  <span class="st">"top"</span>,</span>
+<span>  <span class="st">"top-end"</span>,</span>
+<span>  <span class="st">"left-start"</span>,</span>
+<span>  <span class="st">"left"</span>,</span>
+<span>  <span class="st">"left-end"</span>,</span>
+<span>  <span class="st">"right-start"</span>,</span>
+<span>  <span class="st">"right"</span>,</span>
+<span>  <span class="st">"right-end"</span>,</span>
+<span>  <span class="st">"bottom-start"</span>,</span>
+<span>  <span class="st">"bottom"</span>,</span>
+<span>  <span class="st">"bottom-end"</span></span>
+<span><span class="op">)</span></span>
+<span><span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span></span>
+<span>  style <span class="op">=</span> <span class="st">"padding: 40px 80px"</span>,</span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply</a></span><span class="op">(</span><span class="va">places</span>, <span class="kw">function</span><span class="op">(</span><span class="va">p</span><span class="op">)</span> <span class="op">{</span></span>
+<span>    <span class="fu"><a href="../../reference/el_tooltip.html">el_tooltip</a></span><span class="op">(</span></span>
+<span>      <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="st">"tip_"</span>, <span class="fu"><a href="https://rdrr.io/r/base/grep.html" class="external-link">gsub</a></span><span class="op">(</span><span class="st">"-"</span>, <span class="st">"_"</span>, <span class="va">p</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>      <span class="va">el</span><span class="op">$</span><span class="fu">button</span><span class="op">(</span><span class="va">p</span><span class="op">)</span>,</span>
+<span>      placement <span class="op">=</span> <span class="va">p</span>,</span>
+<span>      content <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="va">p</span>, <span class="st">"prompts info"</span><span class="op">)</span>,</span>
+<span>      effect <span class="op">=</span> <span class="st">"dark"</span></span>
+<span>    <span class="op">)</span></span>
+<span>  <span class="op">}</span><span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
   <div style="padding: 40px 80px">
     <div id="basic-tip_top_start" data-shiny-vue style="display: contents">
@@ -316,10 +337,27 @@ the gradient background color, it might seem a little bit weird.</p>
 <code>dark</code>.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rstudio.github.io/htmltools/reference/tagList.html" class="external-link">tagList</a></span><span class="op">(</span></span>
-<span>  <span class="fu"><a href="../../reference/el_tooltip.html">el_tooltip</a></span><span class="op">(</span><span class="st">"dark"</span>, <span class="va">el</span><span class="op">$</span><span class="fu">button</span><span class="op">(</span><span class="st">"Dark"</span><span class="op">)</span>, content <span class="op">=</span> <span class="st">"Top center"</span>, placement <span class="op">=</span> <span class="st">"top"</span><span class="op">)</span>,</span>
-<span>  <span class="fu"><a href="../../reference/el_tooltip.html">el_tooltip</a></span><span class="op">(</span><span class="st">"light"</span>, <span class="va">el</span><span class="op">$</span><span class="fu">button</span><span class="op">(</span><span class="st">"Light"</span><span class="op">)</span>, content <span class="op">=</span> <span class="st">"Bottom center"</span>, placement <span class="op">=</span> <span class="st">"bottom"</span>, effect <span class="op">=</span> <span class="st">"light"</span><span class="op">)</span>,</span>
-<span>  <span class="fu"><a href="../../reference/el_tooltip.html">el_tooltip</a></span><span class="op">(</span><span class="st">"custom"</span>, <span class="va">el</span><span class="op">$</span><span class="fu">button</span><span class="op">(</span><span class="st">"Customized theme"</span><span class="op">)</span>, content <span class="op">=</span> <span class="st">"Bottom center"</span>, effect <span class="op">=</span> <span class="st">"customized"</span>,</span>
-<span>             placement <span class="op">=</span> <span class="st">"bottom"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<span>  <span class="fu"><a href="../../reference/el_tooltip.html">el_tooltip</a></span><span class="op">(</span></span>
+<span>    <span class="st">"dark"</span>,</span>
+<span>    <span class="va">el</span><span class="op">$</span><span class="fu">button</span><span class="op">(</span><span class="st">"Dark"</span><span class="op">)</span>,</span>
+<span>    content <span class="op">=</span> <span class="st">"Top center"</span>,</span>
+<span>    placement <span class="op">=</span> <span class="st">"top"</span></span>
+<span>  <span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="../../reference/el_tooltip.html">el_tooltip</a></span><span class="op">(</span></span>
+<span>    <span class="st">"light"</span>,</span>
+<span>    <span class="va">el</span><span class="op">$</span><span class="fu">button</span><span class="op">(</span><span class="st">"Light"</span><span class="op">)</span>,</span>
+<span>    content <span class="op">=</span> <span class="st">"Bottom center"</span>,</span>
+<span>    placement <span class="op">=</span> <span class="st">"bottom"</span>,</span>
+<span>    effect <span class="op">=</span> <span class="st">"light"</span></span>
+<span>  <span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="../../reference/el_tooltip.html">el_tooltip</a></span><span class="op">(</span></span>
+<span>    <span class="st">"custom"</span>,</span>
+<span>    <span class="va">el</span><span class="op">$</span><span class="fu">button</span><span class="op">(</span><span class="st">"Customized theme"</span><span class="op">)</span>,</span>
+<span>    content <span class="op">=</span> <span class="st">"Bottom center"</span>,</span>
+<span>    effect <span class="op">=</span> <span class="st">"customized"</span>,</span>
+<span>    placement <span class="op">=</span> <span class="st">"bottom"</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
   <div id="theme-dark" data-shiny-vue style="display: contents">
     <script type="text/x-template" data-shiny-vue-template><div id="theme-dark_container" style="display: contents">
@@ -351,8 +389,12 @@ the gradient background color, it might seem a little bit weird.</p>
 <p>Override attribute <code>content</code> of <code>el-tooltip</code> by
 adding a slot named <code>content</code>.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_tooltip.html">el_tooltip</a></span><span class="op">(</span><span class="st">"multi"</span>, <span class="va">el</span><span class="op">$</span><span class="fu">button</span><span class="op">(</span><span class="st">"Top center"</span><span class="op">)</span>, placement <span class="op">=</span> <span class="st">"top"</span>,</span>
-<span>           slots <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>content <span class="op">=</span> <span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span><span class="st">"multiple lines"</span>, <span class="va">tags</span><span class="op">$</span><span class="fu">br</span><span class="op">(</span><span class="op">)</span>, <span class="st">"second line"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_tooltip.html">el_tooltip</a></span><span class="op">(</span></span>
+<span>  <span class="st">"multi"</span>,</span>
+<span>  <span class="va">el</span><span class="op">$</span><span class="fu">button</span><span class="op">(</span><span class="st">"Top center"</span><span class="op">)</span>,</span>
+<span>  placement <span class="op">=</span> <span class="st">"top"</span>,</span>
+<span>  slots <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>content <span class="op">=</span> <span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span><span class="st">"multiple lines"</span>, <span class="va">tags</span><span class="op">$</span><span class="fu">br</span><span class="op">(</span><span class="op">)</span>, <span class="st">"second line"</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
   <div id="rich-content-multi" data-shiny-vue style="display: contents">
     <script type="text/x-template" data-shiny-vue-template><div id="rich-content-multi_container" style="display: contents">
@@ -387,10 +429,18 @@ you can use any attribute that are allowed in ElPopper.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/el_page.html">el_page</a></span><span class="op">(</span></span>
 <span>  <span class="fu"><a href="../../reference/el_switch.html">el_switch</a></span><span class="op">(</span><span class="st">"tip_on"</span>, value <span class="op">=</span> <span class="cn">TRUE</span>, active_text <span class="op">=</span> <span class="st">"tooltip on"</span><span class="op">)</span>,</span>
-<span>  <span class="fu"><a href="../../reference/el_tooltip.html">el_tooltip</a></span><span class="op">(</span><span class="st">"adv"</span>, <span class="va">el</span><span class="op">$</span><span class="fu">button</span><span class="op">(</span><span class="st">"Hover me"</span><span class="op">)</span>, content <span class="op">=</span> <span class="st">"click the switch to turn me off"</span>,</span>
-<span>             placement <span class="op">=</span> <span class="st">"bottom"</span><span class="op">)</span><span class="op">)</span></span>
+<span>  <span class="fu"><a href="../../reference/el_tooltip.html">el_tooltip</a></span><span class="op">(</span></span>
+<span>    <span class="st">"adv"</span>,</span>
+<span>    <span class="va">el</span><span class="op">$</span><span class="fu">button</span><span class="op">(</span><span class="st">"Hover me"</span><span class="op">)</span>,</span>
+<span>    content <span class="op">=</span> <span class="st">"click the switch to turn me off"</span>,</span>
+<span>    placement <span class="op">=</span> <span class="st">"bottom"</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">)</span></span>
 <span><span class="va">server</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span>, <span class="va">session</span><span class="op">)</span> <span class="op">{</span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/observeEvent.html" class="external-link">observeEvent</a></span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">tip_on</span>, <span class="fu"><a href="../../reference/update_el_tooltip.html">update_el_tooltip</a></span><span class="op">(</span>id <span class="op">=</span> <span class="st">"adv"</span>, disabled <span class="op">=</span> <span class="op">!</span><span class="va">input</span><span class="op">$</span><span class="va">tip_on</span><span class="op">)</span><span class="op">)</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/observeEvent.html" class="external-link">observeEvent</a></span><span class="op">(</span></span>
+<span>    <span class="va">input</span><span class="op">$</span><span class="va">tip_on</span>,</span>
+<span>    <span class="fu"><a href="../../reference/update_el_tooltip.html">update_el_tooltip</a></span><span class="op">(</span>id <span class="op">=</span> <span class="st">"adv"</span>, disabled <span class="op">=</span> <span class="op">!</span><span class="va">input</span><span class="op">$</span><span class="va">tip_on</span><span class="op">)</span></span>
+<span>  <span class="op">)</span></span>
 <span><span class="op">}</span></span>
 <span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/shinyApp.html" class="external-link">shinyApp</a></span><span class="op">(</span><span class="va">ui</span>, <span class="va">server</span><span class="op">)</span></span></code></pre></div>
 <img src="../../shots/tooltip-advanced-usage.png" alt="The advanced-usage example, running" style="max-width: 100%"><blockquote>
@@ -417,8 +467,12 @@ attacks</a>. So when <code>raw-content</code> is on, please make sure
 user-provided <code>content</code>.</p>
 </blockquote>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_tooltip.html">el_tooltip</a></span><span class="op">(</span><span class="st">"html_tip"</span>, <span class="va">el</span><span class="op">$</span><span class="fu">button</span><span class="op">(</span><span class="st">"hover me"</span><span class="op">)</span>, raw_content <span class="op">=</span> <span class="cn">TRUE</span>,</span>
-<span>           content <span class="op">=</span> <span class="st">"&lt;span&gt;The content can be &lt;strong&gt;HTML&lt;/strong&gt;&lt;/span&gt;"</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_tooltip.html">el_tooltip</a></span><span class="op">(</span></span>
+<span>  <span class="st">"html_tip"</span>,</span>
+<span>  <span class="va">el</span><span class="op">$</span><span class="fu">button</span><span class="op">(</span><span class="st">"hover me"</span><span class="op">)</span>,</span>
+<span>  raw_content <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  content <span class="op">=</span> <span class="st">"&lt;span&gt;The content can be &lt;strong&gt;HTML&lt;/strong&gt;&lt;/span&gt;"</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
   <div id="html-content-html_tip" data-shiny-vue style="display: contents">
     <script type="text/x-template" data-shiny-vue-template><div id="html-content-html_tip_container" style="display: contents">
@@ -495,7 +549,12 @@ use <code>transition</code>.</p>
 Transition</a>.</p>
 </blockquote>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_tooltip.html">el_tooltip</a></span><span class="op">(</span><span class="st">"anim"</span>, <span class="va">el</span><span class="op">$</span><span class="fu">button</span><span class="op">(</span><span class="st">"trigger me"</span><span class="op">)</span>, content <span class="op">=</span> <span class="st">"I am an el-tooltip"</span>, transition <span class="op">=</span> <span class="st">"slide-fade"</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_tooltip.html">el_tooltip</a></span><span class="op">(</span></span>
+<span>  <span class="st">"anim"</span>,</span>
+<span>  <span class="va">el</span><span class="op">$</span><span class="fu">button</span><span class="op">(</span><span class="st">"trigger me"</span><span class="op">)</span>,</span>
+<span>  content <span class="op">=</span> <span class="st">"I am an el-tooltip"</span>,</span>
+<span>  transition <span class="op">=</span> <span class="st">"slide-fade"</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
   <div id="animations-anim" data-shiny-vue style="display: contents">
     <script type="text/x-template" data-shiny-vue-template><div id="animations-anim_container" style="display: contents">
@@ -512,8 +571,15 @@ Transition</a>.</p>
 <p>You must wait for the DOM to be mounted before using
 <code>targetElement</code>.</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span>id <span class="op">=</span> <span class="st">"tip-host"</span>, <span class="fu"><a href="../../reference/el_tooltip.html">el_tooltip</a></span><span class="op">(</span><span class="st">"app"</span>, <span class="va">el</span><span class="op">$</span><span class="fu">button</span><span class="op">(</span><span class="st">"Hover me"</span><span class="op">)</span>, content <span class="op">=</span> <span class="st">"Appended to #tip-host"</span>,</span>
-<span>                                     append_to <span class="op">=</span> <span class="st">"#tip-host"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span></span>
+<span>  id <span class="op">=</span> <span class="st">"tip-host"</span>,</span>
+<span>  <span class="fu"><a href="../../reference/el_tooltip.html">el_tooltip</a></span><span class="op">(</span></span>
+<span>    <span class="st">"app"</span>,</span>
+<span>    <span class="va">el</span><span class="op">$</span><span class="fu">button</span><span class="op">(</span><span class="st">"Hover me"</span><span class="op">)</span>,</span>
+<span>    content <span class="op">=</span> <span class="st">"Appended to #tip-host"</span>,</span>
+<span>    append_to <span class="op">=</span> <span class="st">"#tip-host"</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
   <div id="tip-host">
     <div id="append-to-app" data-shiny-vue style="display: contents">

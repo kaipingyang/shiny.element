@@ -19,10 +19,17 @@ Using Space to provide space
 
 ``` r
 
-card <- function(i) el_card(width = "250px",
-  header = tags$div(style = "display: flex; justify-content: space-between; align-items: center",
-    tags$span("Card name"), el_button(paste0("sp_op", i), "Operation button", text = TRUE)),
-  lapply(1:4, function(o) tags$div(paste("List item", o))))
+card <- function(i) {
+  el_card(
+    width = "250px",
+    header = tags$div(
+      style = "display: flex; justify-content: space-between; align-items: center",
+      tags$span("Card name"),
+      el_button(paste0("sp_op", i), "Operation button", text = TRUE)
+    ),
+    lapply(1:4, function(o) tags$div(paste("List item", o)))
+  )
+}
 el_space(wrap = TRUE, lapply(1:3, card))
 ```
 
@@ -35,8 +42,13 @@ We also provide vertical layout.
 
 ``` r
 
-card <- function(i) el_card(width = "250px", header = "Card name",
-  lapply(1:2, function(o) tags$div(paste("List item", o))))
+card <- function(i) {
+  el_card(
+    width = "250px",
+    header = "Card name",
+    lapply(1:2, function(o) tags$div(paste("List item", o)))
+  )
+}
 el_space(direction = "vertical", lapply(1:2, card))
 ```
 
@@ -53,9 +65,15 @@ part.
 
 ``` r
 
-card <- function(i) el_card(width = "250px", header = "Card name", tags$div("List item"))
-el_space(direction = "vertical", alignment = "start", size = 30,
-         el_space(size = "large", lapply(1:2, card)))
+card <- function(i) {
+  el_card(width = "250px", header = "Card name", tags$div("List item"))
+}
+el_space(
+  direction = "vertical",
+  alignment = "start",
+  size = 30,
+  el_space(size = "large", lapply(1:2, card))
+)
 ```
 
 ## Customized Size
@@ -65,7 +83,9 @@ custom size (number type) to control the space between items.
 
 ``` r
 
-card <- function(i) el_card(width = "250px", header = "Card name", tags$div("List item"))
+card <- function(i) {
+  el_card(width = "250px", header = "Card name", tags$div("List item"))
+}
 el_space(wrap = TRUE, size = 20, lapply(1:2, card))
 ```
 
@@ -85,7 +105,12 @@ Using `wrap` to control line wrap
 
 ``` r
 
-el_space(wrap = TRUE, lapply(1:20, function(i) el_button(paste0("sp_w", i), "Text button", text = TRUE)))
+el_space(
+  wrap = TRUE,
+  lapply(1:20, function(i) {
+    el_button(paste0("sp_w", i), "Text button", text = TRUE)
+  })
+)
 ```
 
 ## Spacer
@@ -97,7 +122,12 @@ to help us.
 
 ``` r
 
-el_space(size = 10, spacer = "|", el_button("sp_l1", "button 1"), el_button("sp_l2", "button 2"))
+el_space(
+  size = 10,
+  spacer = "|",
+  el_button("sp_l1", "button 1"),
+  el_button("sp_l2", "button 2")
+)
 ```
 
 ## Spacer can also be VNode
@@ -117,8 +147,14 @@ Using `alignment`
 
 ``` r
 
-tags$div(style = "width: 240px; margin-bottom: 8px; padding: 8px; border: 1px solid var(--el-border-color)",
-  el_space("string", el_button("sp_a", "button"), el_card(header = "header", "body")))
+tags$div(
+  style = "width: 240px; margin-bottom: 8px; padding: 8px; border: 1px solid var(--el-border-color)",
+  el_space(
+    "string",
+    el_button("sp_a", "button"),
+    el_card(header = "header", "body")
+  )
+)
 ```
 
 ## Fill the container
@@ -133,7 +169,11 @@ Use fill to automatically fill the container with child nodes
 
 ``` r
 
-el_space(fill = TRUE, wrap = TRUE, lapply(1:3, function(i) el_card(header = "Card name", "List item")))
+el_space(
+  fill = TRUE,
+  wrap = TRUE,
+  lapply(1:3, function(i) el_card(header = "Card name", "List item"))
+)
 ```
 
 You can also use the `fillRatio` parameter to customize the filling
@@ -148,7 +188,12 @@ Use fillRatio to customize the fill ratio
 
 ``` r
 
-el_space(fill = TRUE, fill_ratio = 30, wrap = TRUE, lapply(1:5, function(i) el_card(header = "Card name", "List item")))
+el_space(
+  fill = TRUE,
+  fill_ratio = 30,
+  wrap = TRUE,
+  lapply(1:5, function(i) el_card(header = "Card name", "List item"))
+)
 ```
 
 ## API

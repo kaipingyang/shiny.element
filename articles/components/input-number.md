@@ -71,10 +71,12 @@ Use attribute `size` to set additional sizes with `large` or `small`.
 
 ``` r
 
-tags$div(style = "display: flex; gap: 16px",
+tags$div(
+  style = "display: flex; gap: 16px",
   el_input_number("num_l", value = 1, size = "large"),
   el_input_number("num_d", value = 2),
-  el_input_number("num_s", value = 3, size = "small"))
+  el_input_number("num_s", value = 3, size = "small")
+)
 ```
 
 ## Controls Position
@@ -83,9 +85,24 @@ Set `controls-position` to decide the position of control buttons.
 
 ``` r
 
-tags$div(style = "display: flex; gap: 16px",
-  el_input_number("num_ctl", value = 1, min = 1, max = 10, controls_position = "right", size = "large"),
-  el_input_number("num_ctl2", value = 1, min = 1, max = 10, controls_position = "right"))
+tags$div(
+  style = "display: flex; gap: 16px",
+  el_input_number(
+    "num_ctl",
+    value = 1,
+    min = 1,
+    max = 10,
+    controls_position = "right",
+    size = "large"
+  ),
+  el_input_number(
+    "num_ctl2",
+    value = 1,
+    min = 1,
+    max = 10,
+    controls_position = "right"
+  )
+)
 ```
 
 ## Custom Icon
@@ -94,8 +111,16 @@ Use `decrease-icon` and `increase-icon` to set custom icons.
 
 ``` r
 
-el_input_number("num_custom", value = 1, min = 1, max = 10, slots = list(
-  `decrease-icon` = el_icon("ArrowDown"), `increase-icon` = el_icon("ArrowUp")))
+el_input_number(
+  "num_custom",
+  value = 1,
+  min = 1,
+  max = 10,
+  slots = list(
+    `decrease-icon` = el_icon("ArrowDown"),
+    `increase-icon` = el_icon("ArrowUp")
+  )
+)
 ```
 
 ## With prefix and suffix
@@ -104,9 +129,23 @@ Use the prefix and suffix named slots.
 
 ``` r
 
-tags$div(style = "display: grid; gap: 16px",
-  el_input_number("num_pre", value = 18, min = 1, max = 100, slots = list(prefix = "￥")),
-  el_input_number("num_suf", value = 100, min = 1, max = 100, slots = list(suffix = "RMB")))
+tags$div(
+  style = "display: grid; gap: 16px",
+  el_input_number(
+    "num_pre",
+    value = 18,
+    min = 1,
+    max = 100,
+    slots = list(prefix = "￥")
+  ),
+  el_input_number(
+    "num_suf",
+    value = 100,
+    min = 1,
+    max = 100,
+    slots = list(suffix = "RMB")
+  )
+)
 ```
 
 > **Tip**
@@ -129,9 +168,14 @@ parsed number is written to `model-value`; when parsing returns `NaN`,
 
 ``` r
 
-el_input_number("num_fmt", value = 1234.5,
-  formatter = JS("function(value) { return `$ ${value}`.replace(/\\B(?=(\\d{3})+(?!\\d))/g, ','); }"),
-  parser = JS("function(value) { return value.replace(/\\$\\s?|(,*)/g, ''); }"))
+el_input_number(
+  "num_fmt",
+  value = 1234.5,
+  formatter = JS(
+    "function(value) { return `$ ${value}`.replace(/\\B(?=(\\d{3})+(?!\\d))/g, ','); }"
+  ),
+  parser = JS("function(value) { return value.replace(/\\$\\s?|(,*)/g, ''); }")
+)
 ```
 
 ## API

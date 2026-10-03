@@ -8,7 +8,11 @@ Press the Enter key to add the input as a tag.
 
 ``` r
 
-el_input_tag("tags", placeholder = "Please input", aria_label = "Please click the Enter key after input")
+el_input_tag(
+  "tags",
+  placeholder = "Please input",
+  aria_label = "Please click the Enter key after input"
+)
 ```
 
 ## Custom Trigger
@@ -18,8 +22,12 @@ is Enter.
 
 ``` r
 
-el_input_tag("tags_space", trigger = "Space", placeholder = "Please input",
-             aria_label = "Please click the Space key after input")
+el_input_tag(
+  "tags_space",
+  trigger = "Space",
+  placeholder = "Please input",
+  aria_label = "Please click the Space key after input"
+)
 ```
 
 ## Maximum Tags
@@ -41,12 +49,26 @@ invalid.
 
 ``` r
 
-tags$div(style = "display: grid; gap: 16px",
-  el_input_tag("tags_col1", value = c("tag1", "tag2", "tag3"), collapse_tags = TRUE),
-  el_input_tag("tags_col2", value = c("tag1", "tag2", "tag3"), collapse_tags = TRUE,
-               collapse_tags_tooltip = TRUE),
-  el_input_tag("tags_col3", value = c("tag1", "tag2", "tag3", "tag4"), collapse_tags = TRUE,
-               max_collapse_tags = 2))
+tags$div(
+  style = "display: grid; gap: 16px",
+  el_input_tag(
+    "tags_col1",
+    value = c("tag1", "tag2", "tag3"),
+    collapse_tags = TRUE
+  ),
+  el_input_tag(
+    "tags_col2",
+    value = c("tag1", "tag2", "tag3"),
+    collapse_tags = TRUE,
+    collapse_tags_tooltip = TRUE
+  ),
+  el_input_tag(
+    "tags_col3",
+    value = c("tag1", "tag2", "tag3", "tag4"),
+    collapse_tags = TRUE,
+    max_collapse_tags = 2
+  )
+)
 ```
 
 ## Disabled
@@ -73,7 +95,12 @@ You can customize the clear icon by setting the `clear-icon` attribute.
 
 ``` r
 
-el_input_tag("tags_clear_icon", value = c("tag1", "tag2"), clearable = TRUE, clear_icon = "CloseBold")
+el_input_tag(
+  "tags_clear_icon",
+  value = c("tag1", "tag2"),
+  clearable = TRUE,
+  clear_icon = "CloseBold"
+)
 ```
 
 ## Draggable
@@ -91,8 +118,12 @@ You can add a tag when a delimiter is matched.
 
 ``` r
 
-el_input_tag("tags_delim", delimiter = ",", placeholder = "Please input",
-             aria_label = "Please input a comma after input")
+el_input_tag(
+  "tags_delim",
+  delimiter = ",",
+  placeholder = "Please input",
+  aria_label = "Please input a comma after input"
+)
 ```
 
 ## Sizes
@@ -102,10 +133,12 @@ default size, there are two other options: `large`, `small`.
 
 ``` r
 
-tags$div(style = "display: grid; gap: 16px",
+tags$div(
+  style = "display: grid; gap: 16px",
   el_input_tag("tags_l", size = "large", placeholder = "Please input"),
   el_input_tag("tags_d", placeholder = "Please input"),
-  el_input_tag("tags_s", size = "small", placeholder = "Please input"))
+  el_input_tag("tags_s", size = "small", placeholder = "Please input")
+)
 ```
 
 ## Custom Tag
@@ -114,9 +147,21 @@ You can customize the tag content by `tag` slot.
 
 ``` r
 
-el_input_tag("tags_tpl", value = c("tag1", "tag2"), tag_type = "primary", tag_effect = "plain",
-  slots = list(tag = template(htmltools::HTML("<div class=\"flex items-center\"><el-icon><ElementPlus /></el-icon><span>{{ value }}</span></div>"),
-                              slot = "tag", scope = "{ value }")))
+el_input_tag(
+  "tags_tpl",
+  value = c("tag1", "tag2"),
+  tag_type = "primary",
+  tag_effect = "plain",
+  slots = list(
+    tag = template(
+      htmltools::HTML(
+        "<div class=\"flex items-center\"><el-icon><ElementPlus /></el-icon><span>{{ value }}</span></div>"
+      ),
+      slot = "tag",
+      scope = "{ value }"
+    )
+  )
+)
 ```
 
 ## Custom Prefix and Suffix
@@ -126,8 +171,11 @@ You can customize the prefix and suffix of the InputTag by `prefix` and
 
 ``` r
 
-el_input_tag("tags_ps", placeholder = "Please input",
-             slots = list(prefix = el_icon("CollectionTag"), suffix = el_icon("Search")))
+el_input_tag(
+  "tags_ps",
+  placeholder = "Please input",
+  slots = list(prefix = el_icon("CollectionTag"), suffix = el_icon("Search"))
+)
 ```
 
 ## API

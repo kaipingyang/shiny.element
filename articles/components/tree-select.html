@@ -197,13 +197,36 @@ components <code>el-tree</code> and <code>el-select</code>.</p>
 <code>input$&lt;id&gt;</code> is the value picked.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">nodes</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>value <span class="op">=</span> <span class="st">"1"</span>, label <span class="op">=</span> <span class="st">"Level one 1"</span>, children <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
-<span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>value <span class="op">=</span> <span class="st">"1-1"</span>, label <span class="op">=</span> <span class="st">"Level two 1-1"</span>, children <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
-<span>      <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>value <span class="op">=</span> <span class="st">"1-1-1"</span>, label <span class="op">=</span> <span class="st">"Level three 1-1-1"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>,</span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>value <span class="op">=</span> <span class="st">"2"</span>, label <span class="op">=</span> <span class="st">"Level one 2"</span>, children <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
-<span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>value <span class="op">=</span> <span class="st">"2-1"</span>, label <span class="op">=</span> <span class="st">"Level two 2-1"</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>value <span class="op">=</span> <span class="st">"2-2"</span>, label <span class="op">=</span> <span class="st">"Level two 2-2"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>,</span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>value <span class="op">=</span> <span class="st">"3"</span>, label <span class="op">=</span> <span class="st">"Level one 3"</span>, children <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
-<span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>value <span class="op">=</span> <span class="st">"3-1"</span>, label <span class="op">=</span> <span class="st">"Level two 3-1"</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>value <span class="op">=</span> <span class="st">"3-2"</span>, label <span class="op">=</span> <span class="st">"Level two 3-2"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>    value <span class="op">=</span> <span class="st">"1"</span>,</span>
+<span>    label <span class="op">=</span> <span class="st">"Level one 1"</span>,</span>
+<span>    children <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>      <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>        value <span class="op">=</span> <span class="st">"1-1"</span>,</span>
+<span>        label <span class="op">=</span> <span class="st">"Level two 1-1"</span>,</span>
+<span>        children <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>          <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>value <span class="op">=</span> <span class="st">"1-1-1"</span>, label <span class="op">=</span> <span class="st">"Level three 1-1-1"</span><span class="op">)</span></span>
+<span>        <span class="op">)</span></span>
+<span>      <span class="op">)</span></span>
+<span>    <span class="op">)</span></span>
+<span>  <span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>    value <span class="op">=</span> <span class="st">"2"</span>,</span>
+<span>    label <span class="op">=</span> <span class="st">"Level one 2"</span>,</span>
+<span>    children <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>      <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>value <span class="op">=</span> <span class="st">"2-1"</span>, label <span class="op">=</span> <span class="st">"Level two 2-1"</span><span class="op">)</span>,</span>
+<span>      <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>value <span class="op">=</span> <span class="st">"2-2"</span>, label <span class="op">=</span> <span class="st">"Level two 2-2"</span><span class="op">)</span></span>
+<span>    <span class="op">)</span></span>
+<span>  <span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>    value <span class="op">=</span> <span class="st">"3"</span>,</span>
+<span>    label <span class="op">=</span> <span class="st">"Level one 3"</span>,</span>
+<span>    children <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>      <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>value <span class="op">=</span> <span class="st">"3-1"</span>, label <span class="op">=</span> <span class="st">"Level two 3-1"</span><span class="op">)</span>,</span>
+<span>      <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>value <span class="op">=</span> <span class="st">"3-2"</span>, label <span class="op">=</span> <span class="st">"Level two 3-2"</span><span class="op">)</span></span>
+<span>    <span class="op">)</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">)</span></span>
 <span><span class="fu"><a href="../../reference/el_tree_select.html">el_tree_select</a></span><span class="op">(</span><span class="st">"ts_basic"</span>, data <span class="op">=</span> <span class="va">nodes</span>, width <span class="op">=</span> <span class="st">"240px"</span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
   <div id="basic-ts_basic" data-shiny-vue style="display: contents">
@@ -229,15 +252,43 @@ select.</p>
 leaves.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">nodes</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>value <span class="op">=</span> <span class="st">"1"</span>, label <span class="op">=</span> <span class="st">"Level one 1"</span>, children <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
-<span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>value <span class="op">=</span> <span class="st">"1-1"</span>, label <span class="op">=</span> <span class="st">"Level two 1-1"</span>, children <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
-<span>      <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>value <span class="op">=</span> <span class="st">"1-1-1"</span>, label <span class="op">=</span> <span class="st">"Level three 1-1-1"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>,</span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>value <span class="op">=</span> <span class="st">"2"</span>, label <span class="op">=</span> <span class="st">"Level one 2"</span>, children <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
-<span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>value <span class="op">=</span> <span class="st">"2-1"</span>, label <span class="op">=</span> <span class="st">"Level two 2-1"</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>value <span class="op">=</span> <span class="st">"2-2"</span>, label <span class="op">=</span> <span class="st">"Level two 2-2"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>    value <span class="op">=</span> <span class="st">"1"</span>,</span>
+<span>    label <span class="op">=</span> <span class="st">"Level one 1"</span>,</span>
+<span>    children <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>      <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>        value <span class="op">=</span> <span class="st">"1-1"</span>,</span>
+<span>        label <span class="op">=</span> <span class="st">"Level two 1-1"</span>,</span>
+<span>        children <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>          <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>value <span class="op">=</span> <span class="st">"1-1-1"</span>, label <span class="op">=</span> <span class="st">"Level three 1-1-1"</span><span class="op">)</span></span>
+<span>        <span class="op">)</span></span>
+<span>      <span class="op">)</span></span>
+<span>    <span class="op">)</span></span>
+<span>  <span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>    value <span class="op">=</span> <span class="st">"2"</span>,</span>
+<span>    label <span class="op">=</span> <span class="st">"Level one 2"</span>,</span>
+<span>    children <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>      <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>value <span class="op">=</span> <span class="st">"2-1"</span>, label <span class="op">=</span> <span class="st">"Level two 2-1"</span><span class="op">)</span>,</span>
+<span>      <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>value <span class="op">=</span> <span class="st">"2-2"</span>, label <span class="op">=</span> <span class="st">"Level two 2-2"</span><span class="op">)</span></span>
+<span>    <span class="op">)</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rstudio.github.io/htmltools/reference/tagList.html" class="external-link">tagList</a></span><span class="op">(</span></span>
-<span>  <span class="fu"><a href="../../reference/el_tree_select.html">el_tree_select</a></span><span class="op">(</span><span class="st">"ts_strict"</span>, data <span class="op">=</span> <span class="va">nodes</span>, check_strictly <span class="op">=</span> <span class="cn">TRUE</span>, width <span class="op">=</span> <span class="st">"240px"</span><span class="op">)</span>,</span>
-<span>  <span class="fu"><a href="../../reference/el_tree_select.html">el_tree_select</a></span><span class="op">(</span><span class="st">"ts_strict_box"</span>, data <span class="op">=</span> <span class="va">nodes</span>, check_strictly <span class="op">=</span> <span class="cn">TRUE</span>, show_checkbox <span class="op">=</span> <span class="cn">TRUE</span>,</span>
-<span>                 width <span class="op">=</span> <span class="st">"240px"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<span>  <span class="fu"><a href="../../reference/el_tree_select.html">el_tree_select</a></span><span class="op">(</span></span>
+<span>    <span class="st">"ts_strict"</span>,</span>
+<span>    data <span class="op">=</span> <span class="va">nodes</span>,</span>
+<span>    check_strictly <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>    width <span class="op">=</span> <span class="st">"240px"</span></span>
+<span>  <span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="../../reference/el_tree_select.html">el_tree_select</a></span><span class="op">(</span></span>
+<span>    <span class="st">"ts_strict_box"</span>,</span>
+<span>    data <span class="op">=</span> <span class="va">nodes</span>,</span>
+<span>    check_strictly <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>    show_checkbox <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>    width <span class="op">=</span> <span class="st">"240px"</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
   <div id="check-strictly-ts_strict" data-shiny-vue style="display: contents">
     <script type="text/x-template" data-shiny-vue-template><div id="check-strictly-ts_strict_container" style="display: contents">
@@ -263,16 +314,45 @@ nodes.</p>
 <p>Multiple selection using clicks or checkbox.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">nodes</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>value <span class="op">=</span> <span class="st">"1"</span>, label <span class="op">=</span> <span class="st">"Level one 1"</span>, children <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
-<span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>value <span class="op">=</span> <span class="st">"1-1"</span>, label <span class="op">=</span> <span class="st">"Level two 1-1"</span>, children <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
-<span>      <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>value <span class="op">=</span> <span class="st">"1-1-1"</span>, label <span class="op">=</span> <span class="st">"Level three 1-1-1"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>,</span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>value <span class="op">=</span> <span class="st">"2"</span>, label <span class="op">=</span> <span class="st">"Level one 2"</span>, children <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
-<span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>value <span class="op">=</span> <span class="st">"2-1"</span>, label <span class="op">=</span> <span class="st">"Level two 2-1"</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>value <span class="op">=</span> <span class="st">"2-2"</span>, label <span class="op">=</span> <span class="st">"Level two 2-2"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>    value <span class="op">=</span> <span class="st">"1"</span>,</span>
+<span>    label <span class="op">=</span> <span class="st">"Level one 1"</span>,</span>
+<span>    children <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>      <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>        value <span class="op">=</span> <span class="st">"1-1"</span>,</span>
+<span>        label <span class="op">=</span> <span class="st">"Level two 1-1"</span>,</span>
+<span>        children <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>          <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>value <span class="op">=</span> <span class="st">"1-1-1"</span>, label <span class="op">=</span> <span class="st">"Level three 1-1-1"</span><span class="op">)</span></span>
+<span>        <span class="op">)</span></span>
+<span>      <span class="op">)</span></span>
+<span>    <span class="op">)</span></span>
+<span>  <span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>    value <span class="op">=</span> <span class="st">"2"</span>,</span>
+<span>    label <span class="op">=</span> <span class="st">"Level one 2"</span>,</span>
+<span>    children <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>      <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>value <span class="op">=</span> <span class="st">"2-1"</span>, label <span class="op">=</span> <span class="st">"Level two 2-1"</span><span class="op">)</span>,</span>
+<span>      <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>value <span class="op">=</span> <span class="st">"2-2"</span>, label <span class="op">=</span> <span class="st">"Level two 2-2"</span><span class="op">)</span></span>
+<span>    <span class="op">)</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rstudio.github.io/htmltools/reference/tagList.html" class="external-link">tagList</a></span><span class="op">(</span></span>
-<span>  <span class="fu"><a href="../../reference/el_tree_select.html">el_tree_select</a></span><span class="op">(</span><span class="st">"ts_multi"</span>, data <span class="op">=</span> <span class="va">nodes</span>, multiple <span class="op">=</span> <span class="cn">TRUE</span>, render_after_expand <span class="op">=</span> <span class="cn">FALSE</span>,</span>
-<span>                 width <span class="op">=</span> <span class="st">"240px"</span><span class="op">)</span>,</span>
-<span>  <span class="fu"><a href="../../reference/el_tree_select.html">el_tree_select</a></span><span class="op">(</span><span class="st">"ts_multi_box"</span>, data <span class="op">=</span> <span class="va">nodes</span>, multiple <span class="op">=</span> <span class="cn">TRUE</span>, render_after_expand <span class="op">=</span> <span class="cn">FALSE</span>,</span>
-<span>                 show_checkbox <span class="op">=</span> <span class="cn">TRUE</span>, width <span class="op">=</span> <span class="st">"240px"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<span>  <span class="fu"><a href="../../reference/el_tree_select.html">el_tree_select</a></span><span class="op">(</span></span>
+<span>    <span class="st">"ts_multi"</span>,</span>
+<span>    data <span class="op">=</span> <span class="va">nodes</span>,</span>
+<span>    multiple <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>    render_after_expand <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>    width <span class="op">=</span> <span class="st">"240px"</span></span>
+<span>  <span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="../../reference/el_tree_select.html">el_tree_select</a></span><span class="op">(</span></span>
+<span>    <span class="st">"ts_multi_box"</span>,</span>
+<span>    data <span class="op">=</span> <span class="va">nodes</span>,</span>
+<span>    multiple <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>    render_after_expand <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>    show_checkbox <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>    width <span class="op">=</span> <span class="st">"240px"</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
   <div id="multiple-ts_multi" data-shiny-vue style="display: contents">
     <script type="text/x-template" data-shiny-vue-template><div id="multiple-ts_multi_container" style="display: contents">
@@ -293,10 +373,22 @@ nodes.</p>
 <p>A node with <code>disabled = TRUE</code> cannot be picked.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">nodes</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>value <span class="op">=</span> <span class="st">"1"</span>, label <span class="op">=</span> <span class="st">"Level one 1"</span>, children <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
-<span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>value <span class="op">=</span> <span class="st">"1-1"</span>, label <span class="op">=</span> <span class="st">"Level two 1-1"</span>, disabled <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>,</span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>value <span class="op">=</span> <span class="st">"2"</span>, label <span class="op">=</span> <span class="st">"Level one 2"</span>, children <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
-<span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>value <span class="op">=</span> <span class="st">"2-1"</span>, label <span class="op">=</span> <span class="st">"Level two 2-1"</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>value <span class="op">=</span> <span class="st">"2-2"</span>, label <span class="op">=</span> <span class="st">"Level two 2-2"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>    value <span class="op">=</span> <span class="st">"1"</span>,</span>
+<span>    label <span class="op">=</span> <span class="st">"Level one 1"</span>,</span>
+<span>    children <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>      <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>value <span class="op">=</span> <span class="st">"1-1"</span>, label <span class="op">=</span> <span class="st">"Level two 1-1"</span>, disabled <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span>    <span class="op">)</span></span>
+<span>  <span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>    value <span class="op">=</span> <span class="st">"2"</span>,</span>
+<span>    label <span class="op">=</span> <span class="st">"Level one 2"</span>,</span>
+<span>    children <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>      <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>value <span class="op">=</span> <span class="st">"2-1"</span>, label <span class="op">=</span> <span class="st">"Level two 2-1"</span><span class="op">)</span>,</span>
+<span>      <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>value <span class="op">=</span> <span class="st">"2-2"</span>, label <span class="op">=</span> <span class="st">"Level two 2-2"</span><span class="op">)</span></span>
+<span>    <span class="op">)</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">)</span></span>
 <span><span class="fu"><a href="../../reference/el_tree_select.html">el_tree_select</a></span><span class="op">(</span><span class="st">"ts_disabled"</span>, data <span class="op">=</span> <span class="va">nodes</span>, width <span class="op">=</span> <span class="st">"240px"</span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
   <div id="disabled-ts_disabled" data-shiny-vue style="display: contents">
@@ -315,11 +407,28 @@ nodes.</p>
 node.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">nodes</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>value <span class="op">=</span> <span class="st">"1"</span>, label <span class="op">=</span> <span class="st">"Level one 1"</span>, children <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
-<span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>value <span class="op">=</span> <span class="st">"1-1"</span>, label <span class="op">=</span> <span class="st">"Level two 1-1"</span>, children <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
-<span>      <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>value <span class="op">=</span> <span class="st">"1-1-1"</span>, label <span class="op">=</span> <span class="st">"Level three 1-1-1"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>,</span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>value <span class="op">=</span> <span class="st">"2"</span>, label <span class="op">=</span> <span class="st">"Level one 2"</span>, children <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
-<span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>value <span class="op">=</span> <span class="st">"2-1"</span>, label <span class="op">=</span> <span class="st">"Level two 2-1"</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>value <span class="op">=</span> <span class="st">"2-2"</span>, label <span class="op">=</span> <span class="st">"Level two 2-2"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>    value <span class="op">=</span> <span class="st">"1"</span>,</span>
+<span>    label <span class="op">=</span> <span class="st">"Level one 1"</span>,</span>
+<span>    children <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>      <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>        value <span class="op">=</span> <span class="st">"1-1"</span>,</span>
+<span>        label <span class="op">=</span> <span class="st">"Level two 1-1"</span>,</span>
+<span>        children <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>          <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>value <span class="op">=</span> <span class="st">"1-1-1"</span>, label <span class="op">=</span> <span class="st">"Level three 1-1-1"</span><span class="op">)</span></span>
+<span>        <span class="op">)</span></span>
+<span>      <span class="op">)</span></span>
+<span>    <span class="op">)</span></span>
+<span>  <span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>    value <span class="op">=</span> <span class="st">"2"</span>,</span>
+<span>    label <span class="op">=</span> <span class="st">"Level one 2"</span>,</span>
+<span>    children <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>      <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>value <span class="op">=</span> <span class="st">"2-1"</span>, label <span class="op">=</span> <span class="st">"Level two 2-1"</span><span class="op">)</span>,</span>
+<span>      <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>value <span class="op">=</span> <span class="st">"2-2"</span>, label <span class="op">=</span> <span class="st">"Level two 2-2"</span><span class="op">)</span></span>
+<span>    <span class="op">)</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">)</span></span>
 <span><span class="fu"><a href="../../reference/el_tree_select.html">el_tree_select</a></span><span class="op">(</span><span class="st">"ts_filter"</span>, data <span class="op">=</span> <span class="va">nodes</span>, filterable <span class="op">=</span> <span class="cn">TRUE</span>, width <span class="op">=</span> <span class="st">"240px"</span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
   <div id="filterable-ts_filter" data-shiny-vue style="display: contents">
@@ -336,13 +445,36 @@ node.</p>
 <p>The default slot, scoped with <code>data</code>, draws each node.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">nodes</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>value <span class="op">=</span> <span class="st">"1"</span>, label <span class="op">=</span> <span class="st">"Level one 1"</span>, children <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
-<span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>value <span class="op">=</span> <span class="st">"1-1"</span>, label <span class="op">=</span> <span class="st">"Level two 1-1"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>,</span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>value <span class="op">=</span> <span class="st">"2"</span>, label <span class="op">=</span> <span class="st">"Level one 2"</span>, children <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
-<span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>value <span class="op">=</span> <span class="st">"2-1"</span>, label <span class="op">=</span> <span class="st">"Level two 2-1"</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>value <span class="op">=</span> <span class="st">"2-2"</span>, label <span class="op">=</span> <span class="st">"Level two 2-2"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="fu"><a href="../../reference/el_tree_select.html">el_tree_select</a></span><span class="op">(</span><span class="st">"ts_slots"</span>, data <span class="op">=</span> <span class="va">nodes</span>, width <span class="op">=</span> <span class="st">"240px"</span>, slots <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>default <span class="op">=</span> <span class="fu"><a href="../../reference/template.html">template</a></span><span class="op">(</span></span>
-<span>  <span class="va">tags</span><span class="op">$</span><span class="fu">span</span><span class="op">(</span><span class="st">"{{ data.label }}"</span>, <span class="va">tags</span><span class="op">$</span><span class="fu">span</span><span class="op">(</span>style <span class="op">=</span> <span class="st">"color: gray"</span>, <span class="st">"({{ data.value }})"</span><span class="op">)</span><span class="op">)</span>,</span>
-<span>  scope <span class="op">=</span> <span class="st">"{ data }"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>    value <span class="op">=</span> <span class="st">"1"</span>,</span>
+<span>    label <span class="op">=</span> <span class="st">"Level one 1"</span>,</span>
+<span>    children <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>      <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>value <span class="op">=</span> <span class="st">"1-1"</span>, label <span class="op">=</span> <span class="st">"Level two 1-1"</span><span class="op">)</span></span>
+<span>    <span class="op">)</span></span>
+<span>  <span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>    value <span class="op">=</span> <span class="st">"2"</span>,</span>
+<span>    label <span class="op">=</span> <span class="st">"Level one 2"</span>,</span>
+<span>    children <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>      <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>value <span class="op">=</span> <span class="st">"2-1"</span>, label <span class="op">=</span> <span class="st">"Level two 2-1"</span><span class="op">)</span>,</span>
+<span>      <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>value <span class="op">=</span> <span class="st">"2-2"</span>, label <span class="op">=</span> <span class="st">"Level two 2-2"</span><span class="op">)</span></span>
+<span>    <span class="op">)</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">)</span></span>
+<span><span class="fu"><a href="../../reference/el_tree_select.html">el_tree_select</a></span><span class="op">(</span></span>
+<span>  <span class="st">"ts_slots"</span>,</span>
+<span>  data <span class="op">=</span> <span class="va">nodes</span>,</span>
+<span>  width <span class="op">=</span> <span class="st">"240px"</span>,</span>
+<span>  slots <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>    default <span class="op">=</span> <span class="fu"><a href="../../reference/template.html">template</a></span><span class="op">(</span></span>
+<span>      <span class="va">tags</span><span class="op">$</span><span class="fu">span</span><span class="op">(</span></span>
+<span>        <span class="st">"{{ data.label }}"</span>,</span>
+<span>        <span class="va">tags</span><span class="op">$</span><span class="fu">span</span><span class="op">(</span>style <span class="op">=</span> <span class="st">"color: gray"</span>, <span class="st">"({{ data.value }})"</span><span class="op">)</span></span>
+<span>      <span class="op">)</span>,</span>
+<span>      scope <span class="op">=</span> <span class="st">"{ data }"</span></span>
+<span>    <span class="op">)</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
   <div id="slots-ts_slots" data-shiny-vue style="display: contents">
     <script type="text/x-template" data-shiny-vue-template><div id="slots-ts_slots_container" style="display: contents">
@@ -387,10 +519,25 @@ object value.</li>
 names one.</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">nodes</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>id <span class="op">=</span> <span class="fl">1</span>, label <span class="op">=</span> <span class="st">"Level one 1"</span>, children <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>id <span class="op">=</span> <span class="fl">3</span>, label <span class="op">=</span> <span class="st">"Level two 1-1"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>,</span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>id <span class="op">=</span> <span class="fl">2</span>, label <span class="op">=</span> <span class="st">"Level one 2"</span>, children <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>id <span class="op">=</span> <span class="fl">4</span>, label <span class="op">=</span> <span class="st">"Level two 1-1"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="fu"><a href="../../reference/el_tree_select.html">el_tree_select</a></span><span class="op">(</span><span class="st">"ts_key"</span>, data <span class="op">=</span> <span class="va">nodes</span>, node_key <span class="op">=</span> <span class="st">"id"</span>, value <span class="op">=</span> <span class="fl">4</span>, width <span class="op">=</span> <span class="st">"240px"</span>,</span>
-<span>               props <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>label <span class="op">=</span> <span class="st">"label"</span>, children <span class="op">=</span> <span class="st">"children"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>    id <span class="op">=</span> <span class="fl">1</span>,</span>
+<span>    label <span class="op">=</span> <span class="st">"Level one 1"</span>,</span>
+<span>    children <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>id <span class="op">=</span> <span class="fl">3</span>, label <span class="op">=</span> <span class="st">"Level two 1-1"</span><span class="op">)</span><span class="op">)</span></span>
+<span>  <span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>    id <span class="op">=</span> <span class="fl">2</span>,</span>
+<span>    label <span class="op">=</span> <span class="st">"Level one 2"</span>,</span>
+<span>    children <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>id <span class="op">=</span> <span class="fl">4</span>, label <span class="op">=</span> <span class="st">"Level two 1-1"</span><span class="op">)</span><span class="op">)</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">)</span></span>
+<span><span class="fu"><a href="../../reference/el_tree_select.html">el_tree_select</a></span><span class="op">(</span></span>
+<span>  <span class="st">"ts_key"</span>,</span>
+<span>  data <span class="op">=</span> <span class="va">nodes</span>,</span>
+<span>  node_key <span class="op">=</span> <span class="st">"id"</span>,</span>
+<span>  value <span class="op">=</span> <span class="fl">4</span>,</span>
+<span>  width <span class="op">=</span> <span class="st">"240px"</span>,</span>
+<span>  props <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>label <span class="op">=</span> <span class="st">"label"</span>, children <span class="op">=</span> <span class="st">"children"</span><span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
   <div id="node-key-ts_key" data-shiny-vue style="display: contents">
     <script type="text/x-template" data-shiny-vue-template><div id="node-key-ts_key_container" style="display: contents">

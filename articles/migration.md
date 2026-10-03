@@ -31,8 +31,11 @@ use instead: `"medium"` becomes `"default"`, `"mini"` becomes `"small"`.
 
 ``` r
 
-tagList(el_button("l", "Large", size = "large"), el_button("d", "Default"),
-        el_button("s", "Small", size = "small"))
+tagList(
+  el_button("l", "Large", size = "large"),
+  el_button("d", "Default"),
+  el_button("s", "Small", size = "small")
+)
 ```
 
 **Text buttons.** Element UI’s `type = "text"` button is `link = TRUE`
@@ -41,9 +44,11 @@ Element Plus; `type` keeps the colour.
 
 ``` r
 
-tagList(el_button("a", "Link button", link = TRUE, type = "primary"),
-        el_button("b", "Text button", text = TRUE),
-        el_button("c", "Text, filled", text = TRUE, bg = TRUE))
+tagList(
+  el_button("a", "Link button", link = TRUE, type = "primary"),
+  el_button("b", "Text button", text = TRUE),
+  el_button("c", "Text, filled", text = TRUE, bg = TRUE)
+)
 ```
 
 **Dependencies.** `element_ui_dependency()` is

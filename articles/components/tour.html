@@ -196,16 +196,38 @@ tour with <code><a href="../../reference/update_el_tour.html">update_el_tour()</
 <code class="sourceCode R"><span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/el_page.html">el_page</a></span><span class="op">(</span></span>
 <span>  <span class="fu"><a href="../../reference/el_button.html">el_button</a></span><span class="op">(</span><span class="st">"begin"</span>, <span class="st">"Begin Tour"</span>, type <span class="op">=</span> <span class="st">"primary"</span><span class="op">)</span>,</span>
 <span>  <span class="fu"><a href="../../reference/el_divider.html">el_divider</a></span><span class="op">(</span><span class="op">)</span>,</span>
-<span>  <span class="fu"><a href="../../reference/el_space.html">el_space</a></span><span class="op">(</span><span class="va">tags</span><span class="op">$</span><span class="fu">span</span><span class="op">(</span>id <span class="op">=</span> <span class="st">"t_up"</span>, <span class="fu"><a href="../../reference/el_button.html">el_button</a></span><span class="op">(</span><span class="st">"up"</span>, <span class="st">"Upload"</span><span class="op">)</span><span class="op">)</span>,</span>
-<span>           <span class="va">tags</span><span class="op">$</span><span class="fu">span</span><span class="op">(</span>id <span class="op">=</span> <span class="st">"t_save"</span>, <span class="fu"><a href="../../reference/el_button.html">el_button</a></span><span class="op">(</span><span class="st">"save"</span>, <span class="st">"Save"</span>, type <span class="op">=</span> <span class="st">"primary"</span><span class="op">)</span><span class="op">)</span>,</span>
-<span>           <span class="va">tags</span><span class="op">$</span><span class="fu">span</span><span class="op">(</span>id <span class="op">=</span> <span class="st">"t_more"</span>, <span class="fu"><a href="../../reference/el_button.html">el_button</a></span><span class="op">(</span><span class="st">"more"</span>, <span class="st">""</span>, icon <span class="op">=</span> <span class="st">"MoreFilled"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>,</span>
-<span>  <span class="fu"><a href="../../reference/el_tour.html">el_tour</a></span><span class="op">(</span><span class="st">"tour"</span>, steps <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
-<span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>target <span class="op">=</span> <span class="st">"#t_up"</span>, title <span class="op">=</span> <span class="st">"Upload File"</span>, description <span class="op">=</span> <span class="st">"Put you files here."</span><span class="op">)</span>,</span>
-<span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>target <span class="op">=</span> <span class="st">"#t_save"</span>, title <span class="op">=</span> <span class="st">"Save"</span>, description <span class="op">=</span> <span class="st">"Save your changes"</span><span class="op">)</span>,</span>
-<span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>target <span class="op">=</span> <span class="st">"#t_more"</span>, title <span class="op">=</span> <span class="st">"Other Actions"</span>, description <span class="op">=</span> <span class="st">"Click to see other"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
+<span>  <span class="fu"><a href="../../reference/el_space.html">el_space</a></span><span class="op">(</span></span>
+<span>    <span class="va">tags</span><span class="op">$</span><span class="fu">span</span><span class="op">(</span>id <span class="op">=</span> <span class="st">"t_up"</span>, <span class="fu"><a href="../../reference/el_button.html">el_button</a></span><span class="op">(</span><span class="st">"up"</span>, <span class="st">"Upload"</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>    <span class="va">tags</span><span class="op">$</span><span class="fu">span</span><span class="op">(</span>id <span class="op">=</span> <span class="st">"t_save"</span>, <span class="fu"><a href="../../reference/el_button.html">el_button</a></span><span class="op">(</span><span class="st">"save"</span>, <span class="st">"Save"</span>, type <span class="op">=</span> <span class="st">"primary"</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>    <span class="va">tags</span><span class="op">$</span><span class="fu">span</span><span class="op">(</span>id <span class="op">=</span> <span class="st">"t_more"</span>, <span class="fu"><a href="../../reference/el_button.html">el_button</a></span><span class="op">(</span><span class="st">"more"</span>, <span class="st">""</span>, icon <span class="op">=</span> <span class="st">"MoreFilled"</span><span class="op">)</span><span class="op">)</span></span>
+<span>  <span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="../../reference/el_tour.html">el_tour</a></span><span class="op">(</span></span>
+<span>    <span class="st">"tour"</span>,</span>
+<span>    steps <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>      <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>        target <span class="op">=</span> <span class="st">"#t_up"</span>,</span>
+<span>        title <span class="op">=</span> <span class="st">"Upload File"</span>,</span>
+<span>        description <span class="op">=</span> <span class="st">"Put you files here."</span></span>
+<span>      <span class="op">)</span>,</span>
+<span>      <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>        target <span class="op">=</span> <span class="st">"#t_save"</span>,</span>
+<span>        title <span class="op">=</span> <span class="st">"Save"</span>,</span>
+<span>        description <span class="op">=</span> <span class="st">"Save your changes"</span></span>
+<span>      <span class="op">)</span>,</span>
+<span>      <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>        target <span class="op">=</span> <span class="st">"#t_more"</span>,</span>
+<span>        title <span class="op">=</span> <span class="st">"Other Actions"</span>,</span>
+<span>        description <span class="op">=</span> <span class="st">"Click to see other"</span></span>
+<span>      <span class="op">)</span></span>
+<span>    <span class="op">)</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">server</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span>, <span class="va">session</span><span class="op">)</span> <span class="op">{</span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/observeEvent.html" class="external-link">observeEvent</a></span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">begin</span>, <span class="fu"><a href="../../reference/update_el_tour.html">update_el_tour</a></span><span class="op">(</span>id <span class="op">=</span> <span class="st">"tour"</span>, open <span class="op">=</span> <span class="cn">TRUE</span>, current <span class="op">=</span> <span class="fl">0</span><span class="op">)</span><span class="op">)</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/observeEvent.html" class="external-link">observeEvent</a></span><span class="op">(</span></span>
+<span>    <span class="va">input</span><span class="op">$</span><span class="va">begin</span>,</span>
+<span>    <span class="fu"><a href="../../reference/update_el_tour.html">update_el_tour</a></span><span class="op">(</span>id <span class="op">=</span> <span class="st">"tour"</span>, open <span class="op">=</span> <span class="cn">TRUE</span>, current <span class="op">=</span> <span class="fl">0</span><span class="op">)</span></span>
+<span>  <span class="op">)</span></span>
 <span><span class="op">}</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/shinyApp.html" class="external-link">shinyApp</a></span><span class="op">(</span><span class="va">ui</span>, <span class="va">server</span><span class="op">)</span></span></code></pre></div>
@@ -223,16 +245,40 @@ emphasize the guide itself.</p>
 <code class="sourceCode R"><span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/el_page.html">el_page</a></span><span class="op">(</span></span>
 <span>  <span class="fu"><a href="../../reference/el_button.html">el_button</a></span><span class="op">(</span><span class="st">"begin"</span>, <span class="st">"Begin Tour"</span>, type <span class="op">=</span> <span class="st">"primary"</span><span class="op">)</span>,</span>
 <span>  <span class="fu"><a href="../../reference/el_divider.html">el_divider</a></span><span class="op">(</span><span class="op">)</span>,</span>
-<span>  <span class="fu"><a href="../../reference/el_space.html">el_space</a></span><span class="op">(</span><span class="va">tags</span><span class="op">$</span><span class="fu">span</span><span class="op">(</span>id <span class="op">=</span> <span class="st">"t_up"</span>, <span class="fu"><a href="../../reference/el_button.html">el_button</a></span><span class="op">(</span><span class="st">"up"</span>, <span class="st">"Upload"</span><span class="op">)</span><span class="op">)</span>,</span>
-<span>           <span class="va">tags</span><span class="op">$</span><span class="fu">span</span><span class="op">(</span>id <span class="op">=</span> <span class="st">"t_save"</span>, <span class="fu"><a href="../../reference/el_button.html">el_button</a></span><span class="op">(</span><span class="st">"save"</span>, <span class="st">"Save"</span>, type <span class="op">=</span> <span class="st">"primary"</span><span class="op">)</span><span class="op">)</span>,</span>
-<span>           <span class="va">tags</span><span class="op">$</span><span class="fu">span</span><span class="op">(</span>id <span class="op">=</span> <span class="st">"t_more"</span>, <span class="fu"><a href="../../reference/el_button.html">el_button</a></span><span class="op">(</span><span class="st">"more"</span>, <span class="st">""</span>, icon <span class="op">=</span> <span class="st">"MoreFilled"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>,</span>
-<span>  <span class="fu"><a href="../../reference/el_tour.html">el_tour</a></span><span class="op">(</span><span class="st">"tour"</span>, type <span class="op">=</span> <span class="st">"primary"</span>, mask <span class="op">=</span> <span class="cn">FALSE</span>, steps <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
-<span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>target <span class="op">=</span> <span class="st">"#t_up"</span>, title <span class="op">=</span> <span class="st">"Upload File"</span>, description <span class="op">=</span> <span class="st">"Put you files here."</span><span class="op">)</span>,</span>
-<span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>target <span class="op">=</span> <span class="st">"#t_save"</span>, title <span class="op">=</span> <span class="st">"Save"</span>, description <span class="op">=</span> <span class="st">"Save your changes"</span><span class="op">)</span>,</span>
-<span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>target <span class="op">=</span> <span class="st">"#t_more"</span>, title <span class="op">=</span> <span class="st">"Other Actions"</span>, description <span class="op">=</span> <span class="st">"Click to see other"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
+<span>  <span class="fu"><a href="../../reference/el_space.html">el_space</a></span><span class="op">(</span></span>
+<span>    <span class="va">tags</span><span class="op">$</span><span class="fu">span</span><span class="op">(</span>id <span class="op">=</span> <span class="st">"t_up"</span>, <span class="fu"><a href="../../reference/el_button.html">el_button</a></span><span class="op">(</span><span class="st">"up"</span>, <span class="st">"Upload"</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>    <span class="va">tags</span><span class="op">$</span><span class="fu">span</span><span class="op">(</span>id <span class="op">=</span> <span class="st">"t_save"</span>, <span class="fu"><a href="../../reference/el_button.html">el_button</a></span><span class="op">(</span><span class="st">"save"</span>, <span class="st">"Save"</span>, type <span class="op">=</span> <span class="st">"primary"</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>    <span class="va">tags</span><span class="op">$</span><span class="fu">span</span><span class="op">(</span>id <span class="op">=</span> <span class="st">"t_more"</span>, <span class="fu"><a href="../../reference/el_button.html">el_button</a></span><span class="op">(</span><span class="st">"more"</span>, <span class="st">""</span>, icon <span class="op">=</span> <span class="st">"MoreFilled"</span><span class="op">)</span><span class="op">)</span></span>
+<span>  <span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="../../reference/el_tour.html">el_tour</a></span><span class="op">(</span></span>
+<span>    <span class="st">"tour"</span>,</span>
+<span>    type <span class="op">=</span> <span class="st">"primary"</span>,</span>
+<span>    mask <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>    steps <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>      <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>        target <span class="op">=</span> <span class="st">"#t_up"</span>,</span>
+<span>        title <span class="op">=</span> <span class="st">"Upload File"</span>,</span>
+<span>        description <span class="op">=</span> <span class="st">"Put you files here."</span></span>
+<span>      <span class="op">)</span>,</span>
+<span>      <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>        target <span class="op">=</span> <span class="st">"#t_save"</span>,</span>
+<span>        title <span class="op">=</span> <span class="st">"Save"</span>,</span>
+<span>        description <span class="op">=</span> <span class="st">"Save your changes"</span></span>
+<span>      <span class="op">)</span>,</span>
+<span>      <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>        target <span class="op">=</span> <span class="st">"#t_more"</span>,</span>
+<span>        title <span class="op">=</span> <span class="st">"Other Actions"</span>,</span>
+<span>        description <span class="op">=</span> <span class="st">"Click to see other"</span></span>
+<span>      <span class="op">)</span></span>
+<span>    <span class="op">)</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">server</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span>, <span class="va">session</span><span class="op">)</span> <span class="op">{</span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/observeEvent.html" class="external-link">observeEvent</a></span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">begin</span>, <span class="fu"><a href="../../reference/update_el_tour.html">update_el_tour</a></span><span class="op">(</span>id <span class="op">=</span> <span class="st">"tour"</span>, open <span class="op">=</span> <span class="cn">TRUE</span>, current <span class="op">=</span> <span class="fl">0</span><span class="op">)</span><span class="op">)</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/observeEvent.html" class="external-link">observeEvent</a></span><span class="op">(</span></span>
+<span>    <span class="va">input</span><span class="op">$</span><span class="va">begin</span>,</span>
+<span>    <span class="fu"><a href="../../reference/update_el_tour.html">update_el_tour</a></span><span class="op">(</span>id <span class="op">=</span> <span class="st">"tour"</span>, open <span class="op">=</span> <span class="cn">TRUE</span>, current <span class="op">=</span> <span class="fl">0</span><span class="op">)</span></span>
+<span>  <span class="op">)</span></span>
 <span><span class="op">}</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/shinyApp.html" class="external-link">shinyApp</a></span><span class="op">(</span><span class="va">ui</span>, <span class="va">server</span><span class="op">)</span></span></code></pre></div>
@@ -247,13 +293,34 @@ will show in the center.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/el_page.html">el_page</a></span><span class="op">(</span></span>
 <span>  <span class="va">tags</span><span class="op">$</span><span class="fu">span</span><span class="op">(</span>id <span class="op">=</span> <span class="st">"t_btn"</span>, <span class="fu"><a href="../../reference/el_button.html">el_button</a></span><span class="op">(</span><span class="st">"begin"</span>, <span class="st">"Begin Tour"</span>, type <span class="op">=</span> <span class="st">"primary"</span><span class="op">)</span><span class="op">)</span>,</span>
-<span>  <span class="fu"><a href="../../reference/el_tour.html">el_tour</a></span><span class="op">(</span><span class="st">"tour"</span>, steps <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
-<span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Center"</span>, description <span class="op">=</span> <span class="st">"Displayed in the center of screen."</span><span class="op">)</span>,</span>
-<span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Right"</span>, description <span class="op">=</span> <span class="st">"On the right of target."</span>, placement <span class="op">=</span> <span class="st">"right"</span>, target <span class="op">=</span> <span class="st">"#t_btn"</span><span class="op">)</span>,</span>
-<span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Top"</span>, description <span class="op">=</span> <span class="st">"On the top of target."</span>, placement <span class="op">=</span> <span class="st">"top"</span>, target <span class="op">=</span> <span class="st">"#t_btn"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
+<span>  <span class="fu"><a href="../../reference/el_tour.html">el_tour</a></span><span class="op">(</span></span>
+<span>    <span class="st">"tour"</span>,</span>
+<span>    steps <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>      <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>        title <span class="op">=</span> <span class="st">"Center"</span>,</span>
+<span>        description <span class="op">=</span> <span class="st">"Displayed in the center of screen."</span></span>
+<span>      <span class="op">)</span>,</span>
+<span>      <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>        title <span class="op">=</span> <span class="st">"Right"</span>,</span>
+<span>        description <span class="op">=</span> <span class="st">"On the right of target."</span>,</span>
+<span>        placement <span class="op">=</span> <span class="st">"right"</span>,</span>
+<span>        target <span class="op">=</span> <span class="st">"#t_btn"</span></span>
+<span>      <span class="op">)</span>,</span>
+<span>      <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>        title <span class="op">=</span> <span class="st">"Top"</span>,</span>
+<span>        description <span class="op">=</span> <span class="st">"On the top of target."</span>,</span>
+<span>        placement <span class="op">=</span> <span class="st">"top"</span>,</span>
+<span>        target <span class="op">=</span> <span class="st">"#t_btn"</span></span>
+<span>      <span class="op">)</span></span>
+<span>    <span class="op">)</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">server</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span>, <span class="va">session</span><span class="op">)</span> <span class="op">{</span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/observeEvent.html" class="external-link">observeEvent</a></span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">begin</span>, <span class="fu"><a href="../../reference/update_el_tour.html">update_el_tour</a></span><span class="op">(</span>id <span class="op">=</span> <span class="st">"tour"</span>, open <span class="op">=</span> <span class="cn">TRUE</span>, current <span class="op">=</span> <span class="fl">0</span><span class="op">)</span><span class="op">)</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/observeEvent.html" class="external-link">observeEvent</a></span><span class="op">(</span></span>
+<span>    <span class="va">input</span><span class="op">$</span><span class="va">begin</span>,</span>
+<span>    <span class="fu"><a href="../../reference/update_el_tour.html">update_el_tour</a></span><span class="op">(</span>id <span class="op">=</span> <span class="st">"tour"</span>, open <span class="op">=</span> <span class="cn">TRUE</span>, current <span class="op">=</span> <span class="fl">0</span><span class="op">)</span></span>
+<span>  <span class="op">)</span></span>
 <span><span class="op">}</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/shinyApp.html" class="external-link">shinyApp</a></span><span class="op">(</span><span class="va">ui</span>, <span class="va">server</span><span class="op">)</span></span></code></pre></div>
@@ -269,17 +336,40 @@ and <code>color</code>.</p>
 <code class="sourceCode R"><span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/el_page.html">el_page</a></span><span class="op">(</span></span>
 <span>  <span class="fu"><a href="../../reference/el_button.html">el_button</a></span><span class="op">(</span><span class="st">"begin"</span>, <span class="st">"Begin Tour"</span>, type <span class="op">=</span> <span class="st">"primary"</span><span class="op">)</span>,</span>
 <span>  <span class="fu"><a href="../../reference/el_divider.html">el_divider</a></span><span class="op">(</span><span class="op">)</span>,</span>
-<span>  <span class="fu"><a href="../../reference/el_space.html">el_space</a></span><span class="op">(</span><span class="va">tags</span><span class="op">$</span><span class="fu">span</span><span class="op">(</span>id <span class="op">=</span> <span class="st">"t_up"</span>, <span class="fu"><a href="../../reference/el_button.html">el_button</a></span><span class="op">(</span><span class="st">"up"</span>, <span class="st">"Upload"</span><span class="op">)</span><span class="op">)</span>,</span>
-<span>           <span class="va">tags</span><span class="op">$</span><span class="fu">span</span><span class="op">(</span>id <span class="op">=</span> <span class="st">"t_save"</span>, <span class="fu"><a href="../../reference/el_button.html">el_button</a></span><span class="op">(</span><span class="st">"save"</span>, <span class="st">"Save"</span>, type <span class="op">=</span> <span class="st">"primary"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>,</span>
-<span>  <span class="fu"><a href="../../reference/el_tour.html">el_tour</a></span><span class="op">(</span><span class="st">"tour"</span>, mask <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>style <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>boxShadow <span class="op">=</span> <span class="st">"inset 0 0 15px #333"</span><span class="op">)</span>,</span>
-<span>                              color <span class="op">=</span> <span class="st">"rgba(80, 255, 255, .4)"</span><span class="op">)</span>, steps <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
-<span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>target <span class="op">=</span> <span class="st">"#t_up"</span>, title <span class="op">=</span> <span class="st">"Upload File"</span>, description <span class="op">=</span> <span class="st">"Put you files here."</span><span class="op">)</span>,</span>
-<span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>target <span class="op">=</span> <span class="st">"#t_save"</span>, title <span class="op">=</span> <span class="st">"Save"</span>, description <span class="op">=</span> <span class="st">"Save your changes"</span>,</span>
-<span>         mask <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>style <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>boxShadow <span class="op">=</span> <span class="st">"inset 0 0 15px #fff"</span><span class="op">)</span>,</span>
-<span>                     color <span class="op">=</span> <span class="st">"rgba(40, 0, 255, .4)"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
+<span>  <span class="fu"><a href="../../reference/el_space.html">el_space</a></span><span class="op">(</span></span>
+<span>    <span class="va">tags</span><span class="op">$</span><span class="fu">span</span><span class="op">(</span>id <span class="op">=</span> <span class="st">"t_up"</span>, <span class="fu"><a href="../../reference/el_button.html">el_button</a></span><span class="op">(</span><span class="st">"up"</span>, <span class="st">"Upload"</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>    <span class="va">tags</span><span class="op">$</span><span class="fu">span</span><span class="op">(</span>id <span class="op">=</span> <span class="st">"t_save"</span>, <span class="fu"><a href="../../reference/el_button.html">el_button</a></span><span class="op">(</span><span class="st">"save"</span>, <span class="st">"Save"</span>, type <span class="op">=</span> <span class="st">"primary"</span><span class="op">)</span><span class="op">)</span></span>
+<span>  <span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="../../reference/el_tour.html">el_tour</a></span><span class="op">(</span></span>
+<span>    <span class="st">"tour"</span>,</span>
+<span>    mask <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>      style <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>boxShadow <span class="op">=</span> <span class="st">"inset 0 0 15px #333"</span><span class="op">)</span>,</span>
+<span>      color <span class="op">=</span> <span class="st">"rgba(80, 255, 255, .4)"</span></span>
+<span>    <span class="op">)</span>,</span>
+<span>    steps <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>      <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>        target <span class="op">=</span> <span class="st">"#t_up"</span>,</span>
+<span>        title <span class="op">=</span> <span class="st">"Upload File"</span>,</span>
+<span>        description <span class="op">=</span> <span class="st">"Put you files here."</span></span>
+<span>      <span class="op">)</span>,</span>
+<span>      <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>        target <span class="op">=</span> <span class="st">"#t_save"</span>,</span>
+<span>        title <span class="op">=</span> <span class="st">"Save"</span>,</span>
+<span>        description <span class="op">=</span> <span class="st">"Save your changes"</span>,</span>
+<span>        mask <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>          style <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>boxShadow <span class="op">=</span> <span class="st">"inset 0 0 15px #fff"</span><span class="op">)</span>,</span>
+<span>          color <span class="op">=</span> <span class="st">"rgba(40, 0, 255, .4)"</span></span>
+<span>        <span class="op">)</span></span>
+<span>      <span class="op">)</span></span>
+<span>    <span class="op">)</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">server</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span>, <span class="va">session</span><span class="op">)</span> <span class="op">{</span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/observeEvent.html" class="external-link">observeEvent</a></span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">begin</span>, <span class="fu"><a href="../../reference/update_el_tour.html">update_el_tour</a></span><span class="op">(</span>id <span class="op">=</span> <span class="st">"tour"</span>, open <span class="op">=</span> <span class="cn">TRUE</span>, current <span class="op">=</span> <span class="fl">0</span><span class="op">)</span><span class="op">)</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/observeEvent.html" class="external-link">observeEvent</a></span><span class="op">(</span></span>
+<span>    <span class="va">input</span><span class="op">$</span><span class="va">begin</span>,</span>
+<span>    <span class="fu"><a href="../../reference/update_el_tour.html">update_el_tour</a></span><span class="op">(</span>id <span class="op">=</span> <span class="st">"tour"</span>, open <span class="op">=</span> <span class="cn">TRUE</span>, current <span class="op">=</span> <span class="fl">0</span><span class="op">)</span></span>
+<span>  <span class="op">)</span></span>
 <span><span class="op">}</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/shinyApp.html" class="external-link">shinyApp</a></span><span class="op">(</span><span class="va">ui</span>, <span class="va">server</span><span class="op">)</span></span></code></pre></div>
@@ -295,16 +385,39 @@ and <code>color</code>.</p>
 <code class="sourceCode R"><span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/el_page.html">el_page</a></span><span class="op">(</span></span>
 <span>  <span class="fu"><a href="../../reference/el_button.html">el_button</a></span><span class="op">(</span><span class="st">"begin"</span>, <span class="st">"Begin Tour"</span>, type <span class="op">=</span> <span class="st">"primary"</span><span class="op">)</span>,</span>
 <span>  <span class="fu"><a href="../../reference/el_divider.html">el_divider</a></span><span class="op">(</span><span class="op">)</span>,</span>
-<span>  <span class="fu"><a href="../../reference/el_space.html">el_space</a></span><span class="op">(</span><span class="va">tags</span><span class="op">$</span><span class="fu">span</span><span class="op">(</span>id <span class="op">=</span> <span class="st">"t_up"</span>, <span class="fu"><a href="../../reference/el_button.html">el_button</a></span><span class="op">(</span><span class="st">"up"</span>, <span class="st">"Upload"</span><span class="op">)</span><span class="op">)</span>,</span>
-<span>           <span class="va">tags</span><span class="op">$</span><span class="fu">span</span><span class="op">(</span>id <span class="op">=</span> <span class="st">"t_save"</span>, <span class="fu"><a href="../../reference/el_button.html">el_button</a></span><span class="op">(</span><span class="st">"save"</span>, <span class="st">"Save"</span>, type <span class="op">=</span> <span class="st">"primary"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>,</span>
-<span>  <span class="fu"><a href="../../reference/el_tour.html">el_tour</a></span><span class="op">(</span><span class="st">"tour"</span>, steps <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
-<span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>target <span class="op">=</span> <span class="st">"#t_up"</span>, title <span class="op">=</span> <span class="st">"Upload File"</span>, description <span class="op">=</span> <span class="st">"Put you files here."</span><span class="op">)</span>,</span>
-<span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>target <span class="op">=</span> <span class="st">"#t_save"</span>, title <span class="op">=</span> <span class="st">"Save"</span>, description <span class="op">=</span> <span class="st">"Save your changes"</span><span class="op">)</span><span class="op">)</span>,</span>
-<span>    slots <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>indicators <span class="op">=</span> <span class="fu"><a href="../../reference/template.html">template</a></span><span class="op">(</span><span class="va">tags</span><span class="op">$</span><span class="fu">span</span><span class="op">(</span><span class="st">"{{ current + 1 }} / {{ total }}"</span><span class="op">)</span>,</span>
-<span>                                       slot <span class="op">=</span> <span class="st">"indicators"</span>, scope <span class="op">=</span> <span class="st">"{ current, total }"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
+<span>  <span class="fu"><a href="../../reference/el_space.html">el_space</a></span><span class="op">(</span></span>
+<span>    <span class="va">tags</span><span class="op">$</span><span class="fu">span</span><span class="op">(</span>id <span class="op">=</span> <span class="st">"t_up"</span>, <span class="fu"><a href="../../reference/el_button.html">el_button</a></span><span class="op">(</span><span class="st">"up"</span>, <span class="st">"Upload"</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>    <span class="va">tags</span><span class="op">$</span><span class="fu">span</span><span class="op">(</span>id <span class="op">=</span> <span class="st">"t_save"</span>, <span class="fu"><a href="../../reference/el_button.html">el_button</a></span><span class="op">(</span><span class="st">"save"</span>, <span class="st">"Save"</span>, type <span class="op">=</span> <span class="st">"primary"</span><span class="op">)</span><span class="op">)</span></span>
+<span>  <span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="../../reference/el_tour.html">el_tour</a></span><span class="op">(</span></span>
+<span>    <span class="st">"tour"</span>,</span>
+<span>    steps <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>      <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>        target <span class="op">=</span> <span class="st">"#t_up"</span>,</span>
+<span>        title <span class="op">=</span> <span class="st">"Upload File"</span>,</span>
+<span>        description <span class="op">=</span> <span class="st">"Put you files here."</span></span>
+<span>      <span class="op">)</span>,</span>
+<span>      <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>        target <span class="op">=</span> <span class="st">"#t_save"</span>,</span>
+<span>        title <span class="op">=</span> <span class="st">"Save"</span>,</span>
+<span>        description <span class="op">=</span> <span class="st">"Save your changes"</span></span>
+<span>      <span class="op">)</span></span>
+<span>    <span class="op">)</span>,</span>
+<span>    slots <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>      indicators <span class="op">=</span> <span class="fu"><a href="../../reference/template.html">template</a></span><span class="op">(</span></span>
+<span>        <span class="va">tags</span><span class="op">$</span><span class="fu">span</span><span class="op">(</span><span class="st">"{{ current + 1 }} / {{ total }}"</span><span class="op">)</span>,</span>
+<span>        slot <span class="op">=</span> <span class="st">"indicators"</span>,</span>
+<span>        scope <span class="op">=</span> <span class="st">"{ current, total }"</span></span>
+<span>      <span class="op">)</span></span>
+<span>    <span class="op">)</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">server</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span>, <span class="va">session</span><span class="op">)</span> <span class="op">{</span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/observeEvent.html" class="external-link">observeEvent</a></span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">begin</span>, <span class="fu"><a href="../../reference/update_el_tour.html">update_el_tour</a></span><span class="op">(</span>id <span class="op">=</span> <span class="st">"tour"</span>, open <span class="op">=</span> <span class="cn">TRUE</span>, current <span class="op">=</span> <span class="fl">0</span><span class="op">)</span><span class="op">)</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/observeEvent.html" class="external-link">observeEvent</a></span><span class="op">(</span></span>
+<span>    <span class="va">input</span><span class="op">$</span><span class="va">begin</span>,</span>
+<span>    <span class="fu"><a href="../../reference/update_el_tour.html">update_el_tour</a></span><span class="op">(</span>id <span class="op">=</span> <span class="st">"tour"</span>, open <span class="op">=</span> <span class="cn">TRUE</span>, current <span class="op">=</span> <span class="fl">0</span><span class="op">)</span></span>
+<span>  <span class="op">)</span></span>
 <span><span class="op">}</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/shinyApp.html" class="external-link">shinyApp</a></span><span class="op">(</span><span class="va">ui</span>, <span class="va">server</span><span class="op">)</span></span></code></pre></div>
@@ -321,14 +434,38 @@ shown.</p>
 <code class="sourceCode R"><span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/el_page.html">el_page</a></span><span class="op">(</span></span>
 <span>  <span class="fu"><a href="../../reference/el_button.html">el_button</a></span><span class="op">(</span><span class="st">"begin"</span>, <span class="st">"Begin Tour"</span>, type <span class="op">=</span> <span class="st">"primary"</span><span class="op">)</span>,</span>
 <span>  <span class="fu"><a href="../../reference/el_divider.html">el_divider</a></span><span class="op">(</span><span class="op">)</span>,</span>
-<span>  <span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span>id <span class="op">=</span> <span class="st">"first"</span>, style <span class="op">=</span> <span class="st">"display: inline-block; padding: 8px; border: 1px dashed #ccc"</span>, <span class="st">"First"</span><span class="op">)</span>,</span>
-<span>  <span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span>class <span class="op">=</span> <span class="st">"second"</span>, style <span class="op">=</span> <span class="st">"display: inline-block; padding: 8px; border: 1px dashed #ccc"</span>, <span class="st">"Second"</span><span class="op">)</span>,</span>
-<span>  <span class="fu"><a href="../../reference/el_tour.html">el_tour</a></span><span class="op">(</span><span class="st">"tour"</span>, steps <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
-<span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>target <span class="op">=</span> <span class="st">"#first"</span>, title <span class="op">=</span> <span class="st">"By id"</span>, description <span class="op">=</span> <span class="st">"A selector for an id."</span><span class="op">)</span>,</span>
-<span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>target <span class="op">=</span> <span class="st">".second"</span>, title <span class="op">=</span> <span class="st">"By class"</span>, description <span class="op">=</span> <span class="st">"A selector for a class."</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
+<span>  <span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span></span>
+<span>    id <span class="op">=</span> <span class="st">"first"</span>,</span>
+<span>    style <span class="op">=</span> <span class="st">"display: inline-block; padding: 8px; border: 1px dashed #ccc"</span>,</span>
+<span>    <span class="st">"First"</span></span>
+<span>  <span class="op">)</span>,</span>
+<span>  <span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span></span>
+<span>    class <span class="op">=</span> <span class="st">"second"</span>,</span>
+<span>    style <span class="op">=</span> <span class="st">"display: inline-block; padding: 8px; border: 1px dashed #ccc"</span>,</span>
+<span>    <span class="st">"Second"</span></span>
+<span>  <span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="../../reference/el_tour.html">el_tour</a></span><span class="op">(</span></span>
+<span>    <span class="st">"tour"</span>,</span>
+<span>    steps <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>      <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>        target <span class="op">=</span> <span class="st">"#first"</span>,</span>
+<span>        title <span class="op">=</span> <span class="st">"By id"</span>,</span>
+<span>        description <span class="op">=</span> <span class="st">"A selector for an id."</span></span>
+<span>      <span class="op">)</span>,</span>
+<span>      <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>        target <span class="op">=</span> <span class="st">".second"</span>,</span>
+<span>        title <span class="op">=</span> <span class="st">"By class"</span>,</span>
+<span>        description <span class="op">=</span> <span class="st">"A selector for a class."</span></span>
+<span>      <span class="op">)</span></span>
+<span>    <span class="op">)</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">server</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span>, <span class="va">session</span><span class="op">)</span> <span class="op">{</span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/observeEvent.html" class="external-link">observeEvent</a></span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">begin</span>, <span class="fu"><a href="../../reference/update_el_tour.html">update_el_tour</a></span><span class="op">(</span>id <span class="op">=</span> <span class="st">"tour"</span>, open <span class="op">=</span> <span class="cn">TRUE</span>, current <span class="op">=</span> <span class="fl">0</span><span class="op">)</span><span class="op">)</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/observeEvent.html" class="external-link">observeEvent</a></span><span class="op">(</span></span>
+<span>    <span class="va">input</span><span class="op">$</span><span class="va">begin</span>,</span>
+<span>    <span class="fu"><a href="../../reference/update_el_tour.html">update_el_tour</a></span><span class="op">(</span>id <span class="op">=</span> <span class="st">"tour"</span>, open <span class="op">=</span> <span class="cn">TRUE</span>, current <span class="op">=</span> <span class="fl">0</span><span class="op">)</span></span>
+<span>  <span class="op">)</span></span>
 <span><span class="op">}</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/shinyApp.html" class="external-link">shinyApp</a></span><span class="op">(</span><span class="va">ui</span>, <span class="va">server</span><span class="op">)</span></span></code></pre></div>

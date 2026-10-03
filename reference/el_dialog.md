@@ -212,8 +212,12 @@ Callable with
 ## Examples
 
 ``` r
-el_dialog("d1", title = "Confirm", content = shiny::tags$p("Are you sure?"),
-          footer = el_button("ok", "OK", type = "primary"))
+el_dialog(
+  "d1",
+  title = "Confirm",
+  content = shiny::tags$p("Are you sure?"),
+  footer = el_button("ok", "OK", type = "primary")
+)
 #> <div id="d1" class="el-overlay" style="display:none;" data-el-overlay="dialog" data-visible="false" data-modal="true" data-mask-close="true" data-esc-close="true" data-lock-scroll="true" data-destroy-on-close="false">
 #>   <div class="el-overlay-dialog" role="dialog" aria-modal="true" aria-label="Confirm">
 #>     <div class="el-dialog" tabindex="-1" style="--el-dialog-width: 50%; --el-dialog-margin-top: 15vh;">
@@ -239,8 +243,12 @@ el_dialog("d1", title = "Confirm", content = shiny::tags$p("Are you sure?"),
 #> </div>
 
 # The body can hold other components
-el_dialog("d2", title = "Filters", draggable = TRUE,
-          content = shiny::tagList(el_input("q"), el_switch("live")))
+el_dialog(
+  "d2",
+  title = "Filters",
+  draggable = TRUE,
+  content = shiny::tagList(el_input("q"), el_switch("live"))
+)
 #> <div id="d2" class="el-overlay" style="display:none;" data-el-overlay="dialog" data-visible="false" data-modal="true" data-mask-close="true" data-esc-close="true" data-lock-scroll="true" data-draggable="true" data-destroy-on-close="false">
 #>   <div class="el-overlay-dialog" role="dialog" aria-modal="true" aria-label="Filters">
 #>     <div class="el-dialog is-draggable" tabindex="-1" style="--el-dialog-width: 50%; --el-dialog-margin-top: 15vh;">

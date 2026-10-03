@@ -226,8 +226,12 @@ form item; anything else on the control, e.g. <code>placeholder</code>, <code>mi
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu">el_form_field</span><span class="op">(</span><span class="st">"name"</span>, <span class="st">"input"</span>, label <span class="op">=</span> <span class="st">"Name"</span>,</span></span>
-<span class="r-in"><span>              rules <span class="op">=</span> <span class="fu"><a href="el_rule.html">el_rule</a></span><span class="op">(</span>required <span class="op">=</span> <span class="cn">TRUE</span>, message <span class="op">=</span> <span class="st">"Required"</span><span class="op">)</span><span class="op">)</span></span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu">el_form_field</span><span class="op">(</span></span></span>
+<span class="r-in"><span>  <span class="st">"name"</span>,</span></span>
+<span class="r-in"><span>  <span class="st">"input"</span>,</span></span>
+<span class="r-in"><span>  label <span class="op">=</span> <span class="st">"Name"</span>,</span></span>
+<span class="r-in"><span>  rules <span class="op">=</span> <span class="fu"><a href="el_rule.html">el_rule</a></span><span class="op">(</span>required <span class="op">=</span> <span class="cn">TRUE</span>, message <span class="op">=</span> <span class="st">"Required"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $prop</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "name"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
@@ -256,8 +260,14 @@ form item; anything else on the control, e.g. <code>placeholder</code>, <code>mi
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-in"><span><span class="fu">el_form_field</span><span class="op">(</span><span class="st">"age"</span>, <span class="st">"input-number"</span>, label <span class="op">=</span> <span class="st">"Age"</span>, value <span class="op">=</span> <span class="fl">18</span>,</span></span>
-<span class="r-in"><span>              min <span class="op">=</span> <span class="fl">0</span>, max <span class="op">=</span> <span class="fl">150</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">el_form_field</span><span class="op">(</span></span></span>
+<span class="r-in"><span>  <span class="st">"age"</span>,</span></span>
+<span class="r-in"><span>  <span class="st">"input-number"</span>,</span></span>
+<span class="r-in"><span>  label <span class="op">=</span> <span class="st">"Age"</span>,</span></span>
+<span class="r-in"><span>  value <span class="op">=</span> <span class="fl">18</span>,</span></span>
+<span class="r-in"><span>  min <span class="op">=</span> <span class="fl">0</span>,</span></span>
+<span class="r-in"><span>  max <span class="op">=</span> <span class="fl">150</span></span></span>
+<span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $prop</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "age"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
@@ -281,8 +291,12 @@ form item; anything else on the control, e.g. <code>placeholder</code>, <code>mi
 <span class="r-out co"><span class="r-pr">#&gt;</span> $rules</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> NULL</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-in"><span><span class="fu">el_form_field</span><span class="op">(</span><span class="st">"city"</span>, <span class="st">"select"</span>, label <span class="op">=</span> <span class="st">"City"</span>,</span></span>
-<span class="r-in"><span>              choices <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>Beijing <span class="op">=</span> <span class="st">"bj"</span>, Shanghai <span class="op">=</span> <span class="st">"sh"</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">el_form_field</span><span class="op">(</span></span></span>
+<span class="r-in"><span>  <span class="st">"city"</span>,</span></span>
+<span class="r-in"><span>  <span class="st">"select"</span>,</span></span>
+<span class="r-in"><span>  label <span class="op">=</span> <span class="st">"City"</span>,</span></span>
+<span class="r-in"><span>  choices <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>Beijing <span class="op">=</span> <span class="st">"bj"</span>, Shanghai <span class="op">=</span> <span class="st">"sh"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $prop</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "city"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>

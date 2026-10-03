@@ -195,11 +195,15 @@ el_menu(
   active = "home",
   items = list(
     list(index = "home", label = "Home", icon = "House"),
-    list(index = "products", label = "Products", icon = "Goods",
-         children = list(
-           list(index = "products-all", label = "All"),
-           list(index = "products-new", label = "New")
-         )),
+    list(
+      index = "products",
+      label = "Products",
+      icon = "Goods",
+      children = list(
+        list(index = "products-all", label = "All"),
+        list(index = "products-new", label = "New")
+      )
+    ),
     list(index = "help", label = "Help", disabled = TRUE)
   )
 )
@@ -231,9 +235,15 @@ el_menu(
 #> </div>
 
 # Horizontal, as a top bar
-el_menu(id = "topnav", mode = "horizontal", active = "a",
-        items = list(list(index = "a", label = "One"),
-                     list(index = "b", label = "Two")))
+el_menu(
+  id = "topnav",
+  mode = "horizontal",
+  active = "a",
+  items = list(
+    list(index = "a", label = "One"),
+    list(index = "b", label = "Two")
+  )
+)
 #> <div id="topnav" data-shiny-vue style="display: contents">
 #>   <script type="text/x-template" data-shiny-vue-template><div id="topnav_container" style="display: contents">
 #>   <el-menu :default-active="active" :mode="mode" :collapse="collapse" :unique-opened="uniqueOpened" :background-color="backgroundColor === null ? undefined : backgroundColor" :text-color="textColor === null ? undefined : textColor" :active-text-color="activeTextColor === null ? undefined : activeTextColor" @select="handleSelect" :default-openeds="defaultOpeneds === null ? undefined : defaultOpeneds" :menu-trigger="menuTrigger === null ? undefined : menuTrigger" :collapse-transition="collapseTransition === null ? undefined : collapseTransition" :router="router === null ? undefined : router" @open="elEmitOpen" @close="elEmitClose" :close-on-click-outside="closeOnClickOutside === null ? undefined : closeOnClickOutside" :ellipsis="ellipsis === null ? undefined : ellipsis" :ellipsis-icon="ellipsisIcon === null ? undefined : ellipsisIcon" :hide-timeout="hideTimeout === null ? undefined : hideTimeout" :persistent="persistent === null ? undefined : persistent" :popper-class="popperClass === null ? undefined : popperClass" :popper-effect="popperEffect === null ? undefined : popperEffect" :popper-offset="popperOffset === null ? undefined : popperOffset" :popper-style="popperStyle === null ? undefined : popperStyle" :show-timeout="showTimeout === null ? undefined : showTimeout">

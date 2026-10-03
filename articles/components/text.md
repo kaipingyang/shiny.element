@@ -8,8 +8,12 @@ Use the `type` attribute to define Text’s type.
 
 ``` r
 
-el_space(lapply(c("default", "primary", "success", "info", "warning", "danger"), function(t)
-  el_text(tools::toTitleCase(t), type = if (t != "default") t)))
+el_space(lapply(
+  c("default", "primary", "success", "info", "warning", "danger"),
+  function(t) {
+    el_text(tools::toTitleCase(t), type = if (t != "default") t)
+  }
+))
 ```
 
 ## Sizes
@@ -19,7 +23,11 @@ Use attribute `size` to set additional sizes with `large`, `default` or
 
 ``` r
 
-el_space(el_text("Large", size = "large"), el_text("Default"), el_text("Small", size = "small"))
+el_space(
+  el_text("Large", size = "large"),
+  el_text("Default"),
+  el_text("Small", size = "small")
+)
 ```
 
 ## Ellipsis
@@ -33,10 +41,23 @@ show a tooltip only when truncation occurs.
 ``` r
 
 tagList(
-  tags$div(el_text("Self element set width 150px", truncated = TRUE, width = "150px")),
-  tags$div(style = "width: 150px", el_text("Squeezed by parent element", truncated = TRUE)),
-  tags$div(el_text(HTML("The -webkit-line-clamp CSS property<br>allows limiting of the contents of<br>",
-                        "a block to the specified number of lines."), line_clamp = 2)))
+  tags$div(el_text(
+    "Self element set width 150px",
+    truncated = TRUE,
+    width = "150px"
+  )),
+  tags$div(
+    style = "width: 150px",
+    el_text("Squeezed by parent element", truncated = TRUE)
+  ),
+  tags$div(el_text(
+    HTML(
+      "The -webkit-line-clamp CSS property<br>allows limiting of the contents of<br>",
+      "a block to the specified number of lines."
+    ),
+    line_clamp = 2
+  ))
+)
 ```
 
 ## Override
@@ -47,7 +68,8 @@ Use attribute `tag` to override element
 
 ``` r
 
-el_space(direction = "vertical",
+el_space(
+  direction = "vertical",
   el_text("span"),
   el_text("This is a paragraph.", tag = "p"),
   el_text("Bold", tag = "b"),
@@ -56,7 +78,8 @@ el_space(direction = "vertical",
   el_text("This is ", el_text("superscript", tag = "sup", size = "small")),
   el_text("Inserted", tag = "ins"),
   el_text("Deleted", tag = "del"),
-  el_text("Marked", tag = "mark"))
+  el_text("Marked", tag = "mark")
+)
 ```
 
 ## Mixed
@@ -68,8 +91,11 @@ Text mixed component
 tagList(
   tags$p(el_text(el_icon("ElementPlus"), " Element-Plus")),
   tags$p(el_text("Rate"), el_rate("txt_rate")),
-  tags$p(el_text("This is text mixed icon ", el_icon("Bell"), " and component"),
-         el_button("txt_btn", "Button")))
+  tags$p(
+    el_text("This is text mixed icon ", el_icon("Bell"), " and component"),
+    el_button("txt_btn", "Button")
+  )
+)
 ```
 
 ## API

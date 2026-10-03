@@ -226,7 +226,11 @@ father element of the latter four components must be a
   </div>
 </div>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_container.html">el_container</a></span><span class="op">(</span><span class="fu"><a href="../../reference/el_aside.html">el_aside</a></span><span class="op">(</span>width <span class="op">=</span> <span class="st">"200px"</span>, <span class="st">"Aside"</span><span class="op">)</span>, <span class="fu"><a href="../../reference/el_main.html">el_main</a></span><span class="op">(</span><span class="st">"Main"</span><span class="op">)</span>, <span class="fu"><a href="../../reference/el_aside.html">el_aside</a></span><span class="op">(</span>width <span class="op">=</span> <span class="st">"200px"</span>, <span class="st">"Aside"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_container.html">el_container</a></span><span class="op">(</span></span>
+<span>  <span class="fu"><a href="../../reference/el_aside.html">el_aside</a></span><span class="op">(</span>width <span class="op">=</span> <span class="st">"200px"</span>, <span class="st">"Aside"</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="../../reference/el_main.html">el_main</a></span><span class="op">(</span><span class="st">"Main"</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="../../reference/el_aside.html">el_aside</a></span><span class="op">(</span>width <span class="op">=</span> <span class="st">"200px"</span>, <span class="st">"Aside"</span><span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
   <div class="el-container">
     <div class="el-aside" style="width:200px">Aside</div>
@@ -235,8 +239,10 @@ father element of the latter four components must be a
   </div>
 </div>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_container.html">el_container</a></span><span class="op">(</span><span class="fu"><a href="../../reference/el_header.html">el_header</a></span><span class="op">(</span><span class="st">"Header"</span><span class="op">)</span>,</span>
-<span>             <span class="fu"><a href="../../reference/el_container.html">el_container</a></span><span class="op">(</span><span class="fu"><a href="../../reference/el_aside.html">el_aside</a></span><span class="op">(</span>width <span class="op">=</span> <span class="st">"200px"</span>, <span class="st">"Aside"</span><span class="op">)</span>, <span class="fu"><a href="../../reference/el_main.html">el_main</a></span><span class="op">(</span><span class="st">"Main"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_container.html">el_container</a></span><span class="op">(</span></span>
+<span>  <span class="fu"><a href="../../reference/el_header.html">el_header</a></span><span class="op">(</span><span class="st">"Header"</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="../../reference/el_container.html">el_container</a></span><span class="op">(</span><span class="fu"><a href="../../reference/el_aside.html">el_aside</a></span><span class="op">(</span>width <span class="op">=</span> <span class="st">"200px"</span>, <span class="st">"Aside"</span><span class="op">)</span>, <span class="fu"><a href="../../reference/el_main.html">el_main</a></span><span class="op">(</span><span class="st">"Main"</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
   <div class="el-container is-vertical">
     <div class="el-header" style="height:60px">Header</div>
@@ -247,9 +253,13 @@ father element of the latter four components must be a
   </div>
 </div>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_container.html">el_container</a></span><span class="op">(</span><span class="fu"><a href="../../reference/el_header.html">el_header</a></span><span class="op">(</span><span class="st">"Header"</span><span class="op">)</span>,</span>
-<span>  <span class="fu"><a href="../../reference/el_container.html">el_container</a></span><span class="op">(</span><span class="fu"><a href="../../reference/el_aside.html">el_aside</a></span><span class="op">(</span>width <span class="op">=</span> <span class="st">"200px"</span>, <span class="st">"Aside"</span><span class="op">)</span>,</span>
-<span>               <span class="fu"><a href="../../reference/el_container.html">el_container</a></span><span class="op">(</span><span class="fu"><a href="../../reference/el_main.html">el_main</a></span><span class="op">(</span><span class="st">"Main"</span><span class="op">)</span>, <span class="fu"><a href="../../reference/el_footer.html">el_footer</a></span><span class="op">(</span><span class="st">"Footer"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_container.html">el_container</a></span><span class="op">(</span></span>
+<span>  <span class="fu"><a href="../../reference/el_header.html">el_header</a></span><span class="op">(</span><span class="st">"Header"</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="../../reference/el_container.html">el_container</a></span><span class="op">(</span></span>
+<span>    <span class="fu"><a href="../../reference/el_aside.html">el_aside</a></span><span class="op">(</span>width <span class="op">=</span> <span class="st">"200px"</span>, <span class="st">"Aside"</span><span class="op">)</span>,</span>
+<span>    <span class="fu"><a href="../../reference/el_container.html">el_container</a></span><span class="op">(</span><span class="fu"><a href="../../reference/el_main.html">el_main</a></span><span class="op">(</span><span class="st">"Main"</span><span class="op">)</span>, <span class="fu"><a href="../../reference/el_footer.html">el_footer</a></span><span class="op">(</span><span class="st">"Footer"</span><span class="op">)</span><span class="op">)</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
   <div class="el-container is-vertical">
     <div class="el-header" style="height:60px">Header</div>
@@ -263,8 +273,10 @@ father element of the latter four components must be a
   </div>
 </div>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_container.html">el_container</a></span><span class="op">(</span><span class="fu"><a href="../../reference/el_aside.html">el_aside</a></span><span class="op">(</span>width <span class="op">=</span> <span class="st">"200px"</span>, <span class="st">"Aside"</span><span class="op">)</span>,</span>
-<span>             <span class="fu"><a href="../../reference/el_container.html">el_container</a></span><span class="op">(</span><span class="fu"><a href="../../reference/el_header.html">el_header</a></span><span class="op">(</span><span class="st">"Header"</span><span class="op">)</span>, <span class="fu"><a href="../../reference/el_main.html">el_main</a></span><span class="op">(</span><span class="st">"Main"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_container.html">el_container</a></span><span class="op">(</span></span>
+<span>  <span class="fu"><a href="../../reference/el_aside.html">el_aside</a></span><span class="op">(</span>width <span class="op">=</span> <span class="st">"200px"</span>, <span class="st">"Aside"</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="../../reference/el_container.html">el_container</a></span><span class="op">(</span><span class="fu"><a href="../../reference/el_header.html">el_header</a></span><span class="op">(</span><span class="st">"Header"</span><span class="op">)</span>, <span class="fu"><a href="../../reference/el_main.html">el_main</a></span><span class="op">(</span><span class="st">"Main"</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
   <div class="el-container">
     <div class="el-aside" style="width:200px">Aside</div>
@@ -275,8 +287,10 @@ father element of the latter four components must be a
   </div>
 </div>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_container.html">el_container</a></span><span class="op">(</span><span class="fu"><a href="../../reference/el_aside.html">el_aside</a></span><span class="op">(</span>width <span class="op">=</span> <span class="st">"200px"</span>, <span class="st">"Aside"</span><span class="op">)</span>,</span>
-<span>             <span class="fu"><a href="../../reference/el_container.html">el_container</a></span><span class="op">(</span><span class="fu"><a href="../../reference/el_header.html">el_header</a></span><span class="op">(</span><span class="st">"Header"</span><span class="op">)</span>, <span class="fu"><a href="../../reference/el_main.html">el_main</a></span><span class="op">(</span><span class="st">"Main"</span><span class="op">)</span>, <span class="fu"><a href="../../reference/el_footer.html">el_footer</a></span><span class="op">(</span><span class="st">"Footer"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_container.html">el_container</a></span><span class="op">(</span></span>
+<span>  <span class="fu"><a href="../../reference/el_aside.html">el_aside</a></span><span class="op">(</span>width <span class="op">=</span> <span class="st">"200px"</span>, <span class="st">"Aside"</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="../../reference/el_container.html">el_container</a></span><span class="op">(</span><span class="fu"><a href="../../reference/el_header.html">el_header</a></span><span class="op">(</span><span class="st">"Header"</span><span class="op">)</span>, <span class="fu"><a href="../../reference/el_main.html">el_main</a></span><span class="op">(</span><span class="st">"Main"</span><span class="op">)</span>, <span class="fu"><a href="../../reference/el_footer.html">el_footer</a></span><span class="op">(</span><span class="st">"Footer"</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
   <div class="el-container">
     <div class="el-aside" style="width:200px">Aside</div>
@@ -292,18 +306,46 @@ father element of the latter four components must be a
 <h2 id="example">Example<a class="anchor" aria-label="anchor" href="#example"></a>
 </h2>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_container.html">el_container</a></span><span class="op">(</span>style <span class="op">=</span> <span class="st">"height: 400px; border: 1px solid var(--el-border-color)"</span>,</span>
-<span>  <span class="fu"><a href="../../reference/el_aside.html">el_aside</a></span><span class="op">(</span>width <span class="op">=</span> <span class="st">"200px"</span>,</span>
-<span>    <span class="fu"><a href="../../reference/el_menu.html">el_menu</a></span><span class="op">(</span><span class="st">"ctr_menu"</span>, active <span class="op">=</span> <span class="st">"1-1"</span>, items <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
-<span>      <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>index <span class="op">=</span> <span class="st">"1"</span>, title <span class="op">=</span> <span class="st">"Navigator One"</span>, icon <span class="op">=</span> <span class="st">"Message"</span>, children <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
-<span>        <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>index <span class="op">=</span> <span class="st">"1-1"</span>, label <span class="op">=</span> <span class="st">"Option 1"</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>index <span class="op">=</span> <span class="st">"1-2"</span>, label <span class="op">=</span> <span class="st">"Option 2"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>,</span>
-<span>      <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>index <span class="op">=</span> <span class="st">"2"</span>, title <span class="op">=</span> <span class="st">"Navigator Two"</span>, icon <span class="op">=</span> <span class="st">"Menu"</span>, children <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
-<span>        <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>index <span class="op">=</span> <span class="st">"2-1"</span>, label <span class="op">=</span> <span class="st">"Option 1"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>,</span>
+<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_container.html">el_container</a></span><span class="op">(</span></span>
+<span>  style <span class="op">=</span> <span class="st">"height: 400px; border: 1px solid var(--el-border-color)"</span>,</span>
+<span>  <span class="fu"><a href="../../reference/el_aside.html">el_aside</a></span><span class="op">(</span></span>
+<span>    width <span class="op">=</span> <span class="st">"200px"</span>,</span>
+<span>    <span class="fu"><a href="../../reference/el_menu.html">el_menu</a></span><span class="op">(</span></span>
+<span>      <span class="st">"ctr_menu"</span>,</span>
+<span>      active <span class="op">=</span> <span class="st">"1-1"</span>,</span>
+<span>      items <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>        <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>          index <span class="op">=</span> <span class="st">"1"</span>,</span>
+<span>          title <span class="op">=</span> <span class="st">"Navigator One"</span>,</span>
+<span>          icon <span class="op">=</span> <span class="st">"Message"</span>,</span>
+<span>          children <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>            <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>index <span class="op">=</span> <span class="st">"1-1"</span>, label <span class="op">=</span> <span class="st">"Option 1"</span><span class="op">)</span>,</span>
+<span>            <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>index <span class="op">=</span> <span class="st">"1-2"</span>, label <span class="op">=</span> <span class="st">"Option 2"</span><span class="op">)</span></span>
+<span>          <span class="op">)</span></span>
+<span>        <span class="op">)</span>,</span>
+<span>        <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>          index <span class="op">=</span> <span class="st">"2"</span>,</span>
+<span>          title <span class="op">=</span> <span class="st">"Navigator Two"</span>,</span>
+<span>          icon <span class="op">=</span> <span class="st">"Menu"</span>,</span>
+<span>          children <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>            <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>index <span class="op">=</span> <span class="st">"2-1"</span>, label <span class="op">=</span> <span class="st">"Option 1"</span><span class="op">)</span></span>
+<span>          <span class="op">)</span></span>
+<span>        <span class="op">)</span></span>
+<span>      <span class="op">)</span></span>
+<span>    <span class="op">)</span></span>
+<span>  <span class="op">)</span>,</span>
 <span>  <span class="fu"><a href="../../reference/el_container.html">el_container</a></span><span class="op">(</span></span>
 <span>    <span class="fu"><a href="../../reference/el_header.html">el_header</a></span><span class="op">(</span>style <span class="op">=</span> <span class="st">"text-align: right; font-size: 12px"</span>, <span class="va">tags</span><span class="op">$</span><span class="fu">span</span><span class="op">(</span><span class="st">"Tom"</span><span class="op">)</span><span class="op">)</span>,</span>
-<span>    <span class="fu"><a href="../../reference/el_main.html">el_main</a></span><span class="op">(</span><span class="fu"><a href="../../reference/el_table.html">el_table</a></span><span class="op">(</span><span class="st">"ctr_tbl"</span>, data <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span></span>
-<span>      Date <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="st">"2016-05-02"</span>, <span class="fl">4</span><span class="op">)</span>, Name <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="st">"Tom"</span>, <span class="fl">4</span><span class="op">)</span>,</span>
-<span>      Address <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="st">"No. 189, Grove St, Los Angeles"</span>, <span class="fl">4</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<span>    <span class="fu"><a href="../../reference/el_main.html">el_main</a></span><span class="op">(</span><span class="fu"><a href="../../reference/el_table.html">el_table</a></span><span class="op">(</span></span>
+<span>      <span class="st">"ctr_tbl"</span>,</span>
+<span>      data <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span></span>
+<span>        Date <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="st">"2016-05-02"</span>, <span class="fl">4</span><span class="op">)</span>,</span>
+<span>        Name <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="st">"Tom"</span>, <span class="fl">4</span><span class="op">)</span>,</span>
+<span>        Address <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="st">"No. 189, Grove St, Los Angeles"</span>, <span class="fl">4</span><span class="op">)</span></span>
+<span>      <span class="op">)</span></span>
+<span>    <span class="op">)</span><span class="op">)</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
   <div class="el-container" style="height: 400px; border: 1px solid var(--el-border-color)">
     <div class="el-aside" style="width:200px">

@@ -194,14 +194,21 @@
 <p>Use <code>height</code> property to set the height of the scrollbar,
 or if not set, it adapts according to the parent container height.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">item</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">i</span><span class="op">)</span> <span class="va">tags</span><span class="op">$</span><span class="fu">p</span><span class="op">(</span>class <span class="op">=</span> <span class="st">"scrollbar-demo-item"</span>, style <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span></span>
-<span>  <span class="st">"display: flex; align-items: center; justify-content: center; height: 50px; margin: 10px;"</span>,</span>
-<span>  <span class="st">"text-align: center; border-radius: 4px; background: var(--el-color-primary-light-9);"</span>,</span>
-<span>  <span class="st">"color: var(--el-color-primary)"</span><span class="op">)</span>, <span class="va">i</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="va">item</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">i</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="va">tags</span><span class="op">$</span><span class="fu">p</span><span class="op">(</span></span>
+<span>    class <span class="op">=</span> <span class="st">"scrollbar-demo-item"</span>,</span>
+<span>    style <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span></span>
+<span>      <span class="st">"display: flex; align-items: center; justify-content: center; height: 50px; margin: 10px;"</span>,</span>
+<span>      <span class="st">"text-align: center; border-radius: 4px; background: var(--el-color-primary-light-9);"</span>,</span>
+<span>      <span class="st">"color: var(--el-color-primary)"</span></span>
+<span>    <span class="op">)</span>,</span>
+<span>    <span class="va">i</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">}</span></span>
 <span><span class="fu"><a href="../../reference/el_scrollbar.html">el_scrollbar</a></span><span class="op">(</span>height <span class="op">=</span> <span class="st">"400px"</span>, <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">20</span>, <span class="va">item</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
-  <div id="basic-usage-el_scrollbar_4575b732-ec4f-4757-ade3-d0df730ab9cd" data-shiny-vue style="display: contents">
-    <script type="text/x-template" data-shiny-vue-template><div id="basic-usage-el_scrollbar_4575b732-ec4f-4757-ade3-d0df730ab9cd_container" style="display: contents">
+  <div id="basic-usage-el_scrollbar_5412e582-1bb2-4219-8e37-f31a2c1d318e" data-shiny-vue style="display: contents">
+    <script type="text/x-template" data-shiny-vue-template><div id="basic-usage-el_scrollbar_5412e582-1bb2-4219-8e37-f31a2c1d318e_container" style="display: contents">
   <el-scrollbar :height="height === null ? undefined : height" :max-height="maxHeight === null ? undefined : maxHeight" :native="native === null ? undefined : native" :wrap-style="wrapStyle === null ? undefined : wrapStyle" :wrap-class="wrapClass === null ? undefined : wrapClass" :view-style="viewStyle === null ? undefined : viewStyle" :view-class="viewClass === null ? undefined : viewClass" :noresize="noresize === null ? undefined : noresize" :tag="tag === null ? undefined : tag" :always="always === null ? undefined : always" :min-size="minSize === null ? undefined : minSize" :role="role === null ? undefined : role" :aria-label="ariaLabel === null ? undefined : ariaLabel" :aria-orientation="ariaOrientation === null ? undefined : ariaOrientation" :tabindex="tabindex === null ? undefined : tabindex" :distance="distance === null ? undefined : distance" @scroll="elEmitScroll" @end-reached="elEmitEndReached">
     <p class="scrollbar-demo-item" style="display: flex; align-items: center; justify-content: center; height: 50px; margin: 10px; text-align: center; border-radius: 4px; background: var(--el-color-primary-light-9); color: var(--el-color-primary)">1</p>
     <p class="scrollbar-demo-item" style="display: flex; align-items: center; justify-content: center; height: 50px; margin: 10px; text-align: center; border-radius: 4px; background: var(--el-color-primary-light-9); color: var(--el-color-primary)">2</p>
@@ -224,7 +231,7 @@ or if not set, it adapts according to the parent container height.</p>
     <p class="scrollbar-demo-item" style="display: flex; align-items: center; justify-content: center; height: 50px; margin: 10px; text-align: center; border-radius: 4px; background: var(--el-color-primary-light-9); color: var(--el-color-primary)">19</p>
     <p class="scrollbar-demo-item" style="display: flex; align-items: center; justify-content: center; height: 50px; margin: 10px; text-align: center; border-radius: 4px; background: var(--el-color-primary-light-9); color: var(--el-color-primary)">20</p>
   </el-scrollbar>
-</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"height":"400px","maxHeight":null,"native":null,"wrapStyle":null,"wrapClass":null,"viewStyle":null,"viewClass":null,"noresize":null,"tag":null,"always":null,"minSize":null,"role":null,"ariaLabel":null,"ariaOrientation":null,"tabindex":null,"distance":null},"methods":{"elEmitScroll":"function() { window.shinyVue.emit('basic-usage-el_scrollbar_4575b732-ec4f-4757-ade3-d0df730ab9cd', 'scroll', arguments); }","elEmitEndReached":"function() { window.shinyVue.emit('basic-usage-el_scrollbar_4575b732-ec4f-4757-ade3-d0df730ab9cd', 'end_reached', arguments); }"}},"input":null,"rate":null,"type":null,"evals":["options.methods.elEmitScroll","options.methods.elEmitEndReached"]}</script>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"height":"400px","maxHeight":null,"native":null,"wrapStyle":null,"wrapClass":null,"viewStyle":null,"viewClass":null,"noresize":null,"tag":null,"always":null,"minSize":null,"role":null,"ariaLabel":null,"ariaOrientation":null,"tabindex":null,"distance":null},"methods":{"elEmitScroll":"function() { window.shinyVue.emit('basic-usage-el_scrollbar_5412e582-1bb2-4219-8e37-f31a2c1d318e', 'scroll', arguments); }","elEmitEndReached":"function() { window.shinyVue.emit('basic-usage-el_scrollbar_5412e582-1bb2-4219-8e37-f31a2c1d318e', 'end_reached', arguments); }"}},"input":null,"rate":null,"type":null,"evals":["options.methods.elEmitScroll","options.methods.elEmitEndReached"]}</script>
 </div>
 </div>
 </div>
@@ -234,14 +241,20 @@ or if not set, it adapts according to the parent container height.</p>
 <p>When the element width is greater than the scrollbar width, the
 horizontal scrollbar is displayed.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">item</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">i</span><span class="op">)</span> <span class="va">tags</span><span class="op">$</span><span class="fu">p</span><span class="op">(</span>style <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span></span>
-<span>  <span class="st">"flex-shrink: 0; display: flex; align-items: center; justify-content: center; width: 100px;"</span>,</span>
-<span>  <span class="st">"height: 50px; margin: 10px; border-radius: 4px; background: var(--el-color-danger-light-9);"</span>,</span>
-<span>  <span class="st">"color: var(--el-color-danger)"</span><span class="op">)</span>, <span class="va">i</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="va">item</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">i</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="va">tags</span><span class="op">$</span><span class="fu">p</span><span class="op">(</span></span>
+<span>    style <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span></span>
+<span>      <span class="st">"flex-shrink: 0; display: flex; align-items: center; justify-content: center; width: 100px;"</span>,</span>
+<span>      <span class="st">"height: 50px; margin: 10px; border-radius: 4px; background: var(--el-color-danger-light-9);"</span>,</span>
+<span>      <span class="st">"color: var(--el-color-danger)"</span></span>
+<span>    <span class="op">)</span>,</span>
+<span>    <span class="va">i</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">}</span></span>
 <span><span class="fu"><a href="../../reference/el_scrollbar.html">el_scrollbar</a></span><span class="op">(</span><span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span>style <span class="op">=</span> <span class="st">"display: flex"</span>, <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">50</span>, <span class="va">item</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
-  <div id="horizontal-scroll-el_scrollbar_b4561868-fe49-4b3e-a96a-ba1bec770548" data-shiny-vue style="display: contents">
-    <script type="text/x-template" data-shiny-vue-template><div id="horizontal-scroll-el_scrollbar_b4561868-fe49-4b3e-a96a-ba1bec770548_container" style="display: contents">
+  <div id="horizontal-scroll-el_scrollbar_df71f9a3-66a1-4700-a0be-2e644e8f5078" data-shiny-vue style="display: contents">
+    <script type="text/x-template" data-shiny-vue-template><div id="horizontal-scroll-el_scrollbar_df71f9a3-66a1-4700-a0be-2e644e8f5078_container" style="display: contents">
   <el-scrollbar :height="height === null ? undefined : height" :max-height="maxHeight === null ? undefined : maxHeight" :native="native === null ? undefined : native" :wrap-style="wrapStyle === null ? undefined : wrapStyle" :wrap-class="wrapClass === null ? undefined : wrapClass" :view-style="viewStyle === null ? undefined : viewStyle" :view-class="viewClass === null ? undefined : viewClass" :noresize="noresize === null ? undefined : noresize" :tag="tag === null ? undefined : tag" :always="always === null ? undefined : always" :min-size="minSize === null ? undefined : minSize" :role="role === null ? undefined : role" :aria-label="ariaLabel === null ? undefined : ariaLabel" :aria-orientation="ariaOrientation === null ? undefined : ariaOrientation" :tabindex="tabindex === null ? undefined : tabindex" :distance="distance === null ? undefined : distance" @scroll="elEmitScroll" @end-reached="elEmitEndReached">
     <div style="display: flex">
       <p style="flex-shrink: 0; display: flex; align-items: center; justify-content: center; width: 100px; height: 50px; margin: 10px; border-radius: 4px; background: var(--el-color-danger-light-9); color: var(--el-color-danger)">1</p>
@@ -296,7 +309,7 @@ horizontal scrollbar is displayed.</p>
       <p style="flex-shrink: 0; display: flex; align-items: center; justify-content: center; width: 100px; height: 50px; margin: 10px; border-radius: 4px; background: var(--el-color-danger-light-9); color: var(--el-color-danger)">50</p>
     </div>
   </el-scrollbar>
-</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"height":null,"maxHeight":null,"native":null,"wrapStyle":null,"wrapClass":null,"viewStyle":null,"viewClass":null,"noresize":null,"tag":null,"always":null,"minSize":null,"role":null,"ariaLabel":null,"ariaOrientation":null,"tabindex":null,"distance":null},"methods":{"elEmitScroll":"function() { window.shinyVue.emit('horizontal-scroll-el_scrollbar_b4561868-fe49-4b3e-a96a-ba1bec770548', 'scroll', arguments); }","elEmitEndReached":"function() { window.shinyVue.emit('horizontal-scroll-el_scrollbar_b4561868-fe49-4b3e-a96a-ba1bec770548', 'end_reached', arguments); }"}},"input":null,"rate":null,"type":null,"evals":["options.methods.elEmitScroll","options.methods.elEmitEndReached"]}</script>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"height":null,"maxHeight":null,"native":null,"wrapStyle":null,"wrapClass":null,"viewStyle":null,"viewClass":null,"noresize":null,"tag":null,"always":null,"minSize":null,"role":null,"ariaLabel":null,"ariaOrientation":null,"tabindex":null,"distance":null},"methods":{"elEmitScroll":"function() { window.shinyVue.emit('horizontal-scroll-el_scrollbar_df71f9a3-66a1-4700-a0be-2e644e8f5078', 'scroll', arguments); }","elEmitEndReached":"function() { window.shinyVue.emit('horizontal-scroll-el_scrollbar_df71f9a3-66a1-4700-a0be-2e644e8f5078', 'end_reached', arguments); }"}},"input":null,"rate":null,"type":null,"evals":["options.methods.elEmitScroll","options.methods.elEmitEndReached"]}</script>
 </div>
 </div>
 </div>
@@ -306,19 +319,25 @@ horizontal scrollbar is displayed.</p>
 <p>The scrollbar is displayed only when the element height exceeds the
 max height.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">item</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">i</span><span class="op">)</span> <span class="va">tags</span><span class="op">$</span><span class="fu">p</span><span class="op">(</span>style <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span></span>
-<span>  <span class="st">"display: flex; align-items: center; justify-content: center; height: 50px; margin: 10px;"</span>,</span>
-<span>  <span class="st">"border-radius: 4px; background: var(--el-color-primary-light-9); color: var(--el-color-primary)"</span><span class="op">)</span>, <span class="va">i</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="va">item</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">i</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="va">tags</span><span class="op">$</span><span class="fu">p</span><span class="op">(</span></span>
+<span>    style <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span></span>
+<span>      <span class="st">"display: flex; align-items: center; justify-content: center; height: 50px; margin: 10px;"</span>,</span>
+<span>      <span class="st">"border-radius: 4px; background: var(--el-color-primary-light-9); color: var(--el-color-primary)"</span></span>
+<span>    <span class="op">)</span>,</span>
+<span>    <span class="va">i</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">}</span></span>
 <span><span class="fu"><a href="../../reference/el_scrollbar.html">el_scrollbar</a></span><span class="op">(</span>max_height <span class="op">=</span> <span class="st">"400px"</span>, <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">3</span>, <span class="va">item</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
-  <div id="max-height-el_scrollbar_95048823-0963-4588-b843-84d25af1a881" data-shiny-vue style="display: contents">
-    <script type="text/x-template" data-shiny-vue-template><div id="max-height-el_scrollbar_95048823-0963-4588-b843-84d25af1a881_container" style="display: contents">
+  <div id="max-height-el_scrollbar_3e1e8bef-8fed-47f5-87b0-1b51833f24c2" data-shiny-vue style="display: contents">
+    <script type="text/x-template" data-shiny-vue-template><div id="max-height-el_scrollbar_3e1e8bef-8fed-47f5-87b0-1b51833f24c2_container" style="display: contents">
   <el-scrollbar :height="height === null ? undefined : height" :max-height="maxHeight === null ? undefined : maxHeight" :native="native === null ? undefined : native" :wrap-style="wrapStyle === null ? undefined : wrapStyle" :wrap-class="wrapClass === null ? undefined : wrapClass" :view-style="viewStyle === null ? undefined : viewStyle" :view-class="viewClass === null ? undefined : viewClass" :noresize="noresize === null ? undefined : noresize" :tag="tag === null ? undefined : tag" :always="always === null ? undefined : always" :min-size="minSize === null ? undefined : minSize" :role="role === null ? undefined : role" :aria-label="ariaLabel === null ? undefined : ariaLabel" :aria-orientation="ariaOrientation === null ? undefined : ariaOrientation" :tabindex="tabindex === null ? undefined : tabindex" :distance="distance === null ? undefined : distance" @scroll="elEmitScroll" @end-reached="elEmitEndReached">
     <p style="display: flex; align-items: center; justify-content: center; height: 50px; margin: 10px; border-radius: 4px; background: var(--el-color-primary-light-9); color: var(--el-color-primary)">1</p>
     <p style="display: flex; align-items: center; justify-content: center; height: 50px; margin: 10px; border-radius: 4px; background: var(--el-color-primary-light-9); color: var(--el-color-primary)">2</p>
     <p style="display: flex; align-items: center; justify-content: center; height: 50px; margin: 10px; border-radius: 4px; background: var(--el-color-primary-light-9); color: var(--el-color-primary)">3</p>
   </el-scrollbar>
-</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"height":null,"maxHeight":"400px","native":null,"wrapStyle":null,"wrapClass":null,"viewStyle":null,"viewClass":null,"noresize":null,"tag":null,"always":null,"minSize":null,"role":null,"ariaLabel":null,"ariaOrientation":null,"tabindex":null,"distance":null},"methods":{"elEmitScroll":"function() { window.shinyVue.emit('max-height-el_scrollbar_95048823-0963-4588-b843-84d25af1a881', 'scroll', arguments); }","elEmitEndReached":"function() { window.shinyVue.emit('max-height-el_scrollbar_95048823-0963-4588-b843-84d25af1a881', 'end_reached', arguments); }"}},"input":null,"rate":null,"type":null,"evals":["options.methods.elEmitScroll","options.methods.elEmitEndReached"]}</script>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"height":null,"maxHeight":"400px","native":null,"wrapStyle":null,"wrapClass":null,"viewStyle":null,"viewClass":null,"noresize":null,"tag":null,"always":null,"minSize":null,"role":null,"ariaLabel":null,"ariaOrientation":null,"tabindex":null,"distance":null},"methods":{"elEmitScroll":"function() { window.shinyVue.emit('max-height-el_scrollbar_3e1e8bef-8fed-47f5-87b0-1b51833f24c2', 'scroll', arguments); }","elEmitEndReached":"function() { window.shinyVue.emit('max-height-el_scrollbar_3e1e8bef-8fed-47f5-87b0-1b51833f24c2', 'end_reached', arguments); }"}},"input":null,"rate":null,"type":null,"evals":["options.methods.elEmitScroll","options.methods.elEmitEndReached"]}</script>
 </div>
 </div>
 </div>
@@ -331,9 +350,15 @@ can control scrollbar manually.</p>
 scrolls it from the server; <code>input$&lt;id&gt;_scroll</code> reports
 where it is.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">item</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">i</span><span class="op">)</span> <span class="va">tags</span><span class="op">$</span><span class="fu">p</span><span class="op">(</span>style <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span></span>
-<span>  <span class="st">"display: flex; align-items: center; justify-content: center; height: 50px; margin: 10px;"</span>,</span>
-<span>  <span class="st">"border-radius: 4px; background: var(--el-color-primary-light-9); color: var(--el-color-primary)"</span><span class="op">)</span>, <span class="va">i</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="va">item</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">i</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="va">tags</span><span class="op">$</span><span class="fu">p</span><span class="op">(</span></span>
+<span>    style <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span></span>
+<span>      <span class="st">"display: flex; align-items: center; justify-content: center; height: 50px; margin: 10px;"</span>,</span>
+<span>      <span class="st">"border-radius: 4px; background: var(--el-color-primary-light-9); color: var(--el-color-primary)"</span></span>
+<span>    <span class="op">)</span>,</span>
+<span>    <span class="va">i</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">}</span></span>
 <span><span class="fu"><a href="../../reference/el_scrollbar.html">el_scrollbar</a></span><span class="op">(</span>id <span class="op">=</span> <span class="st">"sb"</span>, height <span class="op">=</span> <span class="st">"400px"</span>, always <span class="op">=</span> <span class="cn">TRUE</span>, <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">20</span>, <span class="va">item</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
   <div id="manual-scroll-sb" data-shiny-vue style="display: contents">
@@ -372,9 +397,15 @@ end. It can be used as an infinite scroll.</p>
 <p>Reaching an end is <code>input$&lt;id&gt;_end_reached</code>:
 <code>"bottom"</code>, <code>"top"</code>, …</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">item</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">i</span><span class="op">)</span> <span class="va">tags</span><span class="op">$</span><span class="fu">p</span><span class="op">(</span>style <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span></span>
-<span>  <span class="st">"display: flex; align-items: center; justify-content: center; height: 50px; margin: 10px;"</span>,</span>
-<span>  <span class="st">"border-radius: 4px; background: var(--el-color-primary-light-9); color: var(--el-color-primary)"</span><span class="op">)</span>, <span class="va">i</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="va">item</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">i</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="va">tags</span><span class="op">$</span><span class="fu">p</span><span class="op">(</span></span>
+<span>    style <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span></span>
+<span>      <span class="st">"display: flex; align-items: center; justify-content: center; height: 50px; margin: 10px;"</span>,</span>
+<span>      <span class="st">"border-radius: 4px; background: var(--el-color-primary-light-9); color: var(--el-color-primary)"</span></span>
+<span>    <span class="op">)</span>,</span>
+<span>    <span class="va">i</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">}</span></span>
 <span><span class="fu"><a href="../../reference/el_scrollbar.html">el_scrollbar</a></span><span class="op">(</span>id <span class="op">=</span> <span class="st">"sb_more"</span>, height <span class="op">=</span> <span class="st">"400px"</span>, <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">30</span>, <span class="va">item</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
   <div id="infinite-scroll-sb_more" data-shiny-vue style="display: contents">

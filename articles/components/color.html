@@ -202,16 +202,31 @@ themselves, so they show the theme the page has.</p>
 tints, <code>--el-color-primary-light-3</code> to <code>-light-9</code>,
 mix it with white.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">swatch</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">var</span>, <span class="va">label</span> <span class="op">=</span> <span class="va">var</span>, <span class="va">fg</span> <span class="op">=</span> <span class="st">"white"</span>, <span class="va">w</span> <span class="op">=</span> <span class="fl">100</span><span class="op">)</span> <span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span></span>
-<span>  style <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sprintf.html" class="external-link">sprintf</a></span><span class="op">(</span><span class="st">"display: inline-block; width: %dpx; height: 80px; padding: 10px;</span></span>
+<code class="sourceCode R"><span><span class="va">swatch</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">var</span>, <span class="va">label</span> <span class="op">=</span> <span class="va">var</span>, <span class="va">fg</span> <span class="op">=</span> <span class="st">"white"</span>, <span class="va">w</span> <span class="op">=</span> <span class="fl">100</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span></span>
+<span>    style <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sprintf.html" class="external-link">sprintf</a></span><span class="op">(</span></span>
+<span>      <span class="st">"display: inline-block; width: %dpx; height: 80px; padding: 10px;</span></span>
 <span><span class="st">                   vertical-align: top; background: var(%s); color: %s; font-size: 12px"</span>,</span>
-<span>                  <span class="va">w</span>, <span class="va">var</span>, <span class="va">fg</span><span class="op">)</span>, <span class="va">tags</span><span class="op">$</span><span class="fu">b</span><span class="op">(</span><span class="va">label</span><span class="op">)</span>, <span class="va">tags</span><span class="op">$</span><span class="fu">br</span><span class="op">(</span><span class="op">)</span>, <span class="va">var</span><span class="op">)</span></span>
+<span>      <span class="va">w</span>,</span>
+<span>      <span class="va">var</span>,</span>
+<span>      <span class="va">fg</span></span>
+<span>    <span class="op">)</span>,</span>
+<span>    <span class="va">tags</span><span class="op">$</span><span class="fu">b</span><span class="op">(</span><span class="va">label</span><span class="op">)</span>,</span>
+<span>    <span class="va">tags</span><span class="op">$</span><span class="fu">br</span><span class="op">(</span><span class="op">)</span>,</span>
+<span>    <span class="va">var</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">}</span></span>
 <span><span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span></span>
 <span>  <span class="fu">swatch</span><span class="op">(</span><span class="st">"--el-color-primary"</span>, <span class="st">"Brand Color"</span>, w <span class="op">=</span> <span class="fl">220</span><span class="op">)</span>,</span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">3</span>, <span class="fl">5</span>, <span class="fl">7</span>, <span class="fl">8</span>, <span class="fl">9</span><span class="op">)</span>, <span class="kw">function</span><span class="op">(</span><span class="va">i</span><span class="op">)</span></span>
-<span>    <span class="fu">swatch</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="st">"--el-color-primary-light-"</span>, <span class="va">i</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="st">"Light "</span>, <span class="va">i</span><span class="op">)</span>,</span>
-<span>           fg <span class="op">=</span> <span class="kw">if</span> <span class="op">(</span><span class="va">i</span> <span class="op">&gt;</span> <span class="fl">5</span><span class="op">)</span> <span class="st">"#303133"</span> <span class="kw">else</span> <span class="st">"white"</span><span class="op">)</span><span class="op">)</span>,</span>
-<span>  <span class="fu">swatch</span><span class="op">(</span><span class="st">"--el-color-primary-dark-2"</span>, <span class="st">"Dark 2"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">3</span>, <span class="fl">5</span>, <span class="fl">7</span>, <span class="fl">8</span>, <span class="fl">9</span><span class="op">)</span>, <span class="kw">function</span><span class="op">(</span><span class="va">i</span><span class="op">)</span> <span class="op">{</span></span>
+<span>    <span class="fu">swatch</span><span class="op">(</span></span>
+<span>      <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="st">"--el-color-primary-light-"</span>, <span class="va">i</span><span class="op">)</span>,</span>
+<span>      <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="st">"Light "</span>, <span class="va">i</span><span class="op">)</span>,</span>
+<span>      fg <span class="op">=</span> <span class="kw">if</span> <span class="op">(</span><span class="va">i</span> <span class="op">&gt;</span> <span class="fl">5</span><span class="op">)</span> <span class="st">"#303133"</span> <span class="kw">else</span> <span class="st">"white"</span></span>
+<span>    <span class="op">)</span></span>
+<span>  <span class="op">}</span><span class="op">)</span>,</span>
+<span>  <span class="fu">swatch</span><span class="op">(</span><span class="st">"--el-color-primary-dark-2"</span>, <span class="st">"Dark 2"</span><span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
   <div>
     <div style="display: inline-block; width: 220px; height: 80px; padding: 10px;
@@ -266,12 +281,23 @@ mix it with white.</p>
 different scenarios – for example, danger color indicates a dangerous
 operation.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">swatch</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">var</span>, <span class="va">label</span> <span class="op">=</span> <span class="va">var</span>, <span class="va">fg</span> <span class="op">=</span> <span class="st">"white"</span>, <span class="va">w</span> <span class="op">=</span> <span class="fl">160</span><span class="op">)</span> <span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span></span>
-<span>  style <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sprintf.html" class="external-link">sprintf</a></span><span class="op">(</span><span class="st">"display: inline-block; width: %dpx; height: 80px; padding: 10px; margin: 0 10px 10px 0;</span></span>
+<code class="sourceCode R"><span><span class="va">swatch</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">var</span>, <span class="va">label</span> <span class="op">=</span> <span class="va">var</span>, <span class="va">fg</span> <span class="op">=</span> <span class="st">"white"</span>, <span class="va">w</span> <span class="op">=</span> <span class="fl">160</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span></span>
+<span>    style <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sprintf.html" class="external-link">sprintf</a></span><span class="op">(</span></span>
+<span>      <span class="st">"display: inline-block; width: %dpx; height: 80px; padding: 10px; margin: 0 10px 10px 0;</span></span>
 <span><span class="st">                   border-radius: 4px; background: var(%s); color: %s; font-size: 12px"</span>,</span>
-<span>                  <span class="va">w</span>, <span class="va">var</span>, <span class="va">fg</span><span class="op">)</span>, <span class="va">tags</span><span class="op">$</span><span class="fu">b</span><span class="op">(</span><span class="va">label</span><span class="op">)</span>, <span class="va">tags</span><span class="op">$</span><span class="fu">br</span><span class="op">(</span><span class="op">)</span>, <span class="va">var</span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://rstudio.github.io/htmltools/reference/tagList.html" class="external-link">tagList</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"success"</span>, <span class="st">"warning"</span>, <span class="st">"danger"</span>, <span class="st">"info"</span><span class="op">)</span>, <span class="kw">function</span><span class="op">(</span><span class="va">t</span><span class="op">)</span></span>
-<span>  <span class="fu">swatch</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="st">"--el-color-"</span>, <span class="va">t</span><span class="op">)</span>, <span class="fu">tools</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/tools/toTitleCase.html" class="external-link">toTitleCase</a></span><span class="op">(</span><span class="va">t</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<span>      <span class="va">w</span>,</span>
+<span>      <span class="va">var</span>,</span>
+<span>      <span class="va">fg</span></span>
+<span>    <span class="op">)</span>,</span>
+<span>    <span class="va">tags</span><span class="op">$</span><span class="fu">b</span><span class="op">(</span><span class="va">label</span><span class="op">)</span>,</span>
+<span>    <span class="va">tags</span><span class="op">$</span><span class="fu">br</span><span class="op">(</span><span class="op">)</span>,</span>
+<span>    <span class="va">var</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">}</span></span>
+<span><span class="fu"><a href="https://rstudio.github.io/htmltools/reference/tagList.html" class="external-link">tagList</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"success"</span>, <span class="st">"warning"</span>, <span class="st">"danger"</span>, <span class="st">"info"</span><span class="op">)</span>, <span class="kw">function</span><span class="op">(</span><span class="va">t</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="fu">swatch</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="st">"--el-color-"</span>, <span class="va">t</span><span class="op">)</span>, <span class="fu">tools</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/tools/toTitleCase.html" class="external-link">toTitleCase</a></span><span class="op">(</span><span class="va">t</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="op">}</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
   <div style="display: inline-block; width: 160px; height: 80px; padding: 10px; margin: 0 10px 10px 0;
                    border-radius: 4px; background: var(--el-color-success); color: white; font-size: 12px">
@@ -305,31 +331,44 @@ operation.</p>
 <p>Neutral colors are for text, background and border colors. Different
 neutral colors represent the hierarchical structure.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">swatch</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">var</span>, <span class="va">label</span>, <span class="va">fg</span><span class="op">)</span> <span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span></span>
-<span>  style <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sprintf.html" class="external-link">sprintf</a></span><span class="op">(</span><span class="st">"display: inline-block; width: 160px; height: 60px; padding: 10px; margin: 0 10px 10px 0;</span></span>
+<code class="sourceCode R"><span><span class="va">swatch</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">var</span>, <span class="va">label</span>, <span class="va">fg</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span></span>
+<span>    style <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sprintf.html" class="external-link">sprintf</a></span><span class="op">(</span></span>
+<span>      <span class="st">"display: inline-block; width: 160px; height: 60px; padding: 10px; margin: 0 10px 10px 0;</span></span>
 <span><span class="st">                   border-radius: 4px; background: var(%s); color: %s; font-size: 12px;</span></span>
-<span><span class="st">                   border: 1px solid var(--el-border-color-lighter)"</span>, <span class="va">var</span>, <span class="va">fg</span><span class="op">)</span>,</span>
-<span>  <span class="va">tags</span><span class="op">$</span><span class="fu">b</span><span class="op">(</span><span class="va">label</span><span class="op">)</span>, <span class="va">tags</span><span class="op">$</span><span class="fu">br</span><span class="op">(</span><span class="op">)</span>, <span class="va">var</span><span class="op">)</span></span>
+<span><span class="st">                   border: 1px solid var(--el-border-color-lighter)"</span>,</span>
+<span>      <span class="va">var</span>,</span>
+<span>      <span class="va">fg</span></span>
+<span>    <span class="op">)</span>,</span>
+<span>    <span class="va">tags</span><span class="op">$</span><span class="fu">b</span><span class="op">(</span><span class="va">label</span><span class="op">)</span>,</span>
+<span>    <span class="va">tags</span><span class="op">$</span><span class="fu">br</span><span class="op">(</span><span class="op">)</span>,</span>
+<span>    <span class="va">var</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">}</span></span>
 <span><span class="fu"><a href="https://rstudio.github.io/htmltools/reference/tagList.html" class="external-link">tagList</a></span><span class="op">(</span></span>
 <span>  <span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span></span>
 <span>    <span class="fu">swatch</span><span class="op">(</span><span class="st">"--el-text-color-primary"</span>, <span class="st">"Primary Text"</span>, <span class="st">"white"</span><span class="op">)</span>,</span>
 <span>    <span class="fu">swatch</span><span class="op">(</span><span class="st">"--el-text-color-regular"</span>, <span class="st">"Regular Text"</span>, <span class="st">"white"</span><span class="op">)</span>,</span>
 <span>    <span class="fu">swatch</span><span class="op">(</span><span class="st">"--el-text-color-secondary"</span>, <span class="st">"Secondary Text"</span>, <span class="st">"white"</span><span class="op">)</span>,</span>
 <span>    <span class="fu">swatch</span><span class="op">(</span><span class="st">"--el-text-color-placeholder"</span>, <span class="st">"Placeholder Text"</span>, <span class="st">"white"</span><span class="op">)</span>,</span>
-<span>    <span class="fu">swatch</span><span class="op">(</span><span class="st">"--el-text-color-disabled"</span>, <span class="st">"Disabled Text"</span>, <span class="st">"#303133"</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>    <span class="fu">swatch</span><span class="op">(</span><span class="st">"--el-text-color-disabled"</span>, <span class="st">"Disabled Text"</span>, <span class="st">"#303133"</span><span class="op">)</span></span>
+<span>  <span class="op">)</span>,</span>
 <span>  <span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span></span>
 <span>    <span class="fu">swatch</span><span class="op">(</span><span class="st">"--el-border-color-darker"</span>, <span class="st">"Darker Border"</span>, <span class="st">"#303133"</span><span class="op">)</span>,</span>
 <span>    <span class="fu">swatch</span><span class="op">(</span><span class="st">"--el-border-color-dark"</span>, <span class="st">"Dark Border"</span>, <span class="st">"#303133"</span><span class="op">)</span>,</span>
 <span>    <span class="fu">swatch</span><span class="op">(</span><span class="st">"--el-border-color"</span>, <span class="st">"Base Border"</span>, <span class="st">"#303133"</span><span class="op">)</span>,</span>
 <span>    <span class="fu">swatch</span><span class="op">(</span><span class="st">"--el-border-color-light"</span>, <span class="st">"Light Border"</span>, <span class="st">"#303133"</span><span class="op">)</span>,</span>
 <span>    <span class="fu">swatch</span><span class="op">(</span><span class="st">"--el-border-color-lighter"</span>, <span class="st">"Lighter Border"</span>, <span class="st">"#303133"</span><span class="op">)</span>,</span>
-<span>    <span class="fu">swatch</span><span class="op">(</span><span class="st">"--el-border-color-extra-light"</span>, <span class="st">"Extra Light Border"</span>, <span class="st">"#303133"</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>    <span class="fu">swatch</span><span class="op">(</span><span class="st">"--el-border-color-extra-light"</span>, <span class="st">"Extra Light Border"</span>, <span class="st">"#303133"</span><span class="op">)</span></span>
+<span>  <span class="op">)</span>,</span>
 <span>  <span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span></span>
 <span>    <span class="fu">swatch</span><span class="op">(</span><span class="st">"--el-fill-color-darker"</span>, <span class="st">"Darker Fill"</span>, <span class="st">"#303133"</span><span class="op">)</span>,</span>
 <span>    <span class="fu">swatch</span><span class="op">(</span><span class="st">"--el-fill-color"</span>, <span class="st">"Base Fill"</span>, <span class="st">"#303133"</span><span class="op">)</span>,</span>
 <span>    <span class="fu">swatch</span><span class="op">(</span><span class="st">"--el-fill-color-light"</span>, <span class="st">"Light Fill"</span>, <span class="st">"#303133"</span><span class="op">)</span>,</span>
 <span>    <span class="fu">swatch</span><span class="op">(</span><span class="st">"--el-fill-color-extra-light"</span>, <span class="st">"Extra Light Fill"</span>, <span class="st">"#303133"</span><span class="op">)</span>,</span>
-<span>    <span class="fu">swatch</span><span class="op">(</span><span class="st">"--el-bg-color-page"</span>, <span class="st">"Page Background"</span>, <span class="st">"#303133"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<span>    <span class="fu">swatch</span><span class="op">(</span><span class="st">"--el-bg-color-page"</span>, <span class="st">"Page Background"</span>, <span class="st">"#303133"</span><span class="op">)</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
   <div>
     <div style="display: inline-block; width: 160px; height: 60px; padding: 10px; margin: 0 10px 10px 0;
@@ -457,8 +496,12 @@ neutral colors represent the hierarchical structure.</p>
 <p>A brand colour brings its tints along; anything else is a variable by
 name. See the theming guide.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_page.html">el_page</a></span><span class="op">(</span>theme <span class="op">=</span> <span class="fu"><a href="../../reference/el_theme.html">el_theme</a></span><span class="op">(</span>primary <span class="op">=</span> <span class="st">"#7c3aed"</span>,</span>
-<span>                         element <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="st">"text-color-regular"</span> <span class="op">=</span> <span class="st">"#4b5563"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_page.html">el_page</a></span><span class="op">(</span></span>
+<span>  theme <span class="op">=</span> <span class="fu"><a href="../../reference/el_theme.html">el_theme</a></span><span class="op">(</span></span>
+<span>    primary <span class="op">=</span> <span class="st">"#7c3aed"</span>,</span>
+<span>    element <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="st">"text-color-regular"</span> <span class="op">=</span> <span class="st">"#4b5563"</span><span class="op">)</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
     </nav></aside>

@@ -80,7 +80,9 @@ el_row(
 
 # Centred flex row
 el_row(
-  type = "flex", justify = "center", align = "middle",
+  type = "flex",
+  justify = "center",
+  align = "middle",
   el_col(span = 8, "centred")
 )
 #> <div class="el-row el-row--flex is-justify-center is-align-middle">

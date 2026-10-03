@@ -222,12 +222,18 @@ An `htmltools` tagList with a Vue-managed dropdown component.
 ## Examples
 
 ``` r
-el_dropdown("dd1", "Actions",
+el_dropdown(
+  "dd1",
+  "Actions",
   items = list(
-    list(command = "edit",   label = "Edit",   icon = "el-icon-edit"),
-    list(command = "copy",   label = "Copy",   icon = "el-icon-document"),
-    list(command = "delete", label = "Delete", icon = "el-icon-delete",
-         divided = TRUE)
+    list(command = "edit", label = "Edit", icon = "el-icon-edit"),
+    list(command = "copy", label = "Copy", icon = "el-icon-document"),
+    list(
+      command = "delete",
+      label = "Delete",
+      icon = "el-icon-delete",
+      divided = TRUE
+    )
   )
 )
 #> <div id="dd1" data-shiny-vue style="display: contents">

@@ -253,8 +253,13 @@ el_slider("slider2", value = c(20, 80), range = TRUE)
 #> </div>
 
 # Vertical slider with marks
-el_slider("slider3", value = 50, vertical = TRUE, height = "200px",
-          marks = list("0" = "0km", "50" = "50km", "100" = "100km"))
+el_slider(
+  "slider3",
+  value = 50,
+  vertical = TRUE,
+  height = "200px",
+  marks = list("0" = "0km", "50" = "50km", "100" = "100km")
+)
 #> <div id="slider3" data-shiny-vue style="display: contents">
 #>   <script type="text/x-template" data-shiny-vue-template><div id="slider3_container" style="display: contents">
 #>   <el-slider v-model="value" :min="min" :max="max" :step="step" :range="range" :disabled="disabled" :show-input="showInput" :show-stops="showStops" :show-tooltip="showTooltip" :vertical="vertical" @change="handleChange" :height="height === null ? undefined : height" :marks="marks === null ? undefined : marks" :label="label === null ? undefined : label" :input-size="inputSize === null ? undefined : inputSize" :show-input-controls="showInputControls === null ? undefined : showInputControls" :tooltip-class="tooltipClass === null ? undefined : tooltipClass" :format-tooltip="formatTooltip === null ? undefined : formatTooltip" @input="elEmitInput" :aria-label="ariaLabel === null ? undefined : ariaLabel" :format-value-text="formatValueText === null ? undefined : formatValueText" :persistent="persistent === null ? undefined : persistent" :placement="placement === null ? undefined : placement" :range-end-label="rangeEndLabel === null ? undefined : rangeEndLabel" :range-start-label="rangeStartLabel === null ? undefined : rangeStartLabel" :size="size === null ? undefined : size" :validate-event="validateEvent === null ? undefined : validateEvent"></el-slider>

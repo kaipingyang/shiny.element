@@ -211,7 +211,11 @@ a name is taken. <code>""</code> clears it.</p></dd>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/interactive.html" class="external-link">interactive</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span></span>
 <span class="r-in"><span>  <span class="co"># inside a server function</span></span></span>
 <span class="r-in"><span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/observeEvent.html" class="external-link">observeEvent</a></span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">country</span>, <span class="op">{</span></span></span>
-<span class="r-in"><span>    <span class="fu">update_el_autocomplete</span><span class="op">(</span><span class="va">session</span>, <span class="st">"city"</span>, suggestions <span class="op">=</span> <span class="fu">cities_of</span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">country</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span>    <span class="fu">update_el_autocomplete</span><span class="op">(</span></span></span>
+<span class="r-in"><span>      <span class="va">session</span>,</span></span>
+<span class="r-in"><span>      <span class="st">"city"</span>,</span></span>
+<span class="r-in"><span>      suggestions <span class="op">=</span> <span class="fu">cities_of</span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">country</span><span class="op">)</span></span></span>
+<span class="r-in"><span>    <span class="op">)</span></span></span>
 <span class="r-in"><span>  <span class="op">}</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">}</span></span></span>
 </code></pre></div>

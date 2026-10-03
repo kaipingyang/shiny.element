@@ -193,7 +193,11 @@
 </h2>
 <p>Press the Enter key to add the input as a tag.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_input_tag.html">el_input_tag</a></span><span class="op">(</span><span class="st">"tags"</span>, placeholder <span class="op">=</span> <span class="st">"Please input"</span>, aria_label <span class="op">=</span> <span class="st">"Please click the Enter key after input"</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_input_tag.html">el_input_tag</a></span><span class="op">(</span></span>
+<span>  <span class="st">"tags"</span>,</span>
+<span>  placeholder <span class="op">=</span> <span class="st">"Please input"</span>,</span>
+<span>  aria_label <span class="op">=</span> <span class="st">"Please click the Enter key after input"</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
   <div id="basic-tags" data-shiny-vue style="display: contents">
     <script type="text/x-template" data-shiny-vue-template><div id="basic-tags_container" style="display: contents">
@@ -208,8 +212,12 @@
 <p>You can customize the key used to trigger the input tag. The default
 key is Enter.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_input_tag.html">el_input_tag</a></span><span class="op">(</span><span class="st">"tags_space"</span>, trigger <span class="op">=</span> <span class="st">"Space"</span>, placeholder <span class="op">=</span> <span class="st">"Please input"</span>,</span>
-<span>             aria_label <span class="op">=</span> <span class="st">"Please click the Space key after input"</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_input_tag.html">el_input_tag</a></span><span class="op">(</span></span>
+<span>  <span class="st">"tags_space"</span>,</span>
+<span>  trigger <span class="op">=</span> <span class="st">"Space"</span>,</span>
+<span>  placeholder <span class="op">=</span> <span class="st">"Please input"</span>,</span>
+<span>  aria_label <span class="op">=</span> <span class="st">"Please click the Space key after input"</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
   <div id="trigger-tags_space" data-shiny-vue style="display: contents">
     <script type="text/x-template" data-shiny-vue-template><div id="trigger-tags_space_container" style="display: contents">
@@ -241,12 +249,26 @@ hovering over collapsed text to display specific selected values. Using
 the collapse tags tooltip attribute will render the max attribute
 invalid.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span>style <span class="op">=</span> <span class="st">"display: grid; gap: 16px"</span>,</span>
-<span>  <span class="fu"><a href="../../reference/el_input_tag.html">el_input_tag</a></span><span class="op">(</span><span class="st">"tags_col1"</span>, value <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"tag1"</span>, <span class="st">"tag2"</span>, <span class="st">"tag3"</span><span class="op">)</span>, collapse_tags <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,</span>
-<span>  <span class="fu"><a href="../../reference/el_input_tag.html">el_input_tag</a></span><span class="op">(</span><span class="st">"tags_col2"</span>, value <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"tag1"</span>, <span class="st">"tag2"</span>, <span class="st">"tag3"</span><span class="op">)</span>, collapse_tags <span class="op">=</span> <span class="cn">TRUE</span>,</span>
-<span>               collapse_tags_tooltip <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,</span>
-<span>  <span class="fu"><a href="../../reference/el_input_tag.html">el_input_tag</a></span><span class="op">(</span><span class="st">"tags_col3"</span>, value <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"tag1"</span>, <span class="st">"tag2"</span>, <span class="st">"tag3"</span>, <span class="st">"tag4"</span><span class="op">)</span>, collapse_tags <span class="op">=</span> <span class="cn">TRUE</span>,</span>
-<span>               max_collapse_tags <span class="op">=</span> <span class="fl">2</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span></span>
+<span>  style <span class="op">=</span> <span class="st">"display: grid; gap: 16px"</span>,</span>
+<span>  <span class="fu"><a href="../../reference/el_input_tag.html">el_input_tag</a></span><span class="op">(</span></span>
+<span>    <span class="st">"tags_col1"</span>,</span>
+<span>    value <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"tag1"</span>, <span class="st">"tag2"</span>, <span class="st">"tag3"</span><span class="op">)</span>,</span>
+<span>    collapse_tags <span class="op">=</span> <span class="cn">TRUE</span></span>
+<span>  <span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="../../reference/el_input_tag.html">el_input_tag</a></span><span class="op">(</span></span>
+<span>    <span class="st">"tags_col2"</span>,</span>
+<span>    value <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"tag1"</span>, <span class="st">"tag2"</span>, <span class="st">"tag3"</span><span class="op">)</span>,</span>
+<span>    collapse_tags <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>    collapse_tags_tooltip <span class="op">=</span> <span class="cn">TRUE</span></span>
+<span>  <span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="../../reference/el_input_tag.html">el_input_tag</a></span><span class="op">(</span></span>
+<span>    <span class="st">"tags_col3"</span>,</span>
+<span>    value <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"tag1"</span>, <span class="st">"tag2"</span>, <span class="st">"tag3"</span>, <span class="st">"tag4"</span><span class="op">)</span>,</span>
+<span>    collapse_tags <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>    max_collapse_tags <span class="op">=</span> <span class="fl">2</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
   <div style="display: grid; gap: 16px">
     <div id="collapse-tags_col1" data-shiny-vue style="display: contents">
@@ -301,7 +323,12 @@ invalid.</p>
 <p>You can customize the clear icon by setting the
 <code>clear-icon</code> attribute.</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_input_tag.html">el_input_tag</a></span><span class="op">(</span><span class="st">"tags_clear_icon"</span>, value <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"tag1"</span>, <span class="st">"tag2"</span><span class="op">)</span>, clearable <span class="op">=</span> <span class="cn">TRUE</span>, clear_icon <span class="op">=</span> <span class="st">"CloseBold"</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_input_tag.html">el_input_tag</a></span><span class="op">(</span></span>
+<span>  <span class="st">"tags_clear_icon"</span>,</span>
+<span>  value <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"tag1"</span>, <span class="st">"tag2"</span><span class="op">)</span>,</span>
+<span>  clearable <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  clear_icon <span class="op">=</span> <span class="st">"CloseBold"</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
   <div id="clear-icon-tags_clear_icon" data-shiny-vue style="display: contents">
     <script type="text/x-template" data-shiny-vue-template><div id="clear-icon-tags_clear_icon_container" style="display: contents">
@@ -329,8 +356,12 @@ invalid.</p>
 </h2>
 <p>You can add a tag when a delimiter is matched.</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_input_tag.html">el_input_tag</a></span><span class="op">(</span><span class="st">"tags_delim"</span>, delimiter <span class="op">=</span> <span class="st">","</span>, placeholder <span class="op">=</span> <span class="st">"Please input"</span>,</span>
-<span>             aria_label <span class="op">=</span> <span class="st">"Please input a comma after input"</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_input_tag.html">el_input_tag</a></span><span class="op">(</span></span>
+<span>  <span class="st">"tags_delim"</span>,</span>
+<span>  delimiter <span class="op">=</span> <span class="st">","</span>,</span>
+<span>  placeholder <span class="op">=</span> <span class="st">"Please input"</span>,</span>
+<span>  aria_label <span class="op">=</span> <span class="st">"Please input a comma after input"</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
   <div id="delimiter-tags_delim" data-shiny-vue style="display: contents">
     <script type="text/x-template" data-shiny-vue-template><div id="delimiter-tags_delim_container" style="display: contents">
@@ -346,10 +377,12 @@ invalid.</p>
 addition to the default size, there are two other options:
 <code>large</code>, <code>small</code>.</p>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span>style <span class="op">=</span> <span class="st">"display: grid; gap: 16px"</span>,</span>
+<code class="sourceCode R"><span><span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span></span>
+<span>  style <span class="op">=</span> <span class="st">"display: grid; gap: 16px"</span>,</span>
 <span>  <span class="fu"><a href="../../reference/el_input_tag.html">el_input_tag</a></span><span class="op">(</span><span class="st">"tags_l"</span>, size <span class="op">=</span> <span class="st">"large"</span>, placeholder <span class="op">=</span> <span class="st">"Please input"</span><span class="op">)</span>,</span>
 <span>  <span class="fu"><a href="../../reference/el_input_tag.html">el_input_tag</a></span><span class="op">(</span><span class="st">"tags_d"</span>, placeholder <span class="op">=</span> <span class="st">"Please input"</span><span class="op">)</span>,</span>
-<span>  <span class="fu"><a href="../../reference/el_input_tag.html">el_input_tag</a></span><span class="op">(</span><span class="st">"tags_s"</span>, size <span class="op">=</span> <span class="st">"small"</span>, placeholder <span class="op">=</span> <span class="st">"Please input"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<span>  <span class="fu"><a href="../../reference/el_input_tag.html">el_input_tag</a></span><span class="op">(</span><span class="st">"tags_s"</span>, size <span class="op">=</span> <span class="st">"small"</span>, placeholder <span class="op">=</span> <span class="st">"Please input"</span><span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
   <div style="display: grid; gap: 16px">
     <div id="size-tags_l" data-shiny-vue style="display: contents">
@@ -375,9 +408,21 @@ addition to the default size, there are two other options:
 </h2>
 <p>You can customize the tag content by <code>tag</code> slot.</p>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_input_tag.html">el_input_tag</a></span><span class="op">(</span><span class="st">"tags_tpl"</span>, value <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"tag1"</span>, <span class="st">"tag2"</span><span class="op">)</span>, tag_type <span class="op">=</span> <span class="st">"primary"</span>, tag_effect <span class="op">=</span> <span class="st">"plain"</span>,</span>
-<span>  slots <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>tag <span class="op">=</span> <span class="fu"><a href="../../reference/template.html">template</a></span><span class="op">(</span><span class="fu">htmltools</span><span class="fu">::</span><span class="fu"><a href="https://rstudio.github.io/htmltools/reference/HTML.html" class="external-link">HTML</a></span><span class="op">(</span><span class="st">"&lt;div class=\"flex items-center\"&gt;&lt;el-icon&gt;&lt;ElementPlus /&gt;&lt;/el-icon&gt;&lt;span&gt;{{ value }}&lt;/span&gt;&lt;/div&gt;"</span><span class="op">)</span>,</span>
-<span>                              slot <span class="op">=</span> <span class="st">"tag"</span>, scope <span class="op">=</span> <span class="st">"{ value }"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_input_tag.html">el_input_tag</a></span><span class="op">(</span></span>
+<span>  <span class="st">"tags_tpl"</span>,</span>
+<span>  value <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"tag1"</span>, <span class="st">"tag2"</span><span class="op">)</span>,</span>
+<span>  tag_type <span class="op">=</span> <span class="st">"primary"</span>,</span>
+<span>  tag_effect <span class="op">=</span> <span class="st">"plain"</span>,</span>
+<span>  slots <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>    tag <span class="op">=</span> <span class="fu"><a href="../../reference/template.html">template</a></span><span class="op">(</span></span>
+<span>      <span class="fu">htmltools</span><span class="fu">::</span><span class="fu"><a href="https://rstudio.github.io/htmltools/reference/HTML.html" class="external-link">HTML</a></span><span class="op">(</span></span>
+<span>        <span class="st">"&lt;div class=\"flex items-center\"&gt;&lt;el-icon&gt;&lt;ElementPlus /&gt;&lt;/el-icon&gt;&lt;span&gt;{{ value }}&lt;/span&gt;&lt;/div&gt;"</span></span>
+<span>      <span class="op">)</span>,</span>
+<span>      slot <span class="op">=</span> <span class="st">"tag"</span>,</span>
+<span>      scope <span class="op">=</span> <span class="st">"{ value }"</span></span>
+<span>    <span class="op">)</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
   <div id="tag-tags_tpl" data-shiny-vue style="display: contents">
     <script type="text/x-template" data-shiny-vue-template><div id="tag-tags_tpl_container" style="display: contents">
@@ -392,8 +437,11 @@ addition to the default size, there are two other options:
 <p>You can customize the prefix and suffix of the InputTag by
 <code>prefix</code> and <code>suffix</code> slot.</p>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_input_tag.html">el_input_tag</a></span><span class="op">(</span><span class="st">"tags_ps"</span>, placeholder <span class="op">=</span> <span class="st">"Please input"</span>,</span>
-<span>             slots <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>prefix <span class="op">=</span> <span class="fu"><a href="../../reference/el_icon.html">el_icon</a></span><span class="op">(</span><span class="st">"CollectionTag"</span><span class="op">)</span>, suffix <span class="op">=</span> <span class="fu"><a href="../../reference/el_icon.html">el_icon</a></span><span class="op">(</span><span class="st">"Search"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_input_tag.html">el_input_tag</a></span><span class="op">(</span></span>
+<span>  <span class="st">"tags_ps"</span>,</span>
+<span>  placeholder <span class="op">=</span> <span class="st">"Please input"</span>,</span>
+<span>  slots <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>prefix <span class="op">=</span> <span class="fu"><a href="../../reference/el_icon.html">el_icon</a></span><span class="op">(</span><span class="st">"CollectionTag"</span><span class="op">)</span>, suffix <span class="op">=</span> <span class="fu"><a href="../../reference/el_icon.html">el_icon</a></span><span class="op">(</span><span class="st">"Search"</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
   <div id="prefix-suffix-tags_ps" data-shiny-vue style="display: contents">
     <script type="text/x-template" data-shiny-vue-template><div id="prefix-suffix-tags_ps_container" style="display: contents">

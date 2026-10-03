@@ -55,8 +55,16 @@ reads naturally to someone coming from either side:
 
 ``` r
 
-el_select("city_shiny", choices = c(Beijing = "bj", Shanghai = "sh"), selected = "sh")
-el_select("city_element", options = c(Beijing = "bj", Shanghai = "sh"), value = "sh")
+el_select(
+  "city_shiny",
+  choices = c(Beijing = "bj", Shanghai = "sh"),
+  selected = "sh"
+)
+el_select(
+  "city_element",
+  options = c(Beijing = "bj", Shanghai = "sh"),
+  value = "sh"
+)
 ```
 
 The same holds in the server:

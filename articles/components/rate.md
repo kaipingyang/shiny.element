@@ -14,9 +14,14 @@ threshold between two levels and value is the corresponding color.
 
 ``` r
 
-tags$div(style = "display: flex; gap: 40px",
+tags$div(
+  style = "display: flex; gap: 40px",
   tags$div(tags$div("Default"), el_rate("rate1")),
-  tags$div(tags$div("Color for different levels"), el_rate("rate2", colors = c("#99A9BF", "#F7BA2A", "#FF9900"))))
+  tags$div(
+    tags$div("Color for different levels"),
+    el_rate("rate2", colors = c("#99A9BF", "#F7BA2A", "#FF9900"))
+  )
+)
 ```
 
 Default
@@ -27,8 +32,12 @@ Color for different levels
 
 ``` r
 
-tags$div(style = "display: grid; gap: 8px",
-  el_rate("rate_l", size = "large"), el_rate("rate_d"), el_rate("rate_s", size = "small"))
+tags$div(
+  style = "display: grid; gap: 8px",
+  el_rate("rate_l", size = "large"),
+  el_rate("rate_d"),
+  el_rate("rate_s", size = "small")
+)
 ```
 
 ## With allow-half
@@ -50,7 +59,11 @@ whose length should be equal to the max score `max`.
 
 ``` r
 
-el_rate("rate_text", show_text = TRUE, texts = c("oops", "disappointed", "normal", "good", "great"))
+el_rate(
+  "rate_text",
+  show_text = TRUE,
+  texts = c("oops", "disappointed", "normal", "good", "great")
+)
 ```
 
 ## Clearable
@@ -73,8 +86,12 @@ the icon if it is unselected.
 
 ``` r
 
-el_rate("rate_icons", icons = c("ChatRound", "ChatLineRound", "ChatDotRound"), void_icon = "ChatRound",
-        colors = c("#409eff", "#67c23a", "#FF9900"))
+el_rate(
+  "rate_icons",
+  icons = c("ChatRound", "ChatLineRound", "ChatDotRound"),
+  void_icon = "ChatRound",
+  colors = c("#409eff", "#67c23a", "#FF9900")
+)
 ```
 
 ## Read-only
@@ -89,8 +106,14 @@ the rating score.
 
 ``` r
 
-el_rate("rate_ro", value = 3.7, disabled = TRUE, show_score = TRUE, text_color = "#ff9900",
-        score_template = "{value} points")
+el_rate(
+  "rate_ro",
+  value = 3.7,
+  disabled = TRUE,
+  show_score = TRUE,
+  text_color = "#ff9900",
+  score_template = "{value} points"
+)
 ```
 
 ## Custom styles

@@ -16,16 +16,31 @@ The main color of Element Plus is bright and friendly blue. Its tints,
 
 ``` r
 
-swatch <- function(var, label = var, fg = "white", w = 100) tags$div(
-  style = sprintf("display: inline-block; width: %dpx; height: 80px; padding: 10px;
+swatch <- function(var, label = var, fg = "white", w = 100) {
+  tags$div(
+    style = sprintf(
+      "display: inline-block; width: %dpx; height: 80px; padding: 10px;
                    vertical-align: top; background: var(%s); color: %s; font-size: 12px",
-                  w, var, fg), tags$b(label), tags$br(), var)
+      w,
+      var,
+      fg
+    ),
+    tags$b(label),
+    tags$br(),
+    var
+  )
+}
 tags$div(
   swatch("--el-color-primary", "Brand Color", w = 220),
-  lapply(c(3, 5, 7, 8, 9), function(i)
-    swatch(paste0("--el-color-primary-light-", i), paste0("Light ", i),
-           fg = if (i > 5) "#303133" else "white")),
-  swatch("--el-color-primary-dark-2", "Dark 2"))
+  lapply(c(3, 5, 7, 8, 9), function(i) {
+    swatch(
+      paste0("--el-color-primary-light-", i),
+      paste0("Light ", i),
+      fg = if (i > 5) "#303133" else "white"
+    )
+  }),
+  swatch("--el-color-primary-dark-2", "Dark 2")
+)
 ```
 
 **Brand Color**  
@@ -57,12 +72,23 @@ operation.
 
 ``` r
 
-swatch <- function(var, label = var, fg = "white", w = 160) tags$div(
-  style = sprintf("display: inline-block; width: %dpx; height: 80px; padding: 10px; margin: 0 10px 10px 0;
+swatch <- function(var, label = var, fg = "white", w = 160) {
+  tags$div(
+    style = sprintf(
+      "display: inline-block; width: %dpx; height: 80px; padding: 10px; margin: 0 10px 10px 0;
                    border-radius: 4px; background: var(%s); color: %s; font-size: 12px",
-                  w, var, fg), tags$b(label), tags$br(), var)
-tagList(lapply(c("success", "warning", "danger", "info"), function(t)
-  swatch(paste0("--el-color-", t), tools::toTitleCase(t))))
+      w,
+      var,
+      fg
+    ),
+    tags$b(label),
+    tags$br(),
+    var
+  )
+}
+tagList(lapply(c("success", "warning", "danger", "info"), function(t) {
+  swatch(paste0("--el-color-", t), tools::toTitleCase(t))
+}))
 ```
 
 **Success**  
@@ -84,31 +110,44 @@ neutral colors represent the hierarchical structure.
 
 ``` r
 
-swatch <- function(var, label, fg) tags$div(
-  style = sprintf("display: inline-block; width: 160px; height: 60px; padding: 10px; margin: 0 10px 10px 0;
+swatch <- function(var, label, fg) {
+  tags$div(
+    style = sprintf(
+      "display: inline-block; width: 160px; height: 60px; padding: 10px; margin: 0 10px 10px 0;
                    border-radius: 4px; background: var(%s); color: %s; font-size: 12px;
-                   border: 1px solid var(--el-border-color-lighter)", var, fg),
-  tags$b(label), tags$br(), var)
+                   border: 1px solid var(--el-border-color-lighter)",
+      var,
+      fg
+    ),
+    tags$b(label),
+    tags$br(),
+    var
+  )
+}
 tagList(
   tags$div(
     swatch("--el-text-color-primary", "Primary Text", "white"),
     swatch("--el-text-color-regular", "Regular Text", "white"),
     swatch("--el-text-color-secondary", "Secondary Text", "white"),
     swatch("--el-text-color-placeholder", "Placeholder Text", "white"),
-    swatch("--el-text-color-disabled", "Disabled Text", "#303133")),
+    swatch("--el-text-color-disabled", "Disabled Text", "#303133")
+  ),
   tags$div(
     swatch("--el-border-color-darker", "Darker Border", "#303133"),
     swatch("--el-border-color-dark", "Dark Border", "#303133"),
     swatch("--el-border-color", "Base Border", "#303133"),
     swatch("--el-border-color-light", "Light Border", "#303133"),
     swatch("--el-border-color-lighter", "Lighter Border", "#303133"),
-    swatch("--el-border-color-extra-light", "Extra Light Border", "#303133")),
+    swatch("--el-border-color-extra-light", "Extra Light Border", "#303133")
+  ),
   tags$div(
     swatch("--el-fill-color-darker", "Darker Fill", "#303133"),
     swatch("--el-fill-color", "Base Fill", "#303133"),
     swatch("--el-fill-color-light", "Light Fill", "#303133"),
     swatch("--el-fill-color-extra-light", "Extra Light Fill", "#303133"),
-    swatch("--el-bg-color-page", "Page Background", "#303133")))
+    swatch("--el-bg-color-page", "Page Background", "#303133")
+  )
+)
 ```
 
 **Primary Text**  
@@ -166,6 +205,10 @@ name. See the theming guide.
 
 ``` r
 
-el_page(theme = el_theme(primary = "#7c3aed",
-                         element = list("text-color-regular" = "#4b5563")))
+el_page(
+  theme = el_theme(
+    primary = "#7c3aed",
+    element = list("text-color-regular" = "#4b5563")
+  )
+)
 ```

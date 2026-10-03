@@ -40,6 +40,9 @@ Called for its side effect; returns `NULL` invisibly.
 ``` r
 if (interactive()) {
   # inside a server function
-  observeEvent(input$show, update_el_image_viewer(session, "photos", visible = TRUE))
+  observeEvent(
+    input$show,
+    update_el_image_viewer(session, "photos", visible = TRUE)
+  )
 }
 ```

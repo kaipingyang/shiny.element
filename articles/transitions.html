@@ -198,15 +198,33 @@ Plus’s buttons as <code>el$</code> tags.</p>
 <p>Two fading effects: <code>el-fade-in-linear</code> and
 <code>el-fade-in</code>.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">box</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">text</span><span class="op">)</span> <span class="fu">htmltools</span><span class="fu">::</span><span class="va"><a href="https://rstudio.github.io/htmltools/reference/builder.html" class="external-link">tags</a></span><span class="op">$</span><span class="fu">div</span><span class="op">(</span>`v-show` <span class="op">=</span> <span class="st">"show"</span>, class <span class="op">=</span> <span class="st">"transition-box"</span>,</span>
-<span>  style <span class="op">=</span> <span class="st">"margin: 12px 20px 0 0; width: 200px; height: 100px; border-radius: 4px;</span></span>
-<span><span class="st">           background: var(--el-color-primary); color: #fff; text-align: center;</span></span>
-<span><span class="st">           line-height: 100px; display: inline-block"</span>, <span class="va">text</span><span class="op">)</span></span>
-<span><span class="fu"><a href="../reference/el_widget.html">el_widget</a></span><span class="op">(</span><span class="st">"fade"</span>, data <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>show <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>, markup <span class="op">=</span> <span class="fu">htmltools</span><span class="fu">::</span><span class="va"><a href="https://rstudio.github.io/htmltools/reference/builder.html" class="external-link">tags</a></span><span class="op">$</span><span class="fu">div</span><span class="op">(</span></span>
-<span>  <span class="va">el</span><span class="op">$</span><span class="fu">button</span><span class="op">(</span><span class="st">"@click"</span> <span class="op">=</span> <span class="st">"show = !show"</span>, <span class="st">"Click Me"</span><span class="op">)</span>,</span>
+<code class="sourceCode R"><span><span class="va">box</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">text</span><span class="op">)</span> <span class="op">{</span></span>
 <span>  <span class="fu">htmltools</span><span class="fu">::</span><span class="va"><a href="https://rstudio.github.io/htmltools/reference/builder.html" class="external-link">tags</a></span><span class="op">$</span><span class="fu">div</span><span class="op">(</span></span>
-<span>    <span class="fu">htmltools</span><span class="fu">::</span><span class="fu"><a href="https://rstudio.github.io/htmltools/reference/builder.html" class="external-link">tag</a></span><span class="op">(</span><span class="st">"transition"</span>, <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">"el-fade-in-linear"</span>, <span class="fu"><a href="https://rdrr.io/r/graphics/box.html" class="external-link">box</a></span><span class="op">(</span><span class="st">".el-fade-in-linear"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>,</span>
-<span>    <span class="fu">htmltools</span><span class="fu">::</span><span class="fu"><a href="https://rstudio.github.io/htmltools/reference/builder.html" class="external-link">tag</a></span><span class="op">(</span><span class="st">"transition"</span>, <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">"el-fade-in"</span>, <span class="fu"><a href="https://rdrr.io/r/graphics/box.html" class="external-link">box</a></span><span class="op">(</span><span class="st">".el-fade-in"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<span>    `v-show` <span class="op">=</span> <span class="st">"show"</span>,</span>
+<span>    class <span class="op">=</span> <span class="st">"transition-box"</span>,</span>
+<span>    style <span class="op">=</span> <span class="st">"margin: 12px 20px 0 0; width: 200px; height: 100px; border-radius: 4px;</span></span>
+<span><span class="st">           background: var(--el-color-primary); color: #fff; text-align: center;</span></span>
+<span><span class="st">           line-height: 100px; display: inline-block"</span>,</span>
+<span>    <span class="va">text</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">}</span></span>
+<span><span class="fu"><a href="../reference/el_widget.html">el_widget</a></span><span class="op">(</span></span>
+<span>  <span class="st">"fade"</span>,</span>
+<span>  data <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>show <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,</span>
+<span>  markup <span class="op">=</span> <span class="fu">htmltools</span><span class="fu">::</span><span class="va"><a href="https://rstudio.github.io/htmltools/reference/builder.html" class="external-link">tags</a></span><span class="op">$</span><span class="fu">div</span><span class="op">(</span></span>
+<span>    <span class="va">el</span><span class="op">$</span><span class="fu">button</span><span class="op">(</span><span class="st">"@click"</span> <span class="op">=</span> <span class="st">"show = !show"</span>, <span class="st">"Click Me"</span><span class="op">)</span>,</span>
+<span>    <span class="fu">htmltools</span><span class="fu">::</span><span class="va"><a href="https://rstudio.github.io/htmltools/reference/builder.html" class="external-link">tags</a></span><span class="op">$</span><span class="fu">div</span><span class="op">(</span></span>
+<span>      <span class="fu">htmltools</span><span class="fu">::</span><span class="fu"><a href="https://rstudio.github.io/htmltools/reference/builder.html" class="external-link">tag</a></span><span class="op">(</span></span>
+<span>        <span class="st">"transition"</span>,</span>
+<span>        <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">"el-fade-in-linear"</span>, <span class="fu"><a href="https://rdrr.io/r/graphics/box.html" class="external-link">box</a></span><span class="op">(</span><span class="st">".el-fade-in-linear"</span><span class="op">)</span><span class="op">)</span></span>
+<span>      <span class="op">)</span>,</span>
+<span>      <span class="fu">htmltools</span><span class="fu">::</span><span class="fu"><a href="https://rstudio.github.io/htmltools/reference/builder.html" class="external-link">tag</a></span><span class="op">(</span></span>
+<span>        <span class="st">"transition"</span>,</span>
+<span>        <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">"el-fade-in"</span>, <span class="fu"><a href="https://rdrr.io/r/graphics/box.html" class="external-link">box</a></span><span class="op">(</span><span class="st">".el-fade-in"</span><span class="op">)</span><span class="op">)</span></span>
+<span>      <span class="op">)</span></span>
+<span>    <span class="op">)</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
   <div id="fade" data-shiny-vue style="display: contents">
     <script type="text/x-template" data-shiny-vue-template><div id="fade_container" style="display: contents">
@@ -231,16 +249,36 @@ Plus’s buttons as <code>el$</code> tags.</p>
 <p><code>el-zoom-in-center</code>, <code>el-zoom-in-top</code> and
 <code>el-zoom-in-bottom</code>.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">box</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">text</span><span class="op">)</span> <span class="fu">htmltools</span><span class="fu">::</span><span class="va"><a href="https://rstudio.github.io/htmltools/reference/builder.html" class="external-link">tags</a></span><span class="op">$</span><span class="fu">div</span><span class="op">(</span>`v-show` <span class="op">=</span> <span class="st">"show"</span>,</span>
-<span>  style <span class="op">=</span> <span class="st">"margin: 12px 20px 0 0; width: 200px; height: 100px; border-radius: 4px;</span></span>
-<span><span class="st">           background: var(--el-color-primary); color: #fff; text-align: center;</span></span>
-<span><span class="st">           line-height: 100px; display: inline-block"</span>, <span class="va">text</span><span class="op">)</span></span>
-<span><span class="fu"><a href="../reference/el_widget.html">el_widget</a></span><span class="op">(</span><span class="st">"zoom"</span>, data <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>show <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>, markup <span class="op">=</span> <span class="fu">htmltools</span><span class="fu">::</span><span class="va"><a href="https://rstudio.github.io/htmltools/reference/builder.html" class="external-link">tags</a></span><span class="op">$</span><span class="fu">div</span><span class="op">(</span></span>
-<span>  <span class="va">el</span><span class="op">$</span><span class="fu">button</span><span class="op">(</span><span class="st">"@click"</span> <span class="op">=</span> <span class="st">"show = !show"</span>, <span class="st">"Click Me"</span><span class="op">)</span>,</span>
+<code class="sourceCode R"><span><span class="va">box</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">text</span><span class="op">)</span> <span class="op">{</span></span>
 <span>  <span class="fu">htmltools</span><span class="fu">::</span><span class="va"><a href="https://rstudio.github.io/htmltools/reference/builder.html" class="external-link">tags</a></span><span class="op">$</span><span class="fu">div</span><span class="op">(</span></span>
-<span>    <span class="fu">htmltools</span><span class="fu">::</span><span class="fu"><a href="https://rstudio.github.io/htmltools/reference/builder.html" class="external-link">tag</a></span><span class="op">(</span><span class="st">"transition"</span>, <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">"el-zoom-in-center"</span>, <span class="fu"><a href="https://rdrr.io/r/graphics/box.html" class="external-link">box</a></span><span class="op">(</span><span class="st">".el-zoom-in-center"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>,</span>
-<span>    <span class="fu">htmltools</span><span class="fu">::</span><span class="fu"><a href="https://rstudio.github.io/htmltools/reference/builder.html" class="external-link">tag</a></span><span class="op">(</span><span class="st">"transition"</span>, <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">"el-zoom-in-top"</span>, <span class="fu"><a href="https://rdrr.io/r/graphics/box.html" class="external-link">box</a></span><span class="op">(</span><span class="st">".el-zoom-in-top"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>,</span>
-<span>    <span class="fu">htmltools</span><span class="fu">::</span><span class="fu"><a href="https://rstudio.github.io/htmltools/reference/builder.html" class="external-link">tag</a></span><span class="op">(</span><span class="st">"transition"</span>, <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">"el-zoom-in-bottom"</span>, <span class="fu"><a href="https://rdrr.io/r/graphics/box.html" class="external-link">box</a></span><span class="op">(</span><span class="st">".el-zoom-in-bottom"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<span>    `v-show` <span class="op">=</span> <span class="st">"show"</span>,</span>
+<span>    style <span class="op">=</span> <span class="st">"margin: 12px 20px 0 0; width: 200px; height: 100px; border-radius: 4px;</span></span>
+<span><span class="st">           background: var(--el-color-primary); color: #fff; text-align: center;</span></span>
+<span><span class="st">           line-height: 100px; display: inline-block"</span>,</span>
+<span>    <span class="va">text</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">}</span></span>
+<span><span class="fu"><a href="../reference/el_widget.html">el_widget</a></span><span class="op">(</span></span>
+<span>  <span class="st">"zoom"</span>,</span>
+<span>  data <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>show <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,</span>
+<span>  markup <span class="op">=</span> <span class="fu">htmltools</span><span class="fu">::</span><span class="va"><a href="https://rstudio.github.io/htmltools/reference/builder.html" class="external-link">tags</a></span><span class="op">$</span><span class="fu">div</span><span class="op">(</span></span>
+<span>    <span class="va">el</span><span class="op">$</span><span class="fu">button</span><span class="op">(</span><span class="st">"@click"</span> <span class="op">=</span> <span class="st">"show = !show"</span>, <span class="st">"Click Me"</span><span class="op">)</span>,</span>
+<span>    <span class="fu">htmltools</span><span class="fu">::</span><span class="va"><a href="https://rstudio.github.io/htmltools/reference/builder.html" class="external-link">tags</a></span><span class="op">$</span><span class="fu">div</span><span class="op">(</span></span>
+<span>      <span class="fu">htmltools</span><span class="fu">::</span><span class="fu"><a href="https://rstudio.github.io/htmltools/reference/builder.html" class="external-link">tag</a></span><span class="op">(</span></span>
+<span>        <span class="st">"transition"</span>,</span>
+<span>        <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">"el-zoom-in-center"</span>, <span class="fu"><a href="https://rdrr.io/r/graphics/box.html" class="external-link">box</a></span><span class="op">(</span><span class="st">".el-zoom-in-center"</span><span class="op">)</span><span class="op">)</span></span>
+<span>      <span class="op">)</span>,</span>
+<span>      <span class="fu">htmltools</span><span class="fu">::</span><span class="fu"><a href="https://rstudio.github.io/htmltools/reference/builder.html" class="external-link">tag</a></span><span class="op">(</span></span>
+<span>        <span class="st">"transition"</span>,</span>
+<span>        <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">"el-zoom-in-top"</span>, <span class="fu"><a href="https://rdrr.io/r/graphics/box.html" class="external-link">box</a></span><span class="op">(</span><span class="st">".el-zoom-in-top"</span><span class="op">)</span><span class="op">)</span></span>
+<span>      <span class="op">)</span>,</span>
+<span>      <span class="fu">htmltools</span><span class="fu">::</span><span class="fu"><a href="https://rstudio.github.io/htmltools/reference/builder.html" class="external-link">tag</a></span><span class="op">(</span></span>
+<span>        <span class="st">"transition"</span>,</span>
+<span>        <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">"el-zoom-in-bottom"</span>, <span class="fu"><a href="https://rdrr.io/r/graphics/box.html" class="external-link">box</a></span><span class="op">(</span><span class="st">".el-zoom-in-bottom"</span><span class="op">)</span><span class="op">)</span></span>
+<span>      <span class="op">)</span></span>
+<span>    <span class="op">)</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
   <div id="zoom" data-shiny-vue style="display: contents">
     <script type="text/x-template" data-shiny-vue-template><div id="zoom_container" style="display: contents">
@@ -268,17 +306,31 @@ Plus’s buttons as <code>el$</code> tags.</p>
 <p>For a collapse effect, <code>el$collapse_transition()</code>: it
 animates a block’s height.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/el_widget.html">el_widget</a></span><span class="op">(</span><span class="st">"collapse"</span>, data <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>show <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>, markup <span class="op">=</span> <span class="fu">htmltools</span><span class="fu">::</span><span class="va"><a href="https://rstudio.github.io/htmltools/reference/builder.html" class="external-link">tags</a></span><span class="op">$</span><span class="fu">div</span><span class="op">(</span></span>
-<span>  <span class="va">el</span><span class="op">$</span><span class="fu">button</span><span class="op">(</span><span class="st">"@click"</span> <span class="op">=</span> <span class="st">"show = !show"</span>, <span class="st">"Click Me"</span><span class="op">)</span>,</span>
-<span>  <span class="fu">htmltools</span><span class="fu">::</span><span class="va"><a href="https://rstudio.github.io/htmltools/reference/builder.html" class="external-link">tags</a></span><span class="op">$</span><span class="fu">div</span><span class="op">(</span>style <span class="op">=</span> <span class="st">"margin-top: 20px; height: 200px"</span>,</span>
-<span>    <span class="va">el</span><span class="op">$</span><span class="fu">collapse_transition</span><span class="op">(</span></span>
-<span>      <span class="fu">htmltools</span><span class="fu">::</span><span class="va"><a href="https://rstudio.github.io/htmltools/reference/builder.html" class="external-link">tags</a></span><span class="op">$</span><span class="fu">div</span><span class="op">(</span>`v-show` <span class="op">=</span> <span class="st">"show"</span>,</span>
-<span>        <span class="fu">htmltools</span><span class="fu">::</span><span class="va"><a href="https://rstudio.github.io/htmltools/reference/builder.html" class="external-link">tags</a></span><span class="op">$</span><span class="fu">div</span><span class="op">(</span>style <span class="op">=</span> <span class="st">"width: 200px; height: 100px; margin-bottom: 10px; border-radius: 4px;</span></span>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/el_widget.html">el_widget</a></span><span class="op">(</span></span>
+<span>  <span class="st">"collapse"</span>,</span>
+<span>  data <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>show <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,</span>
+<span>  markup <span class="op">=</span> <span class="fu">htmltools</span><span class="fu">::</span><span class="va"><a href="https://rstudio.github.io/htmltools/reference/builder.html" class="external-link">tags</a></span><span class="op">$</span><span class="fu">div</span><span class="op">(</span></span>
+<span>    <span class="va">el</span><span class="op">$</span><span class="fu">button</span><span class="op">(</span><span class="st">"@click"</span> <span class="op">=</span> <span class="st">"show = !show"</span>, <span class="st">"Click Me"</span><span class="op">)</span>,</span>
+<span>    <span class="fu">htmltools</span><span class="fu">::</span><span class="va"><a href="https://rstudio.github.io/htmltools/reference/builder.html" class="external-link">tags</a></span><span class="op">$</span><span class="fu">div</span><span class="op">(</span></span>
+<span>      style <span class="op">=</span> <span class="st">"margin-top: 20px; height: 200px"</span>,</span>
+<span>      <span class="va">el</span><span class="op">$</span><span class="fu">collapse_transition</span><span class="op">(</span></span>
+<span>        <span class="fu">htmltools</span><span class="fu">::</span><span class="va"><a href="https://rstudio.github.io/htmltools/reference/builder.html" class="external-link">tags</a></span><span class="op">$</span><span class="fu">div</span><span class="op">(</span></span>
+<span>          `v-show` <span class="op">=</span> <span class="st">"show"</span>,</span>
+<span>          <span class="fu">htmltools</span><span class="fu">::</span><span class="va"><a href="https://rstudio.github.io/htmltools/reference/builder.html" class="external-link">tags</a></span><span class="op">$</span><span class="fu">div</span><span class="op">(</span></span>
+<span>            style <span class="op">=</span> <span class="st">"width: 200px; height: 100px; margin-bottom: 10px; border-radius: 4px;</span></span>
 <span><span class="st">          background: var(--el-color-primary); color: #fff; text-align: center; line-height: 100px"</span>,</span>
-<span>          <span class="st">"el-collapse-transition"</span><span class="op">)</span>,</span>
-<span>        <span class="fu">htmltools</span><span class="fu">::</span><span class="va"><a href="https://rstudio.github.io/htmltools/reference/builder.html" class="external-link">tags</a></span><span class="op">$</span><span class="fu">div</span><span class="op">(</span>style <span class="op">=</span> <span class="st">"width: 200px; height: 100px; border-radius: 4px;</span></span>
+<span>            <span class="st">"el-collapse-transition"</span></span>
+<span>          <span class="op">)</span>,</span>
+<span>          <span class="fu">htmltools</span><span class="fu">::</span><span class="va"><a href="https://rstudio.github.io/htmltools/reference/builder.html" class="external-link">tags</a></span><span class="op">$</span><span class="fu">div</span><span class="op">(</span></span>
+<span>            style <span class="op">=</span> <span class="st">"width: 200px; height: 100px; border-radius: 4px;</span></span>
 <span><span class="st">          background: var(--el-color-primary); color: #fff; text-align: center; line-height: 100px"</span>,</span>
-<span>          <span class="st">"el-collapse-transition"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<span>            <span class="st">"el-collapse-transition"</span></span>
+<span>          <span class="op">)</span></span>
+<span>        <span class="op">)</span></span>
+<span>      <span class="op">)</span></span>
+<span>    <span class="op">)</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
   <div id="collapse" data-shiny-vue style="display: contents">
     <script type="text/x-template" data-shiny-vue-template><div id="collapse_container" style="display: contents">

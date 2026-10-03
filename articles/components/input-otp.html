@@ -222,9 +222,12 @@
 <p>There are three types available: <code>outlined</code> (default),
 <code>filled</code>, and <code>underlined</code>.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span>style <span class="op">=</span> <span class="st">"display: grid; gap: 16px"</span>,</span>
-<span>  <span class="fu"><a href="../../reference/el_input_otp.html">el_input_otp</a></span><span class="op">(</span><span class="st">"otp_o"</span>, type <span class="op">=</span> <span class="st">"outlined"</span><span class="op">)</span>, <span class="fu"><a href="../../reference/el_input_otp.html">el_input_otp</a></span><span class="op">(</span><span class="st">"otp_f"</span>, type <span class="op">=</span> <span class="st">"filled"</span><span class="op">)</span>,</span>
-<span>  <span class="fu"><a href="../../reference/el_input_otp.html">el_input_otp</a></span><span class="op">(</span><span class="st">"otp_u"</span>, type <span class="op">=</span> <span class="st">"underlined"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span></span>
+<span>  style <span class="op">=</span> <span class="st">"display: grid; gap: 16px"</span>,</span>
+<span>  <span class="fu"><a href="../../reference/el_input_otp.html">el_input_otp</a></span><span class="op">(</span><span class="st">"otp_o"</span>, type <span class="op">=</span> <span class="st">"outlined"</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="../../reference/el_input_otp.html">el_input_otp</a></span><span class="op">(</span><span class="st">"otp_f"</span>, type <span class="op">=</span> <span class="st">"filled"</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="../../reference/el_input_otp.html">el_input_otp</a></span><span class="op">(</span><span class="st">"otp_u"</span>, type <span class="op">=</span> <span class="st">"underlined"</span><span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
   <div style="display: grid; gap: 16px">
     <div id="types-otp_o" data-shiny-vue style="display: contents">
@@ -251,8 +254,12 @@
 <p>There are three sizes available: <code>large</code>,
 <code>default</code>, and <code>small</code>.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span>style <span class="op">=</span> <span class="st">"display: grid; gap: 16px"</span>,</span>
-<span>  <span class="fu"><a href="../../reference/el_input_otp.html">el_input_otp</a></span><span class="op">(</span><span class="st">"otp_l"</span>, size <span class="op">=</span> <span class="st">"large"</span><span class="op">)</span>, <span class="fu"><a href="../../reference/el_input_otp.html">el_input_otp</a></span><span class="op">(</span><span class="st">"otp_d"</span><span class="op">)</span>, <span class="fu"><a href="../../reference/el_input_otp.html">el_input_otp</a></span><span class="op">(</span><span class="st">"otp_s"</span>, size <span class="op">=</span> <span class="st">"small"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span></span>
+<span>  style <span class="op">=</span> <span class="st">"display: grid; gap: 16px"</span>,</span>
+<span>  <span class="fu"><a href="../../reference/el_input_otp.html">el_input_otp</a></span><span class="op">(</span><span class="st">"otp_l"</span>, size <span class="op">=</span> <span class="st">"large"</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="../../reference/el_input_otp.html">el_input_otp</a></span><span class="op">(</span><span class="st">"otp_d"</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="../../reference/el_input_otp.html">el_input_otp</a></span><span class="op">(</span><span class="st">"otp_s"</span>, size <span class="op">=</span> <span class="st">"small"</span><span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
   <div style="display: grid; gap: 16px">
     <div id="sizes-otp_l" data-shiny-vue style="display: contents">
@@ -323,7 +330,10 @@ and use <code>inputmode</code> to specify the keyboard type.</p>
 <p><code>validator</code>, a <code><a href="../../reference/JS.html">JS()</a></code> function, decides which
 characters each field takes.</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_input_otp.html">el_input_otp</a></span><span class="op">(</span><span class="st">"otp_val"</span>, validator <span class="op">=</span> <span class="fu"><a href="../../reference/JS.html">JS</a></span><span class="op">(</span><span class="st">"function(char) { return /^[0-9]$/.test(char); }"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_input_otp.html">el_input_otp</a></span><span class="op">(</span></span>
+<span>  <span class="st">"otp_val"</span>,</span>
+<span>  validator <span class="op">=</span> <span class="fu"><a href="../../reference/JS.html">JS</a></span><span class="op">(</span><span class="st">"function(char) { return /^[0-9]$/.test(char); }"</span><span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
   <div id="validator-otp_val" data-shiny-vue style="display: contents">
     <script type="text/x-template" data-shiny-vue-template><div id="validator-otp_val_container" style="display: contents">

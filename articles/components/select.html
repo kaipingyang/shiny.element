@@ -204,10 +204,24 @@ collapse. In order to display the width properly, you need to give
 currently selected.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">opts</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Option1"</span>, <span class="st">"Option2"</span>, <span class="st">"Option3"</span>, <span class="st">"Option4"</span>, <span class="st">"Option5"</span><span class="op">)</span></span>
-<span><span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span>style <span class="op">=</span> <span class="st">"display: flex; gap: 16px"</span>,</span>
-<span>  <span class="fu"><a href="../../reference/el_select.html">el_select</a></span><span class="op">(</span><span class="st">"sel_l"</span>, choices <span class="op">=</span> <span class="va">opts</span>, placeholder <span class="op">=</span> <span class="st">"Select"</span>, size <span class="op">=</span> <span class="st">"large"</span>, width <span class="op">=</span> <span class="st">"240px"</span><span class="op">)</span>,</span>
+<span><span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span></span>
+<span>  style <span class="op">=</span> <span class="st">"display: flex; gap: 16px"</span>,</span>
+<span>  <span class="fu"><a href="../../reference/el_select.html">el_select</a></span><span class="op">(</span></span>
+<span>    <span class="st">"sel_l"</span>,</span>
+<span>    choices <span class="op">=</span> <span class="va">opts</span>,</span>
+<span>    placeholder <span class="op">=</span> <span class="st">"Select"</span>,</span>
+<span>    size <span class="op">=</span> <span class="st">"large"</span>,</span>
+<span>    width <span class="op">=</span> <span class="st">"240px"</span></span>
+<span>  <span class="op">)</span>,</span>
 <span>  <span class="fu"><a href="../../reference/el_select.html">el_select</a></span><span class="op">(</span><span class="st">"sel_d"</span>, choices <span class="op">=</span> <span class="va">opts</span>, placeholder <span class="op">=</span> <span class="st">"Select"</span>, width <span class="op">=</span> <span class="st">"240px"</span><span class="op">)</span>,</span>
-<span>  <span class="fu"><a href="../../reference/el_select.html">el_select</a></span><span class="op">(</span><span class="st">"sel_s"</span>, choices <span class="op">=</span> <span class="va">opts</span>, placeholder <span class="op">=</span> <span class="st">"Select"</span>, size <span class="op">=</span> <span class="st">"small"</span>, width <span class="op">=</span> <span class="st">"240px"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<span>  <span class="fu"><a href="../../reference/el_select.html">el_select</a></span><span class="op">(</span></span>
+<span>    <span class="st">"sel_s"</span>,</span>
+<span>    choices <span class="op">=</span> <span class="va">opts</span>,</span>
+<span>    placeholder <span class="op">=</span> <span class="st">"Select"</span>,</span>
+<span>    size <span class="op">=</span> <span class="st">"small"</span>,</span>
+<span>    width <span class="op">=</span> <span class="st">"240px"</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
   <div style="display: flex; gap: 16px">
     <div id="basic-usage-sel_l" data-shiny-vue style="display: contents">
@@ -250,9 +264,16 @@ currently selected.</p>
 the alias of the <code>options</code> through the <code>props</code>
 attribute.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_select.html">el_select</a></span><span class="op">(</span><span class="st">"sel_opts"</span>, placeholder <span class="op">=</span> <span class="st">"Select"</span>, width <span class="op">=</span> <span class="st">"240px"</span>,</span>
-<span>  choices <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>value <span class="op">=</span> <span class="st">"Option1"</span>, label <span class="op">=</span> <span class="st">"Option 1"</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>value <span class="op">=</span> <span class="st">"Option2"</span>, label <span class="op">=</span> <span class="st">"Option 2"</span><span class="op">)</span>,</span>
-<span>                 <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>value <span class="op">=</span> <span class="st">"Option3"</span>, label <span class="op">=</span> <span class="st">"Option 3"</span>, disabled <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_select.html">el_select</a></span><span class="op">(</span></span>
+<span>  <span class="st">"sel_opts"</span>,</span>
+<span>  placeholder <span class="op">=</span> <span class="st">"Select"</span>,</span>
+<span>  width <span class="op">=</span> <span class="st">"240px"</span>,</span>
+<span>  choices <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>value <span class="op">=</span> <span class="st">"Option1"</span>, label <span class="op">=</span> <span class="st">"Option 1"</span><span class="op">)</span>,</span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>value <span class="op">=</span> <span class="st">"Option2"</span>, label <span class="op">=</span> <span class="st">"Option 2"</span><span class="op">)</span>,</span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>value <span class="op">=</span> <span class="st">"Option3"</span>, label <span class="op">=</span> <span class="st">"Option 3"</span>, disabled <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
   <div id="options-sel_opts" data-shiny-vue style="display: contents">
     <script type="text/x-template" data-shiny-vue-template><div id="options-sel_opts_container" style="display: contents">
@@ -272,9 +293,16 @@ attribute.</p>
 <p>Set the value of <code>disabled</code> in <code>el-option</code> to
 <code>true</code> to disable this option.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_select.html">el_select</a></span><span class="op">(</span><span class="st">"sel_dis_opt"</span>, placeholder <span class="op">=</span> <span class="st">"Select"</span>, width <span class="op">=</span> <span class="st">"240px"</span>, choices <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>value <span class="op">=</span> <span class="st">"Option1"</span>, label <span class="op">=</span> <span class="st">"Option1"</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>value <span class="op">=</span> <span class="st">"Option2"</span>, label <span class="op">=</span> <span class="st">"Option2"</span>, disabled <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,</span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>value <span class="op">=</span> <span class="st">"Option3"</span>, label <span class="op">=</span> <span class="st">"Option3"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_select.html">el_select</a></span><span class="op">(</span></span>
+<span>  <span class="st">"sel_dis_opt"</span>,</span>
+<span>  placeholder <span class="op">=</span> <span class="st">"Select"</span>,</span>
+<span>  width <span class="op">=</span> <span class="st">"240px"</span>,</span>
+<span>  choices <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>value <span class="op">=</span> <span class="st">"Option1"</span>, label <span class="op">=</span> <span class="st">"Option1"</span><span class="op">)</span>,</span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>value <span class="op">=</span> <span class="st">"Option2"</span>, label <span class="op">=</span> <span class="st">"Option2"</span>, disabled <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,</span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>value <span class="op">=</span> <span class="st">"Option3"</span>, label <span class="op">=</span> <span class="st">"Option3"</span><span class="op">)</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
   <div id="disabled-option-sel_dis_opt" data-shiny-vue style="display: contents">
     <script type="text/x-template" data-shiny-vue-template><div id="disabled-option-sel_dis_opt_container" style="display: contents">
@@ -295,7 +323,13 @@ attribute.</p>
 <p>Set <code>disabled</code> of <code>el-select</code> to make it
 disabled.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_select.html">el_select</a></span><span class="op">(</span><span class="st">"sel_dis"</span>, choices <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Option1"</span>, <span class="st">"Option2"</span><span class="op">)</span>, placeholder <span class="op">=</span> <span class="st">"Select"</span>, disabled <span class="op">=</span> <span class="cn">TRUE</span>, width <span class="op">=</span> <span class="st">"240px"</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_select.html">el_select</a></span><span class="op">(</span></span>
+<span>  <span class="st">"sel_dis"</span>,</span>
+<span>  choices <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Option1"</span>, <span class="st">"Option2"</span><span class="op">)</span>,</span>
+<span>  placeholder <span class="op">=</span> <span class="st">"Select"</span>,</span>
+<span>  disabled <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  width <span class="op">=</span> <span class="st">"240px"</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
   <div id="disabled-sel_dis" data-shiny-vue style="display: contents">
     <script type="text/x-template" data-shiny-vue-template><div id="disabled-sel_dis_container" style="display: contents">
@@ -316,8 +350,13 @@ disabled.</p>
 <p>Set <code>clearable</code> attribute for <code>el-select</code> and a
 clear icon will appear.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_select.html">el_select</a></span><span class="op">(</span><span class="st">"sel_clear"</span>, choices <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Option1"</span>, <span class="st">"Option2"</span>, <span class="st">"Option3"</span><span class="op">)</span>, selected <span class="op">=</span> <span class="st">"Option1"</span>,</span>
-<span>          clearable <span class="op">=</span> <span class="cn">TRUE</span>, width <span class="op">=</span> <span class="st">"240px"</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_select.html">el_select</a></span><span class="op">(</span></span>
+<span>  <span class="st">"sel_clear"</span>,</span>
+<span>  choices <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Option1"</span>, <span class="st">"Option2"</span>, <span class="st">"Option3"</span><span class="op">)</span>,</span>
+<span>  selected <span class="op">=</span> <span class="st">"Option1"</span>,</span>
+<span>  clearable <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  width <span class="op">=</span> <span class="st">"240px"</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
   <div id="clearable-sel_clear" data-shiny-vue style="display: contents">
     <script type="text/x-template" data-shiny-vue-template><div id="clearable-sel_clear_container" style="display: contents">
@@ -339,10 +378,12 @@ addition to the default size, there are two other options:
 <code>large</code>, <code>small</code>.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">opts</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Option1"</span>, <span class="st">"Option2"</span>, <span class="st">"Option3"</span><span class="op">)</span></span>
-<span><span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span>style <span class="op">=</span> <span class="st">"display: grid; gap: 16px"</span>,</span>
+<span><span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span></span>
+<span>  style <span class="op">=</span> <span class="st">"display: grid; gap: 16px"</span>,</span>
 <span>  <span class="fu"><a href="../../reference/el_select.html">el_select</a></span><span class="op">(</span><span class="st">"sel_sz_l"</span>, choices <span class="op">=</span> <span class="va">opts</span>, size <span class="op">=</span> <span class="st">"large"</span>, width <span class="op">=</span> <span class="st">"240px"</span><span class="op">)</span>,</span>
 <span>  <span class="fu"><a href="../../reference/el_select.html">el_select</a></span><span class="op">(</span><span class="st">"sel_sz_d"</span>, choices <span class="op">=</span> <span class="va">opts</span>, width <span class="op">=</span> <span class="st">"240px"</span><span class="op">)</span>,</span>
-<span>  <span class="fu"><a href="../../reference/el_select.html">el_select</a></span><span class="op">(</span><span class="st">"sel_sz_s"</span>, choices <span class="op">=</span> <span class="va">opts</span>, size <span class="op">=</span> <span class="st">"small"</span>, width <span class="op">=</span> <span class="st">"240px"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<span>  <span class="fu"><a href="../../reference/el_select.html">el_select</a></span><span class="op">(</span><span class="st">"sel_sz_s"</span>, choices <span class="op">=</span> <span class="va">opts</span>, size <span class="op">=</span> <span class="st">"small"</span>, width <span class="op">=</span> <span class="st">"240px"</span><span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
   <div style="display: grid; gap: 16px">
     <div id="size-sel_sz_l" data-shiny-vue style="display: contents">
@@ -391,14 +432,43 @@ hover collapse text by using <code>collapse-tags-tooltip</code>
 attribute.</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">opts</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Option1"</span>, <span class="st">"Option2"</span>, <span class="st">"Option3"</span>, <span class="st">"Option4"</span>, <span class="st">"Option5"</span><span class="op">)</span></span>
-<span><span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span>style <span class="op">=</span> <span class="st">"display: grid; gap: 16px"</span>,</span>
-<span>  <span class="fu"><a href="../../reference/el_select.html">el_select</a></span><span class="op">(</span><span class="st">"sel_m1"</span>, choices <span class="op">=</span> <span class="va">opts</span>, multiple <span class="op">=</span> <span class="cn">TRUE</span>, placeholder <span class="op">=</span> <span class="st">"Select"</span>, width <span class="op">=</span> <span class="st">"240px"</span><span class="op">)</span>,</span>
-<span>  <span class="fu"><a href="../../reference/el_select.html">el_select</a></span><span class="op">(</span><span class="st">"sel_m2"</span>, choices <span class="op">=</span> <span class="va">opts</span>, multiple <span class="op">=</span> <span class="cn">TRUE</span>, collapse_tags <span class="op">=</span> <span class="cn">TRUE</span>, placeholder <span class="op">=</span> <span class="st">"Select"</span>,</span>
-<span>            width <span class="op">=</span> <span class="st">"240px"</span><span class="op">)</span>,</span>
-<span>  <span class="fu"><a href="../../reference/el_select.html">el_select</a></span><span class="op">(</span><span class="st">"sel_m3"</span>, choices <span class="op">=</span> <span class="va">opts</span>, multiple <span class="op">=</span> <span class="cn">TRUE</span>, collapse_tags <span class="op">=</span> <span class="cn">TRUE</span>, collapse_tags_tooltip <span class="op">=</span> <span class="cn">TRUE</span>,</span>
-<span>            placeholder <span class="op">=</span> <span class="st">"Select"</span>, width <span class="op">=</span> <span class="st">"240px"</span><span class="op">)</span>,</span>
-<span>  <span class="fu"><a href="../../reference/el_select.html">el_select</a></span><span class="op">(</span><span class="st">"sel_m4"</span>, choices <span class="op">=</span> <span class="va">opts</span>, multiple <span class="op">=</span> <span class="cn">TRUE</span>, collapse_tags <span class="op">=</span> <span class="cn">TRUE</span>, collapse_tags_tooltip <span class="op">=</span> <span class="cn">TRUE</span>,</span>
-<span>            max_collapse_tags <span class="op">=</span> <span class="fl">3</span>, placeholder <span class="op">=</span> <span class="st">"Select"</span>, width <span class="op">=</span> <span class="st">"240px"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<span><span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span></span>
+<span>  style <span class="op">=</span> <span class="st">"display: grid; gap: 16px"</span>,</span>
+<span>  <span class="fu"><a href="../../reference/el_select.html">el_select</a></span><span class="op">(</span></span>
+<span>    <span class="st">"sel_m1"</span>,</span>
+<span>    choices <span class="op">=</span> <span class="va">opts</span>,</span>
+<span>    multiple <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>    placeholder <span class="op">=</span> <span class="st">"Select"</span>,</span>
+<span>    width <span class="op">=</span> <span class="st">"240px"</span></span>
+<span>  <span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="../../reference/el_select.html">el_select</a></span><span class="op">(</span></span>
+<span>    <span class="st">"sel_m2"</span>,</span>
+<span>    choices <span class="op">=</span> <span class="va">opts</span>,</span>
+<span>    multiple <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>    collapse_tags <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>    placeholder <span class="op">=</span> <span class="st">"Select"</span>,</span>
+<span>    width <span class="op">=</span> <span class="st">"240px"</span></span>
+<span>  <span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="../../reference/el_select.html">el_select</a></span><span class="op">(</span></span>
+<span>    <span class="st">"sel_m3"</span>,</span>
+<span>    choices <span class="op">=</span> <span class="va">opts</span>,</span>
+<span>    multiple <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>    collapse_tags <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>    collapse_tags_tooltip <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>    placeholder <span class="op">=</span> <span class="st">"Select"</span>,</span>
+<span>    width <span class="op">=</span> <span class="st">"240px"</span></span>
+<span>  <span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="../../reference/el_select.html">el_select</a></span><span class="op">(</span></span>
+<span>    <span class="st">"sel_m4"</span>,</span>
+<span>    choices <span class="op">=</span> <span class="va">opts</span>,</span>
+<span>    multiple <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>    collapse_tags <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>    collapse_tags_tooltip <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>    max_collapse_tags <span class="op">=</span> <span class="fl">3</span>,</span>
+<span>    placeholder <span class="op">=</span> <span class="st">"Select"</span>,</span>
+<span>    width <span class="op">=</span> <span class="st">"240px"</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
   <div style="display: grid; gap: 16px">
     <div id="multiple-sel_m1" data-shiny-vue style="display: contents">
@@ -451,11 +521,23 @@ attribute.</p>
 <p>Insert customized HTML templates into the slot of
 <code>el-option</code>.</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_select.html">el_select</a></span><span class="op">(</span><span class="st">"sel_tpl"</span>, placeholder <span class="op">=</span> <span class="st">"Select"</span>, width <span class="op">=</span> <span class="st">"240px"</span>, choices <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>value <span class="op">=</span> <span class="st">"Beijing"</span>, label <span class="op">=</span> <span class="st">"Beijing"</span>, code <span class="op">=</span> <span class="st">"BJ"</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>value <span class="op">=</span> <span class="st">"Shanghai"</span>, label <span class="op">=</span> <span class="st">"Shanghai"</span>, code <span class="op">=</span> <span class="st">"SH"</span><span class="op">)</span>,</span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>value <span class="op">=</span> <span class="st">"Nanjing"</span>, label <span class="op">=</span> <span class="st">"Nanjing"</span>, code <span class="op">=</span> <span class="st">"NJ"</span><span class="op">)</span><span class="op">)</span>,</span>
-<span>  option_template <span class="op">=</span> <span class="fu"><a href="https://rstudio.github.io/htmltools/reference/tagList.html" class="external-link">tagList</a></span><span class="op">(</span><span class="va">tags</span><span class="op">$</span><span class="fu">span</span><span class="op">(</span>style <span class="op">=</span> <span class="st">"float: left"</span>, <span class="st">"{{ opt.label }}"</span><span class="op">)</span>,</span>
-<span>    <span class="va">tags</span><span class="op">$</span><span class="fu">span</span><span class="op">(</span>style <span class="op">=</span> <span class="st">"float: right; color: var(--el-text-color-secondary); font-size: 13px"</span>, <span class="st">"{{ opt.code }}"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_select.html">el_select</a></span><span class="op">(</span></span>
+<span>  <span class="st">"sel_tpl"</span>,</span>
+<span>  placeholder <span class="op">=</span> <span class="st">"Select"</span>,</span>
+<span>  width <span class="op">=</span> <span class="st">"240px"</span>,</span>
+<span>  choices <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>value <span class="op">=</span> <span class="st">"Beijing"</span>, label <span class="op">=</span> <span class="st">"Beijing"</span>, code <span class="op">=</span> <span class="st">"BJ"</span><span class="op">)</span>,</span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>value <span class="op">=</span> <span class="st">"Shanghai"</span>, label <span class="op">=</span> <span class="st">"Shanghai"</span>, code <span class="op">=</span> <span class="st">"SH"</span><span class="op">)</span>,</span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>value <span class="op">=</span> <span class="st">"Nanjing"</span>, label <span class="op">=</span> <span class="st">"Nanjing"</span>, code <span class="op">=</span> <span class="st">"NJ"</span><span class="op">)</span></span>
+<span>  <span class="op">)</span>,</span>
+<span>  option_template <span class="op">=</span> <span class="fu"><a href="https://rstudio.github.io/htmltools/reference/tagList.html" class="external-link">tagList</a></span><span class="op">(</span></span>
+<span>    <span class="va">tags</span><span class="op">$</span><span class="fu">span</span><span class="op">(</span>style <span class="op">=</span> <span class="st">"float: left"</span>, <span class="st">"{{ opt.label }}"</span><span class="op">)</span>,</span>
+<span>    <span class="va">tags</span><span class="op">$</span><span class="fu">span</span><span class="op">(</span></span>
+<span>      style <span class="op">=</span> <span class="st">"float: right; color: var(--el-text-color-secondary); font-size: 13px"</span>,</span>
+<span>      <span class="st">"{{ opt.code }}"</span></span>
+<span>    <span class="op">)</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
   <div id="custom-template-sel_tpl" data-shiny-vue style="display: contents">
     <script type="text/x-template" data-shiny-vue-template><div id="custom-template-sel_tpl_container" style="display: contents">
@@ -481,9 +563,16 @@ attribute.</p>
 <p>You can customize the header of the dropdown.</p>
 <p>Use slot to customize the content.</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_select.html">el_select</a></span><span class="op">(</span><span class="st">"sel_head"</span>, choices <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Option1"</span>, <span class="st">"Option2"</span>, <span class="st">"Option3"</span><span class="op">)</span>, multiple <span class="op">=</span> <span class="cn">TRUE</span>, clearable <span class="op">=</span> <span class="cn">TRUE</span>,</span>
-<span>          collapse_tags <span class="op">=</span> <span class="cn">TRUE</span>, placeholder <span class="op">=</span> <span class="st">"Select"</span>, width <span class="op">=</span> <span class="st">"240px"</span>,</span>
-<span>          slots <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>header <span class="op">=</span> <span class="fu"><a href="../../reference/el_checkbox.html">el_checkbox</a></span><span class="op">(</span><span class="st">"sel_all"</span>, <span class="st">"All"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_select.html">el_select</a></span><span class="op">(</span></span>
+<span>  <span class="st">"sel_head"</span>,</span>
+<span>  choices <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Option1"</span>, <span class="st">"Option2"</span>, <span class="st">"Option3"</span><span class="op">)</span>,</span>
+<span>  multiple <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  clearable <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  collapse_tags <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  placeholder <span class="op">=</span> <span class="st">"Select"</span>,</span>
+<span>  width <span class="op">=</span> <span class="st">"240px"</span>,</span>
+<span>  slots <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>header <span class="op">=</span> <span class="fu"><a href="../../reference/el_checkbox.html">el_checkbox</a></span><span class="op">(</span><span class="st">"sel_all"</span>, <span class="st">"All"</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
   <div id="custom-header-sel_head" data-shiny-vue style="display: contents">
     <script type="text/x-template" data-shiny-vue-template><div id="custom-header-sel_head_container" style="display: contents">
@@ -506,8 +595,15 @@ attribute.</p>
 <p>You can customize the footer of the dropdown.</p>
 <p>Use slot to customize the content.</p>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_select.html">el_select</a></span><span class="op">(</span><span class="st">"sel_foot"</span>, choices <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Option1"</span>, <span class="st">"Option2"</span>, <span class="st">"Option3"</span><span class="op">)</span>, placeholder <span class="op">=</span> <span class="st">"Select"</span>, width <span class="op">=</span> <span class="st">"240px"</span>,</span>
-<span>          slots <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>footer <span class="op">=</span> <span class="fu"><a href="../../reference/el_button.html">el_button</a></span><span class="op">(</span><span class="st">"sel_add"</span>, <span class="st">"Add an option"</span>, text <span class="op">=</span> <span class="cn">TRUE</span>, size <span class="op">=</span> <span class="st">"small"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_select.html">el_select</a></span><span class="op">(</span></span>
+<span>  <span class="st">"sel_foot"</span>,</span>
+<span>  choices <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Option1"</span>, <span class="st">"Option2"</span>, <span class="st">"Option3"</span><span class="op">)</span>,</span>
+<span>  placeholder <span class="op">=</span> <span class="st">"Select"</span>,</span>
+<span>  width <span class="op">=</span> <span class="st">"240px"</span>,</span>
+<span>  slots <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>    footer <span class="op">=</span> <span class="fu"><a href="../../reference/el_button.html">el_button</a></span><span class="op">(</span><span class="st">"sel_add"</span>, <span class="st">"Add an option"</span>, text <span class="op">=</span> <span class="cn">TRUE</span>, size <span class="op">=</span> <span class="st">"small"</span><span class="op">)</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
   <div id="custom-footer-sel_foot" data-shiny-vue style="display: contents">
     <script type="text/x-template" data-shiny-vue-template><div id="custom-footer-sel_foot_container" style="display: contents">
@@ -531,9 +627,20 @@ attribute.</p>
 <p>Use <code>el-option-group</code> to group the options, and its
 <code>label</code> attribute stands for the name of the group.</p>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_select.html">el_select</a></span><span class="op">(</span><span class="st">"sel_group"</span>, placeholder <span class="op">=</span> <span class="st">"Select"</span>, width <span class="op">=</span> <span class="st">"240px"</span>, choices <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
-<span>  <span class="st">"Popular cities"</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>Shanghai <span class="op">=</span> <span class="st">"Shanghai"</span>, Beijing <span class="op">=</span> <span class="st">"Beijing"</span><span class="op">)</span>,</span>
-<span>  <span class="st">"City name"</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>Chengdu <span class="op">=</span> <span class="st">"Chengdu"</span>, Shenzhen <span class="op">=</span> <span class="st">"Shenzhen"</span>, Guangzhou <span class="op">=</span> <span class="st">"Guangzhou"</span>, Dalian <span class="op">=</span> <span class="st">"Dalian"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_select.html">el_select</a></span><span class="op">(</span></span>
+<span>  <span class="st">"sel_group"</span>,</span>
+<span>  placeholder <span class="op">=</span> <span class="st">"Select"</span>,</span>
+<span>  width <span class="op">=</span> <span class="st">"240px"</span>,</span>
+<span>  choices <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>    <span class="st">"Popular cities"</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>Shanghai <span class="op">=</span> <span class="st">"Shanghai"</span>, Beijing <span class="op">=</span> <span class="st">"Beijing"</span><span class="op">)</span>,</span>
+<span>    <span class="st">"City name"</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span>
+<span>      Chengdu <span class="op">=</span> <span class="st">"Chengdu"</span>,</span>
+<span>      Shenzhen <span class="op">=</span> <span class="st">"Shenzhen"</span>,</span>
+<span>      Guangzhou <span class="op">=</span> <span class="st">"Guangzhou"</span>,</span>
+<span>      Dalian <span class="op">=</span> <span class="st">"Dalian"</span></span>
+<span>    <span class="op">)</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
   <div id="grouping-sel_group" data-shiny-vue style="display: contents">
     <script type="text/x-template" data-shiny-vue-template><div id="grouping-sel_group_container" style="display: contents">
@@ -559,8 +666,13 @@ other filtering strategies, you can pass the <code>filter-method</code>.
 when the input value changes, and its parameter is the current input
 value.</p>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_select.html">el_select</a></span><span class="op">(</span><span class="st">"sel_filter"</span>, choices <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Option1"</span>, <span class="st">"Option2"</span>, <span class="st">"Option3"</span>, <span class="st">"Option4"</span><span class="op">)</span>, filterable <span class="op">=</span> <span class="cn">TRUE</span>,</span>
-<span>          placeholder <span class="op">=</span> <span class="st">"Select"</span>, width <span class="op">=</span> <span class="st">"240px"</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_select.html">el_select</a></span><span class="op">(</span></span>
+<span>  <span class="st">"sel_filter"</span>,</span>
+<span>  choices <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Option1"</span>, <span class="st">"Option2"</span>, <span class="st">"Option3"</span>, <span class="st">"Option4"</span><span class="op">)</span>,</span>
+<span>  filterable <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  placeholder <span class="op">=</span> <span class="st">"Select"</span>,</span>
+<span>  width <span class="op">=</span> <span class="st">"240px"</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
   <div id="filterable-sel_filter" data-shiny-vue style="display: contents">
     <script type="text/x-template" data-shiny-vue-template><div id="filterable-sel_filter_container" style="display: contents">
@@ -591,8 +703,15 @@ directive, you should add the <code>key</code> attribute for
 the text typed, and <code>update_el_select(choices =)</code> answers
 it.</p>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_select.html">el_select</a></span><span class="op">(</span><span class="st">"sel_remote"</span>, multiple <span class="op">=</span> <span class="cn">TRUE</span>, filterable <span class="op">=</span> <span class="cn">TRUE</span>, remote <span class="op">=</span> <span class="cn">TRUE</span>, reserve_keyword <span class="op">=</span> <span class="cn">FALSE</span>,</span>
-<span>          placeholder <span class="op">=</span> <span class="st">"Please enter a keyword"</span>, width <span class="op">=</span> <span class="st">"240px"</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_select.html">el_select</a></span><span class="op">(</span></span>
+<span>  <span class="st">"sel_remote"</span>,</span>
+<span>  multiple <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  filterable <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  remote <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  reserve_keyword <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  placeholder <span class="op">=</span> <span class="st">"Please enter a keyword"</span>,</span>
+<span>  width <span class="op">=</span> <span class="st">"240px"</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
   <div id="remote-search-sel_remote" data-shiny-vue style="display: contents">
     <script type="text/x-template" data-shiny-vue-template><div id="remote-search-sel_remote_container" style="display: contents">
@@ -620,9 +739,17 @@ new items by typing in the input box. Note that for
 list by hitting enter without having to navigate with mouse or arrow
 keys.</p>
 <div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_select.html">el_select</a></span><span class="op">(</span><span class="st">"sel_create"</span>, choices <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"HTML"</span>, <span class="st">"CSS"</span>, <span class="st">"JavaScript"</span><span class="op">)</span>, multiple <span class="op">=</span> <span class="cn">TRUE</span>, filterable <span class="op">=</span> <span class="cn">TRUE</span>,</span>
-<span>          allow_create <span class="op">=</span> <span class="cn">TRUE</span>, default_first_option <span class="op">=</span> <span class="cn">TRUE</span>, reserve_keyword <span class="op">=</span> <span class="cn">FALSE</span>,</span>
-<span>          placeholder <span class="op">=</span> <span class="st">"Choose tags for your article"</span>, width <span class="op">=</span> <span class="st">"240px"</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_select.html">el_select</a></span><span class="op">(</span></span>
+<span>  <span class="st">"sel_create"</span>,</span>
+<span>  choices <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"HTML"</span>, <span class="st">"CSS"</span>, <span class="st">"JavaScript"</span><span class="op">)</span>,</span>
+<span>  multiple <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  filterable <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  allow_create <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  default_first_option <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  reserve_keyword <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  placeholder <span class="op">=</span> <span class="st">"Choose tags for your article"</span>,</span>
+<span>  width <span class="op">=</span> <span class="st">"240px"</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
   <div id="allow-create-sel_create" data-shiny-vue style="display: contents">
     <script type="text/x-template" data-shiny-vue-template><div id="allow-create-sel_create_container" style="display: contents">
@@ -648,9 +775,16 @@ property is duplicated, but the option can be identified through the
 <p>Values that are objects need <code>value_key</code>, the field that
 tells them apart.</p>
 <div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_select.html">el_select</a></span><span class="op">(</span><span class="st">"sel_vkey"</span>, value_key <span class="op">=</span> <span class="st">"id"</span>, placeholder <span class="op">=</span> <span class="st">"Select"</span>, width <span class="op">=</span> <span class="st">"240px"</span>,</span>
-<span>          choices <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>value <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>id <span class="op">=</span> <span class="fl">1</span>, name <span class="op">=</span> <span class="st">"Option A"</span><span class="op">)</span>, label <span class="op">=</span> <span class="st">"Option A"</span><span class="op">)</span>,</span>
-<span>                         <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>value <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>id <span class="op">=</span> <span class="fl">2</span>, name <span class="op">=</span> <span class="st">"Option B"</span><span class="op">)</span>, label <span class="op">=</span> <span class="st">"Option B"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_select.html">el_select</a></span><span class="op">(</span></span>
+<span>  <span class="st">"sel_vkey"</span>,</span>
+<span>  value_key <span class="op">=</span> <span class="st">"id"</span>,</span>
+<span>  placeholder <span class="op">=</span> <span class="st">"Select"</span>,</span>
+<span>  width <span class="op">=</span> <span class="st">"240px"</span>,</span>
+<span>  choices <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>value <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>id <span class="op">=</span> <span class="fl">1</span>, name <span class="op">=</span> <span class="st">"Option A"</span><span class="op">)</span>, label <span class="op">=</span> <span class="st">"Option A"</span><span class="op">)</span>,</span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>value <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>id <span class="op">=</span> <span class="fl">2</span>, name <span class="op">=</span> <span class="st">"Option B"</span><span class="op">)</span>, label <span class="op">=</span> <span class="st">"Option B"</span><span class="op">)</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
   <div id="value-key-sel_vkey" data-shiny-vue style="display: contents">
     <script type="text/x-template" data-shiny-vue-template><div id="value-key-sel_vkey_container" style="display: contents">
@@ -672,11 +806,23 @@ tells them apart.</p>
 <code>collapse-tags</code>, <code>collapse-tags-tooltip</code>,
 <code>max-collapse-tags</code> will not work.</p>
 <div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_select.html">el_select</a></span><span class="op">(</span><span class="st">"sel_tag"</span>, choices <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Red"</span> <span class="op">=</span> <span class="st">"#ff0000"</span>, <span class="st">"Green"</span> <span class="op">=</span> <span class="st">"#00ff00"</span>, <span class="st">"Blue"</span> <span class="op">=</span> <span class="st">"#0000ff"</span><span class="op">)</span>,</span>
-<span>          selected <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"#ff0000"</span>, <span class="st">"#00ff00"</span><span class="op">)</span>, multiple <span class="op">=</span> <span class="cn">TRUE</span>, placeholder <span class="op">=</span> <span class="st">"Select"</span>, width <span class="op">=</span> <span class="st">"240px"</span>,</span>
-<span>          slots <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>tag <span class="op">=</span> <span class="fu"><a href="../../reference/template.html">template</a></span><span class="op">(</span><span class="fu">htmltools</span><span class="fu">::</span><span class="fu"><a href="https://rstudio.github.io/htmltools/reference/HTML.html" class="external-link">HTML</a></span><span class="op">(</span></span>
-<span>            <span class="st">"&lt;el-tag v-for=\"color in value\" :key=\"color\" :color=\"color\" closable :style=\"{ color: '#fff' }\"&gt;{{ color }}&lt;/el-tag&gt;"</span><span class="op">)</span>,</span>
-<span>            slot <span class="op">=</span> <span class="st">"tag"</span>, scope <span class="op">=</span> <span class="st">"{ value }"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_select.html">el_select</a></span><span class="op">(</span></span>
+<span>  <span class="st">"sel_tag"</span>,</span>
+<span>  choices <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Red"</span> <span class="op">=</span> <span class="st">"#ff0000"</span>, <span class="st">"Green"</span> <span class="op">=</span> <span class="st">"#00ff00"</span>, <span class="st">"Blue"</span> <span class="op">=</span> <span class="st">"#0000ff"</span><span class="op">)</span>,</span>
+<span>  selected <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"#ff0000"</span>, <span class="st">"#00ff00"</span><span class="op">)</span>,</span>
+<span>  multiple <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  placeholder <span class="op">=</span> <span class="st">"Select"</span>,</span>
+<span>  width <span class="op">=</span> <span class="st">"240px"</span>,</span>
+<span>  slots <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>    tag <span class="op">=</span> <span class="fu"><a href="../../reference/template.html">template</a></span><span class="op">(</span></span>
+<span>      <span class="fu">htmltools</span><span class="fu">::</span><span class="fu"><a href="https://rstudio.github.io/htmltools/reference/HTML.html" class="external-link">HTML</a></span><span class="op">(</span></span>
+<span>        <span class="st">"&lt;el-tag v-for=\"color in value\" :key=\"color\" :color=\"color\" closable :style=\"{ color: '#fff' }\"&gt;{{ color }}&lt;/el-tag&gt;"</span></span>
+<span>      <span class="op">)</span>,</span>
+<span>      slot <span class="op">=</span> <span class="st">"tag"</span>,</span>
+<span>      scope <span class="op">=</span> <span class="st">"{ value }"</span></span>
+<span>    <span class="op">)</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
   <div id="custom-tag-sel_tag" data-shiny-vue style="display: contents">
     <script type="text/x-template" data-shiny-vue-template><div id="custom-tag-sel_tag_container" style="display: contents">
@@ -696,8 +842,15 @@ tells them apart.</p>
 </h2>
 <p>Override loading content.</p>
 <div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_select.html">el_select</a></span><span class="op">(</span><span class="st">"sel_load"</span>, remote <span class="op">=</span> <span class="cn">TRUE</span>, filterable <span class="op">=</span> <span class="cn">TRUE</span>, loading <span class="op">=</span> <span class="cn">TRUE</span>, placeholder <span class="op">=</span> <span class="st">"Please enter a keyword"</span>,</span>
-<span>          width <span class="op">=</span> <span class="st">"240px"</span>, slots <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>loading <span class="op">=</span> <span class="fu"><a href="../../reference/el_icon.html">el_icon</a></span><span class="op">(</span><span class="st">"Loading"</span>, class <span class="op">=</span> <span class="st">"is-loading"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_select.html">el_select</a></span><span class="op">(</span></span>
+<span>  <span class="st">"sel_load"</span>,</span>
+<span>  remote <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  filterable <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  loading <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  placeholder <span class="op">=</span> <span class="st">"Please enter a keyword"</span>,</span>
+<span>  width <span class="op">=</span> <span class="st">"240px"</span>,</span>
+<span>  slots <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>loading <span class="op">=</span> <span class="fu"><a href="../../reference/el_icon.html">el_icon</a></span><span class="op">(</span><span class="st">"Loading"</span>, class <span class="op">=</span> <span class="st">"is-loading"</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
   <div id="custom-loading-sel_load" data-shiny-vue style="display: contents">
     <script type="text/x-template" data-shiny-vue-template><div id="custom-loading-sel_load_container" style="display: contents">
@@ -722,8 +875,15 @@ tells them apart.</p>
 <p>If you want to change the clear value to <code>null</code>, please
 set <code>value-on-clear</code> to <code>null</code>.</p>
 <div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_select.html">el_select</a></span><span class="op">(</span><span class="st">"sel_empty"</span>, choices <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Option1"</span>, <span class="st">"Option2"</span><span class="op">)</span>, clearable <span class="op">=</span> <span class="cn">TRUE</span>, empty_values <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="cn">NULL</span><span class="op">)</span>,</span>
-<span>          value_on_clear <span class="op">=</span> <span class="cn">NULL</span>, placeholder <span class="op">=</span> <span class="st">"Select"</span>, width <span class="op">=</span> <span class="st">"240px"</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_select.html">el_select</a></span><span class="op">(</span></span>
+<span>  <span class="st">"sel_empty"</span>,</span>
+<span>  choices <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Option1"</span>, <span class="st">"Option2"</span><span class="op">)</span>,</span>
+<span>  clearable <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  empty_values <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="cn">NULL</span><span class="op">)</span>,</span>
+<span>  value_on_clear <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  placeholder <span class="op">=</span> <span class="st">"Select"</span>,</span>
+<span>  width <span class="op">=</span> <span class="st">"240px"</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
   <div id="empty-values-sel_empty" data-shiny-vue style="display: contents">
     <script type="text/x-template" data-shiny-vue-template><div id="empty-values-sel_empty_container" style="display: contents">
@@ -742,9 +902,21 @@ set <code>value-on-clear</code> to <code>null</code>.</p>
 </h2>
 <p>You can customize label.</p>
 <div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_select.html">el_select</a></span><span class="op">(</span><span class="st">"sel_label"</span>, choices <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Option1"</span>, <span class="st">"Option2"</span>, <span class="st">"Option3"</span><span class="op">)</span>, selected <span class="op">=</span> <span class="st">"Option1"</span>, width <span class="op">=</span> <span class="st">"240px"</span>,</span>
-<span>          slots <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>label <span class="op">=</span> <span class="fu"><a href="../../reference/template.html">template</a></span><span class="op">(</span><span class="fu">htmltools</span><span class="fu">::</span><span class="fu"><a href="https://rstudio.github.io/htmltools/reference/HTML.html" class="external-link">HTML</a></span><span class="op">(</span><span class="st">"&lt;span&gt;{{ label }}: &lt;/span&gt;&lt;span style=\"font-weight: bold\"&gt;{{ value }}&lt;/span&gt;"</span><span class="op">)</span>,</span>
-<span>                                        slot <span class="op">=</span> <span class="st">"label"</span>, scope <span class="op">=</span> <span class="st">"{ label, value }"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_select.html">el_select</a></span><span class="op">(</span></span>
+<span>  <span class="st">"sel_label"</span>,</span>
+<span>  choices <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Option1"</span>, <span class="st">"Option2"</span>, <span class="st">"Option3"</span><span class="op">)</span>,</span>
+<span>  selected <span class="op">=</span> <span class="st">"Option1"</span>,</span>
+<span>  width <span class="op">=</span> <span class="st">"240px"</span>,</span>
+<span>  slots <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>    label <span class="op">=</span> <span class="fu"><a href="../../reference/template.html">template</a></span><span class="op">(</span></span>
+<span>      <span class="fu">htmltools</span><span class="fu">::</span><span class="fu"><a href="https://rstudio.github.io/htmltools/reference/HTML.html" class="external-link">HTML</a></span><span class="op">(</span></span>
+<span>        <span class="st">"&lt;span&gt;{{ label }}: &lt;/span&gt;&lt;span style=\"font-weight: bold\"&gt;{{ value }}&lt;/span&gt;"</span></span>
+<span>      <span class="op">)</span>,</span>
+<span>      slot <span class="op">=</span> <span class="st">"label"</span>,</span>
+<span>      scope <span class="op">=</span> <span class="st">"{ label, value }"</span></span>
+<span>    <span class="op">)</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
   <div id="custom-label-sel_label" data-shiny-vue style="display: contents">
     <script type="text/x-template" data-shiny-vue-template><div id="custom-label-sel_label_container" style="display: contents">

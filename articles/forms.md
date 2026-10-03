@@ -19,7 +19,12 @@ with it.
 ``` r
 
 el_input("name", label = "Name", placeholder = "Ada Lovelace", width = "300px")
-el_select("city", choices = c("Beijing", "Shanghai"), label = "City", width = "300px")
+el_select(
+  "city",
+  choices = c("Beijing", "Shanghai"),
+  label = "City",
+  width = "300px"
+)
 el_switch("notify", label = "Email me", label_position = "left", value = TRUE)
 el_rate("stars", label = "Rating", label_position = "left", value = 4)
 ```
@@ -36,17 +41,45 @@ too.
 
 ``` r
 
-el_input("user", label = "Name", label_position = "right", label_width = "90px",
-         label_suffix = ":", required = TRUE, width = "260px")
-el_input("email", label = "Email", label_position = "right", label_width = "90px",
-         label_suffix = ":", required = TRUE, error = "That address is taken",
-         width = "260px")
-el_input_number("seats", label = "Seats", label_position = "right",
-                 label_width = "90px", label_suffix = ":", value = 0,
-                 error = "At least one", inline_message = TRUE)
-el_select("team", choices = c("Data", "Design"), label = "Team",
-          label_position = "right", label_width = "90px", label_suffix = ":",
-          size = "small", width = "260px")
+el_input(
+  "user",
+  label = "Name",
+  label_position = "right",
+  label_width = "90px",
+  label_suffix = ":",
+  required = TRUE,
+  width = "260px"
+)
+el_input(
+  "email",
+  label = "Email",
+  label_position = "right",
+  label_width = "90px",
+  label_suffix = ":",
+  required = TRUE,
+  error = "That address is taken",
+  width = "260px"
+)
+el_input_number(
+  "seats",
+  label = "Seats",
+  label_position = "right",
+  label_width = "90px",
+  label_suffix = ":",
+  value = 0,
+  error = "At least one",
+  inline_message = TRUE
+)
+el_select(
+  "team",
+  choices = c("Data", "Design"),
+  label = "Team",
+  label_position = "right",
+  label_width = "90px",
+  label_suffix = ":",
+  size = "small",
+  width = "260px"
+)
 ```
 
 `update_el_*()` changes the label, as Shiny’s `update*Input()` do, and
@@ -61,8 +94,10 @@ ui <- el_page(el_input("user", label = "Username", width = "300px"))
 
 server <- function(input, output, session) {
   observeEvent(input$user, {
-    update_el_input(id = "user",
-                    error = if (input$user %in% taken) "That name is taken" else "")
+    update_el_input(
+      id = "user",
+      error = if (input$user %in% taken) "That name is taken" else ""
+    )
   })
 }
 
@@ -89,10 +124,14 @@ el_select("plain", choices = c("Beijing", "Shanghai"), value = "Beijing")
 
 el_select("named", choices = c(Beijing = "bj", Shanghai = "sh"), value = "sh")
 
-el_select("objects", value = "sh", choices = list(
-  list(value = "bj", label = "Beijing (full)", disabled = TRUE),
-  list(value = "sh", label = "Shanghai")
-))
+el_select(
+  "objects",
+  value = "sh",
+  choices = list(
+    list(value = "bj", label = "Beijing (full)", disabled = TRUE),
+    list(value = "sh", label = "Shanghai")
+  )
+)
 ```
 
 An option can be drawn with more than its label – Element’s “custom
@@ -101,13 +140,22 @@ option in reach as `opt` and any field its choice carries:
 
 ``` r
 
-el_select("airport", width = "240px", choices = list(
-  list(value = "pek", label = "Beijing", code = "PEK"),
-  list(value = "sha", label = "Shanghai", code = "SHA"),
-  list(value = "ctu", label = "Chengdu", code = "CTU")),
+el_select(
+  "airport",
+  width = "240px",
+  choices = list(
+    list(value = "pek", label = "Beijing", code = "PEK"),
+    list(value = "sha", label = "Shanghai", code = "SHA"),
+    list(value = "ctu", label = "Chengdu", code = "CTU")
+  ),
   option_template = tagList(
     tags$span(style = "float: left", "{{ opt.label }}"),
-    tags$span(style = "float: right; color: #8492a6; font-size: 13px", "{{ opt.code }}")))
+    tags$span(
+      style = "float: right; color: #8492a6; font-size: 13px",
+      "{{ opt.code }}"
+    )
+  )
+)
 ```
 
 For a checkbox or radio group, Element documents `border`, `name` and
@@ -116,11 +164,15 @@ the choice:
 
 ``` r
 
-el_checkbox_group("terms", selected = "a", choices = list(
-  list(value = "a", label = "Agree", border = TRUE),
-  list(value = "b", label = "Subscribe", border = TRUE),
-  list(value = "c", label = "Unavailable", border = TRUE, disabled = TRUE)
-))
+el_checkbox_group(
+  "terms",
+  selected = "a",
+  choices = list(
+    list(value = "a", label = "Agree", border = TRUE),
+    list(value = "b", label = "Subscribe", border = TRUE),
+    list(value = "c", label = "Unavailable", border = TRUE, disabled = TRUE)
+  )
+)
 ```
 
 ## Validation
@@ -140,13 +192,22 @@ counter. Here the form was submitted empty:
 
 ui <- el_page(
   el_form(
-    id = "signup", label_width = "90px",
-    el_form_field("name", "input", label = "Name",
-                  rules = el_rule(required = TRUE, message = "Name is required")),
+    id = "signup",
+    label_width = "90px",
+    el_form_field(
+      "name",
+      "input",
+      label = "Name",
+      rules = el_rule(required = TRUE, message = "Name is required")
+    ),
     el_form_field("age", "input-number", label = "Age", value = 18),
-    el_form_field("city", "select", label = "City",
-                  options = c("Beijing", "Shanghai"),
-                  rules = el_rule(required = TRUE, message = "Pick a city"))
+    el_form_field(
+      "city",
+      "select",
+      label = "City",
+      options = c("Beijing", "Shanghai"),
+      rules = el_rule(required = TRUE, message = "Pick a city")
+    )
   ),
   verbatimTextOutput("result")
 )
@@ -172,9 +233,14 @@ not; both arrive as `input$<id>_validate`:
 
 ui <- el_page(
   el_form(
-    id = "profile", submit_label = NULL,
-    el_form_field("email", "input", label = "Email",
-                  rules = el_rule(required = TRUE, message = "Email is required"))
+    id = "profile",
+    submit_label = NULL,
+    el_form_field(
+      "email",
+      "input",
+      label = "Email",
+      rules = el_rule(required = TRUE, message = "Email is required")
+    )
   ),
   el_button("check", "Check from the server"),
   el_button("clear", "Clear messages"),
@@ -246,8 +312,12 @@ library(shinyvalidate)
 
 ui <- el_page(
   el_input("email", label = "Email", width = "300px"),
-  el_select("topic", choices = c("Billing", "Support"), label = "Topic",
-            width = "300px"),
+  el_select(
+    "topic",
+    choices = c("Billing", "Support"),
+    label = "Topic",
+    width = "300px"
+  ),
   el_button("send", "Send", type = "primary")
 )
 
@@ -277,8 +347,11 @@ format, unconverted.
 
 ui <- el_page(
   el_date_picker("due", value = Sys.Date()),
-  el_date_picker("trip", type = "daterange",
-                 value = c(Sys.Date(), Sys.Date() + 7)),
+  el_date_picker(
+    "trip",
+    type = "daterange",
+    value = c(Sys.Date(), Sys.Date() + 7)
+  ),
   verbatimTextOutput("days")
 )
 
@@ -321,7 +394,9 @@ input: `"200px"`, `"50%"`, or a number meaning pixels. For a form,
 ``` r
 
 el_form(
-  id = "compact", label_width = "80px", label_position = "left",
+  id = "compact",
+  label_width = "80px",
+  label_position = "left",
   submit_label = NULL,
   el_form_field("name", "input", label = "Name"),
   el_form_field("team", "select", label = "Team", options = c("Data", "Design"))

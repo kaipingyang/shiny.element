@@ -196,10 +196,21 @@ Callable with
 ## Examples
 
 ``` r
-el_tree_select("dept", placeholder = "Department", data = list(
-  list(value = "eng", label = "Engineering", children = list(
-    list(value = "web", label = "Web"), list(value = "data", label = "Data"))),
-  list(value = "ops", label = "Operations")))
+el_tree_select(
+  "dept",
+  placeholder = "Department",
+  data = list(
+    list(
+      value = "eng",
+      label = "Engineering",
+      children = list(
+        list(value = "web", label = "Web"),
+        list(value = "data", label = "Data")
+      )
+    ),
+    list(value = "ops", label = "Operations")
+  )
+)
 #> <div id="dept" data-shiny-vue style="display: contents">
 #>   <script type="text/x-template" data-shiny-vue-template><div id="dept_container" style="display: contents">
 #>   <el-tree-select v-model="value" :data="data" @change="handleChange" @visible-change="elEmitVisibleChange" @clear="elEmitClear" @remove-tag="elEmitRemoveTag" @node-click="elEmitNodeClick" @check="elEmitCheck" :multiple="multiple === null ? undefined : multiple" :show-checkbox="showCheckbox === null ? undefined : showCheckbox" :check-strictly="checkStrictly === null ? undefined : checkStrictly" :check-on-click-node="checkOnClickNode === null ? undefined : checkOnClickNode" :filterable="filterable === null ? undefined : filterable" :clearable="clearable === null ? undefined : clearable" :placeholder="placeholder === null ? undefined : placeholder" :node-key="nodeKey === null ? undefined : nodeKey" :props="props === null ? undefined : props" :default-expand-all="defaultExpandAll === null ? undefined : defaultExpandAll" :render-after-expand="renderAfterExpand === null ? undefined : renderAfterExpand" :collapse-tags="collapseTags === null ? undefined : collapseTags" :collapse-tags-tooltip="collapseTagsTooltip === null ? undefined : collapseTagsTooltip" :size="size === null ? undefined : size" :disabled="disabled === null ? undefined : disabled" :cache-data="cacheData === null ? undefined : cacheData"></el-tree-select>

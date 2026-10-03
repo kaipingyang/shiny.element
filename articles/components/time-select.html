@@ -197,8 +197,14 @@
 time and time step with <code>start</code>, <code>end</code> and
 <code>step</code>.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_time_picker.html">el_time_select</a></span><span class="op">(</span><span class="st">"slot"</span>, start <span class="op">=</span> <span class="st">"08:30"</span>, step <span class="op">=</span> <span class="st">"00:15"</span>, end <span class="op">=</span> <span class="st">"18:30"</span>,</span>
-<span>               placeholder <span class="op">=</span> <span class="st">"Select time"</span>, width <span class="op">=</span> <span class="st">"240px"</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_time_picker.html">el_time_select</a></span><span class="op">(</span></span>
+<span>  <span class="st">"slot"</span>,</span>
+<span>  start <span class="op">=</span> <span class="st">"08:30"</span>,</span>
+<span>  step <span class="op">=</span> <span class="st">"00:15"</span>,</span>
+<span>  end <span class="op">=</span> <span class="st">"18:30"</span>,</span>
+<span>  placeholder <span class="op">=</span> <span class="st">"Select time"</span>,</span>
+<span>  width <span class="op">=</span> <span class="st">"240px"</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
   <div id="basic-slot" data-shiny-vue style="display: contents">
     <script type="text/x-template" data-shiny-vue-template><div id="basic-slot_container" style="display: contents">
@@ -219,8 +225,15 @@ of all available formats of Day.js.</p>
 <p>Pay attention to capitalization</p>
 </blockquote>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_time_picker.html">el_time_select</a></span><span class="op">(</span><span class="st">"fmt"</span>, start <span class="op">=</span> <span class="st">"00:00"</span>, step <span class="op">=</span> <span class="st">"00:30"</span>, end <span class="op">=</span> <span class="st">"23:59"</span>,</span>
-<span>               placeholder <span class="op">=</span> <span class="st">"Select time"</span>, format <span class="op">=</span> <span class="st">"hh:mm A"</span>, width <span class="op">=</span> <span class="st">"240px"</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_time_picker.html">el_time_select</a></span><span class="op">(</span></span>
+<span>  <span class="st">"fmt"</span>,</span>
+<span>  start <span class="op">=</span> <span class="st">"00:00"</span>,</span>
+<span>  step <span class="op">=</span> <span class="st">"00:30"</span>,</span>
+<span>  end <span class="op">=</span> <span class="st">"23:59"</span>,</span>
+<span>  placeholder <span class="op">=</span> <span class="st">"Select time"</span>,</span>
+<span>  format <span class="op">=</span> <span class="st">"hh:mm A"</span>,</span>
+<span>  width <span class="op">=</span> <span class="st">"240px"</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
   <div id="time-formats-fmt" data-shiny-vue style="display: contents">
     <script type="text/x-template" data-shiny-vue-template><div id="time-formats-fmt_container" style="display: contents">
@@ -237,14 +250,28 @@ start ) time’s options will change accordingly.</p>
 <p>The end’s earliest time follows the start: the server redraws it.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/el_page.html">el_page</a></span><span class="op">(</span></span>
-<span>  <span class="fu"><a href="../../reference/el_time_picker.html">el_time_select</a></span><span class="op">(</span><span class="st">"start"</span>, start <span class="op">=</span> <span class="st">"08:30"</span>, step <span class="op">=</span> <span class="st">"00:15"</span>, end <span class="op">=</span> <span class="st">"18:30"</span>,</span>
-<span>                 placeholder <span class="op">=</span> <span class="st">"Start time"</span>, width <span class="op">=</span> <span class="st">"240px"</span><span class="op">)</span>,</span>
-<span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/htmlOutput.html" class="external-link">uiOutput</a></span><span class="op">(</span><span class="st">"end_ui"</span><span class="op">)</span><span class="op">)</span></span>
+<span>  <span class="fu"><a href="../../reference/el_time_picker.html">el_time_select</a></span><span class="op">(</span></span>
+<span>    <span class="st">"start"</span>,</span>
+<span>    start <span class="op">=</span> <span class="st">"08:30"</span>,</span>
+<span>    step <span class="op">=</span> <span class="st">"00:15"</span>,</span>
+<span>    end <span class="op">=</span> <span class="st">"18:30"</span>,</span>
+<span>    placeholder <span class="op">=</span> <span class="st">"Start time"</span>,</span>
+<span>    width <span class="op">=</span> <span class="st">"240px"</span></span>
+<span>  <span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/htmlOutput.html" class="external-link">uiOutput</a></span><span class="op">(</span><span class="st">"end_ui"</span><span class="op">)</span></span>
+<span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">server</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span>, <span class="va">session</span><span class="op">)</span> <span class="op">{</span></span>
-<span>  <span class="va">output</span><span class="op">$</span><span class="va">end_ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/renderUI.html" class="external-link">renderUI</a></span><span class="op">(</span><span class="fu"><a href="../../reference/el_time_picker.html">el_time_select</a></span><span class="op">(</span><span class="st">"end"</span>, start <span class="op">=</span> <span class="st">"08:30"</span>, step <span class="op">=</span> <span class="st">"00:15"</span>, end <span class="op">=</span> <span class="st">"18:30"</span>,</span>
-<span>    min_time <span class="op">=</span> <span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/isTruthy.html" class="external-link">isTruthy</a></span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">start</span><span class="op">)</span><span class="op">)</span> <span class="va">input</span><span class="op">$</span><span class="va">start</span>, value <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/isolate.html" class="external-link">isolate</a></span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">end</span><span class="op">)</span>,</span>
-<span>    placeholder <span class="op">=</span> <span class="st">"End time"</span>, width <span class="op">=</span> <span class="st">"240px"</span><span class="op">)</span><span class="op">)</span></span>
+<span>  <span class="va">output</span><span class="op">$</span><span class="va">end_ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/renderUI.html" class="external-link">renderUI</a></span><span class="op">(</span><span class="fu"><a href="../../reference/el_time_picker.html">el_time_select</a></span><span class="op">(</span></span>
+<span>    <span class="st">"end"</span>,</span>
+<span>    start <span class="op">=</span> <span class="st">"08:30"</span>,</span>
+<span>    step <span class="op">=</span> <span class="st">"00:15"</span>,</span>
+<span>    end <span class="op">=</span> <span class="st">"18:30"</span>,</span>
+<span>    min_time <span class="op">=</span> <span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/isTruthy.html" class="external-link">isTruthy</a></span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">start</span><span class="op">)</span><span class="op">)</span> <span class="va">input</span><span class="op">$</span><span class="va">start</span>,</span>
+<span>    value <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/isolate.html" class="external-link">isolate</a></span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">end</span><span class="op">)</span>,</span>
+<span>    placeholder <span class="op">=</span> <span class="st">"End time"</span>,</span>
+<span>    width <span class="op">=</span> <span class="st">"240px"</span></span>
+<span>  <span class="op">)</span><span class="op">)</span></span>
 <span><span class="op">}</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/shinyApp.html" class="external-link">shinyApp</a></span><span class="op">(</span><span class="va">ui</span>, <span class="va">server</span><span class="op">)</span></span></code></pre></div>

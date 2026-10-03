@@ -17,9 +17,15 @@ A table’s own `loading` draws Element Plus’s mask over it, as
 
 ``` r
 
-el_table("ld_tbl", loading = TRUE, data = data.frame(
-  Date = c("2016-05-02", "2016-05-04", "2016-05-01"), Name = c("John Smith", "John Smith", "John Smith"),
-  Address = rep("No.1518,  Jinshajiang Road, Putuo District", 3)))
+el_table(
+  "ld_tbl",
+  loading = TRUE,
+  data = data.frame(
+    Date = c("2016-05-02", "2016-05-04", "2016-05-01"),
+    Name = c("John Smith", "John Smith", "John Smith"),
+    Address = rep("No.1518,  Jinshajiang Road, Putuo District", 3)
+  )
+)
 ```
 
 ## Customization
@@ -40,10 +46,22 @@ background.
 
 ui <- el_page(
   el_button("go", "Cover the table"),
-  tags$div(id = "covered", el_table("ld_tbl2", data = data.frame(Date = "2016-05-02", Name = "John"))))
+  tags$div(
+    id = "covered",
+    el_table("ld_tbl2", data = data.frame(Date = "2016-05-02", Name = "John"))
+  )
+)
 server <- function(input, output, session) {
-  observeEvent(input$go, el_loading(session, "covering", target = "#covered", text = "Loading...",
-                                    background = "rgba(122, 122, 122, 0.8)"))
+  observeEvent(
+    input$go,
+    el_loading(
+      session,
+      "covering",
+      target = "#covered",
+      text = "Loading...",
+      background = "rgba(122, 122, 122, 0.8)"
+    )
+  )
 }
 shinyApp(ui, server)
 ```
@@ -76,7 +94,13 @@ you wish to disable scrolling on body, you can add another modifier
 ui <- el_page(el_button("full", "As a service", type = "primary"))
 server <- function(input, output, session) {
   observeEvent(input$full, {
-    el_loading(session, "page", text = "Loading", fullscreen = TRUE, lock = TRUE)
+    el_loading(
+      session,
+      "page",
+      text = "Loading",
+      fullscreen = TRUE,
+      lock = TRUE
+    )
     later::later(function() el_loading_close(session, "page"), 2)
   })
 }

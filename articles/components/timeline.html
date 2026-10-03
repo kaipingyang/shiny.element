@@ -195,10 +195,14 @@
 important features that distinguish them from other components. Note the
 difference with Steps.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_timeline.html">el_timeline</a></span><span class="op">(</span><span class="st">"tl"</span>, items <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>content <span class="op">=</span> <span class="st">"Event start"</span>, timestamp <span class="op">=</span> <span class="st">"2018-04-15"</span><span class="op">)</span>,</span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>content <span class="op">=</span> <span class="st">"Approved"</span>, timestamp <span class="op">=</span> <span class="st">"2018-04-13"</span><span class="op">)</span>,</span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>content <span class="op">=</span> <span class="st">"Success"</span>, timestamp <span class="op">=</span> <span class="st">"2018-04-11"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_timeline.html">el_timeline</a></span><span class="op">(</span></span>
+<span>  <span class="st">"tl"</span>,</span>
+<span>  items <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>content <span class="op">=</span> <span class="st">"Event start"</span>, timestamp <span class="op">=</span> <span class="st">"2018-04-15"</span><span class="op">)</span>,</span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>content <span class="op">=</span> <span class="st">"Approved"</span>, timestamp <span class="op">=</span> <span class="st">"2018-04-13"</span><span class="op">)</span>,</span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>content <span class="op">=</span> <span class="st">"Success"</span>, timestamp <span class="op">=</span> <span class="st">"2018-04-11"</span><span class="op">)</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
   <div id="basic-tl" data-shiny-vue style="display: contents">
     <script type="text/x-template" data-shiny-vue-template><div id="basic-tl_container" style="display: contents">
@@ -224,12 +228,24 @@ your project, please check to ensure the layout is correct.</p>
 (<code>"start"</code>), before it (<code>"end"</code>), or on alternate
 sides.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rstudio.github.io/htmltools/reference/tagList.html" class="external-link">tagList</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"start"</span>, <span class="st">"alternate"</span>, <span class="st">"alternate-reverse"</span>, <span class="st">"end"</span><span class="op">)</span>, <span class="kw">function</span><span class="op">(</span><span class="va">m</span><span class="op">)</span></span>
-<span>  <span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span>style <span class="op">=</span> <span class="st">"margin-bottom: 20px"</span>, <span class="va">tags</span><span class="op">$</span><span class="fu">b</span><span class="op">(</span><span class="va">m</span><span class="op">)</span>,</span>
-<span>    <span class="fu"><a href="../../reference/el_timeline.html">el_timeline</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="st">"tl_"</span>, <span class="fu"><a href="https://rdrr.io/r/base/grep.html" class="external-link">gsub</a></span><span class="op">(</span><span class="st">"-"</span>, <span class="st">"_"</span>, <span class="va">m</span><span class="op">)</span><span class="op">)</span>, mode <span class="op">=</span> <span class="va">m</span>, items <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
-<span>      <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>content <span class="op">=</span> <span class="st">"Event start"</span>, timestamp <span class="op">=</span> <span class="st">"2018-04-15"</span><span class="op">)</span>,</span>
-<span>      <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>content <span class="op">=</span> <span class="st">"Approved"</span>, timestamp <span class="op">=</span> <span class="st">"2018-04-13"</span><span class="op">)</span>,</span>
-<span>      <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>content <span class="op">=</span> <span class="st">"Success"</span>, timestamp <span class="op">=</span> <span class="st">"2018-04-11"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rstudio.github.io/htmltools/reference/tagList.html" class="external-link">tagList</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply</a></span><span class="op">(</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"start"</span>, <span class="st">"alternate"</span>, <span class="st">"alternate-reverse"</span>, <span class="st">"end"</span><span class="op">)</span>,</span>
+<span>  <span class="kw">function</span><span class="op">(</span><span class="va">m</span><span class="op">)</span> <span class="op">{</span></span>
+<span>    <span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span></span>
+<span>      style <span class="op">=</span> <span class="st">"margin-bottom: 20px"</span>,</span>
+<span>      <span class="va">tags</span><span class="op">$</span><span class="fu">b</span><span class="op">(</span><span class="va">m</span><span class="op">)</span>,</span>
+<span>      <span class="fu"><a href="../../reference/el_timeline.html">el_timeline</a></span><span class="op">(</span></span>
+<span>        <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="st">"tl_"</span>, <span class="fu"><a href="https://rdrr.io/r/base/grep.html" class="external-link">gsub</a></span><span class="op">(</span><span class="st">"-"</span>, <span class="st">"_"</span>, <span class="va">m</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>        mode <span class="op">=</span> <span class="va">m</span>,</span>
+<span>        items <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>          <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>content <span class="op">=</span> <span class="st">"Event start"</span>, timestamp <span class="op">=</span> <span class="st">"2018-04-15"</span><span class="op">)</span>,</span>
+<span>          <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>content <span class="op">=</span> <span class="st">"Approved"</span>, timestamp <span class="op">=</span> <span class="st">"2018-04-13"</span><span class="op">)</span>,</span>
+<span>          <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>content <span class="op">=</span> <span class="st">"Success"</span>, timestamp <span class="op">=</span> <span class="st">"2018-04-11"</span><span class="op">)</span></span>
+<span>        <span class="op">)</span></span>
+<span>      <span class="op">)</span></span>
+<span>    <span class="op">)</span></span>
+<span>  <span class="op">}</span></span>
+<span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
   <div style="margin-bottom: 20px">
     <b>start</b>
@@ -278,13 +294,35 @@ sides.</p>
 </h2>
 <p>Size, color, and icons can be customized in node.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_timeline.html">el_timeline</a></span><span class="op">(</span><span class="st">"nodes"</span>, items <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>content <span class="op">=</span> <span class="st">"Custom icon"</span>, timestamp <span class="op">=</span> <span class="st">"2018-04-12 20:46"</span>, size <span class="op">=</span> <span class="st">"large"</span>,</span>
-<span>       type <span class="op">=</span> <span class="st">"primary"</span>, icon <span class="op">=</span> <span class="st">"MoreFilled"</span><span class="op">)</span>,</span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>content <span class="op">=</span> <span class="st">"Custom color"</span>, timestamp <span class="op">=</span> <span class="st">"2018-04-03 20:46"</span>, color <span class="op">=</span> <span class="st">"#0bbd87"</span><span class="op">)</span>,</span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>content <span class="op">=</span> <span class="st">"Custom size"</span>, timestamp <span class="op">=</span> <span class="st">"2018-04-03 20:46"</span>, size <span class="op">=</span> <span class="st">"large"</span><span class="op">)</span>,</span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>content <span class="op">=</span> <span class="st">"Custom hollow"</span>, timestamp <span class="op">=</span> <span class="st">"2018-04-03 20:46"</span>, type <span class="op">=</span> <span class="st">"primary"</span>, hollow <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,</span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>content <span class="op">=</span> <span class="st">"Default node"</span>, timestamp <span class="op">=</span> <span class="st">"2018-04-03 20:46"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_timeline.html">el_timeline</a></span><span class="op">(</span></span>
+<span>  <span class="st">"nodes"</span>,</span>
+<span>  items <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>      content <span class="op">=</span> <span class="st">"Custom icon"</span>,</span>
+<span>      timestamp <span class="op">=</span> <span class="st">"2018-04-12 20:46"</span>,</span>
+<span>      size <span class="op">=</span> <span class="st">"large"</span>,</span>
+<span>      type <span class="op">=</span> <span class="st">"primary"</span>,</span>
+<span>      icon <span class="op">=</span> <span class="st">"MoreFilled"</span></span>
+<span>    <span class="op">)</span>,</span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>      content <span class="op">=</span> <span class="st">"Custom color"</span>,</span>
+<span>      timestamp <span class="op">=</span> <span class="st">"2018-04-03 20:46"</span>,</span>
+<span>      color <span class="op">=</span> <span class="st">"#0bbd87"</span></span>
+<span>    <span class="op">)</span>,</span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>      content <span class="op">=</span> <span class="st">"Custom size"</span>,</span>
+<span>      timestamp <span class="op">=</span> <span class="st">"2018-04-03 20:46"</span>,</span>
+<span>      size <span class="op">=</span> <span class="st">"large"</span></span>
+<span>    <span class="op">)</span>,</span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>      content <span class="op">=</span> <span class="st">"Custom hollow"</span>,</span>
+<span>      timestamp <span class="op">=</span> <span class="st">"2018-04-03 20:46"</span>,</span>
+<span>      type <span class="op">=</span> <span class="st">"primary"</span>,</span>
+<span>      hollow <span class="op">=</span> <span class="cn">TRUE</span></span>
+<span>    <span class="op">)</span>,</span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>content <span class="op">=</span> <span class="st">"Default node"</span>, timestamp <span class="op">=</span> <span class="st">"2018-04-03 20:46"</span><span class="op">)</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
   <div id="custom-node-nodes" data-shiny-vue style="display: contents">
     <script type="text/x-template" data-shiny-vue-template><div id="custom-node-nodes_container" style="display: contents">
@@ -301,13 +339,35 @@ sides.</p>
 <p>Timestamp can be placed on top of content when content is too
 high.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_timeline.html">el_timeline</a></span><span class="op">(</span><span class="st">"stamps"</span>, items <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>timestamp <span class="op">=</span> <span class="st">"2018/4/12"</span>, placement <span class="op">=</span> <span class="st">"top"</span>,</span>
-<span>       content <span class="op">=</span> <span class="fu"><a href="../../reference/el_card.html">el_card</a></span><span class="op">(</span><span class="va">tags</span><span class="op">$</span><span class="fu">h4</span><span class="op">(</span><span class="st">"Update Github template"</span><span class="op">)</span>, <span class="va">tags</span><span class="op">$</span><span class="fu">p</span><span class="op">(</span><span class="st">"Tom committed 2018/4/12 20:46"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>,</span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>timestamp <span class="op">=</span> <span class="st">"2018/4/3"</span>, placement <span class="op">=</span> <span class="st">"top"</span>,</span>
-<span>       content <span class="op">=</span> <span class="fu"><a href="../../reference/el_card.html">el_card</a></span><span class="op">(</span><span class="va">tags</span><span class="op">$</span><span class="fu">h4</span><span class="op">(</span><span class="st">"Update Github template"</span><span class="op">)</span>, <span class="va">tags</span><span class="op">$</span><span class="fu">p</span><span class="op">(</span><span class="st">"Tom committed 2018/4/3 20:46"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>,</span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>timestamp <span class="op">=</span> <span class="st">"2018/4/2"</span>, placement <span class="op">=</span> <span class="st">"top"</span>,</span>
-<span>       content <span class="op">=</span> <span class="fu"><a href="../../reference/el_card.html">el_card</a></span><span class="op">(</span><span class="va">tags</span><span class="op">$</span><span class="fu">h4</span><span class="op">(</span><span class="st">"Update Github template"</span><span class="op">)</span>, <span class="va">tags</span><span class="op">$</span><span class="fu">p</span><span class="op">(</span><span class="st">"Tom committed 2018/4/2 20:46"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_timeline.html">el_timeline</a></span><span class="op">(</span></span>
+<span>  <span class="st">"stamps"</span>,</span>
+<span>  items <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>      timestamp <span class="op">=</span> <span class="st">"2018/4/12"</span>,</span>
+<span>      placement <span class="op">=</span> <span class="st">"top"</span>,</span>
+<span>      content <span class="op">=</span> <span class="fu"><a href="../../reference/el_card.html">el_card</a></span><span class="op">(</span></span>
+<span>        <span class="va">tags</span><span class="op">$</span><span class="fu">h4</span><span class="op">(</span><span class="st">"Update Github template"</span><span class="op">)</span>,</span>
+<span>        <span class="va">tags</span><span class="op">$</span><span class="fu">p</span><span class="op">(</span><span class="st">"Tom committed 2018/4/12 20:46"</span><span class="op">)</span></span>
+<span>      <span class="op">)</span></span>
+<span>    <span class="op">)</span>,</span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>      timestamp <span class="op">=</span> <span class="st">"2018/4/3"</span>,</span>
+<span>      placement <span class="op">=</span> <span class="st">"top"</span>,</span>
+<span>      content <span class="op">=</span> <span class="fu"><a href="../../reference/el_card.html">el_card</a></span><span class="op">(</span></span>
+<span>        <span class="va">tags</span><span class="op">$</span><span class="fu">h4</span><span class="op">(</span><span class="st">"Update Github template"</span><span class="op">)</span>,</span>
+<span>        <span class="va">tags</span><span class="op">$</span><span class="fu">p</span><span class="op">(</span><span class="st">"Tom committed 2018/4/3 20:46"</span><span class="op">)</span></span>
+<span>      <span class="op">)</span></span>
+<span>    <span class="op">)</span>,</span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>      timestamp <span class="op">=</span> <span class="st">"2018/4/2"</span>,</span>
+<span>      placement <span class="op">=</span> <span class="st">"top"</span>,</span>
+<span>      content <span class="op">=</span> <span class="fu"><a href="../../reference/el_card.html">el_card</a></span><span class="op">(</span></span>
+<span>        <span class="va">tags</span><span class="op">$</span><span class="fu">h4</span><span class="op">(</span><span class="st">"Update Github template"</span><span class="op">)</span>,</span>
+<span>        <span class="va">tags</span><span class="op">$</span><span class="fu">p</span><span class="op">(</span><span class="st">"Tom committed 2018/4/2 20:46"</span><span class="op">)</span></span>
+<span>      <span class="op">)</span></span>
+<span>    <span class="op">)</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
   <div id="custom-timestamp-stamps" data-shiny-vue style="display: contents">
     <script type="text/x-template" data-shiny-vue-template><div id="custom-timestamp-stamps_container" style="display: contents">
@@ -323,13 +383,35 @@ high.</p>
 </h2>
 <p>Timeline-Item is centered vertically.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_timeline.html">el_timeline</a></span><span class="op">(</span><span class="st">"centred"</span>, items <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>timestamp <span class="op">=</span> <span class="st">"2018/4/12"</span>, placement <span class="op">=</span> <span class="st">"top"</span>, center <span class="op">=</span> <span class="cn">TRUE</span>,</span>
-<span>       content <span class="op">=</span> <span class="fu"><a href="../../reference/el_card.html">el_card</a></span><span class="op">(</span><span class="va">tags</span><span class="op">$</span><span class="fu">h4</span><span class="op">(</span><span class="st">"Update Github template"</span><span class="op">)</span>, <span class="va">tags</span><span class="op">$</span><span class="fu">p</span><span class="op">(</span><span class="st">"Tom committed 2018/4/12 20:46"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>,</span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>timestamp <span class="op">=</span> <span class="st">"2018/4/3"</span>, placement <span class="op">=</span> <span class="st">"top"</span>,</span>
-<span>       content <span class="op">=</span> <span class="fu"><a href="../../reference/el_card.html">el_card</a></span><span class="op">(</span><span class="va">tags</span><span class="op">$</span><span class="fu">h4</span><span class="op">(</span><span class="st">"Update Github template"</span><span class="op">)</span>, <span class="va">tags</span><span class="op">$</span><span class="fu">p</span><span class="op">(</span><span class="st">"Tom committed 2018/4/3 20:46"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>,</span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>timestamp <span class="op">=</span> <span class="st">"2018/4/2"</span>, placement <span class="op">=</span> <span class="st">"top"</span>, center <span class="op">=</span> <span class="cn">TRUE</span>, content <span class="op">=</span> <span class="st">"Event start"</span><span class="op">)</span>,</span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>timestamp <span class="op">=</span> <span class="st">"2018/4/2"</span>, placement <span class="op">=</span> <span class="st">"top"</span>, content <span class="op">=</span> <span class="st">"Event end"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_timeline.html">el_timeline</a></span><span class="op">(</span></span>
+<span>  <span class="st">"centred"</span>,</span>
+<span>  items <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>      timestamp <span class="op">=</span> <span class="st">"2018/4/12"</span>,</span>
+<span>      placement <span class="op">=</span> <span class="st">"top"</span>,</span>
+<span>      center <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>      content <span class="op">=</span> <span class="fu"><a href="../../reference/el_card.html">el_card</a></span><span class="op">(</span></span>
+<span>        <span class="va">tags</span><span class="op">$</span><span class="fu">h4</span><span class="op">(</span><span class="st">"Update Github template"</span><span class="op">)</span>,</span>
+<span>        <span class="va">tags</span><span class="op">$</span><span class="fu">p</span><span class="op">(</span><span class="st">"Tom committed 2018/4/12 20:46"</span><span class="op">)</span></span>
+<span>      <span class="op">)</span></span>
+<span>    <span class="op">)</span>,</span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>      timestamp <span class="op">=</span> <span class="st">"2018/4/3"</span>,</span>
+<span>      placement <span class="op">=</span> <span class="st">"top"</span>,</span>
+<span>      content <span class="op">=</span> <span class="fu"><a href="../../reference/el_card.html">el_card</a></span><span class="op">(</span></span>
+<span>        <span class="va">tags</span><span class="op">$</span><span class="fu">h4</span><span class="op">(</span><span class="st">"Update Github template"</span><span class="op">)</span>,</span>
+<span>        <span class="va">tags</span><span class="op">$</span><span class="fu">p</span><span class="op">(</span><span class="st">"Tom committed 2018/4/3 20:46"</span><span class="op">)</span></span>
+<span>      <span class="op">)</span></span>
+<span>    <span class="op">)</span>,</span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>      timestamp <span class="op">=</span> <span class="st">"2018/4/2"</span>,</span>
+<span>      placement <span class="op">=</span> <span class="st">"top"</span>,</span>
+<span>      center <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>      content <span class="op">=</span> <span class="st">"Event start"</span></span>
+<span>    <span class="op">)</span>,</span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>timestamp <span class="op">=</span> <span class="st">"2018/4/2"</span>, placement <span class="op">=</span> <span class="st">"top"</span>, content <span class="op">=</span> <span class="st">"Event end"</span><span class="op">)</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
   <div id="center-centred" data-shiny-vue style="display: contents">
     <script type="text/x-template" data-shiny-vue-template><div id="center-centred_container" style="display: contents">
@@ -348,14 +430,26 @@ high.</p>
 <code><a href="../../reference/update_el_timeline.html">update_el_timeline()</a></code> flips it.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/el_page.html">el_page</a></span><span class="op">(</span></span>
-<span>  <span class="fu"><a href="../../reference/el_radio_group.html">el_radio_group</a></span><span class="op">(</span><span class="st">"order"</span>, choices <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>Ascending <span class="op">=</span> <span class="st">"asc"</span>, Descending <span class="op">=</span> <span class="st">"desc"</span><span class="op">)</span>, value <span class="op">=</span> <span class="st">"asc"</span><span class="op">)</span>,</span>
-<span>  <span class="fu"><a href="../../reference/el_timeline.html">el_timeline</a></span><span class="op">(</span><span class="st">"tl"</span>, items <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
-<span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>content <span class="op">=</span> <span class="st">"Event start"</span>, timestamp <span class="op">=</span> <span class="st">"2018-04-15"</span><span class="op">)</span>,</span>
-<span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>content <span class="op">=</span> <span class="st">"Approved"</span>, timestamp <span class="op">=</span> <span class="st">"2018-04-13"</span><span class="op">)</span>,</span>
-<span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>content <span class="op">=</span> <span class="st">"Success"</span>, timestamp <span class="op">=</span> <span class="st">"2018-04-11"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
+<span>  <span class="fu"><a href="../../reference/el_radio_group.html">el_radio_group</a></span><span class="op">(</span></span>
+<span>    <span class="st">"order"</span>,</span>
+<span>    choices <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>Ascending <span class="op">=</span> <span class="st">"asc"</span>, Descending <span class="op">=</span> <span class="st">"desc"</span><span class="op">)</span>,</span>
+<span>    value <span class="op">=</span> <span class="st">"asc"</span></span>
+<span>  <span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="../../reference/el_timeline.html">el_timeline</a></span><span class="op">(</span></span>
+<span>    <span class="st">"tl"</span>,</span>
+<span>    items <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>      <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>content <span class="op">=</span> <span class="st">"Event start"</span>, timestamp <span class="op">=</span> <span class="st">"2018-04-15"</span><span class="op">)</span>,</span>
+<span>      <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>content <span class="op">=</span> <span class="st">"Approved"</span>, timestamp <span class="op">=</span> <span class="st">"2018-04-13"</span><span class="op">)</span>,</span>
+<span>      <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>content <span class="op">=</span> <span class="st">"Success"</span>, timestamp <span class="op">=</span> <span class="st">"2018-04-11"</span><span class="op">)</span></span>
+<span>    <span class="op">)</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">server</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span>, <span class="va">session</span><span class="op">)</span> <span class="op">{</span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/observeEvent.html" class="external-link">observeEvent</a></span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">order</span>, <span class="fu"><a href="../../reference/update_el_timeline.html">update_el_timeline</a></span><span class="op">(</span>id <span class="op">=</span> <span class="st">"tl"</span>, reverse <span class="op">=</span> <span class="va">input</span><span class="op">$</span><span class="va">order</span> <span class="op">==</span> <span class="st">"desc"</span><span class="op">)</span><span class="op">)</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/observeEvent.html" class="external-link">observeEvent</a></span><span class="op">(</span></span>
+<span>    <span class="va">input</span><span class="op">$</span><span class="va">order</span>,</span>
+<span>    <span class="fu"><a href="../../reference/update_el_timeline.html">update_el_timeline</a></span><span class="op">(</span>id <span class="op">=</span> <span class="st">"tl"</span>, reverse <span class="op">=</span> <span class="va">input</span><span class="op">$</span><span class="va">order</span> <span class="op">==</span> <span class="st">"desc"</span><span class="op">)</span></span>
+<span>  <span class="op">)</span></span>
 <span><span class="op">}</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/shinyApp.html" class="external-link">shinyApp</a></span><span class="op">(</span><span class="va">ui</span>, <span class="va">server</span><span class="op">)</span></span></code></pre></div>

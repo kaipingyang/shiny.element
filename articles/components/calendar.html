@@ -243,10 +243,20 @@ it with radio buttons.</p>
 cell), data (including the type, isSelected, day attribute). For
 details, please refer to the API documentation below.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_calendar.html">el_calendar</a></span><span class="op">(</span><span class="st">"cal_cell"</span>, slots <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>`date-cell` <span class="op">=</span> <span class="fu"><a href="../../reference/template.html">template</a></span><span class="op">(</span><span class="fu">htmltools</span><span class="fu">::</span><span class="fu"><a href="https://rstudio.github.io/htmltools/reference/HTML.html" class="external-link">HTML</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span></span>
-<span>  <span class="st">"&lt;p :class=\"data.isSelected ? 'is-selected' : ''\"&gt;"</span>,</span>
-<span>  <span class="st">"{{ data.day.split('-').slice(1).join('-') }} "</span>,</span>
-<span>  <span class="st">"{{ data.isSelected ? '✔️' : '' }}&lt;/p&gt;"</span><span class="op">)</span><span class="op">)</span>, slot <span class="op">=</span> <span class="st">"date-cell"</span>, scope <span class="op">=</span> <span class="st">"{ data }"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_calendar.html">el_calendar</a></span><span class="op">(</span></span>
+<span>  <span class="st">"cal_cell"</span>,</span>
+<span>  slots <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>    `date-cell` <span class="op">=</span> <span class="fu"><a href="../../reference/template.html">template</a></span><span class="op">(</span></span>
+<span>      <span class="fu">htmltools</span><span class="fu">::</span><span class="fu"><a href="https://rstudio.github.io/htmltools/reference/HTML.html" class="external-link">HTML</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span></span>
+<span>        <span class="st">"&lt;p :class=\"data.isSelected ? 'is-selected' : ''\"&gt;"</span>,</span>
+<span>        <span class="st">"{{ data.day.split('-').slice(1).join('-') }} "</span>,</span>
+<span>        <span class="st">"{{ data.isSelected ? '✔️' : '' }}&lt;/p&gt;"</span></span>
+<span>      <span class="op">)</span><span class="op">)</span>,</span>
+<span>      slot <span class="op">=</span> <span class="st">"date-cell"</span>,</span>
+<span>      scope <span class="op">=</span> <span class="st">"{ data }"</span></span>
+<span>    <span class="op">)</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
   <style>
       .is-selected {
@@ -289,15 +299,25 @@ the time span cannot exceed two months.</p>
 <p>The header’s buttons move the calendar with Element Plus’s
 <code>selectDate()</code>, called on the component’s ref.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_calendar.html">el_calendar</a></span><span class="op">(</span><span class="st">"cal_head"</span>, slots <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>header <span class="op">=</span> <span class="fu"><a href="../../reference/template.html">template</a></span><span class="op">(</span><span class="fu">htmltools</span><span class="fu">::</span><span class="fu"><a href="https://rstudio.github.io/htmltools/reference/HTML.html" class="external-link">HTML</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span></span>
-<span>  <span class="st">"&lt;span&gt;Custom header content&lt;/span&gt;&lt;span&gt;{{ date }}&lt;/span&gt;"</span>,</span>
-<span>  <span class="st">"&lt;el-button-group&gt;"</span>,</span>
-<span>  <span class="st">"&lt;el-button size=\"small\" @click=\"$refs.el.selectDate('prev-year')\"&gt;Previous Year&lt;/el-button&gt;"</span>,</span>
-<span>  <span class="st">"&lt;el-button size=\"small\" @click=\"$refs.el.selectDate('prev-month')\"&gt;Previous Month&lt;/el-button&gt;"</span>,</span>
-<span>  <span class="st">"&lt;el-button size=\"small\" @click=\"$refs.el.selectDate('today')\"&gt;Today&lt;/el-button&gt;"</span>,</span>
-<span>  <span class="st">"&lt;el-button size=\"small\" @click=\"$refs.el.selectDate('next-month')\"&gt;Next Month&lt;/el-button&gt;"</span>,</span>
-<span>  <span class="st">"&lt;el-button size=\"small\" @click=\"$refs.el.selectDate('next-year')\"&gt;Next Year&lt;/el-button&gt;"</span>,</span>
-<span>  <span class="st">"&lt;/el-button-group&gt;"</span><span class="op">)</span><span class="op">)</span>, slot <span class="op">=</span> <span class="st">"header"</span>, scope <span class="op">=</span> <span class="st">"{ date }"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_calendar.html">el_calendar</a></span><span class="op">(</span></span>
+<span>  <span class="st">"cal_head"</span>,</span>
+<span>  slots <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>    header <span class="op">=</span> <span class="fu"><a href="../../reference/template.html">template</a></span><span class="op">(</span></span>
+<span>      <span class="fu">htmltools</span><span class="fu">::</span><span class="fu"><a href="https://rstudio.github.io/htmltools/reference/HTML.html" class="external-link">HTML</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span></span>
+<span>        <span class="st">"&lt;span&gt;Custom header content&lt;/span&gt;&lt;span&gt;{{ date }}&lt;/span&gt;"</span>,</span>
+<span>        <span class="st">"&lt;el-button-group&gt;"</span>,</span>
+<span>        <span class="st">"&lt;el-button size=\"small\" @click=\"$refs.el.selectDate('prev-year')\"&gt;Previous Year&lt;/el-button&gt;"</span>,</span>
+<span>        <span class="st">"&lt;el-button size=\"small\" @click=\"$refs.el.selectDate('prev-month')\"&gt;Previous Month&lt;/el-button&gt;"</span>,</span>
+<span>        <span class="st">"&lt;el-button size=\"small\" @click=\"$refs.el.selectDate('today')\"&gt;Today&lt;/el-button&gt;"</span>,</span>
+<span>        <span class="st">"&lt;el-button size=\"small\" @click=\"$refs.el.selectDate('next-month')\"&gt;Next Month&lt;/el-button&gt;"</span>,</span>
+<span>        <span class="st">"&lt;el-button size=\"small\" @click=\"$refs.el.selectDate('next-year')\"&gt;Next Year&lt;/el-button&gt;"</span>,</span>
+<span>        <span class="st">"&lt;/el-button-group&gt;"</span></span>
+<span>      <span class="op">)</span><span class="op">)</span>,</span>
+<span>      slot <span class="op">=</span> <span class="st">"header"</span>,</span>
+<span>      scope <span class="op">=</span> <span class="st">"{ date }"</span></span>
+<span>    <span class="op">)</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
   <style>
       .is-selected {

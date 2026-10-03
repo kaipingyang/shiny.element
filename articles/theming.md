@@ -45,14 +45,23 @@ ones beside them.
 
 ``` r
 
-el_row(gutter = 16,
-  el_col(span = 12,
+el_row(
+  gutter = 16,
+  el_col(
+    span = 12,
     textInput("shiny_text", "Shiny's textInput()", "Ada"),
-    actionButton("shiny_go", "actionButton()", class = "btn-primary")),
-  el_col(span = 12,
-    tags$label("Element's el_input()"), el_input("el_text", value = "Ada"),
-    tags$div(style = "margin-top: 15px",
-      el_button("el_go", "el_button()", type = "primary"))))
+    actionButton("shiny_go", "actionButton()", class = "btn-primary")
+  ),
+  el_col(
+    span = 12,
+    tags$label("Element's el_input()"),
+    el_input("el_text", value = "Ada"),
+    tags$div(
+      style = "margin-top: 15px",
+      el_button("el_go", "el_button()", type = "primary")
+    )
+  )
+)
 ```
 
 Shiny's textInput()
@@ -71,12 +80,14 @@ plain button’s pale fill, a focused input’s border:
 
 ``` r
 
-ui <- el_page(theme = el_theme(primary = "#7c3aed"),
+ui <- el_page(
+  theme = el_theme(primary = "#7c3aed"),
   el_button("save", "Save", type = "primary"),
   el_button("draft", "Draft", type = "primary", plain = TRUE),
   el_switch("notify", value = TRUE),
   el_slider("level", value = 40, width = "240px"),
-  el_pagination("pages", total = 50))
+  el_pagination("pages", total = 50)
+)
 
 shinyApp(ui, function(input, output, session) {})
 ```
@@ -89,14 +100,22 @@ without the `--el-`:
 
 ``` r
 
-theme <- el_theme(primary = "#0f766e", element = list(
-  "border-radius-base" = "12px", "border-radius-small" = "8px",
-  "font-size-base" = "13px", "component-size" = "36px"))
+theme <- el_theme(
+  primary = "#0f766e",
+  element = list(
+    "border-radius-base" = "12px",
+    "border-radius-small" = "8px",
+    "font-size-base" = "13px",
+    "component-size" = "36px"
+  )
+)
 
-ui <- el_page(theme = theme,
+ui <- el_page(
+  theme = theme,
   el_input("name", placeholder = "Rounder, smaller", width = "260px"),
   el_button("go", "Go", type = "primary"),
-  el_tag("t", "Tag"))
+  el_tag("t", "Tag")
+)
 
 shinyApp(ui, function(input, output, session) {})
 ```

@@ -288,8 +288,13 @@ Callable with
 
 ``` r
 # A drop zone taking several CSVs, read on the server like fileInput()
-el_upload("files", drag = TRUE, multiple = TRUE, accept = ".csv",
-          tip = "CSV files only")
+el_upload(
+  "files",
+  drag = TRUE,
+  multiple = TRUE,
+  accept = ".csv",
+  tip = "CSV files only"
+)
 #> <div id="files" data-shiny-vue style="display: contents">
 #>   <script type="text/x-template" data-shiny-vue-template><div id="files_container" style="display: contents">
 #>   <el-upload ref="upload" name="files_elfile" action="#" :multiple="multiple" :show-file-list="showFileList" :list-type="listType" :auto-upload="autoUpload" :disabled="disabled" :accept="accept === null ? undefined : accept" :limit="limit === null ? undefined : limit" :on-success="handleSuccess" :on-error="handleError" :drag="drag" :headers="headers === null ? undefined : headers" :data="extraData === null ? undefined : extraData" v-model:file-list="fileList" :with-credentials="withCredentials === null ? undefined : withCredentials" :before-upload="beforeUpload === null ? undefined : beforeUpload" :before-remove="beforeRemove === null ? undefined : beforeRemove" :on-change="onChange === null ? undefined : onChange" :on-progress="onProgress === null ? undefined : onProgress" :on-preview="onPreview === null ? undefined : onPreview" :on-remove="onRemove === null ? undefined : onRemove" :on-exceed="onExceed === null ? undefined : onExceed" :http-request="shinyUpload" :crossorigin="crossorigin === null ? undefined : crossorigin" :directory="directory === null ? undefined : directory">

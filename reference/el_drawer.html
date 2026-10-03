@@ -360,8 +360,13 @@ would, through <code>before_close</code> (<code>closeDrawer()</code>, Element UI
 <span class="r-out co"><span class="r-pr">#&gt;</span> &lt;/div&gt;</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Sliding up from the bottom, holding other components</span></span></span>
-<span class="r-in"><span><span class="fu">el_drawer</span><span class="op">(</span><span class="st">"w2"</span>, title <span class="op">=</span> <span class="st">"Filters"</span>, direction <span class="op">=</span> <span class="st">"btt"</span>, size <span class="op">=</span> <span class="st">"40%"</span>,</span></span>
-<span class="r-in"><span>          content <span class="op">=</span> <span class="fu">shiny</span><span class="fu">::</span><span class="fu"><a href="https://rstudio.github.io/htmltools/reference/tagList.html" class="external-link">tagList</a></span><span class="op">(</span><span class="fu"><a href="el_input.html">el_input</a></span><span class="op">(</span><span class="st">"q"</span><span class="op">)</span>, <span class="fu"><a href="el_switch.html">el_switch</a></span><span class="op">(</span><span class="st">"live"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">el_drawer</span><span class="op">(</span></span></span>
+<span class="r-in"><span>  <span class="st">"w2"</span>,</span></span>
+<span class="r-in"><span>  title <span class="op">=</span> <span class="st">"Filters"</span>,</span></span>
+<span class="r-in"><span>  direction <span class="op">=</span> <span class="st">"btt"</span>,</span></span>
+<span class="r-in"><span>  size <span class="op">=</span> <span class="st">"40%"</span>,</span></span>
+<span class="r-in"><span>  content <span class="op">=</span> <span class="fu">shiny</span><span class="fu">::</span><span class="fu"><a href="https://rstudio.github.io/htmltools/reference/tagList.html" class="external-link">tagList</a></span><span class="op">(</span><span class="fu"><a href="el_input.html">el_input</a></span><span class="op">(</span><span class="st">"q"</span><span class="op">)</span>, <span class="fu"><a href="el_switch.html">el_switch</a></span><span class="op">(</span><span class="st">"live"</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> &lt;div id="w2" class="el-overlay" style="display:none;" data-el-overlay="drawer" data-visible="false" data-modal="true" data-mask-close="true" data-esc-close="true" data-lock-scroll="true" data-destroy-on-close="false"&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   &lt;div aria-modal="true" aria-labelledby="w2-title" aria-label="Filters" role="dialog" tabindex="-1" class="el-drawer btt" style="height: 40%;"&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     &lt;header class="el-drawer__header"&gt;</span>
@@ -386,7 +391,6 @@ would, through <code>before_close</code> (<code>closeDrawer()</code>, Element UI
 <span class="r-out co"><span class="r-pr">#&gt;</span>     &lt;/div&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   &lt;/div&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> &lt;/div&gt;</span>
-<span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>

@@ -18,7 +18,10 @@ Notifications are sent from the server, `el_notification(session, ...)`.
 
 ui <- el_page(el_button("show", "Closes automatically", plain = TRUE))
 server <- function(input, output, session) {
-  observeEvent(input$show, el_notification(session, title = "Title", message = "This is a reminder"))
+  observeEvent(
+    input$show,
+    el_notification(session, title = "Title", message = "This is a reminder")
+  )
 }
 shinyApp(ui, server)
 ```
@@ -38,14 +41,24 @@ that can be invoked directly like `open3` and `open4` without passing a
 ``` r
 
 types <- c("primary", "success", "warning", "info", "error")
-ui <- el_page(lapply(types, function(t) el_button(paste0("n_", t), tools::toTitleCase(t), plain = TRUE)))
+ui <- el_page(lapply(types, function(t) {
+  el_button(paste0("n_", t), tools::toTitleCase(t), plain = TRUE)
+}))
 server <- function(input, output, session) {
-  for (t in types) local({
-    t <- t
-    observeEvent(input[[paste0("n_", t)]],
-                 el_notification(session, title = tools::toTitleCase(t), type = t,
-                                 message = paste("This is a", t, "message")))
-  })
+  for (t in types) {
+    local({
+      t <- t
+      observeEvent(
+        input[[paste0("n_", t)]],
+        el_notification(
+          session,
+          title = tools::toTitleCase(t),
+          type = t,
+          message = paste("This is a", t, "message")
+        )
+      )
+    })
+  }
 }
 shinyApp(ui, server)
 ```
@@ -64,14 +77,24 @@ Defaults to `top-right`.
 ``` r
 
 pos <- c("top-right", "bottom-right", "bottom-left", "top-left")
-ui <- el_page(lapply(pos, function(p) el_button(paste0("n_", gsub("-", "_", p)), p, plain = TRUE)))
+ui <- el_page(lapply(pos, function(p) {
+  el_button(paste0("n_", gsub("-", "_", p)), p, plain = TRUE)
+}))
 server <- function(input, output, session) {
-  for (p in pos) local({
-    p <- p
-    observeEvent(input[[paste0("n_", gsub("-", "_", p))]],
-                 el_notification(session, title = "Custom Position", position = p,
-                                 message = paste("I'm at the", p, "corner")))
-  })
+  for (p in pos) {
+    local({
+      p <- p
+      observeEvent(
+        input[[paste0("n_", gsub("-", "_", p))]],
+        el_notification(
+          session,
+          title = "Custom Position",
+          position = p,
+          message = paste("I'm at the", p, "corner")
+        )
+      )
+    })
+  }
 }
 shinyApp(ui, server)
 ```
@@ -91,8 +114,15 @@ moment should have the same offset.
 
 ui <- el_page(el_button("show", "Notification with offset", plain = TRUE))
 server <- function(input, output, session) {
-  observeEvent(input$show, el_notification(session, title = "Success", offset = 100,
-    message = "This is a success message"))
+  observeEvent(
+    input$show,
+    el_notification(
+      session,
+      title = "Success",
+      offset = 100,
+      message = "This is a success message"
+    )
+  )
 }
 shinyApp(ui, server)
 ```
@@ -111,8 +141,15 @@ an HTML string.
 
 ui <- el_page(el_button("show", "Use HTML String", plain = TRUE))
 server <- function(input, output, session) {
-  observeEvent(input$show, el_notification(session, title = "HTML String",
-    dangerously_use_html_string = TRUE, message = "<strong>This is <i>HTML</i> string</strong>"))
+  observeEvent(
+    input$show,
+    el_notification(
+      session,
+      title = "HTML String",
+      dangerously_use_html_string = TRUE,
+      message = "<strong>This is <i>HTML</i> string</strong>"
+    )
+  )
 }
 shinyApp(ui, server)
 ```
@@ -158,8 +195,16 @@ pause both the timer and the progress bar.
 
 ui <- el_page(el_button("show", "With progress bar", plain = TRUE))
 server <- function(input, output, session) {
-  observeEvent(input$show, el_notification(session, title = "Progress", progress = TRUE,
-    duration = 5000, message = "Closes when the bar runs out"))
+  observeEvent(
+    input$show,
+    el_notification(
+      session,
+      title = "Progress",
+      progress = TRUE,
+      duration = 5000,
+      message = "Closes when the bar runs out"
+    )
+  )
 }
 shinyApp(ui, server)
 ```
@@ -178,8 +223,16 @@ closed by the user.
 
 ui <- el_page(el_button("show", "Hide close button", plain = TRUE))
 server <- function(input, output, session) {
-  observeEvent(input$show, el_notification(session, title = "Info", type = "info", show_close = FALSE,
-    message = "This is a message without close button"))
+  observeEvent(
+    input$show,
+    el_notification(
+      session,
+      title = "Info",
+      type = "info",
+      show_close = FALSE,
+      message = "This is a message without close button"
+    )
+  )
 }
 shinyApp(ui, server)
 ```

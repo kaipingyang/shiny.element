@@ -368,8 +368,12 @@ moves into it on opening, and back on closing.</p></li>
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu">el_dialog</span><span class="op">(</span><span class="st">"d1"</span>, title <span class="op">=</span> <span class="st">"Confirm"</span>, content <span class="op">=</span> <span class="fu">shiny</span><span class="fu">::</span><span class="va"><a href="https://rstudio.github.io/htmltools/reference/builder.html" class="external-link">tags</a></span><span class="op">$</span><span class="fu">p</span><span class="op">(</span><span class="st">"Are you sure?"</span><span class="op">)</span>,</span></span>
-<span class="r-in"><span>          footer <span class="op">=</span> <span class="fu"><a href="el_button.html">el_button</a></span><span class="op">(</span><span class="st">"ok"</span>, <span class="st">"OK"</span>, type <span class="op">=</span> <span class="st">"primary"</span><span class="op">)</span><span class="op">)</span></span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu">el_dialog</span><span class="op">(</span></span></span>
+<span class="r-in"><span>  <span class="st">"d1"</span>,</span></span>
+<span class="r-in"><span>  title <span class="op">=</span> <span class="st">"Confirm"</span>,</span></span>
+<span class="r-in"><span>  content <span class="op">=</span> <span class="fu">shiny</span><span class="fu">::</span><span class="va"><a href="https://rstudio.github.io/htmltools/reference/builder.html" class="external-link">tags</a></span><span class="op">$</span><span class="fu">p</span><span class="op">(</span><span class="st">"Are you sure?"</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>  footer <span class="op">=</span> <span class="fu"><a href="el_button.html">el_button</a></span><span class="op">(</span><span class="st">"ok"</span>, <span class="st">"OK"</span>, type <span class="op">=</span> <span class="st">"primary"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> &lt;div id="d1" class="el-overlay" style="display:none;" data-el-overlay="dialog" data-visible="false" data-modal="true" data-mask-close="true" data-esc-close="true" data-lock-scroll="true" data-destroy-on-close="false"&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   &lt;div class="el-overlay-dialog" role="dialog" aria-modal="true" aria-label="Confirm"&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     &lt;div class="el-dialog" tabindex="-1" style="--el-dialog-width: 50%; --el-dialog-margin-top: 15vh;"&gt;</span>
@@ -395,8 +399,12 @@ moves into it on opening, and back on closing.</p></li>
 <span class="r-out co"><span class="r-pr">#&gt;</span> &lt;/div&gt;</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># The body can hold other components</span></span></span>
-<span class="r-in"><span><span class="fu">el_dialog</span><span class="op">(</span><span class="st">"d2"</span>, title <span class="op">=</span> <span class="st">"Filters"</span>, draggable <span class="op">=</span> <span class="cn">TRUE</span>,</span></span>
-<span class="r-in"><span>          content <span class="op">=</span> <span class="fu">shiny</span><span class="fu">::</span><span class="fu"><a href="https://rstudio.github.io/htmltools/reference/tagList.html" class="external-link">tagList</a></span><span class="op">(</span><span class="fu"><a href="el_input.html">el_input</a></span><span class="op">(</span><span class="st">"q"</span><span class="op">)</span>, <span class="fu"><a href="el_switch.html">el_switch</a></span><span class="op">(</span><span class="st">"live"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">el_dialog</span><span class="op">(</span></span></span>
+<span class="r-in"><span>  <span class="st">"d2"</span>,</span></span>
+<span class="r-in"><span>  title <span class="op">=</span> <span class="st">"Filters"</span>,</span></span>
+<span class="r-in"><span>  draggable <span class="op">=</span> <span class="cn">TRUE</span>,</span></span>
+<span class="r-in"><span>  content <span class="op">=</span> <span class="fu">shiny</span><span class="fu">::</span><span class="fu"><a href="https://rstudio.github.io/htmltools/reference/tagList.html" class="external-link">tagList</a></span><span class="op">(</span><span class="fu"><a href="el_input.html">el_input</a></span><span class="op">(</span><span class="st">"q"</span><span class="op">)</span>, <span class="fu"><a href="el_switch.html">el_switch</a></span><span class="op">(</span><span class="st">"live"</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> &lt;div id="d2" class="el-overlay" style="display:none;" data-el-overlay="dialog" data-visible="false" data-modal="true" data-mask-close="true" data-esc-close="true" data-lock-scroll="true" data-draggable="true" data-destroy-on-close="false"&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   &lt;div class="el-overlay-dialog" role="dialog" aria-modal="true" aria-label="Filters"&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     &lt;div class="el-dialog is-draggable" tabindex="-1" style="--el-dialog-width: 50%; --el-dialog-margin-top: 15vh;"&gt;</span>
@@ -423,7 +431,6 @@ moves into it on opening, and back on closing.</p></li>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     &lt;/div&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   &lt;/div&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> &lt;/div&gt;</span>
-<span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>

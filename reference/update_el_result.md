@@ -40,10 +40,19 @@ Called for its side effect; returns `NULL` invisibly.
 if (interactive()) {
   # inside a server function
   observeEvent(input$submit, {
-    ok <- tryCatch({ save(); TRUE }, error = function(e) FALSE)
-    update_el_result(session, "outcome",
-                     icon = if (ok) "success" else "error",
-                     title = if (ok) "Saved" else "Could not save")
+    ok <- tryCatch(
+      {
+        save()
+        TRUE
+      },
+      error = function(e) FALSE
+    )
+    update_el_result(
+      session,
+      "outcome",
+      icon = if (ok) "success" else "error",
+      title = if (ok) "Saved" else "Could not save"
+    )
   })
 }
 ```

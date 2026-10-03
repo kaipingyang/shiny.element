@@ -26,9 +26,12 @@ There are three types available: `outlined` (default), `filled`, and
 
 ``` r
 
-tags$div(style = "display: grid; gap: 16px",
-  el_input_otp("otp_o", type = "outlined"), el_input_otp("otp_f", type = "filled"),
-  el_input_otp("otp_u", type = "underlined"))
+tags$div(
+  style = "display: grid; gap: 16px",
+  el_input_otp("otp_o", type = "outlined"),
+  el_input_otp("otp_f", type = "filled"),
+  el_input_otp("otp_u", type = "underlined")
+)
 ```
 
 ## Sizes
@@ -37,8 +40,12 @@ There are three sizes available: `large`, `default`, and `small`.
 
 ``` r
 
-tags$div(style = "display: grid; gap: 16px",
-  el_input_otp("otp_l", size = "large"), el_input_otp("otp_d"), el_input_otp("otp_s", size = "small"))
+tags$div(
+  style = "display: grid; gap: 16px",
+  el_input_otp("otp_l", size = "large"),
+  el_input_otp("otp_d"),
+  el_input_otp("otp_s", size = "small")
+)
 ```
 
 ## Disabled & Readonly
@@ -79,7 +86,10 @@ function, decides which characters each field takes.
 
 ``` r
 
-el_input_otp("otp_val", validator = JS("function(char) { return /^[0-9]$/.test(char); }"))
+el_input_otp(
+  "otp_val",
+  validator = JS("function(char) { return /^[0-9]$/.test(char); }")
+)
 ```
 
 ## API

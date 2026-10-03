@@ -198,7 +198,8 @@ alternatively you can use the control arrows when the
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rstudio.github.io/htmltools/reference/tagList.html" class="external-link">tagList</a></span><span class="op">(</span></span>
 <span>  <span class="fu"><a href="../../reference/el_time_picker.html">el_time_picker</a></span><span class="op">(</span><span class="st">"t1"</span>, placeholder <span class="op">=</span> <span class="st">"Arbitrary time"</span><span class="op">)</span>,</span>
-<span>  <span class="fu"><a href="../../reference/el_time_picker.html">el_time_picker</a></span><span class="op">(</span><span class="st">"t2"</span>, arrow_control <span class="op">=</span> <span class="cn">TRUE</span>, placeholder <span class="op">=</span> <span class="st">"Arbitrary time"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<span>  <span class="fu"><a href="../../reference/el_time_picker.html">el_time_picker</a></span><span class="op">(</span><span class="st">"t2"</span>, arrow_control <span class="op">=</span> <span class="cn">TRUE</span>, placeholder <span class="op">=</span> <span class="st">"Arbitrary time"</span><span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
   <div id="basic-t1" data-shiny-vue style="display: contents">
     <script type="text/x-template" data-shiny-vue-template><div id="basic-t1_container" style="display: contents">
@@ -222,9 +223,17 @@ alternatively you can use the control arrows when the
 <code>disabled_seconds</code> limit what can be picked – here, 17:30 to
 18:30.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_time_picker.html">el_time_picker</a></span><span class="op">(</span><span class="st">"lim"</span>, value <span class="op">=</span> <span class="st">"18:30:00"</span>, placeholder <span class="op">=</span> <span class="st">"Arbitrary time"</span>,</span>
-<span>  disabled_hours <span class="op">=</span> <span class="fu"><a href="../../reference/JS.html">JS</a></span><span class="op">(</span><span class="st">"function() { var r = []; for (var h = 0; h &lt; 24; h++) if (h &lt; 17 || h &gt; 18) r.push(h); return r; }"</span><span class="op">)</span>,</span>
-<span>  disabled_minutes <span class="op">=</span> <span class="fu"><a href="../../reference/JS.html">JS</a></span><span class="op">(</span><span class="st">"function(h) { var r = []; for (var m = 0; m &lt; 60; m++) if ((h === 17 &amp;&amp; m &lt; 30) || (h === 18 &amp;&amp; m &gt; 30)) r.push(m); return r; }"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_time_picker.html">el_time_picker</a></span><span class="op">(</span></span>
+<span>  <span class="st">"lim"</span>,</span>
+<span>  value <span class="op">=</span> <span class="st">"18:30:00"</span>,</span>
+<span>  placeholder <span class="op">=</span> <span class="st">"Arbitrary time"</span>,</span>
+<span>  disabled_hours <span class="op">=</span> <span class="fu"><a href="../../reference/JS.html">JS</a></span><span class="op">(</span></span>
+<span>    <span class="st">"function() { var r = []; for (var h = 0; h &lt; 24; h++) if (h &lt; 17 || h &gt; 18) r.push(h); return r; }"</span></span>
+<span>  <span class="op">)</span>,</span>
+<span>  disabled_minutes <span class="op">=</span> <span class="fu"><a href="../../reference/JS.html">JS</a></span><span class="op">(</span></span>
+<span>    <span class="st">"function(h) { var r = []; for (var m = 0; m &lt; 60; m++) if ((h === 17 &amp;&amp; m &lt; 30) || (h === 18 &amp;&amp; m &gt; 30)) r.push(m); return r; }"</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
   <div id="basic-range-lim" data-shiny-vue style="display: contents">
     <script type="text/x-template" data-shiny-vue-template><div id="basic-range-lim_container" style="display: contents">
@@ -242,10 +251,24 @@ attribute. Also, <code>arrow-control</code> is supported in range
 mode.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rstudio.github.io/htmltools/reference/tagList.html" class="external-link">tagList</a></span><span class="op">(</span></span>
-<span>  <span class="fu"><a href="../../reference/el_time_picker.html">el_time_picker</a></span><span class="op">(</span><span class="st">"r1"</span>, is_range <span class="op">=</span> <span class="cn">TRUE</span>, value <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"08:40:00"</span>, <span class="st">"09:40:00"</span><span class="op">)</span>, range_separator <span class="op">=</span> <span class="st">"To"</span>,</span>
-<span>                 start_placeholder <span class="op">=</span> <span class="st">"Start time"</span>, end_placeholder <span class="op">=</span> <span class="st">"End time"</span><span class="op">)</span>,</span>
-<span>  <span class="fu"><a href="../../reference/el_time_picker.html">el_time_picker</a></span><span class="op">(</span><span class="st">"r2"</span>, is_range <span class="op">=</span> <span class="cn">TRUE</span>, arrow_control <span class="op">=</span> <span class="cn">TRUE</span>, value <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"08:40:00"</span>, <span class="st">"09:40:00"</span><span class="op">)</span>,</span>
-<span>                 range_separator <span class="op">=</span> <span class="st">"To"</span>, start_placeholder <span class="op">=</span> <span class="st">"Start time"</span>, end_placeholder <span class="op">=</span> <span class="st">"End time"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<span>  <span class="fu"><a href="../../reference/el_time_picker.html">el_time_picker</a></span><span class="op">(</span></span>
+<span>    <span class="st">"r1"</span>,</span>
+<span>    is_range <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>    value <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"08:40:00"</span>, <span class="st">"09:40:00"</span><span class="op">)</span>,</span>
+<span>    range_separator <span class="op">=</span> <span class="st">"To"</span>,</span>
+<span>    start_placeholder <span class="op">=</span> <span class="st">"Start time"</span>,</span>
+<span>    end_placeholder <span class="op">=</span> <span class="st">"End time"</span></span>
+<span>  <span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="../../reference/el_time_picker.html">el_time_picker</a></span><span class="op">(</span></span>
+<span>    <span class="st">"r2"</span>,</span>
+<span>    is_range <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>    arrow_control <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>    value <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"08:40:00"</span>, <span class="st">"09:40:00"</span><span class="op">)</span>,</span>
+<span>    range_separator <span class="op">=</span> <span class="st">"To"</span>,</span>
+<span>    start_placeholder <span class="op">=</span> <span class="st">"Start time"</span>,</span>
+<span>    end_placeholder <span class="op">=</span> <span class="st">"End time"</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
   <div id="range-r1" data-shiny-vue style="display: contents">
     <script type="text/x-template" data-shiny-vue-template><div id="range-r1_container" style="display: contents">

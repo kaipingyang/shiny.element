@@ -196,8 +196,12 @@ formats.</p>
 v-model.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rstudio.github.io/htmltools/reference/tagList.html" class="external-link">tagList</a></span><span class="op">(</span></span>
-<span>  <span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span><span class="va">tags</span><span class="op">$</span><span class="fu">span</span><span class="op">(</span><span class="st">"With default value"</span><span class="op">)</span>, <span class="fu"><a href="../../reference/el_color_picker.html">el_color_picker</a></span><span class="op">(</span><span class="st">"cp1"</span>, value <span class="op">=</span> <span class="st">"#409EFF"</span><span class="op">)</span><span class="op">)</span>,</span>
-<span>  <span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span><span class="va">tags</span><span class="op">$</span><span class="fu">span</span><span class="op">(</span><span class="st">"With no default value"</span><span class="op">)</span>, <span class="fu"><a href="../../reference/el_color_picker.html">el_color_picker</a></span><span class="op">(</span><span class="st">"cp2"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<span>  <span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span></span>
+<span>    <span class="va">tags</span><span class="op">$</span><span class="fu">span</span><span class="op">(</span><span class="st">"With default value"</span><span class="op">)</span>,</span>
+<span>    <span class="fu"><a href="../../reference/el_color_picker.html">el_color_picker</a></span><span class="op">(</span><span class="st">"cp1"</span>, value <span class="op">=</span> <span class="st">"#409EFF"</span><span class="op">)</span></span>
+<span>  <span class="op">)</span>,</span>
+<span>  <span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span><span class="va">tags</span><span class="op">$</span><span class="fu">span</span><span class="op">(</span><span class="st">"With no default value"</span><span class="op">)</span>, <span class="fu"><a href="../../reference/el_color_picker.html">el_color_picker</a></span><span class="op">(</span><span class="st">"cp2"</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
   <div>
     <span>With default value</span>
@@ -223,7 +227,11 @@ v-model.</p>
 <p>ColorPicker supports alpha channel selecting. To activate alpha
 selecting, just add the <code>show-alpha</code> attribute.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_color_picker.html">el_color_picker</a></span><span class="op">(</span><span class="st">"cp_alpha"</span>, value <span class="op">=</span> <span class="st">"rgba(19, 206, 102, 0.8)"</span>, show_alpha <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_color_picker.html">el_color_picker</a></span><span class="op">(</span></span>
+<span>  <span class="st">"cp_alpha"</span>,</span>
+<span>  value <span class="op">=</span> <span class="st">"rgba(19, 206, 102, 0.8)"</span>,</span>
+<span>  show_alpha <span class="op">=</span> <span class="cn">TRUE</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
   <div id="alpha-cp_alpha" data-shiny-vue style="display: contents">
     <script type="text/x-template" data-shiny-vue-template><div id="alpha-cp_alpha_container" style="display: contents">
@@ -237,9 +245,23 @@ selecting, just add the <code>show-alpha</code> attribute.</p>
 </h2>
 <p>ColorPicker supports predefined color options</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_color_picker.html">el_color_picker</a></span><span class="op">(</span><span class="st">"cp_pre"</span>, value <span class="op">=</span> <span class="st">"rgba(255, 69, 0, 0.68)"</span>, show_alpha <span class="op">=</span> <span class="cn">TRUE</span>, predefine <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span>
-<span>  <span class="st">"#ff4500"</span>, <span class="st">"#ff8c00"</span>, <span class="st">"#ffd700"</span>, <span class="st">"#90ee90"</span>, <span class="st">"#00ced1"</span>, <span class="st">"#1e90ff"</span>, <span class="st">"#c71585"</span>,</span>
-<span>  <span class="st">"rgba(255, 69, 0, 0.68)"</span>, <span class="st">"rgb(255, 120, 0)"</span>, <span class="st">"hsv(51, 100, 98)"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_color_picker.html">el_color_picker</a></span><span class="op">(</span></span>
+<span>  <span class="st">"cp_pre"</span>,</span>
+<span>  value <span class="op">=</span> <span class="st">"rgba(255, 69, 0, 0.68)"</span>,</span>
+<span>  show_alpha <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  predefine <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span>
+<span>    <span class="st">"#ff4500"</span>,</span>
+<span>    <span class="st">"#ff8c00"</span>,</span>
+<span>    <span class="st">"#ffd700"</span>,</span>
+<span>    <span class="st">"#90ee90"</span>,</span>
+<span>    <span class="st">"#00ced1"</span>,</span>
+<span>    <span class="st">"#1e90ff"</span>,</span>
+<span>    <span class="st">"#c71585"</span>,</span>
+<span>    <span class="st">"rgba(255, 69, 0, 0.68)"</span>,</span>
+<span>    <span class="st">"rgb(255, 120, 0)"</span>,</span>
+<span>    <span class="st">"hsv(51, 100, 98)"</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
   <div id="predefined-color-cp_pre" data-shiny-vue style="display: contents">
     <script type="text/x-template" data-shiny-vue-template><div id="predefined-color-cp_pre_container" style="display: contents">
@@ -255,7 +277,8 @@ selecting, just add the <code>show-alpha</code> attribute.</p>
 <code class="sourceCode R"><span><span class="fu"><a href="https://rstudio.github.io/htmltools/reference/tagList.html" class="external-link">tagList</a></span><span class="op">(</span></span>
 <span>  <span class="fu"><a href="../../reference/el_color_picker.html">el_color_picker</a></span><span class="op">(</span><span class="st">"cp_l"</span>, value <span class="op">=</span> <span class="st">"#409EFF"</span>, size <span class="op">=</span> <span class="st">"large"</span><span class="op">)</span>,</span>
 <span>  <span class="fu"><a href="../../reference/el_color_picker.html">el_color_picker</a></span><span class="op">(</span><span class="st">"cp_d"</span>, value <span class="op">=</span> <span class="st">"#409EFF"</span><span class="op">)</span>,</span>
-<span>  <span class="fu"><a href="../../reference/el_color_picker.html">el_color_picker</a></span><span class="op">(</span><span class="st">"cp_s"</span>, value <span class="op">=</span> <span class="st">"#409EFF"</span>, size <span class="op">=</span> <span class="st">"small"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<span>  <span class="fu"><a href="../../reference/el_color_picker.html">el_color_picker</a></span><span class="op">(</span><span class="st">"cp_s"</span>, value <span class="op">=</span> <span class="st">"#409EFF"</span>, size <span class="op">=</span> <span class="st">"small"</span><span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
   <div id="sizes-cp_l" data-shiny-vue style="display: contents">
     <script type="text/x-template" data-shiny-vue-template><div id="sizes-cp_l_container" style="display: contents">

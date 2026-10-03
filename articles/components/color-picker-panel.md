@@ -19,7 +19,11 @@ selecting, just add the `show-alpha` attribute.
 
 ``` r
 
-el_color_picker_panel("cpp_alpha", value = "rgba(19, 206, 102, 0.8)", show_alpha = TRUE)
+el_color_picker_panel(
+  "cpp_alpha",
+  value = "rgba(19, 206, 102, 0.8)",
+  show_alpha = TRUE
+)
 ```
 
 ## Predefined colors
@@ -28,8 +32,19 @@ ColorPickerPanel supports predefined color options
 
 ``` r
 
-el_color_picker_panel("cpp_pre", value = "#ff4500", predefine = c(
-  "#ff4500", "#ff8c00", "#ffd700", "#90ee90", "#00ced1", "#1e90ff", "#c71585"))
+el_color_picker_panel(
+  "cpp_pre",
+  value = "#ff4500",
+  predefine = c(
+    "#ff4500",
+    "#ff8c00",
+    "#ffd700",
+    "#90ee90",
+    "#00ced1",
+    "#1e90ff",
+    "#c71585"
+  )
+)
 ```
 
 ## Border

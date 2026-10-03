@@ -42,7 +42,11 @@ Called for its side effect; returns `NULL` invisibly.
 ``` r
 if (interactive()) {
   # inside a server function
-  observe(update_el_badge(session, "unread", value = unread_count(),
-                          hidden = unread_count() == 0))
+  observe(update_el_badge(
+    session,
+    "unread",
+    value = unread_count(),
+    hidden = unread_count() == 0
+  ))
 }
 ```

@@ -197,11 +197,16 @@ types.</p>
 is selected as active, and you can activate any tab by setting the
 <code>value</code> attribute.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_tabs.html">el_tabs</a></span><span class="op">(</span><span class="st">"basic"</span>, selected <span class="op">=</span> <span class="st">"first"</span>, tabs <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">"first"</span>, label <span class="op">=</span> <span class="st">"User"</span>, content <span class="op">=</span> <span class="st">"User"</span><span class="op">)</span>,</span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">"second"</span>, label <span class="op">=</span> <span class="st">"Config"</span>, content <span class="op">=</span> <span class="st">"Config"</span><span class="op">)</span>,</span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">"third"</span>, label <span class="op">=</span> <span class="st">"Role"</span>, content <span class="op">=</span> <span class="st">"Role"</span><span class="op">)</span>,</span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">"fourth"</span>, label <span class="op">=</span> <span class="st">"Task"</span>, content <span class="op">=</span> <span class="st">"Task"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_tabs.html">el_tabs</a></span><span class="op">(</span></span>
+<span>  <span class="st">"basic"</span>,</span>
+<span>  selected <span class="op">=</span> <span class="st">"first"</span>,</span>
+<span>  tabs <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">"first"</span>, label <span class="op">=</span> <span class="st">"User"</span>, content <span class="op">=</span> <span class="st">"User"</span><span class="op">)</span>,</span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">"second"</span>, label <span class="op">=</span> <span class="st">"Config"</span>, content <span class="op">=</span> <span class="st">"Config"</span><span class="op">)</span>,</span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">"third"</span>, label <span class="op">=</span> <span class="st">"Role"</span>, content <span class="op">=</span> <span class="st">"Role"</span><span class="op">)</span>,</span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">"fourth"</span>, label <span class="op">=</span> <span class="st">"Task"</span>, content <span class="op">=</span> <span class="st">"Task"</span><span class="op">)</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
   <div id="basic-basic" class="el-tabs el-tabs--top" data-el-tabs="true" data-position="top" data-carded="false" data-closable="false">
     <div class="el-tabs__header is-top">
@@ -233,11 +238,16 @@ is selected as active, and you can activate any tab by setting the
 <p>Set <code>type</code> to <code>card</code> can get a card-styled
 tab.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_tabs.html">el_tabs</a></span><span class="op">(</span><span class="st">"card"</span>, type <span class="op">=</span> <span class="st">"card"</span>, tabs <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">"first"</span>, label <span class="op">=</span> <span class="st">"User"</span>, content <span class="op">=</span> <span class="st">"User"</span><span class="op">)</span>,</span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">"second"</span>, label <span class="op">=</span> <span class="st">"Config"</span>, content <span class="op">=</span> <span class="st">"Config"</span><span class="op">)</span>,</span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">"third"</span>, label <span class="op">=</span> <span class="st">"Role"</span>, content <span class="op">=</span> <span class="st">"Role"</span><span class="op">)</span>,</span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">"fourth"</span>, label <span class="op">=</span> <span class="st">"Task"</span>, content <span class="op">=</span> <span class="st">"Task"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_tabs.html">el_tabs</a></span><span class="op">(</span></span>
+<span>  <span class="st">"card"</span>,</span>
+<span>  type <span class="op">=</span> <span class="st">"card"</span>,</span>
+<span>  tabs <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">"first"</span>, label <span class="op">=</span> <span class="st">"User"</span>, content <span class="op">=</span> <span class="st">"User"</span><span class="op">)</span>,</span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">"second"</span>, label <span class="op">=</span> <span class="st">"Config"</span>, content <span class="op">=</span> <span class="st">"Config"</span><span class="op">)</span>,</span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">"third"</span>, label <span class="op">=</span> <span class="st">"Role"</span>, content <span class="op">=</span> <span class="st">"Role"</span><span class="op">)</span>,</span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">"fourth"</span>, label <span class="op">=</span> <span class="st">"Task"</span>, content <span class="op">=</span> <span class="st">"Task"</span><span class="op">)</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
   <div id="card-style-card" class="el-tabs el-tabs--top el-tabs--card" data-el-tabs="true" data-position="top" data-carded="true" data-closable="false">
     <div class="el-tabs__header is-top">
@@ -267,11 +277,16 @@ tab.</p>
 <p>Border card tabs.</p>
 <p>Set <code>type</code> to <code>border-card</code>.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_tabs.html">el_tabs</a></span><span class="op">(</span><span class="st">"bc"</span>, type <span class="op">=</span> <span class="st">"border-card"</span>, tabs <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">"first"</span>, label <span class="op">=</span> <span class="st">"User"</span>, content <span class="op">=</span> <span class="st">"User"</span><span class="op">)</span>,</span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">"second"</span>, label <span class="op">=</span> <span class="st">"Config"</span>, content <span class="op">=</span> <span class="st">"Config"</span><span class="op">)</span>,</span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">"third"</span>, label <span class="op">=</span> <span class="st">"Role"</span>, content <span class="op">=</span> <span class="st">"Role"</span><span class="op">)</span>,</span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">"fourth"</span>, label <span class="op">=</span> <span class="st">"Task"</span>, content <span class="op">=</span> <span class="st">"Task"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_tabs.html">el_tabs</a></span><span class="op">(</span></span>
+<span>  <span class="st">"bc"</span>,</span>
+<span>  type <span class="op">=</span> <span class="st">"border-card"</span>,</span>
+<span>  tabs <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">"first"</span>, label <span class="op">=</span> <span class="st">"User"</span>, content <span class="op">=</span> <span class="st">"User"</span><span class="op">)</span>,</span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">"second"</span>, label <span class="op">=</span> <span class="st">"Config"</span>, content <span class="op">=</span> <span class="st">"Config"</span><span class="op">)</span>,</span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">"third"</span>, label <span class="op">=</span> <span class="st">"Role"</span>, content <span class="op">=</span> <span class="st">"Role"</span><span class="op">)</span>,</span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">"fourth"</span>, label <span class="op">=</span> <span class="st">"Task"</span>, content <span class="op">=</span> <span class="st">"Task"</span><span class="op">)</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
   <div id="border-card-bc" class="el-tabs el-tabs--top el-tabs--border-card" data-el-tabs="true" data-position="top" data-carded="true" data-closable="false">
     <div class="el-tabs__header is-top">
@@ -303,11 +318,16 @@ position.</p>
 <p>You can choose from four directions:
 <code>tabPosition="left|right|top|bottom"</code></p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_tabs.html">el_tabs</a></span><span class="op">(</span><span class="st">"pos"</span>, tab_position <span class="op">=</span> <span class="st">"left"</span>, tabs <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">"first"</span>, label <span class="op">=</span> <span class="st">"User"</span>, content <span class="op">=</span> <span class="st">"User"</span><span class="op">)</span>,</span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">"second"</span>, label <span class="op">=</span> <span class="st">"Config"</span>, content <span class="op">=</span> <span class="st">"Config"</span><span class="op">)</span>,</span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">"third"</span>, label <span class="op">=</span> <span class="st">"Role"</span>, content <span class="op">=</span> <span class="st">"Role"</span><span class="op">)</span>,</span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">"fourth"</span>, label <span class="op">=</span> <span class="st">"Task"</span>, content <span class="op">=</span> <span class="st">"Task"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_tabs.html">el_tabs</a></span><span class="op">(</span></span>
+<span>  <span class="st">"pos"</span>,</span>
+<span>  tab_position <span class="op">=</span> <span class="st">"left"</span>,</span>
+<span>  tabs <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">"first"</span>, label <span class="op">=</span> <span class="st">"User"</span>, content <span class="op">=</span> <span class="st">"User"</span><span class="op">)</span>,</span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">"second"</span>, label <span class="op">=</span> <span class="st">"Config"</span>, content <span class="op">=</span> <span class="st">"Config"</span><span class="op">)</span>,</span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">"third"</span>, label <span class="op">=</span> <span class="st">"Role"</span>, content <span class="op">=</span> <span class="st">"Role"</span><span class="op">)</span>,</span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">"fourth"</span>, label <span class="op">=</span> <span class="st">"Task"</span>, content <span class="op">=</span> <span class="st">"Task"</span><span class="op">)</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
   <div id="tab-position-pos" class="el-tabs el-tabs--left" data-el-tabs="true" data-position="left" data-carded="false" data-closable="false">
     <div class="el-tabs__header is-left">
@@ -338,11 +358,20 @@ position.</p>
 <p>You can use named slot to customize the tab label content.</p>
 <p>A <code>label</code> may be markup.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_tabs.html">el_tabs</a></span><span class="op">(</span><span class="st">"cus"</span>, type <span class="op">=</span> <span class="st">"border-card"</span>, tabs <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">"route"</span>, label <span class="op">=</span> <span class="fu"><a href="https://rstudio.github.io/htmltools/reference/tagList.html" class="external-link">tagList</a></span><span class="op">(</span><span class="fu"><a href="../../reference/el_icon.html">el_icon</a></span><span class="op">(</span><span class="st">"Calendar"</span><span class="op">)</span>, <span class="st">" Route"</span><span class="op">)</span>, content <span class="op">=</span> <span class="st">"Route"</span><span class="op">)</span>,</span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">"config"</span>, label <span class="op">=</span> <span class="st">"Config"</span>, content <span class="op">=</span> <span class="st">"Config"</span><span class="op">)</span>,</span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">"role"</span>, label <span class="op">=</span> <span class="st">"Role"</span>, content <span class="op">=</span> <span class="st">"Role"</span><span class="op">)</span>,</span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">"task"</span>, label <span class="op">=</span> <span class="st">"Task"</span>, content <span class="op">=</span> <span class="st">"Task"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_tabs.html">el_tabs</a></span><span class="op">(</span></span>
+<span>  <span class="st">"cus"</span>,</span>
+<span>  type <span class="op">=</span> <span class="st">"border-card"</span>,</span>
+<span>  tabs <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>      name <span class="op">=</span> <span class="st">"route"</span>,</span>
+<span>      label <span class="op">=</span> <span class="fu"><a href="https://rstudio.github.io/htmltools/reference/tagList.html" class="external-link">tagList</a></span><span class="op">(</span><span class="fu"><a href="../../reference/el_icon.html">el_icon</a></span><span class="op">(</span><span class="st">"Calendar"</span><span class="op">)</span>, <span class="st">" Route"</span><span class="op">)</span>,</span>
+<span>      content <span class="op">=</span> <span class="st">"Route"</span></span>
+<span>    <span class="op">)</span>,</span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">"config"</span>, label <span class="op">=</span> <span class="st">"Config"</span>, content <span class="op">=</span> <span class="st">"Config"</span><span class="op">)</span>,</span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">"role"</span>, label <span class="op">=</span> <span class="st">"Role"</span>, content <span class="op">=</span> <span class="st">"Role"</span><span class="op">)</span>,</span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">"task"</span>, label <span class="op">=</span> <span class="st">"Task"</span>, content <span class="op">=</span> <span class="st">"Task"</span><span class="op">)</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
   <div id="custom-tab-cus" class="el-tabs el-tabs--top el-tabs--border-card" data-el-tabs="true" data-position="top" data-carded="true" data-closable="false">
     <div class="el-tabs__header is-top">
@@ -377,16 +406,26 @@ position.</p>
 button; the tabs close themselves, and a new one is the server’s to
 make, with <code><a href="../../reference/insert_el_tab.html">insert_el_tab()</a></code>.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/el_page.html">el_page</a></span><span class="op">(</span><span class="fu"><a href="../../reference/el_tabs.html">el_tabs</a></span><span class="op">(</span><span class="st">"docs"</span>, type <span class="op">=</span> <span class="st">"card"</span>, editable <span class="op">=</span> <span class="cn">TRUE</span>, tabs <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">"1"</span>, label <span class="op">=</span> <span class="st">"Tab 1"</span>, content <span class="op">=</span> <span class="st">"Tab 1 content"</span><span class="op">)</span>,</span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">"2"</span>, label <span class="op">=</span> <span class="st">"Tab 2"</span>, content <span class="op">=</span> <span class="st">"Tab 2 content"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/el_page.html">el_page</a></span><span class="op">(</span><span class="fu"><a href="../../reference/el_tabs.html">el_tabs</a></span><span class="op">(</span></span>
+<span>  <span class="st">"docs"</span>,</span>
+<span>  type <span class="op">=</span> <span class="st">"card"</span>,</span>
+<span>  editable <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  tabs <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">"1"</span>, label <span class="op">=</span> <span class="st">"Tab 1"</span>, content <span class="op">=</span> <span class="st">"Tab 1 content"</span><span class="op">)</span>,</span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">"2"</span>, label <span class="op">=</span> <span class="st">"Tab 2"</span>, content <span class="op">=</span> <span class="st">"Tab 2 content"</span><span class="op">)</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">server</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span>, <span class="va">session</span><span class="op">)</span> <span class="op">{</span></span>
 <span>  <span class="va">n</span> <span class="op">&lt;-</span> <span class="fl">2</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/observeEvent.html" class="external-link">observeEvent</a></span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">docs_tab_add</span>, <span class="op">{</span></span>
 <span>    <span class="va">n</span> <span class="op">&lt;&lt;-</span> <span class="va">n</span> <span class="op">+</span> <span class="fl">1</span></span>
-<span>    <span class="fu"><a href="../../reference/insert_el_tab.html">insert_el_tab</a></span><span class="op">(</span>id <span class="op">=</span> <span class="st">"docs"</span>, name <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/character.html" class="external-link">as.character</a></span><span class="op">(</span><span class="va">n</span><span class="op">)</span>, label <span class="op">=</span> <span class="st">"New Tab"</span>,</span>
-<span>                  content <span class="op">=</span> <span class="st">"New Tab content"</span><span class="op">)</span></span>
+<span>    <span class="fu"><a href="../../reference/insert_el_tab.html">insert_el_tab</a></span><span class="op">(</span></span>
+<span>      id <span class="op">=</span> <span class="st">"docs"</span>,</span>
+<span>      name <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/character.html" class="external-link">as.character</a></span><span class="op">(</span><span class="va">n</span><span class="op">)</span>,</span>
+<span>      label <span class="op">=</span> <span class="st">"New Tab"</span>,</span>
+<span>      content <span class="op">=</span> <span class="st">"New Tab content"</span></span>
+<span>    <span class="op">)</span></span>
 <span>  <span class="op">}</span><span class="op">)</span></span>
 <span><span class="op">}</span></span>
 <span></span>
@@ -397,9 +436,16 @@ make, with <code><a href="../../reference/insert_el_tab.html">insert_el_tab()</a
 <h2 id="customized-add-button-icon">Customized add button icon<a class="anchor" aria-label="anchor" href="#customized-add-button-icon"></a>
 </h2>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_tabs.html">el_tabs</a></span><span class="op">(</span><span class="st">"icon"</span>, type <span class="op">=</span> <span class="st">"card"</span>, editable <span class="op">=</span> <span class="cn">TRUE</span>, add_icon <span class="op">=</span> <span class="st">"CirclePlus"</span>, tabs <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">"1"</span>, label <span class="op">=</span> <span class="st">"Tab 1"</span>, content <span class="op">=</span> <span class="st">"Tab 1 content"</span><span class="op">)</span>,</span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">"2"</span>, label <span class="op">=</span> <span class="st">"Tab 2"</span>, content <span class="op">=</span> <span class="st">"Tab 2 content"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_tabs.html">el_tabs</a></span><span class="op">(</span></span>
+<span>  <span class="st">"icon"</span>,</span>
+<span>  type <span class="op">=</span> <span class="st">"card"</span>,</span>
+<span>  editable <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  add_icon <span class="op">=</span> <span class="st">"CirclePlus"</span>,</span>
+<span>  tabs <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">"1"</span>, label <span class="op">=</span> <span class="st">"Tab 1"</span>, content <span class="op">=</span> <span class="st">"Tab 1 content"</span><span class="op">)</span>,</span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">"2"</span>, label <span class="op">=</span> <span class="st">"Tab 2"</span>, content <span class="op">=</span> <span class="st">"Tab 2 content"</span><span class="op">)</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
   <div id="customized-add-button-icon-icon" class="el-tabs el-tabs--top el-tabs--card" data-el-tabs="true" data-position="top" data-carded="true" data-closable="true">
     <div class="el-tabs__header is-top">
@@ -434,15 +480,27 @@ make, with <code><a href="../../reference/insert_el_tab.html">insert_el_tab()</a
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/el_page.html">el_page</a></span><span class="op">(</span></span>
 <span>  <span class="fu"><a href="../../reference/el_button.html">el_button</a></span><span class="op">(</span><span class="st">"add"</span>, <span class="st">"add tab"</span>, size <span class="op">=</span> <span class="st">"small"</span><span class="op">)</span>,</span>
-<span>  <span class="fu"><a href="../../reference/el_tabs.html">el_tabs</a></span><span class="op">(</span><span class="st">"docs"</span>, type <span class="op">=</span> <span class="st">"card"</span>, closable <span class="op">=</span> <span class="cn">TRUE</span>, tabs <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
-<span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">"1"</span>, label <span class="op">=</span> <span class="st">"Tab 1"</span>, content <span class="op">=</span> <span class="st">"Tab 1 content"</span><span class="op">)</span>,</span>
-<span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">"2"</span>, label <span class="op">=</span> <span class="st">"Tab 2"</span>, content <span class="op">=</span> <span class="st">"Tab 2 content"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
+<span>  <span class="fu"><a href="../../reference/el_tabs.html">el_tabs</a></span><span class="op">(</span></span>
+<span>    <span class="st">"docs"</span>,</span>
+<span>    type <span class="op">=</span> <span class="st">"card"</span>,</span>
+<span>    closable <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>    tabs <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>      <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">"1"</span>, label <span class="op">=</span> <span class="st">"Tab 1"</span>, content <span class="op">=</span> <span class="st">"Tab 1 content"</span><span class="op">)</span>,</span>
+<span>      <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">"2"</span>, label <span class="op">=</span> <span class="st">"Tab 2"</span>, content <span class="op">=</span> <span class="st">"Tab 2 content"</span><span class="op">)</span></span>
+<span>    <span class="op">)</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">server</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span>, <span class="va">session</span><span class="op">)</span> <span class="op">{</span></span>
 <span>  <span class="va">n</span> <span class="op">&lt;-</span> <span class="fl">2</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/observeEvent.html" class="external-link">observeEvent</a></span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">add</span>, <span class="op">{</span></span>
 <span>    <span class="va">n</span> <span class="op">&lt;&lt;-</span> <span class="va">n</span> <span class="op">+</span> <span class="fl">1</span></span>
-<span>    <span class="fu"><a href="../../reference/insert_el_tab.html">insert_el_tab</a></span><span class="op">(</span>id <span class="op">=</span> <span class="st">"docs"</span>, name <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/character.html" class="external-link">as.character</a></span><span class="op">(</span><span class="va">n</span><span class="op">)</span>, label <span class="op">=</span> <span class="st">"New Tab"</span>, content <span class="op">=</span> <span class="st">"New Tab content"</span><span class="op">)</span></span>
+<span>    <span class="fu"><a href="../../reference/insert_el_tab.html">insert_el_tab</a></span><span class="op">(</span></span>
+<span>      id <span class="op">=</span> <span class="st">"docs"</span>,</span>
+<span>      name <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/character.html" class="external-link">as.character</a></span><span class="op">(</span><span class="va">n</span><span class="op">)</span>,</span>
+<span>      label <span class="op">=</span> <span class="st">"New Tab"</span>,</span>
+<span>      content <span class="op">=</span> <span class="st">"New Tab content"</span></span>
+<span>    <span class="op">)</span></span>
 <span>  <span class="op">}</span><span class="op">)</span></span>
 <span><span class="op">}</span></span>
 <span></span>
@@ -454,11 +512,17 @@ make, with <code><a href="../../reference/insert_el_tab.html">insert_el_tab()</a
 </h2>
 <p><code>selected</code> opens a tab other than the first.</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_tabs.html">el_tabs</a></span><span class="op">(</span><span class="st">"dv"</span>, selected <span class="op">=</span> <span class="st">"third"</span>, type <span class="op">=</span> <span class="st">"card"</span>, tabs <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">"first"</span>, label <span class="op">=</span> <span class="st">"User"</span>, content <span class="op">=</span> <span class="st">"User"</span><span class="op">)</span>,</span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">"second"</span>, label <span class="op">=</span> <span class="st">"Config"</span>, content <span class="op">=</span> <span class="st">"Config"</span><span class="op">)</span>,</span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">"third"</span>, label <span class="op">=</span> <span class="st">"Role"</span>, content <span class="op">=</span> <span class="st">"Role"</span><span class="op">)</span>,</span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">"fourth"</span>, label <span class="op">=</span> <span class="st">"Task"</span>, content <span class="op">=</span> <span class="st">"Task"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_tabs.html">el_tabs</a></span><span class="op">(</span></span>
+<span>  <span class="st">"dv"</span>,</span>
+<span>  selected <span class="op">=</span> <span class="st">"third"</span>,</span>
+<span>  type <span class="op">=</span> <span class="st">"card"</span>,</span>
+<span>  tabs <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">"first"</span>, label <span class="op">=</span> <span class="st">"User"</span>, content <span class="op">=</span> <span class="st">"User"</span><span class="op">)</span>,</span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">"second"</span>, label <span class="op">=</span> <span class="st">"Config"</span>, content <span class="op">=</span> <span class="st">"Config"</span><span class="op">)</span>,</span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">"third"</span>, label <span class="op">=</span> <span class="st">"Role"</span>, content <span class="op">=</span> <span class="st">"Role"</span><span class="op">)</span>,</span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">"fourth"</span>, label <span class="op">=</span> <span class="st">"Task"</span>, content <span class="op">=</span> <span class="st">"Task"</span><span class="op">)</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
   <div id="default-value-dv" class="el-tabs el-tabs--top el-tabs--card" data-el-tabs="true" data-position="top" data-carded="true" data-closable="false">
     <div class="el-tabs__header is-top">

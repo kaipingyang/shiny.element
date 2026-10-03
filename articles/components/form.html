@@ -203,18 +203,44 @@ float layout.</p>
 <p>In each <code>form</code> component, you need a
 <code>form-item</code> field to be the container of your input item.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_form.html">el_form</a></span><span class="op">(</span>id <span class="op">=</span> <span class="st">"activity"</span>, label_width <span class="op">=</span> <span class="st">"120px"</span>, submit_label <span class="op">=</span> <span class="st">"Create"</span>, reset_label <span class="op">=</span> <span class="st">"Cancel"</span>,</span>
+<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_form.html">el_form</a></span><span class="op">(</span></span>
+<span>  id <span class="op">=</span> <span class="st">"activity"</span>,</span>
+<span>  label_width <span class="op">=</span> <span class="st">"120px"</span>,</span>
+<span>  submit_label <span class="op">=</span> <span class="st">"Create"</span>,</span>
+<span>  reset_label <span class="op">=</span> <span class="st">"Cancel"</span>,</span>
 <span>  <span class="fu"><a href="../../reference/el_form_field.html">el_form_field</a></span><span class="op">(</span><span class="st">"name"</span>, <span class="st">"input"</span>, label <span class="op">=</span> <span class="st">"Activity name"</span><span class="op">)</span>,</span>
-<span>  <span class="fu"><a href="../../reference/el_form_field.html">el_form_field</a></span><span class="op">(</span><span class="st">"region"</span>, <span class="st">"select"</span>, label <span class="op">=</span> <span class="st">"Activity zone"</span>,</span>
-<span>                choices <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Zone one"</span> <span class="op">=</span> <span class="st">"shanghai"</span>, <span class="st">"Zone two"</span> <span class="op">=</span> <span class="st">"beijing"</span><span class="op">)</span>,</span>
-<span>                placeholder <span class="op">=</span> <span class="st">"please select your zone"</span><span class="op">)</span>,</span>
-<span>  <span class="fu"><a href="../../reference/el_form_field.html">el_form_field</a></span><span class="op">(</span><span class="st">"date"</span>, <span class="st">"date-picker"</span>, label <span class="op">=</span> <span class="st">"Activity time"</span>, placeholder <span class="op">=</span> <span class="st">"Pick a date"</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="../../reference/el_form_field.html">el_form_field</a></span><span class="op">(</span></span>
+<span>    <span class="st">"region"</span>,</span>
+<span>    <span class="st">"select"</span>,</span>
+<span>    label <span class="op">=</span> <span class="st">"Activity zone"</span>,</span>
+<span>    choices <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Zone one"</span> <span class="op">=</span> <span class="st">"shanghai"</span>, <span class="st">"Zone two"</span> <span class="op">=</span> <span class="st">"beijing"</span><span class="op">)</span>,</span>
+<span>    placeholder <span class="op">=</span> <span class="st">"please select your zone"</span></span>
+<span>  <span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="../../reference/el_form_field.html">el_form_field</a></span><span class="op">(</span></span>
+<span>    <span class="st">"date"</span>,</span>
+<span>    <span class="st">"date-picker"</span>,</span>
+<span>    label <span class="op">=</span> <span class="st">"Activity time"</span>,</span>
+<span>    placeholder <span class="op">=</span> <span class="st">"Pick a date"</span></span>
+<span>  <span class="op">)</span>,</span>
 <span>  <span class="fu"><a href="../../reference/el_form_field.html">el_form_field</a></span><span class="op">(</span><span class="st">"delivery"</span>, <span class="st">"switch"</span>, label <span class="op">=</span> <span class="st">"Instant delivery"</span><span class="op">)</span>,</span>
-<span>  <span class="fu"><a href="../../reference/el_form_field.html">el_form_field</a></span><span class="op">(</span><span class="st">"type"</span>, <span class="st">"checkbox-group"</span>, label <span class="op">=</span> <span class="st">"Activity type"</span>,</span>
-<span>                choices <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Online activities"</span>, <span class="st">"Promotion activities"</span>, <span class="st">"Offline activities"</span><span class="op">)</span><span class="op">)</span>,</span>
-<span>  <span class="fu"><a href="../../reference/el_form_field.html">el_form_field</a></span><span class="op">(</span><span class="st">"resource"</span>, <span class="st">"radio-group"</span>, label <span class="op">=</span> <span class="st">"Resources"</span>,</span>
-<span>                choices <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Sponsor"</span>, <span class="st">"Venue"</span><span class="op">)</span><span class="op">)</span>,</span>
-<span>  <span class="fu"><a href="../../reference/el_form_field.html">el_form_field</a></span><span class="op">(</span><span class="st">"desc"</span>, <span class="st">"textarea"</span>, label <span class="op">=</span> <span class="st">"Activity form"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<span>  <span class="fu"><a href="../../reference/el_form_field.html">el_form_field</a></span><span class="op">(</span></span>
+<span>    <span class="st">"type"</span>,</span>
+<span>    <span class="st">"checkbox-group"</span>,</span>
+<span>    label <span class="op">=</span> <span class="st">"Activity type"</span>,</span>
+<span>    choices <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span>
+<span>      <span class="st">"Online activities"</span>,</span>
+<span>      <span class="st">"Promotion activities"</span>,</span>
+<span>      <span class="st">"Offline activities"</span></span>
+<span>    <span class="op">)</span></span>
+<span>  <span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="../../reference/el_form_field.html">el_form_field</a></span><span class="op">(</span></span>
+<span>    <span class="st">"resource"</span>,</span>
+<span>    <span class="st">"radio-group"</span>,</span>
+<span>    label <span class="op">=</span> <span class="st">"Resources"</span>,</span>
+<span>    choices <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Sponsor"</span>, <span class="st">"Venue"</span><span class="op">)</span></span>
+<span>  <span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="../../reference/el_form_field.html">el_form_field</a></span><span class="op">(</span><span class="st">"desc"</span>, <span class="st">"textarea"</span>, label <span class="op">=</span> <span class="st">"Activity form"</span><span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
   <div id="basic-form-activity" data-shiny-vue style="display: contents">
     <script type="text/x-template" data-shiny-vue-template><div id="basic-form-activity_container" style="display: contents">
@@ -246,10 +272,23 @@ you can put it in one line.</p>
 <p>Set the <code>inline</code> attribute to <code>true</code> and the
 form will be inline.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_form.html">el_form</a></span><span class="op">(</span>id <span class="op">=</span> <span class="st">"search"</span>, inline <span class="op">=</span> <span class="cn">TRUE</span>, submit_label <span class="op">=</span> <span class="st">"Query"</span>,</span>
-<span>  <span class="fu"><a href="../../reference/el_form_field.html">el_form_field</a></span><span class="op">(</span><span class="st">"user"</span>, <span class="st">"input"</span>, label <span class="op">=</span> <span class="st">"Approved by"</span>, placeholder <span class="op">=</span> <span class="st">"Approved by"</span><span class="op">)</span>,</span>
-<span>  <span class="fu"><a href="../../reference/el_form_field.html">el_form_field</a></span><span class="op">(</span><span class="st">"region"</span>, <span class="st">"select"</span>, label <span class="op">=</span> <span class="st">"Activity zone"</span>,</span>
-<span>                choices <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Zone one"</span> <span class="op">=</span> <span class="st">"shanghai"</span>, <span class="st">"Zone two"</span> <span class="op">=</span> <span class="st">"beijing"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_form.html">el_form</a></span><span class="op">(</span></span>
+<span>  id <span class="op">=</span> <span class="st">"search"</span>,</span>
+<span>  inline <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  submit_label <span class="op">=</span> <span class="st">"Query"</span>,</span>
+<span>  <span class="fu"><a href="../../reference/el_form_field.html">el_form_field</a></span><span class="op">(</span></span>
+<span>    <span class="st">"user"</span>,</span>
+<span>    <span class="st">"input"</span>,</span>
+<span>    label <span class="op">=</span> <span class="st">"Approved by"</span>,</span>
+<span>    placeholder <span class="op">=</span> <span class="st">"Approved by"</span></span>
+<span>  <span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="../../reference/el_form_field.html">el_form_field</a></span><span class="op">(</span></span>
+<span>    <span class="st">"region"</span>,</span>
+<span>    <span class="st">"select"</span>,</span>
+<span>    label <span class="op">=</span> <span class="st">"Activity zone"</span>,</span>
+<span>    choices <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Zone one"</span> <span class="op">=</span> <span class="st">"shanghai"</span>, <span class="st">"Zone two"</span> <span class="op">=</span> <span class="st">"beijing"</span><span class="op">)</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
   <div id="inline-form-search" data-shiny-vue style="display: contents">
     <script type="text/x-template" data-shiny-vue-template><div id="inline-form-search_container" style="display: contents">
@@ -277,10 +316,20 @@ field.</p>
 default), <code>"left"</code> or on <code>"top"</code>; a field’s own
 <code>label_position</code> overrides it.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_form.html">el_form</a></span><span class="op">(</span>id <span class="op">=</span> <span class="st">"aligned"</span>, label_position <span class="op">=</span> <span class="st">"top"</span>, submit_label <span class="op">=</span> <span class="cn">NULL</span>, width <span class="op">=</span> <span class="st">"360px"</span>,</span>
+<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_form.html">el_form</a></span><span class="op">(</span></span>
+<span>  id <span class="op">=</span> <span class="st">"aligned"</span>,</span>
+<span>  label_position <span class="op">=</span> <span class="st">"top"</span>,</span>
+<span>  submit_label <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  width <span class="op">=</span> <span class="st">"360px"</span>,</span>
 <span>  <span class="fu"><a href="../../reference/el_form_field.html">el_form_field</a></span><span class="op">(</span><span class="st">"name"</span>, <span class="st">"input"</span>, label <span class="op">=</span> <span class="st">"Name"</span><span class="op">)</span>,</span>
-<span>  <span class="fu"><a href="../../reference/el_form_field.html">el_form_field</a></span><span class="op">(</span><span class="st">"region"</span>, <span class="st">"input"</span>, label <span class="op">=</span> <span class="st">"Activity zone"</span>, label_position <span class="op">=</span> <span class="st">"right"</span><span class="op">)</span>,</span>
-<span>  <span class="fu"><a href="../../reference/el_form_field.html">el_form_field</a></span><span class="op">(</span><span class="st">"type"</span>, <span class="st">"input"</span>, label <span class="op">=</span> <span class="st">"Activity form"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<span>  <span class="fu"><a href="../../reference/el_form_field.html">el_form_field</a></span><span class="op">(</span></span>
+<span>    <span class="st">"region"</span>,</span>
+<span>    <span class="st">"input"</span>,</span>
+<span>    label <span class="op">=</span> <span class="st">"Activity zone"</span>,</span>
+<span>    label_position <span class="op">=</span> <span class="st">"right"</span></span>
+<span>  <span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="../../reference/el_form_field.html">el_form_field</a></span><span class="op">(</span><span class="st">"type"</span>, <span class="st">"input"</span>, label <span class="op">=</span> <span class="st">"Activity form"</span><span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
   <div id="alignment-aligned" data-shiny-vue style="display: contents">
     <script type="text/x-template" data-shiny-vue-template><div id="alignment-aligned_container" style="display: contents">
@@ -300,22 +349,52 @@ for <code>FormItem</code> as a specific key that needs to be validated.
 See more information at <a href="https://github.com/yiminghe/async-validator" class="external-link">async-validator</a>.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/el_page.html">el_page</a></span><span class="op">(</span></span>
-<span>  <span class="fu"><a href="../../reference/el_form.html">el_form</a></span><span class="op">(</span>id <span class="op">=</span> <span class="st">"rules"</span>, label_width <span class="op">=</span> <span class="st">"120px"</span>, submit_label <span class="op">=</span> <span class="st">"Create"</span>, reset_label <span class="op">=</span> <span class="st">"Reset"</span>,</span>
-<span>    <span class="fu"><a href="../../reference/el_form_field.html">el_form_field</a></span><span class="op">(</span><span class="st">"name"</span>, <span class="st">"input"</span>, label <span class="op">=</span> <span class="st">"Activity name"</span>, rules <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
-<span>      <span class="fu"><a href="../../reference/el_rule.html">el_rule</a></span><span class="op">(</span>required <span class="op">=</span> <span class="cn">TRUE</span>, message <span class="op">=</span> <span class="st">"Please input Activity name"</span><span class="op">)</span>,</span>
-<span>      <span class="fu"><a href="../../reference/el_rule.html">el_rule</a></span><span class="op">(</span>min <span class="op">=</span> <span class="fl">3</span>, max <span class="op">=</span> <span class="fl">5</span>, message <span class="op">=</span> <span class="st">"Length should be 3 to 5"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>,</span>
-<span>    <span class="fu"><a href="../../reference/el_form_field.html">el_form_field</a></span><span class="op">(</span><span class="st">"region"</span>, <span class="st">"select"</span>, label <span class="op">=</span> <span class="st">"Activity zone"</span>,</span>
-<span>                  choices <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Zone one"</span> <span class="op">=</span> <span class="st">"shanghai"</span>, <span class="st">"Zone two"</span> <span class="op">=</span> <span class="st">"beijing"</span><span class="op">)</span>,</span>
-<span>                  rules <span class="op">=</span> <span class="fu"><a href="../../reference/el_rule.html">el_rule</a></span><span class="op">(</span>required <span class="op">=</span> <span class="cn">TRUE</span>, message <span class="op">=</span> <span class="st">"Please select Activity zone"</span>,</span>
-<span>                                  trigger <span class="op">=</span> <span class="st">"change"</span><span class="op">)</span><span class="op">)</span>,</span>
-<span>    <span class="fu"><a href="../../reference/el_form_field.html">el_form_field</a></span><span class="op">(</span><span class="st">"type"</span>, <span class="st">"checkbox-group"</span>, label <span class="op">=</span> <span class="st">"Activity type"</span>,</span>
-<span>                  choices <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Online activities"</span>, <span class="st">"Promotion activities"</span><span class="op">)</span>,</span>
-<span>                  rules <span class="op">=</span> <span class="fu"><a href="../../reference/el_rule.html">el_rule</a></span><span class="op">(</span>type <span class="op">=</span> <span class="st">"array"</span>, required <span class="op">=</span> <span class="cn">TRUE</span>, trigger <span class="op">=</span> <span class="st">"change"</span>,</span>
-<span>                                  message <span class="op">=</span> <span class="st">"Please select at least one activity type"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>,</span>
-<span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/textOutput.html" class="external-link">verbatimTextOutput</a></span><span class="op">(</span><span class="st">"verdict"</span><span class="op">)</span><span class="op">)</span></span>
+<span>  <span class="fu"><a href="../../reference/el_form.html">el_form</a></span><span class="op">(</span></span>
+<span>    id <span class="op">=</span> <span class="st">"rules"</span>,</span>
+<span>    label_width <span class="op">=</span> <span class="st">"120px"</span>,</span>
+<span>    submit_label <span class="op">=</span> <span class="st">"Create"</span>,</span>
+<span>    reset_label <span class="op">=</span> <span class="st">"Reset"</span>,</span>
+<span>    <span class="fu"><a href="../../reference/el_form_field.html">el_form_field</a></span><span class="op">(</span></span>
+<span>      <span class="st">"name"</span>,</span>
+<span>      <span class="st">"input"</span>,</span>
+<span>      label <span class="op">=</span> <span class="st">"Activity name"</span>,</span>
+<span>      rules <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>        <span class="fu"><a href="../../reference/el_rule.html">el_rule</a></span><span class="op">(</span>required <span class="op">=</span> <span class="cn">TRUE</span>, message <span class="op">=</span> <span class="st">"Please input Activity name"</span><span class="op">)</span>,</span>
+<span>        <span class="fu"><a href="../../reference/el_rule.html">el_rule</a></span><span class="op">(</span>min <span class="op">=</span> <span class="fl">3</span>, max <span class="op">=</span> <span class="fl">5</span>, message <span class="op">=</span> <span class="st">"Length should be 3 to 5"</span><span class="op">)</span></span>
+<span>      <span class="op">)</span></span>
+<span>    <span class="op">)</span>,</span>
+<span>    <span class="fu"><a href="../../reference/el_form_field.html">el_form_field</a></span><span class="op">(</span></span>
+<span>      <span class="st">"region"</span>,</span>
+<span>      <span class="st">"select"</span>,</span>
+<span>      label <span class="op">=</span> <span class="st">"Activity zone"</span>,</span>
+<span>      choices <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Zone one"</span> <span class="op">=</span> <span class="st">"shanghai"</span>, <span class="st">"Zone two"</span> <span class="op">=</span> <span class="st">"beijing"</span><span class="op">)</span>,</span>
+<span>      rules <span class="op">=</span> <span class="fu"><a href="../../reference/el_rule.html">el_rule</a></span><span class="op">(</span></span>
+<span>        required <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>        message <span class="op">=</span> <span class="st">"Please select Activity zone"</span>,</span>
+<span>        trigger <span class="op">=</span> <span class="st">"change"</span></span>
+<span>      <span class="op">)</span></span>
+<span>    <span class="op">)</span>,</span>
+<span>    <span class="fu"><a href="../../reference/el_form_field.html">el_form_field</a></span><span class="op">(</span></span>
+<span>      <span class="st">"type"</span>,</span>
+<span>      <span class="st">"checkbox-group"</span>,</span>
+<span>      label <span class="op">=</span> <span class="st">"Activity type"</span>,</span>
+<span>      choices <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Online activities"</span>, <span class="st">"Promotion activities"</span><span class="op">)</span>,</span>
+<span>      rules <span class="op">=</span> <span class="fu"><a href="../../reference/el_rule.html">el_rule</a></span><span class="op">(</span></span>
+<span>        type <span class="op">=</span> <span class="st">"array"</span>,</span>
+<span>        required <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>        trigger <span class="op">=</span> <span class="st">"change"</span>,</span>
+<span>        message <span class="op">=</span> <span class="st">"Please select at least one activity type"</span></span>
+<span>      <span class="op">)</span></span>
+<span>    <span class="op">)</span></span>
+<span>  <span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/textOutput.html" class="external-link">verbatimTextOutput</a></span><span class="op">(</span><span class="st">"verdict"</span><span class="op">)</span></span>
+<span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">server</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span>, <span class="va">session</span><span class="op">)</span> <span class="op">{</span></span>
-<span>  <span class="va">output</span><span class="op">$</span><span class="va">verdict</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/renderPrint.html" class="external-link">renderPrint</a></span><span class="op">(</span><span class="op">{</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/req.html" class="external-link">req</a></span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">rules_submit</span><span class="op">)</span>; <span class="va">input</span><span class="op">$</span><span class="va">rules_valid</span> <span class="op">}</span><span class="op">)</span></span>
+<span>  <span class="va">output</span><span class="op">$</span><span class="va">verdict</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/renderPrint.html" class="external-link">renderPrint</a></span><span class="op">(</span><span class="op">{</span></span>
+<span>    <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/req.html" class="external-link">req</a></span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">rules_submit</span><span class="op">)</span></span>
+<span>    <span class="va">input</span><span class="op">$</span><span class="va">rules_valid</span></span>
+<span>  <span class="op">}</span><span class="op">)</span></span>
 <span><span class="op">}</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/shinyApp.html" class="external-link">shinyApp</a></span><span class="op">(</span><span class="va">ui</span>, <span class="va">server</span><span class="op">)</span></span></code></pre></div>
@@ -329,22 +408,48 @@ finish a two-factor password verification.</p>
 <p>Here we use <code>status-icon</code> to reflect validation result as
 an icon.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/el_page.html">el_page</a></span><span class="op">(</span><span class="fu"><a href="../../reference/el_form.html">el_form</a></span><span class="op">(</span>id <span class="op">=</span> <span class="st">"account"</span>, status_icon <span class="op">=</span> <span class="cn">TRUE</span>, label_width <span class="op">=</span> <span class="st">"120px"</span>,</span>
-<span>  submit_label <span class="op">=</span> <span class="st">"Submit"</span>, width <span class="op">=</span> <span class="st">"480px"</span>,</span>
-<span>  <span class="fu"><a href="../../reference/el_form_field.html">el_form_field</a></span><span class="op">(</span><span class="st">"pass"</span>, <span class="st">"password"</span>, label <span class="op">=</span> <span class="st">"Password"</span>,</span>
-<span>                rules <span class="op">=</span> <span class="fu"><a href="../../reference/el_rule.html">el_rule</a></span><span class="op">(</span>required <span class="op">=</span> <span class="cn">TRUE</span>, message <span class="op">=</span> <span class="st">"Please input the password"</span><span class="op">)</span><span class="op">)</span>,</span>
-<span>  <span class="fu"><a href="../../reference/el_form_field.html">el_form_field</a></span><span class="op">(</span><span class="st">"check"</span>, <span class="st">"password"</span>, label <span class="op">=</span> <span class="st">"Confirm"</span>,</span>
-<span>                rules <span class="op">=</span> <span class="fu"><a href="../../reference/el_rule.html">el_rule</a></span><span class="op">(</span>trigger <span class="op">=</span> <span class="st">"blur"</span>, validator <span class="op">=</span> <span class="fu"><a href="../../reference/JS.html">JS</a></span><span class="op">(</span></span>
-<span>                  <span class="st">"function(rule, value, callback) {"</span>,</span>
-<span>                  <span class="st">"  value ? callback() : callback(new Error('Please input the password again'));"</span>,</span>
-<span>                  <span class="st">"}"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>,</span>
-<span>  <span class="fu"><a href="../../reference/el_form_field.html">el_form_field</a></span><span class="op">(</span><span class="st">"age"</span>, <span class="st">"input"</span>, label <span class="op">=</span> <span class="st">"Age"</span>, rules <span class="op">=</span> <span class="fu"><a href="../../reference/el_rule.html">el_rule</a></span><span class="op">(</span>trigger <span class="op">=</span> <span class="st">"blur"</span>, validator <span class="op">=</span> <span class="fu"><a href="../../reference/JS.html">JS</a></span><span class="op">(</span></span>
-<span>    <span class="st">"function(rule, value, callback) {"</span>,</span>
-<span>    <span class="st">"  var n = Number(value);"</span>,</span>
-<span>    <span class="st">"  if (!value) return callback(new Error('Please input the age'));"</span>,</span>
-<span>    <span class="st">"  if (isNaN(n)) return callback(new Error('Please input digits'));"</span>,</span>
-<span>    <span class="st">"  n &lt; 18 ? callback(new Error('Age must be greater than 18')) : callback();"</span>,</span>
-<span>    <span class="st">"}"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/el_page.html">el_page</a></span><span class="op">(</span><span class="fu"><a href="../../reference/el_form.html">el_form</a></span><span class="op">(</span></span>
+<span>  id <span class="op">=</span> <span class="st">"account"</span>,</span>
+<span>  status_icon <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  label_width <span class="op">=</span> <span class="st">"120px"</span>,</span>
+<span>  submit_label <span class="op">=</span> <span class="st">"Submit"</span>,</span>
+<span>  width <span class="op">=</span> <span class="st">"480px"</span>,</span>
+<span>  <span class="fu"><a href="../../reference/el_form_field.html">el_form_field</a></span><span class="op">(</span></span>
+<span>    <span class="st">"pass"</span>,</span>
+<span>    <span class="st">"password"</span>,</span>
+<span>    label <span class="op">=</span> <span class="st">"Password"</span>,</span>
+<span>    rules <span class="op">=</span> <span class="fu"><a href="../../reference/el_rule.html">el_rule</a></span><span class="op">(</span>required <span class="op">=</span> <span class="cn">TRUE</span>, message <span class="op">=</span> <span class="st">"Please input the password"</span><span class="op">)</span></span>
+<span>  <span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="../../reference/el_form_field.html">el_form_field</a></span><span class="op">(</span></span>
+<span>    <span class="st">"check"</span>,</span>
+<span>    <span class="st">"password"</span>,</span>
+<span>    label <span class="op">=</span> <span class="st">"Confirm"</span>,</span>
+<span>    rules <span class="op">=</span> <span class="fu"><a href="../../reference/el_rule.html">el_rule</a></span><span class="op">(</span></span>
+<span>      trigger <span class="op">=</span> <span class="st">"blur"</span>,</span>
+<span>      validator <span class="op">=</span> <span class="fu"><a href="../../reference/JS.html">JS</a></span><span class="op">(</span></span>
+<span>        <span class="st">"function(rule, value, callback) {"</span>,</span>
+<span>        <span class="st">"  value ? callback() : callback(new Error('Please input the password again'));"</span>,</span>
+<span>        <span class="st">"}"</span></span>
+<span>      <span class="op">)</span></span>
+<span>    <span class="op">)</span></span>
+<span>  <span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="../../reference/el_form_field.html">el_form_field</a></span><span class="op">(</span></span>
+<span>    <span class="st">"age"</span>,</span>
+<span>    <span class="st">"input"</span>,</span>
+<span>    label <span class="op">=</span> <span class="st">"Age"</span>,</span>
+<span>    rules <span class="op">=</span> <span class="fu"><a href="../../reference/el_rule.html">el_rule</a></span><span class="op">(</span></span>
+<span>      trigger <span class="op">=</span> <span class="st">"blur"</span>,</span>
+<span>      validator <span class="op">=</span> <span class="fu"><a href="../../reference/JS.html">JS</a></span><span class="op">(</span></span>
+<span>        <span class="st">"function(rule, value, callback) {"</span>,</span>
+<span>        <span class="st">"  var n = Number(value);"</span>,</span>
+<span>        <span class="st">"  if (!value) return callback(new Error('Please input the age'));"</span>,</span>
+<span>        <span class="st">"  if (isNaN(n)) return callback(new Error('Please input digits'));"</span>,</span>
+<span>        <span class="st">"  n &lt; 18 ? callback(new Error('Age must be greater than 18')) : callback();"</span>,</span>
+<span>        <span class="st">"}"</span></span>
+<span>      <span class="op">)</span></span>
+<span>    <span class="op">)</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/shinyApp.html" class="external-link">shinyApp</a></span><span class="op">(</span><span class="va">ui</span>, <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span>, <span class="va">session</span><span class="op">)</span> <span class="op">{</span><span class="op">}</span><span class="op">)</span></span></code></pre></div>
 <img src="../../shots/form-custom-validation.png" alt="The custom-validation example, running" style="max-width: 100%"><blockquote>
@@ -360,22 +465,52 @@ usage at <a href="https://github.com/yiminghe/async-validator" class="external-l
 component, you can also pass the validation rules or delete rules on a
 single form field dynamically.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">domain</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">i</span><span class="op">)</span> <span class="fu"><a href="../../reference/el_form_field.html">el_form_field</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="st">"domain"</span>, <span class="va">i</span><span class="op">)</span>, <span class="st">"input"</span>, label <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="st">"Domain"</span>, <span class="va">i</span><span class="op">)</span>,</span>
-<span>  rules <span class="op">=</span> <span class="fu"><a href="../../reference/el_rule.html">el_rule</a></span><span class="op">(</span>required <span class="op">=</span> <span class="cn">TRUE</span>, message <span class="op">=</span> <span class="st">"Domain can not be null"</span><span class="op">)</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="va">domain</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">i</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="fu"><a href="../../reference/el_form_field.html">el_form_field</a></span><span class="op">(</span></span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="st">"domain"</span>, <span class="va">i</span><span class="op">)</span>,</span>
+<span>    <span class="st">"input"</span>,</span>
+<span>    label <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="st">"Domain"</span>, <span class="va">i</span><span class="op">)</span>,</span>
+<span>    rules <span class="op">=</span> <span class="fu"><a href="../../reference/el_rule.html">el_rule</a></span><span class="op">(</span>required <span class="op">=</span> <span class="cn">TRUE</span>, message <span class="op">=</span> <span class="st">"Domain can not be null"</span><span class="op">)</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">}</span></span>
 <span></span>
 <span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/el_page.html">el_page</a></span><span class="op">(</span></span>
-<span>  <span class="fu"><a href="../../reference/el_form.html">el_form</a></span><span class="op">(</span>id <span class="op">=</span> <span class="st">"domains"</span>, submit_label <span class="op">=</span> <span class="cn">NULL</span>, label_width <span class="op">=</span> <span class="st">"100px"</span>, width <span class="op">=</span> <span class="st">"480px"</span>,</span>
-<span>          <span class="fu"><a href="../../reference/el_form_field.html">el_form_field</a></span><span class="op">(</span><span class="st">"email"</span>, <span class="st">"input"</span>, label <span class="op">=</span> <span class="st">"Email"</span>,</span>
-<span>                        rules <span class="op">=</span> <span class="fu"><a href="../../reference/el_rule.html">el_rule</a></span><span class="op">(</span>type <span class="op">=</span> <span class="st">"email"</span>, message <span class="op">=</span> <span class="st">"Please input a correct email"</span><span class="op">)</span><span class="op">)</span>,</span>
-<span>          <span class="fu">domain</span><span class="op">(</span><span class="fl">1</span><span class="op">)</span><span class="op">)</span>,</span>
-<span>  <span class="fu"><a href="../../reference/el_button.html">el_button</a></span><span class="op">(</span><span class="st">"more"</span>, <span class="st">"New domain"</span><span class="op">)</span>, <span class="fu"><a href="../../reference/el_button.html">el_button</a></span><span class="op">(</span><span class="st">"fewer"</span>, <span class="st">"Remove last"</span><span class="op">)</span><span class="op">)</span></span>
+<span>  <span class="fu"><a href="../../reference/el_form.html">el_form</a></span><span class="op">(</span></span>
+<span>    id <span class="op">=</span> <span class="st">"domains"</span>,</span>
+<span>    submit_label <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>    label_width <span class="op">=</span> <span class="st">"100px"</span>,</span>
+<span>    width <span class="op">=</span> <span class="st">"480px"</span>,</span>
+<span>    <span class="fu"><a href="../../reference/el_form_field.html">el_form_field</a></span><span class="op">(</span></span>
+<span>      <span class="st">"email"</span>,</span>
+<span>      <span class="st">"input"</span>,</span>
+<span>      label <span class="op">=</span> <span class="st">"Email"</span>,</span>
+<span>      rules <span class="op">=</span> <span class="fu"><a href="../../reference/el_rule.html">el_rule</a></span><span class="op">(</span>type <span class="op">=</span> <span class="st">"email"</span>, message <span class="op">=</span> <span class="st">"Please input a correct email"</span><span class="op">)</span></span>
+<span>    <span class="op">)</span>,</span>
+<span>    <span class="fu">domain</span><span class="op">(</span><span class="fl">1</span><span class="op">)</span></span>
+<span>  <span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="../../reference/el_button.html">el_button</a></span><span class="op">(</span><span class="st">"more"</span>, <span class="st">"New domain"</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="../../reference/el_button.html">el_button</a></span><span class="op">(</span><span class="st">"fewer"</span>, <span class="st">"Remove last"</span><span class="op">)</span></span>
+<span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">server</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span>, <span class="va">session</span><span class="op">)</span> <span class="op">{</span></span>
 <span>  <span class="va">n</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/reactiveVal.html" class="external-link">reactiveVal</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span></span>
-<span>  <span class="va">redraw</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="op">)</span> <span class="fu"><a href="../../reference/update_el_form.html">update_el_form</a></span><span class="op">(</span>id <span class="op">=</span> <span class="st">"domains"</span>, fields <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span>
-<span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="fu"><a href="../../reference/el_form_field.html">el_form_field</a></span><span class="op">(</span><span class="st">"email"</span>, <span class="st">"input"</span>, label <span class="op">=</span> <span class="st">"Email"</span><span class="op">)</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq_len</a></span><span class="op">(</span><span class="fu">n</span><span class="op">(</span><span class="op">)</span><span class="op">)</span>, <span class="va">domain</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/observeEvent.html" class="external-link">observeEvent</a></span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">more</span>, <span class="op">{</span> <span class="fu">n</span><span class="op">(</span><span class="fu">n</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> <span class="fl">1</span><span class="op">)</span>; <span class="fu">redraw</span><span class="op">(</span><span class="op">)</span> <span class="op">}</span><span class="op">)</span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/observeEvent.html" class="external-link">observeEvent</a></span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">fewer</span>, <span class="op">{</span> <span class="fu">n</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">max</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fu">n</span><span class="op">(</span><span class="op">)</span> <span class="op">-</span> <span class="fl">1</span><span class="op">)</span><span class="op">)</span>; <span class="fu">redraw</span><span class="op">(</span><span class="op">)</span> <span class="op">}</span><span class="op">)</span></span>
+<span>  <span class="va">redraw</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="op">)</span> <span class="op">{</span></span>
+<span>    <span class="fu"><a href="../../reference/update_el_form.html">update_el_form</a></span><span class="op">(</span></span>
+<span>      id <span class="op">=</span> <span class="st">"domains"</span>,</span>
+<span>      fields <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span>
+<span>        <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="fu"><a href="../../reference/el_form_field.html">el_form_field</a></span><span class="op">(</span><span class="st">"email"</span>, <span class="st">"input"</span>, label <span class="op">=</span> <span class="st">"Email"</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>        <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq_len</a></span><span class="op">(</span><span class="fu">n</span><span class="op">(</span><span class="op">)</span><span class="op">)</span>, <span class="va">domain</span><span class="op">)</span></span>
+<span>      <span class="op">)</span></span>
+<span>    <span class="op">)</span></span>
+<span>  <span class="op">}</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/observeEvent.html" class="external-link">observeEvent</a></span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">more</span>, <span class="op">{</span></span>
+<span>    <span class="fu">n</span><span class="op">(</span><span class="fu">n</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> <span class="fl">1</span><span class="op">)</span></span>
+<span>    <span class="fu">redraw</span><span class="op">(</span><span class="op">)</span></span>
+<span>  <span class="op">}</span><span class="op">)</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/observeEvent.html" class="external-link">observeEvent</a></span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">fewer</span>, <span class="op">{</span></span>
+<span>    <span class="fu">n</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">max</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fu">n</span><span class="op">(</span><span class="op">)</span> <span class="op">-</span> <span class="fl">1</span><span class="op">)</span><span class="op">)</span></span>
+<span>    <span class="fu">redraw</span><span class="op">(</span><span class="op">)</span></span>
+<span>  <span class="op">}</span><span class="op">)</span></span>
 <span><span class="op">}</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/shinyApp.html" class="external-link">shinyApp</a></span><span class="op">(</span><span class="va">ui</span>, <span class="va">server</span><span class="op">)</span></span></code></pre></div>
@@ -388,11 +523,25 @@ single form field dynamically.</p>
 input <code>v-model</code> binding，it’s used to transform the string
 value to the number which is provided by Vue.</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/el_page.html">el_page</a></span><span class="op">(</span><span class="fu"><a href="../../reference/el_form.html">el_form</a></span><span class="op">(</span>id <span class="op">=</span> <span class="st">"aged"</span>, submit_label <span class="op">=</span> <span class="st">"Submit"</span>, label_width <span class="op">=</span> <span class="st">"100px"</span>, width <span class="op">=</span> <span class="st">"420px"</span>,</span>
-<span>  <span class="fu"><a href="../../reference/el_form_field.html">el_form_field</a></span><span class="op">(</span><span class="st">"age"</span>, <span class="st">"input"</span>, label <span class="op">=</span> <span class="st">"Age"</span>, rules <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
-<span>    <span class="fu"><a href="../../reference/el_rule.html">el_rule</a></span><span class="op">(</span>required <span class="op">=</span> <span class="cn">TRUE</span>, message <span class="op">=</span> <span class="st">"Age is required"</span><span class="op">)</span>,</span>
-<span>    <span class="fu"><a href="../../reference/el_rule.html">el_rule</a></span><span class="op">(</span>type <span class="op">=</span> <span class="st">"number"</span>, message <span class="op">=</span> <span class="st">"Age must be a number"</span>,</span>
-<span>            transform <span class="op">=</span> <span class="fu"><a href="../../reference/JS.html">JS</a></span><span class="op">(</span><span class="st">"function(v) { return Number(v); }"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/el_page.html">el_page</a></span><span class="op">(</span><span class="fu"><a href="../../reference/el_form.html">el_form</a></span><span class="op">(</span></span>
+<span>  id <span class="op">=</span> <span class="st">"aged"</span>,</span>
+<span>  submit_label <span class="op">=</span> <span class="st">"Submit"</span>,</span>
+<span>  label_width <span class="op">=</span> <span class="st">"100px"</span>,</span>
+<span>  width <span class="op">=</span> <span class="st">"420px"</span>,</span>
+<span>  <span class="fu"><a href="../../reference/el_form_field.html">el_form_field</a></span><span class="op">(</span></span>
+<span>    <span class="st">"age"</span>,</span>
+<span>    <span class="st">"input"</span>,</span>
+<span>    label <span class="op">=</span> <span class="st">"Age"</span>,</span>
+<span>    rules <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>      <span class="fu"><a href="../../reference/el_rule.html">el_rule</a></span><span class="op">(</span>required <span class="op">=</span> <span class="cn">TRUE</span>, message <span class="op">=</span> <span class="st">"Age is required"</span><span class="op">)</span>,</span>
+<span>      <span class="fu"><a href="../../reference/el_rule.html">el_rule</a></span><span class="op">(</span></span>
+<span>        type <span class="op">=</span> <span class="st">"number"</span>,</span>
+<span>        message <span class="op">=</span> <span class="st">"Age must be a number"</span>,</span>
+<span>        transform <span class="op">=</span> <span class="fu"><a href="../../reference/JS.html">JS</a></span><span class="op">(</span><span class="st">"function(v) { return Number(v); }"</span><span class="op">)</span></span>
+<span>      <span class="op">)</span></span>
+<span>    <span class="op">)</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/shinyApp.html" class="external-link">shinyApp</a></span><span class="op">(</span><span class="va">ui</span>, <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span>, <span class="va">session</span><span class="op">)</span> <span class="op">{</span><span class="op">}</span><span class="op">)</span></span></code></pre></div>
 <img src="../../shots/form-number-validate.png" alt="The number-validate example, running" style="max-width: 100%"><blockquote>
@@ -412,11 +561,26 @@ attribute.</p>
 <p>Still you can fine tune each component’s <code>size</code> if you
 don’t want that component to inherit its size from From or FormItem.</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_form.html">el_form</a></span><span class="op">(</span>id <span class="op">=</span> <span class="st">"small"</span>, size <span class="op">=</span> <span class="st">"small"</span>, label_width <span class="op">=</span> <span class="st">"120px"</span>, submit_label <span class="op">=</span> <span class="st">"Create"</span>, width <span class="op">=</span> <span class="st">"480px"</span>,</span>
+<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_form.html">el_form</a></span><span class="op">(</span></span>
+<span>  id <span class="op">=</span> <span class="st">"small"</span>,</span>
+<span>  size <span class="op">=</span> <span class="st">"small"</span>,</span>
+<span>  label_width <span class="op">=</span> <span class="st">"120px"</span>,</span>
+<span>  submit_label <span class="op">=</span> <span class="st">"Create"</span>,</span>
+<span>  width <span class="op">=</span> <span class="st">"480px"</span>,</span>
 <span>  <span class="fu"><a href="../../reference/el_form_field.html">el_form_field</a></span><span class="op">(</span><span class="st">"name"</span>, <span class="st">"input"</span>, label <span class="op">=</span> <span class="st">"Activity name"</span><span class="op">)</span>,</span>
-<span>  <span class="fu"><a href="../../reference/el_form_field.html">el_form_field</a></span><span class="op">(</span><span class="st">"region"</span>, <span class="st">"select"</span>, label <span class="op">=</span> <span class="st">"Activity zone"</span>,</span>
-<span>                choices <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Zone one"</span> <span class="op">=</span> <span class="st">"shanghai"</span>, <span class="st">"Zone two"</span> <span class="op">=</span> <span class="st">"beijing"</span><span class="op">)</span><span class="op">)</span>,</span>
-<span>  <span class="fu"><a href="../../reference/el_form_field.html">el_form_field</a></span><span class="op">(</span><span class="st">"resource"</span>, <span class="st">"radio-group"</span>, label <span class="op">=</span> <span class="st">"Resources"</span>, choices <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Sponsor"</span>, <span class="st">"Venue"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<span>  <span class="fu"><a href="../../reference/el_form_field.html">el_form_field</a></span><span class="op">(</span></span>
+<span>    <span class="st">"region"</span>,</span>
+<span>    <span class="st">"select"</span>,</span>
+<span>    label <span class="op">=</span> <span class="st">"Activity zone"</span>,</span>
+<span>    choices <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Zone one"</span> <span class="op">=</span> <span class="st">"shanghai"</span>, <span class="st">"Zone two"</span> <span class="op">=</span> <span class="st">"beijing"</span><span class="op">)</span></span>
+<span>  <span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="../../reference/el_form_field.html">el_form_field</a></span><span class="op">(</span></span>
+<span>    <span class="st">"resource"</span>,</span>
+<span>    <span class="st">"radio-group"</span>,</span>
+<span>    label <span class="op">=</span> <span class="st">"Resources"</span>,</span>
+<span>    choices <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Sponsor"</span>, <span class="st">"Venue"</span><span class="op">)</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
   <div id="size-control-small" data-shiny-vue style="display: contents">
     <script type="text/x-template" data-shiny-vue-template><div id="size-control-small_container" style="display: contents">
@@ -443,9 +607,19 @@ labels to the individual inputs.</p>
 announces it; a field with no label of its own takes
 <code>aria_label</code>.</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_form.html">el_form</a></span><span class="op">(</span>id <span class="op">=</span> <span class="st">"a11y"</span>, label_width <span class="op">=</span> <span class="st">"auto"</span>, submit_label <span class="op">=</span> <span class="cn">NULL</span>, width <span class="op">=</span> <span class="st">"480px"</span>,</span>
-<span>  <span class="fu"><a href="../../reference/el_form_field.html">el_form_field</a></span><span class="op">(</span><span class="st">"fullname"</span>, <span class="st">"input"</span>, label <span class="op">=</span> <span class="st">"Full name"</span>, placeholder <span class="op">=</span> <span class="st">"First and last name"</span><span class="op">)</span>,</span>
-<span>  <span class="fu"><a href="../../reference/el_form_field.html">el_form_field</a></span><span class="op">(</span><span class="st">"email"</span>, <span class="st">"input"</span>, label <span class="op">=</span> <span class="st">"Email"</span>, aria_label <span class="op">=</span> <span class="st">"Email address"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_form.html">el_form</a></span><span class="op">(</span></span>
+<span>  id <span class="op">=</span> <span class="st">"a11y"</span>,</span>
+<span>  label_width <span class="op">=</span> <span class="st">"auto"</span>,</span>
+<span>  submit_label <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  width <span class="op">=</span> <span class="st">"480px"</span>,</span>
+<span>  <span class="fu"><a href="../../reference/el_form_field.html">el_form_field</a></span><span class="op">(</span></span>
+<span>    <span class="st">"fullname"</span>,</span>
+<span>    <span class="st">"input"</span>,</span>
+<span>    label <span class="op">=</span> <span class="st">"Full name"</span>,</span>
+<span>    placeholder <span class="op">=</span> <span class="st">"First and last name"</span></span>
+<span>  <span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="../../reference/el_form_field.html">el_form_field</a></span><span class="op">(</span><span class="st">"email"</span>, <span class="st">"input"</span>, label <span class="op">=</span> <span class="st">"Email"</span>, aria_label <span class="op">=</span> <span class="st">"Email address"</span><span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
   <div id="accessibility-a11y" data-shiny-vue style="display: contents">
     <script type="text/x-template" data-shiny-vue-template><div id="accessibility-a11y_container" style="display: contents">

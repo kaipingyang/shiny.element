@@ -12,11 +12,16 @@ value is ‘/’.
 
 ``` r
 
-el_breadcrumb("crumbs", separator = "/", items = list(
-  list(label = "homepage", to = "/"),
-  list(label = "promotion management"),
-  list(label = "promotion list"),
-  list(label = "promotion detail")))
+el_breadcrumb(
+  "crumbs",
+  separator = "/",
+  items = list(
+    list(label = "homepage", to = "/"),
+    list(label = "promotion management"),
+    list(label = "promotion list"),
+    list(label = "promotion detail")
+  )
+)
 ```
 
 ## Icon separator
@@ -26,9 +31,16 @@ Set `separator-icon` to use `svg icon` as the separator，it will cover
 
 ``` r
 
-el_breadcrumb("crumbs_icon", separator_icon = "ArrowRight", items = list(
-  list(label = "homepage", to = "/"), list(label = "promotion management"),
-  list(label = "promotion list"), list(label = "promotion detail")))
+el_breadcrumb(
+  "crumbs_icon",
+  separator_icon = "ArrowRight",
+  items = list(
+    list(label = "homepage", to = "/"),
+    list(label = "promotion management"),
+    list(label = "promotion list"),
+    list(label = "promotion detail")
+  )
+)
 ```
 
 ## API

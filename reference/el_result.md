@@ -63,9 +63,13 @@ A Shiny UI element.
 ## Examples
 
 ``` r
-el_result("done", icon = "success", title = "Report submitted",
-          sub_title = "It will be reviewed within a day",
-          el_button("back", "Back to the list", type = "primary"))
+el_result(
+  "done",
+  icon = "success",
+  title = "Report submitted",
+  sub_title = "It will be reviewed within a day",
+  el_button("back", "Back to the list", type = "primary")
+)
 #> <div id="done" data-shiny-vue style="display: contents">
 #>   <script type="text/x-template" data-shiny-vue-template><div id="done_container" style="display: contents">
 #>   <el-result :icon="resultIcon === null ? undefined : resultIcon" :title="resultTitle === null ? undefined : resultTitle" :sub-title="resultSubTitle === null ? undefined : resultSubTitle">

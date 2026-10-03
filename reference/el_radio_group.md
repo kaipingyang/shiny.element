@@ -169,8 +169,9 @@ updated on each change.
 
 ``` r
 # Standard radio buttons from a named vector
-el_radio_group("size",
-  choices  = c(Small = "s", Medium = "m", Large = "l"),
+el_radio_group(
+  "size",
+  choices = c(Small = "s", Medium = "m", Large = "l"),
   selected = "m"
 )
 #> <div id="size" data-shiny-vue style="display: contents">
@@ -183,10 +184,11 @@ el_radio_group("size",
 #> </div>
 
 # Button-style radio group
-el_radio_group("theme",
+el_radio_group(
+  "theme",
   choices = c(Light = "light", Dark = "dark"),
-  button  = TRUE,
-  size    = "small"
+  button = TRUE,
+  size = "small"
 )
 #> <div id="theme" data-shiny-vue style="display: contents">
 #>   <script type="text/x-template" data-shiny-vue-template><div id="theme_container" style="display: contents">
@@ -202,8 +204,9 @@ if (interactive()) {
   library(shiny)
   library(shiny.element)
   ui <- el_page(
-    el_radio_group("fruit",
-      choices  = c(Apple = "apple", Banana = "banana", Cherry = "cherry"),
+    el_radio_group(
+      "fruit",
+      choices = c(Apple = "apple", Banana = "banana", Cherry = "cherry"),
       selected = "apple"
     ),
     verbatimTextOutput("selected")

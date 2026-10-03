@@ -36,8 +36,11 @@ ui <- el_page(
 
 server <- function(input, output, session) {
   observeEvent(input$save, {
-    update_el_alert(id = "hint", type = "success",
-                    title = paste0("Saved ", input$name, " (", input$score, "/5)"))
+    update_el_alert(
+      id = "hint",
+      type = "success",
+      title = paste0("Saved ", input$name, " (", input$score, "/5)")
+    )
   })
 }
 
@@ -80,7 +83,7 @@ Element’s events arrive as `input$<id>_<event>`.
 ``` r
 
 server <- function(input, output, session) {
-  output$chosen <- renderText(input$city)                     # read
+  output$chosen <- renderText(input$city) # read
   observeEvent(input$reset, update_el_select(id = "city", selected = "Beijing"))
   observeEvent(input$clear, el_call(id = "orders", method = "clearSelection"))
   observeEvent(input$orders_row_click, el_message(message = "Row clicked"))

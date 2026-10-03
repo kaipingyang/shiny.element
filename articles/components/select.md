@@ -19,10 +19,24 @@ select desired ones.
 ``` r
 
 opts <- c("Option1", "Option2", "Option3", "Option4", "Option5")
-tags$div(style = "display: flex; gap: 16px",
-  el_select("sel_l", choices = opts, placeholder = "Select", size = "large", width = "240px"),
+tags$div(
+  style = "display: flex; gap: 16px",
+  el_select(
+    "sel_l",
+    choices = opts,
+    placeholder = "Select",
+    size = "large",
+    width = "240px"
+  ),
   el_select("sel_d", choices = opts, placeholder = "Select", width = "240px"),
-  el_select("sel_s", choices = opts, placeholder = "Select", size = "small", width = "240px"))
+  el_select(
+    "sel_s",
+    choices = opts,
+    placeholder = "Select",
+    size = "small",
+    width = "240px"
+  )
+)
 ```
 
 ## Options attribute
@@ -32,9 +46,16 @@ the `options` through the `props` attribute.
 
 ``` r
 
-el_select("sel_opts", placeholder = "Select", width = "240px",
-  choices = list(list(value = "Option1", label = "Option 1"), list(value = "Option2", label = "Option 2"),
-                 list(value = "Option3", label = "Option 3", disabled = TRUE)))
+el_select(
+  "sel_opts",
+  placeholder = "Select",
+  width = "240px",
+  choices = list(
+    list(value = "Option1", label = "Option 1"),
+    list(value = "Option2", label = "Option 2"),
+    list(value = "Option3", label = "Option 3", disabled = TRUE)
+  )
+)
 ```
 
 ## Disabled option
@@ -44,9 +65,16 @@ option.
 
 ``` r
 
-el_select("sel_dis_opt", placeholder = "Select", width = "240px", choices = list(
-  list(value = "Option1", label = "Option1"), list(value = "Option2", label = "Option2", disabled = TRUE),
-  list(value = "Option3", label = "Option3")))
+el_select(
+  "sel_dis_opt",
+  placeholder = "Select",
+  width = "240px",
+  choices = list(
+    list(value = "Option1", label = "Option1"),
+    list(value = "Option2", label = "Option2", disabled = TRUE),
+    list(value = "Option3", label = "Option3")
+  )
+)
 ```
 
 ## Disabled select
@@ -57,7 +85,13 @@ Set `disabled` of `el-select` to make it disabled.
 
 ``` r
 
-el_select("sel_dis", choices = c("Option1", "Option2"), placeholder = "Select", disabled = TRUE, width = "240px")
+el_select(
+  "sel_dis",
+  choices = c("Option1", "Option2"),
+  placeholder = "Select",
+  disabled = TRUE,
+  width = "240px"
+)
 ```
 
 ## Clearable
@@ -68,8 +102,13 @@ Set `clearable` attribute for `el-select` and a clear icon will appear.
 
 ``` r
 
-el_select("sel_clear", choices = c("Option1", "Option2", "Option3"), selected = "Option1",
-          clearable = TRUE, width = "240px")
+el_select(
+  "sel_clear",
+  choices = c("Option1", "Option2", "Option3"),
+  selected = "Option1",
+  clearable = TRUE,
+  width = "240px"
+)
 ```
 
 ## Sizes
@@ -80,10 +119,12 @@ default size, there are two other options: `large`, `small`.
 ``` r
 
 opts <- c("Option1", "Option2", "Option3")
-tags$div(style = "display: grid; gap: 16px",
+tags$div(
+  style = "display: grid; gap: 16px",
   el_select("sel_sz_l", choices = opts, size = "large", width = "240px"),
   el_select("sel_sz_d", choices = opts, width = "240px"),
-  el_select("sel_sz_s", choices = opts, size = "small", width = "240px"))
+  el_select("sel_sz_s", choices = opts, size = "small", width = "240px")
+)
 ```
 
 ## Basic multiple select
@@ -100,14 +141,43 @@ check them when mouse hover collapse text by using
 ``` r
 
 opts <- c("Option1", "Option2", "Option3", "Option4", "Option5")
-tags$div(style = "display: grid; gap: 16px",
-  el_select("sel_m1", choices = opts, multiple = TRUE, placeholder = "Select", width = "240px"),
-  el_select("sel_m2", choices = opts, multiple = TRUE, collapse_tags = TRUE, placeholder = "Select",
-            width = "240px"),
-  el_select("sel_m3", choices = opts, multiple = TRUE, collapse_tags = TRUE, collapse_tags_tooltip = TRUE,
-            placeholder = "Select", width = "240px"),
-  el_select("sel_m4", choices = opts, multiple = TRUE, collapse_tags = TRUE, collapse_tags_tooltip = TRUE,
-            max_collapse_tags = 3, placeholder = "Select", width = "240px"))
+tags$div(
+  style = "display: grid; gap: 16px",
+  el_select(
+    "sel_m1",
+    choices = opts,
+    multiple = TRUE,
+    placeholder = "Select",
+    width = "240px"
+  ),
+  el_select(
+    "sel_m2",
+    choices = opts,
+    multiple = TRUE,
+    collapse_tags = TRUE,
+    placeholder = "Select",
+    width = "240px"
+  ),
+  el_select(
+    "sel_m3",
+    choices = opts,
+    multiple = TRUE,
+    collapse_tags = TRUE,
+    collapse_tags_tooltip = TRUE,
+    placeholder = "Select",
+    width = "240px"
+  ),
+  el_select(
+    "sel_m4",
+    choices = opts,
+    multiple = TRUE,
+    collapse_tags = TRUE,
+    collapse_tags_tooltip = TRUE,
+    max_collapse_tags = 3,
+    placeholder = "Select",
+    width = "240px"
+  )
+)
 ```
 
 ## Custom template
@@ -118,11 +188,23 @@ Insert customized HTML templates into the slot of `el-option`.
 
 ``` r
 
-el_select("sel_tpl", placeholder = "Select", width = "240px", choices = list(
-  list(value = "Beijing", label = "Beijing", code = "BJ"), list(value = "Shanghai", label = "Shanghai", code = "SH"),
-  list(value = "Nanjing", label = "Nanjing", code = "NJ")),
-  option_template = tagList(tags$span(style = "float: left", "{{ opt.label }}"),
-    tags$span(style = "float: right; color: var(--el-text-color-secondary); font-size: 13px", "{{ opt.code }}")))
+el_select(
+  "sel_tpl",
+  placeholder = "Select",
+  width = "240px",
+  choices = list(
+    list(value = "Beijing", label = "Beijing", code = "BJ"),
+    list(value = "Shanghai", label = "Shanghai", code = "SH"),
+    list(value = "Nanjing", label = "Nanjing", code = "NJ")
+  ),
+  option_template = tagList(
+    tags$span(style = "float: left", "{{ opt.label }}"),
+    tags$span(
+      style = "float: right; color: var(--el-text-color-secondary); font-size: 13px",
+      "{{ opt.code }}"
+    )
+  )
+)
 ```
 
 ## Header of the dropdown
@@ -133,9 +215,16 @@ Use slot to customize the content.
 
 ``` r
 
-el_select("sel_head", choices = c("Option1", "Option2", "Option3"), multiple = TRUE, clearable = TRUE,
-          collapse_tags = TRUE, placeholder = "Select", width = "240px",
-          slots = list(header = el_checkbox("sel_all", "All")))
+el_select(
+  "sel_head",
+  choices = c("Option1", "Option2", "Option3"),
+  multiple = TRUE,
+  clearable = TRUE,
+  collapse_tags = TRUE,
+  placeholder = "Select",
+  width = "240px",
+  slots = list(header = el_checkbox("sel_all", "All"))
+)
 ```
 
 ## Footer of the dropdown
@@ -146,8 +235,15 @@ Use slot to customize the content.
 
 ``` r
 
-el_select("sel_foot", choices = c("Option1", "Option2", "Option3"), placeholder = "Select", width = "240px",
-          slots = list(footer = el_button("sel_add", "Add an option", text = TRUE, size = "small")))
+el_select(
+  "sel_foot",
+  choices = c("Option1", "Option2", "Option3"),
+  placeholder = "Select",
+  width = "240px",
+  slots = list(
+    footer = el_button("sel_add", "Add an option", text = TRUE, size = "small")
+  )
+)
 ```
 
 ## Grouping
@@ -159,9 +255,20 @@ stands for the name of the group.
 
 ``` r
 
-el_select("sel_group", placeholder = "Select", width = "240px", choices = list(
-  "Popular cities" = c(Shanghai = "Shanghai", Beijing = "Beijing"),
-  "City name" = c(Chengdu = "Chengdu", Shenzhen = "Shenzhen", Guangzhou = "Guangzhou", Dalian = "Dalian")))
+el_select(
+  "sel_group",
+  placeholder = "Select",
+  width = "240px",
+  choices = list(
+    "Popular cities" = c(Shanghai = "Shanghai", Beijing = "Beijing"),
+    "City name" = c(
+      Chengdu = "Chengdu",
+      Shenzhen = "Shenzhen",
+      Guangzhou = "Guangzhou",
+      Dalian = "Dalian"
+    )
+  )
+)
 ```
 
 ## Option filtering
@@ -176,8 +283,13 @@ the input value changes, and its parameter is the current input value.
 
 ``` r
 
-el_select("sel_filter", choices = c("Option1", "Option2", "Option3", "Option4"), filterable = TRUE,
-          placeholder = "Select", width = "240px")
+el_select(
+  "sel_filter",
+  choices = c("Option1", "Option2", "Option3", "Option4"),
+  filterable = TRUE,
+  placeholder = "Select",
+  width = "240px"
+)
 ```
 
 ## Remote Search
@@ -197,8 +309,15 @@ The server does the search: `input$<id>_query` is the text typed, and
 
 ``` r
 
-el_select("sel_remote", multiple = TRUE, filterable = TRUE, remote = TRUE, reserve_keyword = FALSE,
-          placeholder = "Please enter a keyword", width = "240px")
+el_select(
+  "sel_remote",
+  multiple = TRUE,
+  filterable = TRUE,
+  remote = TRUE,
+  reserve_keyword = FALSE,
+  placeholder = "Please enter a keyword",
+  width = "240px"
+)
 ```
 
 ## Create new items
@@ -214,9 +333,17 @@ without having to navigate with mouse or arrow keys.
 
 ``` r
 
-el_select("sel_create", choices = c("HTML", "CSS", "JavaScript"), multiple = TRUE, filterable = TRUE,
-          allow_create = TRUE, default_first_option = TRUE, reserve_keyword = FALSE,
-          placeholder = "Choose tags for your article", width = "240px")
+el_select(
+  "sel_create",
+  choices = c("HTML", "CSS", "JavaScript"),
+  multiple = TRUE,
+  filterable = TRUE,
+  allow_create = TRUE,
+  default_first_option = TRUE,
+  reserve_keyword = FALSE,
+  placeholder = "Choose tags for your article",
+  width = "240px"
+)
 ```
 
 ## Use value-key attribute
@@ -233,9 +360,16 @@ apart.
 
 ``` r
 
-el_select("sel_vkey", value_key = "id", placeholder = "Select", width = "240px",
-          choices = list(list(value = list(id = 1, name = "Option A"), label = "Option A"),
-                         list(value = list(id = 2, name = "Option B"), label = "Option B")))
+el_select(
+  "sel_vkey",
+  value_key = "id",
+  placeholder = "Select",
+  width = "240px",
+  choices = list(
+    list(value = list(id = 1, name = "Option A"), label = "Option A"),
+    list(value = list(id = 2, name = "Option B"), label = "Option B")
+  )
+)
 ```
 
 ## Custom Tag
@@ -247,11 +381,23 @@ Insert customized tags into the slot of `el-select`. `collapse-tags`,
 
 ``` r
 
-el_select("sel_tag", choices = c("Red" = "#ff0000", "Green" = "#00ff00", "Blue" = "#0000ff"),
-          selected = c("#ff0000", "#00ff00"), multiple = TRUE, placeholder = "Select", width = "240px",
-          slots = list(tag = template(htmltools::HTML(
-            "<el-tag v-for=\"color in value\" :key=\"color\" :color=\"color\" closable :style=\"{ color: '#fff' }\">{{ color }}</el-tag>"),
-            slot = "tag", scope = "{ value }")))
+el_select(
+  "sel_tag",
+  choices = c("Red" = "#ff0000", "Green" = "#00ff00", "Blue" = "#0000ff"),
+  selected = c("#ff0000", "#00ff00"),
+  multiple = TRUE,
+  placeholder = "Select",
+  width = "240px",
+  slots = list(
+    tag = template(
+      htmltools::HTML(
+        "<el-tag v-for=\"color in value\" :key=\"color\" :color=\"color\" closable :style=\"{ color: '#fff' }\">{{ color }}</el-tag>"
+      ),
+      slot = "tag",
+      scope = "{ value }"
+    )
+  )
+)
 ```
 
 ## Custom Loading
@@ -260,8 +406,15 @@ Override loading content.
 
 ``` r
 
-el_select("sel_load", remote = TRUE, filterable = TRUE, loading = TRUE, placeholder = "Please enter a keyword",
-          width = "240px", slots = list(loading = el_icon("Loading", class = "is-loading")))
+el_select(
+  "sel_load",
+  remote = TRUE,
+  filterable = TRUE,
+  loading = TRUE,
+  placeholder = "Please enter a keyword",
+  width = "240px",
+  slots = list(loading = el_icon("Loading", class = "is-loading"))
+)
 ```
 
 ## Empty Values
@@ -274,8 +427,15 @@ If you want to change the clear value to `null`, please set
 
 ``` r
 
-el_select("sel_empty", choices = c("Option1", "Option2"), clearable = TRUE, empty_values = list(NULL),
-          value_on_clear = NULL, placeholder = "Select", width = "240px")
+el_select(
+  "sel_empty",
+  choices = c("Option1", "Option2"),
+  clearable = TRUE,
+  empty_values = list(NULL),
+  value_on_clear = NULL,
+  placeholder = "Select",
+  width = "240px"
+)
 ```
 
 ## Custom Label
@@ -284,9 +444,21 @@ You can customize label.
 
 ``` r
 
-el_select("sel_label", choices = c("Option1", "Option2", "Option3"), selected = "Option1", width = "240px",
-          slots = list(label = template(htmltools::HTML("<span>{{ label }}: </span><span style=\"font-weight: bold\">{{ value }}</span>"),
-                                        slot = "label", scope = "{ label, value }")))
+el_select(
+  "sel_label",
+  choices = c("Option1", "Option2", "Option3"),
+  selected = "Option1",
+  width = "240px",
+  slots = list(
+    label = template(
+      htmltools::HTML(
+        "<span>{{ label }}: </span><span style=\"font-weight: bold\">{{ value }}</span>"
+      ),
+      slot = "label",
+      scope = "{ label, value }"
+    )
+  )
+)
 ```
 
 ## API

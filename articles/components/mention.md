@@ -8,8 +8,13 @@ The most basic usage.
 
 ``` r
 
-el_mention("mention", value = "@", width = "320px", placeholder = "Please input",
-           options = c("Fuphoenixes", "kooriookami", "Jeremy", "btea"))
+el_mention(
+  "mention",
+  value = "@",
+  width = "320px",
+  placeholder = "Please input",
+  options = c("Fuphoenixes", "kooriookami", "Jeremy", "btea")
+)
 ```
 
 ## Props
@@ -19,10 +24,18 @@ attribute.
 
 ``` r
 
-el_mention("mention_props", value = "@", width = "320px", placeholder = "Please input",
-           props = list(label = "name", value = "id", disabled = "unable"),
-           options = list(list(name = "Fuphoenixes", id = "1"), list(name = "kooriookami", id = "2"),
-                          list(name = "Jeremy", id = "3", unable = TRUE)))
+el_mention(
+  "mention_props",
+  value = "@",
+  width = "320px",
+  placeholder = "Please input",
+  props = list(label = "name", value = "id", disabled = "unable"),
+  options = list(
+    list(name = "Fuphoenixes", id = "1"),
+    list(name = "kooriookami", id = "2"),
+    list(name = "Jeremy", id = "3", unable = TRUE)
+  )
+)
 ```
 
 ## Textarea
@@ -31,8 +44,13 @@ The input type can be set to `textarea`.
 
 ``` r
 
-el_mention("mention_area", type = "textarea", width = "320px", placeholder = "Please input",
-           options = c("Fuphoenixes", "kooriookami", "Jeremy", "btea"))
+el_mention(
+  "mention_area",
+  type = "textarea",
+  width = "320px",
+  placeholder = "Please input",
+  options = c("Fuphoenixes", "kooriookami", "Jeremy", "btea")
+)
 ```
 
 ## Customize label
@@ -41,11 +59,21 @@ Customize label by `label` slot.
 
 ``` r
 
-el_mention("mention_label", width = "320px", placeholder = "Please input",
+el_mention(
+  "mention_label",
+  width = "320px",
+  placeholder = "Please input",
   options = c("Fuphoenixes", "kooriookami", "Jeremy", "btea"),
-  slots = list(label = template(htmltools::HTML(
-    "<div style=\"display: flex; align-items: center\"><el-avatar :size=\"24\" style=\"margin-right: 8px\">{{ item.label.charAt(0) }}</el-avatar><span>{{ item.label }}</span></div>"),
-    slot = "label", scope = "{ item }")))
+  slots = list(
+    label = template(
+      htmltools::HTML(
+        "<div style=\"display: flex; align-items: center\"><el-avatar :size=\"24\" style=\"margin-right: 8px\">{{ item.label.charAt(0) }}</el-avatar><span>{{ item.label }}</span></div>"
+      ),
+      slot = "label",
+      scope = "{ item }"
+    )
+  )
+)
 ```
 
 ## Load remote options
@@ -59,7 +87,12 @@ and `loading`.
 
 ``` r
 
-el_mention("mention_load", width = "320px", placeholder = "Please input", loading = TRUE)
+el_mention(
+  "mention_load",
+  width = "320px",
+  placeholder = "Please input",
+  loading = TRUE
+)
 ```
 
 ## Customize trigger token
@@ -69,8 +102,13 @@ Customize trigger token by `prefix` props. Default to `@`,
 
 ``` r
 
-el_mention("mention_prefix", width = "320px", placeholder = "Please input",
-           prefix = c("@", "#"), options = c("Fuphoenixes", "kooriookami", "Jeremy"))
+el_mention(
+  "mention_prefix",
+  width = "320px",
+  placeholder = "Please input",
+  prefix = c("@", "#"),
+  options = c("Fuphoenixes", "kooriookami", "Jeremy")
+)
 ```
 
 ## Delete as a whole
@@ -81,8 +119,13 @@ attribute to customize the checking logic.
 
 ``` r
 
-el_mention("mention_whole", value = "@Fuphoenixes ", whole = TRUE, width = "320px",
-           options = c("Fuphoenixes", "kooriookami", "Jeremy"))
+el_mention(
+  "mention_whole",
+  value = "@Fuphoenixes ",
+  whole = TRUE,
+  width = "320px",
+  options = c("Fuphoenixes", "kooriookami", "Jeremy")
+)
 ```
 
 ## Work with form
@@ -91,9 +134,18 @@ to work with `el-form`.
 
 ``` r
 
-el_form(id = "mention_form", submit_label = "Submit", label_width = "auto", width = "480px",
-  el_form_field("message", "input", label = "Message",
-                rules = el_rule(required = TRUE, message = "Please input a message")))
+el_form(
+  id = "mention_form",
+  submit_label = "Submit",
+  label_width = "auto",
+  width = "480px",
+  el_form_field(
+    "message",
+    "input",
+    label = "Message",
+    rules = el_rule(required = TRUE, message = "Please input a message")
+  )
+)
 ```
 
 Since this component is developed based on the component

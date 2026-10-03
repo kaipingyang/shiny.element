@@ -284,10 +284,12 @@ and should not be less than the decimal places of <code>step</code>.</p>
 <p>Use attribute <code>size</code> to set additional sizes with
 <code>large</code> or <code>small</code>.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span>style <span class="op">=</span> <span class="st">"display: flex; gap: 16px"</span>,</span>
+<code class="sourceCode R"><span><span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span></span>
+<span>  style <span class="op">=</span> <span class="st">"display: flex; gap: 16px"</span>,</span>
 <span>  <span class="fu"><a href="../../reference/el_input_number.html">el_input_number</a></span><span class="op">(</span><span class="st">"num_l"</span>, value <span class="op">=</span> <span class="fl">1</span>, size <span class="op">=</span> <span class="st">"large"</span><span class="op">)</span>,</span>
 <span>  <span class="fu"><a href="../../reference/el_input_number.html">el_input_number</a></span><span class="op">(</span><span class="st">"num_d"</span>, value <span class="op">=</span> <span class="fl">2</span><span class="op">)</span>,</span>
-<span>  <span class="fu"><a href="../../reference/el_input_number.html">el_input_number</a></span><span class="op">(</span><span class="st">"num_s"</span>, value <span class="op">=</span> <span class="fl">3</span>, size <span class="op">=</span> <span class="st">"small"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<span>  <span class="fu"><a href="../../reference/el_input_number.html">el_input_number</a></span><span class="op">(</span><span class="st">"num_s"</span>, value <span class="op">=</span> <span class="fl">3</span>, size <span class="op">=</span> <span class="st">"small"</span><span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
   <div style="display: flex; gap: 16px">
     <div id="size-num_l" data-shiny-vue style="display: contents">
@@ -314,9 +316,24 @@ and should not be less than the decimal places of <code>step</code>.</p>
 <p>Set <code>controls-position</code> to decide the position of control
 buttons.</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span>style <span class="op">=</span> <span class="st">"display: flex; gap: 16px"</span>,</span>
-<span>  <span class="fu"><a href="../../reference/el_input_number.html">el_input_number</a></span><span class="op">(</span><span class="st">"num_ctl"</span>, value <span class="op">=</span> <span class="fl">1</span>, min <span class="op">=</span> <span class="fl">1</span>, max <span class="op">=</span> <span class="fl">10</span>, controls_position <span class="op">=</span> <span class="st">"right"</span>, size <span class="op">=</span> <span class="st">"large"</span><span class="op">)</span>,</span>
-<span>  <span class="fu"><a href="../../reference/el_input_number.html">el_input_number</a></span><span class="op">(</span><span class="st">"num_ctl2"</span>, value <span class="op">=</span> <span class="fl">1</span>, min <span class="op">=</span> <span class="fl">1</span>, max <span class="op">=</span> <span class="fl">10</span>, controls_position <span class="op">=</span> <span class="st">"right"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span></span>
+<span>  style <span class="op">=</span> <span class="st">"display: flex; gap: 16px"</span>,</span>
+<span>  <span class="fu"><a href="../../reference/el_input_number.html">el_input_number</a></span><span class="op">(</span></span>
+<span>    <span class="st">"num_ctl"</span>,</span>
+<span>    value <span class="op">=</span> <span class="fl">1</span>,</span>
+<span>    min <span class="op">=</span> <span class="fl">1</span>,</span>
+<span>    max <span class="op">=</span> <span class="fl">10</span>,</span>
+<span>    controls_position <span class="op">=</span> <span class="st">"right"</span>,</span>
+<span>    size <span class="op">=</span> <span class="st">"large"</span></span>
+<span>  <span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="../../reference/el_input_number.html">el_input_number</a></span><span class="op">(</span></span>
+<span>    <span class="st">"num_ctl2"</span>,</span>
+<span>    value <span class="op">=</span> <span class="fl">1</span>,</span>
+<span>    min <span class="op">=</span> <span class="fl">1</span>,</span>
+<span>    max <span class="op">=</span> <span class="fl">10</span>,</span>
+<span>    controls_position <span class="op">=</span> <span class="st">"right"</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
   <div style="display: flex; gap: 16px">
     <div id="controlled-num_ctl" data-shiny-vue style="display: contents">
@@ -338,8 +355,16 @@ buttons.</p>
 <p>Use <code>decrease-icon</code> and <code>increase-icon</code> to set
 custom icons.</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_input_number.html">el_input_number</a></span><span class="op">(</span><span class="st">"num_custom"</span>, value <span class="op">=</span> <span class="fl">1</span>, min <span class="op">=</span> <span class="fl">1</span>, max <span class="op">=</span> <span class="fl">10</span>, slots <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
-<span>  `decrease-icon` <span class="op">=</span> <span class="fu"><a href="../../reference/el_icon.html">el_icon</a></span><span class="op">(</span><span class="st">"ArrowDown"</span><span class="op">)</span>, `increase-icon` <span class="op">=</span> <span class="fu"><a href="../../reference/el_icon.html">el_icon</a></span><span class="op">(</span><span class="st">"ArrowUp"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_input_number.html">el_input_number</a></span><span class="op">(</span></span>
+<span>  <span class="st">"num_custom"</span>,</span>
+<span>  value <span class="op">=</span> <span class="fl">1</span>,</span>
+<span>  min <span class="op">=</span> <span class="fl">1</span>,</span>
+<span>  max <span class="op">=</span> <span class="fl">10</span>,</span>
+<span>  slots <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>    `decrease-icon` <span class="op">=</span> <span class="fu"><a href="../../reference/el_icon.html">el_icon</a></span><span class="op">(</span><span class="st">"ArrowDown"</span><span class="op">)</span>,</span>
+<span>    `increase-icon` <span class="op">=</span> <span class="fu"><a href="../../reference/el_icon.html">el_icon</a></span><span class="op">(</span><span class="st">"ArrowUp"</span><span class="op">)</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
   <div id="custom-num_custom" data-shiny-vue style="display: contents">
     <script type="text/x-template" data-shiny-vue-template><div id="custom-num_custom_container" style="display: contents">
@@ -360,9 +385,23 @@ custom icons.</p>
 </h2>
 <p>Use the prefix and suffix named slots.</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span>style <span class="op">=</span> <span class="st">"display: grid; gap: 16px"</span>,</span>
-<span>  <span class="fu"><a href="../../reference/el_input_number.html">el_input_number</a></span><span class="op">(</span><span class="st">"num_pre"</span>, value <span class="op">=</span> <span class="fl">18</span>, min <span class="op">=</span> <span class="fl">1</span>, max <span class="op">=</span> <span class="fl">100</span>, slots <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>prefix <span class="op">=</span> <span class="st">"￥"</span><span class="op">)</span><span class="op">)</span>,</span>
-<span>  <span class="fu"><a href="../../reference/el_input_number.html">el_input_number</a></span><span class="op">(</span><span class="st">"num_suf"</span>, value <span class="op">=</span> <span class="fl">100</span>, min <span class="op">=</span> <span class="fl">1</span>, max <span class="op">=</span> <span class="fl">100</span>, slots <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>suffix <span class="op">=</span> <span class="st">"RMB"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span></span>
+<span>  style <span class="op">=</span> <span class="st">"display: grid; gap: 16px"</span>,</span>
+<span>  <span class="fu"><a href="../../reference/el_input_number.html">el_input_number</a></span><span class="op">(</span></span>
+<span>    <span class="st">"num_pre"</span>,</span>
+<span>    value <span class="op">=</span> <span class="fl">18</span>,</span>
+<span>    min <span class="op">=</span> <span class="fl">1</span>,</span>
+<span>    max <span class="op">=</span> <span class="fl">100</span>,</span>
+<span>    slots <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>prefix <span class="op">=</span> <span class="st">"￥"</span><span class="op">)</span></span>
+<span>  <span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="../../reference/el_input_number.html">el_input_number</a></span><span class="op">(</span></span>
+<span>    <span class="st">"num_suf"</span>,</span>
+<span>    value <span class="op">=</span> <span class="fl">100</span>,</span>
+<span>    min <span class="op">=</span> <span class="fl">1</span>,</span>
+<span>    max <span class="op">=</span> <span class="fl">100</span>,</span>
+<span>    slots <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>suffix <span class="op">=</span> <span class="st">"RMB"</span><span class="op">)</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
   <div style="display: grid; gap: 16px">
     <div id="with-prefix-suffix-num_pre" data-shiny-vue style="display: contents">
@@ -400,9 +439,14 @@ is written to <code>model-value</code>; when parsing returns
 <code>NaN</code>, <code>model-value</code> is set to
 <code>null</code>.</p>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_input_number.html">el_input_number</a></span><span class="op">(</span><span class="st">"num_fmt"</span>, value <span class="op">=</span> <span class="fl">1234.5</span>,</span>
-<span>  formatter <span class="op">=</span> <span class="fu"><a href="../../reference/JS.html">JS</a></span><span class="op">(</span><span class="st">"function(value) { return `$ ${value}`.replace(/\\B(?=(\\d{3})+(?!\\d))/g, ','); }"</span><span class="op">)</span>,</span>
-<span>  parser <span class="op">=</span> <span class="fu"><a href="../../reference/JS.html">JS</a></span><span class="op">(</span><span class="st">"function(value) { return value.replace(/\\$\\s?|(,*)/g, ''); }"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_input_number.html">el_input_number</a></span><span class="op">(</span></span>
+<span>  <span class="st">"num_fmt"</span>,</span>
+<span>  value <span class="op">=</span> <span class="fl">1234.5</span>,</span>
+<span>  formatter <span class="op">=</span> <span class="fu"><a href="../../reference/JS.html">JS</a></span><span class="op">(</span></span>
+<span>    <span class="st">"function(value) { return `$ ${value}`.replace(/\\B(?=(\\d{3})+(?!\\d))/g, ','); }"</span></span>
+<span>  <span class="op">)</span>,</span>
+<span>  parser <span class="op">=</span> <span class="fu"><a href="../../reference/JS.html">JS</a></span><span class="op">(</span><span class="st">"function(value) { return value.replace(/\\$\\s?|(,*)/g, ''); }"</span><span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
   <div id="formatter-num_fmt" data-shiny-vue style="display: contents">
     <script type="text/x-template" data-shiny-vue-template><div id="formatter-num_fmt_container" style="display: contents">

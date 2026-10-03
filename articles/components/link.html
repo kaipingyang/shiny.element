@@ -205,9 +205,13 @@ Show code example
 </h2>
 <p>Basic text link</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span>style <span class="op">=</span> <span class="st">"display: flex; gap: 16px"</span>,</span>
+<code class="sourceCode R"><span><span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span></span>
+<span>  style <span class="op">=</span> <span class="st">"display: flex; gap: 16px"</span>,</span>
 <span>  <span class="fu"><a href="../../reference/el_link.html">el_link</a></span><span class="op">(</span><span class="st">"default"</span>, href <span class="op">=</span> <span class="st">"https://element-plus.org"</span>, target <span class="op">=</span> <span class="st">"_blank"</span><span class="op">)</span>,</span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"primary"</span>, <span class="st">"success"</span>, <span class="st">"warning"</span>, <span class="st">"danger"</span>, <span class="st">"info"</span><span class="op">)</span>, <span class="kw">function</span><span class="op">(</span><span class="va">t</span><span class="op">)</span> <span class="fu"><a href="../../reference/el_link.html">el_link</a></span><span class="op">(</span><span class="va">t</span>, type <span class="op">=</span> <span class="va">t</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"primary"</span>, <span class="st">"success"</span>, <span class="st">"warning"</span>, <span class="st">"danger"</span>, <span class="st">"info"</span><span class="op">)</span>, <span class="kw">function</span><span class="op">(</span><span class="va">t</span><span class="op">)</span> <span class="op">{</span></span>
+<span>    <span class="fu"><a href="../../reference/el_link.html">el_link</a></span><span class="op">(</span><span class="va">t</span>, type <span class="op">=</span> <span class="va">t</span><span class="op">)</span></span>
+<span>  <span class="op">}</span><span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
   <div style="display: flex; gap: 16px">
     <a class="external-link el-link el-link--default is-hover-underline" href="https://element-plus.org" target="_blank">
@@ -236,9 +240,15 @@ Show code example
 </h2>
 <p>Disabled state of link</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span>style <span class="op">=</span> <span class="st">"display: flex; gap: 16px"</span>,</span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"default"</span>, <span class="st">"primary"</span>, <span class="st">"success"</span>, <span class="st">"warning"</span>, <span class="st">"danger"</span>, <span class="st">"info"</span><span class="op">)</span>, <span class="kw">function</span><span class="op">(</span><span class="va">t</span><span class="op">)</span></span>
-<span>    <span class="fu"><a href="../../reference/el_link.html">el_link</a></span><span class="op">(</span><span class="va">t</span>, type <span class="op">=</span> <span class="va">t</span>, disabled <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span></span>
+<span>  style <span class="op">=</span> <span class="st">"display: flex; gap: 16px"</span>,</span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply</a></span><span class="op">(</span></span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"default"</span>, <span class="st">"primary"</span>, <span class="st">"success"</span>, <span class="st">"warning"</span>, <span class="st">"danger"</span>, <span class="st">"info"</span><span class="op">)</span>,</span>
+<span>    <span class="kw">function</span><span class="op">(</span><span class="va">t</span><span class="op">)</span> <span class="op">{</span></span>
+<span>      <span class="fu"><a href="../../reference/el_link.html">el_link</a></span><span class="op">(</span><span class="va">t</span>, type <span class="op">=</span> <span class="va">t</span>, disabled <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span>    <span class="op">}</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
   <div style="display: flex; gap: 16px">
     <a class="el-link el-link--default is-disabled">
@@ -281,9 +291,13 @@ are using a version <strong>less than</strong> 2.9.9 , please refer
 to:</p>
 </blockquote>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span>style <span class="op">=</span> <span class="st">"display: flex; gap: 16px"</span>,</span>
-<span>  <span class="fu"><a href="../../reference/el_link.html">el_link</a></span><span class="op">(</span><span class="st">"default"</span><span class="op">)</span>, <span class="fu"><a href="../../reference/el_link.html">el_link</a></span><span class="op">(</span><span class="st">"always"</span>, underline <span class="op">=</span> <span class="st">"always"</span><span class="op">)</span>,</span>
-<span>  <span class="fu"><a href="../../reference/el_link.html">el_link</a></span><span class="op">(</span><span class="st">"hover"</span>, underline <span class="op">=</span> <span class="st">"hover"</span><span class="op">)</span>, <span class="fu"><a href="../../reference/el_link.html">el_link</a></span><span class="op">(</span><span class="st">"never"</span>, underline <span class="op">=</span> <span class="st">"never"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span></span>
+<span>  style <span class="op">=</span> <span class="st">"display: flex; gap: 16px"</span>,</span>
+<span>  <span class="fu"><a href="../../reference/el_link.html">el_link</a></span><span class="op">(</span><span class="st">"default"</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="../../reference/el_link.html">el_link</a></span><span class="op">(</span><span class="st">"always"</span>, underline <span class="op">=</span> <span class="st">"always"</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="../../reference/el_link.html">el_link</a></span><span class="op">(</span><span class="st">"hover"</span>, underline <span class="op">=</span> <span class="st">"hover"</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="../../reference/el_link.html">el_link</a></span><span class="op">(</span><span class="st">"never"</span>, underline <span class="op">=</span> <span class="st">"never"</span><span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
   <div style="display: flex; gap: 16px">
     <a class="el-link el-link--default is-hover-underline">
@@ -313,9 +327,11 @@ itself which is a SVG Vue component. Element Plus has provided a set of
 icon that you can find at <a href="icon.html">icon</a></p>
 </blockquote>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span>style <span class="op">=</span> <span class="st">"display: flex; gap: 16px"</span>,</span>
+<code class="sourceCode R"><span><span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span></span>
+<span>  style <span class="op">=</span> <span class="st">"display: flex; gap: 16px"</span>,</span>
 <span>  <span class="fu"><a href="../../reference/el_link.html">el_link</a></span><span class="op">(</span><span class="st">"Edit"</span>, icon <span class="op">=</span> <span class="st">"Edit"</span><span class="op">)</span>,</span>
-<span>  <span class="fu"><a href="../../reference/el_link.html">el_link</a></span><span class="op">(</span><span class="fu"><a href="https://rstudio.github.io/htmltools/reference/tagList.html" class="external-link">tagList</a></span><span class="op">(</span><span class="st">"Check"</span>, <span class="fu"><a href="../../reference/el_icon.html">el_icon</a></span><span class="op">(</span><span class="st">"View"</span>, class <span class="op">=</span> <span class="st">"el-icon--right"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<span>  <span class="fu"><a href="../../reference/el_link.html">el_link</a></span><span class="op">(</span><span class="fu"><a href="https://rstudio.github.io/htmltools/reference/tagList.html" class="external-link">tagList</a></span><span class="op">(</span><span class="st">"Check"</span>, <span class="fu"><a href="../../reference/el_icon.html">el_icon</a></span><span class="op">(</span><span class="st">"View"</span>, class <span class="op">=</span> <span class="st">"el-icon--right"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
   <div style="display: flex; gap: 16px">
     <a class="el-link el-link--default is-hover-underline">

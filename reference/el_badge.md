@@ -94,7 +94,7 @@ el_badge(el_button("btn1", "Messages"), value = 5)
 #>   </div>
 #>   <sup class="el-badge__content el-badge__content--danger is-fixed">5</sup>
 #> </div>
-el_badge(el_button("btn2", "Alerts"),   value = 200, max = 99)
+el_badge(el_button("btn2", "Alerts"), value = 200, max = 99)
 #> <div class="el-badge">
 #>   <div id="btn2" data-shiny-vue style="display: contents">
 #>     <script type="text/x-template" data-shiny-vue-template><div id="btn2_container" style="display: contents">
@@ -104,7 +104,7 @@ el_badge(el_button("btn2", "Alerts"),   value = 200, max = 99)
 #>   </div>
 #>   <sup class="el-badge__content el-badge__content--danger is-fixed">99+</sup>
 #> </div>
-el_badge(el_button("btn3", "Updates"),  is_dot = TRUE)
+el_badge(el_button("btn3", "Updates"), is_dot = TRUE)
 #> <div class="el-badge">
 #>   <div id="btn3" data-shiny-vue style="display: contents">
 #>     <script type="text/x-template" data-shiny-vue-template><div id="btn3_container" style="display: contents">

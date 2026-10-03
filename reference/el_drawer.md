@@ -204,8 +204,13 @@ el_drawer("w1", title = "Settings", content = shiny::tags$p("Body"))
 #> </div>
 
 # Sliding up from the bottom, holding other components
-el_drawer("w2", title = "Filters", direction = "btt", size = "40%",
-          content = shiny::tagList(el_input("q"), el_switch("live")))
+el_drawer(
+  "w2",
+  title = "Filters",
+  direction = "btt",
+  size = "40%",
+  content = shiny::tagList(el_input("q"), el_switch("live"))
+)
 #> <div id="w2" class="el-overlay" style="display:none;" data-el-overlay="drawer" data-visible="false" data-modal="true" data-mask-close="true" data-esc-close="true" data-lock-scroll="true" data-destroy-on-close="false">
 #>   <div aria-modal="true" aria-labelledby="w2-title" aria-label="Filters" role="dialog" tabindex="-1" class="el-drawer btt" style="height: 40%;">
 #>     <header class="el-drawer__header">

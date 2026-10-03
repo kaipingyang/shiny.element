@@ -143,8 +143,8 @@ el_carousel(
   id = "banner",
   height = "200px",
   items = list(
-    list(name = "one",   content = shiny::tags$h3("First slide")),
-    list(name = "two",   content = shiny::tags$h3("Second slide")),
+    list(name = "one", content = shiny::tags$h3("First slide")),
+    list(name = "two", content = shiny::tags$h3("Second slide")),
     list(name = "three", content = shiny::tags$h3("Third slide"))
   )
 )
@@ -167,7 +167,10 @@ el_carousel(
 
 # Card layout, switching on click rather than hover
 el_carousel(
-  id = "cards", type = "card", trigger = "click", height = "180px",
+  id = "cards",
+  type = "card",
+  trigger = "click",
+  height = "180px",
   items = lapply(1:4, function(i) list(content = paste("Card", i)))
 )
 #> <div id="cards" data-shiny-vue style="display: contents">

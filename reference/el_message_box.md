@@ -250,14 +250,20 @@ if (interactive()) {
   library(shiny)
   library(shiny.element)
 
-  ui <- el_page(el_button("del", "Delete", type = "danger"),
-                verbatimTextOutput("answer"))
+  ui <- el_page(
+    el_button("del", "Delete", type = "danger"),
+    verbatimTextOutput("answer")
+  )
 
   server <- function(input, output, session) {
     observeEvent(input$del, {
-      el_message_box(session, "confirm_delete",
-                     "This cannot be undone.",
-                     title = "Delete the row?", type = "warning")
+      el_message_box(
+        session,
+        "confirm_delete",
+        "This cannot be undone.",
+        title = "Delete the row?",
+        type = "warning"
+      )
     })
     observeEvent(input$confirm_delete, {
       output$answer <- renderPrint(input$confirm_delete)

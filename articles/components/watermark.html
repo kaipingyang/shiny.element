@@ -193,11 +193,14 @@
 </h2>
 <p>The most basic usage.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_watermark.html">el_watermark</a></span><span class="op">(</span>content <span class="op">=</span> <span class="st">"Element Plus"</span>, font <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>color <span class="op">=</span> <span class="st">"rgba(0, 0, 0, .15)"</span><span class="op">)</span>,</span>
-<span>             <span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span>style <span class="op">=</span> <span class="st">"height: 500px"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_watermark.html">el_watermark</a></span><span class="op">(</span></span>
+<span>  content <span class="op">=</span> <span class="st">"Element Plus"</span>,</span>
+<span>  font <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>color <span class="op">=</span> <span class="st">"rgba(0, 0, 0, .15)"</span><span class="op">)</span>,</span>
+<span>  <span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span>style <span class="op">=</span> <span class="st">"height: 500px"</span><span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
-  <div id="basic-el_watermark_153106b1-e0e9-4af9-9f2e-225ee635a01c" data-shiny-vue style="display: contents">
-    <script type="text/x-template" data-shiny-vue-template><div id="basic-el_watermark_153106b1-e0e9-4af9-9f2e-225ee635a01c_container" style="display: contents">
+  <div id="basic-el_watermark_5018d3a1-b247-4889-ba6c-d716cdb8540d" data-shiny-vue style="display: contents">
+    <script type="text/x-template" data-shiny-vue-template><div id="basic-el_watermark_5018d3a1-b247-4889-ba6c-d716cdb8540d_container" style="display: contents">
   <el-watermark :width="width === null ? undefined : width" :height="height === null ? undefined : height" :rotate="rotate === null ? undefined : rotate" :z-index="zIndex === null ? undefined : zIndex" :image="image === null ? undefined : image" :content="content === null ? undefined : content" :font="font === null ? undefined : font" :gap="gap === null ? undefined : gap" :offset="offset === null ? undefined : offset">
     <div style="height: 500px"></div>
   </el-watermark>
@@ -212,11 +215,14 @@
 multi-line text watermark content.</p>
 <p>Several lines: <code>content</code> is a vector.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_watermark.html">el_watermark</a></span><span class="op">(</span>content <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Element+"</span>, <span class="st">"Element Plus"</span><span class="op">)</span>, font <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>color <span class="op">=</span> <span class="st">"rgba(0, 0, 0, .15)"</span><span class="op">)</span>,</span>
-<span>             <span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span>style <span class="op">=</span> <span class="st">"height: 500px"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_watermark.html">el_watermark</a></span><span class="op">(</span></span>
+<span>  content <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Element+"</span>, <span class="st">"Element Plus"</span><span class="op">)</span>,</span>
+<span>  font <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>color <span class="op">=</span> <span class="st">"rgba(0, 0, 0, .15)"</span><span class="op">)</span>,</span>
+<span>  <span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span>style <span class="op">=</span> <span class="st">"height: 500px"</span><span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
-  <div id="multi-line-el_watermark_158682f3-a657-4b95-b53d-d0c12c966f09" data-shiny-vue style="display: contents">
-    <script type="text/x-template" data-shiny-vue-template><div id="multi-line-el_watermark_158682f3-a657-4b95-b53d-d0c12c966f09_container" style="display: contents">
+  <div id="multi-line-el_watermark_8cb9b865-e957-49d1-89ed-78d556a7a8bb" data-shiny-vue style="display: contents">
+    <script type="text/x-template" data-shiny-vue-template><div id="multi-line-el_watermark_8cb9b865-e957-49d1-89ed-78d556a7a8bb_container" style="display: contents">
   <el-watermark :width="width === null ? undefined : width" :height="height === null ? undefined : height" :rotate="rotate === null ? undefined : rotate" :z-index="zIndex === null ? undefined : zIndex" :image="image === null ? undefined : image" :content="content === null ? undefined : content" :font="font === null ? undefined : font" :gap="gap === null ? undefined : gap" :offset="offset === null ? undefined : offset">
     <div style="height: 500px"></div>
   </el-watermark>
@@ -235,12 +241,15 @@ address.</p>
 <code>watermark_width</code> and <code>height</code> size it
 (<code>width</code> is the box’s).</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_watermark.html">el_watermark</a></span><span class="op">(</span>watermark_width <span class="op">=</span> <span class="fl">130</span>, height <span class="op">=</span> <span class="fl">30</span>,</span>
-<span>             image <span class="op">=</span> <span class="st">"https://element-plus.org/images/element-plus-logo.svg"</span>,</span>
-<span>             <span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span>style <span class="op">=</span> <span class="st">"height: 500px"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_watermark.html">el_watermark</a></span><span class="op">(</span></span>
+<span>  watermark_width <span class="op">=</span> <span class="fl">130</span>,</span>
+<span>  height <span class="op">=</span> <span class="fl">30</span>,</span>
+<span>  image <span class="op">=</span> <span class="st">"https://element-plus.org/images/element-plus-logo.svg"</span>,</span>
+<span>  <span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span>style <span class="op">=</span> <span class="st">"height: 500px"</span><span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
-  <div id="image-el_watermark_d402405c-d174-492e-b596-c179e3a6eef1" data-shiny-vue style="display: contents">
-    <script type="text/x-template" data-shiny-vue-template><div id="image-el_watermark_d402405c-d174-492e-b596-c179e3a6eef1_container" style="display: contents">
+  <div id="image-el_watermark_bdc66818-b2a2-47b0-b0c6-8e1b5e241b77" data-shiny-vue style="display: contents">
+    <script type="text/x-template" data-shiny-vue-template><div id="image-el_watermark_bdc66818-b2a2-47b0-b0c6-8e1b5e241b77_container" style="display: contents">
   <el-watermark :width="width === null ? undefined : width" :height="height === null ? undefined : height" :rotate="rotate === null ? undefined : rotate" :z-index="zIndex === null ? undefined : zIndex" :image="image === null ? undefined : image" :content="content === null ? undefined : content" :font="font === null ? undefined : font" :gap="gap === null ? undefined : gap" :offset="offset === null ? undefined : offset">
     <div style="height: 500px"></div>
   </el-watermark>
@@ -257,20 +266,34 @@ address.</p>
 <code class="sourceCode R"><span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/el_page.html">el_page</a></span><span class="op">(</span></span>
 <span>  <span class="fu"><a href="../../reference/el_row.html">el_row</a></span><span class="op">(</span></span>
 <span>    <span class="fu"><a href="../../reference/el_col.html">el_col</a></span><span class="op">(</span>span <span class="op">=</span> <span class="fl">14</span>, <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/htmlOutput.html" class="external-link">uiOutput</a></span><span class="op">(</span><span class="st">"marked"</span><span class="op">)</span><span class="op">)</span>,</span>
-<span>    <span class="fu"><a href="../../reference/el_col.html">el_col</a></span><span class="op">(</span>span <span class="op">=</span> <span class="fl">10</span>,</span>
+<span>    <span class="fu"><a href="../../reference/el_col.html">el_col</a></span><span class="op">(</span></span>
+<span>      span <span class="op">=</span> <span class="fl">10</span>,</span>
 <span>      <span class="fu"><a href="../../reference/el_input.html">el_input</a></span><span class="op">(</span><span class="st">"content"</span>, label <span class="op">=</span> <span class="st">"Content"</span>, value <span class="op">=</span> <span class="st">"Element Plus"</span><span class="op">)</span>,</span>
-<span>      <span class="fu"><a href="../../reference/el_color_picker.html">el_color_picker</a></span><span class="op">(</span><span class="st">"color"</span>, label <span class="op">=</span> <span class="st">"Color"</span>, value <span class="op">=</span> <span class="st">"rgba(0, 0, 0, 0.15)"</span>, show_alpha <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,</span>
+<span>      <span class="fu"><a href="../../reference/el_color_picker.html">el_color_picker</a></span><span class="op">(</span></span>
+<span>        <span class="st">"color"</span>,</span>
+<span>        label <span class="op">=</span> <span class="st">"Color"</span>,</span>
+<span>        value <span class="op">=</span> <span class="st">"rgba(0, 0, 0, 0.15)"</span>,</span>
+<span>        show_alpha <span class="op">=</span> <span class="cn">TRUE</span></span>
+<span>      <span class="op">)</span>,</span>
 <span>      <span class="fu"><a href="../../reference/el_slider.html">el_slider</a></span><span class="op">(</span><span class="st">"size"</span>, label <span class="op">=</span> <span class="st">"FontSize"</span>, value <span class="op">=</span> <span class="fl">16</span>, min <span class="op">=</span> <span class="fl">8</span>, max <span class="op">=</span> <span class="fl">40</span><span class="op">)</span>,</span>
 <span>      <span class="fu"><a href="../../reference/el_slider.html">el_slider</a></span><span class="op">(</span><span class="st">"rotate"</span>, label <span class="op">=</span> <span class="st">"Rotate"</span>, value <span class="op">=</span> <span class="op">-</span><span class="fl">22</span>, min <span class="op">=</span> <span class="op">-</span><span class="fl">180</span>, max <span class="op">=</span> <span class="fl">180</span><span class="op">)</span>,</span>
-<span>      <span class="fu"><a href="../../reference/el_input_number.html">el_input_number</a></span><span class="op">(</span><span class="st">"gap"</span>, label <span class="op">=</span> <span class="st">"Gap"</span>, value <span class="op">=</span> <span class="fl">100</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
+<span>      <span class="fu"><a href="../../reference/el_input_number.html">el_input_number</a></span><span class="op">(</span><span class="st">"gap"</span>, label <span class="op">=</span> <span class="st">"Gap"</span>, value <span class="op">=</span> <span class="fl">100</span><span class="op">)</span></span>
+<span>    <span class="op">)</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">server</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span>, <span class="va">session</span><span class="op">)</span> <span class="op">{</span></span>
 <span>  <span class="va">output</span><span class="op">$</span><span class="va">marked</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/renderUI.html" class="external-link">renderUI</a></span><span class="op">(</span><span class="fu"><a href="../../reference/el_watermark.html">el_watermark</a></span><span class="op">(</span></span>
-<span>    content <span class="op">=</span> <span class="va">input</span><span class="op">$</span><span class="va">content</span>, rotate <span class="op">=</span> <span class="va">input</span><span class="op">$</span><span class="va">rotate</span>, gap <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">gap</span> <span class="op"><a href="https://rdrr.io/r/base/Control.html" class="external-link">%||%</a></span> <span class="fl">100</span>, <span class="fl">2</span><span class="op">)</span>,</span>
+<span>    content <span class="op">=</span> <span class="va">input</span><span class="op">$</span><span class="va">content</span>,</span>
+<span>    rotate <span class="op">=</span> <span class="va">input</span><span class="op">$</span><span class="va">rotate</span>,</span>
+<span>    gap <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">gap</span> <span class="op"><a href="https://rdrr.io/r/base/Control.html" class="external-link">%||%</a></span> <span class="fl">100</span>, <span class="fl">2</span><span class="op">)</span>,</span>
 <span>    font <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>fontSize <span class="op">=</span> <span class="va">input</span><span class="op">$</span><span class="va">size</span>, color <span class="op">=</span> <span class="va">input</span><span class="op">$</span><span class="va">color</span><span class="op">)</span>,</span>
-<span>    <span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span>style <span class="op">=</span> <span class="st">"padding: 40px 20px; height: 360px"</span>,</span>
-<span>             <span class="va">tags</span><span class="op">$</span><span class="fu">h1</span><span class="op">(</span><span class="st">"Element Plus"</span><span class="op">)</span>,</span>
-<span>             <span class="va">tags</span><span class="op">$</span><span class="fu">h2</span><span class="op">(</span><span class="st">"A Vue 3 based component library for designers and developers"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
+<span>    <span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span></span>
+<span>      style <span class="op">=</span> <span class="st">"padding: 40px 20px; height: 360px"</span>,</span>
+<span>      <span class="va">tags</span><span class="op">$</span><span class="fu">h1</span><span class="op">(</span><span class="st">"Element Plus"</span><span class="op">)</span>,</span>
+<span>      <span class="va">tags</span><span class="op">$</span><span class="fu">h2</span><span class="op">(</span><span class="st">"A Vue 3 based component library for designers and developers"</span><span class="op">)</span></span>
+<span>    <span class="op">)</span></span>
+<span>  <span class="op">)</span><span class="op">)</span></span>
 <span><span class="op">}</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/shinyApp.html" class="external-link">shinyApp</a></span><span class="op">(</span><span class="va">ui</span>, <span class="va">server</span><span class="op">)</span></span></code></pre></div>

@@ -69,8 +69,11 @@ el_empty("none", description = "No reports yet")
 #>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"emptyDescription":"No reports yet","emptyImage":null,"emptyImageSize":null}},"input":null,"rate":null,"type":null,"evals":[]}</script>
 #> </div>
 
-el_empty("none", description = "No reports yet",
-         el_button("create", "Create one", type = "primary"))
+el_empty(
+  "none",
+  description = "No reports yet",
+  el_button("create", "Create one", type = "primary")
+)
 #> <div id="none" data-shiny-vue style="display: contents">
 #>   <script type="text/x-template" data-shiny-vue-template><div id="none_container" style="display: contents">
 #>   <el-empty :description="emptyDescription === null ? undefined : emptyDescription" :image="emptyImage === null ? undefined : emptyImage" :image-size="emptyImageSize === null ? undefined : emptyImageSize">

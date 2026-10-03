@@ -27,10 +27,16 @@ following the button of the checkbox.
 
 row <- function(...) tags$div(style = "margin: 8px 0", ...)
 tagList(
-  row(el_checkbox("cb1", "Option 1", value = TRUE, size = "large"),
-      el_checkbox("cb2", "Option 2", size = "large")),
+  row(
+    el_checkbox("cb1", "Option 1", value = TRUE, size = "large"),
+    el_checkbox("cb2", "Option 2", size = "large")
+  ),
   row(el_checkbox("cb3", "Option 1"), el_checkbox("cb4", "Option 2")),
-  row(el_checkbox("cb5", "Option 1", size = "small"), el_checkbox("cb6", "Option 2", size = "small")))
+  row(
+    el_checkbox("cb5", "Option 1", size = "small"),
+    el_checkbox("cb6", "Option 2", size = "small")
+  )
+)
 ```
 
 ## Disabled State
@@ -41,8 +47,10 @@ Set the `disabled` attribute.
 
 ``` r
 
-tagList(el_checkbox("cbd1", "Disabled", disabled = TRUE),
-        el_checkbox("cbd2", "Not disabled", value = TRUE))
+tagList(
+  el_checkbox("cbd1", "Disabled", disabled = TRUE),
+  el_checkbox("cbd2", "Not disabled", value = TRUE)
+)
 ```
 
 ## Checkbox group
@@ -60,11 +68,21 @@ and vice versa.
 
 ``` r
 
-el_checkbox_group("cbg", selected = c("Value selected and disabled", "Value A"), choices = list(
-  list(label = "Option A", value = "Value A"), list(label = "Option B", value = "Value B"),
-  list(label = "Option C", value = "Value C"),
-  list(label = "disabled", value = "Value disabled", disabled = TRUE),
-  list(label = "selected and disabled", value = "Value selected and disabled", disabled = TRUE)))
+el_checkbox_group(
+  "cbg",
+  selected = c("Value selected and disabled", "Value A"),
+  choices = list(
+    list(label = "Option A", value = "Value A"),
+    list(label = "Option B", value = "Value B"),
+    list(label = "Option C", value = "Value C"),
+    list(label = "disabled", value = "Value disabled", disabled = TRUE),
+    list(
+      label = "selected and disabled",
+      value = "Value selected and disabled",
+      disabled = TRUE
+    )
+  )
+)
 ```
 
 ## Options attribute
@@ -76,11 +94,16 @@ Choices given in fields of other names, mapped with `props`.
 
 ``` r
 
-el_checkbox_group("cbo", selected = c("Value A"),
+el_checkbox_group(
+  "cbo",
+  selected = c("Value A"),
   props = list(label = "name", value = "id", disabled = "unable"),
-  choices = list(list(label = "Option A", value = "Value A"),
-                 list(label = "Option B", value = "Value B"),
-                 list(label = "Option C", value = "Value C")))
+  choices = list(
+    list(label = "Option A", value = "Value A"),
+    list(label = "Option B", value = "Value B"),
+    list(label = "Option C", value = "Value C")
+  )
+)
 ```
 
 ## Indeterminate
@@ -96,8 +119,12 @@ in its handler:
 
 tagList(
   el_checkbox("all", "Check all", indeterminate = TRUE),
-  el_checkbox_group("cities", choices = c("Shanghai", "Beijing", "Guangzhou", "Shenzhen"),
-                    selected = c("Shanghai", "Beijing")))
+  el_checkbox_group(
+    "cities",
+    choices = c("Shanghai", "Beijing", "Guangzhou", "Shenzhen"),
+    selected = c("Shanghai", "Beijing")
+  )
+)
 ```
 
 ## Minimum / Maximum items checked
@@ -107,8 +134,13 @@ checked items.
 
 ``` r
 
-el_checkbox_group("cities_lim", choices = c("Shanghai", "Beijing", "Guangzhou", "Shenzhen"),
-                  selected = c("Shanghai", "Beijing"), min = 1, max = 2)
+el_checkbox_group(
+  "cities_lim",
+  choices = c("Shanghai", "Beijing", "Guangzhou", "Shenzhen"),
+  selected = c("Shanghai", "Beijing"),
+  min = 1,
+  max = 2
+)
 ```
 
 ## Button style
@@ -121,12 +153,37 @@ element. We also provide `size` attribute.
 ``` r
 
 cities <- c("Shanghai", "Beijing", "Guangzhou", "Shenzhen")
-tags$div(style = "display: grid; gap: 16px",
-  el_checkbox_group("cbb1", choices = cities, selected = "Shanghai", button = TRUE, size = "large"),
-  el_checkbox_group("cbb2", choices = cities, selected = "Shanghai", button = TRUE),
-  el_checkbox_group("cbb3", choices = cities, selected = "Shanghai", button = TRUE, size = "small"),
-  el_checkbox_group("cbb4", choices = cities, selected = "Shanghai", button = TRUE, size = "small",
-                    disabled = TRUE))
+tags$div(
+  style = "display: grid; gap: 16px",
+  el_checkbox_group(
+    "cbb1",
+    choices = cities,
+    selected = "Shanghai",
+    button = TRUE,
+    size = "large"
+  ),
+  el_checkbox_group(
+    "cbb2",
+    choices = cities,
+    selected = "Shanghai",
+    button = TRUE
+  ),
+  el_checkbox_group(
+    "cbb3",
+    choices = cities,
+    selected = "Shanghai",
+    button = TRUE,
+    size = "small"
+  ),
+  el_checkbox_group(
+    "cbb4",
+    choices = cities,
+    selected = "Shanghai",
+    button = TRUE,
+    size = "small",
+    disabled = TRUE
+  )
+)
 ```
 
 ## With borders
@@ -137,9 +194,15 @@ The `border` attribute adds a border to Checkboxes.
 
 row <- function(...) tags$div(style = "margin-top: 16px", ...)
 tagList(
-  row(el_checkbox("cbr1", "Option1", value = TRUE, size = "large", border = TRUE),
-      el_checkbox("cbr2", "Option2", size = "large", border = TRUE)),
-  row(el_checkbox("cbr3", "Option1", border = TRUE), el_checkbox("cbr4", "Option2", value = TRUE, border = TRUE)))
+  row(
+    el_checkbox("cbr1", "Option1", value = TRUE, size = "large", border = TRUE),
+    el_checkbox("cbr2", "Option2", size = "large", border = TRUE)
+  ),
+  row(
+    el_checkbox("cbr3", "Option1", border = TRUE),
+    el_checkbox("cbr4", "Option2", value = TRUE, border = TRUE)
+  )
+)
 ```
 
 ## API

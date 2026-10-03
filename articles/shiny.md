@@ -53,13 +53,24 @@ is for. A method with a return value answers asynchronously, as
 ``` r
 
 ui <- el_page(
-  el_tree("tree", show_checkbox = TRUE, node_key = "id",
-          default_expand_all = TRUE, checked = c("b1", "c"),
-          data = list(
-            list(id = "a", label = "Fruit", children = list(
-              list(id = "b1", label = "Apple"), list(id = "b2", label = "Pear"))),
-            list(id = "c", label = "Bread")
-          )),
+  el_tree(
+    "tree",
+    show_checkbox = TRUE,
+    node_key = "id",
+    default_expand_all = TRUE,
+    checked = c("b1", "c"),
+    data = list(
+      list(
+        id = "a",
+        label = "Fruit",
+        children = list(
+          list(id = "b1", label = "Apple"),
+          list(id = "b2", label = "Pear")
+        )
+      ),
+      list(id = "c", label = "Bread")
+    )
+  ),
   el_button("ask", "Which are checked?"),
   verbatimTextOutput("answer")
 )
@@ -134,10 +145,21 @@ orders_ui <- function(id) {
   ns <- NS(id)
   tagList(
     el_select(ns("status"), choices = c("paid", "pending"), selected = "paid"),
-    el_table(ns("rows"), data = data.frame(order = c(101, 102)), columns = list(
-      list(prop = "order", label = "Order"),
-      list(label = "", cell = el$button(size = "small",
-        "@click" = "rowAction('open', scope)", "Open")))),
+    el_table(
+      ns("rows"),
+      data = data.frame(order = c(101, 102)),
+      columns = list(
+        list(prop = "order", label = "Order"),
+        list(
+          label = "",
+          cell = el$button(
+            size = "small",
+            "@click" = "rowAction('open', scope)",
+            "Open"
+          )
+        )
+      )
+    ),
     uiOutput(ns("more")),
     verbatimTextOutput(ns("seen"))
   )
@@ -146,9 +168,15 @@ orders_ui <- function(id) {
 orders_server <- function(id) {
   moduleServer(id, function(input, output, session) {
     # Built in the server, still wrapped in ns() once
-    output$more <- renderUI(el_switch(session$ns("urgent"), active_text = "Urgent"))
-    output$seen <- renderPrint(list(status = input$status, urgent = input$urgent,
-                                    opened = input$rows_open$row_index))
+    output$more <- renderUI(el_switch(
+      session$ns("urgent"),
+      active_text = "Urgent"
+    ))
+    output$seen <- renderPrint(list(
+      status = input$status,
+      urgent = input$urgent,
+      opened = input$rows_open$row_index
+    ))
   })
 }
 
@@ -183,9 +211,13 @@ needs to be set up beyond what Shiny itself asks for.
 ui <- function(request) {
   el_page(
     el_select("city", choices = c("Beijing", "Shanghai")),
-    el_tabs("views", tabs = list(
-      list(name = "table", label = "Table", content = tags$p("...")),
-      list(name = "chart", label = "Chart", content = tags$p("...")))),
+    el_tabs(
+      "views",
+      tabs = list(
+        list(name = "table", label = "Table", content = tags$p("...")),
+        list(name = "chart", label = "Chart", content = tags$p("..."))
+      )
+    ),
     bookmarkButton()
   )
 }
@@ -233,13 +265,21 @@ it would on its own.
 
 ``` r
 
-el_collapse("panels", value = "one", items = list(
-  list(name = "one", title = "Settings", content = tagList(
-    el_switch("dark", value = TRUE, active_text = "Dark mode"),
-    el_rate("stars", value = 4)
-  )),
-  list(name = "two", title = "About", content = tags$p("Version 0.1.0"))
-))
+el_collapse(
+  "panels",
+  value = "one",
+  items = list(
+    list(
+      name = "one",
+      title = "Settings",
+      content = tagList(
+        el_switch("dark", value = TRUE, active_text = "Dark mode"),
+        el_rate("stars", value = 4)
+      )
+    ),
+    list(name = "two", title = "About", content = tags$p("Version 0.1.0"))
+  )
+)
 ```
 
 Settings
@@ -283,8 +323,11 @@ Drive it through the wrapper instead:
 ``` r
 
 ui <- el_page(
-  el_tooltip("hint", el_button("save", "Save", type = "primary"),
-             content = "Writes to disk"),
+  el_tooltip(
+    "hint",
+    el_button("save", "Save", type = "primary"),
+    content = "Writes to disk"
+  ),
   el_button("busy", "Mark as saving")
 )
 
@@ -315,9 +358,13 @@ Every component takes `slots`, a named list:
 
 ``` r
 
-el_alert("problem", type = "error", show_icon = TRUE,
-         description = "The upload was larger than 5 MB.",
-         slots = list(title = tags$span(tags$b("Upload failed"), " -- try again")))
+el_alert(
+  "problem",
+  type = "error",
+  show_icon = TRUE,
+  description = "The upload was larger than 5 MB.",
+  slots = list(title = tags$span(tags$b("Upload failed"), " -- try again"))
+)
 ```
 
 A scoped slot – one where Element hands the template variables that only
@@ -327,15 +374,21 @@ and passed through untouched:
 
 ``` r
 
-el_calendar("cal", value = "2026-03-15", slots = list(
-  dateCell = template(
-    htmltools::HTML(paste0(
-      "<div>{{ data.day.slice(8) }}",
-      "<b v-if=\"data.day.slice(8) === '15'\" style=\"color:#F56C6C\">",
-      " due</b></div>")),
-    slot = "dateCell", scope = "{date, data}"
+el_calendar(
+  "cal",
+  value = "2026-03-15",
+  slots = list(
+    dateCell = template(
+      htmltools::HTML(paste0(
+        "<div>{{ data.day.slice(8) }}",
+        "<b v-if=\"data.day.slice(8) === '15'\" style=\"color:#F56C6C\">",
+        " due</b></div>"
+      )),
+      slot = "dateCell",
+      scope = "{date, data}"
+    )
   )
-))
+)
 ```
 
 Filling a slot replaces what Element put there, default and all.
@@ -355,8 +408,12 @@ a slot, a table `cell`, a wrapper’s trigger.
 ``` r
 
 # The tooltip's instance compiles the raw button it wraps
-el_tooltip("hint", el$button(type = "primary", "Markup only"), content = "No input")
-el_button("save", "A component", type = "primary")   # reports input$save
+el_tooltip(
+  "hint",
+  el$button(type = "primary", "Markup only"),
+  content = "No input"
+)
+el_button("save", "A component", type = "primary") # reports input$save
 ```
 
 Placed at the top level of a page, the same `el$button()` is never
@@ -374,10 +431,12 @@ exported for wrapping anything not covered here, or covered differently:
 
 initials <- function(id, name, size = 48) {
   el_widget(
-    id     = id,
+    id = id,
     markup = el$avatar(":size" = "size", "{{ letters }}"),
-    data   = list(size = size, letters = paste(substr(strsplit(name, " ")[[1]], 1, 1),
-                                               collapse = "")),
+    data = list(
+      size = size,
+      letters = paste(substr(strsplit(name, " ")[[1]], 1, 1), collapse = "")
+    ),
     dependency = element_plus_dependency()
   )
 }
@@ -412,13 +471,25 @@ number inputs, reported as one value:
 price_range_input <- function(id, value = c(0, 100), min = 0, max = 1000) {
   el_widget(
     id = id,
-    markup = tags$div(style = "display: flex; align-items: center; gap: 8px",
-      el$input_number("v-model" = "range[0]", ":min" = "min", ":max" = "range[1]",
-                      "controls-position" = "right", size = "small"),
+    markup = tags$div(
+      style = "display: flex; align-items: center; gap: 8px",
+      el$input_number(
+        "v-model" = "range[0]",
+        ":min" = "min",
+        ":max" = "range[1]",
+        "controls-position" = "right",
+        size = "small"
+      ),
       tags$span("to"),
-      el$input_number("v-model" = "range[1]", ":min" = "range[0]", ":max" = "max",
-                      "controls-position" = "right", size = "small")),
-    data   = list(range = as.list(value), min = min, max = max),
+      el$input_number(
+        "v-model" = "range[1]",
+        ":min" = "range[0]",
+        ":max" = "max",
+        "controls-position" = "right",
+        size = "small"
+      )
+    ),
+    data = list(range = as.list(value), min = min, max = max),
     report = c(range = id),
     dependency = element_plus_dependency()
   )

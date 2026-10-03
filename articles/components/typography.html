@@ -194,9 +194,22 @@ different platforms.</p>
 </h2>
 <p>Element Plus’s font stack, as the page draws it.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span>style <span class="op">=</span> <span class="st">"display: grid; gap: 12px"</span>,</span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Helvetica Neue"</span>, <span class="st">"Helvetica"</span>, <span class="st">"PingFang SC"</span>, <span class="st">"Hiragino Sans GB"</span>, <span class="st">"Microsoft YaHei"</span>, <span class="st">"Arial"</span><span class="op">)</span>,</span>
-<span>         <span class="kw">function</span><span class="op">(</span><span class="va">f</span><span class="op">)</span> <span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span>style <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sprintf.html" class="external-link">sprintf</a></span><span class="op">(</span><span class="st">"font-family: '%s'; font-size: 18px"</span>, <span class="va">f</span><span class="op">)</span>, <span class="va">f</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span></span>
+<span>  style <span class="op">=</span> <span class="st">"display: grid; gap: 12px"</span>,</span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply</a></span><span class="op">(</span></span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span>
+<span>      <span class="st">"Helvetica Neue"</span>,</span>
+<span>      <span class="st">"Helvetica"</span>,</span>
+<span>      <span class="st">"PingFang SC"</span>,</span>
+<span>      <span class="st">"Hiragino Sans GB"</span>,</span>
+<span>      <span class="st">"Microsoft YaHei"</span>,</span>
+<span>      <span class="st">"Arial"</span></span>
+<span>    <span class="op">)</span>,</span>
+<span>    <span class="kw">function</span><span class="op">(</span><span class="va">f</span><span class="op">)</span> <span class="op">{</span></span>
+<span>      <span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span>style <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sprintf.html" class="external-link">sprintf</a></span><span class="op">(</span><span class="st">"font-family: '%s'; font-size: 18px"</span>, <span class="va">f</span><span class="op">)</span>, <span class="va">f</span><span class="op">)</span></span>
+<span>    <span class="op">}</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
   <div style="display: grid; gap: 12px">
     <div style="font-family: 'Helvetica Neue'; font-size: 18px">Helvetica Neue</div>
@@ -212,16 +225,23 @@ different platforms.</p>
 <h2 id="font-convention">Font Convention<a class="anchor" aria-label="anchor" href="#font-convention"></a>
 </h2>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">row</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">level</span>, <span class="va">size</span>, <span class="va">var</span><span class="op">)</span> <span class="va">tags</span><span class="op">$</span><span class="fu">tr</span><span class="op">(</span><span class="va">tags</span><span class="op">$</span><span class="fu">td</span><span class="op">(</span><span class="va">level</span><span class="op">)</span>, <span class="va">tags</span><span class="op">$</span><span class="fu">td</span><span class="op">(</span><span class="va">size</span><span class="op">)</span>,</span>
-<span>  <span class="va">tags</span><span class="op">$</span><span class="fu">td</span><span class="op">(</span>style <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sprintf.html" class="external-link">sprintf</a></span><span class="op">(</span><span class="st">"font-size: var(%s)"</span>, <span class="va">var</span><span class="op">)</span>, <span class="st">"Build with Element"</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="va">tags</span><span class="op">$</span><span class="fu">table</span><span class="op">(</span>style <span class="op">=</span> <span class="st">"border-spacing: 20px 10px"</span>,</span>
+<code class="sourceCode R"><span><span class="va">row</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">level</span>, <span class="va">size</span>, <span class="va">var</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="va">tags</span><span class="op">$</span><span class="fu">tr</span><span class="op">(</span></span>
+<span>    <span class="va">tags</span><span class="op">$</span><span class="fu">td</span><span class="op">(</span><span class="va">level</span><span class="op">)</span>,</span>
+<span>    <span class="va">tags</span><span class="op">$</span><span class="fu">td</span><span class="op">(</span><span class="va">size</span><span class="op">)</span>,</span>
+<span>    <span class="va">tags</span><span class="op">$</span><span class="fu">td</span><span class="op">(</span>style <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sprintf.html" class="external-link">sprintf</a></span><span class="op">(</span><span class="st">"font-size: var(%s)"</span>, <span class="va">var</span><span class="op">)</span>, <span class="st">"Build with Element"</span><span class="op">)</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">}</span></span>
+<span><span class="va">tags</span><span class="op">$</span><span class="fu">table</span><span class="op">(</span></span>
+<span>  style <span class="op">=</span> <span class="st">"border-spacing: 20px 10px"</span>,</span>
 <span>  <span class="va">tags</span><span class="op">$</span><span class="fu">tr</span><span class="op">(</span><span class="va">tags</span><span class="op">$</span><span class="fu">th</span><span class="op">(</span><span class="st">"Level"</span><span class="op">)</span>, <span class="va">tags</span><span class="op">$</span><span class="fu">th</span><span class="op">(</span><span class="st">"Font Size"</span><span class="op">)</span>, <span class="va">tags</span><span class="op">$</span><span class="fu">th</span><span class="op">(</span><span class="st">"Demo"</span><span class="op">)</span><span class="op">)</span>,</span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/row.html" class="external-link">row</a></span><span class="op">(</span><span class="st">"Supplementary text"</span>, <span class="st">"12px Extra Small"</span>, <span class="st">"--el-font-size-extra-small"</span><span class="op">)</span>,</span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/row.html" class="external-link">row</a></span><span class="op">(</span><span class="st">"Body (small)"</span>, <span class="st">"13px Small"</span>, <span class="st">"--el-font-size-small"</span><span class="op">)</span>,</span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/row.html" class="external-link">row</a></span><span class="op">(</span><span class="st">"Body"</span>, <span class="st">"14px Base"</span>, <span class="st">"--el-font-size-base"</span><span class="op">)</span>,</span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/row.html" class="external-link">row</a></span><span class="op">(</span><span class="st">"Small Title"</span>, <span class="st">"16px Medium"</span>, <span class="st">"--el-font-size-medium"</span><span class="op">)</span>,</span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/row.html" class="external-link">row</a></span><span class="op">(</span><span class="st">"Title"</span>, <span class="st">"18px Large"</span>, <span class="st">"--el-font-size-large"</span><span class="op">)</span>,</span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/row.html" class="external-link">row</a></span><span class="op">(</span><span class="st">"Main Title"</span>, <span class="st">"20px Extra Large"</span>, <span class="st">"--el-font-size-extra-large"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/row.html" class="external-link">row</a></span><span class="op">(</span><span class="st">"Main Title"</span>, <span class="st">"20px Extra Large"</span>, <span class="st">"--el-font-size-extra-large"</span><span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
   <table style="border-spacing: 20px 10px" class="table">
 <tr>
@@ -266,12 +286,26 @@ different platforms.</p>
 <h2 id="font-line-height">Font Line Height<a class="anchor" aria-label="anchor" href="#font-line-height"></a>
 </h2>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">lines</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"line-height: 1"</span> <span class="op">=</span> <span class="st">"1"</span>, <span class="st">"line-height: 1.3"</span> <span class="op">=</span> <span class="st">"1.3"</span>, <span class="st">"line-height: 1.5"</span> <span class="op">=</span> <span class="st">"1.5"</span>,</span>
-<span>           <span class="st">"line-height: 1.7"</span> <span class="op">=</span> <span class="st">"1.7"</span><span class="op">)</span></span>
-<span><span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span>style <span class="op">=</span> <span class="st">"display: flex; gap: 24px"</span>,</span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/funprog.html" class="external-link">Map</a></span><span class="op">(</span><span class="kw">function</span><span class="op">(</span><span class="va">lab</span>, <span class="va">lh</span><span class="op">)</span> <span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span>style <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sprintf.html" class="external-link">sprintf</a></span><span class="op">(</span><span class="st">"line-height: %s; width: 160px"</span>, <span class="va">lh</span><span class="op">)</span>,</span>
-<span>    <span class="va">tags</span><span class="op">$</span><span class="fu">b</span><span class="op">(</span><span class="va">lab</span><span class="op">)</span>, <span class="va">tags</span><span class="op">$</span><span class="fu">p</span><span class="op">(</span><span class="st">"Build with Element Plus, a component library for developers."</span><span class="op">)</span><span class="op">)</span>,</span>
-<span>    <span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">lines</span><span class="op">)</span>, <span class="va">lines</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">lines</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span>
+<span>  <span class="st">"line-height: 1"</span> <span class="op">=</span> <span class="st">"1"</span>,</span>
+<span>  <span class="st">"line-height: 1.3"</span> <span class="op">=</span> <span class="st">"1.3"</span>,</span>
+<span>  <span class="st">"line-height: 1.5"</span> <span class="op">=</span> <span class="st">"1.5"</span>,</span>
+<span>  <span class="st">"line-height: 1.7"</span> <span class="op">=</span> <span class="st">"1.7"</span></span>
+<span><span class="op">)</span></span>
+<span><span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span></span>
+<span>  style <span class="op">=</span> <span class="st">"display: flex; gap: 24px"</span>,</span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/funprog.html" class="external-link">Map</a></span><span class="op">(</span></span>
+<span>    <span class="kw">function</span><span class="op">(</span><span class="va">lab</span>, <span class="va">lh</span><span class="op">)</span> <span class="op">{</span></span>
+<span>      <span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span></span>
+<span>        style <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sprintf.html" class="external-link">sprintf</a></span><span class="op">(</span><span class="st">"line-height: %s; width: 160px"</span>, <span class="va">lh</span><span class="op">)</span>,</span>
+<span>        <span class="va">tags</span><span class="op">$</span><span class="fu">b</span><span class="op">(</span><span class="va">lab</span><span class="op">)</span>,</span>
+<span>        <span class="va">tags</span><span class="op">$</span><span class="fu">p</span><span class="op">(</span><span class="st">"Build with Element Plus, a component library for developers."</span><span class="op">)</span></span>
+<span>      <span class="op">)</span></span>
+<span>    <span class="op">}</span>,</span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">lines</span><span class="op">)</span>,</span>
+<span>    <span class="va">lines</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
   <div style="display: flex; gap: 24px">
     <div style="line-height: 1; width: 160px">

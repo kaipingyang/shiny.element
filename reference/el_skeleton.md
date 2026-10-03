@@ -75,8 +75,7 @@ A Shiny UI element.
 ## Examples
 
 ``` r
-el_skeleton("report", rows = 4, animated = TRUE,
-            shiny::tableOutput("summary"))
+el_skeleton("report", rows = 4, animated = TRUE, shiny::tableOutput("summary"))
 #> <div id="report" data-shiny-vue style="display: contents">
 #>   <script type="text/x-template" data-shiny-vue-template><div id="report_container" style="display: contents">
 #>   <el-skeleton :loading="skLoading" :rows="skRows === null ? undefined : skRows" :animated="skAnimated === null ? undefined : skAnimated" :count="skCount === null ? undefined : skCount" :throttle="skThrottle === null ? undefined : skThrottle">

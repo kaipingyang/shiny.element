@@ -182,7 +182,8 @@ el_image("photo", src = "a.png", fit = "cover", lazy = TRUE)
 #> </div>
 
 # Click to open a gallery
-el_image("photo",
+el_image(
+  "photo",
   src = "a.png",
   preview_src_list = c("a.png", "b.png", "c.png")
 )

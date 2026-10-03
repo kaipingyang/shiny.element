@@ -89,11 +89,16 @@ A Shiny UI element.
 ## Examples
 
 ``` r
-el_descriptions("user", title = "Account", border = TRUE, items = list(
-  list(label = "Name", content = "Ada Lovelace"),
-  list(label = "Plan", content = el_tag("plan", "Pro", type = "success")),
-  list(label = "Address", content = "12 St James's Square, London", span = 2)
-))
+el_descriptions(
+  "user",
+  title = "Account",
+  border = TRUE,
+  items = list(
+    list(label = "Name", content = "Ada Lovelace"),
+    list(label = "Plan", content = el_tag("plan", "Pro", type = "success")),
+    list(label = "Address", content = "12 St James's Square, London", span = 2)
+  )
+)
 #> <div id="user" data-shiny-vue style="display: contents">
 #>   <script type="text/x-template" data-shiny-vue-template><div id="user_container" style="display: contents">
 #>   <el-descriptions :title="dTitle === null ? undefined : dTitle" :extra="dExtra === null ? undefined : dExtra" :column="dColumn === null ? undefined : dColumn" :direction="dDirection === null ? undefined : dDirection" :border="dBorder === null ? undefined : dBorder" :size="dSize === null ? undefined : dSize" :label-width="dLabelWidth === null ? undefined : dLabelWidth">

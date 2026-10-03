@@ -249,7 +249,7 @@ class names for the badge.</p></dd>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   &lt;/div&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   &lt;sup class="el-badge__content el-badge__content--danger is-fixed"&gt;5&lt;/sup&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> &lt;/div&gt;</span>
-<span class="r-in"><span><span class="fu">el_badge</span><span class="op">(</span><span class="fu"><a href="el_button.html">el_button</a></span><span class="op">(</span><span class="st">"btn2"</span>, <span class="st">"Alerts"</span><span class="op">)</span>,   value <span class="op">=</span> <span class="fl">200</span>, max <span class="op">=</span> <span class="fl">99</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">el_badge</span><span class="op">(</span><span class="fu"><a href="el_button.html">el_button</a></span><span class="op">(</span><span class="st">"btn2"</span>, <span class="st">"Alerts"</span><span class="op">)</span>, value <span class="op">=</span> <span class="fl">200</span>, max <span class="op">=</span> <span class="fl">99</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> &lt;div class="el-badge"&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   &lt;div id="btn2" data-shiny-vue style="display: contents"&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     &lt;script type="text/x-template" data-shiny-vue-template&gt;&lt;div id="btn2_container" style="display: contents"&gt;</span>
@@ -259,7 +259,7 @@ class names for the badge.</p></dd>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   &lt;/div&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   &lt;sup class="el-badge__content el-badge__content--danger is-fixed"&gt;99+&lt;/sup&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> &lt;/div&gt;</span>
-<span class="r-in"><span><span class="fu">el_badge</span><span class="op">(</span><span class="fu"><a href="el_button.html">el_button</a></span><span class="op">(</span><span class="st">"btn3"</span>, <span class="st">"Updates"</span><span class="op">)</span>,  is_dot <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">el_badge</span><span class="op">(</span><span class="fu"><a href="el_button.html">el_button</a></span><span class="op">(</span><span class="st">"btn3"</span>, <span class="st">"Updates"</span><span class="op">)</span>, is_dot <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> &lt;div class="el-badge"&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   &lt;div id="btn3" data-shiny-vue style="display: contents"&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     &lt;script type="text/x-template" data-shiny-vue-template&gt;&lt;div id="btn3_container" style="display: contents"&gt;</span>
@@ -280,7 +280,6 @@ class names for the badge.</p></dd>
 <span class="r-out co"><span class="r-pr">#&gt;</span> &lt;/div&gt;&lt;/script&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   &lt;script type="application/json" data-shiny-vue-options&gt;{"options":{"data":{"badgeValue":3,"badgeMax":null,"badgeIsDot":false,"badgeHidden":false,"badgeType":null,"label":"Inbox","type":"default","size":null,"plain":false,"round":false,"circle":false,"loading":false,"disabled":false,"native_type":"button","icon":null,"count":0,"autofocus":false,"autoInsertSpace":null,"bg":null,"color":null,"dark":null,"dashed":null,"link":null,"loadingIcon":null,"tag":null,"text":null,"badgeShowZero":true,"badgeColor":null,"badgeOffset":null,"badgeBadgeStyle":null,"badgeBadgeClass":null},"methods":{"handleClick":"function() { if (this.disabled || this.loading) return; this.count++; window.Shiny &amp;&amp; Shiny.setInputValue &amp;&amp; Shiny.setInputValue('inbox:shiny.action', this.count); }"},"mounted":"function() { var self = this; var send = function() { window.Shiny &amp;&amp; Shiny.setInputValue &amp;&amp; Shiny.setInputValue(\"inbox:shiny.action\", self.count); }; if (window.Shiny &amp;&amp; Shiny.shinyapp &amp;&amp; typeof Shiny.shinyapp.isConnected === 'function' &amp;&amp; Shiny.shinyapp.isConnected()) { send(); } else if (window.jQuery) { jQuery(document).one('shiny:connected', send); } var prev = self._elReport; self._elReport = function() { if (prev) prev(); self.$nextTick(send); }; }"},"input":null,"rate":null,"type":null,"evals":["options.methods.handleClick","options.mounted"]}&lt;/script&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> &lt;/div&gt;</span>
-<span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>

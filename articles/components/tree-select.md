@@ -13,13 +13,36 @@ value picked.
 ``` r
 
 nodes <- list(
-  list(value = "1", label = "Level one 1", children = list(
-    list(value = "1-1", label = "Level two 1-1", children = list(
-      list(value = "1-1-1", label = "Level three 1-1-1"))))),
-  list(value = "2", label = "Level one 2", children = list(
-    list(value = "2-1", label = "Level two 2-1"), list(value = "2-2", label = "Level two 2-2"))),
-  list(value = "3", label = "Level one 3", children = list(
-    list(value = "3-1", label = "Level two 3-1"), list(value = "3-2", label = "Level two 3-2"))))
+  list(
+    value = "1",
+    label = "Level one 1",
+    children = list(
+      list(
+        value = "1-1",
+        label = "Level two 1-1",
+        children = list(
+          list(value = "1-1-1", label = "Level three 1-1-1")
+        )
+      )
+    )
+  ),
+  list(
+    value = "2",
+    label = "Level one 2",
+    children = list(
+      list(value = "2-1", label = "Level two 2-1"),
+      list(value = "2-2", label = "Level two 2-2")
+    )
+  ),
+  list(
+    value = "3",
+    label = "Level one 3",
+    children = list(
+      list(value = "3-1", label = "Level two 3-1"),
+      list(value = "3-2", label = "Level two 3-2")
+    )
+  )
+)
 el_tree_select("ts_basic", data = nodes, width = "240px")
 ```
 
@@ -39,15 +62,43 @@ otherwise only leaf nodes are supported.
 ``` r
 
 nodes <- list(
-  list(value = "1", label = "Level one 1", children = list(
-    list(value = "1-1", label = "Level two 1-1", children = list(
-      list(value = "1-1-1", label = "Level three 1-1-1"))))),
-  list(value = "2", label = "Level one 2", children = list(
-    list(value = "2-1", label = "Level two 2-1"), list(value = "2-2", label = "Level two 2-2"))))
+  list(
+    value = "1",
+    label = "Level one 1",
+    children = list(
+      list(
+        value = "1-1",
+        label = "Level two 1-1",
+        children = list(
+          list(value = "1-1-1", label = "Level three 1-1-1")
+        )
+      )
+    )
+  ),
+  list(
+    value = "2",
+    label = "Level one 2",
+    children = list(
+      list(value = "2-1", label = "Level two 2-1"),
+      list(value = "2-2", label = "Level two 2-2")
+    )
+  )
+)
 tagList(
-  el_tree_select("ts_strict", data = nodes, check_strictly = TRUE, width = "240px"),
-  el_tree_select("ts_strict_box", data = nodes, check_strictly = TRUE, show_checkbox = TRUE,
-                 width = "240px"))
+  el_tree_select(
+    "ts_strict",
+    data = nodes,
+    check_strictly = TRUE,
+    width = "240px"
+  ),
+  el_tree_select(
+    "ts_strict_box",
+    data = nodes,
+    check_strictly = TRUE,
+    show_checkbox = TRUE,
+    width = "240px"
+  )
+)
 ```
 
 > **Warning**
@@ -62,16 +113,45 @@ Multiple selection using clicks or checkbox.
 ``` r
 
 nodes <- list(
-  list(value = "1", label = "Level one 1", children = list(
-    list(value = "1-1", label = "Level two 1-1", children = list(
-      list(value = "1-1-1", label = "Level three 1-1-1"))))),
-  list(value = "2", label = "Level one 2", children = list(
-    list(value = "2-1", label = "Level two 2-1"), list(value = "2-2", label = "Level two 2-2"))))
+  list(
+    value = "1",
+    label = "Level one 1",
+    children = list(
+      list(
+        value = "1-1",
+        label = "Level two 1-1",
+        children = list(
+          list(value = "1-1-1", label = "Level three 1-1-1")
+        )
+      )
+    )
+  ),
+  list(
+    value = "2",
+    label = "Level one 2",
+    children = list(
+      list(value = "2-1", label = "Level two 2-1"),
+      list(value = "2-2", label = "Level two 2-2")
+    )
+  )
+)
 tagList(
-  el_tree_select("ts_multi", data = nodes, multiple = TRUE, render_after_expand = FALSE,
-                 width = "240px"),
-  el_tree_select("ts_multi_box", data = nodes, multiple = TRUE, render_after_expand = FALSE,
-                 show_checkbox = TRUE, width = "240px"))
+  el_tree_select(
+    "ts_multi",
+    data = nodes,
+    multiple = TRUE,
+    render_after_expand = FALSE,
+    width = "240px"
+  ),
+  el_tree_select(
+    "ts_multi_box",
+    data = nodes,
+    multiple = TRUE,
+    render_after_expand = FALSE,
+    show_checkbox = TRUE,
+    width = "240px"
+  )
+)
 ```
 
 ## Disabled Selection
@@ -83,10 +163,22 @@ A node with `disabled = TRUE` cannot be picked.
 ``` r
 
 nodes <- list(
-  list(value = "1", label = "Level one 1", children = list(
-    list(value = "1-1", label = "Level two 1-1", disabled = TRUE))),
-  list(value = "2", label = "Level one 2", children = list(
-    list(value = "2-1", label = "Level two 2-1"), list(value = "2-2", label = "Level two 2-2"))))
+  list(
+    value = "1",
+    label = "Level one 1",
+    children = list(
+      list(value = "1-1", label = "Level two 1-1", disabled = TRUE)
+    )
+  ),
+  list(
+    value = "2",
+    label = "Level one 2",
+    children = list(
+      list(value = "2-1", label = "Level two 2-1"),
+      list(value = "2-2", label = "Level two 2-2")
+    )
+  )
+)
 el_tree_select("ts_disabled", data = nodes, width = "240px")
 ```
 
@@ -99,11 +191,28 @@ method for data node.
 ``` r
 
 nodes <- list(
-  list(value = "1", label = "Level one 1", children = list(
-    list(value = "1-1", label = "Level two 1-1", children = list(
-      list(value = "1-1-1", label = "Level three 1-1-1"))))),
-  list(value = "2", label = "Level one 2", children = list(
-    list(value = "2-1", label = "Level two 2-1"), list(value = "2-2", label = "Level two 2-2"))))
+  list(
+    value = "1",
+    label = "Level one 1",
+    children = list(
+      list(
+        value = "1-1",
+        label = "Level two 1-1",
+        children = list(
+          list(value = "1-1-1", label = "Level three 1-1-1")
+        )
+      )
+    )
+  ),
+  list(
+    value = "2",
+    label = "Level one 2",
+    children = list(
+      list(value = "2-1", label = "Level two 2-1"),
+      list(value = "2-2", label = "Level two 2-2")
+    )
+  )
+)
 el_tree_select("ts_filter", data = nodes, filterable = TRUE, width = "240px")
 ```
 
@@ -116,13 +225,36 @@ The default slot, scoped with `data`, draws each node.
 ``` r
 
 nodes <- list(
-  list(value = "1", label = "Level one 1", children = list(
-    list(value = "1-1", label = "Level two 1-1"))),
-  list(value = "2", label = "Level one 2", children = list(
-    list(value = "2-1", label = "Level two 2-1"), list(value = "2-2", label = "Level two 2-2"))))
-el_tree_select("ts_slots", data = nodes, width = "240px", slots = list(default = template(
-  tags$span("{{ data.label }}", tags$span(style = "color: gray", "({{ data.value }})")),
-  scope = "{ data }")))
+  list(
+    value = "1",
+    label = "Level one 1",
+    children = list(
+      list(value = "1-1", label = "Level two 1-1")
+    )
+  ),
+  list(
+    value = "2",
+    label = "Level one 2",
+    children = list(
+      list(value = "2-1", label = "Level two 2-1"),
+      list(value = "2-2", label = "Level two 2-2")
+    )
+  )
+)
+el_tree_select(
+  "ts_slots",
+  data = nodes,
+  width = "240px",
+  slots = list(
+    default = template(
+      tags$span(
+        "{{ data.label }}",
+        tags$span(style = "color: gray", "({{ data.value }})")
+      ),
+      scope = "{ data }"
+    )
+  )
+)
 ```
 
 ## LazyLoad
@@ -153,10 +285,25 @@ With `node_key`, two nodes may share a label and the value names one.
 ``` r
 
 nodes <- list(
-  list(id = 1, label = "Level one 1", children = list(list(id = 3, label = "Level two 1-1"))),
-  list(id = 2, label = "Level one 2", children = list(list(id = 4, label = "Level two 1-1"))))
-el_tree_select("ts_key", data = nodes, node_key = "id", value = 4, width = "240px",
-               props = list(label = "label", children = "children"))
+  list(
+    id = 1,
+    label = "Level one 1",
+    children = list(list(id = 3, label = "Level two 1-1"))
+  ),
+  list(
+    id = 2,
+    label = "Level one 2",
+    children = list(list(id = 4, label = "Level two 1-1"))
+  )
+)
+el_tree_select(
+  "ts_key",
+  data = nodes,
+  node_key = "id",
+  value = 4,
+  width = "240px",
+  props = list(label = "label", children = "children")
+)
 ```
 
 ## API

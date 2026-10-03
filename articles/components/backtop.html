@@ -193,14 +193,16 @@
 </h2>
 <p>Scroll down to see the bottom-right button.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rstudio.github.io/htmltools/reference/tagList.html" class="external-link">tagList</a></span><span class="op">(</span><span class="st">"Scroll down to see the bottom-right button."</span>,</span>
-<span>        <span class="fu"><a href="../../reference/el_backtop.html">el_backtop</a></span><span class="op">(</span>right <span class="op">=</span> <span class="fl">100</span>, bottom <span class="op">=</span> <span class="fl">100</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rstudio.github.io/htmltools/reference/tagList.html" class="external-link">tagList</a></span><span class="op">(</span></span>
+<span>  <span class="st">"Scroll down to see the bottom-right button."</span>,</span>
+<span>  <span class="fu"><a href="../../reference/el_backtop.html">el_backtop</a></span><span class="op">(</span>right <span class="op">=</span> <span class="fl">100</span>, bottom <span class="op">=</span> <span class="fl">100</span><span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
   Scroll down to see the bottom-right button.
-  <div id="basic-el_backtop_00ae4378-242c-455a-aa24-bb469d865bc2" data-shiny-vue style="display: contents">
-    <script type="text/x-template" data-shiny-vue-template><div id="basic-el_backtop_00ae4378-242c-455a-aa24-bb469d865bc2_container" style="display: contents">
+  <div id="basic-el_backtop_da94e1aa-bc72-46d7-94a2-c92d572e30e9" data-shiny-vue style="display: contents">
+    <script type="text/x-template" data-shiny-vue-template><div id="basic-el_backtop_da94e1aa-bc72-46d7-94a2-c92d572e30e9_container" style="display: contents">
   <el-backtop :target="target === null ? undefined : target" :visibility-height="visibilityHeight === null ? undefined : visibilityHeight" :right="right === null ? undefined : right" :bottom="bottom === null ? undefined : bottom" @click="elEmitClick"></el-backtop>
-</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"target":null,"visibilityHeight":null,"right":100,"bottom":100},"methods":{"elEmitClick":"function() { window.shinyVue.emit('basic-el_backtop_00ae4378-242c-455a-aa24-bb469d865bc2', 'click', arguments); }"}},"input":null,"rate":null,"type":null,"evals":["options.methods.elEmitClick"]}</script>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"target":null,"visibilityHeight":null,"right":100,"bottom":100},"methods":{"elEmitClick":"function() { window.shinyVue.emit('basic-el_backtop_da94e1aa-bc72-46d7-94a2-c92d572e30e9', 'click', arguments); }"}},"input":null,"rate":null,"type":null,"evals":["options.methods.elEmitClick"]}</script>
 </div>
 </div>
 </div>
@@ -209,19 +211,28 @@
 </h2>
 <p>Display area is 40px * 40px.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rstudio.github.io/htmltools/reference/tagList.html" class="external-link">tagList</a></span><span class="op">(</span><span class="st">"Scroll down to see the bottom-right button."</span>,</span>
-<span>  <span class="fu"><a href="../../reference/el_backtop.html">el_backtop</a></span><span class="op">(</span>bottom <span class="op">=</span> <span class="fl">100</span>, content <span class="op">=</span> <span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span>style <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span></span>
-<span>    <span class="st">"height: 100%; width: 100%; background-color: var(--el-bg-color-overlay);"</span>,</span>
-<span>    <span class="st">"box-shadow: var(--el-box-shadow-lighter); text-align: center; line-height: 40px;"</span>,</span>
-<span>    <span class="st">"color: #1989fa"</span><span class="op">)</span>, <span class="st">"UP"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rstudio.github.io/htmltools/reference/tagList.html" class="external-link">tagList</a></span><span class="op">(</span></span>
+<span>  <span class="st">"Scroll down to see the bottom-right button."</span>,</span>
+<span>  <span class="fu"><a href="../../reference/el_backtop.html">el_backtop</a></span><span class="op">(</span></span>
+<span>    bottom <span class="op">=</span> <span class="fl">100</span>,</span>
+<span>    content <span class="op">=</span> <span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span></span>
+<span>      style <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span></span>
+<span>        <span class="st">"height: 100%; width: 100%; background-color: var(--el-bg-color-overlay);"</span>,</span>
+<span>        <span class="st">"box-shadow: var(--el-box-shadow-lighter); text-align: center; line-height: 40px;"</span>,</span>
+<span>        <span class="st">"color: #1989fa"</span></span>
+<span>      <span class="op">)</span>,</span>
+<span>      <span class="st">"UP"</span></span>
+<span>    <span class="op">)</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
   Scroll down to see the bottom-right button.
-  <div id="custom-el_backtop_1c93005e-2c84-4728-bef9-3a771fa725e4" data-shiny-vue style="display: contents">
-    <script type="text/x-template" data-shiny-vue-template><div id="custom-el_backtop_1c93005e-2c84-4728-bef9-3a771fa725e4_container" style="display: contents">
+  <div id="custom-el_backtop_ee3b94b8-80f7-4f66-afab-f8cc6c2dab7d" data-shiny-vue style="display: contents">
+    <script type="text/x-template" data-shiny-vue-template><div id="custom-el_backtop_ee3b94b8-80f7-4f66-afab-f8cc6c2dab7d_container" style="display: contents">
   <el-backtop :target="target === null ? undefined : target" :visibility-height="visibilityHeight === null ? undefined : visibilityHeight" :right="right === null ? undefined : right" :bottom="bottom === null ? undefined : bottom" @click="elEmitClick">
     <div style="height: 100%; width: 100%; background-color: var(--el-bg-color-overlay); box-shadow: var(--el-box-shadow-lighter); text-align: center; line-height: 40px; color: #1989fa">UP</div>
   </el-backtop>
-</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"target":null,"visibilityHeight":null,"right":null,"bottom":100},"methods":{"elEmitClick":"function() { window.shinyVue.emit('custom-el_backtop_1c93005e-2c84-4728-bef9-3a771fa725e4', 'click', arguments); }"}},"input":null,"rate":null,"type":null,"evals":["options.methods.elEmitClick"]}</script>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"target":null,"visibilityHeight":null,"right":null,"bottom":100},"methods":{"elEmitClick":"function() { window.shinyVue.emit('custom-el_backtop_ee3b94b8-80f7-4f66-afab-f8cc6c2dab7d', 'click', arguments); }"}},"input":null,"rate":null,"type":null,"evals":["options.methods.elEmitClick"]}</script>
 </div>
 </div>
 </div>

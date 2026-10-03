@@ -126,7 +126,8 @@ Both are event inputs, so read them with
 ## Examples
 
 ``` r
-el_popconfirm("del",
+el_popconfirm(
+  "del",
   reference = el$button(type = "danger", "Delete"),
   title = "Delete this row?"
 )
@@ -146,9 +147,11 @@ el_popconfirm("del",
 if (interactive()) {
   library(shiny)
   ui <- el_page(
-    el_popconfirm("del",
+    el_popconfirm(
+      "del",
       reference = el$button(type = "danger", "Delete"),
-      title = "Delete this row?")
+      title = "Delete this row?"
+    )
   )
   server <- function(input, output, session) {
     observeEvent(input$del_confirm, {

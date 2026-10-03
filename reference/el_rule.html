@@ -276,10 +276,14 @@ checks, such as <code>function(v) { return v.trim(); }</code>.</p></dd>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "blur"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span><span class="co"># Element's custom validator</span></span></span>
-<span class="r-in"><span><span class="fu">el_rule</span><span class="op">(</span>validator <span class="op">=</span> <span class="fu"><a href="JS.html">JS</a></span><span class="op">(</span></span></span>
-<span class="r-in"><span>  <span class="st">"function(rule, value, callback) {"</span>,</span></span>
-<span class="r-in"><span>  <span class="st">"  value % 2 === 0 ? callback() : callback(new Error('An even number'));"</span>,</span></span>
-<span class="r-in"><span>  <span class="st">"}"</span><span class="op">)</span>, trigger <span class="op">=</span> <span class="st">"change"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">el_rule</span><span class="op">(</span></span></span>
+<span class="r-in"><span>  validator <span class="op">=</span> <span class="fu"><a href="JS.html">JS</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>    <span class="st">"function(rule, value, callback) {"</span>,</span></span>
+<span class="r-in"><span>    <span class="st">"  value % 2 === 0 ? callback() : callback(new Error('An even number'));"</span>,</span></span>
+<span class="r-in"><span>    <span class="st">"}"</span></span></span>
+<span class="r-in"><span>  <span class="op">)</span>,</span></span>
+<span class="r-in"><span>  trigger <span class="op">=</span> <span class="st">"change"</span></span></span>
+<span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $validator</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "function(rule, value, callback) {\n  value % 2 === 0 ? callback() : callback(new Error('An even number'));\n}"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> attr(,"class")</span>

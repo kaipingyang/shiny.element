@@ -200,9 +200,13 @@ to display separated with a comma. Pagination elements are:
 determine page size) and <code>-&gt;</code>(every element after this
 symbol will be pulled to the right).</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span>style <span class="op">=</span> <span class="st">"display: grid; gap: 16px"</span>,</span>
-<span>  <span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span><span class="st">"When you have few pages"</span><span class="op">)</span>, <span class="fu"><a href="../../reference/el_pagination.html">el_pagination</a></span><span class="op">(</span><span class="st">"pg1"</span>, layout <span class="op">=</span> <span class="st">"prev, pager, next"</span>, total <span class="op">=</span> <span class="fl">50</span><span class="op">)</span>,</span>
-<span>  <span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span><span class="st">"When you have more than 7 pages"</span><span class="op">)</span>, <span class="fu"><a href="../../reference/el_pagination.html">el_pagination</a></span><span class="op">(</span><span class="st">"pg2"</span>, layout <span class="op">=</span> <span class="st">"prev, pager, next"</span>, total <span class="op">=</span> <span class="fl">1000</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span></span>
+<span>  style <span class="op">=</span> <span class="st">"display: grid; gap: 16px"</span>,</span>
+<span>  <span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span><span class="st">"When you have few pages"</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="../../reference/el_pagination.html">el_pagination</a></span><span class="op">(</span><span class="st">"pg1"</span>, layout <span class="op">=</span> <span class="st">"prev, pager, next"</span>, total <span class="op">=</span> <span class="fl">50</span><span class="op">)</span>,</span>
+<span>  <span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span><span class="st">"When you have more than 7 pages"</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="../../reference/el_pagination.html">el_pagination</a></span><span class="op">(</span><span class="st">"pg2"</span>, layout <span class="op">=</span> <span class="st">"prev, pager, next"</span>, total <span class="op">=</span> <span class="fl">1000</span><span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
   <div style="display: grid; gap: 16px">
     <div>When you have few pages</div>
@@ -227,7 +231,13 @@ symbol will be pulled to the right).</p>
 than 7 pages. This can be configured with the <code>pager-count</code>
 attribute.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_pagination.html">el_pagination</a></span><span class="op">(</span><span class="st">"pg_pagers"</span>, page_size <span class="op">=</span> <span class="fl">20</span>, pager_count <span class="op">=</span> <span class="fl">11</span>, layout <span class="op">=</span> <span class="st">"prev, pager, next"</span>, total <span class="op">=</span> <span class="fl">1000</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_pagination.html">el_pagination</a></span><span class="op">(</span></span>
+<span>  <span class="st">"pg_pagers"</span>,</span>
+<span>  page_size <span class="op">=</span> <span class="fl">20</span>,</span>
+<span>  pager_count <span class="op">=</span> <span class="fl">11</span>,</span>
+<span>  layout <span class="op">=</span> <span class="st">"prev, pager, next"</span>,</span>
+<span>  total <span class="op">=</span> <span class="fl">1000</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
   <div id="number-of-pagers-pg_pagers" data-shiny-vue style="display: contents">
     <script type="text/x-template" data-shiny-vue-template><div id="number-of-pagers-pg_pagers_container" style="display: contents">
@@ -242,7 +252,12 @@ attribute.</p>
 <p>Set the <code>background</code> attribute and the buttons will have a
 background color.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_pagination.html">el_pagination</a></span><span class="op">(</span><span class="st">"pg_bg"</span>, background <span class="op">=</span> <span class="cn">TRUE</span>, layout <span class="op">=</span> <span class="st">"prev, pager, next"</span>, total <span class="op">=</span> <span class="fl">1000</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_pagination.html">el_pagination</a></span><span class="op">(</span></span>
+<span>  <span class="st">"pg_bg"</span>,</span>
+<span>  background <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  layout <span class="op">=</span> <span class="st">"prev, pager, next"</span>,</span>
+<span>  total <span class="op">=</span> <span class="fl">1000</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
   <div id="background-color-pg_bg" data-shiny-vue style="display: contents">
     <script type="text/x-template" data-shiny-vue-template><div id="background-color-pg_bg_container" style="display: contents">
@@ -258,9 +273,22 @@ background color.</p>
 <p>set size to change the <code>size</code>. Here is a demonstration of
 <code>small</code></p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span>style <span class="op">=</span> <span class="st">"display: grid; gap: 16px"</span>,</span>
-<span>  <span class="fu"><a href="../../reference/el_pagination.html">el_pagination</a></span><span class="op">(</span><span class="st">"pg_s1"</span>, size <span class="op">=</span> <span class="st">"small"</span>, layout <span class="op">=</span> <span class="st">"prev, pager, next"</span>, total <span class="op">=</span> <span class="fl">50</span><span class="op">)</span>,</span>
-<span>  <span class="fu"><a href="../../reference/el_pagination.html">el_pagination</a></span><span class="op">(</span><span class="st">"pg_s2"</span>, size <span class="op">=</span> <span class="st">"small"</span>, background <span class="op">=</span> <span class="cn">TRUE</span>, layout <span class="op">=</span> <span class="st">"prev, pager, next"</span>, total <span class="op">=</span> <span class="fl">50</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span></span>
+<span>  style <span class="op">=</span> <span class="st">"display: grid; gap: 16px"</span>,</span>
+<span>  <span class="fu"><a href="../../reference/el_pagination.html">el_pagination</a></span><span class="op">(</span></span>
+<span>    <span class="st">"pg_s1"</span>,</span>
+<span>    size <span class="op">=</span> <span class="st">"small"</span>,</span>
+<span>    layout <span class="op">=</span> <span class="st">"prev, pager, next"</span>,</span>
+<span>    total <span class="op">=</span> <span class="fl">50</span></span>
+<span>  <span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="../../reference/el_pagination.html">el_pagination</a></span><span class="op">(</span></span>
+<span>    <span class="st">"pg_s2"</span>,</span>
+<span>    size <span class="op">=</span> <span class="st">"small"</span>,</span>
+<span>    background <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>    layout <span class="op">=</span> <span class="st">"prev, pager, next"</span>,</span>
+<span>    total <span class="op">=</span> <span class="fl">50</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
   <div style="display: grid; gap: 16px">
     <div id="small-pagination-pg_s1" data-shiny-vue style="display: contents">
@@ -282,7 +310,12 @@ background color.</p>
 <p>When there is only one page, hide the pagination by setting the
 <code>hide-on-single-page</code> attribute.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_pagination.html">el_pagination</a></span><span class="op">(</span><span class="st">"pg_hide"</span>, hide_on_single_page <span class="op">=</span> <span class="cn">FALSE</span>, total <span class="op">=</span> <span class="fl">5</span>, layout <span class="op">=</span> <span class="st">"prev, pager, next"</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_pagination.html">el_pagination</a></span><span class="op">(</span></span>
+<span>  <span class="st">"pg_hide"</span>,</span>
+<span>  hide_on_single_page <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  total <span class="op">=</span> <span class="fl">5</span>,</span>
+<span>  layout <span class="op">=</span> <span class="st">"prev, pager, next"</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
   <div id="auto-hide-pagination-pg_hide" data-shiny-vue style="display: contents">
     <script type="text/x-template" data-shiny-vue-template><div id="auto-hide-pagination-pg_hide_container" style="display: contents">
@@ -303,15 +336,43 @@ integers, each of which represents a different page size in the
 e.g. <code>[100, 200, 300, 400]</code> indicates that the select will
 have four options: 100, 200, 300 or 400 items per page.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span>style <span class="op">=</span> <span class="st">"display: grid; gap: 16px"</span>,</span>
-<span>  <span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span><span class="st">"Total item count"</span><span class="op">)</span>, <span class="fu"><a href="../../reference/el_pagination.html">el_pagination</a></span><span class="op">(</span><span class="st">"pg_m1"</span>, current_page <span class="op">=</span> <span class="fl">5</span>, page_size <span class="op">=</span> <span class="fl">100</span>,</span>
-<span>    layout <span class="op">=</span> <span class="st">"total, prev, pager, next"</span>, total <span class="op">=</span> <span class="fl">1000</span><span class="op">)</span>,</span>
-<span>  <span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span><span class="st">"Change page size"</span><span class="op">)</span>, <span class="fu"><a href="../../reference/el_pagination.html">el_pagination</a></span><span class="op">(</span><span class="st">"pg_m2"</span>, current_page <span class="op">=</span> <span class="fl">5</span>, page_size <span class="op">=</span> <span class="fl">100</span>,</span>
-<span>    page_sizes <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">100</span>, <span class="fl">200</span>, <span class="fl">300</span>, <span class="fl">400</span><span class="op">)</span>, layout <span class="op">=</span> <span class="st">"sizes, prev, pager, next"</span>, total <span class="op">=</span> <span class="fl">1000</span><span class="op">)</span>,</span>
-<span>  <span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span><span class="st">"Jump to"</span><span class="op">)</span>, <span class="fu"><a href="../../reference/el_pagination.html">el_pagination</a></span><span class="op">(</span><span class="st">"pg_m3"</span>, current_page <span class="op">=</span> <span class="fl">5</span>, page_size <span class="op">=</span> <span class="fl">100</span>,</span>
-<span>    layout <span class="op">=</span> <span class="st">"prev, pager, next, jumper"</span>, total <span class="op">=</span> <span class="fl">1000</span><span class="op">)</span>,</span>
-<span>  <span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span><span class="st">"All combined"</span><span class="op">)</span>, <span class="fu"><a href="../../reference/el_pagination.html">el_pagination</a></span><span class="op">(</span><span class="st">"pg_m4"</span>, current_page <span class="op">=</span> <span class="fl">4</span>, page_size <span class="op">=</span> <span class="fl">100</span>,</span>
-<span>    page_sizes <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">100</span>, <span class="fl">200</span>, <span class="fl">300</span>, <span class="fl">400</span><span class="op">)</span>, layout <span class="op">=</span> <span class="st">"total, sizes, prev, pager, next, jumper"</span>, total <span class="op">=</span> <span class="fl">400</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span></span>
+<span>  style <span class="op">=</span> <span class="st">"display: grid; gap: 16px"</span>,</span>
+<span>  <span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span><span class="st">"Total item count"</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="../../reference/el_pagination.html">el_pagination</a></span><span class="op">(</span></span>
+<span>    <span class="st">"pg_m1"</span>,</span>
+<span>    current_page <span class="op">=</span> <span class="fl">5</span>,</span>
+<span>    page_size <span class="op">=</span> <span class="fl">100</span>,</span>
+<span>    layout <span class="op">=</span> <span class="st">"total, prev, pager, next"</span>,</span>
+<span>    total <span class="op">=</span> <span class="fl">1000</span></span>
+<span>  <span class="op">)</span>,</span>
+<span>  <span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span><span class="st">"Change page size"</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="../../reference/el_pagination.html">el_pagination</a></span><span class="op">(</span></span>
+<span>    <span class="st">"pg_m2"</span>,</span>
+<span>    current_page <span class="op">=</span> <span class="fl">5</span>,</span>
+<span>    page_size <span class="op">=</span> <span class="fl">100</span>,</span>
+<span>    page_sizes <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">100</span>, <span class="fl">200</span>, <span class="fl">300</span>, <span class="fl">400</span><span class="op">)</span>,</span>
+<span>    layout <span class="op">=</span> <span class="st">"sizes, prev, pager, next"</span>,</span>
+<span>    total <span class="op">=</span> <span class="fl">1000</span></span>
+<span>  <span class="op">)</span>,</span>
+<span>  <span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span><span class="st">"Jump to"</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="../../reference/el_pagination.html">el_pagination</a></span><span class="op">(</span></span>
+<span>    <span class="st">"pg_m3"</span>,</span>
+<span>    current_page <span class="op">=</span> <span class="fl">5</span>,</span>
+<span>    page_size <span class="op">=</span> <span class="fl">100</span>,</span>
+<span>    layout <span class="op">=</span> <span class="st">"prev, pager, next, jumper"</span>,</span>
+<span>    total <span class="op">=</span> <span class="fl">1000</span></span>
+<span>  <span class="op">)</span>,</span>
+<span>  <span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span><span class="st">"All combined"</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="../../reference/el_pagination.html">el_pagination</a></span><span class="op">(</span></span>
+<span>    <span class="st">"pg_m4"</span>,</span>
+<span>    current_page <span class="op">=</span> <span class="fl">4</span>,</span>
+<span>    page_size <span class="op">=</span> <span class="fl">100</span>,</span>
+<span>    page_sizes <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">100</span>, <span class="fl">200</span>, <span class="fl">300</span>, <span class="fl">400</span><span class="op">)</span>,</span>
+<span>    layout <span class="op">=</span> <span class="st">"total, sizes, prev, pager, next, jumper"</span>,</span>
+<span>    total <span class="op">=</span> <span class="fl">400</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
   <div style="display: grid; gap: 16px">
     <div>Total item count</div>

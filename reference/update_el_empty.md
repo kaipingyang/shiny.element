@@ -39,8 +39,11 @@ Called for its side effect; returns `NULL` invisibly.
 if (interactive()) {
   # inside a server function
   observeEvent(input$search, {
-    update_el_empty(session, "none",
-                    description = paste("Nothing matches", input$search))
+    update_el_empty(
+      session,
+      "none",
+      description = paste("Nothing matches", input$search)
+    )
   })
 }
 ```

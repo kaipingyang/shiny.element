@@ -94,10 +94,19 @@ Callable with
 ## Examples
 
 ``` r
-el_anchor("toc", links = list(
-  list(title = "Basic usage", href = "#basic"),
-  list(title = "API", href = "#api", children = list(
-    list(title = "Attributes", href = "#attributes")))))
+el_anchor(
+  "toc",
+  links = list(
+    list(title = "Basic usage", href = "#basic"),
+    list(
+      title = "API",
+      href = "#api",
+      children = list(
+        list(title = "Attributes", href = "#attributes")
+      )
+    )
+  )
+)
 #> <div id="toc" data-shiny-vue style="display: contents">
 #>   <script type="text/x-template" data-shiny-vue-template><div id="toc_container" style="display: contents">
 #>   <el-anchor @change="handleChange" @click="elEmitClick" :container="container === null ? undefined : container" :offset="offset === null ? undefined : offset" :bound="bound === null ? undefined : bound" :duration="duration === null ? undefined : duration" :marker="marker === null ? undefined : marker" :type="type === null ? undefined : type" :direction="direction === null ? undefined : direction" :select-scroll-top="selectScrollTop === null ? undefined : selectScrollTop">

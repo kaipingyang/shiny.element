@@ -195,13 +195,23 @@ the size of each area.</p>
 <p>The most basic usage, if no default size is passed, it will be
 automatically divided equally.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">panel</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span>style <span class="op">=</span> <span class="st">"display: flex; align-items: center; justify-content: center; height: 100%"</span>, <span class="va">x</span><span class="op">)</span></span>
-<span><span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span>style <span class="op">=</span> <span class="st">"height: 250px; box-shadow: var(--el-border-color-light) 0px 0px 10px"</span>,</span>
-<span>  <span class="fu"><a href="../../reference/el_splitter.html">el_splitter</a></span><span class="op">(</span><span class="fu"><a href="../../reference/el_splitter_panel.html">el_splitter_panel</a></span><span class="op">(</span>size <span class="op">=</span> <span class="st">"30%"</span>, <span class="fu">panel</span><span class="op">(</span><span class="fl">1</span><span class="op">)</span><span class="op">)</span>, <span class="fu"><a href="../../reference/el_splitter_panel.html">el_splitter_panel</a></span><span class="op">(</span><span class="fu">panel</span><span class="op">(</span><span class="fl">2</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">panel</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span></span>
+<span>    style <span class="op">=</span> <span class="st">"display: flex; align-items: center; justify-content: center; height: 100%"</span>,</span>
+<span>    <span class="va">x</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">}</span></span>
+<span><span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span></span>
+<span>  style <span class="op">=</span> <span class="st">"height: 250px; box-shadow: var(--el-border-color-light) 0px 0px 10px"</span>,</span>
+<span>  <span class="fu"><a href="../../reference/el_splitter.html">el_splitter</a></span><span class="op">(</span></span>
+<span>    <span class="fu"><a href="../../reference/el_splitter_panel.html">el_splitter_panel</a></span><span class="op">(</span>size <span class="op">=</span> <span class="st">"30%"</span>, <span class="fu">panel</span><span class="op">(</span><span class="fl">1</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>    <span class="fu"><a href="../../reference/el_splitter_panel.html">el_splitter_panel</a></span><span class="op">(</span><span class="fu">panel</span><span class="op">(</span><span class="fl">2</span><span class="op">)</span><span class="op">)</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
   <div style="height: 250px; box-shadow: var(--el-border-color-light) 0px 0px 10px">
-    <div id="basic-el_splitter_e9570e16-c8c5-4568-9106-19d7b21866bf" data-shiny-vue style="display: contents">
-      <script type="text/x-template" data-shiny-vue-template><div id="basic-el_splitter_e9570e16-c8c5-4568-9106-19d7b21866bf_container" style="display: contents">
+    <div id="basic-el_splitter_60d1e5b7-5224-4e73-9220-64659c3e7f84" data-shiny-vue style="display: contents">
+      <script type="text/x-template" data-shiny-vue-template><div id="basic-el_splitter_60d1e5b7-5224-4e73-9220-64659c3e7f84_container" style="display: contents">
   <el-splitter :layout="layout === null ? undefined : layout" :lazy="lazy === null ? undefined : lazy" @resize-start="elEmitResizeStart" @resize="elEmitResize" @resize-end="elEmitResizeEnd" @collapse="elEmitCollapse">
     <el-splitter-panel :size="size === null ? undefined : size" :min="min === null ? undefined : min" :max="max === null ? undefined : max" :resizable="resizable === null ? undefined : resizable" :collapsible="collapsible === null ? undefined : collapsible">
       <div style="display: flex; align-items: center; justify-content: center; height: 100%">1</div>
@@ -210,7 +220,7 @@ automatically divided equally.</p>
       <div style="display: flex; align-items: center; justify-content: center; height: 100%">2</div>
     </el-splitter-panel>
   </el-splitter>
-</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"layout":null,"lazy":null,"size":"30%","min":null,"max":null,"resizable":null,"collapsible":null,"el3_size":null,"el3_min":null,"el3_max":null,"el3_resizable":null,"el3_collapsible":null},"methods":{"elEmitResizeStart":"function() { window.shinyVue.emit('basic-el_splitter_e9570e16-c8c5-4568-9106-19d7b21866bf', 'resize_start', arguments); }","elEmitResize":"function() { window.shinyVue.emit('basic-el_splitter_e9570e16-c8c5-4568-9106-19d7b21866bf', 'resize', arguments); }","elEmitResizeEnd":"function() { window.shinyVue.emit('basic-el_splitter_e9570e16-c8c5-4568-9106-19d7b21866bf', 'resize_end', arguments); }","elEmitCollapse":"function() { window.shinyVue.emit('basic-el_splitter_e9570e16-c8c5-4568-9106-19d7b21866bf', 'collapse', arguments); }"}},"input":null,"rate":null,"type":null,"evals":["options.methods.elEmitResizeStart","options.methods.elEmitResize","options.methods.elEmitResizeEnd","options.methods.elEmitCollapse"]}</script>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"layout":null,"lazy":null,"size":"30%","min":null,"max":null,"resizable":null,"collapsible":null,"el3_size":null,"el3_min":null,"el3_max":null,"el3_resizable":null,"el3_collapsible":null},"methods":{"elEmitResizeStart":"function() { window.shinyVue.emit('basic-el_splitter_60d1e5b7-5224-4e73-9220-64659c3e7f84', 'resize_start', arguments); }","elEmitResize":"function() { window.shinyVue.emit('basic-el_splitter_60d1e5b7-5224-4e73-9220-64659c3e7f84', 'resize', arguments); }","elEmitResizeEnd":"function() { window.shinyVue.emit('basic-el_splitter_60d1e5b7-5224-4e73-9220-64659c3e7f84', 'resize_end', arguments); }","elEmitCollapse":"function() { window.shinyVue.emit('basic-el_splitter_60d1e5b7-5224-4e73-9220-64659c3e7f84', 'collapse', arguments); }"}},"input":null,"rate":null,"type":null,"evals":["options.methods.elEmitResizeStart","options.methods.elEmitResize","options.methods.elEmitResizeEnd","options.methods.elEmitCollapse"]}</script>
 </div>
   </div>
 </div>
@@ -220,13 +230,24 @@ automatically divided equally.</p>
 </h2>
 <p>Use vertical orientation.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">panel</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span>style <span class="op">=</span> <span class="st">"display: flex; align-items: center; justify-content: center; height: 100%"</span>, <span class="va">x</span><span class="op">)</span></span>
-<span><span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span>style <span class="op">=</span> <span class="st">"height: 250px; box-shadow: var(--el-border-color-light) 0px 0px 10px"</span>,</span>
-<span>  <span class="fu"><a href="../../reference/el_splitter.html">el_splitter</a></span><span class="op">(</span>layout <span class="op">=</span> <span class="st">"vertical"</span>, <span class="fu"><a href="../../reference/el_splitter_panel.html">el_splitter_panel</a></span><span class="op">(</span><span class="fu">panel</span><span class="op">(</span><span class="fl">1</span><span class="op">)</span><span class="op">)</span>, <span class="fu"><a href="../../reference/el_splitter_panel.html">el_splitter_panel</a></span><span class="op">(</span><span class="fu">panel</span><span class="op">(</span><span class="fl">2</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">panel</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span></span>
+<span>    style <span class="op">=</span> <span class="st">"display: flex; align-items: center; justify-content: center; height: 100%"</span>,</span>
+<span>    <span class="va">x</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">}</span></span>
+<span><span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span></span>
+<span>  style <span class="op">=</span> <span class="st">"height: 250px; box-shadow: var(--el-border-color-light) 0px 0px 10px"</span>,</span>
+<span>  <span class="fu"><a href="../../reference/el_splitter.html">el_splitter</a></span><span class="op">(</span></span>
+<span>    layout <span class="op">=</span> <span class="st">"vertical"</span>,</span>
+<span>    <span class="fu"><a href="../../reference/el_splitter_panel.html">el_splitter_panel</a></span><span class="op">(</span><span class="fu">panel</span><span class="op">(</span><span class="fl">1</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>    <span class="fu"><a href="../../reference/el_splitter_panel.html">el_splitter_panel</a></span><span class="op">(</span><span class="fu">panel</span><span class="op">(</span><span class="fl">2</span><span class="op">)</span><span class="op">)</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
   <div style="height: 250px; box-shadow: var(--el-border-color-light) 0px 0px 10px">
-    <div id="vertical-el_splitter_a64c1055-deb3-4f25-ade4-46ee8cddba0a" data-shiny-vue style="display: contents">
-      <script type="text/x-template" data-shiny-vue-template><div id="vertical-el_splitter_a64c1055-deb3-4f25-ade4-46ee8cddba0a_container" style="display: contents">
+    <div id="vertical-el_splitter_e84239c1-9b9b-4401-81f1-ec460b2ef3de" data-shiny-vue style="display: contents">
+      <script type="text/x-template" data-shiny-vue-template><div id="vertical-el_splitter_e84239c1-9b9b-4401-81f1-ec460b2ef3de_container" style="display: contents">
   <el-splitter :layout="layout === null ? undefined : layout" :lazy="lazy === null ? undefined : lazy" @resize-start="elEmitResizeStart" @resize="elEmitResize" @resize-end="elEmitResizeEnd" @collapse="elEmitCollapse">
     <el-splitter-panel :size="size === null ? undefined : size" :min="min === null ? undefined : min" :max="max === null ? undefined : max" :resizable="resizable === null ? undefined : resizable" :collapsible="collapsible === null ? undefined : collapsible">
       <div style="display: flex; align-items: center; justify-content: center; height: 100%">1</div>
@@ -235,7 +256,7 @@ automatically divided equally.</p>
       <div style="display: flex; align-items: center; justify-content: center; height: 100%">2</div>
     </el-splitter-panel>
   </el-splitter>
-</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"layout":"vertical","lazy":null,"size":null,"min":null,"max":null,"resizable":null,"collapsible":null,"el3_size":null,"el3_min":null,"el3_max":null,"el3_resizable":null,"el3_collapsible":null},"methods":{"elEmitResizeStart":"function() { window.shinyVue.emit('vertical-el_splitter_a64c1055-deb3-4f25-ade4-46ee8cddba0a', 'resize_start', arguments); }","elEmitResize":"function() { window.shinyVue.emit('vertical-el_splitter_a64c1055-deb3-4f25-ade4-46ee8cddba0a', 'resize', arguments); }","elEmitResizeEnd":"function() { window.shinyVue.emit('vertical-el_splitter_a64c1055-deb3-4f25-ade4-46ee8cddba0a', 'resize_end', arguments); }","elEmitCollapse":"function() { window.shinyVue.emit('vertical-el_splitter_a64c1055-deb3-4f25-ade4-46ee8cddba0a', 'collapse', arguments); }"}},"input":null,"rate":null,"type":null,"evals":["options.methods.elEmitResizeStart","options.methods.elEmitResize","options.methods.elEmitResizeEnd","options.methods.elEmitCollapse"]}</script>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"layout":"vertical","lazy":null,"size":null,"min":null,"max":null,"resizable":null,"collapsible":null,"el3_size":null,"el3_min":null,"el3_max":null,"el3_resizable":null,"el3_collapsible":null},"methods":{"elEmitResizeStart":"function() { window.shinyVue.emit('vertical-el_splitter_e84239c1-9b9b-4401-81f1-ec460b2ef3de', 'resize_start', arguments); }","elEmitResize":"function() { window.shinyVue.emit('vertical-el_splitter_e84239c1-9b9b-4401-81f1-ec460b2ef3de', 'resize', arguments); }","elEmitResizeEnd":"function() { window.shinyVue.emit('vertical-el_splitter_e84239c1-9b9b-4401-81f1-ec460b2ef3de', 'resize_end', arguments); }","elEmitCollapse":"function() { window.shinyVue.emit('vertical-el_splitter_e84239c1-9b9b-4401-81f1-ec460b2ef3de', 'collapse', arguments); }"}},"input":null,"rate":null,"type":null,"evals":["options.methods.elEmitResizeStart","options.methods.elEmitResize","options.methods.elEmitResizeEnd","options.methods.elEmitCollapse"]}</script>
 </div>
   </div>
 </div>
@@ -247,15 +268,24 @@ automatically divided equally.</p>
 capability. You can use the <code>min</code> property to prevent
 expanding through dragging after collapsing.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">panel</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span>style <span class="op">=</span> <span class="st">"display: flex; align-items: center; justify-content: center; height: 100%"</span>, <span class="va">x</span><span class="op">)</span></span>
-<span><span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span>style <span class="op">=</span> <span class="st">"height: 250px; box-shadow: var(--el-border-color-light) 0px 0px 10px"</span>,</span>
-<span>  <span class="fu"><a href="../../reference/el_splitter.html">el_splitter</a></span><span class="op">(</span><span class="fu"><a href="../../reference/el_splitter_panel.html">el_splitter_panel</a></span><span class="op">(</span>collapsible <span class="op">=</span> <span class="cn">TRUE</span>, min <span class="op">=</span> <span class="fl">50</span>, <span class="fu">panel</span><span class="op">(</span><span class="fl">1</span><span class="op">)</span><span class="op">)</span>,</span>
-<span>              <span class="fu"><a href="../../reference/el_splitter_panel.html">el_splitter_panel</a></span><span class="op">(</span>collapsible <span class="op">=</span> <span class="cn">TRUE</span>, <span class="fu">panel</span><span class="op">(</span><span class="fl">2</span><span class="op">)</span><span class="op">)</span>,</span>
-<span>              <span class="fu"><a href="../../reference/el_splitter_panel.html">el_splitter_panel</a></span><span class="op">(</span><span class="fu">panel</span><span class="op">(</span><span class="fl">3</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">panel</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span></span>
+<span>    style <span class="op">=</span> <span class="st">"display: flex; align-items: center; justify-content: center; height: 100%"</span>,</span>
+<span>    <span class="va">x</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">}</span></span>
+<span><span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span></span>
+<span>  style <span class="op">=</span> <span class="st">"height: 250px; box-shadow: var(--el-border-color-light) 0px 0px 10px"</span>,</span>
+<span>  <span class="fu"><a href="../../reference/el_splitter.html">el_splitter</a></span><span class="op">(</span></span>
+<span>    <span class="fu"><a href="../../reference/el_splitter_panel.html">el_splitter_panel</a></span><span class="op">(</span>collapsible <span class="op">=</span> <span class="cn">TRUE</span>, min <span class="op">=</span> <span class="fl">50</span>, <span class="fu">panel</span><span class="op">(</span><span class="fl">1</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>    <span class="fu"><a href="../../reference/el_splitter_panel.html">el_splitter_panel</a></span><span class="op">(</span>collapsible <span class="op">=</span> <span class="cn">TRUE</span>, <span class="fu">panel</span><span class="op">(</span><span class="fl">2</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>    <span class="fu"><a href="../../reference/el_splitter_panel.html">el_splitter_panel</a></span><span class="op">(</span><span class="fu">panel</span><span class="op">(</span><span class="fl">3</span><span class="op">)</span><span class="op">)</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
   <div style="height: 250px; box-shadow: var(--el-border-color-light) 0px 0px 10px">
-    <div id="collapsible-el_splitter_7a099a44-aeeb-4718-9472-8eecf199535d" data-shiny-vue style="display: contents">
-      <script type="text/x-template" data-shiny-vue-template><div id="collapsible-el_splitter_7a099a44-aeeb-4718-9472-8eecf199535d_container" style="display: contents">
+    <div id="collapsible-el_splitter_0744ad37-edea-4a63-9488-b9a969a0ab47" data-shiny-vue style="display: contents">
+      <script type="text/x-template" data-shiny-vue-template><div id="collapsible-el_splitter_0744ad37-edea-4a63-9488-b9a969a0ab47_container" style="display: contents">
   <el-splitter :layout="layout === null ? undefined : layout" :lazy="lazy === null ? undefined : lazy" @resize-start="elEmitResizeStart" @resize="elEmitResize" @resize-end="elEmitResizeEnd" @collapse="elEmitCollapse">
     <el-splitter-panel :size="size === null ? undefined : size" :min="min === null ? undefined : min" :max="max === null ? undefined : max" :resizable="resizable === null ? undefined : resizable" :collapsible="collapsible === null ? undefined : collapsible">
       <div style="display: flex; align-items: center; justify-content: center; height: 100%">1</div>
@@ -267,7 +297,7 @@ expanding through dragging after collapsing.</p>
       <div style="display: flex; align-items: center; justify-content: center; height: 100%">3</div>
     </el-splitter-panel>
   </el-splitter>
-</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"layout":null,"lazy":null,"size":null,"min":50,"max":null,"resizable":null,"collapsible":true,"el3_size":null,"el3_min":null,"el3_max":null,"el3_resizable":null,"el3_collapsible":true,"el4_size":null,"el4_min":null,"el4_max":null,"el4_resizable":null,"el4_collapsible":null},"methods":{"elEmitResizeStart":"function() { window.shinyVue.emit('collapsible-el_splitter_7a099a44-aeeb-4718-9472-8eecf199535d', 'resize_start', arguments); }","elEmitResize":"function() { window.shinyVue.emit('collapsible-el_splitter_7a099a44-aeeb-4718-9472-8eecf199535d', 'resize', arguments); }","elEmitResizeEnd":"function() { window.shinyVue.emit('collapsible-el_splitter_7a099a44-aeeb-4718-9472-8eecf199535d', 'resize_end', arguments); }","elEmitCollapse":"function() { window.shinyVue.emit('collapsible-el_splitter_7a099a44-aeeb-4718-9472-8eecf199535d', 'collapse', arguments); }"}},"input":null,"rate":null,"type":null,"evals":["options.methods.elEmitResizeStart","options.methods.elEmitResize","options.methods.elEmitResizeEnd","options.methods.elEmitCollapse"]}</script>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"layout":null,"lazy":null,"size":null,"min":50,"max":null,"resizable":null,"collapsible":true,"el3_size":null,"el3_min":null,"el3_max":null,"el3_resizable":null,"el3_collapsible":true,"el4_size":null,"el4_min":null,"el4_max":null,"el4_resizable":null,"el4_collapsible":null},"methods":{"elEmitResizeStart":"function() { window.shinyVue.emit('collapsible-el_splitter_0744ad37-edea-4a63-9488-b9a969a0ab47', 'resize_start', arguments); }","elEmitResize":"function() { window.shinyVue.emit('collapsible-el_splitter_0744ad37-edea-4a63-9488-b9a969a0ab47', 'resize', arguments); }","elEmitResizeEnd":"function() { window.shinyVue.emit('collapsible-el_splitter_0744ad37-edea-4a63-9488-b9a969a0ab47', 'resize_end', arguments); }","elEmitCollapse":"function() { window.shinyVue.emit('collapsible-el_splitter_0744ad37-edea-4a63-9488-b9a969a0ab47', 'collapse', arguments); }"}},"input":null,"rate":null,"type":null,"evals":["options.methods.elEmitResizeStart","options.methods.elEmitResize","options.methods.elEmitResizeEnd","options.methods.elEmitCollapse"]}</script>
 </div>
   </div>
 </div>
@@ -278,13 +308,23 @@ expanding through dragging after collapsing.</p>
 <p>When either panel disables <code>resizable</code>, dragging will be
 disabled.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">panel</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span>style <span class="op">=</span> <span class="st">"display: flex; align-items: center; justify-content: center; height: 100%"</span>, <span class="va">x</span><span class="op">)</span></span>
-<span><span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span>style <span class="op">=</span> <span class="st">"height: 250px; box-shadow: var(--el-border-color-light) 0px 0px 10px"</span>,</span>
-<span>  <span class="fu"><a href="../../reference/el_splitter.html">el_splitter</a></span><span class="op">(</span><span class="fu"><a href="../../reference/el_splitter_panel.html">el_splitter_panel</a></span><span class="op">(</span>resizable <span class="op">=</span> <span class="cn">FALSE</span>, <span class="fu">panel</span><span class="op">(</span><span class="fl">1</span><span class="op">)</span><span class="op">)</span>, <span class="fu"><a href="../../reference/el_splitter_panel.html">el_splitter_panel</a></span><span class="op">(</span><span class="fu">panel</span><span class="op">(</span><span class="fl">2</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">panel</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span></span>
+<span>    style <span class="op">=</span> <span class="st">"display: flex; align-items: center; justify-content: center; height: 100%"</span>,</span>
+<span>    <span class="va">x</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">}</span></span>
+<span><span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span></span>
+<span>  style <span class="op">=</span> <span class="st">"height: 250px; box-shadow: var(--el-border-color-light) 0px 0px 10px"</span>,</span>
+<span>  <span class="fu"><a href="../../reference/el_splitter.html">el_splitter</a></span><span class="op">(</span></span>
+<span>    <span class="fu"><a href="../../reference/el_splitter_panel.html">el_splitter_panel</a></span><span class="op">(</span>resizable <span class="op">=</span> <span class="cn">FALSE</span>, <span class="fu">panel</span><span class="op">(</span><span class="fl">1</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>    <span class="fu"><a href="../../reference/el_splitter_panel.html">el_splitter_panel</a></span><span class="op">(</span><span class="fu">panel</span><span class="op">(</span><span class="fl">2</span><span class="op">)</span><span class="op">)</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
   <div style="height: 250px; box-shadow: var(--el-border-color-light) 0px 0px 10px">
-    <div id="disabledrag-el_splitter_4f82680a-53c3-4246-bf3d-08262f7e6177" data-shiny-vue style="display: contents">
-      <script type="text/x-template" data-shiny-vue-template><div id="disabledrag-el_splitter_4f82680a-53c3-4246-bf3d-08262f7e6177_container" style="display: contents">
+    <div id="disabledrag-el_splitter_d5317c45-8d05-4b89-8b89-c6d7a1b0154a" data-shiny-vue style="display: contents">
+      <script type="text/x-template" data-shiny-vue-template><div id="disabledrag-el_splitter_d5317c45-8d05-4b89-8b89-c6d7a1b0154a_container" style="display: contents">
   <el-splitter :layout="layout === null ? undefined : layout" :lazy="lazy === null ? undefined : lazy" @resize-start="elEmitResizeStart" @resize="elEmitResize" @resize-end="elEmitResizeEnd" @collapse="elEmitCollapse">
     <el-splitter-panel :size="size === null ? undefined : size" :min="min === null ? undefined : min" :max="max === null ? undefined : max" :resizable="resizable === null ? undefined : resizable" :collapsible="collapsible === null ? undefined : collapsible">
       <div style="display: flex; align-items: center; justify-content: center; height: 100%">1</div>
@@ -293,7 +333,7 @@ disabled.</p>
       <div style="display: flex; align-items: center; justify-content: center; height: 100%">2</div>
     </el-splitter-panel>
   </el-splitter>
-</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"layout":null,"lazy":null,"size":null,"min":null,"max":null,"resizable":false,"collapsible":null,"el3_size":null,"el3_min":null,"el3_max":null,"el3_resizable":null,"el3_collapsible":null},"methods":{"elEmitResizeStart":"function() { window.shinyVue.emit('disabledrag-el_splitter_4f82680a-53c3-4246-bf3d-08262f7e6177', 'resize_start', arguments); }","elEmitResize":"function() { window.shinyVue.emit('disabledrag-el_splitter_4f82680a-53c3-4246-bf3d-08262f7e6177', 'resize', arguments); }","elEmitResizeEnd":"function() { window.shinyVue.emit('disabledrag-el_splitter_4f82680a-53c3-4246-bf3d-08262f7e6177', 'resize_end', arguments); }","elEmitCollapse":"function() { window.shinyVue.emit('disabledrag-el_splitter_4f82680a-53c3-4246-bf3d-08262f7e6177', 'collapse', arguments); }"}},"input":null,"rate":null,"type":null,"evals":["options.methods.elEmitResizeStart","options.methods.elEmitResize","options.methods.elEmitResizeEnd","options.methods.elEmitCollapse"]}</script>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"layout":null,"lazy":null,"size":null,"min":null,"max":null,"resizable":false,"collapsible":null,"el3_size":null,"el3_min":null,"el3_max":null,"el3_resizable":null,"el3_collapsible":null},"methods":{"elEmitResizeStart":"function() { window.shinyVue.emit('disabledrag-el_splitter_d5317c45-8d05-4b89-8b89-c6d7a1b0154a', 'resize_start', arguments); }","elEmitResize":"function() { window.shinyVue.emit('disabledrag-el_splitter_d5317c45-8d05-4b89-8b89-c6d7a1b0154a', 'resize', arguments); }","elEmitResizeEnd":"function() { window.shinyVue.emit('disabledrag-el_splitter_d5317c45-8d05-4b89-8b89-c6d7a1b0154a', 'resize_end', arguments); }","elEmitCollapse":"function() { window.shinyVue.emit('disabledrag-el_splitter_d5317c45-8d05-4b89-8b89-c6d7a1b0154a', 'collapse', arguments); }"}},"input":null,"rate":null,"type":null,"evals":["options.methods.elEmitResizeStart","options.methods.elEmitResize","options.methods.elEmitResizeEnd","options.methods.elEmitCollapse"]}</script>
 </div>
   </div>
 </div>
@@ -305,9 +345,20 @@ disabled.</p>
 <p>Dragging reports <code>input$&lt;id&gt;_resize_start</code>,
 <code>_resize</code> and <code>_resize_end</code>.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">panel</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span>style <span class="op">=</span> <span class="st">"display: flex; align-items: center; justify-content: center; height: 100%"</span>, <span class="va">x</span><span class="op">)</span></span>
-<span><span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span>style <span class="op">=</span> <span class="st">"height: 250px; box-shadow: var(--el-border-color-light) 0px 0px 10px"</span>,</span>
-<span>  <span class="fu"><a href="../../reference/el_splitter.html">el_splitter</a></span><span class="op">(</span>id <span class="op">=</span> <span class="st">"split_size"</span>, <span class="fu"><a href="../../reference/el_splitter_panel.html">el_splitter_panel</a></span><span class="op">(</span>size <span class="op">=</span> <span class="st">"200px"</span>, <span class="fu">panel</span><span class="op">(</span><span class="fl">1</span><span class="op">)</span><span class="op">)</span>, <span class="fu"><a href="../../reference/el_splitter_panel.html">el_splitter_panel</a></span><span class="op">(</span><span class="fu">panel</span><span class="op">(</span><span class="fl">2</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">panel</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span></span>
+<span>    style <span class="op">=</span> <span class="st">"display: flex; align-items: center; justify-content: center; height: 100%"</span>,</span>
+<span>    <span class="va">x</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">}</span></span>
+<span><span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span></span>
+<span>  style <span class="op">=</span> <span class="st">"height: 250px; box-shadow: var(--el-border-color-light) 0px 0px 10px"</span>,</span>
+<span>  <span class="fu"><a href="../../reference/el_splitter.html">el_splitter</a></span><span class="op">(</span></span>
+<span>    id <span class="op">=</span> <span class="st">"split_size"</span>,</span>
+<span>    <span class="fu"><a href="../../reference/el_splitter_panel.html">el_splitter_panel</a></span><span class="op">(</span>size <span class="op">=</span> <span class="st">"200px"</span>, <span class="fu">panel</span><span class="op">(</span><span class="fl">1</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>    <span class="fu"><a href="../../reference/el_splitter_panel.html">el_splitter_panel</a></span><span class="op">(</span><span class="fu">panel</span><span class="op">(</span><span class="fl">2</span><span class="op">)</span><span class="op">)</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
   <div style="height: 250px; box-shadow: var(--el-border-color-light) 0px 0px 10px">
     <div id="size-split_size" data-shiny-vue style="display: contents">
@@ -331,13 +382,24 @@ disabled.</p>
 <p>When <code>lazy</code> is enabled, the panel size will not update in
 real time during dragging, but only after the drag ends.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">panel</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span>style <span class="op">=</span> <span class="st">"display: flex; align-items: center; justify-content: center; height: 100%"</span>, <span class="va">x</span><span class="op">)</span></span>
-<span><span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span>style <span class="op">=</span> <span class="st">"height: 250px; box-shadow: var(--el-border-color-light) 0px 0px 10px"</span>,</span>
-<span>  <span class="fu"><a href="../../reference/el_splitter.html">el_splitter</a></span><span class="op">(</span>lazy <span class="op">=</span> <span class="cn">TRUE</span>, <span class="fu"><a href="../../reference/el_splitter_panel.html">el_splitter_panel</a></span><span class="op">(</span><span class="fu">panel</span><span class="op">(</span><span class="fl">1</span><span class="op">)</span><span class="op">)</span>, <span class="fu"><a href="../../reference/el_splitter_panel.html">el_splitter_panel</a></span><span class="op">(</span><span class="fu">panel</span><span class="op">(</span><span class="fl">2</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">panel</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span></span>
+<span>    style <span class="op">=</span> <span class="st">"display: flex; align-items: center; justify-content: center; height: 100%"</span>,</span>
+<span>    <span class="va">x</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">}</span></span>
+<span><span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span></span>
+<span>  style <span class="op">=</span> <span class="st">"height: 250px; box-shadow: var(--el-border-color-light) 0px 0px 10px"</span>,</span>
+<span>  <span class="fu"><a href="../../reference/el_splitter.html">el_splitter</a></span><span class="op">(</span></span>
+<span>    lazy <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>    <span class="fu"><a href="../../reference/el_splitter_panel.html">el_splitter_panel</a></span><span class="op">(</span><span class="fu">panel</span><span class="op">(</span><span class="fl">1</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>    <span class="fu"><a href="../../reference/el_splitter_panel.html">el_splitter_panel</a></span><span class="op">(</span><span class="fu">panel</span><span class="op">(</span><span class="fl">2</span><span class="op">)</span><span class="op">)</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
   <div style="height: 250px; box-shadow: var(--el-border-color-light) 0px 0px 10px">
-    <div id="lazy-el_splitter_9bd306bd-0077-44da-b392-ce9c774354e0" data-shiny-vue style="display: contents">
-      <script type="text/x-template" data-shiny-vue-template><div id="lazy-el_splitter_9bd306bd-0077-44da-b392-ce9c774354e0_container" style="display: contents">
+    <div id="lazy-el_splitter_18ba3e22-93ce-4b13-a587-0b82397bd157" data-shiny-vue style="display: contents">
+      <script type="text/x-template" data-shiny-vue-template><div id="lazy-el_splitter_18ba3e22-93ce-4b13-a587-0b82397bd157_container" style="display: contents">
   <el-splitter :layout="layout === null ? undefined : layout" :lazy="lazy === null ? undefined : lazy" @resize-start="elEmitResizeStart" @resize="elEmitResize" @resize-end="elEmitResizeEnd" @collapse="elEmitCollapse">
     <el-splitter-panel :size="size === null ? undefined : size" :min="min === null ? undefined : min" :max="max === null ? undefined : max" :resizable="resizable === null ? undefined : resizable" :collapsible="collapsible === null ? undefined : collapsible">
       <div style="display: flex; align-items: center; justify-content: center; height: 100%">1</div>
@@ -346,7 +408,7 @@ real time during dragging, but only after the drag ends.</p>
       <div style="display: flex; align-items: center; justify-content: center; height: 100%">2</div>
     </el-splitter-panel>
   </el-splitter>
-</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"layout":null,"lazy":true,"size":null,"min":null,"max":null,"resizable":null,"collapsible":null,"el3_size":null,"el3_min":null,"el3_max":null,"el3_resizable":null,"el3_collapsible":null},"methods":{"elEmitResizeStart":"function() { window.shinyVue.emit('lazy-el_splitter_9bd306bd-0077-44da-b392-ce9c774354e0', 'resize_start', arguments); }","elEmitResize":"function() { window.shinyVue.emit('lazy-el_splitter_9bd306bd-0077-44da-b392-ce9c774354e0', 'resize', arguments); }","elEmitResizeEnd":"function() { window.shinyVue.emit('lazy-el_splitter_9bd306bd-0077-44da-b392-ce9c774354e0', 'resize_end', arguments); }","elEmitCollapse":"function() { window.shinyVue.emit('lazy-el_splitter_9bd306bd-0077-44da-b392-ce9c774354e0', 'collapse', arguments); }"}},"input":null,"rate":null,"type":null,"evals":["options.methods.elEmitResizeStart","options.methods.elEmitResize","options.methods.elEmitResizeEnd","options.methods.elEmitCollapse"]}</script>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"layout":null,"lazy":true,"size":null,"min":null,"max":null,"resizable":null,"collapsible":null,"el3_size":null,"el3_min":null,"el3_max":null,"el3_resizable":null,"el3_collapsible":null},"methods":{"elEmitResizeStart":"function() { window.shinyVue.emit('lazy-el_splitter_18ba3e22-93ce-4b13-a587-0b82397bd157', 'resize_start', arguments); }","elEmitResize":"function() { window.shinyVue.emit('lazy-el_splitter_18ba3e22-93ce-4b13-a587-0b82397bd157', 'resize', arguments); }","elEmitResizeEnd":"function() { window.shinyVue.emit('lazy-el_splitter_18ba3e22-93ce-4b13-a587-0b82397bd157', 'resize_end', arguments); }","elEmitCollapse":"function() { window.shinyVue.emit('lazy-el_splitter_18ba3e22-93ce-4b13-a587-0b82397bd157', 'collapse', arguments); }"}},"input":null,"rate":null,"type":null,"evals":["options.methods.elEmitResizeStart","options.methods.elEmitResize","options.methods.elEmitResizeEnd","options.methods.elEmitCollapse"]}</script>
 </div>
   </div>
 </div>

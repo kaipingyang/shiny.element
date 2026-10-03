@@ -325,13 +325,21 @@ Callable with
 
 ``` r
 nodes <- list(
-  list(id = "fruit", label = "Fruit", children = list(
-    list(id = "apple",  label = "Apple"),
-    list(id = "cherry", label = "Cherry")
-  )),
-  list(id = "veg", label = "Vegetables", children = list(
-    list(id = "leek", label = "Leek", disabled = TRUE)
-  ))
+  list(
+    id = "fruit",
+    label = "Fruit",
+    children = list(
+      list(id = "apple", label = "Apple"),
+      list(id = "cherry", label = "Cherry")
+    )
+  ),
+  list(
+    id = "veg",
+    label = "Vegetables",
+    children = list(
+      list(id = "leek", label = "Leek", disabled = TRUE)
+    )
+  )
 )
 
 el_tree(id = "picker", data = nodes)
@@ -343,8 +351,13 @@ el_tree(id = "picker", data = nodes)
 #> </div>
 
 # With checkboxes, two nodes checked and the first branch open
-el_tree(id = "picker", data = nodes, show_checkbox = TRUE,
-        checked = c("apple", "cherry"), expanded = "fruit")
+el_tree(
+  id = "picker",
+  data = nodes,
+  show_checkbox = TRUE,
+  checked = c("apple", "cherry"),
+  expanded = "fruit"
+)
 #> <div id="picker" data-shiny-vue style="display: contents">
 #>   <script type="text/x-template" data-shiny-vue-template><div id="picker_container" style="display: contents">
 #>   <el-tree ref="tree" :data="treeData" :props="treeProps" :node-key="nodeKey" :show-checkbox="showCheckbox" :check-strictly="checkStrictly" :default-expand-all="defaultExpandAll" :expand-on-click-node="expandOnClickNode" :accordion="accordion" :highlight-current="highlightCurrent" :default-expanded-keys="expandedKeys" :default-checked-keys="checkedKeys" :empty-text="emptyText === null ? undefined : emptyText" @node-click="handleNodeClick" @check="handleCheck" :indent="indent === null ? undefined : indent" :lazy="lazy === null ? undefined : lazy" :draggable="draggable === null ? undefined : draggable" :auto-expand-parent="autoExpandParent === null ? undefined : autoExpandParent" :check-on-click-node="checkOnClickNode === null ? undefined : checkOnClickNode" :current-node-key="currentNodeKey === null ? undefined : currentNodeKey" :render-after-expand="renderAfterExpand === null ? undefined : renderAfterExpand" :load="load === null ? elLoad : load" :filter-node-method="filterNodeMethod === null ? elFilterNode : filterNodeMethod" :render-content="renderContent === null ? undefined : renderContent" :allow-drag="allowDrag === null ? undefined : allowDrag" :allow-drop="allowDrop === null ? undefined : allowDrop" @check-change="elEmitCheckChange" @current-change="elEmitCurrentChange" @node-expand="elEmitNodeExpand" @node-collapse="elEmitNodeCollapse" @node-contextmenu="elEmitNodeContextmenu" @node-drag-start="elEmitNodeDragStart" @node-drag-enter="elEmitNodeDragEnter" @node-drag-leave="elEmitNodeDragLeave" @node-drag-over="elEmitNodeDragOver" @node-drag-end="elEmitNodeDragEnd" @node-drop="elEmitNodeDrop" :check-on-click-leaf="checkOnClickLeaf === null ? undefined : checkOnClickLeaf" :icon="icon === null ? undefined : icon"></el-tree>

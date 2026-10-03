@@ -329,14 +329,31 @@ the form owning its state rather than each field reporting separately.</p>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu">el_form</span><span class="op">(</span></span></span>
 <span class="r-in"><span>  id <span class="op">=</span> <span class="st">"signup"</span>,</span></span>
 <span class="r-in"><span>  label_width <span class="op">=</span> <span class="st">"100px"</span>,</span></span>
-<span class="r-in"><span>  <span class="fu"><a href="el_form_field.html">el_form_field</a></span><span class="op">(</span><span class="st">"name"</span>, <span class="st">"input"</span>, label <span class="op">=</span> <span class="st">"Name"</span>,</span></span>
-<span class="r-in"><span>                rules <span class="op">=</span> <span class="fu"><a href="el_rule.html">el_rule</a></span><span class="op">(</span>required <span class="op">=</span> <span class="cn">TRUE</span>, message <span class="op">=</span> <span class="st">"Name is required"</span><span class="op">)</span><span class="op">)</span>,</span></span>
-<span class="r-in"><span>  <span class="fu"><a href="el_form_field.html">el_form_field</a></span><span class="op">(</span><span class="st">"age"</span>, <span class="st">"input-number"</span>, label <span class="op">=</span> <span class="st">"Age"</span>, value <span class="op">=</span> <span class="fl">18</span>,</span></span>
-<span class="r-in"><span>                min <span class="op">=</span> <span class="fl">0</span>, max <span class="op">=</span> <span class="fl">150</span><span class="op">)</span>,</span></span>
-<span class="r-in"><span>  <span class="fu"><a href="el_form_field.html">el_form_field</a></span><span class="op">(</span><span class="st">"city"</span>, <span class="st">"select"</span>, label <span class="op">=</span> <span class="st">"City"</span>,</span></span>
-<span class="r-in"><span>                choices <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>Beijing <span class="op">=</span> <span class="st">"bj"</span>, Shanghai <span class="op">=</span> <span class="st">"sh"</span><span class="op">)</span>,</span></span>
-<span class="r-in"><span>                rules <span class="op">=</span> <span class="fu"><a href="el_rule.html">el_rule</a></span><span class="op">(</span>required <span class="op">=</span> <span class="cn">TRUE</span>, message <span class="op">=</span> <span class="st">"Pick a city"</span>,</span></span>
-<span class="r-in"><span>                                trigger <span class="op">=</span> <span class="st">"change"</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="el_form_field.html">el_form_field</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>    <span class="st">"name"</span>,</span></span>
+<span class="r-in"><span>    <span class="st">"input"</span>,</span></span>
+<span class="r-in"><span>    label <span class="op">=</span> <span class="st">"Name"</span>,</span></span>
+<span class="r-in"><span>    rules <span class="op">=</span> <span class="fu"><a href="el_rule.html">el_rule</a></span><span class="op">(</span>required <span class="op">=</span> <span class="cn">TRUE</span>, message <span class="op">=</span> <span class="st">"Name is required"</span><span class="op">)</span></span></span>
+<span class="r-in"><span>  <span class="op">)</span>,</span></span>
+<span class="r-in"><span>  <span class="fu"><a href="el_form_field.html">el_form_field</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>    <span class="st">"age"</span>,</span></span>
+<span class="r-in"><span>    <span class="st">"input-number"</span>,</span></span>
+<span class="r-in"><span>    label <span class="op">=</span> <span class="st">"Age"</span>,</span></span>
+<span class="r-in"><span>    value <span class="op">=</span> <span class="fl">18</span>,</span></span>
+<span class="r-in"><span>    min <span class="op">=</span> <span class="fl">0</span>,</span></span>
+<span class="r-in"><span>    max <span class="op">=</span> <span class="fl">150</span></span></span>
+<span class="r-in"><span>  <span class="op">)</span>,</span></span>
+<span class="r-in"><span>  <span class="fu"><a href="el_form_field.html">el_form_field</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>    <span class="st">"city"</span>,</span></span>
+<span class="r-in"><span>    <span class="st">"select"</span>,</span></span>
+<span class="r-in"><span>    label <span class="op">=</span> <span class="st">"City"</span>,</span></span>
+<span class="r-in"><span>    choices <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>Beijing <span class="op">=</span> <span class="st">"bj"</span>, Shanghai <span class="op">=</span> <span class="st">"sh"</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>    rules <span class="op">=</span> <span class="fu"><a href="el_rule.html">el_rule</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>      required <span class="op">=</span> <span class="cn">TRUE</span>,</span></span>
+<span class="r-in"><span>      message <span class="op">=</span> <span class="st">"Pick a city"</span>,</span></span>
+<span class="r-in"><span>      trigger <span class="op">=</span> <span class="st">"change"</span></span></span>
+<span class="r-in"><span>    <span class="op">)</span></span></span>
+<span class="r-in"><span>  <span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> &lt;div id="signup" data-shiny-vue style="display: contents"&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   &lt;script type="text/x-template" data-shiny-vue-template&gt;&lt;div id="signup_container" style="display: contents"&gt;</span>
@@ -353,18 +370,30 @@ the form owning its state rather than each field reporting separately.</p>
 <span class="r-in"><span>  <span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://kaipingyang.github.io/shiny.element/">shiny.element</a></span><span class="op">)</span></span></span>
 <span class="r-in"><span>  <span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="el_page.html">el_page</a></span><span class="op">(</span></span></span>
 <span class="r-in"><span>    <span class="fu">el_form</span><span class="op">(</span></span></span>
-<span class="r-in"><span>      id <span class="op">=</span> <span class="st">"signup"</span>, label_width <span class="op">=</span> <span class="st">"100px"</span>, reset_label <span class="op">=</span> <span class="st">"Reset"</span>,</span></span>
-<span class="r-in"><span>      <span class="fu"><a href="el_form_field.html">el_form_field</a></span><span class="op">(</span><span class="st">"name"</span>, <span class="st">"input"</span>, label <span class="op">=</span> <span class="st">"Name"</span>,</span></span>
-<span class="r-in"><span>                    rules <span class="op">=</span> <span class="fu"><a href="el_rule.html">el_rule</a></span><span class="op">(</span>required <span class="op">=</span> <span class="cn">TRUE</span>, message <span class="op">=</span> <span class="st">"Required"</span><span class="op">)</span><span class="op">)</span>,</span></span>
-<span class="r-in"><span>      <span class="fu"><a href="el_form_field.html">el_form_field</a></span><span class="op">(</span><span class="st">"email"</span>, <span class="st">"input"</span>, label <span class="op">=</span> <span class="st">"Email"</span>,</span></span>
-<span class="r-in"><span>                    rules <span class="op">=</span> <span class="fu"><a href="el_rule.html">el_rule</a></span><span class="op">(</span>type <span class="op">=</span> <span class="st">"email"</span>, message <span class="op">=</span> <span class="st">"Invalid email"</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span>      id <span class="op">=</span> <span class="st">"signup"</span>,</span></span>
+<span class="r-in"><span>      label_width <span class="op">=</span> <span class="st">"100px"</span>,</span></span>
+<span class="r-in"><span>      reset_label <span class="op">=</span> <span class="st">"Reset"</span>,</span></span>
+<span class="r-in"><span>      <span class="fu"><a href="el_form_field.html">el_form_field</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>        <span class="st">"name"</span>,</span></span>
+<span class="r-in"><span>        <span class="st">"input"</span>,</span></span>
+<span class="r-in"><span>        label <span class="op">=</span> <span class="st">"Name"</span>,</span></span>
+<span class="r-in"><span>        rules <span class="op">=</span> <span class="fu"><a href="el_rule.html">el_rule</a></span><span class="op">(</span>required <span class="op">=</span> <span class="cn">TRUE</span>, message <span class="op">=</span> <span class="st">"Required"</span><span class="op">)</span></span></span>
+<span class="r-in"><span>      <span class="op">)</span>,</span></span>
+<span class="r-in"><span>      <span class="fu"><a href="el_form_field.html">el_form_field</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>        <span class="st">"email"</span>,</span></span>
+<span class="r-in"><span>        <span class="st">"input"</span>,</span></span>
+<span class="r-in"><span>        label <span class="op">=</span> <span class="st">"Email"</span>,</span></span>
+<span class="r-in"><span>        rules <span class="op">=</span> <span class="fu"><a href="el_rule.html">el_rule</a></span><span class="op">(</span>type <span class="op">=</span> <span class="st">"email"</span>, message <span class="op">=</span> <span class="st">"Invalid email"</span><span class="op">)</span></span></span>
+<span class="r-in"><span>      <span class="op">)</span></span></span>
 <span class="r-in"><span>    <span class="op">)</span>,</span></span>
 <span class="r-in"><span>    <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/textOutput.html" class="external-link">verbatimTextOutput</a></span><span class="op">(</span><span class="st">"out"</span><span class="op">)</span></span></span>
 <span class="r-in"><span>  <span class="op">)</span></span></span>
 <span class="r-in"><span>  <span class="va">server</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span>, <span class="va">session</span><span class="op">)</span> <span class="op">{</span></span></span>
 <span class="r-in"><span>    <span class="va">output</span><span class="op">$</span><span class="va">out</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/renderPrint.html" class="external-link">renderPrint</a></span><span class="op">(</span><span class="op">{</span></span></span>
 <span class="r-in"><span>      <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/req.html" class="external-link">req</a></span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">signup_submit</span><span class="op">)</span></span></span>
-<span class="r-in"><span>      <span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/Logic.html" class="external-link">isTRUE</a></span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">signup_valid</span><span class="op">)</span><span class="op">)</span> <span class="kw"><a href="https://rdrr.io/r/base/function.html" class="external-link">return</a></span><span class="op">(</span><span class="st">"Please fix the errors above"</span><span class="op">)</span></span></span>
+<span class="r-in"><span>      <span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/Logic.html" class="external-link">isTRUE</a></span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">signup_valid</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span></span>
+<span class="r-in"><span>        <span class="kw"><a href="https://rdrr.io/r/base/function.html" class="external-link">return</a></span><span class="op">(</span><span class="st">"Please fix the errors above"</span><span class="op">)</span></span></span>
+<span class="r-in"><span>      <span class="op">}</span></span></span>
 <span class="r-in"><span>      <span class="va">input</span><span class="op">$</span><span class="va">signup</span></span></span>
 <span class="r-in"><span>    <span class="op">}</span><span class="op">)</span></span></span>
 <span class="r-in"><span>  <span class="op">}</span></span></span>

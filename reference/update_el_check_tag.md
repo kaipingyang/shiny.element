@@ -38,6 +38,9 @@ Called for its side effect; returns `NULL` invisibly.
 ``` r
 if (interactive()) {
   # inside a server function
-  observeEvent(input$clear, update_el_check_tag(session, "pinned", value = FALSE))
+  observeEvent(
+    input$clear,
+    update_el_check_tag(session, "pinned", value = FALSE)
+  )
 }
 ```

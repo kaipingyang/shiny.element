@@ -254,13 +254,24 @@ into the Vue instance’s data and a method is a function. That is what
 asynchronously, as <code>input$&lt;id&gt;_&lt;method&gt;</code>:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/el_page.html">el_page</a></span><span class="op">(</span></span>
-<span>  <span class="fu"><a href="../reference/el_tree.html">el_tree</a></span><span class="op">(</span><span class="st">"tree"</span>, show_checkbox <span class="op">=</span> <span class="cn">TRUE</span>, node_key <span class="op">=</span> <span class="st">"id"</span>,</span>
-<span>          default_expand_all <span class="op">=</span> <span class="cn">TRUE</span>, checked <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"b1"</span>, <span class="st">"c"</span><span class="op">)</span>,</span>
-<span>          data <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
-<span>            <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>id <span class="op">=</span> <span class="st">"a"</span>, label <span class="op">=</span> <span class="st">"Fruit"</span>, children <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
-<span>              <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>id <span class="op">=</span> <span class="st">"b1"</span>, label <span class="op">=</span> <span class="st">"Apple"</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>id <span class="op">=</span> <span class="st">"b2"</span>, label <span class="op">=</span> <span class="st">"Pear"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>,</span>
-<span>            <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>id <span class="op">=</span> <span class="st">"c"</span>, label <span class="op">=</span> <span class="st">"Bread"</span><span class="op">)</span></span>
-<span>          <span class="op">)</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="../reference/el_tree.html">el_tree</a></span><span class="op">(</span></span>
+<span>    <span class="st">"tree"</span>,</span>
+<span>    show_checkbox <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>    node_key <span class="op">=</span> <span class="st">"id"</span>,</span>
+<span>    default_expand_all <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>    checked <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"b1"</span>, <span class="st">"c"</span><span class="op">)</span>,</span>
+<span>    data <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>      <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>        id <span class="op">=</span> <span class="st">"a"</span>,</span>
+<span>        label <span class="op">=</span> <span class="st">"Fruit"</span>,</span>
+<span>        children <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>          <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>id <span class="op">=</span> <span class="st">"b1"</span>, label <span class="op">=</span> <span class="st">"Apple"</span><span class="op">)</span>,</span>
+<span>          <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>id <span class="op">=</span> <span class="st">"b2"</span>, label <span class="op">=</span> <span class="st">"Pear"</span><span class="op">)</span></span>
+<span>        <span class="op">)</span></span>
+<span>      <span class="op">)</span>,</span>
+<span>      <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>id <span class="op">=</span> <span class="st">"c"</span>, label <span class="op">=</span> <span class="st">"Bread"</span><span class="op">)</span></span>
+<span>    <span class="op">)</span></span>
+<span>  <span class="op">)</span>,</span>
 <span>  <span class="fu"><a href="../reference/el_button.html">el_button</a></span><span class="op">(</span><span class="st">"ask"</span>, <span class="st">"Which are checked?"</span><span class="op">)</span>,</span>
 <span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/textOutput.html" class="external-link">verbatimTextOutput</a></span><span class="op">(</span><span class="st">"answer"</span><span class="op">)</span></span>
 <span><span class="op">)</span></span>
@@ -325,10 +336,21 @@ module too, and for the inputs a component adds to its id –
 <span>  <span class="va">ns</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/NS.html" class="external-link">NS</a></span><span class="op">(</span><span class="va">id</span><span class="op">)</span></span>
 <span>  <span class="fu"><a href="https://rstudio.github.io/htmltools/reference/tagList.html" class="external-link">tagList</a></span><span class="op">(</span></span>
 <span>    <span class="fu"><a href="../reference/el_select.html">el_select</a></span><span class="op">(</span><span class="fu">ns</span><span class="op">(</span><span class="st">"status"</span><span class="op">)</span>, choices <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"paid"</span>, <span class="st">"pending"</span><span class="op">)</span>, selected <span class="op">=</span> <span class="st">"paid"</span><span class="op">)</span>,</span>
-<span>    <span class="fu"><a href="../reference/el_table.html">el_table</a></span><span class="op">(</span><span class="fu">ns</span><span class="op">(</span><span class="st">"rows"</span><span class="op">)</span>, data <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>order <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">101</span>, <span class="fl">102</span><span class="op">)</span><span class="op">)</span>, columns <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
-<span>      <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>prop <span class="op">=</span> <span class="st">"order"</span>, label <span class="op">=</span> <span class="st">"Order"</span><span class="op">)</span>,</span>
-<span>      <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>label <span class="op">=</span> <span class="st">""</span>, cell <span class="op">=</span> <span class="va">el</span><span class="op">$</span><span class="fu">button</span><span class="op">(</span>size <span class="op">=</span> <span class="st">"small"</span>,</span>
-<span>        <span class="st">"@click"</span> <span class="op">=</span> <span class="st">"rowAction('open', scope)"</span>, <span class="st">"Open"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>    <span class="fu"><a href="../reference/el_table.html">el_table</a></span><span class="op">(</span></span>
+<span>      <span class="fu">ns</span><span class="op">(</span><span class="st">"rows"</span><span class="op">)</span>,</span>
+<span>      data <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>order <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">101</span>, <span class="fl">102</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>      columns <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>        <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>prop <span class="op">=</span> <span class="st">"order"</span>, label <span class="op">=</span> <span class="st">"Order"</span><span class="op">)</span>,</span>
+<span>        <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>          label <span class="op">=</span> <span class="st">""</span>,</span>
+<span>          cell <span class="op">=</span> <span class="va">el</span><span class="op">$</span><span class="fu">button</span><span class="op">(</span></span>
+<span>            size <span class="op">=</span> <span class="st">"small"</span>,</span>
+<span>            <span class="st">"@click"</span> <span class="op">=</span> <span class="st">"rowAction('open', scope)"</span>,</span>
+<span>            <span class="st">"Open"</span></span>
+<span>          <span class="op">)</span></span>
+<span>        <span class="op">)</span></span>
+<span>      <span class="op">)</span></span>
+<span>    <span class="op">)</span>,</span>
 <span>    <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/htmlOutput.html" class="external-link">uiOutput</a></span><span class="op">(</span><span class="fu">ns</span><span class="op">(</span><span class="st">"more"</span><span class="op">)</span><span class="op">)</span>,</span>
 <span>    <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/textOutput.html" class="external-link">verbatimTextOutput</a></span><span class="op">(</span><span class="fu">ns</span><span class="op">(</span><span class="st">"seen"</span><span class="op">)</span><span class="op">)</span></span>
 <span>  <span class="op">)</span></span>
@@ -337,9 +359,15 @@ module too, and for the inputs a component adds to its id –
 <span><span class="va">orders_server</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">id</span><span class="op">)</span> <span class="op">{</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/moduleServer.html" class="external-link">moduleServer</a></span><span class="op">(</span><span class="va">id</span>, <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span>, <span class="va">session</span><span class="op">)</span> <span class="op">{</span></span>
 <span>    <span class="co"># Built in the server, still wrapped in ns() once</span></span>
-<span>    <span class="va">output</span><span class="op">$</span><span class="va">more</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/renderUI.html" class="external-link">renderUI</a></span><span class="op">(</span><span class="fu"><a href="../reference/el_switch.html">el_switch</a></span><span class="op">(</span><span class="va">session</span><span class="op">$</span><span class="fu">ns</span><span class="op">(</span><span class="st">"urgent"</span><span class="op">)</span>, active_text <span class="op">=</span> <span class="st">"Urgent"</span><span class="op">)</span><span class="op">)</span></span>
-<span>    <span class="va">output</span><span class="op">$</span><span class="va">seen</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/renderPrint.html" class="external-link">renderPrint</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>status <span class="op">=</span> <span class="va">input</span><span class="op">$</span><span class="va">status</span>, urgent <span class="op">=</span> <span class="va">input</span><span class="op">$</span><span class="va">urgent</span>,</span>
-<span>                                    opened <span class="op">=</span> <span class="va">input</span><span class="op">$</span><span class="va">rows_open</span><span class="op">$</span><span class="va">row_index</span><span class="op">)</span><span class="op">)</span></span>
+<span>    <span class="va">output</span><span class="op">$</span><span class="va">more</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/renderUI.html" class="external-link">renderUI</a></span><span class="op">(</span><span class="fu"><a href="../reference/el_switch.html">el_switch</a></span><span class="op">(</span></span>
+<span>      <span class="va">session</span><span class="op">$</span><span class="fu">ns</span><span class="op">(</span><span class="st">"urgent"</span><span class="op">)</span>,</span>
+<span>      active_text <span class="op">=</span> <span class="st">"Urgent"</span></span>
+<span>    <span class="op">)</span><span class="op">)</span></span>
+<span>    <span class="va">output</span><span class="op">$</span><span class="va">seen</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/renderPrint.html" class="external-link">renderPrint</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>      status <span class="op">=</span> <span class="va">input</span><span class="op">$</span><span class="va">status</span>,</span>
+<span>      urgent <span class="op">=</span> <span class="va">input</span><span class="op">$</span><span class="va">urgent</span>,</span>
+<span>      opened <span class="op">=</span> <span class="va">input</span><span class="op">$</span><span class="va">rows_open</span><span class="op">$</span><span class="va">row_index</span></span>
+<span>    <span class="op">)</span><span class="op">)</span></span>
 <span>  <span class="op">}</span><span class="op">)</span></span>
 <span><span class="op">}</span></span>
 <span></span>
@@ -368,9 +396,13 @@ needs to be set up beyond what Shiny itself asks for.</p>
 <code class="sourceCode R"><span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">request</span><span class="op">)</span> <span class="op">{</span></span>
 <span>  <span class="fu"><a href="../reference/el_page.html">el_page</a></span><span class="op">(</span></span>
 <span>    <span class="fu"><a href="../reference/el_select.html">el_select</a></span><span class="op">(</span><span class="st">"city"</span>, choices <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Beijing"</span>, <span class="st">"Shanghai"</span><span class="op">)</span><span class="op">)</span>,</span>
-<span>    <span class="fu"><a href="../reference/el_tabs.html">el_tabs</a></span><span class="op">(</span><span class="st">"views"</span>, tabs <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
-<span>      <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">"table"</span>, label <span class="op">=</span> <span class="st">"Table"</span>, content <span class="op">=</span> <span class="va">tags</span><span class="op">$</span><span class="fu">p</span><span class="op">(</span><span class="st">"..."</span><span class="op">)</span><span class="op">)</span>,</span>
-<span>      <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">"chart"</span>, label <span class="op">=</span> <span class="st">"Chart"</span>, content <span class="op">=</span> <span class="va">tags</span><span class="op">$</span><span class="fu">p</span><span class="op">(</span><span class="st">"..."</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>    <span class="fu"><a href="../reference/el_tabs.html">el_tabs</a></span><span class="op">(</span></span>
+<span>      <span class="st">"views"</span>,</span>
+<span>      tabs <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>        <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">"table"</span>, label <span class="op">=</span> <span class="st">"Table"</span>, content <span class="op">=</span> <span class="va">tags</span><span class="op">$</span><span class="fu">p</span><span class="op">(</span><span class="st">"..."</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>        <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">"chart"</span>, label <span class="op">=</span> <span class="st">"Chart"</span>, content <span class="op">=</span> <span class="va">tags</span><span class="op">$</span><span class="fu">p</span><span class="op">(</span><span class="st">"..."</span><span class="op">)</span><span class="op">)</span></span>
+<span>      <span class="op">)</span></span>
+<span>    <span class="op">)</span>,</span>
 <span>    <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/bookmarkButton.html" class="external-link">bookmarkButton</a></span><span class="op">(</span><span class="op">)</span></span>
 <span>  <span class="op">)</span></span>
 <span><span class="op">}</span></span>
@@ -404,13 +436,21 @@ own CSS classes and drive their state through a Shiny input binding.
 They hold anything, and what is inside keeps working as it would on its
 own.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/el_collapse.html">el_collapse</a></span><span class="op">(</span><span class="st">"panels"</span>, value <span class="op">=</span> <span class="st">"one"</span>, items <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">"one"</span>, title <span class="op">=</span> <span class="st">"Settings"</span>, content <span class="op">=</span> <span class="fu"><a href="https://rstudio.github.io/htmltools/reference/tagList.html" class="external-link">tagList</a></span><span class="op">(</span></span>
-<span>    <span class="fu"><a href="../reference/el_switch.html">el_switch</a></span><span class="op">(</span><span class="st">"dark"</span>, value <span class="op">=</span> <span class="cn">TRUE</span>, active_text <span class="op">=</span> <span class="st">"Dark mode"</span><span class="op">)</span>,</span>
-<span>    <span class="fu"><a href="../reference/el_rate.html">el_rate</a></span><span class="op">(</span><span class="st">"stars"</span>, value <span class="op">=</span> <span class="fl">4</span><span class="op">)</span></span>
-<span>  <span class="op">)</span><span class="op">)</span>,</span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">"two"</span>, title <span class="op">=</span> <span class="st">"About"</span>, content <span class="op">=</span> <span class="va">tags</span><span class="op">$</span><span class="fu">p</span><span class="op">(</span><span class="st">"Version 0.1.0"</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/el_collapse.html">el_collapse</a></span><span class="op">(</span></span>
+<span>  <span class="st">"panels"</span>,</span>
+<span>  value <span class="op">=</span> <span class="st">"one"</span>,</span>
+<span>  items <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>      name <span class="op">=</span> <span class="st">"one"</span>,</span>
+<span>      title <span class="op">=</span> <span class="st">"Settings"</span>,</span>
+<span>      content <span class="op">=</span> <span class="fu"><a href="https://rstudio.github.io/htmltools/reference/tagList.html" class="external-link">tagList</a></span><span class="op">(</span></span>
+<span>        <span class="fu"><a href="../reference/el_switch.html">el_switch</a></span><span class="op">(</span><span class="st">"dark"</span>, value <span class="op">=</span> <span class="cn">TRUE</span>, active_text <span class="op">=</span> <span class="st">"Dark mode"</span><span class="op">)</span>,</span>
+<span>        <span class="fu"><a href="../reference/el_rate.html">el_rate</a></span><span class="op">(</span><span class="st">"stars"</span>, value <span class="op">=</span> <span class="fl">4</span><span class="op">)</span></span>
+<span>      <span class="op">)</span></span>
+<span>    <span class="op">)</span>,</span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">"two"</span>, title <span class="op">=</span> <span class="st">"About"</span>, content <span class="op">=</span> <span class="va">tags</span><span class="op">$</span><span class="fu">p</span><span class="op">(</span><span class="st">"Version 0.1.0"</span><span class="op">)</span><span class="op">)</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
   <div id="container-panels" class="el-collapse el-collapse-icon-position-right" data-el-collapse="true" data-accordion="false">
     <div class="el-collapse-item is-active" data-el-name="one">
@@ -470,8 +510,11 @@ working – the browser console says so, with a <code>[shiny-vue]</code>
 warning naming the id. Drive it through the wrapper instead:</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/el_page.html">el_page</a></span><span class="op">(</span></span>
-<span>  <span class="fu"><a href="../reference/el_tooltip.html">el_tooltip</a></span><span class="op">(</span><span class="st">"hint"</span>, <span class="fu"><a href="../reference/el_button.html">el_button</a></span><span class="op">(</span><span class="st">"save"</span>, <span class="st">"Save"</span>, type <span class="op">=</span> <span class="st">"primary"</span><span class="op">)</span>,</span>
-<span>             content <span class="op">=</span> <span class="st">"Writes to disk"</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="../reference/el_tooltip.html">el_tooltip</a></span><span class="op">(</span></span>
+<span>    <span class="st">"hint"</span>,</span>
+<span>    <span class="fu"><a href="../reference/el_button.html">el_button</a></span><span class="op">(</span><span class="st">"save"</span>, <span class="st">"Save"</span>, type <span class="op">=</span> <span class="st">"primary"</span><span class="op">)</span>,</span>
+<span>    content <span class="op">=</span> <span class="st">"Writes to disk"</span></span>
+<span>  <span class="op">)</span>,</span>
 <span>  <span class="fu"><a href="../reference/el_button.html">el_button</a></span><span class="op">(</span><span class="st">"busy"</span>, <span class="st">"Mark as saving"</span><span class="op">)</span></span>
 <span><span class="op">)</span></span>
 <span></span>
@@ -497,9 +540,13 @@ set.</p>
 </h2>
 <p>Every component takes <code>slots</code>, a named list:</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/el_alert.html">el_alert</a></span><span class="op">(</span><span class="st">"problem"</span>, type <span class="op">=</span> <span class="st">"error"</span>, show_icon <span class="op">=</span> <span class="cn">TRUE</span>,</span>
-<span>         description <span class="op">=</span> <span class="st">"The upload was larger than 5 MB."</span>,</span>
-<span>         slots <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>title <span class="op">=</span> <span class="va">tags</span><span class="op">$</span><span class="fu">span</span><span class="op">(</span><span class="va">tags</span><span class="op">$</span><span class="fu">b</span><span class="op">(</span><span class="st">"Upload failed"</span><span class="op">)</span>, <span class="st">" -- try again"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/el_alert.html">el_alert</a></span><span class="op">(</span></span>
+<span>  <span class="st">"problem"</span>,</span>
+<span>  type <span class="op">=</span> <span class="st">"error"</span>,</span>
+<span>  show_icon <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  description <span class="op">=</span> <span class="st">"The upload was larger than 5 MB."</span>,</span>
+<span>  slots <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>title <span class="op">=</span> <span class="va">tags</span><span class="op">$</span><span class="fu">span</span><span class="op">(</span><span class="va">tags</span><span class="op">$</span><span class="fu">b</span><span class="op">(</span><span class="st">"Upload failed"</span><span class="op">)</span>, <span class="st">" -- try again"</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
   <div id="slots-problem" data-shiny-vue style="display: contents">
     <script type="text/x-template" data-shiny-vue-template><div id="slots-problem_container" style="display: contents">
@@ -518,15 +565,21 @@ set.</p>
 only exist while Vue renders – is written with <code><a href="../reference/template.html">template()</a></code>
 and passed through untouched:</p>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/el_calendar.html">el_calendar</a></span><span class="op">(</span><span class="st">"cal"</span>, value <span class="op">=</span> <span class="st">"2026-03-15"</span>, slots <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
-<span>  dateCell <span class="op">=</span> <span class="fu"><a href="../reference/template.html">template</a></span><span class="op">(</span></span>
-<span>    <span class="fu">htmltools</span><span class="fu">::</span><span class="fu"><a href="https://rstudio.github.io/htmltools/reference/HTML.html" class="external-link">HTML</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span></span>
-<span>      <span class="st">"&lt;div&gt;{{ data.day.slice(8) }}"</span>,</span>
-<span>      <span class="st">"&lt;b v-if=\"data.day.slice(8) === '15'\" style=\"color:#F56C6C\"&gt;"</span>,</span>
-<span>      <span class="st">" due&lt;/b&gt;&lt;/div&gt;"</span><span class="op">)</span><span class="op">)</span>,</span>
-<span>    slot <span class="op">=</span> <span class="st">"dateCell"</span>, scope <span class="op">=</span> <span class="st">"{date, data}"</span></span>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/el_calendar.html">el_calendar</a></span><span class="op">(</span></span>
+<span>  <span class="st">"cal"</span>,</span>
+<span>  value <span class="op">=</span> <span class="st">"2026-03-15"</span>,</span>
+<span>  slots <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>    dateCell <span class="op">=</span> <span class="fu"><a href="../reference/template.html">template</a></span><span class="op">(</span></span>
+<span>      <span class="fu">htmltools</span><span class="fu">::</span><span class="fu"><a href="https://rstudio.github.io/htmltools/reference/HTML.html" class="external-link">HTML</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span></span>
+<span>        <span class="st">"&lt;div&gt;{{ data.day.slice(8) }}"</span>,</span>
+<span>        <span class="st">"&lt;b v-if=\"data.day.slice(8) === '15'\" style=\"color:#F56C6C\"&gt;"</span>,</span>
+<span>        <span class="st">" due&lt;/b&gt;&lt;/div&gt;"</span></span>
+<span>      <span class="op">)</span><span class="op">)</span>,</span>
+<span>      slot <span class="op">=</span> <span class="st">"dateCell"</span>,</span>
+<span>      scope <span class="op">=</span> <span class="st">"{date, data}"</span></span>
+<span>    <span class="op">)</span></span>
 <span>  <span class="op">)</span></span>
-<span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
   <style>
       .is-selected {
@@ -556,8 +609,12 @@ mounts, so a raw tag goes where a component draws its contents: a
 trigger.</p>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># The tooltip's instance compiles the raw button it wraps</span></span>
-<span><span class="fu"><a href="../reference/el_tooltip.html">el_tooltip</a></span><span class="op">(</span><span class="st">"hint"</span>, <span class="va">el</span><span class="op">$</span><span class="fu">button</span><span class="op">(</span>type <span class="op">=</span> <span class="st">"primary"</span>, <span class="st">"Markup only"</span><span class="op">)</span>, content <span class="op">=</span> <span class="st">"No input"</span><span class="op">)</span></span>
-<span><span class="fu"><a href="../reference/el_button.html">el_button</a></span><span class="op">(</span><span class="st">"save"</span>, <span class="st">"A component"</span>, type <span class="op">=</span> <span class="st">"primary"</span><span class="op">)</span>   <span class="co"># reports input$save</span></span></code></pre></div>
+<span><span class="fu"><a href="../reference/el_tooltip.html">el_tooltip</a></span><span class="op">(</span></span>
+<span>  <span class="st">"hint"</span>,</span>
+<span>  <span class="va">el</span><span class="op">$</span><span class="fu">button</span><span class="op">(</span>type <span class="op">=</span> <span class="st">"primary"</span>, <span class="st">"Markup only"</span><span class="op">)</span>,</span>
+<span>  content <span class="op">=</span> <span class="st">"No input"</span></span>
+<span><span class="op">)</span></span>
+<span><span class="fu"><a href="../reference/el_button.html">el_button</a></span><span class="op">(</span><span class="st">"save"</span>, <span class="st">"A component"</span>, type <span class="op">=</span> <span class="st">"primary"</span><span class="op">)</span> <span class="co"># reports input$save</span></span></code></pre></div>
 <div class="el-demo">
   <div id="raw-tags-hint" data-shiny-vue style="display: contents">
     <script type="text/x-template" data-shiny-vue-template><div id="raw-tags-hint_container" style="display: contents">
@@ -586,10 +643,12 @@ here, or covered differently:</p>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">initials</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">id</span>, <span class="va">name</span>, <span class="va">size</span> <span class="op">=</span> <span class="fl">48</span><span class="op">)</span> <span class="op">{</span></span>
 <span>  <span class="fu"><a href="../reference/el_widget.html">el_widget</a></span><span class="op">(</span></span>
-<span>    id     <span class="op">=</span> <span class="va">id</span>,</span>
+<span>    id <span class="op">=</span> <span class="va">id</span>,</span>
 <span>    markup <span class="op">=</span> <span class="va">el</span><span class="op">$</span><span class="fu">avatar</span><span class="op">(</span><span class="st">":size"</span> <span class="op">=</span> <span class="st">"size"</span>, <span class="st">"{{ letters }}"</span><span class="op">)</span>,</span>
-<span>    data   <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>size <span class="op">=</span> <span class="va">size</span>, letters <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/substr.html" class="external-link">substr</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/strsplit.html" class="external-link">strsplit</a></span><span class="op">(</span><span class="va">name</span>, <span class="st">" "</span><span class="op">)</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span>, <span class="fl">1</span>, <span class="fl">1</span><span class="op">)</span>,</span>
-<span>                                               collapse <span class="op">=</span> <span class="st">""</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>    data <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>      size <span class="op">=</span> <span class="va">size</span>,</span>
+<span>      letters <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/substr.html" class="external-link">substr</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/strsplit.html" class="external-link">strsplit</a></span><span class="op">(</span><span class="va">name</span>, <span class="st">" "</span><span class="op">)</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span>, <span class="fl">1</span>, <span class="fl">1</span><span class="op">)</span>, collapse <span class="op">=</span> <span class="st">""</span><span class="op">)</span></span>
+<span>    <span class="op">)</span>,</span>
 <span>    dependency <span class="op">=</span> <span class="fu"><a href="../reference/element_plus_dependency.html">element_plus_dependency</a></span><span class="op">(</span><span class="op">)</span></span>
 <span>  <span class="op">)</span></span>
 <span><span class="op">}</span></span>
@@ -634,13 +693,25 @@ field names;</li>
 <code class="sourceCode R"><span><span class="va">price_range_input</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">id</span>, <span class="va">value</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">100</span><span class="op">)</span>, <span class="va">min</span> <span class="op">=</span> <span class="fl">0</span>, <span class="va">max</span> <span class="op">=</span> <span class="fl">1000</span><span class="op">)</span> <span class="op">{</span></span>
 <span>  <span class="fu"><a href="../reference/el_widget.html">el_widget</a></span><span class="op">(</span></span>
 <span>    id <span class="op">=</span> <span class="va">id</span>,</span>
-<span>    markup <span class="op">=</span> <span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span>style <span class="op">=</span> <span class="st">"display: flex; align-items: center; gap: 8px"</span>,</span>
-<span>      <span class="va">el</span><span class="op">$</span><span class="fu">input_number</span><span class="op">(</span><span class="st">"v-model"</span> <span class="op">=</span> <span class="st">"range[0]"</span>, <span class="st">":min"</span> <span class="op">=</span> <span class="st">"min"</span>, <span class="st">":max"</span> <span class="op">=</span> <span class="st">"range[1]"</span>,</span>
-<span>                      <span class="st">"controls-position"</span> <span class="op">=</span> <span class="st">"right"</span>, size <span class="op">=</span> <span class="st">"small"</span><span class="op">)</span>,</span>
+<span>    markup <span class="op">=</span> <span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span></span>
+<span>      style <span class="op">=</span> <span class="st">"display: flex; align-items: center; gap: 8px"</span>,</span>
+<span>      <span class="va">el</span><span class="op">$</span><span class="fu">input_number</span><span class="op">(</span></span>
+<span>        <span class="st">"v-model"</span> <span class="op">=</span> <span class="st">"range[0]"</span>,</span>
+<span>        <span class="st">":min"</span> <span class="op">=</span> <span class="st">"min"</span>,</span>
+<span>        <span class="st">":max"</span> <span class="op">=</span> <span class="st">"range[1]"</span>,</span>
+<span>        <span class="st">"controls-position"</span> <span class="op">=</span> <span class="st">"right"</span>,</span>
+<span>        size <span class="op">=</span> <span class="st">"small"</span></span>
+<span>      <span class="op">)</span>,</span>
 <span>      <span class="va">tags</span><span class="op">$</span><span class="fu">span</span><span class="op">(</span><span class="st">"to"</span><span class="op">)</span>,</span>
-<span>      <span class="va">el</span><span class="op">$</span><span class="fu">input_number</span><span class="op">(</span><span class="st">"v-model"</span> <span class="op">=</span> <span class="st">"range[1]"</span>, <span class="st">":min"</span> <span class="op">=</span> <span class="st">"range[0]"</span>, <span class="st">":max"</span> <span class="op">=</span> <span class="st">"max"</span>,</span>
-<span>                      <span class="st">"controls-position"</span> <span class="op">=</span> <span class="st">"right"</span>, size <span class="op">=</span> <span class="st">"small"</span><span class="op">)</span><span class="op">)</span>,</span>
-<span>    data   <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>range <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">as.list</a></span><span class="op">(</span><span class="va">value</span><span class="op">)</span>, min <span class="op">=</span> <span class="va">min</span>, max <span class="op">=</span> <span class="va">max</span><span class="op">)</span>,</span>
+<span>      <span class="va">el</span><span class="op">$</span><span class="fu">input_number</span><span class="op">(</span></span>
+<span>        <span class="st">"v-model"</span> <span class="op">=</span> <span class="st">"range[1]"</span>,</span>
+<span>        <span class="st">":min"</span> <span class="op">=</span> <span class="st">"range[0]"</span>,</span>
+<span>        <span class="st">":max"</span> <span class="op">=</span> <span class="st">"max"</span>,</span>
+<span>        <span class="st">"controls-position"</span> <span class="op">=</span> <span class="st">"right"</span>,</span>
+<span>        size <span class="op">=</span> <span class="st">"small"</span></span>
+<span>      <span class="op">)</span></span>
+<span>    <span class="op">)</span>,</span>
+<span>    data <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>range <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">as.list</a></span><span class="op">(</span><span class="va">value</span><span class="op">)</span>, min <span class="op">=</span> <span class="va">min</span>, max <span class="op">=</span> <span class="va">max</span><span class="op">)</span>,</span>
 <span>    report <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>range <span class="op">=</span> <span class="va">id</span><span class="op">)</span>,</span>
 <span>    dependency <span class="op">=</span> <span class="fu"><a href="../reference/element_plus_dependency.html">element_plus_dependency</a></span><span class="op">(</span><span class="op">)</span></span>
 <span>  <span class="op">)</span></span>

@@ -15,7 +15,12 @@ Disable the Input with the `disabled` attribute.
 
 ``` r
 
-el_input("in_dis", placeholder = "Please input", disabled = TRUE, width = "240px")
+el_input(
+  "in_dis",
+  placeholder = "Please input",
+  disabled = TRUE,
+  width = "240px"
+)
 ```
 
 ## Clearable
@@ -26,7 +31,12 @@ Input.
 
 ``` r
 
-el_input("in_clear", placeholder = "Please input", clearable = TRUE, width = "240px")
+el_input(
+  "in_clear",
+  placeholder = "Please input",
+  clearable = TRUE,
+  width = "240px"
+)
 ```
 
 ## Custom Clear Icon
@@ -35,8 +45,13 @@ You can customize the clear icon by setting the `clear-icon` attribute.
 
 ``` r
 
-el_input("in_clear_icon", placeholder = "Please input", clearable = TRUE, clear_icon = "CloseBold",
-         width = "240px")
+el_input(
+  "in_clear_icon",
+  placeholder = "Please input",
+  clearable = TRUE,
+  clear_icon = "CloseBold",
+  width = "240px"
+)
 ```
 
 ## Formatter
@@ -48,9 +63,15 @@ Display value within it’s situation with `formatter`, and we usually use
 
 ``` r
 
-el_input("in_fmt", placeholder = "Please input", width = "240px",
-  formatter = JS("function(value) { return `$ ${value}`.replace(/\\B(?=(\\d{3})+(?!\\d))/g, ','); }"),
-  parser = JS("function(value) { return value.replace(/\\$\\s?|(,*)/g, ''); }"))
+el_input(
+  "in_fmt",
+  placeholder = "Please input",
+  width = "240px",
+  formatter = JS(
+    "function(value) { return `$ ${value}`.replace(/\\B(?=(\\d{3})+(?!\\d))/g, ','); }"
+  ),
+  parser = JS("function(value) { return value.replace(/\\$\\s?|(,*)/g, ''); }")
+)
 ```
 
 ## Password box
@@ -61,8 +82,13 @@ default icon.
 
 ``` r
 
-el_input("in_pass", type = "password", placeholder = "Please input password",
-         show_password = TRUE, width = "240px")
+el_input(
+  "in_pass",
+  type = "password",
+  placeholder = "Please input password",
+  show_password = TRUE,
+  width = "240px"
+)
 ```
 
 ## Input with icon
@@ -75,9 +101,21 @@ works as well.
 
 ``` r
 
-tags$div(style = "display: flex; gap: 16px",
-  el_input("in_suffix", placeholder = "Pick a date", suffix_icon = "Calendar", width = "240px"),
-  el_input("in_prefix", placeholder = "Type something", prefix_icon = "Search", width = "240px"))
+tags$div(
+  style = "display: flex; gap: 16px",
+  el_input(
+    "in_suffix",
+    placeholder = "Pick a date",
+    suffix_icon = "Calendar",
+    width = "240px"
+  ),
+  el_input(
+    "in_prefix",
+    placeholder = "Type something",
+    prefix_icon = "Search",
+    width = "240px"
+  )
+)
 ```
 
 ## Textarea
@@ -89,7 +127,13 @@ Control the height by setting the `rows` prop.
 
 ``` r
 
-el_input("in_area", type = "textarea", rows = 2, placeholder = "Please input", width = "240px")
+el_input(
+  "in_area",
+  type = "textarea",
+  rows = 2,
+  placeholder = "Please input",
+  width = "240px"
+)
 ```
 
 ## Autosize Textarea
@@ -102,10 +146,22 @@ of lines the textarea can automatically adjust.
 ``` r
 
 tagList(
-  el_input("in_auto1", type = "textarea", autosize = TRUE, placeholder = "Please input", width = "240px"),
+  el_input(
+    "in_auto1",
+    type = "textarea",
+    autosize = TRUE,
+    placeholder = "Please input",
+    width = "240px"
+  ),
   tags$div(style = "margin: 20px 0"),
-  el_input("in_auto2", type = "textarea", autosize = list(minRows = 2, maxRows = 4),
-           placeholder = "Please input", width = "240px"))
+  el_input(
+    "in_auto2",
+    type = "textarea",
+    autosize = list(minRows = 2, maxRows = 4),
+    placeholder = "Please input",
+    width = "240px"
+  )
+)
 ```
 
 ## Mixed input
@@ -116,11 +172,27 @@ Use `slot` to distribute elements that prepend or append to Input.
 
 ``` r
 
-tags$div(style = "display: grid; gap: 16px; max-width: 600px",
-  el_input("in_pre", placeholder = "Please input", slots = list(prepend = "Http://")),
-  el_input("in_app", placeholder = "Please input", slots = list(append = ".com")),
-  el_input("in_both", placeholder = "Please input",
-           slots = list(prepend = "Http://", append = el_button("in_search", NULL, icon = "Search"))))
+tags$div(
+  style = "display: grid; gap: 16px; max-width: 600px",
+  el_input(
+    "in_pre",
+    placeholder = "Please input",
+    slots = list(prepend = "Http://")
+  ),
+  el_input(
+    "in_app",
+    placeholder = "Please input",
+    slots = list(append = ".com")
+  ),
+  el_input(
+    "in_both",
+    placeholder = "Please input",
+    slots = list(
+      prepend = "Http://",
+      append = el_button("in_search", NULL, icon = "Search")
+    )
+  )
+)
 ```
 
 ## Sizes
@@ -130,10 +202,22 @@ default size, there are two other options: `large`, `small`.
 
 ``` r
 
-tags$div(style = "display: flex; gap: 16px",
-  el_input("in_l", size = "large", placeholder = "Please Input", width = "240px"),
+tags$div(
+  style = "display: flex; gap: 16px",
+  el_input(
+    "in_l",
+    size = "large",
+    placeholder = "Please Input",
+    width = "240px"
+  ),
   el_input("in_d", placeholder = "Please Input", width = "240px"),
-  el_input("in_s", size = "small", placeholder = "Please Input", width = "240px"))
+  el_input(
+    "in_s",
+    size = "small",
+    placeholder = "Please Input",
+    width = "240px"
+  )
+)
 ```
 
 ## Limit length
@@ -149,11 +233,22 @@ to display the word count outside the input.
 ``` r
 
 tagList(
-  el_input("in_lim", maxlength = 10, show_word_limit = TRUE, placeholder = "Please input",
-           width = "240px"),
+  el_input(
+    "in_lim",
+    maxlength = 10,
+    show_word_limit = TRUE,
+    placeholder = "Please input",
+    width = "240px"
+  ),
   tags$div(style = "margin: 20px 0"),
-  el_input("in_lim_area", type = "textarea", maxlength = 30, show_word_limit = TRUE,
-           placeholder = "Please input"))
+  el_input(
+    "in_lim_area",
+    type = "textarea",
+    maxlength = 30,
+    show_word_limit = TRUE,
+    placeholder = "Please input"
+  )
+)
 ```
 
 ## Count graphemes
@@ -165,9 +260,16 @@ Set `count-graphemes` to calculate text length. If it’s set, native
 
 ``` r
 
-el_input("in_graph", maxlength = 10, show_word_limit = TRUE, width = "240px",
+el_input(
+  "in_graph",
+  maxlength = 10,
+  show_word_limit = TRUE,
+  width = "240px",
   value = "\U0001F468‍\U0001F469‍\U0001F467",
-  count_graphemes = JS("function(value) { return [...new Intl.Segmenter().segment(value)].length; }"))
+  count_graphemes = JS(
+    "function(value) { return [...new Intl.Segmenter().segment(value)].length; }"
+  )
+)
 ```
 
 > **Tip**

@@ -200,7 +200,12 @@
 <span>  <span class="fu">item</span><span class="op">(</span><span class="fu"><a href="../../reference/el_badge.html">el_badge</a></span><span class="op">(</span>value <span class="op">=</span> <span class="fl">3</span>, <span class="fu"><a href="../../reference/el_button.html">el_button</a></span><span class="op">(</span><span class="st">"bd2"</span>, <span class="st">"replies"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>,</span>
 <span>  <span class="fu">item</span><span class="op">(</span><span class="fu"><a href="../../reference/el_badge.html">el_badge</a></span><span class="op">(</span>value <span class="op">=</span> <span class="fl">1</span>, type <span class="op">=</span> <span class="st">"primary"</span>, <span class="fu"><a href="../../reference/el_button.html">el_button</a></span><span class="op">(</span><span class="st">"bd3"</span>, <span class="st">"comments"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>,</span>
 <span>  <span class="fu">item</span><span class="op">(</span><span class="fu"><a href="../../reference/el_badge.html">el_badge</a></span><span class="op">(</span>value <span class="op">=</span> <span class="fl">2</span>, type <span class="op">=</span> <span class="st">"warning"</span>, <span class="fu"><a href="../../reference/el_button.html">el_button</a></span><span class="op">(</span><span class="st">"bd4"</span>, <span class="st">"replies"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>,</span>
-<span>  <span class="fu">item</span><span class="op">(</span><span class="fu"><a href="../../reference/el_badge.html">el_badge</a></span><span class="op">(</span>value <span class="op">=</span> <span class="fl">1</span>, color <span class="op">=</span> <span class="st">"green"</span>, <span class="fu"><a href="../../reference/el_button.html">el_button</a></span><span class="op">(</span><span class="st">"bd5"</span>, <span class="st">"custom background"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<span>  <span class="fu">item</span><span class="op">(</span><span class="fu"><a href="../../reference/el_badge.html">el_badge</a></span><span class="op">(</span></span>
+<span>    value <span class="op">=</span> <span class="fl">1</span>,</span>
+<span>    color <span class="op">=</span> <span class="st">"green"</span>,</span>
+<span>    <span class="fu"><a href="../../reference/el_button.html">el_button</a></span><span class="op">(</span><span class="st">"bd5"</span>, <span class="st">"custom background"</span><span class="op">)</span></span>
+<span>  <span class="op">)</span><span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
   <span style="margin-right: 40px">
     <div class="el-badge">
@@ -262,8 +267,12 @@
 it only works when value is also a Number.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rstudio.github.io/htmltools/reference/tagList.html" class="external-link">tagList</a></span><span class="op">(</span></span>
-<span>  <span class="va">tags</span><span class="op">$</span><span class="fu">span</span><span class="op">(</span>style <span class="op">=</span> <span class="st">"margin-right: 40px"</span>, <span class="fu"><a href="../../reference/el_badge.html">el_badge</a></span><span class="op">(</span>value <span class="op">=</span> <span class="fl">200</span>, max <span class="op">=</span> <span class="fl">99</span>, <span class="fu"><a href="../../reference/el_button.html">el_button</a></span><span class="op">(</span><span class="st">"bm1"</span>, <span class="st">"comments"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>,</span>
-<span>  <span class="fu"><a href="../../reference/el_badge.html">el_badge</a></span><span class="op">(</span>value <span class="op">=</span> <span class="fl">100</span>, max <span class="op">=</span> <span class="fl">10</span>, <span class="fu"><a href="../../reference/el_button.html">el_button</a></span><span class="op">(</span><span class="st">"bm2"</span>, <span class="st">"replies"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<span>  <span class="va">tags</span><span class="op">$</span><span class="fu">span</span><span class="op">(</span></span>
+<span>    style <span class="op">=</span> <span class="st">"margin-right: 40px"</span>,</span>
+<span>    <span class="fu"><a href="../../reference/el_badge.html">el_badge</a></span><span class="op">(</span>value <span class="op">=</span> <span class="fl">200</span>, max <span class="op">=</span> <span class="fl">99</span>, <span class="fu"><a href="../../reference/el_button.html">el_button</a></span><span class="op">(</span><span class="st">"bm1"</span>, <span class="st">"comments"</span><span class="op">)</span><span class="op">)</span></span>
+<span>  <span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="../../reference/el_badge.html">el_badge</a></span><span class="op">(</span>value <span class="op">=</span> <span class="fl">100</span>, max <span class="op">=</span> <span class="fl">10</span>, <span class="fu"><a href="../../reference/el_button.html">el_button</a></span><span class="op">(</span><span class="st">"bm2"</span>, <span class="st">"replies"</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
   <span style="margin-right: 40px">
     <div class="el-badge">
@@ -294,8 +303,12 @@ it only works when value is also a Number.</p>
 <code>content</code> slot.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rstudio.github.io/htmltools/reference/tagList.html" class="external-link">tagList</a></span><span class="op">(</span></span>
-<span>  <span class="va">tags</span><span class="op">$</span><span class="fu">span</span><span class="op">(</span>style <span class="op">=</span> <span class="st">"margin-right: 40px"</span>, <span class="fu"><a href="../../reference/el_badge.html">el_badge</a></span><span class="op">(</span>value <span class="op">=</span> <span class="st">"new"</span>, <span class="fu"><a href="../../reference/el_button.html">el_button</a></span><span class="op">(</span><span class="st">"bc1"</span>, <span class="st">"comments"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>,</span>
-<span>  <span class="fu"><a href="../../reference/el_badge.html">el_badge</a></span><span class="op">(</span>value <span class="op">=</span> <span class="st">"hot"</span>, <span class="fu"><a href="../../reference/el_button.html">el_button</a></span><span class="op">(</span><span class="st">"bc2"</span>, <span class="st">"replies"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<span>  <span class="va">tags</span><span class="op">$</span><span class="fu">span</span><span class="op">(</span></span>
+<span>    style <span class="op">=</span> <span class="st">"margin-right: 40px"</span>,</span>
+<span>    <span class="fu"><a href="../../reference/el_badge.html">el_badge</a></span><span class="op">(</span>value <span class="op">=</span> <span class="st">"new"</span>, <span class="fu"><a href="../../reference/el_button.html">el_button</a></span><span class="op">(</span><span class="st">"bc1"</span>, <span class="st">"comments"</span><span class="op">)</span><span class="op">)</span></span>
+<span>  <span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="../../reference/el_badge.html">el_badge</a></span><span class="op">(</span>value <span class="op">=</span> <span class="st">"hot"</span>, <span class="fu"><a href="../../reference/el_button.html">el_button</a></span><span class="op">(</span><span class="st">"bc2"</span>, <span class="st">"replies"</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
   <span style="margin-right: 40px">
     <div class="el-badge">
@@ -325,7 +338,11 @@ it only works when value is also a Number.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rstudio.github.io/htmltools/reference/tagList.html" class="external-link">tagList</a></span><span class="op">(</span></span>
 <span>  <span class="va">tags</span><span class="op">$</span><span class="fu">span</span><span class="op">(</span>style <span class="op">=</span> <span class="st">"margin-right: 40px"</span>, <span class="fu"><a href="../../reference/el_badge.html">el_badge</a></span><span class="op">(</span>is_dot <span class="op">=</span> <span class="cn">TRUE</span>, <span class="st">"query"</span><span class="op">)</span><span class="op">)</span>,</span>
-<span>  <span class="fu"><a href="../../reference/el_badge.html">el_badge</a></span><span class="op">(</span>is_dot <span class="op">=</span> <span class="cn">TRUE</span>, <span class="fu"><a href="../../reference/el_button.html">el_button</a></span><span class="op">(</span><span class="st">"bdot"</span>, <span class="cn">NULL</span>, icon <span class="op">=</span> <span class="st">"Share"</span>, type <span class="op">=</span> <span class="st">"primary"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<span>  <span class="fu"><a href="../../reference/el_badge.html">el_badge</a></span><span class="op">(</span></span>
+<span>    is_dot <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>    <span class="fu"><a href="../../reference/el_button.html">el_button</a></span><span class="op">(</span><span class="st">"bdot"</span>, <span class="cn">NULL</span>, icon <span class="op">=</span> <span class="st">"Share"</span>, type <span class="op">=</span> <span class="st">"primary"</span><span class="op">)</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
   <span style="margin-right: 40px">
     <div class="el-badge">

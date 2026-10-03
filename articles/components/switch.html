@@ -198,7 +198,13 @@ color in two states.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rstudio.github.io/htmltools/reference/tagList.html" class="external-link">tagList</a></span><span class="op">(</span></span>
 <span>  <span class="fu"><a href="../../reference/el_switch.html">el_switch</a></span><span class="op">(</span><span class="st">"sw1"</span>, value <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,</span>
-<span>  <span class="fu"><a href="../../reference/el_switch.html">el_switch</a></span><span class="op">(</span><span class="st">"sw2"</span>, value <span class="op">=</span> <span class="cn">TRUE</span>, active_color <span class="op">=</span> <span class="st">"#13ce66"</span>, inactive_color <span class="op">=</span> <span class="st">"#ff4949"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<span>  <span class="fu"><a href="../../reference/el_switch.html">el_switch</a></span><span class="op">(</span></span>
+<span>    <span class="st">"sw2"</span>,</span>
+<span>    value <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>    active_color <span class="op">=</span> <span class="st">"#13ce66"</span>,</span>
+<span>    inactive_color <span class="op">=</span> <span class="st">"#ff4949"</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
   <div id="basic-sw1" data-shiny-vue style="display: contents">
     <script type="text/x-template" data-shiny-vue-template><div id="basic-sw1_container" style="display: contents">
@@ -216,10 +222,29 @@ color in two states.</p>
 <h2 id="sizes">Sizes<a class="anchor" aria-label="anchor" href="#sizes"></a>
 </h2>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span>style <span class="op">=</span> <span class="st">"display: flex; gap: 16px; align-items: center"</span>,</span>
-<span>  <span class="fu"><a href="../../reference/el_switch.html">el_switch</a></span><span class="op">(</span><span class="st">"sw_l"</span>, value <span class="op">=</span> <span class="cn">TRUE</span>, size <span class="op">=</span> <span class="st">"large"</span>, active_text <span class="op">=</span> <span class="st">"Open"</span>, inactive_text <span class="op">=</span> <span class="st">"Close"</span><span class="op">)</span>,</span>
-<span>  <span class="fu"><a href="../../reference/el_switch.html">el_switch</a></span><span class="op">(</span><span class="st">"sw_d"</span>, value <span class="op">=</span> <span class="cn">TRUE</span>, active_text <span class="op">=</span> <span class="st">"Open"</span>, inactive_text <span class="op">=</span> <span class="st">"Close"</span><span class="op">)</span>,</span>
-<span>  <span class="fu"><a href="../../reference/el_switch.html">el_switch</a></span><span class="op">(</span><span class="st">"sw_s"</span>, value <span class="op">=</span> <span class="cn">TRUE</span>, size <span class="op">=</span> <span class="st">"small"</span>, active_text <span class="op">=</span> <span class="st">"Open"</span>, inactive_text <span class="op">=</span> <span class="st">"Close"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span></span>
+<span>  style <span class="op">=</span> <span class="st">"display: flex; gap: 16px; align-items: center"</span>,</span>
+<span>  <span class="fu"><a href="../../reference/el_switch.html">el_switch</a></span><span class="op">(</span></span>
+<span>    <span class="st">"sw_l"</span>,</span>
+<span>    value <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>    size <span class="op">=</span> <span class="st">"large"</span>,</span>
+<span>    active_text <span class="op">=</span> <span class="st">"Open"</span>,</span>
+<span>    inactive_text <span class="op">=</span> <span class="st">"Close"</span></span>
+<span>  <span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="../../reference/el_switch.html">el_switch</a></span><span class="op">(</span></span>
+<span>    <span class="st">"sw_d"</span>,</span>
+<span>    value <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>    active_text <span class="op">=</span> <span class="st">"Open"</span>,</span>
+<span>    inactive_text <span class="op">=</span> <span class="st">"Close"</span></span>
+<span>  <span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="../../reference/el_switch.html">el_switch</a></span><span class="op">(</span></span>
+<span>    <span class="st">"sw_s"</span>,</span>
+<span>    value <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>    size <span class="op">=</span> <span class="st">"small"</span>,</span>
+<span>    active_text <span class="op">=</span> <span class="st">"Open"</span>,</span>
+<span>    inactive_text <span class="op">=</span> <span class="st">"Close"</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
   <div style="display: flex; gap: 16px; align-items: center">
     <div id="sizes-sw_l" data-shiny-vue style="display: contents">
@@ -249,10 +274,29 @@ control text is displayed inside dot.</p>
 <p>You can add <code>active-text</code> and <code>inactive-text</code>
 attribute to show texts.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span>style <span class="op">=</span> <span class="st">"display: grid; gap: 12px"</span>,</span>
-<span>  <span class="fu"><a href="../../reference/el_switch.html">el_switch</a></span><span class="op">(</span><span class="st">"sw_t1"</span>, value <span class="op">=</span> <span class="cn">TRUE</span>, active_text <span class="op">=</span> <span class="st">"Pay by month"</span>, inactive_text <span class="op">=</span> <span class="st">"Pay by year"</span><span class="op">)</span>,</span>
-<span>  <span class="fu"><a href="../../reference/el_switch.html">el_switch</a></span><span class="op">(</span><span class="st">"sw_t2"</span>, value <span class="op">=</span> <span class="cn">TRUE</span>, inline_prompt <span class="op">=</span> <span class="cn">TRUE</span>, active_text <span class="op">=</span> <span class="st">"Y"</span>, inactive_text <span class="op">=</span> <span class="st">"N"</span><span class="op">)</span>,</span>
-<span>  <span class="fu"><a href="../../reference/el_switch.html">el_switch</a></span><span class="op">(</span><span class="st">"sw_t3"</span>, value <span class="op">=</span> <span class="cn">TRUE</span>, inline_prompt <span class="op">=</span> <span class="cn">TRUE</span>, active_text <span class="op">=</span> <span class="st">"是"</span>, inactive_text <span class="op">=</span> <span class="st">"否"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span></span>
+<span>  style <span class="op">=</span> <span class="st">"display: grid; gap: 12px"</span>,</span>
+<span>  <span class="fu"><a href="../../reference/el_switch.html">el_switch</a></span><span class="op">(</span></span>
+<span>    <span class="st">"sw_t1"</span>,</span>
+<span>    value <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>    active_text <span class="op">=</span> <span class="st">"Pay by month"</span>,</span>
+<span>    inactive_text <span class="op">=</span> <span class="st">"Pay by year"</span></span>
+<span>  <span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="../../reference/el_switch.html">el_switch</a></span><span class="op">(</span></span>
+<span>    <span class="st">"sw_t2"</span>,</span>
+<span>    value <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>    inline_prompt <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>    active_text <span class="op">=</span> <span class="st">"Y"</span>,</span>
+<span>    inactive_text <span class="op">=</span> <span class="st">"N"</span></span>
+<span>  <span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="../../reference/el_switch.html">el_switch</a></span><span class="op">(</span></span>
+<span>    <span class="st">"sw_t3"</span>,</span>
+<span>    value <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>    inline_prompt <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>    active_text <span class="op">=</span> <span class="st">"是"</span>,</span>
+<span>    inactive_text <span class="op">=</span> <span class="st">"否"</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
   <div style="display: grid; gap: 12px">
     <div id="text-description-sw_t1" data-shiny-vue style="display: contents">
@@ -288,9 +332,22 @@ component. Element Plus has provided a set of icon that you can find at
 attribute to show icons. use <code>inline-prompt</code> attribute to
 control icon is displayed inside dot.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span>style <span class="op">=</span> <span class="st">"display: flex; gap: 16px"</span>,</span>
-<span>  <span class="fu"><a href="../../reference/el_switch.html">el_switch</a></span><span class="op">(</span><span class="st">"sw_i1"</span>, value <span class="op">=</span> <span class="cn">TRUE</span>, active_icon <span class="op">=</span> <span class="st">"Check"</span>, inactive_icon <span class="op">=</span> <span class="st">"Close"</span><span class="op">)</span>,</span>
-<span>  <span class="fu"><a href="../../reference/el_switch.html">el_switch</a></span><span class="op">(</span><span class="st">"sw_i2"</span>, value <span class="op">=</span> <span class="cn">TRUE</span>, inline_prompt <span class="op">=</span> <span class="cn">TRUE</span>, active_icon <span class="op">=</span> <span class="st">"Check"</span>, inactive_icon <span class="op">=</span> <span class="st">"Close"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span></span>
+<span>  style <span class="op">=</span> <span class="st">"display: flex; gap: 16px"</span>,</span>
+<span>  <span class="fu"><a href="../../reference/el_switch.html">el_switch</a></span><span class="op">(</span></span>
+<span>    <span class="st">"sw_i1"</span>,</span>
+<span>    value <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>    active_icon <span class="op">=</span> <span class="st">"Check"</span>,</span>
+<span>    inactive_icon <span class="op">=</span> <span class="st">"Close"</span></span>
+<span>  <span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="../../reference/el_switch.html">el_switch</a></span><span class="op">(</span></span>
+<span>    <span class="st">"sw_i2"</span>,</span>
+<span>    value <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>    inline_prompt <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>    active_icon <span class="op">=</span> <span class="st">"Check"</span>,</span>
+<span>    inactive_icon <span class="op">=</span> <span class="st">"Close"</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
   <div style="display: flex; gap: 16px">
     <div id="custom-icons-sw_i1" data-shiny-vue style="display: contents">
@@ -313,8 +370,14 @@ control icon is displayed inside dot.</p>
 attributes. They both receive a <code>Boolean</code>,
 <code>String</code> or <code>Number</code> typed value.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_switch.html">el_switch</a></span><span class="op">(</span><span class="st">"sw_ext"</span>, value <span class="op">=</span> <span class="st">"100"</span>, active_value <span class="op">=</span> <span class="st">"100"</span>, inactive_value <span class="op">=</span> <span class="st">"0"</span>,</span>
-<span>          active_color <span class="op">=</span> <span class="st">"#13ce66"</span>, inactive_color <span class="op">=</span> <span class="st">"#ff4949"</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_switch.html">el_switch</a></span><span class="op">(</span></span>
+<span>  <span class="st">"sw_ext"</span>,</span>
+<span>  value <span class="op">=</span> <span class="st">"100"</span>,</span>
+<span>  active_value <span class="op">=</span> <span class="st">"100"</span>,</span>
+<span>  inactive_value <span class="op">=</span> <span class="st">"0"</span>,</span>
+<span>  active_color <span class="op">=</span> <span class="st">"#13ce66"</span>,</span>
+<span>  inactive_color <span class="op">=</span> <span class="st">"#ff4949"</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
   <div id="extended-value-types-sw_ext" data-shiny-vue style="display: contents">
     <script type="text/x-template" data-shiny-vue-template><div id="extended-value-types-sw_ext_container" style="display: contents">
@@ -328,7 +391,10 @@ attributes. They both receive a <code>Boolean</code>,
 </h2>
 <p>Adding the <code>disabled</code> attribute disables Switch.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rstudio.github.io/htmltools/reference/tagList.html" class="external-link">tagList</a></span><span class="op">(</span><span class="fu"><a href="../../reference/el_switch.html">el_switch</a></span><span class="op">(</span><span class="st">"sw_dis1"</span>, value <span class="op">=</span> <span class="cn">TRUE</span>, disabled <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>, <span class="fu"><a href="../../reference/el_switch.html">el_switch</a></span><span class="op">(</span><span class="st">"sw_dis2"</span>, disabled <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rstudio.github.io/htmltools/reference/tagList.html" class="external-link">tagList</a></span><span class="op">(</span></span>
+<span>  <span class="fu"><a href="../../reference/el_switch.html">el_switch</a></span><span class="op">(</span><span class="st">"sw_dis1"</span>, value <span class="op">=</span> <span class="cn">TRUE</span>, disabled <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="../../reference/el_switch.html">el_switch</a></span><span class="op">(</span><span class="st">"sw_dis2"</span>, disabled <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
   <div id="disabled-sw_dis1" data-shiny-vue style="display: contents">
     <script type="text/x-template" data-shiny-vue-template><div id="disabled-sw_dis1_container" style="display: contents">
@@ -348,7 +414,10 @@ attributes. They both receive a <code>Boolean</code>,
 <p>Setting the <code>loading</code> attribute to <code>true</code>
 indicates a loading state on the Switch.</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rstudio.github.io/htmltools/reference/tagList.html" class="external-link">tagList</a></span><span class="op">(</span><span class="fu"><a href="../../reference/el_switch.html">el_switch</a></span><span class="op">(</span><span class="st">"sw_ld1"</span>, value <span class="op">=</span> <span class="cn">TRUE</span>, loading <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>, <span class="fu"><a href="../../reference/el_switch.html">el_switch</a></span><span class="op">(</span><span class="st">"sw_ld2"</span>, loading <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rstudio.github.io/htmltools/reference/tagList.html" class="external-link">tagList</a></span><span class="op">(</span></span>
+<span>  <span class="fu"><a href="../../reference/el_switch.html">el_switch</a></span><span class="op">(</span><span class="st">"sw_ld1"</span>, value <span class="op">=</span> <span class="cn">TRUE</span>, loading <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="../../reference/el_switch.html">el_switch</a></span><span class="op">(</span><span class="st">"sw_ld2"</span>, loading <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
   <div id="loading-sw_ld1" data-shiny-vue style="display: contents">
     <script type="text/x-template" data-shiny-vue-template><div id="loading-sw_ld1_container" style="display: contents">
@@ -371,7 +440,12 @@ will stop switching.</p>
 <p><code>before_change</code>, a <code><a href="../../reference/JS.html">JS()</a></code> function, may hold
 the switch – return <code>false</code>, or a promise.</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_switch.html">el_switch</a></span><span class="op">(</span><span class="st">"sw_guard"</span>, before_change <span class="op">=</span> <span class="fu"><a href="../../reference/JS.html">JS</a></span><span class="op">(</span><span class="st">"function() { return new Promise(function(r) { setTimeout(function() { r(true); }, 1000); }); }"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_switch.html">el_switch</a></span><span class="op">(</span></span>
+<span>  <span class="st">"sw_guard"</span>,</span>
+<span>  before_change <span class="op">=</span> <span class="fu"><a href="../../reference/JS.html">JS</a></span><span class="op">(</span></span>
+<span>    <span class="st">"function() { return new Promise(function(r) { setTimeout(function() { r(true); }, 1000); }); }"</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
   <div id="prevent-switching-sw_guard" data-shiny-vue style="display: contents">
     <script type="text/x-template" data-shiny-vue-template><div id="prevent-switching-sw_guard_container" style="display: contents">
@@ -386,8 +460,15 @@ the switch – return <code>false</code>, or a promise.</p>
 <p>You can add <code>active-action-icon</code> and
 <code>inactive-action-icon</code> attribute to show icons.</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span>style <span class="op">=</span> <span class="st">"display: flex; gap: 16px"</span>,</span>
-<span>  <span class="fu"><a href="../../reference/el_switch.html">el_switch</a></span><span class="op">(</span><span class="st">"sw_ai1"</span>, value <span class="op">=</span> <span class="cn">TRUE</span>, active_action_icon <span class="op">=</span> <span class="st">"View"</span>, inactive_action_icon <span class="op">=</span> <span class="st">"Hide"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span></span>
+<span>  style <span class="op">=</span> <span class="st">"display: flex; gap: 16px"</span>,</span>
+<span>  <span class="fu"><a href="../../reference/el_switch.html">el_switch</a></span><span class="op">(</span></span>
+<span>    <span class="st">"sw_ai1"</span>,</span>
+<span>    value <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>    active_action_icon <span class="op">=</span> <span class="st">"View"</span>,</span>
+<span>    inactive_action_icon <span class="op">=</span> <span class="st">"Hide"</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
   <div style="display: flex; gap: 16px">
     <div id="custom-action-icon-sw_ai1" data-shiny-vue style="display: contents">
@@ -404,9 +485,14 @@ the switch – return <code>false</code>, or a promise.</p>
 <p>You can use <code>active-action</code> and
 <code>inactive-action</code> slot to customize action.</p>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_switch.html">el_switch</a></span><span class="op">(</span><span class="st">"sw_slot"</span>, value <span class="op">=</span> <span class="cn">TRUE</span>, slots <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
-<span>  `active-action` <span class="op">=</span> <span class="va">tags</span><span class="op">$</span><span class="fu">span</span><span class="op">(</span>class <span class="op">=</span> <span class="st">"custom-active-action"</span>, <span class="st">"T"</span><span class="op">)</span>,</span>
-<span>  `inactive-action` <span class="op">=</span> <span class="va">tags</span><span class="op">$</span><span class="fu">span</span><span class="op">(</span>class <span class="op">=</span> <span class="st">"custom-inactive-action"</span>, <span class="st">"F"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_switch.html">el_switch</a></span><span class="op">(</span></span>
+<span>  <span class="st">"sw_slot"</span>,</span>
+<span>  value <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  slots <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>    `active-action` <span class="op">=</span> <span class="va">tags</span><span class="op">$</span><span class="fu">span</span><span class="op">(</span>class <span class="op">=</span> <span class="st">"custom-active-action"</span>, <span class="st">"T"</span><span class="op">)</span>,</span>
+<span>    `inactive-action` <span class="op">=</span> <span class="va">tags</span><span class="op">$</span><span class="fu">span</span><span class="op">(</span>class <span class="op">=</span> <span class="st">"custom-inactive-action"</span>, <span class="st">"F"</span><span class="op">)</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
   <div id="custom-action-slot-sw_slot" data-shiny-vue style="display: contents">
     <script type="text/x-template" data-shiny-vue-template><div id="custom-action-slot-sw_slot_container" style="display: contents">

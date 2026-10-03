@@ -196,27 +196,44 @@ away.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/el_page.html">el_page</a></span><span class="op">(</span></span>
 <span>  <span class="va">tags</span><span class="op">$</span><span class="fu">script</span><span class="op">(</span><span class="st">"document.documentElement.classList.add('dark');"</span><span class="op">)</span>,</span>
-<span>  <span class="va">tags</span><span class="op">$</span><span class="fu">style</span><span class="op">(</span><span class="st">"html.dark body { background: var(--el-bg-color); color: var(--el-text-color-primary); }"</span><span class="op">)</span>,</span>
-<span>  <span class="fu"><a href="../reference/el_button.html">el_button</a></span><span class="op">(</span><span class="st">"b1"</span>, <span class="st">"Default"</span><span class="op">)</span>, <span class="fu"><a href="../reference/el_button.html">el_button</a></span><span class="op">(</span><span class="st">"b2"</span>, <span class="st">"Primary"</span>, type <span class="op">=</span> <span class="st">"primary"</span><span class="op">)</span>,</span>
+<span>  <span class="va">tags</span><span class="op">$</span><span class="fu">style</span><span class="op">(</span></span>
+<span>    <span class="st">"html.dark body { background: var(--el-bg-color); color: var(--el-text-color-primary); }"</span></span>
+<span>  <span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="../reference/el_button.html">el_button</a></span><span class="op">(</span><span class="st">"b1"</span>, <span class="st">"Default"</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="../reference/el_button.html">el_button</a></span><span class="op">(</span><span class="st">"b2"</span>, <span class="st">"Primary"</span>, type <span class="op">=</span> <span class="st">"primary"</span><span class="op">)</span>,</span>
 <span>  <span class="fu"><a href="../reference/el_input.html">el_input</a></span><span class="op">(</span><span class="st">"i"</span>, placeholder <span class="op">=</span> <span class="st">"Input"</span>, width <span class="op">=</span> <span class="st">"200px"</span><span class="op">)</span>,</span>
 <span>  <span class="fu"><a href="../reference/el_switch.html">el_switch</a></span><span class="op">(</span><span class="st">"s"</span>, value <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,</span>
-<span>  <span class="fu"><a href="../reference/el_pagination.html">el_pagination</a></span><span class="op">(</span><span class="st">"p"</span>, total <span class="op">=</span> <span class="fl">50</span><span class="op">)</span><span class="op">)</span></span>
+<span>  <span class="fu"><a href="../reference/el_pagination.html">el_pagination</a></span><span class="op">(</span><span class="st">"p"</span>, total <span class="op">=</span> <span class="fl">50</span><span class="op">)</span></span>
+<span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/shinyApp.html" class="external-link">shinyApp</a></span><span class="op">(</span><span class="va">ui</span>, <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span>, <span class="va">session</span><span class="op">)</span> <span class="op">{</span><span class="op">}</span><span class="op">)</span></span></code></pre></div>
 <img src="../shots/dark-mode-static.png" alt="The static example, running" style="max-width: 100%"><p>Or let the user switch, the server toggling the class:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/el_page.html">el_page</a></span><span class="op">(</span></span>
-<span>  <span class="va">tags</span><span class="op">$</span><span class="fu">script</span><span class="op">(</span><span class="fu"><a href="https://rstudio.github.io/htmltools/reference/HTML.html" class="external-link">HTML</a></span><span class="op">(</span><span class="st">"Shiny.addCustomMessageHandler('dark', function (on) {"</span>,</span>
-<span>                   <span class="st">"  document.documentElement.classList.toggle('dark', on);"</span>,</span>
-<span>                   <span class="st">"});"</span><span class="op">)</span><span class="op">)</span>,</span>
-<span>  <span class="va">tags</span><span class="op">$</span><span class="fu">style</span><span class="op">(</span><span class="st">"html.dark body { background: var(--el-bg-color); color: var(--el-text-color-primary); }"</span><span class="op">)</span>,</span>
+<span>  <span class="va">tags</span><span class="op">$</span><span class="fu">script</span><span class="op">(</span><span class="fu"><a href="https://rstudio.github.io/htmltools/reference/HTML.html" class="external-link">HTML</a></span><span class="op">(</span></span>
+<span>    <span class="st">"Shiny.addCustomMessageHandler('dark', function (on) {"</span>,</span>
+<span>    <span class="st">"  document.documentElement.classList.toggle('dark', on);"</span>,</span>
+<span>    <span class="st">"});"</span></span>
+<span>  <span class="op">)</span><span class="op">)</span>,</span>
+<span>  <span class="va">tags</span><span class="op">$</span><span class="fu">style</span><span class="op">(</span></span>
+<span>    <span class="st">"html.dark body { background: var(--el-bg-color); color: var(--el-text-color-primary); }"</span></span>
+<span>  <span class="op">)</span>,</span>
 <span>  <span class="fu"><a href="../reference/el_switch.html">el_switch</a></span><span class="op">(</span><span class="st">"dark"</span>, active_text <span class="op">=</span> <span class="st">"Dark"</span>, inactive_text <span class="op">=</span> <span class="st">"Light"</span><span class="op">)</span>,</span>
-<span>  <span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span>style <span class="op">=</span> <span class="st">"margin-top: 16px"</span>,</span>
-<span>    <span class="fu"><a href="../reference/el_card.html">el_card</a></span><span class="op">(</span>header <span class="op">=</span> <span class="st">"A card"</span>, <span class="va">tags</span><span class="op">$</span><span class="fu">p</span><span class="op">(</span><span class="st">"Its colours follow the mode."</span><span class="op">)</span>,</span>
-<span>            <span class="fu"><a href="../reference/el_button.html">el_button</a></span><span class="op">(</span><span class="st">"go"</span>, <span class="st">"Primary"</span>, type <span class="op">=</span> <span class="st">"primary"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
+<span>  <span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span></span>
+<span>    style <span class="op">=</span> <span class="st">"margin-top: 16px"</span>,</span>
+<span>    <span class="fu"><a href="../reference/el_card.html">el_card</a></span><span class="op">(</span></span>
+<span>      header <span class="op">=</span> <span class="st">"A card"</span>,</span>
+<span>      <span class="va">tags</span><span class="op">$</span><span class="fu">p</span><span class="op">(</span><span class="st">"Its colours follow the mode."</span><span class="op">)</span>,</span>
+<span>      <span class="fu"><a href="../reference/el_button.html">el_button</a></span><span class="op">(</span><span class="st">"go"</span>, <span class="st">"Primary"</span>, type <span class="op">=</span> <span class="st">"primary"</span><span class="op">)</span></span>
+<span>    <span class="op">)</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">server</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span>, <span class="va">session</span><span class="op">)</span> <span class="op">{</span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/observeEvent.html" class="external-link">observeEvent</a></span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">dark</span>, <span class="va">session</span><span class="op">$</span><span class="fu">sendCustomMessage</span><span class="op">(</span><span class="st">"dark"</span>, <span class="fu"><a href="https://rdrr.io/r/base/Logic.html" class="external-link">isTRUE</a></span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">dark</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/observeEvent.html" class="external-link">observeEvent</a></span><span class="op">(</span></span>
+<span>    <span class="va">input</span><span class="op">$</span><span class="va">dark</span>,</span>
+<span>    <span class="va">session</span><span class="op">$</span><span class="fu">sendCustomMessage</span><span class="op">(</span><span class="st">"dark"</span>, <span class="fu"><a href="https://rdrr.io/r/base/Logic.html" class="external-link">isTRUE</a></span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">dark</span><span class="op">)</span><span class="op">)</span></span>
+<span>  <span class="op">)</span></span>
 <span><span class="op">}</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/shinyApp.html" class="external-link">shinyApp</a></span><span class="op">(</span><span class="va">ui</span>, <span class="va">server</span><span class="op">)</span></span></code></pre></div>
@@ -231,10 +248,12 @@ Bootstrap’s own dark mode, for a page whose theme uses it.</p>
 <p>A dark theme of your own overrides Element Plus’s variables under
 <code>html.dark</code>:</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">tags</span><span class="op">$</span><span class="fu">style</span><span class="op">(</span><span class="st">"html.dark {</span></span>
+<code class="sourceCode R"><span><span class="va">tags</span><span class="op">$</span><span class="fu">style</span><span class="op">(</span></span>
+<span>  <span class="st">"html.dark {</span></span>
 <span><span class="st">  --el-bg-color: #141414;</span></span>
 <span><span class="st">  --el-color-primary: #3b82f6;</span></span>
-<span><span class="st">}"</span><span class="op">)</span></span></code></pre></div>
+<span><span class="st">}"</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <p>A brand colour given to <code><a href="../reference/el_theme.html">el_theme()</a></code> gets its dark tints
 too: <code><a href="../reference/el_page.html">el_page()</a></code> mixes them against the dark background, as
 Element Plus’s dark stylesheet does for its own blue.</p>

@@ -154,7 +154,11 @@ if (interactive()) {
   )
   server <- function(input, output, session) {
     observeEvent(input$go, {
-      update_el_progress(session, "prog1", percentage = min(100, (input$go * 10)))
+      update_el_progress(
+        session,
+        "prog1",
+        percentage = min(100, (input$go * 10))
+      )
     })
   }
   shinyApp(ui, server)

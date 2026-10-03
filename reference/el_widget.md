@@ -183,9 +183,9 @@ writes a slot.
 # Wrapping el-avatar, which this package does not provide
 my_avatar <- function(id, src, size = 50) {
   el_widget(
-    id     = id,
+    id = id,
     markup = el$avatar(":src" = "src", ":size" = "size"),
-    data   = list(src = src, size = size)
+    data = list(src = src, size = size)
   )
 }
 my_avatar("face", "https://example.org/face.png")
@@ -200,9 +200,9 @@ my_avatar("face", "https://example.org/face.png")
 # and `report` makes it input$score -- on load, on change, and after
 # update_vue_data(session, "score", list(value = 5)) from the server.
 el_widget(
-  id     = "score",
+  id = "score",
   markup = el$rate("v-model" = "value", ":max" = "max"),
-  data   = list(value = 3, max = 5),
+  data = list(value = 3, max = 5),
   report = c(value = "score")
 )
 #> <div id="score" data-shiny-vue style="display: contents">

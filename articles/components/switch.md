@@ -12,17 +12,42 @@ in two states.
 
 tagList(
   el_switch("sw1", value = TRUE),
-  el_switch("sw2", value = TRUE, active_color = "#13ce66", inactive_color = "#ff4949"))
+  el_switch(
+    "sw2",
+    value = TRUE,
+    active_color = "#13ce66",
+    inactive_color = "#ff4949"
+  )
+)
 ```
 
 ## Sizes
 
 ``` r
 
-tags$div(style = "display: flex; gap: 16px; align-items: center",
-  el_switch("sw_l", value = TRUE, size = "large", active_text = "Open", inactive_text = "Close"),
-  el_switch("sw_d", value = TRUE, active_text = "Open", inactive_text = "Close"),
-  el_switch("sw_s", value = TRUE, size = "small", active_text = "Open", inactive_text = "Close"))
+tags$div(
+  style = "display: flex; gap: 16px; align-items: center",
+  el_switch(
+    "sw_l",
+    value = TRUE,
+    size = "large",
+    active_text = "Open",
+    inactive_text = "Close"
+  ),
+  el_switch(
+    "sw_d",
+    value = TRUE,
+    active_text = "Open",
+    inactive_text = "Close"
+  ),
+  el_switch(
+    "sw_s",
+    value = TRUE,
+    size = "small",
+    active_text = "Open",
+    inactive_text = "Close"
+  )
+)
 ```
 
 ## Text description
@@ -34,10 +59,29 @@ You can add `active-text` and `inactive-text` attribute to show texts.
 
 ``` r
 
-tags$div(style = "display: grid; gap: 12px",
-  el_switch("sw_t1", value = TRUE, active_text = "Pay by month", inactive_text = "Pay by year"),
-  el_switch("sw_t2", value = TRUE, inline_prompt = TRUE, active_text = "Y", inactive_text = "N"),
-  el_switch("sw_t3", value = TRUE, inline_prompt = TRUE, active_text = "是", inactive_text = "否"))
+tags$div(
+  style = "display: grid; gap: 12px",
+  el_switch(
+    "sw_t1",
+    value = TRUE,
+    active_text = "Pay by month",
+    inactive_text = "Pay by year"
+  ),
+  el_switch(
+    "sw_t2",
+    value = TRUE,
+    inline_prompt = TRUE,
+    active_text = "Y",
+    inactive_text = "N"
+  ),
+  el_switch(
+    "sw_t3",
+    value = TRUE,
+    inline_prompt = TRUE,
+    active_text = "是",
+    inactive_text = "否"
+  )
+)
 ```
 
 ## Display custom icons
@@ -55,9 +99,22 @@ use `inline-prompt` attribute to control icon is displayed inside dot.
 
 ``` r
 
-tags$div(style = "display: flex; gap: 16px",
-  el_switch("sw_i1", value = TRUE, active_icon = "Check", inactive_icon = "Close"),
-  el_switch("sw_i2", value = TRUE, inline_prompt = TRUE, active_icon = "Check", inactive_icon = "Close"))
+tags$div(
+  style = "display: flex; gap: 16px",
+  el_switch(
+    "sw_i1",
+    value = TRUE,
+    active_icon = "Check",
+    inactive_icon = "Close"
+  ),
+  el_switch(
+    "sw_i2",
+    value = TRUE,
+    inline_prompt = TRUE,
+    active_icon = "Check",
+    inactive_icon = "Close"
+  )
+)
 ```
 
 ## Extended value types
@@ -67,8 +124,14 @@ receive a `Boolean`, `String` or `Number` typed value.
 
 ``` r
 
-el_switch("sw_ext", value = "100", active_value = "100", inactive_value = "0",
-          active_color = "#13ce66", inactive_color = "#ff4949")
+el_switch(
+  "sw_ext",
+  value = "100",
+  active_value = "100",
+  inactive_value = "0",
+  active_color = "#13ce66",
+  inactive_color = "#ff4949"
+)
 ```
 
 ## Disabled
@@ -77,7 +140,10 @@ Adding the `disabled` attribute disables Switch.
 
 ``` r
 
-tagList(el_switch("sw_dis1", value = TRUE, disabled = TRUE), el_switch("sw_dis2", disabled = TRUE))
+tagList(
+  el_switch("sw_dis1", value = TRUE, disabled = TRUE),
+  el_switch("sw_dis2", disabled = TRUE)
+)
 ```
 
 ## Loading
@@ -87,7 +153,10 @@ the Switch.
 
 ``` r
 
-tagList(el_switch("sw_ld1", value = TRUE, loading = TRUE), el_switch("sw_ld2", loading = TRUE))
+tagList(
+  el_switch("sw_ld1", value = TRUE, loading = TRUE),
+  el_switch("sw_ld2", loading = TRUE)
+)
 ```
 
 ## Prevent switching
@@ -101,7 +170,12 @@ function, may hold the switch – return `false`, or a promise.
 
 ``` r
 
-el_switch("sw_guard", before_change = JS("function() { return new Promise(function(r) { setTimeout(function() { r(true); }, 1000); }); }"))
+el_switch(
+  "sw_guard",
+  before_change = JS(
+    "function() { return new Promise(function(r) { setTimeout(function() { r(true); }, 1000); }); }"
+  )
+)
 ```
 
 ## Custom action icon
@@ -111,8 +185,15 @@ show icons.
 
 ``` r
 
-tags$div(style = "display: flex; gap: 16px",
-  el_switch("sw_ai1", value = TRUE, active_action_icon = "View", inactive_action_icon = "Hide"))
+tags$div(
+  style = "display: flex; gap: 16px",
+  el_switch(
+    "sw_ai1",
+    value = TRUE,
+    active_action_icon = "View",
+    inactive_action_icon = "Hide"
+  )
+)
 ```
 
 ## Custom action slot
@@ -122,9 +203,14 @@ action.
 
 ``` r
 
-el_switch("sw_slot", value = TRUE, slots = list(
-  `active-action` = tags$span(class = "custom-active-action", "T"),
-  `inactive-action` = tags$span(class = "custom-inactive-action", "F")))
+el_switch(
+  "sw_slot",
+  value = TRUE,
+  slots = list(
+    `active-action` = tags$span(class = "custom-active-action", "T"),
+    `inactive-action` = tags$span(class = "custom-inactive-action", "F")
+  )
+)
 ```
 
 ## API

@@ -282,7 +282,8 @@ upstream passes it. Default <code>"bottom"</code>.</p></dd>
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu">el_popconfirm</span><span class="op">(</span><span class="st">"del"</span>,</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu">el_popconfirm</span><span class="op">(</span></span></span>
+<span class="r-in"><span>  <span class="st">"del"</span>,</span></span>
 <span class="r-in"><span>  reference <span class="op">=</span> <span class="va">el</span><span class="op">$</span><span class="fu">button</span><span class="op">(</span>type <span class="op">=</span> <span class="st">"danger"</span>, <span class="st">"Delete"</span><span class="op">)</span>,</span></span>
 <span class="r-in"><span>  title <span class="op">=</span> <span class="st">"Delete this row?"</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
@@ -302,9 +303,11 @@ upstream passes it. Default <code>"bottom"</code>.</p></dd>
 <span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/interactive.html" class="external-link">interactive</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span></span>
 <span class="r-in"><span>  <span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://shiny.posit.co/" class="external-link">shiny</a></span><span class="op">)</span></span></span>
 <span class="r-in"><span>  <span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="el_page.html">el_page</a></span><span class="op">(</span></span></span>
-<span class="r-in"><span>    <span class="fu">el_popconfirm</span><span class="op">(</span><span class="st">"del"</span>,</span></span>
+<span class="r-in"><span>    <span class="fu">el_popconfirm</span><span class="op">(</span></span></span>
+<span class="r-in"><span>      <span class="st">"del"</span>,</span></span>
 <span class="r-in"><span>      reference <span class="op">=</span> <span class="va">el</span><span class="op">$</span><span class="fu">button</span><span class="op">(</span>type <span class="op">=</span> <span class="st">"danger"</span>, <span class="st">"Delete"</span><span class="op">)</span>,</span></span>
-<span class="r-in"><span>      title <span class="op">=</span> <span class="st">"Delete this row?"</span><span class="op">)</span></span></span>
+<span class="r-in"><span>      title <span class="op">=</span> <span class="st">"Delete this row?"</span></span></span>
+<span class="r-in"><span>    <span class="op">)</span></span></span>
 <span class="r-in"><span>  <span class="op">)</span></span></span>
 <span class="r-in"><span>  <span class="va">server</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span>, <span class="va">session</span><span class="op">)</span> <span class="op">{</span></span></span>
 <span class="r-in"><span>    <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/observeEvent.html" class="external-link">observeEvent</a></span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">del_confirm</span>, <span class="op">{</span></span></span>

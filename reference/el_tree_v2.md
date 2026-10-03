@@ -157,7 +157,11 @@ A Shiny UI element.
 ## Examples
 
 ``` r
-el_tree_v2("big", data = lapply(1:1000, function(i) list(id = i, label = paste("Node", i))), height = 300)
+el_tree_v2(
+  "big",
+  data = lapply(1:1000, function(i) list(id = i, label = paste("Node", i))),
+  height = 300
+)
 #> <div id="big" data-shiny-vue style="display: contents">
 #>   <script type="text/x-template" data-shiny-vue-template><div id="big_container" style="display: contents">
 #>   <el-tree-v2 @node-click="elEmitNodeClick" @node-drop="elEmitNodeDrop" @node-contextmenu="elEmitNodeContextmenu" @check-change="elEmitCheckChange" @check="elEmitCheck" @current-change="elEmitCurrentChange" @node-expand="elEmitNodeExpand" @node-collapse="elEmitNodeCollapse" :data="data === null ? undefined : data" :empty-text="emptyText === null ? undefined : emptyText" :highlight-current="highlightCurrent === null ? undefined : highlightCurrent" :expand-on-click-node="expandOnClickNode === null ? undefined : expandOnClickNode" :check-on-click-node="checkOnClickNode === null ? undefined : checkOnClickNode" :check-on-click-leaf="checkOnClickLeaf === null ? undefined : checkOnClickLeaf" :default-expanded-keys="defaultExpandedKeys === null ? undefined : defaultExpandedKeys" :show-checkbox="showCheckbox === null ? undefined : showCheckbox" :check-strictly="checkStrictly === null ? undefined : checkStrictly" :default-checked-keys="defaultCheckedKeys === null ? undefined : defaultCheckedKeys" :current-node-key="currentNodeKey === null ? undefined : currentNodeKey" :filter-method="filterMethod === null ? undefined : filterMethod" :indent="indent === null ? undefined : indent" :icon="icon === null ? undefined : icon" :item-size="itemSize === null ? undefined : itemSize" :scrollbar-always-on="scrollbarAlwaysOn === null ? undefined : scrollbarAlwaysOn" :height="height === null ? undefined : height"></el-tree-v2>

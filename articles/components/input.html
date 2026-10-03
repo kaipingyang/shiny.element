@@ -206,7 +206,12 @@
 </h2>
 <p>Disable the Input with the <code>disabled</code> attribute.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_input.html">el_input</a></span><span class="op">(</span><span class="st">"in_dis"</span>, placeholder <span class="op">=</span> <span class="st">"Please input"</span>, disabled <span class="op">=</span> <span class="cn">TRUE</span>, width <span class="op">=</span> <span class="st">"240px"</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_input.html">el_input</a></span><span class="op">(</span></span>
+<span>  <span class="st">"in_dis"</span>,</span>
+<span>  placeholder <span class="op">=</span> <span class="st">"Please input"</span>,</span>
+<span>  disabled <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  width <span class="op">=</span> <span class="st">"240px"</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
   <div id="disabled-in_dis" data-shiny-vue style="display: contents">
     <script type="text/x-template" data-shiny-vue-template><div id="disabled-in_dis_container" style="display: contents">
@@ -222,7 +227,12 @@
 After version 2.13.4, the clearable feature is also available for
 textarea type of Input.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_input.html">el_input</a></span><span class="op">(</span><span class="st">"in_clear"</span>, placeholder <span class="op">=</span> <span class="st">"Please input"</span>, clearable <span class="op">=</span> <span class="cn">TRUE</span>, width <span class="op">=</span> <span class="st">"240px"</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_input.html">el_input</a></span><span class="op">(</span></span>
+<span>  <span class="st">"in_clear"</span>,</span>
+<span>  placeholder <span class="op">=</span> <span class="st">"Please input"</span>,</span>
+<span>  clearable <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  width <span class="op">=</span> <span class="st">"240px"</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
   <div id="clearable-in_clear" data-shiny-vue style="display: contents">
     <script type="text/x-template" data-shiny-vue-template><div id="clearable-in_clear_container" style="display: contents">
@@ -237,8 +247,13 @@ textarea type of Input.</p>
 <p>You can customize the clear icon by setting the
 <code>clear-icon</code> attribute.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_input.html">el_input</a></span><span class="op">(</span><span class="st">"in_clear_icon"</span>, placeholder <span class="op">=</span> <span class="st">"Please input"</span>, clearable <span class="op">=</span> <span class="cn">TRUE</span>, clear_icon <span class="op">=</span> <span class="st">"CloseBold"</span>,</span>
-<span>         width <span class="op">=</span> <span class="st">"240px"</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_input.html">el_input</a></span><span class="op">(</span></span>
+<span>  <span class="st">"in_clear_icon"</span>,</span>
+<span>  placeholder <span class="op">=</span> <span class="st">"Please input"</span>,</span>
+<span>  clearable <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  clear_icon <span class="op">=</span> <span class="st">"CloseBold"</span>,</span>
+<span>  width <span class="op">=</span> <span class="st">"240px"</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
   <div id="clear-icon-in_clear_icon" data-shiny-vue style="display: contents">
     <script type="text/x-template" data-shiny-vue-template><div id="clear-icon-in_clear_icon_container" style="display: contents">
@@ -255,9 +270,15 @@ we usually use <code>parser</code> at the same time.</p>
 <p><code>formatter</code> shows the value its way; <code>parser</code>
 reads it back.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_input.html">el_input</a></span><span class="op">(</span><span class="st">"in_fmt"</span>, placeholder <span class="op">=</span> <span class="st">"Please input"</span>, width <span class="op">=</span> <span class="st">"240px"</span>,</span>
-<span>  formatter <span class="op">=</span> <span class="fu"><a href="../../reference/JS.html">JS</a></span><span class="op">(</span><span class="st">"function(value) { return `$ ${value}`.replace(/\\B(?=(\\d{3})+(?!\\d))/g, ','); }"</span><span class="op">)</span>,</span>
-<span>  parser <span class="op">=</span> <span class="fu"><a href="../../reference/JS.html">JS</a></span><span class="op">(</span><span class="st">"function(value) { return value.replace(/\\$\\s?|(,*)/g, ''); }"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_input.html">el_input</a></span><span class="op">(</span></span>
+<span>  <span class="st">"in_fmt"</span>,</span>
+<span>  placeholder <span class="op">=</span> <span class="st">"Please input"</span>,</span>
+<span>  width <span class="op">=</span> <span class="st">"240px"</span>,</span>
+<span>  formatter <span class="op">=</span> <span class="fu"><a href="../../reference/JS.html">JS</a></span><span class="op">(</span></span>
+<span>    <span class="st">"function(value) { return `$ ${value}`.replace(/\\B(?=(\\d{3})+(?!\\d))/g, ','); }"</span></span>
+<span>  <span class="op">)</span>,</span>
+<span>  parser <span class="op">=</span> <span class="fu"><a href="../../reference/JS.html">JS</a></span><span class="op">(</span><span class="st">"function(value) { return value.replace(/\\$\\s?|(,*)/g, ''); }"</span><span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
   <div id="formatter-in_fmt" data-shiny-vue style="display: contents">
     <script type="text/x-template" data-shiny-vue-template><div id="formatter-in_fmt_container" style="display: contents">
@@ -273,8 +294,13 @@ reads it back.</p>
 attribute. Since 2.13.6, the <code>password-icon</code> slot is
 supported to override the default icon.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_input.html">el_input</a></span><span class="op">(</span><span class="st">"in_pass"</span>, type <span class="op">=</span> <span class="st">"password"</span>, placeholder <span class="op">=</span> <span class="st">"Please input password"</span>,</span>
-<span>         show_password <span class="op">=</span> <span class="cn">TRUE</span>, width <span class="op">=</span> <span class="st">"240px"</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_input.html">el_input</a></span><span class="op">(</span></span>
+<span>  <span class="st">"in_pass"</span>,</span>
+<span>  type <span class="op">=</span> <span class="st">"password"</span>,</span>
+<span>  placeholder <span class="op">=</span> <span class="st">"Please input password"</span>,</span>
+<span>  show_password <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  width <span class="op">=</span> <span class="st">"240px"</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
   <div id="password-in_pass" data-shiny-vue style="display: contents">
     <script type="text/x-template" data-shiny-vue-template><div id="password-in_pass_container" style="display: contents">
@@ -291,9 +317,21 @@ supported to override the default icon.</p>
 and <code>suffix-icon</code> attributes. Also, the <code>prefix</code>
 and <code>suffix</code> named slots works as well.</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span>style <span class="op">=</span> <span class="st">"display: flex; gap: 16px"</span>,</span>
-<span>  <span class="fu"><a href="../../reference/el_input.html">el_input</a></span><span class="op">(</span><span class="st">"in_suffix"</span>, placeholder <span class="op">=</span> <span class="st">"Pick a date"</span>, suffix_icon <span class="op">=</span> <span class="st">"Calendar"</span>, width <span class="op">=</span> <span class="st">"240px"</span><span class="op">)</span>,</span>
-<span>  <span class="fu"><a href="../../reference/el_input.html">el_input</a></span><span class="op">(</span><span class="st">"in_prefix"</span>, placeholder <span class="op">=</span> <span class="st">"Type something"</span>, prefix_icon <span class="op">=</span> <span class="st">"Search"</span>, width <span class="op">=</span> <span class="st">"240px"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span></span>
+<span>  style <span class="op">=</span> <span class="st">"display: flex; gap: 16px"</span>,</span>
+<span>  <span class="fu"><a href="../../reference/el_input.html">el_input</a></span><span class="op">(</span></span>
+<span>    <span class="st">"in_suffix"</span>,</span>
+<span>    placeholder <span class="op">=</span> <span class="st">"Pick a date"</span>,</span>
+<span>    suffix_icon <span class="op">=</span> <span class="st">"Calendar"</span>,</span>
+<span>    width <span class="op">=</span> <span class="st">"240px"</span></span>
+<span>  <span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="../../reference/el_input.html">el_input</a></span><span class="op">(</span></span>
+<span>    <span class="st">"in_prefix"</span>,</span>
+<span>    placeholder <span class="op">=</span> <span class="st">"Type something"</span>,</span>
+<span>    prefix_icon <span class="op">=</span> <span class="st">"Search"</span>,</span>
+<span>    width <span class="op">=</span> <span class="st">"240px"</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
   <div style="display: flex; gap: 16px">
     <div id="with-icon-in_suffix" data-shiny-vue style="display: contents">
@@ -317,7 +355,13 @@ attribute <code>type="textarea"</code> to change <code>input</code> into
 native <code>textarea</code>.</p>
 <p>Control the height by setting the <code>rows</code> prop.</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_input.html">el_input</a></span><span class="op">(</span><span class="st">"in_area"</span>, type <span class="op">=</span> <span class="st">"textarea"</span>, rows <span class="op">=</span> <span class="fl">2</span>, placeholder <span class="op">=</span> <span class="st">"Please input"</span>, width <span class="op">=</span> <span class="st">"240px"</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_input.html">el_input</a></span><span class="op">(</span></span>
+<span>  <span class="st">"in_area"</span>,</span>
+<span>  type <span class="op">=</span> <span class="st">"textarea"</span>,</span>
+<span>  rows <span class="op">=</span> <span class="fl">2</span>,</span>
+<span>  placeholder <span class="op">=</span> <span class="st">"Please input"</span>,</span>
+<span>  width <span class="op">=</span> <span class="st">"240px"</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
   <div id="textarea-in_area" data-shiny-vue style="display: contents">
     <script type="text/x-template" data-shiny-vue-template><div id="textarea-in_area_container" style="display: contents">
@@ -336,10 +380,22 @@ minimum and maximum number of lines the textarea can automatically
 adjust.</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rstudio.github.io/htmltools/reference/tagList.html" class="external-link">tagList</a></span><span class="op">(</span></span>
-<span>  <span class="fu"><a href="../../reference/el_input.html">el_input</a></span><span class="op">(</span><span class="st">"in_auto1"</span>, type <span class="op">=</span> <span class="st">"textarea"</span>, autosize <span class="op">=</span> <span class="cn">TRUE</span>, placeholder <span class="op">=</span> <span class="st">"Please input"</span>, width <span class="op">=</span> <span class="st">"240px"</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="../../reference/el_input.html">el_input</a></span><span class="op">(</span></span>
+<span>    <span class="st">"in_auto1"</span>,</span>
+<span>    type <span class="op">=</span> <span class="st">"textarea"</span>,</span>
+<span>    autosize <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>    placeholder <span class="op">=</span> <span class="st">"Please input"</span>,</span>
+<span>    width <span class="op">=</span> <span class="st">"240px"</span></span>
+<span>  <span class="op">)</span>,</span>
 <span>  <span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span>style <span class="op">=</span> <span class="st">"margin: 20px 0"</span><span class="op">)</span>,</span>
-<span>  <span class="fu"><a href="../../reference/el_input.html">el_input</a></span><span class="op">(</span><span class="st">"in_auto2"</span>, type <span class="op">=</span> <span class="st">"textarea"</span>, autosize <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>minRows <span class="op">=</span> <span class="fl">2</span>, maxRows <span class="op">=</span> <span class="fl">4</span><span class="op">)</span>,</span>
-<span>           placeholder <span class="op">=</span> <span class="st">"Please input"</span>, width <span class="op">=</span> <span class="st">"240px"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<span>  <span class="fu"><a href="../../reference/el_input.html">el_input</a></span><span class="op">(</span></span>
+<span>    <span class="st">"in_auto2"</span>,</span>
+<span>    type <span class="op">=</span> <span class="st">"textarea"</span>,</span>
+<span>    autosize <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>minRows <span class="op">=</span> <span class="fl">2</span>, maxRows <span class="op">=</span> <span class="fl">4</span><span class="op">)</span>,</span>
+<span>    placeholder <span class="op">=</span> <span class="st">"Please input"</span>,</span>
+<span>    width <span class="op">=</span> <span class="st">"240px"</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
   <div id="auto-sizing-textarea-in_auto1" data-shiny-vue style="display: contents">
     <script type="text/x-template" data-shiny-vue-template><div id="auto-sizing-textarea-in_auto1_container" style="display: contents">
@@ -361,11 +417,27 @@ adjust.</p>
 <p>Use <code>slot</code> to distribute elements that prepend or append
 to Input.</p>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span>style <span class="op">=</span> <span class="st">"display: grid; gap: 16px; max-width: 600px"</span>,</span>
-<span>  <span class="fu"><a href="../../reference/el_input.html">el_input</a></span><span class="op">(</span><span class="st">"in_pre"</span>, placeholder <span class="op">=</span> <span class="st">"Please input"</span>, slots <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>prepend <span class="op">=</span> <span class="st">"Http://"</span><span class="op">)</span><span class="op">)</span>,</span>
-<span>  <span class="fu"><a href="../../reference/el_input.html">el_input</a></span><span class="op">(</span><span class="st">"in_app"</span>, placeholder <span class="op">=</span> <span class="st">"Please input"</span>, slots <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>append <span class="op">=</span> <span class="st">".com"</span><span class="op">)</span><span class="op">)</span>,</span>
-<span>  <span class="fu"><a href="../../reference/el_input.html">el_input</a></span><span class="op">(</span><span class="st">"in_both"</span>, placeholder <span class="op">=</span> <span class="st">"Please input"</span>,</span>
-<span>           slots <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>prepend <span class="op">=</span> <span class="st">"Http://"</span>, append <span class="op">=</span> <span class="fu"><a href="../../reference/el_button.html">el_button</a></span><span class="op">(</span><span class="st">"in_search"</span>, <span class="cn">NULL</span>, icon <span class="op">=</span> <span class="st">"Search"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span></span>
+<span>  style <span class="op">=</span> <span class="st">"display: grid; gap: 16px; max-width: 600px"</span>,</span>
+<span>  <span class="fu"><a href="../../reference/el_input.html">el_input</a></span><span class="op">(</span></span>
+<span>    <span class="st">"in_pre"</span>,</span>
+<span>    placeholder <span class="op">=</span> <span class="st">"Please input"</span>,</span>
+<span>    slots <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>prepend <span class="op">=</span> <span class="st">"Http://"</span><span class="op">)</span></span>
+<span>  <span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="../../reference/el_input.html">el_input</a></span><span class="op">(</span></span>
+<span>    <span class="st">"in_app"</span>,</span>
+<span>    placeholder <span class="op">=</span> <span class="st">"Please input"</span>,</span>
+<span>    slots <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>append <span class="op">=</span> <span class="st">".com"</span><span class="op">)</span></span>
+<span>  <span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="../../reference/el_input.html">el_input</a></span><span class="op">(</span></span>
+<span>    <span class="st">"in_both"</span>,</span>
+<span>    placeholder <span class="op">=</span> <span class="st">"Please input"</span>,</span>
+<span>    slots <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>      prepend <span class="op">=</span> <span class="st">"Http://"</span>,</span>
+<span>      append <span class="op">=</span> <span class="fu"><a href="../../reference/el_button.html">el_button</a></span><span class="op">(</span><span class="st">"in_search"</span>, <span class="cn">NULL</span>, icon <span class="op">=</span> <span class="st">"Search"</span><span class="op">)</span></span>
+<span>    <span class="op">)</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
   <div style="display: grid; gap: 16px; max-width: 600px">
     <div id="mixed-input-in_pre" data-shiny-vue style="display: contents">
@@ -402,10 +474,22 @@ to Input.</p>
 addition to the default size, there are two other options:
 <code>large</code>, <code>small</code>.</p>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span>style <span class="op">=</span> <span class="st">"display: flex; gap: 16px"</span>,</span>
-<span>  <span class="fu"><a href="../../reference/el_input.html">el_input</a></span><span class="op">(</span><span class="st">"in_l"</span>, size <span class="op">=</span> <span class="st">"large"</span>, placeholder <span class="op">=</span> <span class="st">"Please Input"</span>, width <span class="op">=</span> <span class="st">"240px"</span><span class="op">)</span>,</span>
+<code class="sourceCode R"><span><span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span></span>
+<span>  style <span class="op">=</span> <span class="st">"display: flex; gap: 16px"</span>,</span>
+<span>  <span class="fu"><a href="../../reference/el_input.html">el_input</a></span><span class="op">(</span></span>
+<span>    <span class="st">"in_l"</span>,</span>
+<span>    size <span class="op">=</span> <span class="st">"large"</span>,</span>
+<span>    placeholder <span class="op">=</span> <span class="st">"Please Input"</span>,</span>
+<span>    width <span class="op">=</span> <span class="st">"240px"</span></span>
+<span>  <span class="op">)</span>,</span>
 <span>  <span class="fu"><a href="../../reference/el_input.html">el_input</a></span><span class="op">(</span><span class="st">"in_d"</span>, placeholder <span class="op">=</span> <span class="st">"Please Input"</span>, width <span class="op">=</span> <span class="st">"240px"</span><span class="op">)</span>,</span>
-<span>  <span class="fu"><a href="../../reference/el_input.html">el_input</a></span><span class="op">(</span><span class="st">"in_s"</span>, size <span class="op">=</span> <span class="st">"small"</span>, placeholder <span class="op">=</span> <span class="st">"Please Input"</span>, width <span class="op">=</span> <span class="st">"240px"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<span>  <span class="fu"><a href="../../reference/el_input.html">el_input</a></span><span class="op">(</span></span>
+<span>    <span class="st">"in_s"</span>,</span>
+<span>    size <span class="op">=</span> <span class="st">"small"</span>,</span>
+<span>    placeholder <span class="op">=</span> <span class="st">"Please Input"</span>,</span>
+<span>    width <span class="op">=</span> <span class="st">"240px"</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
   <div style="display: flex; gap: 16px">
     <div id="various-size-in_l" data-shiny-vue style="display: contents">
@@ -440,11 +524,22 @@ at the same time. In 2.11.5, You can set
 word count outside the input.</p>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rstudio.github.io/htmltools/reference/tagList.html" class="external-link">tagList</a></span><span class="op">(</span></span>
-<span>  <span class="fu"><a href="../../reference/el_input.html">el_input</a></span><span class="op">(</span><span class="st">"in_lim"</span>, maxlength <span class="op">=</span> <span class="fl">10</span>, show_word_limit <span class="op">=</span> <span class="cn">TRUE</span>, placeholder <span class="op">=</span> <span class="st">"Please input"</span>,</span>
-<span>           width <span class="op">=</span> <span class="st">"240px"</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="../../reference/el_input.html">el_input</a></span><span class="op">(</span></span>
+<span>    <span class="st">"in_lim"</span>,</span>
+<span>    maxlength <span class="op">=</span> <span class="fl">10</span>,</span>
+<span>    show_word_limit <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>    placeholder <span class="op">=</span> <span class="st">"Please input"</span>,</span>
+<span>    width <span class="op">=</span> <span class="st">"240px"</span></span>
+<span>  <span class="op">)</span>,</span>
 <span>  <span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span>style <span class="op">=</span> <span class="st">"margin: 20px 0"</span><span class="op">)</span>,</span>
-<span>  <span class="fu"><a href="../../reference/el_input.html">el_input</a></span><span class="op">(</span><span class="st">"in_lim_area"</span>, type <span class="op">=</span> <span class="st">"textarea"</span>, maxlength <span class="op">=</span> <span class="fl">30</span>, show_word_limit <span class="op">=</span> <span class="cn">TRUE</span>,</span>
-<span>           placeholder <span class="op">=</span> <span class="st">"Please input"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<span>  <span class="fu"><a href="../../reference/el_input.html">el_input</a></span><span class="op">(</span></span>
+<span>    <span class="st">"in_lim_area"</span>,</span>
+<span>    type <span class="op">=</span> <span class="st">"textarea"</span>,</span>
+<span>    maxlength <span class="op">=</span> <span class="fl">30</span>,</span>
+<span>    show_word_limit <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>    placeholder <span class="op">=</span> <span class="st">"Please input"</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
   <div id="length-limiting-in_lim" data-shiny-vue style="display: contents">
     <script type="text/x-template" data-shiny-vue-template><div id="length-limiting-in_lim_container" style="display: contents">
@@ -468,9 +563,16 @@ used.</p>
 <p><code>count_graphemes</code> counts as a reader would: an emoji is
 one character.</p>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_input.html">el_input</a></span><span class="op">(</span><span class="st">"in_graph"</span>, maxlength <span class="op">=</span> <span class="fl">10</span>, show_word_limit <span class="op">=</span> <span class="cn">TRUE</span>, width <span class="op">=</span> <span class="st">"240px"</span>,</span>
+<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_input.html">el_input</a></span><span class="op">(</span></span>
+<span>  <span class="st">"in_graph"</span>,</span>
+<span>  maxlength <span class="op">=</span> <span class="fl">10</span>,</span>
+<span>  show_word_limit <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  width <span class="op">=</span> <span class="st">"240px"</span>,</span>
 <span>  value <span class="op">=</span> <span class="st">"\U0001F468‍\U0001F469‍\U0001F467"</span>,</span>
-<span>  count_graphemes <span class="op">=</span> <span class="fu"><a href="../../reference/JS.html">JS</a></span><span class="op">(</span><span class="st">"function(value) { return [...new Intl.Segmenter().segment(value)].length; }"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<span>  count_graphemes <span class="op">=</span> <span class="fu"><a href="../../reference/JS.html">JS</a></span><span class="op">(</span></span>
+<span>    <span class="st">"function(value) { return [...new Intl.Segmenter().segment(value)].length; }"</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
   <div id="count-graphemes-in_graph" data-shiny-vue style="display: contents">
     <script type="text/x-template" data-shiny-vue-template><div id="count-graphemes-in_graph_container" style="display: contents">

@@ -195,14 +195,43 @@ exception.</p>
 <p><code>primary</code> has been added in 2.9.11.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_row.html">el_row</a></span><span class="op">(</span></span>
-<span>  <span class="fu"><a href="../../reference/el_col.html">el_col</a></span><span class="op">(</span>span <span class="op">=</span> <span class="fl">6</span>, <span class="fu"><a href="../../reference/el_result.html">el_result</a></span><span class="op">(</span>icon <span class="op">=</span> <span class="st">"success"</span>, title <span class="op">=</span> <span class="st">"Success Tip"</span>,</span>
-<span>    sub_title <span class="op">=</span> <span class="st">"Please follow the instructions"</span>, <span class="fu"><a href="../../reference/el_button.html">el_button</a></span><span class="op">(</span><span class="st">"res1"</span>, <span class="st">"Back"</span>, type <span class="op">=</span> <span class="st">"primary"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>,</span>
-<span>  <span class="fu"><a href="../../reference/el_col.html">el_col</a></span><span class="op">(</span>span <span class="op">=</span> <span class="fl">6</span>, <span class="fu"><a href="../../reference/el_result.html">el_result</a></span><span class="op">(</span>icon <span class="op">=</span> <span class="st">"warning"</span>, title <span class="op">=</span> <span class="st">"Warning Tip"</span>,</span>
-<span>    sub_title <span class="op">=</span> <span class="st">"Please follow the instructions"</span>, <span class="fu"><a href="../../reference/el_button.html">el_button</a></span><span class="op">(</span><span class="st">"res2"</span>, <span class="st">"Back"</span>, type <span class="op">=</span> <span class="st">"primary"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>,</span>
-<span>  <span class="fu"><a href="../../reference/el_col.html">el_col</a></span><span class="op">(</span>span <span class="op">=</span> <span class="fl">6</span>, <span class="fu"><a href="../../reference/el_result.html">el_result</a></span><span class="op">(</span>icon <span class="op">=</span> <span class="st">"error"</span>, title <span class="op">=</span> <span class="st">"Error Tip"</span>,</span>
-<span>    sub_title <span class="op">=</span> <span class="st">"Please follow the instructions"</span>, <span class="fu"><a href="../../reference/el_button.html">el_button</a></span><span class="op">(</span><span class="st">"res3"</span>, <span class="st">"Back"</span>, type <span class="op">=</span> <span class="st">"primary"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>,</span>
-<span>  <span class="fu"><a href="../../reference/el_col.html">el_col</a></span><span class="op">(</span>span <span class="op">=</span> <span class="fl">6</span>, <span class="fu"><a href="../../reference/el_result.html">el_result</a></span><span class="op">(</span>icon <span class="op">=</span> <span class="st">"info"</span>, title <span class="op">=</span> <span class="st">"Info Tip"</span>,</span>
-<span>    sub_title <span class="op">=</span> <span class="st">"Please follow the instructions"</span>, <span class="fu"><a href="../../reference/el_button.html">el_button</a></span><span class="op">(</span><span class="st">"res4"</span>, <span class="st">"Back"</span>, type <span class="op">=</span> <span class="st">"primary"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<span>  <span class="fu"><a href="../../reference/el_col.html">el_col</a></span><span class="op">(</span></span>
+<span>    span <span class="op">=</span> <span class="fl">6</span>,</span>
+<span>    <span class="fu"><a href="../../reference/el_result.html">el_result</a></span><span class="op">(</span></span>
+<span>      icon <span class="op">=</span> <span class="st">"success"</span>,</span>
+<span>      title <span class="op">=</span> <span class="st">"Success Tip"</span>,</span>
+<span>      sub_title <span class="op">=</span> <span class="st">"Please follow the instructions"</span>,</span>
+<span>      <span class="fu"><a href="../../reference/el_button.html">el_button</a></span><span class="op">(</span><span class="st">"res1"</span>, <span class="st">"Back"</span>, type <span class="op">=</span> <span class="st">"primary"</span><span class="op">)</span></span>
+<span>    <span class="op">)</span></span>
+<span>  <span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="../../reference/el_col.html">el_col</a></span><span class="op">(</span></span>
+<span>    span <span class="op">=</span> <span class="fl">6</span>,</span>
+<span>    <span class="fu"><a href="../../reference/el_result.html">el_result</a></span><span class="op">(</span></span>
+<span>      icon <span class="op">=</span> <span class="st">"warning"</span>,</span>
+<span>      title <span class="op">=</span> <span class="st">"Warning Tip"</span>,</span>
+<span>      sub_title <span class="op">=</span> <span class="st">"Please follow the instructions"</span>,</span>
+<span>      <span class="fu"><a href="../../reference/el_button.html">el_button</a></span><span class="op">(</span><span class="st">"res2"</span>, <span class="st">"Back"</span>, type <span class="op">=</span> <span class="st">"primary"</span><span class="op">)</span></span>
+<span>    <span class="op">)</span></span>
+<span>  <span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="../../reference/el_col.html">el_col</a></span><span class="op">(</span></span>
+<span>    span <span class="op">=</span> <span class="fl">6</span>,</span>
+<span>    <span class="fu"><a href="../../reference/el_result.html">el_result</a></span><span class="op">(</span></span>
+<span>      icon <span class="op">=</span> <span class="st">"error"</span>,</span>
+<span>      title <span class="op">=</span> <span class="st">"Error Tip"</span>,</span>
+<span>      sub_title <span class="op">=</span> <span class="st">"Please follow the instructions"</span>,</span>
+<span>      <span class="fu"><a href="../../reference/el_button.html">el_button</a></span><span class="op">(</span><span class="st">"res3"</span>, <span class="st">"Back"</span>, type <span class="op">=</span> <span class="st">"primary"</span><span class="op">)</span></span>
+<span>    <span class="op">)</span></span>
+<span>  <span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="../../reference/el_col.html">el_col</a></span><span class="op">(</span></span>
+<span>    span <span class="op">=</span> <span class="fl">6</span>,</span>
+<span>    <span class="fu"><a href="../../reference/el_result.html">el_result</a></span><span class="op">(</span></span>
+<span>      icon <span class="op">=</span> <span class="st">"info"</span>,</span>
+<span>      title <span class="op">=</span> <span class="st">"Info Tip"</span>,</span>
+<span>      sub_title <span class="op">=</span> <span class="st">"Please follow the instructions"</span>,</span>
+<span>      <span class="fu"><a href="../../reference/el_button.html">el_button</a></span><span class="op">(</span><span class="st">"res4"</span>, <span class="st">"Back"</span>, type <span class="op">=</span> <span class="st">"primary"</span><span class="op">)</span></span>
+<span>    <span class="op">)</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
   <div class="el-row">
     <div class="el-col el-col-6">
@@ -260,10 +289,17 @@ exception.</p>
 <h2 id="customized-content">Customized content<a class="anchor" aria-label="anchor" href="#customized-content"></a>
 </h2>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_result.html">el_result</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"404"</span>, sub_title <span class="op">=</span> <span class="st">"Sorry, request error"</span>,</span>
-<span>  slots <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>icon <span class="op">=</span> <span class="va">tags</span><span class="op">$</span><span class="fu">img</span><span class="op">(</span>src <span class="op">=</span> <span class="st">"https://shadow.elemecdn.com/app/element/hamburger.9cf7b091-55e9-11e9-a976-7f4d0b07eef6.png"</span>,</span>
-<span>                               alt <span class="op">=</span> <span class="st">"A hamburger"</span><span class="op">)</span><span class="op">)</span>,</span>
-<span>  <span class="fu"><a href="../../reference/el_button.html">el_button</a></span><span class="op">(</span><span class="st">"res_back"</span>, <span class="st">"Back"</span>, type <span class="op">=</span> <span class="st">"primary"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_result.html">el_result</a></span><span class="op">(</span></span>
+<span>  title <span class="op">=</span> <span class="st">"404"</span>,</span>
+<span>  sub_title <span class="op">=</span> <span class="st">"Sorry, request error"</span>,</span>
+<span>  slots <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>    icon <span class="op">=</span> <span class="va">tags</span><span class="op">$</span><span class="fu">img</span><span class="op">(</span></span>
+<span>      src <span class="op">=</span> <span class="st">"https://shadow.elemecdn.com/app/element/hamburger.9cf7b091-55e9-11e9-a976-7f4d0b07eef6.png"</span>,</span>
+<span>      alt <span class="op">=</span> <span class="st">"A hamburger"</span></span>
+<span>    <span class="op">)</span></span>
+<span>  <span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="../../reference/el_button.html">el_button</a></span><span class="op">(</span><span class="st">"res_back"</span>, <span class="st">"Back"</span>, type <span class="op">=</span> <span class="st">"primary"</span><span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
   <div id='customized-content-&lt;div id="customized-content-res_back" data-shiny-vue style="display: contents"&gt;
   &lt;script type="text/x-template" data-shiny-vue-template&gt;&lt;div id="customized-content-res_back_container" style="display: contents"&gt;

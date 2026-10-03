@@ -332,7 +332,9 @@ el_theme(primary = "#7c3aed")
 #>   ..- attr(*, "names")= chr [1:3] "fonts" "font.css" "fonts"
 
 # Rounder and smaller, all through Element
-el_theme(element = list("border-radius-base" = "10px", "font-size-base" = "13px"))
+el_theme(
+  element = list("border-radius-base" = "10px", "font-size-base" = "13px")
+)
 #> /* Sass Bundle: _utilities, _root, _reboot, _type, _images, _containers, _grid, _tables, _forms, _buttons, _transitions, _dropdown, _button-group, _nav, _navbar, _card, _accordion, _breadcrumb, _pagination, _badge, _alert, _progress, _list-group, _close, _toasts, _modal, _tooltip, _popover, _carousel, _spinners, _offcanvas, _placeholders, _helpers, _api, bs3compat, builtin */
 #> @import "/home/runner/work/_temp/Library/bslib/lib/bs5/scss/_functions.scss";
 #> @import "/home/runner/work/_temp/Library/bslib/bslib-scss/functions.scss";

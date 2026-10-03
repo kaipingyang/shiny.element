@@ -55,15 +55,24 @@ even when several are open at once; pass the question back whole.
 ``` r
 if (interactive()) {
   library(shiny)
-  ui <- el_page(el_tree("files", lazy = TRUE, node_key = "id",
-                        is_leaf_field = "leaf"))
+  ui <- el_page(el_tree(
+    "files",
+    lazy = TRUE,
+    node_key = "id",
+    is_leaf_field = "leaf"
+  ))
   server <- function(input, output, session) {
     observeEvent(input$files_load, {
       q <- input$files_load
       dir <- if (q$level == 0) "~" else q$key
       entries <- list.files(dir, full.names = TRUE)
-      el_load_children(id = "files", request = q, children = lapply(entries,
-        function(f) list(id = f, label = basename(f), leaf = !dir.exists(f))))
+      el_load_children(
+        id = "files",
+        request = q,
+        children = lapply(entries, function(f) {
+          list(id = f, label = basename(f), leaf = !dir.exists(f))
+        })
+      )
     })
   }
   shinyApp(ui, server)

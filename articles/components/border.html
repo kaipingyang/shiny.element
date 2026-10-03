@@ -194,12 +194,26 @@ pop-ups and other components.</p>
 </h2>
 <p>There are few border styles to choose.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">row</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">name</span>, <span class="va">width</span>, <span class="va">style</span><span class="op">)</span> <span class="va">tags</span><span class="op">$</span><span class="fu">tr</span><span class="op">(</span><span class="va">tags</span><span class="op">$</span><span class="fu">td</span><span class="op">(</span><span class="va">name</span><span class="op">)</span>, <span class="va">tags</span><span class="op">$</span><span class="fu">td</span><span class="op">(</span><span class="va">width</span><span class="op">)</span>,</span>
-<span>  <span class="va">tags</span><span class="op">$</span><span class="fu">td</span><span class="op">(</span><span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span>style <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sprintf.html" class="external-link">sprintf</a></span><span class="op">(</span><span class="st">"width: 200px; height: 0; border-top: %s %s var(--el-border-color)"</span>,</span>
-<span>                                   <span class="va">width</span>, <span class="va">style</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="va">tags</span><span class="op">$</span><span class="fu">table</span><span class="op">(</span>class <span class="op">=</span> <span class="st">"demo-border"</span>, style <span class="op">=</span> <span class="st">"border-spacing: 30px 10px"</span>,</span>
+<code class="sourceCode R"><span><span class="va">row</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">name</span>, <span class="va">width</span>, <span class="va">style</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="va">tags</span><span class="op">$</span><span class="fu">tr</span><span class="op">(</span></span>
+<span>    <span class="va">tags</span><span class="op">$</span><span class="fu">td</span><span class="op">(</span><span class="va">name</span><span class="op">)</span>,</span>
+<span>    <span class="va">tags</span><span class="op">$</span><span class="fu">td</span><span class="op">(</span><span class="va">width</span><span class="op">)</span>,</span>
+<span>    <span class="va">tags</span><span class="op">$</span><span class="fu">td</span><span class="op">(</span><span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span></span>
+<span>      style <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sprintf.html" class="external-link">sprintf</a></span><span class="op">(</span></span>
+<span>        <span class="st">"width: 200px; height: 0; border-top: %s %s var(--el-border-color)"</span>,</span>
+<span>        <span class="va">width</span>,</span>
+<span>        <span class="va">style</span></span>
+<span>      <span class="op">)</span></span>
+<span>    <span class="op">)</span><span class="op">)</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">}</span></span>
+<span><span class="va">tags</span><span class="op">$</span><span class="fu">table</span><span class="op">(</span></span>
+<span>  class <span class="op">=</span> <span class="st">"demo-border"</span>,</span>
+<span>  style <span class="op">=</span> <span class="st">"border-spacing: 30px 10px"</span>,</span>
 <span>  <span class="va">tags</span><span class="op">$</span><span class="fu">tr</span><span class="op">(</span><span class="va">tags</span><span class="op">$</span><span class="fu">td</span><span class="op">(</span><span class="st">"Name"</span><span class="op">)</span>, <span class="va">tags</span><span class="op">$</span><span class="fu">td</span><span class="op">(</span><span class="st">"Thickness"</span><span class="op">)</span>, <span class="va">tags</span><span class="op">$</span><span class="fu">td</span><span class="op">(</span><span class="st">"Demo"</span><span class="op">)</span><span class="op">)</span>,</span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/row.html" class="external-link">row</a></span><span class="op">(</span><span class="st">"Solid"</span>, <span class="st">"1px"</span>, <span class="st">"solid"</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/row.html" class="external-link">row</a></span><span class="op">(</span><span class="st">"Dashed"</span>, <span class="st">"2px"</span>, <span class="st">"dashed"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/row.html" class="external-link">row</a></span><span class="op">(</span><span class="st">"Solid"</span>, <span class="st">"1px"</span>, <span class="st">"solid"</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/row.html" class="external-link">row</a></span><span class="op">(</span><span class="st">"Dashed"</span>, <span class="st">"2px"</span>, <span class="st">"dashed"</span><span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
   <table class="table demo-border" style="border-spacing: 30px 10px">
 <tr>
@@ -229,14 +243,29 @@ pop-ups and other components.</p>
 </h2>
 <p>There are few radius styles to choose.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">box</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">name</span>, <span class="va">radius</span><span class="op">)</span> <span class="fu"><a href="../../reference/el_col.html">el_col</a></span><span class="op">(</span>span <span class="op">=</span> <span class="fl">6</span>,</span>
-<span>  <span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span><span class="va">name</span><span class="op">)</span>, <span class="va">tags</span><span class="op">$</span><span class="fu">code</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/sprintf.html" class="external-link">sprintf</a></span><span class="op">(</span><span class="st">"border-radius: %s"</span>, <span class="va">radius</span><span class="op">)</span><span class="op">)</span>,</span>
-<span>  <span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span>style <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sprintf.html" class="external-link">sprintf</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="st">"height: 40px; margin-top: 10px; border: 1px solid"</span>,</span>
-<span>                                 <span class="st">"var(--el-border-color); border-radius: %s"</span><span class="op">)</span>, <span class="va">radius</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="fu"><a href="../../reference/el_row.html">el_row</a></span><span class="op">(</span>gutter <span class="op">=</span> <span class="fl">12</span>,</span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/graphics/box.html" class="external-link">box</a></span><span class="op">(</span><span class="st">"No Radius"</span>, <span class="st">"0px"</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/graphics/box.html" class="external-link">box</a></span><span class="op">(</span><span class="st">"Small Radius"</span>, <span class="st">"var(--el-border-radius-small)"</span><span class="op">)</span>,</span>
+<code class="sourceCode R"><span><span class="va">box</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">name</span>, <span class="va">radius</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="fu"><a href="../../reference/el_col.html">el_col</a></span><span class="op">(</span></span>
+<span>    span <span class="op">=</span> <span class="fl">6</span>,</span>
+<span>    <span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span><span class="va">name</span><span class="op">)</span>,</span>
+<span>    <span class="va">tags</span><span class="op">$</span><span class="fu">code</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/sprintf.html" class="external-link">sprintf</a></span><span class="op">(</span><span class="st">"border-radius: %s"</span>, <span class="va">radius</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>    <span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span></span>
+<span>      style <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sprintf.html" class="external-link">sprintf</a></span><span class="op">(</span></span>
+<span>        <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span></span>
+<span>          <span class="st">"height: 40px; margin-top: 10px; border: 1px solid"</span>,</span>
+<span>          <span class="st">"var(--el-border-color); border-radius: %s"</span></span>
+<span>        <span class="op">)</span>,</span>
+<span>        <span class="va">radius</span></span>
+<span>      <span class="op">)</span></span>
+<span>    <span class="op">)</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">}</span></span>
+<span><span class="fu"><a href="../../reference/el_row.html">el_row</a></span><span class="op">(</span></span>
+<span>  gutter <span class="op">=</span> <span class="fl">12</span>,</span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/graphics/box.html" class="external-link">box</a></span><span class="op">(</span><span class="st">"No Radius"</span>, <span class="st">"0px"</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/graphics/box.html" class="external-link">box</a></span><span class="op">(</span><span class="st">"Small Radius"</span>, <span class="st">"var(--el-border-radius-small)"</span><span class="op">)</span>,</span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/graphics/box.html" class="external-link">box</a></span><span class="op">(</span><span class="st">"Large Radius"</span>, <span class="st">"var(--el-border-radius-base)"</span><span class="op">)</span>,</span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/graphics/box.html" class="external-link">box</a></span><span class="op">(</span><span class="st">"Round Radius"</span>, <span class="st">"var(--el-border-radius-round)"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<span>  <span class="fu"><a href="https://rdrr.io/r/graphics/box.html" class="external-link">box</a></span><span class="op">(</span><span class="st">"Round Radius"</span>, <span class="st">"var(--el-border-radius-round)"</span><span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
   <div class="el-row" style="margin-left:-6px; margin-right:-6px">
     <div class="el-col el-col-6" style="padding-left:6px; padding-right:6px">
@@ -267,12 +296,23 @@ pop-ups and other components.</p>
 </h2>
 <p>There are few shadow styles to choose.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">shadow</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">name</span>, <span class="va">var</span><span class="op">)</span> <span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span>style <span class="op">=</span> <span class="st">"text-align: center; margin: 0 20px"</span>,</span>
-<span>  <span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span>style <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sprintf.html" class="external-link">sprintf</a></span><span class="op">(</span><span class="st">"width: 120px; height: 120px; box-shadow: var(%s)"</span>, <span class="va">var</span><span class="op">)</span><span class="op">)</span>,</span>
-<span>  <span class="va">tags</span><span class="op">$</span><span class="fu">p</span><span class="op">(</span><span class="va">name</span><span class="op">)</span>, <span class="va">tags</span><span class="op">$</span><span class="fu">code</span><span class="op">(</span><span class="va">var</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span>style <span class="op">=</span> <span class="st">"display: flex; flex-wrap: wrap"</span>,</span>
-<span>  <span class="fu">shadow</span><span class="op">(</span><span class="st">"Basic Shadow"</span>, <span class="st">"--el-box-shadow"</span><span class="op">)</span>, <span class="fu">shadow</span><span class="op">(</span><span class="st">"Light Shadow"</span>, <span class="st">"--el-box-shadow-light"</span><span class="op">)</span>,</span>
-<span>  <span class="fu">shadow</span><span class="op">(</span><span class="st">"Lighter Shadow"</span>, <span class="st">"--el-box-shadow-lighter"</span><span class="op">)</span>, <span class="fu">shadow</span><span class="op">(</span><span class="st">"Dark Shadow"</span>, <span class="st">"--el-box-shadow-dark"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">shadow</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">name</span>, <span class="va">var</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span></span>
+<span>    style <span class="op">=</span> <span class="st">"text-align: center; margin: 0 20px"</span>,</span>
+<span>    <span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span></span>
+<span>      style <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sprintf.html" class="external-link">sprintf</a></span><span class="op">(</span><span class="st">"width: 120px; height: 120px; box-shadow: var(%s)"</span>, <span class="va">var</span><span class="op">)</span></span>
+<span>    <span class="op">)</span>,</span>
+<span>    <span class="va">tags</span><span class="op">$</span><span class="fu">p</span><span class="op">(</span><span class="va">name</span><span class="op">)</span>,</span>
+<span>    <span class="va">tags</span><span class="op">$</span><span class="fu">code</span><span class="op">(</span><span class="va">var</span><span class="op">)</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">}</span></span>
+<span><span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span></span>
+<span>  style <span class="op">=</span> <span class="st">"display: flex; flex-wrap: wrap"</span>,</span>
+<span>  <span class="fu">shadow</span><span class="op">(</span><span class="st">"Basic Shadow"</span>, <span class="st">"--el-box-shadow"</span><span class="op">)</span>,</span>
+<span>  <span class="fu">shadow</span><span class="op">(</span><span class="st">"Light Shadow"</span>, <span class="st">"--el-box-shadow-light"</span><span class="op">)</span>,</span>
+<span>  <span class="fu">shadow</span><span class="op">(</span><span class="st">"Lighter Shadow"</span>, <span class="st">"--el-box-shadow-lighter"</span><span class="op">)</span>,</span>
+<span>  <span class="fu">shadow</span><span class="op">(</span><span class="st">"Dark Shadow"</span>, <span class="st">"--el-box-shadow-dark"</span><span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
   <div style="display: flex; flex-wrap: wrap">
     <div style="text-align: center; margin: 0 20px">

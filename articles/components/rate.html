@@ -200,9 +200,14 @@ attribute, and their two thresholds can be defined by
 assign them with a object which key is the threshold between two levels
 and value is the corresponding color.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span>style <span class="op">=</span> <span class="st">"display: flex; gap: 40px"</span>,</span>
+<code class="sourceCode R"><span><span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span></span>
+<span>  style <span class="op">=</span> <span class="st">"display: flex; gap: 40px"</span>,</span>
 <span>  <span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span><span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span><span class="st">"Default"</span><span class="op">)</span>, <span class="fu"><a href="../../reference/el_rate.html">el_rate</a></span><span class="op">(</span><span class="st">"rate1"</span><span class="op">)</span><span class="op">)</span>,</span>
-<span>  <span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span><span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span><span class="st">"Color for different levels"</span><span class="op">)</span>, <span class="fu"><a href="../../reference/el_rate.html">el_rate</a></span><span class="op">(</span><span class="st">"rate2"</span>, colors <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"#99A9BF"</span>, <span class="st">"#F7BA2A"</span>, <span class="st">"#FF9900"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<span>  <span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span></span>
+<span>    <span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span><span class="st">"Color for different levels"</span><span class="op">)</span>,</span>
+<span>    <span class="fu"><a href="../../reference/el_rate.html">el_rate</a></span><span class="op">(</span><span class="st">"rate2"</span>, colors <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"#99A9BF"</span>, <span class="st">"#F7BA2A"</span>, <span class="st">"#FF9900"</span><span class="op">)</span><span class="op">)</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
   <div style="display: flex; gap: 40px">
     <div>
@@ -228,8 +233,12 @@ and value is the corresponding color.</p>
 <h2 id="sizes">Sizes<a class="anchor" aria-label="anchor" href="#sizes"></a>
 </h2>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span>style <span class="op">=</span> <span class="st">"display: grid; gap: 8px"</span>,</span>
-<span>  <span class="fu"><a href="../../reference/el_rate.html">el_rate</a></span><span class="op">(</span><span class="st">"rate_l"</span>, size <span class="op">=</span> <span class="st">"large"</span><span class="op">)</span>, <span class="fu"><a href="../../reference/el_rate.html">el_rate</a></span><span class="op">(</span><span class="st">"rate_d"</span><span class="op">)</span>, <span class="fu"><a href="../../reference/el_rate.html">el_rate</a></span><span class="op">(</span><span class="st">"rate_s"</span>, size <span class="op">=</span> <span class="st">"small"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span></span>
+<span>  style <span class="op">=</span> <span class="st">"display: grid; gap: 8px"</span>,</span>
+<span>  <span class="fu"><a href="../../reference/el_rate.html">el_rate</a></span><span class="op">(</span><span class="st">"rate_l"</span>, size <span class="op">=</span> <span class="st">"large"</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="../../reference/el_rate.html">el_rate</a></span><span class="op">(</span><span class="st">"rate_d"</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="../../reference/el_rate.html">el_rate</a></span><span class="op">(</span><span class="st">"rate_s"</span>, size <span class="op">=</span> <span class="st">"small"</span><span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
   <div style="display: grid; gap: 8px">
     <div id="sizes-rate_l" data-shiny-vue style="display: contents">
@@ -273,7 +282,11 @@ Rate. You can assign texts for different scores using
 <code>texts</code>. <code>texts</code> is an array whose length should
 be equal to the max score <code>max</code>.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_rate.html">el_rate</a></span><span class="op">(</span><span class="st">"rate_text"</span>, show_text <span class="op">=</span> <span class="cn">TRUE</span>, texts <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"oops"</span>, <span class="st">"disappointed"</span>, <span class="st">"normal"</span>, <span class="st">"good"</span>, <span class="st">"great"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_rate.html">el_rate</a></span><span class="op">(</span></span>
+<span>  <span class="st">"rate_text"</span>,</span>
+<span>  show_text <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  texts <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"oops"</span>, <span class="st">"disappointed"</span>, <span class="st">"normal"</span>, <span class="st">"good"</span>, <span class="st">"great"</span><span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
   <div id="text-rate_text" data-shiny-vue style="display: contents">
     <script type="text/x-template" data-shiny-vue-template><div id="text-rate_text_container" style="display: contents">
@@ -307,8 +320,12 @@ three elements or a object which key is the threshold between two levels
 and value is the corresponding icon. In this example, we also use
 <code>void-icon</code> to set the icon if it is unselected.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_rate.html">el_rate</a></span><span class="op">(</span><span class="st">"rate_icons"</span>, icons <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"ChatRound"</span>, <span class="st">"ChatLineRound"</span>, <span class="st">"ChatDotRound"</span><span class="op">)</span>, void_icon <span class="op">=</span> <span class="st">"ChatRound"</span>,</span>
-<span>        colors <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"#409eff"</span>, <span class="st">"#67c23a"</span>, <span class="st">"#FF9900"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_rate.html">el_rate</a></span><span class="op">(</span></span>
+<span>  <span class="st">"rate_icons"</span>,</span>
+<span>  icons <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"ChatRound"</span>, <span class="st">"ChatLineRound"</span>, <span class="st">"ChatDotRound"</span><span class="op">)</span>,</span>
+<span>  void_icon <span class="op">=</span> <span class="st">"ChatRound"</span>,</span>
+<span>  colors <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"#409eff"</span>, <span class="st">"#67c23a"</span>, <span class="st">"#FF9900"</span><span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
   <div id="more-icons-rate_icons" data-shiny-vue style="display: contents">
     <script type="text/x-template" data-shiny-vue-template><div id="more-icons-rate_icons_container" style="display: contents">
@@ -328,8 +345,14 @@ side. Additionally, you can use attribute <code>score-template</code> to
 provide a score template. It must contain <code>{value}</code>, and
 <code>{value}</code> will be replaced with the rating score.</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_rate.html">el_rate</a></span><span class="op">(</span><span class="st">"rate_ro"</span>, value <span class="op">=</span> <span class="fl">3.7</span>, disabled <span class="op">=</span> <span class="cn">TRUE</span>, show_score <span class="op">=</span> <span class="cn">TRUE</span>, text_color <span class="op">=</span> <span class="st">"#ff9900"</span>,</span>
-<span>        score_template <span class="op">=</span> <span class="st">"{value} points"</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_rate.html">el_rate</a></span><span class="op">(</span></span>
+<span>  <span class="st">"rate_ro"</span>,</span>
+<span>  value <span class="op">=</span> <span class="fl">3.7</span>,</span>
+<span>  disabled <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  show_score <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  text_color <span class="op">=</span> <span class="st">"#ff9900"</span>,</span>
+<span>  score_template <span class="op">=</span> <span class="st">"{value} points"</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
   <div id="readonly-rate_ro" data-shiny-vue style="display: contents">
     <script type="text/x-template" data-shiny-vue-template><div id="readonly-rate_ro_container" style="display: contents">

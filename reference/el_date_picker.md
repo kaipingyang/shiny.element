@@ -383,9 +383,12 @@ el_date_picker("dp2", value = Sys.Date())
 #> </div>
 
 # Date range picker
-el_date_picker("dp3", type = "daterange",
-               start_placeholder = "Start date",
-               end_placeholder   = "End date")
+el_date_picker(
+  "dp3",
+  type = "daterange",
+  start_placeholder = "Start date",
+  end_placeholder = "End date"
+)
 #> <div id="dp3" data-shiny-vue style="display: contents">
 #>   <script type="text/x-template" data-shiny-vue-template><div id="dp3_container" style="display: contents">
 #>   <el-date-picker v-model="value" :type="type" :value-format="valueFormat" :format="displayFormat" :clearable="clearable" :disabled="disabled" :editable="editable" :readonly="readonly" :range-separator="rangeSeparator" @change="handleChange" :placeholder="placeholder === null ? undefined : placeholder" :start-placeholder="startPlaceholder === null ? undefined : startPlaceholder" :end-placeholder="endPlaceholder === null ? undefined : endPlaceholder" :size="size === null ? undefined : size" :name="name === null ? undefined : name" :prefix-icon="prefixIcon === null ? undefined : prefixIcon" :clear-icon="clearIcon === null ? undefined : clearIcon" :popper-class="popperClass === null ? undefined : popperClass" :default-value="defaultValue === null ? undefined : defaultValue" :default-time="defaultTime === null ? undefined : defaultTime" :unlink-panels="unlinkPanels === null ? undefined : unlinkPanels" :validate-event="validateEvent === null ? undefined : validateEvent" @blur="elEmitBlur" @focus="elEmitFocus" @calendar-change="elEmitCalendarChange" @clear="elEmitClear" @panel-change="elEmitPanelChange" @visible-change="elEmitVisibleChange" :arrow-control="arrowControl === null ? undefined : arrowControl" :automatic-dropdown="automaticDropdown === null ? undefined : automaticDropdown" :cell-class-name="cellClassName === null ? undefined : cellClassName" :date-format="dateFormat === null ? undefined : dateFormat" :disabled-date="disabledDate === null ? undefined : disabledDate" :disabled-hours="disabledHours === null ? undefined : disabledHours" :disabled-minutes="disabledMinutes === null ? undefined : disabledMinutes" :disabled-seconds="disabledSeconds === null ? undefined : disabledSeconds" :empty-values="emptyValues === null ? undefined : emptyValues" :fallback-placements="fallbackPlacements === null ? undefined : fallbackPlacements" :placement="placement === null ? undefined : placement" :popper-options="popperOptions === null ? undefined : popperOptions" :popper-style="popperStyle === null ? undefined : popperStyle" :shortcuts="shortcuts === null ? undefined : shortcuts" :show-confirm="showConfirm === null ? undefined : showConfirm" :show-footer="showFooter === null ? undefined : showFooter" :show-now="showNow === null ? undefined : showNow" :show-week-number="showWeekNumber === null ? undefined : showWeekNumber" :single-panel="singlePanel === null ? undefined : singlePanel" :teleported="teleported === null ? undefined : teleported" :time-format="timeFormat === null ? undefined : timeFormat" :value-on-clear="valueOnClear === null ? undefined : valueOnClear"></el-date-picker>

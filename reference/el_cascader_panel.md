@@ -156,10 +156,21 @@ Callable with
 
 ``` r
 regions <- list(
-  list(value = "asia", label = "Asia", children = list(
-    list(value = "cn", label = "China"), list(value = "jp", label = "Japan"))),
-  list(value = "europe", label = "Europe", children = list(
-    list(value = "fr", label = "France")))
+  list(
+    value = "asia",
+    label = "Asia",
+    children = list(
+      list(value = "cn", label = "China"),
+      list(value = "jp", label = "Japan")
+    )
+  ),
+  list(
+    value = "europe",
+    label = "Europe",
+    children = list(
+      list(value = "fr", label = "France")
+    )
+  )
 )
 el_cascader_panel("where", options = regions, value = c("asia", "jp"))
 #> <div id="where" data-shiny-vue style="display: contents">

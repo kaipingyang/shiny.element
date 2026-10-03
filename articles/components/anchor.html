@@ -195,13 +195,23 @@ information content on the current page.</p>
 <p>The most basic usage</p>
 <p>The links point at this page’s own sections.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_anchor.html">el_anchor</a></span><span class="op">(</span><span class="st">"toc"</span>, offset <span class="op">=</span> <span class="fl">70</span>, links <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Basic Usage"</span>, href <span class="op">=</span> <span class="st">"#basic-usage"</span><span class="op">)</span>,</span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Horizontal Mode"</span>, href <span class="op">=</span> <span class="st">"#horizontal-mode"</span><span class="op">)</span>,</span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Scroll Container"</span>, href <span class="op">=</span> <span class="st">"#scroll-container"</span><span class="op">)</span>,</span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Anchor API"</span>, href <span class="op">=</span> <span class="st">"#api"</span>, children <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
-<span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Anchor Attributes"</span>, href <span class="op">=</span> <span class="st">"#anchor-attributes"</span><span class="op">)</span>,</span>
-<span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Anchor Events"</span>, href <span class="op">=</span> <span class="st">"#anchor-events"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_anchor.html">el_anchor</a></span><span class="op">(</span></span>
+<span>  <span class="st">"toc"</span>,</span>
+<span>  offset <span class="op">=</span> <span class="fl">70</span>,</span>
+<span>  links <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Basic Usage"</span>, href <span class="op">=</span> <span class="st">"#basic-usage"</span><span class="op">)</span>,</span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Horizontal Mode"</span>, href <span class="op">=</span> <span class="st">"#horizontal-mode"</span><span class="op">)</span>,</span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Scroll Container"</span>, href <span class="op">=</span> <span class="st">"#scroll-container"</span><span class="op">)</span>,</span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>      title <span class="op">=</span> <span class="st">"Anchor API"</span>,</span>
+<span>      href <span class="op">=</span> <span class="st">"#api"</span>,</span>
+<span>      children <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>        <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Anchor Attributes"</span>, href <span class="op">=</span> <span class="st">"#anchor-attributes"</span><span class="op">)</span>,</span>
+<span>        <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Anchor Events"</span>, href <span class="op">=</span> <span class="st">"#anchor-events"</span><span class="op">)</span></span>
+<span>      <span class="op">)</span></span>
+<span>    <span class="op">)</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
   <div id="basic-toc" data-shiny-vue style="display: contents">
     <script type="text/x-template" data-shiny-vue-template><div id="basic-toc_container" style="display: contents">
@@ -229,10 +239,16 @@ information content on the current page.</p>
 <p>Horizontal Mode does not support <code>sub-link</code> slots</p>
 </blockquote>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_anchor.html">el_anchor</a></span><span class="op">(</span><span class="st">"toc_h"</span>, offset <span class="op">=</span> <span class="fl">70</span>, direction <span class="op">=</span> <span class="st">"horizontal"</span>, links <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Basic Usage"</span>, href <span class="op">=</span> <span class="st">"#basic-usage"</span><span class="op">)</span>,</span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Horizontal Mode"</span>, href <span class="op">=</span> <span class="st">"#horizontal-mode"</span><span class="op">)</span>,</span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Scroll Container"</span>, href <span class="op">=</span> <span class="st">"#scroll-container"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_anchor.html">el_anchor</a></span><span class="op">(</span></span>
+<span>  <span class="st">"toc_h"</span>,</span>
+<span>  offset <span class="op">=</span> <span class="fl">70</span>,</span>
+<span>  direction <span class="op">=</span> <span class="st">"horizontal"</span>,</span>
+<span>  links <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Basic Usage"</span>, href <span class="op">=</span> <span class="st">"#basic-usage"</span><span class="op">)</span>,</span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Horizontal Mode"</span>, href <span class="op">=</span> <span class="st">"#horizontal-mode"</span><span class="op">)</span>,</span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Scroll Container"</span>, href <span class="op">=</span> <span class="st">"#scroll-container"</span><span class="op">)</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
   <div id="horizontal-toc_h" data-shiny-vue style="display: contents">
     <script type="text/x-template" data-shiny-vue-template><div id="horizontal-toc_h_container" style="display: contents">
@@ -252,15 +268,37 @@ information content on the current page.</p>
 scroll offset, listen the <code>link-click</code> event and prevents
 browser default behavior then it will not change history.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">part</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">id</span>, <span class="va">colour</span><span class="op">)</span> <span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span>id <span class="op">=</span> <span class="va">id</span>,</span>
-<span>  style <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sprintf.html" class="external-link">sprintf</a></span><span class="op">(</span><span class="st">"height: 300px; background: %s; margin-top: 30px"</span>, <span class="va">colour</span><span class="op">)</span>, <span class="va">id</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="va">part</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">id</span>, <span class="va">colour</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span></span>
+<span>    id <span class="op">=</span> <span class="va">id</span>,</span>
+<span>    style <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sprintf.html" class="external-link">sprintf</a></span><span class="op">(</span><span class="st">"height: 300px; background: %s; margin-top: 30px"</span>, <span class="va">colour</span><span class="op">)</span>,</span>
+<span>    <span class="va">id</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">}</span></span>
 <span><span class="fu"><a href="../../reference/el_row.html">el_row</a></span><span class="op">(</span></span>
-<span>  <span class="fu"><a href="../../reference/el_col.html">el_col</a></span><span class="op">(</span>span <span class="op">=</span> <span class="fl">18</span>, <span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span>id <span class="op">=</span> <span class="st">"anchor-scroller"</span>, style <span class="op">=</span> <span class="st">"height: 300px; overflow-y: auto"</span>,</span>
-<span>    <span class="fu">part</span><span class="op">(</span><span class="st">"part1"</span>, <span class="st">"rgba(255, 0, 0, 0.02)"</span><span class="op">)</span>, <span class="fu">part</span><span class="op">(</span><span class="st">"part2"</span>, <span class="st">"rgba(0, 255, 0, 0.02)"</span><span class="op">)</span>,</span>
-<span>    <span class="fu">part</span><span class="op">(</span><span class="st">"part3"</span>, <span class="st">"rgba(0, 0, 255, 0.02)"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>,</span>
-<span>  <span class="fu"><a href="../../reference/el_col.html">el_col</a></span><span class="op">(</span>span <span class="op">=</span> <span class="fl">6</span>, <span class="fu"><a href="../../reference/el_anchor.html">el_anchor</a></span><span class="op">(</span><span class="st">"toc_s"</span>, container <span class="op">=</span> <span class="st">"#anchor-scroller"</span>, links <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
-<span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"part1"</span>, href <span class="op">=</span> <span class="st">"#part1"</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"part2"</span>, href <span class="op">=</span> <span class="st">"#part2"</span><span class="op">)</span>,</span>
-<span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"part3"</span>, href <span class="op">=</span> <span class="st">"#part3"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<span>  <span class="fu"><a href="../../reference/el_col.html">el_col</a></span><span class="op">(</span></span>
+<span>    span <span class="op">=</span> <span class="fl">18</span>,</span>
+<span>    <span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span></span>
+<span>      id <span class="op">=</span> <span class="st">"anchor-scroller"</span>,</span>
+<span>      style <span class="op">=</span> <span class="st">"height: 300px; overflow-y: auto"</span>,</span>
+<span>      <span class="fu">part</span><span class="op">(</span><span class="st">"part1"</span>, <span class="st">"rgba(255, 0, 0, 0.02)"</span><span class="op">)</span>,</span>
+<span>      <span class="fu">part</span><span class="op">(</span><span class="st">"part2"</span>, <span class="st">"rgba(0, 255, 0, 0.02)"</span><span class="op">)</span>,</span>
+<span>      <span class="fu">part</span><span class="op">(</span><span class="st">"part3"</span>, <span class="st">"rgba(0, 0, 255, 0.02)"</span><span class="op">)</span></span>
+<span>    <span class="op">)</span></span>
+<span>  <span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="../../reference/el_col.html">el_col</a></span><span class="op">(</span></span>
+<span>    span <span class="op">=</span> <span class="fl">6</span>,</span>
+<span>    <span class="fu"><a href="../../reference/el_anchor.html">el_anchor</a></span><span class="op">(</span></span>
+<span>      <span class="st">"toc_s"</span>,</span>
+<span>      container <span class="op">=</span> <span class="st">"#anchor-scroller"</span>,</span>
+<span>      links <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>        <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"part1"</span>, href <span class="op">=</span> <span class="st">"#part1"</span><span class="op">)</span>,</span>
+<span>        <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"part2"</span>, href <span class="op">=</span> <span class="st">"#part2"</span><span class="op">)</span>,</span>
+<span>        <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"part3"</span>, href <span class="op">=</span> <span class="st">"#part3"</span><span class="op">)</span></span>
+<span>      <span class="op">)</span></span>
+<span>    <span class="op">)</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
   <div class="el-row">
     <div class="el-col el-col-18">
@@ -291,10 +329,15 @@ browser default behavior then it will not change history.</p>
 <p>The current link is <code>input$&lt;id&gt;</code>, as the page
 scrolls.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_anchor.html">el_anchor</a></span><span class="op">(</span><span class="st">"toc_change"</span>, offset <span class="op">=</span> <span class="fl">70</span>, links <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Basic Usage"</span>, href <span class="op">=</span> <span class="st">"#basic-usage"</span><span class="op">)</span>,</span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Horizontal Mode"</span>, href <span class="op">=</span> <span class="st">"#horizontal-mode"</span><span class="op">)</span>,</span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Scroll Container"</span>, href <span class="op">=</span> <span class="st">"#scroll-container"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_anchor.html">el_anchor</a></span><span class="op">(</span></span>
+<span>  <span class="st">"toc_change"</span>,</span>
+<span>  offset <span class="op">=</span> <span class="fl">70</span>,</span>
+<span>  links <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Basic Usage"</span>, href <span class="op">=</span> <span class="st">"#basic-usage"</span><span class="op">)</span>,</span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Horizontal Mode"</span>, href <span class="op">=</span> <span class="st">"#horizontal-mode"</span><span class="op">)</span>,</span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Scroll Container"</span>, href <span class="op">=</span> <span class="st">"#scroll-container"</span><span class="op">)</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
   <div id="change-toc_change" data-shiny-vue style="display: contents">
     <script type="text/x-template" data-shiny-vue-template><div id="change-toc_change_container" style="display: contents">
@@ -312,10 +355,16 @@ scrolls.</p>
 </h2>
 <p>set <code>type="underline"</code> change to underline type</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_anchor.html">el_anchor</a></span><span class="op">(</span><span class="st">"toc_u"</span>, type <span class="op">=</span> <span class="st">"underline"</span>, offset <span class="op">=</span> <span class="fl">70</span>, links <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Basic Usage"</span>, href <span class="op">=</span> <span class="st">"#basic-usage"</span><span class="op">)</span>,</span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Horizontal Mode"</span>, href <span class="op">=</span> <span class="st">"#horizontal-mode"</span><span class="op">)</span>,</span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Scroll Container"</span>, href <span class="op">=</span> <span class="st">"#scroll-container"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_anchor.html">el_anchor</a></span><span class="op">(</span></span>
+<span>  <span class="st">"toc_u"</span>,</span>
+<span>  type <span class="op">=</span> <span class="st">"underline"</span>,</span>
+<span>  offset <span class="op">=</span> <span class="fl">70</span>,</span>
+<span>  links <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Basic Usage"</span>, href <span class="op">=</span> <span class="st">"#basic-usage"</span><span class="op">)</span>,</span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Horizontal Mode"</span>, href <span class="op">=</span> <span class="st">"#horizontal-mode"</span><span class="op">)</span>,</span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Scroll Container"</span>, href <span class="op">=</span> <span class="st">"#scroll-container"</span><span class="op">)</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
   <div id="underline-toc_u" data-shiny-vue style="display: contents">
     <script type="text/x-template" data-shiny-vue-template><div id="underline-toc_u_container" style="display: contents">
@@ -333,14 +382,22 @@ scrolls.</p>
 </h2>
 <p>Use the affix component to fix the anchor point within the page.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_affix.html">el_affix</a></span><span class="op">(</span>offset <span class="op">=</span> <span class="fl">60</span>,</span>
-<span>  <span class="fu"><a href="../../reference/el_anchor.html">el_anchor</a></span><span class="op">(</span><span class="st">"toc_a"</span>, offset <span class="op">=</span> <span class="fl">70</span>, width <span class="op">=</span> <span class="st">"300px"</span>, links <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
-<span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Basic Usage"</span>, href <span class="op">=</span> <span class="st">"#basic-usage"</span><span class="op">)</span>,</span>
-<span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Horizontal Mode"</span>, href <span class="op">=</span> <span class="st">"#horizontal-mode"</span><span class="op">)</span>,</span>
-<span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Scroll Container"</span>, href <span class="op">=</span> <span class="st">"#scroll-container"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_affix.html">el_affix</a></span><span class="op">(</span></span>
+<span>  offset <span class="op">=</span> <span class="fl">60</span>,</span>
+<span>  <span class="fu"><a href="../../reference/el_anchor.html">el_anchor</a></span><span class="op">(</span></span>
+<span>    <span class="st">"toc_a"</span>,</span>
+<span>    offset <span class="op">=</span> <span class="fl">70</span>,</span>
+<span>    width <span class="op">=</span> <span class="st">"300px"</span>,</span>
+<span>    links <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>      <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Basic Usage"</span>, href <span class="op">=</span> <span class="st">"#basic-usage"</span><span class="op">)</span>,</span>
+<span>      <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Horizontal Mode"</span>, href <span class="op">=</span> <span class="st">"#horizontal-mode"</span><span class="op">)</span>,</span>
+<span>      <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Scroll Container"</span>, href <span class="op">=</span> <span class="st">"#scroll-container"</span><span class="op">)</span></span>
+<span>    <span class="op">)</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
-  <div id="affix-el_affix_9fb68273-8ecb-4b7e-b456-5cb2248e3f9c" data-shiny-vue style="display: contents">
-    <script type="text/x-template" data-shiny-vue-template><div id="affix-el_affix_9fb68273-8ecb-4b7e-b456-5cb2248e3f9c_container" style="display: contents">
+  <div id="affix-el_affix_2fdfc892-b818-40c8-ab20-420d617d36d0" data-shiny-vue style="display: contents">
+    <script type="text/x-template" data-shiny-vue-template><div id="affix-el_affix_2fdfc892-b818-40c8-ab20-420d617d36d0_container" style="display: contents">
   <el-affix :offset="offset === null ? undefined : offset" :position="position === null ? undefined : position" :target="target === null ? undefined : target" :z-index="zIndex === null ? undefined : zIndex" :teleported="teleported === null ? undefined : teleported" :append-to="appendTo === null ? undefined : appendTo" @change="elEmitChange" @scroll="elEmitScroll">
     <el-anchor @change="el2_handleChange" @click="el2_elEmitClick" :container="el2_container === null ? undefined : el2_container" :offset="el2_offset === null ? undefined : el2_offset" :bound="el2_bound === null ? undefined : el2_bound" :duration="el2_duration === null ? undefined : el2_duration" :marker="el2_marker === null ? undefined : el2_marker" :type="el2_type === null ? undefined : el2_type" :direction="el2_direction === null ? undefined : el2_direction" :select-scroll-top="el2_selectScrollTop === null ? undefined : el2_selectScrollTop" style="width: 300px">
       <el-anchor-link title="Basic Usage" href="#basic-usage"></el-anchor-link>
@@ -348,7 +405,7 @@ scrolls.</p>
       <el-anchor-link title="Scroll Container" href="#scroll-container"></el-anchor-link>
     </el-anchor>
   </el-affix>
-</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"offset":60,"position":null,"target":null,"zIndex":null,"teleported":null,"appendTo":null,"el2_container":null,"el2_offset":70,"el2_bound":null,"el2_duration":null,"el2_marker":null,"el2_type":null,"el2_direction":null,"el2_selectScrollTop":null},"methods":{"elEmitChange":"function() { window.shinyVue.emit('affix-el_affix_9fb68273-8ecb-4b7e-b456-5cb2248e3f9c', 'change', arguments); }","elEmitScroll":"function() { window.shinyVue.emit('affix-el_affix_9fb68273-8ecb-4b7e-b456-5cb2248e3f9c', 'scroll', arguments); }","el2_elEmitClick":"function() { var shape = function(e, href) { return href; }; var v = shape.apply(this, arguments); if (v === undefined) return; window.shinyVue.emit('affix-toc_a', 'click', [v]); }","el2_handleChange":"function(href) { window.Shiny && Shiny.setInputValue && Shiny.setInputValue('affix-toc_a', href); }"}},"input":null,"rate":null,"type":null,"evals":["options.methods.elEmitChange","options.methods.elEmitScroll","options.methods.el2_elEmitClick","options.methods.el2_handleChange"]}</script>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"offset":60,"position":null,"target":null,"zIndex":null,"teleported":null,"appendTo":null,"el2_container":null,"el2_offset":70,"el2_bound":null,"el2_duration":null,"el2_marker":null,"el2_type":null,"el2_direction":null,"el2_selectScrollTop":null},"methods":{"elEmitChange":"function() { window.shinyVue.emit('affix-el_affix_2fdfc892-b818-40c8-ab20-420d617d36d0', 'change', arguments); }","elEmitScroll":"function() { window.shinyVue.emit('affix-el_affix_2fdfc892-b818-40c8-ab20-420d617d36d0', 'scroll', arguments); }","el2_elEmitClick":"function() { var shape = function(e, href) { return href; }; var v = shape.apply(this, arguments); if (v === undefined) return; window.shinyVue.emit('affix-toc_a', 'click', [v]); }","el2_handleChange":"function(href) { window.Shiny && Shiny.setInputValue && Shiny.setInputValue('affix-toc_a', href); }"}},"input":null,"rate":null,"type":null,"evals":["options.methods.elEmitChange","options.methods.elEmitScroll","options.methods.el2_elEmitClick","options.methods.el2_handleChange"]}</script>
 </div>
 </div>
 </div>

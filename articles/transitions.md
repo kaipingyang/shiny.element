@@ -12,15 +12,33 @@ Two fading effects: `el-fade-in-linear` and `el-fade-in`.
 
 ``` r
 
-box <- function(text) htmltools::tags$div(`v-show` = "show", class = "transition-box",
-  style = "margin: 12px 20px 0 0; width: 200px; height: 100px; border-radius: 4px;
-           background: var(--el-color-primary); color: #fff; text-align: center;
-           line-height: 100px; display: inline-block", text)
-el_widget("fade", data = list(show = TRUE), markup = htmltools::tags$div(
-  el$button("@click" = "show = !show", "Click Me"),
+box <- function(text) {
   htmltools::tags$div(
-    htmltools::tag("transition", list(name = "el-fade-in-linear", box(".el-fade-in-linear"))),
-    htmltools::tag("transition", list(name = "el-fade-in", box(".el-fade-in"))))))
+    `v-show` = "show",
+    class = "transition-box",
+    style = "margin: 12px 20px 0 0; width: 200px; height: 100px; border-radius: 4px;
+           background: var(--el-color-primary); color: #fff; text-align: center;
+           line-height: 100px; display: inline-block",
+    text
+  )
+}
+el_widget(
+  "fade",
+  data = list(show = TRUE),
+  markup = htmltools::tags$div(
+    el$button("@click" = "show = !show", "Click Me"),
+    htmltools::tags$div(
+      htmltools::tag(
+        "transition",
+        list(name = "el-fade-in-linear", box(".el-fade-in-linear"))
+      ),
+      htmltools::tag(
+        "transition",
+        list(name = "el-fade-in", box(".el-fade-in"))
+      )
+    )
+  )
+)
 ```
 
 ## Zoom
@@ -29,16 +47,36 @@ el_widget("fade", data = list(show = TRUE), markup = htmltools::tags$div(
 
 ``` r
 
-box <- function(text) htmltools::tags$div(`v-show` = "show",
-  style = "margin: 12px 20px 0 0; width: 200px; height: 100px; border-radius: 4px;
-           background: var(--el-color-primary); color: #fff; text-align: center;
-           line-height: 100px; display: inline-block", text)
-el_widget("zoom", data = list(show = TRUE), markup = htmltools::tags$div(
-  el$button("@click" = "show = !show", "Click Me"),
+box <- function(text) {
   htmltools::tags$div(
-    htmltools::tag("transition", list(name = "el-zoom-in-center", box(".el-zoom-in-center"))),
-    htmltools::tag("transition", list(name = "el-zoom-in-top", box(".el-zoom-in-top"))),
-    htmltools::tag("transition", list(name = "el-zoom-in-bottom", box(".el-zoom-in-bottom"))))))
+    `v-show` = "show",
+    style = "margin: 12px 20px 0 0; width: 200px; height: 100px; border-radius: 4px;
+           background: var(--el-color-primary); color: #fff; text-align: center;
+           line-height: 100px; display: inline-block",
+    text
+  )
+}
+el_widget(
+  "zoom",
+  data = list(show = TRUE),
+  markup = htmltools::tags$div(
+    el$button("@click" = "show = !show", "Click Me"),
+    htmltools::tags$div(
+      htmltools::tag(
+        "transition",
+        list(name = "el-zoom-in-center", box(".el-zoom-in-center"))
+      ),
+      htmltools::tag(
+        "transition",
+        list(name = "el-zoom-in-top", box(".el-zoom-in-top"))
+      ),
+      htmltools::tag(
+        "transition",
+        list(name = "el-zoom-in-bottom", box(".el-zoom-in-bottom"))
+      )
+    )
+  )
+)
 ```
 
 ## Collapse
@@ -48,15 +86,29 @@ height.
 
 ``` r
 
-el_widget("collapse", data = list(show = TRUE), markup = htmltools::tags$div(
-  el$button("@click" = "show = !show", "Click Me"),
-  htmltools::tags$div(style = "margin-top: 20px; height: 200px",
-    el$collapse_transition(
-      htmltools::tags$div(`v-show` = "show",
-        htmltools::tags$div(style = "width: 200px; height: 100px; margin-bottom: 10px; border-radius: 4px;
+el_widget(
+  "collapse",
+  data = list(show = TRUE),
+  markup = htmltools::tags$div(
+    el$button("@click" = "show = !show", "Click Me"),
+    htmltools::tags$div(
+      style = "margin-top: 20px; height: 200px",
+      el$collapse_transition(
+        htmltools::tags$div(
+          `v-show` = "show",
+          htmltools::tags$div(
+            style = "width: 200px; height: 100px; margin-bottom: 10px; border-radius: 4px;
           background: var(--el-color-primary); color: #fff; text-align: center; line-height: 100px",
-          "el-collapse-transition"),
-        htmltools::tags$div(style = "width: 200px; height: 100px; border-radius: 4px;
+            "el-collapse-transition"
+          ),
+          htmltools::tags$div(
+            style = "width: 200px; height: 100px; border-radius: 4px;
           background: var(--el-color-primary); color: #fff; text-align: center; line-height: 100px",
-          "el-collapse-transition"))))))
+            "el-collapse-transition"
+          )
+        )
+      )
+    )
+  )
+)
 ```

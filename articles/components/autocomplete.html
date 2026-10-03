@@ -197,14 +197,39 @@ suggested inputs. In this example,
 <code>querySearch(queryString, cb)</code> return suggestions to
 Autocomplete via <code>cb(data)</code> when suggestions are ready.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">restaurants</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"vue"</span>, <span class="st">"element"</span>, <span class="st">"cooking"</span>, <span class="st">"mint-ui"</span>, <span class="st">"vuex"</span>, <span class="st">"vue-router"</span>, <span class="st">"babel"</span><span class="op">)</span></span>
-<span><span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span>style <span class="op">=</span> <span class="st">"display: flex; gap: 40px"</span>,</span>
-<span>  <span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span><span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span>class <span class="op">=</span> <span class="st">"demo-title"</span>, <span class="st">"list suggestions when activated"</span><span class="op">)</span>,</span>
-<span>    <span class="fu"><a href="../../reference/el_autocomplete.html">el_autocomplete</a></span><span class="op">(</span><span class="st">"ac1"</span>, suggestions <span class="op">=</span> <span class="va">restaurants</span>, clearable <span class="op">=</span> <span class="cn">TRUE</span>,</span>
-<span>                    placeholder <span class="op">=</span> <span class="st">"Please Input"</span>, width <span class="op">=</span> <span class="st">"240px"</span><span class="op">)</span><span class="op">)</span>,</span>
-<span>  <span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span><span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span>class <span class="op">=</span> <span class="st">"demo-title"</span>, <span class="st">"list suggestions on input"</span><span class="op">)</span>,</span>
-<span>    <span class="fu"><a href="../../reference/el_autocomplete.html">el_autocomplete</a></span><span class="op">(</span><span class="st">"ac2"</span>, suggestions <span class="op">=</span> <span class="va">restaurants</span>, trigger_on_focus <span class="op">=</span> <span class="cn">FALSE</span>,</span>
-<span>                    clearable <span class="op">=</span> <span class="cn">TRUE</span>, placeholder <span class="op">=</span> <span class="st">"Please Input"</span>, width <span class="op">=</span> <span class="st">"240px"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">restaurants</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span>
+<span>  <span class="st">"vue"</span>,</span>
+<span>  <span class="st">"element"</span>,</span>
+<span>  <span class="st">"cooking"</span>,</span>
+<span>  <span class="st">"mint-ui"</span>,</span>
+<span>  <span class="st">"vuex"</span>,</span>
+<span>  <span class="st">"vue-router"</span>,</span>
+<span>  <span class="st">"babel"</span></span>
+<span><span class="op">)</span></span>
+<span><span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span></span>
+<span>  style <span class="op">=</span> <span class="st">"display: flex; gap: 40px"</span>,</span>
+<span>  <span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span></span>
+<span>    <span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span>class <span class="op">=</span> <span class="st">"demo-title"</span>, <span class="st">"list suggestions when activated"</span><span class="op">)</span>,</span>
+<span>    <span class="fu"><a href="../../reference/el_autocomplete.html">el_autocomplete</a></span><span class="op">(</span></span>
+<span>      <span class="st">"ac1"</span>,</span>
+<span>      suggestions <span class="op">=</span> <span class="va">restaurants</span>,</span>
+<span>      clearable <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>      placeholder <span class="op">=</span> <span class="st">"Please Input"</span>,</span>
+<span>      width <span class="op">=</span> <span class="st">"240px"</span></span>
+<span>    <span class="op">)</span></span>
+<span>  <span class="op">)</span>,</span>
+<span>  <span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span></span>
+<span>    <span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span>class <span class="op">=</span> <span class="st">"demo-title"</span>, <span class="st">"list suggestions on input"</span><span class="op">)</span>,</span>
+<span>    <span class="fu"><a href="../../reference/el_autocomplete.html">el_autocomplete</a></span><span class="op">(</span></span>
+<span>      <span class="st">"ac2"</span>,</span>
+<span>      suggestions <span class="op">=</span> <span class="va">restaurants</span>,</span>
+<span>      trigger_on_focus <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>      clearable <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>      placeholder <span class="op">=</span> <span class="st">"Please Input"</span>,</span>
+<span>      width <span class="op">=</span> <span class="st">"240px"</span></span>
+<span>    <span class="op">)</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
   <div style="display: flex; gap: 40px">
     <div>
@@ -236,14 +261,24 @@ key.</p>
 <p>Each suggestion drawn with a template of its own: the scoped default
 slot.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_autocomplete.html">el_autocomplete</a></span><span class="op">(</span><span class="st">"ac_tpl"</span>, placeholder <span class="op">=</span> <span class="st">"Please input"</span>, popper_class <span class="op">=</span> <span class="st">"my-autocomplete"</span>,</span>
-<span>  suggestions <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>value <span class="op">=</span> <span class="st">"vue"</span>, link <span class="op">=</span> <span class="st">"https://github.com/vuejs/vue"</span><span class="op">)</span>,</span>
-<span>                     <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>value <span class="op">=</span> <span class="st">"element"</span>, link <span class="op">=</span> <span class="st">"https://github.com/ElemeFE/element"</span><span class="op">)</span><span class="op">)</span>,</span>
+<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_autocomplete.html">el_autocomplete</a></span><span class="op">(</span></span>
+<span>  <span class="st">"ac_tpl"</span>,</span>
+<span>  placeholder <span class="op">=</span> <span class="st">"Please input"</span>,</span>
+<span>  popper_class <span class="op">=</span> <span class="st">"my-autocomplete"</span>,</span>
+<span>  suggestions <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>value <span class="op">=</span> <span class="st">"vue"</span>, link <span class="op">=</span> <span class="st">"https://github.com/vuejs/vue"</span><span class="op">)</span>,</span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>value <span class="op">=</span> <span class="st">"element"</span>, link <span class="op">=</span> <span class="st">"https://github.com/ElemeFE/element"</span><span class="op">)</span></span>
+<span>  <span class="op">)</span>,</span>
 <span>  slots <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
 <span>    suffix <span class="op">=</span> <span class="fu"><a href="../../reference/el_icon.html">el_icon</a></span><span class="op">(</span><span class="st">"Edit"</span>, class <span class="op">=</span> <span class="st">"el-input__icon"</span><span class="op">)</span>,</span>
-<span>    default <span class="op">=</span> <span class="fu"><a href="../../reference/template.html">template</a></span><span class="op">(</span><span class="fu">htmltools</span><span class="fu">::</span><span class="fu"><a href="https://rstudio.github.io/htmltools/reference/HTML.html" class="external-link">HTML</a></span><span class="op">(</span></span>
-<span>      <span class="st">'&lt;div class="value"&gt;{{ item.value }}&lt;/div&gt;&lt;span class="link"&gt;{{ item.link }}&lt;/span&gt;'</span><span class="op">)</span>,</span>
-<span>      scope <span class="op">=</span> <span class="st">"{ item }"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<span>    default <span class="op">=</span> <span class="fu"><a href="../../reference/template.html">template</a></span><span class="op">(</span></span>
+<span>      <span class="fu">htmltools</span><span class="fu">::</span><span class="fu"><a href="https://rstudio.github.io/htmltools/reference/HTML.html" class="external-link">HTML</a></span><span class="op">(</span></span>
+<span>        <span class="st">'&lt;div class="value"&gt;{{ item.value }}&lt;/div&gt;&lt;span class="link"&gt;{{ item.link }}&lt;/span&gt;'</span></span>
+<span>      <span class="op">)</span>,</span>
+<span>      scope <span class="op">=</span> <span class="st">"{ item }"</span></span>
+<span>    <span class="op">)</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
   <div id="autocomplete-template-ac_tpl" data-shiny-vue style="display: contents">
     <script type="text/x-template" data-shiny-vue-template><div id="autocomplete-template-ac_tpl_container" style="display: contents">
@@ -279,8 +314,12 @@ slot.</p>
 </h2>
 <p>Override loading content.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_autocomplete.html">el_autocomplete</a></span><span class="op">(</span><span class="st">"ac_loading"</span>, remote <span class="op">=</span> <span class="cn">TRUE</span>, placeholder <span class="op">=</span> <span class="st">"Please input"</span>,</span>
-<span>  slots <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>loading <span class="op">=</span> <span class="fu"><a href="../../reference/el_icon.html">el_icon</a></span><span class="op">(</span><span class="st">"Loading"</span>, class <span class="op">=</span> <span class="st">"is-loading"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_autocomplete.html">el_autocomplete</a></span><span class="op">(</span></span>
+<span>  <span class="st">"ac_loading"</span>,</span>
+<span>  remote <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  placeholder <span class="op">=</span> <span class="st">"Please input"</span>,</span>
+<span>  slots <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>loading <span class="op">=</span> <span class="fu"><a href="../../reference/el_icon.html">el_icon</a></span><span class="op">(</span><span class="st">"Loading"</span>, class <span class="op">=</span> <span class="st">"is-loading"</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
   <div id="custom-loading-ac_loading" data-shiny-vue style="display: contents">
     <script type="text/x-template" data-shiny-vue-template><div id="custom-loading-ac_loading_container" style="display: contents">
@@ -300,11 +339,21 @@ slot.</p>
 slots</p>
 <p>Use slot to customize the content.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span>style <span class="op">=</span> <span class="st">"display: flex; gap: 40px"</span>,</span>
-<span>  <span class="fu"><a href="../../reference/el_autocomplete.html">el_autocomplete</a></span><span class="op">(</span><span class="st">"ac_header"</span>, suggestions <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"vue"</span>, <span class="st">"element"</span>, <span class="st">"cooking"</span><span class="op">)</span>,</span>
-<span>                  placeholder <span class="op">=</span> <span class="st">"Please input"</span>, slots <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>header <span class="op">=</span> <span class="st">"header content"</span><span class="op">)</span><span class="op">)</span>,</span>
-<span>  <span class="fu"><a href="../../reference/el_autocomplete.html">el_autocomplete</a></span><span class="op">(</span><span class="st">"ac_footer"</span>, suggestions <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"vue"</span>, <span class="st">"element"</span>, <span class="st">"cooking"</span><span class="op">)</span>,</span>
-<span>                  placeholder <span class="op">=</span> <span class="st">"Please input"</span>, slots <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>footer <span class="op">=</span> <span class="st">"footer content"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span></span>
+<span>  style <span class="op">=</span> <span class="st">"display: flex; gap: 40px"</span>,</span>
+<span>  <span class="fu"><a href="../../reference/el_autocomplete.html">el_autocomplete</a></span><span class="op">(</span></span>
+<span>    <span class="st">"ac_header"</span>,</span>
+<span>    suggestions <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"vue"</span>, <span class="st">"element"</span>, <span class="st">"cooking"</span><span class="op">)</span>,</span>
+<span>    placeholder <span class="op">=</span> <span class="st">"Please input"</span>,</span>
+<span>    slots <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>header <span class="op">=</span> <span class="st">"header content"</span><span class="op">)</span></span>
+<span>  <span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="../../reference/el_autocomplete.html">el_autocomplete</a></span><span class="op">(</span></span>
+<span>    <span class="st">"ac_footer"</span>,</span>
+<span>    suggestions <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"vue"</span>, <span class="st">"element"</span>, <span class="st">"cooking"</span><span class="op">)</span>,</span>
+<span>    placeholder <span class="op">=</span> <span class="st">"Please input"</span>,</span>
+<span>    slots <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>footer <span class="op">=</span> <span class="st">"footer content"</span><span class="op">)</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
   <div style="display: flex; gap: 40px">
     <div id="custom-header-footer-ac_header" data-shiny-vue style="display: contents">

@@ -198,19 +198,53 @@ renders a Cascader. The <code>props.expandTrigger</code> attribute
 defines how child options are expanded.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">tree</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>value <span class="op">=</span> <span class="st">"guide"</span>, label <span class="op">=</span> <span class="st">"Guide"</span>, children <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
-<span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>value <span class="op">=</span> <span class="st">"disciplines"</span>, label <span class="op">=</span> <span class="st">"Disciplines"</span>, children <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
-<span>      <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>value <span class="op">=</span> <span class="st">"consistency"</span>, label <span class="op">=</span> <span class="st">"Consistency"</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>value <span class="op">=</span> <span class="st">"feedback"</span>, label <span class="op">=</span> <span class="st">"Feedback"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>,</span>
-<span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>value <span class="op">=</span> <span class="st">"navigation"</span>, label <span class="op">=</span> <span class="st">"Navigation"</span>, children <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
-<span>      <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>value <span class="op">=</span> <span class="st">"side"</span>, label <span class="op">=</span> <span class="st">"Side Navigation"</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>value <span class="op">=</span> <span class="st">"top"</span>, label <span class="op">=</span> <span class="st">"Top Navigation"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>,</span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>value <span class="op">=</span> <span class="st">"component"</span>, label <span class="op">=</span> <span class="st">"Component"</span>, children <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
-<span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>value <span class="op">=</span> <span class="st">"basic"</span>, label <span class="op">=</span> <span class="st">"Basic"</span>, children <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
-<span>      <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>value <span class="op">=</span> <span class="st">"layout"</span>, label <span class="op">=</span> <span class="st">"Layout"</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>value <span class="op">=</span> <span class="st">"color"</span>, label <span class="op">=</span> <span class="st">"Color"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>    value <span class="op">=</span> <span class="st">"guide"</span>,</span>
+<span>    label <span class="op">=</span> <span class="st">"Guide"</span>,</span>
+<span>    children <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>      <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>        value <span class="op">=</span> <span class="st">"disciplines"</span>,</span>
+<span>        label <span class="op">=</span> <span class="st">"Disciplines"</span>,</span>
+<span>        children <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>          <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>value <span class="op">=</span> <span class="st">"consistency"</span>, label <span class="op">=</span> <span class="st">"Consistency"</span><span class="op">)</span>,</span>
+<span>          <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>value <span class="op">=</span> <span class="st">"feedback"</span>, label <span class="op">=</span> <span class="st">"Feedback"</span><span class="op">)</span></span>
+<span>        <span class="op">)</span></span>
+<span>      <span class="op">)</span>,</span>
+<span>      <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>        value <span class="op">=</span> <span class="st">"navigation"</span>,</span>
+<span>        label <span class="op">=</span> <span class="st">"Navigation"</span>,</span>
+<span>        children <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>          <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>value <span class="op">=</span> <span class="st">"side"</span>, label <span class="op">=</span> <span class="st">"Side Navigation"</span><span class="op">)</span>,</span>
+<span>          <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>value <span class="op">=</span> <span class="st">"top"</span>, label <span class="op">=</span> <span class="st">"Top Navigation"</span><span class="op">)</span></span>
+<span>        <span class="op">)</span></span>
+<span>      <span class="op">)</span></span>
+<span>    <span class="op">)</span></span>
+<span>  <span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>    value <span class="op">=</span> <span class="st">"component"</span>,</span>
+<span>    label <span class="op">=</span> <span class="st">"Component"</span>,</span>
+<span>    children <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>      <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>        value <span class="op">=</span> <span class="st">"basic"</span>,</span>
+<span>        label <span class="op">=</span> <span class="st">"Basic"</span>,</span>
+<span>        children <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>          <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>value <span class="op">=</span> <span class="st">"layout"</span>, label <span class="op">=</span> <span class="st">"Layout"</span><span class="op">)</span>,</span>
+<span>          <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>value <span class="op">=</span> <span class="st">"color"</span>, label <span class="op">=</span> <span class="st">"Color"</span><span class="op">)</span></span>
+<span>        <span class="op">)</span></span>
+<span>      <span class="op">)</span></span>
+<span>    <span class="op">)</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rstudio.github.io/htmltools/reference/tagList.html" class="external-link">tagList</a></span><span class="op">(</span></span>
 <span>  <span class="va">tags</span><span class="op">$</span><span class="fu">p</span><span class="op">(</span><span class="st">"Child options expand when clicked (default)"</span><span class="op">)</span>,</span>
 <span>  <span class="fu"><a href="../../reference/el_cascader.html">el_cascader</a></span><span class="op">(</span><span class="st">"cas_click"</span>, options <span class="op">=</span> <span class="va">tree</span><span class="op">)</span>,</span>
 <span>  <span class="va">tags</span><span class="op">$</span><span class="fu">p</span><span class="op">(</span><span class="st">"Child options expand when hovered"</span><span class="op">)</span>,</span>
-<span>  <span class="fu"><a href="../../reference/el_cascader.html">el_cascader</a></span><span class="op">(</span><span class="st">"cas_hover"</span>, options <span class="op">=</span> <span class="va">tree</span>, props <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>expandTrigger <span class="op">=</span> <span class="st">"hover"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<span>  <span class="fu"><a href="../../reference/el_cascader.html">el_cascader</a></span><span class="op">(</span></span>
+<span>    <span class="st">"cas_hover"</span>,</span>
+<span>    options <span class="op">=</span> <span class="va">tree</span>,</span>
+<span>    props <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>expandTrigger <span class="op">=</span> <span class="st">"hover"</span><span class="op">)</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
   <p>Child options expand when clicked (default)</p>
   <div id="basic-cas_click" data-shiny-vue style="display: contents">
@@ -240,11 +274,26 @@ disabled, you can assign it in the <code>props.disabled</code> attribute
 <code>value</code>, <code>label</code> and <code>children</code> can
 also be customized in the same way.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_cascader.html">el_cascader</a></span><span class="op">(</span><span class="st">"cas_dis"</span>, options <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>value <span class="op">=</span> <span class="st">"guide"</span>, label <span class="op">=</span> <span class="st">"Guide"</span>, disabled <span class="op">=</span> <span class="cn">TRUE</span>, children <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
-<span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>value <span class="op">=</span> <span class="st">"disciplines"</span>, label <span class="op">=</span> <span class="st">"Disciplines"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>,</span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>value <span class="op">=</span> <span class="st">"component"</span>, label <span class="op">=</span> <span class="st">"Component"</span>, children <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
-<span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>value <span class="op">=</span> <span class="st">"basic"</span>, label <span class="op">=</span> <span class="st">"Basic"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_cascader.html">el_cascader</a></span><span class="op">(</span></span>
+<span>  <span class="st">"cas_dis"</span>,</span>
+<span>  options <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>      value <span class="op">=</span> <span class="st">"guide"</span>,</span>
+<span>      label <span class="op">=</span> <span class="st">"Guide"</span>,</span>
+<span>      disabled <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>      children <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>        <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>value <span class="op">=</span> <span class="st">"disciplines"</span>, label <span class="op">=</span> <span class="st">"Disciplines"</span><span class="op">)</span></span>
+<span>      <span class="op">)</span></span>
+<span>    <span class="op">)</span>,</span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>      value <span class="op">=</span> <span class="st">"component"</span>,</span>
+<span>      label <span class="op">=</span> <span class="st">"Component"</span>,</span>
+<span>      children <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>        <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>value <span class="op">=</span> <span class="st">"basic"</span>, label <span class="op">=</span> <span class="st">"Basic"</span><span class="op">)</span></span>
+<span>      <span class="op">)</span></span>
+<span>    <span class="op">)</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
   <div id="option-disabling-cas_dis" data-shiny-vue style="display: contents">
     <script type="text/x-template" data-shiny-vue-template><div id="option-disabling-cas_dis_container" style="display: contents">
@@ -259,9 +308,19 @@ also be customized in the same way.</p>
 <p>Set <code>clearable</code> attribute for <code>el-cascader</code> and
 a clear icon will appear when selected and hovered</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_cascader.html">el_cascader</a></span><span class="op">(</span><span class="st">"cas_clear"</span>, clearable <span class="op">=</span> <span class="cn">TRUE</span>, options <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>value <span class="op">=</span> <span class="st">"guide"</span>, label <span class="op">=</span> <span class="st">"Guide"</span>, children <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
-<span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>value <span class="op">=</span> <span class="st">"disciplines"</span>, label <span class="op">=</span> <span class="st">"Disciplines"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_cascader.html">el_cascader</a></span><span class="op">(</span></span>
+<span>  <span class="st">"cas_clear"</span>,</span>
+<span>  clearable <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  options <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>      value <span class="op">=</span> <span class="st">"guide"</span>,</span>
+<span>      label <span class="op">=</span> <span class="st">"Guide"</span>,</span>
+<span>      children <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>        <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>value <span class="op">=</span> <span class="st">"disciplines"</span>, label <span class="op">=</span> <span class="st">"Disciplines"</span><span class="op">)</span></span>
+<span>      <span class="op">)</span></span>
+<span>    <span class="op">)</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
   <div id="clearable-cas_clear" data-shiny-vue style="display: contents">
     <script type="text/x-template" data-shiny-vue-template><div id="clearable-cas_clear_container" style="display: contents">
@@ -276,10 +335,21 @@ a clear icon will appear when selected and hovered</p>
 <p>You can customize the clear icon by setting the
 <code>clear-icon</code> attribute</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_cascader.html">el_cascader</a></span><span class="op">(</span><span class="st">"cas_clear_icon"</span>, clearable <span class="op">=</span> <span class="cn">TRUE</span>, clear_icon <span class="op">=</span> <span class="st">"CloseBold"</span>,</span>
-<span>  placeholder <span class="op">=</span> <span class="st">"Custom clear icon"</span>, options <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>value <span class="op">=</span> <span class="st">"guide"</span>, label <span class="op">=</span> <span class="st">"Guide"</span>, children <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
-<span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>value <span class="op">=</span> <span class="st">"disciplines"</span>, label <span class="op">=</span> <span class="st">"Disciplines"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_cascader.html">el_cascader</a></span><span class="op">(</span></span>
+<span>  <span class="st">"cas_clear_icon"</span>,</span>
+<span>  clearable <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  clear_icon <span class="op">=</span> <span class="st">"CloseBold"</span>,</span>
+<span>  placeholder <span class="op">=</span> <span class="st">"Custom clear icon"</span>,</span>
+<span>  options <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>      value <span class="op">=</span> <span class="st">"guide"</span>,</span>
+<span>      label <span class="op">=</span> <span class="st">"Guide"</span>,</span>
+<span>      children <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>        <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>value <span class="op">=</span> <span class="st">"disciplines"</span>, label <span class="op">=</span> <span class="st">"Disciplines"</span><span class="op">)</span></span>
+<span>      <span class="op">)</span></span>
+<span>    <span class="op">)</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
   <div id="clear-icon-cas_clear_icon" data-shiny-vue style="display: contents">
     <script type="text/x-template" data-shiny-vue-template><div id="clear-icon-cas_clear_icon_container" style="display: contents">
@@ -296,10 +366,25 @@ a clear icon will appear when selected and hovered</p>
 displayed. If it is <code>false</code>, only the last level is
 displayed.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_cascader.html">el_cascader</a></span><span class="op">(</span><span class="st">"cas_last"</span>, show_all_levels <span class="op">=</span> <span class="cn">FALSE</span>, options <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>value <span class="op">=</span> <span class="st">"guide"</span>, label <span class="op">=</span> <span class="st">"Guide"</span>, children <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
-<span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>value <span class="op">=</span> <span class="st">"disciplines"</span>, label <span class="op">=</span> <span class="st">"Disciplines"</span>, children <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
-<span>      <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>value <span class="op">=</span> <span class="st">"consistency"</span>, label <span class="op">=</span> <span class="st">"Consistency"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_cascader.html">el_cascader</a></span><span class="op">(</span></span>
+<span>  <span class="st">"cas_last"</span>,</span>
+<span>  show_all_levels <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  options <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>      value <span class="op">=</span> <span class="st">"guide"</span>,</span>
+<span>      label <span class="op">=</span> <span class="st">"Guide"</span>,</span>
+<span>      children <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>        <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>          value <span class="op">=</span> <span class="st">"disciplines"</span>,</span>
+<span>          label <span class="op">=</span> <span class="st">"Disciplines"</span>,</span>
+<span>          children <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>            <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>value <span class="op">=</span> <span class="st">"consistency"</span>, label <span class="op">=</span> <span class="st">"Consistency"</span><span class="op">)</span></span>
+<span>          <span class="op">)</span></span>
+<span>        <span class="op">)</span></span>
+<span>      <span class="op">)</span></span>
+<span>    <span class="op">)</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
   <div id="last-level-cas_last" data-shiny-vue style="display: contents">
     <script type="text/x-template" data-shiny-vue-template><div id="last-level-cas_last_container" style="display: contents">
@@ -321,24 +406,65 @@ tags. You can set <code>max-collapse-tags</code> to show max tags
 number, default 1. You can check them when mouse hover collapse text by
 using <code>collapse-tags-tooltip</code> attribute.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">world</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>value <span class="op">=</span> <span class="fl">1</span>, label <span class="op">=</span> <span class="st">"Asia"</span>, children <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>value <span class="op">=</span> <span class="fl">2</span>, label <span class="op">=</span> <span class="st">"China"</span>, children <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
-<span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>value <span class="op">=</span> <span class="fl">3</span>, label <span class="op">=</span> <span class="st">"Beijing"</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>value <span class="op">=</span> <span class="fl">4</span>, label <span class="op">=</span> <span class="st">"Shanghai"</span><span class="op">)</span>,</span>
-<span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>value <span class="op">=</span> <span class="fl">5</span>, label <span class="op">=</span> <span class="st">"Hangzhou"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>,</span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>value <span class="op">=</span> <span class="fl">6</span>, label <span class="op">=</span> <span class="st">"Japan"</span>, children <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
-<span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>value <span class="op">=</span> <span class="fl">7</span>, label <span class="op">=</span> <span class="st">"Tokyo"</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>value <span class="op">=</span> <span class="fl">8</span>, label <span class="op">=</span> <span class="st">"Osaka"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="va">world</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>  value <span class="op">=</span> <span class="fl">1</span>,</span>
+<span>  label <span class="op">=</span> <span class="st">"Asia"</span>,</span>
+<span>  children <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>      value <span class="op">=</span> <span class="fl">2</span>,</span>
+<span>      label <span class="op">=</span> <span class="st">"China"</span>,</span>
+<span>      children <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>        <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>value <span class="op">=</span> <span class="fl">3</span>, label <span class="op">=</span> <span class="st">"Beijing"</span><span class="op">)</span>,</span>
+<span>        <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>value <span class="op">=</span> <span class="fl">4</span>, label <span class="op">=</span> <span class="st">"Shanghai"</span><span class="op">)</span>,</span>
+<span>        <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>value <span class="op">=</span> <span class="fl">5</span>, label <span class="op">=</span> <span class="st">"Hangzhou"</span><span class="op">)</span></span>
+<span>      <span class="op">)</span></span>
+<span>    <span class="op">)</span>,</span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>      value <span class="op">=</span> <span class="fl">6</span>,</span>
+<span>      label <span class="op">=</span> <span class="st">"Japan"</span>,</span>
+<span>      children <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>        <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>value <span class="op">=</span> <span class="fl">7</span>, label <span class="op">=</span> <span class="st">"Tokyo"</span><span class="op">)</span>,</span>
+<span>        <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>value <span class="op">=</span> <span class="fl">8</span>, label <span class="op">=</span> <span class="st">"Osaka"</span><span class="op">)</span></span>
+<span>      <span class="op">)</span></span>
+<span>    <span class="op">)</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rstudio.github.io/htmltools/reference/tagList.html" class="external-link">tagList</a></span><span class="op">(</span></span>
 <span>  <span class="va">tags</span><span class="op">$</span><span class="fu">p</span><span class="op">(</span><span class="st">"Display all tags (default)"</span><span class="op">)</span>,</span>
-<span>  <span class="fu"><a href="../../reference/el_cascader.html">el_cascader</a></span><span class="op">(</span><span class="st">"cas_m1"</span>, options <span class="op">=</span> <span class="va">world</span>, props <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>multiple <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>, clearable <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="../../reference/el_cascader.html">el_cascader</a></span><span class="op">(</span></span>
+<span>    <span class="st">"cas_m1"</span>,</span>
+<span>    options <span class="op">=</span> <span class="va">world</span>,</span>
+<span>    props <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>multiple <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,</span>
+<span>    clearable <span class="op">=</span> <span class="cn">TRUE</span></span>
+<span>  <span class="op">)</span>,</span>
 <span>  <span class="va">tags</span><span class="op">$</span><span class="fu">p</span><span class="op">(</span><span class="st">"Collapse tags"</span><span class="op">)</span>,</span>
-<span>  <span class="fu"><a href="../../reference/el_cascader.html">el_cascader</a></span><span class="op">(</span><span class="st">"cas_m2"</span>, options <span class="op">=</span> <span class="va">world</span>, props <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>multiple <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>, collapse_tags <span class="op">=</span> <span class="cn">TRUE</span>,</span>
-<span>              clearable <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="../../reference/el_cascader.html">el_cascader</a></span><span class="op">(</span></span>
+<span>    <span class="st">"cas_m2"</span>,</span>
+<span>    options <span class="op">=</span> <span class="va">world</span>,</span>
+<span>    props <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>multiple <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,</span>
+<span>    collapse_tags <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>    clearable <span class="op">=</span> <span class="cn">TRUE</span></span>
+<span>  <span class="op">)</span>,</span>
 <span>  <span class="va">tags</span><span class="op">$</span><span class="fu">p</span><span class="op">(</span><span class="st">"Collapse tags tooltip"</span><span class="op">)</span>,</span>
-<span>  <span class="fu"><a href="../../reference/el_cascader.html">el_cascader</a></span><span class="op">(</span><span class="st">"cas_m3"</span>, options <span class="op">=</span> <span class="va">world</span>, props <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>multiple <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>, collapse_tags <span class="op">=</span> <span class="cn">TRUE</span>,</span>
-<span>              collapse_tags_tooltip <span class="op">=</span> <span class="cn">TRUE</span>, clearable <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="../../reference/el_cascader.html">el_cascader</a></span><span class="op">(</span></span>
+<span>    <span class="st">"cas_m3"</span>,</span>
+<span>    options <span class="op">=</span> <span class="va">world</span>,</span>
+<span>    props <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>multiple <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,</span>
+<span>    collapse_tags <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>    collapse_tags_tooltip <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>    clearable <span class="op">=</span> <span class="cn">TRUE</span></span>
+<span>  <span class="op">)</span>,</span>
 <span>  <span class="va">tags</span><span class="op">$</span><span class="fu">p</span><span class="op">(</span><span class="st">"Max Collapse Tags"</span><span class="op">)</span>,</span>
-<span>  <span class="fu"><a href="../../reference/el_cascader.html">el_cascader</a></span><span class="op">(</span><span class="st">"cas_m4"</span>, options <span class="op">=</span> <span class="va">world</span>, props <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>multiple <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>, collapse_tags <span class="op">=</span> <span class="cn">TRUE</span>,</span>
-<span>              collapse_tags_tooltip <span class="op">=</span> <span class="cn">TRUE</span>, max_collapse_tags <span class="op">=</span> <span class="fl">3</span>, clearable <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<span>  <span class="fu"><a href="../../reference/el_cascader.html">el_cascader</a></span><span class="op">(</span></span>
+<span>    <span class="st">"cas_m4"</span>,</span>
+<span>    options <span class="op">=</span> <span class="va">world</span>,</span>
+<span>    props <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>multiple <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,</span>
+<span>    collapse_tags <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>    collapse_tags_tooltip <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>    max_collapse_tags <span class="op">=</span> <span class="fl">3</span>,</span>
+<span>    clearable <span class="op">=</span> <span class="cn">TRUE</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
   <p>Display all tags (default)</p>
   <div id="multiple-selection-cas_m1" data-shiny-vue style="display: contents">
@@ -377,15 +503,35 @@ child nodes unlinked and you can select any level of options.</p>
 a node not affects its parent nodes and child nodes, and then you can
 select any level of options.</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">tree</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>value <span class="op">=</span> <span class="st">"guide"</span>, label <span class="op">=</span> <span class="st">"Guide"</span>, children <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>value <span class="op">=</span> <span class="st">"disciplines"</span>, label <span class="op">=</span> <span class="st">"Disciplines"</span>, children <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
-<span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>value <span class="op">=</span> <span class="st">"consistency"</span>, label <span class="op">=</span> <span class="st">"Consistency"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="va">tree</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>  value <span class="op">=</span> <span class="st">"guide"</span>,</span>
+<span>  label <span class="op">=</span> <span class="st">"Guide"</span>,</span>
+<span>  children <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>      value <span class="op">=</span> <span class="st">"disciplines"</span>,</span>
+<span>      label <span class="op">=</span> <span class="st">"Disciplines"</span>,</span>
+<span>      children <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>        <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>value <span class="op">=</span> <span class="st">"consistency"</span>, label <span class="op">=</span> <span class="st">"Consistency"</span><span class="op">)</span></span>
+<span>      <span class="op">)</span></span>
+<span>    <span class="op">)</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rstudio.github.io/htmltools/reference/tagList.html" class="external-link">tagList</a></span><span class="op">(</span></span>
 <span>  <span class="va">tags</span><span class="op">$</span><span class="fu">p</span><span class="op">(</span><span class="st">"Select any level of options (Single selection)"</span><span class="op">)</span>,</span>
-<span>  <span class="fu"><a href="../../reference/el_cascader.html">el_cascader</a></span><span class="op">(</span><span class="st">"cas_any1"</span>, options <span class="op">=</span> <span class="va">tree</span>, props <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>checkStrictly <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>, clearable <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="../../reference/el_cascader.html">el_cascader</a></span><span class="op">(</span></span>
+<span>    <span class="st">"cas_any1"</span>,</span>
+<span>    options <span class="op">=</span> <span class="va">tree</span>,</span>
+<span>    props <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>checkStrictly <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,</span>
+<span>    clearable <span class="op">=</span> <span class="cn">TRUE</span></span>
+<span>  <span class="op">)</span>,</span>
 <span>  <span class="va">tags</span><span class="op">$</span><span class="fu">p</span><span class="op">(</span><span class="st">"Select any level of options (Multiple selection)"</span><span class="op">)</span>,</span>
-<span>  <span class="fu"><a href="../../reference/el_cascader.html">el_cascader</a></span><span class="op">(</span><span class="st">"cas_any2"</span>, options <span class="op">=</span> <span class="va">tree</span>, props <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>multiple <span class="op">=</span> <span class="cn">TRUE</span>, checkStrictly <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,</span>
-<span>              clearable <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<span>  <span class="fu"><a href="../../reference/el_cascader.html">el_cascader</a></span><span class="op">(</span></span>
+<span>    <span class="st">"cas_any2"</span>,</span>
+<span>    options <span class="op">=</span> <span class="va">tree</span>,</span>
+<span>    props <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>multiple <span class="op">=</span> <span class="cn">TRUE</span>, checkStrictly <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,</span>
+<span>    clearable <span class="op">=</span> <span class="cn">TRUE</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
   <p>Select any level of options (Single selection)</p>
   <div id="any-level-cas_any1" data-shiny-vue style="display: contents">
@@ -440,14 +586,31 @@ which accepts a function, the first parameter is <code>node</code>, the
 second is <code>keyword</code>, and need return a boolean value
 indicating whether it hits.</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">tree</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>value <span class="op">=</span> <span class="st">"guide"</span>, label <span class="op">=</span> <span class="st">"Guide"</span>, children <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>value <span class="op">=</span> <span class="st">"disciplines"</span>, label <span class="op">=</span> <span class="st">"Disciplines"</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>value <span class="op">=</span> <span class="st">"navigation"</span>, label <span class="op">=</span> <span class="st">"Navigation"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="va">tree</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>  value <span class="op">=</span> <span class="st">"guide"</span>,</span>
+<span>  label <span class="op">=</span> <span class="st">"Guide"</span>,</span>
+<span>  children <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>value <span class="op">=</span> <span class="st">"disciplines"</span>, label <span class="op">=</span> <span class="st">"Disciplines"</span><span class="op">)</span>,</span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>value <span class="op">=</span> <span class="st">"navigation"</span>, label <span class="op">=</span> <span class="st">"Navigation"</span><span class="op">)</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rstudio.github.io/htmltools/reference/tagList.html" class="external-link">tagList</a></span><span class="op">(</span></span>
 <span>  <span class="va">tags</span><span class="op">$</span><span class="fu">p</span><span class="op">(</span><span class="st">"Filterable (Single selection)"</span><span class="op">)</span>,</span>
-<span>  <span class="fu"><a href="../../reference/el_cascader.html">el_cascader</a></span><span class="op">(</span><span class="st">"cas_f1"</span>, options <span class="op">=</span> <span class="va">tree</span>, filterable <span class="op">=</span> <span class="cn">TRUE</span>, placeholder <span class="op">=</span> <span class="st">"Try searching: Guide"</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="../../reference/el_cascader.html">el_cascader</a></span><span class="op">(</span></span>
+<span>    <span class="st">"cas_f1"</span>,</span>
+<span>    options <span class="op">=</span> <span class="va">tree</span>,</span>
+<span>    filterable <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>    placeholder <span class="op">=</span> <span class="st">"Try searching: Guide"</span></span>
+<span>  <span class="op">)</span>,</span>
 <span>  <span class="va">tags</span><span class="op">$</span><span class="fu">p</span><span class="op">(</span><span class="st">"Filterable (Multiple selection)"</span><span class="op">)</span>,</span>
-<span>  <span class="fu"><a href="../../reference/el_cascader.html">el_cascader</a></span><span class="op">(</span><span class="st">"cas_f2"</span>, options <span class="op">=</span> <span class="va">tree</span>, filterable <span class="op">=</span> <span class="cn">TRUE</span>, props <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>multiple <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,</span>
-<span>              placeholder <span class="op">=</span> <span class="st">"Try searching: Guide"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<span>  <span class="fu"><a href="../../reference/el_cascader.html">el_cascader</a></span><span class="op">(</span></span>
+<span>    <span class="st">"cas_f2"</span>,</span>
+<span>    options <span class="op">=</span> <span class="va">tree</span>,</span>
+<span>    filterable <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>    props <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>multiple <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,</span>
+<span>    placeholder <span class="op">=</span> <span class="st">"Try searching: Guide"</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
   <p>Filterable (Single selection)</p>
   <div id="filterable-cas_f1" data-shiny-vue style="display: contents">
@@ -472,13 +635,28 @@ indicating whether it hits.</p>
 <code>data</code> in the scope, standing for the Node object and node
 data of the current node respectively.</p>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_cascader.html">el_cascader</a></span><span class="op">(</span><span class="st">"cas_content"</span>, options <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>value <span class="op">=</span> <span class="st">"guide"</span>, label <span class="op">=</span> <span class="st">"Guide"</span>, children <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
-<span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>value <span class="op">=</span> <span class="st">"disciplines"</span>, label <span class="op">=</span> <span class="st">"Disciplines"</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>value <span class="op">=</span> <span class="st">"navigation"</span>, label <span class="op">=</span> <span class="st">"Navigation"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>,</span>
-<span>  slots <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>default <span class="op">=</span> <span class="fu"><a href="../../reference/template.html">template</a></span><span class="op">(</span><span class="fu">htmltools</span><span class="fu">::</span><span class="fu"><a href="https://rstudio.github.io/htmltools/reference/HTML.html" class="external-link">HTML</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span></span>
-<span>    <span class="st">"&lt;span&gt;{{ data.label }}&lt;/span&gt;"</span>,</span>
-<span>    <span class="st">"&lt;span v-if=\"!node.isLeaf\"&gt; ({{ data.children.length }}) &lt;/span&gt;"</span><span class="op">)</span><span class="op">)</span>,</span>
-<span>    scope <span class="op">=</span> <span class="st">"{ node, data }"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_cascader.html">el_cascader</a></span><span class="op">(</span></span>
+<span>  <span class="st">"cas_content"</span>,</span>
+<span>  options <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>      value <span class="op">=</span> <span class="st">"guide"</span>,</span>
+<span>      label <span class="op">=</span> <span class="st">"Guide"</span>,</span>
+<span>      children <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>        <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>value <span class="op">=</span> <span class="st">"disciplines"</span>, label <span class="op">=</span> <span class="st">"Disciplines"</span><span class="op">)</span>,</span>
+<span>        <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>value <span class="op">=</span> <span class="st">"navigation"</span>, label <span class="op">=</span> <span class="st">"Navigation"</span><span class="op">)</span></span>
+<span>      <span class="op">)</span></span>
+<span>    <span class="op">)</span></span>
+<span>  <span class="op">)</span>,</span>
+<span>  slots <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>    default <span class="op">=</span> <span class="fu"><a href="../../reference/template.html">template</a></span><span class="op">(</span></span>
+<span>      <span class="fu">htmltools</span><span class="fu">::</span><span class="fu"><a href="https://rstudio.github.io/htmltools/reference/HTML.html" class="external-link">HTML</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span></span>
+<span>        <span class="st">"&lt;span&gt;{{ data.label }}&lt;/span&gt;"</span>,</span>
+<span>        <span class="st">"&lt;span v-if=\"!node.isLeaf\"&gt; ({{ data.children.length }}) &lt;/span&gt;"</span></span>
+<span>      <span class="op">)</span><span class="op">)</span>,</span>
+<span>      scope <span class="op">=</span> <span class="st">"{ node, data }"</span></span>
+<span>    <span class="op">)</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
   <div id="custom-content-cas_content" data-shiny-vue style="display: contents">
     <script type="text/x-template" data-shiny-vue-template><div id="custom-content-cas_content_container" style="display: contents">
@@ -494,12 +672,29 @@ data of the current node respectively.</p>
 <code>suggestion-item</code> slot. You’ll have access to
 <code>item</code> in the scope, standing for the suggestion item.</p>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_cascader.html">el_cascader</a></span><span class="op">(</span><span class="st">"cas_sugg"</span>, filterable <span class="op">=</span> <span class="cn">TRUE</span>, placeholder <span class="op">=</span> <span class="st">"Try searching: Guide"</span>, options <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>value <span class="op">=</span> <span class="st">"guide"</span>, label <span class="op">=</span> <span class="st">"Guide"</span>, children <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
-<span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>value <span class="op">=</span> <span class="st">"disciplines"</span>, label <span class="op">=</span> <span class="st">"Disciplines"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>,</span>
-<span>  slots <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>`suggestion-item` <span class="op">=</span> <span class="fu"><a href="../../reference/template.html">template</a></span><span class="op">(</span><span class="fu">htmltools</span><span class="fu">::</span><span class="fu"><a href="https://rstudio.github.io/htmltools/reference/HTML.html" class="external-link">HTML</a></span><span class="op">(</span></span>
-<span>    <span class="st">"&lt;span&gt;\U0001F50D {{ item.pathLabels.join(' &gt; ') }}&lt;/span&gt;"</span><span class="op">)</span>,</span>
-<span>    slot <span class="op">=</span> <span class="st">"suggestion-item"</span>, scope <span class="op">=</span> <span class="st">"{ item }"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_cascader.html">el_cascader</a></span><span class="op">(</span></span>
+<span>  <span class="st">"cas_sugg"</span>,</span>
+<span>  filterable <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  placeholder <span class="op">=</span> <span class="st">"Try searching: Guide"</span>,</span>
+<span>  options <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>      value <span class="op">=</span> <span class="st">"guide"</span>,</span>
+<span>      label <span class="op">=</span> <span class="st">"Guide"</span>,</span>
+<span>      children <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>        <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>value <span class="op">=</span> <span class="st">"disciplines"</span>, label <span class="op">=</span> <span class="st">"Disciplines"</span><span class="op">)</span></span>
+<span>      <span class="op">)</span></span>
+<span>    <span class="op">)</span></span>
+<span>  <span class="op">)</span>,</span>
+<span>  slots <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>    `suggestion-item` <span class="op">=</span> <span class="fu"><a href="../../reference/template.html">template</a></span><span class="op">(</span></span>
+<span>      <span class="fu">htmltools</span><span class="fu">::</span><span class="fu"><a href="https://rstudio.github.io/htmltools/reference/HTML.html" class="external-link">HTML</a></span><span class="op">(</span></span>
+<span>        <span class="st">"&lt;span&gt;\U0001F50D {{ item.pathLabels.join(' &gt; ') }}&lt;/span&gt;"</span></span>
+<span>      <span class="op">)</span>,</span>
+<span>      slot <span class="op">=</span> <span class="st">"suggestion-item"</span>,</span>
+<span>      scope <span class="op">=</span> <span class="st">"{ item }"</span></span>
+<span>    <span class="op">)</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
   <div id="custom-suggestion-item-cas_sugg" data-shiny-vue style="display: contents">
     <script type="text/x-template" data-shiny-vue-template><div id="custom-suggestion-item-cas_sugg_container" style="display: contents">
@@ -518,11 +713,26 @@ selection, multiple selection, dynamic loading and so on.</p>
 by <code>options</code>, and enable other features by
 <code>props</code>, see the API form below for details.</p>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_cascader_panel.html">el_cascader_panel</a></span><span class="op">(</span><span class="st">"cas_panel"</span>, options <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>value <span class="op">=</span> <span class="st">"guide"</span>, label <span class="op">=</span> <span class="st">"Guide"</span>, children <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
-<span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>value <span class="op">=</span> <span class="st">"disciplines"</span>, label <span class="op">=</span> <span class="st">"Disciplines"</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>value <span class="op">=</span> <span class="st">"navigation"</span>, label <span class="op">=</span> <span class="st">"Navigation"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>,</span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>value <span class="op">=</span> <span class="st">"component"</span>, label <span class="op">=</span> <span class="st">"Component"</span>, children <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
-<span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>value <span class="op">=</span> <span class="st">"basic"</span>, label <span class="op">=</span> <span class="st">"Basic"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_cascader_panel.html">el_cascader_panel</a></span><span class="op">(</span></span>
+<span>  <span class="st">"cas_panel"</span>,</span>
+<span>  options <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>      value <span class="op">=</span> <span class="st">"guide"</span>,</span>
+<span>      label <span class="op">=</span> <span class="st">"Guide"</span>,</span>
+<span>      children <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>        <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>value <span class="op">=</span> <span class="st">"disciplines"</span>, label <span class="op">=</span> <span class="st">"Disciplines"</span><span class="op">)</span>,</span>
+<span>        <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>value <span class="op">=</span> <span class="st">"navigation"</span>, label <span class="op">=</span> <span class="st">"Navigation"</span><span class="op">)</span></span>
+<span>      <span class="op">)</span></span>
+<span>    <span class="op">)</span>,</span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>      value <span class="op">=</span> <span class="st">"component"</span>,</span>
+<span>      label <span class="op">=</span> <span class="st">"Component"</span>,</span>
+<span>      children <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>        <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>value <span class="op">=</span> <span class="st">"basic"</span>, label <span class="op">=</span> <span class="st">"Basic"</span><span class="op">)</span></span>
+<span>      <span class="op">)</span></span>
+<span>    <span class="op">)</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
   <div id="panel-cas_panel" data-shiny-vue style="display: contents">
     <script type="text/x-template" data-shiny-vue-template><div id="panel-cas_panel_container" style="display: contents">
@@ -539,12 +749,29 @@ by <code>options</code>, and enable other features by
 <code>collapse-tags</code>, <code>collapse-tags-tooltip</code>,
 <code>max-collapse-tags</code> will not work.</p>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">world</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>value <span class="op">=</span> <span class="fl">1</span>, label <span class="op">=</span> <span class="st">"Asia"</span>, children <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>value <span class="op">=</span> <span class="fl">2</span>, label <span class="op">=</span> <span class="st">"China"</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>value <span class="op">=</span> <span class="fl">3</span>, label <span class="op">=</span> <span class="st">"Japan"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="fu"><a href="../../reference/el_cascader.html">el_cascader</a></span><span class="op">(</span><span class="st">"cas_tag"</span>, options <span class="op">=</span> <span class="va">world</span>, props <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>multiple <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>, clearable <span class="op">=</span> <span class="cn">TRUE</span>,</span>
-<span>  slots <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>tag <span class="op">=</span> <span class="fu"><a href="../../reference/template.html">template</a></span><span class="op">(</span><span class="fu">htmltools</span><span class="fu">::</span><span class="fu"><a href="https://rstudio.github.io/htmltools/reference/HTML.html" class="external-link">HTML</a></span><span class="op">(</span></span>
-<span>    <span class="st">"&lt;el-tag v-for=\"(item, index) in data\" :key=\"item.key\" :color=\"index % 2 === 0 ? '#FFDE0A' : ''\"&gt;{{ item.text }}&lt;/el-tag&gt;"</span><span class="op">)</span>,</span>
-<span>    slot <span class="op">=</span> <span class="st">"tag"</span>, scope <span class="op">=</span> <span class="st">"{ data }"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">world</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>  value <span class="op">=</span> <span class="fl">1</span>,</span>
+<span>  label <span class="op">=</span> <span class="st">"Asia"</span>,</span>
+<span>  children <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>value <span class="op">=</span> <span class="fl">2</span>, label <span class="op">=</span> <span class="st">"China"</span><span class="op">)</span>,</span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>value <span class="op">=</span> <span class="fl">3</span>, label <span class="op">=</span> <span class="st">"Japan"</span><span class="op">)</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="fu"><a href="../../reference/el_cascader.html">el_cascader</a></span><span class="op">(</span></span>
+<span>  <span class="st">"cas_tag"</span>,</span>
+<span>  options <span class="op">=</span> <span class="va">world</span>,</span>
+<span>  props <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>multiple <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,</span>
+<span>  clearable <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  slots <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>    tag <span class="op">=</span> <span class="fu"><a href="../../reference/template.html">template</a></span><span class="op">(</span></span>
+<span>      <span class="fu">htmltools</span><span class="fu">::</span><span class="fu"><a href="https://rstudio.github.io/htmltools/reference/HTML.html" class="external-link">HTML</a></span><span class="op">(</span></span>
+<span>        <span class="st">"&lt;el-tag v-for=\"(item, index) in data\" :key=\"item.key\" :color=\"index % 2 === 0 ? '#FFDE0A' : ''\"&gt;{{ item.text }}&lt;/el-tag&gt;"</span></span>
+<span>      <span class="op">)</span>,</span>
+<span>      slot <span class="op">=</span> <span class="st">"tag"</span>,</span>
+<span>      scope <span class="op">=</span> <span class="st">"{ data }"</span></span>
+<span>    <span class="op">)</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
   <div id="custom-tag-cas_tag" data-shiny-vue style="display: contents">
     <script type="text/x-template" data-shiny-vue-template><div id="custom-tag-cas_tag_container" style="display: contents">
@@ -564,16 +791,40 @@ displayed. The default strategy is <code>child</code>, which shows all
 selected child nodes. The <code>parent</code> strategy only shows parent
 nodes when all their children are selected.</p>
 <div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">world</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>value <span class="op">=</span> <span class="fl">1</span>, label <span class="op">=</span> <span class="st">"Asia"</span>, children <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>value <span class="op">=</span> <span class="fl">2</span>, label <span class="op">=</span> <span class="st">"China"</span>, children <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
-<span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>value <span class="op">=</span> <span class="fl">3</span>, label <span class="op">=</span> <span class="st">"Beijing"</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>value <span class="op">=</span> <span class="fl">4</span>, label <span class="op">=</span> <span class="st">"Shanghai"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="va">world</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>  value <span class="op">=</span> <span class="fl">1</span>,</span>
+<span>  label <span class="op">=</span> <span class="st">"Asia"</span>,</span>
+<span>  children <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>      value <span class="op">=</span> <span class="fl">2</span>,</span>
+<span>      label <span class="op">=</span> <span class="st">"China"</span>,</span>
+<span>      children <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>        <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>value <span class="op">=</span> <span class="fl">3</span>, label <span class="op">=</span> <span class="st">"Beijing"</span><span class="op">)</span>,</span>
+<span>        <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>value <span class="op">=</span> <span class="fl">4</span>, label <span class="op">=</span> <span class="st">"Shanghai"</span><span class="op">)</span></span>
+<span>      <span class="op">)</span></span>
+<span>    <span class="op">)</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rstudio.github.io/htmltools/reference/tagList.html" class="external-link">tagList</a></span><span class="op">(</span></span>
 <span>  <span class="va">tags</span><span class="op">$</span><span class="fu">p</span><span class="op">(</span><span class="st">"Strategy: child (default, show all selected child nodes)"</span><span class="op">)</span>,</span>
-<span>  <span class="fu"><a href="../../reference/el_cascader.html">el_cascader</a></span><span class="op">(</span><span class="st">"cas_s1"</span>, options <span class="op">=</span> <span class="va">world</span>, props <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>multiple <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,</span>
-<span>              show_checked_strategy <span class="op">=</span> <span class="st">"child"</span>, clearable <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,</span>
-<span>  <span class="va">tags</span><span class="op">$</span><span class="fu">p</span><span class="op">(</span><span class="st">"Strategy: parent (show only parent nodes when all children are selected)"</span><span class="op">)</span>,</span>
-<span>  <span class="fu"><a href="../../reference/el_cascader.html">el_cascader</a></span><span class="op">(</span><span class="st">"cas_s2"</span>, options <span class="op">=</span> <span class="va">world</span>, props <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>multiple <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,</span>
-<span>              show_checked_strategy <span class="op">=</span> <span class="st">"parent"</span>, clearable <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<span>  <span class="fu"><a href="../../reference/el_cascader.html">el_cascader</a></span><span class="op">(</span></span>
+<span>    <span class="st">"cas_s1"</span>,</span>
+<span>    options <span class="op">=</span> <span class="va">world</span>,</span>
+<span>    props <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>multiple <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,</span>
+<span>    show_checked_strategy <span class="op">=</span> <span class="st">"child"</span>,</span>
+<span>    clearable <span class="op">=</span> <span class="cn">TRUE</span></span>
+<span>  <span class="op">)</span>,</span>
+<span>  <span class="va">tags</span><span class="op">$</span><span class="fu">p</span><span class="op">(</span></span>
+<span>    <span class="st">"Strategy: parent (show only parent nodes when all children are selected)"</span></span>
+<span>  <span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="../../reference/el_cascader.html">el_cascader</a></span><span class="op">(</span></span>
+<span>    <span class="st">"cas_s2"</span>,</span>
+<span>    options <span class="op">=</span> <span class="va">world</span>,</span>
+<span>    props <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>multiple <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,</span>
+<span>    show_checked_strategy <span class="op">=</span> <span class="st">"parent"</span>,</span>
+<span>    clearable <span class="op">=</span> <span class="cn">TRUE</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
   <p>Strategy: child (default, show all selected child nodes)</p>
   <div id="show-checked-strategy-cas_s1" data-shiny-vue style="display: contents">
@@ -600,15 +851,30 @@ Toggle the visibility of the prefix with <code>showPrefix</code>. :::tip
 Add <code>checkOnClickLeaf</code> to check only the leaf node (last
 children), enabled by default. :::</p>
 <div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">tree</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>value <span class="op">=</span> <span class="st">"guide"</span>, label <span class="op">=</span> <span class="st">"Guide"</span>, children <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>value <span class="op">=</span> <span class="st">"disciplines"</span>, label <span class="op">=</span> <span class="st">"Disciplines"</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>value <span class="op">=</span> <span class="st">"navigation"</span>, label <span class="op">=</span> <span class="st">"Navigation"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="va">tree</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>  value <span class="op">=</span> <span class="st">"guide"</span>,</span>
+<span>  label <span class="op">=</span> <span class="st">"Guide"</span>,</span>
+<span>  children <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>value <span class="op">=</span> <span class="st">"disciplines"</span>, label <span class="op">=</span> <span class="st">"Disciplines"</span><span class="op">)</span>,</span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>value <span class="op">=</span> <span class="st">"navigation"</span>, label <span class="op">=</span> <span class="st">"Navigation"</span><span class="op">)</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rstudio.github.io/htmltools/reference/tagList.html" class="external-link">tagList</a></span><span class="op">(</span></span>
 <span>  <span class="va">tags</span><span class="op">$</span><span class="fu">p</span><span class="op">(</span><span class="st">"checkStrictly | Single mode"</span><span class="op">)</span>,</span>
-<span>  <span class="fu"><a href="../../reference/el_cascader.html">el_cascader</a></span><span class="op">(</span><span class="st">"cas_c1"</span>, options <span class="op">=</span> <span class="va">tree</span>, clearable <span class="op">=</span> <span class="cn">TRUE</span>,</span>
-<span>              props <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>checkStrictly <span class="op">=</span> <span class="cn">TRUE</span>, checkOnClickNode <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="../../reference/el_cascader.html">el_cascader</a></span><span class="op">(</span></span>
+<span>    <span class="st">"cas_c1"</span>,</span>
+<span>    options <span class="op">=</span> <span class="va">tree</span>,</span>
+<span>    clearable <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>    props <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>checkStrictly <span class="op">=</span> <span class="cn">TRUE</span>, checkOnClickNode <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span>  <span class="op">)</span>,</span>
 <span>  <span class="va">tags</span><span class="op">$</span><span class="fu">p</span><span class="op">(</span><span class="st">"checkStrictly | Multiple mode"</span><span class="op">)</span>,</span>
-<span>  <span class="fu"><a href="../../reference/el_cascader.html">el_cascader</a></span><span class="op">(</span><span class="st">"cas_c2"</span>, options <span class="op">=</span> <span class="va">tree</span>, clearable <span class="op">=</span> <span class="cn">TRUE</span>,</span>
-<span>              props <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>multiple <span class="op">=</span> <span class="cn">TRUE</span>, checkStrictly <span class="op">=</span> <span class="cn">TRUE</span>, checkOnClickNode <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<span>  <span class="fu"><a href="../../reference/el_cascader.html">el_cascader</a></span><span class="op">(</span></span>
+<span>    <span class="st">"cas_c2"</span>,</span>
+<span>    options <span class="op">=</span> <span class="va">tree</span>,</span>
+<span>    clearable <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>    props <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>multiple <span class="op">=</span> <span class="cn">TRUE</span>, checkStrictly <span class="op">=</span> <span class="cn">TRUE</span>, checkOnClickNode <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
   <p>checkStrictly | Single mode</p>
   <div id="check-on-click-node-cas_c1" data-shiny-vue style="display: contents">
@@ -631,15 +897,30 @@ children), enabled by default. :::</p>
 slots.</p>
 <p>Use slot to customize the content.</p>
 <div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">tree</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>value <span class="op">=</span> <span class="st">"guide"</span>, label <span class="op">=</span> <span class="st">"Guide"</span>, children <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>value <span class="op">=</span> <span class="st">"disciplines"</span>, label <span class="op">=</span> <span class="st">"Disciplines"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="va">tree</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>  value <span class="op">=</span> <span class="st">"guide"</span>,</span>
+<span>  label <span class="op">=</span> <span class="st">"Guide"</span>,</span>
+<span>  children <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>value <span class="op">=</span> <span class="st">"disciplines"</span>, label <span class="op">=</span> <span class="st">"Disciplines"</span><span class="op">)</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rstudio.github.io/htmltools/reference/tagList.html" class="external-link">tagList</a></span><span class="op">(</span></span>
 <span>  <span class="va">tags</span><span class="op">$</span><span class="fu">p</span><span class="op">(</span><span class="st">"Custom header content"</span><span class="op">)</span>,</span>
-<span>  <span class="fu"><a href="../../reference/el_cascader.html">el_cascader</a></span><span class="op">(</span><span class="st">"cas_h"</span>, options <span class="op">=</span> <span class="va">tree</span>, props <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>multiple <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>, clearable <span class="op">=</span> <span class="cn">TRUE</span>,</span>
-<span>              slots <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>header <span class="op">=</span> <span class="st">"All"</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="../../reference/el_cascader.html">el_cascader</a></span><span class="op">(</span></span>
+<span>    <span class="st">"cas_h"</span>,</span>
+<span>    options <span class="op">=</span> <span class="va">tree</span>,</span>
+<span>    props <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>multiple <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,</span>
+<span>    clearable <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>    slots <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>header <span class="op">=</span> <span class="st">"All"</span><span class="op">)</span></span>
+<span>  <span class="op">)</span>,</span>
 <span>  <span class="va">tags</span><span class="op">$</span><span class="fu">p</span><span class="op">(</span><span class="st">"Custom footer content"</span><span class="op">)</span>,</span>
-<span>  <span class="fu"><a href="../../reference/el_cascader.html">el_cascader</a></span><span class="op">(</span><span class="st">"cas_ft"</span>, options <span class="op">=</span> <span class="va">tree</span>, clearable <span class="op">=</span> <span class="cn">TRUE</span>,</span>
-<span>              slots <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>footer <span class="op">=</span> <span class="st">"Footer content"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<span>  <span class="fu"><a href="../../reference/el_cascader.html">el_cascader</a></span><span class="op">(</span></span>
+<span>    <span class="st">"cas_ft"</span>,</span>
+<span>    options <span class="op">=</span> <span class="va">tree</span>,</span>
+<span>    clearable <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>    slots <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>footer <span class="op">=</span> <span class="st">"Footer content"</span><span class="op">)</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
   <p>Custom header content</p>
   <div id="custom-header-footer-cas_h" data-shiny-vue style="display: contents">
@@ -669,10 +950,23 @@ virtual scrolling. You can also customize the menu height with
 <code>height</code> and node height with <code>item-size</code>. Default
 height is 204px and default item size is 34px.</p>
 <div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">big</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">100</span>, <span class="kw">function</span><span class="op">(</span><span class="va">i</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>value <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="st">"v"</span>, <span class="va">i</span><span class="op">)</span>, label <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="st">"Option"</span>, <span class="va">i</span><span class="op">)</span>,</span>
-<span>  children <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">100</span>, <span class="kw">function</span><span class="op">(</span><span class="va">j</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>value <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="st">"v"</span>, <span class="va">i</span>, <span class="st">"-"</span>, <span class="va">j</span><span class="op">)</span>, label <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="st">"Option"</span>, <span class="va">i</span>, <span class="va">j</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="fu"><a href="../../reference/el_cascader.html">el_cascader</a></span><span class="op">(</span><span class="st">"cas_virtual"</span>, options <span class="op">=</span> <span class="va">big</span>, filterable <span class="op">=</span> <span class="cn">TRUE</span>, virtual_scroll <span class="op">=</span> <span class="cn">TRUE</span>,</span>
-<span>            clearable <span class="op">=</span> <span class="cn">TRUE</span>, placeholder <span class="op">=</span> <span class="st">"Select with large data"</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">big</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">100</span>, <span class="kw">function</span><span class="op">(</span><span class="va">i</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>    value <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="st">"v"</span>, <span class="va">i</span><span class="op">)</span>,</span>
+<span>    label <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="st">"Option"</span>, <span class="va">i</span><span class="op">)</span>,</span>
+<span>    children <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">100</span>, <span class="kw">function</span><span class="op">(</span><span class="va">j</span><span class="op">)</span> <span class="op">{</span></span>
+<span>      <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>value <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="st">"v"</span>, <span class="va">i</span>, <span class="st">"-"</span>, <span class="va">j</span><span class="op">)</span>, label <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="st">"Option"</span>, <span class="va">i</span>, <span class="va">j</span><span class="op">)</span><span class="op">)</span></span>
+<span>    <span class="op">}</span><span class="op">)</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">}</span><span class="op">)</span></span>
+<span><span class="fu"><a href="../../reference/el_cascader.html">el_cascader</a></span><span class="op">(</span></span>
+<span>  <span class="st">"cas_virtual"</span>,</span>
+<span>  options <span class="op">=</span> <span class="va">big</span>,</span>
+<span>  filterable <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  virtual_scroll <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  clearable <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  placeholder <span class="op">=</span> <span class="st">"Select with large data"</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
   <div id="virtual-scroll-cas_virtual" data-shiny-vue style="display: contents">
     <script type="text/x-template" data-shiny-vue-template><div id="virtual-scroll-cas_virtual_container" style="display: contents">
@@ -699,9 +993,19 @@ the suggestion panel during searching, it does not affect the default
 cascader panel.</p>
 </blockquote>
 <div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_cascader.html">el_cascader</a></span><span class="op">(</span><span class="st">"cas_fit"</span>, fit_input_width <span class="op">=</span> <span class="cn">TRUE</span>, options <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>value <span class="op">=</span> <span class="st">"guide"</span>, label <span class="op">=</span> <span class="st">"Guide"</span>, children <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
-<span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>value <span class="op">=</span> <span class="st">"disciplines"</span>, label <span class="op">=</span> <span class="st">"Disciplines"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_cascader.html">el_cascader</a></span><span class="op">(</span></span>
+<span>  <span class="st">"cas_fit"</span>,</span>
+<span>  fit_input_width <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  options <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>      value <span class="op">=</span> <span class="st">"guide"</span>,</span>
+<span>      label <span class="op">=</span> <span class="st">"Guide"</span>,</span>
+<span>      children <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>        <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>value <span class="op">=</span> <span class="st">"disciplines"</span>, label <span class="op">=</span> <span class="st">"Disciplines"</span><span class="op">)</span></span>
+<span>      <span class="op">)</span></span>
+<span>    <span class="op">)</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
   <div id="fit-input-width-cas_fit" data-shiny-vue style="display: contents">
     <script type="text/x-template" data-shiny-vue-template><div id="fit-input-width-cas_fit_container" style="display: contents">

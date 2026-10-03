@@ -214,8 +214,10 @@ consider paginating your data, adding filters etc.</p>
 rendering a basic example with 10 columns and 1000 rows.</p>
 <p>A data.frame, its columns made from its variables.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html" class="external-link">as.data.frame</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/setNames.html" class="external-link">setNames</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span>, <span class="kw">function</span><span class="op">(</span><span class="va">j</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="st">"Row "</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">1000</span>, <span class="st">" - Col "</span>, <span class="va">j</span><span class="op">)</span><span class="op">)</span>,</span>
-<span>                             <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="st">"column-"</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">10</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="va">df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html" class="external-link">as.data.frame</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/setNames.html" class="external-link">setNames</a></span><span class="op">(</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span>, <span class="kw">function</span><span class="op">(</span><span class="va">j</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="st">"Row "</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">1000</span>, <span class="st">" - Col "</span>, <span class="va">j</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="st">"column-"</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">10</span><span class="op">)</span></span>
+<span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="fu"><a href="../../reference/el_table_v2.html">el_table_v2</a></span><span class="op">(</span><span class="st">"tv_basic"</span>, data <span class="op">=</span> <span class="va">df</span>, table_v2_width <span class="op">=</span> <span class="fl">700</span>, height <span class="op">=</span> <span class="fl">400</span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
   <div id="basic-tv_basic" data-shiny-vue style="display: contents">
@@ -243,7 +245,11 @@ attribute to <code>AutoResizer</code>.</p>
 <p>Element Plus’s table needs a width and height in pixels; give the
 size the space has.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>id <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">1000</span>, name <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="st">"Name"</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">1000</span><span class="op">)</span>, value <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">round</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html" class="external-link">runif</a></span><span class="op">(</span><span class="fl">1000</span><span class="op">)</span> <span class="op">*</span> <span class="fl">100</span><span class="op">)</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="va">df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span></span>
+<span>  id <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">1000</span>,</span>
+<span>  name <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="st">"Name"</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">1000</span><span class="op">)</span>,</span>
+<span>  value <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">round</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html" class="external-link">runif</a></span><span class="op">(</span><span class="fl">1000</span><span class="op">)</span> <span class="op">*</span> <span class="fl">100</span><span class="op">)</span></span>
+<span><span class="op">)</span></span>
 <span><span class="fu"><a href="../../reference/el_table_v2.html">el_table_v2</a></span><span class="op">(</span><span class="st">"tv_auto"</span>, data <span class="op">=</span> <span class="va">df</span>, table_v2_width <span class="op">=</span> <span class="fl">700</span>, height <span class="op">=</span> <span class="fl">400</span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
   <div id="auto-resizer-tv_auto" data-shiny-vue style="display: contents">
@@ -261,12 +267,26 @@ Here’s a simple example of how to customize your cell.</p>
 <p>A cell drawn with a template: the <code>cell</code> slot, its scope
 the row and column.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>name <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="st">"User"</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">200</span><span class="op">)</span>, state <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sample.html" class="external-link">sample</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"active"</span>, <span class="st">"inactive"</span><span class="op">)</span>, <span class="fl">200</span>, <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="fu"><a href="../../reference/el_table_v2.html">el_table_v2</a></span><span class="op">(</span><span class="st">"tv_cell"</span>, data <span class="op">=</span> <span class="va">df</span>, table_v2_width <span class="op">=</span> <span class="fl">700</span>, height <span class="op">=</span> <span class="fl">300</span>, slots <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
-<span>  cell <span class="op">=</span> <span class="fu"><a href="../../reference/template.html">template</a></span><span class="op">(</span><span class="fu">htmltools</span><span class="fu">::</span><span class="fu"><a href="https://rstudio.github.io/htmltools/reference/HTML.html" class="external-link">HTML</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span></span>
-<span>    <span class="st">"&lt;el-tag v-if=\"column.dataKey === 'state'\" :type=\"rowData.state === 'active' ? 'success' : 'info'\"&gt;"</span>,</span>
-<span>    <span class="st">"{{ rowData.state }}&lt;/el-tag&gt;&lt;span v-else&gt;{{ rowData[column.dataKey] }}&lt;/span&gt;"</span><span class="op">)</span><span class="op">)</span>,</span>
-<span>    slot <span class="op">=</span> <span class="st">"cell"</span>, scope <span class="op">=</span> <span class="st">"{ rowData, column }"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span></span>
+<span>  name <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="st">"User"</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">200</span><span class="op">)</span>,</span>
+<span>  state <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sample.html" class="external-link">sample</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"active"</span>, <span class="st">"inactive"</span><span class="op">)</span>, <span class="fl">200</span>, <span class="cn">TRUE</span><span class="op">)</span></span>
+<span><span class="op">)</span></span>
+<span><span class="fu"><a href="../../reference/el_table_v2.html">el_table_v2</a></span><span class="op">(</span></span>
+<span>  <span class="st">"tv_cell"</span>,</span>
+<span>  data <span class="op">=</span> <span class="va">df</span>,</span>
+<span>  table_v2_width <span class="op">=</span> <span class="fl">700</span>,</span>
+<span>  height <span class="op">=</span> <span class="fl">300</span>,</span>
+<span>  slots <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>    cell <span class="op">=</span> <span class="fu"><a href="../../reference/template.html">template</a></span><span class="op">(</span></span>
+<span>      <span class="fu">htmltools</span><span class="fu">::</span><span class="fu"><a href="https://rstudio.github.io/htmltools/reference/HTML.html" class="external-link">HTML</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span></span>
+<span>        <span class="st">"&lt;el-tag v-if=\"column.dataKey === 'state'\" :type=\"rowData.state === 'active' ? 'success' : 'info'\"&gt;"</span>,</span>
+<span>        <span class="st">"{{ rowData.state }}&lt;/el-tag&gt;&lt;span v-else&gt;{{ rowData[column.dataKey] }}&lt;/span&gt;"</span></span>
+<span>      <span class="op">)</span><span class="op">)</span>,</span>
+<span>      slot <span class="op">=</span> <span class="st">"cell"</span>,</span>
+<span>      scope <span class="op">=</span> <span class="st">"{ rowData, column }"</span></span>
+<span>    <span class="op">)</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
   <div id="cell-templating-tv_cell" data-shiny-vue style="display: contents">
     <script type="text/x-template" data-shiny-vue-template><div id="cell-templating-tv_cell_container" style="display: contents">
@@ -311,8 +331,16 @@ with the <code>bg-red-100</code> class.</p>
 <code class="sourceCode R"><span><span class="va">df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>id <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">200</span>, name <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="st">"Name"</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">200</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rstudio.github.io/htmltools/reference/tagList.html" class="external-link">tagList</a></span><span class="op">(</span></span>
 <span>  <span class="va">tags</span><span class="op">$</span><span class="fu">style</span><span class="op">(</span><span class="st">".tv-odd { background: var(--el-color-primary-light-9); }"</span><span class="op">)</span>,</span>
-<span>  <span class="fu"><a href="../../reference/el_table_v2.html">el_table_v2</a></span><span class="op">(</span><span class="st">"tv_rowclass"</span>, data <span class="op">=</span> <span class="va">df</span>, table_v2_width <span class="op">=</span> <span class="fl">700</span>, height <span class="op">=</span> <span class="fl">300</span>,</span>
-<span>              row_class <span class="op">=</span> <span class="fu"><a href="../../reference/JS.html">JS</a></span><span class="op">(</span><span class="st">"function({ rowIndex }) { return rowIndex % 2 ? 'tv-odd' : ''; }"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<span>  <span class="fu"><a href="../../reference/el_table_v2.html">el_table_v2</a></span><span class="op">(</span></span>
+<span>    <span class="st">"tv_rowclass"</span>,</span>
+<span>    data <span class="op">=</span> <span class="va">df</span>,</span>
+<span>    table_v2_width <span class="op">=</span> <span class="fl">700</span>,</span>
+<span>    height <span class="op">=</span> <span class="fl">300</span>,</span>
+<span>    row_class <span class="op">=</span> <span class="fu"><a href="../../reference/JS.html">JS</a></span><span class="op">(</span></span>
+<span>      <span class="st">"function({ rowIndex }) { return rowIndex % 2 ? 'tv-odd' : ''; }"</span></span>
+<span>    <span class="op">)</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
   <style>.tv-odd { background: var(--el-color-primary-light-9); }</style>
 <div id="row-class-tv_rowclass" data-shiny-vue style="display: contents">
@@ -331,8 +359,13 @@ very easily achieved by using the <code>fixed-data</code> attribute.</p>
 shown in this example.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>id <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">200</span>, name <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="st">"Name"</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">200</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="fu"><a href="../../reference/el_table_v2.html">el_table_v2</a></span><span class="op">(</span><span class="st">"tv_sticky"</span>, data <span class="op">=</span> <span class="va">df</span>, table_v2_width <span class="op">=</span> <span class="fl">700</span>, height <span class="op">=</span> <span class="fl">300</span>,</span>
-<span>            fixed_data <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>id <span class="op">=</span> <span class="st">"Pinned"</span>, name <span class="op">=</span> <span class="st">"Stays on top"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu"><a href="../../reference/el_table_v2.html">el_table_v2</a></span><span class="op">(</span></span>
+<span>  <span class="st">"tv_sticky"</span>,</span>
+<span>  data <span class="op">=</span> <span class="va">df</span>,</span>
+<span>  table_v2_width <span class="op">=</span> <span class="fl">700</span>,</span>
+<span>  height <span class="op">=</span> <span class="fl">300</span>,</span>
+<span>  fixed_data <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>id <span class="op">=</span> <span class="st">"Pinned"</span>, name <span class="op">=</span> <span class="st">"Stays on top"</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
   <div id="sticky-rows-tv_sticky" data-shiny-vue style="display: contents">
     <script type="text/x-template" data-shiny-vue-template><div id="sticky-rows-tv_sticky_container" style="display: contents">
@@ -351,10 +384,31 @@ table.</p>
 <code>true</code> (representing <code>FixedDir.LEFT</code>) or
 <code>FixedDir.LEFT</code> or <code>FixedDir.RIGHT</code></p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">cols</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span>, <span class="kw">function</span><span class="op">(</span><span class="va">j</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>key <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="st">"c"</span>, <span class="va">j</span><span class="op">)</span>, dataKey <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="st">"c"</span>, <span class="va">j</span><span class="op">)</span>,</span>
-<span>  title <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="st">"Column"</span>, <span class="va">j</span><span class="op">)</span>, width <span class="op">=</span> <span class="fl">150</span>, fixed <span class="op">=</span> <span class="kw">if</span> <span class="op">(</span><span class="va">j</span> <span class="op">==</span> <span class="fl">1</span><span class="op">)</span> <span class="st">"left"</span> <span class="kw">else</span> <span class="kw">if</span> <span class="op">(</span><span class="va">j</span> <span class="op">==</span> <span class="fl">10</span><span class="op">)</span> <span class="st">"right"</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="va">df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html" class="external-link">as.data.frame</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/setNames.html" class="external-link">setNames</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span>, <span class="kw">function</span><span class="op">(</span><span class="va">j</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="st">"Row "</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">200</span>, <span class="st">" - Col "</span>, <span class="va">j</span><span class="op">)</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="st">"c"</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">10</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="fu"><a href="../../reference/el_table_v2.html">el_table_v2</a></span><span class="op">(</span><span class="st">"tv_fixed"</span>, data <span class="op">=</span> <span class="va">df</span>, columns <span class="op">=</span> <span class="va">cols</span>, table_v2_width <span class="op">=</span> <span class="fl">700</span>, height <span class="op">=</span> <span class="fl">300</span>, fixed <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">cols</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span>, <span class="kw">function</span><span class="op">(</span><span class="va">j</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>    key <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="st">"c"</span>, <span class="va">j</span><span class="op">)</span>,</span>
+<span>    dataKey <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="st">"c"</span>, <span class="va">j</span><span class="op">)</span>,</span>
+<span>    title <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="st">"Column"</span>, <span class="va">j</span><span class="op">)</span>,</span>
+<span>    width <span class="op">=</span> <span class="fl">150</span>,</span>
+<span>    fixed <span class="op">=</span> <span class="kw">if</span> <span class="op">(</span><span class="va">j</span> <span class="op">==</span> <span class="fl">1</span><span class="op">)</span> <span class="op">{</span></span>
+<span>      <span class="st">"left"</span></span>
+<span>    <span class="op">}</span> <span class="kw">else</span> <span class="kw">if</span> <span class="op">(</span><span class="va">j</span> <span class="op">==</span> <span class="fl">10</span><span class="op">)</span> <span class="op">{</span></span>
+<span>      <span class="st">"right"</span></span>
+<span>    <span class="op">}</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">}</span><span class="op">)</span></span>
+<span><span class="va">df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html" class="external-link">as.data.frame</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/setNames.html" class="external-link">setNames</a></span><span class="op">(</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span>, <span class="kw">function</span><span class="op">(</span><span class="va">j</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="st">"Row "</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">200</span>, <span class="st">" - Col "</span>, <span class="va">j</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="st">"c"</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">10</span><span class="op">)</span></span>
+<span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="fu"><a href="../../reference/el_table_v2.html">el_table_v2</a></span><span class="op">(</span></span>
+<span>  <span class="st">"tv_fixed"</span>,</span>
+<span>  data <span class="op">=</span> <span class="va">df</span>,</span>
+<span>  columns <span class="op">=</span> <span class="va">cols</span>,</span>
+<span>  table_v2_width <span class="op">=</span> <span class="fl">700</span>,</span>
+<span>  height <span class="op">=</span> <span class="fl">300</span>,</span>
+<span>  fixed <span class="op">=</span> <span class="cn">TRUE</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
   <div id="fixed-columns-tv_fixed" data-shiny-vue style="display: contents">
     <script type="text/x-template" data-shiny-vue-template><div id="fixed-columns-tv_fixed_container" style="display: contents">
@@ -403,10 +457,24 @@ data in R and <code>update_el_table_v2()</code> it, or use
 says which column and which way.</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>id <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">200</span>, value <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">round</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html" class="external-link">runif</a></span><span class="op">(</span><span class="fl">200</span><span class="op">)</span> <span class="op">*</span> <span class="fl">100</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="va">cols</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>key <span class="op">=</span> <span class="st">"id"</span>, dataKey <span class="op">=</span> <span class="st">"id"</span>, title <span class="op">=</span> <span class="st">"Id"</span>, width <span class="op">=</span> <span class="fl">150</span>, sortable <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,</span>
-<span>             <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>key <span class="op">=</span> <span class="st">"value"</span>, dataKey <span class="op">=</span> <span class="st">"value"</span>, title <span class="op">=</span> <span class="st">"Value"</span>, width <span class="op">=</span> <span class="fl">150</span>, sortable <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="fu"><a href="../../reference/el_table_v2.html">el_table_v2</a></span><span class="op">(</span><span class="st">"tv_sort"</span>, data <span class="op">=</span> <span class="va">df</span>, columns <span class="op">=</span> <span class="va">cols</span>, table_v2_width <span class="op">=</span> <span class="fl">700</span>, height <span class="op">=</span> <span class="fl">300</span>,</span>
-<span>            sort_by <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>key <span class="op">=</span> <span class="st">"id"</span>, order <span class="op">=</span> <span class="st">"asc"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<span><span class="va">cols</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>key <span class="op">=</span> <span class="st">"id"</span>, dataKey <span class="op">=</span> <span class="st">"id"</span>, title <span class="op">=</span> <span class="st">"Id"</span>, width <span class="op">=</span> <span class="fl">150</span>, sortable <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>    key <span class="op">=</span> <span class="st">"value"</span>,</span>
+<span>    dataKey <span class="op">=</span> <span class="st">"value"</span>,</span>
+<span>    title <span class="op">=</span> <span class="st">"Value"</span>,</span>
+<span>    width <span class="op">=</span> <span class="fl">150</span>,</span>
+<span>    sortable <span class="op">=</span> <span class="cn">TRUE</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">)</span></span>
+<span><span class="fu"><a href="../../reference/el_table_v2.html">el_table_v2</a></span><span class="op">(</span></span>
+<span>  <span class="st">"tv_sort"</span>,</span>
+<span>  data <span class="op">=</span> <span class="va">df</span>,</span>
+<span>  columns <span class="op">=</span> <span class="va">cols</span>,</span>
+<span>  table_v2_width <span class="op">=</span> <span class="fl">700</span>,</span>
+<span>  height <span class="op">=</span> <span class="fl">300</span>,</span>
+<span>  sort_by <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>key <span class="op">=</span> <span class="st">"id"</span>, order <span class="op">=</span> <span class="st">"asc"</span><span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
   <div id="sort-tv_sort" data-shiny-vue style="display: contents">
     <script type="text/x-template" data-shiny-vue-template><div id="sort-tv_sort_container" style="display: contents">
@@ -424,10 +492,24 @@ your users, as it becomes unclear which column is currently being
 sorted.</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>id <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">200</span>, value <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">round</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html" class="external-link">runif</a></span><span class="op">(</span><span class="fl">200</span><span class="op">)</span> <span class="op">*</span> <span class="fl">100</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="va">cols</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>key <span class="op">=</span> <span class="st">"id"</span>, dataKey <span class="op">=</span> <span class="st">"id"</span>, title <span class="op">=</span> <span class="st">"Id"</span>, width <span class="op">=</span> <span class="fl">150</span>, sortable <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,</span>
-<span>             <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>key <span class="op">=</span> <span class="st">"value"</span>, dataKey <span class="op">=</span> <span class="st">"value"</span>, title <span class="op">=</span> <span class="st">"Value"</span>, width <span class="op">=</span> <span class="fl">150</span>, sortable <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="fu"><a href="../../reference/el_table_v2.html">el_table_v2</a></span><span class="op">(</span><span class="st">"tv_csort"</span>, data <span class="op">=</span> <span class="va">df</span>, columns <span class="op">=</span> <span class="va">cols</span>, table_v2_width <span class="op">=</span> <span class="fl">700</span>, height <span class="op">=</span> <span class="fl">300</span>,</span>
-<span>            sort_state <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>id <span class="op">=</span> <span class="st">"desc"</span>, value <span class="op">=</span> <span class="st">"asc"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<span><span class="va">cols</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>key <span class="op">=</span> <span class="st">"id"</span>, dataKey <span class="op">=</span> <span class="st">"id"</span>, title <span class="op">=</span> <span class="st">"Id"</span>, width <span class="op">=</span> <span class="fl">150</span>, sortable <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>    key <span class="op">=</span> <span class="st">"value"</span>,</span>
+<span>    dataKey <span class="op">=</span> <span class="st">"value"</span>,</span>
+<span>    title <span class="op">=</span> <span class="st">"Value"</span>,</span>
+<span>    width <span class="op">=</span> <span class="fl">150</span>,</span>
+<span>    sortable <span class="op">=</span> <span class="cn">TRUE</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">)</span></span>
+<span><span class="fu"><a href="../../reference/el_table_v2.html">el_table_v2</a></span><span class="op">(</span></span>
+<span>  <span class="st">"tv_csort"</span>,</span>
+<span>  data <span class="op">=</span> <span class="va">df</span>,</span>
+<span>  columns <span class="op">=</span> <span class="va">cols</span>,</span>
+<span>  table_v2_width <span class="op">=</span> <span class="fl">700</span>,</span>
+<span>  height <span class="op">=</span> <span class="fl">300</span>,</span>
+<span>  sort_state <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>id <span class="op">=</span> <span class="st">"desc"</span>, value <span class="op">=</span> <span class="st">"asc"</span><span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
   <div id="controlled-sort-tv_csort" data-shiny-vue style="display: contents">
     <script type="text/x-template" data-shiny-vue-template><div id="controlled-sort-tv_csort_container" style="display: contents">
@@ -490,11 +572,26 @@ goal!</p>
 <p>Virtual Table can also render data in a tree-like structure. By
 clicking the arrow icon, you can expand or collapse the tree nodes.</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">rows</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">50</span>, <span class="kw">function</span><span class="op">(</span><span class="va">i</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>id <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="st">"r"</span>, <span class="va">i</span><span class="op">)</span>, name <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="st">"Parent"</span>, <span class="va">i</span><span class="op">)</span>,</span>
-<span>  children <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">3</span>, <span class="kw">function</span><span class="op">(</span><span class="va">j</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>id <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="st">"r"</span>, <span class="va">i</span>, <span class="st">"-"</span>, <span class="va">j</span><span class="op">)</span>, name <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="st">"Child"</span>, <span class="va">i</span>, <span class="va">j</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="fu"><a href="../../reference/el_table_v2.html">el_table_v2</a></span><span class="op">(</span><span class="st">"tv_tree"</span>, data <span class="op">=</span> <span class="va">rows</span>, expand_column_key <span class="op">=</span> <span class="st">"name"</span>, table_v2_width <span class="op">=</span> <span class="fl">700</span>, height <span class="op">=</span> <span class="fl">300</span>,</span>
-<span>            columns <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>key <span class="op">=</span> <span class="st">"name"</span>, dataKey <span class="op">=</span> <span class="st">"name"</span>, title <span class="op">=</span> <span class="st">"Name"</span>, width <span class="op">=</span> <span class="fl">300</span><span class="op">)</span>,</span>
-<span>                           <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>key <span class="op">=</span> <span class="st">"id"</span>, dataKey <span class="op">=</span> <span class="st">"id"</span>, title <span class="op">=</span> <span class="st">"Id"</span>, width <span class="op">=</span> <span class="fl">150</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">rows</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">50</span>, <span class="kw">function</span><span class="op">(</span><span class="va">i</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>    id <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="st">"r"</span>, <span class="va">i</span><span class="op">)</span>,</span>
+<span>    name <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="st">"Parent"</span>, <span class="va">i</span><span class="op">)</span>,</span>
+<span>    children <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">3</span>, <span class="kw">function</span><span class="op">(</span><span class="va">j</span><span class="op">)</span> <span class="op">{</span></span>
+<span>      <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>id <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="st">"r"</span>, <span class="va">i</span>, <span class="st">"-"</span>, <span class="va">j</span><span class="op">)</span>, name <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="st">"Child"</span>, <span class="va">i</span>, <span class="va">j</span><span class="op">)</span><span class="op">)</span></span>
+<span>    <span class="op">}</span><span class="op">)</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">}</span><span class="op">)</span></span>
+<span><span class="fu"><a href="../../reference/el_table_v2.html">el_table_v2</a></span><span class="op">(</span></span>
+<span>  <span class="st">"tv_tree"</span>,</span>
+<span>  data <span class="op">=</span> <span class="va">rows</span>,</span>
+<span>  expand_column_key <span class="op">=</span> <span class="st">"name"</span>,</span>
+<span>  table_v2_width <span class="op">=</span> <span class="fl">700</span>,</span>
+<span>  height <span class="op">=</span> <span class="fl">300</span>,</span>
+<span>  columns <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>key <span class="op">=</span> <span class="st">"name"</span>, dataKey <span class="op">=</span> <span class="st">"name"</span>, title <span class="op">=</span> <span class="st">"Name"</span>, width <span class="op">=</span> <span class="fl">300</span><span class="op">)</span>,</span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>key <span class="op">=</span> <span class="st">"id"</span>, dataKey <span class="op">=</span> <span class="st">"id"</span>, title <span class="op">=</span> <span class="st">"Id"</span>, width <span class="op">=</span> <span class="fl">150</span><span class="op">)</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
   <div id="tree-data-tv_tree" data-shiny-vue style="display: contents">
     <script type="text/x-template" data-shiny-vue-template><div id="tree-data-tv_tree_container" style="display: contents">
@@ -521,10 +618,21 @@ As a result, if you’re trying to display a large amount of data, the UI
 <p><code>estimated_row_height</code> lets each row take the height of
 its content.</p>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>id <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">100</span>, text <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">vapply</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">100</span>, <span class="kw">function</span><span class="op">(</span><span class="va">i</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/base/strrep.html" class="external-link">strrep</a></span><span class="op">(</span><span class="st">"text "</span>, <span class="op">(</span><span class="va">i</span> <span class="op"><a href="https://rdrr.io/r/base/Arithmetic.html" class="external-link">%%</a></span> <span class="fl">7</span> <span class="op">+</span> <span class="fl">1</span><span class="op">)</span> <span class="op">*</span> <span class="fl">8</span><span class="op">)</span>, <span class="st">""</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="fu"><a href="../../reference/el_table_v2.html">el_table_v2</a></span><span class="op">(</span><span class="st">"tv_dyn"</span>, data <span class="op">=</span> <span class="va">df</span>, estimated_row_height <span class="op">=</span> <span class="fl">50</span>, table_v2_width <span class="op">=</span> <span class="fl">700</span>, height <span class="op">=</span> <span class="fl">300</span>,</span>
-<span>            columns <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>key <span class="op">=</span> <span class="st">"id"</span>, dataKey <span class="op">=</span> <span class="st">"id"</span>, title <span class="op">=</span> <span class="st">"Id"</span>, width <span class="op">=</span> <span class="fl">80</span><span class="op">)</span>,</span>
-<span>                           <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>key <span class="op">=</span> <span class="st">"text"</span>, dataKey <span class="op">=</span> <span class="st">"text"</span>, title <span class="op">=</span> <span class="st">"Text"</span>, width <span class="op">=</span> <span class="fl">600</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span></span>
+<span>  id <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">100</span>,</span>
+<span>  text <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">vapply</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">100</span>, <span class="kw">function</span><span class="op">(</span><span class="va">i</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/base/strrep.html" class="external-link">strrep</a></span><span class="op">(</span><span class="st">"text "</span>, <span class="op">(</span><span class="va">i</span> <span class="op"><a href="https://rdrr.io/r/base/Arithmetic.html" class="external-link">%%</a></span> <span class="fl">7</span> <span class="op">+</span> <span class="fl">1</span><span class="op">)</span> <span class="op">*</span> <span class="fl">8</span><span class="op">)</span>, <span class="st">""</span><span class="op">)</span></span>
+<span><span class="op">)</span></span>
+<span><span class="fu"><a href="../../reference/el_table_v2.html">el_table_v2</a></span><span class="op">(</span></span>
+<span>  <span class="st">"tv_dyn"</span>,</span>
+<span>  data <span class="op">=</span> <span class="va">df</span>,</span>
+<span>  estimated_row_height <span class="op">=</span> <span class="fl">50</span>,</span>
+<span>  table_v2_width <span class="op">=</span> <span class="fl">700</span>,</span>
+<span>  height <span class="op">=</span> <span class="fl">300</span>,</span>
+<span>  columns <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>key <span class="op">=</span> <span class="st">"id"</span>, dataKey <span class="op">=</span> <span class="st">"id"</span>, title <span class="op">=</span> <span class="st">"Id"</span>, width <span class="op">=</span> <span class="fl">80</span><span class="op">)</span>,</span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>key <span class="op">=</span> <span class="st">"text"</span>, dataKey <span class="op">=</span> <span class="st">"text"</span>, title <span class="op">=</span> <span class="st">"Text"</span>, width <span class="op">=</span> <span class="fl">600</span><span class="op">)</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
   <div id="dynamic-height-tv_dyn" data-shiny-vue style="display: contents">
     <script type="text/x-template" data-shiny-vue-template><div id="dynamic-height-tv_dyn_container" style="display: contents">
@@ -551,9 +659,19 @@ within the table.</p>
 or information.</p>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>id <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">200</span>, name <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="st">"Name"</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">200</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="fu"><a href="../../reference/el_table_v2.html">el_table_v2</a></span><span class="op">(</span><span class="st">"tv_footer"</span>, data <span class="op">=</span> <span class="va">df</span>, table_v2_width <span class="op">=</span> <span class="fl">700</span>, height <span class="op">=</span> <span class="fl">300</span>, footer_height <span class="op">=</span> <span class="fl">50</span>,</span>
-<span>            slots <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>footer <span class="op">=</span> <span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span>style <span class="op">=</span> <span class="st">"display: flex; align-items: center; justify-content: center; height: 100%"</span>,</span>
-<span>                                           <span class="st">"Display a message in the footer"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu"><a href="../../reference/el_table_v2.html">el_table_v2</a></span><span class="op">(</span></span>
+<span>  <span class="st">"tv_footer"</span>,</span>
+<span>  data <span class="op">=</span> <span class="va">df</span>,</span>
+<span>  table_v2_width <span class="op">=</span> <span class="fl">700</span>,</span>
+<span>  height <span class="op">=</span> <span class="fl">300</span>,</span>
+<span>  footer_height <span class="op">=</span> <span class="fl">50</span>,</span>
+<span>  slots <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>    footer <span class="op">=</span> <span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span></span>
+<span>      style <span class="op">=</span> <span class="st">"display: flex; align-items: center; justify-content: center; height: 100%"</span>,</span>
+<span>      <span class="st">"Display a message in the footer"</span></span>
+<span>    <span class="op">)</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
   <div id="footer-tv_footer" data-shiny-vue style="display: contents">
     <script type="text/x-template" data-shiny-vue-template><div id="footer-tv_footer_container" style="display: contents">
@@ -571,9 +689,19 @@ or information.</p>
 </h2>
 <p>Render a customized empty element.</p>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_table_v2.html">el_table_v2</a></span><span class="op">(</span><span class="st">"tv_empty"</span>, data <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">)</span>, table_v2_width <span class="op">=</span> <span class="fl">700</span>, height <span class="op">=</span> <span class="fl">300</span>,</span>
-<span>            columns <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>key <span class="op">=</span> <span class="st">"a"</span>, dataKey <span class="op">=</span> <span class="st">"a"</span>, title <span class="op">=</span> <span class="st">"A"</span>, width <span class="op">=</span> <span class="fl">150</span><span class="op">)</span><span class="op">)</span>,</span>
-<span>            slots <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>empty <span class="op">=</span> <span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span>style <span class="op">=</span> <span class="st">"display: flex; justify-content: center"</span>, <span class="fu"><a href="../../reference/el_empty.html">el_empty</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_table_v2.html">el_table_v2</a></span><span class="op">(</span></span>
+<span>  <span class="st">"tv_empty"</span>,</span>
+<span>  data <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>  table_v2_width <span class="op">=</span> <span class="fl">700</span>,</span>
+<span>  height <span class="op">=</span> <span class="fl">300</span>,</span>
+<span>  columns <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>key <span class="op">=</span> <span class="st">"a"</span>, dataKey <span class="op">=</span> <span class="st">"a"</span>, title <span class="op">=</span> <span class="st">"A"</span>, width <span class="op">=</span> <span class="fl">150</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>  slots <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>    empty <span class="op">=</span> <span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span></span>
+<span>      style <span class="op">=</span> <span class="st">"display: flex; justify-content: center"</span>,</span>
+<span>      <span class="fu"><a href="../../reference/el_empty.html">el_empty</a></span><span class="op">(</span><span class="op">)</span></span>
+<span>    <span class="op">)</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
   <div id="empty-tv_empty" data-shiny-vue style="display: contents">
     <script type="text/x-template" data-shiny-vue-template><div id="empty-tv_empty_container" style="display: contents">
@@ -595,10 +723,19 @@ or information.</p>
 indicator or something else.</p>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>id <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">200</span>, name <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="st">"Name"</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">200</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="fu"><a href="../../reference/el_table_v2.html">el_table_v2</a></span><span class="op">(</span><span class="st">"tv_overlay"</span>, data <span class="op">=</span> <span class="va">df</span>, table_v2_width <span class="op">=</span> <span class="fl">700</span>, height <span class="op">=</span> <span class="fl">300</span>,</span>
-<span>            slots <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>overlay <span class="op">=</span> <span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span>class <span class="op">=</span> <span class="st">"el-loading-mask"</span>,</span>
-<span>              style <span class="op">=</span> <span class="st">"display: flex; align-items: center; justify-content: center"</span>,</span>
-<span>              <span class="fu"><a href="../../reference/el_icon.html">el_icon</a></span><span class="op">(</span><span class="st">"Loading"</span>, class <span class="op">=</span> <span class="st">"is-loading"</span>, size <span class="op">=</span> <span class="st">"26px"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu"><a href="../../reference/el_table_v2.html">el_table_v2</a></span><span class="op">(</span></span>
+<span>  <span class="st">"tv_overlay"</span>,</span>
+<span>  data <span class="op">=</span> <span class="va">df</span>,</span>
+<span>  table_v2_width <span class="op">=</span> <span class="fl">700</span>,</span>
+<span>  height <span class="op">=</span> <span class="fl">300</span>,</span>
+<span>  slots <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>    overlay <span class="op">=</span> <span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span></span>
+<span>      class <span class="op">=</span> <span class="st">"el-loading-mask"</span>,</span>
+<span>      style <span class="op">=</span> <span class="st">"display: flex; align-items: center; justify-content: center"</span>,</span>
+<span>      <span class="fu"><a href="../../reference/el_icon.html">el_icon</a></span><span class="op">(</span><span class="st">"Loading"</span>, class <span class="op">=</span> <span class="st">"is-loading"</span>, size <span class="op">=</span> <span class="st">"26px"</span><span class="op">)</span></span>
+<span>    <span class="op">)</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
   <div id="overlay-tv_overlay" data-shiny-vue style="display: contents">
     <script type="text/x-template" data-shiny-vue-template><div id="overlay-tv_overlay_container" style="display: contents">

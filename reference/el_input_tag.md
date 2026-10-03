@@ -255,7 +255,11 @@ Callable with
 ## Examples
 
 ``` r
-el_input_tag("keywords", value = c("shiny", "element"), placeholder = "Add a keyword")
+el_input_tag(
+  "keywords",
+  value = c("shiny", "element"),
+  placeholder = "Add a keyword"
+)
 #> <div id="keywords" data-shiny-vue style="display: contents">
 #>   <script type="text/x-template" data-shiny-vue-template><div id="keywords_container" style="display: contents">
 #>   <el-input-tag v-model="value" @change="handleChange" @input="elEmitInput" @add-tag="elEmitAddTag" @remove-tag="elEmitRemoveTag" @drag-tag="elEmitDragTag" @focus="elEmitFocus" @blur="elEmitBlur" @clear="elEmitClear" :max="max === null ? undefined : max" :tag-type="tagType === null ? undefined : tagType" :tag-effect="tagEffect === null ? undefined : tagEffect" :effect="effect === null ? undefined : effect" :trigger="trigger === null ? undefined : trigger" :draggable="draggable === null ? undefined : draggable" :delimiter="delimiter === null ? undefined : delimiter" :size="size === null ? undefined : size" :collapse-tags="collapseTags === null ? undefined : collapseTags" :collapse-tags-tooltip="collapseTagsTooltip === null ? undefined : collapseTagsTooltip" :save-on-blur="saveOnBlur === null ? undefined : saveOnBlur" :clearable="clearable === null ? undefined : clearable" :clear-icon="clearIcon === null ? undefined : clearIcon" :disabled="disabled === null ? undefined : disabled" :validate-event="validateEvent === null ? undefined : validateEvent" :readonly="readonly === null ? undefined : readonly" :autofocus="autofocus === null ? undefined : autofocus" :tabindex="tabindex === null ? undefined : tabindex" :max-collapse-tags="maxCollapseTags === null ? undefined : maxCollapseTags" :maxlength="maxlength === null ? undefined : maxlength" :minlength="minlength === null ? undefined : minlength" :placeholder="placeholder === null ? undefined : placeholder" :autocomplete="autocomplete === null ? undefined : autocomplete" :aria-label="ariaLabel === null ? undefined : ariaLabel"></el-input-tag>

@@ -332,8 +332,9 @@ updated on each change.</p>
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># Standard radio buttons from a named vector</span></span></span>
-<span class="r-in"><span><span class="fu">el_radio_group</span><span class="op">(</span><span class="st">"size"</span>,</span></span>
-<span class="r-in"><span>  choices  <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>Small <span class="op">=</span> <span class="st">"s"</span>, Medium <span class="op">=</span> <span class="st">"m"</span>, Large <span class="op">=</span> <span class="st">"l"</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span><span class="fu">el_radio_group</span><span class="op">(</span></span></span>
+<span class="r-in"><span>  <span class="st">"size"</span>,</span></span>
+<span class="r-in"><span>  choices <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>Small <span class="op">=</span> <span class="st">"s"</span>, Medium <span class="op">=</span> <span class="st">"m"</span>, Large <span class="op">=</span> <span class="st">"l"</span><span class="op">)</span>,</span></span>
 <span class="r-in"><span>  selected <span class="op">=</span> <span class="st">"m"</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> &lt;div id="size" data-shiny-vue style="display: contents"&gt;</span>
@@ -346,10 +347,11 @@ updated on each change.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> &lt;/div&gt;</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Button-style radio group</span></span></span>
-<span class="r-in"><span><span class="fu">el_radio_group</span><span class="op">(</span><span class="st">"theme"</span>,</span></span>
+<span class="r-in"><span><span class="fu">el_radio_group</span><span class="op">(</span></span></span>
+<span class="r-in"><span>  <span class="st">"theme"</span>,</span></span>
 <span class="r-in"><span>  choices <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>Light <span class="op">=</span> <span class="st">"light"</span>, Dark <span class="op">=</span> <span class="st">"dark"</span><span class="op">)</span>,</span></span>
-<span class="r-in"><span>  button  <span class="op">=</span> <span class="cn">TRUE</span>,</span></span>
-<span class="r-in"><span>  size    <span class="op">=</span> <span class="st">"small"</span></span></span>
+<span class="r-in"><span>  button <span class="op">=</span> <span class="cn">TRUE</span>,</span></span>
+<span class="r-in"><span>  size <span class="op">=</span> <span class="st">"small"</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> &lt;div id="theme" data-shiny-vue style="display: contents"&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   &lt;script type="text/x-template" data-shiny-vue-template&gt;&lt;div id="theme_container" style="display: contents"&gt;</span>
@@ -365,8 +367,9 @@ updated on each change.</p>
 <span class="r-in"><span>  <span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://shiny.posit.co/" class="external-link">shiny</a></span><span class="op">)</span></span></span>
 <span class="r-in"><span>  <span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://kaipingyang.github.io/shiny.element/">shiny.element</a></span><span class="op">)</span></span></span>
 <span class="r-in"><span>  <span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="el_page.html">el_page</a></span><span class="op">(</span></span></span>
-<span class="r-in"><span>    <span class="fu">el_radio_group</span><span class="op">(</span><span class="st">"fruit"</span>,</span></span>
-<span class="r-in"><span>      choices  <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>Apple <span class="op">=</span> <span class="st">"apple"</span>, Banana <span class="op">=</span> <span class="st">"banana"</span>, Cherry <span class="op">=</span> <span class="st">"cherry"</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>    <span class="fu">el_radio_group</span><span class="op">(</span></span></span>
+<span class="r-in"><span>      <span class="st">"fruit"</span>,</span></span>
+<span class="r-in"><span>      choices <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>Apple <span class="op">=</span> <span class="st">"apple"</span>, Banana <span class="op">=</span> <span class="st">"banana"</span>, Cherry <span class="op">=</span> <span class="st">"cherry"</span><span class="op">)</span>,</span></span>
 <span class="r-in"><span>      selected <span class="op">=</span> <span class="st">"apple"</span></span></span>
 <span class="r-in"><span>    <span class="op">)</span>,</span></span>
 <span class="r-in"><span>    <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/textOutput.html" class="external-link">verbatimTextOutput</a></span><span class="op">(</span><span class="st">"selected"</span><span class="op">)</span></span></span>
@@ -376,7 +379,6 @@ updated on each change.</p>
 <span class="r-in"><span>  <span class="op">}</span></span></span>
 <span class="r-in"><span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/shinyApp.html" class="external-link">shinyApp</a></span><span class="op">(</span><span class="va">ui</span>, <span class="va">server</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">}</span></span></span>
-<span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>

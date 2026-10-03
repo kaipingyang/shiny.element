@@ -132,12 +132,16 @@ el_calendar("cal")
 #> </div>
 
 # Your own, with whatever Element hands the template
-el_calendar("cal", slots = list(
-  dateCell = template(
-    htmltools::HTML("<p>{{ data.day.slice(8) }}</p>"),
-    slot = "dateCell", scope = "{date, data}"
+el_calendar(
+  "cal",
+  slots = list(
+    dateCell = template(
+      htmltools::HTML("<p>{{ data.day.slice(8) }}</p>"),
+      slot = "dateCell",
+      scope = "{date, data}"
+    )
   )
-))
+)
 #> <style>
 #>       .is-selected {
 #>         color: #1989FA;

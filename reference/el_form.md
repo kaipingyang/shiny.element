@@ -181,14 +181,31 @@ Callable with
 el_form(
   id = "signup",
   label_width = "100px",
-  el_form_field("name", "input", label = "Name",
-                rules = el_rule(required = TRUE, message = "Name is required")),
-  el_form_field("age", "input-number", label = "Age", value = 18,
-                min = 0, max = 150),
-  el_form_field("city", "select", label = "City",
-                choices = c(Beijing = "bj", Shanghai = "sh"),
-                rules = el_rule(required = TRUE, message = "Pick a city",
-                                trigger = "change"))
+  el_form_field(
+    "name",
+    "input",
+    label = "Name",
+    rules = el_rule(required = TRUE, message = "Name is required")
+  ),
+  el_form_field(
+    "age",
+    "input-number",
+    label = "Age",
+    value = 18,
+    min = 0,
+    max = 150
+  ),
+  el_form_field(
+    "city",
+    "select",
+    label = "City",
+    choices = c(Beijing = "bj", Shanghai = "sh"),
+    rules = el_rule(
+      required = TRUE,
+      message = "Pick a city",
+      trigger = "change"
+    )
+  )
 )
 #> <div id="signup" data-shiny-vue style="display: contents">
 #>   <script type="text/x-template" data-shiny-vue-template><div id="signup_container" style="display: contents">
@@ -205,18 +222,30 @@ if (interactive()) {
   library(shiny.element)
   ui <- el_page(
     el_form(
-      id = "signup", label_width = "100px", reset_label = "Reset",
-      el_form_field("name", "input", label = "Name",
-                    rules = el_rule(required = TRUE, message = "Required")),
-      el_form_field("email", "input", label = "Email",
-                    rules = el_rule(type = "email", message = "Invalid email"))
+      id = "signup",
+      label_width = "100px",
+      reset_label = "Reset",
+      el_form_field(
+        "name",
+        "input",
+        label = "Name",
+        rules = el_rule(required = TRUE, message = "Required")
+      ),
+      el_form_field(
+        "email",
+        "input",
+        label = "Email",
+        rules = el_rule(type = "email", message = "Invalid email")
+      )
     ),
     verbatimTextOutput("out")
   )
   server <- function(input, output, session) {
     output$out <- renderPrint({
       req(input$signup_submit)
-      if (!isTRUE(input$signup_valid)) return("Please fix the errors above")
+      if (!isTRUE(input$signup_valid)) {
+        return("Please fix the errors above")
+      }
       input$signup
     })
   }

@@ -196,7 +196,10 @@
 <code class="sourceCode R"><span><span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span></span>
 <span>  <span class="va">tags</span><span class="op">$</span><span class="fu">span</span><span class="op">(</span><span class="st">"I sit at a desk, wondering how to approach the vast ocean."</span><span class="op">)</span>,</span>
 <span>  <span class="fu"><a href="../../reference/el_divider.html">el_divider</a></span><span class="op">(</span><span class="op">)</span>,</span>
-<span>  <span class="va">tags</span><span class="op">$</span><span class="fu">span</span><span class="op">(</span><span class="st">"I wonder how far the eyes can see, and how far the heart can feel."</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<span>  <span class="va">tags</span><span class="op">$</span><span class="fu">span</span><span class="op">(</span></span>
+<span>    <span class="st">"I wonder how far the eyes can see, and how far the heart can feel."</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
   <div>
     <span>I sit at a desk, wondering how to approach the vast ocean.</span>
@@ -217,7 +220,8 @@
 <span>  <span class="fu"><a href="../../reference/el_divider.html">el_divider</a></span><span class="op">(</span><span class="fu"><a href="../../reference/el_icon.html">el_icon</a></span><span class="op">(</span><span class="st">"StarFilled"</span><span class="op">)</span><span class="op">)</span>,</span>
 <span>  <span class="va">tags</span><span class="op">$</span><span class="fu">span</span><span class="op">(</span><span class="st">"My wishes are fools, they shout across thy song, my Master."</span><span class="op">)</span>,</span>
 <span>  <span class="fu"><a href="../../reference/el_divider.html">el_divider</a></span><span class="op">(</span>content_position <span class="op">=</span> <span class="st">"right"</span>, <span class="st">"Rabindranath Tagore"</span><span class="op">)</span>,</span>
-<span>  <span class="va">tags</span><span class="op">$</span><span class="fu">span</span><span class="op">(</span><span class="st">"I cannot choose the best. The best chooses me."</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<span>  <span class="va">tags</span><span class="op">$</span><span class="fu">span</span><span class="op">(</span><span class="st">"I cannot choose the best. The best chooses me."</span><span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
   <div>
     <span>What you are you do not see, what you see is your shadow.</span>
@@ -250,7 +254,8 @@
 <span>  <span class="fu"><a href="../../reference/el_divider.html">el_divider</a></span><span class="op">(</span>border_style <span class="op">=</span> <span class="st">"dotted"</span><span class="op">)</span>,</span>
 <span>  <span class="va">tags</span><span class="op">$</span><span class="fu">span</span><span class="op">(</span><span class="st">"What language is thy answer, O sky?"</span><span class="op">)</span>,</span>
 <span>  <span class="fu"><a href="../../reference/el_divider.html">el_divider</a></span><span class="op">(</span>direction <span class="op">=</span> <span class="st">"vertical"</span>, border_style <span class="op">=</span> <span class="st">"dashed"</span><span class="op">)</span>,</span>
-<span>  <span class="va">tags</span><span class="op">$</span><span class="fu">span</span><span class="op">(</span><span class="st">"The language of eternal silence."</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<span>  <span class="va">tags</span><span class="op">$</span><span class="fu">span</span><span class="op">(</span><span class="st">"The language of eternal silence."</span><span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
   <div>
     <span>What language is thine, O sea?</span>
@@ -268,9 +273,12 @@
 </h2>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span></span>
-<span>  <span class="va">tags</span><span class="op">$</span><span class="fu">span</span><span class="op">(</span><span class="st">"Rain"</span><span class="op">)</span>, <span class="fu"><a href="../../reference/el_divider.html">el_divider</a></span><span class="op">(</span>direction <span class="op">=</span> <span class="st">"vertical"</span><span class="op">)</span>,</span>
-<span>  <span class="va">tags</span><span class="op">$</span><span class="fu">span</span><span class="op">(</span><span class="st">"Home"</span><span class="op">)</span>, <span class="fu"><a href="../../reference/el_divider.html">el_divider</a></span><span class="op">(</span>direction <span class="op">=</span> <span class="st">"vertical"</span>, border_style <span class="op">=</span> <span class="st">"dashed"</span><span class="op">)</span>,</span>
-<span>  <span class="va">tags</span><span class="op">$</span><span class="fu">span</span><span class="op">(</span><span class="st">"Grass"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<span>  <span class="va">tags</span><span class="op">$</span><span class="fu">span</span><span class="op">(</span><span class="st">"Rain"</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="../../reference/el_divider.html">el_divider</a></span><span class="op">(</span>direction <span class="op">=</span> <span class="st">"vertical"</span><span class="op">)</span>,</span>
+<span>  <span class="va">tags</span><span class="op">$</span><span class="fu">span</span><span class="op">(</span><span class="st">"Home"</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="../../reference/el_divider.html">el_divider</a></span><span class="op">(</span>direction <span class="op">=</span> <span class="st">"vertical"</span>, border_style <span class="op">=</span> <span class="st">"dashed"</span><span class="op">)</span>,</span>
+<span>  <span class="va">tags</span><span class="op">$</span><span class="fu">span</span><span class="op">(</span><span class="st">"Grass"</span><span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
   <div>
     <span>Rain</span>

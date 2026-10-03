@@ -208,7 +208,8 @@ own props.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rstudio.github.io/htmltools/reference/tagList.html" class="external-link">tagList</a></span><span class="op">(</span></span>
 <span>  <span class="fu"><a href="../../reference/el_icon.html">el_icon</a></span><span class="op">(</span><span class="st">"Edit"</span>, size <span class="op">=</span> <span class="fl">30</span><span class="op">)</span>,</span>
-<span>  <span class="fu"><a href="../../reference/el_icon.html">el_icon</a></span><span class="op">(</span><span class="st">"Edit"</span>, size <span class="op">=</span> <span class="fl">30</span>, color <span class="op">=</span> <span class="st">"#409efc"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<span>  <span class="fu"><a href="../../reference/el_icon.html">el_icon</a></span><span class="op">(</span><span class="st">"Edit"</span>, size <span class="op">=</span> <span class="fl">30</span>, color <span class="op">=</span> <span class="st">"#409efc"</span><span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
   <i class="el-icon" data-el-icon="Edit" style="font-size:30px;" aria-hidden="true" role="img"></i>
   <i class="el-icon" data-el-icon="Edit" style="font-size:30px;--color:#409efc;" aria-hidden="true" role="img"></i>
@@ -220,12 +221,14 @@ own props.</p>
 <p>An icon inherits the colour and size of the text around it, unless it
 is given its own; <code>class = "is-loading"</code> spins it.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">tags</span><span class="op">$</span><span class="fu">p</span><span class="op">(</span>style <span class="op">=</span> <span class="st">"font-size: 20px"</span>,</span>
+<code class="sourceCode R"><span><span class="va">tags</span><span class="op">$</span><span class="fu">p</span><span class="op">(</span></span>
+<span>  style <span class="op">=</span> <span class="st">"font-size: 20px"</span>,</span>
 <span>  <span class="fu"><a href="../../reference/el_icon.html">el_icon</a></span><span class="op">(</span><span class="st">"Edit"</span>, size <span class="op">=</span> <span class="fl">20</span><span class="op">)</span>,</span>
 <span>  <span class="fu"><a href="../../reference/el_icon.html">el_icon</a></span><span class="op">(</span><span class="st">"Share"</span>, color <span class="op">=</span> <span class="st">"#409efc"</span><span class="op">)</span>,</span>
 <span>  <span class="fu"><a href="../../reference/el_icon.html">el_icon</a></span><span class="op">(</span><span class="st">"Delete"</span><span class="op">)</span>,</span>
 <span>  <span class="fu"><a href="../../reference/el_icon.html">el_icon</a></span><span class="op">(</span><span class="st">"Loading"</span>, class <span class="op">=</span> <span class="st">"is-loading"</span><span class="op">)</span>,</span>
-<span>  <span class="fu"><a href="../../reference/el_button.html">el_button</a></span><span class="op">(</span><span class="st">"search"</span>, <span class="st">"Search"</span>, type <span class="op">=</span> <span class="st">"primary"</span>, icon <span class="op">=</span> <span class="st">"Search"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<span>  <span class="fu"><a href="../../reference/el_button.html">el_button</a></span><span class="op">(</span><span class="st">"search"</span>, <span class="st">"Search"</span>, type <span class="op">=</span> <span class="st">"primary"</span>, icon <span class="op">=</span> <span class="st">"Search"</span><span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
   <p style="font-size: 20px">
     <i class="el-icon" data-el-icon="Edit" style="font-size:20px;" aria-hidden="true" role="img"></i>
@@ -250,8 +253,13 @@ as Element Plus does:
 also registered as <code>el-icon-&lt;kebab-name&gt;</code>, so
 <code>&lt;el-icon-edit /&gt;</code> draws the bare SVG.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_button.html">el_button</a></span><span class="op">(</span><span class="st">"tpl"</span>, type <span class="op">=</span> <span class="st">"primary"</span>, slots <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
-<span>  default <span class="op">=</span> <span class="fu"><a href="../../reference/template.html">template</a></span><span class="op">(</span><span class="fu"><a href="https://rstudio.github.io/htmltools/reference/HTML.html" class="external-link">HTML</a></span><span class="op">(</span><span class="st">"&lt;el-icon&gt;&lt;Upload /&gt;&lt;/el-icon&gt;&lt;span&gt;Upload&lt;/span&gt;"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_button.html">el_button</a></span><span class="op">(</span></span>
+<span>  <span class="st">"tpl"</span>,</span>
+<span>  type <span class="op">=</span> <span class="st">"primary"</span>,</span>
+<span>  slots <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>    default <span class="op">=</span> <span class="fu"><a href="../../reference/template.html">template</a></span><span class="op">(</span><span class="fu"><a href="https://rstudio.github.io/htmltools/reference/HTML.html" class="external-link">HTML</a></span><span class="op">(</span><span class="st">"&lt;el-icon&gt;&lt;Upload /&gt;&lt;/el-icon&gt;&lt;span&gt;Upload&lt;/span&gt;"</span><span class="op">)</span><span class="op">)</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
   <div id="template-tpl" data-shiny-vue style="display: contents">
     <script type="text/x-template" data-shiny-vue-template><div id="template-tpl_container" style="display: contents">
@@ -269,8 +277,10 @@ also registered as <code>el-icon-&lt;kebab-name&gt;</code>, so
 <p><code>el_icon(lib = "font-awesome")</code> draws a Font Awesome icon
 instead, through the fontawesome package.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rstudio.github.io/htmltools/reference/tagList.html" class="external-link">tagList</a></span><span class="op">(</span><span class="fu"><a href="../../reference/el_icon.html">el_icon</a></span><span class="op">(</span><span class="st">"r-project"</span>, lib <span class="op">=</span> <span class="st">"font-awesome"</span>, size <span class="op">=</span> <span class="fl">24</span><span class="op">)</span>,</span>
-<span>        <span class="fu"><a href="../../reference/el_icon.html">el_icon</a></span><span class="op">(</span><span class="st">"github"</span>, lib <span class="op">=</span> <span class="st">"font-awesome"</span>, size <span class="op">=</span> <span class="fl">24</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rstudio.github.io/htmltools/reference/tagList.html" class="external-link">tagList</a></span><span class="op">(</span></span>
+<span>  <span class="fu"><a href="../../reference/el_icon.html">el_icon</a></span><span class="op">(</span><span class="st">"r-project"</span>, lib <span class="op">=</span> <span class="st">"font-awesome"</span>, size <span class="op">=</span> <span class="fl">24</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="../../reference/el_icon.html">el_icon</a></span><span class="op">(</span><span class="st">"github"</span>, lib <span class="op">=</span> <span class="st">"font-awesome"</span>, size <span class="op">=</span> <span class="fl">24</span><span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
   <i class="fab fa-r-project" role="presentation" aria-label="r-project icon"></i>
   <i class="fab fa-github" role="presentation" aria-label="github icon"></i>
@@ -282,15 +292,30 @@ instead, through the fontawesome package.</p>
 <p>Every icon of <code>@element-plus/icons-vue</code>, by the name
 <code><a href="../../reference/el_icon.html">el_icon()</a></code> takes:</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">js</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/readLines.html" class="external-link">readLines</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"element-plus"</span>, <span class="st">"icons-vue.iife.min.js"</span>,</span>
-<span>                            package <span class="op">=</span> <span class="st">"shiny.element"</span><span class="op">)</span>, warn <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
-<span><span class="va">names</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sort.html" class="external-link">sort</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/unique.html" class="external-link">unique</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/regmatches.html" class="external-link">regmatches</a></span><span class="op">(</span><span class="va">js</span>, <span class="fu"><a href="https://rdrr.io/r/base/grep.html" class="external-link">gregexpr</a></span><span class="op">(</span><span class="st">'(?&lt;=name:")[A-Z][A-Za-z0-9]*(?=")'</span>, <span class="va">js</span>, perl <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span>style <span class="op">=</span> <span class="st">"display: flex; flex-wrap: wrap; border-top: 1px solid var(--el-border-color)"</span>,</span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply</a></span><span class="op">(</span><span class="va">names</span>, <span class="kw">function</span><span class="op">(</span><span class="va">n</span><span class="op">)</span> <span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span></span>
-<span>    style <span class="op">=</span> <span class="st">"width: 16.66%; min-width: 110px; height: 90px; text-align: center; font-size: 12px;</span></span>
+<code class="sourceCode R"><span><span class="va">js</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/readLines.html" class="external-link">readLines</a></span><span class="op">(</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span></span>
+<span>    <span class="st">"element-plus"</span>,</span>
+<span>    <span class="st">"icons-vue.iife.min.js"</span>,</span>
+<span>    package <span class="op">=</span> <span class="st">"shiny.element"</span></span>
+<span>  <span class="op">)</span>,</span>
+<span>  warn <span class="op">=</span> <span class="cn">FALSE</span></span>
+<span><span class="op">)</span></span>
+<span><span class="va">names</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sort.html" class="external-link">sort</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/unique.html" class="external-link">unique</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/regmatches.html" class="external-link">regmatches</a></span><span class="op">(</span></span>
+<span>  <span class="va">js</span>,</span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/grep.html" class="external-link">gregexpr</a></span><span class="op">(</span><span class="st">'(?&lt;=name:")[A-Z][A-Za-z0-9]*(?=")'</span>, <span class="va">js</span>, perl <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span><span class="op">)</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span></span>
+<span>  style <span class="op">=</span> <span class="st">"display: flex; flex-wrap: wrap; border-top: 1px solid var(--el-border-color)"</span>,</span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply</a></span><span class="op">(</span><span class="va">names</span>, <span class="kw">function</span><span class="op">(</span><span class="va">n</span><span class="op">)</span> <span class="op">{</span></span>
+<span>    <span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span></span>
+<span>      style <span class="op">=</span> <span class="st">"width: 16.66%; min-width: 110px; height: 90px; text-align: center; font-size: 12px;</span></span>
 <span><span class="st">             color: var(--el-text-color-regular); border-right: 1px solid var(--el-border-color);</span></span>
 <span><span class="st">             border-bottom: 1px solid var(--el-border-color); padding-top: 18px"</span>,</span>
-<span>    <span class="fu"><a href="../../reference/el_icon.html">el_icon</a></span><span class="op">(</span><span class="va">n</span>, size <span class="op">=</span> <span class="fl">22</span><span class="op">)</span>, <span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span>style <span class="op">=</span> <span class="st">"margin-top: 8px"</span>, <span class="va">n</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<span>      <span class="fu"><a href="../../reference/el_icon.html">el_icon</a></span><span class="op">(</span><span class="va">n</span>, size <span class="op">=</span> <span class="fl">22</span><span class="op">)</span>,</span>
+<span>      <span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span>style <span class="op">=</span> <span class="st">"margin-top: 8px"</span>, <span class="va">n</span><span class="op">)</span></span>
+<span>    <span class="op">)</span></span>
+<span>  <span class="op">}</span><span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
   <div style="display: flex; flex-wrap: wrap; border-top: 1px solid var(--el-border-color)"></div>
 </div>

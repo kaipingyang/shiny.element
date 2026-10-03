@@ -21,13 +21,27 @@ function, may hold the close back.
 
 ui <- el_page(
   el_button("open", "Click to open the Dialog", plain = TRUE),
-  el_dialog("tips", title = "Tips", width = "500px", content = tags$span("This is a message"),
-    before_close = JS("function(done) { if (confirm('Are you sure to close this dialog?')) done(); }"),
-    footer = tagList(el_button("cancel", "Cancel"), el_button("confirm", "Confirm", type = "primary"))))
+  el_dialog(
+    "tips",
+    title = "Tips",
+    width = "500px",
+    content = tags$span("This is a message"),
+    before_close = JS(
+      "function(done) { if (confirm('Are you sure to close this dialog?')) done(); }"
+    ),
+    footer = tagList(
+      el_button("cancel", "Cancel"),
+      el_button("confirm", "Confirm", type = "primary")
+    )
+  )
+)
 server <- function(input, output, session) {
   observeEvent(input$open, update_el_dialog(id = "tips", visible = TRUE))
-  observeEvent(c(input$cancel, input$confirm), update_el_dialog(id = "tips", visible = FALSE),
-               ignoreInit = TRUE)
+  observeEvent(
+    c(input$cancel, input$confirm),
+    update_el_dialog(id = "tips", visible = FALSE),
+    ignoreInit = TRUE
+  )
 }
 shinyApp(ui, server)
 ```
@@ -50,12 +64,32 @@ example shows how to use Element Plus Table and Form with Dialog.
 
 ui <- el_page(
   el_button("open", "Open a Form nested Dialog", plain = TRUE),
-  el_dialog("shipping", title = "Shipping address", width = "500px", content = tagList(
-    el_input("name", label = "Promotion name", label_position = "left", label_width = "140px"),
-    el_select("zone", choices = c("Zone No.1" = "shanghai", "Zone No.2" = "beijing"),
-              placeholder = "Please select a zone", label = "Zones",
-              label_position = "left", label_width = "140px")),
-    footer = tagList(el_button("cancel", "Cancel"), el_button("confirm", "Confirm", type = "primary"))))
+  el_dialog(
+    "shipping",
+    title = "Shipping address",
+    width = "500px",
+    content = tagList(
+      el_input(
+        "name",
+        label = "Promotion name",
+        label_position = "left",
+        label_width = "140px"
+      ),
+      el_select(
+        "zone",
+        choices = c("Zone No.1" = "shanghai", "Zone No.2" = "beijing"),
+        placeholder = "Please select a zone",
+        label = "Zones",
+        label_position = "left",
+        label_width = "140px"
+      )
+    ),
+    footer = tagList(
+      el_button("cancel", "Cancel"),
+      el_button("confirm", "Confirm", type = "primary")
+    )
+  )
+)
 server <- function(input, output, session) {
   observeEvent(input$open, update_el_dialog(id = "shipping", visible = TRUE))
 }
@@ -78,11 +112,18 @@ The title takes markup: a header of your own.
 
 ui <- el_page(
   el_button("open", "Open Dialog with customized header", plain = TRUE),
-  el_dialog("custom", show_close = FALSE, width = "500px",
-    title = tags$div(style = "display: flex; justify-content: space-between; align-items: center",
+  el_dialog(
+    "custom",
+    show_close = FALSE,
+    width = "500px",
+    title = tags$div(
+      style = "display: flex; justify-content: space-between; align-items: center",
       tags$h4("This is a custom header!"),
-      el_button("close", "Close", type = "danger", icon = "CircleCloseFilled")),
-    content = "This is dialog content."))
+      el_button("close", "Close", type = "danger", icon = "CircleCloseFilled")
+    ),
+    content = "This is dialog content."
+  )
+)
 server <- function(input, output, session) {
   observeEvent(input$open, update_el_dialog(id = "custom", visible = TRUE))
   observeEvent(input$close, update_el_dialog(id = "custom", visible = FALSE))
@@ -108,11 +149,23 @@ rendered.
 
 ui <- el_page(
   el_button("open", "Open the outer Dialog", plain = TRUE),
-  el_dialog("outer", title = "Outer Dialog", width = "800px", content = tagList(
-    tags$span("This is the outer Dialog"),
-    el_dialog("inner", title = "Inner Dialog", width = "500px", append_to_body = TRUE,
-              content = "This is the inner Dialog")),
-    footer = el_button("inner_open", "Open the inner Dialog", type = "primary")))
+  el_dialog(
+    "outer",
+    title = "Outer Dialog",
+    width = "800px",
+    content = tagList(
+      tags$span("This is the outer Dialog"),
+      el_dialog(
+        "inner",
+        title = "Inner Dialog",
+        width = "500px",
+        append_to_body = TRUE,
+        content = "This is the inner Dialog"
+      )
+    ),
+    footer = el_button("inner_open", "Open the inner Dialog", type = "primary")
+  )
+)
 server <- function(input, output, session) {
   observeEvent(input$open, update_el_dialog(id = "outer", visible = TRUE))
   observeEvent(input$inner_open, update_el_dialog(id = "inner", visible = TRUE))
@@ -137,9 +190,18 @@ well.
 
 ui <- el_page(
   el_button("open", "Click to open the Dialog", plain = TRUE),
-  el_dialog("warn", title = "Warning", width = "500px", center = TRUE,
+  el_dialog(
+    "warn",
+    title = "Warning",
+    width = "500px",
+    center = TRUE,
     content = "It should be noted that the content will not be aligned in center by default",
-    footer = tagList(el_button("cancel", "Cancel"), el_button("confirm", "Confirm", type = "primary"))))
+    footer = tagList(
+      el_button("cancel", "Cancel"),
+      el_button("confirm", "Confirm", type = "primary")
+    )
+  )
+)
 server <- function(input, output, session) {
   observeEvent(input$open, update_el_dialog(id = "warn", visible = TRUE))
 }
@@ -168,9 +230,18 @@ time because the dialog is vertically centered in a flexbox.
 
 ui <- el_page(
   el_button("open", "Click to open the Dialog", plain = TRUE),
-  el_dialog("warn", title = "Warning", width = "500px", align_center = TRUE,
+  el_dialog(
+    "warn",
+    title = "Warning",
+    width = "500px",
+    align_center = TRUE,
     content = "Open the dialog from the center from the screen",
-    footer = tagList(el_button("cancel", "Cancel"), el_button("confirm", "Confirm", type = "primary"))))
+    footer = tagList(
+      el_button("cancel", "Cancel"),
+      el_button("confirm", "Confirm", type = "primary")
+    )
+  )
+)
 server <- function(input, output, session) {
   observeEvent(input$open, update_el_dialog(id = "warn", visible = TRUE))
 }
@@ -196,9 +267,20 @@ Its content made again each time it opens: inputs inside start fresh.
 
 ui <- el_page(
   el_button("open", "Click to open Dialog", plain = TRUE),
-  el_dialog("notice", title = "Notice", width = "500px", destroy_on_close = TRUE, center = TRUE,
-    content = tagList(tags$p("Notice: before dialog gets opened for the first time this node and the one below will not be rendered"),
-                      el_input("note", placeholder = "starts empty each time"))))
+  el_dialog(
+    "notice",
+    title = "Notice",
+    width = "500px",
+    destroy_on_close = TRUE,
+    center = TRUE,
+    content = tagList(
+      tags$p(
+        "Notice: before dialog gets opened for the first time this node and the one below will not be rendered"
+      ),
+      el_input("note", placeholder = "starts empty each time")
+    )
+  )
+)
 server <- function(input, output, session) {
   observeEvent(input$open, update_el_dialog(id = "notice", visible = TRUE))
 }
@@ -219,8 +301,14 @@ drag overflow the viewport.
 
 ui <- el_page(
   el_button("open", "Click to open Dialog", plain = TRUE),
-  el_dialog("drag", title = "Tips", width = "500px", draggable = TRUE,
-            content = "It's a draggable Dialog"))
+  el_dialog(
+    "drag",
+    title = "Tips",
+    width = "500px",
+    draggable = TRUE,
+    content = "It's a draggable Dialog"
+  )
+)
 server <- function(input, output, session) {
   observeEvent(input$open, update_el_dialog(id = "drag", visible = TRUE))
 }
@@ -246,7 +334,13 @@ Set the `fullscreen` attribute to open fullscreen dialog.
 
 ui <- el_page(
   el_button("open", "Open the fullscreen Dialog", plain = TRUE),
-  el_dialog("full", title = "Tips", fullscreen = TRUE, content = "It's a fullscreen Dialog"))
+  el_dialog(
+    "full",
+    title = "Tips",
+    fullscreen = TRUE,
+    content = "It's a fullscreen Dialog"
+  )
+)
 server <- function(input, output, session) {
   observeEvent(input$open, update_el_dialog(id = "full", visible = TRUE))
 }
@@ -274,8 +368,15 @@ Without a backdrop the page beneath stays in view, and with
 
 ui <- el_page(
   el_button("open", "Open the modal-less Dialog", plain = TRUE),
-  el_dialog("nomodal", title = "Tips", width = "500px", modal = FALSE, modal_penetrable = TRUE,
-            content = "It's a modal-less Dialog"))
+  el_dialog(
+    "nomodal",
+    title = "Tips",
+    width = "500px",
+    modal = FALSE,
+    modal_penetrable = TRUE,
+    content = "It's a modal-less Dialog"
+  )
+)
 server <- function(input, output, session) {
   observeEvent(input$open, update_el_dialog(id = "nomodal", visible = TRUE))
 }
@@ -303,8 +404,14 @@ configurations with custom event handlers.
 ui <- el_page(
   tags$style(".dialog-bounce-enter-active { animation: dialog-fade-in .5s; }"),
   el_button("open", "Open the Dialog", plain = TRUE),
-  el_dialog("anim", title = "Custom animation", width = "500px", transition = "dialog-bounce",
-            content = "This dialog plays an animation of its own."))
+  el_dialog(
+    "anim",
+    title = "Custom animation",
+    width = "500px",
+    transition = "dialog-bounce",
+    content = "This dialog plays an animation of its own."
+  )
+)
 server <- function(input, output, session) {
   observeEvent(input$open, update_el_dialog(id = "anim", visible = TRUE))
 }
@@ -333,13 +440,21 @@ Every event is an input: `input$<id>_open`, `_opened`, `_close`,
 
 ui <- el_page(
   el_button("open", "Open the Dialog", plain = TRUE),
-  el_dialog("ev", title = "Events", width = "500px", content = verbatimTextOutput("log")))
+  el_dialog(
+    "ev",
+    title = "Events",
+    width = "500px",
+    content = verbatimTextOutput("log")
+  )
+)
 server <- function(input, output, session) {
   seen <- reactiveVal(character())
-  for (e in c("open", "opened", "close", "closed")) local({
-    e <- e
-    observeEvent(input[[paste0("ev_", e)]], seen(c(seen(), e)))
-  })
+  for (e in c("open", "opened", "close", "closed")) {
+    local({
+      e <- e
+      observeEvent(input[[paste0("ev_", e)]], seen(c(seen(), e)))
+    })
+  }
   output$log <- renderText(paste(seen(), collapse = "\n"))
   observeEvent(input$open, update_el_dialog(id = "ev", visible = TRUE))
 }

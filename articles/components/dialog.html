@@ -204,13 +204,27 @@ close back.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/el_page.html">el_page</a></span><span class="op">(</span></span>
 <span>  <span class="fu"><a href="../../reference/el_button.html">el_button</a></span><span class="op">(</span><span class="st">"open"</span>, <span class="st">"Click to open the Dialog"</span>, plain <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,</span>
-<span>  <span class="fu"><a href="../../reference/el_dialog.html">el_dialog</a></span><span class="op">(</span><span class="st">"tips"</span>, title <span class="op">=</span> <span class="st">"Tips"</span>, width <span class="op">=</span> <span class="st">"500px"</span>, content <span class="op">=</span> <span class="va">tags</span><span class="op">$</span><span class="fu">span</span><span class="op">(</span><span class="st">"This is a message"</span><span class="op">)</span>,</span>
-<span>    before_close <span class="op">=</span> <span class="fu"><a href="../../reference/JS.html">JS</a></span><span class="op">(</span><span class="st">"function(done) { if (confirm('Are you sure to close this dialog?')) done(); }"</span><span class="op">)</span>,</span>
-<span>    footer <span class="op">=</span> <span class="fu"><a href="https://rstudio.github.io/htmltools/reference/tagList.html" class="external-link">tagList</a></span><span class="op">(</span><span class="fu"><a href="../../reference/el_button.html">el_button</a></span><span class="op">(</span><span class="st">"cancel"</span>, <span class="st">"Cancel"</span><span class="op">)</span>, <span class="fu"><a href="../../reference/el_button.html">el_button</a></span><span class="op">(</span><span class="st">"confirm"</span>, <span class="st">"Confirm"</span>, type <span class="op">=</span> <span class="st">"primary"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
+<span>  <span class="fu"><a href="../../reference/el_dialog.html">el_dialog</a></span><span class="op">(</span></span>
+<span>    <span class="st">"tips"</span>,</span>
+<span>    title <span class="op">=</span> <span class="st">"Tips"</span>,</span>
+<span>    width <span class="op">=</span> <span class="st">"500px"</span>,</span>
+<span>    content <span class="op">=</span> <span class="va">tags</span><span class="op">$</span><span class="fu">span</span><span class="op">(</span><span class="st">"This is a message"</span><span class="op">)</span>,</span>
+<span>    before_close <span class="op">=</span> <span class="fu"><a href="../../reference/JS.html">JS</a></span><span class="op">(</span></span>
+<span>      <span class="st">"function(done) { if (confirm('Are you sure to close this dialog?')) done(); }"</span></span>
+<span>    <span class="op">)</span>,</span>
+<span>    footer <span class="op">=</span> <span class="fu"><a href="https://rstudio.github.io/htmltools/reference/tagList.html" class="external-link">tagList</a></span><span class="op">(</span></span>
+<span>      <span class="fu"><a href="../../reference/el_button.html">el_button</a></span><span class="op">(</span><span class="st">"cancel"</span>, <span class="st">"Cancel"</span><span class="op">)</span>,</span>
+<span>      <span class="fu"><a href="../../reference/el_button.html">el_button</a></span><span class="op">(</span><span class="st">"confirm"</span>, <span class="st">"Confirm"</span>, type <span class="op">=</span> <span class="st">"primary"</span><span class="op">)</span></span>
+<span>    <span class="op">)</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">)</span></span>
 <span><span class="va">server</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span>, <span class="va">session</span><span class="op">)</span> <span class="op">{</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/observeEvent.html" class="external-link">observeEvent</a></span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">open</span>, <span class="fu"><a href="../../reference/update_el_dialog.html">update_el_dialog</a></span><span class="op">(</span>id <span class="op">=</span> <span class="st">"tips"</span>, visible <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/observeEvent.html" class="external-link">observeEvent</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">cancel</span>, <span class="va">input</span><span class="op">$</span><span class="va">confirm</span><span class="op">)</span>, <span class="fu"><a href="../../reference/update_el_dialog.html">update_el_dialog</a></span><span class="op">(</span>id <span class="op">=</span> <span class="st">"tips"</span>, visible <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>,</span>
-<span>               ignoreInit <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/observeEvent.html" class="external-link">observeEvent</a></span><span class="op">(</span></span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">cancel</span>, <span class="va">input</span><span class="op">$</span><span class="va">confirm</span><span class="op">)</span>,</span>
+<span>    <span class="fu"><a href="../../reference/update_el_dialog.html">update_el_dialog</a></span><span class="op">(</span>id <span class="op">=</span> <span class="st">"tips"</span>, visible <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>,</span>
+<span>    ignoreInit <span class="op">=</span> <span class="cn">TRUE</span></span>
+<span>  <span class="op">)</span></span>
 <span><span class="op">}</span></span>
 <span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/shinyApp.html" class="external-link">shinyApp</a></span><span class="op">(</span><span class="va">ui</span>, <span class="va">server</span><span class="op">)</span></span></code></pre></div>
 <img src="../../shots/dialog-basic-usage.png" alt="The basic-usage example, running" style="max-width: 100%"><blockquote>
@@ -229,12 +243,32 @@ example shows how to use Element Plus Table and Form with Dialog.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/el_page.html">el_page</a></span><span class="op">(</span></span>
 <span>  <span class="fu"><a href="../../reference/el_button.html">el_button</a></span><span class="op">(</span><span class="st">"open"</span>, <span class="st">"Open a Form nested Dialog"</span>, plain <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,</span>
-<span>  <span class="fu"><a href="../../reference/el_dialog.html">el_dialog</a></span><span class="op">(</span><span class="st">"shipping"</span>, title <span class="op">=</span> <span class="st">"Shipping address"</span>, width <span class="op">=</span> <span class="st">"500px"</span>, content <span class="op">=</span> <span class="fu"><a href="https://rstudio.github.io/htmltools/reference/tagList.html" class="external-link">tagList</a></span><span class="op">(</span></span>
-<span>    <span class="fu"><a href="../../reference/el_input.html">el_input</a></span><span class="op">(</span><span class="st">"name"</span>, label <span class="op">=</span> <span class="st">"Promotion name"</span>, label_position <span class="op">=</span> <span class="st">"left"</span>, label_width <span class="op">=</span> <span class="st">"140px"</span><span class="op">)</span>,</span>
-<span>    <span class="fu"><a href="../../reference/el_select.html">el_select</a></span><span class="op">(</span><span class="st">"zone"</span>, choices <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Zone No.1"</span> <span class="op">=</span> <span class="st">"shanghai"</span>, <span class="st">"Zone No.2"</span> <span class="op">=</span> <span class="st">"beijing"</span><span class="op">)</span>,</span>
-<span>              placeholder <span class="op">=</span> <span class="st">"Please select a zone"</span>, label <span class="op">=</span> <span class="st">"Zones"</span>,</span>
-<span>              label_position <span class="op">=</span> <span class="st">"left"</span>, label_width <span class="op">=</span> <span class="st">"140px"</span><span class="op">)</span><span class="op">)</span>,</span>
-<span>    footer <span class="op">=</span> <span class="fu"><a href="https://rstudio.github.io/htmltools/reference/tagList.html" class="external-link">tagList</a></span><span class="op">(</span><span class="fu"><a href="../../reference/el_button.html">el_button</a></span><span class="op">(</span><span class="st">"cancel"</span>, <span class="st">"Cancel"</span><span class="op">)</span>, <span class="fu"><a href="../../reference/el_button.html">el_button</a></span><span class="op">(</span><span class="st">"confirm"</span>, <span class="st">"Confirm"</span>, type <span class="op">=</span> <span class="st">"primary"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
+<span>  <span class="fu"><a href="../../reference/el_dialog.html">el_dialog</a></span><span class="op">(</span></span>
+<span>    <span class="st">"shipping"</span>,</span>
+<span>    title <span class="op">=</span> <span class="st">"Shipping address"</span>,</span>
+<span>    width <span class="op">=</span> <span class="st">"500px"</span>,</span>
+<span>    content <span class="op">=</span> <span class="fu"><a href="https://rstudio.github.io/htmltools/reference/tagList.html" class="external-link">tagList</a></span><span class="op">(</span></span>
+<span>      <span class="fu"><a href="../../reference/el_input.html">el_input</a></span><span class="op">(</span></span>
+<span>        <span class="st">"name"</span>,</span>
+<span>        label <span class="op">=</span> <span class="st">"Promotion name"</span>,</span>
+<span>        label_position <span class="op">=</span> <span class="st">"left"</span>,</span>
+<span>        label_width <span class="op">=</span> <span class="st">"140px"</span></span>
+<span>      <span class="op">)</span>,</span>
+<span>      <span class="fu"><a href="../../reference/el_select.html">el_select</a></span><span class="op">(</span></span>
+<span>        <span class="st">"zone"</span>,</span>
+<span>        choices <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Zone No.1"</span> <span class="op">=</span> <span class="st">"shanghai"</span>, <span class="st">"Zone No.2"</span> <span class="op">=</span> <span class="st">"beijing"</span><span class="op">)</span>,</span>
+<span>        placeholder <span class="op">=</span> <span class="st">"Please select a zone"</span>,</span>
+<span>        label <span class="op">=</span> <span class="st">"Zones"</span>,</span>
+<span>        label_position <span class="op">=</span> <span class="st">"left"</span>,</span>
+<span>        label_width <span class="op">=</span> <span class="st">"140px"</span></span>
+<span>      <span class="op">)</span></span>
+<span>    <span class="op">)</span>,</span>
+<span>    footer <span class="op">=</span> <span class="fu"><a href="https://rstudio.github.io/htmltools/reference/tagList.html" class="external-link">tagList</a></span><span class="op">(</span></span>
+<span>      <span class="fu"><a href="../../reference/el_button.html">el_button</a></span><span class="op">(</span><span class="st">"cancel"</span>, <span class="st">"Cancel"</span><span class="op">)</span>,</span>
+<span>      <span class="fu"><a href="../../reference/el_button.html">el_button</a></span><span class="op">(</span><span class="st">"confirm"</span>, <span class="st">"Confirm"</span>, type <span class="op">=</span> <span class="st">"primary"</span><span class="op">)</span></span>
+<span>    <span class="op">)</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">)</span></span>
 <span><span class="va">server</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span>, <span class="va">session</span><span class="op">)</span> <span class="op">{</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/observeEvent.html" class="external-link">observeEvent</a></span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">open</span>, <span class="fu"><a href="../../reference/update_el_dialog.html">update_el_dialog</a></span><span class="op">(</span>id <span class="op">=</span> <span class="st">"shipping"</span>, visible <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="op">}</span></span>
@@ -253,11 +287,18 @@ read out as the dialog title.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/el_page.html">el_page</a></span><span class="op">(</span></span>
 <span>  <span class="fu"><a href="../../reference/el_button.html">el_button</a></span><span class="op">(</span><span class="st">"open"</span>, <span class="st">"Open Dialog with customized header"</span>, plain <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,</span>
-<span>  <span class="fu"><a href="../../reference/el_dialog.html">el_dialog</a></span><span class="op">(</span><span class="st">"custom"</span>, show_close <span class="op">=</span> <span class="cn">FALSE</span>, width <span class="op">=</span> <span class="st">"500px"</span>,</span>
-<span>    title <span class="op">=</span> <span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span>style <span class="op">=</span> <span class="st">"display: flex; justify-content: space-between; align-items: center"</span>,</span>
+<span>  <span class="fu"><a href="../../reference/el_dialog.html">el_dialog</a></span><span class="op">(</span></span>
+<span>    <span class="st">"custom"</span>,</span>
+<span>    show_close <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>    width <span class="op">=</span> <span class="st">"500px"</span>,</span>
+<span>    title <span class="op">=</span> <span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span></span>
+<span>      style <span class="op">=</span> <span class="st">"display: flex; justify-content: space-between; align-items: center"</span>,</span>
 <span>      <span class="va">tags</span><span class="op">$</span><span class="fu">h4</span><span class="op">(</span><span class="st">"This is a custom header!"</span><span class="op">)</span>,</span>
-<span>      <span class="fu"><a href="../../reference/el_button.html">el_button</a></span><span class="op">(</span><span class="st">"close"</span>, <span class="st">"Close"</span>, type <span class="op">=</span> <span class="st">"danger"</span>, icon <span class="op">=</span> <span class="st">"CircleCloseFilled"</span><span class="op">)</span><span class="op">)</span>,</span>
-<span>    content <span class="op">=</span> <span class="st">"This is dialog content."</span><span class="op">)</span><span class="op">)</span></span>
+<span>      <span class="fu"><a href="../../reference/el_button.html">el_button</a></span><span class="op">(</span><span class="st">"close"</span>, <span class="st">"Close"</span>, type <span class="op">=</span> <span class="st">"danger"</span>, icon <span class="op">=</span> <span class="st">"CircleCloseFilled"</span><span class="op">)</span></span>
+<span>    <span class="op">)</span>,</span>
+<span>    content <span class="op">=</span> <span class="st">"This is dialog content."</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">)</span></span>
 <span><span class="va">server</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span>, <span class="va">session</span><span class="op">)</span> <span class="op">{</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/observeEvent.html" class="external-link">observeEvent</a></span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">open</span>, <span class="fu"><a href="../../reference/update_el_dialog.html">update_el_dialog</a></span><span class="op">(</span>id <span class="op">=</span> <span class="st">"custom"</span>, visible <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/observeEvent.html" class="external-link">observeEvent</a></span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">close</span>, <span class="fu"><a href="../../reference/update_el_dialog.html">update_el_dialog</a></span><span class="op">(</span>id <span class="op">=</span> <span class="st">"custom"</span>, visible <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span><span class="op">)</span></span>
@@ -279,11 +320,23 @@ can be correctly rendered.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/el_page.html">el_page</a></span><span class="op">(</span></span>
 <span>  <span class="fu"><a href="../../reference/el_button.html">el_button</a></span><span class="op">(</span><span class="st">"open"</span>, <span class="st">"Open the outer Dialog"</span>, plain <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,</span>
-<span>  <span class="fu"><a href="../../reference/el_dialog.html">el_dialog</a></span><span class="op">(</span><span class="st">"outer"</span>, title <span class="op">=</span> <span class="st">"Outer Dialog"</span>, width <span class="op">=</span> <span class="st">"800px"</span>, content <span class="op">=</span> <span class="fu"><a href="https://rstudio.github.io/htmltools/reference/tagList.html" class="external-link">tagList</a></span><span class="op">(</span></span>
-<span>    <span class="va">tags</span><span class="op">$</span><span class="fu">span</span><span class="op">(</span><span class="st">"This is the outer Dialog"</span><span class="op">)</span>,</span>
-<span>    <span class="fu"><a href="../../reference/el_dialog.html">el_dialog</a></span><span class="op">(</span><span class="st">"inner"</span>, title <span class="op">=</span> <span class="st">"Inner Dialog"</span>, width <span class="op">=</span> <span class="st">"500px"</span>, append_to_body <span class="op">=</span> <span class="cn">TRUE</span>,</span>
-<span>              content <span class="op">=</span> <span class="st">"This is the inner Dialog"</span><span class="op">)</span><span class="op">)</span>,</span>
-<span>    footer <span class="op">=</span> <span class="fu"><a href="../../reference/el_button.html">el_button</a></span><span class="op">(</span><span class="st">"inner_open"</span>, <span class="st">"Open the inner Dialog"</span>, type <span class="op">=</span> <span class="st">"primary"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
+<span>  <span class="fu"><a href="../../reference/el_dialog.html">el_dialog</a></span><span class="op">(</span></span>
+<span>    <span class="st">"outer"</span>,</span>
+<span>    title <span class="op">=</span> <span class="st">"Outer Dialog"</span>,</span>
+<span>    width <span class="op">=</span> <span class="st">"800px"</span>,</span>
+<span>    content <span class="op">=</span> <span class="fu"><a href="https://rstudio.github.io/htmltools/reference/tagList.html" class="external-link">tagList</a></span><span class="op">(</span></span>
+<span>      <span class="va">tags</span><span class="op">$</span><span class="fu">span</span><span class="op">(</span><span class="st">"This is the outer Dialog"</span><span class="op">)</span>,</span>
+<span>      <span class="fu"><a href="../../reference/el_dialog.html">el_dialog</a></span><span class="op">(</span></span>
+<span>        <span class="st">"inner"</span>,</span>
+<span>        title <span class="op">=</span> <span class="st">"Inner Dialog"</span>,</span>
+<span>        width <span class="op">=</span> <span class="st">"500px"</span>,</span>
+<span>        append_to_body <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>        content <span class="op">=</span> <span class="st">"This is the inner Dialog"</span></span>
+<span>      <span class="op">)</span></span>
+<span>    <span class="op">)</span>,</span>
+<span>    footer <span class="op">=</span> <span class="fu"><a href="../../reference/el_button.html">el_button</a></span><span class="op">(</span><span class="st">"inner_open"</span>, <span class="st">"Open the inner Dialog"</span>, type <span class="op">=</span> <span class="st">"primary"</span><span class="op">)</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">)</span></span>
 <span><span class="va">server</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span>, <span class="va">session</span><span class="op">)</span> <span class="op">{</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/observeEvent.html" class="external-link">observeEvent</a></span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">open</span>, <span class="fu"><a href="../../reference/update_el_dialog.html">update_el_dialog</a></span><span class="op">(</span>id <span class="op">=</span> <span class="st">"outer"</span>, visible <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/observeEvent.html" class="external-link">observeEvent</a></span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">inner_open</span>, <span class="fu"><a href="../../reference/update_el_dialog.html">update_el_dialog</a></span><span class="op">(</span>id <span class="op">=</span> <span class="st">"inner"</span>, visible <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></span>
@@ -303,9 +356,18 @@ if you wish to center the body as well.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/el_page.html">el_page</a></span><span class="op">(</span></span>
 <span>  <span class="fu"><a href="../../reference/el_button.html">el_button</a></span><span class="op">(</span><span class="st">"open"</span>, <span class="st">"Click to open the Dialog"</span>, plain <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,</span>
-<span>  <span class="fu"><a href="../../reference/el_dialog.html">el_dialog</a></span><span class="op">(</span><span class="st">"warn"</span>, title <span class="op">=</span> <span class="st">"Warning"</span>, width <span class="op">=</span> <span class="st">"500px"</span>, center <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  <span class="fu"><a href="../../reference/el_dialog.html">el_dialog</a></span><span class="op">(</span></span>
+<span>    <span class="st">"warn"</span>,</span>
+<span>    title <span class="op">=</span> <span class="st">"Warning"</span>,</span>
+<span>    width <span class="op">=</span> <span class="st">"500px"</span>,</span>
+<span>    center <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>    content <span class="op">=</span> <span class="st">"It should be noted that the content will not be aligned in center by default"</span>,</span>
-<span>    footer <span class="op">=</span> <span class="fu"><a href="https://rstudio.github.io/htmltools/reference/tagList.html" class="external-link">tagList</a></span><span class="op">(</span><span class="fu"><a href="../../reference/el_button.html">el_button</a></span><span class="op">(</span><span class="st">"cancel"</span>, <span class="st">"Cancel"</span><span class="op">)</span>, <span class="fu"><a href="../../reference/el_button.html">el_button</a></span><span class="op">(</span><span class="st">"confirm"</span>, <span class="st">"Confirm"</span>, type <span class="op">=</span> <span class="st">"primary"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
+<span>    footer <span class="op">=</span> <span class="fu"><a href="https://rstudio.github.io/htmltools/reference/tagList.html" class="external-link">tagList</a></span><span class="op">(</span></span>
+<span>      <span class="fu"><a href="../../reference/el_button.html">el_button</a></span><span class="op">(</span><span class="st">"cancel"</span>, <span class="st">"Cancel"</span><span class="op">)</span>,</span>
+<span>      <span class="fu"><a href="../../reference/el_button.html">el_button</a></span><span class="op">(</span><span class="st">"confirm"</span>, <span class="st">"Confirm"</span>, type <span class="op">=</span> <span class="st">"primary"</span><span class="op">)</span></span>
+<span>    <span class="op">)</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">)</span></span>
 <span><span class="va">server</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span>, <span class="va">session</span><span class="op">)</span> <span class="op">{</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/observeEvent.html" class="external-link">observeEvent</a></span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">open</span>, <span class="fu"><a href="../../reference/update_el_dialog.html">update_el_dialog</a></span><span class="op">(</span>id <span class="op">=</span> <span class="st">"warn"</span>, visible <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="op">}</span></span>
@@ -329,9 +391,18 @@ in a flexbox.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/el_page.html">el_page</a></span><span class="op">(</span></span>
 <span>  <span class="fu"><a href="../../reference/el_button.html">el_button</a></span><span class="op">(</span><span class="st">"open"</span>, <span class="st">"Click to open the Dialog"</span>, plain <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,</span>
-<span>  <span class="fu"><a href="../../reference/el_dialog.html">el_dialog</a></span><span class="op">(</span><span class="st">"warn"</span>, title <span class="op">=</span> <span class="st">"Warning"</span>, width <span class="op">=</span> <span class="st">"500px"</span>, align_center <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  <span class="fu"><a href="../../reference/el_dialog.html">el_dialog</a></span><span class="op">(</span></span>
+<span>    <span class="st">"warn"</span>,</span>
+<span>    title <span class="op">=</span> <span class="st">"Warning"</span>,</span>
+<span>    width <span class="op">=</span> <span class="st">"500px"</span>,</span>
+<span>    align_center <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>    content <span class="op">=</span> <span class="st">"Open the dialog from the center from the screen"</span>,</span>
-<span>    footer <span class="op">=</span> <span class="fu"><a href="https://rstudio.github.io/htmltools/reference/tagList.html" class="external-link">tagList</a></span><span class="op">(</span><span class="fu"><a href="../../reference/el_button.html">el_button</a></span><span class="op">(</span><span class="st">"cancel"</span>, <span class="st">"Cancel"</span><span class="op">)</span>, <span class="fu"><a href="../../reference/el_button.html">el_button</a></span><span class="op">(</span><span class="st">"confirm"</span>, <span class="st">"Confirm"</span>, type <span class="op">=</span> <span class="st">"primary"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
+<span>    footer <span class="op">=</span> <span class="fu"><a href="https://rstudio.github.io/htmltools/reference/tagList.html" class="external-link">tagList</a></span><span class="op">(</span></span>
+<span>      <span class="fu"><a href="../../reference/el_button.html">el_button</a></span><span class="op">(</span><span class="st">"cancel"</span>, <span class="st">"Cancel"</span><span class="op">)</span>,</span>
+<span>      <span class="fu"><a href="../../reference/el_button.html">el_button</a></span><span class="op">(</span><span class="st">"confirm"</span>, <span class="st">"Confirm"</span>, type <span class="op">=</span> <span class="st">"primary"</span><span class="op">)</span></span>
+<span>    <span class="op">)</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">)</span></span>
 <span><span class="va">server</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span>, <span class="va">session</span><span class="op">)</span> <span class="op">{</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/observeEvent.html" class="external-link">observeEvent</a></span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">open</span>, <span class="fu"><a href="../../reference/update_el_dialog.html">update_el_dialog</a></span><span class="op">(</span>id <span class="op">=</span> <span class="st">"warn"</span>, visible <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="op">}</span></span>
@@ -353,9 +424,20 @@ fresh.</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/el_page.html">el_page</a></span><span class="op">(</span></span>
 <span>  <span class="fu"><a href="../../reference/el_button.html">el_button</a></span><span class="op">(</span><span class="st">"open"</span>, <span class="st">"Click to open Dialog"</span>, plain <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,</span>
-<span>  <span class="fu"><a href="../../reference/el_dialog.html">el_dialog</a></span><span class="op">(</span><span class="st">"notice"</span>, title <span class="op">=</span> <span class="st">"Notice"</span>, width <span class="op">=</span> <span class="st">"500px"</span>, destroy_on_close <span class="op">=</span> <span class="cn">TRUE</span>, center <span class="op">=</span> <span class="cn">TRUE</span>,</span>
-<span>    content <span class="op">=</span> <span class="fu"><a href="https://rstudio.github.io/htmltools/reference/tagList.html" class="external-link">tagList</a></span><span class="op">(</span><span class="va">tags</span><span class="op">$</span><span class="fu">p</span><span class="op">(</span><span class="st">"Notice: before dialog gets opened for the first time this node and the one below will not be rendered"</span><span class="op">)</span>,</span>
-<span>                      <span class="fu"><a href="../../reference/el_input.html">el_input</a></span><span class="op">(</span><span class="st">"note"</span>, placeholder <span class="op">=</span> <span class="st">"starts empty each time"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
+<span>  <span class="fu"><a href="../../reference/el_dialog.html">el_dialog</a></span><span class="op">(</span></span>
+<span>    <span class="st">"notice"</span>,</span>
+<span>    title <span class="op">=</span> <span class="st">"Notice"</span>,</span>
+<span>    width <span class="op">=</span> <span class="st">"500px"</span>,</span>
+<span>    destroy_on_close <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>    center <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>    content <span class="op">=</span> <span class="fu"><a href="https://rstudio.github.io/htmltools/reference/tagList.html" class="external-link">tagList</a></span><span class="op">(</span></span>
+<span>      <span class="va">tags</span><span class="op">$</span><span class="fu">p</span><span class="op">(</span></span>
+<span>        <span class="st">"Notice: before dialog gets opened for the first time this node and the one below will not be rendered"</span></span>
+<span>      <span class="op">)</span>,</span>
+<span>      <span class="fu"><a href="../../reference/el_input.html">el_input</a></span><span class="op">(</span><span class="st">"note"</span>, placeholder <span class="op">=</span> <span class="st">"starts empty each time"</span><span class="op">)</span></span>
+<span>    <span class="op">)</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">)</span></span>
 <span><span class="va">server</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span>, <span class="va">session</span><span class="op">)</span> <span class="op">{</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/observeEvent.html" class="external-link">observeEvent</a></span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">open</span>, <span class="fu"><a href="../../reference/update_el_dialog.html">update_el_dialog</a></span><span class="op">(</span>id <span class="op">=</span> <span class="st">"notice"</span>, visible <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="op">}</span></span>
@@ -372,8 +454,14 @@ viewport.</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/el_page.html">el_page</a></span><span class="op">(</span></span>
 <span>  <span class="fu"><a href="../../reference/el_button.html">el_button</a></span><span class="op">(</span><span class="st">"open"</span>, <span class="st">"Click to open Dialog"</span>, plain <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,</span>
-<span>  <span class="fu"><a href="../../reference/el_dialog.html">el_dialog</a></span><span class="op">(</span><span class="st">"drag"</span>, title <span class="op">=</span> <span class="st">"Tips"</span>, width <span class="op">=</span> <span class="st">"500px"</span>, draggable <span class="op">=</span> <span class="cn">TRUE</span>,</span>
-<span>            content <span class="op">=</span> <span class="st">"It's a draggable Dialog"</span><span class="op">)</span><span class="op">)</span></span>
+<span>  <span class="fu"><a href="../../reference/el_dialog.html">el_dialog</a></span><span class="op">(</span></span>
+<span>    <span class="st">"drag"</span>,</span>
+<span>    title <span class="op">=</span> <span class="st">"Tips"</span>,</span>
+<span>    width <span class="op">=</span> <span class="st">"500px"</span>,</span>
+<span>    draggable <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>    content <span class="op">=</span> <span class="st">"It's a draggable Dialog"</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">)</span></span>
 <span><span class="va">server</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span>, <span class="va">session</span><span class="op">)</span> <span class="op">{</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/observeEvent.html" class="external-link">observeEvent</a></span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">open</span>, <span class="fu"><a href="../../reference/update_el_dialog.html">update_el_dialog</a></span><span class="op">(</span>id <span class="op">=</span> <span class="st">"drag"</span>, visible <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="op">}</span></span>
@@ -396,7 +484,13 @@ dialog.</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/el_page.html">el_page</a></span><span class="op">(</span></span>
 <span>  <span class="fu"><a href="../../reference/el_button.html">el_button</a></span><span class="op">(</span><span class="st">"open"</span>, <span class="st">"Open the fullscreen Dialog"</span>, plain <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,</span>
-<span>  <span class="fu"><a href="../../reference/el_dialog.html">el_dialog</a></span><span class="op">(</span><span class="st">"full"</span>, title <span class="op">=</span> <span class="st">"Tips"</span>, fullscreen <span class="op">=</span> <span class="cn">TRUE</span>, content <span class="op">=</span> <span class="st">"It's a fullscreen Dialog"</span><span class="op">)</span><span class="op">)</span></span>
+<span>  <span class="fu"><a href="../../reference/el_dialog.html">el_dialog</a></span><span class="op">(</span></span>
+<span>    <span class="st">"full"</span>,</span>
+<span>    title <span class="op">=</span> <span class="st">"Tips"</span>,</span>
+<span>    fullscreen <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>    content <span class="op">=</span> <span class="st">"It's a fullscreen Dialog"</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">)</span></span>
 <span><span class="va">server</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span>, <span class="va">session</span><span class="op">)</span> <span class="op">{</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/observeEvent.html" class="external-link">observeEvent</a></span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">open</span>, <span class="fu"><a href="../../reference/update_el_dialog.html">update_el_dialog</a></span><span class="op">(</span>id <span class="op">=</span> <span class="st">"full"</span>, visible <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="op">}</span></span>
@@ -419,8 +513,15 @@ is added, which can be penetrable.</p>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/el_page.html">el_page</a></span><span class="op">(</span></span>
 <span>  <span class="fu"><a href="../../reference/el_button.html">el_button</a></span><span class="op">(</span><span class="st">"open"</span>, <span class="st">"Open the modal-less Dialog"</span>, plain <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,</span>
-<span>  <span class="fu"><a href="../../reference/el_dialog.html">el_dialog</a></span><span class="op">(</span><span class="st">"nomodal"</span>, title <span class="op">=</span> <span class="st">"Tips"</span>, width <span class="op">=</span> <span class="st">"500px"</span>, modal <span class="op">=</span> <span class="cn">FALSE</span>, modal_penetrable <span class="op">=</span> <span class="cn">TRUE</span>,</span>
-<span>            content <span class="op">=</span> <span class="st">"It's a modal-less Dialog"</span><span class="op">)</span><span class="op">)</span></span>
+<span>  <span class="fu"><a href="../../reference/el_dialog.html">el_dialog</a></span><span class="op">(</span></span>
+<span>    <span class="st">"nomodal"</span>,</span>
+<span>    title <span class="op">=</span> <span class="st">"Tips"</span>,</span>
+<span>    width <span class="op">=</span> <span class="st">"500px"</span>,</span>
+<span>    modal <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>    modal_penetrable <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>    content <span class="op">=</span> <span class="st">"It's a modal-less Dialog"</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">)</span></span>
 <span><span class="va">server</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span>, <span class="va">session</span><span class="op">)</span> <span class="op">{</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/observeEvent.html" class="external-link">observeEvent</a></span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">open</span>, <span class="fu"><a href="../../reference/update_el_dialog.html">update_el_dialog</a></span><span class="op">(</span>id <span class="op">=</span> <span class="st">"nomodal"</span>, visible <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="op">}</span></span>
@@ -444,8 +545,14 @@ Plus’s does.</p>
 <code class="sourceCode R"><span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/el_page.html">el_page</a></span><span class="op">(</span></span>
 <span>  <span class="va">tags</span><span class="op">$</span><span class="fu">style</span><span class="op">(</span><span class="st">".dialog-bounce-enter-active { animation: dialog-fade-in .5s; }"</span><span class="op">)</span>,</span>
 <span>  <span class="fu"><a href="../../reference/el_button.html">el_button</a></span><span class="op">(</span><span class="st">"open"</span>, <span class="st">"Open the Dialog"</span>, plain <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,</span>
-<span>  <span class="fu"><a href="../../reference/el_dialog.html">el_dialog</a></span><span class="op">(</span><span class="st">"anim"</span>, title <span class="op">=</span> <span class="st">"Custom animation"</span>, width <span class="op">=</span> <span class="st">"500px"</span>, transition <span class="op">=</span> <span class="st">"dialog-bounce"</span>,</span>
-<span>            content <span class="op">=</span> <span class="st">"This dialog plays an animation of its own."</span><span class="op">)</span><span class="op">)</span></span>
+<span>  <span class="fu"><a href="../../reference/el_dialog.html">el_dialog</a></span><span class="op">(</span></span>
+<span>    <span class="st">"anim"</span>,</span>
+<span>    title <span class="op">=</span> <span class="st">"Custom animation"</span>,</span>
+<span>    width <span class="op">=</span> <span class="st">"500px"</span>,</span>
+<span>    transition <span class="op">=</span> <span class="st">"dialog-bounce"</span>,</span>
+<span>    content <span class="op">=</span> <span class="st">"This dialog plays an animation of its own."</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">)</span></span>
 <span><span class="va">server</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span>, <span class="va">session</span><span class="op">)</span> <span class="op">{</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/observeEvent.html" class="external-link">observeEvent</a></span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">open</span>, <span class="fu"><a href="../../reference/update_el_dialog.html">update_el_dialog</a></span><span class="op">(</span>id <span class="op">=</span> <span class="st">"anim"</span>, visible <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="op">}</span></span>
@@ -469,13 +576,21 @@ events.</p>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/el_page.html">el_page</a></span><span class="op">(</span></span>
 <span>  <span class="fu"><a href="../../reference/el_button.html">el_button</a></span><span class="op">(</span><span class="st">"open"</span>, <span class="st">"Open the Dialog"</span>, plain <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,</span>
-<span>  <span class="fu"><a href="../../reference/el_dialog.html">el_dialog</a></span><span class="op">(</span><span class="st">"ev"</span>, title <span class="op">=</span> <span class="st">"Events"</span>, width <span class="op">=</span> <span class="st">"500px"</span>, content <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/textOutput.html" class="external-link">verbatimTextOutput</a></span><span class="op">(</span><span class="st">"log"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
+<span>  <span class="fu"><a href="../../reference/el_dialog.html">el_dialog</a></span><span class="op">(</span></span>
+<span>    <span class="st">"ev"</span>,</span>
+<span>    title <span class="op">=</span> <span class="st">"Events"</span>,</span>
+<span>    width <span class="op">=</span> <span class="st">"500px"</span>,</span>
+<span>    content <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/textOutput.html" class="external-link">verbatimTextOutput</a></span><span class="op">(</span><span class="st">"log"</span><span class="op">)</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">)</span></span>
 <span><span class="va">server</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span>, <span class="va">session</span><span class="op">)</span> <span class="op">{</span></span>
 <span>  <span class="va">seen</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/reactiveVal.html" class="external-link">reactiveVal</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/character.html" class="external-link">character</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
-<span>  <span class="kw">for</span> <span class="op">(</span><span class="va">e</span> <span class="kw">in</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"open"</span>, <span class="st">"opened"</span>, <span class="st">"close"</span>, <span class="st">"closed"</span><span class="op">)</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/base/eval.html" class="external-link">local</a></span><span class="op">(</span><span class="op">{</span></span>
-<span>    <span class="va">e</span> <span class="op">&lt;-</span> <span class="va">e</span></span>
-<span>    <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/observeEvent.html" class="external-link">observeEvent</a></span><span class="op">(</span><span class="va">input</span><span class="op">[[</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="st">"ev_"</span>, <span class="va">e</span><span class="op">)</span><span class="op">]</span><span class="op">]</span>, <span class="fu">seen</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fu">seen</span><span class="op">(</span><span class="op">)</span>, <span class="va">e</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
-<span>  <span class="op">}</span><span class="op">)</span></span>
+<span>  <span class="kw">for</span> <span class="op">(</span><span class="va">e</span> <span class="kw">in</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"open"</span>, <span class="st">"opened"</span>, <span class="st">"close"</span>, <span class="st">"closed"</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/eval.html" class="external-link">local</a></span><span class="op">(</span><span class="op">{</span></span>
+<span>      <span class="va">e</span> <span class="op">&lt;-</span> <span class="va">e</span></span>
+<span>      <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/observeEvent.html" class="external-link">observeEvent</a></span><span class="op">(</span><span class="va">input</span><span class="op">[[</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="st">"ev_"</span>, <span class="va">e</span><span class="op">)</span><span class="op">]</span><span class="op">]</span>, <span class="fu">seen</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fu">seen</span><span class="op">(</span><span class="op">)</span>, <span class="va">e</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
+<span>    <span class="op">}</span><span class="op">)</span></span>
+<span>  <span class="op">}</span></span>
 <span>  <span class="va">output</span><span class="op">$</span><span class="va">log</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/renderPrint.html" class="external-link">renderText</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="fu">seen</span><span class="op">(</span><span class="op">)</span>, collapse <span class="op">=</span> <span class="st">"\n"</span><span class="op">)</span><span class="op">)</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/observeEvent.html" class="external-link">observeEvent</a></span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">open</span>, <span class="fu"><a href="../../reference/update_el_dialog.html">update_el_dialog</a></span><span class="op">(</span>id <span class="op">=</span> <span class="st">"ev"</span>, visible <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="op">}</span></span>

@@ -206,7 +206,12 @@ component where there is not. Hiding or removing a component by its id
 takes its label with it.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/el_input.html">el_input</a></span><span class="op">(</span><span class="st">"name"</span>, label <span class="op">=</span> <span class="st">"Name"</span>, placeholder <span class="op">=</span> <span class="st">"Ada Lovelace"</span>, width <span class="op">=</span> <span class="st">"300px"</span><span class="op">)</span></span>
-<span><span class="fu"><a href="../reference/el_select.html">el_select</a></span><span class="op">(</span><span class="st">"city"</span>, choices <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Beijing"</span>, <span class="st">"Shanghai"</span><span class="op">)</span>, label <span class="op">=</span> <span class="st">"City"</span>, width <span class="op">=</span> <span class="st">"300px"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="../reference/el_select.html">el_select</a></span><span class="op">(</span></span>
+<span>  <span class="st">"city"</span>,</span>
+<span>  choices <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Beijing"</span>, <span class="st">"Shanghai"</span><span class="op">)</span>,</span>
+<span>  label <span class="op">=</span> <span class="st">"City"</span>,</span>
+<span>  width <span class="op">=</span> <span class="st">"300px"</span></span>
+<span><span class="op">)</span></span>
 <span><span class="fu"><a href="../reference/el_switch.html">el_switch</a></span><span class="op">(</span><span class="st">"notify"</span>, label <span class="op">=</span> <span class="st">"Email me"</span>, label_position <span class="op">=</span> <span class="st">"left"</span>, value <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
 <span><span class="fu"><a href="../reference/el_rate.html">el_rate</a></span><span class="op">(</span><span class="st">"stars"</span>, label <span class="op">=</span> <span class="st">"Rating"</span>, label_position <span class="op">=</span> <span class="st">"left"</span>, value <span class="op">=</span> <span class="fl">4</span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
@@ -259,17 +264,45 @@ frames the component in red with the message under it, or beside it with
 keeps the frame and drops the text. A component’s own <code>size</code>
 sizes its label too.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/el_input.html">el_input</a></span><span class="op">(</span><span class="st">"user"</span>, label <span class="op">=</span> <span class="st">"Name"</span>, label_position <span class="op">=</span> <span class="st">"right"</span>, label_width <span class="op">=</span> <span class="st">"90px"</span>,</span>
-<span>         label_suffix <span class="op">=</span> <span class="st">":"</span>, required <span class="op">=</span> <span class="cn">TRUE</span>, width <span class="op">=</span> <span class="st">"260px"</span><span class="op">)</span></span>
-<span><span class="fu"><a href="../reference/el_input.html">el_input</a></span><span class="op">(</span><span class="st">"email"</span>, label <span class="op">=</span> <span class="st">"Email"</span>, label_position <span class="op">=</span> <span class="st">"right"</span>, label_width <span class="op">=</span> <span class="st">"90px"</span>,</span>
-<span>         label_suffix <span class="op">=</span> <span class="st">":"</span>, required <span class="op">=</span> <span class="cn">TRUE</span>, error <span class="op">=</span> <span class="st">"That address is taken"</span>,</span>
-<span>         width <span class="op">=</span> <span class="st">"260px"</span><span class="op">)</span></span>
-<span><span class="fu"><a href="../reference/el_input_number.html">el_input_number</a></span><span class="op">(</span><span class="st">"seats"</span>, label <span class="op">=</span> <span class="st">"Seats"</span>, label_position <span class="op">=</span> <span class="st">"right"</span>,</span>
-<span>                 label_width <span class="op">=</span> <span class="st">"90px"</span>, label_suffix <span class="op">=</span> <span class="st">":"</span>, value <span class="op">=</span> <span class="fl">0</span>,</span>
-<span>                 error <span class="op">=</span> <span class="st">"At least one"</span>, inline_message <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
-<span><span class="fu"><a href="../reference/el_select.html">el_select</a></span><span class="op">(</span><span class="st">"team"</span>, choices <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Data"</span>, <span class="st">"Design"</span><span class="op">)</span>, label <span class="op">=</span> <span class="st">"Team"</span>,</span>
-<span>          label_position <span class="op">=</span> <span class="st">"right"</span>, label_width <span class="op">=</span> <span class="st">"90px"</span>, label_suffix <span class="op">=</span> <span class="st">":"</span>,</span>
-<span>          size <span class="op">=</span> <span class="st">"small"</span>, width <span class="op">=</span> <span class="st">"260px"</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/el_input.html">el_input</a></span><span class="op">(</span></span>
+<span>  <span class="st">"user"</span>,</span>
+<span>  label <span class="op">=</span> <span class="st">"Name"</span>,</span>
+<span>  label_position <span class="op">=</span> <span class="st">"right"</span>,</span>
+<span>  label_width <span class="op">=</span> <span class="st">"90px"</span>,</span>
+<span>  label_suffix <span class="op">=</span> <span class="st">":"</span>,</span>
+<span>  required <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  width <span class="op">=</span> <span class="st">"260px"</span></span>
+<span><span class="op">)</span></span>
+<span><span class="fu"><a href="../reference/el_input.html">el_input</a></span><span class="op">(</span></span>
+<span>  <span class="st">"email"</span>,</span>
+<span>  label <span class="op">=</span> <span class="st">"Email"</span>,</span>
+<span>  label_position <span class="op">=</span> <span class="st">"right"</span>,</span>
+<span>  label_width <span class="op">=</span> <span class="st">"90px"</span>,</span>
+<span>  label_suffix <span class="op">=</span> <span class="st">":"</span>,</span>
+<span>  required <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  error <span class="op">=</span> <span class="st">"That address is taken"</span>,</span>
+<span>  width <span class="op">=</span> <span class="st">"260px"</span></span>
+<span><span class="op">)</span></span>
+<span><span class="fu"><a href="../reference/el_input_number.html">el_input_number</a></span><span class="op">(</span></span>
+<span>  <span class="st">"seats"</span>,</span>
+<span>  label <span class="op">=</span> <span class="st">"Seats"</span>,</span>
+<span>  label_position <span class="op">=</span> <span class="st">"right"</span>,</span>
+<span>  label_width <span class="op">=</span> <span class="st">"90px"</span>,</span>
+<span>  label_suffix <span class="op">=</span> <span class="st">":"</span>,</span>
+<span>  value <span class="op">=</span> <span class="fl">0</span>,</span>
+<span>  error <span class="op">=</span> <span class="st">"At least one"</span>,</span>
+<span>  inline_message <span class="op">=</span> <span class="cn">TRUE</span></span>
+<span><span class="op">)</span></span>
+<span><span class="fu"><a href="../reference/el_select.html">el_select</a></span><span class="op">(</span></span>
+<span>  <span class="st">"team"</span>,</span>
+<span>  choices <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Data"</span>, <span class="st">"Design"</span><span class="op">)</span>,</span>
+<span>  label <span class="op">=</span> <span class="st">"Team"</span>,</span>
+<span>  label_position <span class="op">=</span> <span class="st">"right"</span>,</span>
+<span>  label_width <span class="op">=</span> <span class="st">"90px"</span>,</span>
+<span>  label_suffix <span class="op">=</span> <span class="st">":"</span>,</span>
+<span>  size <span class="op">=</span> <span class="st">"small"</span>,</span>
+<span>  width <span class="op">=</span> <span class="st">"260px"</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
   <div id="form-item-user" data-shiny-vue style="display: contents">
     <script type="text/x-template" data-shiny-vue-template><div id="form-item-user_container" class="el-form-item el-form-item--label-right is-required" :class="(size || ($ELEMENT &amp;&amp; $ELEMENT.size)) ? &#39;el-form-item--&#39; + (size || ($ELEMENT &amp;&amp; $ELEMENT.size)) : &#39;&#39;" style="display: flex; align-items: flex-start; margin-bottom: 15px">
@@ -322,8 +355,10 @@ whether a name is taken. <code>""</code> clears it.</p>
 <span></span>
 <span><span class="va">server</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span>, <span class="va">session</span><span class="op">)</span> <span class="op">{</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/observeEvent.html" class="external-link">observeEvent</a></span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">user</span>, <span class="op">{</span></span>
-<span>    <span class="fu"><a href="../reference/update_el_input.html">update_el_input</a></span><span class="op">(</span>id <span class="op">=</span> <span class="st">"user"</span>,</span>
-<span>                    error <span class="op">=</span> <span class="kw">if</span> <span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">user</span> <span class="op"><a href="https://rdrr.io/r/base/match.html" class="external-link">%in%</a></span> <span class="va">taken</span><span class="op">)</span> <span class="st">"That name is taken"</span> <span class="kw">else</span> <span class="st">""</span><span class="op">)</span></span>
+<span>    <span class="fu"><a href="../reference/update_el_input.html">update_el_input</a></span><span class="op">(</span></span>
+<span>      id <span class="op">=</span> <span class="st">"user"</span>,</span>
+<span>      error <span class="op">=</span> <span class="kw">if</span> <span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">user</span> <span class="op"><a href="https://rdrr.io/r/base/match.html" class="external-link">%in%</a></span> <span class="va">taken</span><span class="op">)</span> <span class="st">"That name is taken"</span> <span class="kw">else</span> <span class="st">""</span></span>
+<span>    <span class="op">)</span></span>
 <span>  <span class="op">}</span><span class="op">)</span></span>
 <span><span class="op">}</span></span>
 <span></span>
@@ -344,10 +379,14 @@ carries props of its own.</p>
 <span></span>
 <span><span class="fu"><a href="../reference/el_select.html">el_select</a></span><span class="op">(</span><span class="st">"named"</span>, choices <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>Beijing <span class="op">=</span> <span class="st">"bj"</span>, Shanghai <span class="op">=</span> <span class="st">"sh"</span><span class="op">)</span>, value <span class="op">=</span> <span class="st">"sh"</span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu"><a href="../reference/el_select.html">el_select</a></span><span class="op">(</span><span class="st">"objects"</span>, value <span class="op">=</span> <span class="st">"sh"</span>, choices <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>value <span class="op">=</span> <span class="st">"bj"</span>, label <span class="op">=</span> <span class="st">"Beijing (full)"</span>, disabled <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,</span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>value <span class="op">=</span> <span class="st">"sh"</span>, label <span class="op">=</span> <span class="st">"Shanghai"</span><span class="op">)</span></span>
-<span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu"><a href="../reference/el_select.html">el_select</a></span><span class="op">(</span></span>
+<span>  <span class="st">"objects"</span>,</span>
+<span>  value <span class="op">=</span> <span class="st">"sh"</span>,</span>
+<span>  choices <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>value <span class="op">=</span> <span class="st">"bj"</span>, label <span class="op">=</span> <span class="st">"Beijing (full)"</span>, disabled <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,</span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>value <span class="op">=</span> <span class="st">"sh"</span>, label <span class="op">=</span> <span class="st">"Shanghai"</span><span class="op">)</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
   <div id="choices-plain" data-shiny-vue style="display: contents">
     <script type="text/x-template" data-shiny-vue-template><div id="choices-plain_container" style="display: contents">
@@ -385,13 +424,22 @@ template”. <code>option_template</code> is markup inside each option,
 with the option in reach as <code>opt</code> and any field its choice
 carries:</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/el_select.html">el_select</a></span><span class="op">(</span><span class="st">"airport"</span>, width <span class="op">=</span> <span class="st">"240px"</span>, choices <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>value <span class="op">=</span> <span class="st">"pek"</span>, label <span class="op">=</span> <span class="st">"Beijing"</span>, code <span class="op">=</span> <span class="st">"PEK"</span><span class="op">)</span>,</span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>value <span class="op">=</span> <span class="st">"sha"</span>, label <span class="op">=</span> <span class="st">"Shanghai"</span>, code <span class="op">=</span> <span class="st">"SHA"</span><span class="op">)</span>,</span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>value <span class="op">=</span> <span class="st">"ctu"</span>, label <span class="op">=</span> <span class="st">"Chengdu"</span>, code <span class="op">=</span> <span class="st">"CTU"</span><span class="op">)</span><span class="op">)</span>,</span>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/el_select.html">el_select</a></span><span class="op">(</span></span>
+<span>  <span class="st">"airport"</span>,</span>
+<span>  width <span class="op">=</span> <span class="st">"240px"</span>,</span>
+<span>  choices <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>value <span class="op">=</span> <span class="st">"pek"</span>, label <span class="op">=</span> <span class="st">"Beijing"</span>, code <span class="op">=</span> <span class="st">"PEK"</span><span class="op">)</span>,</span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>value <span class="op">=</span> <span class="st">"sha"</span>, label <span class="op">=</span> <span class="st">"Shanghai"</span>, code <span class="op">=</span> <span class="st">"SHA"</span><span class="op">)</span>,</span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>value <span class="op">=</span> <span class="st">"ctu"</span>, label <span class="op">=</span> <span class="st">"Chengdu"</span>, code <span class="op">=</span> <span class="st">"CTU"</span><span class="op">)</span></span>
+<span>  <span class="op">)</span>,</span>
 <span>  option_template <span class="op">=</span> <span class="fu"><a href="https://rstudio.github.io/htmltools/reference/tagList.html" class="external-link">tagList</a></span><span class="op">(</span></span>
 <span>    <span class="va">tags</span><span class="op">$</span><span class="fu">span</span><span class="op">(</span>style <span class="op">=</span> <span class="st">"float: left"</span>, <span class="st">"{{ opt.label }}"</span><span class="op">)</span>,</span>
-<span>    <span class="va">tags</span><span class="op">$</span><span class="fu">span</span><span class="op">(</span>style <span class="op">=</span> <span class="st">"float: right; color: #8492a6; font-size: 13px"</span>, <span class="st">"{{ opt.code }}"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<span>    <span class="va">tags</span><span class="op">$</span><span class="fu">span</span><span class="op">(</span></span>
+<span>      style <span class="op">=</span> <span class="st">"float: right; color: #8492a6; font-size: 13px"</span>,</span>
+<span>      <span class="st">"{{ opt.code }}"</span></span>
+<span>    <span class="op">)</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
   <div id="option-template-airport" data-shiny-vue style="display: contents">
     <script type="text/x-template" data-shiny-vue-template><div id="option-template-airport_container" style="display: contents">
@@ -414,11 +462,15 @@ carries:</p>
 <code>name</code> and <code>disabled</code> on the individual item
 rather than the group, so they go on the choice:</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/el_checkbox_group.html">el_checkbox_group</a></span><span class="op">(</span><span class="st">"terms"</span>, selected <span class="op">=</span> <span class="st">"a"</span>, choices <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>value <span class="op">=</span> <span class="st">"a"</span>, label <span class="op">=</span> <span class="st">"Agree"</span>, border <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,</span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>value <span class="op">=</span> <span class="st">"b"</span>, label <span class="op">=</span> <span class="st">"Subscribe"</span>, border <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,</span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>value <span class="op">=</span> <span class="st">"c"</span>, label <span class="op">=</span> <span class="st">"Unavailable"</span>, border <span class="op">=</span> <span class="cn">TRUE</span>, disabled <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
-<span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/el_checkbox_group.html">el_checkbox_group</a></span><span class="op">(</span></span>
+<span>  <span class="st">"terms"</span>,</span>
+<span>  selected <span class="op">=</span> <span class="st">"a"</span>,</span>
+<span>  choices <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>value <span class="op">=</span> <span class="st">"a"</span>, label <span class="op">=</span> <span class="st">"Agree"</span>, border <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,</span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>value <span class="op">=</span> <span class="st">"b"</span>, label <span class="op">=</span> <span class="st">"Subscribe"</span>, border <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,</span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>value <span class="op">=</span> <span class="st">"c"</span>, label <span class="op">=</span> <span class="st">"Unavailable"</span>, border <span class="op">=</span> <span class="cn">TRUE</span>, disabled <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
   <div id="item-props-terms" data-shiny-vue style="display: contents">
     <script type="text/x-template" data-shiny-vue-template><div id="item-props-terms_container" style="display: contents">
@@ -444,13 +496,22 @@ form was submitted empty:</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/el_page.html">el_page</a></span><span class="op">(</span></span>
 <span>  <span class="fu"><a href="../reference/el_form.html">el_form</a></span><span class="op">(</span></span>
-<span>    id <span class="op">=</span> <span class="st">"signup"</span>, label_width <span class="op">=</span> <span class="st">"90px"</span>,</span>
-<span>    <span class="fu"><a href="../reference/el_form_field.html">el_form_field</a></span><span class="op">(</span><span class="st">"name"</span>, <span class="st">"input"</span>, label <span class="op">=</span> <span class="st">"Name"</span>,</span>
-<span>                  rules <span class="op">=</span> <span class="fu"><a href="../reference/el_rule.html">el_rule</a></span><span class="op">(</span>required <span class="op">=</span> <span class="cn">TRUE</span>, message <span class="op">=</span> <span class="st">"Name is required"</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>    id <span class="op">=</span> <span class="st">"signup"</span>,</span>
+<span>    label_width <span class="op">=</span> <span class="st">"90px"</span>,</span>
+<span>    <span class="fu"><a href="../reference/el_form_field.html">el_form_field</a></span><span class="op">(</span></span>
+<span>      <span class="st">"name"</span>,</span>
+<span>      <span class="st">"input"</span>,</span>
+<span>      label <span class="op">=</span> <span class="st">"Name"</span>,</span>
+<span>      rules <span class="op">=</span> <span class="fu"><a href="../reference/el_rule.html">el_rule</a></span><span class="op">(</span>required <span class="op">=</span> <span class="cn">TRUE</span>, message <span class="op">=</span> <span class="st">"Name is required"</span><span class="op">)</span></span>
+<span>    <span class="op">)</span>,</span>
 <span>    <span class="fu"><a href="../reference/el_form_field.html">el_form_field</a></span><span class="op">(</span><span class="st">"age"</span>, <span class="st">"input-number"</span>, label <span class="op">=</span> <span class="st">"Age"</span>, value <span class="op">=</span> <span class="fl">18</span><span class="op">)</span>,</span>
-<span>    <span class="fu"><a href="../reference/el_form_field.html">el_form_field</a></span><span class="op">(</span><span class="st">"city"</span>, <span class="st">"select"</span>, label <span class="op">=</span> <span class="st">"City"</span>,</span>
-<span>                  options <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Beijing"</span>, <span class="st">"Shanghai"</span><span class="op">)</span>,</span>
-<span>                  rules <span class="op">=</span> <span class="fu"><a href="../reference/el_rule.html">el_rule</a></span><span class="op">(</span>required <span class="op">=</span> <span class="cn">TRUE</span>, message <span class="op">=</span> <span class="st">"Pick a city"</span><span class="op">)</span><span class="op">)</span></span>
+<span>    <span class="fu"><a href="../reference/el_form_field.html">el_form_field</a></span><span class="op">(</span></span>
+<span>      <span class="st">"city"</span>,</span>
+<span>      <span class="st">"select"</span>,</span>
+<span>      label <span class="op">=</span> <span class="st">"City"</span>,</span>
+<span>      options <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Beijing"</span>, <span class="st">"Shanghai"</span><span class="op">)</span>,</span>
+<span>      rules <span class="op">=</span> <span class="fu"><a href="../reference/el_rule.html">el_rule</a></span><span class="op">(</span>required <span class="op">=</span> <span class="cn">TRUE</span>, message <span class="op">=</span> <span class="st">"Pick a city"</span><span class="op">)</span></span>
+<span>    <span class="op">)</span></span>
 <span>  <span class="op">)</span>,</span>
 <span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/textOutput.html" class="external-link">verbatimTextOutput</a></span><span class="op">(</span><span class="st">"result"</span><span class="op">)</span></span>
 <span><span class="op">)</span></span>
@@ -470,9 +531,14 @@ is valid and rejects when it is not; both arrive as
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/el_page.html">el_page</a></span><span class="op">(</span></span>
 <span>  <span class="fu"><a href="../reference/el_form.html">el_form</a></span><span class="op">(</span></span>
-<span>    id <span class="op">=</span> <span class="st">"profile"</span>, submit_label <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>    <span class="fu"><a href="../reference/el_form_field.html">el_form_field</a></span><span class="op">(</span><span class="st">"email"</span>, <span class="st">"input"</span>, label <span class="op">=</span> <span class="st">"Email"</span>,</span>
-<span>                  rules <span class="op">=</span> <span class="fu"><a href="../reference/el_rule.html">el_rule</a></span><span class="op">(</span>required <span class="op">=</span> <span class="cn">TRUE</span>, message <span class="op">=</span> <span class="st">"Email is required"</span><span class="op">)</span><span class="op">)</span></span>
+<span>    id <span class="op">=</span> <span class="st">"profile"</span>,</span>
+<span>    submit_label <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>    <span class="fu"><a href="../reference/el_form_field.html">el_form_field</a></span><span class="op">(</span></span>
+<span>      <span class="st">"email"</span>,</span>
+<span>      <span class="st">"input"</span>,</span>
+<span>      label <span class="op">=</span> <span class="st">"Email"</span>,</span>
+<span>      rules <span class="op">=</span> <span class="fu"><a href="../reference/el_rule.html">el_rule</a></span><span class="op">(</span>required <span class="op">=</span> <span class="cn">TRUE</span>, message <span class="op">=</span> <span class="st">"Email is required"</span><span class="op">)</span></span>
+<span>    <span class="op">)</span></span>
 <span>  <span class="op">)</span>,</span>
 <span>  <span class="fu"><a href="../reference/el_button.html">el_button</a></span><span class="op">(</span><span class="st">"check"</span>, <span class="st">"Check from the server"</span><span class="op">)</span>,</span>
 <span>  <span class="fu"><a href="../reference/el_button.html">el_button</a></span><span class="op">(</span><span class="st">"clear"</span>, <span class="st">"Clear messages"</span><span class="op">)</span>,</span>
@@ -538,8 +604,12 @@ have:</p>
 <span></span>
 <span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/el_page.html">el_page</a></span><span class="op">(</span></span>
 <span>  <span class="fu"><a href="../reference/el_input.html">el_input</a></span><span class="op">(</span><span class="st">"email"</span>, label <span class="op">=</span> <span class="st">"Email"</span>, width <span class="op">=</span> <span class="st">"300px"</span><span class="op">)</span>,</span>
-<span>  <span class="fu"><a href="../reference/el_select.html">el_select</a></span><span class="op">(</span><span class="st">"topic"</span>, choices <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Billing"</span>, <span class="st">"Support"</span><span class="op">)</span>, label <span class="op">=</span> <span class="st">"Topic"</span>,</span>
-<span>            width <span class="op">=</span> <span class="st">"300px"</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="../reference/el_select.html">el_select</a></span><span class="op">(</span></span>
+<span>    <span class="st">"topic"</span>,</span>
+<span>    choices <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Billing"</span>, <span class="st">"Support"</span><span class="op">)</span>,</span>
+<span>    label <span class="op">=</span> <span class="st">"Topic"</span>,</span>
+<span>    width <span class="op">=</span> <span class="st">"300px"</span></span>
+<span>  <span class="op">)</span>,</span>
 <span>  <span class="fu"><a href="../reference/el_button.html">el_button</a></span><span class="op">(</span><span class="st">"send"</span>, <span class="st">"Send"</span>, type <span class="op">=</span> <span class="st">"primary"</span><span class="op">)</span></span>
 <span><span class="op">)</span></span>
 <span></span>
@@ -567,8 +637,11 @@ the text the picker produces, in that format, unconverted.</p>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/el_page.html">el_page</a></span><span class="op">(</span></span>
 <span>  <span class="fu"><a href="../reference/el_date_picker.html">el_date_picker</a></span><span class="op">(</span><span class="st">"due"</span>, value <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Sys.time.html" class="external-link">Sys.Date</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span>,</span>
-<span>  <span class="fu"><a href="../reference/el_date_picker.html">el_date_picker</a></span><span class="op">(</span><span class="st">"trip"</span>, type <span class="op">=</span> <span class="st">"daterange"</span>,</span>
-<span>                 value <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Sys.time.html" class="external-link">Sys.Date</a></span><span class="op">(</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/Sys.time.html" class="external-link">Sys.Date</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> <span class="fl">7</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="../reference/el_date_picker.html">el_date_picker</a></span><span class="op">(</span></span>
+<span>    <span class="st">"trip"</span>,</span>
+<span>    type <span class="op">=</span> <span class="st">"daterange"</span>,</span>
+<span>    value <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Sys.time.html" class="external-link">Sys.Date</a></span><span class="op">(</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/Sys.time.html" class="external-link">Sys.Date</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> <span class="fl">7</span><span class="op">)</span></span>
+<span>  <span class="op">)</span>,</span>
 <span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/textOutput.html" class="external-link">verbatimTextOutput</a></span><span class="op">(</span><span class="st">"days"</span><span class="op">)</span></span>
 <span><span class="op">)</span></span>
 <span></span>
@@ -608,7 +681,9 @@ pause, not once per letter.</p>
 Element’s do:</p>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/el_form.html">el_form</a></span><span class="op">(</span></span>
-<span>  id <span class="op">=</span> <span class="st">"compact"</span>, label_width <span class="op">=</span> <span class="st">"80px"</span>, label_position <span class="op">=</span> <span class="st">"left"</span>,</span>
+<span>  id <span class="op">=</span> <span class="st">"compact"</span>,</span>
+<span>  label_width <span class="op">=</span> <span class="st">"80px"</span>,</span>
+<span>  label_position <span class="op">=</span> <span class="st">"left"</span>,</span>
 <span>  submit_label <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  <span class="fu"><a href="../reference/el_form_field.html">el_form_field</a></span><span class="op">(</span><span class="st">"name"</span>, <span class="st">"input"</span>, label <span class="op">=</span> <span class="st">"Name"</span><span class="op">)</span>,</span>
 <span>  <span class="fu"><a href="../reference/el_form_field.html">el_form_field</a></span><span class="op">(</span><span class="st">"team"</span>, <span class="st">"select"</span>, label <span class="op">=</span> <span class="st">"Team"</span>, options <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Data"</span>, <span class="st">"Design"</span><span class="op">)</span><span class="op">)</span></span>

@@ -241,7 +241,12 @@ Callable with
 ## Examples
 
 ``` r
-el_table_v2("big", data = data.frame(x = 1:10000, y = rnorm(10000)), width = 600, height = 400)
+el_table_v2(
+  "big",
+  data = data.frame(x = 1:10000, y = rnorm(10000)),
+  width = 600,
+  height = 400
+)
 #> <div id="big" data-shiny-vue style="display: contents">
 #>   <script type="text/x-template" data-shiny-vue-template><div id="big_container" style="display: contents">
 #>   <el-table-v2 @column-sort="elEmitColumnSort" @expanded-rows-change="elEmitExpandedRowsChange" @end-reached="elEmitEndReached" @scroll="elEmitScroll" @rows-rendered="elEmitRowsRendered" @row-expand="elEmitRowExpand" :cache="cache === null ? undefined : cache" :estimated-row-height="estimatedRowHeight === null ? undefined : estimatedRowHeight" :header-class="headerClass === null ? undefined : headerClass" :header-props="headerProps === null ? undefined : headerProps" :header-cell-props="headerCellProps === null ? undefined : headerCellProps" :header-height="headerHeight === null ? undefined : headerHeight" :footer-height="footerHeight === null ? undefined : footerHeight" :row-class="rowClass === null ? undefined : rowClass" :row-key="rowKey === null ? undefined : rowKey" :row-props="rowProps === null ? undefined : rowProps" :row-height="rowHeight === null ? undefined : rowHeight" :row-event-handlers="rowEventHandlers === null ? undefined : rowEventHandlers" :cell-props="cellProps === null ? undefined : cellProps" :columns="columns === null ? undefined : columns" :data="data === null ? undefined : data" :data-getter="dataGetter === null ? undefined : dataGetter" :fixed-data="fixedData === null ? undefined : fixedData" :expand-column-key="expandColumnKey === null ? undefined : expandColumnKey" :expanded-row-keys="expandedRowKeys === null ? undefined : expandedRowKeys" :default-expanded-row-keys="defaultExpandedRowKeys === null ? undefined : defaultExpandedRowKeys" :fixed="fixed === null ? undefined : fixed" :width="width === null ? undefined : width" :height="height === null ? undefined : height" :max-height="maxHeight === null ? undefined : maxHeight" :indent-size="indentSize === null ? undefined : indentSize" :h-scrollbar-size="hScrollbarSize === null ? undefined : hScrollbarSize" :v-scrollbar-size="vScrollbarSize === null ? undefined : vScrollbarSize" :scrollbar-always-on="scrollbarAlwaysOn === null ? undefined : scrollbarAlwaysOn" :sort-by="sortBy === null ? undefined : sortBy" :sort-state="sortState === null ? undefined : sortState" style="width: 600px"></el-table-v2>

@@ -318,8 +318,16 @@ they take Shiny’s names – and Element’s as well:</p>
 <code>update_el_*()</code>, so code reads naturally to someone coming
 from either side:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/el_select.html">el_select</a></span><span class="op">(</span><span class="st">"city_shiny"</span>, choices <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>Beijing <span class="op">=</span> <span class="st">"bj"</span>, Shanghai <span class="op">=</span> <span class="st">"sh"</span><span class="op">)</span>, selected <span class="op">=</span> <span class="st">"sh"</span><span class="op">)</span></span>
-<span><span class="fu"><a href="../reference/el_select.html">el_select</a></span><span class="op">(</span><span class="st">"city_element"</span>, options <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>Beijing <span class="op">=</span> <span class="st">"bj"</span>, Shanghai <span class="op">=</span> <span class="st">"sh"</span><span class="op">)</span>, value <span class="op">=</span> <span class="st">"sh"</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/el_select.html">el_select</a></span><span class="op">(</span></span>
+<span>  <span class="st">"city_shiny"</span>,</span>
+<span>  choices <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>Beijing <span class="op">=</span> <span class="st">"bj"</span>, Shanghai <span class="op">=</span> <span class="st">"sh"</span><span class="op">)</span>,</span>
+<span>  selected <span class="op">=</span> <span class="st">"sh"</span></span>
+<span><span class="op">)</span></span>
+<span><span class="fu"><a href="../reference/el_select.html">el_select</a></span><span class="op">(</span></span>
+<span>  <span class="st">"city_element"</span>,</span>
+<span>  options <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>Beijing <span class="op">=</span> <span class="st">"bj"</span>, Shanghai <span class="op">=</span> <span class="st">"sh"</span><span class="op">)</span>,</span>
+<span>  value <span class="op">=</span> <span class="st">"sh"</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
   <div id="two-names-city_shiny" data-shiny-vue style="display: contents">
     <script type="text/x-template" data-shiny-vue-template><div id="two-names-city_shiny_container" style="display: contents">

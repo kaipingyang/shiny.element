@@ -18,9 +18,13 @@ Basic text link
 
 ``` r
 
-tags$div(style = "display: flex; gap: 16px",
+tags$div(
+  style = "display: flex; gap: 16px",
   el_link("default", href = "https://element-plus.org", target = "_blank"),
-  lapply(c("primary", "success", "warning", "danger", "info"), function(t) el_link(t, type = t)))
+  lapply(c("primary", "success", "warning", "danger", "info"), function(t) {
+    el_link(t, type = t)
+  })
+)
 ```
 
 [default](https://element-plus.org) primary success warning danger info
@@ -31,9 +35,15 @@ Disabled state of link
 
 ``` r
 
-tags$div(style = "display: flex; gap: 16px",
-  lapply(c("default", "primary", "success", "warning", "danger", "info"), function(t)
-    el_link(t, type = t, disabled = TRUE)))
+tags$div(
+  style = "display: flex; gap: 16px",
+  lapply(
+    c("default", "primary", "success", "warning", "danger", "info"),
+    function(t) {
+      el_link(t, type = t, disabled = TRUE)
+    }
+  )
+)
 ```
 
 default primary success warning danger info
@@ -56,9 +66,13 @@ Controlling when underlines should appear
 
 ``` r
 
-tags$div(style = "display: flex; gap: 16px",
-  el_link("default"), el_link("always", underline = "always"),
-  el_link("hover", underline = "hover"), el_link("never", underline = "never"))
+tags$div(
+  style = "display: flex; gap: 16px",
+  el_link("default"),
+  el_link("always", underline = "always"),
+  el_link("hover", underline = "hover"),
+  el_link("never", underline = "never")
+)
 ```
 
 default always hover never
@@ -77,9 +91,11 @@ Link with icon
 
 ``` r
 
-tags$div(style = "display: flex; gap: 16px",
+tags$div(
+  style = "display: flex; gap: 16px",
   el_link("Edit", icon = "Edit"),
-  el_link(tagList("Check", el_icon("View", class = "el-icon--right"))))
+  el_link(tagList("Check", el_icon("View", class = "el-icon--right")))
+)
 ```
 
 Edit Check

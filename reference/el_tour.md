@@ -85,9 +85,18 @@ A Shiny UI element.
 ## Examples
 
 ``` r
-el_tour("intro", open = TRUE, steps = list(
-  list(target = "#upload", title = "Upload", description = "Put your file here."),
-  list(target = "#run", title = "Run", description = "Then press this.")))
+el_tour(
+  "intro",
+  open = TRUE,
+  steps = list(
+    list(
+      target = "#upload",
+      title = "Upload",
+      description = "Put your file here."
+    ),
+    list(target = "#run", title = "Run", description = "Then press this.")
+  )
+)
 #> <div id="intro" data-shiny-vue style="display: contents">
 #>   <script type="text/x-template" data-shiny-vue-template><div id="intro_container" style="display: contents">
 #>   <el-tour v-model="open" v-model:current="current" @close="handleClose" @change="elEmitChange" @finish="elEmitFinish" :show-arrow="showArrow === null ? undefined : showArrow" :placement="placement === null ? undefined : placement" :content-style="contentStyle === null ? undefined : contentStyle" :mask="mask === null ? undefined : mask" :gap="gap === null ? undefined : gap" :type="type === null ? undefined : type" :scroll-into-view-options="scrollIntoViewOptions === null ? undefined : scrollIntoViewOptions" :z-index="zIndex === null ? undefined : zIndex" :show-close="showClose === null ? undefined : showClose" :close-icon="closeIcon === null ? undefined : closeIcon" :close-on-press-escape="closeOnPressEscape === null ? undefined : closeOnPressEscape" :target-area-clickable="targetAreaClickable === null ? undefined : targetAreaClickable" :append-to="appendTo === null ? undefined : appendTo">

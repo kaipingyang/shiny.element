@@ -193,8 +193,13 @@
 </h2>
 <p>The most basic usage.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_mention.html">el_mention</a></span><span class="op">(</span><span class="st">"mention"</span>, value <span class="op">=</span> <span class="st">"@"</span>, width <span class="op">=</span> <span class="st">"320px"</span>, placeholder <span class="op">=</span> <span class="st">"Please input"</span>,</span>
-<span>           options <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Fuphoenixes"</span>, <span class="st">"kooriookami"</span>, <span class="st">"Jeremy"</span>, <span class="st">"btea"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_mention.html">el_mention</a></span><span class="op">(</span></span>
+<span>  <span class="st">"mention"</span>,</span>
+<span>  value <span class="op">=</span> <span class="st">"@"</span>,</span>
+<span>  width <span class="op">=</span> <span class="st">"320px"</span>,</span>
+<span>  placeholder <span class="op">=</span> <span class="st">"Please input"</span>,</span>
+<span>  options <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Fuphoenixes"</span>, <span class="st">"kooriookami"</span>, <span class="st">"Jeremy"</span>, <span class="st">"btea"</span><span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
   <div id="basic-mention" data-shiny-vue style="display: contents">
     <script type="text/x-template" data-shiny-vue-template><div id="basic-mention_container" style="display: contents">
@@ -209,10 +214,18 @@
 <p>You can customize the alias of the <code>options</code> through the
 <code>props</code> attribute.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_mention.html">el_mention</a></span><span class="op">(</span><span class="st">"mention_props"</span>, value <span class="op">=</span> <span class="st">"@"</span>, width <span class="op">=</span> <span class="st">"320px"</span>, placeholder <span class="op">=</span> <span class="st">"Please input"</span>,</span>
-<span>           props <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>label <span class="op">=</span> <span class="st">"name"</span>, value <span class="op">=</span> <span class="st">"id"</span>, disabled <span class="op">=</span> <span class="st">"unable"</span><span class="op">)</span>,</span>
-<span>           options <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">"Fuphoenixes"</span>, id <span class="op">=</span> <span class="st">"1"</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">"kooriookami"</span>, id <span class="op">=</span> <span class="st">"2"</span><span class="op">)</span>,</span>
-<span>                          <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">"Jeremy"</span>, id <span class="op">=</span> <span class="st">"3"</span>, unable <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_mention.html">el_mention</a></span><span class="op">(</span></span>
+<span>  <span class="st">"mention_props"</span>,</span>
+<span>  value <span class="op">=</span> <span class="st">"@"</span>,</span>
+<span>  width <span class="op">=</span> <span class="st">"320px"</span>,</span>
+<span>  placeholder <span class="op">=</span> <span class="st">"Please input"</span>,</span>
+<span>  props <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>label <span class="op">=</span> <span class="st">"name"</span>, value <span class="op">=</span> <span class="st">"id"</span>, disabled <span class="op">=</span> <span class="st">"unable"</span><span class="op">)</span>,</span>
+<span>  options <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">"Fuphoenixes"</span>, id <span class="op">=</span> <span class="st">"1"</span><span class="op">)</span>,</span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">"kooriookami"</span>, id <span class="op">=</span> <span class="st">"2"</span><span class="op">)</span>,</span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">"Jeremy"</span>, id <span class="op">=</span> <span class="st">"3"</span>, unable <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
   <div id="props-mention_props" data-shiny-vue style="display: contents">
     <script type="text/x-template" data-shiny-vue-template><div id="props-mention_props_container" style="display: contents">
@@ -226,8 +239,13 @@
 </h2>
 <p>The input type can be set to <code>textarea</code>.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_mention.html">el_mention</a></span><span class="op">(</span><span class="st">"mention_area"</span>, type <span class="op">=</span> <span class="st">"textarea"</span>, width <span class="op">=</span> <span class="st">"320px"</span>, placeholder <span class="op">=</span> <span class="st">"Please input"</span>,</span>
-<span>           options <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Fuphoenixes"</span>, <span class="st">"kooriookami"</span>, <span class="st">"Jeremy"</span>, <span class="st">"btea"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_mention.html">el_mention</a></span><span class="op">(</span></span>
+<span>  <span class="st">"mention_area"</span>,</span>
+<span>  type <span class="op">=</span> <span class="st">"textarea"</span>,</span>
+<span>  width <span class="op">=</span> <span class="st">"320px"</span>,</span>
+<span>  placeholder <span class="op">=</span> <span class="st">"Please input"</span>,</span>
+<span>  options <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Fuphoenixes"</span>, <span class="st">"kooriookami"</span>, <span class="st">"Jeremy"</span>, <span class="st">"btea"</span><span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
   <div id="textarea-mention_area" data-shiny-vue style="display: contents">
     <script type="text/x-template" data-shiny-vue-template><div id="textarea-mention_area_container" style="display: contents">
@@ -241,11 +259,21 @@
 </h2>
 <p>Customize label by <code>label</code> slot.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_mention.html">el_mention</a></span><span class="op">(</span><span class="st">"mention_label"</span>, width <span class="op">=</span> <span class="st">"320px"</span>, placeholder <span class="op">=</span> <span class="st">"Please input"</span>,</span>
+<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_mention.html">el_mention</a></span><span class="op">(</span></span>
+<span>  <span class="st">"mention_label"</span>,</span>
+<span>  width <span class="op">=</span> <span class="st">"320px"</span>,</span>
+<span>  placeholder <span class="op">=</span> <span class="st">"Please input"</span>,</span>
 <span>  options <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Fuphoenixes"</span>, <span class="st">"kooriookami"</span>, <span class="st">"Jeremy"</span>, <span class="st">"btea"</span><span class="op">)</span>,</span>
-<span>  slots <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>label <span class="op">=</span> <span class="fu"><a href="../../reference/template.html">template</a></span><span class="op">(</span><span class="fu">htmltools</span><span class="fu">::</span><span class="fu"><a href="https://rstudio.github.io/htmltools/reference/HTML.html" class="external-link">HTML</a></span><span class="op">(</span></span>
-<span>    <span class="st">"&lt;div style=\"display: flex; align-items: center\"&gt;&lt;el-avatar :size=\"24\" style=\"margin-right: 8px\"&gt;{{ item.label.charAt(0) }}&lt;/el-avatar&gt;&lt;span&gt;{{ item.label }}&lt;/span&gt;&lt;/div&gt;"</span><span class="op">)</span>,</span>
-<span>    slot <span class="op">=</span> <span class="st">"label"</span>, scope <span class="op">=</span> <span class="st">"{ item }"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<span>  slots <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>    label <span class="op">=</span> <span class="fu"><a href="../../reference/template.html">template</a></span><span class="op">(</span></span>
+<span>      <span class="fu">htmltools</span><span class="fu">::</span><span class="fu"><a href="https://rstudio.github.io/htmltools/reference/HTML.html" class="external-link">HTML</a></span><span class="op">(</span></span>
+<span>        <span class="st">"&lt;div style=\"display: flex; align-items: center\"&gt;&lt;el-avatar :size=\"24\" style=\"margin-right: 8px\"&gt;{{ item.label.charAt(0) }}&lt;/el-avatar&gt;&lt;span&gt;{{ item.label }}&lt;/span&gt;&lt;/div&gt;"</span></span>
+<span>      <span class="op">)</span>,</span>
+<span>      slot <span class="op">=</span> <span class="st">"label"</span>,</span>
+<span>      scope <span class="op">=</span> <span class="st">"{ item }"</span></span>
+<span>    <span class="op">)</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
   <div id="label-mention_label" data-shiny-vue style="display: contents">
     <script type="text/x-template" data-shiny-vue-template><div id="label-mention_label_container" style="display: contents">
@@ -262,7 +290,12 @@
 as it is typed; the server answers with <code><a href="../../reference/update_el_mention.html">update_el_mention()</a></code>
 and <code>loading</code>.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_mention.html">el_mention</a></span><span class="op">(</span><span class="st">"mention_load"</span>, width <span class="op">=</span> <span class="st">"320px"</span>, placeholder <span class="op">=</span> <span class="st">"Please input"</span>, loading <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_mention.html">el_mention</a></span><span class="op">(</span></span>
+<span>  <span class="st">"mention_load"</span>,</span>
+<span>  width <span class="op">=</span> <span class="st">"320px"</span>,</span>
+<span>  placeholder <span class="op">=</span> <span class="st">"Please input"</span>,</span>
+<span>  loading <span class="op">=</span> <span class="cn">TRUE</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
   <div id="loading-mention_load" data-shiny-vue style="display: contents">
     <script type="text/x-template" data-shiny-vue-template><div id="loading-mention_load_container" style="display: contents">
@@ -277,8 +310,13 @@ and <code>loading</code>.</p>
 <p>Customize trigger token by <code>prefix</code> props. Default to
 <code>@</code>, <code>Array&lt;string&gt;</code> also supported.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_mention.html">el_mention</a></span><span class="op">(</span><span class="st">"mention_prefix"</span>, width <span class="op">=</span> <span class="st">"320px"</span>, placeholder <span class="op">=</span> <span class="st">"Please input"</span>,</span>
-<span>           prefix <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"@"</span>, <span class="st">"#"</span><span class="op">)</span>, options <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Fuphoenixes"</span>, <span class="st">"kooriookami"</span>, <span class="st">"Jeremy"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_mention.html">el_mention</a></span><span class="op">(</span></span>
+<span>  <span class="st">"mention_prefix"</span>,</span>
+<span>  width <span class="op">=</span> <span class="st">"320px"</span>,</span>
+<span>  placeholder <span class="op">=</span> <span class="st">"Please input"</span>,</span>
+<span>  prefix <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"@"</span>, <span class="st">"#"</span><span class="op">)</span>,</span>
+<span>  options <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Fuphoenixes"</span>, <span class="st">"kooriookami"</span>, <span class="st">"Jeremy"</span><span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
   <div id="prefix-mention_prefix" data-shiny-vue style="display: contents">
     <script type="text/x-template" data-shiny-vue-template><div id="prefix-mention_prefix_container" style="display: contents">
@@ -295,8 +333,13 @@ you press the backspace, the mention will be deleted as a whole. Set the
 <code>check-is-whole</code> attribute to customize the checking
 logic.</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_mention.html">el_mention</a></span><span class="op">(</span><span class="st">"mention_whole"</span>, value <span class="op">=</span> <span class="st">"@Fuphoenixes "</span>, whole <span class="op">=</span> <span class="cn">TRUE</span>, width <span class="op">=</span> <span class="st">"320px"</span>,</span>
-<span>           options <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Fuphoenixes"</span>, <span class="st">"kooriookami"</span>, <span class="st">"Jeremy"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_mention.html">el_mention</a></span><span class="op">(</span></span>
+<span>  <span class="st">"mention_whole"</span>,</span>
+<span>  value <span class="op">=</span> <span class="st">"@Fuphoenixes "</span>,</span>
+<span>  whole <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  width <span class="op">=</span> <span class="st">"320px"</span>,</span>
+<span>  options <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Fuphoenixes"</span>, <span class="st">"kooriookami"</span>, <span class="st">"Jeremy"</span><span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
   <div id="whole-mention_whole" data-shiny-vue style="display: contents">
     <script type="text/x-template" data-shiny-vue-template><div id="whole-mention_whole_container" style="display: contents">
@@ -310,9 +353,18 @@ logic.</p>
 </h2>
 <p>to work with <code>el-form</code>.</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_form.html">el_form</a></span><span class="op">(</span>id <span class="op">=</span> <span class="st">"mention_form"</span>, submit_label <span class="op">=</span> <span class="st">"Submit"</span>, label_width <span class="op">=</span> <span class="st">"auto"</span>, width <span class="op">=</span> <span class="st">"480px"</span>,</span>
-<span>  <span class="fu"><a href="../../reference/el_form_field.html">el_form_field</a></span><span class="op">(</span><span class="st">"message"</span>, <span class="st">"input"</span>, label <span class="op">=</span> <span class="st">"Message"</span>,</span>
-<span>                rules <span class="op">=</span> <span class="fu"><a href="../../reference/el_rule.html">el_rule</a></span><span class="op">(</span>required <span class="op">=</span> <span class="cn">TRUE</span>, message <span class="op">=</span> <span class="st">"Please input a message"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_form.html">el_form</a></span><span class="op">(</span></span>
+<span>  id <span class="op">=</span> <span class="st">"mention_form"</span>,</span>
+<span>  submit_label <span class="op">=</span> <span class="st">"Submit"</span>,</span>
+<span>  label_width <span class="op">=</span> <span class="st">"auto"</span>,</span>
+<span>  width <span class="op">=</span> <span class="st">"480px"</span>,</span>
+<span>  <span class="fu"><a href="../../reference/el_form_field.html">el_form_field</a></span><span class="op">(</span></span>
+<span>    <span class="st">"message"</span>,</span>
+<span>    <span class="st">"input"</span>,</span>
+<span>    label <span class="op">=</span> <span class="st">"Message"</span>,</span>
+<span>    rules <span class="op">=</span> <span class="fu"><a href="../../reference/el_rule.html">el_rule</a></span><span class="op">(</span>required <span class="op">=</span> <span class="cn">TRUE</span>, message <span class="op">=</span> <span class="st">"Please input a message"</span><span class="op">)</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
   <div id="form-mention_form" data-shiny-vue style="display: contents">
     <script type="text/x-template" data-shiny-vue-template><div id="form-mention_form_container" style="display: contents">

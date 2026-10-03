@@ -39,6 +39,9 @@ Called for its side effect; returns `NULL` invisibly.
 ``` r
 if (interactive()) {
   # inside a server function
-  observeEvent(input$help, update_el_tour(session, "intro", open = TRUE, current = 0))
+  observeEvent(
+    input$help,
+    update_el_tour(session, "intro", open = TRUE, current = 0)
+  )
 }
 ```

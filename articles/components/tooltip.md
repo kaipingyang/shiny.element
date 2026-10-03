@@ -16,11 +16,32 @@ and the bottom of the tooltip aligns with the bottom of the element.
 
 ``` r
 
-places <- c("top-start", "top", "top-end", "left-start", "left", "left-end",
-            "right-start", "right", "right-end", "bottom-start", "bottom", "bottom-end")
-tags$div(style = "padding: 40px 80px", lapply(places, function(p)
-  el_tooltip(paste0("tip_", gsub("-", "_", p)), el$button(p), placement = p,
-             content = paste(p, "prompts info"), effect = "dark")))
+places <- c(
+  "top-start",
+  "top",
+  "top-end",
+  "left-start",
+  "left",
+  "left-end",
+  "right-start",
+  "right",
+  "right-end",
+  "bottom-start",
+  "bottom",
+  "bottom-end"
+)
+tags$div(
+  style = "padding: 40px 80px",
+  lapply(places, function(p) {
+    el_tooltip(
+      paste0("tip_", gsub("-", "_", p)),
+      el$button(p),
+      placement = p,
+      content = paste(p, "prompts info"),
+      effect = "dark"
+    )
+  })
+)
 ```
 
 ## Theme
@@ -45,10 +66,27 @@ Set `effect` to modify theme, and the default value is `dark`.
 ``` r
 
 tagList(
-  el_tooltip("dark", el$button("Dark"), content = "Top center", placement = "top"),
-  el_tooltip("light", el$button("Light"), content = "Bottom center", placement = "bottom", effect = "light"),
-  el_tooltip("custom", el$button("Customized theme"), content = "Bottom center", effect = "customized",
-             placement = "bottom"))
+  el_tooltip(
+    "dark",
+    el$button("Dark"),
+    content = "Top center",
+    placement = "top"
+  ),
+  el_tooltip(
+    "light",
+    el$button("Light"),
+    content = "Bottom center",
+    placement = "bottom",
+    effect = "light"
+  ),
+  el_tooltip(
+    "custom",
+    el$button("Customized theme"),
+    content = "Bottom center",
+    effect = "customized",
+    placement = "bottom"
+  )
+)
 ```
 
 ## More Content
@@ -60,8 +98,12 @@ Override attribute `content` of `el-tooltip` by adding a slot named
 
 ``` r
 
-el_tooltip("multi", el$button("Top center"), placement = "top",
-           slots = list(content = tags$div("multiple lines", tags$br(), "second line")))
+el_tooltip(
+  "multi",
+  el$button("Top center"),
+  placement = "top",
+  slots = list(content = tags$div("multiple lines", tags$br(), "second line"))
+)
 ```
 
 ## Advanced usage
@@ -85,10 +127,18 @@ Turned on and off from the server, `update_el_tooltip(disabled =)`.
 
 ui <- el_page(
   el_switch("tip_on", value = TRUE, active_text = "tooltip on"),
-  el_tooltip("adv", el$button("Hover me"), content = "click the switch to turn me off",
-             placement = "bottom"))
+  el_tooltip(
+    "adv",
+    el$button("Hover me"),
+    content = "click the switch to turn me off",
+    placement = "bottom"
+  )
+)
 server <- function(input, output, session) {
-  observeEvent(input$tip_on, update_el_tooltip(id = "adv", disabled = !input$tip_on))
+  observeEvent(
+    input$tip_on,
+    update_el_tooltip(id = "adv", disabled = !input$tip_on)
+  )
 }
 shinyApp(ui, server)
 ```
@@ -122,8 +172,12 @@ The content attribute can be set to HTML string.
 
 ``` r
 
-el_tooltip("html_tip", el$button("hover me"), raw_content = TRUE,
-           content = "<span>The content can be <strong>HTML</strong></span>")
+el_tooltip(
+  "html_tip",
+  el$button("hover me"),
+  raw_content = TRUE,
+  content = "<span>The content can be <strong>HTML</strong></span>"
+)
 ```
 
 ## Virtual triggering
@@ -184,7 +238,12 @@ use `transition`.
 
 ``` r
 
-el_tooltip("anim", el$button("trigger me"), content = "I am an el-tooltip", transition = "slide-fade")
+el_tooltip(
+  "anim",
+  el$button("trigger me"),
+  content = "I am an el-tooltip",
+  transition = "slide-fade"
+)
 ```
 
 ## Use the `append-to`
@@ -193,8 +252,15 @@ You must wait for the DOM to be mounted before using `targetElement`.
 
 ``` r
 
-tags$div(id = "tip-host", el_tooltip("app", el$button("Hover me"), content = "Appended to #tip-host",
-                                     append_to = "#tip-host"))
+tags$div(
+  id = "tip-host",
+  el_tooltip(
+    "app",
+    el$button("Hover me"),
+    content = "Appended to #tip-host",
+    append_to = "#tip-host"
+  )
+)
 ```
 
 ## API

@@ -67,6 +67,9 @@ Called for its side effect; returns `NULL` invisibly.
 ``` r
 if (interactive()) {
   # inside a server function
-  observeEvent(input$reset, update_el_time_picker(session, "start", value = "09:00:00"))
+  observeEvent(
+    input$reset,
+    update_el_time_picker(session, "start", value = "09:00:00")
+  )
 }
 ```

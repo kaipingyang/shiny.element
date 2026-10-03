@@ -13,8 +13,12 @@ is `info`. `primary` has been added in 2.9.11.
 ``` r
 
 types <- c("primary", "success", "info", "warning", "error")
-tags$div(style = "max-width: 600px; display: grid; gap: 20px",
-  lapply(types, function(t) el_alert(title = paste(tools::toTitleCase(t), "alert"), type = t)))
+tags$div(
+  style = "max-width: 600px; display: grid; gap: 20px",
+  lapply(types, function(t) {
+    el_alert(title = paste(tools::toTitleCase(t), "alert"), type = t)
+  })
+)
 ```
 
 ## Theme
@@ -26,9 +30,16 @@ Set `effect` to change theme, default is `light`.
 ``` r
 
 types <- c("primary", "success", "info", "warning", "error")
-tags$div(style = "max-width: 600px; display: grid; gap: 20px",
-  lapply(types, function(t) el_alert(title = paste(tools::toTitleCase(t), "alert"), type = t,
-                                     effect = "dark")))
+tags$div(
+  style = "max-width: 600px; display: grid; gap: 20px",
+  lapply(types, function(t) {
+    el_alert(
+      title = paste(tools::toTitleCase(t), "alert"),
+      type = t,
+      effect = "dark"
+    )
+  })
+)
 ```
 
 ## Customizable Close Button
@@ -47,10 +58,16 @@ browser alert.
 
 ``` r
 
-tags$div(style = "max-width: 600px; display: grid; gap: 20px",
+tags$div(
+  style = "max-width: 600px; display: grid; gap: 20px",
   el_alert(title = "Unclosable alert", type = "success", closable = FALSE),
-  el_alert(title = "Customized close text", type = "info", close_text = "Gotcha"),
-  el_alert("alert_cb", title = "Alert with callback", type = "warning"))
+  el_alert(
+    title = "Customized close text",
+    type = "info",
+    close_text = "Gotcha"
+  ),
+  el_alert("alert_cb", title = "Alert with callback", type = "warning")
+)
 ```
 
 ## With Icon
@@ -63,11 +80,22 @@ the current Alert type. Or use the `icon` slot to customize icon.
 ``` r
 
 types <- c("primary", "success", "info", "warning", "error")
-tags$div(style = "max-width: 600px; display: grid; gap: 20px",
-  lapply(types, function(t) el_alert(title = paste(tools::toTitleCase(t), "alert"), type = t,
-                                     show_icon = TRUE)),
-  el_alert(title = "Error alert with custom icon", type = "error", show_icon = TRUE,
-           slots = list(icon = el_icon("Bell"))))
+tags$div(
+  style = "max-width: 600px; display: grid; gap: 20px",
+  lapply(types, function(t) {
+    el_alert(
+      title = paste(tools::toTitleCase(t), "alert"),
+      type = t,
+      show_icon = TRUE
+    )
+  }),
+  el_alert(
+    title = "Error alert with custom icon",
+    type = "error",
+    show_icon = TRUE,
+    slots = list(icon = el_icon("Bell"))
+  )
+)
 ```
 
 ## Centered Text
@@ -77,9 +105,17 @@ Use the `center` attribute to center the text.
 ``` r
 
 types <- c("primary", "success", "info", "warning", "error")
-tags$div(style = "max-width: 600px; display: grid; gap: 20px",
-  lapply(types, function(t) el_alert(title = paste(tools::toTitleCase(t), "alert"), type = t,
-                                     center = TRUE, show_icon = TRUE)))
+tags$div(
+  style = "max-width: 600px; display: grid; gap: 20px",
+  lapply(types, function(t) {
+    el_alert(
+      title = paste(tools::toTitleCase(t), "alert"),
+      type = t,
+      center = TRUE,
+      show_icon = TRUE
+    )
+  })
+)
 ```
 
 ## With Description
@@ -92,8 +128,14 @@ can only store text string, and it will word wrap automatically.
 
 ``` r
 
-tags$div(style = "max-width: 600px",
-  el_alert(title = "With description", type = "success", description = "This is a description."))
+tags$div(
+  style = "max-width: 600px",
+  el_alert(
+    title = "With description",
+    type = "success",
+    description = "This is a description."
+  )
+)
 ```
 
 ## With Icon and Description
@@ -103,9 +145,17 @@ At last, this is an example with both icon and description.
 ``` r
 
 types <- c("primary", "success", "info", "warning", "error")
-tags$div(style = "max-width: 600px; display: grid; gap: 20px",
-  lapply(types, function(t) el_alert(title = paste(tools::toTitleCase(t), "alert"), type = t,
-                                     description = "More text description", show_icon = TRUE)))
+tags$div(
+  style = "max-width: 600px; display: grid; gap: 20px",
+  lapply(types, function(t) {
+    el_alert(
+      title = paste(tools::toTitleCase(t), "alert"),
+      type = t,
+      description = "More text description",
+      show_icon = TRUE
+    )
+  })
+)
 ```
 
 ## API

@@ -39,9 +39,15 @@ Every type the picker has, its panel open.
 
 ``` r
 
-tags$div(style = "display: grid; gap: 16px",
-  lapply(c("date", "week", "month", "year", "daterange", "monthrange"), function(t)
-    tagList(tags$div(t), el_date_picker_panel(paste0("dpp_", t), type = t))))
+tags$div(
+  style = "display: grid; gap: 16px",
+  lapply(
+    c("date", "week", "month", "year", "daterange", "monthrange"),
+    function(t) {
+      tagList(tags$div(t), el_date_picker_panel(paste0("dpp_", t), type = t))
+    }
+  )
+)
 ```
 
 date

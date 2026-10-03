@@ -192,12 +192,23 @@
 <h2 id="basic-usage">Basic usage<a class="anchor" aria-label="anchor" href="#basic-usage"></a>
 </h2>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_descriptions.html">el_descriptions</a></span><span class="op">(</span><span class="st">"desc"</span>, title <span class="op">=</span> <span class="st">"User Info"</span>, items <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>label <span class="op">=</span> <span class="st">"Username"</span>, content <span class="op">=</span> <span class="st">"kooriookami"</span><span class="op">)</span>,</span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>label <span class="op">=</span> <span class="st">"Telephone"</span>, content <span class="op">=</span> <span class="st">"18100000000"</span><span class="op">)</span>,</span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>label <span class="op">=</span> <span class="st">"Place"</span>, content <span class="op">=</span> <span class="st">"Suzhou"</span><span class="op">)</span>,</span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>label <span class="op">=</span> <span class="st">"Remarks"</span>, content <span class="op">=</span> <span class="fu"><a href="../../reference/el_tag.html">el_tag</a></span><span class="op">(</span><span class="st">"desc_tag"</span>, <span class="st">"School"</span>, size <span class="op">=</span> <span class="st">"small"</span><span class="op">)</span><span class="op">)</span>,</span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>label <span class="op">=</span> <span class="st">"Address"</span>, content <span class="op">=</span> <span class="st">"No.1188, Wuzhong Avenue, Wuzhong District, Suzhou, Jiangsu Province"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_descriptions.html">el_descriptions</a></span><span class="op">(</span></span>
+<span>  <span class="st">"desc"</span>,</span>
+<span>  title <span class="op">=</span> <span class="st">"User Info"</span>,</span>
+<span>  items <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>label <span class="op">=</span> <span class="st">"Username"</span>, content <span class="op">=</span> <span class="st">"kooriookami"</span><span class="op">)</span>,</span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>label <span class="op">=</span> <span class="st">"Telephone"</span>, content <span class="op">=</span> <span class="st">"18100000000"</span><span class="op">)</span>,</span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>label <span class="op">=</span> <span class="st">"Place"</span>, content <span class="op">=</span> <span class="st">"Suzhou"</span><span class="op">)</span>,</span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>      label <span class="op">=</span> <span class="st">"Remarks"</span>,</span>
+<span>      content <span class="op">=</span> <span class="fu"><a href="../../reference/el_tag.html">el_tag</a></span><span class="op">(</span><span class="st">"desc_tag"</span>, <span class="st">"School"</span>, size <span class="op">=</span> <span class="st">"small"</span><span class="op">)</span></span>
+<span>    <span class="op">)</span>,</span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>      label <span class="op">=</span> <span class="st">"Address"</span>,</span>
+<span>      content <span class="op">=</span> <span class="st">"No.1188, Wuzhong Avenue, Wuzhong District, Suzhou, Jiangsu Province"</span></span>
+<span>    <span class="op">)</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
   <div id="basic-usage-desc" data-shiny-vue style="display: contents">
     <script type="text/x-template" data-shiny-vue-template><div id="basic-usage-desc_container" style="display: contents">
@@ -220,13 +231,26 @@
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">items</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>label <span class="op">=</span> <span class="fu"><a href="https://rstudio.github.io/htmltools/reference/tagList.html" class="external-link">tagList</a></span><span class="op">(</span><span class="fu"><a href="../../reference/el_icon.html">el_icon</a></span><span class="op">(</span><span class="st">"User"</span><span class="op">)</span>, <span class="st">" Username"</span><span class="op">)</span>, content <span class="op">=</span> <span class="st">"kooriookami"</span><span class="op">)</span>,</span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>label <span class="op">=</span> <span class="fu"><a href="https://rstudio.github.io/htmltools/reference/tagList.html" class="external-link">tagList</a></span><span class="op">(</span><span class="fu"><a href="../../reference/el_icon.html">el_icon</a></span><span class="op">(</span><span class="st">"Iphone"</span><span class="op">)</span>, <span class="st">" Telephone"</span><span class="op">)</span>, content <span class="op">=</span> <span class="st">"18100000000"</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>    label <span class="op">=</span> <span class="fu"><a href="https://rstudio.github.io/htmltools/reference/tagList.html" class="external-link">tagList</a></span><span class="op">(</span><span class="fu"><a href="../../reference/el_icon.html">el_icon</a></span><span class="op">(</span><span class="st">"Iphone"</span><span class="op">)</span>, <span class="st">" Telephone"</span><span class="op">)</span>,</span>
+<span>    content <span class="op">=</span> <span class="st">"18100000000"</span></span>
+<span>  <span class="op">)</span>,</span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>label <span class="op">=</span> <span class="fu"><a href="https://rstudio.github.io/htmltools/reference/tagList.html" class="external-link">tagList</a></span><span class="op">(</span><span class="fu"><a href="../../reference/el_icon.html">el_icon</a></span><span class="op">(</span><span class="st">"Location"</span><span class="op">)</span>, <span class="st">" Place"</span><span class="op">)</span>, content <span class="op">=</span> <span class="st">"Suzhou"</span><span class="op">)</span>,</span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>label <span class="op">=</span> <span class="fu"><a href="https://rstudio.github.io/htmltools/reference/tagList.html" class="external-link">tagList</a></span><span class="op">(</span><span class="fu"><a href="../../reference/el_icon.html">el_icon</a></span><span class="op">(</span><span class="st">"OfficeBuilding"</span><span class="op">)</span>, <span class="st">" Address"</span><span class="op">)</span>,</span>
-<span>       content <span class="op">=</span> <span class="st">"No.1188, Wuzhong Avenue, Wuzhong District, Suzhou, Jiangsu Province"</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://rstudio.github.io/htmltools/reference/tagList.html" class="external-link">tagList</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"large"</span>, <span class="st">"default"</span>, <span class="st">"small"</span><span class="op">)</span>, <span class="kw">function</span><span class="op">(</span><span class="va">s</span><span class="op">)</span></span>
-<span>  <span class="fu"><a href="../../reference/el_descriptions.html">el_descriptions</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="st">"desc_"</span>, <span class="va">s</span><span class="op">)</span>, title <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="st">"With border,"</span>, <span class="va">s</span><span class="op">)</span>, column <span class="op">=</span> <span class="fl">3</span>,</span>
-<span>                  size <span class="op">=</span> <span class="va">s</span>, border <span class="op">=</span> <span class="cn">TRUE</span>, items <span class="op">=</span> <span class="va">items</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>    label <span class="op">=</span> <span class="fu"><a href="https://rstudio.github.io/htmltools/reference/tagList.html" class="external-link">tagList</a></span><span class="op">(</span><span class="fu"><a href="../../reference/el_icon.html">el_icon</a></span><span class="op">(</span><span class="st">"OfficeBuilding"</span><span class="op">)</span>, <span class="st">" Address"</span><span class="op">)</span>,</span>
+<span>    content <span class="op">=</span> <span class="st">"No.1188, Wuzhong Avenue, Wuzhong District, Suzhou, Jiangsu Province"</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rstudio.github.io/htmltools/reference/tagList.html" class="external-link">tagList</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"large"</span>, <span class="st">"default"</span>, <span class="st">"small"</span><span class="op">)</span>, <span class="kw">function</span><span class="op">(</span><span class="va">s</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="fu"><a href="../../reference/el_descriptions.html">el_descriptions</a></span><span class="op">(</span></span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="st">"desc_"</span>, <span class="va">s</span><span class="op">)</span>,</span>
+<span>    title <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="st">"With border,"</span>, <span class="va">s</span><span class="op">)</span>,</span>
+<span>    column <span class="op">=</span> <span class="fl">3</span>,</span>
+<span>    size <span class="op">=</span> <span class="va">s</span>,</span>
+<span>    border <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>    items <span class="op">=</span> <span class="va">items</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">}</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
   <div id="sizes-desc_large" data-shiny-vue style="display: contents">
     <script type="text/x-template" data-shiny-vue-template><div id="sizes-desc_large_container" style="display: contents">
@@ -336,13 +360,26 @@
 <h2 id="vertical-list">Vertical List<a class="anchor" aria-label="anchor" href="#vertical-list"></a>
 </h2>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_descriptions.html">el_descriptions</a></span><span class="op">(</span><span class="st">"desc_v"</span>, title <span class="op">=</span> <span class="st">"Vertical list with border"</span>, direction <span class="op">=</span> <span class="st">"vertical"</span>,</span>
-<span>  column <span class="op">=</span> <span class="fl">4</span>, border <span class="op">=</span> <span class="cn">TRUE</span>, items <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>label <span class="op">=</span> <span class="st">"Username"</span>, content <span class="op">=</span> <span class="st">"kooriookami"</span><span class="op">)</span>,</span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>label <span class="op">=</span> <span class="st">"Telephone"</span>, content <span class="op">=</span> <span class="st">"18100000000"</span><span class="op">)</span>,</span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>label <span class="op">=</span> <span class="st">"Place"</span>, content <span class="op">=</span> <span class="st">"Suzhou"</span>, span <span class="op">=</span> <span class="fl">2</span><span class="op">)</span>,</span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>label <span class="op">=</span> <span class="st">"Remarks"</span>, content <span class="op">=</span> <span class="fu"><a href="../../reference/el_tag.html">el_tag</a></span><span class="op">(</span><span class="st">"desc_tag_v"</span>, <span class="st">"School"</span>, size <span class="op">=</span> <span class="st">"small"</span><span class="op">)</span><span class="op">)</span>,</span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>label <span class="op">=</span> <span class="st">"Address"</span>, content <span class="op">=</span> <span class="st">"No.1188, Wuzhong Avenue, Wuzhong District, Suzhou, Jiangsu Province"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_descriptions.html">el_descriptions</a></span><span class="op">(</span></span>
+<span>  <span class="st">"desc_v"</span>,</span>
+<span>  title <span class="op">=</span> <span class="st">"Vertical list with border"</span>,</span>
+<span>  direction <span class="op">=</span> <span class="st">"vertical"</span>,</span>
+<span>  column <span class="op">=</span> <span class="fl">4</span>,</span>
+<span>  border <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  items <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>label <span class="op">=</span> <span class="st">"Username"</span>, content <span class="op">=</span> <span class="st">"kooriookami"</span><span class="op">)</span>,</span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>label <span class="op">=</span> <span class="st">"Telephone"</span>, content <span class="op">=</span> <span class="st">"18100000000"</span><span class="op">)</span>,</span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>label <span class="op">=</span> <span class="st">"Place"</span>, content <span class="op">=</span> <span class="st">"Suzhou"</span>, span <span class="op">=</span> <span class="fl">2</span><span class="op">)</span>,</span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>      label <span class="op">=</span> <span class="st">"Remarks"</span>,</span>
+<span>      content <span class="op">=</span> <span class="fu"><a href="../../reference/el_tag.html">el_tag</a></span><span class="op">(</span><span class="st">"desc_tag_v"</span>, <span class="st">"School"</span>, size <span class="op">=</span> <span class="st">"small"</span><span class="op">)</span></span>
+<span>    <span class="op">)</span>,</span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>      label <span class="op">=</span> <span class="st">"Address"</span>,</span>
+<span>      content <span class="op">=</span> <span class="st">"No.1188, Wuzhong Avenue, Wuzhong District, Suzhou, Jiangsu Province"</span></span>
+<span>    <span class="op">)</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
   <div id="vertical-list-desc_v" data-shiny-vue style="display: contents">
     <script type="text/x-template" data-shiny-vue-template><div id="vertical-list-desc_v_container" style="display: contents">
@@ -363,13 +400,31 @@
 <h2 id="rowspan">Rowspan<a class="anchor" aria-label="anchor" href="#rowspan"></a>
 </h2>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_descriptions.html">el_descriptions</a></span><span class="op">(</span><span class="st">"desc_rs"</span>, title <span class="op">=</span> <span class="st">"Width horizontal list"</span>, border <span class="op">=</span> <span class="cn">TRUE</span>, items <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>label <span class="op">=</span> <span class="st">"Photo"</span>, rowspan <span class="op">=</span> <span class="fl">2</span>, width <span class="op">=</span> <span class="fl">140</span>, align <span class="op">=</span> <span class="st">"center"</span>, content <span class="op">=</span> <span class="fu"><a href="../../reference/el_image.html">el_image</a></span><span class="op">(</span></span>
-<span>    src <span class="op">=</span> <span class="st">"https://shadow.elemecdn.com/app/element/hamburger.9cf7b091-55e9-11e9-a976-7f4d0b07eef6.png"</span>,</span>
-<span>    alt <span class="op">=</span> <span class="st">"A hamburger"</span>, fit <span class="op">=</span> <span class="st">"cover"</span>, width <span class="op">=</span> <span class="st">"100px"</span><span class="op">)</span><span class="op">)</span>,</span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>label <span class="op">=</span> <span class="st">"Username"</span>, content <span class="op">=</span> <span class="st">"kooriookami"</span><span class="op">)</span>,</span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>label <span class="op">=</span> <span class="st">"Place"</span>, content <span class="op">=</span> <span class="st">"Suzhou"</span><span class="op">)</span>,</span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>label <span class="op">=</span> <span class="st">"Address"</span>, content <span class="op">=</span> <span class="st">"No.1188, Wuzhong Avenue, Wuzhong District, Suzhou, Jiangsu Province"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_descriptions.html">el_descriptions</a></span><span class="op">(</span></span>
+<span>  <span class="st">"desc_rs"</span>,</span>
+<span>  title <span class="op">=</span> <span class="st">"Width horizontal list"</span>,</span>
+<span>  border <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  items <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>      label <span class="op">=</span> <span class="st">"Photo"</span>,</span>
+<span>      rowspan <span class="op">=</span> <span class="fl">2</span>,</span>
+<span>      width <span class="op">=</span> <span class="fl">140</span>,</span>
+<span>      align <span class="op">=</span> <span class="st">"center"</span>,</span>
+<span>      content <span class="op">=</span> <span class="fu"><a href="../../reference/el_image.html">el_image</a></span><span class="op">(</span></span>
+<span>        src <span class="op">=</span> <span class="st">"https://shadow.elemecdn.com/app/element/hamburger.9cf7b091-55e9-11e9-a976-7f4d0b07eef6.png"</span>,</span>
+<span>        alt <span class="op">=</span> <span class="st">"A hamburger"</span>,</span>
+<span>        fit <span class="op">=</span> <span class="st">"cover"</span>,</span>
+<span>        width <span class="op">=</span> <span class="st">"100px"</span></span>
+<span>      <span class="op">)</span></span>
+<span>    <span class="op">)</span>,</span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>label <span class="op">=</span> <span class="st">"Username"</span>, content <span class="op">=</span> <span class="st">"kooriookami"</span><span class="op">)</span>,</span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>label <span class="op">=</span> <span class="st">"Place"</span>, content <span class="op">=</span> <span class="st">"Suzhou"</span><span class="op">)</span>,</span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>      label <span class="op">=</span> <span class="st">"Address"</span>,</span>
+<span>      content <span class="op">=</span> <span class="st">"No.1188, Wuzhong Avenue, Wuzhong District, Suzhou, Jiangsu Province"</span></span>
+<span>    <span class="op">)</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
   <div id="rowspan-desc_rs" data-shiny-vue style="display: contents">
     <script type="text/x-template" data-shiny-vue-template><div id="rowspan-desc_rs_container" style="display: contents">
@@ -381,7 +436,7 @@
     <el-descriptions-item label="Place">Suzhou</el-descriptions-item>
     <el-descriptions-item label="Address">No.1188, Wuzhong Avenue, Wuzhong District, Suzhou, Jiangsu Province</el-descriptions-item>
   </el-descriptions>
-</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"dTitle":"Width horizontal list","dExtra":null,"dColumn":null,"dDirection":null,"dBorder":true,"dSize":null,"src":"https://shadow.elemecdn.com/app/element/hamburger.9cf7b091-55e9-11e9-a976-7f4d0b07eef6.png","fit":"cover","alt":"A hamburger","lazy":null,"scrollContainer":null,"previewSrcList":null,"zIndex":null,"initialIndex":null,"closeOnPressEscape":null,"crossorigin":null,"hideOnClickModal":null,"infinite":null,"loading":null,"maxScale":null,"minScale":null,"previewTeleported":null,"referrerpolicy":null,"scale":null,"showProgress":null,"zoomRate":null,"dLabelWidth":null},"methods":{"elEmitLoad":"function() { window.shinyVue.emit('rowspan-el_image_ffbc5e82-e676-4b82-9de8-7e40623c94b1', 'load', arguments); }","elEmitError":"function() { window.shinyVue.emit('rowspan-el_image_ffbc5e82-e676-4b82-9de8-7e40623c94b1', 'error', arguments); }","elEmitClose":"function() { window.shinyVue.emit('rowspan-el_image_ffbc5e82-e676-4b82-9de8-7e40623c94b1', 'close', arguments); }","elEmitShow":"function() { window.shinyVue.emit('rowspan-el_image_ffbc5e82-e676-4b82-9de8-7e40623c94b1', 'show', arguments); }","elEmitSwitch":"function() { window.shinyVue.emit('rowspan-el_image_ffbc5e82-e676-4b82-9de8-7e40623c94b1', 'switch', arguments); }"}},"input":null,"rate":null,"type":null,"evals":["options.methods.elEmitLoad","options.methods.elEmitError","options.methods.elEmitClose","options.methods.elEmitShow","options.methods.elEmitSwitch"]}</script>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"dTitle":"Width horizontal list","dExtra":null,"dColumn":null,"dDirection":null,"dBorder":true,"dSize":null,"src":"https://shadow.elemecdn.com/app/element/hamburger.9cf7b091-55e9-11e9-a976-7f4d0b07eef6.png","fit":"cover","alt":"A hamburger","lazy":null,"scrollContainer":null,"previewSrcList":null,"zIndex":null,"initialIndex":null,"closeOnPressEscape":null,"crossorigin":null,"hideOnClickModal":null,"infinite":null,"loading":null,"maxScale":null,"minScale":null,"previewTeleported":null,"referrerpolicy":null,"scale":null,"showProgress":null,"zoomRate":null,"dLabelWidth":null},"methods":{"elEmitLoad":"function() { window.shinyVue.emit('rowspan-el_image_2c2cec46-d3aa-433f-96ae-c274f4ae95fd', 'load', arguments); }","elEmitError":"function() { window.shinyVue.emit('rowspan-el_image_2c2cec46-d3aa-433f-96ae-c274f4ae95fd', 'error', arguments); }","elEmitClose":"function() { window.shinyVue.emit('rowspan-el_image_2c2cec46-d3aa-433f-96ae-c274f4ae95fd', 'close', arguments); }","elEmitShow":"function() { window.shinyVue.emit('rowspan-el_image_2c2cec46-d3aa-433f-96ae-c274f4ae95fd', 'show', arguments); }","elEmitSwitch":"function() { window.shinyVue.emit('rowspan-el_image_2c2cec46-d3aa-433f-96ae-c274f4ae95fd', 'switch', arguments); }"}},"input":null,"rate":null,"type":null,"evals":["options.methods.elEmitLoad","options.methods.elEmitError","options.methods.elEmitClose","options.methods.elEmitShow","options.methods.elEmitSwitch"]}</script>
 </div>
 </div>
 </div>
@@ -390,13 +445,40 @@
 </h2>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rstudio.github.io/htmltools/reference/tagList.html" class="external-link">tagList</a></span><span class="op">(</span></span>
-<span>  <span class="va">tags</span><span class="op">$</span><span class="fu">style</span><span class="op">(</span><span class="st">".my-label { background: var(--el-color-success-light-9) !important; }</span></span>
-<span><span class="st">              .my-content { background: var(--el-color-danger-light-9); }"</span><span class="op">)</span>,</span>
-<span>  <span class="fu"><a href="../../reference/el_descriptions.html">el_descriptions</a></span><span class="op">(</span><span class="st">"desc_style"</span>, title <span class="op">=</span> <span class="st">"Customized style list"</span>, column <span class="op">=</span> <span class="fl">3</span>, border <span class="op">=</span> <span class="cn">TRUE</span>, items <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
-<span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>label <span class="op">=</span> <span class="st">"Username"</span>, label_align <span class="op">=</span> <span class="st">"right"</span>, align <span class="op">=</span> <span class="st">"center"</span>, label_class_name <span class="op">=</span> <span class="st">"my-label"</span>,</span>
-<span>         class_name <span class="op">=</span> <span class="st">"my-content"</span>, width <span class="op">=</span> <span class="st">"150px"</span>, content <span class="op">=</span> <span class="st">"kooriookami"</span><span class="op">)</span>,</span>
-<span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>label <span class="op">=</span> <span class="st">"Telephone"</span>, label_align <span class="op">=</span> <span class="st">"right"</span>, align <span class="op">=</span> <span class="st">"center"</span>, content <span class="op">=</span> <span class="st">"18100000000"</span><span class="op">)</span>,</span>
-<span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>label <span class="op">=</span> <span class="st">"Place"</span>, label_align <span class="op">=</span> <span class="st">"right"</span>, align <span class="op">=</span> <span class="st">"center"</span>, content <span class="op">=</span> <span class="st">"Suzhou"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<span>  <span class="va">tags</span><span class="op">$</span><span class="fu">style</span><span class="op">(</span></span>
+<span>    <span class="st">".my-label { background: var(--el-color-success-light-9) !important; }</span></span>
+<span><span class="st">              .my-content { background: var(--el-color-danger-light-9); }"</span></span>
+<span>  <span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="../../reference/el_descriptions.html">el_descriptions</a></span><span class="op">(</span></span>
+<span>    <span class="st">"desc_style"</span>,</span>
+<span>    title <span class="op">=</span> <span class="st">"Customized style list"</span>,</span>
+<span>    column <span class="op">=</span> <span class="fl">3</span>,</span>
+<span>    border <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>    items <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>      <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>        label <span class="op">=</span> <span class="st">"Username"</span>,</span>
+<span>        label_align <span class="op">=</span> <span class="st">"right"</span>,</span>
+<span>        align <span class="op">=</span> <span class="st">"center"</span>,</span>
+<span>        label_class_name <span class="op">=</span> <span class="st">"my-label"</span>,</span>
+<span>        class_name <span class="op">=</span> <span class="st">"my-content"</span>,</span>
+<span>        width <span class="op">=</span> <span class="st">"150px"</span>,</span>
+<span>        content <span class="op">=</span> <span class="st">"kooriookami"</span></span>
+<span>      <span class="op">)</span>,</span>
+<span>      <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>        label <span class="op">=</span> <span class="st">"Telephone"</span>,</span>
+<span>        label_align <span class="op">=</span> <span class="st">"right"</span>,</span>
+<span>        align <span class="op">=</span> <span class="st">"center"</span>,</span>
+<span>        content <span class="op">=</span> <span class="st">"18100000000"</span></span>
+<span>      <span class="op">)</span>,</span>
+<span>      <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>        label <span class="op">=</span> <span class="st">"Place"</span>,</span>
+<span>        label_align <span class="op">=</span> <span class="st">"right"</span>,</span>
+<span>        align <span class="op">=</span> <span class="st">"center"</span>,</span>
+<span>        content <span class="op">=</span> <span class="st">"Suzhou"</span></span>
+<span>      <span class="op">)</span></span>
+<span>    <span class="op">)</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
   <style>.my-label { background: var(--el-color-success-light-9) !important; }
               .my-content { background: var(--el-color-danger-light-9); }</style>

@@ -227,14 +227,23 @@ its components set no font of their own – they inherit the page’s.
 greys, borders, corners, type size and font stack, so Shiny’s own inputs
 and outputs match the Element ones beside them.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/el_row.html">el_row</a></span><span class="op">(</span>gutter <span class="op">=</span> <span class="fl">16</span>,</span>
-<span>  <span class="fu"><a href="../reference/el_col.html">el_col</a></span><span class="op">(</span>span <span class="op">=</span> <span class="fl">12</span>,</span>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/el_row.html">el_row</a></span><span class="op">(</span></span>
+<span>  gutter <span class="op">=</span> <span class="fl">16</span>,</span>
+<span>  <span class="fu"><a href="../reference/el_col.html">el_col</a></span><span class="op">(</span></span>
+<span>    span <span class="op">=</span> <span class="fl">12</span>,</span>
 <span>    <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/textInput.html" class="external-link">textInput</a></span><span class="op">(</span><span class="st">"shiny_text"</span>, <span class="st">"Shiny's textInput()"</span>, <span class="st">"Ada"</span><span class="op">)</span>,</span>
-<span>    <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/actionButton.html" class="external-link">actionButton</a></span><span class="op">(</span><span class="st">"shiny_go"</span>, <span class="st">"actionButton()"</span>, class <span class="op">=</span> <span class="st">"btn-primary"</span><span class="op">)</span><span class="op">)</span>,</span>
-<span>  <span class="fu"><a href="../reference/el_col.html">el_col</a></span><span class="op">(</span>span <span class="op">=</span> <span class="fl">12</span>,</span>
-<span>    <span class="va">tags</span><span class="op">$</span><span class="fu">label</span><span class="op">(</span><span class="st">"Element's el_input()"</span><span class="op">)</span>, <span class="fu"><a href="../reference/el_input.html">el_input</a></span><span class="op">(</span><span class="st">"el_text"</span>, value <span class="op">=</span> <span class="st">"Ada"</span><span class="op">)</span>,</span>
-<span>    <span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span>style <span class="op">=</span> <span class="st">"margin-top: 15px"</span>,</span>
-<span>      <span class="fu"><a href="../reference/el_button.html">el_button</a></span><span class="op">(</span><span class="st">"el_go"</span>, <span class="st">"el_button()"</span>, type <span class="op">=</span> <span class="st">"primary"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<span>    <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/actionButton.html" class="external-link">actionButton</a></span><span class="op">(</span><span class="st">"shiny_go"</span>, <span class="st">"actionButton()"</span>, class <span class="op">=</span> <span class="st">"btn-primary"</span><span class="op">)</span></span>
+<span>  <span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="../reference/el_col.html">el_col</a></span><span class="op">(</span></span>
+<span>    span <span class="op">=</span> <span class="fl">12</span>,</span>
+<span>    <span class="va">tags</span><span class="op">$</span><span class="fu">label</span><span class="op">(</span><span class="st">"Element's el_input()"</span><span class="op">)</span>,</span>
+<span>    <span class="fu"><a href="../reference/el_input.html">el_input</a></span><span class="op">(</span><span class="st">"el_text"</span>, value <span class="op">=</span> <span class="st">"Ada"</span><span class="op">)</span>,</span>
+<span>    <span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span></span>
+<span>      style <span class="op">=</span> <span class="st">"margin-top: 15px"</span>,</span>
+<span>      <span class="fu"><a href="../reference/el_button.html">el_button</a></span><span class="op">(</span><span class="st">"el_go"</span>, <span class="st">"el_button()"</span>, type <span class="op">=</span> <span class="st">"primary"</span><span class="op">)</span></span>
+<span>    <span class="op">)</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
   <div class="el-row" style="margin-left:-8px; margin-right:-8px">
     <div class="el-col el-col-12" style="padding-left:8px; padding-right:8px">
@@ -269,12 +278,14 @@ variable can be overridden the same way. The theme’s
 too, with the tints and shades Element derives from each – a plain
 button’s pale fill, a focused input’s border:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/el_page.html">el_page</a></span><span class="op">(</span>theme <span class="op">=</span> <span class="fu"><a href="../reference/el_theme.html">el_theme</a></span><span class="op">(</span>primary <span class="op">=</span> <span class="st">"#7c3aed"</span><span class="op">)</span>,</span>
+<code class="sourceCode R"><span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/el_page.html">el_page</a></span><span class="op">(</span></span>
+<span>  theme <span class="op">=</span> <span class="fu"><a href="../reference/el_theme.html">el_theme</a></span><span class="op">(</span>primary <span class="op">=</span> <span class="st">"#7c3aed"</span><span class="op">)</span>,</span>
 <span>  <span class="fu"><a href="../reference/el_button.html">el_button</a></span><span class="op">(</span><span class="st">"save"</span>, <span class="st">"Save"</span>, type <span class="op">=</span> <span class="st">"primary"</span><span class="op">)</span>,</span>
 <span>  <span class="fu"><a href="../reference/el_button.html">el_button</a></span><span class="op">(</span><span class="st">"draft"</span>, <span class="st">"Draft"</span>, type <span class="op">=</span> <span class="st">"primary"</span>, plain <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,</span>
 <span>  <span class="fu"><a href="../reference/el_switch.html">el_switch</a></span><span class="op">(</span><span class="st">"notify"</span>, value <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,</span>
 <span>  <span class="fu"><a href="../reference/el_slider.html">el_slider</a></span><span class="op">(</span><span class="st">"level"</span>, value <span class="op">=</span> <span class="fl">40</span>, width <span class="op">=</span> <span class="st">"240px"</span><span class="op">)</span>,</span>
-<span>  <span class="fu"><a href="../reference/el_pagination.html">el_pagination</a></span><span class="op">(</span><span class="st">"pages"</span>, total <span class="op">=</span> <span class="fl">50</span><span class="op">)</span><span class="op">)</span></span>
+<span>  <span class="fu"><a href="../reference/el_pagination.html">el_pagination</a></span><span class="op">(</span><span class="st">"pages"</span>, total <span class="op">=</span> <span class="fl">50</span><span class="op">)</span></span>
+<span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/shinyApp.html" class="external-link">shinyApp</a></span><span class="op">(</span><span class="va">ui</span>, <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span>, <span class="va">session</span><span class="op">)</span> <span class="op">{</span><span class="op">}</span><span class="op">)</span></span></code></pre></div>
 <img src="../shots/theming-theme-colors.png" alt="The theme-colors example, running" style="max-width: 100%"><p>Element Plus’s other variables – its radii, sizes, greys, the full
@@ -282,14 +293,22 @@ list in its <code>theme-chalk</code> stylesheet – go in
 <code>el_theme(element =)</code>, by name without the
 <code>--el-</code>:</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">theme</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/el_theme.html">el_theme</a></span><span class="op">(</span>primary <span class="op">=</span> <span class="st">"#0f766e"</span>, element <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
-<span>  <span class="st">"border-radius-base"</span> <span class="op">=</span> <span class="st">"12px"</span>, <span class="st">"border-radius-small"</span> <span class="op">=</span> <span class="st">"8px"</span>,</span>
-<span>  <span class="st">"font-size-base"</span> <span class="op">=</span> <span class="st">"13px"</span>, <span class="st">"component-size"</span> <span class="op">=</span> <span class="st">"36px"</span><span class="op">)</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="va">theme</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/el_theme.html">el_theme</a></span><span class="op">(</span></span>
+<span>  primary <span class="op">=</span> <span class="st">"#0f766e"</span>,</span>
+<span>  element <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>    <span class="st">"border-radius-base"</span> <span class="op">=</span> <span class="st">"12px"</span>,</span>
+<span>    <span class="st">"border-radius-small"</span> <span class="op">=</span> <span class="st">"8px"</span>,</span>
+<span>    <span class="st">"font-size-base"</span> <span class="op">=</span> <span class="st">"13px"</span>,</span>
+<span>    <span class="st">"component-size"</span> <span class="op">=</span> <span class="st">"36px"</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">)</span></span>
 <span></span>
-<span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/el_page.html">el_page</a></span><span class="op">(</span>theme <span class="op">=</span> <span class="va">theme</span>,</span>
+<span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/el_page.html">el_page</a></span><span class="op">(</span></span>
+<span>  theme <span class="op">=</span> <span class="va">theme</span>,</span>
 <span>  <span class="fu"><a href="../reference/el_input.html">el_input</a></span><span class="op">(</span><span class="st">"name"</span>, placeholder <span class="op">=</span> <span class="st">"Rounder, smaller"</span>, width <span class="op">=</span> <span class="st">"260px"</span><span class="op">)</span>,</span>
 <span>  <span class="fu"><a href="../reference/el_button.html">el_button</a></span><span class="op">(</span><span class="st">"go"</span>, <span class="st">"Go"</span>, type <span class="op">=</span> <span class="st">"primary"</span><span class="op">)</span>,</span>
-<span>  <span class="fu"><a href="../reference/el_tag.html">el_tag</a></span><span class="op">(</span><span class="st">"t"</span>, <span class="st">"Tag"</span><span class="op">)</span><span class="op">)</span></span>
+<span>  <span class="fu"><a href="../reference/el_tag.html">el_tag</a></span><span class="op">(</span><span class="st">"t"</span>, <span class="st">"Tag"</span><span class="op">)</span></span>
+<span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/shinyApp.html" class="external-link">shinyApp</a></span><span class="op">(</span><span class="va">ui</span>, <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span>, <span class="va">session</span><span class="op">)</span> <span class="op">{</span><span class="op">}</span><span class="op">)</span></span></code></pre></div>
 <img src="../shots/theming-theme-element.png" alt="The theme-element example, running" style="max-width: 100%"><p>They are set on the page as CSS variables, as Element Plus’s theming

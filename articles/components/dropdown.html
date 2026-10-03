@@ -197,10 +197,13 @@ and the dropdown part is rendered by the <code>slot</code> named
 <code>dropdown</code>. By default, dropdown list shows when you hover on
 the triggering element without having to click it.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">items</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>command <span class="op">=</span> <span class="st">"a"</span>, label <span class="op">=</span> <span class="st">"Action 1"</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>command <span class="op">=</span> <span class="st">"b"</span>, label <span class="op">=</span> <span class="st">"Action 2"</span><span class="op">)</span>,</span>
-<span>              <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>command <span class="op">=</span> <span class="st">"c"</span>, label <span class="op">=</span> <span class="st">"Action 3"</span><span class="op">)</span>,</span>
-<span>              <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>command <span class="op">=</span> <span class="st">"d"</span>, label <span class="op">=</span> <span class="st">"Action 4"</span>, disabled <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,</span>
-<span>              <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>command <span class="op">=</span> <span class="st">"e"</span>, label <span class="op">=</span> <span class="st">"Action 5"</span>, divided <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="va">items</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>command <span class="op">=</span> <span class="st">"a"</span>, label <span class="op">=</span> <span class="st">"Action 1"</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>command <span class="op">=</span> <span class="st">"b"</span>, label <span class="op">=</span> <span class="st">"Action 2"</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>command <span class="op">=</span> <span class="st">"c"</span>, label <span class="op">=</span> <span class="st">"Action 3"</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>command <span class="op">=</span> <span class="st">"d"</span>, label <span class="op">=</span> <span class="st">"Action 4"</span>, disabled <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>command <span class="op">=</span> <span class="st">"e"</span>, label <span class="op">=</span> <span class="st">"Action 5"</span>, divided <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span><span class="op">)</span></span>
 <span><span class="fu"><a href="../../reference/el_dropdown.html">el_dropdown</a></span><span class="op">(</span><span class="st">"dd"</span>, trigger_label <span class="op">=</span> <span class="st">"Dropdown List"</span>, items <span class="op">=</span> <span class="va">items</span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
   <div id="basic-usage-dd" data-shiny-vue style="display: contents">
@@ -231,12 +234,25 @@ the triggering element without having to click it.</p>
 <p>Set <code>placement</code> property to make dropdown appear in
 different locations.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">items</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>command <span class="op">=</span> <span class="st">"1"</span>, label <span class="op">=</span> <span class="st">"The Action 1st"</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>command <span class="op">=</span> <span class="st">"2"</span>, label <span class="op">=</span> <span class="st">"The Action 2nd"</span><span class="op">)</span>,</span>
-<span>              <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>command <span class="op">=</span> <span class="st">"3"</span>, label <span class="op">=</span> <span class="st">"The Action 3rd"</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span>style <span class="op">=</span> <span class="st">"display: flex; flex-wrap: wrap; gap: 16px"</span>,</span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"top-start"</span>, <span class="st">"top"</span>, <span class="st">"top-end"</span>, <span class="st">"bottom-start"</span>, <span class="st">"bottom"</span>, <span class="st">"bottom-end"</span><span class="op">)</span>, <span class="kw">function</span><span class="op">(</span><span class="va">p</span><span class="op">)</span></span>
-<span>    <span class="fu"><a href="../../reference/el_dropdown.html">el_dropdown</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="st">"dd_"</span>, <span class="va">p</span><span class="op">)</span>, placement <span class="op">=</span> <span class="va">p</span>, items <span class="op">=</span> <span class="va">items</span>,</span>
-<span>                trigger_label <span class="op">=</span> <span class="fu"><a href="../../reference/el_button.html">el_button</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="st">"ddb_"</span>, <span class="va">p</span><span class="op">)</span>, <span class="va">p</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">items</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>command <span class="op">=</span> <span class="st">"1"</span>, label <span class="op">=</span> <span class="st">"The Action 1st"</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>command <span class="op">=</span> <span class="st">"2"</span>, label <span class="op">=</span> <span class="st">"The Action 2nd"</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>command <span class="op">=</span> <span class="st">"3"</span>, label <span class="op">=</span> <span class="st">"The Action 3rd"</span><span class="op">)</span></span>
+<span><span class="op">)</span></span>
+<span><span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span></span>
+<span>  style <span class="op">=</span> <span class="st">"display: flex; flex-wrap: wrap; gap: 16px"</span>,</span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply</a></span><span class="op">(</span></span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"top-start"</span>, <span class="st">"top"</span>, <span class="st">"top-end"</span>, <span class="st">"bottom-start"</span>, <span class="st">"bottom"</span>, <span class="st">"bottom-end"</span><span class="op">)</span>,</span>
+<span>    <span class="kw">function</span><span class="op">(</span><span class="va">p</span><span class="op">)</span> <span class="op">{</span></span>
+<span>      <span class="fu"><a href="../../reference/el_dropdown.html">el_dropdown</a></span><span class="op">(</span></span>
+<span>        <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="st">"dd_"</span>, <span class="va">p</span><span class="op">)</span>,</span>
+<span>        placement <span class="op">=</span> <span class="va">p</span>,</span>
+<span>        items <span class="op">=</span> <span class="va">items</span>,</span>
+<span>        trigger_label <span class="op">=</span> <span class="fu"><a href="../../reference/el_button.html">el_button</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="st">"ddb_"</span>, <span class="va">p</span><span class="op">)</span>, <span class="va">p</span><span class="op">)</span></span>
+<span>      <span class="op">)</span></span>
+<span>    <span class="op">}</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
   <div style="display: flex; flex-wrap: wrap; gap: 16px">
     <div id="placements-dd_top-start" data-shiny-vue style="display: contents">
@@ -319,13 +335,31 @@ the actual triggering target. If you wanna insert a separator line
 between item three and item four, just add the <code>divided</code>
 attribute to item four.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">items</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>command <span class="op">=</span> <span class="st">"a"</span>, label <span class="op">=</span> <span class="st">"Action 1"</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>command <span class="op">=</span> <span class="st">"b"</span>, label <span class="op">=</span> <span class="st">"Action 2"</span><span class="op">)</span>,</span>
-<span>              <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>command <span class="op">=</span> <span class="st">"c"</span>, label <span class="op">=</span> <span class="st">"Action 3"</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span>style <span class="op">=</span> <span class="st">"display: flex; gap: 16px"</span>,</span>
-<span>  <span class="fu"><a href="../../reference/el_dropdown.html">el_dropdown</a></span><span class="op">(</span><span class="st">"dd_btn"</span>, items <span class="op">=</span> <span class="va">items</span>, trigger_label <span class="op">=</span> <span class="fu"><a href="../../reference/el_button.html">el_button</a></span><span class="op">(</span><span class="st">"dd_btn_t"</span>, <span class="st">"Dropdown List"</span>,</span>
-<span>              type <span class="op">=</span> <span class="st">"primary"</span>, icon <span class="op">=</span> <span class="st">"ArrowDown"</span><span class="op">)</span><span class="op">)</span>,</span>
-<span>  <span class="fu"><a href="../../reference/el_dropdown.html">el_dropdown</a></span><span class="op">(</span><span class="st">"dd_split"</span>, items <span class="op">=</span> <span class="va">items</span>, split_button <span class="op">=</span> <span class="cn">TRUE</span>, type <span class="op">=</span> <span class="st">"primary"</span>,</span>
-<span>              trigger_label <span class="op">=</span> <span class="st">"Dropdown List"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">items</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>command <span class="op">=</span> <span class="st">"a"</span>, label <span class="op">=</span> <span class="st">"Action 1"</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>command <span class="op">=</span> <span class="st">"b"</span>, label <span class="op">=</span> <span class="st">"Action 2"</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>command <span class="op">=</span> <span class="st">"c"</span>, label <span class="op">=</span> <span class="st">"Action 3"</span><span class="op">)</span></span>
+<span><span class="op">)</span></span>
+<span><span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span></span>
+<span>  style <span class="op">=</span> <span class="st">"display: flex; gap: 16px"</span>,</span>
+<span>  <span class="fu"><a href="../../reference/el_dropdown.html">el_dropdown</a></span><span class="op">(</span></span>
+<span>    <span class="st">"dd_btn"</span>,</span>
+<span>    items <span class="op">=</span> <span class="va">items</span>,</span>
+<span>    trigger_label <span class="op">=</span> <span class="fu"><a href="../../reference/el_button.html">el_button</a></span><span class="op">(</span></span>
+<span>      <span class="st">"dd_btn_t"</span>,</span>
+<span>      <span class="st">"Dropdown List"</span>,</span>
+<span>      type <span class="op">=</span> <span class="st">"primary"</span>,</span>
+<span>      icon <span class="op">=</span> <span class="st">"ArrowDown"</span></span>
+<span>    <span class="op">)</span></span>
+<span>  <span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="../../reference/el_dropdown.html">el_dropdown</a></span><span class="op">(</span></span>
+<span>    <span class="st">"dd_split"</span>,</span>
+<span>    items <span class="op">=</span> <span class="va">items</span>,</span>
+<span>    split_button <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>    type <span class="op">=</span> <span class="st">"primary"</span>,</span>
+<span>    trigger_label <span class="op">=</span> <span class="st">"Dropdown List"</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
   <div style="display: flex; gap: 16px">
     <div id="triggering-element-dd_btn" data-shiny-vue style="display: contents">
@@ -366,15 +400,36 @@ attribute to item four.</p>
 <p>Use the attribute <code>trigger</code>. By default, it is
 <code>hover</code>.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">items</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>command <span class="op">=</span> <span class="st">"a"</span>, label <span class="op">=</span> <span class="st">"Action 1"</span>, icon <span class="op">=</span> <span class="st">"Plus"</span><span class="op">)</span>,</span>
-<span>              <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>command <span class="op">=</span> <span class="st">"b"</span>, label <span class="op">=</span> <span class="st">"Action 2"</span>, icon <span class="op">=</span> <span class="st">"CirclePlusFilled"</span><span class="op">)</span>,</span>
-<span>              <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>command <span class="op">=</span> <span class="st">"c"</span>, label <span class="op">=</span> <span class="st">"Action 3"</span>, icon <span class="op">=</span> <span class="st">"CirclePlus"</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span>style <span class="op">=</span> <span class="st">"display: flex; gap: 40px"</span>,</span>
-<span>  <span class="fu"><a href="https://rstudio.github.io/htmltools/reference/tagList.html" class="external-link">tagList</a></span><span class="op">(</span><span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span><span class="st">"hover to trigger"</span><span class="op">)</span>, <span class="fu"><a href="../../reference/el_dropdown.html">el_dropdown</a></span><span class="op">(</span><span class="st">"dd_hover"</span>, items <span class="op">=</span> <span class="va">items</span>, trigger_label <span class="op">=</span> <span class="st">"Dropdown List"</span><span class="op">)</span><span class="op">)</span>,</span>
-<span>  <span class="fu"><a href="https://rstudio.github.io/htmltools/reference/tagList.html" class="external-link">tagList</a></span><span class="op">(</span><span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span><span class="st">"click to trigger"</span><span class="op">)</span>, <span class="fu"><a href="../../reference/el_dropdown.html">el_dropdown</a></span><span class="op">(</span><span class="st">"dd_click"</span>, items <span class="op">=</span> <span class="va">items</span>, trigger <span class="op">=</span> <span class="st">"click"</span>,</span>
-<span>                                                    trigger_label <span class="op">=</span> <span class="st">"Dropdown List"</span><span class="op">)</span><span class="op">)</span>,</span>
-<span>  <span class="fu"><a href="https://rstudio.github.io/htmltools/reference/tagList.html" class="external-link">tagList</a></span><span class="op">(</span><span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span><span class="st">"right click to trigger"</span><span class="op">)</span>, <span class="fu"><a href="../../reference/el_dropdown.html">el_dropdown</a></span><span class="op">(</span><span class="st">"dd_ctx"</span>, items <span class="op">=</span> <span class="va">items</span>, trigger <span class="op">=</span> <span class="st">"contextmenu"</span>,</span>
-<span>                                                          trigger_label <span class="op">=</span> <span class="st">"Dropdown List"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">items</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>command <span class="op">=</span> <span class="st">"a"</span>, label <span class="op">=</span> <span class="st">"Action 1"</span>, icon <span class="op">=</span> <span class="st">"Plus"</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>command <span class="op">=</span> <span class="st">"b"</span>, label <span class="op">=</span> <span class="st">"Action 2"</span>, icon <span class="op">=</span> <span class="st">"CirclePlusFilled"</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>command <span class="op">=</span> <span class="st">"c"</span>, label <span class="op">=</span> <span class="st">"Action 3"</span>, icon <span class="op">=</span> <span class="st">"CirclePlus"</span><span class="op">)</span></span>
+<span><span class="op">)</span></span>
+<span><span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span></span>
+<span>  style <span class="op">=</span> <span class="st">"display: flex; gap: 40px"</span>,</span>
+<span>  <span class="fu"><a href="https://rstudio.github.io/htmltools/reference/tagList.html" class="external-link">tagList</a></span><span class="op">(</span></span>
+<span>    <span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span><span class="st">"hover to trigger"</span><span class="op">)</span>,</span>
+<span>    <span class="fu"><a href="../../reference/el_dropdown.html">el_dropdown</a></span><span class="op">(</span><span class="st">"dd_hover"</span>, items <span class="op">=</span> <span class="va">items</span>, trigger_label <span class="op">=</span> <span class="st">"Dropdown List"</span><span class="op">)</span></span>
+<span>  <span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="https://rstudio.github.io/htmltools/reference/tagList.html" class="external-link">tagList</a></span><span class="op">(</span></span>
+<span>    <span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span><span class="st">"click to trigger"</span><span class="op">)</span>,</span>
+<span>    <span class="fu"><a href="../../reference/el_dropdown.html">el_dropdown</a></span><span class="op">(</span></span>
+<span>      <span class="st">"dd_click"</span>,</span>
+<span>      items <span class="op">=</span> <span class="va">items</span>,</span>
+<span>      trigger <span class="op">=</span> <span class="st">"click"</span>,</span>
+<span>      trigger_label <span class="op">=</span> <span class="st">"Dropdown List"</span></span>
+<span>    <span class="op">)</span></span>
+<span>  <span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="https://rstudio.github.io/htmltools/reference/tagList.html" class="external-link">tagList</a></span><span class="op">(</span></span>
+<span>    <span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span><span class="st">"right click to trigger"</span><span class="op">)</span>,</span>
+<span>    <span class="fu"><a href="../../reference/el_dropdown.html">el_dropdown</a></span><span class="op">(</span></span>
+<span>      <span class="st">"dd_ctx"</span>,</span>
+<span>      items <span class="op">=</span> <span class="va">items</span>,</span>
+<span>      trigger <span class="op">=</span> <span class="st">"contextmenu"</span>,</span>
+<span>      trigger_label <span class="op">=</span> <span class="st">"Dropdown List"</span></span>
+<span>    <span class="op">)</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
   <div style="display: flex; gap: 40px">
     <div>hover to trigger</div>
@@ -442,9 +497,16 @@ clicking.</p>
 <p>By default menu will close when you click on menu items, and it can
 be turned off by setting hide-on-click to false.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_dropdown.html">el_dropdown</a></span><span class="op">(</span><span class="st">"dd_keep"</span>, hide_on_click <span class="op">=</span> <span class="cn">FALSE</span>, trigger_label <span class="op">=</span> <span class="st">"Dropdown List"</span>, items <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>command <span class="op">=</span> <span class="st">"a"</span>, label <span class="op">=</span> <span class="st">"Action 1"</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>command <span class="op">=</span> <span class="st">"b"</span>, label <span class="op">=</span> <span class="st">"Action 2"</span><span class="op">)</span>,</span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>command <span class="op">=</span> <span class="st">"c"</span>, label <span class="op">=</span> <span class="st">"Action 3"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_dropdown.html">el_dropdown</a></span><span class="op">(</span></span>
+<span>  <span class="st">"dd_keep"</span>,</span>
+<span>  hide_on_click <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  trigger_label <span class="op">=</span> <span class="st">"Dropdown List"</span>,</span>
+<span>  items <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>command <span class="op">=</span> <span class="st">"a"</span>, label <span class="op">=</span> <span class="st">"Action 1"</span><span class="op">)</span>,</span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>command <span class="op">=</span> <span class="st">"b"</span>, label <span class="op">=</span> <span class="st">"Action 2"</span><span class="op">)</span>,</span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>command <span class="op">=</span> <span class="st">"c"</span>, label <span class="op">=</span> <span class="st">"Action 3"</span><span class="op">)</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
   <div id="menu-hiding-behavior-dd_keep" data-shiny-vue style="display: contents">
     <script type="text/x-template" data-shiny-vue-template><div id="menu-hiding-behavior-dd_keep_container" style="display: contents">
@@ -473,9 +535,15 @@ assigned by each item.</p>
 <p>The item clicked is <code>input$&lt;id&gt;</code>, its
 <code>command</code>.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_dropdown.html">el_dropdown</a></span><span class="op">(</span><span class="st">"dd_cmd"</span>, trigger_label <span class="op">=</span> <span class="st">"Dropdown List"</span>, items <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>command <span class="op">=</span> <span class="st">"a"</span>, label <span class="op">=</span> <span class="st">"Action 1"</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>command <span class="op">=</span> <span class="st">"b"</span>, label <span class="op">=</span> <span class="st">"Action 2"</span><span class="op">)</span>,</span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>command <span class="op">=</span> <span class="st">"c"</span>, label <span class="op">=</span> <span class="st">"Action 3"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_dropdown.html">el_dropdown</a></span><span class="op">(</span></span>
+<span>  <span class="st">"dd_cmd"</span>,</span>
+<span>  trigger_label <span class="op">=</span> <span class="st">"Dropdown List"</span>,</span>
+<span>  items <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>command <span class="op">=</span> <span class="st">"a"</span>, label <span class="op">=</span> <span class="st">"Action 1"</span><span class="op">)</span>,</span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>command <span class="op">=</span> <span class="st">"b"</span>, label <span class="op">=</span> <span class="st">"Action 2"</span><span class="op">)</span>,</span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>command <span class="op">=</span> <span class="st">"c"</span>, label <span class="op">=</span> <span class="st">"Action 3"</span><span class="op">)</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
   <div id="command-event-dd_cmd" data-shiny-vue style="display: contents">
     <script type="text/x-template" data-shiny-vue-template><div id="command-event-dd_cmd_container" style="display: contents">
@@ -504,8 +572,15 @@ assigned by each item.</p>
 <p><code>el_call(session, "dd_m", "handleOpen")</code> opens it from the
 server; <code>"handleClose"</code> closes it.</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_dropdown.html">el_dropdown</a></span><span class="op">(</span><span class="st">"dd_m"</span>, trigger <span class="op">=</span> <span class="st">"contextmenu"</span>, trigger_label <span class="op">=</span> <span class="st">"Dropdown List"</span>, items <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>command <span class="op">=</span> <span class="st">"a"</span>, label <span class="op">=</span> <span class="st">"Action 1"</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>command <span class="op">=</span> <span class="st">"b"</span>, label <span class="op">=</span> <span class="st">"Action 2"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_dropdown.html">el_dropdown</a></span><span class="op">(</span></span>
+<span>  <span class="st">"dd_m"</span>,</span>
+<span>  trigger <span class="op">=</span> <span class="st">"contextmenu"</span>,</span>
+<span>  trigger_label <span class="op">=</span> <span class="st">"Dropdown List"</span>,</span>
+<span>  items <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>command <span class="op">=</span> <span class="st">"a"</span>, label <span class="op">=</span> <span class="st">"Action 1"</span><span class="op">)</span>,</span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>command <span class="op">=</span> <span class="st">"b"</span>, label <span class="op">=</span> <span class="st">"Action 2"</span><span class="op">)</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
   <div id="dropdown-methods-dd_m" data-shiny-vue style="display: contents">
     <script type="text/x-template" data-shiny-vue-template><div id="dropdown-methods-dd_m_container" style="display: contents">
@@ -533,11 +608,23 @@ sizes for you to choose among different scenarios.</p>
 <p>Use attribute <code>size</code> to set additional sizes with
 <code>large</code>, <code>default</code> or <code>small</code>.</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">items</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>command <span class="op">=</span> <span class="st">"a"</span>, label <span class="op">=</span> <span class="st">"Action 1"</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>command <span class="op">=</span> <span class="st">"b"</span>, label <span class="op">=</span> <span class="st">"Action 2"</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span>style <span class="op">=</span> <span class="st">"display: flex; gap: 16px"</span>,</span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"large"</span>, <span class="st">"default"</span>, <span class="st">"small"</span><span class="op">)</span>, <span class="kw">function</span><span class="op">(</span><span class="va">s</span><span class="op">)</span></span>
-<span>    <span class="fu"><a href="../../reference/el_dropdown.html">el_dropdown</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="st">"dd_s_"</span>, <span class="va">s</span><span class="op">)</span>, size <span class="op">=</span> <span class="va">s</span>, split_button <span class="op">=</span> <span class="cn">TRUE</span>, type <span class="op">=</span> <span class="st">"primary"</span>,</span>
-<span>                trigger_label <span class="op">=</span> <span class="va">s</span>, items <span class="op">=</span> <span class="va">items</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">items</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>command <span class="op">=</span> <span class="st">"a"</span>, label <span class="op">=</span> <span class="st">"Action 1"</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>command <span class="op">=</span> <span class="st">"b"</span>, label <span class="op">=</span> <span class="st">"Action 2"</span><span class="op">)</span></span>
+<span><span class="op">)</span></span>
+<span><span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span></span>
+<span>  style <span class="op">=</span> <span class="st">"display: flex; gap: 16px"</span>,</span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"large"</span>, <span class="st">"default"</span>, <span class="st">"small"</span><span class="op">)</span>, <span class="kw">function</span><span class="op">(</span><span class="va">s</span><span class="op">)</span> <span class="op">{</span></span>
+<span>    <span class="fu"><a href="../../reference/el_dropdown.html">el_dropdown</a></span><span class="op">(</span></span>
+<span>      <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="st">"dd_s_"</span>, <span class="va">s</span><span class="op">)</span>,</span>
+<span>      size <span class="op">=</span> <span class="va">s</span>,</span>
+<span>      split_button <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>      type <span class="op">=</span> <span class="st">"primary"</span>,</span>
+<span>      trigger_label <span class="op">=</span> <span class="va">s</span>,</span>
+<span>      items <span class="op">=</span> <span class="va">items</span></span>
+<span>    <span class="op">)</span></span>
+<span>  <span class="op">}</span><span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
   <div style="display: flex; gap: 16px">
     <div id="sizes-dd_s_large" data-shiny-vue style="display: contents">

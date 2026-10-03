@@ -16,7 +16,12 @@ tagList(
   item(el_badge(value = 3, el_button("bd2", "replies"))),
   item(el_badge(value = 1, type = "primary", el_button("bd3", "comments"))),
   item(el_badge(value = 2, type = "warning", el_button("bd4", "replies"))),
-  item(el_badge(value = 1, color = "green", el_button("bd5", "custom background"))))
+  item(el_badge(
+    value = 1,
+    color = "green",
+    el_button("bd5", "custom background")
+  ))
+)
 ```
 
 ¹²
@@ -39,8 +44,12 @@ only works when value is also a Number.
 ``` r
 
 tagList(
-  tags$span(style = "margin-right: 40px", el_badge(value = 200, max = 99, el_button("bm1", "comments"))),
-  el_badge(value = 100, max = 10, el_button("bm2", "replies")))
+  tags$span(
+    style = "margin-right: 40px",
+    el_badge(value = 200, max = 99, el_button("bm1", "comments"))
+  ),
+  el_badge(value = 100, max = 10, el_button("bm2", "replies"))
+)
 ```
 
 ⁹⁹⁺
@@ -58,8 +67,12 @@ When value is a String, it can display customized text. Or use the
 ``` r
 
 tagList(
-  tags$span(style = "margin-right: 40px", el_badge(value = "new", el_button("bc1", "comments"))),
-  el_badge(value = "hot", el_button("bc2", "replies")))
+  tags$span(
+    style = "margin-right: 40px",
+    el_badge(value = "new", el_button("bc1", "comments"))
+  ),
+  el_badge(value = "hot", el_button("bc2", "replies"))
+)
 ```
 
 ^(new)
@@ -76,7 +89,11 @@ Use the attribute `is-dot`. It is a Boolean.
 
 tagList(
   tags$span(style = "margin-right: 40px", el_badge(is_dot = TRUE, "query")),
-  el_badge(is_dot = TRUE, el_button("bdot", NULL, icon = "Share", type = "primary")))
+  el_badge(
+    is_dot = TRUE,
+    el_button("bdot", NULL, icon = "Share", type = "primary")
+  )
+)
 ```
 
 query

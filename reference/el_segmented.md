@@ -133,7 +133,11 @@ A Shiny UI element.
 ## Examples
 
 ``` r
-el_segmented("period", options = c(Day = "d", Week = "w", Month = "m"), value = "w")
+el_segmented(
+  "period",
+  options = c(Day = "d", Week = "w", Month = "m"),
+  value = "w"
+)
 #> <div id="period" data-shiny-vue style="display: contents">
 #>   <script type="text/x-template" data-shiny-vue-template><div id="period_container" style="display: contents">
 #>   <el-segmented v-model="value" @change="handleChange" :options="options === null ? undefined : options" :size="size === null ? undefined : size" :block="block === null ? undefined : block" :disabled="disabled === null ? undefined : disabled" :validate-event="validateEvent === null ? undefined : validateEvent" :aria-label="ariaLabel === null ? undefined : ariaLabel" :direction="direction === null ? undefined : direction"></el-segmented>

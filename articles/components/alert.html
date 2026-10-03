@@ -198,34 +198,38 @@ default value is <code>info</code>. <code>primary</code> has been added
 in 2.9.11.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">types</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"primary"</span>, <span class="st">"success"</span>, <span class="st">"info"</span>, <span class="st">"warning"</span>, <span class="st">"error"</span><span class="op">)</span></span>
-<span><span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span>style <span class="op">=</span> <span class="st">"max-width: 600px; display: grid; gap: 20px"</span>,</span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply</a></span><span class="op">(</span><span class="va">types</span>, <span class="kw">function</span><span class="op">(</span><span class="va">t</span><span class="op">)</span> <span class="fu"><a href="../../reference/el_alert.html">el_alert</a></span><span class="op">(</span>title <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="fu">tools</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/tools/toTitleCase.html" class="external-link">toTitleCase</a></span><span class="op">(</span><span class="va">t</span><span class="op">)</span>, <span class="st">"alert"</span><span class="op">)</span>, type <span class="op">=</span> <span class="va">t</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<span><span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span></span>
+<span>  style <span class="op">=</span> <span class="st">"max-width: 600px; display: grid; gap: 20px"</span>,</span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply</a></span><span class="op">(</span><span class="va">types</span>, <span class="kw">function</span><span class="op">(</span><span class="va">t</span><span class="op">)</span> <span class="op">{</span></span>
+<span>    <span class="fu"><a href="../../reference/el_alert.html">el_alert</a></span><span class="op">(</span>title <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="fu">tools</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/tools/toTitleCase.html" class="external-link">toTitleCase</a></span><span class="op">(</span><span class="va">t</span><span class="op">)</span>, <span class="st">"alert"</span><span class="op">)</span>, type <span class="op">=</span> <span class="va">t</span><span class="op">)</span></span>
+<span>  <span class="op">}</span><span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
   <div style="max-width: 600px; display: grid; gap: 20px">
-    <div id="basic-el_alert_cee49905-5bd7-41b3-941b-f118f8a321bc" data-shiny-vue style="display: contents">
-      <script type="text/x-template" data-shiny-vue-template><div id="basic-el_alert_cee49905-5bd7-41b3-941b-f118f8a321bc_container" style="display: contents">
+    <div id="basic-el_alert_85e9505f-3688-44a7-9610-ffc2a82f4fcd" data-shiny-vue style="display: contents">
+      <script type="text/x-template" data-shiny-vue-template><div id="basic-el_alert_85e9505f-3688-44a7-9610-ffc2a82f4fcd_container" style="display: contents">
   <el-alert :title="title" :type="type" :closable="closable" :close-text="closeText" :show-icon="showIcon" :center="center" :effect="effect" @close="handleClose" :description="description === null ? undefined : description"></el-alert>
-</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"title":"Primary alert","type":"primary","closable":true,"closeText":"","showIcon":false,"center":false,"effect":"light","description":null},"methods":{"handleClose":"function() { window.Shiny && Shiny.setInputValue && Shiny.setInputValue('basic-el_alert_cee49905-5bd7-41b3-941b-f118f8a321bc_closed', 1, {priority: 'event'}); }"}},"input":null,"rate":null,"type":null,"evals":["options.methods.handleClose"]}</script>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"title":"Primary alert","type":"primary","closable":true,"closeText":"","showIcon":false,"center":false,"effect":"light","description":null},"methods":{"handleClose":"function() { window.Shiny && Shiny.setInputValue && Shiny.setInputValue('basic-el_alert_85e9505f-3688-44a7-9610-ffc2a82f4fcd_closed', 1, {priority: 'event'}); }"}},"input":null,"rate":null,"type":null,"evals":["options.methods.handleClose"]}</script>
 </div>
-    <div id="basic-el_alert_c1895a1c-55b9-4f4e-a0e4-128c827dd011" data-shiny-vue style="display: contents">
-      <script type="text/x-template" data-shiny-vue-template><div id="basic-el_alert_c1895a1c-55b9-4f4e-a0e4-128c827dd011_container" style="display: contents">
+    <div id="basic-el_alert_006b8b49-8b88-4bee-9823-6442a16fde33" data-shiny-vue style="display: contents">
+      <script type="text/x-template" data-shiny-vue-template><div id="basic-el_alert_006b8b49-8b88-4bee-9823-6442a16fde33_container" style="display: contents">
   <el-alert :title="title" :type="type" :closable="closable" :close-text="closeText" :show-icon="showIcon" :center="center" :effect="effect" @close="handleClose" :description="description === null ? undefined : description"></el-alert>
-</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"title":"Success alert","type":"success","closable":true,"closeText":"","showIcon":false,"center":false,"effect":"light","description":null},"methods":{"handleClose":"function() { window.Shiny && Shiny.setInputValue && Shiny.setInputValue('basic-el_alert_c1895a1c-55b9-4f4e-a0e4-128c827dd011_closed', 1, {priority: 'event'}); }"}},"input":null,"rate":null,"type":null,"evals":["options.methods.handleClose"]}</script>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"title":"Success alert","type":"success","closable":true,"closeText":"","showIcon":false,"center":false,"effect":"light","description":null},"methods":{"handleClose":"function() { window.Shiny && Shiny.setInputValue && Shiny.setInputValue('basic-el_alert_006b8b49-8b88-4bee-9823-6442a16fde33_closed', 1, {priority: 'event'}); }"}},"input":null,"rate":null,"type":null,"evals":["options.methods.handleClose"]}</script>
 </div>
-    <div id="basic-el_alert_e7d59016-1057-44e6-95cd-114bf8d19ac0" data-shiny-vue style="display: contents">
-      <script type="text/x-template" data-shiny-vue-template><div id="basic-el_alert_e7d59016-1057-44e6-95cd-114bf8d19ac0_container" style="display: contents">
+    <div id="basic-el_alert_03a60610-96fd-4707-ace3-42e249c733ab" data-shiny-vue style="display: contents">
+      <script type="text/x-template" data-shiny-vue-template><div id="basic-el_alert_03a60610-96fd-4707-ace3-42e249c733ab_container" style="display: contents">
   <el-alert :title="title" :type="type" :closable="closable" :close-text="closeText" :show-icon="showIcon" :center="center" :effect="effect" @close="handleClose" :description="description === null ? undefined : description"></el-alert>
-</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"title":"Info alert","type":"info","closable":true,"closeText":"","showIcon":false,"center":false,"effect":"light","description":null},"methods":{"handleClose":"function() { window.Shiny && Shiny.setInputValue && Shiny.setInputValue('basic-el_alert_e7d59016-1057-44e6-95cd-114bf8d19ac0_closed', 1, {priority: 'event'}); }"}},"input":null,"rate":null,"type":null,"evals":["options.methods.handleClose"]}</script>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"title":"Info alert","type":"info","closable":true,"closeText":"","showIcon":false,"center":false,"effect":"light","description":null},"methods":{"handleClose":"function() { window.Shiny && Shiny.setInputValue && Shiny.setInputValue('basic-el_alert_03a60610-96fd-4707-ace3-42e249c733ab_closed', 1, {priority: 'event'}); }"}},"input":null,"rate":null,"type":null,"evals":["options.methods.handleClose"]}</script>
 </div>
-    <div id="basic-el_alert_d7b3105d-cf2a-4a22-8230-0a8ee32c3a32" data-shiny-vue style="display: contents">
-      <script type="text/x-template" data-shiny-vue-template><div id="basic-el_alert_d7b3105d-cf2a-4a22-8230-0a8ee32c3a32_container" style="display: contents">
+    <div id="basic-el_alert_55d4b666-feaa-4b15-bef3-7f528d19dbbd" data-shiny-vue style="display: contents">
+      <script type="text/x-template" data-shiny-vue-template><div id="basic-el_alert_55d4b666-feaa-4b15-bef3-7f528d19dbbd_container" style="display: contents">
   <el-alert :title="title" :type="type" :closable="closable" :close-text="closeText" :show-icon="showIcon" :center="center" :effect="effect" @close="handleClose" :description="description === null ? undefined : description"></el-alert>
-</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"title":"Warning alert","type":"warning","closable":true,"closeText":"","showIcon":false,"center":false,"effect":"light","description":null},"methods":{"handleClose":"function() { window.Shiny && Shiny.setInputValue && Shiny.setInputValue('basic-el_alert_d7b3105d-cf2a-4a22-8230-0a8ee32c3a32_closed', 1, {priority: 'event'}); }"}},"input":null,"rate":null,"type":null,"evals":["options.methods.handleClose"]}</script>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"title":"Warning alert","type":"warning","closable":true,"closeText":"","showIcon":false,"center":false,"effect":"light","description":null},"methods":{"handleClose":"function() { window.Shiny && Shiny.setInputValue && Shiny.setInputValue('basic-el_alert_55d4b666-feaa-4b15-bef3-7f528d19dbbd_closed', 1, {priority: 'event'}); }"}},"input":null,"rate":null,"type":null,"evals":["options.methods.handleClose"]}</script>
 </div>
-    <div id="basic-el_alert_ea5a0859-233f-45f5-8364-03139748cf01" data-shiny-vue style="display: contents">
-      <script type="text/x-template" data-shiny-vue-template><div id="basic-el_alert_ea5a0859-233f-45f5-8364-03139748cf01_container" style="display: contents">
+    <div id="basic-el_alert_606c1734-38c8-419b-9271-b160f534d604" data-shiny-vue style="display: contents">
+      <script type="text/x-template" data-shiny-vue-template><div id="basic-el_alert_606c1734-38c8-419b-9271-b160f534d604_container" style="display: contents">
   <el-alert :title="title" :type="type" :closable="closable" :close-text="closeText" :show-icon="showIcon" :center="center" :effect="effect" @close="handleClose" :description="description === null ? undefined : description"></el-alert>
-</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"title":"Error alert","type":"error","closable":true,"closeText":"","showIcon":false,"center":false,"effect":"light","description":null},"methods":{"handleClose":"function() { window.Shiny && Shiny.setInputValue && Shiny.setInputValue('basic-el_alert_ea5a0859-233f-45f5-8364-03139748cf01_closed', 1, {priority: 'event'}); }"}},"input":null,"rate":null,"type":null,"evals":["options.methods.handleClose"]}</script>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"title":"Error alert","type":"error","closable":true,"closeText":"","showIcon":false,"center":false,"effect":"light","description":null},"methods":{"handleClose":"function() { window.Shiny && Shiny.setInputValue && Shiny.setInputValue('basic-el_alert_606c1734-38c8-419b-9271-b160f534d604_closed', 1, {priority: 'event'}); }"}},"input":null,"rate":null,"type":null,"evals":["options.methods.handleClose"]}</script>
 </div>
   </div>
 </div>
@@ -239,35 +243,42 @@ in 2.9.11.</p>
 <code>light</code>.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">types</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"primary"</span>, <span class="st">"success"</span>, <span class="st">"info"</span>, <span class="st">"warning"</span>, <span class="st">"error"</span><span class="op">)</span></span>
-<span><span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span>style <span class="op">=</span> <span class="st">"max-width: 600px; display: grid; gap: 20px"</span>,</span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply</a></span><span class="op">(</span><span class="va">types</span>, <span class="kw">function</span><span class="op">(</span><span class="va">t</span><span class="op">)</span> <span class="fu"><a href="../../reference/el_alert.html">el_alert</a></span><span class="op">(</span>title <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="fu">tools</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/tools/toTitleCase.html" class="external-link">toTitleCase</a></span><span class="op">(</span><span class="va">t</span><span class="op">)</span>, <span class="st">"alert"</span><span class="op">)</span>, type <span class="op">=</span> <span class="va">t</span>,</span>
-<span>                                     effect <span class="op">=</span> <span class="st">"dark"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<span><span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span></span>
+<span>  style <span class="op">=</span> <span class="st">"max-width: 600px; display: grid; gap: 20px"</span>,</span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply</a></span><span class="op">(</span><span class="va">types</span>, <span class="kw">function</span><span class="op">(</span><span class="va">t</span><span class="op">)</span> <span class="op">{</span></span>
+<span>    <span class="fu"><a href="../../reference/el_alert.html">el_alert</a></span><span class="op">(</span></span>
+<span>      title <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="fu">tools</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/tools/toTitleCase.html" class="external-link">toTitleCase</a></span><span class="op">(</span><span class="va">t</span><span class="op">)</span>, <span class="st">"alert"</span><span class="op">)</span>,</span>
+<span>      type <span class="op">=</span> <span class="va">t</span>,</span>
+<span>      effect <span class="op">=</span> <span class="st">"dark"</span></span>
+<span>    <span class="op">)</span></span>
+<span>  <span class="op">}</span><span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
   <div style="max-width: 600px; display: grid; gap: 20px">
-    <div id="theme-el_alert_b7cb4731-1d85-4e9a-9d64-00973fb1d2cc" data-shiny-vue style="display: contents">
-      <script type="text/x-template" data-shiny-vue-template><div id="theme-el_alert_b7cb4731-1d85-4e9a-9d64-00973fb1d2cc_container" style="display: contents">
+    <div id="theme-el_alert_b33f32b0-d06b-43c0-8cb1-c2b85dacbd68" data-shiny-vue style="display: contents">
+      <script type="text/x-template" data-shiny-vue-template><div id="theme-el_alert_b33f32b0-d06b-43c0-8cb1-c2b85dacbd68_container" style="display: contents">
   <el-alert :title="title" :type="type" :closable="closable" :close-text="closeText" :show-icon="showIcon" :center="center" :effect="effect" @close="handleClose" :description="description === null ? undefined : description"></el-alert>
-</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"title":"Primary alert","type":"primary","closable":true,"closeText":"","showIcon":false,"center":false,"effect":"dark","description":null},"methods":{"handleClose":"function() { window.Shiny && Shiny.setInputValue && Shiny.setInputValue('theme-el_alert_b7cb4731-1d85-4e9a-9d64-00973fb1d2cc_closed', 1, {priority: 'event'}); }"}},"input":null,"rate":null,"type":null,"evals":["options.methods.handleClose"]}</script>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"title":"Primary alert","type":"primary","closable":true,"closeText":"","showIcon":false,"center":false,"effect":"dark","description":null},"methods":{"handleClose":"function() { window.Shiny && Shiny.setInputValue && Shiny.setInputValue('theme-el_alert_b33f32b0-d06b-43c0-8cb1-c2b85dacbd68_closed', 1, {priority: 'event'}); }"}},"input":null,"rate":null,"type":null,"evals":["options.methods.handleClose"]}</script>
 </div>
-    <div id="theme-el_alert_71678494-327f-4039-bdfe-80453c7eace8" data-shiny-vue style="display: contents">
-      <script type="text/x-template" data-shiny-vue-template><div id="theme-el_alert_71678494-327f-4039-bdfe-80453c7eace8_container" style="display: contents">
+    <div id="theme-el_alert_3da3b182-3a04-4d3c-8f82-58bef246a268" data-shiny-vue style="display: contents">
+      <script type="text/x-template" data-shiny-vue-template><div id="theme-el_alert_3da3b182-3a04-4d3c-8f82-58bef246a268_container" style="display: contents">
   <el-alert :title="title" :type="type" :closable="closable" :close-text="closeText" :show-icon="showIcon" :center="center" :effect="effect" @close="handleClose" :description="description === null ? undefined : description"></el-alert>
-</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"title":"Success alert","type":"success","closable":true,"closeText":"","showIcon":false,"center":false,"effect":"dark","description":null},"methods":{"handleClose":"function() { window.Shiny && Shiny.setInputValue && Shiny.setInputValue('theme-el_alert_71678494-327f-4039-bdfe-80453c7eace8_closed', 1, {priority: 'event'}); }"}},"input":null,"rate":null,"type":null,"evals":["options.methods.handleClose"]}</script>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"title":"Success alert","type":"success","closable":true,"closeText":"","showIcon":false,"center":false,"effect":"dark","description":null},"methods":{"handleClose":"function() { window.Shiny && Shiny.setInputValue && Shiny.setInputValue('theme-el_alert_3da3b182-3a04-4d3c-8f82-58bef246a268_closed', 1, {priority: 'event'}); }"}},"input":null,"rate":null,"type":null,"evals":["options.methods.handleClose"]}</script>
 </div>
-    <div id="theme-el_alert_9a25dec8-1286-49cb-8e36-d541d0d8471d" data-shiny-vue style="display: contents">
-      <script type="text/x-template" data-shiny-vue-template><div id="theme-el_alert_9a25dec8-1286-49cb-8e36-d541d0d8471d_container" style="display: contents">
+    <div id="theme-el_alert_b6603937-10e4-4d4b-ad3f-dca5ce2a9884" data-shiny-vue style="display: contents">
+      <script type="text/x-template" data-shiny-vue-template><div id="theme-el_alert_b6603937-10e4-4d4b-ad3f-dca5ce2a9884_container" style="display: contents">
   <el-alert :title="title" :type="type" :closable="closable" :close-text="closeText" :show-icon="showIcon" :center="center" :effect="effect" @close="handleClose" :description="description === null ? undefined : description"></el-alert>
-</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"title":"Info alert","type":"info","closable":true,"closeText":"","showIcon":false,"center":false,"effect":"dark","description":null},"methods":{"handleClose":"function() { window.Shiny && Shiny.setInputValue && Shiny.setInputValue('theme-el_alert_9a25dec8-1286-49cb-8e36-d541d0d8471d_closed', 1, {priority: 'event'}); }"}},"input":null,"rate":null,"type":null,"evals":["options.methods.handleClose"]}</script>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"title":"Info alert","type":"info","closable":true,"closeText":"","showIcon":false,"center":false,"effect":"dark","description":null},"methods":{"handleClose":"function() { window.Shiny && Shiny.setInputValue && Shiny.setInputValue('theme-el_alert_b6603937-10e4-4d4b-ad3f-dca5ce2a9884_closed', 1, {priority: 'event'}); }"}},"input":null,"rate":null,"type":null,"evals":["options.methods.handleClose"]}</script>
 </div>
-    <div id="theme-el_alert_3550af82-fe1b-4d45-9aea-9656612267ca" data-shiny-vue style="display: contents">
-      <script type="text/x-template" data-shiny-vue-template><div id="theme-el_alert_3550af82-fe1b-4d45-9aea-9656612267ca_container" style="display: contents">
+    <div id="theme-el_alert_91473124-0096-4f83-9cc5-9747d6e77459" data-shiny-vue style="display: contents">
+      <script type="text/x-template" data-shiny-vue-template><div id="theme-el_alert_91473124-0096-4f83-9cc5-9747d6e77459_container" style="display: contents">
   <el-alert :title="title" :type="type" :closable="closable" :close-text="closeText" :show-icon="showIcon" :center="center" :effect="effect" @close="handleClose" :description="description === null ? undefined : description"></el-alert>
-</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"title":"Warning alert","type":"warning","closable":true,"closeText":"","showIcon":false,"center":false,"effect":"dark","description":null},"methods":{"handleClose":"function() { window.Shiny && Shiny.setInputValue && Shiny.setInputValue('theme-el_alert_3550af82-fe1b-4d45-9aea-9656612267ca_closed', 1, {priority: 'event'}); }"}},"input":null,"rate":null,"type":null,"evals":["options.methods.handleClose"]}</script>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"title":"Warning alert","type":"warning","closable":true,"closeText":"","showIcon":false,"center":false,"effect":"dark","description":null},"methods":{"handleClose":"function() { window.Shiny && Shiny.setInputValue && Shiny.setInputValue('theme-el_alert_91473124-0096-4f83-9cc5-9747d6e77459_closed', 1, {priority: 'event'}); }"}},"input":null,"rate":null,"type":null,"evals":["options.methods.handleClose"]}</script>
 </div>
-    <div id="theme-el_alert_61b92d22-290d-4e03-ba4a-fb07e7254aa9" data-shiny-vue style="display: contents">
-      <script type="text/x-template" data-shiny-vue-template><div id="theme-el_alert_61b92d22-290d-4e03-ba4a-fb07e7254aa9_container" style="display: contents">
+    <div id="theme-el_alert_dc2454d1-78c9-4707-9224-b4f7235441d4" data-shiny-vue style="display: contents">
+      <script type="text/x-template" data-shiny-vue-template><div id="theme-el_alert_dc2454d1-78c9-4707-9224-b4f7235441d4_container" style="display: contents">
   <el-alert :title="title" :type="type" :closable="closable" :close-text="closeText" :show-icon="showIcon" :center="center" :effect="effect" @close="handleClose" :description="description === null ? undefined : description"></el-alert>
-</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"title":"Error alert","type":"error","closable":true,"closeText":"","showIcon":false,"center":false,"effect":"dark","description":null},"methods":{"handleClose":"function() { window.Shiny && Shiny.setInputValue && Shiny.setInputValue('theme-el_alert_61b92d22-290d-4e03-ba4a-fb07e7254aa9_closed', 1, {priority: 'event'}); }"}},"input":null,"rate":null,"type":null,"evals":["options.methods.handleClose"]}</script>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"title":"Error alert","type":"error","closable":true,"closeText":"","showIcon":false,"center":false,"effect":"dark","description":null},"methods":{"handleClose":"function() { window.Shiny && Shiny.setInputValue && Shiny.setInputValue('theme-el_alert_dc2454d1-78c9-4707-9224-b4f7235441d4_closed', 1, {priority: 'event'}); }"}},"input":null,"rate":null,"type":null,"evals":["options.methods.handleClose"]}</script>
 </div>
   </div>
 </div>
@@ -286,21 +297,27 @@ string. <code>close</code> event fires when the component is closed.</p>
 <p>Closing reports <code>input$&lt;id&gt;_close</code>, where Element
 Plus’s demo raises a browser alert.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span>style <span class="op">=</span> <span class="st">"max-width: 600px; display: grid; gap: 20px"</span>,</span>
+<code class="sourceCode R"><span><span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span></span>
+<span>  style <span class="op">=</span> <span class="st">"max-width: 600px; display: grid; gap: 20px"</span>,</span>
 <span>  <span class="fu"><a href="../../reference/el_alert.html">el_alert</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Unclosable alert"</span>, type <span class="op">=</span> <span class="st">"success"</span>, closable <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>,</span>
-<span>  <span class="fu"><a href="../../reference/el_alert.html">el_alert</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Customized close text"</span>, type <span class="op">=</span> <span class="st">"info"</span>, close_text <span class="op">=</span> <span class="st">"Gotcha"</span><span class="op">)</span>,</span>
-<span>  <span class="fu"><a href="../../reference/el_alert.html">el_alert</a></span><span class="op">(</span><span class="st">"alert_cb"</span>, title <span class="op">=</span> <span class="st">"Alert with callback"</span>, type <span class="op">=</span> <span class="st">"warning"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<span>  <span class="fu"><a href="../../reference/el_alert.html">el_alert</a></span><span class="op">(</span></span>
+<span>    title <span class="op">=</span> <span class="st">"Customized close text"</span>,</span>
+<span>    type <span class="op">=</span> <span class="st">"info"</span>,</span>
+<span>    close_text <span class="op">=</span> <span class="st">"Gotcha"</span></span>
+<span>  <span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="../../reference/el_alert.html">el_alert</a></span><span class="op">(</span><span class="st">"alert_cb"</span>, title <span class="op">=</span> <span class="st">"Alert with callback"</span>, type <span class="op">=</span> <span class="st">"warning"</span><span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
   <div style="max-width: 600px; display: grid; gap: 20px">
-    <div id="close-button-el_alert_655c6f6e-f02c-4293-9ea9-4503e11178ff" data-shiny-vue style="display: contents">
-      <script type="text/x-template" data-shiny-vue-template><div id="close-button-el_alert_655c6f6e-f02c-4293-9ea9-4503e11178ff_container" style="display: contents">
+    <div id="close-button-el_alert_7838d5b8-cc7c-43f9-9e95-90b886156bd8" data-shiny-vue style="display: contents">
+      <script type="text/x-template" data-shiny-vue-template><div id="close-button-el_alert_7838d5b8-cc7c-43f9-9e95-90b886156bd8_container" style="display: contents">
   <el-alert :title="title" :type="type" :closable="closable" :close-text="closeText" :show-icon="showIcon" :center="center" :effect="effect" @close="handleClose" :description="description === null ? undefined : description"></el-alert>
-</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"title":"Unclosable alert","type":"success","closable":false,"closeText":"","showIcon":false,"center":false,"effect":"light","description":null},"methods":{"handleClose":"function() { window.Shiny && Shiny.setInputValue && Shiny.setInputValue('close-button-el_alert_655c6f6e-f02c-4293-9ea9-4503e11178ff_closed', 1, {priority: 'event'}); }"}},"input":null,"rate":null,"type":null,"evals":["options.methods.handleClose"]}</script>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"title":"Unclosable alert","type":"success","closable":false,"closeText":"","showIcon":false,"center":false,"effect":"light","description":null},"methods":{"handleClose":"function() { window.Shiny && Shiny.setInputValue && Shiny.setInputValue('close-button-el_alert_7838d5b8-cc7c-43f9-9e95-90b886156bd8_closed', 1, {priority: 'event'}); }"}},"input":null,"rate":null,"type":null,"evals":["options.methods.handleClose"]}</script>
 </div>
-    <div id="close-button-el_alert_fad1cf39-785c-4a90-ad8e-16960c30759c" data-shiny-vue style="display: contents">
-      <script type="text/x-template" data-shiny-vue-template><div id="close-button-el_alert_fad1cf39-785c-4a90-ad8e-16960c30759c_container" style="display: contents">
+    <div id="close-button-el_alert_03507923-c497-4275-b6fc-9ee0f628898d" data-shiny-vue style="display: contents">
+      <script type="text/x-template" data-shiny-vue-template><div id="close-button-el_alert_03507923-c497-4275-b6fc-9ee0f628898d_container" style="display: contents">
   <el-alert :title="title" :type="type" :closable="closable" :close-text="closeText" :show-icon="showIcon" :center="center" :effect="effect" @close="handleClose" :description="description === null ? undefined : description"></el-alert>
-</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"title":"Customized close text","type":"info","closable":true,"closeText":"Gotcha","showIcon":false,"center":false,"effect":"light","description":null},"methods":{"handleClose":"function() { window.Shiny && Shiny.setInputValue && Shiny.setInputValue('close-button-el_alert_fad1cf39-785c-4a90-ad8e-16960c30759c_closed', 1, {priority: 'event'}); }"}},"input":null,"rate":null,"type":null,"evals":["options.methods.handleClose"]}</script>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"title":"Customized close text","type":"info","closable":true,"closeText":"Gotcha","showIcon":false,"center":false,"effect":"light","description":null},"methods":{"handleClose":"function() { window.Shiny && Shiny.setInputValue && Shiny.setInputValue('close-button-el_alert_03507923-c497-4275-b6fc-9ee0f628898d_closed', 1, {priority: 'event'}); }"}},"input":null,"rate":null,"type":null,"evals":["options.methods.handleClose"]}</script>
 </div>
     <div id="close-button-alert_cb" data-shiny-vue style="display: contents">
       <script type="text/x-template" data-shiny-vue-template><div id="close-button-alert_cb_container" style="display: contents">
@@ -319,46 +336,57 @@ corresponds with the current Alert type. Or use the <code>icon</code>
 slot to customize icon.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">types</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"primary"</span>, <span class="st">"success"</span>, <span class="st">"info"</span>, <span class="st">"warning"</span>, <span class="st">"error"</span><span class="op">)</span></span>
-<span><span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span>style <span class="op">=</span> <span class="st">"max-width: 600px; display: grid; gap: 20px"</span>,</span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply</a></span><span class="op">(</span><span class="va">types</span>, <span class="kw">function</span><span class="op">(</span><span class="va">t</span><span class="op">)</span> <span class="fu"><a href="../../reference/el_alert.html">el_alert</a></span><span class="op">(</span>title <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="fu">tools</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/tools/toTitleCase.html" class="external-link">toTitleCase</a></span><span class="op">(</span><span class="va">t</span><span class="op">)</span>, <span class="st">"alert"</span><span class="op">)</span>, type <span class="op">=</span> <span class="va">t</span>,</span>
-<span>                                     show_icon <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span>,</span>
-<span>  <span class="fu"><a href="../../reference/el_alert.html">el_alert</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Error alert with custom icon"</span>, type <span class="op">=</span> <span class="st">"error"</span>, show_icon <span class="op">=</span> <span class="cn">TRUE</span>,</span>
-<span>           slots <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>icon <span class="op">=</span> <span class="fu"><a href="../../reference/el_icon.html">el_icon</a></span><span class="op">(</span><span class="st">"Bell"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<span><span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span></span>
+<span>  style <span class="op">=</span> <span class="st">"max-width: 600px; display: grid; gap: 20px"</span>,</span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply</a></span><span class="op">(</span><span class="va">types</span>, <span class="kw">function</span><span class="op">(</span><span class="va">t</span><span class="op">)</span> <span class="op">{</span></span>
+<span>    <span class="fu"><a href="../../reference/el_alert.html">el_alert</a></span><span class="op">(</span></span>
+<span>      title <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="fu">tools</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/tools/toTitleCase.html" class="external-link">toTitleCase</a></span><span class="op">(</span><span class="va">t</span><span class="op">)</span>, <span class="st">"alert"</span><span class="op">)</span>,</span>
+<span>      type <span class="op">=</span> <span class="va">t</span>,</span>
+<span>      show_icon <span class="op">=</span> <span class="cn">TRUE</span></span>
+<span>    <span class="op">)</span></span>
+<span>  <span class="op">}</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="../../reference/el_alert.html">el_alert</a></span><span class="op">(</span></span>
+<span>    title <span class="op">=</span> <span class="st">"Error alert with custom icon"</span>,</span>
+<span>    type <span class="op">=</span> <span class="st">"error"</span>,</span>
+<span>    show_icon <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>    slots <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>icon <span class="op">=</span> <span class="fu"><a href="../../reference/el_icon.html">el_icon</a></span><span class="op">(</span><span class="st">"Bell"</span><span class="op">)</span><span class="op">)</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
   <div style="max-width: 600px; display: grid; gap: 20px">
-    <div id="icon-el_alert_f3030903-f719-46ff-83c7-fa59fd06ef58" data-shiny-vue style="display: contents">
-      <script type="text/x-template" data-shiny-vue-template><div id="icon-el_alert_f3030903-f719-46ff-83c7-fa59fd06ef58_container" style="display: contents">
+    <div id="icon-el_alert_33700fcb-4a96-450c-a159-a39f9d795fb2" data-shiny-vue style="display: contents">
+      <script type="text/x-template" data-shiny-vue-template><div id="icon-el_alert_33700fcb-4a96-450c-a159-a39f9d795fb2_container" style="display: contents">
   <el-alert :title="title" :type="type" :closable="closable" :close-text="closeText" :show-icon="showIcon" :center="center" :effect="effect" @close="handleClose" :description="description === null ? undefined : description"></el-alert>
-</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"title":"Primary alert","type":"primary","closable":true,"closeText":"","showIcon":true,"center":false,"effect":"light","description":null},"methods":{"handleClose":"function() { window.Shiny && Shiny.setInputValue && Shiny.setInputValue('icon-el_alert_f3030903-f719-46ff-83c7-fa59fd06ef58_closed', 1, {priority: 'event'}); }"}},"input":null,"rate":null,"type":null,"evals":["options.methods.handleClose"]}</script>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"title":"Primary alert","type":"primary","closable":true,"closeText":"","showIcon":true,"center":false,"effect":"light","description":null},"methods":{"handleClose":"function() { window.Shiny && Shiny.setInputValue && Shiny.setInputValue('icon-el_alert_33700fcb-4a96-450c-a159-a39f9d795fb2_closed', 1, {priority: 'event'}); }"}},"input":null,"rate":null,"type":null,"evals":["options.methods.handleClose"]}</script>
 </div>
-    <div id="icon-el_alert_b2394ef3-59dc-450d-8d84-3ec3155fb3aa" data-shiny-vue style="display: contents">
-      <script type="text/x-template" data-shiny-vue-template><div id="icon-el_alert_b2394ef3-59dc-450d-8d84-3ec3155fb3aa_container" style="display: contents">
+    <div id="icon-el_alert_6e21d632-43c7-47f0-ae7c-148175250a10" data-shiny-vue style="display: contents">
+      <script type="text/x-template" data-shiny-vue-template><div id="icon-el_alert_6e21d632-43c7-47f0-ae7c-148175250a10_container" style="display: contents">
   <el-alert :title="title" :type="type" :closable="closable" :close-text="closeText" :show-icon="showIcon" :center="center" :effect="effect" @close="handleClose" :description="description === null ? undefined : description"></el-alert>
-</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"title":"Success alert","type":"success","closable":true,"closeText":"","showIcon":true,"center":false,"effect":"light","description":null},"methods":{"handleClose":"function() { window.Shiny && Shiny.setInputValue && Shiny.setInputValue('icon-el_alert_b2394ef3-59dc-450d-8d84-3ec3155fb3aa_closed', 1, {priority: 'event'}); }"}},"input":null,"rate":null,"type":null,"evals":["options.methods.handleClose"]}</script>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"title":"Success alert","type":"success","closable":true,"closeText":"","showIcon":true,"center":false,"effect":"light","description":null},"methods":{"handleClose":"function() { window.Shiny && Shiny.setInputValue && Shiny.setInputValue('icon-el_alert_6e21d632-43c7-47f0-ae7c-148175250a10_closed', 1, {priority: 'event'}); }"}},"input":null,"rate":null,"type":null,"evals":["options.methods.handleClose"]}</script>
 </div>
-    <div id="icon-el_alert_f70fce3f-05af-4434-98e2-80065a6c65d9" data-shiny-vue style="display: contents">
-      <script type="text/x-template" data-shiny-vue-template><div id="icon-el_alert_f70fce3f-05af-4434-98e2-80065a6c65d9_container" style="display: contents">
+    <div id="icon-el_alert_b2873051-94eb-4ef3-814a-5aff91810ba1" data-shiny-vue style="display: contents">
+      <script type="text/x-template" data-shiny-vue-template><div id="icon-el_alert_b2873051-94eb-4ef3-814a-5aff91810ba1_container" style="display: contents">
   <el-alert :title="title" :type="type" :closable="closable" :close-text="closeText" :show-icon="showIcon" :center="center" :effect="effect" @close="handleClose" :description="description === null ? undefined : description"></el-alert>
-</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"title":"Info alert","type":"info","closable":true,"closeText":"","showIcon":true,"center":false,"effect":"light","description":null},"methods":{"handleClose":"function() { window.Shiny && Shiny.setInputValue && Shiny.setInputValue('icon-el_alert_f70fce3f-05af-4434-98e2-80065a6c65d9_closed', 1, {priority: 'event'}); }"}},"input":null,"rate":null,"type":null,"evals":["options.methods.handleClose"]}</script>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"title":"Info alert","type":"info","closable":true,"closeText":"","showIcon":true,"center":false,"effect":"light","description":null},"methods":{"handleClose":"function() { window.Shiny && Shiny.setInputValue && Shiny.setInputValue('icon-el_alert_b2873051-94eb-4ef3-814a-5aff91810ba1_closed', 1, {priority: 'event'}); }"}},"input":null,"rate":null,"type":null,"evals":["options.methods.handleClose"]}</script>
 </div>
-    <div id="icon-el_alert_5292425d-97ec-4e4f-ac47-1e04ae596e5a" data-shiny-vue style="display: contents">
-      <script type="text/x-template" data-shiny-vue-template><div id="icon-el_alert_5292425d-97ec-4e4f-ac47-1e04ae596e5a_container" style="display: contents">
+    <div id="icon-el_alert_9de9f00d-3f88-4d45-8cbb-74cf8d702165" data-shiny-vue style="display: contents">
+      <script type="text/x-template" data-shiny-vue-template><div id="icon-el_alert_9de9f00d-3f88-4d45-8cbb-74cf8d702165_container" style="display: contents">
   <el-alert :title="title" :type="type" :closable="closable" :close-text="closeText" :show-icon="showIcon" :center="center" :effect="effect" @close="handleClose" :description="description === null ? undefined : description"></el-alert>
-</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"title":"Warning alert","type":"warning","closable":true,"closeText":"","showIcon":true,"center":false,"effect":"light","description":null},"methods":{"handleClose":"function() { window.Shiny && Shiny.setInputValue && Shiny.setInputValue('icon-el_alert_5292425d-97ec-4e4f-ac47-1e04ae596e5a_closed', 1, {priority: 'event'}); }"}},"input":null,"rate":null,"type":null,"evals":["options.methods.handleClose"]}</script>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"title":"Warning alert","type":"warning","closable":true,"closeText":"","showIcon":true,"center":false,"effect":"light","description":null},"methods":{"handleClose":"function() { window.Shiny && Shiny.setInputValue && Shiny.setInputValue('icon-el_alert_9de9f00d-3f88-4d45-8cbb-74cf8d702165_closed', 1, {priority: 'event'}); }"}},"input":null,"rate":null,"type":null,"evals":["options.methods.handleClose"]}</script>
 </div>
-    <div id="icon-el_alert_f9c14c50-667b-48b1-a395-a4303bdb55b0" data-shiny-vue style="display: contents">
-      <script type="text/x-template" data-shiny-vue-template><div id="icon-el_alert_f9c14c50-667b-48b1-a395-a4303bdb55b0_container" style="display: contents">
+    <div id="icon-el_alert_a1a06ad5-dec5-4b40-b132-5f0b5f454c6a" data-shiny-vue style="display: contents">
+      <script type="text/x-template" data-shiny-vue-template><div id="icon-el_alert_a1a06ad5-dec5-4b40-b132-5f0b5f454c6a_container" style="display: contents">
   <el-alert :title="title" :type="type" :closable="closable" :close-text="closeText" :show-icon="showIcon" :center="center" :effect="effect" @close="handleClose" :description="description === null ? undefined : description"></el-alert>
-</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"title":"Error alert","type":"error","closable":true,"closeText":"","showIcon":true,"center":false,"effect":"light","description":null},"methods":{"handleClose":"function() { window.Shiny && Shiny.setInputValue && Shiny.setInputValue('icon-el_alert_f9c14c50-667b-48b1-a395-a4303bdb55b0_closed', 1, {priority: 'event'}); }"}},"input":null,"rate":null,"type":null,"evals":["options.methods.handleClose"]}</script>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"title":"Error alert","type":"error","closable":true,"closeText":"","showIcon":true,"center":false,"effect":"light","description":null},"methods":{"handleClose":"function() { window.Shiny && Shiny.setInputValue && Shiny.setInputValue('icon-el_alert_a1a06ad5-dec5-4b40-b132-5f0b5f454c6a_closed', 1, {priority: 'event'}); }"}},"input":null,"rate":null,"type":null,"evals":["options.methods.handleClose"]}</script>
 </div>
-    <div id="icon-el_alert_9ee31750-e5d1-4046-afe7-b954353cea0f" data-shiny-vue style="display: contents">
-      <script type="text/x-template" data-shiny-vue-template><div id="icon-el_alert_9ee31750-e5d1-4046-afe7-b954353cea0f_container" style="display: contents">
+    <div id="icon-el_alert_ce80d70f-a160-4550-a74c-21c73731c239" data-shiny-vue style="display: contents">
+      <script type="text/x-template" data-shiny-vue-template><div id="icon-el_alert_ce80d70f-a160-4550-a74c-21c73731c239_container" style="display: contents">
   <el-alert :title="title" :type="type" :closable="closable" :close-text="closeText" :show-icon="showIcon" :center="center" :effect="effect" @close="handleClose" :description="description === null ? undefined : description">
     <template v-slot:icon>
       <i class="el-icon" data-el-icon="Bell" aria-hidden="true" role="img"></i>
     </template>
   </el-alert>
-</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"title":"Error alert with custom icon","type":"error","closable":true,"closeText":"","showIcon":true,"center":false,"effect":"light","description":null},"methods":{"handleClose":"function() { window.Shiny && Shiny.setInputValue && Shiny.setInputValue('icon-el_alert_9ee31750-e5d1-4046-afe7-b954353cea0f_closed', 1, {priority: 'event'}); }"}},"input":null,"rate":null,"type":null,"evals":["options.methods.handleClose"]}</script>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"title":"Error alert with custom icon","type":"error","closable":true,"closeText":"","showIcon":true,"center":false,"effect":"light","description":null},"methods":{"handleClose":"function() { window.Shiny && Shiny.setInputValue && Shiny.setInputValue('icon-el_alert_ce80d70f-a160-4550-a74c-21c73731c239_closed', 1, {priority: 'event'}); }"}},"input":null,"rate":null,"type":null,"evals":["options.methods.handleClose"]}</script>
 </div>
   </div>
 </div>
@@ -369,35 +397,43 @@ slot to customize icon.</p>
 <p>Use the <code>center</code> attribute to center the text.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">types</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"primary"</span>, <span class="st">"success"</span>, <span class="st">"info"</span>, <span class="st">"warning"</span>, <span class="st">"error"</span><span class="op">)</span></span>
-<span><span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span>style <span class="op">=</span> <span class="st">"max-width: 600px; display: grid; gap: 20px"</span>,</span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply</a></span><span class="op">(</span><span class="va">types</span>, <span class="kw">function</span><span class="op">(</span><span class="va">t</span><span class="op">)</span> <span class="fu"><a href="../../reference/el_alert.html">el_alert</a></span><span class="op">(</span>title <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="fu">tools</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/tools/toTitleCase.html" class="external-link">toTitleCase</a></span><span class="op">(</span><span class="va">t</span><span class="op">)</span>, <span class="st">"alert"</span><span class="op">)</span>, type <span class="op">=</span> <span class="va">t</span>,</span>
-<span>                                     center <span class="op">=</span> <span class="cn">TRUE</span>, show_icon <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<span><span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span></span>
+<span>  style <span class="op">=</span> <span class="st">"max-width: 600px; display: grid; gap: 20px"</span>,</span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply</a></span><span class="op">(</span><span class="va">types</span>, <span class="kw">function</span><span class="op">(</span><span class="va">t</span><span class="op">)</span> <span class="op">{</span></span>
+<span>    <span class="fu"><a href="../../reference/el_alert.html">el_alert</a></span><span class="op">(</span></span>
+<span>      title <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="fu">tools</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/tools/toTitleCase.html" class="external-link">toTitleCase</a></span><span class="op">(</span><span class="va">t</span><span class="op">)</span>, <span class="st">"alert"</span><span class="op">)</span>,</span>
+<span>      type <span class="op">=</span> <span class="va">t</span>,</span>
+<span>      center <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>      show_icon <span class="op">=</span> <span class="cn">TRUE</span></span>
+<span>    <span class="op">)</span></span>
+<span>  <span class="op">}</span><span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
   <div style="max-width: 600px; display: grid; gap: 20px">
-    <div id="center-el_alert_77b69b6c-c7cd-48c3-88d6-c1dab4e488b9" data-shiny-vue style="display: contents">
-      <script type="text/x-template" data-shiny-vue-template><div id="center-el_alert_77b69b6c-c7cd-48c3-88d6-c1dab4e488b9_container" style="display: contents">
+    <div id="center-el_alert_b06ac127-4c0d-4777-bd3c-3ed17542fa4c" data-shiny-vue style="display: contents">
+      <script type="text/x-template" data-shiny-vue-template><div id="center-el_alert_b06ac127-4c0d-4777-bd3c-3ed17542fa4c_container" style="display: contents">
   <el-alert :title="title" :type="type" :closable="closable" :close-text="closeText" :show-icon="showIcon" :center="center" :effect="effect" @close="handleClose" :description="description === null ? undefined : description"></el-alert>
-</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"title":"Primary alert","type":"primary","closable":true,"closeText":"","showIcon":true,"center":true,"effect":"light","description":null},"methods":{"handleClose":"function() { window.Shiny && Shiny.setInputValue && Shiny.setInputValue('center-el_alert_77b69b6c-c7cd-48c3-88d6-c1dab4e488b9_closed', 1, {priority: 'event'}); }"}},"input":null,"rate":null,"type":null,"evals":["options.methods.handleClose"]}</script>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"title":"Primary alert","type":"primary","closable":true,"closeText":"","showIcon":true,"center":true,"effect":"light","description":null},"methods":{"handleClose":"function() { window.Shiny && Shiny.setInputValue && Shiny.setInputValue('center-el_alert_b06ac127-4c0d-4777-bd3c-3ed17542fa4c_closed', 1, {priority: 'event'}); }"}},"input":null,"rate":null,"type":null,"evals":["options.methods.handleClose"]}</script>
 </div>
-    <div id="center-el_alert_f4ea7164-1388-415f-8da9-4f231ddd450c" data-shiny-vue style="display: contents">
-      <script type="text/x-template" data-shiny-vue-template><div id="center-el_alert_f4ea7164-1388-415f-8da9-4f231ddd450c_container" style="display: contents">
+    <div id="center-el_alert_9c984a1d-3e61-4b66-9e60-298b1015e959" data-shiny-vue style="display: contents">
+      <script type="text/x-template" data-shiny-vue-template><div id="center-el_alert_9c984a1d-3e61-4b66-9e60-298b1015e959_container" style="display: contents">
   <el-alert :title="title" :type="type" :closable="closable" :close-text="closeText" :show-icon="showIcon" :center="center" :effect="effect" @close="handleClose" :description="description === null ? undefined : description"></el-alert>
-</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"title":"Success alert","type":"success","closable":true,"closeText":"","showIcon":true,"center":true,"effect":"light","description":null},"methods":{"handleClose":"function() { window.Shiny && Shiny.setInputValue && Shiny.setInputValue('center-el_alert_f4ea7164-1388-415f-8da9-4f231ddd450c_closed', 1, {priority: 'event'}); }"}},"input":null,"rate":null,"type":null,"evals":["options.methods.handleClose"]}</script>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"title":"Success alert","type":"success","closable":true,"closeText":"","showIcon":true,"center":true,"effect":"light","description":null},"methods":{"handleClose":"function() { window.Shiny && Shiny.setInputValue && Shiny.setInputValue('center-el_alert_9c984a1d-3e61-4b66-9e60-298b1015e959_closed', 1, {priority: 'event'}); }"}},"input":null,"rate":null,"type":null,"evals":["options.methods.handleClose"]}</script>
 </div>
-    <div id="center-el_alert_dc3b597a-75dd-4260-ad03-4f968c823b1c" data-shiny-vue style="display: contents">
-      <script type="text/x-template" data-shiny-vue-template><div id="center-el_alert_dc3b597a-75dd-4260-ad03-4f968c823b1c_container" style="display: contents">
+    <div id="center-el_alert_08641ac6-622a-4e05-a168-7d3b5beaa97f" data-shiny-vue style="display: contents">
+      <script type="text/x-template" data-shiny-vue-template><div id="center-el_alert_08641ac6-622a-4e05-a168-7d3b5beaa97f_container" style="display: contents">
   <el-alert :title="title" :type="type" :closable="closable" :close-text="closeText" :show-icon="showIcon" :center="center" :effect="effect" @close="handleClose" :description="description === null ? undefined : description"></el-alert>
-</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"title":"Info alert","type":"info","closable":true,"closeText":"","showIcon":true,"center":true,"effect":"light","description":null},"methods":{"handleClose":"function() { window.Shiny && Shiny.setInputValue && Shiny.setInputValue('center-el_alert_dc3b597a-75dd-4260-ad03-4f968c823b1c_closed', 1, {priority: 'event'}); }"}},"input":null,"rate":null,"type":null,"evals":["options.methods.handleClose"]}</script>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"title":"Info alert","type":"info","closable":true,"closeText":"","showIcon":true,"center":true,"effect":"light","description":null},"methods":{"handleClose":"function() { window.Shiny && Shiny.setInputValue && Shiny.setInputValue('center-el_alert_08641ac6-622a-4e05-a168-7d3b5beaa97f_closed', 1, {priority: 'event'}); }"}},"input":null,"rate":null,"type":null,"evals":["options.methods.handleClose"]}</script>
 </div>
-    <div id="center-el_alert_089b61ca-5d08-4762-bc45-03ecc74aa0ad" data-shiny-vue style="display: contents">
-      <script type="text/x-template" data-shiny-vue-template><div id="center-el_alert_089b61ca-5d08-4762-bc45-03ecc74aa0ad_container" style="display: contents">
+    <div id="center-el_alert_a1444bc2-5160-4dfa-afd3-5fb2b93272f4" data-shiny-vue style="display: contents">
+      <script type="text/x-template" data-shiny-vue-template><div id="center-el_alert_a1444bc2-5160-4dfa-afd3-5fb2b93272f4_container" style="display: contents">
   <el-alert :title="title" :type="type" :closable="closable" :close-text="closeText" :show-icon="showIcon" :center="center" :effect="effect" @close="handleClose" :description="description === null ? undefined : description"></el-alert>
-</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"title":"Warning alert","type":"warning","closable":true,"closeText":"","showIcon":true,"center":true,"effect":"light","description":null},"methods":{"handleClose":"function() { window.Shiny && Shiny.setInputValue && Shiny.setInputValue('center-el_alert_089b61ca-5d08-4762-bc45-03ecc74aa0ad_closed', 1, {priority: 'event'}); }"}},"input":null,"rate":null,"type":null,"evals":["options.methods.handleClose"]}</script>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"title":"Warning alert","type":"warning","closable":true,"closeText":"","showIcon":true,"center":true,"effect":"light","description":null},"methods":{"handleClose":"function() { window.Shiny && Shiny.setInputValue && Shiny.setInputValue('center-el_alert_a1444bc2-5160-4dfa-afd3-5fb2b93272f4_closed', 1, {priority: 'event'}); }"}},"input":null,"rate":null,"type":null,"evals":["options.methods.handleClose"]}</script>
 </div>
-    <div id="center-el_alert_16ce5369-2ac5-4404-8bb2-11ad548e945a" data-shiny-vue style="display: contents">
-      <script type="text/x-template" data-shiny-vue-template><div id="center-el_alert_16ce5369-2ac5-4404-8bb2-11ad548e945a_container" style="display: contents">
+    <div id="center-el_alert_f13852fa-bdd4-4dd8-a739-222ef85cb632" data-shiny-vue style="display: contents">
+      <script type="text/x-template" data-shiny-vue-template><div id="center-el_alert_f13852fa-bdd4-4dd8-a739-222ef85cb632_container" style="display: contents">
   <el-alert :title="title" :type="type" :closable="closable" :close-text="closeText" :show-icon="showIcon" :center="center" :effect="effect" @close="handleClose" :description="description === null ? undefined : description"></el-alert>
-</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"title":"Error alert","type":"error","closable":true,"closeText":"","showIcon":true,"center":true,"effect":"light","description":null},"methods":{"handleClose":"function() { window.Shiny && Shiny.setInputValue && Shiny.setInputValue('center-el_alert_16ce5369-2ac5-4404-8bb2-11ad548e945a_closed', 1, {priority: 'event'}); }"}},"input":null,"rate":null,"type":null,"evals":["options.methods.handleClose"]}</script>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"title":"Error alert","type":"error","closable":true,"closeText":"","showIcon":true,"center":true,"effect":"light","description":null},"methods":{"handleClose":"function() { window.Shiny && Shiny.setInputValue && Shiny.setInputValue('center-el_alert_f13852fa-bdd4-4dd8-a739-222ef85cb632_closed', 1, {priority: 'event'}); }"}},"input":null,"rate":null,"type":null,"evals":["options.methods.handleClose"]}</script>
 </div>
   </div>
 </div>
@@ -411,14 +447,20 @@ slot to customize icon.</p>
 more details. Description can only store text string, and it will word
 wrap automatically.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span>style <span class="op">=</span> <span class="st">"max-width: 600px"</span>,</span>
-<span>  <span class="fu"><a href="../../reference/el_alert.html">el_alert</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"With description"</span>, type <span class="op">=</span> <span class="st">"success"</span>, description <span class="op">=</span> <span class="st">"This is a description."</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span></span>
+<span>  style <span class="op">=</span> <span class="st">"max-width: 600px"</span>,</span>
+<span>  <span class="fu"><a href="../../reference/el_alert.html">el_alert</a></span><span class="op">(</span></span>
+<span>    title <span class="op">=</span> <span class="st">"With description"</span>,</span>
+<span>    type <span class="op">=</span> <span class="st">"success"</span>,</span>
+<span>    description <span class="op">=</span> <span class="st">"This is a description."</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
   <div style="max-width: 600px">
-    <div id="description-el_alert_e6a67305-85d5-48a5-b0a0-591ea8216b99" data-shiny-vue style="display: contents">
-      <script type="text/x-template" data-shiny-vue-template><div id="description-el_alert_e6a67305-85d5-48a5-b0a0-591ea8216b99_container" style="display: contents">
+    <div id="description-el_alert_63f33071-e2f5-4adf-8a0e-b37d879aea29" data-shiny-vue style="display: contents">
+      <script type="text/x-template" data-shiny-vue-template><div id="description-el_alert_63f33071-e2f5-4adf-8a0e-b37d879aea29_container" style="display: contents">
   <el-alert :title="title" :type="type" :closable="closable" :close-text="closeText" :show-icon="showIcon" :center="center" :effect="effect" @close="handleClose" :description="description === null ? undefined : description"></el-alert>
-</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"title":"With description","type":"success","closable":true,"closeText":"","showIcon":false,"center":false,"effect":"light","description":"This is a description."},"methods":{"handleClose":"function() { window.Shiny && Shiny.setInputValue && Shiny.setInputValue('description-el_alert_e6a67305-85d5-48a5-b0a0-591ea8216b99_closed', 1, {priority: 'event'}); }"}},"input":null,"rate":null,"type":null,"evals":["options.methods.handleClose"]}</script>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"title":"With description","type":"success","closable":true,"closeText":"","showIcon":false,"center":false,"effect":"light","description":"This is a description."},"methods":{"handleClose":"function() { window.Shiny && Shiny.setInputValue && Shiny.setInputValue('description-el_alert_63f33071-e2f5-4adf-8a0e-b37d879aea29_closed', 1, {priority: 'event'}); }"}},"input":null,"rate":null,"type":null,"evals":["options.methods.handleClose"]}</script>
 </div>
   </div>
 </div>
@@ -429,35 +471,43 @@ wrap automatically.</p>
 <p>At last, this is an example with both icon and description.</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">types</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"primary"</span>, <span class="st">"success"</span>, <span class="st">"info"</span>, <span class="st">"warning"</span>, <span class="st">"error"</span><span class="op">)</span></span>
-<span><span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span>style <span class="op">=</span> <span class="st">"max-width: 600px; display: grid; gap: 20px"</span>,</span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply</a></span><span class="op">(</span><span class="va">types</span>, <span class="kw">function</span><span class="op">(</span><span class="va">t</span><span class="op">)</span> <span class="fu"><a href="../../reference/el_alert.html">el_alert</a></span><span class="op">(</span>title <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="fu">tools</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/tools/toTitleCase.html" class="external-link">toTitleCase</a></span><span class="op">(</span><span class="va">t</span><span class="op">)</span>, <span class="st">"alert"</span><span class="op">)</span>, type <span class="op">=</span> <span class="va">t</span>,</span>
-<span>                                     description <span class="op">=</span> <span class="st">"More text description"</span>, show_icon <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<span><span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span></span>
+<span>  style <span class="op">=</span> <span class="st">"max-width: 600px; display: grid; gap: 20px"</span>,</span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply</a></span><span class="op">(</span><span class="va">types</span>, <span class="kw">function</span><span class="op">(</span><span class="va">t</span><span class="op">)</span> <span class="op">{</span></span>
+<span>    <span class="fu"><a href="../../reference/el_alert.html">el_alert</a></span><span class="op">(</span></span>
+<span>      title <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="fu">tools</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/tools/toTitleCase.html" class="external-link">toTitleCase</a></span><span class="op">(</span><span class="va">t</span><span class="op">)</span>, <span class="st">"alert"</span><span class="op">)</span>,</span>
+<span>      type <span class="op">=</span> <span class="va">t</span>,</span>
+<span>      description <span class="op">=</span> <span class="st">"More text description"</span>,</span>
+<span>      show_icon <span class="op">=</span> <span class="cn">TRUE</span></span>
+<span>    <span class="op">)</span></span>
+<span>  <span class="op">}</span><span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
   <div style="max-width: 600px; display: grid; gap: 20px">
-    <div id="icon-description-el_alert_dd13ce2d-78fc-4341-a3b7-a7bab3bdca04" data-shiny-vue style="display: contents">
-      <script type="text/x-template" data-shiny-vue-template><div id="icon-description-el_alert_dd13ce2d-78fc-4341-a3b7-a7bab3bdca04_container" style="display: contents">
+    <div id="icon-description-el_alert_97dc1923-d690-4743-877b-b4b15bfb9e19" data-shiny-vue style="display: contents">
+      <script type="text/x-template" data-shiny-vue-template><div id="icon-description-el_alert_97dc1923-d690-4743-877b-b4b15bfb9e19_container" style="display: contents">
   <el-alert :title="title" :type="type" :closable="closable" :close-text="closeText" :show-icon="showIcon" :center="center" :effect="effect" @close="handleClose" :description="description === null ? undefined : description"></el-alert>
-</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"title":"Primary alert","type":"primary","closable":true,"closeText":"","showIcon":true,"center":false,"effect":"light","description":"More text description"},"methods":{"handleClose":"function() { window.Shiny && Shiny.setInputValue && Shiny.setInputValue('icon-description-el_alert_dd13ce2d-78fc-4341-a3b7-a7bab3bdca04_closed', 1, {priority: 'event'}); }"}},"input":null,"rate":null,"type":null,"evals":["options.methods.handleClose"]}</script>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"title":"Primary alert","type":"primary","closable":true,"closeText":"","showIcon":true,"center":false,"effect":"light","description":"More text description"},"methods":{"handleClose":"function() { window.Shiny && Shiny.setInputValue && Shiny.setInputValue('icon-description-el_alert_97dc1923-d690-4743-877b-b4b15bfb9e19_closed', 1, {priority: 'event'}); }"}},"input":null,"rate":null,"type":null,"evals":["options.methods.handleClose"]}</script>
 </div>
-    <div id="icon-description-el_alert_b6e7d809-6ae3-493f-bd23-ae555c68844e" data-shiny-vue style="display: contents">
-      <script type="text/x-template" data-shiny-vue-template><div id="icon-description-el_alert_b6e7d809-6ae3-493f-bd23-ae555c68844e_container" style="display: contents">
+    <div id="icon-description-el_alert_ca5b0175-d88c-4e76-8780-63bd8c58359f" data-shiny-vue style="display: contents">
+      <script type="text/x-template" data-shiny-vue-template><div id="icon-description-el_alert_ca5b0175-d88c-4e76-8780-63bd8c58359f_container" style="display: contents">
   <el-alert :title="title" :type="type" :closable="closable" :close-text="closeText" :show-icon="showIcon" :center="center" :effect="effect" @close="handleClose" :description="description === null ? undefined : description"></el-alert>
-</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"title":"Success alert","type":"success","closable":true,"closeText":"","showIcon":true,"center":false,"effect":"light","description":"More text description"},"methods":{"handleClose":"function() { window.Shiny && Shiny.setInputValue && Shiny.setInputValue('icon-description-el_alert_b6e7d809-6ae3-493f-bd23-ae555c68844e_closed', 1, {priority: 'event'}); }"}},"input":null,"rate":null,"type":null,"evals":["options.methods.handleClose"]}</script>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"title":"Success alert","type":"success","closable":true,"closeText":"","showIcon":true,"center":false,"effect":"light","description":"More text description"},"methods":{"handleClose":"function() { window.Shiny && Shiny.setInputValue && Shiny.setInputValue('icon-description-el_alert_ca5b0175-d88c-4e76-8780-63bd8c58359f_closed', 1, {priority: 'event'}); }"}},"input":null,"rate":null,"type":null,"evals":["options.methods.handleClose"]}</script>
 </div>
-    <div id="icon-description-el_alert_18f6429a-2c7a-412a-8a7b-47885edb2f93" data-shiny-vue style="display: contents">
-      <script type="text/x-template" data-shiny-vue-template><div id="icon-description-el_alert_18f6429a-2c7a-412a-8a7b-47885edb2f93_container" style="display: contents">
+    <div id="icon-description-el_alert_c3b42893-d905-4b35-ad4a-fcaaacb36fc9" data-shiny-vue style="display: contents">
+      <script type="text/x-template" data-shiny-vue-template><div id="icon-description-el_alert_c3b42893-d905-4b35-ad4a-fcaaacb36fc9_container" style="display: contents">
   <el-alert :title="title" :type="type" :closable="closable" :close-text="closeText" :show-icon="showIcon" :center="center" :effect="effect" @close="handleClose" :description="description === null ? undefined : description"></el-alert>
-</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"title":"Info alert","type":"info","closable":true,"closeText":"","showIcon":true,"center":false,"effect":"light","description":"More text description"},"methods":{"handleClose":"function() { window.Shiny && Shiny.setInputValue && Shiny.setInputValue('icon-description-el_alert_18f6429a-2c7a-412a-8a7b-47885edb2f93_closed', 1, {priority: 'event'}); }"}},"input":null,"rate":null,"type":null,"evals":["options.methods.handleClose"]}</script>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"title":"Info alert","type":"info","closable":true,"closeText":"","showIcon":true,"center":false,"effect":"light","description":"More text description"},"methods":{"handleClose":"function() { window.Shiny && Shiny.setInputValue && Shiny.setInputValue('icon-description-el_alert_c3b42893-d905-4b35-ad4a-fcaaacb36fc9_closed', 1, {priority: 'event'}); }"}},"input":null,"rate":null,"type":null,"evals":["options.methods.handleClose"]}</script>
 </div>
-    <div id="icon-description-el_alert_bf78eb19-f96a-4fdd-bff3-e56df5fa3f5d" data-shiny-vue style="display: contents">
-      <script type="text/x-template" data-shiny-vue-template><div id="icon-description-el_alert_bf78eb19-f96a-4fdd-bff3-e56df5fa3f5d_container" style="display: contents">
+    <div id="icon-description-el_alert_75ced408-91aa-453e-8d1b-877f75a22131" data-shiny-vue style="display: contents">
+      <script type="text/x-template" data-shiny-vue-template><div id="icon-description-el_alert_75ced408-91aa-453e-8d1b-877f75a22131_container" style="display: contents">
   <el-alert :title="title" :type="type" :closable="closable" :close-text="closeText" :show-icon="showIcon" :center="center" :effect="effect" @close="handleClose" :description="description === null ? undefined : description"></el-alert>
-</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"title":"Warning alert","type":"warning","closable":true,"closeText":"","showIcon":true,"center":false,"effect":"light","description":"More text description"},"methods":{"handleClose":"function() { window.Shiny && Shiny.setInputValue && Shiny.setInputValue('icon-description-el_alert_bf78eb19-f96a-4fdd-bff3-e56df5fa3f5d_closed', 1, {priority: 'event'}); }"}},"input":null,"rate":null,"type":null,"evals":["options.methods.handleClose"]}</script>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"title":"Warning alert","type":"warning","closable":true,"closeText":"","showIcon":true,"center":false,"effect":"light","description":"More text description"},"methods":{"handleClose":"function() { window.Shiny && Shiny.setInputValue && Shiny.setInputValue('icon-description-el_alert_75ced408-91aa-453e-8d1b-877f75a22131_closed', 1, {priority: 'event'}); }"}},"input":null,"rate":null,"type":null,"evals":["options.methods.handleClose"]}</script>
 </div>
-    <div id="icon-description-el_alert_4f684044-2ebb-403c-98b8-219c43ca0723" data-shiny-vue style="display: contents">
-      <script type="text/x-template" data-shiny-vue-template><div id="icon-description-el_alert_4f684044-2ebb-403c-98b8-219c43ca0723_container" style="display: contents">
+    <div id="icon-description-el_alert_86d234c4-591f-41fd-8db8-d0fb2f45e7d2" data-shiny-vue style="display: contents">
+      <script type="text/x-template" data-shiny-vue-template><div id="icon-description-el_alert_86d234c4-591f-41fd-8db8-d0fb2f45e7d2_container" style="display: contents">
   <el-alert :title="title" :type="type" :closable="closable" :close-text="closeText" :show-icon="showIcon" :center="center" :effect="effect" @close="handleClose" :description="description === null ? undefined : description"></el-alert>
-</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"title":"Error alert","type":"error","closable":true,"closeText":"","showIcon":true,"center":false,"effect":"light","description":"More text description"},"methods":{"handleClose":"function() { window.Shiny && Shiny.setInputValue && Shiny.setInputValue('icon-description-el_alert_4f684044-2ebb-403c-98b8-219c43ca0723_closed', 1, {priority: 'event'}); }"}},"input":null,"rate":null,"type":null,"evals":["options.methods.handleClose"]}</script>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"title":"Error alert","type":"error","closable":true,"closeText":"","showIcon":true,"center":false,"effect":"light","description":"More text description"},"methods":{"handleClose":"function() { window.Shiny && Shiny.setInputValue && Shiny.setInputValue('icon-description-el_alert_86d234c4-591f-41fd-8db8-d0fb2f45e7d2_closed', 1, {priority: 'event'}); }"}},"input":null,"rate":null,"type":null,"evals":["options.methods.handleClose"]}</script>
 </div>
   </div>
 </div>

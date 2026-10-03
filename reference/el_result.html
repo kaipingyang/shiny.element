@@ -222,9 +222,13 @@ a warning.</p></dd>
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu">el_result</span><span class="op">(</span><span class="st">"done"</span>, icon <span class="op">=</span> <span class="st">"success"</span>, title <span class="op">=</span> <span class="st">"Report submitted"</span>,</span></span>
-<span class="r-in"><span>          sub_title <span class="op">=</span> <span class="st">"It will be reviewed within a day"</span>,</span></span>
-<span class="r-in"><span>          <span class="fu"><a href="el_button.html">el_button</a></span><span class="op">(</span><span class="st">"back"</span>, <span class="st">"Back to the list"</span>, type <span class="op">=</span> <span class="st">"primary"</span><span class="op">)</span><span class="op">)</span></span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu">el_result</span><span class="op">(</span></span></span>
+<span class="r-in"><span>  <span class="st">"done"</span>,</span></span>
+<span class="r-in"><span>  icon <span class="op">=</span> <span class="st">"success"</span>,</span></span>
+<span class="r-in"><span>  title <span class="op">=</span> <span class="st">"Report submitted"</span>,</span></span>
+<span class="r-in"><span>  sub_title <span class="op">=</span> <span class="st">"It will be reviewed within a day"</span>,</span></span>
+<span class="r-in"><span>  <span class="fu"><a href="el_button.html">el_button</a></span><span class="op">(</span><span class="st">"back"</span>, <span class="st">"Back to the list"</span>, type <span class="op">=</span> <span class="st">"primary"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> &lt;div id="done" data-shiny-vue style="display: contents"&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   &lt;script type="text/x-template" data-shiny-vue-template&gt;&lt;div id="done_container" style="display: contents"&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   &lt;el-result :icon="resultIcon === null ? undefined : resultIcon" :title="resultTitle === null ? undefined : resultTitle" :sub-title="resultSubTitle === null ? undefined : resultSubTitle"&gt;</span>

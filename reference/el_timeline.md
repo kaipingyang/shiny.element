@@ -84,10 +84,15 @@ as HTML.
 el_timeline(
   id = "log",
   items = list(
-    list(content = "Order placed",  timestamp = "2026-03-01", type = "primary"),
-    list(content = "Order shipped", timestamp = "2026-03-02", type = "success",
-         icon = "el-icon-check", size = "large"),
-    list(content = "Delivered",     timestamp = "2026-03-04", color = "#0bbd87")
+    list(content = "Order placed", timestamp = "2026-03-01", type = "primary"),
+    list(
+      content = "Order shipped",
+      timestamp = "2026-03-02",
+      type = "success",
+      icon = "el-icon-check",
+      size = "large"
+    ),
+    list(content = "Delivered", timestamp = "2026-03-04", color = "#0bbd87")
   )
 )
 #> <div id="log" data-shiny-vue style="display: contents">
@@ -101,10 +106,11 @@ el_timeline(
 
 # Newest first, timestamps above each entry
 el_timeline(
-  id = "log", reverse = TRUE,
+  id = "log",
+  reverse = TRUE,
   items = list(
     list(content = "Second", timestamp = "10:30", placement = "top"),
-    list(content = "First",  timestamp = "09:15", placement = "top")
+    list(content = "First", timestamp = "09:15", placement = "top")
   )
 )
 #> <div id="log" data-shiny-vue style="display: contents">

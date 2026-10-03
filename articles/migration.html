@@ -275,8 +275,11 @@ values to use instead: <code>"medium"</code> becomes
 <code>"default"</code>, <code>"mini"</code> becomes
 <code>"small"</code>.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rstudio.github.io/htmltools/reference/tagList.html" class="external-link">tagList</a></span><span class="op">(</span><span class="fu"><a href="../reference/el_button.html">el_button</a></span><span class="op">(</span><span class="st">"l"</span>, <span class="st">"Large"</span>, size <span class="op">=</span> <span class="st">"large"</span><span class="op">)</span>, <span class="fu"><a href="../reference/el_button.html">el_button</a></span><span class="op">(</span><span class="st">"d"</span>, <span class="st">"Default"</span><span class="op">)</span>,</span>
-<span>        <span class="fu"><a href="../reference/el_button.html">el_button</a></span><span class="op">(</span><span class="st">"s"</span>, <span class="st">"Small"</span>, size <span class="op">=</span> <span class="st">"small"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rstudio.github.io/htmltools/reference/tagList.html" class="external-link">tagList</a></span><span class="op">(</span></span>
+<span>  <span class="fu"><a href="../reference/el_button.html">el_button</a></span><span class="op">(</span><span class="st">"l"</span>, <span class="st">"Large"</span>, size <span class="op">=</span> <span class="st">"large"</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="../reference/el_button.html">el_button</a></span><span class="op">(</span><span class="st">"d"</span>, <span class="st">"Default"</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="../reference/el_button.html">el_button</a></span><span class="op">(</span><span class="st">"s"</span>, <span class="st">"Small"</span>, size <span class="op">=</span> <span class="st">"small"</span><span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
   <div id="sizes-l" data-shiny-vue style="display: contents">
     <script type="text/x-template" data-shiny-vue-template><div id="sizes-l_container" style="display: contents">
@@ -299,9 +302,11 @@ values to use instead: <code>"medium"</code> becomes
 coloured link-like button) or <code>text = TRUE</code> (a borderless
 one) in Element Plus; <code>type</code> keeps the colour.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rstudio.github.io/htmltools/reference/tagList.html" class="external-link">tagList</a></span><span class="op">(</span><span class="fu"><a href="../reference/el_button.html">el_button</a></span><span class="op">(</span><span class="st">"a"</span>, <span class="st">"Link button"</span>, link <span class="op">=</span> <span class="cn">TRUE</span>, type <span class="op">=</span> <span class="st">"primary"</span><span class="op">)</span>,</span>
-<span>        <span class="fu"><a href="../reference/el_button.html">el_button</a></span><span class="op">(</span><span class="st">"b"</span>, <span class="st">"Text button"</span>, text <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,</span>
-<span>        <span class="fu"><a href="../reference/el_button.html">el_button</a></span><span class="op">(</span><span class="st">"c"</span>, <span class="st">"Text, filled"</span>, text <span class="op">=</span> <span class="cn">TRUE</span>, bg <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rstudio.github.io/htmltools/reference/tagList.html" class="external-link">tagList</a></span><span class="op">(</span></span>
+<span>  <span class="fu"><a href="../reference/el_button.html">el_button</a></span><span class="op">(</span><span class="st">"a"</span>, <span class="st">"Link button"</span>, link <span class="op">=</span> <span class="cn">TRUE</span>, type <span class="op">=</span> <span class="st">"primary"</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="../reference/el_button.html">el_button</a></span><span class="op">(</span><span class="st">"b"</span>, <span class="st">"Text button"</span>, text <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="../reference/el_button.html">el_button</a></span><span class="op">(</span><span class="st">"c"</span>, <span class="st">"Text, filled"</span>, text <span class="op">=</span> <span class="cn">TRUE</span>, bg <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
   <div id="text-a" data-shiny-vue style="display: contents">
     <script type="text/x-template" data-shiny-vue-template><div id="text-a_container" style="display: contents">

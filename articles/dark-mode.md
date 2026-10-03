@@ -12,11 +12,15 @@ Add `class = "dark"` to the page’s `<html>` – once, from the UI:
 
 ui <- el_page(
   tags$script("document.documentElement.classList.add('dark');"),
-  tags$style("html.dark body { background: var(--el-bg-color); color: var(--el-text-color-primary); }"),
-  el_button("b1", "Default"), el_button("b2", "Primary", type = "primary"),
+  tags$style(
+    "html.dark body { background: var(--el-bg-color); color: var(--el-text-color-primary); }"
+  ),
+  el_button("b1", "Default"),
+  el_button("b2", "Primary", type = "primary"),
   el_input("i", placeholder = "Input", width = "200px"),
   el_switch("s", value = TRUE),
-  el_pagination("p", total = 50))
+  el_pagination("p", total = 50)
+)
 
 shinyApp(ui, function(input, output, session) {})
 ```
@@ -28,17 +32,30 @@ Or let the user switch, the server toggling the class:
 ``` r
 
 ui <- el_page(
-  tags$script(HTML("Shiny.addCustomMessageHandler('dark', function (on) {",
-                   "  document.documentElement.classList.toggle('dark', on);",
-                   "});")),
-  tags$style("html.dark body { background: var(--el-bg-color); color: var(--el-text-color-primary); }"),
+  tags$script(HTML(
+    "Shiny.addCustomMessageHandler('dark', function (on) {",
+    "  document.documentElement.classList.toggle('dark', on);",
+    "});"
+  )),
+  tags$style(
+    "html.dark body { background: var(--el-bg-color); color: var(--el-text-color-primary); }"
+  ),
   el_switch("dark", active_text = "Dark", inactive_text = "Light"),
-  tags$div(style = "margin-top: 16px",
-    el_card(header = "A card", tags$p("Its colours follow the mode."),
-            el_button("go", "Primary", type = "primary"))))
+  tags$div(
+    style = "margin-top: 16px",
+    el_card(
+      header = "A card",
+      tags$p("Its colours follow the mode."),
+      el_button("go", "Primary", type = "primary")
+    )
+  )
+)
 
 server <- function(input, output, session) {
-  observeEvent(input$dark, session$sendCustomMessage("dark", isTRUE(input$dark)))
+  observeEvent(
+    input$dark,
+    session$sendCustomMessage("dark", isTRUE(input$dark))
+  )
 }
 
 shinyApp(ui, server)
@@ -58,10 +75,12 @@ A dark theme of your own overrides Element Plus’s variables under
 
 ``` r
 
-tags$style("html.dark {
+tags$style(
+  "html.dark {
   --el-bg-color: #141414;
   --el-color-primary: #3b82f6;
-}")
+}"
+)
 ```
 
 A brand colour given to
