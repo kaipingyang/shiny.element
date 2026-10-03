@@ -18,7 +18,7 @@
 #'   }
 #' @param trigger Trigger event: `"hover"` (default) or `"click"`.
 #' @param type Button type when `split_button = TRUE`: `"primary"`, etc.
-#' @param size Component size: `NULL`, `"medium"`, `"small"`, `"mini"`.
+#' @param size Size: `"large"`, `"default"` or `"small"`; `NULL` follows the form or the page.
 #' @param split_button Whether to render as a split button (main + dropdown
 #'   arrow). Default `FALSE`.
 #' @param hide_on_click Whether to close the menu after an item is clicked.
@@ -26,6 +26,35 @@
 #' @param placement Dropdown placement: `"bottom-end"` (default), `"bottom"`,
 #'   `"bottom-start"`, `"top"`, `"top-start"`, `"top-end"`.
 #' @param disabled Whether the entire dropdown is disabled. Default `FALSE`.
+#' @param append_to Which element the dropdown CONTENT appends to. Element
+#'   Plus's `append-to` (CSSSelector / HTMLElement).
+#' @param button_props Props for the button component, refer to Button
+#'   Attributes. Element Plus's `button-props` (object).
+#' @param effect Tooltip theme, built-in theme: `dark` / `light`. Element
+#'   Plus's `effect` ('dark' | 'light' / string).
+#' @param max_height The max height of menu. Element Plus's `max-height`
+#'   (string / number).
+#' @param persistent When dropdown inactive and `persistent` is `false` ,
+#'   dropdown menu will be destroyed. Element Plus's `persistent` (boolean).
+#' @param popper_class Custom class name for Dropdown's dropdown. Element
+#'   Plus's `popper-class` (string / object).
+#' @param popper_options Popper.js parameters. Element Plus's `popper-options`
+#'   (object).
+#' @param popper_style Custom style for Dropdown's dropdown. Element Plus's
+#'   `popper-style` (string / object).
+#' @param role The ARIA role attribute for the dropdown menu. Depending on the
+#'   use case, you may want to change this to 'navigation'. Element Plus's
+#'   `role` (enum).
+#' @param show_arrow Whether the tooltip content has an arrow. Element Plus's
+#'   `show-arrow` (boolean).
+#' @param teleported Whether the dropdown popup is teleported to the body.
+#'   Element Plus's `teleported` (boolean).
+#' @param trigger_keys Specify which keys on the keyboard can trigger when
+#'   pressed. Element Plus's `trigger-keys` (string[]).
+#' @param virtual_ref Indicates the reference element to which the dropdown is
+#'   attached. Element Plus's `virtual-ref` (HTMLElement).
+#' @param virtual_triggering Indicates whether virtual triggering is enabled.
+#'   Element Plus's `virtual-triggering` (boolean).
 #' @param session Deprecated. Inside a module, wrap `id` in `ns()`, as for
 #'   any Shiny input; a session given here namespaces `id` once more, with
 #'   a warning.
@@ -72,6 +101,20 @@ el_dropdown <- function(
     show_timeout = NULL,
     hide_timeout = NULL,
     tabindex     = NULL,
+    append_to = NULL,
+    button_props = NULL,
+    effect = NULL,
+    max_height = NULL,
+    persistent = NULL,
+    popper_class = NULL,
+    popper_options = NULL,
+    popper_style = NULL,
+    role = NULL,
+    show_arrow = NULL,
+    teleported = NULL,
+    trigger_keys = NULL,
+    virtual_ref = NULL,
+    virtual_triggering = NULL,
     width        = NULL,
     slots        = NULL,
     session      = NULL
@@ -104,7 +147,7 @@ el_dropdown <- function(
     shiny::tags$span(
       class = "el-dropdown-link",
       trigger_label,
-      shiny::tags$i(class = "el-icon-arrow-down el-icon--right")
+      htmltools::HTML('<el-icon class="el-icon--right"><arrow-down /></el-icon>')
     )
   } else {
     # A tag is the trigger as given -- an icon, an avatar -- with no arrow
@@ -146,6 +189,21 @@ el_dropdown <- function(
   vue_data$hideTimeout <- .el_or_na(hide_timeout)
   vue_data$tabindex <- .el_or_na(tabindex)
   el_widget(
+    props = .el_props(list(
+      append_to = append_to,
+      button_props = button_props,
+      effect = effect,
+      max_height = max_height,
+      persistent = persistent,
+      popper_class = popper_class,
+      popper_options = popper_options,
+      popper_style = popper_style,
+      role = role,
+      show_arrow = show_arrow,
+      teleported = teleported,
+      trigger_keys = trigger_keys,
+      virtual_ref = virtual_ref,
+      virtual_triggering = virtual_triggering)),
     id     = ns_id,
     markup = htmltools::tag("el-dropdown", c(dd_attrs, list(trigger_content, menu_tag))),
     data   = vue_data,

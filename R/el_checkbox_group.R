@@ -13,11 +13,21 @@
 #'   by default. `selected` is Shiny's name, `value` Element's (its
 #'   `v-model`); give either.
 #' @param disabled Whether the entire group is disabled. Default `FALSE`.
-#' @param size Size for button style only: `"medium"`, `"small"`, `"mini"`.
+#' @param size `"large"`, `"default"` or `"small"`.
 #' @param min Minimum number of checked items.
 #' @param max Maximum number of checked items.
 #' @param button Whether to use button-style checkboxes (`el-checkbox-button`).
 #'   Default `FALSE`.
+#' @param aria_label Native `aria-label` attribute. Element Plus's
+#'   `aria-label` (string).
+#' @param props Configuration options. Element Plus's `props` ({ value?:
+#'   string, label?: string, disabled?: string}).
+#' @param tag Element tag of the checkbox group. Element Plus's `tag`
+#'   (string).
+#' @param type Component type to render options (e.g. `'button'`). Element
+#'   Plus's `type` ('checkbox' | 'button').
+#' @param validate_event Whether to trigger form validation. Element Plus's
+#'   `validate-event` (boolean).
 #' @param session Deprecated. Inside a module, wrap `id` in `ns()`, as for
 #'   any Shiny input; a session given here namespaces `id` once more, with
 #'   a warning.
@@ -72,6 +82,11 @@ el_checkbox_group <- function(
     button   = FALSE,
     fill     = NULL,
     text_color = NULL,
+    aria_label = NULL,
+    props = NULL,
+    tag = NULL,
+    type = NULL,
+    validate_event = NULL,
     label = NULL,
     label_position = c("top", "left", "right"),
     label_width = NULL,
@@ -136,6 +151,12 @@ el_checkbox_group <- function(
   vue_data$fill <- .el_or_na(fill)
   vue_data$textColor <- .el_or_na(text_color)
   el_widget(
+    props = .el_props(list(
+      aria_label = aria_label,
+      props = props,
+      tag = tag,
+      type = type,
+      validate_event = validate_event)),
     label = label, label_position = label_position,
     label_width = label_width, label_suffix = label_suffix, required = required,
     error = error, show_message = show_message, inline_message = inline_message,

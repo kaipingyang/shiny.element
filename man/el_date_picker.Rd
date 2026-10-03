@@ -8,7 +8,7 @@ el_date_picker(
   id = NULL,
   value = NULL,
   type = "date",
-  value_format = "yyyy-MM-dd",
+  value_format = "YYYY-MM-DD",
   format = NULL,
   placeholder = NULL,
   start_placeholder = NULL,
@@ -18,7 +18,6 @@ el_date_picker(
   editable = TRUE,
   readonly = FALSE,
   range_separator = "-",
-  align = "left",
   size = NULL,
   name = NULL,
   prefix_icon = NULL,
@@ -27,8 +26,29 @@ el_date_picker(
   default_value = NULL,
   default_time = NULL,
   unlink_panels = NULL,
-  picker_options = NULL,
   validate_event = NULL,
+  arrow_control = NULL,
+  automatic_dropdown = NULL,
+  cell_class_name = NULL,
+  date_format = NULL,
+  disabled_date = NULL,
+  disabled_hours = NULL,
+  disabled_minutes = NULL,
+  disabled_seconds = NULL,
+  empty_values = NULL,
+  fallback_placements = NULL,
+  placement = NULL,
+  popper_options = NULL,
+  popper_style = NULL,
+  shortcuts = NULL,
+  show_confirm = NULL,
+  show_footer = NULL,
+  show_now = NULL,
+  show_week_number = NULL,
+  single_panel = NULL,
+  teleported = NULL,
+  time_format = NULL,
+  value_on_clear = NULL,
   label = NULL,
   label_position = c("top", "left", "right"),
   label_width = NULL,
@@ -39,8 +59,6 @@ el_date_picker(
   inline_message = FALSE,
   width = NULL,
   slots = NULL,
-  append_to_body = NULL,
-  time_arrow_control = NULL,
   session = NULL
 )
 }
@@ -54,12 +72,13 @@ el_date_picker(
 \item{type}{Picker type: \code{"date"} (default), \code{"datetime"}, \code{"daterange"},
 \code{"datetimerange"}, \code{"month"}, \code{"year"}, \code{"week"}.}
 
-\item{value_format}{Format string returned to Shiny when a date is selected.
-Uses Element UI format tokens (e.g., \code{"yyyy-MM-dd"}). Default
-\code{"yyyy-MM-dd"}.}
+\item{value_format}{Format string returned to Shiny when a date is selected,
+in day.js's tokens, as Element Plus takes it (e.g., \code{"YYYY-MM-DD"}).
+Default \code{"YYYY-MM-DD"}. Element UI's tokens -- \code{"yyyy-MM-dd"},
+\code{"timestamp"} -- are translated.}
 
-\item{format}{Display format shown in the input box. Uses Element UI format
-tokens. \code{NULL} (default) falls back to \code{value_format}.}
+\item{format}{Display format shown in the input box, in day.js's tokens.
+\code{NULL} (default) falls back to \code{value_format}.}
 
 \item{placeholder}{Placeholder text for non-range types.}
 
@@ -78,9 +97,7 @@ tokens. \code{NULL} (default) falls back to \code{value_format}.}
 \item{range_separator}{Separator string displayed between start and end in
 range types. Default \code{"-"}.}
 
-\item{align}{Input alignment: \code{"left"} (default), \code{"center"}, \code{"right"}.}
-
-\item{size}{Input size: \code{"medium"}, \code{"small"} or \code{"mini"}.}
+\item{size}{Size: \code{"large"}, \code{"default"} or \code{"small"}; \code{NULL} follows the form or the page.}
 
 \item{name}{Native \code{name} attribute.}
 
@@ -96,9 +113,80 @@ range types. Default \code{"-"}.}
 
 \item{unlink_panels}{Whether the two panels of a range picker move independently.}
 
-\item{picker_options}{Additional Element picker options, as a named list.}
-
 \item{validate_event}{Whether a change triggers form validation. Default \code{TRUE}.}
+
+\item{arrow_control}{Whether to pick time using arrow buttons. Element
+Plus's \code{arrow-control} (boolean).}
+
+\item{automatic_dropdown}{This prop decides if the date picker panel pops
+up when the input is focused. (The default value will be set to false in
+version 3.0). Element Plus's \code{automatic-dropdown} (boolean).}
+
+\item{cell_class_name}{Set custom className. Element Plus's
+\code{cell-class-name} ((data: Date) => string).}
+
+\item{date_format}{Optional, format of the date displayed in input's inner
+panel. Element Plus's \code{date-format} (string).}
+
+\item{disabled_date}{A function determining if a date is disabled with that
+date as its parameter. Should return a Boolean. Element Plus's
+\code{disabled-date} ((data: Date) => boolean).}
+
+\item{disabled_hours}{To specify the array of hours that cannot be
+selected. Element Plus's \code{disabled-hours} ((role: string, comparingDate?:
+Dayjs) => number[]).}
+
+\item{disabled_minutes}{To specify the array of minutes that cannot be
+selected. Element Plus's \code{disabled-minutes} ((hour: number, role: string,
+comparingDate?: Dayjs) => number[]).}
+
+\item{disabled_seconds}{To specify the array of seconds that cannot be
+selected. Element Plus's \code{disabled-seconds} (Function). Give it as
+\code{\link[=JS]{JS()}}.}
+
+\item{empty_values}{Empty values of component, see config-provider. Element
+Plus's \code{empty-values} (array).}
+
+\item{fallback_placements}{List of possible positions for Tooltip
+popper.js. Element Plus's \code{fallback-placements} (Placement[]).}
+
+\item{placement}{Position of dropdown. Element Plus's \code{placement}.}
+
+\item{popper_options}{Customized popper option see more at popper.js.
+Element Plus's \code{popper-options} (Partial\if{html}{\out{<PopperOptions>}}).}
+
+\item{popper_style}{Custom style for DatePicker's dropdown. Element Plus's
+\code{popper-style} (string / object).}
+
+\item{shortcuts}{An object array to set shortcut options. Element Plus's
+\code{shortcuts} (Array<{ text: string, value: Date | Function }>). Give it as
+\code{\link[=JS]{JS()}}.}
+
+\item{show_confirm}{Whether to show the confirm button. Element Plus's
+\code{show-confirm} (boolean).}
+
+\item{show_footer}{Whether to show footer where the date picker is one
+\code{'dates' | 'months' | 'years' | 'quarters'}. Element Plus's
+\code{show-footer} (boolean).}
+
+\item{show_now}{Whether to show the now button. Element Plus's \code{show-now}
+(boolean).}
+
+\item{show_week_number}{Show the week number besides the week. Element
+Plus's \code{show-week-number} (boolean).}
+
+\item{single_panel}{Show only one panel in range-picker. Element Plus's
+\code{single-panel} (boolean).}
+
+\item{teleported}{Whether date-picker dropdown is teleported to the body.
+Element Plus's \code{teleported} (boolean).}
+
+\item{time_format}{Optional, format of the time displayed in input's inner
+panel. Element Plus's \code{time-format} (string).}
+
+\item{value_on_clear}{Clear return value, see config-provider. Element
+Plus's \code{value-on-clear} (string / number / boolean / Function). Give it
+as \code{\link[=JS]{JS()}}.}
 
 \item{label}{A label shown with the component, as Shiny's inputs have:
 text or a tag. \code{NULL}, the default, shows none. It is the component's
@@ -135,10 +223,6 @@ like the \code{width} argument of a Shiny input.}
 \code{list(title = shiny::tags$b("Bold"))}. A shiny.element component
 given here is absorbed rather than nested. For a scoped slot, write
 the template with \code{\link[=template]{template()}}.}
-
-\item{append_to_body}{Whether the picker panel is appended to \code{body}. Default \code{TRUE}; \code{FALSE} keeps it inside a dialog or a scrolling container.}
-
-\item{time_arrow_control}{For \code{type = "datetime"}: whether the time is picked with arrow buttons rather than by scrolling.}
 
 \item{session}{Deprecated. Inside a module, wrap \code{id} in \code{ns()}, as for
 any Shiny input; a session given here namespaces \code{id} once more, with

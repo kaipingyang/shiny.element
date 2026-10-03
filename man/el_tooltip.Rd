@@ -12,15 +12,27 @@ el_tooltip(
   effect = NULL,
   disabled = NULL,
   offset = NULL,
-  open_delay = NULL,
   hide_after = NULL,
   enterable = NULL,
-  visible_arrow = NULL,
   transition = NULL,
   popper_class = NULL,
   popper_options = NULL,
-  manual = NULL,
-  tabindex = NULL,
+  append_to = NULL,
+  aria_label = NULL,
+  arrow_offset = NULL,
+  auto_close = NULL,
+  fallback_placements = NULL,
+  focus_on_target = NULL,
+  persistent = NULL,
+  popper_style = NULL,
+  raw_content = NULL,
+  show_after = NULL,
+  show_arrow = NULL,
+  teleported = NULL,
+  trigger_keys = NULL,
+  virtual_ref = NULL,
+  virtual_triggering = NULL,
+  visible = NULL,
   width = NULL,
   slots = NULL,
   session = NULL
@@ -46,14 +58,10 @@ Details.}
 
 \item{offset}{Offset from the trigger, in pixels.}
 
-\item{open_delay}{Delay before it appears, in milliseconds.}
-
 \item{hide_after}{Hide it automatically after this many milliseconds. \code{0}
 (the default) keeps it until the pointer leaves.}
 
 \item{enterable}{Whether the pointer may move onto the hint itself.}
-
-\item{visible_arrow}{Whether to draw the little arrow. Default \code{TRUE}.}
 
 \item{transition}{Name of the transition to animate with.}
 
@@ -61,10 +69,56 @@ Details.}
 
 \item{popper_options}{Additional Popper.js options, as a named list.}
 
-\item{manual}{Whether to control visibility yourself through
-\code{\link[=update_el_tooltip]{update_el_tooltip()}} rather than on hover.}
+\item{append_to}{Which element the tooltip CONTENT appends to. Element
+Plus's \code{append-to} (CSSSelector / HTMLElement).}
 
-\item{tabindex}{Tab index of the trigger.}
+\item{aria_label}{Same as \code{aria-label}. Element Plus's \code{aria-label}
+(string).}
+
+\item{arrow_offset}{Controls the offset (padding) of the tooltip’s arrow
+relative to the popper. Element Plus's \code{arrow-offset} (number).}
+
+\item{auto_close}{Timeout in milliseconds to hide tooltip, not valid in
+controlled mode. Element Plus's \code{auto-close} (number).}
+
+\item{fallback_placements}{List of possible positions for Tooltip
+popper.js. Element Plus's \code{fallback-placements} (Placement[]).}
+
+\item{focus_on_target}{When triggering tooltips through hover, whether to
+focus the trigger element, which improves accessibility. Element Plus's
+\code{focus-on-target} (boolean).}
+
+\item{persistent}{When tooltip inactive and \code{persistent} is \code{false} ,
+tooltip will be destroyed. Element Plus's \code{persistent} (boolean).}
+
+\item{popper_style}{Custom style for Tooltip's popper. Element Plus's
+\code{popper-style} (string / object).}
+
+\item{raw_content}{Whether \code{content} is treated as HTML string. Element
+Plus's \code{raw-content} (boolean).}
+
+\item{show_after}{Delay of appearance, in millisecond, not valid in
+controlled mode. Element Plus's \code{show-after} (number).}
+
+\item{show_arrow}{Whether the tooltip content has an arrow. Element Plus's
+\code{show-arrow} (boolean).}
+
+\item{teleported}{Whether tooltip content is teleported, if \code{true} it will
+be teleported to where \code{append-to} sets. Element Plus's \code{teleported}
+(boolean).}
+
+\item{trigger_keys}{When you click the mouse to focus on the trigger
+element, you can define a set of keyboard codes to control the display of
+tooltip through the keyboard, not valid in controlled mode. Element
+Plus's \code{trigger-keys} (Array).}
+
+\item{virtual_ref}{Indicates the reference element to which the tooltip is
+attached. Element Plus's \code{virtual-ref} (HTMLElement).}
+
+\item{virtual_triggering}{Indicates whether virtual triggering is enabled.
+Element Plus's \code{virtual-triggering} (boolean).}
+
+\item{visible}{Visibility of Tooltip. Element Plus's \code{visible} (boolean).}
 
 \item{width}{Component width, as a CSS unit.}
 

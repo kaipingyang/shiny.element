@@ -17,6 +17,8 @@
 #' @param html Render each entry's `content` as HTML rather than text --
 #'   a string of markup, or tags. Only use it with content you control: it
 #'   goes through `v-html`, which does not escape anything.
+#' @param mode Relative position of timeline and content. Element Plus's
+#'   `mode` ('start' | 'alternate' | 'alternate-reverse' | 'end').
 #' @param session Deprecated. Inside a module, wrap `id` in `ns()`, as for
 #'   any Shiny input; a session given here namespaces `id` once more, with
 #'   a warning.
@@ -53,9 +55,11 @@ el_timeline <- function(id = NULL,
                         items = list(),
                         reverse = FALSE,
                         html = FALSE,
+                        mode = NULL,
                         width   = NULL,
                         slots   = NULL,
                         session = NULL) {
+  .el_check_choices("el_timeline", environment())
   if (is.null(id)) id <- paste0("el_timeline_", uuid::UUIDgenerate())
   ns_id        <- .el_ui_id(id, session)
   container_id <- paste0(ns_id, "_container")
@@ -86,6 +90,8 @@ el_timeline <- function(id = NULL,
   )
 
   el_widget(
+    props = .el_props(list(
+      mode = mode)),
     id     = ns_id,
     markup = htmltools::tag("el-timeline", list(":reverse" = "reverse", item_tag)),
     data   = vue_data,

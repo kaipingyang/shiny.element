@@ -95,6 +95,29 @@ slot_names <- list(
   el_statistic = c("prefix", "suffix", "title", "formatter")
 )
 
+# Every slot Element Plus documents for a component's own tag is probed too:
+# a component passing slots = through to its markup fills them all
+upstream_slots <- local({
+  path <- "/tmp/elapi/docs.json"
+  if (!file.exists(path)) return(list())
+  docs <- jsonlite::read_json(path)
+  found <- list()
+  for (file in names(docs)) for (title in names(docs[[file]])) {
+    sec <- docs[[file]][[title]]
+    if (!identical(sec$kind, "Slot")) next
+    base <- trimws(sub("\\s*Slots?$", "", title))
+    if (!nzchar(base)) base <- file
+    slug <- tolower(gsub("([a-z0-9])([A-Z])", "\\1-\\2", base))
+    slug <- gsub("[[:space:]_]+", "-", slug)
+    fn <- paste0("el_", gsub("-", "_", slug))
+    found[[fn]] <- union(found[[fn]], vapply(sec$items, function(i) i$name, ""))
+  }
+  found
+})
+for (f in names(upstream_slots)) {
+  slot_names[[f]] <- setdiff(union(slot_names[[f]], upstream_slots[[f]]), "default")
+}
+
 out <- list()
 for (f in sort(ui_fns)) {
   args <- if (!is.null(fixtures[[f]])) fixtures[[f]] else list()

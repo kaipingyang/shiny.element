@@ -22,6 +22,55 @@
 #' @param collapse_tags Whether to collapse tags in multiple mode
 #' @param separator Separator for display
 #' @param debounce Debounce delay for filter
+#' @param clear_icon Custom clear icon component. Element Plus's `clear-icon`
+#'   (string / Component). An icon's name, such as `"Search"`.
+#' @param collapse_tags_tooltip Whether show all selected tags when mouse
+#'   hover text of collapse-tags. To use this, `collapse-tags` must be true.
+#'   Element Plus's `collapse-tags-tooltip` (boolean).
+#' @param effect Tooltip theme, built-in theme: `dark` / `light`. Element
+#'   Plus's `effect` ('dark' | 'light' / string).
+#' @param empty_values Empty values of component, see config-provider. Element
+#'   Plus's `empty-values` (array).
+#' @param fallback_placements List of possible positions for Tooltip
+#'   popper.js. Element Plus's `fallback-placements` (Placement[]).
+#' @param fit_input_width Whether the width of the suggestion panel is the
+#'   same as the input, if the value is `number`, then the width is fixed.
+#'   Element Plus's `fit-input-width` (boolean / number).
+#' @param height Menu height for virtual scrolling (px). Element Plus's
+#'   `height` (number).
+#' @param item_size Node height for virtual scrolling (px). Element Plus's
+#'   `item-size` (number).
+#' @param max_collapse_tags The max tags number to be shown. To use this,
+#'   `collapse-tags` must be true. Element Plus's `max-collapse-tags`
+#'   (number).
+#' @param max_collapse_tags_tooltip_height Max height of collapse-tags
+#'   tooltip. Element Plus's `max-collapse-tags-tooltip-height` (string /
+#'   number).
+#' @param persistent When dropdown is inactive and `persistent` is `false`,
+#'   dropdown will be destroyed. Element Plus's `persistent` (boolean).
+#' @param placement Position of dropdown. Element Plus's `placement` (enum).
+#' @param popper_append_to_body Whether to append the popper menu to body. If
+#'   the positioning of the popper is wrong, you can try to set this prop to
+#'   false. Element Plus's `popper-append-to-body` (boolean).
+#' @param popper_style Custom style for Cascader's dropdown and tags' tooltip.
+#'   Element Plus's `popper-style` (string / object).
+#' @param show_checked_strategy Strategy for displaying checked nodes in
+#'   multiple selection mode. Use `parent` when you want things tidy. Use
+#'   `child` when every single item matters. Element Plus's
+#'   `show-checked-strategy` ('parent' | 'child').
+#' @param tag_effect Tag effect. Element Plus's `tag-effect` ('light' | 'dark'
+#'   | 'plain').
+#' @param tag_type Tag type. Element Plus's `tag-type` ('success' | 'info' |
+#'   'warning' | 'danger').
+#' @param teleported Whether cascader popup is teleported. Element Plus's
+#'   `teleported` (boolean).
+#' @param validate_event Whether to trigger form validation. Element Plus's
+#'   `validate-event` (boolean).
+#' @param value_on_clear Clear return value, see config-provider. Element
+#'   Plus's `value-on-clear` (string / number / boolean / Function). Give it
+#'   as [JS()].
+#' @param virtual_scroll Whether to enable virtual scrolling for large data.
+#'   Element Plus's `virtual-scroll` (boolean).
 #' @param session Deprecated. Inside a module, wrap `id` in `ns()`, as for
 #'   any Shiny input; a session given here namespaces `id` once more, with
 #'   a warning.
@@ -122,6 +171,27 @@ el_cascader <- function(id = NULL,
                         popper_class = NULL,
                         filter_method = NULL,
                         before_filter = NULL,
+                        clear_icon = NULL,
+                        collapse_tags_tooltip = NULL,
+                        effect = NULL,
+                        empty_values = NULL,
+                        fallback_placements = NULL,
+                        fit_input_width = NULL,
+                        height = NULL,
+                        item_size = NULL,
+                        max_collapse_tags = NULL,
+                        max_collapse_tags_tooltip_height = NULL,
+                        persistent = NULL,
+                        placement = NULL,
+                        popper_append_to_body = NULL,
+                        popper_style = NULL,
+                        show_checked_strategy = NULL,
+                        tag_effect = NULL,
+                        tag_type = NULL,
+                        teleported = NULL,
+                        validate_event = NULL,
+                        value_on_clear = NULL,
+                        virtual_scroll = NULL,
                         label = NULL,
                         label_position = c("top", "left", "right"),
                         label_width = NULL,
@@ -166,8 +236,8 @@ el_cascader <- function(id = NULL,
     "blur",
     "focus",
     "visible-change",
-    "remove-tag"
-  ))
+    "remove-tag",
+    "clear"))
   cascader_attrs <- c(cascader_attrs, events$attrs)
 
   vue_data <- list(
@@ -188,6 +258,28 @@ el_cascader <- function(id = NULL,
   vue_data$filterMethod <- .el_or_na(filter_method)
   vue_data$beforeFilter <- .el_or_na(before_filter)
   el_widget(
+    props = .el_props(list(
+      clear_icon = .el_icon_name(clear_icon),
+      collapse_tags_tooltip = collapse_tags_tooltip,
+      effect = effect,
+      empty_values = empty_values,
+      fallback_placements = fallback_placements,
+      fit_input_width = fit_input_width,
+      height = height,
+      item_size = item_size,
+      max_collapse_tags = max_collapse_tags,
+      max_collapse_tags_tooltip_height = max_collapse_tags_tooltip_height,
+      persistent = persistent,
+      placement = placement,
+      popper_append_to_body = popper_append_to_body,
+      popper_style = popper_style,
+      show_checked_strategy = show_checked_strategy,
+      tag_effect = tag_effect,
+      tag_type = tag_type,
+      teleported = teleported,
+      validate_event = validate_event,
+      value_on_clear = value_on_clear,
+      virtual_scroll = virtual_scroll)),
     label = label, label_position = label_position,
     label_width = label_width, label_suffix = label_suffix, required = required,
     error = error, show_message = show_message, inline_message = inline_message,

@@ -18,6 +18,16 @@ el_menu(
   menu_trigger = NULL,
   collapse_transition = NULL,
   router = NULL,
+  close_on_click_outside = NULL,
+  ellipsis = NULL,
+  ellipsis_icon = NULL,
+  hide_timeout = NULL,
+  persistent = NULL,
+  popper_class = NULL,
+  popper_effect = NULL,
+  popper_offset = NULL,
+  popper_style = NULL,
+  show_timeout = NULL,
   width = NULL,
   slots = NULL,
   session = NULL
@@ -55,6 +65,38 @@ Clicking an item reports \verb{input$<id>} (the index selected) and
 \item{collapse_transition}{Whether to animate collapsing. Default \code{TRUE}.}
 
 \item{router}{Whether to use vue-router mode, taking each index as a path.}
+
+\item{close_on_click_outside}{Optional, whether menu is collapsed when
+clicking outside. Element Plus's \code{close-on-click-outside} (boolean).}
+
+\item{ellipsis}{Whether the menu is ellipsis (available only in horizontal
+mode). Element Plus's \code{ellipsis} (boolean).}
+
+\item{ellipsis_icon}{Custom ellipsis icon (available only in horizontal
+mode and ellipsis is true). Element Plus's \code{ellipsis-icon} (string /
+Component). An icon's name, such as \code{"Search"}.}
+
+\item{hide_timeout}{Control timeout for all menus before hiding. Element
+Plus's \code{hide-timeout} (number).}
+
+\item{persistent}{When menu inactive and \code{persistent} is \code{false} , dropdown
+menu will be destroyed. Element Plus's \code{persistent} (boolean).}
+
+\item{popper_class}{Custom class name for all popup menus and titles'
+tooltips. Element Plus's \code{popper-class} (string).}
+
+\item{popper_effect}{Tooltip theme, built-in theme: \code{dark} / \code{light} when
+menu is collapsed. Element Plus's \code{popper-effect} ('dark' | 'light' /
+string).}
+
+\item{popper_offset}{Offset of the popper (effective for all submenus).
+Element Plus's \code{popper-offset} (number).}
+
+\item{popper_style}{Custom style for all popup menus and titles' tooltips.
+Element Plus's \code{popper-style} (string / object).}
+
+\item{show_timeout}{Control timeout for all menus before showing. Element
+Plus's \code{show-timeout} (number).}
 
 \item{width}{Component width, as a CSS unit -- \code{"200px"}, \code{"50\%"}, or a
 number taken as pixels. Element's own markup carries it, so it behaves

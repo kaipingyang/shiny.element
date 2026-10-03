@@ -15,6 +15,18 @@ el_image(
   z_index = NULL,
   referrer_policy = NULL,
   initial_index = NULL,
+  close_on_press_escape = NULL,
+  crossorigin = NULL,
+  hide_on_click_modal = NULL,
+  infinite = NULL,
+  loading = NULL,
+  max_scale = NULL,
+  min_scale = NULL,
+  preview_teleported = NULL,
+  referrerpolicy = NULL,
+  scale = NULL,
+  show_progress = NULL,
+  zoom_rate = NULL,
   width = NULL,
   slots = NULL,
   session = NULL
@@ -44,6 +56,43 @@ full-screen preview when the image is clicked.}
 
 \item{initial_index}{Which image of \code{preview_src_list} the preview opens
 on, 0-based.}
+
+\item{close_on_press_escape}{Whether the image-viewer can be closed by
+pressing ESC. Element Plus's \code{close-on-press-escape} (boolean).}
+
+\item{crossorigin}{Native attribute crossorigin. Element Plus's
+\code{crossorigin} ('' | 'anonymous' | 'use-credentials').}
+
+\item{hide_on_click_modal}{When enabling preview, use this flag to control
+whether clicking on backdrop can exit preview mode. Element Plus's
+\code{hide-on-click-modal} (boolean).}
+
+\item{infinite}{Whether the viewer preview is infinite. Element Plus's
+\code{infinite} (boolean).}
+
+\item{loading}{Indicates how the browser should load the image, same as
+native. Element Plus's \code{loading} ('eager' | 'lazy').}
+
+\item{max_scale}{The max scale of the image viewer zoom event. Element
+Plus's \code{max-scale} (number).}
+
+\item{min_scale}{The min scale of the image viewer zoom event. Element
+Plus's \code{min-scale} (number).}
+
+\item{preview_teleported}{Whether to append image-viewer to body. A nested
+parent element attribute transform should have this attribute set to
+\code{true}. Element Plus's \code{preview-teleported} (boolean).}
+
+\item{referrerpolicy}{Native attribute referrerPolicy. Element Plus's
+\code{referrerpolicy} (string).}
+
+\item{scale}{The preview image scale. Element Plus's \code{scale} (number).}
+
+\item{show_progress}{Whether to display the preview image progress content.
+Element Plus's \code{show-progress} (boolean).}
+
+\item{zoom_rate}{The zoom rate of the image viewer zoom event. Element
+Plus's \code{zoom-rate} (number).}
 
 \item{width}{Component width, as a CSS unit.}
 

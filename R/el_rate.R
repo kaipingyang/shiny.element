@@ -15,15 +15,28 @@
 #' @param text_color Colour of the text/score. Default `"#1f2d3d"`.
 #' @param score_template Template for score display. `{value}` is replaced.
 #'   Default `"{value}"`.
+#' @param aria_label Same as `aria-label` in Rate. Element Plus's `aria-label`
+#'   (string).
+#' @param clearable Whether value can be reset to `0`. Element Plus's
+#'   `clearable` (boolean).
+#' @param disabled_void_icon Component of unselected read-only icons. Element
+#'   Plus's `disabled-void-icon` (string / Component). An icon's name, such as
+#'   `"Search"`.
+#' @param icons Icon components. If array, it should have 3 elements, each of
+#'   which corresponds with a score level, else if object, the key should be
+#'   threshold value between two levels, and the value should be corresponding
+#'   icon component. Element Plus's `icons` (string[] | Component[] /
+#'   Record<number, string | Component>). An icon's name, such as `"Search"`.
+#' @param size Size of Rate. Element Plus's `size` ('large' | 'default' |
+#'   'small').
+#' @param void_icon Component of unselected icons. Element Plus's `void-icon`
+#'   (string / Component). An icon's name, such as `"Search"`.
 #' @param session Deprecated. Inside a module, wrap `id` in `ns()`, as for
 #'   any Shiny input; a session given here namespaces `id` once more, with
 #'   a warning.
 #' @param colors Colours for the three score levels, or a named list keyed by threshold.
 #' @param void_color Colour of unselected icons.
 #' @param disabled_void_color Colour of unselected icons when `disabled = TRUE`.
-#' @param icon_classes Icon classes for the three score levels, or a named list keyed by threshold.
-#' @param void_icon_class Icon class for unselected icons.
-#' @param disabled_void_icon_class Icon class for unselected icons when `disabled = TRUE`.
 #' @param low_threshold Scores at or below this use the first colour and icon. Default `2`.
 #' @param high_threshold Scores above this use the third colour and icon. Default `4`.
 #' @inheritParams el_widget
@@ -64,11 +77,14 @@ el_rate <- function(
     colors         = NULL,
     void_color     = NULL,
     disabled_void_color = NULL,
-    icon_classes   = NULL,
-    void_icon_class = NULL,
-    disabled_void_icon_class = NULL,
     low_threshold  = NULL,
     high_threshold = NULL,
+    aria_label = NULL,
+    clearable = NULL,
+    disabled_void_icon = NULL,
+    icons = NULL,
+    size = NULL,
+    void_icon = NULL,
     label = NULL,
     label_position = c("top", "left", "right"),
     label_width = NULL,
@@ -81,6 +97,7 @@ el_rate <- function(
     slots          = NULL,
     session        = NULL
 ) {
+  .el_check_choices("el_rate", environment())
   if (is.null(id)) id <- paste0("el_rate_", uuid::UUIDgenerate())
   ns_id        <- .el_ui_id(id, session)
   container_id <- paste0(ns_id, "_container")
@@ -104,11 +121,8 @@ el_rate <- function(
 
   rate_attrs[[":disabled-void-color"]] <- .el_optional_bind("disabledVoidColor")
 
-  rate_attrs[[":icon-classes"]] <- .el_optional_bind("iconClasses")
 
-  rate_attrs[[":void-icon-class"]] <- .el_optional_bind("voidIconClass")
 
-  rate_attrs[[":disabled-void-icon-class"]] <- .el_optional_bind("disabledVoidIconClass")
 
   rate_attrs[[":low-threshold"]] <- .el_optional_bind("lowThreshold")
 
@@ -121,6 +135,13 @@ el_rate <- function(
   }
 
   el_widget(
+    props = .el_props(list(
+      aria_label = aria_label,
+      clearable = clearable,
+      disabled_void_icon = .el_icon_name(disabled_void_icon),
+      icons = .el_icon_name(icons),
+      size = size,
+      void_icon = .el_icon_name(void_icon))),
     label = label, label_position = label_position,
     label_width = label_width, label_suffix = label_suffix, required = required,
     error = error, show_message = show_message, inline_message = inline_message,
@@ -139,9 +160,6 @@ el_rate <- function(
     colors = .el_or_na(colors),
     voidColor = .el_or_na(void_color),
     disabledVoidColor = .el_or_na(disabled_void_color),
-    iconClasses = .el_or_na(icon_classes),
-    voidIconClass = .el_or_na(void_icon_class),
-    disabledVoidIconClass = .el_or_na(disabled_void_icon_class),
     lowThreshold = .el_or_na(low_threshold),
     highThreshold = .el_or_na(high_threshold)
     ),

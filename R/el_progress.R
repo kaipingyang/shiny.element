@@ -17,12 +17,18 @@
 #'   colour when set. Default `NULL`.
 #' @param width Width in pixels for `"circle"` and `"dashboard"` types.
 #'   Default `126`.
+#' @param duration Control the animation duration of indeterminate progress or
+#'   striped flow progress. Element Plus's `duration` (number).
+#' @param indeterminate Set indeterminate progress. Element Plus's
+#'   `indeterminate` (boolean).
+#' @param striped Stripe over the progress bar's color. Element Plus's
+#'   `striped` (boolean).
+#' @param striped_flow Get the stripes to flow. Element Plus's `striped-flow`
+#'   (boolean).
 #' @param session Deprecated. Inside a module, wrap `id` in `ns()`, as for
 #'   any Shiny input; a session given here namespaces `id` once more, with
 #'   a warning.
 #' @param stroke_linecap Shape of the bar's ends: `"round"` (default), `"butt"` or `"square"`.
-#' @param define_back_color Background colour of the track.
-#' @param text_color Colour of the percentage text.
 #' @param format `JS()` function `function(percentage)` returning the text shown.
 #' @param slots Named list of Element slot contents, such as
 #'   `list(title = shiny::tags$b("Bold"))`. A shiny.element component
@@ -67,11 +73,13 @@ el_progress <- function(
     text_inside  = FALSE,
     show_text    = TRUE,
     color        = NULL,
+    duration = NULL,
+    indeterminate = NULL,
+    striped = NULL,
+    striped_flow = NULL,
     width        = 126,
     stroke_linecap = NULL,
     slots        = NULL,
-    define_back_color = NULL,
-    text_color   = NULL,
     format       = NULL,
     session      = NULL
 ) {
@@ -91,8 +99,6 @@ el_progress <- function(
   progress_attrs[[":status"]] <- .el_optional_bind("status")
   progress_attrs[[":color"]] <- "color"
   progress_attrs[[":stroke-linecap"]] <- .el_optional_bind("strokeLinecap")
-  progress_attrs[[":define-back-color"]] <- .el_optional_bind("defineBackColor")
-  progress_attrs[[":text-color"]] <- .el_optional_bind("textColor")
   progress_attrs[[":format"]] <- .el_optional_bind("format")
   vue_data <- list(
     percentage  = percentage,
@@ -108,10 +114,13 @@ el_progress <- function(
   # The empty string is its own default and means the same thing.
   vue_data$color <- if (is.null(color)) "" else color
   vue_data$strokeLinecap <- .el_or_na(stroke_linecap)
-  vue_data$defineBackColor <- .el_or_na(define_back_color)
-  vue_data$textColor <- .el_or_na(text_color)
   vue_data$format <- .el_or_na(format)
   el_widget(
+    props = .el_props(list(
+      duration = duration,
+      indeterminate = indeterminate,
+      striped = striped,
+      striped_flow = striped_flow)),
     id     = ns_id,
     markup = htmltools::tag("el-progress", progress_attrs),
     data = vue_data,

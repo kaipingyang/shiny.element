@@ -7,7 +7,7 @@
 .el_hex(x)
 }
 \arguments{
-\item{x}{A colour R or Sass can read.}
+\item{x}{A colour R can read.}
 }
 \value{
 \code{"#rrggbb"}.

@@ -2,26 +2,17 @@
 % Please edit documentation in R/el_element_theme.R
 \name{el_element_theme}
 \alias{el_element_theme}
-\title{Element's own stylesheet, themed}
+\title{Element Plus's look, themed}
 \description{
-Element compiles its look from Sass variables (\code{theme-chalk}'s
-\code{common/var.scss}): \verb{$--color-primary}, \verb{$--border-radius-base},
-\verb{$--font-size-base} and some five hundred more. A page whose theme changes
-any of them gets Element's stylesheet built for it, served under Element's
-own name at a later version, so it replaces -- rather than joins -- the copy
-every component brings.
+Element Plus draws from CSS variables -- \code{--el-color-primary},
+\code{--el-border-radius-base}, \code{--el-font-size-base} and some three hundred
+more, listed in its stylesheet's \verb{:root}. A page whose theme changes any of
+them gets a \verb{<style>} setting them, after Element's own stylesheet: no
+build, no recompiling, as Element Plus's own theming guide does it.
 }
 \details{
-Two ways to build it, as upstream has two:
-\itemize{
-\item Only the brand colours changed -- primary, success, warning, danger --
-the shipped stylesheet is recoloured in place, as Element's own theme
-picker does: each colour's eleven values (itself, nine tints, one shade)
-replaced. Instant, and byte for byte what Element's build would give.
-\item Anything else -- \code{info}, radii, sizes, fonts -- the bundled Sass sources
-are compiled with the variables set, as Element's theme tool does, by
-the sass package bslib already uses. About a second, once per theme and
-R session.
-}
+A brand colour also sets the tints and the shade Element's Sass mixes from
+it -- \code{--el-color-primary-light-3} to \code{-light-9}, \code{-dark-2} -- for the light
+page and, mixed against the dark background, for \code{html.dark}.
 }
 \keyword{internal}

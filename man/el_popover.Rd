@@ -15,13 +15,22 @@ el_popover(
   popover_width = NULL,
   disabled = NULL,
   offset = NULL,
-  open_delay = NULL,
-  close_delay = NULL,
-  visible_arrow = NULL,
   transition = NULL,
   popper_class = NULL,
   popper_options = NULL,
-  tabindex = NULL,
+  append_to = NULL,
+  auto_close = NULL,
+  effect = NULL,
+  hide_after = NULL,
+  persistent = NULL,
+  popper_style = NULL,
+  show_after = NULL,
+  show_arrow = NULL,
+  teleported = NULL,
+  trigger_keys = NULL,
+  virtual_ref = NULL,
+  virtual_triggering = NULL,
+  visible = NULL,
   width = NULL,
   slots = NULL,
   session = NULL
@@ -42,8 +51,8 @@ inputs keep reporting. Its \verb{update_el_*()} no longer reaches it.}
 \item{body}{Body markup, used instead of \code{content}. Components are
 absorbed here too.}
 
-\item{trigger}{How it opens: \code{"click"} (default), \code{"focus"}, \code{"hover"} or
-\code{"manual"}.}
+\item{trigger}{How it opens: \code{"click"}, \code{"focus"}, \code{"hover"} (default) or
+\code{"contextmenu"}.}
 
 \item{placement}{Where it appears: \code{"bottom"} (default), \code{"top"}, \code{"left"},
 \code{"right"}, each also with \code{-start} and \code{-end}.}
@@ -55,18 +64,52 @@ prop, named apart from \code{width} so the two are not confused.}
 
 \item{offset}{Offset from the reference, in pixels.}
 
-\item{open_delay, close_delay}{Delays in milliseconds, for
-\code{trigger = "hover"}.}
-
-\item{visible_arrow}{Whether to draw the little arrow. Default \code{TRUE}.}
-
 \item{transition}{Name of the transition to animate with.}
 
 \item{popper_class}{Extra class name for the card.}
 
 \item{popper_options}{Additional Popper.js options, as a named list.}
 
-\item{tabindex}{Tab index of the reference.}
+\item{append_to}{Which element the popover CONTENT appends to. Element
+Plus's \code{append-to} (CSSSelector / HTMLElement).}
+
+\item{auto_close}{Timeout in milliseconds to hide tooltip, not valid in
+controlled mode. Element Plus's \code{auto-close} (number).}
+
+\item{effect}{Tooltip theme, built-in theme: \code{dark} / \code{light}. Element
+Plus's \code{effect} ('dark' | 'light' / string).}
+
+\item{hide_after}{Delay of disappear, in millisecond, not valid in
+controlled mode. Element Plus's \code{hide-after} (number).}
+
+\item{persistent}{When popover inactive and \code{persistent} is \code{false} ,
+popover will be destroyed. Element Plus's \code{persistent} (boolean).}
+
+\item{popper_style}{Custom style for popover. Element Plus's \code{popper-style}
+(string / object).}
+
+\item{show_after}{Delay of appearance, in millisecond, not valid in
+controlled mode. Element Plus's \code{show-after} (number).}
+
+\item{show_arrow}{Whether a tooltip arrow is displayed or not. For more
+info, please refer to ElPopper. Element Plus's \code{show-arrow} (boolean).}
+
+\item{teleported}{Whether popover dropdown is teleported to the body.
+Element Plus's \code{teleported} (boolean).}
+
+\item{trigger_keys}{When you click the mouse to focus on the trigger
+element, you can define a set of keyboard codes to control the display of
+popover through the keyboard, not valid in controlled mode. Element
+Plus's \code{trigger-keys} (Array).}
+
+\item{virtual_ref}{Indicates the reference element to which the popover is
+attached. Element Plus's \code{virtual-ref} (HTMLElement).}
+
+\item{virtual_triggering}{Indicates whether virtual triggering is enabled.
+Element Plus's \code{virtual-triggering} (boolean).}
+
+\item{visible}{Whether popover is visible. Element Plus's \code{visible}
+(boolean / null).}
 
 \item{width}{Component width, as a CSS unit.}
 

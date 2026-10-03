@@ -13,6 +13,10 @@ el_radio_group(
   button = FALSE,
   fill = NULL,
   text_color = NULL,
+  aria_label = NULL,
+  props = NULL,
+  type = NULL,
+  validate_event = NULL,
   label = NULL,
   label_position = c("top", "left", "right"),
   label_width = NULL,
@@ -43,7 +47,7 @@ either.}
 
 \item{disabled}{Whether the entire group is disabled. Default \code{FALSE}.}
 
-\item{size}{Component size: \code{NULL}, \code{"medium"}, \code{"small"}, or \code{"mini"}.
+\item{size}{Size: \code{"large"}, \code{"default"} or \code{"small"}; \code{NULL} follows the form or the page.
 Only affects button-style radios (\code{button = TRUE}).}
 
 \item{button}{Whether to render as \verb{<el-radio-button>} (pill/button style)
@@ -52,6 +56,18 @@ instead of standard \verb{<el-radio>}. Default \code{FALSE}.}
 \item{fill}{Border and background colour of a checked radio button.}
 
 \item{text_color}{Text colour of a checked radio button.}
+
+\item{aria_label}{Same as \code{aria-label} in RadioGroup. Element Plus's
+\code{aria-label} (string).}
+
+\item{props}{Configuration options. Element Plus's \code{props} ({ value?:
+string, label?: string, disabled?: string}).}
+
+\item{type}{Component type to render options (e.g. \code{'button'}). Element
+Plus's \code{type} ('radio' | 'button').}
+
+\item{validate_event}{Whether to trigger form validation. Element Plus's
+\code{validate-event} (boolean).}
 
 \item{label}{A label shown with the component, as Shiny's inputs have:
 text or a tag. \code{NULL}, the default, shows none. It is the component's

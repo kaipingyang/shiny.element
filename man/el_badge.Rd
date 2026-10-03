@@ -2,7 +2,7 @@
 % Please edit documentation in R/el_badge.R
 \name{el_badge}
 \alias{el_badge}
-\title{Element UI Badge}
+\title{Element Plus Badge}
 \usage{
 el_badge(
   ...,
@@ -11,6 +11,11 @@ el_badge(
   is_dot = FALSE,
   hidden = FALSE,
   type = NULL,
+  show_zero = TRUE,
+  color = NULL,
+  offset = NULL,
+  badge_style = NULL,
+  badge_class = NULL,
   id = NULL
 )
 }
@@ -28,6 +33,15 @@ shows \code{"<max>+"}. Only applies when \code{value} is numeric.}
 
 \item{type}{Badge colour type: \code{NULL} (red, default), \code{"primary"},
 \code{"success"}, \code{"warning"}, \code{"info"}, \code{"danger"}.}
+
+\item{show_zero}{Whether a value of \code{0} is shown. Default \code{TRUE}.}
+
+\item{color}{Background colour of the badge.}
+
+\item{offset}{Offset of the badge, \code{c(x, y)} in pixels.}
+
+\item{badge_style, badge_class}{Extra CSS -- a string or a named list -- and
+class names for the badge.}
 
 \item{id}{Give the badge an id and \code{\link[=update_el_badge]{update_el_badge()}} can change it -- a
 count of unread messages, say. A component inside is then folded into

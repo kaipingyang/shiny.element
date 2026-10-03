@@ -178,7 +178,7 @@ el_col <- function(..., span = 24, offset = NULL, push = NULL, pull = NULL,
 #'   components beside them. `NULL` gives Shiny's plain Bootstrap 3.
 #' @param theme_css Element's layout CSS, [el_layout_css_dependency()];
 #'   `NULL` leaves it out.
-#' @param offline Serve Element UI from the copy bundled with this package
+#' @param offline Serve Element Plus from the copy bundled with this package
 #'   rather than the unpkg CDN. See [element_plus_dependency()].
 #' @param locale Language for Element UI's built-in text -- pagination
 #'   summaries, date-picker buttons, select placeholders. English by default,

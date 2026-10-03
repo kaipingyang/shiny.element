@@ -22,7 +22,6 @@ el_upload(
   extra_data = NULL,
   file_list = NULL,
   with_credentials = NULL,
-  thumbnail_mode = NULL,
   before_upload = NULL,
   before_remove = NULL,
   on_change = NULL,
@@ -30,6 +29,8 @@ el_upload(
   on_preview = NULL,
   on_remove = NULL,
   on_exceed = NULL,
+  crossorigin = NULL,
+  directory = NULL,
   label = NULL,
   label_position = c("top", "left", "right"),
   label_width = NULL,
@@ -87,8 +88,6 @@ Shiny's channel. See details.}
 
 \item{with_credentials}{Whether to send cookies with the request.}
 
-\item{thumbnail_mode}{Whether files are shown as thumbnails.}
-
 \item{before_upload}{\code{JS()} function called before a file is sent; returning \code{false} cancels it.}
 
 \item{before_remove}{\code{JS()} function called before a file is removed; returning \code{false} cancels it.}
@@ -102,6 +101,14 @@ Shiny's channel. See details.}
 \item{on_remove}{\code{JS()} function called after a file is removed.}
 
 \item{on_exceed}{\code{JS()} function called when more files are picked than \code{limit}.}
+
+\item{crossorigin}{Native attribute crossorigin. Element Plus's
+\code{crossorigin} ('' | 'anonymous' | 'use-credentials').}
+
+\item{directory}{Whether to support uploading directory. After enabling it,
+only folders can be selected, and after selecting a folder, the files
+within the folder will be flattened. Element Plus's \code{directory}
+(boolean).}
 
 \item{label}{A label shown with the component, as Shiny's inputs have:
 text or a tag. \code{NULL}, the default, shows none. It is the component's

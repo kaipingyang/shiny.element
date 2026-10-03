@@ -7,7 +7,7 @@
 #' @param label Button text. Ignored (and defaults to `""`) when `circle = TRUE`.
 #' @param type Button type: `"default"`, `"primary"`, `"success"`, `"warning"`,
 #'   `"danger"`, `"info"`, `"text"`.
-#' @param size Button size: `NULL`, `"medium"`, `"small"`, `"mini"`.
+#' @param size Size: `"large"`, `"default"` or `"small"`; `NULL` follows the form or the page.
 #' @param plain Whether to use the plain (hollow) style. Default `FALSE`.
 #' @param round Whether to use rounded corners. Default `FALSE`.
 #' @param circle Whether to render as a circle button (icon only, no label).
@@ -20,6 +20,27 @@
 #'   (for example from [el_icon()]), which is inserted as button content.
 #' @param native_type HTML native button type: `"button"` (default), `"submit"`,
 #'   `"reset"`.
+#' @param auto_insert_space Automatically insert a space between two chinese
+#'   characters(this will only take effect when the text length is 2 and all
+#'   characters are in Chinese.). Element Plus's `auto-insert-space`
+#'   (boolean).
+#' @param bg Determine whether the text button background color is always on.
+#'   Element Plus's `bg` (boolean).
+#' @param color Custom button color, automatically calculate `hover` and
+#'   `active` color. Works with `link`/`text` buttons since. Element
+#'   Plus's `color` (string).
+#' @param dark Dark mode, which automatically converts `color` to dark mode
+#'   colors. Element Plus's `dark` (boolean).
+#' @param dashed Determine whether it's a dashed button. Element Plus's
+#'   `dashed` (boolean).
+#' @param link Determine whether it's a link button. Element Plus's `link`
+#'   (boolean).
+#' @param loading_icon Customize loading icon component. Element Plus's
+#'   `loading-icon` (string / Component). An icon's name, such as `"Search"`.
+#' @param tag Custom element tag. Element Plus's `tag` (string / Component).
+#'   An icon's name, such as `"Search"`.
+#' @param text Determine whether it's a text button. Element Plus's `text`
+#'   (boolean).
 #' @param session Deprecated. Inside a module, wrap `id` in `ns()`, as for
 #'   any Shiny input; a session given here namespaces `id` once more, with
 #'   a warning.
@@ -61,6 +82,15 @@
 #' @export
 el_button <- function(
     id          = NULL,
+    auto_insert_space = NULL,
+    bg = NULL,
+    color = NULL,
+    dark = NULL,
+    dashed = NULL,
+    link = NULL,
+    loading_icon = NULL,
+    tag = NULL,
+    text = NULL,
     label       = "Button",
     type        = "default",
     size        = NULL,
@@ -107,6 +137,16 @@ el_button <- function(
   )
 
   el_widget(
+    props = .el_props(list(
+      auto_insert_space = auto_insert_space,
+      bg = bg,
+      color = color,
+      dark = dark,
+      dashed = dashed,
+      link = link,
+      loading_icon = .el_icon_name(loading_icon),
+      tag = .el_icon_name(tag),
+      text = text)),
     id     = ns_id,
     markup = htmltools::tag("el-button", append(btn_attrs, btn_content)),
     data = list(

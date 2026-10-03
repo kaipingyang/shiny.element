@@ -19,6 +19,12 @@
 #' @param width Component width, as a CSS unit.
 #' @param slots Named list of Element slot contents. The default slot, scoped
 #'   with `{node, data}`, renders one option; write it with [template()].
+#' @param height Menu height for virtual scrolling (px). Element Plus's
+#'   `height` (number).
+#' @param item_size Node height for virtual scrolling (px). Element Plus's
+#'   `item-size` (number).
+#' @param virtual_scroll Whether to enable virtual scrolling for large data.
+#'   Element Plus's `virtual-scroll` (boolean).
 #' @param session Deprecated. Inside a module, wrap `id` in `ns()`, as for
 #'   any Shiny input; a session given here namespaces `id` once more, with
 #'   a warning.
@@ -52,6 +58,9 @@ el_cascader_panel <- function(id = NULL,
                               options = list(),
                               value = NULL,
                               props = NULL,
+                              height = NULL,
+                              item_size = NULL,
+                              virtual_scroll = NULL,
                               label = NULL,
                               label_position = c("top", "left", "right"),
                               label_width = NULL,
@@ -72,10 +81,14 @@ el_cascader_panel <- function(id = NULL,
     ":props"   = "elProps",
     "@change"  = "handleChange"
   )
-  events <- .el_event_bindings(ns_id, "expand-change")
+  events <- .el_event_bindings(ns_id, c("expand-change", "close"))
   attrs <- c(attrs, events$attrs)
 
   el_widget(
+    props = .el_props(list(
+      height = height,
+      item_size = item_size,
+      virtual_scroll = virtual_scroll)),
     label = label, label_position = label_position,
     label_width = label_width, label_suffix = label_suffix, required = required,
     error = error, show_message = show_message, inline_message = inline_message,

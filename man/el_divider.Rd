@@ -2,12 +2,13 @@
 % Please edit documentation in R/el_divider.R
 \name{el_divider}
 \alias{el_divider}
-\title{Element UI Divider}
+\title{Element Plus Divider}
 \usage{
 el_divider(
   content = NULL,
   direction = "horizontal",
-  content_position = "center"
+  content_position = "center",
+  border_style = "solid"
 )
 }
 \arguments{
@@ -18,6 +19,9 @@ el_divider(
 
 \item{content_position}{Position of inline text when \code{content} is supplied:
 \code{"center"} (default), \code{"left"}, or \code{"right"}.}
+
+\item{border_style}{The line's style, as CSS \code{border-style}: \code{"solid"}
+(the default), \code{"dashed"}, \code{"dotted"}.}
 }
 \value{
 An \code{htmltools} tag.

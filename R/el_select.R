@@ -22,11 +22,64 @@
 #' @param disabled Whether the select is disabled. Default `FALSE`.
 #' @param clearable Whether to show a clear button. Default `FALSE`.
 #' @param filterable Whether typing filters the options. Default `FALSE`.
-#' @param size Component size: `NULL`, `"medium"`, `"small"`, or `"mini"`.
+#' @param size Size: `"large"`, `"default"` or `"small"`; `NULL` follows the form or the page.
 #' @param multiple_limit Maximum number of items that can be selected when
 #'   `multiple = TRUE`. `0` means unlimited. Default `0`.
 #' @param collapse_tags Whether to collapse selected tags into a summary when
 #'   `multiple = TRUE`. Default `FALSE`.
+#' @param append_to Which element the select dropdown appends to. Element
+#'   Plus's `append-to` (CSSSelector / HTMLElement).
+#' @param aria_label Same as `aria-label` in native input. Element Plus's
+#'   `aria-label` (string).
+#' @param clear_icon Custom clear icon component. Element Plus's `clear-icon`
+#'   (string / Component). An icon's name, such as `"Search"`.
+#' @param collapse_tags_tooltip Whether show all selected tags when mouse
+#'   hover text of collapse-tags. To use this, `collapse-tags` must be true.
+#'   Element Plus's `collapse-tags-tooltip` (boolean).
+#' @param debounce Debounce delay during remote search, in milliseconds.
+#'   Element Plus's `debounce` (number).
+#' @param effect Tooltip theme, built-in theme: `dark` / `light`. Element
+#'   Plus's `effect` ('dark' | 'light' / string).
+#' @param empty_values Empty values of component, see config-provider. Element
+#'   Plus's `empty-values` (array).
+#' @param fallback_placements List of possible positions for dropdown
+#'   popper.js. Element Plus's `fallback-placements` (Placement[]).
+#' @param fit_input_width Whether the width of the dropdown is the same as the
+#'   input. Element Plus's `fit-input-width` (boolean).
+#' @param max_collapse_tags The max tags number to be shown. To use this,
+#'   `collapse-tags` must be true. Element Plus's `max-collapse-tags`
+#'   (number).
+#' @param offset Offset of the dropdown. Element Plus's `offset` (number).
+#' @param persistent When select dropdown is inactive and `persistent` is
+#'   `false`, select dropdown will be destroyed. Element Plus's `persistent`
+#'   (boolean).
+#' @param placement Position of dropdown. Element Plus's `placement` (enum).
+#' @param popper_options Popper.js parameters. Element Plus's `popper-options`
+#'   (object).
+#' @param popper_style Custom style for Select's dropdown and tags' tooltip.
+#'   Element Plus's `popper-style` (string / object).
+#' @param remote_show_suffix In remote search method show suffix icon. Element
+#'   Plus's `remote-show-suffix` (boolean).
+#' @param show_arrow Whether the dropdown has an arrow. Element Plus's
+#'   `show-arrow` (boolean).
+#' @param suffix_icon Custom suffix icon component. Element Plus's
+#'   `suffix-icon` (string / Component). An icon's name, such as `"Search"`.
+#' @param suffix_transition Animation when dropdown appears/disappears icon.
+#'   Element Plus's `suffix-transition` (boolean).
+#' @param tabindex Tabindex for input. Element Plus's `tabindex` (string /
+#'   number).
+#' @param tag_effect Tag effect. Element Plus's `tag-effect` ('' | 'light' |
+#'   'dark' | 'plain').
+#' @param tag_type Tag type. Element Plus's `tag-type` ('' | 'success' |
+#'   'info' | 'warning' | 'danger').
+#' @param teleported Whether select dropdown is teleported, if `true` it will
+#'   be teleported to where `append-to` sets. Element Plus's `teleported`
+#'   (boolean).
+#' @param validate_event Whether to trigger form validation. Element Plus's
+#'   `validate-event` (boolean).
+#' @param value_on_clear Clear return value, see config-provider. Element
+#'   Plus's `value-on-clear` (string / number / boolean / Function). Give it
+#'   as [JS()].
 #' @param session Deprecated. Inside a module, wrap `id` in `ns()`, as for
 #'   any Shiny input; a session given here namespaces `id` once more, with
 #'   a warning.
@@ -40,7 +93,6 @@
 #' @param no_match_text Text shown when filtering matches nothing.
 #' @param no_data_text Text shown when there are no options at all.
 #' @param popper_class Extra class name for the dropdown panel.
-#' @param popper_append_to_body Whether the dropdown is appended to `body`. Default `TRUE`.
 #' @param reserve_keyword Whether a multiple filterable select keeps the search term after selecting.
 #' @param default_first_option Whether Enter picks the first matching option.
 #' @param remote Whether options are fetched from the server as the user
@@ -136,12 +188,36 @@ el_select <- function(
     no_match_text  = NULL,
     no_data_text   = NULL,
     popper_class   = NULL,
-    popper_append_to_body = NULL,
     reserve_keyword = NULL,
     default_first_option = NULL,
     remote         = NULL,
     filter_method  = NULL,
     remote_method  = NULL,
+    append_to = NULL,
+    aria_label = NULL,
+    clear_icon = NULL,
+    collapse_tags_tooltip = NULL,
+    debounce = NULL,
+    effect = NULL,
+    empty_values = NULL,
+    fallback_placements = NULL,
+    fit_input_width = NULL,
+    max_collapse_tags = NULL,
+    offset = NULL,
+    persistent = NULL,
+    placement = NULL,
+    popper_options = NULL,
+    popper_style = NULL,
+    remote_show_suffix = NULL,
+    show_arrow = NULL,
+    suffix_icon = NULL,
+    suffix_transition = NULL,
+    tabindex = NULL,
+    tag_effect = NULL,
+    tag_type = NULL,
+    teleported = NULL,
+    validate_event = NULL,
+    value_on_clear = NULL,
     label = NULL,
     label_position = c("top", "left", "right"),
     label_width = NULL,
@@ -211,7 +287,6 @@ el_select <- function(
   select_attrs[[":no-match-text"]] <- .el_optional_bind("noMatchText")
   select_attrs[[":no-data-text"]] <- .el_optional_bind("noDataText")
   select_attrs[[":popper-class"]] <- .el_optional_bind("popperClass")
-  select_attrs[[":popper-append-to-body"]] <- .el_optional_bind("popperAppendToBody")
   select_attrs[[":reserve-keyword"]] <- .el_optional_bind("reserveKeyword")
   select_attrs[[":default-first-option"]] <- .el_optional_bind("defaultFirstOption")
   select_attrs[[":remote"]] <- .el_optional_bind("remote")
@@ -225,8 +300,13 @@ el_select <- function(
     "remove-tag",
     "clear",
     "blur",
-    "focus"
-  ))
+    "focus",
+    "end-reached", "popup-scroll"), shapes = list(
+      # Fires on every frame of a scroll; a server hears it at most every 200 ms
+      "popup-scroll" = paste0(
+        "function(e) { var now = Date.now(); ",
+        "if (this._elLastScroll && now - this._elLastScroll < 200) return undefined; ",
+        "this._elLastScroll = now; return {scroll_left: e.scrollLeft, scroll_top: e.scrollTop}; }")))
   select_attrs <- c(select_attrs, events$attrs)
   # Build Vue data
   vue_data <- list(
@@ -252,13 +332,38 @@ el_select <- function(
   vue_data$noMatchText <- .el_or_na(no_match_text)
   vue_data$noDataText <- .el_or_na(no_data_text)
   vue_data$popperClass <- .el_or_na(popper_class)
-  vue_data$popperAppendToBody <- .el_or_na(popper_append_to_body)
   vue_data$reserveKeyword <- .el_or_na(reserve_keyword)
   vue_data$defaultFirstOption <- .el_or_na(default_first_option)
   vue_data$remote <- .el_or_na(remote)
   vue_data$filterMethod <- .el_or_na(filter_method)
   vue_data$remoteMethod <- .el_or_na(remote_method)
   el_widget(
+    props = .el_props(list(
+      append_to = append_to,
+      aria_label = aria_label,
+      clear_icon = .el_icon_name(clear_icon),
+      collapse_tags_tooltip = collapse_tags_tooltip,
+      debounce = debounce,
+      effect = effect,
+      empty_values = empty_values,
+      fallback_placements = fallback_placements,
+      fit_input_width = fit_input_width,
+      max_collapse_tags = max_collapse_tags,
+      offset = offset,
+      persistent = persistent,
+      placement = placement,
+      popper_options = popper_options,
+      popper_style = popper_style,
+      remote_show_suffix = remote_show_suffix,
+      show_arrow = show_arrow,
+      suffix_icon = .el_icon_name(suffix_icon),
+      suffix_transition = suffix_transition,
+      tabindex = tabindex,
+      tag_effect = tag_effect,
+      tag_type = tag_type,
+      teleported = teleported,
+      validate_event = validate_event,
+      value_on_clear = value_on_clear)),
     label = label, label_position = label_position,
     label_width = label_width, label_suffix = label_suffix, required = required,
     error = error, show_message = show_message, inline_message = inline_message,

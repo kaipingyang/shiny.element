@@ -18,11 +18,14 @@ el_rate(
   colors = NULL,
   void_color = NULL,
   disabled_void_color = NULL,
-  icon_classes = NULL,
-  void_icon_class = NULL,
-  disabled_void_icon_class = NULL,
   low_threshold = NULL,
   high_threshold = NULL,
+  aria_label = NULL,
+  clearable = NULL,
+  disabled_void_icon = NULL,
+  icons = NULL,
+  size = NULL,
+  void_icon = NULL,
   label = NULL,
   label_position = c("top", "left", "right"),
   label_width = NULL,
@@ -66,15 +69,31 @@ Default \code{"{value}"}.}
 
 \item{disabled_void_color}{Colour of unselected icons when \code{disabled = TRUE}.}
 
-\item{icon_classes}{Icon classes for the three score levels, or a named list keyed by threshold.}
-
-\item{void_icon_class}{Icon class for unselected icons.}
-
-\item{disabled_void_icon_class}{Icon class for unselected icons when \code{disabled = TRUE}.}
-
 \item{low_threshold}{Scores at or below this use the first colour and icon. Default \code{2}.}
 
 \item{high_threshold}{Scores above this use the third colour and icon. Default \code{4}.}
+
+\item{aria_label}{Same as \code{aria-label} in Rate. Element Plus's \code{aria-label}
+(string).}
+
+\item{clearable}{Whether value can be reset to \code{0}. Element Plus's
+\code{clearable} (boolean).}
+
+\item{disabled_void_icon}{Component of unselected read-only icons. Element
+Plus's \code{disabled-void-icon} (string / Component). An icon's name, such as
+\code{"Search"}.}
+
+\item{icons}{Icon components. If array, it should have 3 elements, each of
+which corresponds with a score level, else if object, the key should be
+threshold value between two levels, and the value should be corresponding
+icon component. Element Plus's \code{icons} (string[] | Component[] /
+Record<number, string | Component>). An icon's name, such as \code{"Search"}.}
+
+\item{size}{Size of Rate. Element Plus's \code{size} ('large' | 'default' |
+'small').}
+
+\item{void_icon}{Component of unselected icons. Element Plus's \code{void-icon}
+(string / Component). An icon's name, such as \code{"Search"}.}
 
 \item{label}{A label shown with the component, as Shiny's inputs have:
 text or a tag. \code{NULL}, the default, shows none. It is the component's

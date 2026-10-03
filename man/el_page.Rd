@@ -29,8 +29,8 @@ components beside them. \code{NULL} gives Shiny's plain Bootstrap 3.}
 \item{theme_css}{Element's layout CSS, \code{\link[=el_layout_css_dependency]{el_layout_css_dependency()}};
 \code{NULL} leaves it out.}
 
-\item{offline}{Serve Element UI from the copy bundled with this package
-rather than the unpkg CDN. See \code{\link[=element_ui_dependency]{element_ui_dependency()}}.}
+\item{offline}{Serve Element Plus from the copy bundled with this package
+rather than the unpkg CDN. See \code{\link[=element_plus_dependency]{element_plus_dependency()}}.}
 
 \item{locale}{Language for Element UI's built-in text -- pagination
 summaries, date-picker buttons, select placeholders. English by default,
@@ -43,8 +43,8 @@ fails to compile renders nothing and says nothing. Defaults to
 \code{getOption("shiny.element.dev", FALSE)}, so it can be turned on for a
 whole session without touching the UI code.}
 
-\item{size, z_index}{Element's global config, as \verb{Vue.use(Element, \{size, zIndex\})} sets it: the size of every component not given one of its own
-(\code{"medium"}, \code{"small"} or \code{"mini"}), and the z-index its popups start
+\item{size, z_index}{Element Plus's global config, as \verb{app.use(ElementPlus, \{size, zIndex\})} sets it: the size of every component not given one of its own
+(\code{"large"}, \code{"default"} or \code{"small"}), and the z-index its popups start
 from (2000 by default). \code{NULL} leaves Element's default.}
 }
 \value{

@@ -20,6 +20,12 @@
 #' @param type `"card"` for the stacked card layout, or NULL for plain.
 #' @param loop Return to the first slide after the last.
 #' @param direction `"horizontal"` (default) or `"vertical"`.
+#' @param card_scale When type is card, scaled size of secondary cards.
+#'   Element Plus's `card-scale` (number).
+#' @param motion_blur Infuse dynamism and smoothness into the carousel.
+#'   Element Plus's `motion-blur` (boolean).
+#' @param pause_on_hover Pause autoplay when hover. Element Plus's
+#'   `pause-on-hover` (boolean).
 #' @param session Deprecated. Inside a module, wrap `id` in `ns()`, as for
 #'   any Shiny input; a session given here namespaces `id` once more, with
 #'   a warning.
@@ -73,6 +79,9 @@ el_carousel <- function(id = NULL,
                         type = NULL,
                         loop = TRUE,
                         direction = "horizontal",
+                        card_scale = NULL,
+                        motion_blur = NULL,
+                        pause_on_hover = NULL,
                         width   = NULL,
                         slots   = NULL,
                         session = NULL) {
@@ -153,6 +162,10 @@ el_carousel <- function(id = NULL,
   }, items, merged$markups[-1])
 
   el_widget(
+    props = .el_props(prefix = "carousel", list(
+      card_scale = card_scale,
+      motion_blur = motion_blur,
+      pause_on_hover = pause_on_hover)),
     id       = ns_id,
     markup   = htmltools::tag("el-carousel", c(carousel_attrs, unname(item_tags))),
     data     = merged$data,

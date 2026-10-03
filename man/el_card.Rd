@@ -2,19 +2,34 @@
 % Please edit documentation in R/el_card.R
 \name{el_card}
 \alias{el_card}
-\title{Element UI Card}
+\title{Element Plus Card}
 \usage{
-el_card(..., header = NULL, body_style = NULL, shadow = "always")
+el_card(
+  ...,
+  header = NULL,
+  footer = NULL,
+  body_style = NULL,
+  shadow = "always",
+  header_class = NULL,
+  body_class = NULL,
+  footer_class = NULL
+)
 }
 \arguments{
 \item{...}{Content placed inside the card body.}
 
 \item{header}{Header content (string or tag). \code{NULL} for no header.}
 
-\item{body_style}{Inline CSS string for the card body. \code{NULL} for default.}
+\item{footer}{Footer content (string or tag). \code{NULL} for no footer.}
+
+\item{body_style}{CSS for the card body, a string or a named list. \code{NULL}
+for default.}
 
 \item{shadow}{Shadow display trigger: \code{"always"} (default), \code{"hover"},
 or \code{"never"}.}
+
+\item{header_class, body_class, footer_class}{Extra class names for the
+header, the body and the footer.}
 }
 \value{
 An \code{htmltools} tag.

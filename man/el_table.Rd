@@ -42,9 +42,20 @@ el_table(
   span_method = NULL,
   summary_method = NULL,
   load = NULL,
+  allow_drag_last_column = NULL,
+  append_filter_panel_to = NULL,
+  flexible = NULL,
+  native_scrollbar = NULL,
+  preserve_expanded_content = NULL,
+  row_expandable = NULL,
+  scrollbar_always_on = NULL,
+  scrollbar_tabindex = NULL,
+  show_overflow_tooltip = NULL,
+  table_layout = NULL,
+  tooltip_formatter = NULL,
+  tooltip_options = NULL,
   width = NULL,
   slots = NULL,
-  highlight_selection_row = NULL,
   loading = FALSE,
   session = NULL
 )
@@ -86,7 +97,7 @@ the table. Default \code{FALSE}, as in Element.}
 
 \item{stripe}{Whether rows alternate background colour.}
 
-\item{size}{Row density: \code{"medium"}, \code{"small"} or \code{"mini"}.}
+\item{size}{Size: \code{"large"}, \code{"default"} or \code{"small"}; \code{NULL} follows the form or the page.}
 
 \item{height}{Table height. Fixes the header and scrolls the body.}
 
@@ -148,6 +159,47 @@ from the server, unless \code{load} is given.}
 \item{load}{\code{JS()} function loading child rows in the
 browser instead of from the server. Needs \code{lazy = TRUE}.}
 
+\item{allow_drag_last_column}{Whether to allow drag the last column.
+Element Plus's \code{allow-drag-last-column} (boolean).}
+
+\item{append_filter_panel_to}{Which element the filter panels appends to.
+Element Plus's \code{append-filter-panel-to} (string).}
+
+\item{flexible}{Ensure main axis minimum-size doesn't follow the content.
+Element Plus's \code{flexible} (boolean).}
+
+\item{native_scrollbar}{Whether to use native scrollbars. Element Plus's
+\code{native-scrollbar} (boolean).}
+
+\item{preserve_expanded_content}{Whether to preserve expanded row content
+in DOM when collapsed. Element Plus's \code{preserve-expanded-content}
+(boolean).}
+
+\item{row_expandable}{Enable expandable rows, works when the table has a
+column type="expand". Element Plus's \code{row-expandable} ((row: any, index:
+number) => boolean).}
+
+\item{scrollbar_always_on}{Always show scrollbar. Element Plus's
+\code{scrollbar-always-on} (boolean).}
+
+\item{scrollbar_tabindex}{Body scrollbar's wrap container tabindex. Element
+Plus's \code{scrollbar-tabindex} (string / number).}
+
+\item{show_overflow_tooltip}{Whether to hide extra content and show them in
+a tooltip when hovering on the cell.It will affect all the table columns,
+refer to table tooltip-options. Element Plus's \code{show-overflow-tooltip}
+(boolean).}
+
+\item{table_layout}{Sets the algorithm used to lay out table cells, rows,
+and columns. Element Plus's \code{table-layout} ('fixed' | 'auto').}
+
+\item{tooltip_formatter}{Customize tooltip content when using
+\code{show-overflow-tooltip}. Element Plus's \code{tooltip-formatter} (Function).
+Give it as \code{\link[=JS]{JS()}}.}
+
+\item{tooltip_options}{The options for the overflow tooltip, see the
+following tooltip component. Element Plus's \code{tooltip-options} (object).}
+
 \item{width}{Component width, as a CSS unit. Replaces the table's default
 \verb{width: 100\%}. For a fixed header use \code{height} instead.}
 
@@ -155,8 +207,6 @@ browser instead of from the server. Needs \code{lazy = TRUE}.}
 \code{list(empty = shiny::tags$b("Nothing yet"))}. A shiny.element component
 given here is absorbed rather than nested. For a scoped slot, write
 the template with \code{\link[=template]{template()}}.}
-
-\item{highlight_selection_row}{Whether rows ticked with \code{selection = TRUE} are highlighted.}
 
 \item{loading}{Whether to cover the table with Element's loading mask, as
 its \code{v-loading} does. \code{\link[=update_el_table]{update_el_table()}} turns it on and off around
@@ -194,7 +244,7 @@ a row's children when it is opened: \verb{input$<id>_load} asks, with \code{key}
 
 A button in a \code{cell} reports back with \code{rowAction()}:
 
-\if{html}{\out{<div class="sourceCode r">}}\preformatted{list(label = "", cell = el$button(size = "mini",
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{list(label = "", cell = el$button(size = "small",
   "@click" = "rowAction('edit', scope)", "Edit"))
 }\if{html}{\out{</div>}}
 

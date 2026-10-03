@@ -2,7 +2,8 @@
 % Please edit documentation in R/el_statistic.R
 \name{el_statistic}
 \alias{el_statistic}
-\title{Element UI Statistic}
+\alias{el_countdown}
+\title{Element Plus Statistic}
 \usage{
 el_statistic(
   id = NULL,
@@ -13,11 +14,21 @@ el_statistic(
   precision = NULL,
   decimal_separator = NULL,
   group_separator = NULL,
-  rate = NULL,
   value_style = NULL,
   formatter = NULL,
-  time_indices = FALSE,
+  width = NULL,
+  slots = NULL,
+  session = NULL
+)
+
+el_countdown(
+  id = NULL,
+  value = 0,
+  title = NULL,
+  prefix = NULL,
+  suffix = NULL,
   format = NULL,
+  value_style = NULL,
   width = NULL,
   slots = NULL,
   session = NULL
@@ -26,7 +37,8 @@ el_statistic(
 \arguments{
 \item{id}{Component ID. Auto-generated if \code{NULL}.}
 
-\item{value}{The number.}
+\item{value}{The number; for \code{el_countdown()}, the moment to count down
+to, a \code{POSIXct} or milliseconds since the epoch.}
 
 \item{title}{Label above it.}
 
@@ -37,43 +49,35 @@ symbol or a unit.}
 
 \item{decimal_separator}{Decimal point. Default \code{"."}.}
 
-\item{group_separator}{Separator between digit groups, such as \code{","}.
-Element's default is none, so \code{26048} shows as it is.}
-
-\item{rate}{How the digits are grouped, as a power of ten: \code{1000} (the
-default) makes groups of three, \code{10000} groups of four. It only has an
-effect with a \code{group_separator}.}
+\item{group_separator}{Separator between digit groups. Default \code{","}.}
 
 \item{value_style}{CSS for the number, as a string or a named list.}
 
 \item{formatter}{\code{JS()} function \verb{function(value)} returning
 the text to show, in place of Element's formatting.}
 
-\item{time_indices}{Count down to \code{value} rather than show it. \code{value} is
-then the moment to count down to, a \code{POSIXct} or milliseconds since the
-epoch.}
-
-\item{format}{How a countdown is shown, such as \code{"HH:mm:ss"}. Default
-\code{"HH:mm:ss:SSS"}.}
-
 \item{width}{Component width, as a CSS unit.}
 
 \item{slots}{Named list of Element slot contents: \code{prefix}, \code{suffix},
-\code{title}, \code{formatter}.}
+\code{title}.}
 
 \item{session}{Deprecated. Inside a module, wrap \code{id} in \code{ns()}, as for
 any Shiny input; a session given here namespaces \code{id} once more, with
 a warning.}
+
+\item{format}{How a countdown is shown, in day.js's tokens, such as
+\code{"HH:mm:ss"} (the default) or \code{"DD [days] HH:mm:ss"}.}
 }
 \value{
 A Shiny UI element.
 }
 \description{
 A headline number with a title, and an optional prefix and suffix.
+\code{el_countdown()} counts down to a moment instead.
 }
 \section{Shiny inputs}{
 
-With \code{time_indices = TRUE}:
+For \code{el_countdown()}:
 \itemize{
 \item \verb{input$<id>_finish} -- fires when the countdown reaches zero.
 \item \verb{input$<id>_change} -- the milliseconds left. Element raises this on every
@@ -82,21 +86,12 @@ can usefully hear it.
 }
 }
 
-\section{Element methods}{
-
-Callable with \code{\link[=el_call]{el_call()}}:
-\itemize{
-\item \code{suspend()} -- pause or resume a countdown
-}
-}
-
 \examples{
-el_statistic("users", value = 26048, title = "Active users",
-             group_separator = ",")
+el_statistic("users", value = 26048, title = "Active users")
 el_statistic("revenue", value = 1318.5, title = "Revenue", prefix = "$",
              precision = 2)
 
 # A countdown to an hour from now
-el_statistic("sale", title = "Sale ends in", time_indices = TRUE,
-             value = Sys.time() + 3600, format = "HH:mm:ss")
+el_countdown("sale", title = "Sale ends in", value = Sys.time() + 3600,
+             format = "HH:mm:ss")
 }

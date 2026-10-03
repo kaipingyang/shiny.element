@@ -2,13 +2,15 @@
 % Please edit documentation in R/el_collapse.R
 \name{el_collapse}
 \alias{el_collapse}
-\title{Element UI Collapse / Accordion}
+\title{Element Plus Collapse / Accordion}
 \usage{
 el_collapse(
   id = NULL,
   items = list(),
   value = character(0),
   accordion = FALSE,
+  expand_icon_position = "right",
+  before_collapse = NULL,
   session = NULL
 )
 }
@@ -22,12 +24,20 @@ el_collapse(
 \item{content}{Panel body. Any tag or tagList, including this package's
 own components.}
 \item{disabled}{Whether the header is disabled. Default \code{FALSE}.}
+\item{icon}{The expand icon, by name (default \code{"ArrowRight"}), or a tag.}
 }}
 
 \item{value}{Character vector of initially open panel names. In accordion
 mode only the first is used.}
 
 \item{accordion}{Single-open accordion mode. Default \code{FALSE}.}
+
+\item{expand_icon_position}{Where each header's icon sits: \code{"right"} (the
+default) or \code{"left"}.}
+
+\item{before_collapse}{\code{\link[=JS]{JS()}} function \verb{function(name)}, run before a
+panel opens or closes: return \code{false}, or a promise that resolves to
+\code{false}, to keep it as it is.}
 
 \item{session}{Deprecated. Inside a module, wrap \code{id} in \code{ns()}, as for
 any Shiny input; a session given here namespaces \code{id} once more, with

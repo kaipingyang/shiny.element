@@ -20,6 +20,9 @@ el_form(
   hide_required_asterisk = NULL,
   label_suffix = NULL,
   validate_on_rule_change = NULL,
+  require_asterisk_position = NULL,
+  scroll_into_view_options = NULL,
+  scroll_to_error = NULL,
   width = NULL,
   slots = NULL,
   session = NULL
@@ -36,7 +39,7 @@ el_form(
 
 \item{inline}{Lay the fields out in a row.}
 
-\item{size}{Control size: \code{"medium"}, \code{"small"} or \code{"mini"}.}
+\item{size}{Size: \code{"large"}, \code{"default"} or \code{"small"}; \code{NULL} follows the form or the page.}
 
 \item{submit_label}{Submit button text. \code{NULL} renders no button, in which
 case drive the form with \code{\link[=el_form_validate]{el_form_validate()}}.}
@@ -56,6 +59,17 @@ case drive the form with \code{\link[=el_form_validate]{el_form_validate()}}.}
 \item{label_suffix}{Suffix appended to every label.}
 
 \item{validate_on_rule_change}{Whether changing the rules triggers validation immediately.}
+
+\item{require_asterisk_position}{Position of asterisk. Element Plus's
+\code{require-asterisk-position} ('left' | 'right').}
+
+\item{scroll_into_view_options}{When validation fails, it scrolls to the
+first error item based on the scrollIntoView option. scrollIntoView.
+Element Plus's \code{scroll-into-view-options} (ScrollIntoViewOptions /
+boolean).}
+
+\item{scroll_to_error}{When validation fails, scroll to the first error
+form entry. Element Plus's \code{scroll-to-error} (boolean).}
 
 \item{width}{Component width, as a CSS unit -- \code{"200px"}, \code{"50\%"}, or a
 number taken as pixels. Element's own markup carries it, so it behaves

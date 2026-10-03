@@ -6,6 +6,7 @@
 \usage{
 el_tag(
   id = NULL,
+  round = NULL,
   label = "Tag",
   type = NULL,
   closable = FALSE,
@@ -22,6 +23,8 @@ el_tag(
 \arguments{
 \item{id}{Tag ID. Auto-generated UUID if \code{NULL}.}
 
+\item{round}{Whether Tag is rounded. Element Plus's \code{round} (boolean).}
+
 \item{label}{Tag text.}
 
 \item{type}{Tag colour: \code{NULL} (default blue), \code{"success"}, \code{"info"},
@@ -30,7 +33,7 @@ el_tag(
 \item{closable}{Whether to show a close button. Default \code{FALSE}. When
 \code{TRUE}, \verb{input$<id>_closed} fires once when the user closes the tag.}
 
-\item{size}{Tag size: \code{NULL}, \code{"medium"}, \code{"small"}, \code{"mini"}.}
+\item{size}{Size: \code{"large"}, \code{"default"} or \code{"small"}; \code{NULL} follows the form or the page.}
 
 \item{effect}{Visual effect: \code{"light"} (default), \code{"dark"}, \code{"plain"}.}
 

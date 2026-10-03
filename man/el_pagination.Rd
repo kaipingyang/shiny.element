@@ -20,6 +20,14 @@ el_pagination(
   hide_on_single_page = NULL,
   page_count = NULL,
   popper_class = NULL,
+  append_size_to = NULL,
+  default_current_page = NULL,
+  default_page_size = NULL,
+  next_icon = NULL,
+  popper_style = NULL,
+  prev_icon = NULL,
+  size = NULL,
+  teleported = NULL,
   width = NULL,
   slots = NULL,
   session = NULL
@@ -56,6 +64,33 @@ Default \code{"total, sizes, prev, pager, next, jumper"}.}
 \item{page_count}{Total page count. Set either this or \code{total}.}
 
 \item{popper_class}{Extra class name for the page-size dropdown.}
+
+\item{append_size_to}{Which element the size dropdown appends to. Element
+Plus's \code{append-size-to} (string).}
+
+\item{default_current_page}{Default initial value of current-page, not
+setting is the same as setting 1. Element Plus's \code{default-current-page}
+(number).}
+
+\item{default_page_size}{Default initial value of page size, not setting is
+the same as setting 10. Element Plus's \code{default-page-size} (number).}
+
+\item{next_icon}{Icon for the next button, has a lower priority than
+\code{next-text}. Element Plus's \code{next-icon} (string / Component). An icon's
+name, such as \code{"Search"}.}
+
+\item{popper_style}{Custom style for the page size Select's dropdown.
+Element Plus's \code{popper-style} (string / object).}
+
+\item{prev_icon}{Icon for the prev button, has a lower priority than
+\code{prev-text}. Element Plus's \code{prev-icon} (string / Component). An icon's
+name, such as \code{"Search"}.}
+
+\item{size}{Pagination size. Element Plus's \code{size} ('large' | 'default' |
+'small').}
+
+\item{teleported}{Whether Pagination select dropdown is teleported to the
+body. Element Plus's \code{teleported} (boolean).}
 
 \item{width}{Component width, as a CSS unit -- \code{"200px"}, \code{"50\%"}, or a
 number taken as pixels. Element's own markup carries it, so it behaves

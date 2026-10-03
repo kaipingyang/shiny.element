@@ -2,25 +2,30 @@
 % Please edit documentation in R/el_icon.R
 \name{el_icon}
 \alias{el_icon}
-\title{Element UI icon tag}
+\title{Element Plus icon}
 \usage{
 el_icon(
   name,
   size = NULL,
+  color = NULL,
   class = NULL,
   title = NULL,
   a11y = c("auto", "deco", "sem", "none"),
-  lib = c("element-ui", "font-awesome", "none"),
+  lib = c("element-plus", "font-awesome", "none"),
   ...
 )
 }
 \arguments{
-\item{name}{Icon name. For \code{lib = "element-ui"}, the \verb{el-icon-} prefix is
-optional and will not be doubled (e.g. \code{"search"} and \code{"el-icon-search"}
-both work). Names are lowercased and spaces replaced with \code{-}.}
+\item{name}{Icon name, as Element Plus spells it -- \code{"Search"},
+\code{"ArrowRight"} -- or in any of the forms that reach the same name:
+\code{"search"}, \code{"arrow-right"}, \code{"arrow right"}, and Element UI's
+\code{"el-icon-arrow-right"}.}
 
-\item{size}{CSS size string (e.g. \code{"1.5em"}, \code{"20px"}). Applied as
-\code{font-size} on the \verb{<i>} tag. \code{NULL} (default) leaves the size unset.}
+\item{size}{CSS size string (e.g. \code{"1.5em"}, \code{"20px"}), as Element Plus's
+\verb{<el-icon size>}. \code{NULL} (default) follows the surrounding text.}
+
+\item{color}{Icon colour, as Element Plus's \verb{<el-icon color>}. \code{NULL}
+follows the surrounding text.}
 
 \item{class}{Additional CSS class(es) to append.}
 
@@ -38,7 +43,7 @@ and \code{role="img"}.}
 
 \item{lib}{Icon library. One of:
 \describe{
-\item{\code{"element-ui"} (default)}{Renders \verb{<i class="el-icon-\{name\}">}.}
+\item{\code{"element-plus"} (default)}{Element Plus's icon set.}
 \item{\code{"font-awesome"}}{Delegates to \code{\link[fontawesome:fa_i]{fontawesome::fa_i()}}. Requires the
 \code{fontawesome} package.}
 \item{\code{"none"}}{Renders a plain \verb{<i>} tag with no icon class.}
@@ -50,14 +55,19 @@ and \code{role="img"}.}
 An \code{htmltools} tag object.
 }
 \description{
-Creates an icon tag supporting Element UI icons, Font Awesome, or plain tags.
-Follows the same dispatch pattern as \code{\link[shiny:icon]{shiny::icon()}}, with accessibility
-attributes inspired by \code{\link[bsicons:bs_icon]{bsicons::bs_icon()}}.
+An icon from Element Plus's set, Font Awesome, or a plain tag. Follows the
+same dispatch pattern as \code{\link[shiny:icon]{shiny::icon()}}, with accessibility attributes
+inspired by \code{\link[bsicons:bs_icon]{bsicons::bs_icon()}}.
+}
+\details{
+Element Plus's icons are SVG components (\verb{@element-plus/icons-vue}, bundled):
+the tag is an \verb{<i class="el-icon">} naming its icon, drawn by the page
+wherever it lands -- inside a component or not.
 }
 \examples{
-el_icon("search")
+el_icon("Search")
 el_icon("edit", size = "1.5em")
-el_icon("delete", title = "Delete item")
+el_icon("Delete", title = "Delete item", color = "#f56c6c")
 el_icon("close", a11y = "deco")
 
 }

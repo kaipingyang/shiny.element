@@ -21,19 +21,19 @@ and any Element variable given to \code{\link[=el_theme]{el_theme()}}'s \code{el
 Element only; the page function that owns the page applies it to
 Bootstrap. \code{NULL} leaves Element as it ships.}
 
-\item{offline}{Serve Element UI from the copy bundled with this package
-rather than the unpkg CDN. See \code{\link[=element_ui_dependency]{element_ui_dependency()}}.}
+\item{offline}{Serve Element Plus from the copy bundled with this package
+rather than the unpkg CDN. See \code{\link[=element_plus_dependency]{element_plus_dependency()}}.}
 
 \item{dev}{Load the development build of Vue instead of \code{vue.min.js}, so
 Vue's warnings are not stripped. Defaults to
 \code{getOption("shiny.element.dev", FALSE)}.}
 
-\item{locale}{Language for Element UI's built-in text. English by default,
+\item{locale}{Language for Element Plus's built-in text. English by default,
 or \code{getOption("shiny.element.locale")} when set. See
 \code{\link[=el_locale_dependency]{el_locale_dependency()}}.}
 
-\item{size, z_index}{Element's global config, as \verb{Vue.use(Element, \{size, zIndex\})} sets it: the size of every component not given one of its own
-(\code{"medium"}, \code{"small"} or \code{"mini"}), and the z-index its popups start
+\item{size, z_index}{Element Plus's global config, as \verb{app.use(ElementPlus, \{size, zIndex\})} sets it: the size of every component not given one of its own
+(\code{"large"}, \code{"default"} or \code{"small"}), and the z-index its popups start
 from (2000 by default). \code{NULL} leaves Element's default.}
 
 \item{layout_css}{Element's layout CSS, \code{\link[=el_layout_css_dependency]{el_layout_css_dependency()}};

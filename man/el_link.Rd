@@ -2,15 +2,16 @@
 % Please edit documentation in R/el_link.R
 \name{el_link}
 \alias{el_link}
-\title{Element UI Link}
+\title{Element Plus Link}
 \usage{
 el_link(
   label = "Link",
   href = NULL,
   type = "default",
-  underline = TRUE,
+  underline = "hover",
   disabled = FALSE,
   icon = NULL,
+  target = "_self",
   id = NULL,
   ...
 )
@@ -23,12 +24,17 @@ el_link(
 \item{type}{Link colour type: \code{"default"} (default), \code{"primary"},
 \code{"success"}, \code{"warning"}, \code{"danger"}, \code{"info"}.}
 
-\item{underline}{Whether to underline on hover. Default \code{TRUE}.}
+\item{underline}{When the link is underlined: \code{"hover"} (the default),
+\code{"always"} or \code{"never"}. \code{TRUE} and \code{FALSE}, Element UI's form, are
+\code{"hover"} and \code{"never"}.}
 
 \item{disabled}{Whether the link is disabled. Default \code{FALSE}.}
 
 \item{icon}{Icon class string (e.g. \code{"el-icon-edit"}). Placed before the
 label. \code{NULL} for none.}
+
+\item{target}{Where the link opens, as an \verb{<a>}'s \code{target}. Default
+\code{"_self"}.}
 
 \item{id}{Give the link an id and it reports its clicks, as
 \code{\link[shiny:actionLink]{shiny::actionLink()}} does: \verb{input$<id>} counts them, 0 on load, and

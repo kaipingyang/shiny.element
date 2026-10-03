@@ -2,9 +2,19 @@
 % Please edit documentation in R/el_statistic.R
 \name{update_el_statistic}
 \alias{update_el_statistic}
-\title{Update Element UI Statistic}
+\alias{update_el_countdown}
+\title{Update Element Plus Statistic}
 \usage{
 update_el_statistic(
+  session = shiny::getDefaultReactiveDomain(),
+  id,
+  value = NULL,
+  title = NULL,
+  prefix = NULL,
+  suffix = NULL
+)
+
+update_el_countdown(
   session = shiny::getDefaultReactiveDomain(),
   id,
   value = NULL,
@@ -25,14 +35,11 @@ update_el_statistic(
 Called for its side effect; returns \code{NULL} invisibly.
 }
 \description{
-Server-side update for \code{\link[=el_statistic]{el_statistic()}}.
+Server-side update for \code{\link[=el_statistic]{el_statistic()}} and \code{\link[=el_countdown]{el_countdown()}}.
 }
 \examples{
 if (interactive()) {
   # inside a server function
-  observe({
-    invalidateLater(5000)
-    update_el_statistic(session, "users", value = count_active_users())
-  })
+  observe(update_el_statistic(session, "users", value = n_users()))
 }
 }

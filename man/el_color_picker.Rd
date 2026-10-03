@@ -13,6 +13,16 @@ el_color_picker(
   color_format = NULL,
   predefine = NULL,
   popper_class = NULL,
+  append_to = NULL,
+  aria_label = NULL,
+  clearable = NULL,
+  empty_values = NULL,
+  persistent = NULL,
+  popper_style = NULL,
+  tabindex = NULL,
+  teleported = NULL,
+  validate_event = NULL,
+  value_on_clear = NULL,
   label = NULL,
   label_position = c("top", "left", "right"),
   label_width = NULL,
@@ -33,7 +43,7 @@ el_color_picker(
 
 \item{disabled}{Whether the picker is disabled. Default \code{FALSE}.}
 
-\item{size}{Component size: \code{NULL}, \code{"medium"}, \code{"small"}, \code{"mini"}.}
+\item{size}{Size: \code{"large"}, \code{"default"} or \code{"small"}; \code{NULL} follows the form or the page.}
 
 \item{show_alpha}{Whether to show an alpha channel slider. Default \code{FALSE}.
 When \code{TRUE}, the returned value is an \code{rgba(...)} string.}
@@ -45,6 +55,37 @@ When \code{TRUE}, the returned value is an \code{rgba(...)} string.}
 none.}
 
 \item{popper_class}{Extra class name for the dropdown panel.}
+
+\item{append_to}{Which element the color-picker panel appends to. Element
+Plus's \code{append-to} (CSSSelector / HTMLElement).}
+
+\item{aria_label}{ColorPicker aria-label. Element Plus's \code{aria-label}
+(string).}
+
+\item{clearable}{Whether to show clear button. Element Plus's \code{clearable}
+(boolean).}
+
+\item{empty_values}{Empty values of component, see config-provider. Element
+Plus's \code{empty-values} (array).}
+
+\item{persistent}{When color-picker inactive and persistent is false, the
+color panel will be destroyed. Element Plus's \code{persistent} (boolean).}
+
+\item{popper_style}{Custom style for ColorPicker's dropdown. Element Plus's
+\code{popper-style} (string / object).}
+
+\item{tabindex}{ColorPicker tabindex. Element Plus's \code{tabindex} (string /
+number).}
+
+\item{teleported}{Whether color-picker popper is teleported to the body.
+Element Plus's \code{teleported} (boolean).}
+
+\item{validate_event}{Whether to trigger form validation. Element Plus's
+\code{validate-event} (boolean).}
+
+\item{value_on_clear}{Clear return value, see config-provider. Element
+Plus's \code{value-on-clear} (string / number / boolean / Function). Give it
+as \code{\link[=JS]{JS()}}.}
 
 \item{label}{A label shown with the component, as Shiny's inputs have:
 text or a tag. \code{NULL}, the default, shows none. It is the component's

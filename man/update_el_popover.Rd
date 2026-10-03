@@ -10,7 +10,7 @@ update_el_popover(
   title = NULL,
   content = NULL,
   disabled = NULL,
-  value = NULL
+  visible = NULL
 )
 }
 \arguments{
@@ -19,20 +19,21 @@ update_el_popover(
 
 \item{id}{Popover ID (un-namespaced).}
 
-\item{title, content, disabled, value}{New values; \code{NULL} leaves one unchanged.}
+\item{title, content, disabled, visible}{New values; \code{NULL} leaves one unchanged.}
 }
 \value{
 Called for its side effect; returns \code{NULL} invisibly.
 }
 \description{
-Server-side update for \code{\link[=el_popover]{el_popover()}}. Setting \code{value} opens or closes the
-card, which is how \code{trigger = "manual"} is driven.
+Server-side update for \code{\link[=el_popover]{el_popover()}}. Setting \code{visible} opens or closes
+the card, which then stays as set: Element Plus's popover is controlled by
+its \code{visible} once that is given.
 }
 \examples{
 if (interactive()) {
   # inside a server function
   observeEvent(input$explain, {
-    update_el_popover(session, "info", content = summary_text(), value = TRUE)
+    update_el_popover(session, "info", content = summary_text(), visible = TRUE)
   })
 }
 }

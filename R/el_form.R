@@ -281,10 +281,18 @@ el_form_field <- function(prop,
 #' @param label_width Label column width, e.g. `"100px"`.
 #' @param label_position `"right"` (default), `"left"` or `"top"`.
 #' @param inline Lay the fields out in a row.
-#' @param size Control size: `"medium"`, `"small"` or `"mini"`.
+#' @param size Size: `"large"`, `"default"` or `"small"`; `NULL` follows the form or the page.
 #' @param submit_label Submit button text. `NULL` renders no button, in which
 #'   case drive the form with [el_form_validate()].
 #' @param reset_label Reset button text. `NULL` renders no button.
+#' @param require_asterisk_position Position of asterisk. Element Plus's
+#'   `require-asterisk-position` ('left' | 'right').
+#' @param scroll_into_view_options When validation fails, it scrolls to the
+#'   first error item based on the scrollIntoView option. scrollIntoView.
+#'   Element Plus's `scroll-into-view-options` (ScrollIntoViewOptions /
+#'   boolean).
+#' @param scroll_to_error When validation fails, scroll to the first error
+#'   form entry. Element Plus's `scroll-to-error` (boolean).
 #' @param session Deprecated. Inside a module, wrap `id` in `ns()`, as for
 #'   any Shiny input; a session given here namespaces `id` once more, with
 #'   a warning.
@@ -373,6 +381,9 @@ el_form <- function(...,
                     hide_required_asterisk = NULL,
                     label_suffix = NULL,
                     validate_on_rule_change = NULL,
+                    require_asterisk_position = NULL,
+                    scroll_into_view_options = NULL,
+                    scroll_to_error = NULL,
                     width   = NULL,
                     slots   = NULL,
                     session = NULL) {
@@ -481,6 +492,10 @@ el_form <- function(...,
   js_id <- as.character(jsonlite::toJSON(ns_id, auto_unbox = TRUE))
 
   el_widget(
+    props = .el_props(list(
+      require_asterisk_position = require_asterisk_position,
+      scroll_into_view_options = scroll_into_view_options,
+      scroll_to_error = scroll_to_error)),
     id     = ns_id,
     markup = htmltools::tag("el-form", c(form_attrs, list(field_items, buttons))),
     data = vue_data,

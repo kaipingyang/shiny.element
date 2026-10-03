@@ -18,6 +18,20 @@ el_dropdown(
   show_timeout = NULL,
   hide_timeout = NULL,
   tabindex = NULL,
+  append_to = NULL,
+  button_props = NULL,
+  effect = NULL,
+  max_height = NULL,
+  persistent = NULL,
+  popper_class = NULL,
+  popper_options = NULL,
+  popper_style = NULL,
+  role = NULL,
+  show_arrow = NULL,
+  teleported = NULL,
+  trigger_keys = NULL,
+  virtual_ref = NULL,
+  virtual_triggering = NULL,
   width = NULL,
   slots = NULL,
   session = NULL
@@ -44,7 +58,7 @@ it; a tag -- an icon, an avatar -- is used as it is. Default
 
 \item{type}{Button type when \code{split_button = TRUE}: \code{"primary"}, etc.}
 
-\item{size}{Component size: \code{NULL}, \code{"medium"}, \code{"small"}, \code{"mini"}.}
+\item{size}{Size: \code{"large"}, \code{"default"} or \code{"small"}; \code{NULL} follows the form or the page.}
 
 \item{split_button}{Whether to render as a split button (main + dropdown
 arrow). Default \code{FALSE}.}
@@ -62,6 +76,49 @@ Default \code{TRUE}.}
 \item{hide_timeout}{Delay in ms before the menu hides, for \code{trigger = "hover"}.}
 
 \item{tabindex}{Tab index of the dropdown trigger.}
+
+\item{append_to}{Which element the dropdown CONTENT appends to. Element
+Plus's \code{append-to} (CSSSelector / HTMLElement).}
+
+\item{button_props}{Props for the button component, refer to Button
+Attributes. Element Plus's \code{button-props} (object).}
+
+\item{effect}{Tooltip theme, built-in theme: \code{dark} / \code{light}. Element
+Plus's \code{effect} ('dark' | 'light' / string).}
+
+\item{max_height}{The max height of menu. Element Plus's \code{max-height}
+(string / number).}
+
+\item{persistent}{When dropdown inactive and \code{persistent} is \code{false} ,
+dropdown menu will be destroyed. Element Plus's \code{persistent} (boolean).}
+
+\item{popper_class}{Custom class name for Dropdown's dropdown. Element
+Plus's \code{popper-class} (string / object).}
+
+\item{popper_options}{Popper.js parameters. Element Plus's \code{popper-options}
+(object).}
+
+\item{popper_style}{Custom style for Dropdown's dropdown. Element Plus's
+\code{popper-style} (string / object).}
+
+\item{role}{The ARIA role attribute for the dropdown menu. Depending on the
+use case, you may want to change this to 'navigation'. Element Plus's
+\code{role} (enum).}
+
+\item{show_arrow}{Whether the tooltip content has an arrow. Element Plus's
+\code{show-arrow} (boolean).}
+
+\item{teleported}{Whether the dropdown popup is teleported to the body.
+Element Plus's \code{teleported} (boolean).}
+
+\item{trigger_keys}{Specify which keys on the keyboard can trigger when
+pressed. Element Plus's \code{trigger-keys} (string[]).}
+
+\item{virtual_ref}{Indicates the reference element to which the dropdown is
+attached. Element Plus's \code{virtual-ref} (HTMLElement).}
+
+\item{virtual_triggering}{Indicates whether virtual triggering is enabled.
+Element Plus's \code{virtual-triggering} (boolean).}
 
 \item{width}{Component width, as a CSS unit -- \code{"200px"}, \code{"50\%"}, or a
 number taken as pixels. Element's own markup carries it, so it behaves

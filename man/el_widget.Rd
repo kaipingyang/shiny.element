@@ -26,7 +26,8 @@ el_widget(
   required = FALSE,
   error = NULL,
   show_message = TRUE,
-  inline_message = FALSE
+  inline_message = FALSE,
+  props = NULL
 )
 }
 \arguments{
@@ -41,7 +42,7 @@ set has to be declared here -- Vue does not track one that is not.}
 \item{methods, watch, mounted, computed}{Vue options, included when not \code{NULL}.}
 
 \item{dependency}{htmlDependency objects to attach. Outside this package
-pass \code{\link[=element_ui_dependency]{element_ui_dependency()}}, unless the page already loads it through
+pass \code{\link[=element_plus_dependency]{element_plus_dependency()}}, unless the page already loads it through
 \code{\link[=el_page]{el_page()}} or \code{\link[=use_element]{use_element()}}.}
 
 \item{head}{Tags to place before the host, such as a \verb{<style>} block.}
@@ -97,6 +98,9 @@ style, the field framed in red. Element's \code{error}.}
 \item{show_message, inline_message}{Whether \code{error}'s message is shown, and
 whether beside the component rather than under it. Element's
 \code{show-message} and \code{inline-message}.}
+
+\item{props}{Optional props from \code{.el_props()}: bound on the root tag of
+\code{markup}, with their fields added to \code{data}.}
 }
 \value{
 A Shiny UI element with its dependencies attached.

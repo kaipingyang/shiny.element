@@ -8,6 +8,17 @@ el_switch(
   id = NULL,
   value = FALSE,
   disabled = FALSE,
+  active_action_icon = NULL,
+  active_icon = NULL,
+  aria_label = NULL,
+  before_change = NULL,
+  border_color = NULL,
+  inactive_action_icon = NULL,
+  inactive_icon = NULL,
+  inline_prompt = NULL,
+  loading = NULL,
+  size = NULL,
+  tabindex = NULL,
   label = NULL,
   label_position = c("top", "left", "right"),
   label_width = NULL,
@@ -23,8 +34,6 @@ el_switch(
   inactive_color = NULL,
   active_value = TRUE,
   inactive_value = FALSE,
-  active_icon_class = NULL,
-  inactive_icon_class = NULL,
   name = NULL,
   validate_event = NULL,
   slots = NULL,
@@ -37,6 +46,47 @@ el_switch(
 \item{value}{Initial switch state. Default \code{FALSE}.}
 
 \item{disabled}{Whether the switch is disabled. Default \code{FALSE}.}
+
+\item{active_action_icon}{Component of the icon displayed in action when in
+\code{on} state. Element Plus's \code{active-action-icon} (string / Component). An
+icon's name, such as \code{"Search"}.}
+
+\item{active_icon}{Component of the icon displayed when in \code{on} state,
+overrides \code{active-text}. Element Plus's \code{active-icon} (string /
+Component). An icon's name, such as \code{"Search"}.}
+
+\item{aria_label}{Same as \code{aria-label} in native input. Element Plus's
+\code{aria-label} (string).}
+
+\item{before_change}{Before-change hook before the switch state changes. If
+\code{false} is returned or a \code{Promise} is returned and then is rejected, will
+stop switching. Element Plus's \code{before-change} (() => Promise\if{html}{\out{<boolean>}} |
+boolean).}
+
+\item{border_color}{Border color of the switch ( use CSS var
+\code{--el-switch-border-color} instead ). Element Plus's \code{border-color}
+(string).}
+
+\item{inactive_action_icon}{Component of the icon displayed in action when
+in \code{off} state. Element Plus's \code{inactive-action-icon} (string /
+Component). An icon's name, such as \code{"Search"}.}
+
+\item{inactive_icon}{Component of the icon displayed when in \code{off} state,
+overrides \code{inactive-text}. Element Plus's \code{inactive-icon} (string /
+Component). An icon's name, such as \code{"Search"}.}
+
+\item{inline_prompt}{Whether icon or text is displayed inside dot, only the
+first character will be rendered for text. Element Plus's \code{inline-prompt}
+(boolean).}
+
+\item{loading}{Whether Switch is in loading state. Element Plus's \code{loading}
+(boolean).}
+
+\item{size}{Size of Switch. Element Plus's \code{size} ('' | 'large' | 'default'
+| 'small').}
+
+\item{tabindex}{Tabindex for input. Element Plus's \code{tabindex} (string /
+number).}
 
 \item{label}{A label shown with the component, as Shiny's inputs have:
 text or a tag. \code{NULL}, the default, shows none. It is the component's
@@ -78,10 +128,6 @@ whether beside the component rather than under it. Element's
 \item{active_value}{Value reported to Shiny when switch is on. Default \code{TRUE}.}
 
 \item{inactive_value}{Value reported to Shiny when switch is off. Default \code{FALSE}.}
-
-\item{active_icon_class}{Icon class shown on the active side; overrides \code{active_text}.}
-
-\item{inactive_icon_class}{Icon class shown on the inactive side; overrides \code{inactive_text}.}
 
 \item{name}{Native \code{name} attribute of the inner checkbox.}
 

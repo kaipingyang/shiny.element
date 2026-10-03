@@ -6,6 +6,13 @@
 \usage{
 el_checkbox(
   id = NULL,
+  aria_controls = NULL,
+  aria_label = NULL,
+  controls = NULL,
+  false_value = NULL,
+  tabindex = NULL,
+  true_value = NULL,
+  validate_event = NULL,
   label = NULL,
   value = FALSE,
   indeterminate = NULL,
@@ -24,6 +31,27 @@ el_checkbox(
 \arguments{
 \item{id}{Checkbox ID. Auto-generated if \code{NULL}.}
 
+\item{aria_controls}{Same as aria-controls, takes effect when
+\code{indeterminate} is \code{true}. Element Plus's \code{aria-controls} (string).}
+
+\item{aria_label}{Native \code{aria-label} attribute. Element Plus's
+\code{aria-label} (string).}
+
+\item{controls}{Same as aria-controls, takes effect when \code{indeterminate} is
+\code{true}. Element Plus's \code{controls} (string).}
+
+\item{false_value}{Value of the Checkbox if it's not checked. Element
+Plus's \code{false-value} (string / number).}
+
+\item{tabindex}{Input tabindex. Element Plus's \code{tabindex} (string /
+number).}
+
+\item{true_value}{Value of the Checkbox if it's checked. Element Plus's
+\code{true-value} (string / number).}
+
+\item{validate_event}{Whether to trigger form validation. Element Plus's
+\code{validate-event} (boolean).}
+
 \item{label}{The box's text, as for \code{\link[shiny:checkboxInput]{shiny::checkboxInput()}}.}
 
 \item{value}{Whether the box starts ticked. Default \code{FALSE}.}
@@ -35,7 +63,7 @@ above a partly checked group. Only the look: \code{value} is unchanged.}
 
 \item{border}{Draw the box with a border.}
 
-\item{size}{\code{"medium"}, \code{"small"} or \code{"mini"}; only with \code{border = TRUE}.}
+\item{size}{Size: \code{"large"}, \code{"default"} or \code{"small"}; \code{NULL} follows the form or the page.}
 
 \item{true_label, false_label}{Values to report instead of \code{TRUE} and
 \code{FALSE}.}

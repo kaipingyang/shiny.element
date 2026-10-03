@@ -9,7 +9,7 @@ update_el_tooltip(
   id,
   content = NULL,
   disabled = NULL,
-  value = NULL
+  visible = NULL
 )
 }
 \arguments{
@@ -18,14 +18,15 @@ update_el_tooltip(
 
 \item{id}{Tooltip ID (un-namespaced).}
 
-\item{content, disabled, value}{New values; \code{NULL} leaves one unchanged.}
+\item{content, disabled, visible}{New values; \code{NULL} leaves one unchanged.}
 }
 \value{
 Called for its side effect; returns \code{NULL} invisibly.
 }
 \description{
-Server-side update for \code{\link[=el_tooltip]{el_tooltip()}}. Setting \code{value} only shows or hides
-the hint when the tooltip was created with \code{manual = TRUE}.
+Server-side update for \code{\link[=el_tooltip]{el_tooltip()}}. Setting \code{visible} shows or hides
+the hint, which then stays as set: Element Plus's tooltip is controlled by
+its \code{visible} once that is given.
 }
 \examples{
 if (interactive()) {

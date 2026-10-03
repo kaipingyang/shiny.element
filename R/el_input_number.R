@@ -11,12 +11,32 @@
 #'   `FALSE`.
 #' @param precision Decimal precision (non-negative integer). `NULL` for
 #'   auto.
-#' @param size Component size: `NULL`, `"medium"`, `"small"`, `"mini"`.
+#' @param size Size: `"large"`, `"default"` or `"small"`; `NULL` follows the form or the page.
 #' @param disabled Whether the component is disabled. Default `FALSE`.
 #' @param controls Whether to show the +/- control buttons. Default `TRUE`.
 #' @param controls_position Button layout: `""` (default, left-right) or
 #'   `"right"` (both on the right).
 #' @param placeholder Placeholder text. `NULL` for none.
+#' @param align Alignment for the inner input text. Element Plus's `align`
+#'   ('left' | 'center' | 'right').
+#' @param aria_label Same as `aria-label` in native input. Element Plus's
+#'   `aria-label` (string).
+#' @param disabled_scientific Disables input of scientific notation (e.g.
+#'   'e'). Element Plus's `disabled-scientific` (boolean).
+#' @param formatter Specifies the format of the value presented in the input.
+#'   Element Plus's `formatter` ((value: string) => string).
+#' @param inputmode Same as `inputmode` in native input. Element Plus's
+#'   `inputmode` (string).
+#' @param parser Specifies the value extracted from the formatted input.
+#'   Element Plus's `parser` ((value: string) => string).
+#' @param readonly Same as `readonly` in native input. Element Plus's
+#'   `readonly` (boolean).
+#' @param tabindex Same as `tabindex` in native input. Element Plus's
+#'   `tabindex` (string / number).
+#' @param validate_event Whether to trigger form validation. Element Plus's
+#'   `validate-event` (boolean).
+#' @param value_on_clear Value should be set when input box is cleared.
+#'   Element Plus's `value-on-clear` (number / null / 'min' | 'max').
 #' @param session Deprecated. Inside a module, wrap `id` in `ns()`, as for
 #'   any Shiny input; a session given here namespaces `id` once more, with
 #'   a warning.
@@ -59,6 +79,16 @@ el_input_number <- function(
     controls          = TRUE,
     controls_position = "",
     placeholder       = NULL,
+    align = NULL,
+    aria_label = NULL,
+    disabled_scientific = NULL,
+    formatter = NULL,
+    inputmode = NULL,
+    parser = NULL,
+    readonly = NULL,
+    tabindex = NULL,
+    validate_event = NULL,
+    value_on_clear = NULL,
     label             = NULL,
     name              = NULL,
     label_position = c("top", "left", "right"),
@@ -120,6 +150,17 @@ el_input_number <- function(
   vue_data$label <- .el_or_na(label)
   vue_data$name <- .el_or_na(name)
   el_widget(
+    props = .el_props(list(
+      align = align,
+      aria_label = aria_label,
+      disabled_scientific = disabled_scientific,
+      formatter = formatter,
+      inputmode = inputmode,
+      parser = parser,
+      readonly = readonly,
+      tabindex = tabindex,
+      validate_event = validate_event,
+      value_on_clear = value_on_clear)),
     # Reported as the value changes, debounced, as Shiny's own inputs are
     rate = list(policy = "debounce", delay = 250),
     label = label, label_position = label_position,

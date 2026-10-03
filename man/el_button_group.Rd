@@ -2,14 +2,28 @@
 % Please edit documentation in R/el_button_group.R
 \name{el_button_group}
 \alias{el_button_group}
-\title{Element UI Button Group}
+\title{Element Plus Button Group}
 \usage{
-el_button_group(..., id = NULL, width = NULL)
+el_button_group(
+  ...,
+  id = NULL,
+  size = NULL,
+  type = NULL,
+  direction = NULL,
+  width = NULL
+)
 }
 \arguments{
 \item{...}{Buttons: \code{\link[=el_button]{el_button()}}s, or raw \code{el$button()} tags.}
 
 \item{id}{Group ID. Auto-generated if \code{NULL}.}
+
+\item{size, type}{The size and type of every button in the group, as
+Element Plus's group hands them down: \code{size} \code{"large"}, \code{"default"} or
+\code{"small"}; \code{type} \code{"primary"}, \code{"success"}, \code{"warning"}, \code{"danger"} or
+\code{"info"}.}
+
+\item{direction}{\code{"horizontal"} (default) or \code{"vertical"}.}
 
 \item{width}{Component width, as a CSS unit.}
 }
@@ -30,7 +44,7 @@ children, which a button with a host of its own would not be. So
 }
 \examples{
 el_button_group(
-  el_button("prev", "Previous", icon = "el-icon-arrow-left", type = "primary"),
+  el_button("prev", "Previous", icon = "ArrowLeft", type = "primary"),
   el_button("next", "Next", type = "primary")
 )
 }

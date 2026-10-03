@@ -26,6 +26,12 @@
 #' @param render_content `JS()` render function for an item.
 #' @inheritParams el_widget
 #' @param width Component width, as a CSS unit.
+#' @param item_size Item height for virtual scrolling. Element Plus's
+#'   `item-size` (number).
+#' @param validate_event Whether to trigger form validation. Element Plus's
+#'   `validate-event` (boolean).
+#' @param virtual_scroll Whether to enable virtual scrolling. Element Plus's
+#'   `virtual-scroll` (boolean).
 #' @param session Deprecated. Inside a module, wrap `id` in `ns()`, as for
 #'   any Shiny input; a session given here namespaces `id` once more, with
 #'   a warning.
@@ -73,6 +79,9 @@ el_transfer <- function(id = NULL,
                         left_default_checked = NULL,
                         right_default_checked = NULL,
                         render_content = NULL,
+                        item_size = NULL,
+                        validate_event = NULL,
+                        virtual_scroll = NULL,
                         label = NULL,
                         label_position = c("top", "left", "right"),
                         label_width = NULL,
@@ -112,6 +121,10 @@ el_transfer <- function(id = NULL,
   attrs <- c(attrs, events$attrs)
 
   el_widget(
+    props = .el_props(list(
+      item_size = item_size,
+      validate_event = validate_event,
+      virtual_scroll = virtual_scroll)),
     label = label, label_position = label_position,
     label_width = label_width, label_suffix = label_suffix, required = required,
     error = error, show_message = show_message, inline_message = inline_message,

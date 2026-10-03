@@ -12,11 +12,10 @@ el_theme(..., element = NULL, version = 5)
 name (\code{"font-size-base" = "1rem"}). An override replaces the Element
 value of the same name.}
 
-\item{element}{Element's own theme variables, as a named list --
+\item{element}{Element Plus's own theme variables, as a named list --
 \code{list("border-radius-base" = "8px", "font-size-base" = "13px")} -- by
-their names in theme-chalk's \code{common/var.scss}, without the \verb{$--}.
-Element's stylesheet is built with them, as Element's theme tool builds
-a custom theme.}
+their CSS variable names without the \verb{--el-}. They are set on the page,
+as Element Plus's theming guide sets them.}
 
 \item{version}{Bootstrap major version. Default \code{5}.}
 }
@@ -37,28 +36,24 @@ its components set no font of their own: they inherit one. Under a
 Bootswatch theme they inherit that theme's font instead of Element's,
 while Element's sizes and colours stay -- a mix of the two looks.
 
-The values follow Element 2.15's \code{theme-chalk} variables:\tabular{lll}{
-   Bootstrap \tab Element \tab value \cr
-   \code{primary} \tab \verb{$--color-primary} \tab \verb{#409EFF} \cr
-   \code{success} \tab \verb{$--color-success} \tab \verb{#67C23A} \cr
-   \code{warning} \tab \verb{$--color-warning} \tab \verb{#E6A23C} \cr
-   \code{danger} \tab \verb{$--color-danger} \tab \verb{#F56C6C} \cr
-   \code{info}, \code{secondary} \tab \verb{$--color-info} \tab \verb{#909399} \cr
-   \code{fg} \tab \verb{$--color-text-primary} \tab \verb{#303133} \cr
-   \code{border-color} \tab \verb{$--border-color-base} \tab \verb{#DCDFE6} \cr
-   \code{border-radius} \tab \verb{$--border-radius-base} \tab \verb{4px} \cr
-   \code{font-size-base} \tab \verb{$--font-size-base} \tab \verb{14px} \cr
-   input and button padding \tab \verb{$--input-height}, \verb{$--button-padding-*} \tab \verb{40px} tall \cr
+The values follow Element Plus's CSS variables:\tabular{lll}{
+   Bootstrap \tab Element Plus \tab value \cr
+   \code{primary} \tab \code{--el-color-primary} \tab \verb{#409EFF} \cr
+   \code{success} \tab \code{--el-color-success} \tab \verb{#67C23A} \cr
+   \code{warning} \tab \code{--el-color-warning} \tab \verb{#E6A23C} \cr
+   \code{danger} \tab \code{--el-color-danger} \tab \verb{#F56C6C} \cr
+   \code{info}, \code{secondary} \tab \code{--el-color-info} \tab \verb{#909399} \cr
+   \code{fg} \tab \code{--el-text-color-primary} \tab \verb{#303133} \cr
+   \code{border-color} \tab \code{--el-border-color} \tab \verb{#DCDFE6} \cr
+   \code{border-radius} \tab \code{--el-border-radius-base} \tab \verb{4px} \cr
+   \code{font-size-base} \tab \code{--el-font-size-base} \tab \verb{14px} \cr
 }
 
 
 \code{primary}, \code{success}, \code{warning}, \code{danger} and \code{info} reach Element's
 components too, with the tints and shades Element derives from each, and
-so does anything given to \code{element}: \code{\link[=el_page]{el_page()}} builds Element's
-stylesheet for the theme. Brand colours alone are recoloured in place, as
-Element's own theme picker does; anything more compiles Element's Sass
-sources, bundled with the package, as its theme tool does -- about a
-second, once per theme and R session.
+so does anything given to \code{element}: \code{\link[=el_page]{el_page()}} sets Element Plus's CSS
+variables for the theme, as its theming guide does -- no build involved.
 
 Element puts white text on all five of its colours, some of which fall
 short of Bootstrap's default minimum contrast; left alone, Bootstrap would

@@ -13,11 +13,39 @@
 #' @param inactive_color Background color when switch is off.
 #' @param active_value Value reported to Shiny when switch is on. Default `TRUE`.
 #' @param inactive_value Value reported to Shiny when switch is off. Default `FALSE`.
+#' @param active_action_icon Component of the icon displayed in action when in
+#'   `on` state. Element Plus's `active-action-icon` (string / Component). An
+#'   icon's name, such as `"Search"`.
+#' @param active_icon Component of the icon displayed when in `on` state,
+#'   overrides `active-text`. Element Plus's `active-icon` (string /
+#'   Component). An icon's name, such as `"Search"`.
+#' @param aria_label Same as `aria-label` in native input. Element Plus's
+#'   `aria-label` (string).
+#' @param before_change Before-change hook before the switch state changes. If
+#'   `false` is returned or a `Promise` is returned and then is rejected, will
+#'   stop switching. Element Plus's `before-change` (() => Promise<boolean> |
+#'   boolean).
+#' @param border_color Border color of the switch ( use CSS var
+#'   `--el-switch-border-color` instead ). Element Plus's `border-color`
+#'   (string).
+#' @param inactive_action_icon Component of the icon displayed in action when
+#'   in `off` state. Element Plus's `inactive-action-icon` (string /
+#'   Component). An icon's name, such as `"Search"`.
+#' @param inactive_icon Component of the icon displayed when in `off` state,
+#'   overrides `inactive-text`. Element Plus's `inactive-icon` (string /
+#'   Component). An icon's name, such as `"Search"`.
+#' @param inline_prompt Whether icon or text is displayed inside dot, only the
+#'   first character will be rendered for text. Element Plus's `inline-prompt`
+#'   (boolean).
+#' @param loading Whether Switch is in loading state. Element Plus's `loading`
+#'   (boolean).
+#' @param size Size of Switch. Element Plus's `size` ('' | 'large' | 'default'
+#'   | 'small').
+#' @param tabindex Tabindex for input. Element Plus's `tabindex` (string /
+#'   number).
 #' @param session Deprecated. Inside a module, wrap `id` in `ns()`, as for
 #'   any Shiny input; a session given here namespaces `id` once more, with
 #'   a warning.
-#' @param active_icon_class Icon class shown on the active side; overrides `active_text`.
-#' @param inactive_icon_class Icon class shown on the inactive side; overrides `inactive_text`.
 #' @param name Native `name` attribute of the inner checkbox.
 #' @param validate_event Whether a change triggers form validation. Default `TRUE`.
 #' @param slots Named list of Element slot contents, such as
@@ -57,6 +85,17 @@ el_switch <- function(
     id             = NULL,
     value          = FALSE,
     disabled       = FALSE,
+    active_action_icon = NULL,
+    active_icon = NULL,
+    aria_label = NULL,
+    before_change = NULL,
+    border_color = NULL,
+    inactive_action_icon = NULL,
+    inactive_icon = NULL,
+    inline_prompt = NULL,
+    loading = NULL,
+    size = NULL,
+    tabindex = NULL,
     label = NULL,
     label_position = c("top", "left", "right"),
     label_width = NULL,
@@ -72,13 +111,12 @@ el_switch <- function(
     inactive_color = NULL,
     active_value   = TRUE,
     inactive_value = FALSE,
-    active_icon_class = NULL,
-    inactive_icon_class = NULL,
     name           = NULL,
     validate_event = NULL,
     slots          = NULL,
     session        = NULL
 ) {
+  .el_check_choices("el_switch", environment())
   if (is.null(id)) id <- paste0("el_switch_", uuid::UUIDgenerate())
   ns_id        <- .el_ui_id(id, session)
   container_id <- paste0(ns_id, "_container")
@@ -95,8 +133,6 @@ el_switch <- function(
     "@change"         = "handleChange"
   )
   switch_attrs[[":width"]] <- .el_optional_bind("width")
-  switch_attrs[[":active-icon-class"]] <- .el_optional_bind("activeIconClass")
-  switch_attrs[[":inactive-icon-class"]] <- .el_optional_bind("inactiveIconClass")
   switch_attrs[[":name"]] <- .el_optional_bind("name")
   switch_attrs[[":validate-event"]] <- .el_optional_bind("validateEvent")
   switch_tag <- htmltools::tag("el-switch", switch_attrs)
@@ -112,11 +148,21 @@ el_switch <- function(
     inactiveValue = inactive_value
   )
   vue_data$width <- .el_or_na(width)
-  vue_data$activeIconClass <- .el_or_na(active_icon_class)
-  vue_data$inactiveIconClass <- .el_or_na(inactive_icon_class)
   vue_data$name <- .el_or_na(name)
   vue_data$validateEvent <- .el_or_na(validate_event)
   el_widget(
+    props = .el_props(list(
+      active_action_icon = .el_icon_name(active_action_icon),
+      active_icon = .el_icon_name(active_icon),
+      aria_label = aria_label,
+      before_change = before_change,
+      border_color = border_color,
+      inactive_action_icon = .el_icon_name(inactive_action_icon),
+      inactive_icon = .el_icon_name(inactive_icon),
+      inline_prompt = inline_prompt,
+      loading = loading,
+      size = size,
+      tabindex = tabindex)),
     label = label, label_position = label_position,
     label_width = label_width, label_suffix = label_suffix, required = required,
     error = error, show_message = show_message, inline_message = inline_message,

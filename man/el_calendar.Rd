@@ -8,7 +8,8 @@ el_calendar(
   id = NULL,
   value = NULL,
   range = NULL,
-  first_day_of_week = 1,
+  controller_type = NULL,
+  formatter = NULL,
   label = NULL,
   label_position = c("top", "left", "right"),
   label_width = NULL,
@@ -28,8 +29,6 @@ el_calendar(
 \item{value}{Bound value (Date/string/number)}
 
 \item{range}{Date range, c("YYYY-MM-DD", "YYYY-MM-DD")}
-
-\item{first_day_of_week}{First day of week (1~7), default 1}
 
 \item{label}{A label shown with the component, as Shiny's inputs have:
 text or a tag. \code{NULL}, the default, shows none. It is the component's
@@ -108,8 +107,7 @@ if (interactive()) {
       mainPanel(
         el_calendar(
           id = "my_calendar",
-          value = Sys.Date(),
-          first_day_of_week = 1
+          value = Sys.Date()
         )
       )
     )

@@ -1,9 +1,9 @@
-#' Element UI Dialog
+#' Element Plus Dialog
 #'
 #' A modal dialog.
 #'
-#' Rendered as plain markup carrying Element's own classes, driven by a Shiny
-#' input binding rather than a Vue instance, so the body can hold other
+#' Rendered as plain markup carrying Element Plus's own classes, driven by a
+#' Shiny input binding rather than a Vue instance, so the body can hold other
 #' components from this package. See `.claude/docs/lessons.md` §1.2.
 #'
 #' @param id Dialog ID. Auto-generated UUID if `NULL`.
@@ -11,23 +11,37 @@
 #' @param content Dialog body. Any tag or tagList, including this package's
 #'   own components.
 #' @param footer Footer content, usually buttons. `NULL` for none.
-#' @param visible Whether it starts open.
+#' @param visible Whether it starts open: Element Plus's `model-value`.
 #' @param width Dialog width, e.g. `"50%"` or `"600px"`.
 #' @param top Distance from the top of the viewport. Ignored when
-#'   `fullscreen = TRUE`.
+#'   `fullscreen = TRUE` or `align_center = TRUE`.
 #' @param fullscreen Fill the viewport.
 #' @param modal Show the backdrop.
+#' @param modal_penetrable Let clicks through the backdrop to the page
+#'   beneath, when `modal = FALSE`.
 #' @param close_on_click_modal Close when the backdrop is clicked.
 #' @param close_on_press_escape Close on Escape.
 #' @param show_close Show the close button in the header.
+#' @param close_icon The close button's icon, by name. Default `"Close"`.
 #' @param center Centre the header and footer.
+#' @param align_center Centre the dialog in the viewport, vertically too.
+#' @param draggable Let the dialog be dragged by its header.
+#' @param overflow With `draggable`, let it be dragged past the viewport.
 #' @param lock_scroll Whether the page stops scrolling while it is open.
 #' @param custom_class Extra class name for the panel.
-#' @param append_to_body Move the overlay to `<body>` when it opens, so a
-#'   container's `overflow` or `transform` cannot clip it. Its components keep
-#'   working; they are moved, not re-created.
-#' @param modal_append_to_body Whether the backdrop goes on `<body>` (the
-#'   default) or beside the overlay.
+#' @param modal_class,header_class,body_class,footer_class Extra class names
+#'   for the backdrop, the header, the body and the footer.
+#' @param append_to A CSS selector for where the overlay goes when it opens,
+#'   so a container's `overflow` or `transform` cannot clip it. Its
+#'   components keep working; they are moved, not re-created.
+#' @param append_to_body `append_to = "body"`.
+#' @param open_delay,close_delay Milliseconds to wait before opening and
+#'   closing.
+#' @param z_index The overlay's z-index, instead of the next one Element Plus
+#'   hands out.
+#' @param header_aria_level The title's `aria-level`. Default `"2"`.
+#' @param transition The name of the transition it plays, instead of
+#'   Element's `"dialog-fade"`.
 #' @param destroy_on_close Re-create the content each time it opens, and remove
 #'   it when it closes: inputs inside start from their initial values again.
 #' @param before_close `htmltools::JS()` function `function(done)`, run when
@@ -38,26 +52,27 @@
 #'   a warning.
 #'
 #' @section Shiny inputs:
-#' - `input$<id>` -- whether it is open.
+#' - `input$<id>` -- `TRUE` while the dialog is open, reported whenever it
+#'   opens or closes, however that happens. Shiny routes an input binding's
+#'   messages by element id, so the name matches the id, as it does for
+#'   [el_tabs()] and [el_collapse()].
 #' - `input$<id>_open`, `input$<id>_opened` -- fire as it opens, and once
 #'   it has.
 #' - `input$<id>_close`, `input$<id>_closed` -- likewise as it closes.
+#' - `input$<id>_open_auto_focus`, `input$<id>_close_auto_focus` -- as focus
+#'   moves into it on opening, and back on closing.
+#'
+#' @section Element methods:
+#' Callable with [el_call()]: `resetPosition()` puts a dragged dialog back.
 #'
 #' @return An `htmltools` tag.
-#'
-#' @section Shiny inputs:
-#' `input$<id>` — `TRUE` while the dialog is open, reported whenever it opens
-#' or closes, however that happens. (It was `input$<id>_visible` while this was
-#' a Vue component; Shiny routes an input binding's messages by element id, so
-#' the name now matches the id, as it does for [el_tabs()] and
-#' [el_collapse()].)
 #'
 #' @examples
 #' el_dialog("d1", title = "Confirm", content = shiny::tags$p("Are you sure?"),
 #'           footer = el_button("ok", "OK", type = "primary"))
 #'
 #' # The body can hold other components
-#' el_dialog("d2", title = "Filters",
+#' el_dialog("d2", title = "Filters", draggable = TRUE,
 #'           content = shiny::tagList(el_input("q"), el_switch("live")))
 #'
 #' @export
@@ -71,14 +86,28 @@ el_dialog <- function(
     top                   = "15vh",
     fullscreen            = FALSE,
     modal                 = TRUE,
+    modal_penetrable      = FALSE,
     close_on_click_modal  = TRUE,
     close_on_press_escape = TRUE,
     show_close            = TRUE,
+    close_icon            = NULL,
     center                = FALSE,
+    align_center          = FALSE,
+    draggable             = FALSE,
+    overflow              = FALSE,
     lock_scroll           = TRUE,
     custom_class          = NULL,
+    modal_class           = NULL,
+    header_class          = NULL,
+    body_class            = NULL,
+    footer_class          = NULL,
+    append_to             = NULL,
     append_to_body        = FALSE,
-    modal_append_to_body  = TRUE,
+    open_delay            = NULL,
+    close_delay           = NULL,
+    z_index               = NULL,
+    header_aria_level     = "2",
+    transition            = NULL,
     destroy_on_close      = FALSE,
     before_close          = NULL,
     session               = NULL
@@ -86,14 +115,17 @@ el_dialog <- function(
   if (is.null(id)) id <- paste0("el_dialog_", uuid::UUIDgenerate())
   ns_id <- .el_ui_id(id, session)
   visible <- isTRUE(shiny::restoreInput(ns_id, visible))
+  if (is.null(append_to) && isTRUE(append_to_body)) append_to <- "body"
 
   header <- shiny::tags$header(
-    class = "el-dialog__header",
-    shiny::tags$span(role = "heading", class = "el-dialog__title", title),
+    class = paste(c("el-dialog__header", header_class), collapse = " "),
+    shiny::tags$span(role = "heading", `aria-level` = header_aria_level,
+                     class = "el-dialog__title", title),
     if (show_close) {
       shiny::tags$button(
         type = "button", `aria-label` = "Close", class = "el-dialog__headerbtn",
-        .el_close_icon("el-dialog__close")
+        if (is.null(close_icon)) .el_close_icon("el-dialog__close")
+        else el_icon(.el_icon_name(close_icon), class = "el-dialog__close")
       )
     }
   )
@@ -103,32 +135,53 @@ el_dialog <- function(
   htmltools::attachDependencies(
     shiny::tags$div(
       id    = ns_id,
-      class = paste(c("el-overlay", if (!modal) "is-mask-less"), collapse = " "),
-      style = paste0(if (!visible) "display:none;", if (!modal) "background-color:transparent;"),
+      class = paste(c("el-overlay", modal_class), collapse = " "),
+      style = paste0(if (!visible) "display:none;",
+                     if (!modal) "background-color:transparent;",
+                     if (!modal && isTRUE(modal_penetrable)) "pointer-events:none;",
+                     if (!is.null(z_index)) sprintf("z-index:%s;", z_index)),
       `data-el-overlay`  = "dialog",
       `data-visible`     = tolower(as.character(visible)),
       `data-modal`       = tolower(as.character(modal)),
       `data-mask-close`  = tolower(as.character(close_on_click_modal)),
       `data-esc-close`   = tolower(as.character(close_on_press_escape)),
       `data-lock-scroll` = tolower(as.character(lock_scroll)),
-      `data-append-to-body` = tolower(as.character(append_to_body)),
+      `data-append-to`   = append_to,
+      `data-open-delay`  = open_delay,
+      `data-close-delay` = close_delay,
+      `data-z-index`     = z_index,
+      `data-transition`  = transition,
+      `data-draggable`   = if (isTRUE(draggable)) "true",
+      `data-overflow`    = if (isTRUE(overflow)) "true",
       `data-destroy-on-close` = tolower(as.character(destroy_on_close)),
       `data-before-close` = if (!is.null(before_close)) as.character(before_close),
       shiny::tags$div(
-        class = "el-overlay-dialog", role = "dialog", `aria-modal` = "true",
+        class = paste(c("el-overlay-dialog",
+                        if (!modal && isTRUE(modal_penetrable)) "el-modal-dialog is-penetrable"),
+                      collapse = " "),
+        role = "dialog", `aria-modal` = "true",
         `aria-label` = if (is.character(title)) title,
+        style = if (isTRUE(align_center)) "display:flex;",
         shiny::tags$div(
           class = paste(c("el-dialog",
                           if (fullscreen) "is-fullscreen",
-                          if (center) "el-dialog--center", custom_class), collapse = " "),
+                          if (center) "el-dialog--center",
+                          if (isTRUE(align_center)) "is-align-center",
+                          if (isTRUE(draggable)) "is-draggable",
+                          custom_class), collapse = " "),
           tabindex = "-1",
-          style = sprintf("--el-dialog-width: %s; --el-dialog-margin-top: %s;", width, top),
+          style = paste0(sprintf("--el-dialog-width: %s;", width),
+                         if (!isTRUE(align_center)) sprintf(" --el-dialog-margin-top: %s;", top),
+                         if (!modal && isTRUE(modal_penetrable)) " pointer-events:auto;"),
           header,
           # Hidden rather than removed when closed, so a nested component stays
           # mounted between openings.
-          shiny::tags$div(class = "el-dialog__body",
+          shiny::tags$div(class = paste(c("el-dialog__body", body_class), collapse = " "),
                           .el_overlay_content(content, destroy_on_close, visible)),
-          if (!is.null(footer)) shiny::tags$footer(class = "el-dialog__footer", footer)
+          if (!is.null(footer)) {
+            shiny::tags$footer(class = paste(c("el-dialog__footer", footer_class), collapse = " "),
+                               footer)
+          }
         )
       )
     ),
@@ -137,7 +190,7 @@ el_dialog <- function(
 }
 
 
-#' Update Element UI Dialog
+#' Update Element Plus Dialog
 #'
 #' Server-side update for [el_dialog()].
 #'

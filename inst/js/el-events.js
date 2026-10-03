@@ -30,9 +30,43 @@
     app.use(window.ElementPlus, opts);
     var icons = window.ElementPlusIconsVue || {};
     Object.keys(icons).forEach(function (name) {
-      if (name.charAt(0) === name.charAt(0).toUpperCase()) app.component(name, icons[name]);
+      if (name.charAt(0) !== name.charAt(0).toUpperCase()) return;
+      app.component(name, icons[name]);
+      // Element UI's class names, el-icon-arrow-right, reach the same icon
+      // when given to an icon prop
+      app.component('el-icon-' + name.replace(/([a-z0-9])([A-Z])/g, '$1-$2').toLowerCase(), icons[name]);
     });
   };
+
+  // el_icon(): an <i class="el-icon" data-el-icon="Search">, drawn here with
+  // the icon's SVG wherever it is on the page -- inside a component or not,
+  // and in any UI the server renders later.
+  se.fillIcons = function (scope) {
+    var icons = window.ElementPlusIconsVue;
+    if (!icons || !window.Vue || !Vue.render) return;
+    (scope || document).querySelectorAll('i[data-el-icon]').forEach(function (el) {
+      var name = el.getAttribute('data-el-icon');
+      if (el._elIcon === name && el.querySelector('svg')) return;
+      if (!icons[name]) return;
+      Vue.render(Vue.h(icons[name]), el);
+      el._elIcon = name;
+    });
+  };
+  if (typeof document !== 'undefined') {
+    var queued = false;
+    var fill = function () {
+      if (queued) return;
+      queued = true;
+      requestAnimationFrame(function () { queued = false; se.fillIcons(document); });
+    };
+    if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', fill);
+    else fill();
+    if (typeof MutationObserver !== 'undefined') {
+      new MutationObserver(function (records) {
+        for (var i = 0; i < records.length; i++) if (records[i].addedNodes.length) { fill(); return; }
+      }).observe(document.documentElement, { childList: true, subtree: true });
+    }
+  }
 
   // A validation message from shinyvalidate, drawn as Element draws a
   // failed el-form rule: the control framed in red, the message under it.

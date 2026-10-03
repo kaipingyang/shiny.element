@@ -115,6 +115,12 @@
     "cell-dblclick"      = cell_event,
     "cell-mouse-enter"   = cell_event,
     "cell-mouse-leave"   = cell_event,
+    "cell-contextmenu"   = cell_event,
+    # Scrolling fires on every frame; a server hears it at most every 200 ms
+    "scroll" = paste0(
+      "function(e) { var now = Date.now(); ",
+      "if (this._elLastScroll && now - this._elLastScroll < 200) return undefined; ",
+      "this._elLastScroll = now; return {scroll_left: e.scrollLeft, scroll_top: e.scrollTop}; }"),
     "header-click"       = header_event,
     "header-contextmenu" = header_event,
     "select" = paste0(
@@ -298,11 +304,40 @@
 #' @param selection Enable row selection
 #' @param border Draw vertical borders between columns and a frame around
 #'   the table. Default `FALSE`, as in Element.
+#' @param allow_drag_last_column Whether to allow drag the last column.
+#'   Element Plus's `allow-drag-last-column` (boolean).
+#' @param append_filter_panel_to Which element the filter panels appends to.
+#'   Element Plus's `append-filter-panel-to` (string).
+#' @param flexible Ensure main axis minimum-size doesn't follow the content.
+#'   Element Plus's `flexible` (boolean).
+#' @param native_scrollbar Whether to use native scrollbars. Element Plus's
+#'   `native-scrollbar` (boolean).
+#' @param preserve_expanded_content Whether to preserve expanded row content
+#'   in DOM when collapsed. Element Plus's `preserve-expanded-content`
+#'   (boolean).
+#' @param row_expandable Enable expandable rows, works when the table has a
+#'   column type="expand". Element Plus's `row-expandable` ((row: any, index:
+#'   number) => boolean).
+#' @param scrollbar_always_on Always show scrollbar. Element Plus's
+#'   `scrollbar-always-on` (boolean).
+#' @param scrollbar_tabindex Body scrollbar's wrap container tabindex. Element
+#'   Plus's `scrollbar-tabindex` (string / number).
+#' @param show_overflow_tooltip Whether to hide extra content and show them in
+#'   a tooltip when hovering on the cell.It will affect all the table columns,
+#'   refer to table tooltip-options. Element Plus's `show-overflow-tooltip`
+#'   (boolean).
+#' @param table_layout Sets the algorithm used to lay out table cells, rows,
+#'   and columns. Element Plus's `table-layout` ('fixed' | 'auto').
+#' @param tooltip_formatter Customize tooltip content when using
+#'   `show-overflow-tooltip`. Element Plus's `tooltip-formatter` (Function).
+#'   Give it as [JS()].
+#' @param tooltip_options The options for the overflow tooltip, see the
+#'   following tooltip component. Element Plus's `tooltip-options` (object).
 #' @param session Deprecated. Inside a module, wrap `id` in `ns()`, as for
 #'   any Shiny input; a session given here namespaces `id` once more, with
 #'   a warning.
 #' @param stripe Whether rows alternate background colour.
-#' @param size Row density: `"medium"`, `"small"` or `"mini"`.
+#' @param size Size: `"large"`, `"default"` or `"small"`; `NULL` follows the form or the page.
 #' @param height Table height. Fixes the header and scrolls the body.
 #' @param max_height Maximum table height, beyond which the body scrolls.
 #' @param fit Whether column widths stretch to fill the table. Default `TRUE`.
@@ -334,7 +369,6 @@
 #' @param summary_method `JS()` function returning the summary row's cells.
 #' @param load `JS()` function loading child rows in the
 #'   browser instead of from the server. Needs `lazy = TRUE`.
-#' @param highlight_selection_row Whether rows ticked with `selection = TRUE` are highlighted.
 #' @param loading Whether to cover the table with Element's loading mask, as
 #'   its `v-loading` does. [update_el_table()] turns it on and off around
 #'   slow work.
@@ -364,7 +398,7 @@
 #' A button in a `cell` reports back with `rowAction()`:
 #'
 #' ```r
-#' list(label = "", cell = el$button(size = "mini",
+#' list(label = "", cell = el$button(size = "small",
 #'   "@click" = "rowAction('edit', scope)", "Edit"))
 #' ```
 #'
@@ -458,9 +492,20 @@ el_table <- function(id = NULL,
                      span_method = NULL,
                      summary_method = NULL,
                      load    = NULL,
+                     allow_drag_last_column = NULL,
+                     append_filter_panel_to = NULL,
+                     flexible = NULL,
+                     native_scrollbar = NULL,
+                     preserve_expanded_content = NULL,
+                     row_expandable = NULL,
+                     scrollbar_always_on = NULL,
+                     scrollbar_tabindex = NULL,
+                     show_overflow_tooltip = NULL,
+                     table_layout = NULL,
+                     tooltip_formatter = NULL,
+                     tooltip_options = NULL,
                      width  = NULL,
                      slots   = NULL,
-                     highlight_selection_row = NULL,
                      loading = FALSE,
                      session = NULL) {
   .el_check_choices("el_table", environment())
@@ -582,8 +627,8 @@ el_table <- function(id = NULL,
     "select", "select-all", "cell-click", "cell-dblclick",
     "cell-mouse-enter", "cell-mouse-leave", "row-click", "row-dblclick",
     "row-contextmenu", "header-click", "header-contextmenu", "header-dragend",
-    "sort-change", "filter-change", "current-change", "expand-change"
-  ), shapes = .el_table_event_shapes())
+    "sort-change", "filter-change", "current-change", "expand-change",
+    "cell-contextmenu", "scroll"), shapes = .el_table_event_shapes())
   table_attrs <- c(table_attrs, events$attrs)
 
   table_attrs[[":stripe"]] <- .el_optional_bind("stripe")
@@ -648,12 +693,24 @@ el_table <- function(id = NULL,
 
   table_attrs[[":load"]] <- "load === null ? elLoad : load"   # the server, by default
 
-  table_attrs[[":highlight-selection-row"]] <- .el_optional_bind("highlightSelectionRow")
 
 
   table_content <- c(table_attrs, list(selection_col, data_col))
 
   el_widget(
+    props = .el_props(list(
+      allow_drag_last_column = allow_drag_last_column,
+      append_filter_panel_to = append_filter_panel_to,
+      flexible = flexible,
+      native_scrollbar = native_scrollbar,
+      preserve_expanded_content = preserve_expanded_content,
+      row_expandable = row_expandable,
+      scrollbar_always_on = scrollbar_always_on,
+      scrollbar_tabindex = scrollbar_tabindex,
+      show_overflow_tooltip = show_overflow_tooltip,
+      table_layout = table_layout,
+      tooltip_formatter = tooltip_formatter,
+      tooltip_options = tooltip_options)),
     id     = ns_id,
     markup = htmltools::tag("el-table", table_content),
     data = list(
@@ -695,8 +752,7 @@ el_table <- function(id = NULL,
     headerCellStyle = .el_or_na(header_cell_style),
     spanMethod = .el_or_na(span_method),
     summaryMethod = .el_or_na(summary_method),
-    load = .el_or_na(load),
-    highlightSelectionRow = .el_or_na(highlight_selection_row)
+    load = .el_or_na(load)
     ),
     methods = c(events$methods, list(
       elLoad = .el_lazy_load_method(ns_id, "table"),

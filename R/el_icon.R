@@ -1,14 +1,21 @@
-#' Element UI icon tag
+#' Element Plus icon
 #'
-#' Creates an icon tag supporting Element UI icons, Font Awesome, or plain tags.
-#' Follows the same dispatch pattern as [shiny::icon()], with accessibility
-#' attributes inspired by [bsicons::bs_icon()].
+#' An icon from Element Plus's set, Font Awesome, or a plain tag. Follows the
+#' same dispatch pattern as [shiny::icon()], with accessibility attributes
+#' inspired by [bsicons::bs_icon()].
 #'
-#' @param name Icon name. For `lib = "element-ui"`, the `el-icon-` prefix is
-#'   optional and will not be doubled (e.g. `"search"` and `"el-icon-search"`
-#'   both work). Names are lowercased and spaces replaced with `-`.
-#' @param size CSS size string (e.g. `"1.5em"`, `"20px"`). Applied as
-#'   `font-size` on the `<i>` tag. `NULL` (default) leaves the size unset.
+#' Element Plus's icons are SVG components (`@element-plus/icons-vue`, bundled):
+#' the tag is an `<i class="el-icon">` naming its icon, drawn by the page
+#' wherever it lands -- inside a component or not.
+#'
+#' @param name Icon name, as Element Plus spells it -- `"Search"`,
+#'   `"ArrowRight"` -- or in any of the forms that reach the same name:
+#'   `"search"`, `"arrow-right"`, `"arrow right"`, and Element UI's
+#'   `"el-icon-arrow-right"`.
+#' @param size CSS size string (e.g. `"1.5em"`, `"20px"`), as Element Plus's
+#'   `<el-icon size>`. `NULL` (default) follows the surrounding text.
+#' @param color Icon colour, as Element Plus's `<el-icon color>`. `NULL`
+#'   follows the surrounding text.
 #' @param class Additional CSS class(es) to append.
 #' @param title Accessible title string. When provided, it also drives `a11y`
 #'   (see below).
@@ -22,7 +29,7 @@
 #'   }
 #' @param lib Icon library. One of:
 #'   \describe{
-#'     \item{`"element-ui"` (default)}{Renders `<i class="el-icon-{name}">`.}
+#'     \item{`"element-plus"` (default)}{Element Plus's icon set.}
 #'     \item{`"font-awesome"`}{Delegates to [fontawesome::fa_i()]. Requires the
 #'       `fontawesome` package.}
 #'     \item{`"none"`}{Renders a plain `<i>` tag with no icon class.}
@@ -32,61 +39,49 @@
 #' @return An `htmltools` tag object.
 #'
 #' @examples
-#' el_icon("search")
+#' el_icon("Search")
 #' el_icon("edit", size = "1.5em")
-#' el_icon("delete", title = "Delete item")
+#' el_icon("Delete", title = "Delete item", color = "#f56c6c")
 #' el_icon("close", a11y = "deco")
 #'
 #' @export
 el_icon <- function(
     name,
     size  = NULL,
+    color = NULL,
     class = NULL,
     title = NULL,
     a11y  = c("auto", "deco", "sem", "none"),
-    lib   = c("element-ui", "font-awesome", "none"),
+    lib   = c("element-plus", "font-awesome", "none"),
     ...
 ) {
+  if (identical(lib, "element-ui")) lib <- "element-plus"
   lib  <- match.arg(lib)
   a11y <- match.arg(a11y)
 
   switch(lib,
 
-    "element-ui" = {
-      # Normalize: lowercase, spaces -> dashes, strip accidental prefix
-      name <- sub("\\s+", "-", tolower(name))
-      name <- sub("^el-icon-", "", name)
-
-      # Resolve auto a11y
+    "element-plus" = {
+      icon <- .el_icon_pascal(name)
       if (a11y == "auto") {
         a11y <- if (is.null(title)) "deco" else "sem"
       }
-
-      # Accessibility attributes
       a11y_attrs <- switch(a11y,
         deco = list(`aria-hidden` = "true", role = "img"),
-        sem  = list(`aria-label`  = if (is.null(title)) name else title,
+        sem  = list(`aria-label`  = if (is.null(title)) icon else title,
                     role          = "img"),
-        none = list(),
         list()
       )
-
-      # Build full class string
-      full_class <- paste(c(paste0("el-icon-", name), class), collapse = " ")
-
-      # Build style
-      style_val <- if (!is.null(size)) {
-        paste0("font-size:", htmltools::validateCssUnit(size), ";")
-      } else {
-        NULL
-      }
-
+      style_val <- paste0(
+        if (!is.null(size)) paste0("font-size:", htmltools::validateCssUnit(size), ";"),
+        if (!is.null(color)) paste0("--color:", color, ";"))
       do.call(
         shiny::tags$i,
         c(
-          list(class = full_class),
-          if (!is.null(style_val)) list(style = style_val),
-          if (!is.null(title))    list(title = title),
+          list(class = paste(c("el-icon", class), collapse = " "),
+               `data-el-icon` = icon),
+          if (length(style_val) && nzchar(style_val)) list(style = style_val),
+          if (!is.null(title)) list(title = title),
           a11y_attrs,
           list(...)
         )
@@ -107,4 +102,16 @@ el_icon <- function(
       shiny::tags$i(class = class, ...)
     }
   )
+}
+
+
+#' An icon name in Element Plus's PascalCase
+#'
+#' @param name `"Search"`, `"search"`, `"arrow-right"`, `"arrow right"` or
+#'   `"el-icon-arrow-right"`.
+#' @return `"Search"`, `"ArrowRight"`.
+#' @keywords internal
+.el_icon_pascal <- function(name) {
+  if (grepl("^[A-Z]", name)) return(name)
+  .el_icon_name(paste0("el-icon-", gsub("[[:space:]_]+", "-", sub("^el-icon-", "", tolower(name)))))
 }

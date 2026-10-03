@@ -1,4 +1,4 @@
-#' Element UI Collapse / Accordion
+#' Element Plus Collapse / Accordion
 #'
 #' Collapsible panels. Several can be open at once unless `accordion = TRUE`.
 #'
@@ -16,10 +16,16 @@
 #'     \item{content}{Panel body. Any tag or tagList, including this package's
 #'       own components.}
 #'     \item{disabled}{Whether the header is disabled. Default `FALSE`.}
+#'     \item{icon}{The expand icon, by name (default `"ArrowRight"`), or a tag.}
 #'   }
 #' @param value Character vector of initially open panel names. In accordion
 #'   mode only the first is used.
 #' @param accordion Single-open accordion mode. Default `FALSE`.
+#' @param expand_icon_position Where each header's icon sits: `"right"` (the
+#'   default) or `"left"`.
+#' @param before_collapse [JS()] function `function(name)`, run before a
+#'   panel opens or closes: return `false`, or a promise that resolves to
+#'   `false`, to keep it as it is.
 #' @param session Deprecated. Inside a module, wrap `id` in `ns()`, as for
 #'   any Shiny input; a session given here namespaces `id` once more, with
 #'   a warning.
@@ -53,9 +59,12 @@ el_collapse <- function(
     items     = list(),
     value     = character(0),
     accordion = FALSE,
+    expand_icon_position = "right",
+    before_collapse = NULL,
     session   = NULL
 ) {
   .el_check_items(items, "items", c("name", "title"))
+  expand_icon_position <- match.arg(expand_icon_position, c("right", "left"))
   if (is.null(id)) id <- paste0("el_collapse_", uuid::UUIDgenerate())
   ns_id <- .el_ui_id(id, session)
   value <- shiny::restoreInput(ns_id, value)
@@ -66,33 +75,34 @@ el_collapse <- function(
     open     <- item$name %in% value
     disabled <- isTRUE(item$disabled)
 
-    # Element's markup and ARIA: a tab wrapping a header button, and a
-    # tabpanel the two name each other through
+    # Element Plus's markup and ARIA: a header button naming the region it
+    # controls, and the region naming it back
     key     <- gsub("[^A-Za-z0-9_-]", "_", item$name)
     head_id <- paste0(ns_id, "-head-", key)
     body_id <- paste0(ns_id, "-content-", key)
+    icon <- if (inherits(item$icon, c("shiny.tag", "shiny.tag.list"))) item$icon else
+      el_icon(.el_icon_name(if (is.null(item$icon)) "ArrowRight" else item$icon),
+              class = paste(c("el-collapse-item__arrow", if (open) "is-active"), collapse = " "),
+              a11y = "none")
     header <- shiny::tags$div(
-      role = "tab",
+      id    = head_id,
+      role  = "button",
+      tabindex = if (!disabled) "0",
       `aria-expanded`    = tolower(as.character(open)),
       `aria-controls`    = body_id,
       `aria-describedby` = body_id,
-      shiny::tags$div(
-        id    = head_id,
-        role  = "button",
-        tabindex = if (!disabled) "0",
-        class = paste(c("el-collapse-item__header",
-                        if (open) "is-active"), collapse = " "),
-        item$title,
-        shiny::tags$i(class = paste(c("el-collapse-item__arrow el-icon-arrow-right",
-                                      if (open) "is-active"), collapse = " "))
-      )
+      `aria-disabled`    = if (disabled) "true",
+      class = paste(c("el-collapse-item__header",
+                      if (open) "is-active"), collapse = " "),
+      shiny::tags$span(class = "el-collapse-item__title", item$title),
+      icon
     )
 
     # The wrapper stays in the document when closed: hiding it with a style
     # keeps any nested component mounted, where removing it would not.
     body <- shiny::tags$div(
       id    = body_id,
-      role  = "tabpanel",
+      role  = "region",
       `aria-hidden`     = tolower(as.character(!open)),
       `aria-labelledby` = head_id,
       class = "el-collapse-item__wrap",
@@ -112,11 +122,10 @@ el_collapse <- function(
   htmltools::attachDependencies(
     shiny::tags$div(
       id    = ns_id,
-      class = "el-collapse",
-      role  = "tablist",
-      `aria-multiselectable` = "true",
+      class = paste0("el-collapse el-collapse-icon-position-", expand_icon_position),
       `data-el-collapse` = "true",
       `data-accordion`   = tolower(as.character(accordion)),
+      `data-before-collapse` = if (!is.null(before_collapse)) as.character(before_collapse),
       panels
     ),
     el_collapse_dependency()

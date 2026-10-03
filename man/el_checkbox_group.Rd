@@ -15,6 +15,11 @@ el_checkbox_group(
   button = FALSE,
   fill = NULL,
   text_color = NULL,
+  aria_label = NULL,
+  props = NULL,
+  tag = NULL,
+  type = NULL,
+  validate_event = NULL,
   label = NULL,
   label_position = c("top", "left", "right"),
   label_width = NULL,
@@ -43,7 +48,7 @@ by default. \code{selected} is Shiny's name, \code{value} Element's (its
 
 \item{disabled}{Whether the entire group is disabled. Default \code{FALSE}.}
 
-\item{size}{Size for button style only: \code{"medium"}, \code{"small"}, \code{"mini"}.}
+\item{size}{\code{"large"}, \code{"default"} or \code{"small"}.}
 
 \item{min}{Minimum number of checked items.}
 
@@ -55,6 +60,21 @@ Default \code{FALSE}.}
 \item{fill}{Border and background colour when \code{button = TRUE} and checked.}
 
 \item{text_color}{Text colour when \code{button = TRUE} and checked.}
+
+\item{aria_label}{Native \code{aria-label} attribute. Element Plus's
+\code{aria-label} (string).}
+
+\item{props}{Configuration options. Element Plus's \code{props} ({ value?:
+string, label?: string, disabled?: string}).}
+
+\item{tag}{Element tag of the checkbox group. Element Plus's \code{tag}
+(string).}
+
+\item{type}{Component type to render options (e.g. \code{'button'}). Element
+Plus's \code{type} ('checkbox' | 'button').}
+
+\item{validate_event}{Whether to trigger form validation. Element Plus's
+\code{validate-event} (boolean).}
 
 \item{label}{A label shown with the component, as Shiny's inputs have:
 text or a tag. \code{NULL}, the default, shows none. It is the component's

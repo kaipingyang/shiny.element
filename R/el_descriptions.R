@@ -1,4 +1,4 @@
-#' Element UI Descriptions
+#' Element Plus Descriptions
 #'
 #' A read-only grid of labelled values -- the detail view of a record.
 #'
@@ -6,9 +6,10 @@
 #' @param items The fields, as a list of `list(label =, content =)`, or a named
 #'   list or vector whose names are the labels. `content` may be any Shiny UI,
 #'   a shiny.element component included, which is absorbed rather than nested.
-#'   An item may also carry `span`, `label_class_name`, `content_class_name`,
-#'   `label_style` and `content_style`. A `label` that is markup rather than
-#'   text fills the item's label slot.
+#'   An item may also carry Element Plus's item props: `span`, `rowspan`,
+#'   `width`, `min_width`, `label_width`, `align`, `label_align`,
+#'   `class_name` and `label_class_name`. A `label` that is markup rather
+#'   than text fills the item's label slot.
 #' @param title Heading above the grid.
 #' @param extra Text at the heading's right end. For something interactive,
 #'   use `slots = list(extra = ...)`.
@@ -16,14 +17,11 @@
 #' @param direction `"horizontal"` (default) puts each label beside its value;
 #'   `"vertical"` puts it above.
 #' @param border Whether to draw cell borders.
-#' @param size `"medium"`, `"small"` or `"mini"`.
-#' @param colon Whether labels end in a colon. Default `TRUE`.
-#' @param label_class_name,content_class_name Class names for every label and
-#'   every value.
-#' @param label_style,content_style CSS for every label and every value, as a
-#'   named list.
+#' @param size Size: `"large"`, `"default"` or `"small"`; `NULL` follows the form or the page.
 #' @param width Component width, as a CSS unit.
 #' @param slots Named list of Element slot contents: `title`, `extra`.
+#' @param label_width Label width of every column. Element Plus's
+#'   `label-width` (string / number).
 #' @param session Deprecated. Inside a module, wrap `id` in `ns()`, as for
 #'   any Shiny input; a session given here namespaces `id` once more, with
 #'   a warning.
@@ -47,11 +45,7 @@ el_descriptions <- function(id = NULL,
                             direction = NULL,
                             border = NULL,
                             size = NULL,
-                            colon = NULL,
-                            label_class_name = NULL,
-                            content_class_name = NULL,
-                            label_style = NULL,
-                            content_style = NULL,
+                            label_width = NULL,
                             width = NULL,
                             slots = NULL,
                             session = NULL) {
@@ -69,12 +63,7 @@ el_descriptions <- function(id = NULL,
       dColumn           = .el_or_na(column),
       dDirection        = .el_or_na(direction),
       dBorder           = .el_or_na(border),
-      dSize             = .el_or_na(size),
-      dColon            = .el_or_na(colon),
-      dLabelClassName   = .el_or_na(label_class_name),
-      dContentClassName = .el_or_na(content_class_name),
-      dLabelStyle       = .el_or_na(label_style),
-      dContentStyle     = .el_or_na(content_style)
+      dSize             = .el_or_na(size)
     ),
     methods = list(), watch = list(), computed = list(), mounted = NULL,
     dependencies = list()
@@ -92,11 +81,8 @@ el_descriptions <- function(id = NULL,
     if (label_ui) {
       attrs <- c(attrs, list(.el_slot("label", it$label)))
     }
-    for (key in c("span", "labelClassName", "contentClassName")) {
-      if (!is.null(it[[key]])) attrs[[paste0(":", .el_kebab_case(key))]] <-
-        jsonlite::toJSON(it[[key]], auto_unbox = TRUE)
-    }
-    for (key in c("labelStyle", "contentStyle")) {
+    for (key in c("span", "rowspan", "width", "minWidth", "labelWidth", "align",
+                  "labelAlign", "className", "labelClassName")) {
       if (!is.null(it[[key]])) attrs[[paste0(":", .el_kebab_case(key))]] <-
         jsonlite::toJSON(it[[key]], auto_unbox = TRUE)
     }
@@ -109,15 +95,12 @@ el_descriptions <- function(id = NULL,
     ":column"             = .el_optional_bind("dColumn"),
     ":direction"          = .el_optional_bind("dDirection"),
     ":border"             = .el_optional_bind("dBorder"),
-    ":size"               = .el_optional_bind("dSize"),
-    ":colon"              = .el_optional_bind("dColon"),
-    ":label-class-name"   = .el_optional_bind("dLabelClassName"),
-    ":content-class-name" = .el_optional_bind("dContentClassName"),
-    ":label-style"        = .el_optional_bind("dLabelStyle"),
-    ":content-style"      = .el_optional_bind("dContentStyle")
+    ":size"               = .el_optional_bind("dSize")
   )
 
   el_widget(
+    props = .el_props(prefix = "d", list(
+      label_width = label_width)),
     id       = ns_id,
     markup   = htmltools::tag("el-descriptions", c(attrs, unname(item_tags))),
     data     = merged$data,

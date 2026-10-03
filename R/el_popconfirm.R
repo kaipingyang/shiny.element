@@ -16,6 +16,14 @@
 #' @param icon_color Colour of that icon.
 #' @param hide_icon Whether to leave the icon out. Default `FALSE`.
 #' @param width Component width, as a CSS unit.
+#' @param effect Tooltip theme, built-in theme: `dark` / `light`. Element
+#'   Plus's `effect` ('dark' | 'light' / string).
+#' @param hide_after Delay of disappear, in millisecond. Element Plus's
+#'   `hide-after` (number).
+#' @param persistent When popconfirm inactive and `persistent` is `false` ,
+#'   popconfirm will be destroyed. Element Plus's `persistent` (boolean).
+#' @param teleported Whether popconfirm is teleported to the body. Element
+#'   Plus's `teleported` (boolean).
 #' @param session Deprecated. Inside a module, wrap `id` in `ns()`, as for
 #'   any Shiny input; a session given here namespaces `id` once more, with
 #'   a warning.
@@ -62,9 +70,14 @@ el_popconfirm <- function(id = NULL,
                           icon = NULL,
                           icon_color = NULL,
                           hide_icon = NULL,
+                          effect = NULL,
+                          hide_after = NULL,
+                          persistent = NULL,
+                          teleported = NULL,
                           width = NULL,
                           slots   = NULL,
                           session = NULL) {
+  .el_check_choices("el_popconfirm", environment())
   inner <- .el_absorb(reference)
 
   if (is.null(id)) id <- paste0("el_popconfirm_", uuid::UUIDgenerate())
@@ -96,7 +109,7 @@ el_popconfirm <- function(id = NULL,
       pcCancelButtonText  = .el_or_na(cancel_button_text),
       pcConfirmButtonType = .el_or_na(confirm_button_type),
       pcCancelButtonType  = .el_or_na(cancel_button_type),
-      pcIcon              = .el_or_na(icon),
+      pcIcon              = .el_or_na(.el_icon_name(icon)),
       pcIconColor         = .el_or_na(icon_color),
       pcHideIcon          = .el_or_na(hide_icon)
     ),
@@ -119,6 +132,11 @@ el_popconfirm <- function(id = NULL,
   )
 
   el_widget(
+    props = .el_props(prefix = "pc", list(
+      effect = effect,
+      hide_after = hide_after,
+      persistent = persistent,
+      teleported = teleported)),
     id       = ns_id,
     markup   = htmltools::tag("el-popconfirm", c(attrs, children)),
     data     = merged$data,

@@ -2,14 +2,14 @@
 % Please edit documentation in R/el_element_theme.R
 \name{.el_known_vars}
 \alias{.el_known_vars}
-\title{Element's theme variables, by name}
+\title{Element Plus's theme variables, by name}
 \usage{
 .el_known_vars()
 }
 \value{
-Names, without the \verb{$--} prefix.
+Names, without the \verb{--el-} prefix.
 }
 \description{
-Element's theme variables, by name
+Element Plus's theme variables, by name
 }
 \keyword{internal}

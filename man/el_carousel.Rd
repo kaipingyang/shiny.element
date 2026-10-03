@@ -17,6 +17,9 @@ el_carousel(
   type = NULL,
   loop = TRUE,
   direction = "horizontal",
+  card_scale = NULL,
+  motion_blur = NULL,
+  pause_on_hover = NULL,
   width = NULL,
   slots = NULL,
   session = NULL
@@ -52,6 +55,15 @@ carousel's own Vue instance and keep reporting their inputs.}
 \item{loop}{Return to the first slide after the last.}
 
 \item{direction}{\code{"horizontal"} (default) or \code{"vertical"}.}
+
+\item{card_scale}{When type is card, scaled size of secondary cards.
+Element Plus's \code{card-scale} (number).}
+
+\item{motion_blur}{Infuse dynamism and smoothness into the carousel.
+Element Plus's \code{motion-blur} (boolean).}
+
+\item{pause_on_hover}{Pause autoplay when hover. Element Plus's
+\code{pause-on-hover} (boolean).}
 
 \item{width}{Component width, as a CSS unit -- \code{"200px"}, \code{"50\%"}, or a
 number taken as pixels. Element's own markup carries it, so it behaves

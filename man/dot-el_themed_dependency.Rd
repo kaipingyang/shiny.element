@@ -2,7 +2,7 @@
 % Please edit documentation in R/el_element_theme.R
 \name{.el_themed_dependency}
 \alias{.el_themed_dependency}
-\title{Element's dependency, with its stylesheet built for a theme}
+\title{Element Plus's variables, set for a theme}
 \usage{
 .el_themed_dependency(vars)
 }
@@ -10,9 +10,10 @@
 \item{vars}{Output of \code{\link[=.el_element_vars]{.el_element_vars()}}.}
 }
 \value{
-An htmlDependency, or \code{NULL} when nothing changes.
+An htmlDependency holding the \verb{<style>}, or \code{NULL} when nothing
+changes.
 }
 \description{
-Element's dependency, with its stylesheet built for a theme
+Element Plus's variables, set for a theme
 }
 \keyword{internal}

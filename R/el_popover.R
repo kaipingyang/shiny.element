@@ -11,22 +11,46 @@
 #' @param content Body text. For richer content pass `body`.
 #' @param body Body markup, used instead of `content`. Components are
 #'   absorbed here too.
-#' @param trigger How it opens: `"click"` (default), `"focus"`, `"hover"` or
-#'   `"manual"`.
+#' @param trigger How it opens: `"click"`, `"focus"`, `"hover"` (default) or
+#'   `"contextmenu"`.
 #' @param placement Where it appears: `"bottom"` (default), `"top"`, `"left"`,
 #'   `"right"`, each also with `-start` and `-end`.
 #' @param popover_width Width of the card, in pixels. Element's own `width`
 #'   prop, named apart from `width` so the two are not confused.
 #' @param disabled Whether the popover is suppressed.
 #' @param offset Offset from the reference, in pixels.
-#' @param open_delay,close_delay Delays in milliseconds, for
-#'   `trigger = "hover"`.
-#' @param visible_arrow Whether to draw the little arrow. Default `TRUE`.
 #' @param transition Name of the transition to animate with.
 #' @param popper_class Extra class name for the card.
 #' @param popper_options Additional Popper.js options, as a named list.
-#' @param tabindex Tab index of the reference.
 #' @param width Component width, as a CSS unit.
+#' @param append_to Which element the popover CONTENT appends to. Element
+#'   Plus's `append-to` (CSSSelector / HTMLElement).
+#' @param auto_close Timeout in milliseconds to hide tooltip, not valid in
+#'   controlled mode. Element Plus's `auto-close` (number).
+#' @param effect Tooltip theme, built-in theme: `dark` / `light`. Element
+#'   Plus's `effect` ('dark' | 'light' / string).
+#' @param hide_after Delay of disappear, in millisecond, not valid in
+#'   controlled mode. Element Plus's `hide-after` (number).
+#' @param persistent When popover inactive and `persistent` is `false` ,
+#'   popover will be destroyed. Element Plus's `persistent` (boolean).
+#' @param popper_style Custom style for popover. Element Plus's `popper-style`
+#'   (string / object).
+#' @param show_after Delay of appearance, in millisecond, not valid in
+#'   controlled mode. Element Plus's `show-after` (number).
+#' @param show_arrow Whether a tooltip arrow is displayed or not. For more
+#'   info, please refer to ElPopper. Element Plus's `show-arrow` (boolean).
+#' @param teleported Whether popover dropdown is teleported to the body.
+#'   Element Plus's `teleported` (boolean).
+#' @param trigger_keys When you click the mouse to focus on the trigger
+#'   element, you can define a set of keyboard codes to control the display of
+#'   popover through the keyboard, not valid in controlled mode. Element
+#'   Plus's `trigger-keys` (Array).
+#' @param virtual_ref Indicates the reference element to which the popover is
+#'   attached. Element Plus's `virtual-ref` (HTMLElement).
+#' @param virtual_triggering Indicates whether virtual triggering is enabled.
+#'   Element Plus's `virtual-triggering` (boolean).
+#' @param visible Whether popover is visible. Element Plus's `visible`
+#'   (boolean / null).
 #' @param session Deprecated. Inside a module, wrap `id` in `ns()`, as for
 #'   any Shiny input; a session given here namespaces `id` once more, with
 #'   a warning.
@@ -65,13 +89,22 @@ el_popover <- function(id = NULL,
                        popover_width = NULL,
                        disabled = NULL,
                        offset = NULL,
-                       open_delay = NULL,
-                       close_delay = NULL,
-                       visible_arrow = NULL,
                        transition = NULL,
                        popper_class = NULL,
                        popper_options = NULL,
-                       tabindex = NULL,
+                       append_to = NULL,
+                       auto_close = NULL,
+                       effect = NULL,
+                       hide_after = NULL,
+                       persistent = NULL,
+                       popper_style = NULL,
+                       show_after = NULL,
+                       show_arrow = NULL,
+                       teleported = NULL,
+                       trigger_keys = NULL,
+                       virtual_ref = NULL,
+                       virtual_triggering = NULL,
+                       visible = NULL,
                        width = NULL,
                        slots   = NULL,
                        session = NULL) {
@@ -83,7 +116,6 @@ el_popover <- function(id = NULL,
   ns_id <- .el_ui_id(id, session)
 
   attrs <- list(
-    "v-model"         = "popValue",
     ":title"          = .el_optional_bind("popTitle"),
     ":content"        = .el_optional_bind("popContent"),
     ":trigger"        = .el_optional_bind("popTrigger"),
@@ -91,15 +123,11 @@ el_popover <- function(id = NULL,
     ":width"          = .el_optional_bind("popPopoverWidth"),
     ":disabled"       = .el_optional_bind("popDisabled"),
     ":offset"         = .el_optional_bind("popOffset"),
-    ":open-delay"     = .el_optional_bind("popOpenDelay"),
-    ":close-delay"    = .el_optional_bind("popCloseDelay"),
-    ":visible-arrow"  = .el_optional_bind("popVisibleArrow"),
     ":transition"     = .el_optional_bind("popTransition"),
     ":popper-class"   = .el_optional_bind("popPopperClass"),
-    ":popper-options" = .el_optional_bind("popPopperOptions"),
-    ":tabindex"       = .el_optional_bind("popTabindex")
+    ":popper-options" = .el_optional_bind("popPopperOptions")
   )
-  events <- .el_event_bindings(ns_id, c("show", "hide", "after-enter", "after-leave"))
+  events <- .el_event_bindings(ns_id, c("show", "hide", "after-enter", "after-leave", "before-enter", "before-leave"))
   attrs <- c(attrs, events$attrs)
 
 
@@ -107,7 +135,6 @@ el_popover <- function(id = NULL,
   own <- list(
     markup = NULL,
     data = list(
-      popValue         = FALSE,
       popTitle         = .el_or_na(title),
       popContent       = .el_or_na(content),
       popTrigger       = .el_or_na(trigger),
@@ -115,13 +142,9 @@ el_popover <- function(id = NULL,
       popPopoverWidth  = .el_or_na(popover_width),
       popDisabled      = .el_or_na(disabled),
       popOffset        = .el_or_na(offset),
-      popOpenDelay     = .el_or_na(open_delay),
-      popCloseDelay    = .el_or_na(close_delay),
-      popVisibleArrow  = .el_or_na(visible_arrow),
       popTransition    = .el_or_na(transition),
       popPopperClass   = .el_or_na(popper_class),
-      popPopperOptions = .el_or_na(popper_options),
-      popTabindex   = .el_or_na(tabindex)
+      popPopperOptions = .el_or_na(popper_options)
     ),
     methods = events$methods,
     watch = list(), computed = list(), mounted = NULL, dependencies = list()
@@ -139,6 +162,20 @@ el_popover <- function(id = NULL,
   }
 
   el_widget(
+    props = .el_props(prefix = "pop", list(
+      append_to = append_to,
+      auto_close = auto_close,
+      effect = effect,
+      hide_after = hide_after,
+      persistent = persistent,
+      popper_style = popper_style,
+      show_after = show_after,
+      show_arrow = show_arrow,
+      teleported = teleported,
+      trigger_keys = trigger_keys,
+      virtual_ref = virtual_ref,
+      virtual_triggering = virtual_triggering,
+      visible = visible)),
     id       = ns_id,
     markup   = htmltools::tag("el-popover", c(attrs, children)),
     data     = merged$data,
@@ -155,25 +192,26 @@ el_popover <- function(id = NULL,
 
 #' Update Element UI Popover
 #'
-#' Server-side update for [el_popover()]. Setting `value` opens or closes the
-#' card, which is how `trigger = "manual"` is driven.
+#' Server-side update for [el_popover()]. Setting `visible` opens or closes
+#' the card, which then stays as set: Element Plus's popover is controlled by
+#' its `visible` once that is given.
 #'
 #' @param session Shiny session; the current one by default, as for
 #'   [shiny::updateTextInput()].
 #' @param id Popover ID (un-namespaced).
-#' @param title,content,disabled,value New values; `NULL` leaves one unchanged.
+#' @param title,content,disabled,visible New values; `NULL` leaves one unchanged.
 #'
 #' @return Called for its side effect; returns `NULL` invisibly.
 #' @examples
 #' if (interactive()) {
 #'   # inside a server function
 #'   observeEvent(input$explain, {
-#'     update_el_popover(session, "info", content = summary_text(), value = TRUE)
+#'     update_el_popover(session, "info", content = summary_text(), visible = TRUE)
 #'   })
 #' }
 #' @export
 update_el_popover <- function(session = shiny::getDefaultReactiveDomain(), id, title = NULL, content = NULL,
-                              disabled = NULL, value = NULL) {
+                              disabled = NULL, visible = NULL) {
   .el_check_session(session)
   ns_id <- session$ns(id)
   msg <- list(id = ns_id)
@@ -181,7 +219,7 @@ update_el_popover <- function(session = shiny::getDefaultReactiveDomain(), id, t
   if (!is.null(title))    msg$popTitle    <- title
   if (!is.null(content))  msg$popContent  <- content
   if (!is.null(disabled)) msg$popDisabled <- disabled
-  if (!is.null(value))    msg$popValue    <- value
+  if (!is.null(visible))  msg$popVisible  <- visible
   .el_send_update(session, msg)
   invisible(NULL)
 }

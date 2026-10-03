@@ -9,6 +9,7 @@ el_timeline(
   items = list(),
   reverse = FALSE,
   html = FALSE,
+  mode = NULL,
   width = NULL,
   slots = NULL,
   session = NULL
@@ -28,6 +29,9 @@ where the timestamp goes).}
 \item{html}{Render each entry's \code{content} as HTML rather than text --
 a string of markup, or tags. Only use it with content you control: it
 goes through \code{v-html}, which does not escape anything.}
+
+\item{mode}{Relative position of timeline and content. Element Plus's
+\code{mode} ('start' | 'alternate' | 'alternate-reverse' | 'end').}
 
 \item{width}{Component width, as a CSS unit -- \code{"200px"}, \code{"50\%"}, or a
 number taken as pixels. Element's own markup carries it, so it behaves

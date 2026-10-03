@@ -2,7 +2,7 @@
 % Please edit documentation in R/el_descriptions.R
 \name{el_descriptions}
 \alias{el_descriptions}
-\title{Element UI Descriptions}
+\title{Element Plus Descriptions}
 \usage{
 el_descriptions(
   id = NULL,
@@ -13,11 +13,7 @@ el_descriptions(
   direction = NULL,
   border = NULL,
   size = NULL,
-  colon = NULL,
-  label_class_name = NULL,
-  content_class_name = NULL,
-  label_style = NULL,
-  content_style = NULL,
+  label_width = NULL,
   width = NULL,
   slots = NULL,
   session = NULL
@@ -29,9 +25,10 @@ el_descriptions(
 \item{items}{The fields, as a list of \code{list(label =, content =)}, or a named
 list or vector whose names are the labels. \code{content} may be any Shiny UI,
 a shiny.element component included, which is absorbed rather than nested.
-An item may also carry \code{span}, \code{label_class_name}, \code{content_class_name},
-\code{label_style} and \code{content_style}. A \code{label} that is markup rather than
-text fills the item's label slot.}
+An item may also carry Element Plus's item props: \code{span}, \code{rowspan},
+\code{width}, \code{min_width}, \code{label_width}, \code{align}, \code{label_align},
+\code{class_name} and \code{label_class_name}. A \code{label} that is markup rather
+than text fills the item's label slot.}
 
 \item{title}{Heading above the grid.}
 
@@ -45,15 +42,10 @@ use \code{slots = list(extra = ...)}.}
 
 \item{border}{Whether to draw cell borders.}
 
-\item{size}{\code{"medium"}, \code{"small"} or \code{"mini"}.}
+\item{size}{Size: \code{"large"}, \code{"default"} or \code{"small"}; \code{NULL} follows the form or the page.}
 
-\item{colon}{Whether labels end in a colon. Default \code{TRUE}.}
-
-\item{label_class_name, content_class_name}{Class names for every label and
-every value.}
-
-\item{label_style, content_style}{CSS for every label and every value, as a
-named list.}
+\item{label_width}{Label width of every column. Element Plus's
+\code{label-width} (string / number).}
 
 \item{width}{Component width, as a CSS unit.}
 

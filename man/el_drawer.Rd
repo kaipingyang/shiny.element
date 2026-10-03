@@ -2,23 +2,35 @@
 % Please edit documentation in R/el_drawer.R
 \name{el_drawer}
 \alias{el_drawer}
-\title{Element UI Drawer}
+\title{Element Plus Drawer}
 \usage{
 el_drawer(
   id = NULL,
   title = "",
   content = NULL,
+  footer = NULL,
   visible = FALSE,
   direction = "rtl",
   size = "30\%",
+  resizable = FALSE,
   modal = TRUE,
+  modal_penetrable = FALSE,
   with_header = TRUE,
   show_close = TRUE,
-  wrapper_closable = TRUE,
+  close_on_click_modal = TRUE,
   close_on_press_escape = TRUE,
+  lock_scroll = TRUE,
   custom_class = NULL,
+  modal_class = NULL,
+  header_class = NULL,
+  body_class = NULL,
+  footer_class = NULL,
+  append_to = NULL,
   append_to_body = FALSE,
-  modal_append_to_body = TRUE,
+  open_delay = NULL,
+  close_delay = NULL,
+  z_index = NULL,
+  header_aria_level = "2",
   destroy_on_close = FALSE,
   before_close = NULL,
   session = NULL
@@ -32,31 +44,51 @@ el_drawer(
 \item{content}{Drawer body. Any tag or tagList, including this package's
 own components.}
 
-\item{visible}{Whether it starts open.}
+\item{footer}{Footer content, usually buttons. \code{NULL} for none.}
+
+\item{visible}{Whether it starts open: Element Plus's \code{model-value}.}
 
 \item{direction}{Edge it slides from: \code{"rtl"} (from the right, the
 default), \code{"ltr"}, \code{"ttb"} or \code{"btt"}.}
 
 \item{size}{Width for a horizontal drawer, height for a vertical one.}
 
+\item{resizable}{Let the drawer be resized by dragging its inner edge.}
+
 \item{modal}{Show the backdrop.}
+
+\item{modal_penetrable}{Let clicks through the backdrop to the page
+beneath, when \code{modal = FALSE}.}
 
 \item{with_header}{Show the header bar.}
 
 \item{show_close}{Show the close button in the header.}
 
-\item{wrapper_closable}{Close when the backdrop is clicked.}
+\item{close_on_click_modal}{Close when the backdrop is clicked. (Element
+UI's \code{wrapper-closable}.)}
 
 \item{close_on_press_escape}{Close on Escape.}
 
+\item{lock_scroll}{Whether the page stops scrolling while it is open.}
+
 \item{custom_class}{Extra class name for the panel.}
 
-\item{append_to_body}{Move the overlay to \verb{<body>} when it opens, so a
-container's \code{overflow} or \code{transform} cannot clip it. Its components keep
-working; they are moved, not re-created.}
+\item{modal_class, header_class, body_class, footer_class}{Extra class names
+for the backdrop, the header, the body and the footer.}
 
-\item{modal_append_to_body}{Whether the backdrop goes on \verb{<body>} (the
-default) or beside the overlay.}
+\item{append_to}{A CSS selector for where the overlay goes when it opens,
+so a container's \code{overflow} or \code{transform} cannot clip it. Its
+components keep working; they are moved, not re-created.}
+
+\item{append_to_body}{\code{append_to = "body"}.}
+
+\item{open_delay, close_delay}{Milliseconds to wait before opening and
+closing.}
+
+\item{z_index}{The overlay's z-index, instead of the next one Element Plus
+hands out.}
+
+\item{header_aria_level}{The title's \code{aria-level}. Default \code{"2"}.}
 
 \item{destroy_on_close}{Re-create the content each time it opens, and remove
 it when it closes: inputs inside start from their initial values again.}
@@ -76,23 +108,29 @@ An \code{htmltools} tag.
 A panel that slides in from an edge of the viewport.
 }
 \details{
-Rendered as plain markup carrying Element's own classes, driven by a Shiny
-input binding rather than a Vue instance, so the body can hold other
+Rendered as plain markup carrying Element Plus's own classes, driven by a
+Shiny input binding rather than a Vue instance, so the body can hold other
 components from this package. See \code{.claude/docs/lessons.md} §1.2.
 }
 \section{Shiny inputs}{
 
 \itemize{
-\item \verb{input$<id>} -- whether it is open.
+\item \verb{input$<id>} -- \code{TRUE} while the drawer is open, reported whenever it
+opens or closes, however that happens; see \code{\link[=el_dialog]{el_dialog()}}.
 \item \verb{input$<id>_open}, \verb{input$<id>_opened} -- fire as it opens, and once
 it has.
 \item \verb{input$<id>_close}, \verb{input$<id>_closed} -- likewise as it closes.
+\item \verb{input$<id>_open_auto_focus}, \verb{input$<id>_close_auto_focus} -- as focus
+moves into it on opening, and back on closing.
+\item \verb{input$<id>_resize_start}, \verb{input$<id>_resize}, \verb{input$<id>_resize_end}
+-- with \code{resizable}, the size in pixels as it is dragged.
+}
 }
 
+\section{Element methods}{
 
-\verb{input$<id>} — \code{TRUE} while the drawer is open, reported whenever it opens
-or closes, however that happens. (It was \verb{input$<id>_visible} while this was
-a Vue component; see \code{\link[=el_dialog]{el_dialog()}}.)
+Callable with \code{\link[=el_call]{el_call()}}: \code{handleClose()} closes it the way the user
+would, through \code{before_close} (\code{closeDrawer()}, Element UI's name, too).
 }
 
 \examples{

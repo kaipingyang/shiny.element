@@ -4,116 +4,22 @@
 \alias{.el_time_widget}
 \title{Build either time picker}
 \usage{
-.el_time_widget(
-  tag,
-  id,
-  value,
-  is_range,
-  value_format,
-  arrow_control,
-  placeholder,
-  start_placeholder,
-  end_placeholder,
-  range_separator,
-  picker_options,
-  clearable,
-  disabled,
-  editable,
-  readonly,
-  size,
-  align,
-  popper_class,
-  default_value,
-  name,
-  prefix_icon,
-  clear_icon,
-  width,
-  slots,
-  session,
-  label = NULL,
-  label_position = "top",
-  label_width = NULL,
-  label_suffix = NULL,
-  required = FALSE,
-  error = NULL,
-  show_message = TRUE,
-  inline_message = FALSE
-)
+.el_time_widget(tag, ns_id, init, fields, events, width, slots, form_item)
 }
 \arguments{
 \item{tag}{\code{"el-time-picker"} or \code{"el-time-select"}.}
 
-\item{id}{Picker ID. Auto-generated if \code{NULL}.}
+\item{ns_id}{The namespaced id.}
 
-\item{value}{Initial time, as \code{"HH:mm:ss"} text -- two of them for a
-range.}
+\item{init}{The initial value.}
 
-\item{is_range}{Pick a start and an end rather than a single time.}
+\item{fields}{The props, by their R names, for \code{.el_props()}.}
 
-\item{value_format}{Format of the value reported to Shiny. Default
-\code{"HH:mm:ss"}.}
+\item{events}{Events forwarded as \verb{input$<id>_<event>}.}
 
-\item{arrow_control}{Whether hours, minutes and seconds are changed with
-arrow buttons rather than by scrolling.}
+\item{width, slots}{As for \code{\link[=el_widget]{el_widget()}}.}
 
-\item{placeholder, start_placeholder, end_placeholder}{Placeholder text, the
-latter two for a range.}
-
-\item{range_separator}{Text between the two times of a range. Default \code{"-"}.}
-
-\item{picker_options}{Further options, as a named list -- for
-\code{el_time_picker()}, \code{selectableRange} and \code{format}; for
-\code{el_time_select()}, \code{start}, \code{end}, \code{step}, \code{minTime} and \code{maxTime}.}
-
-\item{clearable, disabled, editable, readonly}{As for an input.}
-
-\item{size}{\code{"medium"}, \code{"small"} or \code{"mini"}.}
-
-\item{align}{Alignment of the panel: \code{"left"} (default), \code{"center"},
-\code{"right"}.}
-
-\item{popper_class}{Extra class name for the panel.}
-
-\item{default_value}{Time the panel opens on when nothing is picked.}
-
-\item{name}{Native \code{name} attribute.}
-
-\item{prefix_icon, clear_icon}{Icon classes.}
-
-\item{width}{Component width, as a CSS unit.}
-
-\item{slots}{Named list of Element slot contents.}
-
-\item{session}{Deprecated. Inside a module, wrap \code{id} in \code{ns()}, as for
-any Shiny input; a session given here namespaces \code{id} once more, with
-a warning.}
-
-\item{label}{A label shown with the component, as Shiny's inputs have:
-text or a tag. \code{NULL}, the default, shows none. It is the component's
-accessible name too -- tied to it with \code{for} where the component has a
-native input that takes the id \verb{<id>-input}, else with
-\code{aria-labelledby}.}
-
-\item{label_position}{Where the label sits, as \code{el_form()}'s
-\code{label_position}: \code{"top"} (the default, as Shiny's labels sit), or
-beside the component, its text aligned \code{"left"} or \code{"right"} -- which
-shows once \code{label_width} gives the labels a common width.}
-
-\item{label_width}{Width of a label beside the component, as a CSS unit,
-so that several line up. Element's \code{label-width}.}
-
-\item{label_suffix}{Text after the label, such as \code{":"}. Element's
-\code{label-suffix}.}
-
-\item{required}{Draw Element's red asterisk before the label. It marks the
-field; it does not check it -- shinyvalidate or \code{\link[=el_form]{el_form()}} does that.}
-
-\item{error}{An error message shown under the component in Element's
-style, the field framed in red. Element's \code{error}.}
-
-\item{show_message, inline_message}{Whether \code{error}'s message is shown, and
-whether beside the component rather than under it. Element's
-\code{show-message} and \code{inline-message}.}
+\item{form_item}{The label and message arguments, for \code{\link[=el_widget]{el_widget()}}.}
 }
 \value{
 A Shiny UI element.

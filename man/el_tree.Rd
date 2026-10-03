@@ -22,7 +22,6 @@ el_tree(
   checked = NULL,
   empty_text = NULL,
   indent = NULL,
-  icon_class = NULL,
   lazy = NULL,
   draggable = NULL,
   auto_expand_parent = NULL,
@@ -34,6 +33,8 @@ el_tree(
   render_content = NULL,
   allow_drag = NULL,
   allow_drop = NULL,
+  check_on_click_leaf = NULL,
+  icon = NULL,
   label = NULL,
   label_position = c("top", "left", "right"),
   label_width = NULL,
@@ -87,8 +88,6 @@ expand.}
 
 \item{indent}{Horizontal indent between levels, in pixels. Default \code{16}.}
 
-\item{icon_class}{Icon class of the expand arrow.}
-
 \item{lazy}{Whether child nodes are loaded on demand -- from the server,
 unless \code{load} is given. See "Shiny inputs".}
 
@@ -114,6 +113,13 @@ contains the text, ignoring case, so \code{el_call(session, id, "filter", list(t
 \item{allow_drag}{\code{JS()} function deciding whether a node may be dragged.}
 
 \item{allow_drop}{\code{JS()} function deciding whether a node may be dropped somewhere.}
+
+\item{check_on_click_leaf}{Whether to check or uncheck node when clicking
+on leaf node (last children). Element Plus's \code{check-on-click-leaf}
+(boolean).}
+
+\item{icon}{Custom tree node icon component. Element Plus's \code{icon} (string
+/ Component). An icon's name, such as \code{"Search"}.}
 
 \item{label}{A label shown with the component, as Shiny's inputs have:
 text or a tag. \code{NULL}, the default, shows none. It is the component's

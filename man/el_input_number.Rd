@@ -17,6 +17,16 @@ el_input_number(
   controls = TRUE,
   controls_position = "",
   placeholder = NULL,
+  align = NULL,
+  aria_label = NULL,
+  disabled_scientific = NULL,
+  formatter = NULL,
+  inputmode = NULL,
+  parser = NULL,
+  readonly = NULL,
+  tabindex = NULL,
+  validate_event = NULL,
+  value_on_clear = NULL,
   label = NULL,
   name = NULL,
   label_position = c("top", "left", "right"),
@@ -48,7 +58,7 @@ el_input_number(
 \item{precision}{Decimal precision (non-negative integer). \code{NULL} for
 auto.}
 
-\item{size}{Component size: \code{NULL}, \code{"medium"}, \code{"small"}, \code{"mini"}.}
+\item{size}{Size: \code{"large"}, \code{"default"} or \code{"small"}; \code{NULL} follows the form or the page.}
 
 \item{disabled}{Whether the component is disabled. Default \code{FALSE}.}
 
@@ -58,6 +68,36 @@ auto.}
 \code{"right"} (both on the right).}
 
 \item{placeholder}{Placeholder text. \code{NULL} for none.}
+
+\item{align}{Alignment for the inner input text. Element Plus's \code{align}
+('left' | 'center' | 'right').}
+
+\item{aria_label}{Same as \code{aria-label} in native input. Element Plus's
+\code{aria-label} (string).}
+
+\item{disabled_scientific}{Disables input of scientific notation (e.g.
+'e'). Element Plus's \code{disabled-scientific} (boolean).}
+
+\item{formatter}{Specifies the format of the value presented in the input.
+Element Plus's \code{formatter} ((value: string) => string).}
+
+\item{inputmode}{Same as \code{inputmode} in native input. Element Plus's
+\code{inputmode} (string).}
+
+\item{parser}{Specifies the value extracted from the formatted input.
+Element Plus's \code{parser} ((value: string) => string).}
+
+\item{readonly}{Same as \code{readonly} in native input. Element Plus's
+\code{readonly} (boolean).}
+
+\item{tabindex}{Same as \code{tabindex} in native input. Element Plus's
+\code{tabindex} (string / number).}
+
+\item{validate_event}{Whether to trigger form validation. Element Plus's
+\code{validate-event} (boolean).}
+
+\item{value_on_clear}{Value should be set when input box is cleared.
+Element Plus's \code{value-on-clear} (number / null / 'min' | 'max').}
 
 \item{label}{A label shown with the component, as Shiny's inputs have:
 text or a tag. \code{NULL}, the default, shows none. It is the component's

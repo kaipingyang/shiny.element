@@ -9,11 +9,12 @@
 #'   `"warning"`, `"danger"`.
 #' @param closable Whether to show a close button. Default `FALSE`. When
 #'   `TRUE`, `input$<id>_closed` fires once when the user closes the tag.
-#' @param size Tag size: `NULL`, `"medium"`, `"small"`, `"mini"`.
+#' @param size Size: `"large"`, `"default"` or `"small"`; `NULL` follows the form or the page.
 #' @param effect Visual effect: `"light"` (default), `"dark"`, `"plain"`.
 #' @param color Custom background colour (CSS string). `NULL` for themed colour.
 #' @param hit Whether to show a solid border. Default `FALSE`.
 #' @param disable_transitions Disable the zoom-in-center animation. Default `FALSE`.
+#' @param round Whether Tag is rounded. Element Plus's `round` (boolean).
 #' @param session Deprecated. Inside a module, wrap `id` in `ns()`, as for
 #'   any Shiny input; a session given here namespaces `id` once more, with
 #'   a warning.
@@ -41,6 +42,7 @@
 #' @export
 el_tag <- function(
     id                   = NULL,
+    round = NULL,
     label                = "Tag",
     type                 = NULL,
     closable             = FALSE,
@@ -70,6 +72,8 @@ el_tag <- function(
   tag_attrs[[":size"]] <- .el_optional_bind("size")
   tag_attrs[[":color"]] <- .el_optional_bind("color")
   el_widget(
+    props = .el_props(list(
+      round = round)),
     id     = ns_id,
     markup = htmltools::tag("el-tag", c(tag_attrs, list("{{label}}"))),
     data = list(

@@ -7,7 +7,7 @@
 .el_config_dependency(size = NULL, z_index = NULL)
 }
 \arguments{
-\item{size}{\code{"medium"}, \code{"small"}, \code{"mini"}, or \code{NULL}.}
+\item{size}{\code{"large"}, \code{"default"}, \code{"small"}, or \code{NULL}.}
 
 \item{z_index}{A number, or \code{NULL}.}
 }

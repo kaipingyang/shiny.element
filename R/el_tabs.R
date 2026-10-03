@@ -1,4 +1,4 @@
-#' Element UI Tabs
+#' Element Plus Tabs
 #'
 #' A tabbed panel.
 #'
@@ -33,6 +33,7 @@
 #'   `function(activeName, oldActiveName)` run before switching tabs; return
 #'   `false`, or a promise that rejects, to stay put.
 #' @param stretch Stretch the tabs to fill the available width.
+#' @param add_icon The add button's icon, by name. Default `"Plus"`.
 #' @param session Deprecated. Inside a module, wrap `id` in `ns()`, as for
 #'   any Shiny input; a session given here namespaces `id` once more, with
 #'   a warning.
@@ -72,6 +73,7 @@ el_tabs <- function(
     addable      = FALSE,
     editable     = FALSE,
     stretch      = FALSE,
+    add_icon     = NULL,
     before_leave = NULL,
     session      = NULL
 ) {
@@ -115,7 +117,8 @@ el_tabs <- function(
 
   new_tab <- if (isTRUE(addable)) {
     shiny::tags$span(class = "el-tabs__new-tab", tabindex = "0",
-                     shiny::tags$i(class = "el-icon-plus"))
+                     el_icon(if (is.null(add_icon)) "Plus" else .el_icon_name(add_icon),
+                             a11y = "none"))
   }
 
   htmltools::attachDependencies(
@@ -173,7 +176,7 @@ el_tabs <- function(
                     if (closable) "is-closable"), collapse = " "),
     `data-el-name` = t$name,
     t$label,
-    if (closable) shiny::tags$span(class = "el-icon-close")
+    if (closable) el_icon("Close", class = "is-icon-close", a11y = "none")
   )
 }
 

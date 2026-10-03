@@ -1,4 +1,4 @@
-#' Element UI Link
+#' Element Plus Link
 #'
 #' A styled hyperlink that follows Element UI's design language.
 #'
@@ -6,7 +6,11 @@
 #' @param href URL target. `NULL` for a non-navigating link.
 #' @param type Link colour type: `"default"` (default), `"primary"`,
 #'   `"success"`, `"warning"`, `"danger"`, `"info"`.
-#' @param underline Whether to underline on hover. Default `TRUE`.
+#' @param underline When the link is underlined: `"hover"` (the default),
+#'   `"always"` or `"never"`. `TRUE` and `FALSE`, Element UI's form, are
+#'   `"hover"` and `"never"`.
+#' @param target Where the link opens, as an `<a>`'s `target`. Default
+#'   `"_self"`.
 #' @param disabled Whether the link is disabled. Default `FALSE`.
 #' @param icon Icon class string (e.g. `"el-icon-edit"`). Placed before the
 #'   label. `NULL` for none.
@@ -32,18 +36,25 @@
 #'
 #' @export
 el_link <- function(label = "Link", href = NULL, type = "default",
-                    underline = TRUE, disabled = FALSE, icon = NULL, id = NULL, ...) {
+                    underline = "hover", disabled = FALSE, icon = NULL,
+                    target = "_self", id = NULL, ...) {
   .el_check_choices("el_link", environment())
+  # Element Plus's boolean form: TRUE is "hover", FALSE "never"
+  if (isTRUE(underline)) underline <- "hover"
+  if (isFALSE(underline)) underline <- "never"
+  underline <- match.arg(underline, c("hover", "always", "never"))
+  icon <- .el_icon_name(icon)
   if (!is.null(id)) {
     ns_id <- .el_ui_id(id, NULL)
     return(el_widget(
       id     = ns_id,
       markup = htmltools::tag("el-link", list(
         ":href" = "href === null ? undefined : href", ":type" = "type",
+        ":target" = "target",
         ":underline" = "underline", ":disabled" = "disabled",
         ":icon" = "icon === null ? undefined : icon", "@click" = "handleClick",
         "{{ text }}")),
-      data = list(text = label, href = .el_or_na(href), type = type,
+      data = list(text = label, href = .el_or_na(href), type = type, target = target,
                   underline = underline, disabled = disabled, icon = .el_or_na(icon),
                   count = 0L),
       methods = list(handleClick = JS(sprintf(paste0(
@@ -59,17 +70,19 @@ el_link <- function(label = "Link", href = NULL, type = "default",
     "el-link",
     paste0("el-link--", type),
     if (disabled) "is-disabled",
-    if (underline && !disabled) "is-underline"
+    if (underline == "always") "is-underline",
+    if (underline == "hover" && !disabled) "is-hover-underline"
   )
 
   a_attrs <- list(
     class = paste(link_classes, collapse = " "),
     href  = if (!disabled && !is.null(href)) href else NULL,
+    target = if (!disabled && !is.null(href)) target else NULL,
     ...
   )
 
-  icon_tag <- if (!is.null(icon)) shiny::tags$i(class = icon)
-  label_tag <- shiny::tags$span(class = "el-link--inner", label)
+  icon_tag <- if (!is.null(icon)) el_icon(icon)
+  label_tag <- shiny::tags$span(class = "el-link__inner", label)
 
   do.call(shiny::tags$a, c(a_attrs, list(icon_tag, label_tag)))
 }

@@ -23,10 +23,17 @@ el_autocomplete(
   icon = NULL,
   prefix_icon = NULL,
   suffix_icon = NULL,
+  append_to = NULL,
+  aria_label = NULL,
+  fit_input_width = NULL,
+  loop_navigation = NULL,
+  popper_options = NULL,
+  popper_style = NULL,
+  show_arrow = NULL,
+  teleported = NULL,
   label = NULL,
   name = NULL,
   popper_class = NULL,
-  popper_append_to_body = NULL,
   label_position = c("top", "left", "right"),
   label_width = NULL,
   label_suffix = NULL,
@@ -82,6 +89,30 @@ Default \code{TRUE}.}
 
 \item{icon, prefix_icon, suffix_icon}{Icon classes.}
 
+\item{append_to}{Which select dropdown appends to. Element Plus's
+\code{append-to} (CSSSelector / HTMLElement).}
+
+\item{aria_label}{Native \code{aria-label} attribute. Element Plus's
+\code{aria-label} (string).}
+
+\item{fit_input_width}{Whether the width of the dropdown is the same as the
+input. Element Plus's \code{fit-input-width} (boolean).}
+
+\item{loop_navigation}{Whether keyboard navigation loops from end to start.
+Element Plus's \code{loop-navigation} (boolean).}
+
+\item{popper_options}{Popper.js parameters. Element Plus's \code{popper-options}
+(object).}
+
+\item{popper_style}{Custom style for autocomplete's dropdown. Element
+Plus's \code{popper-style} (string / object).}
+
+\item{show_arrow}{Whether the dropdown has an arrow. Element Plus's
+\code{show-arrow} (boolean).}
+
+\item{teleported}{Whether select dropdown is teleported to the body.
+Element Plus's \code{teleported} (boolean).}
+
 \item{label}{A label shown with the component, as Shiny's inputs have:
 text or a tag. \code{NULL}, the default, shows none. It is the component's
 accessible name too -- tied to it with \code{for} where the component has a
@@ -91,8 +122,6 @@ native input that takes the id \verb{<id>-input}, else with
 \item{name}{Native \code{name} attribute.}
 
 \item{popper_class}{Extra class name for the suggestion list.}
-
-\item{popper_append_to_body}{Whether the list is appended to \code{body}.}
 
 \item{label_position}{Where the label sits, as \code{el_form()}'s
 \code{label_position}: \code{"top"} (the default, as Shiny's labels sit), or

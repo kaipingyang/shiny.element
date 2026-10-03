@@ -6,9 +6,10 @@
 #' @param items The trail, as a list of `list(label =, to =)`. `to` is
 #'   optional and makes that step a link; the last step is usually plain text.
 #' @param separator Separator character. Default `"/"`.
-#' @param separator_class Icon class to use as the separator instead of a
-#'   character, such as `"el-icon-arrow-right"`.
 #' @param width Component width, as a CSS unit.
+#' @param separator_icon Icon component of icon separator. Element Plus's
+#'   `separator-icon` (string / Component). An icon's name, such as
+#'   `"Search"`.
 #' @param session Deprecated. Inside a module, wrap `id` in `ns()`, as for
 #'   any Shiny input; a session given here namespaces `id` once more, with
 #'   a warning.
@@ -33,13 +34,13 @@
 #' # An arrow instead of a slash
 #' el_breadcrumb("trail",
 #'   items = list(list(label = "Home"), list(label = "Detail")),
-#'   separator_class = "el-icon-arrow-right"
+#'   separator_icon = "ArrowRight"
 #' )
 #' @export
 el_breadcrumb <- function(id = NULL,
                           items = list(),
                           separator = NULL,
-                          separator_class = NULL,
+                          separator_icon = NULL,
                           width = NULL,
                           slots   = NULL,
                           session = NULL) {
@@ -56,17 +57,17 @@ el_breadcrumb <- function(id = NULL,
   ))
 
   attrs <- list(
-    ":separator"       = .el_optional_bind("separator"),
-    ":separator-class" = .el_optional_bind("separatorClass")
+    ":separator"       = .el_optional_bind("separator")
   )
 
   el_widget(
+    props = .el_props(list(
+      separator_icon = .el_icon_name(separator_icon))),
     id     = ns_id,
     markup = htmltools::tag("el-breadcrumb", c(attrs, list(item_tag))),
     data   = list(
       items           = unname(items),
-      separator       = .el_or_na(separator),
-      separatorClass  = .el_or_na(separator_class)
+      separator       = .el_or_na(separator)
     ),
     methods = list(
       handleClick = JS(sprintf(

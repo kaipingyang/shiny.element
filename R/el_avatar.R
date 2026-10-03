@@ -6,7 +6,7 @@
 #' @param content Text shown when there is no `src` or `icon`, such as initials.
 #' @param src Image URL.
 #' @param icon Element icon class, such as `"el-icon-user-solid"`.
-#' @param size `"large"` (default), `"medium"`, `"small"`, or a number of pixels.
+#' @param size Size: `"large"`, `"default"` or `"small"`; `NULL` follows the form or the page.
 #' @param shape `"circle"` (default) or `"square"`.
 #' @param fit How an image fills the avatar: `"cover"` (default), `"fill"`,
 #'   `"contain"`, `"none"` or `"scale-down"`.

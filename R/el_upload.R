@@ -191,6 +191,12 @@
 #' @param tip Help text shown under the control.
 #' @param action Post to this URL using Element's own upload instead of
 #'   Shiny's channel. See details.
+#' @param crossorigin Native attribute crossorigin. Element Plus's
+#'   `crossorigin` ('' | 'anonymous' | 'use-credentials').
+#' @param directory Whether to support uploading directory. After enabling it,
+#'   only folders can be selected, and after selecting a folder, the files
+#'   within the folder will be flattened. Element Plus's `directory`
+#'   (boolean).
 #' @param session Deprecated. Inside a module, wrap `id` in `ns()`, as for
 #'   any Shiny input; a session given here namespaces `id` once more, with
 #'   a warning.
@@ -198,7 +204,6 @@
 #' @param extra_data Extra fields sent alongside the file, as a named list.
 #' @param file_list Files shown initially, each `list(name=, url=)`.
 #' @param with_credentials Whether to send cookies with the request.
-#' @param thumbnail_mode Whether files are shown as thumbnails.
 #' @param before_upload `JS()` function called before a file is sent; returning `false` cancels it.
 #' @param before_remove `JS()` function called before a file is removed; returning `false` cancels it.
 #' @param on_change `JS()` function called when a file is added, or finishes.
@@ -285,7 +290,6 @@ el_upload <- function(id = NULL,
                       extra_data = NULL,
                       file_list = NULL,
                       with_credentials = NULL,
-                      thumbnail_mode = NULL,
                       before_upload = NULL,
                       before_remove = NULL,
                       on_change = NULL,
@@ -293,6 +297,8 @@ el_upload <- function(id = NULL,
                       on_preview = NULL,
                       on_remove = NULL,
                       on_exceed = NULL,
+                      crossorigin = NULL,
+                      directory = NULL,
                       label = NULL,
                       label_position = c("top", "left", "right"),
                       label_width = NULL,
@@ -345,7 +351,6 @@ el_upload <- function(id = NULL,
   upload_attrs[[":data"]] <- .el_optional_bind("extraData")
   upload_attrs[[":file-list"]] <- .el_optional_bind("fileList")
   upload_attrs[[":with-credentials"]] <- .el_optional_bind("withCredentials")
-  upload_attrs[[":thumbnail-mode"]] <- .el_optional_bind("thumbnailMode")
   upload_attrs[[":before-upload"]] <- .el_optional_bind("beforeUpload")
   upload_attrs[[":before-remove"]] <- .el_optional_bind("beforeRemove")
   upload_attrs[[":on-change"]] <- .el_optional_bind("onChange")
@@ -359,7 +364,8 @@ el_upload <- function(id = NULL,
   # changes the drop zone and its contents together. Picking one in R would
   # leave the markup stuck in whichever shape it had at render time.
   trigger <- list(
-    htmltools::tags$i(class = "el-icon-upload", "v-if" = "drag"),
+    htmltools::tag("el-icon", list(class = "el-icon--upload", "v-if" = "drag",
+                                   htmltools::tag("upload-filled", list()))),
     htmltools::tags$div(class = "el-upload__text", "v-if" = "drag", "{{buttonLabel}}"),
     htmltools::tag("el-button", list(
       "v-if" = "!drag", size = "small", type = "primary", "{{buttonLabel}}"
@@ -392,7 +398,6 @@ el_upload <- function(id = NULL,
 
   vue_data$withCredentials <- .el_or_na(with_credentials)
 
-  vue_data$thumbnailMode <- .el_or_na(thumbnail_mode)
 
   vue_data$beforeUpload <- .el_or_na(before_upload)
 
@@ -431,6 +436,9 @@ el_upload <- function(id = NULL,
     "delete d['.action']; return d; }"), ns_id))
 
   el_widget(
+    props = .el_props(list(
+      crossorigin = crossorigin,
+      directory = directory)),
     label = label, label_position = label_position,
     label_width = label_width, label_suffix = label_suffix, required = required,
     error = error, show_message = show_message, inline_message = inline_message,

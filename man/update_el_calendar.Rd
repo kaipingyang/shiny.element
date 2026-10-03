@@ -9,7 +9,6 @@ update_el_calendar(
   id,
   value = NULL,
   range = NULL,
-  first_day_of_week = NULL,
   label = NULL,
   error = NULL
 )
@@ -23,8 +22,6 @@ update_el_calendar(
 \item{value}{New value (Date/string/number)}
 
 \item{range}{New range (c("YYYY-MM-DD", "YYYY-MM-DD"))}
-
-\item{first_day_of_week}{New first day of week (1~7)}
 
 \item{label}{New label, as for \code{\link[shiny:updateTextInput]{shiny::updateTextInput()}}: text, or
 tags or \code{HTML()} drawn as markup. Only a component built with a \code{label}

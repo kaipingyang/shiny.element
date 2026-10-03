@@ -7,16 +7,11 @@
 .el_css_fixes()
 }
 \value{
-A \verb{<style>} element, as text.
+A \verb{<style>} element, as text, or \code{NULL}.
 }
 \description{
 Carried in the dependency's \code{head}, so they apply whether Element is
-served from the package or from the CDN.
-}
-\details{
-\itemize{
-\item 2.15 gave every table cell \verb{.el-table .el-table__cell \{ padding: 12px 0 \}}. It outranks the expanded row's \verb{.el-table__expanded-cell[class*=cell] \{ padding: 20px 50px \}} -- the same specificity, later in the file -- so
-an expanded row's content sat flush against the table's edge.
-}
+served from the package or from the CDN. None are needed for Element
+Plus 2.14.7; the hook stays for the next one.
 }
 \keyword{internal}

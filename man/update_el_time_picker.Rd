@@ -3,14 +3,13 @@
 \name{update_el_time_picker}
 \alias{update_el_time_picker}
 \alias{update_el_time_select}
-\title{Update Element UI Time Picker}
+\title{Update Element Plus Time Picker}
 \usage{
 update_el_time_picker(
   session = shiny::getDefaultReactiveDomain(),
   id,
   value = NULL,
   disabled = NULL,
-  picker_options = NULL,
   label = NULL,
   error = NULL
 )
@@ -20,7 +19,6 @@ update_el_time_select(
   id,
   value = NULL,
   disabled = NULL,
-  picker_options = NULL,
   label = NULL,
   error = NULL
 )
@@ -31,8 +29,7 @@ update_el_time_select(
 
 \item{id}{Picker ID (un-namespaced).}
 
-\item{value, disabled, picker_options}{New values; \code{NULL} leaves one
-unchanged.}
+\item{value, disabled}{New values; \code{NULL} leaves one unchanged.}
 
 \item{label}{New label, as for \code{\link[shiny:updateTextInput]{shiny::updateTextInput()}}: text, or
 tags or \code{HTML()} drawn as markup. Only a component built with a \code{label}

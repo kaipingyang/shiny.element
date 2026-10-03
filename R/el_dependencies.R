@@ -11,7 +11,7 @@
 #'   Bootstrap. `NULL` leaves Element as it ships.
 #' @param layout_css Element's layout CSS, [el_layout_css_dependency()];
 #'   `NULL` leaves it out.
-#' @param offline Serve Element UI from the copy bundled with this package
+#' @param offline Serve Element Plus from the copy bundled with this package
 #'   rather than the unpkg CDN. See [element_plus_dependency()].
 #' @param dev Load the development build of Vue instead of `vue.min.js`, so
 #'   Vue's warnings are not stripped. Defaults to
@@ -19,9 +19,9 @@
 #' @param locale Language for Element Plus's built-in text. English by default,
 #'   or `getOption("shiny.element.locale")` when set. See
 #'   [el_locale_dependency()].
-#' @param size,z_index Element's global config, as `Vue.use(Element, {size,
+#' @param size,z_index Element Plus's global config, as `app.use(ElementPlus, {size,
 #'   zIndex})` sets it: the size of every component not given one of its own
-#'   (`"medium"`, `"small"` or `"mini"`), and the z-index its popups start
+#'   (`"large"`, `"default"` or `"small"`), and the z-index its popups start
 #'   from (2000 by default). `NULL` leaves Element's default.
 #' @return A list of htmlDependency objects
 #' @export
@@ -251,7 +251,7 @@ el_locales <- function() {
 #' it is given none, and for the z-index its popups start from. Element sets
 #' it when it installs itself; this runs after and overrides it.
 #'
-#' @param size `"medium"`, `"small"`, `"mini"`, or `NULL`.
+#' @param size `"large"`, `"default"`, `"small"`, or `NULL`.
 #' @param z_index A number, or `NULL`.
 #' @return A list holding one htmlDependency, or `NULL` when there is nothing
 #'   to set.

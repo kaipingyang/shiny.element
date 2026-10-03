@@ -8,6 +8,7 @@ el_page_header(
   id = NULL,
   title = NULL,
   content = NULL,
+  icon = NULL,
   width = NULL,
   slots = NULL,
   session = NULL
@@ -19,6 +20,9 @@ el_page_header(
 \item{title}{Text of the back link. Default \code{"Back"}.}
 
 \item{content}{The page's own title, shown after the separator.}
+
+\item{icon}{Icon component of page header. Element Plus's \code{icon} (string /
+Component). An icon's name, such as \code{"Search"}.}
 
 \item{width}{Component width, as a CSS unit.}
 

@@ -199,7 +199,7 @@ for fn, info in sorted(ours.items()):
         ups = set(up[tag].get("Slot", []))
         filled = info.get("slots") or []
         if isinstance(filled, str): filled = [filled]
-        filled = set(filled)
+        filled = set(filled) | {"default"}
         # "default" is the unnamed slot: markup passed straight in
         if any(not a.startswith(("@", ":", "v-")) for a in
                sum(([x] if isinstance(x, str) else x
@@ -231,6 +231,9 @@ for fn, info in sorted(ours.items()):
             "method_missing": [] if info.get("invokable") else sorted(upm),
             "slot": [len(ups & filled), len(ups)],
             "slot_missing": sorted(ups - filled),
+            # bound here but not an Element Plus prop: renamed or removed upstream
+            "extra": sorted(mine_a - upa - {"modelValue", "value"} - {camel(x) for x in up[tag].get("Attributes", [])}),
+            "extra_evt": sorted(mine_e - upe - {"update:modelValue"}),
         })
 
 json.dump({"report": report, "upstream_tags": sorted(up)}, open("/tmp/elapi/final.json","w"), indent=1)
@@ -301,8 +304,8 @@ for tag, (fn, js) in MARKUP.items():
         "evt": [sum(map(has_evt, ev)), len(ev)], "evt_missing": [e for e in ev if not has_evt(e)],
         "method": [sum(1 for m in me if m in src), len(me)],
         "method_missing": [m for m in me if m not in src],
-        "slot": [sum(1 for x in sl if x in have), len(sl)],
-        "slot_missing": [x for x in sl if x not in have],
+        "slot": [sum(1 for x in sl if x in have or x == "default"), len(sl)],
+        "slot_missing": [x for x in sl if x not in have and x != "default"],
     })
 
 # Services called from the server: their options are the function's
@@ -353,6 +356,13 @@ for tag in sorted(up):
         "evt": [0, len(d.get("Events", []))], "evt_missing": d.get("Events", []),
         "method": [0, len(d.get("Methods", []))], "method_missing": d.get("Methods", []),
         "slot": [0, len(d.get("Slot", []))], "slot_missing": d.get("Slot", [])})
+
+if "--extra" in sys.argv:
+    for r in sorted(report, key=lambda r: r["tag"]):
+        ex, ev = r.get("extra") or [], r.get("extra_evt") or []
+        if ex or ev:
+            print(f"  {r['fn']:22s} {r['tag']:24s} attr: {', '.join(ex)}" + (f" | evt: {', '.join(ev)}" if ev else ""))
+    sys.exit(0)
 
 if "--gaps" in sys.argv:
     for r in sorted(report, key=lambda r: r["tag"]):

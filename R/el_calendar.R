@@ -5,7 +5,6 @@
 #' @param id Calendar ID (auto-generated if NULL)
 #' @param value Bound value (Date/string/number)
 #' @param range Date range, c("YYYY-MM-DD", "YYYY-MM-DD")
-#' @param first_day_of_week First day of week (1~7), default 1
 #' @inheritParams el_widget
 #' @param width Component width, as a CSS unit -- `"200px"`, `"50%"`, or a
 #'   number taken as pixels.
@@ -50,8 +49,7 @@
 #'       mainPanel(
 #'         el_calendar(
 #'           id = "my_calendar",
-#'           value = Sys.Date(),
-#'           first_day_of_week = 1
+#'           value = Sys.Date()
 #'         )
 #'       )
 #'     )
@@ -73,7 +71,8 @@
 el_calendar <- function(id = NULL,  
                         value = NULL,  
                         range = NULL,  
-                        first_day_of_week = 1,  
+                        controller_type = NULL,
+                        formatter = NULL,
                         label = NULL,
                         label_position = c("top", "left", "right"),
                         label_width = NULL,
@@ -85,6 +84,7 @@ el_calendar <- function(id = NULL,
                         width   = NULL,
                         slots   = NULL,
                         session = NULL) {  
+  .el_check_choices("el_calendar", environment())
   
   if (is.null(id)) {  
     id <- paste0("el_calendar_", uuid::UUIDgenerate())  
@@ -93,17 +93,16 @@ el_calendar <- function(id = NULL,
   container_id <- paste0(ns_id, "_container")  
   
   calendar_attrs <- list(  
-    "v-model" = "value",  
-    ":first-day-of-week" = "firstDayOfWeek"  
+    "v-model" = "value"  
   )  
   # Bound unconditionally so update_el_calendar(range = ) can set it later; a
   # field left out of the Vue data is not reactive.
   calendar_attrs[[":range"]] <- .el_optional_bind("range")  
   
   # Element's own day cell is bare, so this is the default -- but it is only
-  # a default: slots = list(dateCell = ...) replaces it.
-  if (is.null(slots$dateCell)) {
-    slots$dateCell <- template(
+  # a default: slots = list(`date-cell` = ...) replaces it.
+  if (is.null(slots[["date-cell"]]) && is.null(slots$dateCell)) {
+    slots[["date-cell"]] <- template(
       htmltools::HTML(paste0(
         '<p :class="data.isSelected ? \'is-selected\' : \'\'">',
         "{{ data.day.split('-').slice(1).join('-') }}",
@@ -118,12 +117,14 @@ el_calendar <- function(id = NULL,
   vue_data <- list(  
     value = if (is.null(value)) format(Sys.Date(), "%Y-%m-%d") else {  
       if (inherits(value, "Date")) format(value, "%Y-%m-%d") else value  
-    },  
-    firstDayOfWeek = first_day_of_week  
+    }
   )  
   vue_data$range <- if (is.null(range)) NA else as.character(range)  
   
   el_widget(
+    props = .el_props(list(
+      controller_type = controller_type,
+      formatter = formatter)),
     label = label, label_position = label_position,
     label_width = label_width, label_suffix = label_suffix, required = required,
     error = error, show_message = show_message, inline_message = inline_message,
@@ -154,7 +155,6 @@ el_calendar <- function(id = NULL,
 #' @param id Component id
 #' @param value New value (Date/string/number)
 #' @param range New range (c("YYYY-MM-DD", "YYYY-MM-DD"))
-#' @param first_day_of_week New first day of week (1~7)
 #' @param session Shiny session; the current one by default, as for
 #'   [shiny::updateTextInput()].
 #' @param label New label, as for [shiny::updateTextInput()]: text, or
@@ -172,14 +172,13 @@ el_calendar <- function(id = NULL,
 #'   })
 #' }
 #' @export
-update_el_calendar <- function(session = shiny::getDefaultReactiveDomain(), id, value = NULL, range = NULL, first_day_of_week = NULL,
+update_el_calendar <- function(session = shiny::getDefaultReactiveDomain(), id, value = NULL, range = NULL,
                                label = NULL, error = NULL) {
   .el_check_session(session)
   ns_id <- session$ns(id)  
   message <- list(id = ns_id)  
   if (!is.null(value)) message$value <- if (inherits(value, "Date")) format(value, "%Y-%m-%d") else value  
   if (!is.null(range)) message$range <- as.character(range)  
-  if (!is.null(first_day_of_week)) message$firstDayOfWeek <- first_day_of_week  
   
   message <- .el_form_item_update(message, label, error)
   .el_send_update(session, message)

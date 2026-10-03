@@ -18,10 +18,18 @@
 #'   `selected` is Shiny's name, `value` Element's (its `v-model`); give
 #'   either.
 #' @param disabled Whether the entire group is disabled. Default `FALSE`.
-#' @param size Component size: `NULL`, `"medium"`, `"small"`, or `"mini"`.
+#' @param size Size: `"large"`, `"default"` or `"small"`; `NULL` follows the form or the page.
 #'   Only affects button-style radios (`button = TRUE`).
 #' @param button Whether to render as `<el-radio-button>` (pill/button style)
 #'   instead of standard `<el-radio>`. Default `FALSE`.
+#' @param aria_label Same as `aria-label` in RadioGroup. Element Plus's
+#'   `aria-label` (string).
+#' @param props Configuration options. Element Plus's `props` ({ value?:
+#'   string, label?: string, disabled?: string}).
+#' @param type Component type to render options (e.g. `'button'`). Element
+#'   Plus's `type` ('radio' | 'button').
+#' @param validate_event Whether to trigger form validation. Element Plus's
+#'   `validate-event` (boolean).
 #' @param session Deprecated. Inside a module, wrap `id` in `ns()`, as for
 #'   any Shiny input; a session given here namespaces `id` once more, with
 #'   a warning.
@@ -83,6 +91,10 @@ el_radio_group <- function(
     button   = FALSE,
     fill     = NULL,
     text_color = NULL,
+    aria_label = NULL,
+    props = NULL,
+    type = NULL,
+    validate_event = NULL,
     label = NULL,
     label_position = c("top", "left", "right"),
     label_width = NULL,
@@ -139,6 +151,11 @@ el_radio_group <- function(
   vue_data$fill <- .el_or_na(fill)
   vue_data$textColor <- .el_or_na(text_color)
   el_widget(
+    props = .el_props(list(
+      aria_label = aria_label,
+      props = props,
+      type = type,
+      validate_event = validate_event)),
     label = label, label_position = label_position,
     label_width = label_width, label_suffix = label_suffix, required = required,
     error = error, show_message = show_message, inline_message = inline_message,

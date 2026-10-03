@@ -21,10 +21,26 @@
 #'   Defaults to `"200px"` when `vertical = TRUE` and not explicitly provided.
 #' @param marks Named list of mark labels, e.g.,
 #'   `list("0" = "0km", "50" = "50km")`. Default `NULL` (no marks).
+#' @param aria_label Native `aria-label` attribute. Element Plus's
+#'   `aria-label` (string).
+#' @param format_value_text Format to display the `aria-valuenow` attribute
+#'   for screen readers. Element Plus's `format-value-text` ((value: number)
+#'   => string).
+#' @param persistent When slider tooltip inactive and `persistent` is `false`
+#'   , tooltip will be destroyed. `persistent` always be `false` when
+#'   `show-tooltip ` is `false`. Element Plus's `persistent` (boolean).
+#' @param placement Position of Tooltip. Element Plus's `placement` (enum).
+#' @param range_end_label When `range` is true, screen reader label for the
+#'   end of the range. Element Plus's `range-end-label` (string).
+#' @param range_start_label When `range` is true, screen reader label for the
+#'   start of the range. Element Plus's `range-start-label` (string).
+#' @param size Size of the slider wrapper, will not work in vertical mode.
+#'   Element Plus's `size` ('' | 'large' | 'default' | 'small').
+#' @param validate_event Whether to trigger form validation. Element Plus's
+#'   `validate-event` (boolean).
 #' @param session Deprecated. Inside a module, wrap `id` in `ns()`, as for
 #'   any Shiny input; a session given here namespaces `id` once more, with
 #'   a warning.
-#' @param debounce Debounce in ms while dragging, when `show_input = TRUE`. Default `300`.
 #' @param input_size Size of the companion input when `show_input = TRUE`.
 #' @param show_input_controls Whether the companion input shows its spinner buttons.
 #' @param tooltip_class Extra class name for the value tooltip.
@@ -84,8 +100,15 @@ el_slider <- function(
     vertical     = FALSE,
     height       = NULL,
     marks        = NULL,
+    aria_label = NULL,
+    format_value_text = NULL,
+    persistent = NULL,
+    placement = NULL,
+    range_end_label = NULL,
+    range_start_label = NULL,
+    size = NULL,
+    validate_event = NULL,
     label        = NULL,
-    debounce     = NULL,
     input_size   = NULL,
     show_input_controls = NULL,
     tooltip_class = NULL,
@@ -128,7 +151,6 @@ el_slider <- function(
   slider_attrs[[":height"]] <- .el_optional_bind("height")
   slider_attrs[[":marks"]] <- .el_optional_bind("marks")
   slider_attrs[[":label"]] <- .el_optional_bind("label")
-  slider_attrs[[":debounce"]] <- .el_optional_bind("debounce")
   slider_attrs[[":input-size"]] <- .el_optional_bind("inputSize")
   slider_attrs[[":show-input-controls"]] <- .el_optional_bind("showInputControls")
   slider_attrs[[":tooltip-class"]] <- .el_optional_bind("tooltipClass")
@@ -156,13 +178,21 @@ el_slider <- function(
   vue_data$height <- if (!is.null(height)) height else if (vertical) "200px" else NA
   vue_data$marks <- .el_or_na(marks)
   vue_data$label <- .el_or_na(label)
-  vue_data$debounce <- .el_or_na(debounce)
   vue_data$inputSize <- .el_or_na(input_size)
   vue_data$showInputControls <- .el_or_na(show_input_controls)
   vue_data$tooltipClass <- .el_or_na(tooltip_class)
   vue_data$formatTooltip <- .el_or_na(format_tooltip)
 
   el_widget(
+    props = .el_props(list(
+      aria_label = aria_label,
+      format_value_text = format_value_text,
+      persistent = persistent,
+      placement = placement,
+      range_end_label = range_end_label,
+      range_start_label = range_start_label,
+      size = size,
+      validate_event = validate_event)),
     # Reported as the value changes, debounced, as Shiny's own inputs are
     rate = list(policy = "debounce", delay = 250),
     label = label, label_position = label_position,

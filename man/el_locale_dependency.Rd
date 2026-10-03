@@ -2,37 +2,37 @@
 % Please edit documentation in R/el_dependencies.R
 \name{el_locale_dependency}
 \alias{el_locale_dependency}
-\title{Element UI Locale Dependency}
+\title{Element Plus Locale Dependency}
 \usage{
 el_locale_dependency(locale = NULL)
 }
 \arguments{
-\item{locale}{Language to switch to, such as \code{"en"}, \code{"fr"} or \code{"zh-TW"}.
-\code{NULL} or \code{"zh-CN"} leaves Element's built-in Simplified Chinese.}
+\item{locale}{Language to switch to, such as \code{"fr"}, \code{"zh-cn"} or
+\code{"pt-br"}. \code{NULL} or \code{"en"} leaves Element Plus's built-in English.}
 }
 \value{
 A list of htmlDependency objects, or \code{NULL} for the built-in locale.
 }
 \description{
-Element UI's own build defaults to Simplified Chinese for every
-component's built-in text -- a pagination control's total, a date picker's
-buttons, a select's placeholder, a table's empty message. Loading a locale
-file and calling \code{ELEMENT.locale()} switches all of it.
+Element Plus's own build is in English: a pagination control's total, a
+date picker's buttons, a select's placeholder, a table's empty message.
+Loading a locale file and handing it to Element Plus, as
+\code{app.use(ElementPlus, {locale})} does, switches all of it.
 }
 \details{
-\code{\link[=el_page]{el_page()}} and \code{\link[=use_element]{use_element()}} ask for English unless told otherwise, so
-a page built from this package's English documentation reads in English.
-All 59 of Element's locales are bundled; \code{el_locales()} lists them.
+All 67 of Element Plus's locales are bundled; \code{el_locales()} lists them.
+Codes are matched without regard to case, so Element UI's \code{"zh-CN"} is
+Element Plus's \code{"zh-cn"}.
 }
 \examples{
 el_locales()
 
-# English is the default
+# English is Element Plus's own
 el_page(el_select("city", choices = c("Beijing", "Shanghai")))
 
-# Anything Element ships
+# Anything Element Plus ships
 el_page(locale = "ja", el_select("city", choices = c("Beijing", "Shanghai")))
 
 # Or set it for the whole session
-options(shiny.element.locale = "zh-CN")
+options(shiny.element.locale = "zh-cn")
 }

@@ -10,7 +10,7 @@
 \item{theme}{A theme, a named list, or \code{NULL}.}
 }
 \value{
-A named character vector, names without the \verb{$--} prefix.
+A named character vector, names without the \verb{--el-} prefix.
 }
 \description{
 From a \code{\link[bslib:bs_theme]{bslib::bs_theme()}}: its \code{primary}, \code{success}, \code{warning}, \code{danger}

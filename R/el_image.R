@@ -18,6 +18,31 @@
 #'   on, 0-based.
 #' @param referrer_policy Value of the image's `referrerPolicy` attribute.
 #' @param width Component width, as a CSS unit.
+#' @param close_on_press_escape Whether the image-viewer can be closed by
+#'   pressing ESC. Element Plus's `close-on-press-escape` (boolean).
+#' @param crossorigin Native attribute crossorigin. Element Plus's
+#'   `crossorigin` ('' | 'anonymous' | 'use-credentials').
+#' @param hide_on_click_modal When enabling preview, use this flag to control
+#'   whether clicking on backdrop can exit preview mode. Element Plus's
+#'   `hide-on-click-modal` (boolean).
+#' @param infinite Whether the viewer preview is infinite. Element Plus's
+#'   `infinite` (boolean).
+#' @param loading Indicates how the browser should load the image, same as
+#'   native. Element Plus's `loading` ('eager' | 'lazy').
+#' @param max_scale The max scale of the image viewer zoom event. Element
+#'   Plus's `max-scale` (number).
+#' @param min_scale The min scale of the image viewer zoom event. Element
+#'   Plus's `min-scale` (number).
+#' @param preview_teleported Whether to append image-viewer to body. A nested
+#'   parent element attribute transform should have this attribute set to
+#'   `true`. Element Plus's `preview-teleported` (boolean).
+#' @param referrerpolicy Native attribute referrerPolicy. Element Plus's
+#'   `referrerpolicy` (string).
+#' @param scale The preview image scale. Element Plus's `scale` (number).
+#' @param show_progress Whether to display the preview image progress content.
+#'   Element Plus's `show-progress` (boolean).
+#' @param zoom_rate The zoom rate of the image viewer zoom event. Element
+#'   Plus's `zoom-rate` (number).
 #' @param session Deprecated. Inside a module, wrap `id` in `ns()`, as for
 #'   any Shiny input; a session given here namespaces `id` once more, with
 #'   a warning.
@@ -51,6 +76,18 @@ el_image <- function(id = NULL,
                      z_index = NULL,
                      referrer_policy = NULL,
                      initial_index   = NULL,
+                     close_on_press_escape = NULL,
+                     crossorigin = NULL,
+                     hide_on_click_modal = NULL,
+                     infinite = NULL,
+                     loading = NULL,
+                     max_scale = NULL,
+                     min_scale = NULL,
+                     preview_teleported = NULL,
+                     referrerpolicy = NULL,
+                     scale = NULL,
+                     show_progress = NULL,
+                     zoom_rate = NULL,
                      width = NULL,
                      slots   = NULL,
                      session = NULL) {
@@ -69,10 +106,23 @@ el_image <- function(id = NULL,
     ":referrer-policy"  = .el_optional_bind("referrerPolicy"),
     ":initial-index"    = .el_optional_bind("initialIndex")
   )
-  events <- .el_event_bindings(ns_id, c("load", "error"))
+  events <- .el_event_bindings(ns_id, c("load", "error", "close", "show", "switch"))
   attrs <- c(attrs, events$attrs)
 
   el_widget(
+    props = .el_props(list(
+      close_on_press_escape = close_on_press_escape,
+      crossorigin = crossorigin,
+      hide_on_click_modal = hide_on_click_modal,
+      infinite = infinite,
+      loading = loading,
+      max_scale = max_scale,
+      min_scale = min_scale,
+      preview_teleported = preview_teleported,
+      referrerpolicy = referrerpolicy,
+      scale = scale,
+      show_progress = show_progress,
+      zoom_rate = zoom_rate)),
     id     = ns_id,
     markup = htmltools::tag("el-image", attrs),
     data   = list(

@@ -6,6 +6,15 @@
 \usage{
 el_button(
   id = NULL,
+  auto_insert_space = NULL,
+  bg = NULL,
+  color = NULL,
+  dark = NULL,
+  dashed = NULL,
+  link = NULL,
+  loading_icon = NULL,
+  tag = NULL,
+  text = NULL,
   label = "Button",
   type = "default",
   size = NULL,
@@ -25,12 +34,42 @@ el_button(
 \arguments{
 \item{id}{Button ID. Auto-generated UUID if \code{NULL}.}
 
+\item{auto_insert_space}{Automatically insert a space between two chinese
+characters(this will only take effect when the text length is 2 and all
+characters are in Chinese.). Element Plus's \code{auto-insert-space}
+(boolean).}
+
+\item{bg}{Determine whether the text button background color is always on.
+Element Plus's \code{bg} (boolean).}
+
+\item{color}{Custom button color, automatically calculate \code{hover} and
+\code{active} color. Works with \code{link}/\code{text} buttons since. Element
+Plus's \code{color} (string).}
+
+\item{dark}{Dark mode, which automatically converts \code{color} to dark mode
+colors. Element Plus's \code{dark} (boolean).}
+
+\item{dashed}{Determine whether it's a dashed button. Element Plus's
+\code{dashed} (boolean).}
+
+\item{link}{Determine whether it's a link button. Element Plus's \code{link}
+(boolean).}
+
+\item{loading_icon}{Customize loading icon component. Element Plus's
+\code{loading-icon} (string / Component). An icon's name, such as \code{"Search"}.}
+
+\item{tag}{Custom element tag. Element Plus's \code{tag} (string / Component).
+An icon's name, such as \code{"Search"}.}
+
+\item{text}{Determine whether it's a text button. Element Plus's \code{text}
+(boolean).}
+
 \item{label}{Button text. Ignored (and defaults to \code{""}) when \code{circle = TRUE}.}
 
 \item{type}{Button type: \code{"default"}, \code{"primary"}, \code{"success"}, \code{"warning"},
 \code{"danger"}, \code{"info"}, \code{"text"}.}
 
-\item{size}{Button size: \code{NULL}, \code{"medium"}, \code{"small"}, \code{"mini"}.}
+\item{size}{Size: \code{"large"}, \code{"default"} or \code{"small"}; \code{NULL} follows the form or the page.}
 
 \item{plain}{Whether to use the plain (hollow) style. Default \code{FALSE}.}
 

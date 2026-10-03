@@ -13,11 +13,13 @@ el_progress(
   text_inside = FALSE,
   show_text = TRUE,
   color = NULL,
+  duration = NULL,
+  indeterminate = NULL,
+  striped = NULL,
+  striped_flow = NULL,
   width = 126,
   stroke_linecap = NULL,
   slots = NULL,
-  define_back_color = NULL,
-  text_color = NULL,
   format = NULL,
   session = NULL
 )
@@ -43,6 +45,18 @@ Default \code{"line"}.}
 \item{color}{Custom colour string (e.g. \code{"#409EFF"}). Overrides \code{status}
 colour when set. Default \code{NULL}.}
 
+\item{duration}{Control the animation duration of indeterminate progress or
+striped flow progress. Element Plus's \code{duration} (number).}
+
+\item{indeterminate}{Set indeterminate progress. Element Plus's
+\code{indeterminate} (boolean).}
+
+\item{striped}{Stripe over the progress bar's color. Element Plus's
+\code{striped} (boolean).}
+
+\item{striped_flow}{Get the stripes to flow. Element Plus's \code{striped-flow}
+(boolean).}
+
 \item{width}{Width in pixels for \code{"circle"} and \code{"dashboard"} types.
 Default \code{126}.}
 
@@ -52,10 +66,6 @@ Default \code{126}.}
 \code{list(title = shiny::tags$b("Bold"))}. A shiny.element component
 given here is absorbed rather than nested. For a scoped slot, write
 the template with \code{\link[=template]{template()}}.}
-
-\item{define_back_color}{Background colour of the track.}
-
-\item{text_color}{Colour of the percentage text.}
 
 \item{format}{\code{JS()} function \verb{function(percentage)} returning the text shown.}
 

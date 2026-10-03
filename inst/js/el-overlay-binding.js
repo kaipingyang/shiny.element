@@ -96,7 +96,8 @@
   // where nothing animates.
   function isDrawer(wrapper) { return wrapper.getAttribute('data-el-overlay') === 'drawer'; }
   function animate(wrapper, phase, done) {
-    var name = isDrawer(wrapper) ? 'el-drawer-fade' : 'dialog-fade';
+    var name = wrapper.getAttribute('data-transition') ||
+               (isDrawer(wrapper) ? 'el-drawer-fade' : 'dialog-fade');
     var from = name + '-' + phase + '-from', active = name + '-' + phase + '-active',
         to = name + '-' + phase + '-to';
     var finished = false;
@@ -120,18 +121,24 @@
 
   function isOpen(wrapper) { return !!wrapper._elOpen; }
 
+  // open-delay and close-delay: the change waits, and a later one cancels it
+  function later(wrapper, attr, fn) {
+    clearTimeout(wrapper._elDelay);
+    var ms = parseInt(wrapper.getAttribute(attr) || '0', 10);
+    if (ms > 0) wrapper._elDelay = setTimeout(fn, ms); else fn();
+  }
+
   function show(wrapper, notify) {
     if (isOpen(wrapper)) return;
-    // append-to-body: out of any container that could clip it. Moving a node
+    // append-to: out of any container that could clip it. Moving a node
     // keeps every binding and Vue instance inside it.
-    if (wrapper.getAttribute('data-append-to-body') === 'true' &&
-        wrapper.parentNode !== document.body) {
-      document.body.appendChild(wrapper);
-    }
+    var target = wrapper.getAttribute('data-append-to');
+    var into = target && document.querySelector(target);
+    if (into && wrapper.parentNode !== into) into.appendChild(wrapper);
     if (wrapper.getAttribute('data-destroy-on-close') === 'true') create(wrapper);
     wrapper._elOpen = true;
     if (notify !== false) report(wrapper, '_open');
-    wrapper.style.zIndex = nextZIndex();
+    wrapper.style.zIndex = wrapper.getAttribute('data-z-index') || nextZIndex();
     stack.push(wrapper);
     lockScroll();
     // A drawer gives focus back to what had it, as Element's does
@@ -140,7 +147,7 @@
     var panel = wrapper.querySelector('.el-drawer, .el-dialog');
     if (panel && isDrawer(wrapper)) panel.classList.add('open');
     animate(wrapper, 'enter', function() {
-      if (panel) panel.focus();
+      if (panel) { panel.focus(); report(wrapper, '_open_auto_focus'); }
       if (notify !== false) report(wrapper, '_opened');
     });
   }
@@ -161,7 +168,10 @@
       if (wrapper.getAttribute('data-destroy-on-close') === 'true') destroy(wrapper);
       var prev = wrapper._elPrevFocus;
       wrapper._elPrevFocus = null;
-      if (prev && prev.focus && document.body.contains(prev)) prev.focus();
+      if (prev && prev.focus && document.body.contains(prev)) {
+        prev.focus();
+        report(wrapper, '_close_auto_focus');
+      }
       report(wrapper, '_closed');
     });
   }
@@ -174,8 +184,8 @@
       wrapper._elBeforeClose = src ? eval('(' + src + ')') : null;
     }
     var fn = wrapper._elBeforeClose;
-    if (fn) fn(function() { hide(wrapper, true); });
-    else hide(wrapper, true);
+    var close = function() { later(wrapper, 'data-close-delay', function() { hide(wrapper, true); }); };
+    if (fn) fn(close); else close();
   }
 
   function makeBinding(selector, name) {
@@ -191,7 +201,10 @@
       },
 
       setValue: function(el, value) {
-        if (value) show(el); else hide(el, false);
+        later(el, value ? 'data-open-delay' : 'data-close-delay', function() {
+          if (value) show(el); else hide(el, false);
+          $(el).trigger('elOverlayChange');
+        });
       },
 
       initialize: function(el) {
@@ -200,7 +213,13 @@
         if (el.getAttribute('data-visible') === 'true') show(el, false);
         // Reached by el_call(): Element's drawer has closeDrawer(), which
         // closes it the way the user would, through before-close.
-        el._elMethods = { closeDrawer: function() { requestClose(el); } };
+        el._elMethods = {
+          closeDrawer: function() { requestClose(el); },
+          handleClose: function() { requestClose(el); },
+          resetPosition: function() { resetPosition(el); }
+        };
+        if (el.getAttribute('data-draggable') === 'true') draggable(el);
+        if (el.getAttribute('data-resizable') === 'true') resizable(el);
       },
 
       subscribe: function(el, callback) {
@@ -225,10 +244,7 @@
       },
 
       receiveMessage: function(el, data) {
-        if (data.hasOwnProperty('visible')) {
-          this.setValue(el, data.visible);
-          $(el).trigger('elOverlayChange');
-        }
+        if (data.hasOwnProperty('visible')) this.setValue(el, data.visible);
         if (data.hasOwnProperty('title')) {
           var t = el.querySelector('.el-dialog__title, .el-drawer__title');
           if (t) t.textContent = data.title;
@@ -249,6 +265,75 @@
 
     if (hasShiny) Shiny.inputBindings.register(binding, name);
     else standalone(binding);
+  }
+
+  // draggable: the dialog moves with its header, kept inside the viewport
+  // unless `overflow` lets it out; resetPosition() puts it back
+  function draggable(wrapper) {
+    var panel = wrapper.querySelector('.el-dialog');
+    var header = panel && panel.querySelector('.el-dialog__header');
+    if (!header) return;
+    header.addEventListener('mousedown', function(e) {
+      if (e.target.closest('.el-dialog__headerbtn')) return;
+      var x0 = e.clientX, y0 = e.clientY;
+      var dx0 = panel._elDx || 0, dy0 = panel._elDy || 0;
+      var rect = panel.getBoundingClientRect();
+      var free = wrapper.getAttribute('data-overflow') === 'true';
+      function move(ev) {
+        var dx = dx0 + ev.clientX - x0, dy = dy0 + ev.clientY - y0;
+        if (!free) {
+          dx = Math.min(Math.max(dx, dx0 - rect.left), dx0 + window.innerWidth - rect.right);
+          dy = Math.min(Math.max(dy, dy0 - rect.top), dy0 + window.innerHeight - rect.bottom);
+        }
+        panel._elDx = dx; panel._elDy = dy;
+        panel.style.transform = 'translate(' + dx + 'px, ' + dy + 'px)';
+      }
+      function up() {
+        document.removeEventListener('mousemove', move);
+        document.removeEventListener('mouseup', up);
+      }
+      document.addEventListener('mousemove', move);
+      document.addEventListener('mouseup', up);
+    });
+  }
+  function resetPosition(wrapper) {
+    var panel = wrapper.querySelector('.el-dialog');
+    if (!panel) return;
+    panel._elDx = panel._elDy = 0;
+    panel.style.transform = '';
+  }
+
+  // resizable: the drawer's inner edge drags its size, reported as it goes
+  function resizable(wrapper) {
+    var panel = wrapper.querySelector('.el-drawer');
+    var dragger = panel && panel.querySelector('.el-drawer__dragger');
+    if (!dragger) return;
+    var dir = (panel.className.match(/\b(rtl|ltr|ttb|btt)\b/) || [])[1] || 'rtl';
+    var vertical = dir === 'ttb' || dir === 'btt';
+    function sizeNow() { var r = panel.getBoundingClientRect(); return vertical ? r.height : r.width; }
+    function send(what, v) {
+      hasShiny && Shiny.setInputValue && Shiny.setInputValue(wrapper.id + what, v, { priority: 'event' });
+    }
+    dragger.addEventListener('mousedown', function(e) {
+      e.preventDefault();
+      var start = vertical ? e.clientY : e.clientX, size0 = sizeNow();
+      var sign = (dir === 'rtl' || dir === 'btt') ? -1 : 1;
+      send('_resize_start', Math.round(size0));
+      var last = 0;
+      function move(ev) {
+        var now = vertical ? ev.clientY : ev.clientX;
+        var size = Math.max(0, size0 + sign * (now - start));
+        panel.style[vertical ? 'height' : 'width'] = size + 'px';
+        if (Date.now() - last > 100) { last = Date.now(); send('_resize', Math.round(size)); }
+      }
+      function up() {
+        document.removeEventListener('mousemove', move);
+        document.removeEventListener('mouseup', up);
+        send('_resize_end', Math.round(sizeNow()));
+      }
+      document.addEventListener('mousemove', move);
+      document.addEventListener('mouseup', up);
+    });
   }
 
   function isMask(wrapper, target) {

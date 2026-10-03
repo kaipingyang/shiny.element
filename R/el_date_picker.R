@@ -9,11 +9,12 @@
 #'   (default) leaves the picker empty.
 #' @param type Picker type: `"date"` (default), `"datetime"`, `"daterange"`,
 #'   `"datetimerange"`, `"month"`, `"year"`, `"week"`.
-#' @param value_format Format string returned to Shiny when a date is selected.
-#'   Uses Element UI format tokens (e.g., `"yyyy-MM-dd"`). Default
-#'   `"yyyy-MM-dd"`.
-#' @param format Display format shown in the input box. Uses Element UI format
-#'   tokens. `NULL` (default) falls back to `value_format`.
+#' @param value_format Format string returned to Shiny when a date is selected,
+#'   in day.js's tokens, as Element Plus takes it (e.g., `"YYYY-MM-DD"`).
+#'   Default `"YYYY-MM-DD"`. Element UI's tokens -- `"yyyy-MM-dd"`,
+#'   `"timestamp"` -- are translated.
+#' @param format Display format shown in the input box, in day.js's tokens.
+#'   `NULL` (default) falls back to `value_format`.
 #' @param placeholder Placeholder text for non-range types.
 #' @param start_placeholder Placeholder for the start input in range types.
 #' @param end_placeholder Placeholder for the end input in range types.
@@ -23,11 +24,61 @@
 #' @param readonly Whether the picker is read-only. Default `FALSE`.
 #' @param range_separator Separator string displayed between start and end in
 #'   range types. Default `"-"`.
-#' @param align Input alignment: `"left"` (default), `"center"`, `"right"`.
+#' @param arrow_control Whether to pick time using arrow buttons. Element
+#'   Plus's `arrow-control` (boolean).
+#' @param automatic_dropdown This prop decides if the date picker panel pops
+#'   up when the input is focused. (The default value will be set to false in
+#'   version 3.0). Element Plus's `automatic-dropdown` (boolean).
+#' @param cell_class_name Set custom className. Element Plus's
+#'   `cell-class-name` ((data: Date) => string).
+#' @param date_format Optional, format of the date displayed in input's inner
+#'   panel. Element Plus's `date-format` (string).
+#' @param disabled_date A function determining if a date is disabled with that
+#'   date as its parameter. Should return a Boolean. Element Plus's
+#'   `disabled-date` ((data: Date) => boolean).
+#' @param disabled_hours To specify the array of hours that cannot be
+#'   selected. Element Plus's `disabled-hours` ((role: string, comparingDate?:
+#'   Dayjs) => number[]).
+#' @param disabled_minutes To specify the array of minutes that cannot be
+#'   selected. Element Plus's `disabled-minutes` ((hour: number, role: string,
+#'   comparingDate?: Dayjs) => number[]).
+#' @param disabled_seconds To specify the array of seconds that cannot be
+#'   selected. Element Plus's `disabled-seconds` (Function). Give it as
+#'   [JS()].
+#' @param empty_values Empty values of component, see config-provider. Element
+#'   Plus's `empty-values` (array).
+#' @param fallback_placements List of possible positions for Tooltip
+#'   popper.js. Element Plus's `fallback-placements` (Placement[]).
+#' @param placement Position of dropdown. Element Plus's `placement`.
+#' @param popper_options Customized popper option see more at popper.js.
+#'   Element Plus's `popper-options` (Partial<PopperOptions>).
+#' @param popper_style Custom style for DatePicker's dropdown. Element Plus's
+#'   `popper-style` (string / object).
+#' @param shortcuts An object array to set shortcut options. Element Plus's
+#'   `shortcuts` (Array<{ text: string, value: Date | Function }>). Give it as
+#'   [JS()].
+#' @param show_confirm Whether to show the confirm button. Element Plus's
+#'   `show-confirm` (boolean).
+#' @param show_footer Whether to show footer where the date picker is one
+#'   `'dates' | 'months' | 'years' | 'quarters'`. Element Plus's
+#'   `show-footer` (boolean).
+#' @param show_now Whether to show the now button. Element Plus's `show-now`
+#'   (boolean).
+#' @param show_week_number Show the week number besides the week. Element
+#'   Plus's `show-week-number` (boolean).
+#' @param single_panel Show only one panel in range-picker. Element Plus's
+#'   `single-panel` (boolean).
+#' @param teleported Whether date-picker dropdown is teleported to the body.
+#'   Element Plus's `teleported` (boolean).
+#' @param time_format Optional, format of the time displayed in input's inner
+#'   panel. Element Plus's `time-format` (string).
+#' @param value_on_clear Clear return value, see config-provider. Element
+#'   Plus's `value-on-clear` (string / number / boolean / Function). Give it
+#'   as [JS()].
 #' @param session Deprecated. Inside a module, wrap `id` in `ns()`, as for
 #'   any Shiny input; a session given here namespaces `id` once more, with
 #'   a warning.
-#' @param size Input size: `"medium"`, `"small"` or `"mini"`.
+#' @param size Size: `"large"`, `"default"` or `"small"`; `NULL` follows the form or the page.
 #' @param name Native `name` attribute.
 #' @param prefix_icon Icon class shown at the start of the input.
 #' @param clear_icon Icon class of the clear button.
@@ -35,10 +86,7 @@
 #' @param default_value Date the panel opens on when nothing is selected.
 #' @param default_time Time part used when a date is picked, as `"HH:mm:ss"`.
 #' @param unlink_panels Whether the two panels of a range picker move independently.
-#' @param picker_options Additional Element picker options, as a named list.
 #' @param validate_event Whether a change triggers form validation. Default `TRUE`.
-#' @param append_to_body Whether the picker panel is appended to `body`. Default `TRUE`; `FALSE` keeps it inside a dialog or a scrolling container.
-#' @param time_arrow_control For `type = "datetime"`: whether the time is picked with arrow buttons rather than by scrolling.
 #' @inheritParams el_widget
 #' @param width Component width, as a CSS unit -- `"200px"`, `"50%"`, or a
 #'   number taken as pixels. Element's own markup carries it, so it behaves
@@ -93,7 +141,7 @@ el_date_picker <- function(
     id                = NULL,
     value             = NULL,
     type              = "date",
-    value_format      = "yyyy-MM-dd",
+    value_format      = "YYYY-MM-DD",
     format            = NULL,
     placeholder       = NULL,
     start_placeholder = NULL,
@@ -103,7 +151,6 @@ el_date_picker <- function(
     editable          = TRUE,
     readonly          = FALSE,
     range_separator   = "-",
-    align             = "left",
     size              = NULL,
     name              = NULL,
     prefix_icon       = NULL,
@@ -112,8 +159,29 @@ el_date_picker <- function(
     default_value     = NULL,
     default_time      = NULL,
     unlink_panels     = NULL,
-    picker_options    = NULL,
     validate_event    = NULL,
+    arrow_control = NULL,
+    automatic_dropdown = NULL,
+    cell_class_name = NULL,
+    date_format = NULL,
+    disabled_date = NULL,
+    disabled_hours = NULL,
+    disabled_minutes = NULL,
+    disabled_seconds = NULL,
+    empty_values = NULL,
+    fallback_placements = NULL,
+    placement = NULL,
+    popper_options = NULL,
+    popper_style = NULL,
+    shortcuts = NULL,
+    show_confirm = NULL,
+    show_footer = NULL,
+    show_now = NULL,
+    show_week_number = NULL,
+    single_panel = NULL,
+    teleported = NULL,
+    time_format = NULL,
+    value_on_clear = NULL,
     label = NULL,
     label_position = c("top", "left", "right"),
     label_width = NULL,
@@ -124,8 +192,6 @@ el_date_picker <- function(
     inline_message = FALSE,
     width             = NULL,
     slots             = NULL,
-    append_to_body    = NULL,
-    time_arrow_control = NULL,
     session           = NULL
 ) {
   .el_check_choices("el_date_picker", environment())
@@ -147,7 +213,9 @@ el_date_picker <- function(
     value
   }
 
-  # Resolve display format
+  # Element UI's date tokens, as day.js spells them
+  value_format <- .el_dayjs_format(value_format)
+  format <- .el_dayjs_format(format)
   display_format <- if (!is.null(format)) format else value_format
 
   # Vue binding attributes
@@ -161,7 +229,6 @@ el_date_picker <- function(
     ":editable"        = "editable",
     ":readonly"        = "readonly",
     ":range-separator" = "rangeSeparator",
-    ":align"           = "align",
     "@change"          = "handleChange"
   )
   picker_attrs[[":placeholder"]] <- .el_optional_bind("placeholder")
@@ -175,16 +242,13 @@ el_date_picker <- function(
   picker_attrs[[":default-value"]] <- .el_optional_bind("defaultValue")
   picker_attrs[[":default-time"]] <- .el_optional_bind("defaultTime")
   picker_attrs[[":unlink-panels"]] <- .el_optional_bind("unlinkPanels")
-  picker_attrs[[":picker-options"]] <- .el_optional_bind("pickerOptions")
   picker_attrs[[":validate-event"]] <- .el_optional_bind("validateEvent")
-  picker_attrs[[":append-to-body"]] <- .el_optional_bind("appendToBody")
-  picker_attrs[[":time-arrow-control"]] <- .el_optional_bind("timeArrowControl")
 
   # Forwarded to input$<id>_<event>; see .el_event_bindings().
   events <- .el_event_bindings(ns_id, c(
     "blur",
-    "focus"
-  ))
+    "focus",
+    "calendar-change", "clear", "panel-change", "visible-change"))
   picker_attrs <- c(picker_attrs, events$attrs)
   # Vue data
   vue_data <- list(
@@ -196,8 +260,7 @@ el_date_picker <- function(
     disabled       = disabled,
     editable       = editable,
     readonly       = readonly,
-    rangeSeparator = range_separator,
-    align          = align
+    rangeSeparator = range_separator
   )
   vue_data$placeholder <- if (is.null(placeholder)) NA else placeholder
   vue_data$startPlaceholder <- .el_or_na(start_placeholder)
@@ -210,11 +273,31 @@ el_date_picker <- function(
   vue_data$defaultValue <- .el_or_na(default_value)
   vue_data$defaultTime <- .el_or_na(default_time)
   vue_data$unlinkPanels <- .el_or_na(unlink_panels)
-  vue_data$pickerOptions <- .el_or_na(picker_options)
   vue_data$validateEvent <- .el_or_na(validate_event)
-  vue_data$appendToBody <- .el_or_na(append_to_body)
-  vue_data$timeArrowControl <- .el_or_na(time_arrow_control)
   el_widget(
+    props = .el_props(list(
+      arrow_control = arrow_control,
+      automatic_dropdown = automatic_dropdown,
+      cell_class_name = cell_class_name,
+      date_format = date_format,
+      disabled_date = disabled_date,
+      disabled_hours = disabled_hours,
+      disabled_minutes = disabled_minutes,
+      disabled_seconds = disabled_seconds,
+      empty_values = empty_values,
+      fallback_placements = fallback_placements,
+      placement = placement,
+      popper_options = popper_options,
+      popper_style = popper_style,
+      shortcuts = shortcuts,
+      show_confirm = show_confirm,
+      show_footer = show_footer,
+      show_now = show_now,
+      show_week_number = show_week_number,
+      single_panel = single_panel,
+      teleported = teleported,
+      time_format = time_format,
+      value_on_clear = value_on_clear)),
     label = label, label_position = label_position,
     label_width = label_width, label_suffix = label_suffix, required = required,
     error = error, show_message = show_message, inline_message = inline_message,
@@ -229,7 +312,7 @@ el_date_picker <- function(
     )),
     mounted = .el_mounted_init(stats::setNames("value", ns_id)),
     type    = if (type %in% c("date", "dates", "daterange") &&
-                  identical(value_format, "yyyy-MM-dd")) "shiny.element.date",
+                  identical(value_format, "YYYY-MM-DD")) "shiny.element.date",
     width      = width,
     slots      = slots
   )

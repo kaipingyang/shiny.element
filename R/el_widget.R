@@ -61,6 +61,8 @@
 #' @param rate How often the value is sent while it changes:
 #'   `list(policy = "debounce", delay = 250)`, as Shiny's `textInput()` does,
 #'   or `"throttle"`. `NULL`, the default, sends every change.
+#' @param props Optional props from `.el_props()`: bound on the root tag of
+#'   `markup`, with their fields added to `data`.
 #' @param type An input type for [shiny::registerInputHandler()], which
 #'   converts the value on its way into R.
 #' @return A Shiny UI element with its dependencies attached.
@@ -91,8 +93,15 @@ el_widget <- function(id, markup, data, methods = NULL, watch = NULL,
                       rate = NULL, type = NULL, label = NULL,
                       label_position = c("top", "left", "right"),
                       label_width = NULL, label_suffix = NULL, required = FALSE,
-                      error = NULL, show_message = TRUE, inline_message = FALSE) {
+                      error = NULL, show_message = TRUE, inline_message = FALSE,
+                      props = NULL) {
   container_id <- paste0(id, "_container")
+  # Optional props from .el_props(): bound on the component's own tag, the
+  # root of `markup`, with their fields in the data
+  if (length(props$attrs)) {
+    markup <- do.call(htmltools::tagAppendAttributes, c(list(markup), props$attrs))
+    data <- c(data, props$data)
+  }
   label_position <- match.arg(label_position)
   mounted_given <- mounted
   methods_given <- methods
@@ -305,7 +314,9 @@ el_widget <- function(id, markup, data, methods = NULL, watch = NULL,
     if (inherits(ui, "html") && grepl("^\\s*<template", as.character(ui))) {
       return(ui)
     }
-    .el_slot(name, ui)
+    # Element Plus names its slots in kebab-case -- date-cell, sub-title --
+    # and Vue 3 matches them as written
+    .el_slot(gsub("([a-z0-9])([A-Z])", "\\1-\\L\\2", name, perl = TRUE), ui)
   }, names(slots), merged$markups)
 
   list(markup = unname(markup), data = merged$data, methods = merged$methods,

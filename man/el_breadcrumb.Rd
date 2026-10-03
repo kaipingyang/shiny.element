@@ -8,7 +8,7 @@ el_breadcrumb(
   id = NULL,
   items = list(),
   separator = NULL,
-  separator_class = NULL,
+  separator_icon = NULL,
   width = NULL,
   slots = NULL,
   session = NULL
@@ -22,8 +22,9 @@ optional and makes that step a link; the last step is usually plain text.}
 
 \item{separator}{Separator character. Default \code{"/"}.}
 
-\item{separator_class}{Icon class to use as the separator instead of a
-character, such as \code{"el-icon-arrow-right"}.}
+\item{separator_icon}{Icon component of icon separator. Element Plus's
+\code{separator-icon} (string / Component). An icon's name, such as
+\code{"Search"}.}
 
 \item{width}{Component width, as a CSS unit.}
 
@@ -61,6 +62,6 @@ el_breadcrumb("trail", items = list(
 # An arrow instead of a slash
 el_breadcrumb("trail",
   items = list(list(label = "Home"), list(label = "Detail")),
-  separator_class = "el-icon-arrow-right"
+  separator_icon = "ArrowRight"
 )
 }

@@ -10,7 +10,7 @@
 #'   above a partly checked group. Only the look: `value` is unchanged.
 #' @param disabled Whether the box is disabled.
 #' @param border Draw the box with a border.
-#' @param size `"medium"`, `"small"` or `"mini"`; only with `border = TRUE`.
+#' @param size Size: `"large"`, `"default"` or `"small"`; `NULL` follows the form or the page.
 #' @param true_label,false_label Values to report instead of `TRUE` and
 #'   `FALSE`.
 #' @param name Native `name` attribute.
@@ -20,6 +20,20 @@
 #' @param width Component width, as a CSS unit.
 #' @param slots Named list of Element slot contents; the default slot
 #'   replaces `label`.
+#' @param aria_controls Same as aria-controls, takes effect when
+#'   `indeterminate` is `true`. Element Plus's `aria-controls` (string).
+#' @param aria_label Native `aria-label` attribute. Element Plus's
+#'   `aria-label` (string).
+#' @param controls Same as aria-controls, takes effect when `indeterminate` is
+#'   `true`. Element Plus's `controls` (string).
+#' @param false_value Value of the Checkbox if it's not checked. Element
+#'   Plus's `false-value` (string / number).
+#' @param tabindex Input tabindex. Element Plus's `tabindex` (string /
+#'   number).
+#' @param true_value Value of the Checkbox if it's checked. Element Plus's
+#'   `true-value` (string / number).
+#' @param validate_event Whether to trigger form validation. Element Plus's
+#'   `validate-event` (boolean).
 #' @param session Deprecated. Inside a module, wrap `id` in `ns()`, as for
 #'   any Shiny input; a session given here namespaces `id` once more, with
 #'   a warning.
@@ -38,6 +52,13 @@
 #' el_checkbox("remember", "Remember me", value = TRUE, border = TRUE)
 #' @export
 el_checkbox <- function(id = NULL,
+                        aria_controls = NULL,
+                        aria_label = NULL,
+                        controls = NULL,
+                        false_value = NULL,
+                        tabindex = NULL,
+                        true_value = NULL,
+                        validate_event = NULL,
                         label = NULL,
                         value = FALSE,
                         indeterminate = NULL,
@@ -64,6 +85,14 @@ el_checkbox <- function(id = NULL,
   for (f in names(fields)) attrs[[paste0(":", .el_kebab_case(f))]] <- .el_optional_bind(f)
 
   el_widget(
+    props = .el_props(list(
+      aria_controls = aria_controls,
+      aria_label = aria_label,
+      controls = controls,
+      false_value = false_value,
+      tabindex = tabindex,
+      true_value = true_value,
+      validate_event = validate_event)),
     id     = ns_id,
     markup = htmltools::tag("el-checkbox", attrs),
     data   = c(list(value = value, text = if (is.null(label)) "" else label),

@@ -2,7 +2,7 @@
 % Please edit documentation in R/el_tabs.R
 \name{el_tabs}
 \alias{el_tabs}
-\title{Element UI Tabs}
+\title{Element Plus Tabs}
 \usage{
 el_tabs(
   id = NULL,
@@ -14,6 +14,7 @@ el_tabs(
   addable = FALSE,
   editable = FALSE,
   stretch = FALSE,
+  add_icon = NULL,
   before_leave = NULL,
   session = NULL
 )
@@ -49,6 +50,8 @@ from the page; the server is told through \verb{input$<id>_tab_remove}.}
 \item{editable}{\code{closable} and \code{addable} together.}
 
 \item{stretch}{Stretch the tabs to fill the available width.}
+
+\item{add_icon}{The add button's icon, by name. Default \code{"Plus"}.}
 
 \item{before_leave}{\code{JS()} function
 \verb{function(activeName, oldActiveName)} run before switching tabs; return

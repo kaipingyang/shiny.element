@@ -3,30 +3,41 @@
 \name{el_time_picker}
 \alias{el_time_picker}
 \alias{el_time_select}
-\title{Element UI Time Picker}
+\title{Element Plus Time Picker}
 \usage{
 el_time_picker(
   id = NULL,
   value = NULL,
   is_range = FALSE,
   value_format = "HH:mm:ss",
+  format = NULL,
   arrow_control = NULL,
   placeholder = NULL,
   start_placeholder = NULL,
   end_placeholder = NULL,
   range_separator = NULL,
-  picker_options = NULL,
   clearable = NULL,
   disabled = NULL,
   editable = NULL,
   readonly = NULL,
   size = NULL,
-  align = NULL,
   popper_class = NULL,
+  popper_style = NULL,
+  popper_options = NULL,
+  placement = NULL,
+  fallback_placements = NULL,
   default_value = NULL,
-  name = NULL,
+  disabled_hours = NULL,
+  disabled_minutes = NULL,
+  disabled_seconds = NULL,
   prefix_icon = NULL,
   clear_icon = NULL,
+  teleported = NULL,
+  tabindex = NULL,
+  aria_label = NULL,
+  empty_values = NULL,
+  value_on_clear = NULL,
+  save_on_blur = NULL,
   label = NULL,
   label_position = c("top", "left", "right"),
   label_width = NULL,
@@ -43,19 +54,25 @@ el_time_picker(
 el_time_select(
   id = NULL,
   value = NULL,
-  picker_options = NULL,
+  start = NULL,
+  end = NULL,
+  step = NULL,
+  min_time = NULL,
+  max_time = NULL,
+  include_end_time = NULL,
+  format = NULL,
   placeholder = NULL,
   clearable = NULL,
   disabled = NULL,
   editable = NULL,
-  readonly = NULL,
   size = NULL,
-  align = NULL,
+  effect = NULL,
   popper_class = NULL,
-  default_value = NULL,
-  name = NULL,
+  popper_style = NULL,
   prefix_icon = NULL,
   clear_icon = NULL,
+  empty_values = NULL,
+  value_on_clear = NULL,
   label = NULL,
   label_position = c("top", "left", "right"),
   label_width = NULL,
@@ -77,8 +94,10 @@ range.}
 
 \item{is_range}{Pick a start and an end rather than a single time.}
 
-\item{value_format}{Format of the value reported to Shiny. Default
-\code{"HH:mm:ss"}.}
+\item{value_format}{Format of the value reported to Shiny, in day.js's
+tokens. Default \code{"HH:mm:ss"}.}
+
+\item{format}{Format of the time shown in the input, in day.js's tokens.}
 
 \item{arrow_control}{Whether hours, minutes and seconds are changed with
 arrow buttons rather than by scrolling.}
@@ -88,24 +107,32 @@ latter two for a range.}
 
 \item{range_separator}{Text between the two times of a range. Default \code{"-"}.}
 
-\item{picker_options}{Further options, as a named list -- for
-\code{el_time_picker()}, \code{selectableRange} and \code{format}; for
-\code{el_time_select()}, \code{start}, \code{end}, \code{step}, \code{minTime} and \code{maxTime}.}
-
 \item{clearable, disabled, editable, readonly}{As for an input.}
 
-\item{size}{\code{"medium"}, \code{"small"} or \code{"mini"}.}
+\item{size}{Size: \code{"large"}, \code{"default"} or \code{"small"}; \code{NULL} follows the form or the page.}
 
-\item{align}{Alignment of the panel: \code{"left"} (default), \code{"center"},
-\code{"right"}.}
+\item{popper_class, popper_style}{Extra class name and style for the panel.}
 
-\item{popper_class}{Extra class name for the panel.}
+\item{popper_options, placement, fallback_placements}{Where the panel opens,
+as Element Plus's tooltip takes them.}
 
 \item{default_value}{Time the panel opens on when nothing is picked.}
 
-\item{name}{Native \code{name} attribute.}
+\item{disabled_hours, disabled_minutes, disabled_seconds}{\code{\link[=JS]{JS()}} functions
+returning the hours, minutes or seconds that cannot be picked -- what
+Element UI's \code{selectableRange} did.}
 
-\item{prefix_icon, clear_icon}{Icon classes.}
+\item{prefix_icon, clear_icon}{Icons, by name: \code{"Clock"}, \code{"CircleClose"}.}
+
+\item{teleported}{Whether the panel is moved to \verb{<body>}.}
+
+\item{tabindex, aria_label}{Native attributes of the input.}
+
+\item{empty_values, value_on_clear}{What counts as empty, and the value a
+cleared picker reports. See Element Plus's config provider.}
+
+\item{save_on_blur}{Whether the time typed is kept when the input loses
+focus.}
 
 \item{label}{A label shown with the component, as Shiny's inputs have:
 text or a tag. \code{NULL}, the default, shows none. It is the component's
@@ -141,6 +168,12 @@ whether beside the component rather than under it. Element's
 \item{session}{Deprecated. Inside a module, wrap \code{id} in \code{ns()}, as for
 any Shiny input; a session given here namespaces \code{id} once more, with
 a warning.}
+
+\item{include_end_time, start, end, step, min_time, max_time}{For
+\code{el_time_select()}: the first and last time offered, the interval,
+whether \code{end} itself is offered, and the bounds of what can be picked.}
+
+\item{effect}{\code{"light"} (default) or \code{"dark"} panel, for \code{el_time_select()}.}
 }
 \value{
 A Shiny UI element.
@@ -154,29 +187,28 @@ interval, such as every half hour between nine and six.
 
 \itemize{
 \item \verb{input$<id>} -- the time, or two for a range, on load and on change.
-\item \verb{input$<id>_blur}, \verb{input$<id>_focus} -- as the field loses and gains
-focus.
+\item \verb{input$<id>_blur}, \verb{input$<id>_focus}, \verb{input$<id>_clear} -- as the field
+loses and gains focus, and is cleared; \verb{input$<id>_visible_change} as
+the panel opens and closes (\code{el_time_picker()}).
 }
 }
 
 \section{Element methods}{
 
-Callable with \code{\link[=el_call]{el_call()}}:
-\itemize{
-\item \code{focus()} -- focus the input
-}
+Callable with \code{\link[=el_call]{el_call()}}: \code{focus()}, \code{blur()}; and for \code{el_time_picker()},
+\code{handleOpen()} and \code{handleClose()}.
 }
 
 \examples{
 el_time_picker("start", value = "09:30:00")
 
 # Only office hours
-el_time_picker("start", picker_options = list(selectableRange = "09:00:00 - 18:00:00"))
+el_time_picker("start", disabled_hours = JS(
+  "function() { var h = []; for (var i = 0; i < 24; i++) if (i < 9 || i > 18) h.push(i); return h; }"))
 
 # A range
 el_time_picker("shift", is_range = TRUE, value = c("09:00:00", "17:30:00"))
 
 # Every half hour between nine and six
-el_time_select("slot", picker_options = list(start = "09:00", step = "00:30",
-                                             end = "18:00"))
+el_time_select("slot", start = "09:00", step = "00:30", end = "18:00")
 }

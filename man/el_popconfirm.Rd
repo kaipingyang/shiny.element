@@ -15,6 +15,10 @@ el_popconfirm(
   icon = NULL,
   icon_color = NULL,
   hide_icon = NULL,
+  effect = NULL,
+  hide_after = NULL,
+  persistent = NULL,
+  teleported = NULL,
   width = NULL,
   slots = NULL,
   session = NULL
@@ -40,6 +44,18 @@ keep reporting. Its \verb{update_el_*()} no longer reaches it, though.}
 \item{icon_color}{Colour of that icon.}
 
 \item{hide_icon}{Whether to leave the icon out. Default \code{FALSE}.}
+
+\item{effect}{Tooltip theme, built-in theme: \code{dark} / \code{light}. Element
+Plus's \code{effect} ('dark' | 'light' / string).}
+
+\item{hide_after}{Delay of disappear, in millisecond. Element Plus's
+\code{hide-after} (number).}
+
+\item{persistent}{When popconfirm inactive and \code{persistent} is \code{false} ,
+popconfirm will be destroyed. Element Plus's \code{persistent} (boolean).}
+
+\item{teleported}{Whether popconfirm is teleported to the body. Element
+Plus's \code{teleported} (boolean).}
 
 \item{width}{Component width, as a CSS unit.}
 

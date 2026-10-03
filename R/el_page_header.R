@@ -6,6 +6,8 @@
 #' @param title Text of the back link. Default `"Back"`.
 #' @param content The page's own title, shown after the separator.
 #' @param width Component width, as a CSS unit.
+#' @param icon Icon component of page header. Element Plus's `icon` (string /
+#'   Component). An icon's name, such as `"Search"`.
 #' @param session Deprecated. Inside a module, wrap `id` in `ns()`, as for
 #'   any Shiny input; a session given here namespaces `id` once more, with
 #'   a warning.
@@ -39,6 +41,7 @@
 el_page_header <- function(id = NULL,
                            title = NULL,
                            content = NULL,
+                           icon = NULL,
                            width = NULL,
                            slots   = NULL,
                            session = NULL) {
@@ -53,6 +56,8 @@ el_page_header <- function(id = NULL,
   attrs <- c(attrs, events$attrs)
 
   el_widget(
+    props = .el_props(list(
+      icon = .el_icon_name(icon))),
     id     = ns_id,
     markup = htmltools::tag("el-page-header", attrs),
     data   = list(title = .el_or_na(title), content = .el_or_na(content)),

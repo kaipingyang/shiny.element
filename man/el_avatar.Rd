@@ -28,7 +28,7 @@ el_avatar(
 
 \item{icon}{Element icon class, such as \code{"el-icon-user-solid"}.}
 
-\item{size}{\code{"large"} (default), \code{"medium"}, \code{"small"}, or a number of pixels.}
+\item{size}{Size: \code{"large"}, \code{"default"} or \code{"small"}; \code{NULL} follows the form or the page.}
 
 \item{shape}{\code{"circle"} (default) or \code{"square"}.}
 

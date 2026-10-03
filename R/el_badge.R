@@ -1,4 +1,4 @@
-#' Element UI Badge
+#' Element Plus Badge
 #'
 #' Wraps any content with a numeric badge or red dot in the top-right corner.
 #' When used without content, renders a standalone badge element.
@@ -11,6 +11,11 @@
 #' @param hidden Whether to hide the badge. Default `FALSE`.
 #' @param type Badge colour type: `NULL` (red, default), `"primary"`,
 #'   `"success"`, `"warning"`, `"info"`, `"danger"`.
+#' @param show_zero Whether a value of `0` is shown. Default `TRUE`.
+#' @param color Background colour of the badge.
+#' @param offset Offset of the badge, `c(x, y)` in pixels.
+#' @param badge_style,badge_class Extra CSS -- a string or a named list -- and
+#'   class names for the badge.
 #' @param id Give the badge an id and [update_el_badge()] can change it -- a
 #'   count of unread messages, say. A component inside is then folded into
 #'   the badge's Vue instance, as for [el_tooltip()]: it keeps reporting, but
@@ -28,7 +33,9 @@
 #'
 #' @export
 el_badge <- function(..., value = NULL, max = NULL, is_dot = FALSE,
-                     hidden = FALSE, type = NULL, id = NULL) {
+                     hidden = FALSE, type = NULL, show_zero = TRUE, color = NULL,
+                     offset = NULL, badge_style = NULL, badge_class = NULL,
+                     id = NULL) {
   .el_check_choices("el_badge", environment())
   if (!is.null(id)) {
     content <- list(...)
@@ -43,6 +50,9 @@ el_badge <- function(..., value = NULL, max = NULL, is_dot = FALSE,
     merged <- .el_absorb_merge(own, inner)
     return(el_widget(
       id     = .el_ui_id(id, NULL),
+      props  = .el_props(prefix = "badge", list(
+        show_zero = show_zero, color = color, offset = offset,
+        badge_style = badge_style, badge_class = badge_class)),
       markup = htmltools::tag("el-badge", c(list(
         ":value"  = .el_optional_bind("badgeValue"),
         ":max"    = .el_optional_bind("badgeMax"),
@@ -65,17 +75,26 @@ el_badge <- function(..., value = NULL, max = NULL, is_dot = FALSE,
     NULL
   }
 
+  # Element Plus hides a zero unless show_zero says otherwise
+  if (!isTRUE(show_zero) && identical(as.character(value), "0")) display_value <- NULL
   show_sup <- !hidden && (is_dot || !is.null(display_value))
 
   sup_classes <- c(
     "el-badge__content",
-    if (!is.null(type)) paste0("el-badge__content--", type),
+    paste0("el-badge__content--", if (is.null(type)) "danger" else type),
+    badge_class,
     if (length(list(...)) > 0) "is-fixed",
     if (is_dot) "is-dot"
   )
 
   sup_tag <- if (show_sup) {
-    sup_attrs <- list(class = paste(sup_classes, collapse = " "))
+    style <- paste0(
+      if (!is.null(color)) sprintf("background-color:%s;", color),
+      if (length(offset) == 2) sprintf("margin-right:%spx;margin-top:%spx;", -offset[1], offset[2]),
+      if (is.character(badge_style)) badge_style
+      else if (is.list(badge_style)) paste0(names(badge_style), ":", unlist(badge_style), ";", collapse = ""))
+    sup_attrs <- list(class = paste(sup_classes, collapse = " "),
+                      style = if (nzchar(style)) style)
     do.call(shiny::tags$sup, c(sup_attrs, list(display_value)))
   }
 

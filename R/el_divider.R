@@ -1,4 +1,4 @@
-#' Element UI Divider
+#' Element Plus Divider
 #'
 #' Renders a horizontal or vertical dividing line, optionally with inline text.
 #'
@@ -8,6 +8,8 @@
 #' @param content_position Position of inline text when `content` is supplied:
 #'   `"center"` (default), `"left"`, or `"right"`.
 #'
+#' @param border_style The line's style, as CSS `border-style`: `"solid"`
+#'   (the default), `"dashed"`, `"dotted"`.
 #' @return An `htmltools` tag.
 #'
 #' @examples
@@ -17,20 +19,22 @@
 #'
 #' @export
 el_divider <- function(content = NULL, direction = "horizontal",
-                       content_position = "center") {
+                       content_position = "center", border_style = "solid") {
   .el_check_choices("el_divider", environment())
   direction        <- match.arg(direction, c("horizontal", "vertical"))
   content_position <- match.arg(content_position, c("center", "left", "right"))
 
   div_class <- paste0("el-divider el-divider--", direction)
+  # Element Plus draws the line from --el-border-style
+  style <- if (!identical(border_style, "solid")) sprintf("--el-border-style: %s;", border_style)
 
   if (!is.null(content) && direction == "horizontal") {
     text_class <- paste0("el-divider__text is-", content_position)
     shiny::tags$div(
-      class = div_class,
+      class = div_class, role = "separator", style = style,
       shiny::tags$div(class = text_class, content)
     )
   } else {
-    shiny::tags$div(class = div_class)
+    shiny::tags$div(class = div_class, role = "separator", style = style)
   }
 }

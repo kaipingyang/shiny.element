@@ -28,11 +28,15 @@
 #' @param highlight_current Highlight the clicked node.
 #' @param expanded,checked Keys to expand and to check initially.
 #' @param empty_text Text shown when `data` is empty.
+#' @param check_on_click_leaf Whether to check or uncheck node when clicking
+#'   on leaf node (last children). Element Plus's `check-on-click-leaf`
+#'   (boolean).
+#' @param icon Custom tree node icon component. Element Plus's `icon` (string
+#'   / Component). An icon's name, such as `"Search"`.
 #' @param session Deprecated. Inside a module, wrap `id` in `ns()`, as for
 #'   any Shiny input; a session given here namespaces `id` once more, with
 #'   a warning.
 #' @param indent Horizontal indent between levels, in pixels. Default `16`.
-#' @param icon_class Icon class of the expand arrow.
 #' @param lazy Whether child nodes are loaded on demand -- from the server,
 #'   unless `load` is given. See "Shiny inputs".
 #' @param draggable Whether nodes can be dragged.
@@ -126,7 +130,6 @@ el_tree <- function(id = NULL,
                     checked = NULL,
                     empty_text = NULL,
                     indent  = NULL,
-                    icon_class = NULL,
                     lazy    = NULL,
                     draggable = NULL,
                     auto_expand_parent = NULL,
@@ -138,6 +141,8 @@ el_tree <- function(id = NULL,
                     render_content = NULL,
                     allow_drag = NULL,
                     allow_drop = NULL,
+                    check_on_click_leaf = NULL,
+                    icon = NULL,
                     label = NULL,
                     label_position = c("top", "left", "right"),
                     label_width = NULL,
@@ -175,7 +180,6 @@ el_tree <- function(id = NULL,
 
   tree_attrs[[":indent"]] <- .el_optional_bind("indent")
 
-  tree_attrs[[":icon-class"]] <- .el_optional_bind("iconClass")
 
   tree_attrs[[":lazy"]] <- .el_optional_bind("lazy")
 
@@ -254,7 +258,6 @@ el_tree <- function(id = NULL,
 
   vue_data$indent <- .el_or_na(indent)
 
-  vue_data$iconClass <- .el_or_na(icon_class)
 
   vue_data$lazy <- .el_or_na(lazy)
 
@@ -279,6 +282,9 @@ el_tree <- function(id = NULL,
   vue_data$allowDrop <- .el_or_na(allow_drop)
 
   el_widget(
+    props = .el_props(list(
+      check_on_click_leaf = check_on_click_leaf,
+      icon = .el_icon_name(icon))),
     label = label, label_position = label_position,
     label_width = label_width, label_suffix = label_suffix, required = required,
     error = error, show_message = show_message, inline_message = inline_message,

@@ -1,30 +1,42 @@
-#' Element UI Drawer
+#' Element Plus Drawer
 #'
 #' A panel that slides in from an edge of the viewport.
 #'
-#' Rendered as plain markup carrying Element's own classes, driven by a Shiny
-#' input binding rather than a Vue instance, so the body can hold other
+#' Rendered as plain markup carrying Element Plus's own classes, driven by a
+#' Shiny input binding rather than a Vue instance, so the body can hold other
 #' components from this package. See `.claude/docs/lessons.md` §1.2.
 #'
 #' @param id Drawer ID. Auto-generated UUID if `NULL`.
 #' @param title Header text.
 #' @param content Drawer body. Any tag or tagList, including this package's
 #'   own components.
-#' @param visible Whether it starts open.
+#' @param footer Footer content, usually buttons. `NULL` for none.
+#' @param visible Whether it starts open: Element Plus's `model-value`.
 #' @param direction Edge it slides from: `"rtl"` (from the right, the
 #'   default), `"ltr"`, `"ttb"` or `"btt"`.
 #' @param size Width for a horizontal drawer, height for a vertical one.
+#' @param resizable Let the drawer be resized by dragging its inner edge.
 #' @param modal Show the backdrop.
+#' @param modal_penetrable Let clicks through the backdrop to the page
+#'   beneath, when `modal = FALSE`.
 #' @param with_header Show the header bar.
 #' @param show_close Show the close button in the header.
-#' @param wrapper_closable Close when the backdrop is clicked.
+#' @param close_on_click_modal Close when the backdrop is clicked. (Element
+#'   UI's `wrapper-closable`.)
 #' @param close_on_press_escape Close on Escape.
+#' @param lock_scroll Whether the page stops scrolling while it is open.
 #' @param custom_class Extra class name for the panel.
-#' @param append_to_body Move the overlay to `<body>` when it opens, so a
-#'   container's `overflow` or `transform` cannot clip it. Its components keep
-#'   working; they are moved, not re-created.
-#' @param modal_append_to_body Whether the backdrop goes on `<body>` (the
-#'   default) or beside the overlay.
+#' @param modal_class,header_class,body_class,footer_class Extra class names
+#'   for the backdrop, the header, the body and the footer.
+#' @param append_to A CSS selector for where the overlay goes when it opens,
+#'   so a container's `overflow` or `transform` cannot clip it. Its
+#'   components keep working; they are moved, not re-created.
+#' @param append_to_body `append_to = "body"`.
+#' @param open_delay,close_delay Milliseconds to wait before opening and
+#'   closing.
+#' @param z_index The overlay's z-index, instead of the next one Element Plus
+#'   hands out.
+#' @param header_aria_level The title's `aria-level`. Default `"2"`.
 #' @param destroy_on_close Re-create the content each time it opens, and remove
 #'   it when it closes: inputs inside start from their initial values again.
 #' @param before_close `htmltools::JS()` function `function(done)`, run when
@@ -35,17 +47,21 @@
 #'   a warning.
 #'
 #' @section Shiny inputs:
-#' - `input$<id>` -- whether it is open.
+#' - `input$<id>` -- `TRUE` while the drawer is open, reported whenever it
+#'   opens or closes, however that happens; see [el_dialog()].
 #' - `input$<id>_open`, `input$<id>_opened` -- fire as it opens, and once
 #'   it has.
 #' - `input$<id>_close`, `input$<id>_closed` -- likewise as it closes.
+#' - `input$<id>_open_auto_focus`, `input$<id>_close_auto_focus` -- as focus
+#'   moves into it on opening, and back on closing.
+#' - `input$<id>_resize_start`, `input$<id>_resize`, `input$<id>_resize_end`
+#'   -- with `resizable`, the size in pixels as it is dragged.
+#'
+#' @section Element methods:
+#' Callable with [el_call()]: `handleClose()` closes it the way the user
+#' would, through `before_close` (`closeDrawer()`, Element UI's name, too).
 #'
 #' @return An `htmltools` tag.
-#'
-#' @section Shiny inputs:
-#' `input$<id>` — `TRUE` while the drawer is open, reported whenever it opens
-#' or closes, however that happens. (It was `input$<id>_visible` while this was
-#' a Vue component; see [el_dialog()].)
 #'
 #' @examples
 #' el_drawer("w1", title = "Settings", content = shiny::tags$p("Body"))
@@ -59,33 +75,47 @@ el_drawer <- function(
     id                    = NULL,
     title                 = "",
     content               = NULL,
+    footer                = NULL,
     visible               = FALSE,
     direction             = "rtl",
     size                  = "30%",
+    resizable             = FALSE,
     modal                 = TRUE,
+    modal_penetrable      = FALSE,
     with_header           = TRUE,
     show_close            = TRUE,
-    wrapper_closable      = TRUE,
+    close_on_click_modal  = TRUE,
     close_on_press_escape = TRUE,
+    lock_scroll           = TRUE,
     custom_class          = NULL,
+    modal_class           = NULL,
+    header_class          = NULL,
+    body_class            = NULL,
+    footer_class          = NULL,
+    append_to             = NULL,
     append_to_body        = FALSE,
-    modal_append_to_body  = TRUE,
+    open_delay            = NULL,
+    close_delay           = NULL,
+    z_index               = NULL,
+    header_aria_level     = "2",
     destroy_on_close      = FALSE,
     before_close          = NULL,
     session               = NULL
 ) {
+  .el_check_choices("el_drawer", environment())
   if (is.null(id)) id <- paste0("el_drawer_", uuid::UUIDgenerate())
   ns_id <- .el_ui_id(id, session)
   visible <- isTRUE(shiny::restoreInput(ns_id, visible))
+  if (is.null(append_to) && isTRUE(append_to_body)) append_to <- "body"
 
   vertical  <- direction %in% c("ttb", "btt")
   title_id  <- paste0(ns_id, "-title")
 
   header <- if (with_header) {
     shiny::tags$header(
-      class = "el-drawer__header",
-      shiny::tags$span(id = title_id, role = "heading", class = "el-drawer__title",
-                       title),
+      class = paste(c("el-drawer__header", header_class), collapse = " "),
+      shiny::tags$span(id = title_id, role = "heading", `aria-level` = header_aria_level,
+                       class = "el-drawer__title", title),
       if (show_close) {
         shiny::tags$button(
           `aria-label` = paste("close", title), type = "button",
@@ -99,15 +129,22 @@ el_drawer <- function(
   htmltools::attachDependencies(
     shiny::tags$div(
       id    = ns_id,
-      class = "el-overlay",
-      style = paste0(if (!visible) "display:none;", if (!modal) "background-color:transparent;"),
+      class = paste(c("el-overlay", modal_class), collapse = " "),
+      style = paste0(if (!visible) "display:none;",
+                     if (!modal) "background-color:transparent;",
+                     if (!modal && isTRUE(modal_penetrable)) "pointer-events:none;",
+                     if (!is.null(z_index)) sprintf("z-index:%s;", z_index)),
       `data-el-overlay` = "drawer",
       `data-visible`    = tolower(as.character(visible)),
       `data-modal`      = tolower(as.character(modal)),
-      `data-mask-close` = tolower(as.character(wrapper_closable)),
+      `data-mask-close` = tolower(as.character(close_on_click_modal)),
       `data-esc-close`  = tolower(as.character(close_on_press_escape)),
-      `data-lock-scroll` = "true",
-      `data-append-to-body` = tolower(as.character(append_to_body)),
+      `data-lock-scroll` = tolower(as.character(lock_scroll)),
+      `data-append-to`  = append_to,
+      `data-open-delay` = open_delay,
+      `data-close-delay` = close_delay,
+      `data-z-index`    = z_index,
+      `data-resizable`  = if (isTRUE(resizable)) "true",
       `data-destroy-on-close` = tolower(as.character(destroy_on_close)),
       `data-before-close` = if (!is.null(before_close)) as.character(before_close),
       shiny::tags$div(
@@ -115,10 +152,16 @@ el_drawer <- function(
         `aria-label` = if (is.character(title)) title, role = "dialog", tabindex = "-1",
         class = paste(c("el-drawer", direction, if (visible) "open", custom_class),
                       collapse = " "),
-        style = sprintf("%s: %s;", if (vertical) "height" else "width", size),
+        style = paste0(sprintf("%s: %s;", if (vertical) "height" else "width", size),
+                       if (!modal && isTRUE(modal_penetrable)) " pointer-events:auto;"),
+        if (isTRUE(resizable)) shiny::tags$div(class = "el-drawer__dragger"),
         header,
-        shiny::tags$div(class = "el-drawer__body",
-                        .el_overlay_content(content, destroy_on_close, visible))
+        shiny::tags$div(class = paste(c("el-drawer__body", body_class), collapse = " "),
+                        .el_overlay_content(content, destroy_on_close, visible)),
+        if (!is.null(footer)) {
+          shiny::tags$div(class = paste(c("el-drawer__footer", footer_class), collapse = " "),
+                          footer)
+        }
       )
     ),
     el_overlay_dependency()
@@ -126,7 +169,7 @@ el_drawer <- function(
 }
 
 
-#' Update Element UI Drawer
+#' Update Element Plus Drawer
 #'
 #' Server-side update for [el_drawer()].
 #'

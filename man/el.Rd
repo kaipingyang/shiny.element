@@ -2,12 +2,12 @@
 % Please edit documentation in R/el_tags.R
 \name{el}
 \alias{el}
-\title{Element UI tags, for markup inside a component}
+\title{Element Plus tags, for markup inside a component}
 \usage{
 el
 }
 \value{
-A named list of tag-generating functions, one per Element UI tag.
+A named list of tag-generating functions, one per Element Plus tag.
 }
 \description{
 A tag generator for every Element tag, as \code{tags$p} is for HTML:

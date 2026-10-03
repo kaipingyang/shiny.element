@@ -26,12 +26,36 @@ el_select(
   no_match_text = NULL,
   no_data_text = NULL,
   popper_class = NULL,
-  popper_append_to_body = NULL,
   reserve_keyword = NULL,
   default_first_option = NULL,
   remote = NULL,
   filter_method = NULL,
   remote_method = NULL,
+  append_to = NULL,
+  aria_label = NULL,
+  clear_icon = NULL,
+  collapse_tags_tooltip = NULL,
+  debounce = NULL,
+  effect = NULL,
+  empty_values = NULL,
+  fallback_placements = NULL,
+  fit_input_width = NULL,
+  max_collapse_tags = NULL,
+  offset = NULL,
+  persistent = NULL,
+  placement = NULL,
+  popper_options = NULL,
+  popper_style = NULL,
+  remote_show_suffix = NULL,
+  show_arrow = NULL,
+  suffix_icon = NULL,
+  suffix_transition = NULL,
+  tabindex = NULL,
+  tag_effect = NULL,
+  tag_type = NULL,
+  teleported = NULL,
+  validate_event = NULL,
+  value_on_clear = NULL,
   label = NULL,
   label_position = c("top", "left", "right"),
   label_width = NULL,
@@ -72,7 +96,7 @@ multiple selection. \code{selected} is Shiny's name, \code{value} Element's
 
 \item{filterable}{Whether typing filters the options. Default \code{FALSE}.}
 
-\item{size}{Component size: \code{NULL}, \code{"medium"}, \code{"small"}, or \code{"mini"}.}
+\item{size}{Size: \code{"large"}, \code{"default"} or \code{"small"}; \code{NULL} follows the form or the page.}
 
 \item{multiple_limit}{Maximum number of items that can be selected when
 \code{multiple = TRUE}. \code{0} means unlimited. Default \code{0}.}
@@ -100,8 +124,6 @@ multiple selection. \code{selected} is Shiny's name, \code{value} Element's
 
 \item{popper_class}{Extra class name for the dropdown panel.}
 
-\item{popper_append_to_body}{Whether the dropdown is appended to \code{body}. Default \code{TRUE}.}
-
 \item{reserve_keyword}{Whether a multiple filterable select keeps the search term after selecting.}
 
 \item{default_first_option}{Whether Enter picks the first matching option.}
@@ -113,6 +135,84 @@ types. Needs \code{filterable = TRUE}; see "Shiny inputs".}
 
 \item{remote_method}{\code{JS()} function fetching options in the
 browser instead of from the server. Needs \code{remote = TRUE}.}
+
+\item{append_to}{Which element the select dropdown appends to. Element
+Plus's \code{append-to} (CSSSelector / HTMLElement).}
+
+\item{aria_label}{Same as \code{aria-label} in native input. Element Plus's
+\code{aria-label} (string).}
+
+\item{clear_icon}{Custom clear icon component. Element Plus's \code{clear-icon}
+(string / Component). An icon's name, such as \code{"Search"}.}
+
+\item{collapse_tags_tooltip}{Whether show all selected tags when mouse
+hover text of collapse-tags. To use this, \code{collapse-tags} must be true.
+Element Plus's \code{collapse-tags-tooltip} (boolean).}
+
+\item{debounce}{Debounce delay during remote search, in milliseconds.
+Element Plus's \code{debounce} (number).}
+
+\item{effect}{Tooltip theme, built-in theme: \code{dark} / \code{light}. Element
+Plus's \code{effect} ('dark' | 'light' / string).}
+
+\item{empty_values}{Empty values of component, see config-provider. Element
+Plus's \code{empty-values} (array).}
+
+\item{fallback_placements}{List of possible positions for dropdown
+popper.js. Element Plus's \code{fallback-placements} (Placement[]).}
+
+\item{fit_input_width}{Whether the width of the dropdown is the same as the
+input. Element Plus's \code{fit-input-width} (boolean).}
+
+\item{max_collapse_tags}{The max tags number to be shown. To use this,
+\code{collapse-tags} must be true. Element Plus's \code{max-collapse-tags}
+(number).}
+
+\item{offset}{Offset of the dropdown. Element Plus's \code{offset} (number).}
+
+\item{persistent}{When select dropdown is inactive and \code{persistent} is
+\code{false}, select dropdown will be destroyed. Element Plus's \code{persistent}
+(boolean).}
+
+\item{placement}{Position of dropdown. Element Plus's \code{placement} (enum).}
+
+\item{popper_options}{Popper.js parameters. Element Plus's \code{popper-options}
+(object).}
+
+\item{popper_style}{Custom style for Select's dropdown and tags' tooltip.
+Element Plus's \code{popper-style} (string / object).}
+
+\item{remote_show_suffix}{In remote search method show suffix icon. Element
+Plus's \code{remote-show-suffix} (boolean).}
+
+\item{show_arrow}{Whether the dropdown has an arrow. Element Plus's
+\code{show-arrow} (boolean).}
+
+\item{suffix_icon}{Custom suffix icon component. Element Plus's
+\code{suffix-icon} (string / Component). An icon's name, such as \code{"Search"}.}
+
+\item{suffix_transition}{Animation when dropdown appears/disappears icon.
+Element Plus's \code{suffix-transition} (boolean).}
+
+\item{tabindex}{Tabindex for input. Element Plus's \code{tabindex} (string /
+number).}
+
+\item{tag_effect}{Tag effect. Element Plus's \code{tag-effect} ('' | 'light' |
+'dark' | 'plain').}
+
+\item{tag_type}{Tag type. Element Plus's \code{tag-type} ('' | 'success' |
+'info' | 'warning' | 'danger').}
+
+\item{teleported}{Whether select dropdown is teleported, if \code{true} it will
+be teleported to where \code{append-to} sets. Element Plus's \code{teleported}
+(boolean).}
+
+\item{validate_event}{Whether to trigger form validation. Element Plus's
+\code{validate-event} (boolean).}
+
+\item{value_on_clear}{Clear return value, see config-provider. Element
+Plus's \code{value-on-clear} (string / number / boolean / Function). Give it
+as \code{\link[=JS]{JS()}}.}
 
 \item{label}{A label shown with the component, as Shiny's inputs have:
 text or a tag. \code{NULL}, the default, shows none. It is the component's

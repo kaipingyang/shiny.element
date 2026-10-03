@@ -1,4 +1,4 @@
-#' Element UI Time Picker
+#' Element Plus Time Picker
 #'
 #' Pick a time of day. `el_time_picker()` takes any time, or a range of them
 #' with `is_range = TRUE`; `el_time_select()` offers fixed times at a set
@@ -8,24 +8,34 @@
 #' @param value Initial time, as `"HH:mm:ss"` text -- two of them for a
 #'   range.
 #' @param is_range Pick a start and an end rather than a single time.
-#' @param value_format Format of the value reported to Shiny. Default
-#'   `"HH:mm:ss"`.
+#' @param value_format Format of the value reported to Shiny, in day.js's
+#'   tokens. Default `"HH:mm:ss"`.
+#' @param format Format of the time shown in the input, in day.js's tokens.
 #' @param arrow_control Whether hours, minutes and seconds are changed with
 #'   arrow buttons rather than by scrolling.
 #' @param placeholder,start_placeholder,end_placeholder Placeholder text, the
 #'   latter two for a range.
 #' @param range_separator Text between the two times of a range. Default `"-"`.
-#' @param picker_options Further options, as a named list -- for
-#'   `el_time_picker()`, `selectableRange` and `format`; for
-#'   `el_time_select()`, `start`, `end`, `step`, `minTime` and `maxTime`.
 #' @param clearable,disabled,editable,readonly As for an input.
-#' @param size `"medium"`, `"small"` or `"mini"`.
-#' @param align Alignment of the panel: `"left"` (default), `"center"`,
-#'   `"right"`.
-#' @param popper_class Extra class name for the panel.
+#' @param size Size: `"large"`, `"default"` or `"small"`; `NULL` follows the form or the page.
+#' @param popper_class,popper_style Extra class name and style for the panel.
+#' @param popper_options,placement,fallback_placements Where the panel opens,
+#'   as Element Plus's tooltip takes them.
 #' @param default_value Time the panel opens on when nothing is picked.
-#' @param name Native `name` attribute.
-#' @param prefix_icon,clear_icon Icon classes.
+#' @param disabled_hours,disabled_minutes,disabled_seconds [JS()] functions
+#'   returning the hours, minutes or seconds that cannot be picked -- what
+#'   Element UI's `selectableRange` did.
+#' @param prefix_icon,clear_icon Icons, by name: `"Clock"`, `"CircleClose"`.
+#' @param teleported Whether the panel is moved to `<body>`.
+#' @param tabindex,aria_label Native attributes of the input.
+#' @param empty_values,value_on_clear What counts as empty, and the value a
+#'   cleared picker reports. See Element Plus's config provider.
+#' @param save_on_blur Whether the time typed is kept when the input loses
+#'   focus.
+#' @param include_end_time,start,end,step,min_time,max_time For
+#'   `el_time_select()`: the first and last time offered, the interval,
+#'   whether `end` itself is offered, and the bounds of what can be picked.
+#' @param effect `"light"` (default) or `"dark"` panel, for `el_time_select()`.
 #' @inheritParams el_widget
 #' @param width Component width, as a CSS unit.
 #' @param slots Named list of Element slot contents.
@@ -35,49 +45,60 @@
 #'
 #' @section Shiny inputs:
 #' - `input$<id>` -- the time, or two for a range, on load and on change.
-#' - `input$<id>_blur`, `input$<id>_focus` -- as the field loses and gains
-#'   focus.
+#' - `input$<id>_blur`, `input$<id>_focus`, `input$<id>_clear` -- as the field
+#'   loses and gains focus, and is cleared; `input$<id>_visible_change` as
+#'   the panel opens and closes (`el_time_picker()`).
 #'
 #' @section Element methods:
-#' Callable with [el_call()]:
-#'
-#' - `focus()` -- focus the input
+#' Callable with [el_call()]: `focus()`, `blur()`; and for `el_time_picker()`,
+#' `handleOpen()` and `handleClose()`.
 #'
 #' @return A Shiny UI element.
 #' @examples
 #' el_time_picker("start", value = "09:30:00")
 #'
 #' # Only office hours
-#' el_time_picker("start", picker_options = list(selectableRange = "09:00:00 - 18:00:00"))
+#' el_time_picker("start", disabled_hours = JS(
+#'   "function() { var h = []; for (var i = 0; i < 24; i++) if (i < 9 || i > 18) h.push(i); return h; }"))
 #'
 #' # A range
 #' el_time_picker("shift", is_range = TRUE, value = c("09:00:00", "17:30:00"))
 #'
 #' # Every half hour between nine and six
-#' el_time_select("slot", picker_options = list(start = "09:00", step = "00:30",
-#'                                              end = "18:00"))
+#' el_time_select("slot", start = "09:00", step = "00:30", end = "18:00")
 #' @export
 el_time_picker <- function(id = NULL,
                            value = NULL,
                            is_range = FALSE,
                            value_format = "HH:mm:ss",
+                           format = NULL,
                            arrow_control = NULL,
                            placeholder = NULL,
                            start_placeholder = NULL,
                            end_placeholder = NULL,
                            range_separator = NULL,
-                           picker_options = NULL,
                            clearable = NULL,
                            disabled = NULL,
                            editable = NULL,
                            readonly = NULL,
                            size = NULL,
-                           align = NULL,
                            popper_class = NULL,
+                           popper_style = NULL,
+                           popper_options = NULL,
+                           placement = NULL,
+                           fallback_placements = NULL,
                            default_value = NULL,
-                           name = NULL,
+                           disabled_hours = NULL,
+                           disabled_minutes = NULL,
+                           disabled_seconds = NULL,
                            prefix_icon = NULL,
                            clear_icon = NULL,
+                           teleported = NULL,
+                           tabindex = NULL,
+                           aria_label = NULL,
+                           empty_values = NULL,
+                           value_on_clear = NULL,
+                           save_on_blur = NULL,
                            label = NULL,
                            label_position = c("top", "left", "right"),
                            label_width = NULL,
@@ -90,15 +111,31 @@ el_time_picker <- function(id = NULL,
                            slots = NULL,
                            session = NULL) {
   .el_check_choices("el_time_picker", environment())
-  .el_time_widget("el-time-picker", id, value, is_range, value_format,
-                  arrow_control, placeholder, start_placeholder, end_placeholder,
-                  range_separator, picker_options, clearable, disabled, editable,
-                  readonly, size, align, popper_class, default_value, name,
-                  prefix_icon, clear_icon, width, slots, session,
-                  label = label, label_position = label_position,
-                  label_width = label_width, label_suffix = label_suffix,
-                  required = required, error = error, show_message = show_message,
-                  inline_message = inline_message)
+  if (is.null(id)) id <- paste0("el_time_picker_", uuid::UUIDgenerate())
+  ns_id <- .el_ui_id(id, session)
+  init <- if (is.null(value)) {
+    if (isTRUE(is_range)) list() else ""
+  } else if (isTRUE(is_range)) as.list(value) else value
+  .el_time_widget(
+    "el-time-picker", ns_id, init,
+    list(is_range = is_range, value_format = value_format, format = format,
+         arrow_control = arrow_control, placeholder = placeholder,
+         start_placeholder = start_placeholder, end_placeholder = end_placeholder,
+         range_separator = range_separator, clearable = clearable,
+         disabled = disabled, editable = editable, readonly = readonly, size = size,
+         popper_class = popper_class, popper_style = popper_style,
+         popper_options = popper_options, placement = placement,
+         fallback_placements = fallback_placements, default_value = default_value,
+         disabled_hours = disabled_hours, disabled_minutes = disabled_minutes,
+         disabled_seconds = disabled_seconds, prefix_icon = .el_icon_name(prefix_icon),
+         clear_icon = .el_icon_name(clear_icon), teleported = teleported,
+         tabindex = tabindex, aria_label = aria_label, empty_values = empty_values,
+         value_on_clear = value_on_clear, save_on_blur = save_on_blur),
+    c("blur", "focus", "clear", "visible-change"),
+    width, slots,
+    list(label = label, label_position = label_position, label_width = label_width,
+         label_suffix = label_suffix, required = required, error = error,
+         show_message = show_message, inline_message = inline_message))
 }
 
 
@@ -106,19 +143,25 @@ el_time_picker <- function(id = NULL,
 #' @export
 el_time_select <- function(id = NULL,
                            value = NULL,
-                           picker_options = NULL,
+                           start = NULL,
+                           end = NULL,
+                           step = NULL,
+                           min_time = NULL,
+                           max_time = NULL,
+                           include_end_time = NULL,
+                           format = NULL,
                            placeholder = NULL,
                            clearable = NULL,
                            disabled = NULL,
                            editable = NULL,
-                           readonly = NULL,
                            size = NULL,
-                           align = NULL,
+                           effect = NULL,
                            popper_class = NULL,
-                           default_value = NULL,
-                           name = NULL,
+                           popper_style = NULL,
                            prefix_icon = NULL,
                            clear_icon = NULL,
+                           empty_values = NULL,
+                           value_on_clear = NULL,
                            label = NULL,
                            label_position = c("top", "left", "right"),
                            label_width = NULL,
@@ -131,87 +174,57 @@ el_time_select <- function(id = NULL,
                            slots = NULL,
                            session = NULL) {
   .el_check_choices("el_time_select", environment())
-  .el_time_widget("el-time-select", id, value, FALSE, NULL, NULL, placeholder,
-                  NULL, NULL, NULL, picker_options, clearable, disabled, editable,
-                  readonly, size, align, popper_class, default_value, name,
-                  prefix_icon, clear_icon, width, slots, session,
-                  label = label, label_position = label_position,
-                  label_width = label_width, label_suffix = label_suffix,
-                  required = required, error = error, show_message = show_message,
-                  inline_message = inline_message)
+  if (is.null(id)) id <- paste0("el_time_select_", uuid::UUIDgenerate())
+  ns_id <- .el_ui_id(id, session)
+  .el_time_widget(
+    "el-time-select", ns_id, if (is.null(value)) "" else value,
+    list(start = start, end = end, step = step, min_time = min_time,
+         max_time = max_time, include_end_time = include_end_time, format = format,
+         placeholder = placeholder, clearable = clearable, disabled = disabled,
+         editable = editable, size = size, effect = effect,
+         popper_class = popper_class, popper_style = popper_style,
+         prefix_icon = .el_icon_name(prefix_icon), clear_icon = .el_icon_name(clear_icon),
+         empty_values = empty_values, value_on_clear = value_on_clear),
+    c("blur", "focus", "clear"),
+    width, slots,
+    list(label = label, label_position = label_position, label_width = label_width,
+         label_suffix = label_suffix, required = required, error = error,
+         show_message = show_message, inline_message = inline_message))
 }
 
 
 #' Build either time picker
 #'
 #' @param tag `"el-time-picker"` or `"el-time-select"`.
-#' @inheritParams el_time_picker
+#' @param ns_id The namespaced id.
+#' @param init The initial value.
+#' @param fields The props, by their R names, for `.el_props()`.
+#' @param events Events forwarded as `input$<id>_<event>`.
+#' @param width,slots As for [el_widget()].
+#' @param form_item The label and message arguments, for [el_widget()].
 #' @return A Shiny UI element.
 #' @keywords internal
-.el_time_widget <- function(tag, id, value, is_range, value_format,
-                            arrow_control, placeholder, start_placeholder,
-                            end_placeholder, range_separator, picker_options,
-                            clearable, disabled, editable, readonly, size, align,
-                            popper_class, default_value, name, prefix_icon,
-                            clear_icon, width, slots, session, label = NULL,
-                            label_position = "top", label_width = NULL,
-                            label_suffix = NULL, required = FALSE, error = NULL,
-                            show_message = TRUE, inline_message = FALSE) {
-  prefix <- gsub("-", "_", tag)
-  if (is.null(id)) id <- paste0(prefix, "_", uuid::UUIDgenerate())
-  ns_id <- .el_ui_id(id, session)
-
-  init <- if (is.null(value)) {
-    if (isTRUE(is_range)) list() else ""
-  } else if (isTRUE(is_range)) {
-    as.list(value)
-  } else {
-    value
-  }
-
-  fields <- list(
-    isRange = is_range, valueFormat = value_format, arrowControl = arrow_control,
-    placeholder = placeholder, startPlaceholder = start_placeholder,
-    endPlaceholder = end_placeholder, rangeSeparator = range_separator,
-    pickerOptions = picker_options, clearable = clearable, disabled = disabled,
-    editable = editable, readonly = readonly, size = size, align = align,
-    popperClass = popper_class, defaultValue = default_value, name = name,
-    prefixIcon = prefix_icon, clearIcon = clear_icon
-  )
-  # el-time-select has no range, value format or arrows of its own
-  if (tag == "el-time-select") {
-    fields <- fields[setdiff(names(fields), c("isRange", "valueFormat", "arrowControl",
-                                              "startPlaceholder", "endPlaceholder",
-                                              "rangeSeparator"))]
-  }
-
-  attrs <- list("v-model" = "value", "@change" = "handleChange")
-  for (f in names(fields)) {
-    attrs[[paste0(":", .el_kebab_case(f))]] <- .el_optional_bind(f)
-  }
-  events <- .el_event_bindings(ns_id, c("blur", "focus"))
-  attrs <- c(attrs, events$attrs)
-
-  el_widget(
-    label = label, label_position = label_position,
-    label_width = label_width, label_suffix = label_suffix, required = required,
-    error = error, show_message = show_message, inline_message = inline_message,
-    id     = ns_id,
-    markup = htmltools::tag(tag, attrs),
-    data   = c(list(value = init), lapply(fields, .el_or_na)),
-    methods = c(events$methods, list(
+.el_time_widget <- function(tag, ns_id, init, fields, events, width, slots, form_item) {
+  forwarded <- .el_event_bindings(ns_id, events)
+  attrs <- c(list("v-model" = "value", "@change" = "handleChange"), forwarded$attrs)
+  do.call(el_widget, c(form_item, list(
+    id      = ns_id,
+    markup  = htmltools::tag(tag, attrs),
+    props   = .el_props(fields),
+    data    = list(value = init),
+    methods = c(forwarded$methods, list(
       handleChange = JS(sprintf(
         "function(v) { window.Shiny && Shiny.setInputValue && Shiny.setInputValue('%s', v); }", ns_id
       ))
     )),
-    mounted    = .el_mounted_init(stats::setNames("value", ns_id)),
-    width      = width,
-    slots      = slots
-  )
+    mounted = .el_mounted_init(stats::setNames("value", ns_id)),
+    width   = width,
+    slots   = slots
+  )))
 }
 
 
-#' Update Element UI Time Picker
+#' Update Element Plus Time Picker
 #'
 #' Server-side update for [el_time_picker()] and [el_time_select()];
 #' `update_el_time_select()` is the same function under the select's name.
@@ -219,9 +232,7 @@ el_time_select <- function(id = NULL,
 #' @param session Shiny session; the current one by default, as for
 #'   [shiny::updateTextInput()].
 #' @param id Picker ID (un-namespaced).
-#' @param value,disabled,picker_options New values; `NULL` leaves one
-#'   unchanged.
-#'
+#' @param value,disabled New values; `NULL` leaves one unchanged.
 #' @param label New label, as for [shiny::updateTextInput()]: text, or
 #'   tags or `HTML()` drawn as markup. Only a component built with a `label`
 #'   has one to change.
@@ -235,14 +246,12 @@ el_time_select <- function(id = NULL,
 #'   observeEvent(input$reset, update_el_time_picker(session, "start", value = "09:00:00"))
 #' }
 #' @export
-update_el_time_picker <- function(session = shiny::getDefaultReactiveDomain(), id, value = NULL, disabled = NULL,
-                                  picker_options = NULL,
-                                  label = NULL, error = NULL) {
+update_el_time_picker <- function(session = shiny::getDefaultReactiveDomain(), id, value = NULL,
+                                  disabled = NULL, label = NULL, error = NULL) {
   .el_check_session(session)
   msg <- list(id = session$ns(id))
-  if (!is.null(value))          msg$value         <- if (length(value) > 1) as.list(value) else value
-  if (!is.null(disabled))       msg$disabled      <- disabled
-  if (!is.null(picker_options)) msg$pickerOptions <- picker_options
+  if (!is.null(value))    msg$value    <- if (length(value) > 1) as.list(value) else value
+  if (!is.null(disabled)) msg$disabled <- disabled
   msg <- .el_form_item_update(msg, label, error)
   .el_send_update(session, msg)
   invisible(NULL)
@@ -252,11 +261,8 @@ update_el_time_picker <- function(session = shiny::getDefaultReactiveDomain(), i
 #' @rdname update_el_time_picker
 #' @export
 update_el_time_select <- function(session = shiny::getDefaultReactiveDomain(), id, value = NULL,
-                                  disabled = NULL, picker_options = NULL,
-                                  label = NULL, error = NULL) {
+                                  disabled = NULL, label = NULL, error = NULL) {
   .el_check_session(session)
   update_el_time_picker(session, id, value = value, disabled = disabled,
-                        picker_options = picker_options, label = label, error = error)
+                        label = label, error = error)
 }
-
-

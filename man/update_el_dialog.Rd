@@ -2,7 +2,7 @@
 % Please edit documentation in R/el_dialog.R
 \name{update_el_dialog}
 \alias{update_el_dialog}
-\title{Update Element UI Dialog}
+\title{Update Element Plus Dialog}
 \usage{
 update_el_dialog(
   session = shiny::getDefaultReactiveDomain(),

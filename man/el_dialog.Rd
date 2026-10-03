@@ -2,7 +2,7 @@
 % Please edit documentation in R/el_dialog.R
 \name{el_dialog}
 \alias{el_dialog}
-\title{Element UI Dialog}
+\title{Element Plus Dialog}
 \usage{
 el_dialog(
   id = NULL,
@@ -14,14 +14,28 @@ el_dialog(
   top = "15vh",
   fullscreen = FALSE,
   modal = TRUE,
+  modal_penetrable = FALSE,
   close_on_click_modal = TRUE,
   close_on_press_escape = TRUE,
   show_close = TRUE,
+  close_icon = NULL,
   center = FALSE,
+  align_center = FALSE,
+  draggable = FALSE,
+  overflow = FALSE,
   lock_scroll = TRUE,
   custom_class = NULL,
+  modal_class = NULL,
+  header_class = NULL,
+  body_class = NULL,
+  footer_class = NULL,
+  append_to = NULL,
   append_to_body = FALSE,
-  modal_append_to_body = TRUE,
+  open_delay = NULL,
+  close_delay = NULL,
+  z_index = NULL,
+  header_aria_level = "2",
+  transition = NULL,
   destroy_on_close = FALSE,
   before_close = NULL,
   session = NULL
@@ -37,16 +51,19 @@ own components.}
 
 \item{footer}{Footer content, usually buttons. \code{NULL} for none.}
 
-\item{visible}{Whether it starts open.}
+\item{visible}{Whether it starts open: Element Plus's \code{model-value}.}
 
 \item{width}{Dialog width, e.g. \code{"50\%"} or \code{"600px"}.}
 
 \item{top}{Distance from the top of the viewport. Ignored when
-\code{fullscreen = TRUE}.}
+\code{fullscreen = TRUE} or \code{align_center = TRUE}.}
 
 \item{fullscreen}{Fill the viewport.}
 
 \item{modal}{Show the backdrop.}
+
+\item{modal_penetrable}{Let clicks through the backdrop to the page
+beneath, when \code{modal = FALSE}.}
 
 \item{close_on_click_modal}{Close when the backdrop is clicked.}
 
@@ -54,18 +71,39 @@ own components.}
 
 \item{show_close}{Show the close button in the header.}
 
+\item{close_icon}{The close button's icon, by name. Default \code{"Close"}.}
+
 \item{center}{Centre the header and footer.}
+
+\item{align_center}{Centre the dialog in the viewport, vertically too.}
+
+\item{draggable}{Let the dialog be dragged by its header.}
+
+\item{overflow}{With \code{draggable}, let it be dragged past the viewport.}
 
 \item{lock_scroll}{Whether the page stops scrolling while it is open.}
 
 \item{custom_class}{Extra class name for the panel.}
 
-\item{append_to_body}{Move the overlay to \verb{<body>} when it opens, so a
-container's \code{overflow} or \code{transform} cannot clip it. Its components keep
-working; they are moved, not re-created.}
+\item{modal_class, header_class, body_class, footer_class}{Extra class names
+for the backdrop, the header, the body and the footer.}
 
-\item{modal_append_to_body}{Whether the backdrop goes on \verb{<body>} (the
-default) or beside the overlay.}
+\item{append_to}{A CSS selector for where the overlay goes when it opens,
+so a container's \code{overflow} or \code{transform} cannot clip it. Its
+components keep working; they are moved, not re-created.}
+
+\item{append_to_body}{\code{append_to = "body"}.}
+
+\item{open_delay, close_delay}{Milliseconds to wait before opening and
+closing.}
+
+\item{z_index}{The overlay's z-index, instead of the next one Element Plus
+hands out.}
+
+\item{header_aria_level}{The title's \code{aria-level}. Default \code{"2"}.}
+
+\item{transition}{The name of the transition it plays, instead of
+Element's \code{"dialog-fade"}.}
 
 \item{destroy_on_close}{Re-create the content each time it opens, and remove
 it when it closes: inputs inside start from their initial values again.}
@@ -85,25 +123,28 @@ An \code{htmltools} tag.
 A modal dialog.
 }
 \details{
-Rendered as plain markup carrying Element's own classes, driven by a Shiny
-input binding rather than a Vue instance, so the body can hold other
+Rendered as plain markup carrying Element Plus's own classes, driven by a
+Shiny input binding rather than a Vue instance, so the body can hold other
 components from this package. See \code{.claude/docs/lessons.md} §1.2.
 }
 \section{Shiny inputs}{
 
 \itemize{
-\item \verb{input$<id>} -- whether it is open.
+\item \verb{input$<id>} -- \code{TRUE} while the dialog is open, reported whenever it
+opens or closes, however that happens. Shiny routes an input binding's
+messages by element id, so the name matches the id, as it does for
+\code{\link[=el_tabs]{el_tabs()}} and \code{\link[=el_collapse]{el_collapse()}}.
 \item \verb{input$<id>_open}, \verb{input$<id>_opened} -- fire as it opens, and once
 it has.
 \item \verb{input$<id>_close}, \verb{input$<id>_closed} -- likewise as it closes.
+\item \verb{input$<id>_open_auto_focus}, \verb{input$<id>_close_auto_focus} -- as focus
+moves into it on opening, and back on closing.
+}
 }
 
+\section{Element methods}{
 
-\verb{input$<id>} — \code{TRUE} while the dialog is open, reported whenever it opens
-or closes, however that happens. (It was \verb{input$<id>_visible} while this was
-a Vue component; Shiny routes an input binding's messages by element id, so
-the name now matches the id, as it does for \code{\link[=el_tabs]{el_tabs()}} and
-\code{\link[=el_collapse]{el_collapse()}}.)
+Callable with \code{\link[=el_call]{el_call()}}: \code{resetPosition()} puts a dragged dialog back.
 }
 
 \examples{
@@ -111,7 +152,7 @@ el_dialog("d1", title = "Confirm", content = shiny::tags$p("Are you sure?"),
           footer = el_button("ok", "OK", type = "primary"))
 
 # The body can hold other components
-el_dialog("d2", title = "Filters",
+el_dialog("d2", title = "Filters", draggable = TRUE,
           content = shiny::tagList(el_input("q"), el_switch("live")))
 
 }

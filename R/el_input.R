@@ -8,7 +8,7 @@
 #' @param value Initial input value. Default `""`.
 #' @param placeholder Placeholder text. `NULL` means no placeholder attribute.
 #' @param type Input type: `"text"` (default), `"textarea"`, `"password"`.
-#' @param size Input size: `NULL`, `"medium"`, `"small"`, `"mini"`.
+#' @param size Size: `"large"`, `"default"` or `"small"`; `NULL` follows the form or the page.
 #' @param disabled Whether the input is disabled. Default `FALSE`.
 #' @param readonly Whether the input is read-only. Default `FALSE`.
 #' @param clearable Whether to show a clear button. Default `FALSE`.
@@ -24,6 +24,30 @@
 #'   `NULL` means no icon.
 #' @param suffix_icon Icon class for the suffix slot (e.g. `"el-icon-date"`).
 #'   `NULL` means no icon.
+#' @param aria_label Same as `aria-label` in native input. Element Plus's
+#'   `aria-label` (string).
+#' @param clear_icon Custom clear icon component. Element Plus's `clear-icon`
+#'   (string / Component). An icon's name, such as `"Search"`.
+#' @param count_graphemes Custom function to count graphemes; when set, native
+#'   `maxlength`/`minlength` constraints are bypassed. Component uses
+#'   `Intl.Segmenter` (Chrome 87+, Firefox 125+, Safari 14.1+) for proper
+#'   grapheme clustering; older browsers fall back to `Array.from()` for
+#'   code-point iteration. Element Plus's `count-graphemes` ((value: string)
+#'   => number).
+#' @param formatter Specifies the format of the value presented input.(only
+#'   works when `type` is 'text'). Element Plus's `formatter` ((value: string
+#'   | number) => string).
+#' @param input_style The style of the input element or textarea element.
+#'   Element Plus's `input-style` (string / CSSProperties | CSSProperties[] |
+#'   string[]).
+#' @param inputmode Same as `inputmode` in native input. Element Plus's
+#'   `inputmode` (string).
+#' @param parser Specifies the value extracted from formatter input.(only
+#'   works when `type` is 'text'). Element Plus's `parser` ((value: string) =>
+#'   string).
+#' @param word_limit_position Word count position, valid when
+#'   `show-word-limit` is true. Element Plus's `word-limit-position` ('inside'
+#'   | 'outside').
 #' @param session Deprecated. Inside a module, wrap `id` in `ns()`, as for
 #'   any Shiny input; a session given here namespaces `id` once more, with
 #'   a warning.
@@ -100,6 +124,14 @@ el_input <- function(
     autosize        = FALSE,
     prefix_icon     = NULL,
     suffix_icon     = NULL,
+    aria_label = NULL,
+    clear_icon = NULL,
+    count_graphemes = NULL,
+    formatter = NULL,
+    input_style = NULL,
+    inputmode = NULL,
+    parser = NULL,
+    word_limit_position = NULL,
     label           = NULL,
     autocomplete    = NULL,
     autofocus       = NULL,
@@ -166,8 +198,8 @@ el_input <- function(
     "input",
     "blur",
     "focus",
-    "clear"
-  ))
+    "clear",
+    "compositionend", "compositionstart", "compositionupdate", "keydown", "mouseenter", "mouseleave"))
   input_attrs <- c(input_attrs, events$attrs)
   # Always-present Vue data fields
   vue_data <- list(
@@ -201,6 +233,15 @@ el_input <- function(
   vue_data$tabindex <- .el_or_na(tabindex)
   vue_data$validateEvent <- .el_or_na(validate_event)
   el_widget(
+    props = .el_props(list(
+      aria_label = aria_label,
+      clear_icon = .el_icon_name(clear_icon),
+      count_graphemes = count_graphemes,
+      formatter = formatter,
+      input_style = input_style,
+      inputmode = inputmode,
+      parser = parser,
+      word_limit_position = word_limit_position)),
     # Reported as the value changes, debounced, as Shiny's own inputs are
     rate = list(policy = "debounce", delay = 250),
     label = label, label_position = label_position,

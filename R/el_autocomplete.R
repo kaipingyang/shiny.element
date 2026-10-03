@@ -30,9 +30,24 @@
 #' @param icon,prefix_icon,suffix_icon Icon classes.
 #' @param name Native `name` attribute.
 #' @param popper_class Extra class name for the suggestion list.
-#' @param popper_append_to_body Whether the list is appended to `body`.
 #' @inheritParams el_widget
 #' @param width Component width, as a CSS unit.
+#' @param append_to Which select dropdown appends to. Element Plus's
+#'   `append-to` (CSSSelector / HTMLElement).
+#' @param aria_label Native `aria-label` attribute. Element Plus's
+#'   `aria-label` (string).
+#' @param fit_input_width Whether the width of the dropdown is the same as the
+#'   input. Element Plus's `fit-input-width` (boolean).
+#' @param loop_navigation Whether keyboard navigation loops from end to start.
+#'   Element Plus's `loop-navigation` (boolean).
+#' @param popper_options Popper.js parameters. Element Plus's `popper-options`
+#'   (object).
+#' @param popper_style Custom style for autocomplete's dropdown. Element
+#'   Plus's `popper-style` (string / object).
+#' @param show_arrow Whether the dropdown has an arrow. Element Plus's
+#'   `show-arrow` (boolean).
+#' @param teleported Whether select dropdown is teleported to the body.
+#'   Element Plus's `teleported` (boolean).
 #' @param session Deprecated. Inside a module, wrap `id` in `ns()`, as for
 #'   any Shiny input; a session given here namespaces `id` once more, with
 #'   a warning.
@@ -79,10 +94,17 @@ el_autocomplete <- function(id = NULL,
                             icon = NULL,
                             prefix_icon = NULL,
                             suffix_icon = NULL,
+                            append_to = NULL,
+                            aria_label = NULL,
+                            fit_input_width = NULL,
+                            loop_navigation = NULL,
+                            popper_options = NULL,
+                            popper_style = NULL,
+                            show_arrow = NULL,
+                            teleported = NULL,
                             label = NULL,
                             name = NULL,
                             popper_class = NULL,
-                            popper_append_to_body = NULL,
                             label_position = c("top", "left", "right"),
                             label_width = NULL,
                             label_suffix = NULL,
@@ -152,13 +174,21 @@ el_autocomplete <- function(id = NULL,
     ":suffix-icon"           = .el_optional_bind("suffixIcon"),
     ":label"                 = .el_optional_bind("label"),
     ":name"                  = .el_optional_bind("name"),
-    ":popper-class"          = .el_optional_bind("popperClass"),
-    ":popper-append-to-body" = .el_optional_bind("popperAppendToBody")
+    ":popper-class"          = .el_optional_bind("popperClass")
   )
-  events <- .el_event_bindings(ns_id, c("select", "change"))
+  events <- .el_event_bindings(ns_id, c("select", "change", "blur", "clear", "focus", "input"))
   attrs <- c(attrs, events$attrs)
 
   el_widget(
+    props = .el_props(list(
+      append_to = append_to,
+      aria_label = aria_label,
+      fit_input_width = fit_input_width,
+      loop_navigation = loop_navigation,
+      popper_options = popper_options,
+      popper_style = popper_style,
+      show_arrow = show_arrow,
+      teleported = teleported)),
     # Reported as the value changes, debounced, as Shiny's own inputs are
     rate = list(policy = "debounce", delay = 250),
     label = label, label_position = label_position,
@@ -184,8 +214,7 @@ el_autocomplete <- function(id = NULL,
       suffixIcon          = .el_or_na(suffix_icon),
       label               = .el_or_na(label),
       name                = .el_or_na(name),
-      popperClass         = .el_or_na(popper_class),
-      popperAppendToBody  = .el_or_na(popper_append_to_body)
+      popperClass         = .el_or_na(popper_class)
     ),
     methods = c(events$methods, list(fetchSuggestions = fetcher)),
     watch = list(

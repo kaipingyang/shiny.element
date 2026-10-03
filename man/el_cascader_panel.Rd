@@ -9,6 +9,9 @@ el_cascader_panel(
   options = list(),
   value = NULL,
   props = NULL,
+  height = NULL,
+  item_size = NULL,
+  virtual_scroll = NULL,
   label = NULL,
   label_position = c("top", "left", "right"),
   label_width = NULL,
@@ -37,6 +40,15 @@ level down -- or a list of paths with \code{props = list(multiple = TRUE)}.}
 \code{lazyLoad}, and the field names \code{value}, \code{label}, \code{children},
 \code{disabled}, \code{leaf}. With \code{lazy = TRUE} and no \code{lazyLoad} of your own,
 the server loads each column.}
+
+\item{height}{Menu height for virtual scrolling (px). Element Plus's
+\code{height} (number).}
+
+\item{item_size}{Node height for virtual scrolling (px). Element Plus's
+\code{item-size} (number).}
+
+\item{virtual_scroll}{Whether to enable virtual scrolling for large data.
+Element Plus's \code{virtual-scroll} (boolean).}
 
 \item{label}{A label shown with the component, as Shiny's inputs have:
 text or a tag. \code{NULL}, the default, shows none. It is the component's

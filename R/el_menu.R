@@ -87,6 +87,28 @@
 #' @param collapse Collapse to icons only. Vertical menus only.
 #' @param unique_opened Keep only one submenu open at a time.
 #' @param background_color,text_color,active_text_color Menu colours.
+#' @param close_on_click_outside Optional, whether menu is collapsed when
+#'   clicking outside. Element Plus's `close-on-click-outside` (boolean).
+#' @param ellipsis Whether the menu is ellipsis (available only in horizontal
+#'   mode). Element Plus's `ellipsis` (boolean).
+#' @param ellipsis_icon Custom ellipsis icon (available only in horizontal
+#'   mode and ellipsis is true). Element Plus's `ellipsis-icon` (string /
+#'   Component). An icon's name, such as `"Search"`.
+#' @param hide_timeout Control timeout for all menus before hiding. Element
+#'   Plus's `hide-timeout` (number).
+#' @param persistent When menu inactive and `persistent` is `false` , dropdown
+#'   menu will be destroyed. Element Plus's `persistent` (boolean).
+#' @param popper_class Custom class name for all popup menus and titles'
+#'   tooltips. Element Plus's `popper-class` (string).
+#' @param popper_effect Tooltip theme, built-in theme: `dark` / `light` when
+#'   menu is collapsed. Element Plus's `popper-effect` ('dark' | 'light' /
+#'   string).
+#' @param popper_offset Offset of the popper (effective for all submenus).
+#'   Element Plus's `popper-offset` (number).
+#' @param popper_style Custom style for all popup menus and titles' tooltips.
+#'   Element Plus's `popper-style` (string / object).
+#' @param show_timeout Control timeout for all menus before showing. Element
+#'   Plus's `show-timeout` (number).
 #' @param session Deprecated. Inside a module, wrap `id` in `ns()`, as for
 #'   any Shiny input; a session given here namespaces `id` once more, with
 #'   a warning.
@@ -149,6 +171,16 @@ el_menu <- function(id = NULL,
                     menu_trigger = NULL,
                     collapse_transition = NULL,
                     router  = NULL,
+                    close_on_click_outside = NULL,
+                    ellipsis = NULL,
+                    ellipsis_icon = NULL,
+                    hide_timeout = NULL,
+                    persistent = NULL,
+                    popper_class = NULL,
+                    popper_effect = NULL,
+                    popper_offset = NULL,
+                    popper_style = NULL,
+                    show_timeout = NULL,
                     width   = NULL,
                     slots   = NULL,
                     session = NULL) {
@@ -215,6 +247,17 @@ el_menu <- function(id = NULL,
   vue_data$router <- .el_or_na(router)
 
   el_widget(
+    props = .el_props(list(
+      close_on_click_outside = close_on_click_outside,
+      ellipsis = ellipsis,
+      ellipsis_icon = .el_icon_name(ellipsis_icon),
+      hide_timeout = hide_timeout,
+      persistent = persistent,
+      popper_class = popper_class,
+      popper_effect = popper_effect,
+      popper_offset = popper_offset,
+      popper_style = popper_style,
+      show_timeout = show_timeout)),
     id     = ns_id,
     markup = htmltools::tag("el-menu", c(menu_attrs, .el_menu_nodes(items))),
     data = vue_data,

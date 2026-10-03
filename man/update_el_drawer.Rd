@@ -2,7 +2,7 @@
 % Please edit documentation in R/el_drawer.R
 \name{update_el_drawer}
 \alias{update_el_drawer}
-\title{Update Element UI Drawer}
+\title{Update Element Plus Drawer}
 \usage{
 update_el_drawer(
   session = shiny::getDefaultReactiveDomain(),

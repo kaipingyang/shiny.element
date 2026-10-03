@@ -5,13 +5,34 @@
 #' @param id Color picker ID. Auto-generated UUID if `NULL`.
 #' @param value Initial colour value (CSS hex/rgb string). `NULL` for empty.
 #' @param disabled Whether the picker is disabled. Default `FALSE`.
-#' @param size Component size: `NULL`, `"medium"`, `"small"`, `"mini"`.
+#' @param size Size: `"large"`, `"default"` or `"small"`; `NULL` follows the form or the page.
 #' @param show_alpha Whether to show an alpha channel slider. Default `FALSE`.
 #'   When `TRUE`, the returned value is an `rgba(...)` string.
 #' @param color_format Output format: `NULL` (auto), `"hex"`, `"rgb"`,
 #'   `"hsv"`, `"hsl"`.
 #' @param predefine Character vector of preset colour swatches. `NULL` for
 #'   none.
+#' @param append_to Which element the color-picker panel appends to. Element
+#'   Plus's `append-to` (CSSSelector / HTMLElement).
+#' @param aria_label ColorPicker aria-label. Element Plus's `aria-label`
+#'   (string).
+#' @param clearable Whether to show clear button. Element Plus's `clearable`
+#'   (boolean).
+#' @param empty_values Empty values of component, see config-provider. Element
+#'   Plus's `empty-values` (array).
+#' @param persistent When color-picker inactive and persistent is false, the
+#'   color panel will be destroyed. Element Plus's `persistent` (boolean).
+#' @param popper_style Custom style for ColorPicker's dropdown. Element Plus's
+#'   `popper-style` (string / object).
+#' @param tabindex ColorPicker tabindex. Element Plus's `tabindex` (string /
+#'   number).
+#' @param teleported Whether color-picker popper is teleported to the body.
+#'   Element Plus's `teleported` (boolean).
+#' @param validate_event Whether to trigger form validation. Element Plus's
+#'   `validate-event` (boolean).
+#' @param value_on_clear Clear return value, see config-provider. Element
+#'   Plus's `value-on-clear` (string / number / boolean / Function). Give it
+#'   as [JS()].
 #' @param session Deprecated. Inside a module, wrap `id` in `ns()`, as for
 #'   any Shiny input; a session given here namespaces `id` once more, with
 #'   a warning.
@@ -45,6 +66,16 @@ el_color_picker <- function(
     color_format = NULL,
     predefine    = NULL,
     popper_class = NULL,
+    append_to = NULL,
+    aria_label = NULL,
+    clearable = NULL,
+    empty_values = NULL,
+    persistent = NULL,
+    popper_style = NULL,
+    tabindex = NULL,
+    teleported = NULL,
+    validate_event = NULL,
+    value_on_clear = NULL,
     label = NULL,
     label_position = c("top", "left", "right"),
     label_width = NULL,
@@ -75,8 +106,8 @@ el_color_picker <- function(
 
   # Forwarded to input$<id>_<event>; see .el_event_bindings().
   events <- .el_event_bindings(ns_id, c(
-    "active-change"
-  ))
+    "active-change",
+    "blur", "clear", "focus"))
   cp_attrs <- c(cp_attrs, events$attrs)
   vue_data <- list(
     value      = value,
@@ -89,6 +120,17 @@ el_color_picker <- function(
   vue_data$popperClass <- .el_or_na(popper_class)
 
   el_widget(
+    props = .el_props(list(
+      append_to = append_to,
+      aria_label = aria_label,
+      clearable = clearable,
+      empty_values = empty_values,
+      persistent = persistent,
+      popper_style = popper_style,
+      tabindex = tabindex,
+      teleported = teleported,
+      validate_event = validate_event,
+      value_on_clear = value_on_clear)),
     label = label, label_position = label_position,
     label_width = label_width, label_suffix = label_suffix, required = required,
     error = error, show_message = show_message, inline_message = inline_message,

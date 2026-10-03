@@ -530,3 +530,66 @@
   }
   invisible(x)
 }
+
+#' Optional props, bound and given their data
+#'
+#' Element Plus's props that keep its own default unless given: each is bound
+#' as `:kebab-name` to a field of the same camelCase name, through
+#' [.el_optional_bind()], and the field holds the value or `NA` (read back
+#' as `undefined`, Element's default).
+#'
+#' @param values A named list, names in snake_case as the R arguments are.
+#' @param prefix A prefix for the fields' names, or `NULL`.
+#' @return A list of `attrs` (for the tag) and `data` (for the Vue data).
+#' @keywords internal
+.el_props <- function(values, prefix = NULL) {
+  if (!length(values)) return(list(attrs = list(), data = list()))
+  camel <- vapply(names(values), .el_camel_case, "")
+  # A wrapper that absorbs a trigger keeps its fields apart from the
+  # trigger's own: tipPlacement, not placement
+  if (!is.null(prefix)) camel <- paste0(prefix, toupper(substring(camel, 1, 1)), substring(camel, 2))
+  kebab <- gsub("_", "-", names(values), fixed = TRUE)
+  attrs <- stats::setNames(lapply(camel, .el_optional_bind), paste0(":", kebab))
+  data  <- stats::setNames(lapply(values, function(v) if (is.null(v)) NA else v), camel)
+  list(attrs = attrs, data = data)
+}
+
+#' An icon, as Element Plus names it
+#'
+#' Icons are components in Element Plus, given by name -- `"Search"`,
+#' `"ArrowRight"` -- where Element UI took a class, `"el-icon-search"`. A class
+#' in Element UI's form is turned into the name, so code written for either
+#' works; anything else is passed through.
+#'
+#' @param x An icon name, an Element UI icon class, or `NULL`.
+#' @return The Element Plus name, or `x` unchanged.
+#' @keywords internal
+.el_icon_name <- function(x) {
+  if (!is.character(x) || length(x) != 1L || !grepl("^el-icon-", x)) return(x)
+  parts <- strsplit(sub("^el-icon-", "", x), "-", fixed = TRUE)[[1]]
+  name <- paste0(toupper(substring(parts, 1, 1)), substring(parts, 2), collapse = "")
+  # Element UI names that Element Plus spells differently
+  renamed <- c(S_tools = "Tools", UserSolid = "UserFilled", StarOn = "StarFilled",
+               StarOff = "Star", Bottom = "Bottom", Close = "Close", Plus = "Plus",
+               Setting = "Setting", Delete = "Delete", Edit = "Edit",
+               More = "MoreFilled", Loading = "Loading", House = "House",
+               SuccessFilled = "SuccessFilled")
+  if (name %in% names(renamed)) renamed[[name]] else name
+}
+
+#' A date format in day.js's tokens
+#'
+#' Element Plus formats dates with day.js (`YYYY-MM-DD`, `x` for a
+#' timestamp); Element UI used its own tokens (`yyyy-MM-dd`, `timestamp`).
+#' The year and day tokens are the ones that differ.
+#'
+#' @param x A format, or `NULL`.
+#' @return `x` in day.js's tokens.
+#' @keywords internal
+.el_dayjs_format <- function(x) {
+  if (!is.character(x) || length(x) != 1L) return(x)
+  if (identical(x, "timestamp")) return("x")
+  x <- gsub("yyyy", "YYYY", x, fixed = TRUE)
+  x <- gsub("yy", "YY", x, fixed = TRUE)
+  gsub("(?<![D])dd(?!d)", "DD", x, perl = TRUE)
+}

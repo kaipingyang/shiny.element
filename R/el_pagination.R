@@ -14,6 +14,25 @@
 #' @param small Whether to use compact (small) mode. Default `FALSE`.
 #' @param disabled Whether the pagination is disabled. Default `FALSE`.
 #' @param pager_count Number of pager buttons to show. Default `7`.
+#' @param append_size_to Which element the size dropdown appends to. Element
+#'   Plus's `append-size-to` (string).
+#' @param default_current_page Default initial value of current-page, not
+#'   setting is the same as setting 1. Element Plus's `default-current-page`
+#'   (number).
+#' @param default_page_size Default initial value of page size, not setting is
+#'   the same as setting 10. Element Plus's `default-page-size` (number).
+#' @param next_icon Icon for the next button, has a lower priority than
+#'   `next-text`. Element Plus's `next-icon` (string / Component). An icon's
+#'   name, such as `"Search"`.
+#' @param popper_style Custom style for the page size Select's dropdown.
+#'   Element Plus's `popper-style` (string / object).
+#' @param prev_icon Icon for the prev button, has a lower priority than
+#'   `prev-text`. Element Plus's `prev-icon` (string / Component). An icon's
+#'   name, such as `"Search"`.
+#' @param size Pagination size. Element Plus's `size` ('large' | 'default' |
+#'   'small').
+#' @param teleported Whether Pagination select dropdown is teleported to the
+#'   body. Element Plus's `teleported` (boolean).
 #' @param session Deprecated. Inside a module, wrap `id` in `ns()`, as for
 #'   any Shiny input; a session given here namespaces `id` once more, with
 #'   a warning.
@@ -82,10 +101,19 @@ el_pagination <- function(
     hide_on_single_page = NULL,
     page_count   = NULL,
     popper_class = NULL,
+    append_size_to = NULL,
+    default_current_page = NULL,
+    default_page_size = NULL,
+    next_icon = NULL,
+    popper_style = NULL,
+    prev_icon = NULL,
+    size = NULL,
+    teleported = NULL,
     width        = NULL,
     slots        = NULL,
     session      = NULL
 ) {
+  .el_check_choices("el_pagination", environment())
   if (is.null(id)) id <- paste0("el_pagination_", uuid::UUIDgenerate())
   ns_id        <- .el_ui_id(id, session)
   container_id <- paste0(ns_id, "_container")
@@ -123,9 +151,8 @@ el_pagination <- function(
 
     "prev-click",
 
-    "next-click"
-
-  ))
+    "next-click",
+    "change"))
 
   pagination_attrs <- c(pagination_attrs, events$attrs)
 
@@ -152,6 +179,15 @@ el_pagination <- function(
   vue_data$popperClass <- .el_or_na(popper_class)
 
   el_widget(
+    props = .el_props(list(
+      append_size_to = append_size_to,
+      default_current_page = default_current_page,
+      default_page_size = default_page_size,
+      next_icon = .el_icon_name(next_icon),
+      popper_style = popper_style,
+      prev_icon = .el_icon_name(prev_icon),
+      size = size,
+      teleported = teleported)),
     id     = ns_id,
     markup = htmltools::tag("el-pagination", pagination_attrs),
     data    = vue_data,
